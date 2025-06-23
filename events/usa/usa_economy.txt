@@ -1,0 +1,54 @@
+namespace = usa_economy
+
+usa_economy.1 = {
+	dlc = dlc_tech_res
+	type = country_event
+	placement = root
+
+	duration = 1
+
+	title = usa_economy.1.t
+	desc = usa_economy.1.d
+
+	event_image = {
+		video = "europenorthamerica_capitalists_meeting"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	icon = "gfx/interface/icons/event_icons/event_default.dds"
+
+	trigger = {
+		c:USA ?= root
+		year > 1865
+		year < 1885
+		NOT = { has_modifier = usa_gilded_age }
+		NOT = { has_modifier = usa_gilded_age_player }
+		has_law = law_type:law_slavery_banned
+		has_technology_researched = mutual_funds
+	}
+
+	immediate = {
+
+	}
+
+	option = {
+		name = usa_economy.1.a
+		default_option = yes
+		if = {
+			limit = {
+				is_ai = no
+			}
+			add_modifier = {
+				name = usa_gilded_age_player
+				months = 480 # 40 years
+			}
+		}
+		else = {
+			add_modifier = {
+				name = usa_gilded_age
+				months = 480 # 40 years
+			}
+		}
+	}
+}

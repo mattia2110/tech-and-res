@@ -1,0 +1,284 @@
+# Era 1
+
+# Era 2
+
+atmospheric_engine = {
+	# Unlocks Motor Industry
+	# Unlocks Atmospheric Engine Pump PM in Coal Mine, Iron Mine, Lead Mine, Sulfur Mine
+	era = era_2
+	texture = "gfx/interface/icons/invention_icons/atmospheric_engine.dds"
+	category = production
+	
+	unlocking_technologies = {
+		shaft_mining
+	}
+	
+	ai_weight = {
+		value = 2 # KAI: Small nudge to research pre-requisite tech for railways
+		
+		if = {
+			limit = {
+				country_rank >= rank_value:unrecognized_major_power
+			}
+			add = 2
+		}
+		
+		if = {
+			limit = { 
+				OR = {
+					 has_strategy = ai_strategy_industrial_expansion
+					 has_strategy = ai_strategy_resource_expansion
+				}
+			}
+			add = 2
+		}	
+	}
+}
+
+mechanical_tools = {
+	# Unlocks Precision Tools PM in Furniture Workshops
+	era = era_2
+	texture = "gfx/interface/icons/invention_icons/mechanical_tools.dds"
+	category = production
+	
+	unlocking_technologies = {
+		lathe
+		steelworking
+	}
+	
+	ai_weight = {
+		value = 2 # KAI: Small nudge to research pre-requisite tech for railways
+	}
+}
+
+atmospheric_engine = {
+	# Unlocks Motor Industry
+	# Unlocks Atmospheric Engine Pump PM in Coal Mine, Iron Mine, Lead Mine, Sulfur Mine
+	era = era_2
+	texture = "gfx/interface/icons/invention_icons/atmospheric_engine.dds"
+	category = production
+	
+	unlocking_technologies = {
+		shaft_mining
+		verrier_physics_tech #Morgenröte: added this tech as trigger
+	}
+
+	ai_weight = {
+		value = 1
+
+		if = {
+			limit = {
+				country_rank >= rank_value:unrecognized_major_power
+			}
+			add = 2
+		}
+		if = {
+			limit = { 
+				OR = {
+					 has_strategy = ai_strategy_industrial_expansion
+					 has_strategy = ai_strategy_resource_expansion
+				}
+			}
+			add = 2
+		}	
+	}
+}
+
+chemical_bleaching = {
+	# Unlocks Bone China PM in Glassworks
+	# Unlocks Sulfite Pulping PM in Paper Mills
+	era = era_2
+	texture = "gfx/interface/icons/invention_icons/chemical_bleaching.dds"
+	category = production
+
+	unlocking_technologies = {	
+		crystal_glass
+		verrier_chemistry_tech #Morgenröte: added this tech as trigger
+	}
+
+	ai_weight = {
+		value = 1
+	}
+}
+
+# Era 3
+
+improved_fertilizer = {
+	# Unlocks Improved Fertilizer PM in Chemical Plants
+	# Unlocks Fertilization PM in Rye, Wheat, Rice, Maize, Millet Farms
+	era = era_3
+	texture = "gfx/interface/icons/invention_icons/improved_fertilizer.dds"
+	category = production
+	
+	unlocking_technologies = {	
+		intensive_agriculture
+		verrier_chemistry_tech #Morgenröte: added this tech as trigger
+	}
+
+	ai_weight = {
+		value = 1
+	}
+}
+
+electrical_generation = {
+	# Unlocks Power Plants
+	# Unlocks Electric Sewing Machines PM and Automatic Power Looms PM in Textile Mills
+	# Unlocks Brine Electrolysis PM in Chemical Plants
+	# Unlocks Electric Fencing PM and Refrigerated Storage PM in Livestock Ranches
+	# Unlocks Refrigerated Storage PM in Fishing Wharfs
+	# Unlocks Electric Saw Mills PM in Logging Camps
+	# Unlocks Electric Streetlights PM in Urban Centers
+	era = era_3
+	texture = "gfx/interface/icons/invention_icons/electrical_generation.dds"
+	category = production
+	
+	unlocking_technologies = {	
+		verrier_electromagnetism_tech #Morgenröte: added this Technology as a trigger
+		rotary_valve_engine
+	}
+
+	ai_weight = {
+		value = 1
+		
+		if = {
+			limit = { 
+				OR = {
+					 has_strategy = ai_strategy_industrial_expansion
+					 has_strategy = ai_strategy_resource_expansion
+				}
+			}
+			add = 2
+		}	
+	}
+}
+
+# Era 4
+
+conveyors = {
+	# Unlocks the Assembly Lines PM in Furniture Manufacturies, Tooling Workshops, Motor Industry
+	era = era_4
+	texture = "gfx/interface/icons/invention_icons/conveyers.dds"
+	category = production
+	
+	unlocking_technologies = {	
+		vulcanization
+		shift_work
+		oil_distillation
+	}
+	
+	ai_weight = {
+		value = 1
+	}
+}
+
+telephone = {
+	# Unlocks Electrics Industry building
+	era = era_4
+	texture = "gfx/interface/icons/invention_icons/telephone.dds"
+	category = production
+	
+	unlocking_technologies = {
+		shift_work
+		electrical_generation
+	}
+
+	modifier = {
+		country_max_declared_interests_add = 1
+	}
+	
+	ai_weight = {
+		value = 2 # KAI: Should be researched before central planning
+	}
+}
+
+radio = {
+	# Unlocks Radios PM in Electrics Industry
+	era = era_4
+	texture = "gfx/interface/icons/invention_icons/radio.dds"
+	category = production
+	
+	unlocking_technologies = {
+		telephone
+		electrical_capacitors
+	}
+
+	modifier = {
+		country_max_declared_interests_add = 1
+	}
+	
+	ai_weight = {
+		value = 2 # KAI: Required by most late game military units
+	}
+}
+
+combustion_engine = {
+	# Unlocks Automobile Production PM in Motor Industries
+	# Unlocks Diesel Pump PM in Coal, Iron, Lead, Sulfur Mines
+	# Unlocks Chainsaws PM in Logging Camps
+	# Unlocks Combustion Derricks PM in Oil Rigs
+	# Unlocks Public Motor Carriages PM in Urban Centers
+	era = era_4
+	texture = "gfx/interface/icons/invention_icons/combustion_engine.dds"
+	category = production
+	
+	unlocking_technologies = {	
+		rotary_valve_engine
+		oil_distillation
+	}
+	
+	ai_weight = {
+		value = 1
+		
+		if = {
+			limit = { 
+				OR = {
+					 has_strategy = ai_strategy_industrial_expansion
+					 has_strategy = ai_strategy_resource_expansion
+				}
+			}
+			add = 1
+		}	
+	}
+}
+
+pasteurization = {
+	era = era_4
+	texture = "gfx/interface/icons/invention_icons/pasteurization.dds"
+	category = production
+	
+	unlocking_technologies = {	
+		vacuum_canning
+		electrical_capacitors
+	}
+
+	modifier = {
+		state_harvest_condition_panum_tuberculosis_condition_impact_mult = -0.25 #Morgenröte: Added Modifier
+	}
+	
+	ai_weight = {
+		value = 1
+	}
+}
+
+steam_turbine = {
+	# Unlocks the Coal-Firing PM in Power Plants
+	era = era_4
+	texture = "gfx/interface/icons/invention_icons/steam_turbines.dds"
+	category = production
+	
+	unlocking_technologies = {	
+		electrical_generation
+	}
+	
+	ai_weight = {
+		value = 2 # KAI: Important for the adoption of electricity 
+	}
+}
+
+# Era 5
+
+# Era 6
+
+# Era 7
+
+# Era 8

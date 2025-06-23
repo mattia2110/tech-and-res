@@ -1,0 +1,464 @@
+﻿BUILDINGS={
+	if = { #Built in compatibility with Basileia
+		limit = { basileia_is_active = yes }
+		s:STATE_ILE_DE_FRANCE={
+			region_state:HRE={
+				create_building={
+					building="building_manzoni_publishing_industry"
+					level=1
+					reserves=1
+				}
+			}
+		}
+		s:STATE_ANDALUSIA={
+			region_state:ANL={
+				create_building={
+					building="building_manzoni_publishing_industry"
+					level=1
+					reserves=1
+				}
+			}
+		}
+		s:STATE_LOMBARDY={
+			region_state:LOM={
+				create_building={
+					building="building_manzoni_publishing_industry"
+					level=1
+					reserves=1
+				}
+			}
+		}
+		s:STATE_VENETIA={
+			region_state:VEN={
+				create_building={
+					building="building_manzoni_publishing_industry"
+					level=1
+					reserves=1
+				}
+			}
+		}
+		s:STATE_TUSCANY={
+			region_state:TUS={
+				create_building={
+					building="building_manzoni_publishing_industry"
+					level=1
+					reserves=1
+				}
+			}
+		}
+		s:STATE_LAZIO={
+			region_state:PAP={
+				create_building={
+					building="building_manzoni_publishing_industry"
+					level=1
+					reserves=1
+				}
+			}
+		}
+		s:STATE_CAMPANIA={
+			region_state:SIC={
+				create_building={
+					building="building_manzoni_publishing_industry"
+					level=1
+					reserves=1
+				}
+			}
+		}
+		s:STATE_HOLLAND={
+			region_state:NET={
+				create_building={
+					building="building_manzoni_publishing_industry"
+					level=1
+					reserves=1
+				}
+			}
+		}
+		s:STATE_EASTERN_THRACE={
+			region_state:BYZ={
+				create_building={
+					building="building_manzoni_publishing_industry"
+					level=1
+					reserves=1
+				}
+			}
+		}
+		s:STATE_BAGHDAD={
+			region_state:PER={
+				create_building={
+					building="building_manzoni_publishing_industry"
+					level=1
+					reserves=1
+				}
+			}
+		}
+		# Currently not possible with Technology
+#		s:STATE_NANJING={
+#			region_state:CHI={
+#				create_building={
+#					building="building_manzoni_publishing_industry"
+#					level=1
+#					reserves=1
+#				}
+#			}
+#		}
+		s:STATE_KANSAI={
+			region_state:JAP={
+				create_building={
+					building="building_manzoni_publishing_industry"
+					level=1
+					reserves=1
+				}
+			}
+		}
+	}
+	else = {
+		if = {
+			limit = {
+				exists = c:AUS
+				s:STATE_VENETIA = {
+					any_scope_state = {
+						owner = c:AUS
+					}
+				}
+			}
+			s:STATE_VENETIA={
+				region_state:AUS={
+					create_building={
+						building="building_manzoni_publishing_industry"
+						add_ownership={
+							building={
+								type="building_financial_district"
+								country="c:AUS"
+								levels=2
+								region="STATE_VENETIA"
+							}
+						}
+						reserves=1
+						activate_production_methods={ "manzoni_pm_cylinder_presses" }
+					}
+				}
+			}
+		}
+		if = {
+			limit = {
+				exists = c:GBR
+				s:STATE_HOME_COUNTIES = {
+					any_scope_state = {
+						owner = c:GBR
+					}
+				}
+			}
+			s:STATE_HOME_COUNTIES={
+				region_state:GBR={
+					create_building={
+						building="building_manzoni_publishing_industry"
+						add_ownership={
+							building={
+								type="building_financial_district"
+								country="c:GBR"
+								levels=4
+								region="STATE_HOME_COUNTIES"
+							}
+						}
+						reserves=1
+						activate_production_methods={ "manzoni_pm_cylinder_presses" }
+					}
+				}
+			}
+		}
+		if = {
+			limit = {
+				exists = c:GBR
+				s:STATE_LANCASHIRE = {
+					any_scope_state = {
+						owner = c:GBR
+					}
+				}
+			}
+			s:STATE_LANCASHIRE={
+				region_state:GBR={
+					create_building={
+						building="building_manzoni_publishing_industry"
+						add_ownership={
+							building={
+								type="building_financial_district"
+								country="c:GBR"
+								levels=1
+								region="STATE_LANCASHIRE"
+							}
+						}
+						reserves=1
+						activate_production_methods={ "manzoni_pm_cylinder_presses" }
+					}
+				}
+			}
+		}
+		if = {
+			limit = {
+				exists = c:GBR
+				s:STATE_MIDLANDS = {
+					any_scope_state = {
+						owner = c:GBR
+					}
+				}
+			}
+			s:STATE_MIDLANDS={
+				region_state:GBR={
+					create_building={
+						building="building_manzoni_publishing_industry"
+						add_ownership={
+							building={
+								type="building_financial_district"
+								country="c:GBR"
+								levels=1
+								region="STATE_MIDLANDS"
+							}
+						}
+						reserves=1
+						activate_production_methods={ "manzoni_pm_cylinder_presses" }
+					}
+				}
+			}
+		}
+		if = {
+			limit = {
+				exists = c:FRA
+				s:STATE_ILE_DE_FRANCE = {
+					any_scope_state = {
+						owner = c:FRA
+					}
+				}
+			}
+			s:STATE_ILE_DE_FRANCE={
+				region_state:FRA={
+					create_building={
+						building="building_manzoni_publishing_industry"
+						add_ownership={
+							building={
+								type="building_financial_district"
+								country="c:FRA"
+								levels=2
+								region="STATE_ILE_DE_FRANCE"
+							}
+						}
+						reserves=1
+						activate_production_methods={ "manzoni_pm_cylinder_presses" }
+					}
+				}
+			}
+		}
+		if = {
+			limit = {
+				exists = c:AUS
+				s:STATE_AUSTRIA = {
+					any_scope_state = {
+						owner = c:AUS
+					}
+				}
+			}
+			s:STATE_AUSTRIA={
+				region_state:AUS={
+					create_building={
+						building="building_manzoni_publishing_industry"
+						add_ownership={
+							building={
+								type="building_financial_district"
+								country="c:AUS"
+								levels=1
+								region="STATE_AUSTRIA"
+							}
+						}
+						reserves=1
+						activate_production_methods={ "manzoni_pm_cylinder_presses" }
+					}
+				}
+			}
+		}
+		if = {
+			limit = {
+				exists = c:PRU
+				s:STATE_BRANDENBURG = {
+					any_scope_state = {
+						owner = c:PRU
+					}
+				}
+			}
+			s:STATE_BRANDENBURG={
+				region_state:PRU={
+					create_building={
+						building="building_manzoni_publishing_industry"
+						add_ownership={
+							building={
+								type="building_financial_district"
+								country="c:PRU"
+								levels=2
+								region="STATE_BRANDENBURG"
+							}
+						}
+						reserves=1
+						activate_production_methods={ "manzoni_pm_cylinder_presses" }
+					}
+				}
+			}
+		}
+		if = {
+			limit = {
+				exists = c:FRM
+				s:STATE_HESSE = {
+					any_scope_state = {
+						owner = c:FRM
+					}
+				}
+			}
+			s:STATE_HESSE={
+				region_state:FRM={
+					create_building={
+						building="building_manzoni_publishing_industry"
+						add_ownership={
+							building={
+								type="building_financial_district"
+								country="c:FRM"
+								levels=1
+								region="STATE_HESSE"
+							}
+						}
+						reserves=1
+						activate_production_methods={ "manzoni_pm_cylinder_presses" }
+					}
+				}
+			}
+		}
+		if = {
+			limit = {
+				exists = c:USA
+				s:STATE_NEW_YORK = {
+					any_scope_state = {
+						owner = c:USA
+					}
+				}
+			}
+			s:STATE_NEW_YORK={
+				region_state:USA={
+					create_building={
+						building="building_manzoni_publishing_industry"
+						add_ownership={
+							building={
+								type="building_financial_district"
+								country="c:USA"
+								levels=2
+								region="STATE_NEW_YORK"
+							}
+						}
+						reserves=1
+						activate_production_methods={ "manzoni_pm_cylinder_presses" }
+					}
+				}
+			}
+		}
+		if = {
+			limit = {
+				exists = c:USA
+				s:STATE_PENNSYLVANIA = {
+					any_scope_state = {
+						owner = c:USA
+					}
+				}
+			}
+			s:STATE_PENNSYLVANIA={
+				region_state:USA={
+					create_building={
+						building="building_manzoni_publishing_industry"
+						add_ownership={
+							building={
+								type="building_financial_district"
+								country="c:USA"
+								levels=1
+								region="STATE_PENNSYLVANIA"
+							}
+						}
+						reserves=1
+						activate_production_methods={ "manzoni_pm_cylinder_presses" }
+					}
+				}
+			}
+		}
+		if = {
+			limit = {
+				exists = c:RUS
+				s:STATE_INGRIA = {
+					any_scope_state = {
+						owner = c:RUS
+					}
+				}
+			}
+			s:STATE_INGRIA={
+				region_state:RUS={
+					create_building={
+						building="building_manzoni_publishing_industry"
+						add_ownership={
+							building={
+								type="building_financial_district"
+								country="c:RUS"
+								levels=1
+								region="STATE_INGRIA"
+							}
+						}
+						reserves=1
+					}
+				}
+			}
+		}
+		if = {
+			limit = {
+				exists = c:RUS
+				s:STATE_MOSCOW = {
+					any_scope_state = {
+						owner = c:RUS
+					}
+				}
+			}
+			s:STATE_MOSCOW={
+				region_state:RUS={
+					create_building={
+						building="building_manzoni_publishing_industry"
+						add_ownership={
+							building={
+								type="building_financial_district"
+								country="c:RUS"
+								levels=1
+								region="STATE_MOSCOW"
+							}
+						}
+						reserves=1
+					}
+				}
+			}
+		}
+		if = {
+			limit = {
+				exists = c:SPA
+				s:STATE_CATALONIA = {
+					any_scope_state = {
+						owner = c:SPA
+					}
+				}
+			}
+			s:STATE_CATALONIA={
+				region_state:SPA={
+					create_building={
+						building="building_manzoni_publishing_industry"
+						add_ownership={
+							building={
+								type="building_financial_district"
+								country="c:SPA"
+								levels=1
+								region="STATE_CATALONIA"
+							}
+						}
+						reserves=1
+					}
+				}
+			}
+		}
+	}
+}

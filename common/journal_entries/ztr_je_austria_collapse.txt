@@ -1,0 +1,624 @@
+je_austrian_empire_collapse = {
+	icon = "gfx/interface/icons/event_icons/waving_flag_austria.dds"
+	group = je_group_historical_content
+
+	is_shown_when_inactive = {
+		has_game_rule = allow_ztr_historical_content
+		year > 1900
+		exists = c:AUS
+        THIS = c:AUS
+	}
+
+	possible = {
+		global_country_ranking > 3
+		NOT = {has_law = law_type:law_multicultural}
+		get_country_gdp_per < 2
+		#is_ai = yes
+	}
+
+	immediate = {
+		set_variable = {
+			name = austrian_empire_collapse_var
+			value = 0
+		}
+	}
+
+	on_yearly_pulse = {
+		effect = {
+			change_variable = {
+				name = austrian_empire_collapse_var
+				add = 2
+			}
+			# Habsburgs
+			if = {
+				limit = {
+					has_law = law_type:law_monarchy
+					is_ai = yes
+				}
+				change_variable = {
+					name = austrian_empire_collapse_var
+					add = 1
+				}
+			}
+			# Universal Suffrage
+			if = {
+				limit = {
+					has_law = law_type:law_universal_suffrage
+				}
+				change_variable = {
+					name = austrian_empire_collapse_var
+					subtract = 1
+				}
+			}
+			# Cultural Discrimination Laws
+			if = {
+				limit = {
+					has_law = law_type:law_racial_segregation
+				}
+				change_variable = {
+					name = austrian_empire_collapse_var
+					subtract = 1
+				}
+			}
+			if = {
+				limit = {
+					has_law = law_type:law_cultural_exclusion
+				}
+				change_variable = {
+					name = austrian_empire_collapse_var
+					subtract = 2
+				}
+			}
+			# Economic Factors
+			if = {
+				limit = {
+					get_country_gdp_per < 1.5
+				}
+				change_variable = {
+					name = austrian_empire_collapse_var
+					add = 1
+				}
+			}
+			# Geopolitical Factors
+			if = {
+				limit = {
+					OR = {
+						c:ITA = {
+							exists = yes
+							country_rank = rank_value:great_power
+						}
+						c:GER = {
+							exists = yes
+							country_rank = rank_value:great_power
+						}
+					}
+				}
+				change_variable = {
+					name = austrian_empire_collapse_var
+					add = 1
+				}
+			}
+			# Global Country Ranking
+			if = {
+				limit = {
+					global_country_ranking > 6
+				}
+				change_variable = {
+					name = austrian_empire_collapse_var
+					add = 1
+				}
+			}
+			if = {
+				limit = {
+					country_rank < rank_value:great_power
+				}
+				change_variable = {
+					name = austrian_empire_collapse_var
+					add = 1
+				}
+			}
+		}
+		#Events (These events in general have two options, one that gives a positive modifier to the JE and one that gives a negative modifier)
+		random_events = {
+			10 = 0
+			5 = austrian_empire_collapse.3 # Magyar Language against German
+			5 = austrian_empire_collapse.4 # Hungarian Revolts
+			5 = austrian_empire_collapse.5 # Hungarian ask same rights as Germanic citizens
+			5 = austrian_empire_collapse.6 # Hungary Independence
+			5 = austrian_empire_collapse.7 # Trieste, Mittleeuropa harbor
+			5 = austrian_empire_collapse.8 # Italy is unified
+			5 = austrian_empire_collapse.9 # Galicia, granary of the Empire
+			5 = austrian_empire_collapse.10 # Czech ask same rights as Germanic and Hungarian citizens (After accepted hungarian requests austrian_empire_collapse.5)
+			5 = austrian_empire_collapse.11 # Slovakia between Hungarians and Czechs pressures (After acceptations on austrian_empire_collapse.5 and .10)
+			5 = austrian_empire_collapse.12 # Czech Independence
+			5 = austrian_empire_collapse.13 # A Yugoslavian union ideas
+			5 = austrian_empire_collapse.14 # Romania is unified
+			5 = austrian_empire_collapse.15 # Poland is reborn (So Galicia has more reasons to ask for independence)
+			5 = austrian_empire_collapse.16 # Northern Serbia asks for Serbian union
+			5 = austrian_empire_collapse.17 # Krakow asks for Polish union
+		}
+	}
+
+	complete = {
+		OR = {
+			scope:journal_entry = { is_goal_complete = yes }
+		}
+	}
+
+	on_complete = {
+
+		add_loyalists = {
+			value   = 0.9
+		}
+		
+		# Hungary creation
+		if = {
+			limit = {
+				NOT = { hungarian_civil_rights_var = 2 }
+				NOT = { exists = c:HUN }
+				s:STATE_CENTRAL_HUNGARY = {
+					any_scope_state = {
+					owner = ROOT
+					}
+				}
+			}
+			create_country = {
+				tag = HUN
+				origin = this
+				state = s:STATE_CENTRAL_HUNGARY.region_state:AUS
+				on_created = {
+					set_country_type = recognized
+					activate_law = law_type:law_parliamentary_republic
+					activate_law = law_type:law_census_voting
+				}
+			}
+		}
+		s:STATE_TRANSDANUBIA.region_state:AUS = {
+			set_state_owner = c:HUN
+		}
+
+		# Cecoslovacchia dalla bohemia
+		if = {
+			limit = {
+				NOT = {	exists = c:CZH }
+				NOT = { czech_civil_rights_var = 2 }
+				s:STATE_BOHEMIA = {
+					any_scope_state = {
+					owner = ROOT
+					}
+				}
+			}
+			create_country = {
+				tag = CZH
+				origin = this
+				state = s:STATE_BOHEMIA.region_state:AUS
+				on_created = {
+					set_country_type = recognized
+					activate_law = law_type:law_parliamentary_republic
+					activate_law = law_type:law_universal_suffrage
+				}
+			}
+		}
+		s:STATE_MORAVIA.region_state:AUS = {
+			set_state_owner = c:CZH
+		}
+		s:STATE_WEST_SLOVAKIA.region_state:AUS = {
+			set_state_owner = c:CZH
+		}
+		s:STATE_EAST_SLOVAKIA.region_state:AUS = {
+			set_state_owner = c:CZH
+		}
+
+		# Slovacchia dalla moravia se appunto la bohemia non è austriaca o vuole rimanere con  l'austria
+		if = {
+			limit = {
+				NOT = {	exists = c:CZH }
+				czech_civil_rights_var = 2
+				s:STATE_WEST_SLOVAKIA = {
+					any_scope_state = {
+					owner = ROOT
+					}
+				}
+			}
+			create_country = {
+				tag = SLV
+				origin = this
+				state = s:STATE_WEST_SLOVAKIA.region_state:AUS
+				on_created = {
+					set_country_type = recognized
+					activate_law = law_type:law_parliamentary_republic
+					activate_law = law_type:law_universal_suffrage
+				}
+			}
+		}
+		s:STATE_EAST_SLOVAKIA.region_state:AUS = {
+			set_state_owner = c:SLV
+		}
+
+		# Romania takes Transylvania
+		if = {
+			limit = {
+				exists = c:ROM
+			}
+			s:STATE_SOUTHERN_TRANSYLVANIA.region_state:AUS = {
+				set_state_owner = c:ROM
+			}
+			s:STATE_NORTHERN_TRANSYLVANIA.region_state:AUS = {
+				set_state_owner = c:ROM
+			}
+			s:STATE_BANAT.region_state:AUS = {
+				set_state_owner = c:ROM
+			}
+			s:STATE_BEKES.region_state:AUS = {
+				set_state_owner = c:ROM
+			}
+			s:STATE_MOLDAVIA.region_state:AUS = {
+				set_state_owner = c:ROM
+			}
+		}
+
+		# Transylvania creation from Transylvania with hungary
+		if = {
+			limit = {
+				NOT = {	exists = c:ROM }
+				NOT = {	exists = c:TRS }
+				exists = c:HUN
+				s:STATE_SOUTHERN_TRANSYLVANIA = {
+					any_scope_state = {
+					owner = ROOT
+					}
+				}
+			}
+			create_country = {
+				tag = TRS
+				origin = this
+				state = s:STATE_SOUTHERN_TRANSYLVANIA.region_state:AUS
+				on_created = {
+					set_country_type = recognized
+					activate_law = law_type:law_parliamentary_republic
+					activate_law = law_type:law_universal_suffrage
+				}
+			}
+			s:STATE_SOUTHERN_TRANSYLVANIA.region_state:AUS = {
+				set_state_owner = c:TRS
+			}
+			s:STATE_NORTHERN_TRANSYLVANIA.region_state:AUS = {
+				set_state_owner = c:TRS
+			}
+			s:STATE_BANAT.region_state:AUS = {
+				set_state_owner = c:HUN
+			}
+			s:STATE_BEKES.region_state:AUS = {
+				set_state_owner = c:HUN
+			}
+			s:STATE_MOLDAVIA.region_state:AUS = {
+				set_state_owner = c:TRS
+			}
+		}
+
+		# Transylvania creation from Transylvania without hungary
+		if = {
+			limit = {
+				NOT = {	exists = c:ROM }
+				NOT = {	exists = c:TRS }
+				NOT = { exists = c:HUN }
+				s:STATE_SOUTHERN_TRANSYLVANIA = {
+					any_scope_state = {
+					owner = ROOT
+					}
+				}
+			}
+			create_country = {
+				tag = TRS
+				origin = this
+				state = s:STATE_SOUTHERN_TRANSYLVANIA.region_state:AUS
+				on_created = {
+					set_country_type = recognized
+					activate_law = law_type:law_parliamentary_republic
+					activate_law = law_type:law_universal_suffrage
+				}
+			}
+			s:STATE_SOUTHERN_TRANSYLVANIA.region_state:AUS = {
+				set_state_owner = c:TRS
+			}
+			s:STATE_NORTHERN_TRANSYLVANIA.region_state:AUS = {
+				set_state_owner = c:TRS
+			}
+			s:STATE_BANAT.region_state:AUS = {
+				set_state_owner = c:TRS
+			}
+			s:STATE_BEKES.region_state:AUS = {
+				set_state_owner = c:TRS
+			}
+			s:STATE_MOLDAVIA.region_state:AUS = {
+				set_state_owner = c:TRS
+			}
+		}
+
+		# San Marco Republic takes northeastern Italy
+		if = {
+			limit = {
+				NOT = { exists = c:ITA }
+				exists = c:VEN
+			}
+			s:STATE_VENETIA.region_state:AUS = {
+				set_state_owner = c:VEN
+			}
+			s:STATE_LOMBARDY.region_state:AUS = {
+				set_state_owner = c:VEN
+			}
+			s:STATE_DALMATIA.region_state:AUS = {
+				set_state_owner = c:VEN
+			}
+			if = {
+				limit = {
+					NOT = { var:trieste_harbor_var = 1 }
+				}
+				s:STATE_ISTRIA.region_state:AUS = {
+					set_state_owner = c:VEN
+				}
+			}
+		}
+
+		# San Marco Republic creation
+		if = {
+			limit = {
+				NOT = { exists = c:VEN }
+				NOT = { exists = c:ITA }
+			}
+			create_country = {
+				tag = VEN
+				origin = this
+				state = s:STATE_VENETIA.region_state:AUS
+			}
+			s:STATE_VENETIA.region_state:AUS = {
+				set_state_owner = c:VEN
+			}
+			s:STATE_LOMBARDY.region_state:AUS = {
+				set_state_owner = c:VEN
+			}
+			s:STATE_DALMATIA.region_state:AUS = {
+				set_state_owner = c:VEN
+			}
+			if = {
+				limit = {
+					NOT = { var:trieste_harbor_var = 1 }
+				}
+				s:STATE_ISTRIA.region_state:AUS = {
+					set_state_owner = c:VEN
+				}
+			}
+		}
+
+		# Italy takes northeastern Italy
+		if = {
+			limit = {
+				exists = c:ITA
+			}
+			s:STATE_VENETIA.region_state:AUS = {
+				set_state_owner = c:ITA
+			}
+			s:STATE_LOMBARDY.region_state:AUS = {
+				set_state_owner = c:ITA
+			}
+			# s:STATE_SOUTH_TYROL.region_state:AUS = {
+			# 	set_state_owner = c:ITA
+			# }
+			if = {
+				limit = {
+					NOT = { var:trieste_harbor_var = 1 }
+				}
+				s:STATE_ISTRIA.region_state:AUS = {
+					set_state_owner = c:ITA
+				}
+			}
+		}
+
+		# Serbia takes northern Serbia, Croatia and Slovenia -> Potentially becomes Yugoslavia
+
+		if = {
+			limit = {
+				exists = c:SER
+			}
+			s:STATE_DELVIDEK.region_state:AUS = {
+				set_state_owner = c:SER
+			}
+			s:STATE_SLAVONIA.region_state:AUS = {
+				set_state_owner = c:SER
+			}
+			s:STATE_CROATIA.region_state:AUS = {
+				set_state_owner = c:SER
+			}
+			s:STATE_SLOVENIA.region_state:AUS = {
+				set_state_owner = c:SER
+			}
+			s:STATE_DALMATIA.region_state:AUS = {
+				set_state_owner = c:SER
+			}
+			s:STATE_MONTENEGRO.region_state:AUS = {
+				set_state_owner = c:SER
+			}
+			s:STATE_MONTENEGRO.region_state:MON = {
+				set_state_owner = c:SER
+			}
+			s:STATE_BOSNIA.region_state:MON = {
+				set_state_owner = c:SER
+			}
+		}
+		
+		if = {
+			limit = {
+				NOT = { exists = c:SER }
+				s:STATE_DELVIDEK = {
+					any_scope_state = {
+					owner = ROOT
+					}
+				}
+			}
+			create_country = {
+				tag = SER
+				origin = this
+				state = s:STATE_DELVIDEK.region_state:AUS
+			}
+			s:STATE_SLAVONIA.region_state:AUS = {
+				set_state_owner = c:SER
+			}
+			s:STATE_CROATIA.region_state:AUS = {
+				set_state_owner = c:SER
+			}
+			s:STATE_SLOVENIA.region_state:AUS = {
+				set_state_owner = c:SER
+			}
+			s:STATE_DALMATIA.region_state:AUS = {
+				set_state_owner = c:SER
+			}
+			s:STATE_MONTENEGRO.region_state:AUS = {
+				set_state_owner = c:SER
+			}
+			s:STATE_MONTENEGRO.region_state:MON = {
+				set_state_owner = c:SER
+			}
+			s:STATE_BOSNIA.region_state:MON = {
+				set_state_owner = c:SER
+			}
+		}
+
+		if = {
+			limit = {
+				NOT = { exists = c:CRO }
+				s:STATE_SLAVONIA = {
+					any_scope_state = {
+					owner = ROOT
+					}
+				}
+			}
+			create_country = {
+				tag = CRO
+				origin = this
+				state = s:STATE_DELVIDEK.region_state:AUS
+			}
+			s:STATE_CROATIA.region_state:AUS = {
+				set_state_owner = c:CRO
+			}
+			s:STATE_SLOVENIA.region_state:AUS = {
+				set_state_owner = c:CRO
+			}
+			s:STATE_DALMATIA.region_state:AUS = {
+				set_state_owner = c:CRO
+			}
+			s:STATE_MONTENEGRO.region_state:AUS = {
+				set_state_owner = c:CRO
+			}
+			s:STATE_MONTENEGRO.region_state:MON = {
+				set_state_owner = c:CRO
+			}
+			s:STATE_BOSNIA.region_state:MON = {
+				set_state_owner = c:CRO
+			}
+		}
+
+		# Galicia Lodomeria Creation
+		if = {
+			limit = {
+				NOT = {	exists = c:GAL }
+				NOT = {	exists = c:POL }
+				s:STATE_WEST_GALICIA = {
+					any_scope_state = {
+					owner = ROOT
+					}
+				}
+			}
+			create_country = {
+				tag = GAL
+				origin = this
+				state = s:STATE_WEST_GALICIA.region_state:AUS
+				on_created = {
+					set_country_type = recognized
+					activate_law = law_type:law_parliamentary_republic
+					activate_law = law_type:law_universal_suffrage
+				}
+			}
+		}
+
+		# Poland takes Galicia
+		if = {
+			limit = {
+				exists = c:POL
+				NOT = { exists = c:GAL }
+			}
+			s:STATE_WEST_GALICIA.region_state:AUS = {
+				set_state_owner = c:POL
+			}
+			s:STATE_EAST_GALICIA.region_state:AUS = {
+				set_state_owner = c:POL
+			}
+			if = {
+				limit = {
+					c:KRA = {
+						exists = yes
+						overlord = c:AUS
+					}
+				}
+				c:POL = { annex = c:KRA	}
+			}
+		}
+
+		# Galicia Lodomeria takes Galicia instead
+		if = {
+			limit = {
+				exists = c:GAL
+			}
+			s:STATE_WEST_GALICIA.region_state:AUS = {
+				set_state_owner = c:GAL
+			}
+			s:STATE_EAST_GALICIA.region_state:AUS = {
+				set_state_owner = c:GAL
+			}
+			if = {
+				limit = {
+					c:KRA = {
+						exists = yes
+						overlord = c:AUS
+					}
+				}
+				c:GAL = { annex = c:KRA	}
+			}
+		}
+
+		trigger_event = { id = austrian_empire_collapse.1 days = 3 } #3 days after the collapse
+	}
+
+
+	fail = {
+		OR = {
+			has_law = law_type:law_multicultural
+			get_country_gdp_per > 2
+			global_country_ranking < 4
+		}
+		var:austrian_empire_collapse_var < 10
+	}
+
+	on_fail = {
+		add_loyalists = {
+			value   = 0.9
+		}
+		trigger_event = { id = austrian_empire_collapse.2 }
+	}
+
+	transferable = yes
+
+	current_value = {
+		value = var:austrian_empire_collapse_var
+	}
+
+	#
+	goal_add_value = {
+		value = 35
+	}
+
+	progressbar = yes
+
+	weight = 20
+	should_be_pinned_by_default = yes
+
+}

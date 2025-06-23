@@ -1,0 +1,105 @@
+﻿# Economic on actions
+# Root = Country
+
+on_yearly_pulse_country = {
+	on_actions = {
+		economy_update_on_yearly_pulse_country
+		brazil_pop_update_on_yearly_pulse_country
+		france_pop_update_on_yearly_pulse_country
+		usa_economy_update_on_yearly_pulse_country
+		japan_economy_update_on_yearly_pulse_country
+		irish_independence_on_yearly_pulse_country
+		healthcare_on_yearly_pulse_country	
+		decolonization_on_yearly_pulse_country
+	}
+}
+
+healthcare_on_yearly_pulse_country = {
+	events = {
+		ztr_healthcare.1
+		ztr_healthcare.2
+		ztr_healthcare.3
+		ztr_healthcare.4
+	}
+}
+
+economy_update_on_yearly_pulse_country = {
+	events = {
+		ztr_economic_update.0 # Country Birth
+		ztr_economic_update.1 # Poor-> Developing
+		ztr_economic_update.2 # Developing-> Semi-Developed
+		ztr_economic_update.3 # Semi-Developed-> Partially Developed
+		ztr_economic_update.4 # Partially Developed-> Developed
+		ztr_economic_update.5 # Developed-> Hyper-Developed
+		ztr_economic_update.6 # Hyper-Developed-> Developed
+		ztr_economic_update.7 # Developed-> Partially Developed
+		ztr_economic_update.8 # Partially Developed-> Semi-Developed
+		ztr_economic_update.9 # Semi-Developed-> Developing
+		ztr_economic_update.10 # Developing-> Poor
+	}
+}
+
+decolonization_on_yearly_pulse_country = {
+	random_events = {
+ 		5 = ztr_decolonization.1 # Decolonization
+		1 = ztr_decolonization.2 # Decolonization Tunisia
+		1 = ztr_decolonization.3 # Decolonization Algeria
+		1 = ztr_decolonization.4 # Decolonization Morocco
+		1 = ztr_decolonization.5 # Decolonization Libya
+		1 = ztr_decolonization.6 # Decolonization Egypt
+		1 = ztr_decolonization.7 # Decolonization Sudan
+		1 = ztr_decolonization.8 # Decolonization Arabia
+		1 = ztr_decolonization.9 # Decolonization Oman
+		1 = ztr_decolonization.10 # Decolonization Yemen
+		1 = ztr_decolonization.11 # Decolonization Trucial States
+		1 = ztr_decolonization.12 # Decolonization Persia
+		1 = ztr_decolonization.13 # Decolonization Burma
+		1 = ztr_decolonization.14 # Decolonization Siam
+		1 = ztr_decolonization.15 # Decolonization Laos
+		1 = ztr_decolonization.16 # Decolonization Cambogia
+		1 = ztr_decolonization.17 # Decolonization Vietnam
+ 	}
+}
+
+irish_independence_on_yearly_pulse_country = {
+	events = {
+		irish_independence.6 # Good Friday Agreement
+	}
+}
+
+usa_economy_update_on_yearly_pulse_country = {
+	events = {
+		usa_economy.1 # USA Gilded Age
+	}
+}
+
+japan_economy_update_on_yearly_pulse_country = {
+	events = {
+		japan_economy.1 # Japan Meiji Modernization
+	}
+}
+
+brazil_pop_update_on_yearly_pulse_country = {
+	events = {
+		brazil_pop.1 # Brazil End of Slavery pop growth
+	}
+}
+
+france_pop_update_on_yearly_pulse_country = {
+	events = {
+		france_pop.1 # France pop growth problem
+	}
+}
+
+on_monthly_pulse_country = {
+	on_actions = {
+		un_intervention_on_monthly_pulse_country
+	}
+}
+
+un_intervention_on_monthly_pulse_country = {
+	random_events = {
+		chance_of_no_event = 50
+ 		50 = ztr_un_event.3
+ 	}
+}

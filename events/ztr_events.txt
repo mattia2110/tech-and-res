@@ -1,0 +1,481 @@
+﻿namespace = ztr_economic_update
+
+
+# Poor-> Developing
+
+ztr_economic_update.0 = {
+	dlc = dlc_tech_res
+	type = country_event
+	placement = ROOT
+	event_image = {
+		video = "unspecific_world_fair"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	icon = "gfx/interface/icons/event_icons/event_default.dds"
+
+	title = ztr_economic_update.0.t
+	desc = ztr_economic_update.0.d
+
+
+	duration = 1
+	
+	trigger = {
+		game_date >= 1836.1.1
+		NOR = { 
+				has_modifier = dev_0_country
+				has_modifier = dev_1_country
+				has_modifier = dev_2_country
+				has_modifier = dev_3_country
+				has_modifier = dev_4_country
+				has_modifier = dev_5_country
+		}
+	}
+
+	option = {
+		name = ztr_economic_update.0.a
+		default_option = yes
+		remove_state_economy_modifier = yes
+		if = {
+			limit = {
+				get_country_gdp_per < 0.55
+			}
+			add_modifier = {
+				name = dev_0_country
+			}
+		}
+		else_if = {
+			limit = {
+				get_country_gdp_per < 1.1
+			}
+			add_modifier = {
+				name = dev_1_country
+			}
+		}
+		else_if = {
+			limit = {
+				get_country_gdp_per < 2.2
+			}
+			add_modifier = {
+				name = dev_2_country
+			}
+		}
+		else_if = {
+			limit = {
+				get_country_gdp_per < 4.4
+			}
+			add_modifier = {
+				name = dev_3_country
+			}
+		}
+		else_if = {
+			limit = {
+				get_country_gdp_per < 6.6
+			}
+			add_modifier = {
+				name = dev_4_country
+			}
+		}
+		else = {
+			add_modifier = {
+				name = dev_5_country
+			}
+		}
+		ai_chance = {
+			base = 100										
+		}		
+	}
+}
+
+# Poor-> Developing
+ztr_economic_update.1 = {
+	dlc = dlc_tech_res
+	type = country_event
+	placement = ROOT
+	event_image = {
+		video = "unspecific_world_fair"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	icon = "gfx/interface/icons/event_icons/event_default.dds"
+
+	title = ztr_economic_update.1.t
+	desc = ztr_economic_update.1.d
+
+
+	duration = 1
+	
+	trigger = {
+		game_date >= 1836.1.1
+		has_modifier = dev_0_country
+		get_country_gdp_per > 0.65
+	}
+	
+	option = {
+		name = ztr_economic_update.1.a
+		default_option = yes
+		remove_state_economy_modifier = yes
+		add_modifier = {
+			name = dev_1_country
+		}
+		ai_chance = {
+			base = 100										
+		}		
+	}
+}
+
+# Developing-> Semi-Developed
+ztr_economic_update.2 = {
+	dlc = dlc_tech_res
+	type = country_event
+	placement = ROOT
+	event_image = {
+		video = "unspecific_world_fair"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	icon = "gfx/interface/icons/event_icons/event_default.dds"
+
+	title = ztr_economic_update.2.t
+	desc = ztr_economic_update.2.d
+
+
+	duration = 1
+	
+	trigger = {
+		game_date >= 1836.1.1
+		has_modifier = dev_1_country
+		get_country_gdp_per > 1.3
+	}
+
+	option = {
+		name = ztr_economic_update.2.a
+		default_option = yes
+		remove_state_economy_modifier = yes
+		add_modifier = {
+			name = dev_2_country
+		}
+		ai_chance = {
+			base = 100										
+		}		
+	}
+}
+
+
+# Semi-Developed-> Partially Developed
+ztr_economic_update.3 = {
+	dlc = dlc_tech_res
+	type = country_event
+	placement = ROOT
+	event_image = {
+		video = "unspecific_world_fair"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	icon = "gfx/interface/icons/event_icons/event_default.dds"
+
+	title = ztr_economic_update.3.t
+	desc = ztr_economic_update.3.d
+
+
+	duration = 1
+	
+	trigger = {
+		game_date >= 1836.1.1
+		has_modifier = dev_2_country
+		get_country_gdp_per > 2.5
+	}
+
+	option = {
+		name = ztr_economic_update.3.a
+		default_option = yes
+		remove_state_economy_modifier = yes
+		add_modifier = {
+			name = dev_3_country
+		}
+		ai_chance = {
+			base = 100										
+		}		
+	}
+}
+
+# Partially Developed-> Developed
+ztr_economic_update.4 = {
+	dlc = dlc_tech_res
+	type = country_event
+	placement = ROOT
+	event_image = {
+		video = "unspecific_world_fair"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	icon = "gfx/interface/icons/event_icons/event_default.dds"
+
+	title = ztr_economic_update.4.t
+	desc = ztr_economic_update.4.d
+
+
+	duration = 1
+	
+	trigger = {
+		game_date >= 1836.1.1
+		has_modifier = dev_3_country
+		get_country_gdp_per > 5
+	}
+
+	option = {
+		name = ztr_economic_update.4.a
+		default_option = yes
+		remove_state_economy_modifier = yes
+		add_modifier = {
+			name = dev_4_country
+		}
+		ai_chance = {
+			base = 100										
+		}		
+	}
+}
+
+# Developed-> hyper-Developed
+ztr_economic_update.5 = {
+	dlc = dlc_tech_res
+	type = country_event
+	placement = ROOT
+	event_image = {
+		video = "unspecific_world_fair"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	icon = "gfx/interface/icons/event_icons/event_default.dds"
+
+	title = ztr_economic_update.5.t
+	desc = ztr_economic_update.5.d
+
+
+	duration = 1
+	
+	trigger = {
+		game_date >= 1836.1.1
+		has_modifier = dev_4_country
+		get_country_gdp_per > 7
+	}
+
+	option = {
+		name = ztr_economic_update.5.a
+		default_option = yes
+		remove_state_economy_modifier = yes
+		add_modifier = {
+			name = dev_5_country
+		}
+		ai_chance = {
+			base = 100										
+		}		
+	}
+}
+
+# hyper-Developed-> Developed
+ztr_economic_update.6 = {
+	dlc = dlc_tech_res
+	type = country_event
+	placement = ROOT
+	event_image = {
+		video = "southamerica_war_civilians"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	icon = "gfx/interface/icons/event_icons/event_default.dds"
+
+	title = ztr_economic_update.6.t
+	desc = ztr_economic_update.6.d
+
+
+	duration = 1
+	
+	trigger = {
+		game_date >= 1836.1.1
+		has_modifier = dev_5_country
+		get_country_gdp_per < 6.6
+	}
+
+	option = {
+		name = ztr_economic_update.6.a
+		default_option = yes
+		remove_state_economy_modifier = yes
+		add_modifier = {
+			name = dev_4_country
+		}
+		ai_chance = {
+			base = 100										
+		}		
+	}
+}
+
+# Developed-> Partially Developed
+ztr_economic_update.7 = {
+	dlc = dlc_tech_res
+	type = country_event
+	placement = ROOT
+	event_image = {
+		video = "southamerica_war_civilians"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	icon = "gfx/interface/icons/event_icons/event_default.dds"
+
+	title = ztr_economic_update.7.t
+	desc = ztr_economic_update.7.d
+
+
+	duration = 1
+	
+	trigger = {
+		game_date >= 1836.1.1
+		has_modifier = dev_4_country
+		get_country_gdp_per < 4.4
+	}
+
+	option = {
+		name = ztr_economic_update.7.a
+		default_option = yes
+		remove_state_economy_modifier = yes
+		add_modifier = {
+			name = dev_3_country
+		}
+		ai_chance = {
+			base = 100										
+		}		
+	}
+}
+
+# Partially Developed-> Semi-Developed
+ztr_economic_update.8 = {
+	dlc = dlc_tech_res
+	type = country_event
+	placement = ROOT
+	event_image = {
+		video = "southamerica_war_civilians"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	icon = "gfx/interface/icons/event_icons/event_default.dds"
+
+	title = ztr_economic_update.8.t
+	desc = ztr_economic_update.8.d
+
+
+	duration = 1
+	
+	trigger = {
+		game_date >= 1836.1.1
+		has_modifier = dev_3_country
+		get_country_gdp_per < 2.2
+	}
+
+	option = {
+		name = ztr_economic_update.8.a
+		default_option = yes
+		remove_state_economy_modifier = yes
+		add_modifier = {
+			name = dev_2_country
+		}
+		ai_chance = {
+			base = 100										
+		}		
+	}
+}
+
+# Semi-Developed-> Developing
+ztr_economic_update.9 = {
+	dlc = dlc_tech_res
+	type = country_event
+	placement = ROOT
+	event_image = {
+		video = "southamerica_war_civilians"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	icon = "gfx/interface/icons/event_icons/event_default.dds"
+
+	title = ztr_economic_update.9.t
+	desc = ztr_economic_update.9.d
+
+
+	duration = 1
+	
+	trigger = {
+		game_date >= 1836.1.1
+		has_modifier = dev_2_country
+		get_country_gdp_per < 1.1
+	}
+
+	option = {
+		name = ztr_economic_update.9.a
+		default_option = yes
+		remove_state_economy_modifier = yes
+		add_modifier = {
+			name = dev_1_country
+		}
+		ai_chance = {
+			base = 100										
+		}		
+	}
+}
+
+# Developing-> Poor
+ztr_economic_update.10 = {
+	dlc = dlc_tech_res
+	type = country_event
+	placement = ROOT
+	event_image = {
+		video = "southamerica_war_civilians"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	icon = "gfx/interface/icons/event_icons/event_default.dds"
+
+	title = ztr_economic_update.10.t
+	desc = ztr_economic_update.10.d
+
+
+	duration = 1
+	
+	trigger = {
+		game_date >= 1836.1.1
+		has_modifier = dev_1_country
+		get_country_gdp_per < 0.55
+	}
+
+	option = {
+		name = ztr_economic_update.10.a
+		default_option = yes
+		remove_state_economy_modifier = yes
+		add_modifier = {
+			name = dev_0_country
+		}
+		ai_chance = {
+			base = 100										
+		}		
+	}
+}
+
+# if = {
+			# 	limit = {
+			# 		can_increase_autonomy = no
+			# 	}
+			# 	make_independent = yes
+			# 	set_owes_obligation_to = {
+			# 	country = ROOT
+			# 	setting = yes
+			# 	}
+			# }

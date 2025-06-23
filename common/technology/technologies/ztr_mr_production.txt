@@ -1,0 +1,269 @@
+	# Era 1
+
+verrier_physics_tech = {
+	# Unlocks production method Basic Observatory
+	# Unlocks decision: Astronomic observation
+
+	era = era_1
+	texture = "gfx/interface/icons/invention_icons/verrier_physics_tech.dds"
+	category = production
+	
+	unlocking_technologies = {
+	}
+
+	modifier = {
+		country_tech_research_speed_mult = 0.05
+	}
+
+	ai_weight = {
+		value = 3 # Very important in general
+	}
+}
+
+# Era 2
+
+verrier_chemistry_tech = {
+	#Unlocks sulphite pulping
+
+	era = era_2
+	texture = "gfx/interface/icons/invention_icons/verrier_chemistry_tech.dds"
+	category = production
+
+	modifier = {
+		country_tech_research_speed_mult = 0.05
+	}
+
+	unlocking_technologies = {
+		verrier_physics_tech
+		distillation
+	}
+
+	ai_weight = {
+		value = 2 # Very important in general
+	}
+}
+
+manzoni_rotary_press_tech = {
+	era = era_2
+	texture = "gfx/interface/icons/invention_icons/manzoni_rotary_press_tech.dds"
+	category = production
+	
+	modifier = {
+	}
+	
+	unlocking_technologies = {
+		lathe
+	}
+
+	ai_weight = {
+		value = 1
+		if = {
+			limit = {
+				any_scope_state = {
+					has_building = building_manzoni_publishing_industry
+				}
+			}
+			add = 2
+		}		
+	}
+}
+
+verrier_astronomy_tech = {
+	# Unlocks Advanced Observatory
+	# Unlocks Journal Entries and Decisions
+
+	era = era_2
+	texture = "gfx/interface/icons/invention_icons/verrier_astronomy_tech.dds"
+	category = production
+
+	unlocking_technologies = {
+		verrier_physics_tech
+		mechanical_tools
+	}
+
+	modifier = {
+		country_tech_research_speed_mult = 0.05
+	}
+
+	ai_weight = {
+		value = 1
+
+		if = {
+			limit = { 
+				OR = {
+					c:FRA ?= ROOT
+					c:PRU ?= ROOT
+					c:AUS ?= ROOT
+					c:SWI ?= ROOT
+					c:BEL ?= ROOT
+					c:BAV ?= ROOT
+					c:SAX ?= ROOT
+					c:HAN ?= ROOT
+				}
+			}
+			add = 1
+		}	
+	}
+}
+
+# Era 3
+
+manzoni_linotype_tech = {
+	era = era_3
+	texture = "gfx/interface/icons/invention_icons/manzoni_linotype_tech.dds"
+	category = production
+	
+	modifier = {
+	}
+	
+	unlocking_technologies = {
+		manzoni_rotary_press_tech
+	}
+
+	ai_weight = {
+		value = 1
+		if = {
+			limit = {
+				any_scope_state = {
+					has_building = building_manzoni_publishing_industry
+				}
+			}
+			add = 1
+		}		
+	}
+}
+
+verrier_electromagnetism_tech = {
+	# No effect at the moment
+
+	era = era_3
+	texture = "gfx/interface/icons/invention_icons/verrier_electromagnetism_tech.dds"
+	category = production
+	
+	unlocking_technologies = {
+		verrier_astronomy_tech
+	}
+
+	ai_weight = {
+		value = 1
+	}
+}
+
+# Era 4
+
+verrier_modern_physics_tech = {
+	# Unlocks Uranium Mine
+	# Unlocks Einstein Events
+	era = era_4
+	texture = "gfx/interface/icons/invention_icons/verrier_modern_physics_tech.dds"
+	category = production
+
+	unlocking_technologies = {
+		verrier_electromagnetism_tech
+	}
+
+	modifier = {
+		country_tech_research_speed_mult = 0.05
+	}
+
+	ai_weight = {
+		value = 1 
+
+		if = {
+			limit = { 
+				OR = {
+					c:SWI ?= ROOT
+					c:GER ?= ROOT
+					c:PRU ?= ROOT
+					c:NGF ?= ROOT 
+				}
+				
+			}
+			add = 3 #German Physics Bohr-Planck-Einstein
+		}
+	}
+}
+
+# Era 5
+
+mendelejew_synthetic_fuel_tech = {
+	# Unlocks Synthetic Fuel Factory
+	era = era_5
+	texture = "gfx/interface/icons/invention_icons/mendelejew_synthetic_fuel_tech.dds"
+	category = production
+
+	unlocking_technologies = {
+		selective_mineral_extraction
+	}
+
+	ai_weight = {
+		value = 1
+	}
+}
+
+verrier_nuclear_physics_tech = {
+	# Unlocks Einstein Events
+	era = era_5
+	texture = "gfx/interface/icons/invention_icons/verrier_nuclear_physics_tech.dds"
+	category = production
+
+	unlocking_technologies = {
+		verrier_modern_physics_tech
+	}
+
+	modifier = {
+		country_tech_research_speed_mult = 0.05
+	}
+
+	ai_weight = {
+		value = 1 
+
+		if = {
+			limit = { 
+				OR = {
+					c:ITA ?= ROOT
+					c:USA ?= ROOT
+				}
+				
+			}
+			add = 2 #Fermi-Hoppenheimer
+		}		
+	}
+	
+}
+
+# Era 6
+
+verrier_astro_physics_tech = {
+	# Unlocks Lemaître and the Great Debate
+	# Unlocks Astrolab
+	# Gives additional astronomical objects per year
+	era = era_6
+	texture = "gfx/interface/icons/invention_icons/verrier_astro_physics_tech.dds"
+	category = production
+
+	unlocking_technologies = {
+		verrier_nuclear_physics_tech
+	}
+
+	can_research = yes
+
+	ai_weight = {
+		value = 1 
+
+		if = {
+			limit = { 
+				OR = {
+					c:USA ?= ROOT
+					c:RUS ?= ROOT
+				}
+				
+			}
+			add = 2 #Cold War Space Race
+		}		
+	}
+}
+
+# Era 7
+
+# Era 8

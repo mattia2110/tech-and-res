@@ -1,0 +1,184 @@
+# Era 1
+
+# Era 2
+
+realism = {
+	# Unlocks Realist Art PM in Art Academies
+	era = era_2
+	texture = "gfx/interface/icons/invention_icons/realism.dds"
+	category = society
+	
+	modifier = {
+		country_prestige_mult = 0.05
+	}
+	
+	unlocking_technologies = {
+		romanticism
+	}
+	
+	ai_weight = {
+		value = 1
+	}
+}
+
+# Era 3
+
+civilizing_mission = {
+	# Unlocks Panama Canal survey expedition decision
+	# Unlocks the Panama Canal
+
+	era = era_3
+	texture = "gfx/interface/icons/invention_icons/civilizing_mission.dds"
+	category = society
+
+	modifier = {
+		country_institution_colonial_affairs_max_investment_add = 1
+		country_max_declared_interests_add = 1
+		country_infamy_generation_against_unrecognized_mult = -0.25
+	}
+	
+	unlocking_technologies = {
+		quinine
+		nationalism
+	}
+	
+	ai_weight = {
+		value = 1
+		
+		# Important for colonizers
+		if = {
+			limit = { 
+				navy_size >= 25
+				is_country_type = recognized
+			}
+			add = 1
+		}
+		if = {
+			limit = { 
+				has_strategy = ai_strategy_colonial_expansion
+			}
+			add = 1
+		}
+		if = {
+			limit = {
+				kai_eligible_for_american_migration_je = yes
+			}
+			add = 1
+		}
+	}
+}
+
+mutual_funds = {
+	era = era_3
+	texture = "gfx/interface/icons/invention_icons/mutual_funds.dds"
+	category = society
+	
+	modifier = {
+		country_minting_mult = 0.1
+		country_loan_interest_rate_add = -0.02
+	}
+	
+	unlocking_technologies = {
+		central_banking
+		postal_savings
+	}
+	
+	ai_weight = {
+		value = 1
+		if = {
+			limit = { 
+				OR = {
+					c:USA ?= ROOT
+				}
+			}
+			add = 1
+		}	
+	}
+}
+
+# Era 4
+
+feminism = {
+	# Unlocks Women in the Workplace - Rights of Women Law
+	era = era_4
+	texture = "gfx/interface/icons/invention_icons/feminism.dds"
+	category = society
+	
+	on_researched = {
+		if = {
+			limit = {
+				NOT = { has_variable = feminism_researched }
+			}
+			set_variable = feminism_researched
+			custom_tooltip = {
+				text = liberal_and_egalitarian_amended_tt
+				every_interest_group = {
+					limit = {
+						has_ideology = ideology:ideology_liberal
+					}
+					remove_ideology = ideology_liberal
+					add_ideology = ideology_liberal_modern
+				}
+				every_interest_group = {
+					limit = {
+						has_ideology = ideology:ideology_egalitarian
+					}
+					remove_ideology = ideology_egalitarian
+					add_ideology = ideology_egalitarian_modern
+				}
+			}
+		}
+	}
+
+	unlocking_technologies = {
+		human_rights
+	}
+	
+	ai_weight = {
+		value = 1
+		
+		if = {
+			limit = { 
+				has_strategy = ai_strategy_egalitarian_agenda
+			}
+			add = 1
+		}	
+		if = {
+			limit = { 
+				OR = {
+					has_strategy = ai_strategy_conservative_agenda
+					has_strategy = ai_strategy_reactionary_agenda
+					has_strategy = ai_strategy_maintain_mandate_of_heaven
+				}			
+			}
+			add = -0.5
+		}		
+	}
+}
+
+# Era 5
+
+penicillin = {
+	#Morgenröte: Needs Antitoxins
+	era = era_5
+	texture = "gfx/interface/icons/invention_icons/penicillin.dds"
+	category = society
+	
+	modifier = {
+		country_institution_health_system_max_investment_add = 1
+	}
+	
+	unlocking_technologies = {
+		panum_antitoxins_tech
+	}
+	
+	ai_weight = {
+		value = 1
+	}
+}
+
+# Era 6
+
+# Era 7
+
+# Era 8

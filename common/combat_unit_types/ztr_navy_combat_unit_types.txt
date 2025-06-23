@@ -1,0 +1,335 @@
+# Navy
+
+# Submarine
+
+combat_unit_type_submarine = {
+    group = combat_unit_group_support_ship
+    max_manpower = 1000
+
+    upkeep_modifier = {
+        goods_input_ironclads_add = 2
+        goods_input_artillery_add = 2
+        goods_input_ammunition_add = 2
+		goods_input_radios_add = 1
+    }
+
+    battle_modifier = {
+        unit_offense_add = 60
+        unit_defense_add = 20
+        unit_blockade_add = 10
+        unit_morale_loss_add = 8
+        unit_convoy_raiding_mult = 1.0
+    }
+
+    formation_modifier = {
+        military_formation_movement_speed_mult = 0.2
+    }
+
+	unlocking_technologies = { submarine }
+
+    combat_unit_image = {
+        texture = "gfx/unit_illustrations/support_ships_submarine.dds"
+    }
+
+	upgrades = {
+		combat_unit_type_nuclear_submarine
+	}
+}
+
+combat_unit_type_nuclear_submarine = {
+    group = combat_unit_group_support_ship
+    max_manpower = 1000
+
+    upkeep_modifier = {
+        goods_input_ironclads_add = 2
+        goods_input_artillery_add = 2
+        goods_input_ammunition_add = 2
+		goods_input_good_uranium_add = 5
+		goods_input_radios_add = 1
+    }
+
+    battle_modifier = {
+        unit_offense_add = 90
+        unit_defense_add = 40
+        unit_blockade_add = 20
+        unit_morale_loss_add = 10
+        unit_convoy_raiding_mult = 1.0
+    }
+
+    formation_modifier = {
+        military_formation_movement_speed_mult = 0.2
+    }
+
+	unlocking_technologies = { nuclear_submarine }
+
+    combat_unit_image = {
+        texture = "gfx/unit_illustrations/support_ships_nuclear_submarine.dds"
+    }
+}
+
+# Carrier
+
+combat_unit_type_modern_carrier = {
+    group = combat_unit_group_support_ship
+    max_manpower = 1000
+
+    upkeep_modifier = {
+        goods_input_ironclads_add = 10
+        goods_input_ammunition_add = 8
+        goods_input_radios_add = 2
+		goods_input_processors_add = 5
+        goods_input_aeroplanes_add = 10
+    }
+
+    battle_modifier = {
+        unit_offense_add = 150
+        unit_defense_add = 80
+        unit_blockade_add = 750
+        unit_morale_loss_add = 8
+		unit_convoy_defense_mult = 0.35
+    }
+
+    formation_modifier = {
+        military_formation_movement_speed_mult = -0.3
+    }
+
+	unlocking_technologies = { integrated_naval_air_tactics }
+
+    combat_unit_image = {
+        texture = "gfx/unit_illustrations/support_ships_modern_carrier.dds"
+    }
+}
+
+# Destroyer
+
+combat_unit_type_destroyer = {
+    group = combat_unit_group_light_ship
+    max_manpower = 1000
+
+    upkeep_modifier = {
+        goods_input_ironclads_add = 2
+        goods_input_artillery_add = 2
+        goods_input_ammunition_add = 2
+    }
+
+    battle_modifier = {
+        unit_offense_add = 30
+        unit_defense_add = 40
+        unit_blockade_add = 30
+        unit_morale_loss_add = 6
+        unit_convoy_defense_mult = 0.35
+    }
+
+    formation_modifier = {
+        military_formation_movement_speed_mult = 0.2
+    }
+
+	unlocking_technologies = { destroyer }
+    combat_unit_image = {
+        texture = "gfx/unit_illustrations/light_ships_destroyer.dds"
+    }
+	
+	upgrades = {
+		combat_unit_type_torpedo_boat
+		combat_unit_type_modern_destroyer
+	}
+}
+
+combat_unit_type_torpedo_boat = {
+    group = combat_unit_group_light_ship
+    max_manpower = 1000
+
+    upkeep_modifier = {
+        goods_input_ironclads_add = 2
+        goods_input_explosives_add = 4
+    }
+
+    battle_modifier = {
+        unit_offense_add = 40
+        unit_defense_add = 30
+        unit_blockade_add = 30
+        unit_morale_loss_add = 8
+        unit_convoy_raiding_mult = 0.25
+    }
+
+    formation_modifier = {
+        military_formation_movement_speed_mult = 0.2
+    }
+
+	unlocking_technologies = { self_propelled_torpedoes }
+
+    combat_unit_image = {
+        texture = "gfx/unit_illustrations/light_ships_torpedo_boat.dds"
+    }
+	
+	upgrades = {
+		combat_unit_type_destroyer
+		combat_unit_type_modern_destroyer
+	}
+}
+
+combat_unit_type_modern_destroyer = {
+    group = combat_unit_group_light_ship
+    max_manpower = 1000
+
+    upkeep_modifier = {
+        goods_input_ironclads_add = 2
+        goods_input_artillery_add = 2
+        goods_input_ammunition_add = 1
+		goods_input_missiles_add = 1
+		goods_input_processors_add = 1
+		goods_input_radios_add = 1
+    }
+
+    battle_modifier = {
+        unit_offense_add = 50
+        unit_defense_add = 50
+        unit_morale_loss_add = 8
+        unit_blockade_add = 30
+        unit_convoy_defense_mult = 0.35
+		unit_convoy_raiding_mult = 0.25
+    }
+
+    formation_modifier = {
+        military_formation_movement_speed_mult = 0.2
+    }
+
+	unlocking_technologies = { modern_naval_doctrine }
+    combat_unit_image = {
+        texture = "gfx/unit_illustrations/light_ships_modern_destroyer.dds"
+    }
+}
+
+# Cruiser
+
+combat_unit_type_scout_cruiser = {
+    group = combat_unit_group_light_ship
+    max_manpower = 1000
+
+    upkeep_modifier = {
+        goods_input_ironclads_add = 3
+        goods_input_ammunition_add = 3
+        goods_input_artillery_add = 3
+        goods_input_radios_add = 1
+    }
+
+    battle_modifier = {
+        unit_offense_add = 50
+        unit_defense_add = 50
+        unit_blockade_add = 40
+        unit_morale_loss_add = 6
+		unit_convoy_defense_mult = 0.5
+    }
+
+    formation_modifier = {
+        military_formation_movement_speed_mult = 0.2
+    }
+
+	unlocking_technologies = { sea_lane_strategies }
+
+    combat_unit_image = {
+        texture = "gfx/unit_illustrations/light_ships_scout_cruiser.dds"
+    }
+
+    upgrades = {
+        combat_unit_type_scout_modern_cruiser
+    }
+}
+
+combat_unit_type_scout_modern_cruiser = {
+    group = combat_unit_group_light_ship
+    max_manpower = 1000
+
+    upkeep_modifier = {
+        goods_input_ironclads_add = 4
+        goods_input_ammunition_add = 3
+        goods_input_artillery_add = 3
+		goods_input_processors_add = 2
+        goods_input_radios_add = 1
+    }
+
+    battle_modifier = {
+        unit_offense_add = 70
+        unit_defense_add = 70
+        unit_blockade_add = 40
+        unit_morale_loss_add = 7
+		unit_convoy_defense_mult = 0.5
+    }
+
+    formation_modifier = {
+        military_formation_movement_speed_mult = 0.2
+    }
+
+	unlocking_technologies = { modern_naval_doctrine }
+
+    combat_unit_image = {
+        texture = "gfx/unit_illustrations/light_ships_scout_modern_cruiser.dds"
+    }
+}
+
+#Battleship
+
+combat_unit_type_battleship = {
+    group = combat_unit_group_capital_ship
+    max_manpower = 1000
+
+    upkeep_modifier = {
+        goods_input_ironclads_add = 8
+		goods_input_artillery_add = 8
+        goods_input_ammunition_add = 8
+        goods_input_radios_add = 3
+    }
+
+    battle_modifier = {
+        unit_offense_add = 100
+        unit_defense_add = 100
+        unit_blockade_add = 500
+        unit_morale_loss_add = 4
+		unit_convoy_raiding_mult = -0.5
+    }
+
+    formation_modifier = {
+        military_formation_movement_speed_mult = -0.2
+    }
+
+	unlocking_technologies = { battleship_tech }
+
+    combat_unit_image = {
+        texture = "gfx/unit_illustrations/capital_ships_battleship.dds"
+    }
+
+    upgrades = {
+        combat_unit_type_modern_battleship
+    }
+}
+
+combat_unit_type_modern_battleship = {
+    group = combat_unit_group_capital_ship
+    max_manpower = 1000
+
+    upkeep_modifier = {
+        goods_input_ironclads_add = 8
+		goods_input_artillery_add = 8
+        goods_input_ammunition_add = 8
+		goods_input_processors_add = 4
+        goods_input_radios_add = 3
+    }
+
+    battle_modifier = {
+        unit_offense_add = 125
+        unit_defense_add = 125
+        unit_blockade_add = 500
+        unit_morale_loss_add = 5
+		unit_convoy_raiding_mult = -0.5
+    }
+
+    formation_modifier = {
+        military_formation_movement_speed_mult = -0.2
+    }
+
+	unlocking_technologies = { modern_naval_doctrine }
+
+    combat_unit_image = {
+        texture = "gfx/unit_illustrations/capital_ships_modern_battleship.dds"
+    }
+}

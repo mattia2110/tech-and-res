@@ -1,0 +1,113 @@
+je_arabia_unification = {
+	icon = "gfx/interface/icons/event_icons/waving_flag_arabia.dds"
+
+	group = je_group_historical_content
+
+	immediate = {
+		set_variable = {
+			name = arabia_states_owned_var
+			value = 0
+		}
+	}
+
+	on_monthly_pulse = {
+		effect = {
+			change_variable = {
+			name = arabia_states_owned_var
+			multiply = 0
+			}
+			# Now Nejd obtain 1 point for each state it owns.add_company = 
+			if = {
+				limit = {
+					owns_entire_state_region = STATE_NEJD
+				}
+				change_variable = {
+					name = arabia_states_owned_var
+					add = 1
+				}
+			}
+			if = {
+				limit = {
+					owns_entire_state_region = STATE_HEDJAZ
+				}
+				change_variable = {
+					name = arabia_states_owned_var
+					add = 1
+				}
+			}
+			if = {
+				limit = {
+					owns_entire_state_region = STATE_HAIL
+				}
+				change_variable = {
+					name = arabia_states_owned_var
+					add = 1
+				}
+			}
+		}
+	}
+
+	on_yearly_pulse = {
+		random_events = {
+			40 = 0
+			30 = arabia_unification.2 # Hedjaz Annexation
+			30 = arabia_unification.3 # Hail Annexation
+		}
+	}
+
+	is_shown_when_inactive = {
+		OR = {
+			c:HDJ = {
+			    exists = yes
+			}
+			c:JAB = {
+				exists = yes
+			}
+		}
+		c:NEJ ?= root
+		has_technology_researched = nationalism
+	}
+
+	possible = {
+		OR = {
+			c:HDJ = {
+			    exists = yes
+			}
+			c:JAB = {
+				exists = yes
+			}
+		}
+		
+		c:NEJ ?= root
+		has_technology_researched = pan-nationalism
+		# any_scope_state = {
+		# 	state_region = s:STATE_NEJD
+		# 	has_building = building_oil_rig
+		# 	any_scope_building = {
+		# 		is_building_type = building_oil_rig
+		# 		level >= 1
+		# 	}
+		# }
+	}
+
+	complete = {
+		scope:journal_entry = { is_goal_complete = yes }
+	}
+
+	current_value = {
+		value = var:arabia_states_owned_var
+	}
+
+	on_complete = {
+		trigger_event = { id = arabia_unification.1 }
+	}
+
+	goal_add_value = {
+		value = 3
+	}
+
+	progressbar = yes
+
+	weight = 10
+	should_be_pinned_by_default = yes
+}

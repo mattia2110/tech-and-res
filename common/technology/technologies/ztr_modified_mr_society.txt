@@ -1,0 +1,165 @@
+# Era 1
+
+panum_vaccination_tech = {
+	# Vaccination for Smallpox
+	era = era_1
+	texture = "gfx/interface/icons/invention_icons/panum_vaccination_tech.dds"
+	category = society
+
+	unlocking_technologies = {
+		medical_degrees
+	}
+
+	modifier = {
+		state_mortality_mult = -0.01
+		state_harvest_condition_panum_smallpox_condition_impact_mult = -0.25
+	}
+
+	ai_weight = {
+		value = 1
+	}
+}
+
+# Era 2
+
+curtiss_tourism_tech = {
+
+	era = era_2
+	texture = "gfx/interface/icons/invention_icons/curtiss_tourism_tech.dds"
+	category = society
+	
+	unlocking_technologies = {
+		corporate_charters
+		colonization
+	}
+
+	modifier = {
+		country_max_companies_add = 1
+		country_production_tech_spread_mult = 0.75
+		country_military_tech_spread_mult = 0.75
+		country_society_tech_spread_mult = 0.75
+	}
+
+	ai_weight = {
+		value = 1
+	}
+}
+
+# Era 3
+
+camera = {
+	# Unlocks Photographic Art, Improved Propaganda Centers PMs in Art Academy
+	era = era_3
+	texture = "gfx/interface/icons/invention_icons/camera.dds"
+	category = society
+	
+	unlocking_technologies = {
+		realism
+	}
+
+	ai_weight = {
+		value = 1
+	}
+}
+
+# Era 4
+
+dubois_genetics_tech = {
+
+	era = era_4
+	texture = "gfx/interface/icons/invention_icons/dubois_genetics_tech.dds"
+	category = society
+
+	modifier = {
+		state_mortality_mult = -0.025
+		building_group_bg_agriculture_throughput_add = 0.15
+		building_group_bg_ranching_throughput_add = 0.15
+		building_group_bg_plantations_throughput_add = 0.15
+		goods_output_grain_mult = 0.15
+		goods_output_fruit_mult = 0.15
+		goods_output_sugar_mult = 0.15
+	}
+	
+	unlocking_technologies = {
+		dubois_nature_protection_tech
+	}
+
+	ai_weight = {
+		value = 1
+		
+		if = {
+			limit = { 
+				ROOT = c:AUS #Mendel
+			}
+			add = 1
+		}
+	}
+}
+
+panum_antitoxins_tech = {
+	# Treatment for Diphteria and Scarlet
+	era = era_4
+	texture = "gfx/interface/icons/invention_icons/panum_antitoxins_tech.dds"
+	category = society
+
+	unlocking_technologies = {
+		malaria_prevention
+	}
+
+	modifier = {
+		state_mortality_mult = -0.02
+	}
+
+	ai_weight = {
+		value = 1
+	}
+}
+
+film = {
+	# Unlocks Film Propaganda Center PM in Arts Academies
+	era = era_4
+	texture = "gfx/interface/icons/invention_icons/film.dds"
+	category = society
+	
+	unlocking_technologies = {
+		camera
+	}
+
+	#Morgenröte: Removed Prestige Modifier
+
+	ai_weight = {
+		value = 1
+	}
+}
+
+# Era 5
+
+mass_propaganda = {
+	# Unlocks Better Radios PM in Electrics Industries
+	# New leaders may spawn with the Fascist Ideology
+	era = era_5
+	texture = "gfx/interface/icons/invention_icons/mass_propaganda.dds"
+	category = society
+	
+	modifier = {
+		country_authority_mult = 0.1
+		state_expected_sol_from_literacy = 1
+		country_agitator_slots_add = 1
+	}
+	
+	unlocking_technologies = {
+		political_agitation
+		elgar_mass_culture_tech #Morgenröte: changed from film
+		silent_cinema
+	}
+
+	ai_weight = {
+		value = 1
+	}
+}
+
+# Era 6
+
+# Era 7
+
+# Era 8

@@ -1,0 +1,153 @@
+#Office
+
+building_office = {
+	building_group = bg_heavy_industry
+	icon = "gfx/interface/icons/building_icons/building_office.dds"
+	city_type = city
+	levels_per_mesh = 5
+	
+	unlocking_technologies = {
+		market_studies
+	}
+
+	production_method_groups = {
+		pmg_data_section_building_office
+		pmg_service_section_building_office
+		pmg_data_transportation_building_office
+	}
+	
+	required_construction = construction_cost_medium
+	ownership_type = self
+
+	background = "gfx/interface/icons/building_icons/backgrounds/building_panel_bg_light_industry.dds"
+
+	ai_value = 4000 # Office is very important
+}
+
+# Software Industry
+
+building_software_industry = {
+	building_group = bg_heavy_industry
+	icon = "gfx/interface/icons/building_icons/building_software_industry.dds"
+	city_type = city
+	levels_per_mesh = 5
+	
+	unlocking_technologies = {
+		information_systems_management
+	}
+
+	production_method_groups = {
+		pmg_software_building_software_industry
+		pmg_software_type_building_software_industry
+		pmg_data_transportation_building_office
+		pmg_data_optimization_heavy_industry_software
+	}
+	
+	required_construction = construction_cost_medium
+	ownership_type = self
+
+	background = "gfx/interface/icons/building_icons/backgrounds/building_panel_bg_light_industry.dds"
+
+	ai_value = 3000 # Office is very important
+}
+
+building_digital_media_industry = {
+	building_group = bg_heavy_industry
+	icon = "gfx/interface/icons/building_icons/building_digital_media_industry.dds"
+	city_type = city
+	levels_per_mesh = 5
+	
+	unlocking_technologies = {
+		videogames
+	}
+
+	production_method_groups = {
+		pmg_interactive_media_building_digital_media_industry
+		pmg_data_transportation_building_office
+		pmg_data_optimization_heavy_industry
+	}
+	
+	required_construction = construction_cost_medium
+	ownership_type = self
+
+	background = "gfx/interface/icons/building_icons/backgrounds/building_panel_bg_light_industry.dds"
+
+	ai_value = 3000 # Office is very important
+}
+
+# Telecommunications
+
+building_telecommunications_industry = {
+	building_group = bg_power
+	icon = "gfx/interface/icons/building_icons/building_telecommunications.dds"
+	levels_per_mesh = 5
+
+	city_type = city
+	
+	unlocking_technologies = { 
+		telephone 
+	}
+
+	production_method_groups = {
+		pmg_base_building_telecommunications
+		pmg_data_optimization_heavy_industry_telecommunications
+	}
+	
+	required_construction = construction_cost_very_high
+
+	ai_value = {
+		value = 1000 
+
+		# Telecommunications is very important
+		if = {
+			limit = {
+				owner = {
+					NOR = {
+						has_building = building_telecommunications_industry
+						any_scope_building = {
+							is_building_type = building_telecommunications_industry
+							is_under_construction = yes
+						}
+					}
+				}
+			}
+			add = 4000
+		}
+	}
+
+	possible = {
+		owner = {
+			NOT = { has_law = law_type:law_industry_banned } 
+		}
+	}
+	
+	ownership_type = self
+
+	background = "gfx/interface/icons/building_icons/backgrounds/building_panel_bg_monuments.dds"
+}
+
+# Data Center
+
+building_datacenter_industry = {
+	building_group = bg_heavy_industry
+	icon = "gfx/interface/icons/building_icons/building_datacenter.dds"
+	city_type = city
+	levels_per_mesh = 5
+	
+	unlocking_technologies = {
+		data_processing
+	}
+
+	production_method_groups = {
+		pmg_base_building_datacenter
+		pmg_automation_building_datacenter
+		pmg_data_transportation_building_datacenter
+	}
+	
+	required_construction = construction_cost_very_high
+	ownership_type = self
+
+	background = "gfx/interface/icons/building_icons/backgrounds/building_panel_bg_light_industry.dds"
+
+	ai_value = 2500 # Datacenter is very important
+}

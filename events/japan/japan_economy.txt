@@ -1,0 +1,54 @@
+namespace = japan_economy
+
+japan_economy.1 = {
+	dlc = dlc_tech_res
+	type = country_event
+	placement = root
+
+	duration = 1
+
+	title = japan_economy.1.t
+	desc = japan_economy.1.d
+
+	icon = "gfx/interface/icons/event_icons/event_industry.dds"
+
+	event_image = {
+		video = "unspecific_armored_train"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	trigger = {
+		year > 1865
+		OR = {
+			has_modifier = shogun_ig_forced_to_open_market
+			has_journal_entry = je_meiji_main		
+		}
+		NOT = { has_modifier = japan_meiji_modernization }	
+		NOT = { has_modifier = japan_meiji_modernization_player }	
+	}
+
+	immediate = {
+
+	}
+
+	option = {
+		name = japan_economy.1.a
+		default_option = yes
+		if = {
+			limit = {
+				is_ai = no
+			}
+			add_modifier = {
+				name = japan_meiji_modernization_player
+				months = 1200 # 100 years
+			}
+		}
+		else = {
+			add_modifier = {
+				name = japan_meiji_modernization
+				months = 1200 # 100 years
+			}
+		}
+	}
+}

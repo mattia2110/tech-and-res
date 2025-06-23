@@ -1,0 +1,1541 @@
+﻿##NEW TECH##
+
+#ERA 1
+
+alloysworking = {
+	# Unlocks 
+	era = era_1
+	texture = "gfx/interface/icons/invention_icons/alloysworking.dds"
+	category = production
+	
+	unlocking_technologies = {
+		shaft_mining
+	}
+	
+	ai_weight = {
+		value = 1
+	}
+}
+
+coal_gasification = {
+	# Unlocks PM coal gasification in coal mines and gas streetlights
+	era = era_1
+	texture = "gfx/interface/icons/invention_icons/coal_gasification.dds"
+	category = production
+	
+	unlocking_technologies = {
+		shaft_mining
+	}
+	
+	ai_weight = {
+		value = 1
+	}
+}
+
+# ERA 2
+
+# ERA 3
+
+# ERA 4
+
+quartz_glass = {
+    # Unlocks production of high-purity quartz glass for advanced applications
+    era = era_4
+    texture = "gfx/interface/icons/invention_icons/quartz_glass.dds"
+    category = production
+
+    unlocking_technologies = {
+		reinforced_concrete
+		chemical_bleaching
+    }
+
+    # Peso AI
+    ai_weight = {
+        value = 1
+
+        if = {
+            limit = {
+                has_strategy = ai_strategy_industrial_expansion
+            }
+            add = 1
+        }
+    }
+}
+
+plastics = {
+	# Unlocks the Houseware Plastics PM in Glassworks
+	era = era_4
+	texture = "gfx/interface/icons/invention_icons/plastics.dds"
+	category = production
+	
+	unlocking_technologies = {	
+		reinforced_concrete
+	}
+	
+	ai_weight = {
+		value = 1
+	}
+}
+
+oil_distillation = {
+	# Unlocks oil refineries
+	era = era_4
+	texture = "gfx/interface/icons/invention_icons/oil_distillation.dds"
+	category = production
+	
+	unlocking_technologies = {
+		pumpjacks
+	}
+	modifier = {
+		building_group_bg_oil_extraction_throughput_add = 0.15
+	}
+	ai_weight = {
+		value = 1 # Important tech for modern economies
+		
+		if = {
+			limit = { 
+				OR = {
+					has_strategy = ai_strategy_industrial_expansion
+				}
+			}
+			add = 3
+		}
+	}
+}
+
+offset_printing = {
+	# Unlocks offset printing
+	era = era_4
+	texture = "gfx/interface/icons/invention_icons/offset_printing.dds"
+	category = production
+	
+	unlocking_technologies = {
+		manzoni_linotype_tech
+	}
+	
+	ai_weight = {
+		value = 1
+	}
+}
+
+#ERA 5
+
+bayer_process = {
+	# Unlocks Bauxite mines and Aluminium plant
+	era = era_5
+	texture = "gfx/interface/icons/invention_icons/aluminium_houseware.dds"
+	category = production
+
+	unlocking_technologies = {
+		electrical_capacitors
+		quartz_glass
+	}
+	
+		ai_weight = {
+		value = 1
+	}
+}
+
+selective_mineral_extraction = {
+	# Unlocks 
+	era = era_5
+	texture = "gfx/interface/icons/invention_icons/selective_mineral_extraction.dds"
+	category = production
+	
+	unlocking_technologies = {
+		quartz_glass
+	}
+	
+	ai_weight = {
+		value = 1
+	}
+}
+
+synthetic_fibres = {
+	# Unlocks PM synthetic fibres - requires coal and oil to make clothes
+	era = era_5
+	texture = "gfx/interface/icons/invention_icons/synthetic_fibres.dds"
+	category = production
+
+	unlocking_technologies = {
+		polyethylene
+		art_silk
+		kraft_recovery_process
+	}
+	
+		ai_weight = {
+		value = 1
+	}
+}
+
+polyethylene = {
+	# Unlocks production of plastics using oil
+	era = era_5
+	texture = "gfx/interface/icons/invention_icons/polyethylene.dds"
+	category = production
+	
+	unlocking_technologies = {
+		oil_distillation
+		plastics
+	}
+		ai_weight = {
+		value = 1
+	}
+}
+
+silicon = {
+    # Unlocks advanced ores mining
+    era = era_5
+    texture = "gfx/interface/icons/invention_icons/silicon.dds"
+    category = production
+
+    unlocking_technologies = {
+		compression_ignition
+		selective_mineral_extraction
+    }
+
+    # Peso AI
+    ai_weight = {
+        value = 1
+
+        if = {
+            limit = {
+                has_strategy = ai_strategy_industrial_expansion
+            }
+            add = 1
+        }
+    }
+}
+
+alkaline_battery = {
+    # Unlocks Alkaline Battery production method
+    era = era_5
+    texture = "gfx/interface/icons/invention_icons/alkaline_battery.dds"
+    category = production
+
+    unlocking_technologies = {
+        polyethylene
+        electrical_capacitors
+    }
+
+    ai_weight = {
+        value = 1
+
+        if = {
+            limit = { 
+                has_strategy = ai_strategy_industrial_expansion
+            }
+            add = 1
+        }
+    }
+}
+
+geothermal_energy = {
+	# Unlocks Geothermal Power Plant and pm_geothermal_power
+	era = era_5
+	texture = "gfx/interface/icons/invention_icons/geothermal_energy.dds"
+	category = production
+
+	unlocking_technologies = {
+		steam_turbine
+		verrier_modern_physics_tech
+	}
+
+	ai_weight = {
+		value = 1
+
+		if = {
+			limit = {
+				has_strategy = ai_strategy_industrial_expansion
+			}
+			add = 1
+		}
+	}
+}
+
+vacuum_distillation = {
+	# Unlocks heavy fuel and thermal cracking
+	era = era_5
+	texture = "gfx/interface/icons/invention_icons/vacuum_distillation.dds"
+	category = production
+	
+	unlocking_technologies = {
+		oil_turbine
+		oil_distillation
+	}
+
+	ai_weight = {
+		value = 1 # Important tech for modern economies
+		
+		if = {
+			limit = { 
+				OR = {
+					has_strategy = ai_strategy_industrial_expansion
+				}
+			}
+			add = 1
+		}
+	}
+}
+
+natural_gas_extraction = {
+	# Unlocks natural gas extraction
+	era = era_5
+	texture = "gfx/interface/icons/invention_icons/natural_gas_extraction.dds"
+	category = production
+	
+	unlocking_technologies = {
+		combustion_engine
+		geothermal_energy
+	}
+
+	modifier = {
+		building_group_bg_oil_extraction_throughput_add = 0.05
+	}
+	
+	ai_weight = {
+		value = 1 # Important tech for modern economies
+		
+		if = {
+			limit = { 
+				OR = {
+					has_strategy = ai_strategy_industrial_expansion
+				}
+			}
+			add = 1
+		}
+	}
+}
+
+kraft_recovery_process = {
+    # Permette di recuperare e riutilizzare i prodotti chimici nel processo di produzione della carta Kraft
+    era = era_5
+    texture = "gfx/interface/icons/invention_icons/kraft_recovery_process.dds"
+    category = production
+
+    unlocking_technologies = {
+        #polyethylene
+		offset_printing
+    }
+
+    modifier = {
+        # Riduce i consumi di sostanze chimiche nei metodi di produzione della carta
+        building_group_bg_paper_mills_throughput_add = 0.05
+    }
+
+    ai_weight = {
+		value = 1 # Important tech for modern economies
+		
+		if = {
+			limit = { 
+				OR = {
+					has_strategy = ai_strategy_industrial_expansion
+				}
+			}
+			add = 1
+		}
+	}
+}
+
+#ERA 6
+
+rare_earths = {
+	# Unlocks rare earth metals mining
+	era = era_6
+	texture = "gfx/interface/icons/invention_icons/rare_earths.dds"
+	category = production
+	
+	unlocking_technologies = {
+		silicon
+		thermal_cracking
+	}
+
+	ai_weight = {
+		value = 1
+	}
+}
+
+gas_turbine = {
+	# Unlocks gas turbine power plants
+	era = era_6
+	texture = "gfx/interface/icons/invention_icons/gas_turbine.dds"
+	category = production
+	
+	unlocking_technologies = {
+		oil_turbine
+		natural_gas_extraction
+	}
+
+	modifier = {
+		building_group_bg_power_throughput_add = 0.05
+		building_group_bg_natural_gas_extraction_throughput_add = 0.05
+	}
+	
+	ai_weight = {
+		value = 1 # Important tech for modern economies
+		
+		if = {
+			limit = { 
+				OR = {
+					has_strategy = ai_strategy_industrial_expansion
+				}
+			}
+			add = 1
+		}
+	}
+}
+
+green_revolution = {
+	# Introduce tecniche avanzate per migliorare la produzione agricola tramite ibridi di sementi, fertilizzanti e pesticidi chimici.
+	era = era_6
+	texture = "gfx/interface/icons/invention_icons/green_revolution.dds"
+	category = production
+	
+	unlocking_technologies = {	
+		mechanized_farming
+		nitrogen_fixation
+	}
+
+	modifier = {
+		building_group_bg_agriculture_throughput_add = 0.15
+	}
+	
+	ai_weight = {
+		value = 1
+		
+		if = {
+			limit = { 
+				OR = {
+					has_strategy = ai_strategy_agricultural_expansion
+					has_strategy = ai_strategy_plantation_economy
+				}
+			}
+			add = 1
+		}	
+	}
+}
+
+modern_tools = {
+    # Modern Tools
+    era = era_6
+    texture = "gfx/interface/icons/invention_icons/modern_tools.dds"
+    category = production
+
+    unlocking_technologies = {
+		polyethylene
+    }
+
+    # Peso AI
+    ai_weight = {
+        value = 1
+
+        if = {
+            limit = {
+                has_strategy = ai_strategy_industrial_expansion
+            }
+            add = 1
+        }
+    }
+}
+
+hydroponic_farming = {
+	# Introduce un metodo innovativo per coltivare piante senza suolo, utilizzando soluzioni nutrienti per aumentare la resa agricola.
+	era = era_7
+	texture = "gfx/interface/icons/invention_icons/hydroponic_farming.dds"
+	category = production
+	
+	unlocking_technologies = {	
+		green_revolution
+		modern_tools
+	}
+
+	ai_weight = {
+		value = 1
+		
+		if = {
+			limit = { 
+				OR = {
+					has_strategy = ai_strategy_agricultural_expansion
+					has_strategy = ai_strategy_plantation_economy
+				}
+			}
+			add = 1
+		}	
+	}
+}
+
+rudimental_home_appliances = {
+	# Unlocks Home Appliance Industry
+	# Unlocks Home Appliances PM in Textile Mills, Glassworks, and Steel Mills
+	era = era_6
+	texture = "gfx/interface/icons/invention_icons/rudimental_home_appliances.dds"
+	category = production
+
+	unlocking_technologies = {
+		bayer_process
+		flash_freezing
+		polyethylene
+	}
+	
+	modifier = {
+		
+	}
+	
+	ai_weight = {
+		value = 1 # Important tech for modern economies
+		
+		if = {
+			limit = { 
+				OR = {
+					has_strategy = ai_strategy_industrial_expansion
+				}
+			}
+			add = 1
+		}
+	}
+}
+
+semiconductor = {
+	# Unlocks semiconductor-based electronics, paving the way for integrated circuits
+    era = era_6
+    texture = "gfx/interface/icons/invention_icons/transistor.dds"
+    category = production
+
+	unlocking_technologies = {
+		silicon
+    }
+
+    ai_weight = {
+        value = 1
+        if = {
+            limit = { 
+                has_strategy = ai_strategy_industrial_expansion
+            }
+            add = 1
+        }
+    }
+}
+
+nuclear_reactor = {
+	# Unlocks pm nuclear reactor in Power plants
+	era = era_6
+	texture = "gfx/interface/icons/invention_icons/nuclear_reactor.dds"
+	category = production
+	
+	unlocking_technologies = {
+		verrier_nuclear_physics_tech
+	}
+	ai_weight = {
+		value = 1
+	}
+}
+
+thermal_cracking = {
+	# Unlocks light fuel for vehicles, pump in mines and catalytic cracking
+	era = era_6
+	texture = "gfx/interface/icons/invention_icons/thermal_cracking.dds"
+	category = production
+	
+	unlocking_technologies = {
+		compression_ignition
+		vacuum_distillation
+	}
+
+	ai_weight = {
+		value = 1 # Important tech for modern economies
+		
+		if = {
+			limit = { 
+				OR = {
+					has_strategy = ai_strategy_industrial_expansion
+				}
+			}
+			add = 1
+		}
+	}
+}
+
+cathode_tube = {
+	# Unlocks TV prod in electronic inds  Y
+	era = era_6
+	texture = "gfx/interface/icons/invention_icons/television.dds"
+	category = production
+
+	unlocking_technologies = {
+		alkaline_battery
+		rudimental_home_appliances
+	}
+	
+	ai_weight = {
+		value = 1 # Important tech for modern economies
+		
+		if = {
+			limit = { 
+				OR = {
+					has_strategy = ai_strategy_industrial_expansion
+				}
+			}
+			add = 1
+		}
+	}
+}
+
+supermarket = {
+	# Unlocks PM insulated packaging in Food Industry
+	era = era_6
+	texture = "gfx/interface/icons/invention_icons/supermarket.dds"
+	category = production
+	
+	unlocking_technologies = {
+		flash_freezing
+		dough_rollers
+		polyethylene
+	}
+
+	ai_weight = {
+		value = 1
+		if = {
+			limit = {
+				has_strategy = ai_strategy_industrial_expansion
+			}
+			add = 1
+		}
+	}
+}
+
+fast_food = {
+	# Unlocks PM fast food in Food Industry
+	era = era_6
+	texture = "gfx/interface/icons/invention_icons/fast_food.dds"
+	category = production
+	
+	unlocking_technologies = {
+		supermarket
+		dough_rollers
+	}
+
+	ai_weight = {
+		value = 1
+	}
+}
+
+elastomers = {
+	# Unlocks Stretchwear Production Methods and elastomer-based fabrics
+	era = era_6
+	texture = "gfx/interface/icons/invention_icons/elastomers.dds"
+	category = production
+
+	unlocking_technologies = {
+		synthetic_fibres
+		kraft_recovery_process
+	}
+
+	modifier = {
+		goods_output_automobiles_mult = 0.05
+	}
+
+	ai_weight = {
+		value = 1
+
+		if = {
+			limit = {
+				has_strategy = ai_strategy_industrial_expansion
+			}
+			add = 1
+		}
+	}
+}
+
+hdpe = {
+	# Unlocks PM Ziegler-Natta catalysts in PetrolChemical Industries
+	era = era_6
+	texture = "gfx/interface/icons/invention_icons/hdpe.dds"
+	category = production
+
+	unlocking_technologies = {
+		elastomers
+		gas_turbine
+	}
+
+	ai_weight = {
+		value = 1
+
+		if = {
+			limit = {
+				has_strategy = ai_strategy_industrial_expansion
+			}
+			add = 1
+		}
+	}
+}
+
+enhanced_cracking_distillation = {
+	# Unlocks PM enhanced cracking distillation in Oil Refineries
+	era = era_6
+	texture = "gfx/interface/icons/invention_icons/enhanced_cracking_distillation.dds"
+	category = production
+	
+	unlocking_technologies = {
+		thermal_cracking
+	}
+
+	ai_weight = {
+		value = 1 # Important tech for modern economies
+		
+		if = {
+			limit = { 
+				OR = {
+					has_strategy = ai_strategy_industrial_expansion
+				}
+			}
+			add = 1
+		}
+	}
+}
+
+direct_reduced_iron = {
+	# Unlocks sponge iron production method
+	era = era_6
+	texture = "gfx/interface/icons/invention_icons/direct_reduced_iron.dds"
+	category = production
+	
+	unlocking_technologies = {
+		arc_welding
+		natural_gas_extraction
+	}
+
+	ai_weight = {
+		value = 1 # Important tech for modern economies
+		
+		if = {
+			limit = { 
+				OR = {
+					has_strategy = ai_strategy_industrial_expansion
+				}
+			}
+			add = 1
+		}
+	}
+}
+
+mechanical_arms = {
+	# Unlocks PM mechanical arms in Steel Mills, Alloys, Glassworks and Motor Industries
+	era = era_6
+	texture = "gfx/interface/icons/invention_icons/mechanical_arms.dds"
+	category = production
+	
+	unlocking_technologies = {
+		modern_tools
+		semiconductor
+		vacuum_distillation
+	}
+
+	ai_weight = {
+		value = 1 # Important tech for modern economies
+		
+		if = {
+			limit = { 
+				OR = {
+					has_strategy = ai_strategy_industrial_expansion
+				}
+			}
+			add = 1
+		}
+	}
+}
+
+fast_modular_furniture = {
+	# Unlocks PM fast modular furniture in Glassworks
+	era = era_6
+	texture = "gfx/interface/icons/invention_icons/fast_modular_furniture.dds"
+	category = production
+	
+	unlocking_technologies = {
+		rudimental_home_appliances
+	}
+
+	ai_weight = {
+		value = 1
+	}
+}
+
+#ERA 7
+
+horizontal_drilling = {
+	# Unlocks PM horizontal drilling in Oil Refineries
+	era = era_7
+	texture = "gfx/interface/icons/invention_icons/horizontal_drilling.dds"
+	category = production
+	
+	unlocking_technologies = {
+		gas_turbine
+	}
+
+	ai_weight = {
+		value = 1 # Important tech for modern economies
+		
+		if = {
+			limit = { 
+				OR = {
+					has_strategy = ai_strategy_industrial_expansion
+				}
+			}
+			add = 1
+		}
+	}
+}
+
+photovoltaic_effect = {
+	era = era_7
+	texture = "gfx/interface/icons/invention_icons/photoelectric_effect.dds"
+	category = production
+
+	unlocking_technologies = {
+		semiconductor
+		verrier_astro_physics_tech
+	}
+
+	ai_weight = { value = 1 }
+}
+
+sea_water_desalination = {
+	# Unlocks PM sea water desalination in Power plants
+	era = era_7
+	texture = "gfx/interface/icons/invention_icons/sea_water_desalination.dds"
+	category = production
+	
+	unlocking_technologies = {
+		hdpe
+	}
+
+	ai_weight = {
+		value = 1
+		
+		if = {
+			limit = { 
+				OR = {
+					country_is_in_middle_east = yes
+					country_is_in_africa = yes
+					country_is_in_central_asia = yes
+				}
+			}
+			add = 2
+		}
+	}
+}
+
+advanced_electric_arc_processes = {
+	# Unlocks better iron production method
+	era = era_7
+	texture = "gfx/interface/icons/invention_icons/advanced_electric_arc_processes.dds"
+	category = production
+	
+	unlocking_technologies = {
+		direct_reduced_iron
+	}
+
+	ai_weight = {
+		value = 1 # Important tech for modern economies
+		
+		if = {
+			limit = { 
+				OR = {
+					has_strategy = ai_strategy_industrial_expansion
+				}
+			}
+			add = 1
+		}
+	}
+}
+
+second_nuclear_reactor = {
+	# Unlocks pm nuclear control room in Power plants
+	era = era_7
+	texture = "gfx/interface/icons/invention_icons/second_nuclear_reactor.dds"
+	category = production
+	
+	unlocking_technologies = {
+		nuclear_reactor
+		integrated_circuits
+	}
+
+	ai_weight = {
+		value = 1
+	}
+}
+
+home_delivery_networks = {
+	# Unlocks PM home delivery networks in Food Industry
+	era = era_7
+	texture = "gfx/interface/icons/invention_icons/home_delivery_networks.dds"
+	category = production
+
+	unlocking_technologies = {
+		modern_transport
+		fast_food
+	}
+
+	ai_weight = {
+		value = 1
+	}
+}
+
+modern_transport = {
+	# Unlocks modern cars for automovile insdustry
+	era = era_7
+	texture = "gfx/interface/icons/invention_icons/modern_transport.dds"
+	category = production
+	
+	unlocking_technologies = {
+		thermal_cracking
+		mechanical_arms
+	}
+
+	ai_weight = {
+		value = 1 # Important tech for modern economies
+		
+		if = {
+			limit = { 
+				OR = {
+					has_strategy = ai_strategy_industrial_expansion
+				}
+			}
+			add = 1
+		}
+	}
+}
+
+bullet_train_tech = {
+    # Modern Tools
+    era = era_7
+    texture = "gfx/interface/icons/invention_icons/bullet_train.dds"
+    category = production
+
+    unlocking_technologies = {
+		vikelas_streamliners_tech
+		mechanical_arms
+    }
+
+	ai_weight = {
+		value = 1
+	}
+
+}
+
+basic_home_appliances = {
+	# Fridge!
+	era = era_7
+	texture = "gfx/interface/icons/invention_icons/basic_home_appliances.dds"
+	category = production
+
+	unlocking_technologies = {
+		rudimental_home_appliances
+		mechanical_arms
+		hdpe
+		gas_turbine
+	}
+
+		ai_weight = {
+		value = 1
+	}
+}
+
+integrated_circuits = {
+	# The world will never become Fallout!.
+	era = era_7
+	texture = "gfx/interface/icons/invention_icons/integrated_circuits.dds"
+	category = production
+
+	unlocking_technologies = {
+		semiconductor
+	}
+
+	ai_weight = {
+		value = 1 # Important tech for modern economies
+		
+		if = {
+			limit = { 
+				OR = {
+					has_strategy = ai_strategy_industrial_expansion
+				}
+			}
+			add = 1
+		}
+	}
+}
+
+gas_liquefaction = {
+	# Unlocks PM gas liquefaction in Oil Refineries
+	era = era_7
+	texture = "gfx/interface/icons/invention_icons/gas_liquefaction.dds"
+	category = production
+	
+	unlocking_technologies = {
+		gas_turbine
+	}
+
+	ai_weight = {
+		value = 1 # Important tech for modern economies
+		
+		if = {
+			limit = { 
+				OR = {
+					has_strategy = ai_strategy_industrial_expansion
+				}
+			}
+			add = 1
+		}
+	}
+}
+
+fuel_cell_tech = {
+	era = era_7
+	texture = "gfx/interface/icons/invention_icons/fuel_cell_tech.dds"
+	category = production
+
+	unlocking_technologies = {
+		gas_turbine
+		photovoltaic_effect
+	}
+	
+	ai_weight = {
+		value = 1 # Important tech for modern economies
+		
+		if = {
+			limit = { 
+				OR = {
+					has_strategy = ai_strategy_industrial_expansion
+				}
+			}
+			add = 1
+		}
+	}
+}
+
+laser = {
+	era = era_7
+	texture = "gfx/interface/icons/invention_icons/laser.dds"
+	category = production
+
+	unlocking_technologies = {
+		semiconductor
+		cathode_tube
+	}
+
+	ai_weight = {
+		value = 1
+	}
+}
+
+computer = {
+	era = era_7
+	texture = "gfx/interface/icons/invention_icons/computer.dds"
+	category = production
+
+	unlocking_technologies = {
+		integrated_circuits
+	}
+
+	ai_weight = {
+		value = 1 # Important tech for modern economies
+		
+		if = {
+			limit = { 
+				OR = {
+					has_strategy = ai_strategy_industrial_expansion
+				}
+			}
+			add = 1
+		}
+	}
+}
+
+mechatronics = {
+	# Unlocks PM industrial robotics in Steel Mills, Alloys and Motor Industries
+	era = era_7
+	texture = "gfx/interface/icons/invention_icons/mechatronics.dds"
+	category = production
+	
+	unlocking_technologies = {
+		mechanical_arms
+		integrated_circuits
+		laser
+	}
+
+	ai_weight = {
+		value = 1 # Important tech for modern economies
+		
+		if = {
+			limit = { 
+				OR = {
+					has_strategy = ai_strategy_industrial_expansion
+				}
+			}
+			add = 1
+		}
+	}
+}
+
+tv_color = {
+	# Unlocks color TV prod in electronic inds
+	era = era_7
+	texture = "gfx/interface/icons/invention_icons/tv_color.dds"
+	category = production
+
+	unlocking_technologies = {
+		cathode_tube
+		integrated_circuits
+	}
+
+	ai_weight = {
+		value = 1 # Important tech for modern economies
+		
+		if = {
+			limit = { 
+				OR = {
+					has_strategy = ai_strategy_industrial_expansion
+				}
+			}
+			add = 1
+		}
+	}
+}
+
+rare_earths_advanced_purification = {
+	# Unlocks rare earth metals mining
+	era = era_7
+	texture = "gfx/interface/icons/invention_icons/rare_earths_advanced_purification.dds"
+	category = production
+	
+	unlocking_technologies = {
+		rare_earths
+		advanced_electric_arc_processes
+		advanced_mining
+	}
+
+	ai_weight = {
+		value = 1 # Important tech for modern economies
+		
+		if = {
+			limit = { 
+				OR = {
+					has_strategy = ai_strategy_industrial_expansion
+				}
+			}
+			add = 1
+		}
+	}
+}
+
+advanced_mining = {
+	# Unlocks advanced ores mining
+	era = era_7
+	texture = "gfx/interface/icons/invention_icons/advanced_mining_2.dds"
+	category = production
+	
+	unlocking_technologies = {
+		mechanical_arms
+		rare_earths
+	}
+
+	ai_weight = {
+		value = 1 # Important tech for modern economies
+		
+		if = {
+			limit = { 
+				OR = {
+					has_strategy = ai_strategy_industrial_expansion
+				}
+			}
+			add = 1
+		}
+	}
+}
+
+#ERA 8
+
+hydraulic_fracturing = {
+	# Unlocks PM hydraulic fracturing in Oil Refineries
+	era = era_8
+	texture = "gfx/interface/icons/invention_icons/hydraulic_fracturing.dds"
+	category = production
+	
+	unlocking_technologies = {
+		advanced_mining
+		horizontal_drilling
+		gas_liquefaction
+	}
+
+	ai_weight = {
+		value = 1 # Important tech for modern economies
+	}
+}
+
+optic_fibers = {
+    # Unlocks high-speed data transmission via optical fiber cables
+    era = era_8
+    texture = "gfx/interface/icons/invention_icons/optic_fibers.dds"
+    category = production
+
+    unlocking_technologies = {
+        laser
+        computer
+    }
+
+    ai_weight = {
+        value = 1
+        if = {
+            limit = {
+                has_strategy = ai_strategy_industrial_expansion
+            }
+            add = 1
+        }
+    }
+}
+
+acquafarm_systems = {
+	era = era_8
+	texture = "gfx/interface/icons/invention_icons/acquafarm_systems.dds"
+	category = production
+	
+	unlocking_technologies = {	
+		hydroponic_farming
+	}
+
+	ai_weight = {
+		value = 1
+		
+		if = {
+			limit = { 
+				OR = {
+					has_strategy = ai_strategy_agricultural_expansion
+					has_strategy = ai_strategy_plantation_economy
+				}
+			}
+			add = 1
+		}	
+	}
+}
+
+high_speed_rail_tech = {
+    # Modern Tools
+    era = era_8
+    texture = "gfx/interface/icons/invention_icons/high_speed_rail_tech.dds"
+    category = production
+
+    unlocking_technologies = {
+		bullet_train_tech
+		fuel_cell_tech
+    }
+
+	ai_weight = {
+		value = 1
+	}
+
+}
+
+micro_processors = {
+	# The world will never become Fallout!.
+	era = era_8
+	texture = "gfx/interface/icons/invention_icons/micro_processors.dds"
+	category = production
+
+	unlocking_technologies = {
+		integrated_circuits
+		mechatronics
+	}
+
+	ai_weight = {
+		value = 1 # Important tech for modern economies
+		
+		if = {
+			limit = { 
+				OR = {
+					has_strategy = ai_strategy_industrial_expansion
+				}
+			}
+			add = 1
+		}
+	}
+}
+
+cnc_control = {
+	era = era_8
+	texture = "gfx/interface/icons/invention_icons/cnc_control.dds"
+	category = production
+
+	unlocking_technologies = {
+		mechatronics
+		computer
+	}
+
+	ai_weight = {
+		value = 1
+	}
+}
+
+user_interface = {
+	era = era_8
+	texture = "gfx/interface/icons/invention_icons/user_interface.dds"
+	category = production
+
+	modifier = {
+	}
+
+	unlocking_technologies = {
+		computer
+		tv_color
+	}
+
+	ai_weight = {
+		value = 1
+	}
+}
+
+personal_computer = {
+	era = era_8
+	texture = "gfx/interface/icons/invention_icons/personal_computer.dds"
+	category = production
+
+	unlocking_technologies = {
+		user_interface
+		micro_processors
+	}
+
+	ai_weight = {
+		value = 1
+	}
+}
+
+wind_turbines = {
+	era = era_8
+	texture = "gfx/interface/icons/invention_icons/wind_turbines.dds"
+	category = production
+
+	unlocking_technologies = {
+		fuel_cell_tech
+		photovoltaic_effect
+	}
+
+	ai_weight = { value = 1 }
+}
+
+hybrid_vehicles = {
+	era = era_8
+	texture = "gfx/interface/icons/invention_icons/hybrid_vehicles.dds"
+	category = production
+
+	unlocking_technologies = {
+		wind_turbines
+		modern_transport
+		high_speed_rail_tech
+	}
+
+	modifier = {
+	}
+
+	ai_weight = {
+		value = 1
+	}
+}
+
+embedded_control_systems = {
+	era = era_8
+	texture = "gfx/interface/icons/invention_icons/embedded_control_systems.dds"
+	category = production
+
+	unlocking_technologies = {
+		micro_processors
+		high_speed_rail_tech
+	}
+
+	modifier = {
+	}
+
+	ai_weight = {
+		value = 1
+	}
+}
+
+# ERA 9
+
+mobile_devices = {
+	era = era_9
+	texture = "gfx/interface/icons/invention_icons/mobile_devices.dds"
+	category = production
+
+	unlocking_technologies = {
+		user_interface
+		micro_processors
+		optic_fibers
+	}
+
+	modifier = {
+	}
+
+	ai_weight = {
+		value = 1
+	}
+}
+
+smart_vehicles = {
+	era = era_9
+	texture = "gfx/interface/icons/invention_icons/smart_vehicles.dds"
+	category = production
+
+	unlocking_technologies = {
+		hybrid_vehicles
+		parallel_computing_architecture
+	}
+
+	modifier = {
+	}
+
+	ai_weight = {
+		value = 1
+	}
+}
+
+lithium_battery = {
+	era = era_9
+	texture = "gfx/interface/icons/invention_icons/lithium_battery.dds"
+	category = production
+
+	unlocking_technologies = {
+		wind_turbines
+		micro_processors
+		rare_earths_advanced_purification
+	}
+
+	modifier = {
+	}
+
+	ai_weight = {
+		value = 1
+	}
+}
+
+high_definition_television = {
+	era = era_9
+	# Unlocks PM HD television in electronic industry and computer
+	texture = "gfx/interface/icons/invention_icons/high_definition_television.dds"
+	category = production
+  
+	unlocking_technologies = {
+		user_interface
+		high_speed_rail_tech
+	}
+  }
+
+parallel_computing_architecture = {
+	era = era_9
+	# Unlocks multicore processors
+	texture = "gfx/interface/icons/invention_icons/parallel_computing_architecture.dds"
+	category = production
+
+	unlocking_technologies = {
+		micro_processors
+		embedded_control_systems
+	}
+
+	modifier = {
+	}
+
+	ai_weight = {
+		value = 1
+	}
+}
+
+# Era 10
+
+smartphones = {
+	era = era_10
+	texture = "gfx/interface/icons/invention_icons/smartphones.dds"
+	category = production
+
+	unlocking_technologies = {
+		mobile_devices
+		personal_computer
+		lithium_battery
+	}
+
+	modifier = {
+	}
+
+	ai_weight = {
+		value = 1
+	}
+}
+
+advanced_personal_computer = {
+	era = era_10
+	texture = "gfx/interface/icons/invention_icons/advanced_personal_computer.dds"
+	category = production
+
+	unlocking_technologies = {
+		personal_computer
+		parallel_computing_architecture
+	}
+
+	modifier = {
+	}
+
+	ai_weight = {
+		value = 1
+	}
+}
+
+smart_television = {
+	era = era_10
+	# Unlocks PM HD television in electronic industry
+	texture = "gfx/interface/icons/invention_icons/smart_television.dds"
+	category = production
+  
+	unlocking_technologies = {
+		high_definition_television
+		smartphones
+	}
+  }
+
+advanced_solar_panels = {
+	era = era_10
+	texture = "gfx/interface/icons/invention_icons/solar_panels.dds"
+	category = production
+
+	unlocking_technologies = {
+		lithium_battery
+	}
+
+	ai_weight = { value = 1 }
+}
+
+smart_energy_grid = {
+	era = era_10
+	texture = "gfx/interface/icons/invention_icons/smart_energy_grid.dds"
+	category = production
+
+	unlocking_technologies = {
+		parallel_computing_architecture
+		advanced_solar_panels
+	}
+
+	modifier = {
+		building_power_plant_throughput_add = 0.1
+	}
+
+	ai_weight = { value = 1 }
+}
+
+electric_vehicles = {
+	era = era_10
+	texture = "gfx/interface/icons/invention_icons/electric_vehicles.dds"
+	category = production
+
+	unlocking_technologies = {
+		lithium_battery
+		smart_vehicles
+		advanced_solar_panels
+	}
+
+	ai_weight = { value = 1 }
+}

@@ -1,0 +1,927 @@
+namespace = irish_independence
+
+#Irish independence ending
+
+irish_independence.1 = {
+	dlc = dlc_tech_res
+	type = country_event
+	placement = root
+
+	duration = 1
+
+	title = irish_independence.1.t
+	desc = irish_independence.1.d
+
+	event_image = {
+		video = "europenorthamerica_political_extremism"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	icon = "gfx/interface/icons/event_icons/waving_flag_ireland.dds"
+
+	trigger = {
+		#JE irish_independence
+	}
+
+	immediate = {
+		
+	}
+
+	# Anglo-Irish Peaceful Treaty ending
+	option = {
+		name = irish_independence.1.a
+		default_option = yes
+		if = {
+			limit = {
+				NOT = {
+				exists = c:IRE
+				}
+			}
+			create_country = {
+				tag = IRE
+				origin = this
+				state = s:STATE_LEINSTER.region_state:GBR
+				on_created = {
+					set_country_type = recognized
+					activate_law = law_type:law_parliamentary_republic
+					activate_law = law_type:law_universal_suffrage
+					activate_law = law_type:law_right_of_assembly
+					activate_law = law_type:law_free_trade
+					activate_law = law_type:law_guaranteed_liberties
+				}
+			}
+		}
+		s:STATE_CONNAUGHT.region_state:GBR = {
+			set_state_owner = c:IRE
+		}
+		s:STATE_MUNSTER.region_state:GBR = {
+			set_state_owner = c:IRE
+		}
+		c:GBR = {
+			set_variable = {
+				name = good_friday_agreement_modifier_var
+				value = 1
+			}
+		}
+		c:IRE = {
+			change_relations = {
+				country = c:GBR
+				value = 50
+			}
+			set_variable = {
+				name = good_friday_agreement_modifier_var
+				value = 1
+			}
+		}
+		ai_chance = {
+			base = 60
+			}
+	}
+
+	# Give up all Ireland as vassal
+	option = {
+		name = irish_independence.1.b
+		change_infamy = -10
+		if = {
+			limit = {
+				NOT = {
+				exists = c:IRE
+				}
+			}
+			create_country = {
+				tag = IRE
+				origin = this
+				state = s:STATE_LEINSTER.region_state:GBR
+				on_created = {
+					set_country_type = recognized
+					activate_law = law_type:law_parliamentary_republic
+					activate_law = law_type:law_universal_suffrage
+					activate_law = law_type:law_right_of_assembly
+					activate_law = law_type:law_free_trade
+					activate_law = law_type:law_guaranteed_liberties
+				}
+			}
+		}
+		s:STATE_CONNAUGHT.region_state:GBR = {
+			set_state_owner = c:IRE
+		}
+		s:STATE_MUNSTER.region_state:GBR = {
+			set_state_owner = c:IRE
+		}
+		s:STATE_ULSTER.region_state:GBR = {
+			set_state_owner = c:IRE
+		}
+		c:GBR = {
+			create_diplomatic_pact = {
+					country = c:IRE
+					type = dominion
+				}
+		}
+		ai_chance = {
+			base = 0
+			modifier = {
+				trigger = {
+					NOT = { has_technology_researched = decolonization }
+				}
+				add = 20
+			}
+		}
+	}
+
+	# Give up all Ireland ending
+	option = {
+		name = irish_independence.1.c
+		change_infamy = -10
+		if = {
+			limit = {
+				NOT = {
+				exists = c:IRE
+				}
+			}
+			create_country = {
+				tag = IRE
+				origin = this
+				state = s:STATE_LEINSTER.region_state:GBR
+				on_created = {
+					set_country_type = recognized
+					activate_law = law_type:law_parliamentary_republic
+					activate_law = law_type:law_universal_suffrage
+					activate_law = law_type:law_right_of_assembly
+					activate_law = law_type:law_free_trade
+					activate_law = law_type:law_guaranteed_liberties
+				}
+			}
+		}
+		s:STATE_CONNAUGHT.region_state:GBR = {
+			set_state_owner = c:IRE
+		}
+		s:STATE_MUNSTER.region_state:GBR = {
+			set_state_owner = c:IRE
+		}
+		s:STATE_ULSTER.region_state:GBR = {
+			set_state_owner = c:IRE
+		}
+		c:IRE = {
+			change_relations = {
+				country = c:GBR
+				value = 100
+			}
+		}
+		ai_chance = {
+			base = 0
+			modifier = {
+				trigger = {
+					NOT = { country_rank = rank_value:great_power}
+				}
+				add = 100
+			}
+		}
+	}
+
+	# War between UK and Ireland ending
+	option = {
+		name = irish_independence.1.e
+		hidden_effect = {
+			change_infamy = -50
+		}
+		if = {
+			limit = {
+				NOT = {
+				exists = c:IRE
+				}
+			}
+			create_country = {
+				tag = IRE
+				origin = this
+				state = s:STATE_LEINSTER.region_state:GBR
+				on_created = {
+					set_country_type = recognized
+					activate_law = law_type:law_parliamentary_republic
+					activate_law = law_type:law_universal_suffrage
+					activate_law = law_type:law_right_of_assembly
+					activate_law = law_type:law_free_trade
+					activate_law = law_type:law_guaranteed_liberties
+				}
+			}
+		}
+		s:STATE_CONNAUGHT.region_state:GBR = {
+			set_state_owner = c:IRE
+		}
+		s:STATE_MUNSTER.region_state:GBR = {
+			set_state_owner = c:IRE
+		}
+		s:STATE_ULSTER.region_state:GBR = {
+			set_state_owner = c:IRE
+		}
+		c:GBR = {
+			change_relations = {
+				country = c:IRE
+				value = -50
+			}
+			create_diplomatic_play = {
+			target_country = c:IRE
+			type = dp_annex_war
+			}
+			hidden_effect = {
+				change_infamy = -2000
+			}
+		}
+		ai_chance = {
+			base = 0
+			modifier = {
+				trigger = {
+					OR = {
+						has_law = law_type:law_autocracy
+						has_law = law_type:law_ethnostate
+						has_law = law_type:law_council_republic
+					}
+				}
+				add = 100
+			}
+		}
+	}
+}
+
+#UK maintains control over Ireland ending
+
+irish_independence.2 = {
+	dlc = dlc_tech_res
+	type = country_event
+	placement = root
+
+	duration = 1
+
+	title = irish_independence.2.t
+	desc = irish_independence.2.d
+
+	event_image = {
+		video = "europenorthamerica_political_extremism"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	icon = "gfx/interface/icons/event_icons/waving_flag_ireland.dds"
+
+	trigger = {
+		#JE irish_independence
+	}
+
+	immediate = {
+		
+	}
+
+	option = {
+		name = irish_independence.2.a
+		default_option = yes
+		c:GBR = {
+			add_modifier = {
+				name = union_consolidated_modifier
+				months = 60 #5 years
+			}
+		}
+		s:STATE_CONNAUGHT.region_state:GBR = {
+			set_state_type = incorporated
+		}
+		s:STATE_MUNSTER.region_state:GBR = {
+			set_state_type = incorporated
+		}
+		s:STATE_ULSTER.region_state:GBR = {
+			set_state_type = incorporated
+		}
+		s:STATE_LEINSTER.region_state:GBR = {
+			set_state_type = incorporated
+		}
+	}
+}
+
+# Gaelic Renaissance generic event
+irish_independence.3 = {
+	dlc = dlc_tech_res
+	type = country_event
+	placement = root
+
+	duration = 1
+
+	title = irish_independence.3.t
+	desc = irish_independence.3.d
+
+	event_image = {
+		video = "europenorthamerica_political_extremism"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	icon = "gfx/interface/icons/event_icons/waving_flag_ireland.dds"
+
+	trigger = {
+		year < 1935
+		NOT = { has_global_variable = gaelic_reinassance_var }
+		#JE irish_independence
+	}
+
+	immediate = {
+        set_global_variable = {
+            name = gaelic_reinassance_var
+            value = 0
+        }
+	}
+
+	option = {
+		name = irish_independence.3.a
+		default_option = yes
+		if = {
+			limit = {
+				s:STATE_LEINSTER = {
+				any_scope_state = {
+						owner = ROOT
+					}
+				}
+			}
+			s:STATE_LEINSTER.region_state:GBR = {
+				add_modifier = {
+					name = void_of_law
+					months = 120 #10 years
+				}
+				add_radicals_in_state = {
+					value = medium_radicals
+					pop_type = laborers
+				}
+			}
+		}
+		if = {
+			limit = {
+				s:STATE_CONNAUGHT = {
+				any_scope_state = {
+						owner = ROOT
+					}
+				}
+			}
+			s:STATE_CONNAUGHT.region_state:GBR = {
+				add_modifier = {
+					name = void_of_law
+					months = 120 #10 years
+				}
+				add_radicals_in_state = {
+					value = medium_radicals
+					pop_type = laborers
+				}
+			}
+		}
+		if = {
+			limit = {
+				s:STATE_MUNSTER = {
+				any_scope_state = {
+						owner = ROOT
+					}
+				}
+			}
+			s:STATE_MUNSTER.region_state:GBR = {
+				add_modifier = {
+					name = void_of_law
+					months = 120 #10 years
+				}
+				add_radicals_in_state = {
+					value = medium_radicals
+					pop_type = laborers
+				}
+			}
+		}
+		change_variable = {
+			name = irish_independence_var
+			add = 10
+		}
+		ai_chance = {
+			base = 70
+		}
+	}
+
+	option = {
+		name = irish_independence.3.b
+		trigger = {
+			OR = {
+				has_law = law_type:law_outlawed_dissent
+				has_law = law_type:law_censorship
+				has_law = law_type:law_secret_police
+			}	
+		}
+		add_treasury = -600000 #40K for 5 years
+		if = {
+			limit = {
+				s:STATE_LEINSTER = {
+				any_scope_state = {
+						owner = ROOT
+					}
+				}
+			}
+			s:STATE_LEINSTER.region_state:GBR = {
+				add_modifier = {
+					name = void_of_law
+					months = 36 #3 years
+				}
+			}
+		}
+		if = {
+			limit = {
+				s:STATE_CONNAUGHT = {
+				any_scope_state = {
+						owner = ROOT
+					}
+				}
+			}
+			s:STATE_CONNAUGHT.region_state:GBR = {
+				add_modifier = {
+					name = void_of_law
+					months = 36 #3 years
+				}
+			}
+		}
+		if = {
+			limit = {
+				s:STATE_MUNSTER = {
+				any_scope_state = {
+						owner = ROOT
+					}
+				}
+			}
+			s:STATE_MUNSTER.region_state:GBR = {
+				add_modifier = {
+					name = void_of_law
+					months = 36 #3 years
+				}
+			}
+		}
+		ai_chance = {
+			base = 30
+		}
+	}
+}
+
+# Anglo-Irish diplomatic pact
+
+irish_independence.4 = {
+	dlc = dlc_tech_res
+	type = country_event
+	placement = root
+
+	duration = 1
+
+	title = irish_independence.4.t
+	desc = irish_independence.4.d
+
+	event_image = {
+		video = "europenorthamerica_political_extremism"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	icon = "gfx/interface/icons/event_icons/waving_flag_ireland.dds"
+
+	trigger = {
+		irish_independence_var > 30
+		#JE irish_independence
+		NOT = { has_global_variable = anglo_irish_diplomatic_pact }
+	}
+
+	immediate = {
+		set_global_variable = {
+			name = anglo_irish_diplomatic_pact
+			value = 0
+		}
+	}
+
+	option = {
+		name = irish_independence.4.a
+		default_option = yes
+		add_treasury = -2400000 #400K for 5 years
+		if = {
+			limit = {
+				s:STATE_LEINSTER = {
+				any_scope_state = {
+						owner = ROOT
+					}
+				}
+			}
+			s:STATE_LEINSTER.region_state:GBR = {
+				add_modifier = {
+					name = anglo_irish_pact_modifier
+					months = 60 #5 years
+				}
+			}
+		}
+		if = {
+			limit = {
+				s:STATE_CONNAUGHT = {
+				any_scope_state = {
+						owner = ROOT
+					}
+				}
+			}
+			s:STATE_CONNAUGHT.region_state:GBR = {
+				add_modifier = {
+					name = anglo_irish_pact_modifier
+					months = 60 #5 years
+				}
+			}
+		}
+		if = {
+			limit = {
+				s:STATE_MUNSTER = {
+				any_scope_state = {
+						owner = ROOT
+					}
+				}
+			}
+			s:STATE_MUNSTER.region_state:GBR = {
+				add_modifier = {
+					name = anglo_irish_pact_modifier
+					months = 60 #5 years
+				}
+			}
+		}
+		if = {
+			limit = {
+				s:STATE_ULSTER = {
+				any_scope_state = {
+						owner = ROOT
+					}
+				}
+			}
+			s:STATE_ULSTER.region_state:GBR = {
+				add_modifier = {
+					name = anglo_irish_pact_modifier
+					months = 60 #5 years
+				}
+			}
+		}
+		change_variable = {
+			name = irish_independence_var
+			subtract = 10
+		}
+		change_global_variable = {
+			name = anglo_irish_diplomatic_pact
+			value = 1
+		}
+	}
+
+	option = {
+		name = irish_independence.4.b
+		trigger = {
+			OR = {
+				has_law = law_type:law_secret_police
+				AND = {
+					has_technology_researched = mass_propaganda
+					has_law = law_type:law_censorship
+				}
+			}
+		}
+		if = {
+			limit = {
+				s:STATE_LEINSTER = {
+				any_scope_state = {
+						owner = ROOT
+					}
+				}
+			}
+			s:STATE_LEINSTER.region_state:GBR = {
+				add_modifier = {
+					name = anglo_irish_false_pact_modifier
+					months = 60 #5 years
+				}
+			}
+		}
+		if = {
+			limit = {
+				s:STATE_CONNAUGHT = {
+				any_scope_state = {
+						owner = ROOT
+					}
+				}
+			}
+			s:STATE_CONNAUGHT.region_state:GBR = {
+				add_modifier = {
+					name = anglo_irish_false_pact_modifier
+					months = 60 #5 years
+				}
+			}
+		}
+		if = {
+			limit = {
+				s:STATE_MUNSTER = {
+				any_scope_state = {
+						owner = ROOT
+					}
+				}
+			}
+			s:STATE_MUNSTER.region_state:GBR = {
+				add_modifier = {
+					name = anglo_irish_false_pact_modifier
+					months = 60 #5 years
+				}
+			}
+		}
+		if = {
+			limit = {
+				s:STATE_ULSTER = {
+				any_scope_state = {
+						owner = ROOT
+					}
+				}
+			}
+			s:STATE_ULSTER.region_state:GBR = {
+				add_modifier = {
+					name = anglo_irish_false_pact_modifier
+					months = 60 #5 years
+				}
+			}
+		}
+		change_variable = {
+			name = irish_independence_var
+			add = 5
+		}
+	}
+}
+
+# Bloody Sunday event
+
+irish_independence.5 = {
+	dlc = dlc_tech_res
+	type = country_event
+	placement = root
+
+	duration = 1
+
+	title = irish_independence.5.t
+	desc = irish_independence.5.d
+
+	event_image = {
+		video = "europenorthamerica_political_extremism"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	icon = "gfx/interface/icons/event_icons/waving_flag_ireland.dds"
+
+	trigger = {
+		#JE irish_independence
+		NOT = { has_global_variable = bloody_sunday_var }
+		OR = {
+			s:STATE_LEINSTER = {
+				any_scope_state = {
+					owner = ROOT
+					turmoil > 0.1
+				}
+			}
+			s:STATE_ULSTER = {
+				any_scope_state = {
+					owner = ROOT
+					turmoil > 0.1
+				}
+			}
+		}
+	}
+
+	immediate = {
+		set_global_variable = {
+			name = bloody_sunday_var
+			value = 0
+		}
+	}
+
+	option = {
+		name = irish_independence.5.a
+		default_option = yes
+		if = {
+			limit = {
+				s:STATE_LEINSTER = {
+				any_scope_state = {
+						owner = ROOT
+					}
+				}
+			}
+			random_scope_state = {
+				limit = {
+					state_region = s:STATE_LEINSTER
+				}
+				add_modifier = {
+					name = bloody_sunday_modifier
+					months = 12 #1 year
+				}
+				add_radicals_in_state = {
+					value = medium_radicals
+					pop_type = laborers
+				}
+				kill_population_percent_in_state = {
+					percent = 0.05
+					pop_type = soldiers
+				}
+				kill_population_percent_in_state = {
+					percent = 0.05
+					pop_type = academics
+				}
+				kill_population_percent_in_state = {
+					percent = 0.05
+					pop_type = laborers
+				}
+				state_region = {
+					add_devastation = 30 
+				}
+			}
+		}
+		if = {
+			limit = {
+				s:STATE_ULSTER = {
+				any_scope_state = {
+						owner = ROOT
+					}
+				}
+			}
+			random_scope_state = {
+				limit = {
+					state_region = s:STATE_ULSTER
+				}
+				add_modifier = {
+					name = bloody_sunday_modifier
+					months = 12 #1 year
+				}
+				add_radicals_in_state = {
+					value = medium_radicals
+					pop_type = laborers
+				}
+				kill_population_percent_in_state = {
+					percent = 0.02
+					pop_type = soldiers
+				}
+				kill_population_percent_in_state = {
+					percent = 0.02
+					pop_type = academics
+				}
+				kill_population_percent_in_state = {
+					percent = 0.02
+					pop_type = laborers
+				}
+				state_region = {
+					add_devastation = 30 
+				}
+			}
+		}
+		change_variable = {
+			name = irish_independence_var
+			add = 15
+		}
+	}
+}
+
+# Good Friday Agreement event
+irish_independence.6 = {
+	dlc = dlc_tech_res
+	type = country_event
+	placement = root
+
+	duration = 1
+
+	title = irish_independence.6.t
+	desc = irish_independence.6.d
+
+	event_image = {
+		video = "europenorthamerica_political_extremism"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	icon = "gfx/interface/icons/event_icons/waving_flag_ireland.dds"
+
+	trigger = {
+		year > 1980
+		c:GBR ?= root
+		c:GBR = {
+			exists = yes
+			has_variable = good_friday_agreement_modifier_var
+		}
+		c:IRE = {
+			exists = yes
+			has_variable = good_friday_agreement_modifier_var
+		}
+		#Good Friday Agreement
+		any_scope_state = {
+			state_region = s:STATE_ULSTER
+			owner = c:GBR
+			any_scope_pop = {
+                culture = cu:irish
+				percent > 0.4
+            }
+		}
+	}
+
+	immediate = {
+		
+	}
+
+	option = {
+		name = irish_independence.6.a
+		default_option = yes
+		change_infamy = -5
+		c:IRE = {
+			add_modifier = good_friday_agreement_modifier
+			change_relations = {
+				country = c:GBR
+				value = 50
+			}
+		}
+		c:GBR = {
+			add_modifier = good_friday_agreement_modifier
+			change_relations = {
+				country = c:IRE
+				value = 50
+			}
+		}	
+	}
+}
+
+# Good Friday Agreement attuation
+irish_independence.7 = {
+	dlc = dlc_tech_res
+	type = country_event
+	placement = root
+
+	duration = 1
+
+	title = irish_independence.7.t
+	desc = irish_independence.7.d
+
+	event_image = {
+		video = "europenorthamerica_political_extremism"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	icon = "gfx/interface/icons/event_icons/waving_flag_ireland.dds"
+
+	trigger = {
+		# triggered by good_friday_agreement_decision
+	}
+
+	immediate = {
+		
+	}
+
+	option = {
+		name = irish_independence.7.a
+		default_option = yes
+		change_infamy = -5
+		c:IRE = {
+			remove_modifier = good_friday_agreement_modifier
+			change_relations = {
+				country = c:GBR
+				value = 100
+			}
+		}
+		c:GBR = {
+			remove_modifier = good_friday_agreement_modifier
+			change_relations = {
+				country = c:IRE
+				value = 100
+			}
+		}
+		if = {
+			limit = {
+				s:STATE_ULSTER = {
+					any_scope_state = {
+						owner = c:GBR
+						}
+				}
+			}
+			s:STATE_ULSTER = {
+				random_scope_state = {
+					limit = {
+						owner = root
+					}
+				set_state_owner = c:IRE
+				}
+			}
+		}
+		ai_chance = {
+			base = 1
+		}
+	}
+
+	option = {
+		name = irish_independence.7.b
+		default_option = yes
+		change_infamy = 10
+		c:IRE = {
+			remove_modifier = good_friday_agreement_modifier
+			change_relations = {
+				country = c:GBR
+				value = +200
+			}
+		}
+		c:GBR = {
+			remove_modifier = good_friday_agreement_modifier
+			change_relations = {
+				country = c:IRE
+				value = -200
+			}
+		}
+		s:STATE_ULSTER = {
+			add_claim = c:IRE
+		}
+	}
+}

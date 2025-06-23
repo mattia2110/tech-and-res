@@ -1,0 +1,61 @@
+﻿
+get_state_gdp_per = {
+	value = gdp
+	divide = state_population
+}
+
+get_country_gdp_per = {
+	value = gdp
+	divide = total_population
+}
+
+get_global_gdp_per = {
+	value = global_gdp
+	divide = global_population
+}
+
+get_country_state_relative_value = {
+		value = get_state_gdp_per
+		subtract = owner.get_country_gdp_per
+}
+
+get_global_state_relative_value = {
+		value = get_state_gdp_per
+		subtract = get_global_gdp_per
+}
+
+# faked GDP values
+linear_interpolated_growth = {
+	value = {
+		value = 15 # Max Increase
+		min = 1 # Min value
+	}
+	divide = {
+		value = 2000 # End Date
+		subtract = 1836 # Start Date
+	}
+	multiply = {
+		value = year # Year
+		subtract = 1836 # Start Year
+
+	}
+	min = 1
+	max = 15
+}
+
+ztr_gdp_with_inflation = {
+	value = gdp
+	multiply = linear_interpolated_growth
+	max = 90000000000000
+}
+
+ztr_gdp_per_capita = {
+	value = ztr_gdp_with_inflation
+	divide = total_population
+}
+
+global_population_sv = {
+	every_country = {
+		add = total_population
+	}
+}

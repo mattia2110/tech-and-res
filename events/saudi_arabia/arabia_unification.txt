@@ -1,0 +1,151 @@
+namespace = arabia_unification
+
+arabia_unification.1 = {
+	dlc = dlc_tech_res
+	type = country_event
+	placement = ROOT
+
+	title = arabia_unification.1.t
+	desc = arabia_unification.1.d
+
+	event_image = {
+		video = "middleeast_courtroom_upheaval"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	icon = "gfx/interface/icons/event_icons/event_military.dds"
+
+	duration = 1
+
+	trigger = {
+		#JE
+	}
+
+	immediate = {
+		
+	}
+
+	option = {
+		name = arabia_unification.1.a
+		default_option = yes
+		add_modifier = {
+			name = arabia_renaissance_modifier
+			months = 600 #50 years
+		}
+		hidden_effect = {
+			if = {
+				limit = {
+					NOT = { has_technology_researched = pumpjacks }
+				}
+				add_technology_researched = pumpjacks
+			}
+		}
+		s:STATE_NEJD.region_state:NEJ = {
+			create_building = {
+				building = building_oil_rig
+				add_ownership={
+					country={
+						country=c:NEJ
+						levels = 5
+					}
+				}
+				reserves = 1
+			}
+		}
+	}
+
+	# option = {
+	# 	name = arabia_unification.1.b
+	# 	default_option = yes
+	# 	add_modifier = {
+	# 		name = arabia_foundamentalist_vision
+	# 		months = 600 #50 years
+	# 	}
+	# 	ai_chance = {
+	# 		base = 20
+	# 	}
+	# }
+}
+
+arabia_unification.2 = {
+	dlc = dlc_tech_res
+	type = country_event
+	placement = ROOT
+
+	title = arabia_unification.2.t
+	desc = arabia_unification.2.d
+
+	event_image = {
+		video = "middleeast_upperclass_party"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	icon = "gfx/interface/icons/event_icons/event_newspaper.dds"
+
+	duration = 1
+
+	trigger = {
+		any_state = {
+			state_region = s:STATE_HAIL
+			owner = {
+				this = c:JAB
+				is_ai = yes
+			}
+		}
+	}
+
+	immediate = {
+		c:JAB = {
+			save_scope_as = jab_scope
+		}
+	}
+
+	option = {
+		name = arabia_unification.2.a
+		default_option = yes
+		annex_with_incorporation = scope:jab_scope
+	}
+}
+
+arabia_unification.3 = {
+	dlc = dlc_tech_res
+	type = country_event
+	placement = ROOT
+
+	title = arabia_unification.3.t
+	desc = arabia_unification.3.d
+
+	event_image = {
+		video = "middleeast_upperclass_party"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	icon = "gfx/interface/icons/event_icons/event_newspaper.dds"
+
+	duration = 1
+
+	trigger = {
+		any_state = {
+			state_region = s:STATE_HEDJAZ
+			owner = {
+				this = c:HDJ
+				is_ai = yes
+			}
+		}
+	}
+
+	immediate = {
+		c:HDJ = {
+			save_scope_as = hedjaz_scope
+		}
+	}
+
+	option = {
+		name = arabia_unification.2.a
+		default_option = yes
+		annex_with_incorporation = scope:hedjaz_scope
+	}
+}

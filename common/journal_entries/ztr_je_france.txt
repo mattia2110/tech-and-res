@@ -1,0 +1,121 @@
+# Journal Entries for population
+
+je_france_pop = {
+	icon = "gfx/interface/icons/event_icons/waving_flag_france.dds"
+
+	group = je_group_historical_content
+
+	immediate = {
+		set_variable = {
+			name = france_pop_var
+			value = 0
+		}
+	}
+
+	on_yearly_pulse = {
+		effect = {
+			# Give 1 point if there is a capital with an urban center with healthcare. (Medium for AI)
+			if = {
+				limit = { 
+					capital = {
+						any_scope_building = {
+							is_building_type = building_urban_center
+							NOT = { has_active_production_method = pm_no_healtcare	}		
+						}
+					}
+				}
+				change_variable = {
+				name = france_pop_var
+				add = 1
+				}
+			}
+			# Give 1 point if each state with an urban center with healthcare. (Hard for AI)
+			if = {
+				limit = { 
+					any_scope_state = {
+						filter = {
+							is_incorporated = yes
+						}
+						any_scope_building = {
+							is_building_type = building_urban_center
+							NOT = { has_active_production_method = pm_no_healtcare	}		
+						}
+					}
+				}
+				change_variable = {
+				name = france_pop_var
+				add = 1
+				}
+			}
+			# Give 2 points if country has researched penicillin or antibiotics. (Easy for AI)
+			if = {
+				limit = { 
+					has_technology_researched = penicillin
+				}
+				change_variable = {
+				name = france_pop_var
+				add = 1
+				}
+			}
+			if = {
+				limit = { 
+					has_technology_researched = antibiotics
+				}
+				change_variable = {
+				name = france_pop_var
+				add = 1
+				}
+			}
+			# Give 1 point if country has public or private health insurance. (Medium for AI)
+			if = {
+				limit = {
+					OR = {
+						has_law = law_type:law_public_health_insurance
+						has_law = law_type:law_private_health_insurance
+					}
+				}
+				change_variable = {
+				name = france_pop_var
+				add = 1
+				}
+			}
+		}
+	}
+
+	# It starts to be seen as a problem around 1880
+	is_shown_when_inactive = {
+        exists = c:FRA
+        THIS = c:FRA
+		has_technology_researched = modern_sewerage
+    }
+
+	# Resolution of the problem is possible around 1910
+	possible = {
+		exists = c:FRA
+        THIS = c:FRA
+        has_technology_researched = central_planning
+	}
+
+	complete = {
+		scope:journal_entry = { is_goal_complete = yes }
+	}
+
+	on_complete = {
+		remove_modifier = historical_population_of_france_1
+		trigger_event = { id = france_pop.2 }
+	}
+
+	current_value = {
+		value = var:france_pop_var
+	}
+
+	# We can obtain max 5 points per year, and a min of 1/2 after antibiotics. Completion will take between 8 to 40 years depending on progress.
+	goal_add_value = {
+		value = 40
+	}
+
+	progressbar = yes
+
+	weight = 10
+	should_be_pinned_by_default = yes
+}

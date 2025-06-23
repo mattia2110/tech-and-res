@@ -1,0 +1,77 @@
+namespace = france_pop
+
+france_pop.1 = {
+	dlc = dlc_tech_res
+	type = country_event
+	placement = root
+
+	duration = 1
+
+	title = france_pop.1.t
+	desc = france_pop.1.d
+
+	event_image = {
+		video = "unspecific_world_fair"
+	}
+
+	icon = "gfx/interface/icons/event_icons/event_newspaper.dds"
+
+	trigger = {
+		c:FRA ?= root
+		NOT = { has_modifier = historical_population_of_france_1}
+		NOT = { has_modifier = historical_population_of_france_2}
+	}
+
+	immediate = {
+
+	}
+
+	option = {
+		name = france_pop.1.a
+		default_option = yes
+		hidden_effect = {
+			remove_modifier = historical_population_of_france_1
+		}
+		add_modifier = {
+			name = historical_population_of_france_1
+		}
+	}
+}
+
+france_pop.2 = {
+	dlc = dlc_tech_res
+	type = country_event
+	placement = root
+
+	duration = 1
+
+	title = france_pop.2.t
+	desc = france_pop.2.d
+
+	event_image = {
+		video = "unspecific_world_fair"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	icon = "gfx/interface/icons/event_icons/event_newspaper.dds"
+
+	trigger = {
+		# JE
+	}
+
+	immediate = {
+
+	}
+
+	option = {
+		name = france_pop.2.a
+		default_option = yes
+		hidden_effect = {
+			remove_modifier = historical_population_of_france_2
+		}
+		add_modifier = {
+			name = historical_population_of_france_2
+		}
+	}
+}

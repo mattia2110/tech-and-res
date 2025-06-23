@@ -1,0 +1,600 @@
+﻿# Era 1
+
+# Era 2
+
+# Era 3
+
+# Era 4
+
+# Era 5
+
+modern_warplanes = {
+	# boosts warplanes production
+	# requires aluminium
+	era = era_5
+	texture = "gfx/interface/icons/invention_icons/modern_warplanes.dds"
+	category = military
+	
+	modifier = {
+		# increased oil consumption
+		# increased recon/scouting/go fast
+	}
+	
+	unlocking_technologies = {	
+		military_aviation
+		curtiss_seaplanes_tech
+	}
+	
+	ai_weight = {
+		value = 1
+	}
+}
+
+military_encryption = {
+	# Unlocks Military Encryption
+	era = era_5
+	texture = "gfx/interface/icons/invention_icons/military_encryption.dds"
+	category = military
+	
+	modifier = {
+		unit_convoy_raiding_interception_mult = 0.05
+		unit_convoy_raiding_mult = 0.05
+		unit_combat_unit_type_submarine_offense_mult = 0.1
+		military_formation_organization_gain_mult = 0.05
+	}
+	
+	unlocking_technologies = {	
+		agassiz_sounding_tech
+	}
+	
+	ai_weight = {
+		value = 1
+	}
+}
+
+# Era 6
+
+mechanized_infantry = {
+	era = era_6
+	texture = "gfx/interface/icons/invention_icons/mechanized_infantry.dds"
+	category = military
+	modifier = {
+		military_formation_mobilization_speed_mult = 0.05
+		military_formation_attrition_risk_mult = -0.05
+	}
+	unlocking_technologies = {
+		mobile_armor
+	}
+	ai_weight = { 
+		value = 1 
+	}
+}
+
+blitzkrieg = {
+	# Unlocks Combined Arms Doctrine and faster offensive PMs
+	era = era_6
+	texture = "gfx/interface/icons/invention_icons/blitzkrieg.dds"
+	category = military
+	
+	modifier = {
+		unit_combat_unit_type_modern_mechanized_infantry_offense_add = 5
+	}
+	
+	unlocking_technologies = {
+		stormtroopers
+		mechanized_infantry
+	}
+	
+	ai_weight = {
+		value = 1
+		if = {
+			limit = { 
+				OR = {
+					c:GER ?= ROOT
+				}
+			}
+			add = 2 #Blitzkrieg
+		}
+		if = {
+			limit = { 
+				OR = {
+					c:USA ?= ROOT
+					c:RUS ?= ROOT
+					c:GBR ?= ROOT
+				}
+			}
+			add = 1
+		}
+	}
+}
+
+amphibious_warfare = {
+	# Unlocks Amphibious Warfare
+	era = era_6
+	texture = "gfx/interface/icons/invention_icons/amphibious_warfare.dds"
+	category = military
+	
+	modifier = {
+		military_formation_mobilization_speed_mult = 0.05
+		unit_advancement_speed_mult = 0.10
+		military_formation_attrition_risk_mult = -0.05
+	}
+	
+	unlocking_technologies = {	
+		stormtroopers
+		landing_craft
+		carrier_tech
+	}
+	
+	ai_weight = {
+		value = 1
+	}
+}
+
+air_support = {
+	# Unlocks direct air support in mobilization
+	era = era_6
+	texture = "gfx/interface/icons/invention_icons/air_support.dds"
+	category = military
+	
+	modifier = {
+		# increased oil consumption
+		# increased recon/scouting/go fast
+	}
+	
+	unlocking_technologies = {	
+		modern_warplanes
+	}
+	
+	ai_weight = {
+		value = 1
+	}
+}
+
+rocketery = {
+	# Unlocks Rocket artillery
+	# Unlocks Astronautics
+	era = era_6
+	texture = "gfx/interface/icons/invention_icons/rocketery.dds"
+	category = military
+	
+	modifier = {
+		# increased oil consumption
+		# increased recon/scouting/go fast
+	}
+	
+	unlocking_technologies = {	
+		modern_warplanes
+	}
+	
+	ai_weight = {
+		value = 1
+	}
+}
+
+manhattan_project = {
+	# Unlocks Nuclear Weapons
+	era = era_6
+	texture = "gfx/interface/icons/invention_icons/manhattan_project.dds"
+	category = military
+	
+	modifier = {
+		# increased oil consumption
+		# increased recon/scouting/go fast
+	}
+	
+	unlocking_technologies = {	
+		flamethrowers
+		chemical_warfare
+		stormtroopers
+		military_encryption
+	}
+	
+	ai_weight = {
+		value = 1
+	}
+}
+
+bombing = {
+	# Unlocks Bombing
+	era = era_6
+	texture = "gfx/interface/icons/invention_icons/bombing.dds"
+	category = military
+	
+	modifier = {
+		unit_kill_rate_add = 0.05
+		unit_devastation_mult = -0.1
+	}
+	
+	unlocking_technologies = {	
+		modern_warplanes
+	}
+	
+	ai_weight = {
+		value = 1
+	}
+}
+
+paratroopers = {
+	# Unlocks Paratroopers
+	era = era_6
+	texture = "gfx/interface/icons/invention_icons/paratroopers.dds"
+	category = military
+	
+	modifier = {
+		# increased oil consumption
+		# increased recon/scouting/go fast
+	}
+	
+	unlocking_technologies = {	
+		stormtroopers
+		modern_warplanes
+	}
+	
+	ai_weight = {
+		value = 1
+	}
+}
+
+advanced_harbor_facilities = { #Cargo Ship to add
+	era = era_6
+	texture = "gfx/interface/icons/invention_icons/advanced_harbor_facilities.dds"
+	category = military
+	modifier = {
+	}
+
+	unlocking_technologies = {	
+		agassiz_sounding_tech
+		concrete_dockyards
+	}
+	ai_weight = {
+		value = 1
+	}
+}
+
+atomic_bomb = {
+	# unlocks atomic bomb
+	era = era_6
+	texture = "gfx/interface/icons/invention_icons/atomic_bomb.dds"
+	category = military
+	
+	unlocking_technologies = {	
+		manhattan_project
+		bombing
+	}
+	
+	ai_weight = {
+		value = 1 # AI will not use this
+	}
+}
+
+# Era 7
+
+main_battle_tank = {
+	# unlocks main battle tank
+	era = era_7
+	texture = "gfx/interface/icons/invention_icons/main_battle_tank.dds"
+	category = military
+
+	modifier = {
+		country_military_wages_mult = 0.20
+		unit_kill_rate_add = -0.15
+	}
+	
+	unlocking_technologies = {	
+		blitzkrieg
+	}
+	
+	ai_weight = {
+		value = 1
+	}
+}
+
+naval_logistic_automation = {
+	era = era_7
+	texture = "gfx/interface/icons/invention_icons/naval_logistics_automation.dds"
+	category = military
+	modifier = {
+		country_prestige_from_navy_power_projection_mult = 0.2
+	}
+
+	unlocking_technologies = {	
+		carrier_tech
+		advanced_harbor_facilities
+		battlefleet_tactics
+	}
+	ai_weight = {
+		value = 1
+	}
+}
+
+integrated_naval_air_tactics = {
+	# unlocks integrated naval air doctrine
+	era = era_7
+	texture = "gfx/interface/icons/invention_icons/integrated_naval_air_tactics.dds"
+	category = military
+
+	modifier = {
+		unit_convoy_defense_mult = 0.2
+		unit_combat_unit_type_carrier_offense_mult = 0.2
+	}
+	
+	unlocking_technologies = {	
+		naval_logistic_automation
+		supersonic_aviation
+	}
+	
+	ai_weight = {
+		value = 1
+	}
+}
+
+modern_naval_doctrine = {
+	# unlocks modern naval doctrine
+	era = era_7
+	texture = "gfx/interface/icons/invention_icons/modern_naval_doctrine.dds"
+	category = military
+
+	modifier = {
+		unit_navy_defense_mult = 0.2
+		country_prestige_from_navy_power_projection_mult = 0.2
+	}
+	
+	unlocking_technologies = {	
+		
+		naval_logistic_automation
+	}
+	
+	ai_weight = {
+		value = 1
+	}
+}
+
+helicopters = {
+	# unlocks helicopters
+	era = era_7
+	texture = "gfx/interface/icons/invention_icons/helicopters.dds"
+	category = military
+
+	modifier = {
+		
+	}
+	
+	unlocking_technologies = {	
+		air_support
+		paratroopers
+	}
+	
+	ai_weight = {
+		value = 1
+	}
+}
+
+jet_aviation = {
+	# unlocks jet aviation
+	era = era_6
+	texture = "gfx/interface/icons/invention_icons/jet_aviation.dds"
+	category = military
+	
+	unlocking_technologies = {	
+		modern_warplanes
+		curtiss_modern_aviation_tech
+	}
+	
+	ai_weight = {
+		value = 1
+	}
+}
+
+composite_armor = {
+	# unlocks composite armor
+	era = era_7
+	texture = "gfx/interface/icons/invention_icons/composite_armor.dds"
+	category = military
+
+	modifier = {
+		unit_combat_unit_type_modern_light_tanks_offense_mult = 0.05
+		unit_combat_unit_type_modern_heavy_tank_offense_mult = 0.05
+		unit_combat_unit_type_main_battle_tanks_offense_mult = 0.15
+		unit_army_defense_mult = 0.1
+	}
+	
+	unlocking_technologies = {	
+		main_battle_tank
+	}
+	
+	ai_weight = {
+		value = 1
+	}
+}
+
+radar = {
+	# unlocks radar
+	era = era_7
+	texture = "gfx/interface/icons/invention_icons/radar.dds"
+	category = military
+
+	modifier = {
+		unit_convoy_defense_mult = 0.1
+		unit_combat_unit_type_submarine_offense_mult = 0.1
+		unit_devastation_mult = -0.1
+	}
+	
+	unlocking_technologies = {	
+		bombing
+		military_encryption
+	}
+	
+	ai_weight = {
+		value = 1
+	}
+}
+
+nuclear_submarine = {
+	# unlocks nuclear submarine
+	era = era_7
+	texture = "gfx/interface/icons/invention_icons/nuclear_submarine.dds"
+	category = military
+	
+	unlocking_technologies = {	
+		manhattan_project
+		rocketery
+		radar
+	}
+	
+	ai_weight = {
+		value = 1
+	}
+}
+
+guided_missiles = {
+	# unlocks guided missiles
+	era = era_7
+	texture = "gfx/interface/icons/invention_icons/guided_missiles.dds"
+	category = military
+	
+	unlocking_technologies = {	
+		rocketery
+	}
+	
+	ai_weight = {
+		value = 1
+	}
+}
+
+satellites = {
+	# unlocks satellites
+	era = era_7
+	texture = "gfx/interface/icons/invention_icons/satellites.dds"
+	category = military
+	
+	unlocking_technologies = {	
+		guided_missiles
+		radar
+	}
+	
+	ai_weight = {
+		value = 1
+	}
+}
+
+# Era 8
+
+high_performance_apparel = {
+	# unlocks high performance apparel
+	era = era_8
+	texture = "gfx/interface/icons/invention_icons/high_performance_apparel.dds"
+	category = military
+
+	modifier = {
+		country_military_wages_mult = 0.10
+		unit_kill_rate_add = -0.2
+		unit_army_offense_mult = 0.2
+		unit_army_defense_mult = 0.2
+	}
+	
+	unlocking_technologies = {	
+		composite_armor
+		amphibious_warfare
+	}
+	
+	ai_weight = {
+		value = 1
+	}
+}
+
+astronautics = {
+	# prestige bonus
+	# unlocks Spaceport
+	era = era_8
+	texture = "gfx/interface/icons/invention_icons/astronautics.dds"
+	category = military
+	
+	modifier = {
+		country_prestige_mult = 0.1
+	}
+	
+	unlocking_technologies = {	
+		satellites
+		high_performance_apparel
+		guided_missiles
+	}
+	
+	ai_weight = {
+		value = 1
+	}
+}
+
+laser_guided_weapons = {
+	# unlocks laser guided weapons
+	era = era_8
+	texture = "gfx/interface/icons/invention_icons/laser_guided_weapons.dds"
+	category = military
+
+	modifier = {
+		country_military_wages_mult = 0.10
+		unit_army_offense_mult = 0.1
+		unit_devastation_mult = -0.1
+	}
+	
+	unlocking_technologies = {	
+		guided_missiles
+	}
+	
+	ai_weight = {
+		value = 1
+	}
+}
+
+supersonic_aviation = {
+	# unlocks supersonic aviation
+	era = era_7
+	texture = "gfx/interface/icons/invention_icons/supersonic_aviation.dds"
+	category = military
+	
+	unlocking_technologies = {	
+		jet_aviation
+	}
+	
+	ai_weight = {
+		value = 1
+	}
+}
+
+awacs = {
+	# unlocks AWACS
+	era = era_8
+	texture = "gfx/interface/icons/invention_icons/awacs.dds"
+	category = military
+	
+	unlocking_technologies = {	
+		radar
+		jet_aviation
+	}
+	
+	ai_weight = {
+		value = 1
+	}
+}
+
+stealth_technology = {
+	# unlocks stealth technology
+	era = era_8
+	texture = "gfx/interface/icons/invention_icons/stealth_technology.dds"
+	category = military
+
+	modifier = {
+		country_military_wages_mult = 0.10
+		unit_convoy_raiding_mult = 0.05
+	}
+	
+	unlocking_technologies = {	
+		awacs
+		supersonic_aviation
+		nuclear_submarine
+	}
+	
+	ai_weight = {
+		value = 1
+	}
+}

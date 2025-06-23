@@ -1,0 +1,290 @@
+# Era 1
+
+elgar_classicism_tech = {
+	# Unlocks Opera House
+	# Unlocks Early romantic orchestra for opera
+
+	era = era_1
+	texture = "gfx/interface/icons/invention_icons/elgar_classicism_tech.dds"
+	category = society
+	
+	unlocking_technologies = {
+		academia
+	}
+
+	ai_weight = {
+		value = 1.5 # Important tech in general
+		
+		if = {
+			limit = { has_journal_entry = je_sick_man_army }
+			add = 5
+		}
+	}
+}
+
+# Era 2
+
+elgar_irrationalism_tech = {
+	# Unlocks Mid-romantic orchestra for opera
+	era = era_2
+	texture = "gfx/interface/icons/invention_icons/elgar_irrationalism_tech.dds" #Created with DALL-E
+	category = society
+	
+	unlocking_technologies = {
+		romanticism
+	}
+
+	ai_weight = {
+		value = 1.5
+		
+		if = {
+			limit = { 
+				OR = {
+					country_has_primary_culture = cu:south_german
+					country_has_primary_culture = cu:north_german
+				} 
+			}
+			add = 5
+		}
+	}
+}
+
+pharmaceuticals = {
+	# Morgenröte: Needs Vaccination
+	# Increases the ratio of pop casualties that survive a battle
+	era = era_2
+	texture = "gfx/interface/icons/invention_icons/pharmaceuticals.dds"
+	category = society
+	
+	modifier = {
+		country_institution_health_system_max_investment_add = 1
+	}
+	
+	unlocking_technologies = {
+		panum_vaccination_tech #Morgenröte: Added Tech
+	}
+	
+	ai_weight = {
+		value = 1
+	}
+}
+
+romanticism = {
+	# Unlocks Arts Academy building
+	# Unlocks Greener Grass Campaign Decree
+	# Unlocks Agrarianism - Economic System Law
+	# Unlocks early romantic orchestra for Opera
+	era = era_2 #Morgenröte: changed from Era 1
+	texture = "gfx/interface/icons/invention_icons/romanticism.dds"
+	category = society
+	
+	unlocking_technologies = {
+		elgar_classicism_tech #Morgenröte: changed from academia
+	}
+
+	ai_weight = {
+		value = 3 # Very important in general
+	}
+}
+
+modern_sewerage = {
+	era = era_2
+	texture = "gfx/interface/icons/invention_icons/modern_sewerage.dds"
+	category = society
+	
+	modifier = {
+		state_infrastructure_from_population_add = 1
+		state_infrastructure_from_population_max_add = 20
+		state_building_construction_sector_max_level_add = 5
+		country_max_weekly_construction_progress_add = 5
+		state_pollution_reduction_health_mult = -0.1
+		state_harvest_condition_flood_impact_mult = -0.1
+		state_harvest_condition_panum_cholera_condition_impact_mult = -0.25 #Morgenröte: Added Modifier
+	}
+	
+	unlocking_technologies = {
+		urban_planning
+	}
+	
+	ai_weight = {
+		value = 1.5 # Important in general
+	}
+}
+
+# Era 3
+
+theiler_microbiology_tech = {
+	# 
+	era = era_3
+	texture = "gfx/interface/icons/invention_icons/theiler_microbiology_tech.dds"
+	category = society
+
+	unlocking_technologies = {
+		quinine
+	}
+
+	modifier = {
+		building_food_industry_throughput_add = 0.1
+	}
+
+	ai_weight = {
+		value = 1
+	}
+}
+
+dubois_theory_of_evolution_tech = {
+
+	era = era_3
+	texture = "gfx/interface/icons/invention_icons/dubois_theory_of_evolution_tech.dds"
+	category = society
+	
+	unlocking_technologies = {
+		dialectics
+		pharmaceuticals
+	}
+
+	ai_weight = {
+		value = 1
+		if = {
+			limit = { 
+				c:GBR ?= this #Darwin
+			}
+			add = 1
+		}
+	}
+}
+
+dubois_nature_protection_tech = {
+	#Unlocks National Park
+
+	era = era_3
+	texture = "gfx/interface/icons/invention_icons/dubois_nature_protection.dds"
+	category = society
+
+	modifier = {
+		goods_output_wood_mult = 0.1
+		goods_output_hardwood_mult = 0.1
+	}
+	
+	unlocking_technologies = {
+		dubois_theory_of_evolution_tech
+	}
+
+	ai_weight = {
+		value = 1
+	}
+}
+
+# Era 4
+
+organized_sports = {
+	era = era_4 #Morgenröte: changed from Era 2
+	texture = "gfx/interface/icons/invention_icons/organized_sports.dds"
+	category = society
+	
+	modifier = {
+		#Morgenröte: Removed Prestige
+	}
+	
+	unlocking_technologies = {
+		pan-nationalism #Morgenröte: changed from nationalism
+	}
+
+	ai_weight = {
+		value = 1
+
+		#Morgenröte: added this part
+		if = {
+			limit = { 
+				exists = c:FRA
+				c:FRA = ROOT 
+			}
+			add = 1 #Pierre de Coubertin
+		}
+
+		if = {
+			limit = { 
+				exists = c:GRE
+				c:GRE = ROOT 
+			}
+			add = 1 #Greece should at least try to host the Games
+		}
+	}
+}
+
+malaria_prevention = {
+	# Should permit for colonization of state regions with severe malaria
+	era = era_4
+	texture = "gfx/interface/icons/invention_icons/malaria_prevention.dds"
+	category = society
+
+	modifier = {
+		country_institution_colonial_affairs_max_investment_add = 1
+		state_harvest_condition_panum_yellow_fever_condition_impact_mult = -0.25 #Morgenröte: Added Modifier
+	}
+	
+	unlocking_technologies = {
+		civilizing_mission
+		theiler_microbiology_tech #Morgenröte: Added Tech
+	}
+	
+	ai_weight = {
+		value = 1
+		
+		# Important for colonizers
+		if = {
+			limit = { 
+				navy_size >= 25
+				is_country_type = recognized
+			}
+			add = 1
+		}
+		if = {
+			limit = { 
+				has_strategy = ai_strategy_colonial_expansion
+			}
+			add = 1
+		}			
+	}
+}
+
+elgar_modern_art_tech = {
+
+	era = era_4
+	texture = "gfx/interface/icons/invention_icons/elgar_modern_art_tech.dds"
+	category = society
+
+	unlocking_technologies = {
+		civilizing_mission
+	}
+
+	ai_weight = {
+		value = 1 #Should not research
+	}
+
+}
+
+# Era 5
+
+elgar_mass_culture_tech = {
+	# Unlocks late romantic orchestra for opera
+	# Jazz events
+	era = era_5
+	texture = "gfx/interface/icons/invention_icons/elgar_mass_culture_tech.dds"
+	category = society
+	
+	unlocking_technologies = {
+		elgar_modern_art_tech
+		silent_cinema
+	}
+
+	ai_weight = {
+		value = 1 #Should not research
+	}
+}
+
+# Era 6
+
+# Era 7
+
+# Era 8

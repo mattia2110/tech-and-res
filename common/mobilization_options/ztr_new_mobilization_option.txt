@@ -1,0 +1,746 @@
+﻿# Direct Air Support
+
+mobilization_option_close_air_support = {
+	texture = "gfx/interface/icons/mobilization_options/aerial_reconaissance_direct_support.dds"
+
+	possible = {
+		scope:military_formation = {
+			NOR = {
+				has_mobilization_option = mobilization_option:mobilization_option_supersonic_close_air_support
+			}
+		}
+		market ?= {
+			mg:aeroplanes ?= {
+				market_goods_sell_orders > 0
+			}
+			mg:light_fuel ?= {
+				market_goods_sell_orders > 0
+			}
+		}
+	}
+	
+	on_activate_while_mobilized = {
+		custom_tooltip = {
+			text = mobilization_option_it_hurts_organization_when_you_adjust_equipment_tt
+			add_organization = {
+				value = organization
+				multiply = -0.5
+			}
+		}
+	}
+	
+	on_deactivate = {
+		custom_tooltip = {
+			text = mobilization_option_it_hurts_organization_when_you_adjust_equipment_tt
+			add_organization = {
+				value = organization
+				multiply = -0.5
+			}
+		}
+	}
+	
+	unlocking_technologies = {
+		air_support
+	}
+	upkeep_modifier = {
+		goods_input_aeroplanes_add = 3
+		goods_input_light_fuel_add = 1
+	}
+	unit_modifier = {
+		unit_offense_mult = 0.15
+		unit_occupation_mult = 0.15
+	}
+	ai_weight = {
+		value = 1
+	}
+
+	group = air_support
+}
+
+mobilization_option_supersonic_close_air_support = {
+	texture = "gfx/interface/icons/mobilization_options/aerial_reconaissance_supersonic_direct_support.dds"
+
+	possible = {
+		scope:military_formation = {
+			NOR = {
+				has_mobilization_option = mobilization_option:mobilization_option_close_air_support
+			}
+		}
+		market ?= {
+			mg:aeroplanes ?= {
+				market_goods_sell_orders > 0
+			}
+			mg:light_fuel ?= {
+				market_goods_sell_orders > 0
+			}
+		}
+	}
+	
+	on_activate_while_mobilized = {
+		custom_tooltip = {
+			text = mobilization_option_it_hurts_organization_when_you_adjust_equipment_tt
+			add_organization = {
+				value = organization
+				multiply = -0.5
+			}
+		}
+	}
+	
+	on_deactivate = {
+		custom_tooltip = {
+			text = mobilization_option_it_hurts_organization_when_you_adjust_equipment_tt
+			add_organization = {
+				value = organization
+				multiply = -0.5
+			}
+		}
+	}
+	
+	unlocking_technologies = {
+		supersonic_aviation
+	}
+	upkeep_modifier = {
+		goods_input_aeroplanes_add = 5
+		goods_input_light_fuel_add = 1
+	}
+	unit_modifier = {
+		unit_offense_mult = 0.25
+		unit_occupation_mult = 0.25
+	}
+	ai_weight = {
+		value = 1
+	}
+
+	group = air_support
+}
+
+# Indirect Air Support
+
+mobilization_option_indirect_air_support = {
+	texture = "gfx/interface/icons/mobilization_options/aerial_reconaissance_indirect_support.dds"
+
+	possible = {
+		scope:military_formation = {
+			NOR = {
+				has_mobilization_option = mobilization_option:mobilization_option_supersonic_indirect_air_support
+			}
+		}
+		market ?= {
+			mg:aeroplanes ?= {
+				market_goods_sell_orders > 0
+			}
+			mg:light_fuel ?= {
+				market_goods_sell_orders > 0
+			}
+		}
+	}
+	
+	on_activate_while_mobilized = {
+		custom_tooltip = {
+			text = mobilization_option_it_hurts_organization_when_you_adjust_equipment_tt
+			add_organization = {
+				value = organization
+				multiply = -0.5
+			}
+		}
+	}
+	
+	on_deactivate = {
+		custom_tooltip = {
+			text = mobilization_option_it_hurts_organization_when_you_adjust_equipment_tt
+			add_organization = {
+				value = organization
+				multiply = -0.5
+			}
+		}
+	}
+	
+	unlocking_technologies = {
+		bombing
+	}
+	upkeep_modifier = {
+		goods_input_aeroplanes_add = 2
+		goods_input_light_fuel_add = 2
+	}
+	unit_modifier = {
+		unit_occupation_mult = 0.25
+		unit_kill_rate_add = 0.05
+		unit_devastation_mult = 0.5
+	}
+	ai_weight = {
+		value = 1
+	}
+
+	group = air_support
+}
+
+mobilization_option_supersonic_indirect_air_support = {
+	texture = "gfx/interface/icons/mobilization_options/aerial_reconaissance_supersonic_indirect_support.dds"
+
+	possible = {
+		scope:military_formation = {
+			NOR = {
+				has_mobilization_option = mobilization_option:mobilization_option_indirect_air_support
+			}
+		}
+		market ?= {
+			mg:aeroplanes ?= {
+				market_goods_sell_orders > 0
+			}
+			mg:light_fuel ?= {
+				market_goods_sell_orders > 0
+			}
+		}
+	}
+	
+	on_activate_while_mobilized = {
+		custom_tooltip = {
+			text = mobilization_option_it_hurts_organization_when_you_adjust_equipment_tt
+			add_organization = {
+				value = organization
+				multiply = -0.5
+			}
+		}
+	}
+	
+	on_deactivate = {
+		custom_tooltip = {
+			text = mobilization_option_it_hurts_organization_when_you_adjust_equipment_tt
+			add_organization = {
+				value = organization
+				multiply = -0.5
+			}
+		}
+	}
+	
+	unlocking_technologies = {
+		stealth_technology
+	}
+	upkeep_modifier = {
+		goods_input_aeroplanes_add = 4
+		goods_input_light_fuel_add = 4
+	}
+	unit_modifier = {
+		unit_occupation_mult = 0.5
+		unit_kill_rate_add = 0.05
+		unit_devastation_mult = 0.5
+	}
+	ai_weight = {
+		value = 1
+	}
+
+	group = air_support
+}
+
+# Special Weapons
+
+mobilization_option_paratroopers = {
+	texture = "gfx/interface/icons/mobilization_options/paratroopers.dds"
+
+	possible = {
+		market ?= {
+			mg:aeroplanes ?= {
+				market_goods_sell_orders > 0
+			}
+			mg:fabric ?= {
+				market_goods_sell_orders > 0
+			}
+			mg:light_fuel ?= {
+				market_goods_sell_orders > 0
+			}
+		}
+	}
+	
+	on_activate_while_mobilized = {
+		custom_tooltip = {
+			text = mobilization_option_it_hurts_organization_when_you_adjust_equipment_tt
+			add_organization = {
+				value = organization
+				multiply = -0.3
+			}
+		}
+	}
+	
+	on_deactivate = {
+		custom_tooltip = {
+			text = mobilization_option_it_hurts_organization_when_you_adjust_equipment_tt
+			add_organization = {
+				value = organization
+				multiply = -0.3
+			}
+		}
+	}
+	
+	unlocking_technologies = {
+		paratroopers
+	}
+	upkeep_modifier = {
+		goods_input_aeroplanes_add = 0.5
+		goods_input_fabric_add = 0.5
+		goods_input_light_fuel_add = 0.5
+	}
+	unit_modifier = {
+		unit_offense_mult = 0.1
+		character_battle_condition_rapid_advance_mult = 0.25
+	}
+	ai_weight = {
+		value = 1
+	}
+
+	group = special_weapons
+}
+
+# Medical Support
+
+mobilization_option_penicillin_medical_support = {
+	texture = "gfx/interface/icons/mobilization_options/penicillin_medical_support.dds"
+
+	unlocking_technologies = {
+		penicillin
+	}
+	possible = {
+		scope:military_formation = {
+			NOR = {
+				has_mobilization_option = mobilization_option:mobilization_option_first_aid
+				has_mobilization_option = mobilization_option:mobilization_option_field_hospitals
+			}
+		}
+		market ?= {
+			mg:pharmaceuticals ?= {
+				market_goods_sell_orders > 0
+			}
+			mg:fabric ?= {
+				market_goods_sell_orders > 0
+			}
+			mg:tools ?= {
+				market_goods_sell_orders > 0
+			}
+			mg:electroniccomponents ?= {
+				market_goods_sell_orders > 0
+			}
+			mg:water ?= {
+				market_goods_sell_orders > 0
+			}
+		}
+	}
+	on_activate_while_mobilized = {
+		custom_tooltip = {
+			text = mobilization_option_it_hurts_organization_to_add_medic_support_tt
+			add_organization = {
+				value = organization
+				multiply = -0.25
+			}
+		}
+	}
+	
+	on_deactivate = {
+		custom_tooltip = {
+			text = mobilization_option_it_hurts_morale_and_organization_when_you_remove_medic_support_tt
+			every_combat_unit = {
+				add_morale = {
+					value = morale
+					multiply = -0.5
+				}
+			}
+			add_organization = {
+				value = organization
+				multiply = -0.25
+			}
+		}
+	}
+	upkeep_modifier = {
+		goods_input_pharmaceuticals_add = 5
+		goods_input_electroniccomponents_add = 0.5
+		goods_input_fabric_add = 1
+		goods_input_tools_add = 1
+		goods_input_water_add = 1
+	}
+	unit_modifier = {
+		unit_recovery_rate_add = 0.60	
+	}
+	ai_weight = {
+		value = 1
+	}
+
+    group = medic_support
+}
+
+# Tactical Weapons
+
+mobilization_option_rocket_artillery = {
+	texture = "gfx/interface/icons/mobilization_options/rocket_artillery.dds"
+
+	possible = {
+		scope:military_formation = {
+			NOR = {
+				has_mobilization_option = mobilization_option:mobilization_option_nuclear_artillery
+				has_mobilization_option = mobilization_option:mobilization_option_guided_missiles
+			}
+		}
+		market ?= {
+			mg:artillery ?= {
+				market_goods_sell_orders > 0
+			}
+			mg:missiles ?= {
+				market_goods_sell_orders > 0
+			}
+			mg:light_fuel ?= {
+				market_goods_sell_orders > 0
+			}
+		}
+	}
+	
+	on_activate_while_mobilized = {
+		custom_tooltip = {
+			text = mobilization_option_it_hurts_organization_when_you_adjust_equipment_tt
+			add_organization = {
+				value = organization
+				multiply = -0.3
+			}
+		}
+	}
+	
+	on_deactivate = {
+		custom_tooltip = {
+			text = mobilization_option_it_hurts_organization_when_you_adjust_equipment_tt
+			add_organization = {
+				value = organization
+				multiply = -0.3
+			}
+		}
+	}
+	
+	unlocking_technologies = {
+		rocketery
+	}
+	upkeep_modifier = {
+		goods_input_artillery_add = 2
+		goods_input_missiles_add = 2
+		goods_input_light_fuel_add = 1
+	}
+	unit_modifier = {
+		unit_offense_mult = 0.10
+		unit_kill_rate_add = 0.05
+		unit_devastation_mult = 0.10	
+	}
+	ai_weight = {
+		value = 1
+	}
+
+	group = tactical_weapons
+}
+
+mobilization_option_nuclear_artillery = {
+	texture = "gfx/interface/icons/mobilization_options/chemical_weapons.dds"
+
+	possible = {
+		scope:military_formation = {
+			NOR = {
+				has_mobilization_option = mobilization_option:mobilization_option_rocket_artillery
+				has_mobilization_option = mobilization_option:mobilization_option_guided_missiles
+			}
+		}
+		market ?= {
+			mg:artillery ?= {
+				market_goods_sell_orders > 0
+			}
+			mg:good_uranium ?= {
+				market_goods_sell_orders > 0
+			}
+		}
+	}
+	
+	on_activate_while_mobilized = {
+		custom_tooltip = {
+			text = mobilization_option_it_hurts_organization_when_you_adjust_equipment_tt
+			add_organization = {
+				value = organization
+				multiply = -0.2
+			}
+		}
+	}
+	
+	on_deactivate = {
+		custom_tooltip = {
+			text = mobilization_option_it_hurts_organization_when_you_adjust_equipment_tt
+			add_organization = {
+				value = organization
+				multiply = -0.2
+			}
+		}
+	}
+	
+	unlocking_technologies = {
+		atomic_bomb
+	}
+
+	upkeep_modifier = {
+		goods_input_artillery_add = 3
+		goods_input_good_uranium_add = 4
+	}
+
+	unit_modifier = {
+		unit_kill_rate_add = 0.5
+		unit_devastation_mult = 1
+	}
+
+	ai_weight = {
+		value = 1
+	}
+
+	group = tactical_weapons
+}
+
+mobilization_option_guided_missiles = {
+	texture = "gfx/interface/icons/mobilization_options/guided_missiles.dds"
+
+	possible = {
+		scope:military_formation = {
+			NOR = {
+				has_mobilization_option = mobilization_option:mobilization_option_rocket_artillery
+				has_mobilization_option = mobilization_option:mobilization_option_nuclear_artillery
+			}
+		}
+		market ?= {
+			mg:artillery ?= {
+				market_goods_sell_orders > 0
+			}
+			mg:missiles ?= {
+				market_goods_sell_orders > 0
+			}
+			mg:processors ?= {
+				market_goods_sell_orders > 0
+			}
+			mg:light_fuel ?= {
+				market_goods_sell_orders > 0
+			}
+		}
+	}
+	
+	on_activate_while_mobilized = {
+		custom_tooltip = {
+			text = mobilization_option_it_hurts_organization_when_you_adjust_equipment_tt
+			add_organization = {
+				value = organization
+				multiply = -0.2
+			}
+		}
+	}
+	
+	on_deactivate = {
+		custom_tooltip = {
+			text = mobilization_option_it_hurts_organization_when_you_adjust_equipment_tt
+			add_organization = {
+				value = organization
+				multiply = -0.2
+			}
+		}
+	}
+	
+	unlocking_technologies = {
+		guided_missiles
+	}
+
+	upkeep_modifier = {
+		goods_input_artillery_add = 3
+		goods_input_missiles_add = 3
+		goods_input_processors_add = 1
+		goods_input_light_fuel_add = 1
+	}
+
+	unit_modifier = {
+		unit_offense_mult = 0.25
+		unit_defense_mult = 0.1
+		unit_devastation_mult = 0.10
+	}
+
+	ai_weight = {
+		value = 1
+	}
+
+	group = tactical_weapons
+}
+
+# Extra
+
+mobilization_option_helicopters_support = {
+	texture = "gfx/interface/icons/mobilization_options/helicopters.dds"
+
+	possible = {
+		market ?= {
+			mg:helicopters ?= {
+				market_goods_sell_orders > 0
+			}
+			mg:light_fuel ?= {
+				market_goods_sell_orders > 0
+			}
+		}
+	}
+	
+	on_activate_while_mobilized = {
+		custom_tooltip = {
+			text = mobilization_option_it_hurts_organization_when_you_adjust_equipment_tt
+			add_organization = {
+				value = organization
+				multiply = -0.2
+			}
+		}
+	}
+	
+	on_deactivate = {
+		custom_tooltip = {
+			text = mobilization_option_it_hurts_organization_when_you_adjust_equipment_tt
+			add_organization = {
+				value = organization
+				multiply = -0.2
+			}
+		}
+	}
+	
+	unlocking_technologies = {
+		helicopters
+	}
+
+	upkeep_modifier = {
+		goods_input_helicopters_add = 3
+		goods_input_light_fuel_add = 1
+	}
+
+	unit_modifier = {
+		unit_defense_mult = 0.05
+		unit_recovery_rate_add = 0.10
+		unit_morale_recovery_mult = 0.10
+		unit_occupation_mult = 0.05
+	}
+	ai_weight = {
+		value = 1
+	}
+
+	group = extra
+}
+
+mobilization_option_satellites_support = {
+	texture = "gfx/interface/icons/mobilization_options/satellites.dds"
+
+	possible = {
+		scope:military_formation = {
+			NOR = {
+				has_mobilization_option = mobilization_option_awacs_support
+			}
+		}
+		market ?= {
+			mg:space_assets ?= {
+				market_goods_sell_orders > 0
+			}
+			mg:computer ?= {
+				market_goods_sell_orders > 0
+			}
+		}
+	}
+	
+	on_activate_while_mobilized = {
+		custom_tooltip = {
+			text = mobilization_option_it_hurts_organization_when_you_adjust_equipment_tt
+			add_organization = {
+				value = organization
+				multiply = -0.1
+			}
+		}
+	}
+	
+	on_deactivate = {
+		custom_tooltip = {
+			text = mobilization_option_it_hurts_organization_when_you_adjust_equipment_tt
+			add_organization = {
+				value = organization
+				multiply = -0.1
+			}
+		}
+	}
+	
+	unlocking_technologies = {
+		satellites
+	}
+
+	upkeep_modifier = {
+		goods_input_space_assets_add = 2
+		goods_input_computer_add = 2
+	}
+
+	unit_modifier = {
+		military_formation_organization_gain_mult = 0.05
+		unit_defense_mult = 0.1
+	}
+
+	ai_weight = {
+		value = 1
+	}
+
+	group = extra
+}
+
+mobilization_option_awacs_support = {
+	texture = "gfx/interface/icons/mobilization_options/awacs.dds"
+
+	possible = {
+		scope:military_formation = {
+			NOR = {
+				has_mobilization_option = mobilization_option:mobilization_option_satellites_support
+			}
+		}
+		market ?= {
+			mg:aeroplanes ?= {
+				market_goods_sell_orders > 0
+			}
+			mg:light_fuel ?= {
+				market_goods_sell_orders > 0
+			}
+			mg:computer ?= {
+				market_goods_sell_orders > 0
+			}
+		}
+	}
+	
+	on_activate_while_mobilized = {
+		custom_tooltip = {
+			text = mobilization_option_it_hurts_organization_when_you_adjust_equipment_tt
+			add_organization = {
+				value = organization
+				multiply = -0.3
+			}
+		}
+	}
+	
+	on_deactivate = {
+		custom_tooltip = {
+			text = mobilization_option_it_hurts_organization_when_you_adjust_equipment_tt
+			add_organization = {
+				value = organization
+				multiply = -0.3
+			}
+		}
+	}
+	
+	unlocking_technologies = {
+		awacs
+	}
+
+	upkeep_modifier = {
+		goods_input_computer_add = 3
+		goods_input_aeroplanes_add = 2
+		goods_input_space_assets_add = 2
+		goods_input_light_fuel_add = 1
+	}
+
+	unit_modifier = {
+		military_formation_organization_gain_mult = 0.05
+		unit_defense_mult = 0.1
+		unit_offense_mult = 0.15
+		unit_recovery_rate_add = 0.10
+	}
+	ai_weight = {
+		value = 1
+	}
+
+	group = extra
+}
