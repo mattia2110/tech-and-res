@@ -59,6 +59,29 @@ building_government_administration = {
 
 	required_construction = construction_cost_very_low
 
+	ai_value = {
+		# KAI: Excess bureaucracy should have lower priority than everything else
+		value = 250
+
+		# KAI: Prioritize states with insufficient tax capacity
+		if = {
+			limit = {
+				is_incorporated = yes
+			}
+			add = {
+				value = 30
+				multiply = {
+					# Scale inversely with surplus from 5 to 30
+					value = tax_capacity_usage
+					subtract = tax_capacity
+					add = 30
+				}
+				min = 0
+				max = 750
+			}
+		}
+	}
+
 	background = "gfx/interface/icons/building_icons/backgrounds/building_panel_bg_monuments.dds"
 }
 

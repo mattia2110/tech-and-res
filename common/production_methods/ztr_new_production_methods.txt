@@ -2609,7 +2609,70 @@ pm_ziegler-natta_catalysts = {
 	ai_value = 2000
 }
 
+# Electric industries RADIO
+
+pm_transistor_radios = {
+	texture = "gfx/interface/icons/production_method_icons/pm_transistor_radios.dds"
+	unlocking_technologies = {
+		proto_digital_devices
+	}	
+	building_modifiers = {
+		workforce_scaled = {
+			# input goods
+			goods_input_electricity_add = 25 #900
+			goods_input_alloys_add = 5 #250
+			goods_input_plastics_add = 5 #450
+			goods_input_telecommunications_add = 20 #250
+			goods_input_processors_add = 5 #400 #3350
+
+			# output goods
+			goods_output_telephones_add = -25 #1050
+			goods_output_radios_add = 70 #4000
+		}
+
+		level_scaled = {
+			# employment
+			building_employment_engineers_add = 250
+		}
+	}
+
+	required_input_goods = telecommunications
+}
+
+pm_digital_sound_devices = {
+	texture = "gfx/interface/icons/production_method_icons/pm_digital_sound_devices.dds"
+	unlocking_technologies = {
+		mobile_devices
+	}	
+	building_modifiers = {
+		workforce_scaled = {
+			# input goods
+			goods_input_electricity_add = 30 #900
+			goods_input_alloys_add = 5 #250
+			goods_input_plastics_add = 5 #450
+			goods_input_telecommunications_add = 25 #250
+			goods_input_processors_add = 5 #400 #3350
+			goods_input_softwares_add = 5
+
+			# output goods
+			goods_output_telephones_add = -25 #1050
+			goods_output_radios_add = 85 #4000
+		}
+
+		level_scaled = {
+			# employment
+			building_employment_engineers_add = 250
+		}
+	}
+
+	required_input_goods = telecommunications
+}
+
 # Electric industries TELEVISIONS
+
+pm_no_televisions = {
+	texture = "gfx/interface/icons/production_method_icons/pm_no_televisions.dds"
+}
 
 pm_cathode_tube_televisions = {
 	texture = "gfx/interface/icons/production_method_icons/pm_cathode_tube_televisions.dds"
@@ -2628,10 +2691,13 @@ pm_cathode_tube_televisions = {
 			goods_input_electroniccomponents_add = 10 #800
 			goods_output_telephones_add = -25 #1050 #4950
 
-			goods_output_radios_add = 15 #1200
-			goods_output_televisions_add = 35 #4900
+			goods_output_televisions_add = 45 #4900
 		}
-		
+
+		level_scaled = {
+			# employment
+			building_employment_engineers_add = 250
+		}		
 	}
 
 	required_input_goods = telecommunications
@@ -2654,10 +2720,13 @@ pm_colored_cathode_tube_televisions = {
 			goods_input_processors_add = 8 #800
 			goods_output_telephones_add = -25 #1050 #4950
 
-			goods_output_radios_add = 10
-			goods_output_televisions_add = 45
+			goods_output_televisions_add = 55
 		}
 		
+		level_scaled = {
+			# employment
+			building_employment_engineers_add = 250
+		}
 	}
 
 	required_input_goods = telecommunications
@@ -2679,9 +2748,13 @@ pm_hd_televisions = {
 			goods_input_processors_add = 10 #800
 			goods_output_telephones_add = -25 #1050 #4950
 
-			goods_output_televisions_add = 55
+			goods_output_televisions_add = 60
 		}
 		
+		level_scaled = {
+			# employment
+			building_employment_engineers_add = 250
+		}
 	}
 
 	required_input_goods = telecommunications
@@ -2697,16 +2770,20 @@ pm_smart_televisions = {
 	building_modifiers = {
 		workforce_scaled = {
 			goods_input_glass_add = 5
-			goods_input_softwares_add = 4
+			goods_input_softwares_add = 5
 			goods_input_electricity_add = 15 #1500
 			goods_input_plastics_add = 25 #675
 			goods_input_telecommunications_add = 50 #500
 			goods_input_processors_add = 15 #800
 			goods_output_telephones_add = -25 #1050 #4950
 
-			goods_output_televisions_add = 70
+			goods_output_televisions_add = 75
 		}
 		
+		level_scaled = {
+			# employment
+			building_employment_engineers_add = 250
+		}
 	}
 
 	required_input_goods = telecommunications
@@ -2727,14 +2804,14 @@ pm_candlestick_telephones = {
 			goods_input_lead_add = 15 #500
 			goods_input_telecommunications_add = 15
 			
-			goods_output_telephones_add = 65 #4900
+			goods_output_telephones_add = 60 #4900
 		}
 		
 		level_scaled = {
 			building_employment_shopkeepers_add = 500 #2050/5000=0.40
 			building_employment_laborers_add = 1500
 			building_employment_machinists_add = 1500
-			building_employment_engineers_add = 1500
+			building_employment_engineers_add = 1000
 		}
 	}
 
@@ -2755,14 +2832,42 @@ pm_bakelite_telephones = {
 			goods_input_telecommunications_add = 15
 			goods_input_plastics_add = 15 #450 #2850
 			
-			goods_output_telephones_add = 80 #4900
+			goods_output_telephones_add = 75 #4900
 		}
 		
 		level_scaled = {
 			building_employment_shopkeepers_add = 500 #2050/5000=0.40
 			building_employment_laborers_add = 1500
 			building_employment_machinists_add = 1500
-			building_employment_engineers_add = 1500
+			building_employment_engineers_add = 1000
+		}
+	}
+
+	required_input_goods = telecommunications
+}
+
+pm_touch_tone_telephones = {
+	texture = "gfx/interface/icons/production_method_icons/pm_touch_tone_telephones.dds"
+	unlocking_technologies = {
+		proto_digital_devices
+	}	
+	building_modifiers = {
+		workforce_scaled = {
+			goods_input_electricity_add = 15 #600
+			goods_input_tools_add = 5 #500
+			goods_input_electroniccomponents_add = 15 #200
+			goods_input_lead_add = 10 #500
+			goods_input_telecommunications_add = 15
+			goods_input_plastics_add = 15 #450 #2850
+			
+			goods_output_telephones_add = 95 #4900
+		}
+		
+		level_scaled = {
+			building_employment_shopkeepers_add = 500 #2050/5000=0.40
+			building_employment_laborers_add = 1500
+			building_employment_machinists_add = 1500
+			building_employment_engineers_add = 1000
 		}
 	}
 
@@ -2777,19 +2882,19 @@ pm_cell_phones = {
 	building_modifiers = {
 		workforce_scaled = {
 			goods_input_electricity_add = 15 #600
-			goods_input_electroniccomponents_add = 10 #200
+			goods_input_processors_add = 10
 			goods_input_batteries_add = 10
-			goods_input_telecommunications_add = 20
+			goods_input_telecommunications_add = 25
 			goods_input_plastics_add = 15 #450 #2850
 			
-			goods_output_telephones_add = 100 #4900
+			goods_output_telephones_add = 120 #4900
 		}
 		
 		level_scaled = {
 			building_employment_shopkeepers_add = 500 #2050/5000=0.40
 			building_employment_laborers_add = 1500
 			building_employment_machinists_add = 1500
-			building_employment_engineers_add = 1500
+			building_employment_engineers_add = 1000
 		}
 	}
 
@@ -2804,21 +2909,21 @@ pm_smartphones = {
 	building_modifiers = {
 		workforce_scaled = {
 			goods_input_electricity_add = 15 #600
-			goods_input_processors_add = 5
+			goods_input_processors_add = 10
 			goods_input_batteries_add = 10
-			goods_input_softwares_add = 4
-			goods_input_telecommunications_add = 25
-			goods_input_rare_earths_add = 15
-			goods_input_plastics_add = 15 #450 #2850
+			goods_input_softwares_add = 5
+			goods_input_telecommunications_add = 30
+			goods_input_rare_earths_add = 20
+			goods_input_plastics_add = 10 #450 #2850
 			
-			goods_output_telephones_add = 130 #4900
+			goods_output_telephones_add = 150 #4900
 		}
 		
 		level_scaled = {
 			building_employment_shopkeepers_add = 500 #2050/5000=0.40
 			building_employment_laborers_add = 1500
 			building_employment_machinists_add = 1500
-			building_employment_engineers_add = 1500
+			building_employment_engineers_add = 1000
 		}
 	}
 
@@ -5035,7 +5140,7 @@ pm_modern_tools = {
 #Water Plants
 
 pm_hand_pumped_water = {
-    texture = "gfx/interface/icons/production_method_icons/pm_water.dds"
+    texture = "gfx/interface/icons/production_method_icons/pm_hand_pumped_water.dds"
     
     building_modifiers = {
         workforce_scaled = {
@@ -5055,7 +5160,7 @@ pm_hand_pumped_water = {
 }
 
 pm_steam_pumped_water = {
-    texture = "gfx/interface/icons/production_method_icons/pm_water.dds"
+    texture = "gfx/interface/icons/production_method_icons/pm_steam_pumped_water.dds"
 	unlocking_technologies = {
 		steam_donkey
 	}
@@ -5085,7 +5190,7 @@ pm_steam_pumped_water = {
 }
 
 pm_electric_pumped_water = {
-    texture = "gfx/interface/icons/production_method_icons/pm_water.dds"
+    texture = "gfx/interface/icons/production_method_icons/pm_electric_pumped_water.dds"
 	unlocking_technologies = {
 		pneumatic_tools
 	}
@@ -5110,7 +5215,7 @@ pm_electric_pumped_water = {
 }
 
 pm_electric_pumped_desalinated_water = {
-    texture = "gfx/interface/icons/production_method_icons/pm_water.dds"
+    texture = "gfx/interface/icons/production_method_icons/pm_electric_pumped_water.dds"
 	unlocking_technologies = {
 		sea_water_desalination
 	}
@@ -5135,7 +5240,7 @@ pm_electric_pumped_desalinated_water = {
 }
 
 pm_advanced_water_filtration  = {
-    texture = "gfx/interface/icons/production_method_icons/pm_water.dds"
+    texture = "gfx/interface/icons/production_method_icons/pm_advanced_water_filtration.dds"
 
 	unlocking_technologies = {
 		acquafarm_systems
@@ -5162,7 +5267,7 @@ pm_advanced_water_filtration  = {
 }
 
 pm_advanced_desalinated_water_filtration = {
-    texture = "gfx/interface/icons/production_method_icons/pm_water.dds"
+    texture = "gfx/interface/icons/production_method_icons/pm_advanced_water_filtration.dds"
 
 	unlocking_technologies = {
 		acquafarm_systems
@@ -5837,7 +5942,7 @@ pm_synthetic_pharmaceuticals = {
 	texture = "gfx/interface/icons/production_method_icons/pm_synthetic_pharmaceuticals.dds"
 		
 	unlocking_technologies = {
-		advanced_medical_imaging
+		genetic_disease_screening
 	}
 		
 	building_modifiers = {
@@ -6255,6 +6360,51 @@ pm_hb_process_steam_reforming = {
 		}
 	}
 }
+
+pm_basic_electric_control_building_synthetics_plants = {
+	texture = "gfx/interface/icons/production_method_icons/pm_electroniccomponents.dds"
+
+	unlocking_technologies = {
+		semiconductor
+	}
+
+	building_modifiers = {
+		workforce_scaled = {
+			goods_input_electroniccomponents_add = 5
+			goods_input_tools_add = 3
+			goods_input_electricity_add = 2
+		}
+
+		level_scaled = {
+			building_employment_laborers_add = -500
+			building_employment_machinists_add = -500
+		}
+	}
+}
+
+pm_advanced_electric_control_building_synthetics_plants = {
+	texture = "gfx/interface/icons/production_method_icons/pm_microprocessors.dds"
+
+	unlocking_technologies = {
+		embedded_control_systems
+	}
+
+	building_modifiers = {
+		workforce_scaled = {
+			goods_input_robotics_add = 3
+			goods_input_processors_add = 2
+			goods_input_electricity_add = 2
+		}
+
+		level_scaled = {
+			building_employment_laborers_add = -500
+			building_employment_machinists_add = -1250
+			building_employment_engineers_add = -250
+		}
+	}
+}
+
+# Synthetics Plant
 
 pm_basic_electric_control_building_chemical_plant = {
 	texture = "gfx/interface/icons/production_method_icons/pm_electroniccomponents.dds"
@@ -7480,6 +7630,111 @@ pm_digital_press = {
 			building_employment_engineers_add = 500
 			building_employment_machinists_add = 500
 			building_employment_academics_add = 1000
+		}
+	}
+}
+
+#Synthetics Plants
+
+pm_traditional_perfumes_cosmetics = {
+	texture = "gfx/interface/icons/production_method_icons/pm_traditional_perfumes_cosmetics.dds"
+
+	unlocking_technologies = {
+		distillation
+	}
+
+	building_modifiers = {
+		workforce_scaled = {
+			goods_input_dye_add = 30
+			goods_input_fruit_add = 10
+			goods_input_glass_add = 15
+			goods_input_liquor_add = 15
+
+			goods_output_cosmetics_add = 60
+		}
+		level_scaled = {
+			building_employment_shopkeepers_add = 500
+			building_employment_laborers_add = 1000
+			building_employment_machinists_add = 1500
+			building_employment_engineers_add = 1000
+		}
+	}
+}
+
+pm_industrial_cosmetics = {
+	texture = "gfx/interface/icons/production_method_icons/pm_industrial_cosmetics.dds"
+
+	unlocking_technologies = {
+		automatic_bottle_blowers
+	}
+
+	building_modifiers = {
+		workforce_scaled = {
+			goods_input_dye_add = 30
+			goods_input_fruit_add = 20
+			goods_input_glass_add = 20
+			goods_input_pharmaceuticals_add = 20
+
+			goods_output_cosmetics_add = 90
+			goods_output_fine_art_add = 0.5
+		}
+		level_scaled = {
+			building_employment_shopkeepers_add = 500
+			building_employment_laborers_add = 1000
+			building_employment_machinists_add = 1500
+			building_employment_engineers_add = 1000
+		}
+	}
+}
+
+pm_synthetic_compounds_cosmetics = {
+	texture = "gfx/interface/icons/production_method_icons/pm_synthetic_compounds_cosmetics.dds"
+
+	unlocking_technologies = {
+		synthetic_cosmetics
+	}
+
+	building_modifiers = {
+		workforce_scaled = {
+			goods_input_dye_add = 30
+			goods_input_lubricant_add = 15
+			goods_input_glass_add = 25
+			goods_input_pharmaceuticals_add = 35
+
+			goods_output_cosmetics_add = 125
+			goods_output_fine_art_add = 1
+		}
+		level_scaled = {
+			building_employment_shopkeepers_add = 500
+			building_employment_laborers_add = 1000
+			building_employment_machinists_add = 1500
+			building_employment_engineers_add = 1000
+		}
+	}
+}
+
+pm_modern_cosmetics = {
+	texture = "gfx/interface/icons/production_method_icons/pm_modern_cosmetics.dds"
+
+	unlocking_technologies = {
+		modern_cosmetics
+	}
+
+	building_modifiers = {
+		workforce_scaled = {
+			goods_input_dye_add = 30
+			goods_input_lubricant_add = 20
+			goods_input_glass_add = 30
+			goods_input_pharmaceuticals_add = 55
+
+			goods_output_cosmetics_add = 170
+			goods_output_fine_art_add = 2
+		}
+		level_scaled = {
+			building_employment_shopkeepers_add = 500
+			building_employment_laborers_add = 1000
+			building_employment_machinists_add = 1500
+			building_employment_engineers_add = 1000
 		}
 	}
 }

@@ -1,0 +1,61 @@
+company_petrobas = {
+	icon = "gfx/interface/icons/company_icons/historical_company_icons/brazilian_company_petrobas.dds"
+	background = "gfx/interface/icons/company_icons/company_backgrounds/comp_illu_oil_drills.dds"
+
+	flavored_company = yes
+
+	building_types = {
+		building_oil_rig
+		building_natural_gas_rig
+		building_oil_refinerie
+	}
+
+	extension_building_types = {
+		building_petrochemical_industry
+	}
+
+	potential = {
+		country_has_primary_culture = cu:brazilian
+	}
+
+	attainable = {
+		hidden_trigger = { # Hide attainable if it's always fulfilled by possible
+			any_scope_state = {
+				state_region = s:STATE_RIO_DE_JANEIRO
+			}
+		}
+	}
+
+	possible = {
+		has_technology_researched = pumpjacks
+		any_scope_state = {
+			any_scope_building = {
+				is_building_type = building_oil_rig
+				level >= 5
+			}
+		}
+	}
+
+	prosperity_modifier = {
+		building_oil_refinerie_throughput_add = 0.05
+		building_group_bg_logging_throughput_add = 0.1
+		state_birth_rate_mult = 0.05
+	}
+
+	ai_will_do = {
+		has_technology_researched = pumpjacks
+		any_scope_state = {
+			has_potential_resource = bg_oil_extraction
+		}
+	}
+
+	ai_construction_targets = {
+		building_oil_rig = {
+			level = 5
+		}
+	}
+
+	ai_weight = {
+		value = 3 # Higher base value for flavored companies
+	}
+}

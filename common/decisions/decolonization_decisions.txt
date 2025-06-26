@@ -12,10 +12,8 @@ decolonization_tunisia_decision = {
 				c:TUN ?= root
 			}
 		}
-		OR = {
-			country_is_in_europe = yes
-			country_is_in_north_america = yes
-			country_is_in_middle_east = yes
+		NOT = {
+			country_has_primary_culture = cu:maghrebi
 		}
 		s:STATE_TUNISIA = {
 			any_scope_state = {
@@ -78,10 +76,8 @@ decolonization_algeria_decision = {
 				c:ALD ?= root
 			}
 		}
-		OR = {
-			country_is_in_europe = yes
-			country_is_in_north_america = yes
-			country_is_in_middle_east = yes
+		NOT = {
+			country_has_primary_culture = cu:maghrebi
 		}
 		OR = {
 			s:STATE_ORAN = {
@@ -240,10 +236,8 @@ decolonization_morocco_decision = {
 				c:MOR ?= root
 			}
 		}
-		OR = {
-			country_is_in_europe = yes
-			country_is_in_north_america = yes
-			country_is_in_middle_east = yes
+		NOT = {
+			country_has_primary_culture = cu:maghrebi
 		}
 		OR = {
 			AND = {
@@ -416,10 +410,8 @@ decolonization_libya_decision = {
 				c:TRI ?= root
 			}
 		}
-		OR = {
-			country_is_in_europe = yes
-			country_is_in_north_america = yes
-			country_is_in_middle_east = yes
+		NOT = {
+			country_has_primary_culture = cu:maghrebi
 		}
 		OR = {
 			s:STATE_TRIPOLI = {
@@ -534,10 +526,8 @@ decolonization_egypt_decision = {
 				c:EGY ?= root
 			}
 		}
-		OR = {
-			country_is_in_europe = yes
-			country_is_in_north_america = yes
-			country_is_in_middle_east = yes
+		NOT = {
+			country_has_primary_culture = cu:misri
 		}
 		OR = {
 			s:STATE_LOWER_EGYPT = {
@@ -698,9 +688,13 @@ decolonization_sudan_decision = {
 		}
 		NOT = {
 			OR = {
-				c:EGY ?= root
 				c:SUD ?= root
 			}
+		}
+		NOT = {
+			country_has_primary_culture = cu:misri
+			country_has_primary_culture = cu:fur
+			country_has_primary_culture = cu:dinka
 		}
 		OR = {
 			s:STATE_BLUE_NILE = {
@@ -854,18 +848,12 @@ decolonization_arabia_decision = {
 			has_technology_researched = decolonization
 			year > 1945
 		}
-		OR = {
-			country_is_in_europe = yes
-			country_is_in_north_america = yes
-			country_is_in_middle_east = yes
+		NOT = {
+			country_has_primary_culture = cu:bedouin
 		}
 		NOT = {
 			OR = {
 				c:NEJ ?= root
-				c:HDJ ?= root
-				c:JAB ?= root
-				c:OMA ?= root
-				c:YEM ?= root
 			}
 		}
 		OR = {
@@ -975,18 +963,12 @@ decolonization_oman_decision = {
 			has_technology_researched = decolonization
 			year > 1945
 		}
-		OR = {
-			country_is_in_europe = yes
-			country_is_in_north_america = yes
-			country_is_in_middle_east = yes
+		NOT = {
+			country_has_primary_culture = cu:bedouin
 		}
 		NOT = {
 			OR = {
-				c:NEJ ?= root
-				c:HDJ ?= root
-				c:JAB ?= root
 				c:OMA ?= root
-				c:YEM ?= root
 			}
 		}
 		OR = {
@@ -1052,17 +1034,11 @@ decolonization_yemen_decision = {
 			has_technology_researched = decolonization
 			year > 1945
 		}
-		OR = {
-			country_is_in_europe = yes
-			country_is_in_north_america = yes
-			country_is_in_middle_east = yes
+		NOT = {
+			country_has_primary_culture = cu:bedouin
 		}
 		NOT = {
 			OR = {
-				c:NEJ ?= root
-				c:HDJ ?= root
-				c:JAB ?= root
-				c:OMA ?= root
 				c:YEM ?= root
 			}
 		}
@@ -1129,9 +1105,14 @@ decolonization_uae_decision = {
 			has_technology_researched = decolonization
 			year > 1945
 		}
-		OR = {
-			country_is_in_europe = yes
-			country_is_in_north_america = yes
+		NOT = {
+			country_has_primary_culture = cu:bedouin
+		}
+		NOT = {
+			OR = {
+				c:BHN ?= root
+				c:ABU ?= root
+			}
 		}
 		OR = {
 			s:STATE_ABU_DHABI = {
@@ -1217,10 +1198,8 @@ decolonization_persia_decision = {
 			has_technology_researched = decolonization
 			year > 1945
 		}
-		OR = {
-			country_is_in_europe = yes
-			country_is_in_north_america = yes
-			country_is_in_middle_east = yes
+		NOT = {
+			country_has_primary_culture = cu:persian
 		}
 		NOT = {
 			OR = {
@@ -1606,13 +1585,11 @@ decolonization_birmania_decision = {
 		}
 		NOT = {
 			OR = {
-				c:LAO ?= root
 				c:BUR ?= root
-				c:DAI ?= root
-				c:SIA ?= root
-				c:CHI ?= root
-				c:CAM ?= root
 			}
+		}
+		NOT = {
+			country_has_primary_culture = cu:burmese
 		}
 		OR = {
 			s:STATE_PEGU = {
@@ -1769,14 +1746,11 @@ decolonization_siam_decision = {
 		}
 		NOT = {
 			OR = {
-				c:LAO ?= root
-				c:BUR ?= root
-				c:DAI ?= root
 				c:SIA ?= root
-				c:CHI ?= root
-				c:CAM ?= root
-				c:JOH ?= root
 			}
+		}
+		NOT = {
+			country_has_primary_culture = cu:thai
 		}
 		OR = {
 			s:STATE_BANGKOK = {
@@ -1912,12 +1886,10 @@ decolonization_laos_decision = {
 		NOT = {
 			OR = {
 				c:LAO ?= root
-				c:BUR ?= root
-				c:DAI ?= root
-				c:SIA ?= root
-				c:CHI ?= root
-				c:CAM ?= root
 			}
+		}
+		NOT = {
+			country_has_primary_culture = cu:lao
 		}
 		s:STATE_LAOS = {
 		any_scope_state = {
@@ -1984,14 +1956,11 @@ decolonization_vietnam_decision = {
 		}
 		NOT = {
 			OR = {
-				c:LAO ?= root
-				c:BUR ?= root
 				c:DAI ?= root
-				c:SIA ?= root
-				c:CHI ?= root
-				c:CAM ?= root
-				c:JOH ?= root
 			}
+		}
+		NOT = {
+			country_has_primary_culture = cu:vietnamese
 		}
 		OR = {
 			s:STATE_MEKONG = {
@@ -2104,13 +2073,11 @@ decolonization_cambodia_decision = {
 		}
 		NOT = {
 			OR = {
-				c:LAO ?= root
-				c:BUR ?= root
-				c:DAI ?= root
-				c:SIA ?= root
-				c:CHI ?= root
 				c:CAM ?= root
 			}
+		}
+		NOT = {
+			country_has_primary_culture = cu:khmer
 		}
 		s:STATE_CAMBODIA = {
 		any_scope_state = {

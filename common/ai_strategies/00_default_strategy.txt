@@ -1,4 +1,4 @@
-﻿# This is a special strategy that sets the default values for different AI scores
+# This is a special strategy that sets the default values for different AI scores
 # All AIs always load data from this strategy, which can then be either added to or overridden by data from its other strategies
 
 ai_strategy_default = {
@@ -3343,80 +3343,53 @@ ai_strategy_default = {
 	# How much construction output should the AI aim for
 	# Using this value in other strategies will function additively
 	wanted_construction_output = {
-		value = 10 # Accounts for the 10 free construction from base modifiers
+		value = 0
 
 		add = {
 			value = investment_pool_income
-			divide = 1000 # 1 construction output per this much into the investment pool
+			divide = 500 # 1 construction output per this much into the investment pool
 		}
 
 		add = {
-			value = income
+			value = weekly_net_fixed_income
+			divide = 500 # 1 construction output per this much income
 
-			divide = 5000 # 1 construction output per this much income
+			min = {
+				value = kai_country_income
+				divide = 3000 # 1 construction output per this much income
+			}
 
 			min = 0
-			max = 200 # Above a certain point more government income isn't going to lead to more AI government construction
+			max = 600
 		}
 
-		add = {
-			value = total_population
-
-			divide = 2000000 # 1 construction output per this much population
-			max = 100
-		}
-
-		# Kickstart private investors If above this population value
+		# Improved technology enables cheaper construction
+		# Cost per wood construction 2000/2 = 1000
+		# Cost per iron construction 3600/5 = 720
+		# Cost per steel construction 5400/10 = 540
 		if = {
-			limit = {
-				total_population >= 2000000
-			}
-			add = 10
-		}
-
-		# Add a baseline for high rank
-		if = {
-			limit = { country_rank >= rank_value:great_power }
-			add = 75
-		}
-		else_if = {
-			limit = {
-				OR = {
-					country_rank >= rank_value:major_power
-					country_rank >= rank_value:unrecognized_major_power
-				}
-			}
-			add = 50
-		}
-
-		# If trying to industrialize
-		if = {
-			limit = {
-				OR = {
-					has_strategy = ai_strategy_resource_expansion
-					has_strategy = ai_strategy_industrial_expansion
-				}
-			}
-			multiply = 1.25
+			limit = { NOT = { has_technology_researched = urban_planning } }
+			multiply = 0.72
 		}
 
 		if = {
-			limit = {
-				OR = {
-					has_journal_entry = je_meiji_restoration
-					has_journal_entry = je_meiji_main
-				}
-			}
-			multiply = 1.5
+			limit = { NOT = { has_technology_researched = steel_frame_buildings } }
+			multiply = 0.75
 		}
 
-		if = {
-			limit = { has_strategy = ai_strategy_maintain_mandate_of_heaven }
-			multiply = 0.1
+		# KAI: Scale the wanted construction capacity with gold reserve
+		multiply = {
+			value = gold_reserves
+			divide = gold_reserves_limit
+			multiply = 1.33
+			min = 1
+			max = 1.33
 		}
+
+		add = 10 # Accounts for the 10 free construction from base modifiers
 
 		min = 10
-		max = 1000
+		max = 40000
 	}
 
 	# How many levels of barracks should the AI have
@@ -3480,11 +3453,10 @@ ai_strategy_default = {
 		if = {
 			limit = {
 				cached_ai_incorporated_population > 0
-				cached_ai_incorporated_coastal_population > 0
 			}
 
 			add = {
-				value = income
+				value = kai_country_income_normalized
 				multiply = {
 					value = 1
 					subtract = { # Coastal population reduces spending on army as that spending is needed for navy too
@@ -3542,48 +3514,13 @@ ai_strategy_default = {
 			multiply = 0.33
 		}
 
-
-		if = {
-			limit = {
-				capital = {
-					OR = {
-						region = sr:region_england
-						region = sr:region_north_sea_coast
-					}
-				}
-			}
-
-			multiply = 0.75
-		}
-
 		if = {
 			limit = {
 				has_journal_entry = je_sick_man_army
 			}
 			min = 125
 		}
-		max = {
-			value = 500
-
-			if = {
-				limit = {
-					has_technology_researched = logistics
-				}
-				multiply = 1.25
-			}
-			if = {
-				limit = {
-					has_technology_researched = enlistment_offices
-				}
-				multiply = 1.25
-			}
-			if = {
-				limit = {
-					has_technology_researched = war_propaganda
-				}
-				multiply = 1.25
-			}
-		}
+		max = 10000
 		min = 1
 	}
 
@@ -3616,31 +3553,17 @@ ai_strategy_default = {
 		if = {
 			limit = {
 				cached_ai_incorporated_population > 0
-				cached_ai_incorporated_coastal_population > 0
 			}
 
 			add = {
-				value = income
+				value = kai_country_income_normalized
 				divide = cached_ai_incorporated_population
 				multiply = cached_ai_incorporated_coastal_population
 				divide = 5000
 			}
 		}
 
-		# Special logic for british isles - this should be reworked to be less specific later
-		if = {
-			limit = {
-				capital = {
-					OR = {
-						region = sr:region_england
-						region = sr:region_north_sea_coast
-					}
-				}
-			}
-
-			add = 50
-		}
-		else_if = { # GPs and MPs should want to maintain a bit of a navy
+		if = { # GPs and MPs should want to maintain a bit of a navy
 			limit = { country_rank = rank_value:great_power }
 			add = 25
 		}
@@ -3681,22 +3604,7 @@ ai_strategy_default = {
 			multiply = 0.75
 		}
 
-		if = {
-			limit = { country_rank < rank_value:major_power }
-			multiply = 0.5
-		}
-
-		if = {
-			limit = { is_country_type = unrecognized }
-			multiply = 0.5
-		}
-
-		if = {
-			limit = { has_strategy = ai_strategy_maintain_mandate_of_heaven }
-			multiply = 0.25
-		}
-
-		max = 500
+		max = 10000
 		min = 0
 	}
 
@@ -3764,15 +3672,7 @@ ai_strategy_default = {
 			value = 100
 		}
 		combat_unit_group_capital_ship = {
-			value = 0
-			if = {
-				limit = { country_rank = rank_value:great_power }
-				add = 30
-			}
-			if = {
-				limit = { country_rank = rank_value:major_power }
-				add = 10
-			}
+			value = 30
 		}
 		combat_unit_group_support_ship = {
 			value = 0
@@ -3795,7 +3695,7 @@ ai_strategy_default = {
 		value = 0.5
 		if = {
 			limit = { has_law = law_type:law_national_militia }
-			add = 2.5
+			add = 4.5
 		}
 		else_if = {
 			limit = { has_law = law_type:law_peasant_levies }
@@ -3845,6 +3745,16 @@ ai_strategy_default = {
 	nationalization_desire = {
 		value = 0.0
 
+		# KAI: AI can only queue around one building per week.
+		# Surplus beyond that point is pointless.
+		# Start privatizing to feed the investment pool.
+		if = {
+			limit = {
+				weekly_net_fixed_income > 200000
+			}
+			subtract = 0.25
+		}
+
 		if = {
 			limit = {
 				has_law = law_type:law_command_economy
@@ -3856,9 +3766,7 @@ ai_strategy_default = {
 
 	# Add a multiplier to the score AI assigns to particular building groups (default 1)
 	# Using this value in other strategies will result in several multiplications
-	building_group_weights = {
-		bg_agriculture = 1.25
-	}
+	building_group_weights = {}
 
 	# Which buildings should the AI subsidize
 	# Using a different value in a strategy will override this value
@@ -3878,25 +3786,29 @@ ai_strategy_default = {
 		small_arms = {
 			stance = wants_high_supply
 			trigger = {
-				has_technology_researched = napoleonic_warfare
+				has_technology_researched = line_infantry
+				kai_should_use_goods_stances = yes
 			}
 		}
 		artillery = {
 			stance = wants_high_supply
 			trigger = {
 				has_technology_researched = artillery
+				kai_should_use_goods_stances = yes
 			}
 		}
 		ammunition = {
 			stance = wants_high_supply
 			trigger = {
 				has_technology_researched = general_staff
+				kai_should_use_goods_stances = yes
 			}
 		}
 		aeroplanes = {
 			stance = wants_high_supply
 			trigger = {
 				has_technology_researched = military_aviation
+				kai_should_use_goods_stances = yes
 				country_rank >= rank_value:major_power
 			}
 		}
@@ -3904,6 +3816,7 @@ ai_strategy_default = {
 			stance = wants_high_supply
 			trigger = {
 				has_technology_researched = mobile_armor
+				kai_should_use_goods_stances = yes
 				country_rank >= rank_value:major_power
 			}
 		}
@@ -3911,83 +3824,88 @@ ai_strategy_default = {
 			stance = wants_high_supply
 			trigger = {
 				has_technology_researched = navigation
-				NAND = {
-					has_technology_researched = ironclad_tech
+				NOT = {
 					has_technology_researched = gantry_cranes
 				}
 				has_port = yes
-				country_rank >= rank_value:major_power
+				kai_should_use_goods_stances = yes
+				country_rank >= rank_value:minor_power
 			}
 		}
 		manowars = {
 			stance = wants_high_supply
 			trigger = {
 				has_technology_researched = admiralty
-				NAND = {
+				NOT = {
 					has_technology_researched = ironclad_tech
-					has_technology_researched = gantry_cranes
 				}
 				has_port = yes
-				country_rank >= rank_value:major_power
+				kai_should_use_goods_stances = yes
+				country_rank >= rank_value:minor_power
 			}
-		}
+		}	
 		steamers = {
 			stance = wants_high_supply
 			trigger = {
-				has_technology_researched = ironclad_tech
 				has_technology_researched = gantry_cranes
 				has_port = yes
-				country_rank >= rank_value:major_power
+				kai_should_use_goods_stances = yes
+				country_rank >= rank_value:minor_power
 			}
-		}
+		}			
 		ironclads = {
 			stance = wants_high_supply
 			trigger = {
 				has_technology_researched = ironclad_tech
-				has_technology_researched = gantry_cranes
 				has_port = yes
-				country_rank >= rank_value:major_power
+				kai_should_use_goods_stances = yes
+				country_rank >= rank_value:minor_power
+			}
+		}	
+		radios = {
+			stance = wants_high_supply
+			trigger = {
+				OR = {
+					has_technology_researched = defense_in_depth
+					has_technology_researched = sea_lane_strategies
+				}
+				kai_should_use_goods_stances = yes
 			}
 		}
 		paper = {
 			stance = wants_high_supply
 			trigger = {
 				has_technology_researched = centralization
-				total_population >= 1000000
-				NOT = { has_law = law_type:law_traditionalism }
+				kai_should_use_goods_stances = yes
 			}
-		}
-		coal = {
+		}	
+		coal = { 
 			stance = wants_high_supply
 			trigger = {
-				has_technology_researched = railways
+				has_technology_researched = atmospheric_engine
+				kai_should_use_goods_stances = yes
 			}
 		}
-		engines = {
-			stance = wants_high_supply
-			trigger = {
-				has_technology_researched = railways
-			}
-		}
-		dye = {
-			stance = wants_high_supply
+		dye = { 
+			stance = wants_high_supply 
 			trigger = {
 				has_building = building_textile_mills
 				has_technology_researched = lathe
+				kai_should_use_goods_stances = yes
 			}
 		}
-		silk = {
-			stance = wants_high_supply
+		silk = { 
+			stance = wants_high_supply 
 			trigger = {
 				has_building = building_textile_mills
-				total_population >= 1000000
+				kai_should_use_goods_stances = yes
 			}
 		}
-		hardwood = {
+		hardwood = { 
 			stance = wants_high_supply
 			trigger = {
 				has_building = building_furniture_manufacturies
-				total_population >= 1000000
+				kai_should_use_goods_stances = yes
 			}
 		}
 		sugar = {
@@ -3995,21 +3913,21 @@ ai_strategy_default = {
 			trigger = {
 				has_building = building_food_industry
 				has_technology_researched = distillation
-				total_population >= 1000000
+				kai_should_use_goods_stances = yes
 			}
 		}
 		rubber = {
 			stance = wants_high_supply
 			trigger = {
-				has_technology_researched = rubber_mastication
-				total_population >= 1000000
+				has_technology_researched = vulcanization
+				kai_should_use_goods_stances = yes
 			}
 		}
 		oil = {
 			stance = wants_high_supply
 			trigger = {
 				has_technology_researched = pumpjacks
-				total_population >= 1000000
+				kai_should_use_goods_stances = yes
 			}
 		}
 		lead = {
@@ -4022,27 +3940,27 @@ ai_strategy_default = {
 					}
 					has_building = building_munition_plants
 				}
-				total_population >= 1000000
+				kai_should_use_goods_stances = yes
 			}
 		}
 		sulfur = {
 			stance = wants_high_supply
 			trigger = {
 				has_technology_researched = intensive_agriculture
-				total_population >= 1000000
+				kai_should_use_goods_stances = yes
 			}
 		}
 		wood = {
 			stance = wants_high_supply
 			trigger = {
-				total_population >= 1000000
+				kai_should_use_goods_stances = yes
 			}
 		}
 		iron = {
 			stance = wants_high_supply
 			trigger = {
 				has_technology_researched = urban_planning
-				total_population >= 1000000
+				kai_should_use_goods_stances = yes
 			}
 		}
 		grain = {
@@ -4056,7 +3974,7 @@ ai_strategy_default = {
 			stance = wants_high_supply
 			trigger = {
 				has_technology_researched = natural_gas_extraction
-				total_population >= 1000000
+				kai_should_use_goods_stances = yes
 			}
 		}
 		good_uranium = {
@@ -4064,62 +3982,62 @@ ai_strategy_default = {
 			trigger = {
 				has_building = building_nuclear_power_plant
 				has_technology_researched = verrier_modern_physics_tech
-				total_population >= 1000000
+				kai_should_use_goods_stances = yes
 			}
 		}
 		bauxite = {
 			stance = wants_high_supply
 			trigger = {
 				has_technology_researched = bayer_process
-				total_population >= 1000000
+				kai_should_use_goods_stances = yes
 			}
 		}
 		copper = {
 			stance = wants_high_supply
 			trigger = {
 				has_technology_researched = alloysworking
-				total_population >= 1000000
+				kai_should_use_goods_stances = yes
 			}
 		}
 		commonores = {
 			stance = wants_high_supply
 			trigger = {
 				has_technology_researched = alloysworking
-				total_population >= 1000000
+				kai_should_use_goods_stances = yes
 			}
 		}
 		advancedores = {
 			stance = wants_high_supply
 			trigger = {
 				has_technology_researched = silicon
-				total_population >= 1000000
+				kai_should_use_goods_stances = yes
 			}
 		}
 		water = {
 			stance = wants_high_supply
 			trigger = {
-				total_population >= 1000000
+				kai_should_use_goods_stances = yes
 			}
 		}
 		helicopters = {
 			stance = wants_high_supply
 			trigger = {
 				has_technology_researched = helicopters
-				total_population >= 1000000
+				kai_should_use_goods_stances = yes
 			}
 		}
 		missiles = {
 			stance = wants_high_supply
 			trigger = {
-				has_technology_researched = rocketery
-				total_population >= 1000000
+				has_technology_researched = missiles
+				kai_should_use_goods_stances = yes
 			}
 		}
 		rare_earths = {
 			stance = wants_high_supply
 			trigger = {
 				has_technology_researched = rare_earths
-				total_population >= 1000000
+				kai_should_use_goods_stances = yes
 			}
 		}
 	}
@@ -6281,8 +6199,16 @@ ai_strategy_default = {
 			if = {
 				limit = {
 					wants_to_solve_schleswig_holstein = yes
-					exists = c:HOL
-					scope:target_country = { this = c:HOL }
+					OR = {
+						AND = {
+							exists = c:HOL
+							scope:target_country = { this = c:HOL }
+						}
+						AND = {
+							exists = c:SCH
+							scope:target_country = { this = c:SCH }
+						}
+					}
 					can_reach_target_country = yes
 				}
 				add = 100
@@ -6809,8 +6735,16 @@ ai_strategy_default = {
 			if = {
 				limit = {
 					wants_to_solve_schleswig_holstein = yes
-					exists = c:HOL
-					scope:target_country = { this = c:HOL }
+					OR = {
+						AND = {
+							exists = c:HOL
+							scope:target_country = { this = c:HOL }
+						}
+						AND = {
+							exists = c:SCH
+							scope:target_country = { this = c:SCH }
+						}
+					}
 					can_reach_target_country = yes
 				}
 				add = 150
@@ -6881,16 +6815,6 @@ ai_strategy_default = {
 					}
 					add = 25
 				}
-			}
-
-			if = {
-				limit = {
-					wants_to_solve_schleswig_holstein = yes
-					exists = c:HOL
-					scope:target_country = { this = c:HOL }
-					can_reach_target_country = no
-				}
-				add = 100
 			}
 
 			# Relations with target

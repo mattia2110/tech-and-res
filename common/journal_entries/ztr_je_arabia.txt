@@ -16,7 +16,7 @@ je_arabia_unification = {
 			name = arabia_states_owned_var
 			multiply = 0
 			}
-			# Now Nejd obtain 1 point for each state it owns.add_company = 
+			# Now Nejd obtain 1 point for each state it owns
 			if = {
 				limit = {
 					owns_entire_state_region = STATE_NEJD
@@ -56,29 +56,12 @@ je_arabia_unification = {
 	}
 
 	is_shown_when_inactive = {
-		OR = {
-			c:HDJ = {
-			    exists = yes
-			}
-			c:JAB = {
-				exists = yes
-			}
-		}
-		c:NEJ ?= root
+		THIS = c:NEJ
 		has_technology_researched = nationalism
 	}
 
 	possible = {
-		OR = {
-			c:HDJ = {
-			    exists = yes
-			}
-			c:JAB = {
-				exists = yes
-			}
-		}
-		
-		c:NEJ ?= root
+		THIS = c:NEJ
 		has_technology_researched = pan-nationalism
 		# any_scope_state = {
 		# 	state_region = s:STATE_NEJD

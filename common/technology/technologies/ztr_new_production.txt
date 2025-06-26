@@ -120,6 +120,24 @@ offset_printing = {
 
 #ERA 5
 
+synthetic_cosmetics = {
+	# Unlocks PM synthetic cosmetics in Textile Mills
+	era = era_5
+	texture = "gfx/interface/icons/invention_icons/synthetic_cosmetics.dds"
+	category = production
+	
+	unlocking_technologies = {
+		art_silk
+		plastics
+		automatic_bottle_blowers
+	}
+	
+	ai_weight = {
+		value = 1
+	}
+}
+
+
 bayer_process = {
 	# Unlocks Bauxite mines and Aluminium plant
 	era = era_5
@@ -159,7 +177,7 @@ synthetic_fibres = {
 
 	unlocking_technologies = {
 		polyethylene
-		art_silk
+		synthetic_cosmetics
 		kraft_recovery_process
 	}
 	
@@ -290,6 +308,7 @@ natural_gas_extraction = {
 	}
 
 	modifier = {
+		building_natural_gas_rig_throughput_add = 0.05
 		building_group_bg_oil_extraction_throughput_add = 0.05
 	}
 	
@@ -759,7 +778,47 @@ fast_modular_furniture = {
 	}
 }
 
+modern_cosmetics = {
+	# Unlocks PM modern_cosmetics in Textile Mills
+	era = era_6
+	texture = "gfx/interface/icons/invention_icons/modern_cosmetics.dds"
+	category = production
+	
+	unlocking_technologies = {
+		synthetic_cosmetics
+		elastomers
+	}
+
+	ai_weight = {
+		value = 1
+	}
+}
+
 #ERA 7
+
+proto_digital_devices = {
+	# Unlocks PM digital devices in Electronic Industries
+	era = era_7
+	texture = "gfx/interface/icons/invention_icons/proto_digital_devices.dds"
+	category = production
+	
+	unlocking_technologies = {
+		semiconductor
+	}
+
+	ai_weight = {
+		value = 1 # Important tech for modern economies
+		
+		if = {
+			limit = { 
+				OR = {
+					has_strategy = ai_strategy_industrial_expansion
+				}
+			}
+			add = 1
+		}
+	}
+}
 
 horizontal_drilling = {
 	# Unlocks PM horizontal drilling in Oil Refineries
@@ -1179,7 +1238,7 @@ optic_fibers = {
 
     unlocking_technologies = {
         laser
-        computer
+        proto_digital_devices
     }
 
     ai_weight = {

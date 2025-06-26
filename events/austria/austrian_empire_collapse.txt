@@ -527,7 +527,7 @@ austrian_empire_collapse.6 = {
     # Richiamato dal random_events del JE quando le rivendicazioni civili sono state negate
     trigger = {
 		has_variable = hungarian_civil_rights_var
-		var:austrian_empire_collapse_var > 20
+		var:austrian_empire_collapse_var > 35
         NOT = { has_variable = hungary_independence_var }
         NOT = { exists = c:HUN }                  # L'Ungheria non è ancora indipendente
         s:STATE_CENTRAL_HUNGARY = {
@@ -792,7 +792,7 @@ austrian_empire_collapse.8 = {
             	any_scope_state = { owner = ROOT }
         	}
 		}
-		var:austrian_empire_collapse_var > 15
+		var:austrian_empire_collapse_var > 25
 		NOT = { has_variable = lombardy_veneto_revolt_var }  # evita doppie occorrenze
 	}
 
@@ -1222,7 +1222,7 @@ austrian_empire_collapse.12 = {
     # Richiamato dal random_events del JE quando le rivendicazioni civili sono state negate
     trigger = {
 		has_variable = czech_civil_rights_var
-		var:austrian_empire_collapse_var > 20
+		var:austrian_empire_collapse_var > 35
         NOT = { has_variable = czech_independence_var }
         NOT = { exists = c:CZH }                  # L'Ungheria non è ancora indipendente
         s:STATE_BOHEMIA = {
@@ -1369,7 +1369,7 @@ austrian_empire_collapse.13 = {
 
     trigger = {
         exists = c:SER                                  # La Serbia deve esistere a dare eco all'idea
-        var:austrian_empire_collapse_var > 10           # Il clima di crisi deve essere già considerevole
+        var:austrian_empire_collapse_var > 15           # Il clima di crisi deve essere già considerevole
         NOT = { has_variable = yugoslav_union_var }     # Fired only once
         OR = {
             s:STATE_CROATIA  = { any_scope_state = { owner = ROOT } }
@@ -1463,7 +1463,7 @@ austrian_empire_collapse.14 = {
 			s:STATE_SOUTHERN_TRANSYLVANIA = { any_scope_state = { owner = ROOT } }
 			s:STATE_NORTHERN_TRANSYLVANIA = { any_scope_state = { owner = ROOT } }
 		}
-		var:austrian_empire_collapse_var > 15
+		var:austrian_empire_collapse_var > 25
 		NOT = { has_variable = transylvania_union_var }
 	}
 
@@ -1614,7 +1614,7 @@ austrian_empire_collapse.15 = {
 			s:STATE_WEST_GALICIA = { any_scope_state = { owner = ROOT } }
 			s:STATE_EAST_GALICIA = { any_scope_state = { owner = ROOT } }
 		}
-		var:austrian_empire_collapse_var > 20
+		var:austrian_empire_collapse_var > 30
 		NOT = { has_variable = poland_union_var }
 	}
 

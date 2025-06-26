@@ -29,8 +29,8 @@ ztr_decolonization.1 = {
 		}
 		any_country = {
 			is_subject_of = ROOT
-			NOT = { is_subject_of = c:BIC} #No deccolonization evennts for british raj vassals, as they are too much and very annoying
-			NOT = { is_subject_of = c:DEI} #No deccolonization evennts for west indies vassals, as they are too much and very annoying
+			NOT = { is_subject_of = c:BIC} #No decolonization events for british raj vassals, as they are too much and very annoying
+			NOT = { is_subject_of = c:DEI} #No decolonization events for west indies vassals, as they are too much and very annoying
 			NOT = {	is_diplomatic_play_enemy_of = ROOT }
 			NOT = {	has_truce_with = ROOT }
 			# NOT = { 
@@ -47,8 +47,8 @@ ztr_decolonization.1 = {
 		random_country = {
 			limit = {
 				is_subject_of = ROOT
-				NOT = { is_subject_of = c:BIC} #No deccolonization evennts for british raj vassals, as they are too much and very annoying
-				NOT = { is_subject_of = c:DEI} #No deccolonization evennts for west indies vassals, as they are too much and very annoying
+				NOT = { is_subject_of = c:BIC} #No decolonization events for british raj vassals, as they are too much and very annoying
+				NOT = { is_subject_of = c:DEI} #No decolonization events for west indies vassals, as they are too much and very annoying
 				NOT = { is_diplomatic_play_enemy_of = ROOT }
 				NOT = { has_truce_with = ROOT }
 				# NOT = {
@@ -127,6 +127,9 @@ ztr_decolonization.2 = {
 			OR = {
 				c:TUN ?= root
 			}
+		}
+		NOT = {
+			country_has_primary_culture = cu:maghrebi
 		}
 		OR = {
 			country_is_in_europe = yes
@@ -226,10 +229,8 @@ ztr_decolonization.3 = {
 				c:ALD ?= root
 			}
 		}
-		OR = {
-			country_is_in_europe = yes
-			country_is_in_north_america = yes
-			country_is_in_middle_east = yes
+		NOT = {
+			country_has_primary_culture = cu:maghrebi
 		}
 		OR = {
 			s:STATE_ORAN = {
@@ -421,10 +422,8 @@ ztr_decolonization.4 = {
 				c:MOR ?= root
 			}
 		}
-		OR = {
-			country_is_in_europe = yes
-			country_is_in_north_america = yes
-			country_is_in_middle_east = yes
+		NOT = {
+			country_has_primary_culture = cu:maghrebi
 		}
 		OR = {
 			AND = {
@@ -630,10 +629,8 @@ ztr_decolonization.5 = {
 				c:TRI ?= root
 			}
 		}
-		OR = {
-			country_is_in_europe = yes
-			country_is_in_north_america = yes
-			country_is_in_middle_east = yes
+		NOT = {
+			country_has_primary_culture = cu:maghrebi
 		}
 		OR = {
 			s:STATE_TRIPOLI = {
@@ -781,10 +778,8 @@ ztr_decolonization.6 = {
 				c:EGY ?= root
 			}
 		}
-		OR = {
-			country_is_in_europe = yes
-			country_is_in_north_america = yes
-			country_is_in_middle_east = yes
+		NOT = {
+			country_has_primary_culture = cu:misri
 		}
 		OR = {
 			s:STATE_LOWER_EGYPT = {
@@ -971,16 +966,15 @@ ztr_decolonization.7 = {
 			has_technology_researched = decolonization
 			year > 1945
 		}
-		OR = {
-			country_is_in_europe = yes
-			country_is_in_north_america = yes
-			country_is_in_middle_east = yes
-		}
 		NOT = {
 			OR = {
-				c:EGY ?= root
 				c:SUD ?= root
 			}
+		}
+		NOT = {
+			country_has_primary_culture = cu:misri
+			country_has_primary_culture = cu:fur
+			country_has_primary_culture = cu:dinka
 		}
 		OR = {
 			s:STATE_BLUE_NILE = {
@@ -1167,18 +1161,12 @@ ztr_decolonization.8 = {
 			has_technology_researched = decolonization
 			year > 1945
 		}
-		OR = {
-			country_is_in_europe = yes
-			country_is_in_north_america = yes
-			country_is_in_middle_east = yes
+		NOT = {
+			country_has_primary_culture = cu:bedouin
 		}
 		NOT = {
 			OR = {
 				c:NEJ ?= root
-				c:HDJ ?= root
-				c:JAB ?= root
-				c:OMA ?= root
-				c:YEM ?= root
 			}
 		}
 		OR = {
@@ -1321,18 +1309,12 @@ ztr_decolonization.9 = {
 			has_technology_researched = decolonization
 			year > 1945
 		}
-		OR = {
-			country_is_in_europe = yes
-			country_is_in_north_america = yes
-			country_is_in_middle_east = yes
+		NOT = {
+			country_has_primary_culture = cu:bedouin
 		}
 		NOT = {
 			OR = {
-				c:NEJ ?= root
-				c:HDJ ?= root
-				c:JAB ?= root
 				c:OMA ?= root
-				c:YEM ?= root
 			}
 		}
 		OR = {
@@ -1431,17 +1413,11 @@ ztr_decolonization.10 = {
 			has_technology_researched = decolonization
 			year > 1945
 		}
-		OR = {
-			country_is_in_europe = yes
-			country_is_in_north_america = yes
-			country_is_in_middle_east = yes
+		NOT = {
+			country_has_primary_culture = cu:bedouin
 		}
 		NOT = {
 			OR = {
-				c:NEJ ?= root
-				c:HDJ ?= root
-				c:JAB ?= root
-				c:OMA ?= root
 				c:YEM ?= root
 			}
 		}
@@ -1541,9 +1517,14 @@ ztr_decolonization.11 = {
 			has_technology_researched = decolonization
 			year > 1945
 		}
-		OR = {
-			country_is_in_europe = yes
-			country_is_in_north_america = yes
+		NOT = {
+			country_has_primary_culture = cu:bedouin
+		}
+		NOT = {
+			OR = {
+				c:BHN ?= root
+				c:ABU ?= root
+			}
 		}
 		OR = {
 			s:STATE_ABU_DHABI = {
@@ -1669,10 +1650,8 @@ ztr_decolonization.12 = {
 			has_technology_researched = decolonization
 			year > 1945
 		}
-		OR = {
-			country_is_in_europe = yes
-			country_is_in_north_america = yes
-			country_is_in_middle_east = yes
+		NOT = {
+			country_has_primary_culture = cu:persian
 		}
 		NOT = {
 			OR = {
@@ -2089,13 +2068,11 @@ ztr_decolonization.13 = {
 		}
 		NOT = {
 			OR = {
-				c:LAO ?= root
 				c:BUR ?= root
-				c:DAI ?= root
-				c:SIA ?= root
-				c:CHI ?= root
-				c:CAM ?= root
 			}
+		}
+		NOT = {
+			country_has_primary_culture = cu:burmese
 		}
 		OR = {
 			s:STATE_PEGU = {
@@ -2283,14 +2260,11 @@ ztr_decolonization.14 = {
 		}
 		NOT = {
 			OR = {
-				c:LAO ?= root
-				c:BUR ?= root
-				c:DAI ?= root
 				c:SIA ?= root
-				c:CHI ?= root
-				c:CAM ?= root
-				c:JOH ?= root
 			}
+		}
+		NOT = {
+			country_has_primary_culture = cu:thai
 		}
 		OR = {
 			s:STATE_BANGKOK = {
@@ -2457,12 +2431,10 @@ ztr_decolonization.15 = {
 		NOT = {
 			OR = {
 				c:LAO ?= root
-				c:BUR ?= root
-				c:DAI ?= root
-				c:SIA ?= root
-				c:CHI ?= root
-				c:CAM ?= root
 			}
+		}
+		NOT = {
+			country_has_primary_culture = cu:lao
 		}
 		s:STATE_LAOS = {
 		any_scope_state = {
@@ -2560,14 +2532,11 @@ ztr_decolonization.16 = {
 		}
 		NOT = {
 			OR = {
-				c:LAO ?= root
-				c:BUR ?= root
 				c:DAI ?= root
-				c:SIA ?= root
-				c:CHI ?= root
-				c:CAM ?= root
-				c:JOH ?= root
 			}
+		}
+		NOT = {
+			country_has_primary_culture = cu:vietnamese
 		}
 		OR = {
 			s:STATE_MEKONG = {
@@ -2711,13 +2680,11 @@ ztr_decolonization.17 = {
 		}
 		NOT = {
 			OR = {
-				c:LAO ?= root
-				c:BUR ?= root
-				c:DAI ?= root
-				c:SIA ?= root
-				c:CHI ?= root
 				c:CAM ?= root
 			}
+		}
+		NOT = {
+			country_has_primary_culture = cu:khmer
 		}
 		s:STATE_CAMBODIA = {
 		any_scope_state = {

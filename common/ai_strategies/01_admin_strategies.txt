@@ -4,33 +4,26 @@
 	type = administrative
 
 	building_group_weights = {
-		bg_agriculture = 2.0
-		bg_ranching = 2.0
-		bg_fishing = 1.5
-		bg_plantations = 1.5
-		bg_manufacturing = 0.5
+		# KAI: Halve the building weights to make it less extreme.
+		bg_agriculture = 1.5
+		bg_ranching = 1.5
+		# KAI: Added whaling and logging.
+		# The idea of this strategy is to favor buildings that cost less infrastructure
+		# before railways are researched.
+		bg_whaling = 1.25
+		bg_fishing = 1.25
+		bg_plantations = 1.25
+		bg_logging = 1.25
 	}
 
 	goods_stances = {
-		grain = { stance = wants_export }
-		meat = { stance = wants_export }
-		fish = { stance = wants_export }
-		fruit = { stance = wants_export }
-		liquor = { stance = wants_export }
-		wine = { stance = wants_export }
-		fabric = { stance = wants_export }
-		fertilizer = {
-			stance = wants_high_supply
-			trigger = {
-				has_technology_researched = intensive_agriculture
-			}
-		}
-		tools = {
-			stance = wants_high_supply
-			trigger = {
-				has_technology_researched = intensive_agriculture
-			}
-		}
+		grain = { stance = wants_export trigger = { kai_has_high_supply = { GOODS = grain } } }
+		meat = { stance = wants_export trigger = { kai_has_high_supply = { GOODS = meat } } }
+		fish = { stance = wants_export trigger = { kai_has_high_supply = { GOODS = fish } } }
+		fruit = { stance = wants_export trigger = { kai_has_high_supply = { GOODS = fruit } } }
+		liquor = { stance = wants_export trigger = { kai_has_high_supply = { GOODS = liquor } } }
+		wine = { stance = wants_export trigger = { kai_has_high_supply = { GOODS = wine } } }
+		fabric = { stance = wants_export trigger = { kai_has_high_supply = { GOODS = fabric } } }
 	}
 
 	possible = {
@@ -39,20 +32,6 @@
 
 	weight = {
 		value = 10
-
-		if = {
-			limit = {
-				OR = {
-					country_is_in_europe = yes
-					country_is_in_north_america = yes
-					country_is_in_east_asia = yes
-					country_is_in_middle_east = yes
-					country_is_in_central_asia = yes
-					capital.region = sr:region_oceania
-				}
-			}
-			add = 20
-		}
 
 		if = {
 			limit = {
@@ -113,20 +92,22 @@ ai_strategy_plantation_economy = {
 	type = administrative
 
 	goods_stances = {
-		fruit = { stance = wants_export }
-		fabric = { stance = wants_export }
-		sugar = { stance = wants_export }
-		coffee = { stance = wants_export }
-		tea = { stance = wants_export }
-		opium = { stance = wants_export }
-		tobacco = { stance = wants_export }
-		dye = { stance = wants_export }
-		silk = { stance = wants_export }
+		fruit = { stance = wants_export trigger = { kai_has_high_supply = { GOODS = fruit } } }
+		fabric = { stance = wants_export trigger = { kai_has_high_supply = { GOODS = fabric } } }
+		sugar = { stance = wants_export trigger = { kai_has_high_supply = { GOODS = sugar } } }
+		coffee = { stance = wants_export trigger = { kai_has_high_supply = { GOODS = coffee } } }
+		tea = { stance = wants_export trigger = { kai_has_high_supply = { GOODS = tea } } }
+		opium = { stance = wants_export trigger = { kai_has_high_supply = { GOODS = opium } } }
+		tobacco = { stance = wants_export trigger = { kai_has_high_supply = { GOODS = tobacco } } }
+		dye = { stance = wants_export trigger = { kai_has_high_supply = { GOODS = dye } } }
+		silk = { stance = wants_export trigger = { kai_has_high_supply = { GOODS = silk } } }
+		rubber = { stance = wants_export trigger = { kai_has_high_supply = { GOODS = rubber } } }
 	}
 
 	building_group_weights = {
 		bg_plantations = 2.0
-		bg_manufacturing = 0.5
+		# KAI: Add rubber
+		bg_rubber = 2.0
 	}
 
 	possible = {
@@ -144,24 +125,6 @@ ai_strategy_plantation_economy = {
 
 	weight = {
 		value = 10
-
-		if = {
-			limit = {
-				OR = {
-					country_is_in_south_america = yes
-					country_is_in_central_america = yes
-					country_is_in_india = yes
-					country_is_in_southeast_asia = yes
-					capital.region = sr:region_dixie
-				}
-			}
-			add = 20
-		}
-
-		if = {
-			limit = { is_country_type = unrecognized }
-			multiply = 0.5
-		}
 
 		if = {
 			limit = {
@@ -192,33 +155,24 @@ ai_strategy_resource_expansion = {
 		bg_logging = 1.5
 	}
 
-	subsidies = {
-		building_tooling_workshops = nice_to_have
-		building_explosives_factory = nice_to_have
-	}
-
 	goods_stances = {
-		explosives = {
-			stance = wants_high_supply
-			trigger = {
-				has_technology_researched = nitroglycerin
-			}
-		}
-		tools = { stance = wants_high_supply }
-		coal = { stance = wants_export }
-		iron = { stance = wants_export }
-		oil = { stance = wants_export }
-		lead = { stance = wants_export }
-		wood = { stance = wants_export }
-		hardwood = { stance = wants_export }
-		sulfur = { stance = wants_export }
-		good_uranium = { stance = wants_export }
-		bauxite = { stance = wants_export }
-		copper = { stance = wants_export }
-		commonores = { stance = wants_export }
-		advancedores = { stance = wants_export }
-		rare_earths = { stance = wants_export }
-		gas = { stance = wants_export }
+		coal = { stance = wants_export trigger = { kai_has_high_supply = { GOODS = coal } } }
+		iron = { stance = wants_export trigger = { kai_has_high_supply = { GOODS = iron } } }
+		oil = { stance = wants_export trigger = { kai_has_high_supply = { GOODS = oil } } }
+		lead = { stance = wants_export trigger = { kai_has_high_supply = { GOODS = lead } } }
+		wood = { stance = wants_export trigger = { kai_has_high_supply = { GOODS = wood } } }
+		hardwood = { stance = wants_export trigger = { kai_has_high_supply = { GOODS = hardwood } } }
+		sulfur = { stance = wants_export trigger = { kai_has_high_supply = { GOODS = sulfur } } }
+		rubber = { stance = wants_export trigger = { kai_has_high_supply = { GOODS = rubber } } }
+		#T&R
+		good_uranium = { stance = wants_export trigger = { kai_has_high_supply = { GOODS = good_uranium } } }
+		bauxite = { stance = wants_export trigger = { kai_has_high_supply = { GOODS = bauxite } } }
+		copper = { stance = wants_export trigger = { kai_has_high_supply = { GOODS = copper } } }
+		commonores = { stance = wants_export trigger = { kai_has_high_supply = { GOODS = commonores } } }
+		advancedores = { stance = wants_export trigger = { kai_has_high_supply = { GOODS = advancedores } } }
+		rare_earths = { stance = wants_export trigger = { kai_has_high_supply = { GOODS = rare_earths } } }
+		water = { stance = wants_export trigger = { kai_has_high_supply = { GOODS = water } } }
+		gas = { stance = wants_export trigger = { kai_has_high_supply = { GOODS = gas } } }
 	}
 
 
@@ -231,16 +185,6 @@ ai_strategy_resource_expansion = {
 
 		if = {
 			limit = {
-				OR = {
-					country_is_in_europe = yes
-					country_is_in_north_america = yes
-				}
-			}
-			add = 20
-		}
-
-		if = {
-			limit = {
 				has_radical_leftist_government = yes
 				NOT = {
 					ig:ig_rural_folk ?= {
@@ -250,11 +194,6 @@ ai_strategy_resource_expansion = {
 				}
 			}
 			add = 25
-		}
-
-		if = {
-			limit = { is_country_type = unrecognized }
-			multiply = 0.5
 		}
 
 		if = {
@@ -296,52 +235,26 @@ ai_strategy_industrial_expansion = {
 
 	type = administrative
 
-	subsidies = {
-		building_coal_mine = nice_to_have
-		building_iron_mine = nice_to_have
-		building_lead_mine = nice_to_have
-		building_sulfur_mine = nice_to_have
-		#T&R
-		building_copper_mine = nice_to_have
-		building_bauxite_mine = nice_to_have
-		building_uranium_mine = nice_to_have
-		building_commonoers_mine = nice_to_have
-		building_advancedores_mine = nice_to_have
-		building_rare_earths_mine = nice_to_have
-	}
-
 	goods_stances = {
-		rubber = {
-			stance = wants_high_supply
-			trigger = {
-				has_technology_researched = rubber_mastication
-			}
-		}
-		oil = {
-			stance = wants_high_supply
-			trigger = {
-				has_technology_researched = pumpjacks
-			}
-		}
 		telephones = {
 			stance = wants_high_supply
 			trigger = {
 				has_technology_researched = central_planning
-				total_population >= 1000000
+				kai_should_use_goods_stances = yes
 			}
 		}
 		tools = {
 			stance = wants_high_supply
 			trigger = {
 				has_technology_researched = urban_planning
-				total_population >= 1000000
+				kai_should_use_goods_stances = yes
 			}
 		}
 		fertilizer = { 
 			stance = wants_high_supply
 			trigger = {
 				has_technology_researched = intensive_agriculture
-				total_population >= 1000000
+				kai_should_use_goods_stances = yes
 			}
 		}
 		explosives = {
@@ -351,21 +264,35 @@ ai_strategy_industrial_expansion = {
 					has_technology_researched = nitroglycerin
 					has_building = building_munition_plants
 				}
-				total_population >= 1000000
+				kai_should_use_goods_stances = yes
 			}
 		}
 		steel = {
 			stance = wants_high_supply
 			trigger = {
 				has_technology_researched = mechanical_tools
-				total_population >= 1000000
+				kai_should_use_goods_stances = yes
 			}
 		}
 		glass = {
 			stance = wants_high_supply
 			trigger = {
 				has_technology_researched = steel_frame_buildings
-				total_population >= 1000000
+				kai_should_use_goods_stances = yes
+			}
+		}
+		electricity = { 
+			stance = wants_high_supply
+			trigger = {
+				has_technology_researched = electrical_generation
+				kai_should_use_goods_stances = yes
+			}
+		}
+		engines = { 
+			stance = wants_high_supply
+			trigger = {
+				has_technology_researched = railways
+				kai_should_use_goods_stances = yes
 			}
 		}
 		#T&R
@@ -373,182 +300,171 @@ ai_strategy_industrial_expansion = {
 			stance = wants_high_supply
 			trigger = {
 				has_technology_researched = zeppelins
-				total_population >= 1000000
+				kai_should_use_goods_stances = yes
+				country_rank >= rank_value:major_power
 			}
 		}
 		air_travel = {
 			stance = wants_high_supply
 			trigger = {
 				has_technology_researched = zeppelins
-				total_population >= 1000000
+				kai_should_use_goods_stances = yes
 			}
 		}
 		alloys = {
 			stance = wants_high_supply
 			trigger = {
 				has_technology_researched = alloysworking
-				total_population >= 1000000
+				kai_should_use_goods_stances = yes
 			}
 		}
 		aluminium = {
 			stance = wants_high_supply
 			trigger = {
 				has_technology_researched = bayer_process
-				total_population >= 1000000
+				kai_should_use_goods_stances = yes
 			}
 		}
 		plastics = {
 			stance = wants_high_supply
 			trigger = {
 				has_technology_researched = plastics
-				total_population >= 1000000
+				kai_should_use_goods_stances = yes
 			}
 		}
 		light_fuel = {
 			stance = wants_high_supply
 			trigger = {
 				has_technology_researched = oil_distillation
-				total_population >= 1000000
+				kai_should_use_goods_stances = yes
 			}
 		}
 		lubricant = {
 			stance = wants_high_supply
 			trigger = {
 				has_technology_researched = conveyors
-				total_population >= 1000000
+				kai_should_use_goods_stances = yes
 			}
 		}
 		heavy_fuel = {
 			stance = wants_high_supply
 			trigger = {
 				has_technology_researched = steam_turbine
-				total_population >= 1000000
+				kai_should_use_goods_stances = yes
 			}
 		}
 		nuclear_fuel = {
 			stance = wants_high_supply
 			trigger = {
 				has_technology_researched = pm_nuclear_second_generation
-				total_population >= 1000000
+				kai_should_use_goods_stances = yes
+				country_rank >= rank_value:major_power
 			}
 		}
 		copperwires = {
 			stance = wants_high_supply
 			trigger = {
 				has_technology_researched = verrier_electromagnetism_tech
-				total_population >= 1000000
+				kai_should_use_goods_stances = yes
 			}
 		}
 		batteries = {
 			stance = wants_high_supply
 			trigger = {
 				has_technology_researched = verrier_electromagnetism_tech
-				total_population >= 1000000
+				kai_should_use_goods_stances = yes
 			}
 		}
 		electroniccomponents = {
 			stance = wants_high_supply
 			trigger = {
 				has_technology_researched = electrical_capacitors
-				total_population >= 1000000
+				kai_should_use_goods_stances = yes
 			}
 		}
 		processors = {
 			stance = wants_high_supply
 			trigger = {
 				has_technology_researched = integrated_circuits
-				total_population >= 1000000
+				kai_should_use_goods_stances = yes
 			}
 		}
 		homeappliances = {
 			stance = wants_high_supply
 			trigger = {
 				has_technology_researched = rudimental_home_appliances
-				total_population >= 1000000
+				kai_should_use_goods_stances = yes
 			}
 		}
 		fuel_cells = {
 			stance = wants_high_supply
 			trigger = {
 				has_technology_researched = fuel_cells
-				total_population >= 1000000
+				kai_should_use_goods_stances = yes
 			}
 		}
 		pharmaceuticals = {
 			stance = wants_high_supply
 			trigger = {
 				has_technology_researched = panum_antitoxins_tech
-				total_population >= 1000000
+				kai_should_use_goods_stances = yes
 			}
 		}
 		robotics = {
 			stance = wants_high_supply
 			trigger = {
 				has_technology_researched = mechanical_arms
-				total_population >= 1000000
+				kai_should_use_goods_stances = yes
 			}
 		}
 		computer = {
 			stance = wants_high_supply
 			trigger = {
 				has_technology_researched = computer
-				total_population >= 1000000
+				kai_should_use_goods_stances = yes
 			}
 		}
 		space_assets = {
 			stance = wants_high_supply
 			trigger = {
 				has_technology_researched = space_assets
-				total_population >= 1000000
+				kai_should_use_goods_stances = yes
+				country_rank >= rank_value:major_power
 			}
 		}
 		raw_data = {
 			stance = wants_high_supply
 			trigger = {
 				has_technology_researched = data_processing
-				total_population >= 1000000
+				kai_should_use_goods_stances = yes
 			}
 		}
 		organized_data = {
 			stance = wants_high_supply
 			trigger = {
 				has_technology_researched = market_studies
-				total_population >= 1000000
+				kai_should_use_goods_stances = yes
 			}
 		}
 		business_data = {
 			stance = wants_high_supply
 			trigger = {
 				has_technology_researched = market_studies
-				total_population >= 1000000
+				kai_should_use_goods_stances = yes
 			}
 		}
 		telecommunications = {
 			stance = wants_high_supply
 			trigger = {
 				has_technology_researched = telephones
-				total_population >= 1000000
-			}
-		}
-		engines = { 
-			stance = wants_high_supply
-			trigger = {
-				has_technology_researched = railways
-				total_population >= 1000000
+				kai_should_use_goods_stances = yes
 			}
 		}
 		automobiles = { 
 			stance = wants_high_supply
 			trigger = {
 				has_technology_researched = compression_ignition
-				total_population >= 1000000
-			}
-		}
-		electricity = { 
-			stance = wants_high_supply
-			trigger = {
-				has_technology_researched = electrical_generation
-				total_population >= 1000000
+				kai_should_use_goods_stances = yes
 			}
 		}
 	}
@@ -814,11 +730,6 @@ ai_strategy_industrial_expansion = {
 		}
 
 		if = {
-			limit = { is_country_type = unrecognized }
-			multiply = 0.25
-		}
-
-		if = {
 			limit = {
 				exists = ig:ig_industrialists
 				ig:ig_industrialists = { is_powerful = yes }
@@ -860,40 +771,31 @@ ai_strategy_placate_population = {
 
 	type = administrative
 
-	desired_tax_level = low
-	max_tax_level = medium
-	min_tax_level = very_low
+	# KAI: Lowering taxes can be crippling when backwards countries can barely stay solvent to begin with
+	# Even for Sepoy Mutiny JE it's better to raise military wages than lowering taxes
+	#desired_tax_level = low
+	#max_tax_level = medium
+	#min_tax_level = very_low
 
-	building_group_weights = {
-		bg_agriculture = 2.0
-		bg_ranching = 2.0
-		bg_oil_extraction = 0.5
-		bg_mining = 0.5
-		bg_construction = 0.5
-		bg_manufacturing = 0.25
-	}
+	building_group_weights = {}
 
 	goods_stances = {
-		grain = { stance = wants_high_supply }
-		meat = { stance = wants_high_supply }
-		fish = { stance = wants_high_supply }
-		fruit = { stance = wants_high_supply }
-		fabric = { stance = wants_high_supply }
-		wood = { stance = wants_high_supply }
-		opium = { stance = does_not_want }
+		opium = {
+			stance = does_not_want
+			trigger = {
+				has_journal_entry = je_opium_obsession
+			}
+		}
 	}
 
+	# KAI: This is originally meant to be a bad strategy
+	# I might repurpose it for luddites / anarchist in the future
 	possible = {
-		has_law = law_type:law_traditionalism
+		always = no
 	}
 
 	weight = {
 		value = 10
-
-		if = {
-			limit = { is_country_type = unrecognized }
-			add = 20
-		}
 
 		if = {
 			limit = { literacy_rate < 0.25 }
@@ -956,34 +858,24 @@ ai_strategy_colonial_extraction = {
         bg_plantations = 1.5
     }
 
-    subsidies = {
-        building_tooling_workshops = wants_to_have
-    }
-
     goods_stances = {
-        explosives = {
-            stance = wants_high_supply
-            trigger = {
-                has_technology_researched = nitroglycerin
-            }
-        }
-        tools = { stance = wants_high_supply }
-        coal = { stance = wants_export }
-        iron = { stance = wants_export }
-        oil = { stance = wants_export }
-        lead = { stance = wants_export }
-        wood = { stance = wants_export }
-        hardwood = { stance = wants_export }
-        sulfur = { stance = wants_export }
-        fruit = { stance = wants_export }
-        fabric = { stance = wants_export }
-        sugar = { stance = wants_export }
-        coffee = { stance = wants_export }
-        tea = { stance = wants_export }
-        opium = { stance = wants_export }
-        tobacco = { stance = wants_export }
-        dye = { stance = wants_export }
-        silk = { stance = wants_export }
+        coal = { stance = wants_export trigger = { kai_has_high_supply = { GOODS = coal } } }
+        iron = { stance = wants_export trigger = { kai_has_high_supply = { GOODS = iron } } }
+        oil = { stance = wants_export trigger = { kai_has_high_supply = { GOODS = oil } } }
+        lead = { stance = wants_export trigger = { kai_has_high_supply = { GOODS = lead } } }
+        wood = { stance = wants_export trigger = { kai_has_high_supply = { GOODS = wood } } }
+        hardwood = { stance = wants_export trigger = { kai_has_high_supply = { GOODS = hardwood } } }
+        sulfur = { stance = wants_export trigger = { kai_has_high_supply = { GOODS = sulfur } } }
+        fruit = { stance = wants_export trigger = { kai_has_high_supply = { GOODS = fruit } } }
+        fabric = { stance = wants_export trigger = { kai_has_high_supply = { GOODS = fabric } } }
+        sugar = { stance = wants_export trigger = { kai_has_high_supply = { GOODS = sugar } } }
+        coffee = { stance = wants_export trigger = { kai_has_high_supply = { GOODS = coffee } } }
+        tea = { stance = wants_export trigger = { kai_has_high_supply = { GOODS = tea } } }
+        opium = { stance = wants_export trigger = { kai_has_high_supply = { GOODS = opium } } }
+        tobacco = { stance = wants_export trigger = { kai_has_high_supply = { GOODS = tobacco } } }
+        dye = { stance = wants_export trigger = { kai_has_high_supply = { GOODS = dye } } }
+        silk = { stance = wants_export trigger = { kai_has_high_supply = { GOODS = silk } } }
+        rubber = { stance = wants_export trigger = { kai_has_high_supply = { GOODS = rubber } } }
     }
     possible = {
     	is_subject = yes

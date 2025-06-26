@@ -1,0 +1,41 @@
+namespace = germany_pop
+
+germany_pop.1 = {
+	dlc = dlc_tech_res
+	type = country_event
+	placement = root
+
+	duration = 1
+
+	title = germany_pop.1.t
+	desc = germany_pop.1.d
+
+	event_image = {
+		video = "unspecific_world_fair"
+	}
+
+	icon = "gfx/interface/icons/event_icons/event_newspaper.dds"
+
+	trigger = {
+		year < 1850
+		OR = {
+			country_has_primary_culture = cu:north_german
+			country_has_primary_culture = cu:south_german
+		}
+		NOT = { THIS = c:AUS }
+		NOT = { has_modifier = historical_population_of_germany }
+	}
+
+	immediate = {
+		
+	}
+
+	option = {
+		name = germany_pop.1.a
+		default_option = yes
+		add_modifier = {
+			name = historical_population_of_germany
+			years = 80
+		}
+	}
+}
