@@ -1,3 +1,5 @@
+Victoria 3: Tech & Res: Expert Mod for Vic3 1.9 🌍🛠️
+
 Tech & Res is an expert-mod designed to enrich and extend the original gameplay all the way to 1999. New resources, innovative technologies, and advanced production methods extend the gameplay from 1936 to 1980s and beyond with the beginning of the third industrial revolution.
 
 In a few words...
