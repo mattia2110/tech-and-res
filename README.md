@@ -5,13 +5,21 @@ Tech & Res is an expert-mod designed to enrich and extend the original gameplay 
 In a few words...
 
 25+ new buildings.
+
 40+ new goods.
+
 100+ new production methods.
+
 150+ new techs that expand I-II-III-IV-V vanilla eras and develop 5 new eras:
+
 -Era VI, i.e. techs between 1936 and 1951.
+
 -Era VII, i.e. techs between 1952 and 1971.
+
 -Era VIII i.e. techs between 1972 and 1991.
+
 -Era IX i.e. techs between 1992 and 2011.
+
 -Era X i.e. techs after 2012.
 
 Load Order:
