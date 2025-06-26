@@ -1,6 +1,7 @@
 Victoria 3: Tech & Res: Expert Mod for Vic3 1.9 🌍🛠️
 
 Tech & Res is an expert-mod designed to enrich and extend the original gameplay all the way to 1999. New resources, innovative technologies, and advanced production methods extend the gameplay from 1936 to 1980s and beyond with the beginning of the third industrial revolution.
+_________________________________________________________________
 
 In a few words...
 
@@ -21,11 +22,16 @@ In a few words...
 -Era IX i.e. techs between 1992 and 2011.
 
 -Era X i.e. techs after 2012.
+_________________________________________________________________
 
 Load Order:
+
 Community Mod Framework
+
 Kuromi's AI
+
 Tech & Res
+_________________________________________________________________
 
 Tech & Res is compatible with mods that change political map.
 _________________________________________________________________
