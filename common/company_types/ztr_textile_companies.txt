@@ -1,0 +1,74 @@
+# Loius Vuitton
+
+company_louis_vuitton = {
+	icon = "gfx/interface/icons/company_icons/historical_company_icons/french_louis_vuitton.dds"
+	background = "gfx/interface/icons/company_icons/company_backgrounds/comp_illu_manufactering_light.dds"
+
+	flavored_company = yes
+
+	building_types = {
+		building_arts_academy
+		building_textile_mills
+		building_elgar_opera
+	}
+
+	extension_building_types = {
+		building_synthetics_plants
+		building_vineyard_plantation #LVHM
+	}
+
+	possible_prestige_goods = {
+		prestige_good_louis_vuitton_bags
+	}
+
+	potential = {
+		country_has_primary_culture = cu:french
+	}
+
+	attainable = {
+		hidden_trigger = { # Hide attainable if it's always fulfilled by possible
+			any_scope_state = {
+				state_region = s:STATE_ILE_DE_FRANCE
+			}
+		}
+	}
+
+	possible = {
+		has_technology_researched = vulcanization
+		any_scope_state = {
+			state_region = s:STATE_ILE_DE_FRANCE
+			is_incorporated = yes
+			any_scope_building = {
+				is_building_type = building_textile_mills
+				level >= 5
+			}
+		}
+	}
+
+	prosperity_modifier = {
+		state_pop_support_movement_feminist_mult = 0.1
+		building_arts_academy_throughput_add = 0.1
+		building_synthetics_plants_throughput_add = 0.1
+	}
+
+	ai_will_do = {
+		has_technology_researched = vulcanization
+		any_scope_state = {
+			state_region = s:STATE_ILE_DE_FRANCE
+			is_incorporated = yes
+		}
+	}
+
+	ai_construction_targets = {
+		building_textile_mills = {
+			level = 5
+			state_trigger = {
+				state_region = s:STATE_ILE_DE_FRANCE
+			}
+		}
+	}
+
+	ai_weight = {
+		value = 4 # Higher base value for flavored companies
+	}
+}

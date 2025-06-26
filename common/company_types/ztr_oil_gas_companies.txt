@@ -1,0 +1,469 @@
+company_petrobas = {
+	icon = "gfx/interface/icons/company_icons/historical_company_icons/brazilian_company_petrobas.dds"
+	background = "gfx/interface/icons/company_icons/company_backgrounds/comp_illu_oil_drills.dds"
+
+	flavored_company = yes
+
+	building_types = {
+		building_oil_rig
+		building_natural_gas_rig
+		building_oil_refinerie
+	}
+
+	extension_building_types = {
+		building_petrochemical_industry
+	}
+
+	potential = {
+		country_has_primary_culture = cu:brazilian
+	}
+
+	attainable = {
+		hidden_trigger = { # Hide attainable if it's always fulfilled by possible
+			any_scope_state = {
+				state_region = s:STATE_RIO_DE_JANEIRO
+			}
+		}
+	}
+
+	possible = {
+		has_technology_researched = pumpjacks
+		any_scope_state = {
+			any_scope_building = {
+				is_building_type = building_oil_rig
+				level >= 5
+			}
+		}
+	}
+
+	prosperity_modifier = {
+		building_oil_refinerie_throughput_add = 0.05
+		building_group_bg_logging_throughput_add = 0.1
+		state_birth_rate_mult = 0.05
+	}
+
+	ai_will_do = {
+		has_technology_researched = pumpjacks
+		any_scope_state = {
+			has_potential_resource = bg_oil_extraction
+		}
+	}
+
+	ai_construction_targets = {
+		building_oil_rig = {
+			level = 5
+		}
+	}
+
+	ai_weight = {
+		value = 4 # Higher base value for flavored companies
+	}
+}
+
+# Sinopec
+
+company_sinopec = {
+	icon = "gfx/interface/icons/company_icons/historical_company_icons/chinese_company_sinopec.dds"
+	background = "gfx/interface/icons/company_icons/company_backgrounds/comp_illu_oil_drills.dds"
+
+	flavored_company = yes
+
+	building_types = {
+		building_oil_rig
+		building_natural_gas_rig
+		building_oil_refinerie
+		building_rare_earths_mine
+	}
+
+	extension_building_types = {
+		building_petrochemical_industry
+		building_mendelejew_synthetic_rubber_factory
+		building_mendelejew_hydrogenation_plants
+	}
+
+	potential = {
+		country_has_primary_culture = cu:han
+	}
+
+	attainable = {
+		hidden_trigger = { # Hide attainable if it's always fulfilled by possible
+			any_scope_state = {
+				state_region = s:STATE_BEIJING
+			}
+		}
+	}
+
+	possible = {
+		has_technology_researched = pumpjacks
+		any_scope_state = {
+			any_scope_building = {
+				is_building_type = building_oil_rig
+				level >= 5
+			}
+		}
+	}
+
+	prosperity_modifier = {
+		building_rare_earths_mine_throughput_add = 0.1
+		building_power_plant_throughput_add = 0.1
+		building_railway_throughput_add = 0.1
+	}
+
+	ai_will_do = {
+		has_technology_researched = pumpjacks
+		any_scope_state = {
+			has_potential_resource = bg_oil_extraction
+		}
+	}
+
+	ai_construction_targets = {
+		building_oil_rig = {
+			level = 5
+		}
+	}
+
+	ai_weight = {
+		value = 4 # Higher base value for flavored companies
+	}
+}
+
+# TotalEnergies
+company_total = {
+	icon = "gfx/interface/icons/company_icons/historical_company_icons/french_company_total.dds"
+	background = "gfx/interface/icons/company_icons/company_backgrounds/comp_illu_oil_drills.dds"
+
+	flavored_company = yes
+
+	building_types = {
+		building_oil_rig
+		building_natural_gas_rig
+		building_oil_refinerie
+	}
+
+	extension_building_types = {
+		building_petrochemical_industry
+		building_mendelejew_synthetic_rubber_factory
+		building_mendelejew_hydrogenation_plants
+	}
+
+	potential = {
+		country_has_primary_culture = cu:french
+	}
+
+	attainable = {
+		hidden_trigger = { # Hide attainable if it's always fulfilled by possible
+			any_scope_state = {
+				state_region = s:STATE_ILE_DE_FRANCE
+			}
+		}
+	}
+
+	possible = {
+		has_technology_researched = pumpjacks
+		any_scope_state = {
+			any_scope_building = {
+				is_building_type = building_oil_rig
+				level >= 5
+			}
+		}
+	}
+
+	prosperity_modifier = {
+		building_railway_throughput_add = 0.1
+		building_natural_gas_rig_throughput_add = 0.1
+	}
+
+	ai_will_do = {
+		has_technology_researched = pumpjacks
+		any_scope_state = {
+			has_potential_resource = bg_oil_extraction
+		}
+	}
+
+	ai_construction_targets = {
+		building_oil_rig = {
+			level = 5
+		}
+	}
+
+	ai_weight = {
+		value = 4 # Higher base value for flavored companies
+	}
+}
+
+# British Petroleum Company Ltd
+company_bg = {
+	icon = "gfx/interface/icons/company_icons/historical_company_icons/british_company_bg.dds"
+	background = "gfx/interface/icons/company_icons/company_backgrounds/comp_illu_oil_drills.dds"
+
+	flavored_company = yes
+
+	building_types = {
+		building_oil_rig
+		building_natural_gas_rig
+		building_oil_refinerie
+	}
+
+	extension_building_types = {
+		building_petrochemical_industry
+		building_chemical_plants
+	}
+
+	potential = {
+		country_has_primary_culture = cu:british
+	}
+
+	attainable = {
+		hidden_trigger = { # Hide attainable if it's always fulfilled by possible
+			any_scope_state = {
+				state_region = s:STATE_HOME_COUNTIES
+			}
+		}
+	}
+
+	possible = {
+		has_technology_researched = pumpjacks
+		any_scope_state = {
+			any_scope_building = {
+				is_building_type = building_oil_rig
+				level >= 5
+			}
+		}
+	}
+
+	prosperity_modifier = {
+		building_railway_throughput_add = 0.1
+		building_natural_gas_rig_throughput_add = 0.1
+	}
+
+	ai_will_do = {
+		has_technology_researched = pumpjacks
+		any_scope_state = {
+			has_potential_resource = bg_oil_extraction
+		}
+	}
+
+	ai_construction_targets = {
+		building_oil_rig = {
+			level = 5
+		}
+	}
+
+	ai_weight = {
+		value = 4 # Higher base value for flavored companies
+	}
+}
+
+#ENI
+
+company_eni = {
+	icon = "gfx/interface/icons/company_icons/historical_company_icons/italian_company_eni.dds"
+	background = "gfx/interface/icons/company_icons/company_backgrounds/comp_illu_oil_drills.dds"
+
+	flavored_company = yes
+
+	building_types = {
+		building_oil_rig
+		building_natural_gas_rig
+		building_oil_refinerie
+	}
+
+	extension_building_types = {
+		building_petrochemical_industry
+		building_mendelejew_synthetic_rubber_factory
+		building_mendelejew_hydrogenation_plants
+	}
+
+	potential = {
+		OR = {
+			country_has_primary_culture = cu:north_italian
+			country_has_primary_culture = cu:south_italian
+		}
+	}
+
+	attainable = {
+		hidden_trigger = { # Hide attainable if it's always fulfilled by possible
+			any_scope_state = {
+				state_region = s:STATE_LAZIO
+			}
+		}
+	}
+
+	possible = {
+		has_technology_researched = pumpjacks
+		any_scope_state = {
+			any_scope_building = {
+				is_building_type = building_oil_rig
+				level >= 5
+			}
+		}
+	}
+
+	prosperity_modifier = {
+		building_oil_refinerie_throughput_add = 0.15
+		building_railway_throughput_add = 0.1
+	}
+
+	ai_will_do = {
+		has_technology_researched = pumpjacks
+		any_scope_state = {
+			has_potential_resource = bg_oil_extraction
+		}
+	}
+
+	ai_construction_targets = {
+		building_oil_rig = {
+			level = 5
+		}
+	}
+
+	ai_weight = {
+		value = 4 # Higher base value for flavored companies
+	}
+}
+
+# Gazprom
+
+company_gazprom = {
+	icon = "gfx/interface/icons/company_icons/historical_company_icons/russian_company_gazprom.dds"
+	background = "gfx/interface/icons/company_icons/company_backgrounds/comp_illu_oil_drills.dds"
+
+	flavored_company = yes
+
+	preferred_headquarters = { STATE_SIBERIA }
+
+	building_types = {
+		building_power_plant
+		building_natural_gas_rig
+	}
+
+	possible_prestige_goods = {
+		prestige_good_gazprom_natural_gas
+	}
+
+	extension_building_types = {
+		building_oil_refinerie
+	}
+
+	potential = {
+		has_interest_marker_in_region = region_siberia
+	}
+
+	attainable = {
+		hidden_trigger = { # Hide attainable if it's always fulfilled by possible
+			any_scope_state = {
+				state_region = s:STATE_INGRIA
+			}
+		}
+	}
+
+	possible = {
+		has_technology_researched = natural_gas_extraction
+		any_scope_state = {
+			any_scope_building = {
+				is_building_type = building_natural_gas_rig
+				level >= 5
+			}
+		}
+	}
+
+	prosperity_modifier = {
+		building_natural_gas_rig_throughput_add = 0.2
+		country_prestige_from_army_power_projection_mult = 0.2
+		state_mortality_mult = 0.05
+	}
+
+	ai_will_do = {
+		has_technology_researched = natural_gas_extraction
+		any_scope_state = {
+			has_potential_resource = building_natural_gas_rig
+		}
+	}
+
+	ai_construction_targets = {
+		building_oil_rig = {
+			level = 5
+		}
+	}
+
+	ai_weight = {
+		value = 4 # Higher base value for flavored companies
+	}
+}
+
+#Saudi Aramco
+
+company_saudi_aramco = {
+	icon = "gfx/interface/icons/company_icons/historical_company_icons/arabian_company_saudi_aramco.dds"
+	background = "gfx/interface/icons/company_icons/company_backgrounds/comp_illu_oil_drills.dds"
+
+	flavored_company = yes
+
+	building_types = {
+		building_oil_rig
+		building_natural_gas_rig
+		building_oil_refinerie
+	}
+
+	extension_building_types = {
+		building_petrochemical_industry
+		building_power_plant
+	}
+
+	possible_prestige_goods = {
+		prestige_good_saudi_aramco_oil
+	}
+
+	potential = {
+		country_has_primary_culture = cu:bedouin
+	}
+
+	attainable = {
+		hidden_trigger = { # Hide attainable if it's always fulfilled by possible
+			any_scope_state = {
+				OR = {
+					state_region = s:STATE_NEJD
+					state_region = s:STATE_ABU_DHABI
+				}
+			}
+		}
+	}
+
+	possible = {
+		year >= 1900
+		has_technology_researched = pumpjacks
+		any_scope_state = {
+			any_scope_building = {
+				is_building_type = building_oil_rig
+				level >= 5
+			}
+		}
+	}
+
+	prosperity_modifier = {
+		building_oil_refinerie_throughput_add = 0.25
+		building_group_bg_oil_extraction_throughput_add = 0.25
+		state_birth_rate_mult = 0.05
+	}
+
+	ai_will_do = {
+		has_technology_researched = pumpjacks
+		any_scope_state = {
+			is_incorporated = yes
+			has_potential_resource = bg_oil_extraction
+		}
+	}
+
+	ai_construction_targets = {
+		building_oil_rig = {
+			level = 5
+			state_trigger = {
+				is_incorporated = yes
+			}
+		}
+	}
+
+	ai_weight = {
+		value = 4 # Higher base value for flavored companies
+	}
+}

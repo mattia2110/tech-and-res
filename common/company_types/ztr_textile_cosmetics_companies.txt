@@ -1,0 +1,373 @@
+# L'Oreal
+company_oreal = {
+	icon = "gfx/interface/icons/company_icons/historical_company_icons/french_oreal.dds"
+	background = "gfx/interface/icons/company_icons/company_backgrounds/comp_illu_manufactering_light.dds"
+
+	flavored_company = yes
+
+	building_types = {
+		building_synthetics_plants
+		building_pharmaceuticals_industry
+	}
+
+	extension_building_types = {
+		building_petrochemical_industry
+		building_arts_academy
+	}
+
+	possible_prestige_goods = {
+		prestige_good_loreal_cosmetics
+	}
+
+	potential = {
+		country_has_primary_culture = cu:french
+	}
+
+	attainable = {
+		hidden_trigger = { # Hide attainable if it's always fulfilled by possible
+			any_scope_state = {
+				state_region = s:STATE_ILE_DE_FRANCE
+			}
+		}
+	}
+
+	possible = {
+		has_technology_researched = automatic_bottle_blowers
+		any_scope_state = {
+			state_region = s:STATE_ILE_DE_FRANCE
+			is_incorporated = yes
+			any_scope_building = {
+				is_building_type = building_synthetics_plants
+				level >= 5
+			}
+		}
+	}
+
+	prosperity_modifier = {
+		state_pop_support_movement_feminist_mult = 0.2
+		state_standard_of_living_add = 1
+	}
+
+	ai_will_do = {
+		has_technology_researched = automatic_bottle_blowers
+		any_scope_state = {
+			state_region = s:STATE_ILE_DE_FRANCE
+			is_incorporated = yes
+		}
+	}
+
+	ai_construction_targets = {
+		building_synthetics_plants = {
+			level = 5
+			state_trigger = {
+				state_region = s:STATE_ILE_DE_FRANCE
+			}
+		}
+	}
+
+	ai_weight = {
+		value = 4 # Higher base value for flavored companies
+	}
+}
+
+#Shiseido
+
+company_shiseido = {
+	icon = "gfx/interface/icons/company_icons/historical_company_icons/japanese_shiseido.dds"
+	background = "gfx/interface/icons/company_icons/company_backgrounds/comp_illu_manufactering_light.dds"
+
+	flavored_company = yes
+
+	building_types = {
+		building_synthetics_plants
+		building_pharmaceuticals_industry
+	}
+
+	extension_building_types = {
+		building_petrochemical_industry
+		building_glassworks
+	}
+
+	possible_prestige_goods = {
+		prestige_good_shiseido_cosmetics
+	}
+
+	potential = {
+		country_has_primary_culture = cu:japanese
+	}
+
+	attainable = {
+		hidden_trigger = { # Hide attainable if it's always fulfilled by possible
+			any_scope_state = {
+				state_region = s:STATE_KANTO
+			}
+		}
+	}
+
+	possible = {
+		has_technology_researched = pharmaceuticals
+		any_scope_state = {
+			state_region = s:STATE_KANTO
+			is_incorporated = yes
+			any_scope_building = {
+				is_building_type = building_pharmaceuticals_industry
+				level >= 5
+			}
+		}
+	}
+
+	prosperity_modifier = {
+		state_standard_of_living_add = 0.5
+		state_mortality_mult = -0.05
+	}
+
+	ai_will_do = {
+		has_technology_researched = pharmaceuticals
+		any_scope_state = {
+			state_region = s:STATE_KANTO
+			is_incorporated = yes
+		}
+	}
+
+	ai_construction_targets = {
+		building_pharmaceuticals_industry = {
+			level = 5
+			state_trigger = {
+				state_region = s:STATE_KANTO
+			}
+		}
+	}
+
+	ai_weight = {
+		value = 4 # Higher base value for flavored companies
+	}
+}
+
+# Revlon
+
+company_revlon = {
+	icon = "gfx/interface/icons/company_icons/historical_company_icons/american_revlon.dds"
+	background = "gfx/interface/icons/company_icons/company_backgrounds/comp_illu_manufactering_light.dds"
+
+	flavored_company = yes
+
+	building_types = {
+		building_synthetics_plants
+		building_pharmaceuticals_industry
+	}
+
+	extension_building_types = {
+		building_arts_academy
+	}
+
+	possible_prestige_goods = {
+		prestige_good_revlon_cosmetics
+	}
+
+	potential = {
+		OR = {
+			country_has_primary_culture = cu:yankee
+			country_has_primary_culture = cu:dixie
+		}
+	}
+
+	attainable = {
+		hidden_trigger = { # Hide attainable if it's always fulfilled by possible
+			any_scope_state = {
+				state_region = s:STATE_NEW_YORK
+			}
+		}
+	}
+
+	possible = {
+		has_technology_researched = automatic_bottle_blowers
+		any_scope_state = {
+			state_region = s:STATE_NEW_YORK
+			is_incorporated = yes
+			any_scope_building = {
+				is_building_type = building_synthetics_plants
+				level >= 5
+			}
+		}
+	}
+
+	prosperity_modifier = {
+		state_pop_support_movement_feminist_mult = 0.2
+		state_mortality_mult = -0.05
+	}
+
+	ai_will_do = {
+		has_technology_researched = automatic_bottle_blowers
+		any_scope_state = {
+			state_region = s:STATE_NEW_YORK
+			is_incorporated = yes
+		}
+	}
+
+	ai_construction_targets = {
+		building_synthetics_plants = {
+			level = 5
+			state_trigger = {
+				state_region = s:STATE_NEW_YORK
+			}
+		}
+	}
+
+	ai_weight = {
+		value = 4 # Higher base value for flavored companies
+	}
+}
+
+# Unilever
+
+company_unilever = {
+	icon = "gfx/interface/icons/company_icons/historical_company_icons/british_unilever.dds"
+	background = "gfx/interface/icons/company_icons/company_backgrounds/comp_illu_manufactering_light.dds"
+
+	flavored_company = yes
+
+	building_types = {
+		building_synthetics_plants
+		building_food_industry
+	}
+
+	extension_building_types = {
+		building_glassworks
+	}
+
+	possible_prestige_goods = {
+		prestige_good_unilever_soap
+	}
+
+	potential = {
+		country_has_primary_culture = cu:british
+	}
+
+	attainable = {
+		hidden_trigger = { # Hide attainable if it's always fulfilled by possible
+			any_scope_state = {
+				state_region = s:STATE_HOME_COUNTIES
+			}
+		}
+	}
+
+	possible = {
+		has_technology_researched = canneries
+		any_scope_state = {
+			state_region = s:STATE_HOME_COUNTIES
+			is_incorporated = yes
+			any_scope_building = {
+				OR = {
+					is_building_type = building_synthetics_plants
+					is_building_type = building_food_industry
+				}
+				level >= 5
+			}
+		}
+	}
+
+	prosperity_modifier = {
+		building_food_industry_throughput_add = 0.1
+		state_standard_of_living_add = 1
+	}
+
+	ai_will_do = {
+		has_technology_researched = canneries
+		any_scope_state = {
+			state_region = s:STATE_HOME_COUNTIES
+			is_incorporated = yes
+		}
+	}
+
+	ai_construction_targets = {
+		building_synthetics_plants = {
+			level = 5
+			state_trigger = {
+				state_region = s:STATE_HOME_COUNTIES
+			}
+		}
+		building_food_industry = {
+			level = 5
+			state_trigger = {
+				state_region = s:STATE_HOME_COUNTIES
+			}
+		}
+	}
+
+	ai_weight = {
+		value = 4 # Higher base value for flavored companies
+	}
+}
+
+# Beiersdorf
+
+company_beiersdorf = {
+	icon = "gfx/interface/icons/company_icons/historical_company_icons/german_beiersdorf.dds"
+	background = "gfx/interface/icons/company_icons/company_backgrounds/comp_illu_manufactering_light.dds"
+
+	flavored_company = yes
+
+	building_types = {
+		building_pharmaceuticals_industry
+	}
+
+	extension_building_types = {
+		building_petrochemical_industry
+		building_synthetics_plants
+	}
+
+	potential = {
+		country_has_primary_culture = cu:north_german
+	}
+
+	possible_prestige_goods = {
+		prestige_good_unilever_soap
+	}
+
+	attainable = {
+		hidden_trigger = { # Hide attainable if it's always fulfilled by possible
+			any_scope_state = {
+				state_region = s:STATE_ELBE
+			}
+		}
+	}
+
+	possible = {
+		has_technology_researched = pharmaceuticals
+		any_scope_state = {
+			state_region = s:STATE_ELBE
+			is_incorporated = yes
+			any_scope_building = {
+				is_building_type = building_pharmaceuticals_industry
+				level >= 5
+			}
+		}
+	}
+
+	prosperity_modifier = {
+		state_mortality_mult = -0.05
+		country_institution_cost_institution_health_system_mult = -0.1
+	}
+
+	ai_will_do = {
+		has_technology_researched = pharmaceuticals
+		any_scope_state = {
+			state_region = s:STATE_ELBE
+			is_incorporated = yes
+		}
+	}
+
+	ai_construction_targets = {
+		building_pharmaceuticals_industry = {
+			level = 5
+			state_trigger = {
+				state_region = s:STATE_ELBE
+			}
+		}
+	}
+
+	ai_weight = {
+		value = 4 # Higher base value for flavored companies
+	}
+}
+
