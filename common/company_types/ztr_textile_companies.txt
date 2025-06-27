@@ -13,8 +13,8 @@ company_louis_vuitton = {
 	}
 
 	extension_building_types = {
-		building_synthetics_plants
-		building_vineyard_plantation #LVHM
+		building_synthetics_plants #Sephora
+		building_vineyard_plantation #MH
 	}
 
 	possible_prestige_goods = {
@@ -46,9 +46,10 @@ company_louis_vuitton = {
 	}
 
 	prosperity_modifier = {
-		state_pop_support_movement_feminist_mult = 0.1
+		state_pop_support_movement_feminist_mult = 0.05
 		building_arts_academy_throughput_add = 0.1
-		building_synthetics_plants_throughput_add = 0.1
+		building_synthetics_plants_throughput_add = 0.05
+		country_prestige_mult = 0.05
 	}
 
 	ai_will_do = {
@@ -64,6 +65,766 @@ company_louis_vuitton = {
 			level = 5
 			state_trigger = {
 				state_region = s:STATE_ILE_DE_FRANCE
+			}
+		}
+	}
+
+	ai_weight = {
+		value = 4 # Higher base value for flavored companies
+	}
+}
+
+# Hermes
+
+company_hermes = {
+	icon = "gfx/interface/icons/company_icons/historical_company_icons/french_hermes.dds"
+	background = "gfx/interface/icons/company_icons/company_backgrounds/comp_illu_manufactering_light.dds"
+
+	flavored_company = yes
+
+	building_types = {
+		building_furniture_manufacturies
+		building_textile_mills
+	}
+
+	extension_building_types = {
+		building_silk_plantation
+		building_livestock_ranch
+		building_arts_academy
+	}
+
+	possible_prestige_goods = {
+		prestige_good_hermes_bags #Birkin bags
+	}
+
+	potential = {
+		country_has_primary_culture = cu:french
+	}
+
+	attainable = {
+		hidden_trigger = { # Hide attainable if it's always fulfilled by possible
+			any_scope_state = {
+				state_region = s:STATE_ILE_DE_FRANCE
+			}
+		}
+	}
+
+	possible = {
+		has_technology_researched = vulcanization
+		any_scope_state = {
+			state_region = s:STATE_ILE_DE_FRANCE
+			is_incorporated = yes
+			any_scope_building = {
+				is_building_type = building_furniture_manufacturies
+				level >= 5
+			}
+		}
+	}
+
+	prosperity_modifier = {
+		state_pop_support_movement_feminist_mult = 0.05
+		building_arts_academy_throughput_add = 0.1
+		building_synthetics_plants_throughput_add = 0.05
+		country_prestige_mult = 0.05
+	}
+
+	ai_will_do = {
+		has_technology_researched = vulcanization
+		any_scope_state = {
+			state_region = s:STATE_ILE_DE_FRANCE
+			is_incorporated = yes
+		}
+	}
+
+	ai_construction_targets = {
+		building_furniture_manufacturies = {
+			level = 5
+			state_trigger = {
+				state_region = s:STATE_ILE_DE_FRANCE
+			}
+		}
+	}
+
+	ai_weight = {
+		value = 3 # Higher base value for flavored companies
+	}
+}
+
+# Prada
+
+company_prada = {
+	icon = "gfx/interface/icons/company_icons/historical_company_icons/italian_prada.dds"
+	background = "gfx/interface/icons/company_icons/company_backgrounds/comp_illu_manufactering_light.dds"
+
+	flavored_company = yes
+
+	building_types = {
+		building_arts_academy
+		building_textile_mills
+	}
+
+	extension_building_types = {
+		building_synthetics_plants
+		building_livestock_ranch
+		building_cotton_plantation
+	}
+
+	possible_prestige_goods = {
+		prestige_good_prada_bags
+	}
+
+	potential = {
+		OR = {
+			country_has_primary_culture = cu:north_italian
+			country_has_primary_culture = cu:south_german
+		}
+	}
+
+	attainable = {
+		hidden_trigger = { # Hide attainable if it's always fulfilled by possible
+			any_scope_state = {
+				state_region = s:STATE_LOMBARDY
+			}
+		}
+	}
+
+	possible = {
+		has_technology_researched = vulcanization
+		any_scope_state = {
+			state_region = s:STATE_LOMBARDY
+			is_incorporated = yes
+			any_scope_building = {
+				is_building_type = building_textile_mills
+				level >= 5
+			}
+		}
+	}
+
+	prosperity_modifier = {
+		building_silk_plantation_throughput_add = 0.05
+		state_pop_support_movement_feminist_mult = 0.1
+		building_textile_mills_throughput_add = 0.05
+		building_arts_academy_throughput_add = 0.05
+	}
+
+	ai_will_do = {
+		has_technology_researched = vulcanization
+		any_scope_state = {
+			state_region = s:STATE_LOMBARDY
+			is_incorporated = yes
+		}
+	}
+
+	ai_construction_targets = {
+		building_textile_mills = {
+			level = 5
+			state_trigger = {
+				state_region = s:STATE_LOMBARDY
+			}
+		}
+	}
+
+	ai_weight = {
+		value = 4 # Higher base value for flavored companies
+	}
+}
+
+# Gucci
+
+company_gucci = {
+	icon = "gfx/interface/icons/company_icons/historical_company_icons/italian_gucci.dds"
+	background = "gfx/interface/icons/company_icons/company_backgrounds/comp_illu_manufactering_light.dds"
+
+	flavored_company = yes
+
+	building_types = {
+		building_arts_academy
+		building_textile_mills
+	}
+
+	extension_building_types = {
+		building_livestock_ranch
+		building_elgar_opera
+	}
+
+	possible_prestige_goods = {
+		prestige_good_gucci_bags
+	}
+
+	potential = {
+		country_has_primary_culture = cu:north_italian
+	}
+
+	attainable = {
+		hidden_trigger = { # Hide attainable if it's always fulfilled by possible
+			any_scope_state = {
+				state_region = s:STATE_TUSCANY
+			}
+		}
+	}
+
+	possible = {
+		has_technology_researched = vulcanization
+		any_scope_state = {
+			state_region = s:STATE_TUSCANY
+			is_incorporated = yes
+			any_scope_building = {
+				is_building_type = building_textile_mills
+				level >= 5
+			}
+		}
+	}
+
+	prosperity_modifier = {
+		building_livestock_ranch_throughput_add = 0.05
+		state_pop_support_movement_feminist_mult = 0.1
+		building_silk_plantation_throughput_add = 0.05
+		building_arts_academy_throughput_add = 0.05
+	}
+
+	ai_will_do = {
+		has_technology_researched = vulcanization
+		any_scope_state = {
+			state_region = s:STATE_TUSCANY
+			is_incorporated = yes
+		}
+	}
+
+	ai_construction_targets = {
+		building_textile_mills = {
+			level = 5
+			state_trigger = {
+				state_region = s:STATE_TUSCANY
+			}
+		}
+	}
+
+	ai_weight = {
+		value = 4 # Higher base value for flavored companies
+	}
+}
+
+# Burberry
+
+company_burberry = {
+	icon = "gfx/interface/icons/company_icons/historical_company_icons/british_burberry.dds"
+	background = "gfx/interface/icons/company_icons/company_backgrounds/comp_illu_manufactering_light.dds"
+
+	flavored_company = yes
+
+	building_types = {
+		building_textile_mills
+		building_livestock_ranch
+		building_cotton_plantation
+	}
+
+	extension_building_types = {
+		building_arts_academy
+		building_hydroponic
+	}
+
+	possible_prestige_goods = {
+		prestige_good_burberry_coats
+	}
+
+	potential = {
+		country_has_primary_culture = cu:british
+	}
+
+	attainable = {
+		hidden_trigger = { # Hide attainable if it's always fulfilled by possible
+			any_scope_state = {
+				state_region = s:STATE_HOME_COUNTIES
+			}
+		}
+	}
+
+	possible = {
+		has_technology_researched = lathe
+		any_scope_state = {
+			state_region = s:STATE_HOME_COUNTIES
+			is_incorporated = yes
+			any_scope_building = {
+				is_building_type = building_textile_mills
+				level >= 5
+			}
+		}
+	}
+
+	prosperity_modifier = {
+		state_pop_support_movement_feminist_mult = 0.1
+		country_prestige_mult = 0.05
+		building_textile_mills_throughput_add = 0.05
+	}
+
+	ai_will_do = {
+		has_technology_researched = lathe
+		any_scope_state = {
+			state_region = s:STATE_HOME_COUNTIES
+			is_incorporated = yes
+		}
+	}
+
+	ai_construction_targets = {
+		building_textile_mills = {
+			level = 5
+			state_trigger = {
+				state_region = s:STATE_HOME_COUNTIES
+			}
+		}
+	}
+
+	ai_weight = {
+		value = 4 # Higher base value for flavored companies
+	}
+}
+
+# Levi Strauss
+
+company_levi_strauss = {
+	icon = "gfx/interface/icons/company_icons/historical_company_icons/american_levi_strauss.dds"
+	background = "gfx/interface/icons/company_icons/company_backgrounds/comp_illu_manufactering_light.dds"
+
+	flavored_company = yes
+
+	building_types = {
+		building_textile_mills
+		building_cotton_plantation
+	}
+
+	extension_building_types = {
+		building_rubber_plantation
+		building_petrochemical_industry
+	}
+
+	possible_prestige_goods = {
+		prestige_good_levi_strauss_denim
+	}
+
+	potential = {
+		country_has_primary_culture = cu:dixie
+	}
+
+	attainable = {
+		hidden_trigger = { # Hide attainable if it's always fulfilled by possible
+			any_scope_state = {
+				state_region = s:STATE_CALIFORNIA
+			}
+		}
+	}
+
+	possible = {
+		has_technology_researched = vulcanization
+		any_scope_state = {
+			state_region = s:STATE_CALIFORNIA
+			is_incorporated = yes
+			any_scope_building = {
+				is_building_type = building_textile_mills
+				level >= 5
+			}
+		}
+	}
+
+	prosperity_modifier = {
+		building_water_plant_throughput_add = 0.05
+		building_cotton_plantation_throughput_add = 0.05
+		building_petrochemical_industry_throughput_add = 0.05
+		state_pop_support_movement_cultural_minority_mult = 0.1
+	}
+
+	ai_will_do = {
+		has_technology_researched = vulcanization
+		any_scope_state = {
+			state_region = s:STATE_CALIFORNIA
+			is_incorporated = yes
+		}
+	}
+
+	ai_construction_targets = {
+		building_textile_mills = {
+			level = 5
+			state_trigger = {
+				state_region = s:STATE_CALIFORNIA
+			}
+		}
+	}
+
+	ai_weight = {
+		value = 4 # Higher base value for flavored companies
+	}
+}
+
+# Nike
+
+company_nike = {
+	icon = "gfx/interface/icons/company_icons/historical_company_icons/american_nike.dds"
+	background = "gfx/interface/icons/company_icons/company_backgrounds/comp_illu_manufactering_light.dds"
+
+	flavored_company = yes
+
+	building_types = {
+		building_textile_mills
+		building_petrochemical_industry
+	}
+
+	extension_building_types = {
+		building_rubber_plantation
+		building_entertainment_industry	
+	}
+
+	possible_prestige_goods = {
+		prestige_good_nike_shoes
+	}
+
+	potential = {
+		OR = {
+			country_has_primary_culture = cu:yankee
+			country_has_primary_culture = cu:anglo_canadian #Oregon Treaty not signed
+		}
+	}
+
+	attainable = {
+		hidden_trigger = { # Hide attainable if it's always fulfilled by possible
+			any_scope_state = {
+				state_region = s:STATE_OREGON
+			}
+		}
+	}
+
+	possible = {
+		has_technology_researched = elastomers
+		any_scope_state = {
+			state_region = s:STATE_OREGON
+			is_incorporated = yes
+			any_scope_building = {
+				is_building_type = building_textile_mills
+				level >= 5
+			}
+		}
+	}
+
+	prosperity_modifier = {
+		building_petrochemical_industry_throughput_add = 0.1
+		country_trade_route_competitiveness_mult = 0.1
+	}
+
+	ai_will_do = {
+		has_technology_researched = elastomers
+		any_scope_state = {
+			state_region = s:STATE_OREGON
+			is_incorporated = yes
+		}
+	}
+
+	ai_construction_targets = {
+		building_textile_mills = {
+			level = 5
+			state_trigger = {
+				state_region = s:STATE_OREGON
+			}
+		}
+	}
+
+	ai_weight = {
+		value = 4 # Higher base value for flavored companies
+	}
+}
+
+# Adidas
+
+company_adidas = {
+	icon = "gfx/interface/icons/company_icons/historical_company_icons/german_adidas.dds"
+	background = "gfx/interface/icons/company_icons/company_backgrounds/comp_illu_manufactering_light.dds"
+
+	flavored_company = yes
+
+	building_types = {
+		building_textile_mills
+	}
+
+	extension_building_types = {
+		building_rubber_plantation
+		building_entertainment_industry
+		building_mendelejew_synthetic_rubber_factory
+	}
+
+	possible_prestige_goods = {
+		prestige_good_adidas_shoes
+	}
+
+	potential = {
+		OR = {
+			country_has_primary_culture = cu:north_german
+			country_has_primary_culture = cu:south_german
+		}
+	}
+
+	attainable = {
+		hidden_trigger = { # Hide attainable if it's always fulfilled by possible
+			any_scope_state = {
+				state_region = s:STATE_BAVARIA
+			}
+		}
+	}
+
+	possible = {
+		has_technology_researched = synthetic_fibres
+		any_scope_state = {
+			state_region = s:STATE_BAVARIA
+			is_incorporated = yes
+			any_scope_building = {
+				is_building_type = building_textile_mills
+				level >= 5
+			}
+		}
+	}
+
+	prosperity_modifier = {
+		state_pop_support_movement_cultural_minority_mult = 0.1
+		country_trade_route_competitiveness_mult = 0.2
+	}
+
+	ai_will_do = {
+		has_technology_researched = synthetic_fibres
+		any_scope_state = {
+			state_region = s:STATE_BAVARIA
+			is_incorporated = yes
+		}
+	}
+
+	ai_construction_targets = {
+		building_textile_mills = {
+			level = 5
+			state_trigger = {
+				state_region = s:STATE_BAVARIA
+			}
+		}
+	}
+
+	ai_weight = {
+		value = 4 # Higher base value for flavored companies
+	}
+}
+
+# H&M
+
+company_hm = {
+	icon = "gfx/interface/icons/company_icons/historical_company_icons/swedish_hm.dds"
+	background = "gfx/interface/icons/company_icons/company_backgrounds/comp_illu_manufactering_light.dds"
+
+	flavored_company = yes
+
+	building_types = {
+		building_textile_mills
+		building_synthetics_plants
+	}
+
+	extension_building_types = {
+		building_rubber_plantation
+		building_petrochemical_industry
+	}
+
+	possible_prestige_goods = {
+		prestige_good_fast_fashion_clothes
+	}
+
+	potential = {
+		country_has_primary_culture = cu:swedish
+	}
+
+	attainable = {
+		hidden_trigger = { # Hide attainable if it's always fulfilled by possible
+			any_scope_state = {
+				state_region = s:STATE_SVEALAND
+			}
+		}
+	}
+
+	possible = {
+		has_technology_researched = synthetic_fibres
+		any_scope_state = {
+			state_region = s:STATE_SVEALAND
+			is_incorporated = yes
+			any_scope_building = {
+				is_building_type = building_textile_mills
+				level >= 5
+			}
+		}
+	}
+
+	prosperity_modifier = {
+		state_pop_support_movement_feminist_mult = 0.1
+		state_pop_support_movement_cultural_minority_mult = 0.1
+		building_textile_mills_throughput_add = 0.05
+	}
+
+	ai_will_do = {
+		has_technology_researched = synthetic_fibres
+		any_scope_state = {
+			state_region = s:STATE_SVEALAND
+			is_incorporated = yes
+		}
+	}
+
+	ai_construction_targets = {
+		building_textile_mills = {
+			level = 5
+			state_trigger = {
+				state_region = s:STATE_SVEALAND
+			}
+		}
+	}
+
+	ai_weight = {
+		value = 4 # Higher base value for flavored companies
+	}
+}
+
+# Inditex
+
+company_inditex = {
+	icon = "gfx/interface/icons/company_icons/historical_company_icons/spanish_inditex.dds"
+	background = "gfx/interface/icons/company_icons/company_backgrounds/comp_illu_manufactering_light.dds"
+
+	flavored_company = yes
+
+	building_types = {
+		building_textile_mills
+		building_rubber_plantation
+	}
+
+	extension_building_types = {
+		building_synthetics_plants
+		building_mendelejew_synthetic_rubber_factory
+		building_hydroponic
+	}
+
+	possible_prestige_goods = {
+		prestige_good_fast_fashion_clothes
+	}
+
+	potential = {
+		OR = {
+			country_has_primary_culture = cu:spanish
+			country_has_primary_culture = cu:portuguese
+			country_has_primary_culture = cu:galician
+		}
+	}
+
+	attainable = {
+		hidden_trigger = { # Hide attainable if it's always fulfilled by possible
+			any_scope_state = {
+				state_region = s:STATE_GALICIA
+			}
+		}
+	}
+
+	possible = {
+		has_technology_researched = synthetic_fibres
+		any_scope_state = {
+			state_region = s:STATE_GALICIA
+			is_incorporated = yes
+			any_scope_building = {
+				is_building_type = building_textile_mills
+				level >= 5
+			}
+		}
+	}
+
+	prosperity_modifier = {
+		state_pop_support_movement_feminist_mult = 0.05
+		building_rubber_plantation_throughput_add = 0.05
+		country_trade_route_competitiveness_mult = 0.1
+	}
+
+	ai_will_do = {
+		has_technology_researched = synthetic_fibres
+		any_scope_state = {
+			state_region = s:STATE_GALICIA
+			is_incorporated = yes
+		}
+	}
+
+	ai_construction_targets = {
+		building_textile_mills = {
+			level = 5
+			state_trigger = {
+				state_region = s:STATE_GALICIA
+			}
+		}
+	}
+
+	ai_weight = {
+		value = 4 # Higher base value for flavored companies
+	}
+}
+
+# Shein
+
+company_shein = {
+	icon = "gfx/interface/icons/company_icons/historical_company_icons/chinese_shein.dds"
+	background = "gfx/interface/icons/company_icons/company_backgrounds/comp_illu_manufactering_light.dds"
+
+	flavored_company = yes
+
+	building_types = {
+		building_textile_mills
+	}
+
+	extension_building_types = {
+		building_synthetics_plants
+		building_rubber_plantation
+		building_mendelejew_synthetic_rubber_factory
+		building_trade_center #E-commerce
+	}
+
+	possible_prestige_goods = {
+		prestige_good_fast_fashion_clothes
+	}
+
+	potential = {
+		country_has_primary_culture = cu:han
+	}
+
+	attainable = {
+		hidden_trigger = { # Hide attainable if it's always fulfilled by possible
+			any_scope_state = {
+				state_region = s:STATE_SUZHOU
+			}
+		}
+	}
+
+	possible = {
+		has_technology_researched = hdpe
+		any_scope_state = {
+			state_region = s:STATE_SUZHOU
+			is_incorporated = yes
+			any_scope_building = {
+				is_building_type = building_textile_mills
+				level >= 5
+			}
+		}
+	}
+
+	prosperity_modifier = {
+		building_petrochemical_industry_throughput_add = 0.05
+		building_textile_mills_throughput_add = 0.05
+		country_trade_route_competitiveness_mult = 0.15
+	}
+
+	ai_will_do = {
+		has_technology_researched = hdpe
+		any_scope_state = {
+			state_region = s:STATE_SUZHOU
+			is_incorporated = yes
+		}
+	}
+
+	ai_construction_targets = {
+		building_textile_mills = {
+			level = 5
+			state_trigger = {
+				state_region = s:STATE_SUZHOU
 			}
 		}
 	}
