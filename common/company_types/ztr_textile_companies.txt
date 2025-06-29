@@ -1,10 +1,74 @@
+# Companies in this file
+# Louis Vuitton
+# Hermes
+# Prada
+# Gucci
+# Burberry
+# Levi Strauss
+# Nike
+# Adidas
+# H&M
+# Inditex
+# Shein
+# Primark
+
+# Generic Fashion Company
+
+generic_company_basic_cosmetics = {
+	icon = "gfx/interface/icons/company_icons/fashion_generic_icon.dds"
+	background = "gfx/interface/icons/company_icons/company_backgrounds/comp_illu_fashion.dds"
+	
+	uses_dynamic_naming = yes
+	
+	dynamic_company_type_names = {
+		"dynamic_company_type_company"
+		"dynamic_company_type_guild"
+	}
+	
+	building_types = {
+		building_synthetics_plants
+	}
+
+	extension_building_types = {
+		building_arts_academy
+	}
+
+	possible = {
+		has_technology_researched = lathe
+		any_scope_state = {
+			is_incorporated = yes
+			any_scope_building = {
+				is_building_type = building_textile_mills
+				level >= 3
+			}
+		}
+	}
+	
+	prosperity_modifier = {
+		state_standard_of_living_add = 0.5
+	}
+
+	ai_will_do = {
+		has_technology_researched = lathe
+		any_scope_state = {
+			is_incorporated = yes
+			any_scope_building = {
+				is_building_type = building_textile_mills
+				level = 5
+			}
+		}
+	}
+}
+
 # Loius Vuitton
 
 company_louis_vuitton = {
 	icon = "gfx/interface/icons/company_icons/historical_company_icons/french_louis_vuitton.dds"
-	background = "gfx/interface/icons/company_icons/company_backgrounds/comp_illu_manufactering_light.dds"
+	background = "gfx/interface/icons/company_icons/company_backgrounds/comp_illu_fashion.dds"
 
 	flavored_company = yes
+
+	preferred_headquarters = { STATE_ILE_DE_FRANCE }
 
 	building_types = {
 		building_arts_academy
@@ -13,12 +77,13 @@ company_louis_vuitton = {
 	}
 
 	extension_building_types = {
-		building_synthetics_plants #Sephora
+		building_synthetics_plants #Sephora-Dior
 		building_vineyard_plantation #MH
 	}
 
 	possible_prestige_goods = {
 		prestige_good_louis_vuitton_bags
+		prestige_good_dior_perfumes #Dior
 	}
 
 	potential = {
@@ -47,8 +112,7 @@ company_louis_vuitton = {
 
 	prosperity_modifier = {
 		state_pop_support_movement_feminist_mult = 0.05
-		building_arts_academy_throughput_add = 0.1
-		building_synthetics_plants_throughput_add = 0.05
+		building_synthetics_plants_throughput_add = 0.1
 		country_prestige_mult = 0.05
 	}
 
@@ -78,9 +142,11 @@ company_louis_vuitton = {
 
 company_hermes = {
 	icon = "gfx/interface/icons/company_icons/historical_company_icons/french_hermes.dds"
-	background = "gfx/interface/icons/company_icons/company_backgrounds/comp_illu_manufactering_light.dds"
+	background = "gfx/interface/icons/company_icons/company_backgrounds/comp_illu_fashion.dds"
 
 	flavored_company = yes
+
+	preferred_headquarters = { STATE_ILE_DE_FRANCE }
 
 	building_types = {
 		building_furniture_manufacturies
@@ -123,8 +189,7 @@ company_hermes = {
 
 	prosperity_modifier = {
 		state_pop_support_movement_feminist_mult = 0.05
-		building_arts_academy_throughput_add = 0.1
-		building_synthetics_plants_throughput_add = 0.05
+		building_arts_academy_throughput_add = 0.15
 		country_prestige_mult = 0.05
 	}
 
@@ -154,9 +219,11 @@ company_hermes = {
 
 company_prada = {
 	icon = "gfx/interface/icons/company_icons/historical_company_icons/italian_prada.dds"
-	background = "gfx/interface/icons/company_icons/company_backgrounds/comp_illu_manufactering_light.dds"
+	background = "gfx/interface/icons/company_icons/company_backgrounds/comp_illu_fashion.dds"
 
 	flavored_company = yes
+
+	preferred_headquarters = { STATE_LOMBARDY }
 
 	building_types = {
 		building_arts_academy
@@ -201,10 +268,9 @@ company_prada = {
 	}
 
 	prosperity_modifier = {
-		building_silk_plantation_throughput_add = 0.05
-		state_pop_support_movement_feminist_mult = 0.1
+		building_silk_plantation_throughput_add = 0.1
+		state_pop_support_movement_feminist_mult = 0.05
 		building_textile_mills_throughput_add = 0.05
-		building_arts_academy_throughput_add = 0.05
 	}
 
 	ai_will_do = {
@@ -233,9 +299,11 @@ company_prada = {
 
 company_gucci = {
 	icon = "gfx/interface/icons/company_icons/historical_company_icons/italian_gucci.dds"
-	background = "gfx/interface/icons/company_icons/company_backgrounds/comp_illu_manufactering_light.dds"
+	background = "gfx/interface/icons/company_icons/company_backgrounds/comp_illu_fashion.dds"
 
 	flavored_company = yes
+
+	preferred_headquarters = { STATE_TUSCANY }
 
 	building_types = {
 		building_arts_academy
@@ -276,10 +344,9 @@ company_gucci = {
 	}
 
 	prosperity_modifier = {
-		building_livestock_ranch_throughput_add = 0.05
-		state_pop_support_movement_feminist_mult = 0.1
-		building_silk_plantation_throughput_add = 0.05
-		building_arts_academy_throughput_add = 0.05
+		building_livestock_ranch_throughput_add = 0.1
+		state_pop_support_movement_feminist_mult = 0.05
+		building_arts_academy_throughput_add = 0.1
 	}
 
 	ai_will_do = {
@@ -308,9 +375,11 @@ company_gucci = {
 
 company_burberry = {
 	icon = "gfx/interface/icons/company_icons/historical_company_icons/british_burberry.dds"
-	background = "gfx/interface/icons/company_icons/company_backgrounds/comp_illu_manufactering_light.dds"
+	background = "gfx/interface/icons/company_icons/company_backgrounds/comp_illu_fashion.dds"
 
 	flavored_company = yes
+
+	preferred_headquarters = { STATE_HOME_COUNTIES }
 
 	building_types = {
 		building_textile_mills
@@ -383,9 +452,11 @@ company_burberry = {
 
 company_levi_strauss = {
 	icon = "gfx/interface/icons/company_icons/historical_company_icons/american_levi_strauss.dds"
-	background = "gfx/interface/icons/company_icons/company_backgrounds/comp_illu_manufactering_light.dds"
+	background = "gfx/interface/icons/company_icons/company_backgrounds/comp_illu_fashion.dds"
 
 	flavored_company = yes
+
+	preferred_headquarters = { STATE_CALIFORNIA }
 
 	building_types = {
 		building_textile_mills
@@ -426,7 +497,6 @@ company_levi_strauss = {
 	}
 
 	prosperity_modifier = {
-		building_water_plant_throughput_add = 0.05
 		building_cotton_plantation_throughput_add = 0.05
 		building_petrochemical_industry_throughput_add = 0.05
 		state_pop_support_movement_cultural_minority_mult = 0.1
@@ -458,9 +528,11 @@ company_levi_strauss = {
 
 company_nike = {
 	icon = "gfx/interface/icons/company_icons/historical_company_icons/american_nike.dds"
-	background = "gfx/interface/icons/company_icons/company_backgrounds/comp_illu_manufactering_light.dds"
+	background = "gfx/interface/icons/company_icons/company_backgrounds/comp_illu_fashion.dds"
 
 	flavored_company = yes
+
+	preferred_headquarters = { STATE_OREGON }
 
 	building_types = {
 		building_textile_mills
@@ -534,9 +606,11 @@ company_nike = {
 
 company_adidas = {
 	icon = "gfx/interface/icons/company_icons/historical_company_icons/german_adidas.dds"
-	background = "gfx/interface/icons/company_icons/company_backgrounds/comp_illu_manufactering_light.dds"
+	background = "gfx/interface/icons/company_icons/company_backgrounds/comp_illu_fashion.dds"
 
 	flavored_company = yes
+
+	preferred_headquarters = { STATE_BAVARIA }
 
 	building_types = {
 		building_textile_mills
@@ -580,8 +654,8 @@ company_adidas = {
 	}
 
 	prosperity_modifier = {
-		state_pop_support_movement_cultural_minority_mult = 0.1
-		country_trade_route_competitiveness_mult = 0.2
+		country_trade_route_competitiveness_mult = 0.15
+		state_migration_pull_mult = 0.05
 	}
 
 	ai_will_do = {
@@ -610,9 +684,11 @@ company_adidas = {
 
 company_hm = {
 	icon = "gfx/interface/icons/company_icons/historical_company_icons/swedish_hm.dds"
-	background = "gfx/interface/icons/company_icons/company_backgrounds/comp_illu_manufactering_light.dds"
+	background = "gfx/interface/icons/company_icons/company_backgrounds/comp_illu_fashion.dds"
 
 	flavored_company = yes
+
+	preferred_headquarters = { STATE_SVEALAND }
 
 	building_types = {
 		building_textile_mills
@@ -653,9 +729,9 @@ company_hm = {
 	}
 
 	prosperity_modifier = {
-		state_pop_support_movement_feminist_mult = 0.1
-		state_pop_support_movement_cultural_minority_mult = 0.1
+		state_pop_support_movement_feminist_mult = 0.05
 		building_textile_mills_throughput_add = 0.05
+		state_migration_pull_mult = 0.05
 	}
 
 	ai_will_do = {
@@ -684,9 +760,11 @@ company_hm = {
 
 company_inditex = {
 	icon = "gfx/interface/icons/company_icons/historical_company_icons/spanish_inditex.dds"
-	background = "gfx/interface/icons/company_icons/company_backgrounds/comp_illu_manufactering_light.dds"
+	background = "gfx/interface/icons/company_icons/company_backgrounds/comp_illu_fashion.dds"
 
 	flavored_company = yes
+
+	preferred_headquarters = { STATE_GALICIA }
 
 	building_types = {
 		building_textile_mills
@@ -733,8 +811,8 @@ company_inditex = {
 
 	prosperity_modifier = {
 		state_pop_support_movement_feminist_mult = 0.05
-		building_rubber_plantation_throughput_add = 0.05
-		country_trade_route_competitiveness_mult = 0.1
+		state_migration_pull_mult = 0.05
+		country_trade_route_competitiveness_mult = 0.05
 	}
 
 	ai_will_do = {
@@ -763,9 +841,11 @@ company_inditex = {
 
 company_shein = {
 	icon = "gfx/interface/icons/company_icons/historical_company_icons/chinese_shein.dds"
-	background = "gfx/interface/icons/company_icons/company_backgrounds/comp_illu_manufactering_light.dds"
+	background = "gfx/interface/icons/company_icons/company_backgrounds/comp_illu_fashion.dds"
 
 	flavored_company = yes
+
+	preferred_headquarters = { STATE_SUZHOU }
 
 	building_types = {
 		building_textile_mills
@@ -795,7 +875,7 @@ company_shein = {
 	}
 
 	possible = {
-		has_technology_researched = hdpe
+		has_technology_researched = elastomers
 		any_scope_state = {
 			state_region = s:STATE_SUZHOU
 			is_incorporated = yes
@@ -809,11 +889,12 @@ company_shein = {
 	prosperity_modifier = {
 		building_petrochemical_industry_throughput_add = 0.05
 		building_textile_mills_throughput_add = 0.05
-		country_trade_route_competitiveness_mult = 0.15
+		building_datacenter_industry_throughput_add = 0.05
+		country_trade_route_competitiveness_mult = 0.1
 	}
 
 	ai_will_do = {
-		has_technology_researched = hdpe
+		has_technology_researched = elastomers
 		any_scope_state = {
 			state_region = s:STATE_SUZHOU
 			is_incorporated = yes
@@ -825,6 +906,84 @@ company_shein = {
 			level = 5
 			state_trigger = {
 				state_region = s:STATE_SUZHOU
+			}
+		}
+	}
+
+	ai_weight = {
+		value = 4 # Higher base value for flavored companies
+	}
+}
+
+# Primark
+
+company_primark = {
+	icon = "gfx/interface/icons/company_icons/historical_company_icons/irish_primark.dds"
+	background = "gfx/interface/icons/company_icons/company_backgrounds/comp_illu_fashion.dds"
+
+	flavored_company = yes
+
+	preferred_headquarters = { STATE_LEINSTER }
+
+	building_types = {
+		building_textile_mills
+		building_paper_mills
+	}
+
+	extension_building_types = {
+		building_synthetics_plants
+	}
+
+	possible_prestige_goods = {
+		prestige_good_fast_fashion_clothes
+	}
+
+	potential = {
+		OR = {
+			country_has_primary_culture = cu:irish
+			country_has_primary_culture = cu:british #UK
+		}
+	}
+
+	attainable = {
+		hidden_trigger = { # Hide attainable if it's always fulfilled by possible
+			any_scope_state = {
+				state_region = s:STATE_LEINSTER
+			}
+		}
+	}
+
+	possible = {
+		has_technology_researched = elastomers
+		any_scope_state = {
+			state_region = s:STATE_LEINSTER
+			is_incorporated = yes
+			any_scope_building = {
+				is_building_type = building_textile_mills
+				level >= 5
+			}
+		}
+	}
+
+	prosperity_modifier = {
+		building_petrochemical_industry_throughput_add = 0.05
+		building_software_industry_throughput_add = 0.05
+		building_cotton_plantation_throughput_add = 0.05
+	}
+
+	ai_will_do = {
+		has_technology_researched = elastomers
+		any_scope_state = {
+			state_region = s:STATE_LEINSTER
+			is_incorporated = yes
+		}
+	}
+
+	ai_construction_targets = {
+		building_textile_mills = {
+			level = 5
+			state_trigger = {
+				state_region = s:STATE_LEINSTER
 			}
 		}
 	}

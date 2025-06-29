@@ -1,0 +1,591 @@
+# Generic Uranium & AdvancedOre Mine
+company_uranium_advancedores_mining = {
+	icon = "gfx/interface/icons/company_icons/uranium_advancedores_mining.dds"
+	background = "gfx/interface/icons/company_icons/company_backgrounds/comp_illu_mining.dds"
+
+	flavored_company = no
+
+	uses_dynamic_naming = yes
+
+	dynamic_company_type_names = {
+		"dynamic_company_type_company"
+		"dynamic_company_type_consortium"
+		"dynamic_company_type_corporation"
+		"dynamic_company_type_conglomerate"
+		"dynamic_company_type_syndicate"
+		"dynamic_company_type_combine"
+		"dynamic_company_type_guild"
+	}
+
+	building_types = {
+		building_uranium_mine
+		building_advancedores_mine
+	}
+
+	extension_building_types = {
+		building_rare_earths_mine
+		building_nuclear_power_plant
+	}
+
+	possible = {
+		any_scope_state = {
+			any_scope_building = {
+				OR = {
+					is_building_type = building_uranium_mine
+					is_building_type = building_advancedores_mine
+				}
+				level >= 5
+			}
+		}
+		has_technology_researched = verrier_modern_physics_tech
+	}
+
+	prosperity_modifier = {
+		building_nuclear_power_plant_throughput_add = 0.05
+		building_battery_plants_throughput_add = 0.1
+	}
+
+	ai_will_do = {
+		has_technology_researched = verrier_modern_physics_tech
+		any_scope_state = {
+			any_scope_building = {
+				OR = {
+					is_building_type = building_uranium_mine
+					is_building_type = building_advancedores_mine
+				}
+				level >= 5
+			}
+		}
+	}
+}
+
+# Broken Hill Propretary Company
+company_bhp = {
+	icon = "gfx/interface/icons/company_icons/historical_company_icons/bhp.dds"
+	background = "gfx/interface/icons/company_icons/company_backgrounds/comp_illu_mining.dds"
+	
+	flavored_company = yes
+	preferred_headquarters = { STATE_NEW_SOUTH_WALES STATE_VICTORIA	}
+	
+	possible_prestige_goods = {
+		prestige_good_australian_coal
+	}
+
+	building_types = {  
+		building_iron_mine
+		building_coal_mine
+		building_uranium_mine
+	}
+	
+	extension_building_types = {
+		building_lead_mine
+		building_commonores_mine
+	}
+	
+	potential = {
+		OR = {
+			country_has_primary_culture = cu:australian
+			country_has_primary_culture = cu:british
+		}
+	}
+	
+	attainable = {
+		hidden_trigger = { # Hide attainable if it's always fulfilled by possible
+			any_scope_state = {
+				OR = {
+					state_region = s:STATE_NEW_SOUTH_WALES
+					state_region = s:STATE_VICTORIA
+				}
+				is_incorporated = yes
+			}
+		}
+	}
+	
+	possible = {
+		any_scope_state = {
+			OR = {
+				state_region = s:STATE_NEW_SOUTH_WALES
+				state_region = s:STATE_VICTORIA
+			}
+			is_incorporated = yes
+			any_scope_building = {
+				Or = {
+					is_building_type = building_coal_mine
+					is_building_type = building_uranium_mine
+				}
+				level >= 3
+			}
+		}
+	}
+	
+	prosperity_modifier = {
+		building_power_plant_throughput_add = 0.05
+		building_nuclear_power_plant_throughput_add = 0.05
+	}
+
+
+	ai_will_do = {
+		any_scope_building = {
+			OR = {
+				is_building_type = building_coal_mine
+				is_building_type = building_uranium_mine
+			}
+			level >= 3
+		}
+	}
+
+	ai_construction_targets = {
+		building_coal_mine = {
+			level = 5
+			state_trigger = {
+				OR = {
+					state_region = s:STATE_NEW_SOUTH_WALES
+					state_region = s:STATE_VICTORIA
+				}
+			}
+		}
+		building_uranium_mine = {
+			level = 5
+			state_trigger = {
+				OR = {
+					state_region = s:STATE_NEW_SOUTH_WALES
+					state_region = s:STATE_VICTORIA
+				}
+			}
+		}
+	}
+	
+	ai_weight = {
+		value = 4 # Higher base value for flavored companies
+	}
+}
+
+# Union Minière du Haut-Katanga
+company_union_miniere_du_haut_katanga = {
+	icon = "gfx/interface/icons/company_icons/historical_company_icons/union_miniere_du_haut_katanga.dds"
+	background = "gfx/interface/icons/company_icons/company_backgrounds/comp_illu_mining.dds"
+	
+	flavored_company = yes
+	preferred_headquarters = { STATE_FLANDERS }
+
+	building_types = {  
+		building_uranium_mine
+		building_copper_mine
+	}
+	
+	extension_building_types = {
+		building_rare_earths_mine
+		building_advancedores_mine
+	}
+
+	potential = {
+		OR = {
+			country_has_primary_culture = cu:flemish
+			country_has_primary_culture = cu:wallonian
+		}
+	}
+
+	attainable = {
+		hidden_trigger = { # Hide attainable if it's always fulfilled by possible
+			OR = {
+				has_state_in_state_region = STATE_KATANGA
+				has_state_in_state_region = STATE_BOTSWANA
+			}
+		}
+	}
+	
+	possible = {
+		any_scope_state = {
+			OR = {
+				state_region = s:STATE_KATANGA
+				state_region = s:STATE_BOTSWANA
+			}
+			any_scope_building = {
+				Or = {
+					is_building_type = building_copper_mine
+					is_building_type = building_uranium_mine
+				}
+				level >= 3
+			}
+		}
+	}
+	
+	prosperity_modifier = {
+		building_power_plant_throughput_add = 0.05
+		building_nuclear_power_plant_throughput_add = 0.05
+	}
+
+
+	ai_will_do = {
+		any_scope_building = {
+			OR = {
+				is_building_type = building_gold_mine
+				is_building_type = building_uranium_mine
+			}
+			level >= 3
+		}
+	}
+
+	ai_construction_targets = {
+		building_copper_mine = {
+			level = 5
+			state_trigger = {
+				OR = {
+					state_region = s:STATE_KATANGA
+					state_region = s:STATE_BOTSWANA
+				}
+			}
+		}
+		building_uranium_mine = {
+			level = 5
+			state_trigger = {
+				OR = {
+					state_region = s:STATE_KATANGA
+					state_region = s:STATE_BOTSWANA
+				}
+			}
+		}
+	}
+	
+	ai_weight = {
+		value = 4 # Higher base value for flavored companies
+	}	
+}
+
+# CAMECO
+company_cameco = {
+	icon = "gfx/interface/icons/company_icons/historical_company_icons/cameco.dds"
+	background = "gfx/interface/icons/company_icons/company_backgrounds/comp_illu_mining.dds"
+	
+	flavored_company = yes
+	preferred_headquarters = { STATE_NORTHWEST_TERRITORIES STATE_SASKATCHEWAN }
+	
+	possible_prestige_goods = {
+		prestige_high_quality_uranium
+	}
+
+	building_types = {  
+		building_gold_mine
+		building_uranium_mine
+	}
+	
+	extension_building_types = {
+		building_advancedores_mine
+		building_rare_earths_mine
+		building_nuclear_power_plant
+	}
+	
+	potential = {
+		country_has_primary_culture = cu:anglo_canadian
+	}
+	
+	attainable = {
+		hidden_trigger = { # Hide attainable if it's always fulfilled by possible
+			any_scope_state = {
+				OR = {
+					state_region = s:STATE_NORTHWEST_TERRITORIES
+					state_region = s:STATE_SASKATCHEWAN
+				}
+				is_incorporated = yes
+			}
+		}
+	}
+	
+	possible = {
+		any_scope_state = {
+			OR = {
+				state_region = s:STATE_NORTHWEST_TERRITORIES
+				state_region = s:STATE_SASKATCHEWAN
+			}
+			is_incorporated = yes
+			any_scope_building = {
+				Or = {
+					is_building_type = building_gold_mine
+					is_building_type = building_uranium_mine
+				}
+				level >= 3
+			}
+		}
+		has_technology_researched = verrier_modern_physics_tech
+	}
+	
+	prosperity_modifier = {
+		building_power_plant_throughput_add = 0.05
+		building_nuclear_power_plant_throughput_add = 0.05
+	}
+
+
+	ai_will_do = {
+		any_scope_building = {
+			OR = {
+				is_building_type = building_gold_mine
+				is_building_type = building_uranium_mine
+			}
+			level >= 3
+		}
+	}
+
+	ai_construction_targets = {
+		building_gold_mine = {
+			level = 5
+			state_trigger = {
+				OR = {
+					state_region = s:STATE_NORTHWEST_TERRITORIES
+					state_region = s:STATE_SASKATCHEWAN
+				}
+			}
+		}
+		building_uranium_mine = {
+			level = 5
+			state_trigger = {
+				OR = {
+					state_region = s:STATE_NORTHWEST_TERRITORIES
+					state_region = s:STATE_SASKATCHEWAN
+				}
+			}
+		}
+	}
+	
+	ai_weight = {
+		value = 4 # Higher base value for flavored companies
+	}	
+}
+
+# Compagnie Générale des Matières Nucléaires (Orano)
+company_compagnie_generale_des_matieres_nucleaires = {
+	icon = "gfx/interface/icons/company_icons/historical_company_icons/orano.dds"
+	background = "gfx/interface/icons/company_icons/company_backgrounds/comp_illu_mining.dds"
+	
+	flavored_company = yes
+	preferred_headquarters = { STATE_ILE_DE_FRANCE STATE_PROVENCE}
+	
+	possible_prestige_goods = {
+		prestige_high_quality_uranium
+	}
+
+	building_types = {  
+		building_uranium_mine
+	}
+	
+	extension_building_types = {
+		building_nuclear_power_plant
+	}
+
+	potential = {
+		OR = {
+			country_has_primary_culture = cu:french
+			country_has_primary_culture = cu:occitan
+		}
+	}
+
+	attainable = {
+		hidden_trigger = { # Hide attainable if it's always fulfilled by possible
+			has_state_in_state_region = STATE_ILE_DE_FRANCE
+		}
+	}
+	
+	possible = {
+		any_scope_state = {
+			is_incorporated = yes
+			any_scope_building = {
+				is_building_type = building_uranium_mine
+				level >= 3
+			}
+		}
+		has_technology_researched = verrier_modern_physics_tech
+	}
+	
+	prosperity_modifier = {
+		building_power_plant_throughput_add = 0.05
+		building_nuclear_power_plant_throughput_add = 0.05
+	}
+
+
+	ai_will_do = {
+		has_technology_researched = verrier_modern_physics_tech
+		any_scope_building = {
+				is_building_type = building_uranium_mine
+				level >= 3
+			}
+		}
+
+	ai_construction_targets = {
+		building_uranium_mine = {
+			level = 5
+		}
+	}
+
+	ai_weight = {
+		value = 4 # Higher base value for flavored companies
+	}	
+}
+
+# Kazatomprom
+company_kazatomprom = {
+	icon = "gfx/interface/icons/company_icons/historical_company_icons/kazak_kazatomprom.dds"
+	background = "gfx/interface/icons/company_icons/company_backgrounds/comp_illu_mining.dds"
+	
+	flavored_company = yes
+	preferred_headquarters = { STATE_KIRGHIZIA STATE_SEMIRECHE STATE_AKMOLINSK }
+	
+	possible_prestige_goods = {
+		prestige_high_quality_uranium
+	}
+
+	building_types = {  
+		building_uranium_mine
+		building_advancedores_mine
+	}
+	
+	extension_building_types = {
+		building_rare_earths_mine
+	}
+	
+	potential = {
+		country_has_primary_culture = cu:kazak	
+	}
+	
+	attainable = {
+		hidden_trigger = { # Hide attainable if it's always fulfilled by possible
+			any_scope_state = {
+				OR = {
+					state_region = s:STATE_KIRGHIZIA
+					state_region = s:STATE_SEMIRECHE
+					state_region = s:STATE_AKMOLINSK
+				}
+				is_incorporated = yes
+			}
+		}
+	}
+	
+	possible = {
+		any_scope_state = {
+			OR = {
+				state_region = s:STATE_KIRGHIZIA
+				state_region = s:STATE_SEMIRECHE
+				state_region = s:STATE_AKMOLINSK
+			}
+			is_incorporated = yes
+			any_scope_building = {
+				Or = {
+					is_building_type = building_advancedores_mine
+					is_building_type = building_uranium_mine
+				}
+				level >= 3
+			}
+		}
+		has_technology_researched = verrier_modern_physics_tech
+	}
+	
+	prosperity_modifier = {
+		building_power_plant_throughput_add = 0.05
+		building_nuclear_power_plant_throughput_add = 0.05
+	}
+
+
+	ai_will_do = {
+		any_scope_building = {
+			OR = {
+				is_building_type =building_advancedores_mine
+				is_building_type = building_uranium_mine
+			}
+			level >= 3
+		}
+	}
+
+	ai_construction_targets = {
+		building_advancedores_mine = {
+			level = 5
+			state_trigger = {
+				OR = {
+					state_region = s:STATE_KIRGHIZIA
+					state_region = s:STATE_SEMIRECHE
+					state_region = s:STATE_AKMOLINSK
+				}
+			}
+		}
+		building_uranium_mine = {
+			level = 5
+			state_trigger = {
+				OR = {
+					state_region = s:STATE_KIRGHIZIA
+					state_region = s:STATE_SEMIRECHE
+					state_region = s:STATE_AKMOLINSK
+				}
+			}
+		}
+	}
+	
+	ai_weight = {
+		value = 4 # Higher base value for flavored companies
+	}	
+}
+
+# Rosatom
+
+company_rosatom = {
+	icon = "gfx/interface/icons/company_icons/historical_company_icons/russian_rosatom.dds"
+	background = "gfx/interface/icons/company_icons/company_backgrounds/comp_illu_mining.dds"
+	
+	flavored_company = yes
+	preferred_headquarters = { STATE_TVER STATE_CHERSON STATE_MOSCOW}
+
+	building_types = {  
+		building_uranium_mine
+	}
+	
+	extension_building_types = {
+		building_nuclear_power_plant
+		building_robotics_industry
+		building_renewable_energy_power_plant
+	}
+
+	potential = {
+		country_has_primary_culture = cu:russian
+	}
+	
+	attainable = {
+		hidden_trigger = { # Hide attainable if it's always fulfilled by possible
+			country_has_primary_culture = cu:russian
+		}
+	}
+	
+	possible = {
+		any_scope_state = {
+			is_incorporated = yes
+			any_scope_building = {
+				is_building_type = building_uranium_mine
+				level >= 3
+			}
+		}
+		has_technology_researched = verrier_modern_physics_tech
+	}
+	
+	prosperity_modifier = {
+		building_nuclear_power_plant_throughput_add = 0.2
+	}
+
+	
+	ai_will_do = {
+		any_scope_building = {
+			is_building_type = building_uranium_mine
+			level >= 3
+		}
+	}
+
+	ai_construction_targets = {
+		building_uranium_mine = {
+			level = 5
+			state_trigger = {
+				OR = {
+					state_region = s:STATE_TVER
+					state_region = s:STATE_CHERSON
+				}
+			}
+		}
+	}
+	
+	ai_weight = {
+		value = 4 # Higher base value for flavored companies
+	}	
+}

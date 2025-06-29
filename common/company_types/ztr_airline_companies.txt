@@ -1,0 +1,848 @@
+#Generic Airline
+curtiss_company_basic_air_travel = {
+	icon = "gfx/interface/icons/company_icons/curtiss_airline_generic_icon.dds"
+	background = "gfx/interface/icons/company_icons/company_backgrounds/curtiss_comp_illu_airline.dds"
+	
+	uses_dynamic_naming = yes
+	
+	dynamic_company_type_names = {
+		"dynamic_company_type_company"
+	}
+	
+	building_types = {
+		building_airport
+	}
+
+	possible_prestige_goods = {
+		prestige_good_luxury_flights
+	}
+
+	possible = {
+		has_technology_researched = zeppelins
+		any_scope_state = {
+			is_incorporated = yes
+			any_scope_building = {
+				is_building_type = building_airport
+				level >= 1
+			}
+		}
+	}
+	
+	prosperity_modifier = {
+		building_aircraft_industry_throughput_add = 0.25
+		state_infrastructure_from_population_add = 2
+		state_infrastructure_from_population_max_add = 4
+	}
+
+	ai_will_do = {
+		has_technology_researched = zeppelins
+		any_scope_state = {
+			is_incorporated = yes
+			any_scope_building = {
+				is_building_type = building_airport
+				level >= 1
+			}
+		}
+	}
+}
+
+# KLM
+curtiss_company_KLM = {
+	icon = "gfx/interface/icons/company_icons/historical_company_icons/curtiss_airline_klm_icon.dds"
+	background = "gfx/interface/icons/company_icons/company_backgrounds/curtiss_comp_illu_airline.dds"
+	
+	flavored_company = yes
+
+	preferred_headquarters = { STATE_HOLLAND STATE_GELRE }
+
+	building_types = {  
+		building_airport
+	}
+
+	possible_prestige_goods = {
+		prestige_good_luxury_flights
+	}
+
+	potential = {
+		country_has_primary_culture = cu:dutch
+	}
+
+	attainable = {
+		hidden_trigger = { # Hide attainable if it's always fulfilled by possible
+			any_scope_state = {
+				state_region = s:STATE_HOLLAND
+			}
+		}
+	}
+
+	possible = {
+		has_technology_researched = zeppelins
+		any_scope_state = {
+			OR = {
+				state_region = s:STATE_HOLLAND
+				state_region = s:STATE_GELRE
+			}
+			is_incorporated = yes
+			any_scope_building = {
+				is_building_type = building_airport
+				level >= 1
+			}
+		}
+	}
+	
+	prosperity_modifier = {
+		building_aircraft_industry_throughput_add = 0.25
+		state_infrastructure_from_population_add = 2
+		state_infrastructure_from_population_max_add = 4
+	}
+
+	ai_will_do = {
+		has_technology_researched = zeppelins
+		any_scope_state = {
+			OR = {
+				state_region = s:STATE_HOLLAND
+				state_region = s:STATE_GELRE
+			}
+			is_incorporated = yes
+		}
+	}
+
+	ai_construction_targets = {
+		building_airport = {
+			level = 1
+			state_trigger = {
+				state_region = s:STATE_HOLLAND
+			}
+		}
+	}
+
+	ai_weight = {
+		value = 3 # Higher base value for flavored companies
+	}
+}
+
+# Deutsche Luftreederei
+curtiss_company_DLR = {
+	icon = "gfx/interface/icons/company_icons/historical_company_icons/curtiss_airline_dlr_icon.dds"
+	background = "gfx/interface/icons/company_icons/company_backgrounds/curtiss_comp_illu_airline.dds"
+	
+	flavored_company = yes
+	
+	preferred_headquarters = { STATE_BRANDENBURG }
+
+	building_types = {  
+		building_airport
+	}
+
+	possible_prestige_goods = {
+		prestige_good_luxury_flights
+	}
+
+	potential = {
+		country_has_primary_culture = cu:north_german
+	}
+
+	attainable = {
+		hidden_trigger = { # Hide attainable if it's always fulfilled by possible
+			any_scope_state = {
+				state_region = s:STATE_BRANDENBURG
+			}
+		}
+	}
+	
+	possible = {
+		has_technology_researched = zeppelins
+		any_scope_state = {
+			is_incorporated = yes
+			any_scope_building = {
+				is_building_type = building_airport
+				level >= 1
+			}
+		}
+	}
+	
+	prosperity_modifier = {
+		building_aircraft_industry_throughput_add = 0.25
+		state_infrastructure_from_population_add = 2
+		state_infrastructure_from_population_max_add = 4
+	}
+
+	ai_will_do = {
+		has_technology_researched = zeppelins
+		any_scope_state = {
+			state_region = s:STATE_BRANDENBURG
+			is_incorporated = yes
+		}
+	}
+
+	ai_construction_targets = {
+		building_airport = {
+			level = 1
+			state_trigger = {
+				state_region = s:STATE_BRANDENBURG
+			}
+		}
+	}
+
+	ai_weight = {
+		value = 3 # Higher base value for flavored companies
+	}
+}
+
+# Imperial Airways
+curtiss_company_imperial_airways = {
+	icon = "gfx/interface/icons/company_icons/historical_company_icons/curtiss_airline_imperial_airways_icon.dds"
+	background = "gfx/interface/icons/company_icons/company_backgrounds/curtiss_comp_illu_airline.dds"
+	
+	flavored_company = yes
+
+	preferred_headquarters = { STATE_HOME_COUNTIES }
+
+	building_types = {  
+		building_airport
+	}
+
+	possible_prestige_goods = {
+		prestige_good_luxury_flights
+	}
+
+	potential = {
+		country_has_primary_culture = cu:british
+	}
+
+	attainable = {
+		hidden_trigger = { # Hide attainable if it's always fulfilled by possible
+			any_scope_state = {
+				state_region = s:STATE_HOME_COUNTIES
+			}
+		}
+	}
+
+	possible = {
+		has_technology_researched = zeppelins
+		any_scope_state = {
+			is_incorporated = yes
+			any_scope_building = {
+				is_building_type = building_airport
+				level >= 1
+			}
+		}
+	}
+
+	prosperity_modifier = {
+		building_aircraft_industry_throughput_add = 0.25
+		state_infrastructure_from_population_add = 2
+		state_infrastructure_from_population_max_add = 4
+	}	
+
+	ai_will_do = {
+		has_technology_researched = zeppelins
+		any_scope_state = {
+			state_region = s:STATE_HOME_COUNTIES
+			is_incorporated = yes
+		}
+	}
+
+	ai_construction_targets = {
+		building_airport = {
+			level = 1
+			state_trigger = {
+				state_region = s:STATE_HOME_COUNTIES
+			}
+		}
+	}
+
+	ai_weight = {
+		value = 3 # Higher base value for flavored companies
+	}
+}
+
+# Air France
+curtiss_company_air_france = {
+	icon = "gfx/interface/icons/company_icons/historical_company_icons/curtiss_airline_air_france_icon.dds"
+	background = "gfx/interface/icons/company_icons/company_backgrounds/curtiss_comp_illu_airline.dds"
+
+	flavored_company = yes
+
+	preferred_headquarters = { STATE_ILE_DE_FRANCE }
+
+	building_types = {  
+		building_airport
+	}
+
+	possible_prestige_goods = {
+		prestige_good_luxury_flights
+	}
+
+	potential = {
+		country_has_primary_culture = cu:french
+	}
+
+	attainable = {
+		hidden_trigger = { # Hide attainable if it's always fulfilled by possible
+			any_scope_state = {
+				state_region = s:STATE_ILE_DE_FRANCE
+			}
+		}
+	}
+
+	possible = {
+		has_technology_researched = zeppelins
+		any_scope_state = {
+			is_incorporated = yes
+			any_scope_building = {
+				is_building_type = building_airport
+				level >= 1
+			}
+		}
+	}
+
+	prosperity_modifier = {
+		building_aircraft_industry_throughput_add = 0.25
+		state_infrastructure_from_population_add = 2
+		state_infrastructure_from_population_max_add = 4
+	}	
+
+	ai_will_do = {
+		has_technology_researched = zeppelins
+		any_scope_state = {
+			state_region = s:STATE_ILE_DE_FRANCE
+			is_incorporated = yes
+		}
+	}
+
+	ai_construction_targets = {
+		building_airport = {
+			level = 1
+			state_trigger = {
+				state_region = s:STATE_ILE_DE_FRANCE
+			}
+		}
+	}
+
+	ai_weight = {
+		value = 3 # Higher base value for flavored companies
+	}
+}
+
+# Swissair
+curtiss_company_swissair = {
+	icon = "gfx/interface/icons/company_icons/historical_company_icons/curtiss_airline_swissair_icon.dds"
+	background = "gfx/interface/icons/company_icons/company_backgrounds/curtiss_comp_illu_airline.dds"
+
+	flavored_company = yes
+
+	preferred_headquarters = { STATE_EAST_SWITZERLAND }
+
+	building_types = {  
+		building_airport
+	}
+
+	possible_prestige_goods = {
+		prestige_good_luxury_flights
+	}
+
+	potential = {
+		c:SWI ?= this
+	}
+
+	attainable = {
+		hidden_trigger = { # Hide attainable if it's always fulfilled by possible
+			any_scope_state = {
+				state_region = s:STATE_EAST_SWITZERLAND
+			}
+		}
+	}
+
+	possible = {
+		has_technology_researched = zeppelins
+		any_scope_state = {
+			is_incorporated = yes
+			any_scope_building = {
+				is_building_type = building_airport
+				level >= 1
+			}
+		}
+	}
+
+	prosperity_modifier = {
+		building_aircraft_industry_throughput_add = 0.25
+		state_infrastructure_from_population_add = 2
+		state_infrastructure_from_population_max_add = 4
+	}
+
+	ai_will_do = {
+		has_technology_researched = zeppelins
+		any_scope_state = {
+			state_region = s:STATE_EAST_SWITZERLAND
+			is_incorporated = yes
+		}
+	}
+
+	ai_construction_targets = {
+		building_airport = {
+			level = 1
+			state_trigger = {
+				state_region = s:STATE_EAST_SWITZERLAND
+			}
+		}
+	}
+
+	ai_weight = {
+		value = 3 # Higher base value for flavored companies
+	}
+}
+
+#Pan American Airways
+company_pan_american_airways = {
+	icon = "gfx/interface/icons/company_icons/historical_company_icons/company_pan_american_airways.dds"
+	background = "gfx/interface/icons/company_icons/company_backgrounds/curtiss_comp_illu_airline.dds"
+	
+	flavored_company = yes
+
+	preferred_headquarters = { STATE_FLORIDA STATE_PANAMA }
+
+	building_types = {  
+		building_airport
+	}
+
+	possible_prestige_goods = {
+		prestige_good_luxury_flights
+	}
+
+	potential = {
+		OR = {
+			country_has_primary_culture = cu:dixie
+			country_has_primary_culture = cu:yankee
+		}
+	}
+
+	attainable = {
+		hidden_trigger = { # Hide attainable if it's always fulfilled by possible
+			any_scope_state = {
+				OR = {
+					state_region = s:STATE_FLORIDA
+					state_region = s:STATE_PANAMA
+				}
+			}
+		}
+	}
+
+	possible = {
+		has_technology_researched = zeppelins
+		any_scope_state = {
+			is_incorporated = yes
+			any_scope_building = {
+				is_building_type = building_airport
+				level >= 1
+			}
+		}
+		has_technology_researched = international_travel
+	}
+
+	prosperity_modifier = {
+		building_aircraft_industry_throughput_add = 0.25
+		state_infrastructure_from_population_add = 2
+		state_infrastructure_from_population_max_add = 4
+	}	
+
+	ai_will_do = {
+		has_technology_researched = zeppelins
+		any_scope_state = {
+			OR = {
+				state_region = s:STATE_FLORIDA
+				state_region = s:STATE_PANAMA
+			}
+		}
+	}
+
+	ai_construction_targets = {
+		building_airport = {
+			level = 1
+			state_trigger = {
+				state_region = s:STATE_FLORIDA
+			}
+		}
+	}
+
+	ai_weight = {
+		value = 3 # Higher base value for flavored companies
+	}
+}
+
+#Turk Hava Yollari (Turkish Airline)
+company_turk_hava_yollari_turkish = {
+	icon = "gfx/interface/icons/company_icons/historical_company_icons/company_turk_hava_yollari_turkish.dds"
+	background = "gfx/interface/icons/company_icons/company_backgrounds/curtiss_comp_illu_airline.dds"
+	
+	flavored_company = yes
+
+	preferred_headquarters = { STATE_EASTERN_THRACE }
+
+	building_types = {  
+		building_airport
+	}
+
+	possible_prestige_goods = {
+		prestige_good_luxury_flights
+	}
+
+	potential = {
+		country_has_primary_culture = cu:turkish
+	}
+
+	attainable = {
+		hidden_trigger = { # Hide attainable if it's always fulfilled by possible
+			any_scope_state = {
+				state_region = s:STATE_EASTERN_THRACE
+			}
+		}
+	}
+
+	possible = {
+		any_scope_state = {
+			is_incorporated = yes
+			any_scope_building = {
+				is_building_type = building_airport
+				level >= 1
+			}
+		}
+		has_technology_researched = international_travel
+	}
+
+	prosperity_modifier = {
+		building_aircraft_industry_throughput_add = 0.25
+		state_infrastructure_from_population_add = 2
+		state_infrastructure_from_population_max_add = 4
+	}	
+
+	ai_will_do = {
+		has_technology_researched = international_travel
+		any_scope_state = {
+			state_region = s:STATE_EASTERN_THRACE
+			is_incorporated = yes
+		}
+	}
+
+	ai_construction_targets = {
+		building_airport = {
+			level = 1
+			state_trigger = {
+				state_region = s:STATE_EASTERN_THRACE
+			}
+		}
+	}
+
+	ai_weight = {
+		value = 3 # Higher base value for flavored companies
+	}
+}
+
+#Emirates Airline 
+company_emirates_airline = {
+	icon = "gfx/interface/icons/company_icons/historical_company_icons/emirates.dds"
+	background = "gfx/interface/icons/company_icons/company_backgrounds/curtiss_comp_illu_airline.dds"
+	
+	flavored_company = yes
+
+	preferred_headquarters = { STATE_ABU_DHABI }
+
+	building_types = {  
+		building_airport
+	}
+
+	possible_prestige_goods = {
+		prestige_good_luxury_flights
+	}
+
+	potential = {
+		country_has_primary_culture = cu:bedouin
+	}
+
+	attainable = {
+		hidden_trigger = { # Hide attainable if it's always fulfilled by possible
+			any_scope_state = {
+				state_region = s:STATE_ABU_DHABI
+			}
+		}
+	}
+
+	possible = {
+		any_scope_state = {
+			is_incorporated = yes
+			any_scope_building = {
+				is_building_type = building_airport
+				level >= 1
+			}
+		}
+		has_technology_researched = globalization
+	}
+
+	prosperity_modifier = {
+		building_aircraft_industry_throughput_add = 0.2
+		building_oil_refinerie_throughput_add = 0.1
+		state_infrastructure_from_population_add = 2
+		state_infrastructure_from_population_max_add = 4
+	}
+
+	ai_will_do = {
+		has_technology_researched = globalization
+		any_scope_state = {
+			state_region = s:STATE_ABU_DHABI
+			is_incorporated = yes
+		}
+	}
+
+	ai_construction_targets = {
+		building_airport = {
+			level = 1
+			state_trigger = {
+				state_region = s:STATE_ABU_DHABI
+			}
+		}
+	}
+
+	ai_weight = {
+		value = 3 # Higher base value for flavored companies
+	}
+}
+
+#Air China
+company_air_china = {
+	icon = "gfx/interface/icons/company_icons/historical_company_icons/air_china.dds"
+	background = "gfx/interface/icons/company_icons/company_backgrounds/curtiss_comp_illu_airline.dds"
+	
+	flavored_company = yes
+
+	preferred_headquarters = { STATE_BEIJING }
+
+	building_types = {  
+		building_airport
+	}
+
+	possible_prestige_goods = {
+		prestige_good_generic_flights
+	}
+
+	potential = {
+		country_has_primary_culture = cu:han
+	}
+
+	attainable = {
+		hidden_trigger = { # Hide attainable if it's always fulfilled by possible
+			any_scope_state = {
+				state_region = s:STATE_BEIJING
+			}
+		}
+	}
+
+	possible = {
+		any_scope_state = {
+			is_incorporated = yes
+			any_scope_building = {
+				is_building_type = building_airport
+				level >= 1
+			}
+		}
+		has_technology_researched = international_travel
+	}
+
+	prosperity_modifier = {
+		building_aircraft_industry_throughput_add = 0.25
+		state_infrastructure_from_population_add = 2
+		state_infrastructure_from_population_max_add = 4
+	}	
+
+	ai_will_do = {
+		has_technology_researched = international_travel
+		any_scope_state = {
+			state_region = s:STATE_BEIJING
+			is_incorporated = yes
+		}
+	}
+
+	ai_construction_targets = {
+		building_airport = {
+			level = 1
+			state_trigger = {
+				state_region = s:STATE_BEIJING
+			}
+		}
+	}
+
+	ai_weight = {
+		value = 3 # Higher base value for flavored companies
+	}
+}
+
+# Boeing Airplane Company
+
+company_boeing = {
+	icon = "gfx/interface/icons/company_icons/historical_company_icons/boeing.dds"
+	background = "gfx/interface/icons/company_icons/company_backgrounds/curtiss_comp_illu_airline.dds"
+	
+	flavored_company = yes
+
+	preferred_headquarters = { STATE_VIRGINIA }
+
+	building_types = {  
+		building_aircraft_industry
+	}
+
+	extension_building_types = {
+		building_munition_plants
+	}
+
+	potential = {
+		country_has_primary_culture = cu:yankee
+	}
+
+	attainable = {
+		hidden_trigger = { # Hide attainable if it's always fulfilled by possible
+			any_scope_state = {
+				state_region = s:STATE_VIRGINIA
+			}
+		}
+	}
+
+	possible = {
+		has_technology_researched = zeppelins
+		any_scope_state = {
+			is_incorporated = yes
+			any_scope_building = {
+				is_building_type = building_aircraft_industry
+				level >= 3
+			}
+		}
+	}
+
+	prosperity_modifier = {
+		building_airport_throughput_add = 0.5
+		building_space_assets_industry_throughput_add = 0.2
+		building_artillery_foundries_throughput_add = 0.1
+		building_railway_throughput_add = -0.1
+	}	
+
+	ai_will_do = {
+		has_technology_researched = zeppelins
+		any_scope_state = {
+			state_region = s:STATE_VIRGINIA
+			is_incorporated = yes
+		}
+	}
+
+	ai_construction_targets = {
+		building_aircraft_industry = {
+			level = 5
+			state_trigger = {
+				state_region = s:STATE_VIRGINIA
+			}
+		}
+	}
+
+	ai_weight = {
+		value = 4 # Higher base value for flavored companies
+	}
+}
+
+# Airbus
+
+company_airbus = {
+	icon = "gfx/interface/icons/company_icons/historical_company_icons/airbus.dds"
+	background = "gfx/interface/icons/company_icons/company_backgrounds/curtiss_comp_illu_airline.dds"
+	
+	flavored_company = yes
+
+	preferred_headquarters = { STATE_ILE_DE_FRANCE }
+
+	building_types = {  
+		building_aircraft_industry
+	}
+
+	extension_building_types = {
+		building_munition_plants
+		building_space_assets_industry 
+	}
+
+	potential = {
+		OR = {
+			country_has_primary_culture = cu:french
+			country_has_primary_culture = cu:dutch
+			country_has_primary_culture = cu:south_german
+			country_has_primary_culture = cu:spanish
+		}
+	}
+
+	attainable = {
+		hidden_trigger = { # Hide attainable if it's always fulfilled by possible
+			any_scope_state = {
+				OR = {
+					state_region = s:STATE_ILE_DE_FRANCE
+					state_region = s:STATE_RUHR
+					state_region = s:STATE_HOLLAND
+					state_region = s:STATE_CATALONIA
+				}
+			}
+		}
+	}
+
+	possible = {
+		OR = {
+			AND = {
+				has_technology_researched = zeppelins
+				any_scope_state = {
+					state_region = s:STATE_ILE_DE_FRANCE
+					is_incorporated = yes
+					any_scope_building = {
+						is_building_type = building_aircraft_industry
+						level >= 3
+					}
+				}
+			}
+			has_technology_researched = international_travel
+		}
+		any_scope_state = {
+			is_incorporated = yes
+			any_scope_building = {
+				is_building_type = building_aircraft_industry
+				level >= 3
+			}
+		}
+	}
+
+	prosperity_modifier = {
+		building_airport_throughput_add = 0.5
+		building_space_assets_industry_throughput_add = 0.1
+	}	
+
+	ai_will_do = {
+		OR = {
+			AND = {
+				has_technology_researched = zeppelins
+				any_scope_state = {
+					state_region = s:STATE_ILE_DE_FRANCE
+					is_incorporated = yes
+				}
+			}
+			has_technology_researched = international_travel
+		}
+	}
+
+	ai_construction_targets = {
+		building_aircraft_industry = {
+			level = 5
+			state_trigger = {
+				OR = {
+					state_region = s:STATE_ILE_DE_FRANCE
+					state_region = s:STATE_RUHR
+					state_region = s:STATE_HOLLAND
+					state_region = s:STATE_CATALONIA
+				}
+			}
+		}
+	}
+
+	ai_weight = {
+		value = 4 # Higher base value for flavored companies
+	}
+}

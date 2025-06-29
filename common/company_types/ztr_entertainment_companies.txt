@@ -1,0 +1,722 @@
+#Generic Instruments
+elgar_company_basic_instruments = {
+	icon = "gfx/interface/icons/company_icons/elgar_instruments_generic.dds"
+	background = "gfx/interface/icons/company_icons/company_backgrounds/comp_illu_manufacturing_light.dds"
+
+	uses_dynamic_naming = yes
+
+	dynamic_company_type_names = {
+		"dynamic_company_type_company"
+		"dynamic_company_type_syndicate"
+		"dynamic_company_type_corporation"
+	}
+
+	building_types = {
+		building_instrument_workshops
+	}
+
+	extension_building_types = {  
+		building_tooling_workshops
+		building_logging_camp
+	}
+
+	possible_prestige_goods = {
+		prestige_good_generic_instruments
+	}
+
+	prestige_goods_trigger = {
+		custom_tooltip = {
+			text = je_mr_prestige_goods_instruments_complete_tt
+			has_variable = mr_prestige_good_generic_instruments_var
+		}
+	}
+
+	possible = {
+		any_scope_state = {
+			is_incorporated = yes
+			any_scope_building = {
+				OR = {
+					is_building_type = building_instrument_workshops
+				}
+				level >= 2
+			}
+		}
+	}
+
+	prosperity_modifier = {
+		goods_output_elgar_instruments_mult = 0.05
+		goods_output_elgar_music_mult = 0.05
+	}
+
+	ai_will_do = {
+		any_scope_state = {
+			is_incorporated = yes
+			any_scope_building = {
+				is_building_type = building_instrument_workshops
+				level >= 2
+			}
+		}
+	}
+}
+
+# Steinway & Sons
+elgar_company_steinway = {
+	# The logo of Steinway (without the frame) is a trademark owned by Steinway & Sons
+	icon = "gfx/interface/icons/company_icons/historical_company_icons/elgar_instruments_steinway.dds"
+	background = "gfx/interface/icons/company_icons/company_backgrounds/comp_illu_manufacturing_light.dds"
+
+	flavored_company = yes
+
+	preferred_headquarters = { STATE_NEW_YORK STATE_ELBE }
+
+	building_types = {  
+		building_instrument_workshops
+	}
+
+	extension_building_types = {  
+		building_tooling_workshops
+		building_logging_camp
+	}
+
+	possible_prestige_goods = {
+		prestige_good_generic_instruments
+	}
+
+	potential = {
+		OR = {
+			country_has_primary_culture = cu:yankee
+			country_has_primary_culture = cu:north_german
+		}
+	}
+
+	possible = {
+		any_scope_state = {
+			OR = {
+				state_region = STATE_NEW_YORK
+				state_region = STATE_ELBE
+			}
+			is_incorporated = yes
+			any_scope_building = {
+				is_building_type = building_instrument_workshops
+				level >= 2
+			}
+		}
+	}
+
+	prosperity_modifier = {
+		goods_output_elgar_instruments_mult = 0.1
+		state_upper_strata_standard_of_living_add = 0.5
+	}	
+
+	ai_will_do = {
+		any_scope_state = {
+			OR = {
+				state_region = STATE_NEW_YORK
+				state_region = STATE_ELBE
+			}
+			is_incorporated = yes
+		}
+	}
+
+	ai_construction_targets = {
+		building_instrument_workshops = {
+			level = 5
+			state_trigger = {
+				OR = {
+					has_state_in_state_region = STATE_NEW_YORK
+					has_state_in_state_region = STATE_ELBE
+				}
+			}
+		}
+	}
+
+	ai_weight = {
+		value = 3 # Higher base value for flavored companies
+	}
+}
+
+# Yamaha
+company_yamaha = {
+	icon = "gfx/interface/icons/company_icons/historical_company_icons/yamaha.dds"
+	background = "gfx/interface/icons/company_icons/company_backgrounds/comp_illu_manufacturing_light.dds"
+	
+	flavored_company = yes
+	
+	preferred_headquarters = { STATE_CHUBU }
+	
+	building_types = {  
+		building_instrument_workshops
+		building_arts_academy
+	}
+
+	extension_building_types = {  
+		building_tooling_workshops
+		building_automotive_industry # Motorcycles
+	}
+
+	possible_prestige_goods = {
+		prestige_good_generic_instruments
+	}
+	
+	potential = {
+		country_has_primary_culture = cu:japanese
+	}
+	
+	attainable = {
+		hidden_trigger = { # Hide attainable if it's always fulfilled by possible
+			any_scope_state = {
+				state_region = s:STATE_CHUBU
+			}
+		}
+	}		
+	
+	possible = { 
+		any_scope_state = {
+			state_region = s:STATE_CHUBU
+			is_incorporated = yes
+			any_scope_building = {
+				is_building_type = building_instrument_workshops
+				level >= 3
+			}
+		}
+		has_technology_researched = rubber_mastication
+	}
+	
+	prosperity_modifier = {
+		state_education_access_wealth_add = 0.005 #14
+		goods_output_elgar_instruments_mult = 0.1
+	}	
+	
+
+	ai_will_do = {
+		has_technology_researched = rubber_mastication
+		any_scope_building = {
+			is_building_type = building_instrument_workshops
+			level >= 3
+		}
+	}
+
+	ai_construction_targets = {
+		building_instrument_workshops = {
+			level = 5
+			state_trigger = {
+				state_region = s:STATE_CHUBU
+			}
+		}
+	}
+	
+	ai_weight = {
+		value = 4 # Higher base value for flavored companies
+	}
+}
+
+#Generic Records
+company_basic_records_and_films = {
+	icon = "gfx/interface/icons/company_icons/records_and_films_generic.dds" #####
+	background = "gfx/interface/icons/company_icons/company_backgrounds/comp_illu_cinema.dds"
+
+	uses_dynamic_naming = yes
+
+	dynamic_company_type_names = {
+		"dynamic_company_type_company"
+		"dynamic_company_type_syndicate"
+		"dynamic_company_type_corporation"
+	}
+
+	building_types = {
+		building_elgar_opera
+		building_entertainment_industry
+	}
+
+	extension_building_types = {  
+		building_instrument_workshops
+		building_arts_academy
+	}
+
+	possible_prestige_goods = {
+		prestige_good_generic_records_and_films
+	}
+
+	possible = {
+		any_scope_state = {
+			is_incorporated = yes
+			any_scope_building = {
+				OR = {
+					is_building_type = building_elgar_opera
+					is_building_type = building_entertainment_industry
+				}
+				level >= 3
+			}
+		}
+		has_technology_researched = elgar_mass_culture_tech
+	}
+
+	prosperity_modifier = {
+		country_prestige_mult = 0.1
+		goods_output_elgar_music_mult = 0.05
+		state_loyalists_from_political_movements_mult = 0.05
+	}
+
+	ai_will_do = {
+		any_scope_state = {
+			is_incorporated = yes
+			any_scope_building = {
+				OR = {
+					is_building_type = building_elgar_opera
+					is_building_type = building_entertainment_industry
+				}
+				level >= 3
+			}
+		}
+	}
+}
+
+#Columbia Records
+company_columbia_records = {
+	icon = "gfx/interface/icons/company_icons/historical_company_icons/columbia_records.dds" #####
+	background = "gfx/interface/icons/company_icons/company_backgrounds/comp_illu_cinema.dds"
+
+	flavored_company = yes
+	
+	preferred_headquarters = { STATE_DISTRICT_OF_COLUMBIA }
+
+	building_types = {
+		building_elgar_opera
+		building_entertainment_industry
+	}
+
+	extension_building_types = {  
+		building_instrument_workshops
+		building_arts_academy
+	}
+
+	possible_prestige_goods = {
+		prestige_good_generic_records_and_films
+	}
+
+	potential = {
+		country_has_primary_culture = cu:yankee
+	}
+
+	attainable = {
+		hidden_trigger = { # Hide attainable if it's always fulfilled by possible
+			any_scope_state = {
+				state_region = s:STATE_DISTRICT_OF_COLUMBIA
+			}
+		}
+	}	
+
+	possible = {
+		any_scope_state = {
+			is_incorporated = yes
+			any_scope_building = {
+				OR = {
+					is_building_type = building_elgar_opera
+					is_building_type = building_entertainment_industry
+				}
+				level >= 3
+			}
+		}
+		has_technology_researched = elgar_mass_culture_tech
+	}
+
+	prosperity_modifier = {
+		country_prestige_mult = 0.1
+		goods_output_elgar_music_mult = 0.05
+		state_loyalists_from_political_movements_mult = 0.05
+	}
+
+	ai_will_do = {
+		any_scope_state = {
+			is_incorporated = yes
+			any_scope_building = {
+				OR = {
+					is_building_type = building_elgar_opera
+					is_building_type = building_entertainment_industry
+				}
+				level >= 3
+			}
+		}
+	}
+	
+	ai_construction_targets = {
+		building_elgar_opera = {
+			level = 5
+		}
+		building_entertainment_industry = {
+			level = 5
+		}
+	}
+	
+	ai_weight = {
+		value = 3 # Higher base value for flavored companies
+	}
+}
+
+#Société Pathé Frères
+company_societe_pathe_freres = {
+	icon = "gfx/interface/icons/company_icons/historical_company_icons/societe_pathe_freres.dds" 
+	background = "gfx/interface/icons/company_icons/company_backgrounds/comp_illu_cinema.dds"
+
+	flavored_company = yes
+	
+	preferred_headquarters = { STATE_ILE_DE_FRANCE }
+	building_types = {
+		building_elgar_opera
+		building_entertainment_industry
+	}
+
+	extension_building_types = {  
+		building_instrument_workshops
+		building_arts_academy
+	}
+
+	possible_prestige_goods = {
+		prestige_good_generic_records_and_films
+	}
+
+	potential = {
+		country_has_primary_culture = cu:french
+	}
+
+	attainable = {
+		hidden_trigger = { # Hide attainable if it's always fulfilled by possible
+			any_scope_state = {
+				state_region = s:STATE_ILE_DE_FRANCE
+			}
+		}
+	}
+
+	possible = {
+		any_scope_state = {
+			is_incorporated = yes
+			any_scope_building = {
+				OR = {
+					is_building_type = building_elgar_opera
+					is_building_type = building_entertainment_industry
+				}
+				level >= 3
+			}
+		}
+		has_technology_researched = elgar_mass_culture_tech
+	}
+
+	prosperity_modifier = {
+		country_prestige_mult = 0.1
+		goods_output_elgar_music_mult = 0.05
+		state_loyalists_from_political_movements_mult = 0.05
+	}
+
+	ai_will_do = {
+		has_technology_researched = elgar_mass_culture_tech
+		any_scope_state = {
+			is_incorporated = yes
+			any_scope_building = {
+				OR = {
+					is_building_type = building_elgar_opera
+					is_building_type = building_entertainment_industry
+				}
+				level >= 3
+			}
+		}
+	}
+	
+	ai_construction_targets = {
+		building_elgar_opera = {
+			level = 5
+			state_trigger = {
+				state_region = s:STATE_ILE_DE_FRANCE
+			}
+		}
+		building_entertainment_industry = {
+			level = 5
+			state_trigger = {
+				state_region = s:STATE_ILE_DE_FRANCE
+			}
+		}
+	}
+	
+	ai_weight = {
+		value = 3 # Higher base value for flavored companies
+	}
+}
+
+# Warner Bros. Records
+company_warner_bros_records = {
+	icon = "gfx/interface/icons/company_icons/historical_company_icons/warner_bros_records.dds" 
+	background = "gfx/interface/icons/company_icons/company_backgrounds/comp_illu_cinema.dds"
+
+	flavored_company = yes
+	
+	preferred_headquarters = { STATE_CALIFRONIA }
+	building_types = {
+		building_elgar_opera
+		building_entertainment_industry
+	}
+
+	extension_building_types = {  
+		building_arts_academy
+	}
+
+	possible_prestige_goods = {
+		prestige_good_generic_records_and_films
+	}
+
+	potential = {
+		country_has_primary_culture = cu:yankee
+	}
+
+	attainable = {
+		hidden_trigger = { # Hide attainable if it's always fulfilled by possible
+			any_scope_state = {
+				state_region = s:STATE_CALIFORNIA
+			}
+		}
+	}
+
+	possible = {
+		any_scope_state = {
+			is_incorporated = yes
+			state_region = s:STATE_CALIFORNIA
+			any_scope_building = {
+				OR = {
+					is_building_type = building_elgar_opera
+					is_building_type = building_entertainment_industry
+				}
+				level >= 3
+			}
+		}
+		has_technology_researched = elgar_mass_culture_tech
+	}
+
+	prosperity_modifier = {
+		country_prestige_mult = 0.1
+		goods_output_elgar_music_mult = 0.05
+		state_loyalists_from_political_movements_mult = 0.05
+	}
+
+	ai_will_do = {
+		any_scope_state = {
+			is_incorporated = yes
+			state_region = s:STATE_CALIFORNIA
+			any_scope_building = {
+				OR = {
+					is_building_type = building_elgar_opera
+					is_building_type = building_entertainment_industry
+				}
+				level >= 3
+			}
+		}
+	}
+	
+	ai_construction_targets = {
+		has_technology_researched = elgar_mass_culture_tech
+		building_elgar_opera = {
+			level = 5
+			state_trigger = {
+				state_region = s:STATE_CALIFORNIA
+			}
+		}
+		building_entertainment_industry = {
+			level = 5
+			state_trigger = {
+				state_region = s:STATE_CALIFORNIA
+			}
+		}
+	}
+	
+	ai_weight = {
+		value = 3 # Higher base value for flavored companies
+	}
+}
+
+ # Decca Records (Universal)
+company_universal_records = {
+	icon = "gfx/interface/icons/company_icons/historical_company_icons/universal_records.dds" 
+	background = "gfx/interface/icons/company_icons/company_backgrounds/comp_illu_cinema.dds"
+
+	flavored_company = yes
+	
+	preferred_headquarters = { STATE_HOME_COUNTIES STATE_CALIFRONIA STATE_HOLLAND }
+
+	building_types = {
+		building_elgar_opera
+		building_entertainment_industry
+	}
+
+	extension_building_types = {  
+		building_arts_academy
+	}
+
+	possible_prestige_goods = {
+		prestige_good_generic_records_and_films
+	}
+
+	potential = {
+		OR = {
+			country_has_primary_culture = cu:british
+			country_has_primary_culture = cu:yankee
+			country_has_primary_culture = cu:dutch
+		}
+	}
+
+	attainable = {
+		hidden_trigger = { # Hide attainable if it's always fulfilled by possible
+			any_scope_state = {
+				OR = {
+					state_region = s:STATE_HOME_COUNTIES
+					state_region = s:STATE_CALIFORNIA
+					state_region = s:STATE_HOLLAND
+				}
+			}
+		}
+	}
+
+	possible = {
+		any_scope_state = {
+			OR = {
+				state_region = s:STATE_HOME_COUNTIES
+				state_region = s:STATE_CALIFORNIA
+				state_region = s:STATE_HOLLAND
+			}
+			is_incorporated = yes
+			any_scope_building = {
+				OR = {
+					is_building_type = building_elgar_opera
+					is_building_type = building_entertainment_industry
+				}
+				level >= 3
+			}
+		}
+		has_technology_researched = elgar_mass_culture_tech
+	}
+
+	prosperity_modifier = {
+		country_prestige_mult = 0.1
+		goods_output_elgar_music_mult = 0.05
+		state_loyalists_from_political_movements_mult = 0.05
+	}
+
+	ai_will_do = {
+		any_scope_state = {
+			OR = {
+				state_region = s:STATE_HOME_COUNTIES
+				state_region = s:STATE_CALIFORNIA
+				state_region = s:STATE_HOLLAND
+			}
+			is_incorporated = yes
+			any_scope_building = {
+				OR = {
+					is_building_type = building_elgar_opera
+					is_building_type = building_entertainment_industry
+				}
+				level >= 3
+			}
+		}
+	}
+	
+	ai_construction_targets = {
+		building_elgar_opera = {
+			level = 5
+			state_trigger = {
+				OR = {
+					state_region = s:STATE_HOME_COUNTIES
+					state_region = s:STATE_CALIFORNIA
+					state_region = s:STATE_HOLLAND
+				}
+			}
+		}
+		building_entertainment_industry = {
+			level = 5
+			state_trigger = {
+				OR = {
+					state_region = s:STATE_HOME_COUNTIES
+					state_region = s:STATE_CALIFRONIA
+					state_region = s:STATE_HOLLAND
+				}
+			}
+		}
+	}
+
+	ai_weight = {
+		value = 3 # Higher base value for flavored companies
+	}
+}
+
+#Tokyo Tsushin Kogyo (Sony)
+company_tokyo_tsushin_kogyo_sony = {
+	icon = "gfx/interface/icons/company_icons/historical_company_icons/sony.dds" 
+	background = "gfx/interface/icons/company_icons/company_backgrounds/comp_illu_tech.dds"
+
+	flavored_company = yes
+	
+	preferred_headquarters = { STATE_KANTO }
+	
+	building_types = {
+		building_entertainment_industry
+		building_electronics_industry
+		building_digital_media_industry
+	}
+
+	extension_building_types = {  
+		building_instrument_workshops
+	}
+
+	possible_prestige_goods = {
+		prestige_good_generic_records_and_films
+		prestige_good_sony_consoles
+	}
+
+	possible = {
+		any_scope_state = {
+			is_incorporated = yes
+			any_scope_building = {
+				OR = {
+					is_building_type = building_electronics_industry
+					is_building_type = building_entertainment_industry
+				}
+				level >= 3
+			}
+		}
+		has_technology_researched = elgar_mass_culture_tech
+		has_technology_researched = radio
+	}
+
+	prosperity_modifier = {
+		country_prestige_mult = 0.1
+		goods_output_elgar_music_mult = 0.05
+		building_electronics_industry_throughput_add = 0.1
+	}
+
+	ai_will_do = {
+		any_scope_state = {
+			is_incorporated = yes
+			any_scope_building = {
+				OR = {
+					is_building_type = building_electronics_industry
+					is_building_type = building_entertainment_industry
+				}
+				level >= 5
+			}
+		}
+	}
+	
+	ai_construction_targets = {
+		building_entertainment_industry = {
+			level = 5
+			state_trigger = {
+				state_region = s:STATE_KANTO
+			}
+		}
+		building_electronics_industry = {
+			level = 5
+			state_trigger = {
+				state_region = s:STATE_KANTO
+			}
+		}
+	}
+	
+	ai_weight = {
+		value = 3 # Higher base value for flavored companies
+	}
+}

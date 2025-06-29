@@ -1,0 +1,659 @@
+# Companies in this file
+# Apple
+# Nokia (It is in ztr_companies_europe.txt)
+# Samsung
+# Olivetti
+# Microsoft
+# Intel
+# ASML
+# TSMC
+# SAP
+
+#Generic Tech
+generic_company_basic_tech = {
+	icon = "gfx/interface/icons/company_icons/tech_generic_icon.dds"
+	background = "gfx/interface/icons/company_icons/company_backgrounds/comp_illu_tech.dds"
+	
+	uses_dynamic_naming = yes
+	
+	dynamic_company_type_names = {
+		"dynamic_company_type_company"
+		"dynamic_company_type_corporation"
+	}
+	
+	building_types = {
+		building_electronics_industry
+		building_telecommunications_industry
+	}
+
+	extension_building_types = {
+		building_software_industry
+		building_digital_media_industry
+	}
+
+	possible = {
+		has_technology_researched = telephone
+		any_scope_state = {
+			is_incorporated = yes
+			any_scope_building = {
+				is_building_type = building_electronics_industry
+				level >= 3
+			}
+		}
+	}
+	
+	prosperity_modifier = {
+		country_production_tech_research_speed_mult = 0.05
+		building_electrics_industry_throughput_add = 0.05
+	}
+
+	ai_will_do = {
+		has_technology_researched = telephone
+		any_scope_state = {
+			is_incorporated = yes
+			any_scope_building = {
+				is_building_type = building_electronics_industry
+				level = 5
+			}
+		}
+	}
+}
+
+company_apple = {
+	icon = "gfx/interface/icons/company_icons/historical_company_icons/american_apple.dds"
+	background = "gfx/interface/icons/company_icons/company_backgrounds/comp_illu_tech.dds"
+
+	flavored_company = yes
+	preferred_headquarters = { STATE_CALIFORNIA }
+
+	building_types = {
+		building_processors_foundry
+	}
+
+	extension_building_types = {
+		building_electrics_industry #Iphone
+		building_software_industry
+	}
+
+	possible_prestige_goods = {
+		prestige_good_apple_iphones
+		prestige_good_apple_mac
+	}
+
+	potential = {
+		country_has_primary_culture = cu:yankee
+	}
+
+	attainable = {
+		hidden_trigger = { # Hide attainable if it's always fulfilled by possible
+			any_scope_state = {
+				state_region = s:STATE_CALIFORNIA
+			}
+		}
+	}
+
+	possible = {
+		has_technology_researched = personal_computer
+		any_scope_state = {
+			state_region = s:STATE_CALIFORNIA
+			is_incorporated = yes
+			any_scope_building = {
+				is_building_type = building_processors_foundry
+				level >= 5
+			}
+		}
+	}
+
+	prosperity_modifier = {
+		state_pop_support_movement_liberal_mult = 0.05
+		building_processors_foundry_throughput_add = 0.1
+		country_prestige_mult = 0.1
+	}
+
+	ai_will_do = {
+		has_technology_researched = personal_computer
+		any_scope_state = {
+			state_region = s:STATE_CALIFORNIA
+			is_incorporated = yes
+		}
+	}
+
+	ai_construction_targets = {
+		building_processors_foundry = {
+			level = 5
+			state_trigger = {
+				state_region = s:STATE_CALIFORNIA
+			}
+		}
+	}
+
+	ai_weight = {
+		value = 4 # Higher base value for flavored companies
+	}
+}
+
+# Samsung
+
+company_samsung = {
+	icon = "gfx/interface/icons/company_icons/historical_company_icons/south_korea_samsung.dds"
+	background = "gfx/interface/icons/company_icons/company_backgrounds/comp_illu_tech.dds"
+
+	flavored_company = yes
+	preferred_headquarters = { STATE_SEOUL }
+
+	building_types = {
+		building_electronics_industry
+		building_furniture_manufacturies # Home appliances
+	}
+
+	extension_building_types = {
+		building_electrics_industry #Samsung phones
+		building_processors_foundry
+	}
+
+	possible_prestige_goods = {
+		prestige_good_samsung_galaxy_phones
+	}
+
+	potential = {
+		country_has_primary_culture = cu:korean
+	}
+
+	attainable = {
+		hidden_trigger = { # Hide attainable if it's always fulfilled by possible
+			any_scope_state = {
+				state_region = s:STATE_SEOUL
+			}
+		}
+	}
+
+	possible = {
+		has_technology_researched = semiconductor
+		any_scope_state = {
+			state_region = s:STATE_SEOUL
+			is_incorporated = yes
+			any_scope_building = {
+				is_building_type = building_electronics_industry
+				level >= 5
+			}
+		}
+	}
+
+	prosperity_modifier = {
+		building_software_industry_throughput_add = 0.1
+		unit_army_defense_mult = 0.1
+		country_prestige_mult = 0.05
+	}
+
+	ai_will_do = {
+		has_technology_researched = semiconductor
+		any_scope_state = {
+			state_region = s:STATE_SEOUL
+			is_incorporated = yes
+		}
+	}
+
+	ai_construction_targets = {
+		building_electronics_industry = {
+			level = 5
+			state_trigger = {
+				state_region = s:STATE_SEOUL
+			}
+		}
+	}
+
+	ai_weight = {
+		value = 4 # Higher base value for flavored companies
+	}
+}
+
+# Olivetti
+
+company_olivetti = {
+	icon = "gfx/interface/icons/company_icons/historical_company_icons/italian_olivetti.dds"
+	background = "gfx/interface/icons/company_icons/company_backgrounds/comp_illu_tech.dds"
+
+	flavored_company = yes
+	preferred_headquarters = { STATE_PIEDMONT }
+
+	building_types = {
+		building_electronics_industry
+		building_processors_foundry # Olivetti teleprinters
+	}
+
+	extension_building_types = {
+		building_software_industry
+	}
+
+	possible_prestige_goods = {
+		prestige_good_olivetti_teleprinters
+	}
+
+	potential = {
+		country_has_primary_culture = cu:north_italian
+	}
+
+	attainable = {
+		hidden_trigger = { # Hide attainable if it's always fulfilled by possible
+			any_scope_state = {
+				state_region = s:STATE_PIEDMONT
+			}
+		}
+	}
+
+	possible = {
+		has_technology_researched = computer
+		any_scope_state = {
+			state_region = s:STATE_PIEDMONT
+			is_incorporated = yes
+			any_scope_building = {
+				is_building_type = building_processors_foundry
+				level >= 5
+			}
+		}
+	}
+
+	prosperity_modifier = {
+		country_prestige_mult = 0.05
+		country_tech_research_speed_mult = 0.05
+		building_electronics_industry_throughput_add = 0.05
+	}
+
+	ai_will_do = {
+		has_technology_researched = computer
+		any_scope_state = {
+			state_region = s:STATE_PIEDMONT
+			is_incorporated = yes
+		}
+	}
+
+	ai_construction_targets = {
+		building_processors_foundry = {
+			level = 5
+			state_trigger = {
+				state_region = s:STATE_PIEDMONT
+			}
+		}
+	}
+
+	ai_weight = {
+		value = 4 # Higher base value for flavored companies
+	}
+}
+
+# Intel
+company_intel = {
+	icon = "gfx/interface/icons/company_icons/historical_company_icons/american_intel.dds"
+	background = "gfx/interface/icons/company_icons/company_backgrounds/comp_illu_tech.dds"
+
+	flavored_company = yes
+	preferred_headquarters = { STATE_CALIFORNIA }
+
+	building_types = {
+		building_processors_foundry
+	}
+
+	possible_prestige_goods = {
+		prestige_good_intel_processors
+	}
+
+	potential = { country_has_primary_culture = cu:yankee }
+
+	attainable = {
+		hidden_trigger = {
+			any_scope_state = { state_region = s:STATE_CALIFORNIA }
+		}
+	}
+
+	possible = {
+		has_technology_researched = semiconductor
+		any_scope_state = {
+			state_region = s:STATE_CALIFORNIA
+			is_incorporated = yes
+			any_scope_building = {
+				is_building_type = building_processors_foundry
+				level >= 5
+			}
+		}
+	}
+
+	prosperity_modifier = {
+		building_processors_foundry_throughput_add = 0.1
+		building_datacenter_industry_throughput_add = 0.1
+		building_software_industry_throughput_add = 0.1
+	}
+
+	ai_will_do = {
+		has_technology_researched = semiconductor
+		any_scope_state = {
+			state_region = s:STATE_CALIFORNIA
+			is_incorporated = yes
+		}
+	}
+
+	ai_construction_targets = {
+		building_processors_foundry = {
+			level = 5
+			state_trigger = { state_region = s:STATE_CALIFORNIA }
+		}
+	}
+
+	ai_weight = { value = 4 }
+}
+
+# ASML
+company_asml = {
+	icon = "gfx/interface/icons/company_icons/historical_company_icons/dutch_asml.dds"
+	background = "gfx/interface/icons/company_icons/company_backgrounds/comp_illu_tech.dds"
+
+	flavored_company = yes
+	preferred_headquarters = { STATE_HOLLAND }
+
+	building_types = {
+		building_robotics_industry
+		building_electronics_industry
+	}
+
+	possible_prestige_goods = {
+		prestige_good_asml_euv_lithography_machines
+	}
+
+	potential = { country_has_primary_culture = cu:dutch }
+
+	attainable = {
+		hidden_trigger = {
+			any_scope_state = { state_region = s:STATE_HOLLAND }
+		}
+	}
+
+	possible = {
+		has_technology_researched = mechatronics
+		any_scope_state = {
+			state_region = s:STATE_HOLLAND
+			is_incorporated = yes
+			any_scope_building = {
+				is_building_type = building_electronics_industry
+				level >= 5
+			}
+		}
+	}
+
+	prosperity_modifier = {
+		building_processors_foundry_throughput_add = 0.2
+		country_prestige_mult = 0.05
+	}
+
+	ai_will_do = {
+		has_technology_researched = mechatronics
+		any_scope_state = {
+			state_region = s:STATE_HOLLAND
+			is_incorporated = yes
+		}
+	}
+
+	ai_construction_targets = {
+		building_electronics_industry = {
+			level = 5
+			state_trigger = { state_region = s:STATE_HOLLAND }
+		}
+	}
+
+	ai_weight = { value = 4 }
+}
+
+# TSMC
+company_tsmc = {
+	icon = "gfx/interface/icons/company_icons/historical_company_icons/taiwanese_tsmc.dds"
+	background = "gfx/interface/icons/company_icons/company_backgrounds/comp_illu_tech.dds"
+
+	flavored_company = yes
+	preferred_headquarters = { STATE_FORMOSA }
+
+	building_types = {
+		building_processors_foundry
+	}
+
+	extension_building_types = {
+		building_electronics_industry
+	}
+
+	potential = { has_state_in_state_region = STATE_FORMOSA }
+
+	attainable = {
+		hidden_trigger = {
+			any_scope_state = { state_region = s:STATE_FORMOSA }
+		}
+		NOT = { c:CHI = THIS } # Not available for China
+	}
+
+	possible = {
+		has_technology_researched = semiconductor
+		any_scope_state = {
+			state_region = s:STATE_FORMOSA
+			is_incorporated = yes
+			any_scope_building = {
+				is_building_type = building_processors_foundry
+				level >= 5
+			}
+		}
+	}
+
+	prosperity_modifier = {
+		building_processors_foundry_throughput_add = 0.15
+		country_prestige_mult = 0.05
+	}
+
+	ai_will_do = {
+		has_technology_researched = semiconductor
+		any_scope_state = {
+			state_region = s:STATE_FORMOSA
+			is_incorporated = yes
+		}
+	}
+
+	ai_construction_targets = {
+		building_processors_foundry = {
+			level = 5
+			state_trigger = { state_region = s:STATE_FORMOSA }
+		}
+	}
+
+	ai_weight = { value = 4 }
+}
+
+# Microsoft
+
+company_microsoft = {
+	icon = "gfx/interface/icons/company_icons/historical_company_icons/american_microsoft.dds"
+	background = "gfx/interface/icons/company_icons/company_backgrounds/comp_illu_tech.dds"
+
+	flavored_company = yes
+	preferred_headquarters = { STATE_WASHINGTON STATE_CALIFORNIA }
+
+	building_types = {
+		building_software_industry
+		building_telecommunications_industry
+		building_office
+	}
+
+	extension_building_types = {
+		building_datacenter_industry
+		building_digital_media_industry # Xbox
+	}
+
+	possible_prestige_goods = {
+		prestige_good_microsoft_windows
+	}
+
+	potential = {
+		country_has_primary_culture = cu:yankee
+	}
+
+	attainable = {
+		hidden_trigger = {
+			any_scope_state = { state_region = s:STATE_WASHINGTON }
+		}
+	}
+
+	possible = {
+		has_technology_researched = computer
+		any_scope_state = {
+			state_region = s:STATE_WASHINGTON
+			is_incorporated = yes
+			any_scope_building = {
+				is_building_type = building_software_industry
+				level >= 5
+			}
+		}
+	}
+
+	prosperity_modifier = {
+		building_software_industry_throughput_add = 0.2
+		building_processors_foundry_throughput_add = 0.2
+		country_tech_research_speed_mult = 0.05
+	}
+
+	ai_will_do = {
+		has_technology_researched = computer
+		any_scope_state = {
+			state_region = s:STATE_WASHINGTON
+			is_incorporated = yes
+		}
+	}
+
+	ai_construction_targets = {
+		building_software_industry = {
+			level = 5
+			state_trigger = { state_region = s:STATE_WASHINGTON }
+		}
+	}
+
+	ai_weight = { value = 4 }
+}
+
+# SAP
+
+company_sap = {
+	icon = "gfx/interface/icons/company_icons/historical_company_icons/german_sap.dds"
+	background = "gfx/interface/icons/company_icons/company_backgrounds/comp_illu_tech.dds"
+
+	flavored_company = yes
+	preferred_headquarters = { STATE_BAVARIA }
+
+	building_types = {
+		building_software_industry
+		building_datacenter_industry
+	}
+
+	extension_building_types = {
+		building_telecommunications_industry
+	}
+
+	potential = { country_has_primary_culture = cu:south_german }
+
+	attainable = {
+		hidden_trigger = {
+			any_scope_state = { state_region = s:STATE_BAVARIA }
+		}
+	}
+
+	possible = {
+		has_technology_researched = software_development_paradigms
+		any_scope_state = {
+			state_region = s:STATE_BAVARIA
+			is_incorporated = yes
+			any_scope_building = {
+				is_building_type = building_software_industry
+				level >= 5
+			}
+		}
+	}
+
+	prosperity_modifier = {
+		building_datacenter_industry_throughput_add = 0.5
+		country_prestige_mult = 0.05
+	}
+
+	ai_will_do = {
+		has_technology_researched = software_development_paradigms
+		any_scope_state = {
+			state_region = s:STATE_BAVARIA
+			is_incorporated = yes
+		}
+	}
+
+	ai_construction_targets = {
+		building_software_industry = {
+			level = 5
+			state_trigger = { state_region = s:STATE_BAVARIA }
+		}
+	}
+
+	ai_weight = { value = 4 }
+}
+
+# Xiaomi
+
+company_xiaomi = {
+	icon = "gfx/interface/icons/company_icons/historical_company_icons/chinese_xiaomi.dds"
+	background = "gfx/interface/icons/company_icons/company_backgrounds/comp_illu_tech.dds"
+
+	flavored_company = yes
+	preferred_headquarters = { STATE_BEIJING }
+
+	building_types = {
+		building_electrics_industry # Xiaomi phones
+	}
+
+	extension_building_types = {
+		building_automotive_industry # Xiaomi electric vehicles
+	}
+
+	possible_prestige_goods = {
+		prestige_good_xiaomi_phones
+	}
+
+	potential = { country_has_primary_culture = cu:han }
+
+	attainable = {
+		hidden_trigger = {
+			any_scope_state = { state_region = s:STATE_BEIJING }
+		}
+	}
+
+	possible = {
+		has_technology_researched = mobile_devices
+		any_scope_state = {
+			state_region = s:STATE_BEIJING
+			is_incorporated = yes
+			any_scope_building = {
+				is_building_type = building_electrics_industry
+				level >= 5
+			}
+		}
+	}
+
+	prosperity_modifier = {
+		building_rare_earths_mine_throughput_add = 0.1
+		building_telecommunications_industry_throughput_add = 0.1
+		building_renewable_energy_power_plant_throughput_add = 0.1
+		country_prestige_mult = 0.05
+	}
+
+	ai_will_do = {
+		has_technology_researched = mobile_devices
+		any_scope_state = {
+			state_region = s:STATE_BEIJING
+			is_incorporated = yes
+		}
+	}
+
+	ai_construction_targets = {
+		building_electrics_industry = {
+			level = 5
+			state_trigger = { state_region = s:STATE_BEIJING }
+		}
+	}
+
+	ai_weight = { value = 4 }
+}

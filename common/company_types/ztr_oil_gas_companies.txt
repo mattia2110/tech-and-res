@@ -1,8 +1,20 @@
+# Companies in this file
+# Petrobras
+# Sinopec
+# TotalEnergies
+# BP Company Ltd
+# ENI
+# Gazprom
+# Saudi Aramco
+# ExonMobil remains standard Oil in order to avoid problems with US oil production
+
 company_petrobas = {
 	icon = "gfx/interface/icons/company_icons/historical_company_icons/brazilian_company_petrobas.dds"
 	background = "gfx/interface/icons/company_icons/company_backgrounds/comp_illu_oil_drills.dds"
 
 	flavored_company = yes
+
+	preferred_headquarters = { STATE_RIO_DE_JANEIRO }
 
 	building_types = {
 		building_oil_rig
@@ -38,7 +50,7 @@ company_petrobas = {
 
 	prosperity_modifier = {
 		building_oil_refinerie_throughput_add = 0.05
-		building_group_bg_logging_throughput_add = 0.1
+		building_group_bg_logging_throughput_add = 0.05
 		state_birth_rate_mult = 0.05
 	}
 
@@ -67,6 +79,8 @@ company_sinopec = {
 	background = "gfx/interface/icons/company_icons/company_backgrounds/comp_illu_oil_drills.dds"
 
 	flavored_company = yes
+
+	preferred_headquarters = { STATE_BEIJING STATE_SUZHOU }
 
 	building_types = {
 		building_oil_rig
@@ -104,9 +118,9 @@ company_sinopec = {
 	}
 
 	prosperity_modifier = {
-		building_rare_earths_mine_throughput_add = 0.1
+		building_rare_earths_mine_throughput_add = 0.05
 		building_power_plant_throughput_add = 0.1
-		building_railway_throughput_add = 0.1
+		building_railway_throughput_add = 0.05
 	}
 
 	ai_will_do = {
@@ -133,6 +147,8 @@ company_total = {
 	background = "gfx/interface/icons/company_icons/company_backgrounds/comp_illu_oil_drills.dds"
 
 	flavored_company = yes
+
+	preferred_headquarters = { STATE_ILE_DE_FRANCE }
 
 	building_types = {
 		building_oil_rig
@@ -169,8 +185,9 @@ company_total = {
 	}
 
 	prosperity_modifier = {
-		building_railway_throughput_add = 0.1
-		building_natural_gas_rig_throughput_add = 0.1
+		building_railway_throughput_add = 0.05
+		building_oil_refinerie_throughput_add = 0.05
+		state_migration_pull_mult = 0.05
 	}
 
 	ai_will_do = {
@@ -197,6 +214,8 @@ company_bg = {
 	background = "gfx/interface/icons/company_icons/company_backgrounds/comp_illu_oil_drills.dds"
 
 	flavored_company = yes
+
+	preferred_headquarters = { STATE_HOME_COUNTIES }
 
 	building_types = {
 		building_oil_rig
@@ -232,7 +251,7 @@ company_bg = {
 	}
 
 	prosperity_modifier = {
-		building_railway_throughput_add = 0.1
+		building_railway_throughput_add = 0.05
 		building_natural_gas_rig_throughput_add = 0.1
 	}
 
@@ -254,13 +273,15 @@ company_bg = {
 	}
 }
 
-#ENI
+#ENI/ENEL
 
 company_eni = {
 	icon = "gfx/interface/icons/company_icons/historical_company_icons/italian_company_eni.dds"
 	background = "gfx/interface/icons/company_icons/company_backgrounds/comp_illu_oil_drills.dds"
 
 	flavored_company = yes
+
+	preferred_headquarters = { STATE_LAZIO }
 
 	building_types = {
 		building_oil_rig
@@ -300,8 +321,9 @@ company_eni = {
 	}
 
 	prosperity_modifier = {
-		building_oil_refinerie_throughput_add = 0.15
+		building_petrochemical_industry_throughput_add = 0.1
 		building_railway_throughput_add = 0.1
+		building_renewable_energy_power_plant_throughput_add = -0.05
 	}
 
 	ai_will_do = {
@@ -330,7 +352,7 @@ company_gazprom = {
 
 	flavored_company = yes
 
-	preferred_headquarters = { STATE_SIBERIA }
+	preferred_headquarters = { STATE_INGRIA }
 
 	building_types = {
 		building_power_plant
@@ -399,6 +421,8 @@ company_saudi_aramco = {
 
 	flavored_company = yes
 
+	preferred_headquarters = { STATE_NEJD STATE_ABU_DHABI }
+
 	building_types = {
 		building_oil_rig
 		building_natural_gas_rig
@@ -441,15 +465,14 @@ company_saudi_aramco = {
 	}
 
 	prosperity_modifier = {
-		building_oil_refinerie_throughput_add = 0.25
-		building_group_bg_oil_extraction_throughput_add = 0.25
-		state_birth_rate_mult = 0.05
+		building_oil_refinerie_throughput_add = 0.15
+		building_group_bg_oil_extraction_throughput_add = 0.15
+		state_mortality_wealth_mult = -0.002
 	}
 
 	ai_will_do = {
 		has_technology_researched = pumpjacks
 		any_scope_state = {
-			is_incorporated = yes
 			has_potential_resource = bg_oil_extraction
 		}
 	}
@@ -457,9 +480,6 @@ company_saudi_aramco = {
 	ai_construction_targets = {
 		building_oil_rig = {
 			level = 5
-			state_trigger = {
-				is_incorporated = yes
-			}
 		}
 	}
 

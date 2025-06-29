@@ -2,39 +2,6 @@
 
 # Era 2
 
-atmospheric_engine = {
-	# Unlocks Motor Industry
-	# Unlocks Atmospheric Engine Pump PM in Coal Mine, Iron Mine, Lead Mine, Sulfur Mine
-	era = era_2
-	texture = "gfx/interface/icons/invention_icons/atmospheric_engine.dds"
-	category = production
-	
-	unlocking_technologies = {
-		shaft_mining
-	}
-	
-	ai_weight = {
-		value = 2 # KAI: Small nudge to research pre-requisite tech for railways
-		
-		if = {
-			limit = {
-				country_rank >= rank_value:unrecognized_major_power
-			}
-			add = 2
-		}
-		
-		if = {
-			limit = { 
-				OR = {
-					 has_strategy = ai_strategy_industrial_expansion
-					 has_strategy = ai_strategy_resource_expansion
-				}
-			}
-			add = 2
-		}	
-	}
-}
-
 mechanical_tools = {
 	# Unlocks Precision Tools PM in Furniture Workshops
 	era = era_2
