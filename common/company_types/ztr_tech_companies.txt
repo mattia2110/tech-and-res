@@ -8,6 +8,8 @@
 # ASML
 # TSMC
 # SAP
+# Xiaomi
+# Sony
 
 #Generic Tech
 generic_company_basic_tech = {
@@ -28,7 +30,7 @@ generic_company_basic_tech = {
 
 	extension_building_types = {
 		building_software_industry
-		building_digital_media_industry
+		building_processors_foundry
 	}
 
 	possible = {
@@ -255,8 +257,7 @@ company_olivetti = {
 
 	prosperity_modifier = {
 		country_prestige_mult = 0.05
-		country_tech_research_speed_mult = 0.05
-		building_electronics_industry_throughput_add = 0.05
+		country_production_tech_research_speed_mult = 0.05
 	}
 
 	ai_will_do = {
@@ -290,11 +291,13 @@ company_intel = {
 	preferred_headquarters = { STATE_CALIFORNIA }
 
 	building_types = {
+		building_electronics_industry
 		building_processors_foundry
 	}
 
 	possible_prestige_goods = {
 		prestige_good_intel_processors
+		prestige_good_wafers
 	}
 
 	potential = { country_has_primary_culture = cu:yankee }
@@ -351,7 +354,6 @@ company_asml = {
 
 	building_types = {
 		building_robotics_industry
-		building_electronics_industry
 	}
 
 	possible_prestige_goods = {
@@ -380,6 +382,7 @@ company_asml = {
 
 	prosperity_modifier = {
 		building_processors_foundry_throughput_add = 0.2
+		building_electronics_industry_throughput_add = 0.2
 		country_prestige_mult = 0.05
 	}
 
@@ -410,11 +413,16 @@ company_tsmc = {
 	preferred_headquarters = { STATE_FORMOSA }
 
 	building_types = {
-		building_processors_foundry
+		building_electronics_industry
+		building_advancedores_mine
 	}
 
 	extension_building_types = {
-		building_electronics_industry
+		building_processors_foundry
+	}
+
+	possible_prestige_goods = {
+		prestige_good_wafers
 	}
 
 	potential = { has_state_in_state_region = STATE_FORMOSA }
@@ -432,14 +440,14 @@ company_tsmc = {
 			state_region = s:STATE_FORMOSA
 			is_incorporated = yes
 			any_scope_building = {
-				is_building_type = building_processors_foundry
+				is_building_type = building_electronics_industry
 				level >= 5
 			}
 		}
 	}
 
 	prosperity_modifier = {
-		building_processors_foundry_throughput_add = 0.15
+		building_processors_foundry_throughput_add = 0.25
 		country_prestige_mult = 0.05
 	}
 
@@ -452,7 +460,7 @@ company_tsmc = {
 	}
 
 	ai_construction_targets = {
-		building_processors_foundry = {
+		building_electronics_industry = {
 			level = 5
 			state_trigger = { state_region = s:STATE_FORMOSA }
 		}
@@ -656,4 +664,83 @@ company_xiaomi = {
 	}
 
 	ai_weight = { value = 4 }
+}
+
+#Tokyo Tsushin Kogyo (Sony)
+company_tokyo_tsushin_kogyo_sony = {
+	icon = "gfx/interface/icons/company_icons/historical_company_icons/sony.dds" 
+	background = "gfx/interface/icons/company_icons/company_backgrounds/comp_illu_tech.dds"
+
+	flavored_company = yes
+	
+	preferred_headquarters = { STATE_KANTO }
+	
+	building_types = {
+		building_entertainment_industry
+		building_electronics_industry
+		building_digital_media_industry
+	}
+
+	extension_building_types = {  
+		building_instrument_workshops
+		building_electrics_industry
+	}
+
+	possible_prestige_goods = {
+		prestige_good_generic_records_and_films
+		prestige_good_sony_consoles
+	}
+
+	possible = {
+		any_scope_state = {
+			is_incorporated = yes
+			any_scope_building = {
+				OR = {
+					is_building_type = building_electronics_industry
+					is_building_type = building_entertainment_industry
+				}
+				level >= 3
+			}
+		}
+		has_technology_researched = elgar_mass_culture_tech
+		has_technology_researched = radio
+	}
+
+	prosperity_modifier = {
+		country_prestige_mult = 0.1
+		goods_output_elgar_music_mult = 0.05
+		building_electronics_industry_throughput_add = 0.1
+	}
+
+	ai_will_do = {
+		any_scope_state = {
+			is_incorporated = yes
+			any_scope_building = {
+				OR = {
+					is_building_type = building_electronics_industry
+					is_building_type = building_entertainment_industry
+				}
+				level >= 5
+			}
+		}
+	}
+	
+	ai_construction_targets = {
+		building_entertainment_industry = {
+			level = 5
+			state_trigger = {
+				state_region = s:STATE_KANTO
+			}
+		}
+		building_electronics_industry = {
+			level = 5
+			state_trigger = {
+				state_region = s:STATE_KANTO
+			}
+		}
+	}
+	
+	ai_weight = {
+		value = 3 # Higher base value for flavored companies
+	}
 }
