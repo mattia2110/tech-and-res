@@ -1,3 +1,11 @@
+# Companies in this file
+# Steinway & Sons
+# Yamaha
+# Columbia Records
+# Société Pathé Frères
+# Warner Bros. Records
+# Universal Records (Decca Records)
+
 #Generic Instruments
 elgar_company_basic_instruments = {
 	icon = "gfx/interface/icons/company_icons/elgar_instruments_generic.dds"
@@ -22,13 +30,6 @@ elgar_company_basic_instruments = {
 
 	possible_prestige_goods = {
 		prestige_good_generic_instruments
-	}
-
-	prestige_goods_trigger = {
-		custom_tooltip = {
-			text = je_mr_prestige_goods_instruments_complete_tt
-			has_variable = mr_prestige_good_generic_instruments_var
-		}
 	}
 
 	possible = {
@@ -89,11 +90,22 @@ elgar_company_steinway = {
 		}
 	}
 
+	attainable = {
+		hidden_trigger = { # Hide attainable if it's always fulfilled by possible
+			any_scope_state = {
+				OR = {
+					state_region = s:STATE_NEW_YORK
+					state_region = s:STATE_ELBE
+				}
+			}
+		}
+	}
+
 	possible = {
 		any_scope_state = {
 			OR = {
-				state_region = STATE_NEW_YORK
-				state_region = STATE_ELBE
+				state_region = s:STATE_NEW_YORK
+				state_region = s:STATE_ELBE
 			}
 			is_incorporated = yes
 			any_scope_building = {
@@ -111,8 +123,8 @@ elgar_company_steinway = {
 	ai_will_do = {
 		any_scope_state = {
 			OR = {
-				state_region = STATE_NEW_YORK
-				state_region = STATE_ELBE
+				state_region = s:STATE_NEW_YORK
+				state_region = s:STATE_ELBE
 			}
 			is_incorporated = yes
 		}

@@ -1,4 +1,4 @@
-# This is a special strategy that sets the default values for different AI scores
+﻿# This is a special strategy that sets the default values for different AI scores
 # All AIs always load data from this strategy, which can then be either added to or overridden by data from its other strategies
 
 ai_strategy_default = {
@@ -209,6 +209,31 @@ ai_strategy_default = {
 										has_type = guarantee_independence
 									}
 								}
+							}
+						}
+					}
+
+					scope:enemy_country = {
+						NOR = {
+							play_participant_has_war_goal_of_type_against = {
+								type = conquer_state
+								target = scope:country
+							}
+							play_participant_has_war_goal_of_type_against = {
+								type = make_protectorate
+								target = scope:country
+							}
+							play_participant_has_war_goal_of_type_against = {
+								type = liberate_country
+								target = scope:country
+							}
+							play_participant_has_war_goal_of_type_against = {
+								type = take_treaty_port
+								target = scope:country
+							}
+							play_participant_has_war_goal_of_type_against = {
+								type = enforce_treaty_article
+								target = scope:country
 							}
 						}
 					}
@@ -610,7 +635,6 @@ ai_strategy_default = {
 			limit = {
 				has_journal_entry = je_sick_man_main
 			}
-
 			add = 50
 		}
 	}
@@ -1788,6 +1812,7 @@ ai_strategy_default = {
 							binds = root
 							any_scope_article = {
 								has_type = trade_privilege
+								source_country = scope:target_country
 							}
 						}
 					}
@@ -2405,7 +2430,7 @@ ai_strategy_default = {
 			limit = {
 				has_journal_entry = je_greek_nationalism
 				scope:target_country = {
-					any_state = {
+					any_scope_state = {
 						state_region = { is_homeland = cu:greek }
 						has_claim_by = root
 					}
@@ -2634,7 +2659,7 @@ ai_strategy_default = {
 			limit = {
 				has_journal_entry = je_greek_nationalism
 				scope:target_country = {
-					any_state = {
+					any_scope_state = {
 						state_region = { is_homeland = cu:greek }
 						has_claim_by = root
 					}
@@ -2716,7 +2741,7 @@ ai_strategy_default = {
 				has_variable = haiti_stops_paying_france_aggressor
 				scope:target_country = {
 					has_variable = haiti_stops_paying_france_target
-					any_state = {
+					any_scope_state = {
 						has_claim_by = root
 					}
 				}
@@ -3466,6 +3491,7 @@ ai_strategy_default = {
 					}
 				}
 				divide = 2500 # 1 level of barracks per 2.5k income
+				multiply = 1.4 # KAI: To compensate for the difference from excluding investment pool
 			}
 		}
 
@@ -3560,6 +3586,7 @@ ai_strategy_default = {
 				divide = cached_ai_incorporated_population
 				multiply = cached_ai_incorporated_coastal_population
 				divide = 5000
+				multiply = 1.4 # KAI: To compensate for the difference from excluding investment pool
 			}
 		}
 
@@ -3745,16 +3772,6 @@ ai_strategy_default = {
 	nationalization_desire = {
 		value = 0.0
 
-		# KAI: AI can only queue around one building per week.
-		# Surplus beyond that point is pointless.
-		# Start privatizing to feed the investment pool.
-		if = {
-			limit = {
-				weekly_net_fixed_income > 200000
-			}
-			subtract = 0.25
-		}
-
 		if = {
 			limit = {
 				has_law = law_type:law_command_economy
@@ -3766,7 +3783,9 @@ ai_strategy_default = {
 
 	# Add a multiplier to the score AI assigns to particular building groups (default 1)
 	# Using this value in other strategies will result in several multiplications
-	building_group_weights = {}
+	building_group_weights = {
+		bg_power = 5.0
+	}
 
 	# Which buildings should the AI subsidize
 	# Using a different value in a strategy will override this value
@@ -6016,6 +6035,7 @@ ai_strategy_default = {
 							binds = scope:target_country
 							any_scope_article = {
 								has_type = trade_privilege
+								source_country = scope:target_country
 							}
 						}
 					}
@@ -6104,7 +6124,7 @@ ai_strategy_default = {
 		}
 
 		military_defense = {
-			value = 3
+			value = 4
 		}
 
 		ideology = {
@@ -6584,17 +6604,16 @@ ai_strategy_default = {
 						max = 100
 					}
 				}
-			}
-
-			if = {
-				limit = {
-					scope:target_country = {
-						num_states > 1
+				if = {
+					limit = {
+						scope:target_country = {
+							num_states > 1
+						}
 					}
-				}
-				add = {
-					value = scope:target_country.num_states
-					multiply = 10
+					add = {
+						value = scope:target_country.num_states
+						multiply = 10
+					}
 				}
 			}
 

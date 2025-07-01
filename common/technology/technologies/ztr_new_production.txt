@@ -1213,22 +1213,6 @@ advanced_mining = {
 
 #ERA 8
 
-third_nuclear_reactor = {
-	# Unlocks pm nuclear control room in Power plants
-	era = era_8
-	texture = "gfx/interface/icons/invention_icons/third_nuclear_reactor.dds"
-	category = production
-	
-	unlocking_technologies = {
-		embedded_control_systems
-		micro_processors
-	}
-
-	ai_weight = {
-		value = 1
-	}
-}
-
 hydraulic_fracturing = {
 	# Unlocks PM hydraulic fracturing in Oil Refineries
 	era = era_8
@@ -1434,6 +1418,47 @@ embedded_control_systems = {
 
 # ERA 9
 
+iot_driven_manufacturing = {
+    # Unlocks production methods for IoT-driven Manufacturing in factories
+    era = era_9
+    texture = "gfx/interface/icons/invention_icons/iot_driven_manufacturing.dds"
+    category = production
+
+    unlocking_technologies = {
+        parallel_computing_architecture  # multicore & cloud computing
+        embedded_control_systems         # PLC & microcontrollori
+        mobile_devices                   # connettività ubiqua
+    }
+
+	modifier = {
+		
+	}
+
+    ai_weight = {
+        value = 1
+        if = {
+            limit = { has_strategy = ai_strategy_industrial_expansion }
+            add = 1
+        }
+    }
+}
+
+third_nuclear_reactor = {
+	# Unlocks pm nuclear control room in Power plants
+	era = era_9
+	texture = "gfx/interface/icons/invention_icons/third_nuclear_reactor.dds"
+	category = production
+	
+	unlocking_technologies = {
+		embedded_control_systems
+		micro_processors
+	}
+
+	ai_weight = {
+		value = 1
+	}
+}
+
 mobile_devices = {
 	era = era_9
 	texture = "gfx/interface/icons/invention_icons/mobile_devices.dds"
@@ -1522,6 +1547,27 @@ parallel_computing_architecture = {
 }
 
 # Era 10
+
+cobots = {
+    # Unlocks Collaborative Robots (Cobots) that lavorano fianco a fianco con l’uomo
+    era = era_10
+    texture = "gfx/interface/icons/invention_icons/cobots.dds"
+    category = production
+
+    unlocking_technologies = {
+        mechatronics               # robotica industriale :contentReference[oaicite:4]{index=4}
+        embedded_control_systems   # sistemi di controllo integrati :contentReference[oaicite:5]{index=5}
+        iot_driven_manufacturing   # infrastruttura IoT (nuova techno)
+    }
+
+    ai_weight = {
+        value = 1
+        if = {
+            limit = { has_strategy = ai_strategy_industrial_expansion }
+            add = 1
+        }
+    }
+}
 
 smartphones = {
 	era = era_10

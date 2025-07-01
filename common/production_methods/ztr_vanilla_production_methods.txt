@@ -316,8 +316,8 @@ pm_gas_streetlights = {
 
 	building_modifiers = {
 		workforce_scaled = {
-			goods_input_alloys_add = 0.1
-			goods_input_gas_add = 2
+			goods_input_alloys_add = 0.5
+			goods_input_gas_add = 1.5
 			goods_output_services_add = 5
 		}
 
@@ -344,7 +344,7 @@ pm_electric_streetlights = {
 
 	building_modifiers = {
 		workforce_scaled = {
-			goods_input_alloys_add = 0.2
+			goods_input_alloys_add = 0.5
 			goods_input_electricity_add = 2
 			goods_input_gas_add = 2
 			goods_input_copperwires_add = 0.5
@@ -2006,6 +2006,35 @@ pm_assembly_lines_building_motor_industry = {
 }
 
 pm_assembly_lines_building_automotive_industry = {
+	texture = "gfx/interface/icons/production_method_icons/assembly_lines.dds"
+	state_modifiers = {
+		workforce_scaled = {
+			state_pollution_generation_add = 10
+		}
+	}
+
+	unlocking_technologies = {
+		conveyors
+	}
+
+	building_modifiers = {
+		workforce_scaled = {
+			# input goods
+			goods_input_tools_add = 5
+			goods_input_lubricant_add = 3
+			goods_input_electricity_add = 5
+		}
+
+		level_scaled = {
+			building_employment_laborers_add = -1500
+			building_employment_machinists_add = -500
+		}
+	}
+
+	required_input_goods = electricity
+}
+
+pm_assembly_lines_building_electrics_industry = {
 	texture = "gfx/interface/icons/production_method_icons/assembly_lines.dds"
 	state_modifiers = {
 		workforce_scaled = {

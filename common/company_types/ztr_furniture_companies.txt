@@ -1,0 +1,73 @@
+# Ikea
+
+company_ikea = {
+	icon = "gfx/interface/icons/company_icons/historical_company_icons/swedish_ikea.dds"
+	background = "gfx/interface/icons/company_icons/company_backgrounds/comp_illu_manufactering_light.dds"
+
+	flavored_company = yes
+
+	preferred_headquarters = { STATE_SVEALAND }
+
+	building_types = {
+		building_furniture_manufacturies
+		building_logging_camp
+	}
+
+	extension_building_types = {
+		building_arts_academy
+	}
+
+	possible_prestige_goods = {
+		prestige_good_ikea_furniture
+	}
+
+	potential = {
+		country_has_primary_culture = cu:swedish
+	}
+
+	attainable = {
+		hidden_trigger = { # Hide attainable if it's always fulfilled by possible
+			any_scope_state = {
+				state_region = s:STATE_SVEALAND
+			}
+		}
+	}
+
+	possible = {
+		has_technology_researched = fast_modular_furniture
+		any_scope_state = {
+			state_region = s:STATE_SVEALAND
+			is_incorporated = yes
+			any_scope_building = {
+				is_building_type = building_furniture_manufacturies
+				level >= 5
+			}
+		}
+	}
+
+	prosperity_modifier = {
+		goods_output_furniture_mult = 0.2
+		state_standard_of_living_add = 0.5
+	}
+
+	ai_will_do = {
+		has_technology_researched = fast_modular_furniture
+		any_scope_state = {
+			state_region = s:STATE_SVEALAND
+			is_incorporated = yes
+		}
+	}
+
+	ai_construction_targets = {
+		building_furniture_manufacturies = {
+			level = 5
+			state_trigger = {
+				state_region = s:STATE_SVEALAND
+			}
+		}
+	}
+
+	ai_weight = {
+		value = 5 # Higher base value for flavored companies
+	}
+}
