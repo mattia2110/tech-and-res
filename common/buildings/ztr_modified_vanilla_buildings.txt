@@ -187,6 +187,20 @@ building_coal_mine = {
 		pmg_selective_mineral_extraction_coal_mine
 		pmg_data_optimization_primary_sector
 	}
+
+	possible = {
+		owner = {
+			NOT = {
+				OR = {
+					has_law = law_type:law_mining_restrict_hazardous
+					has_law = law_type:law_mining_strategic
+					has_law = law_type:law_polluting_mining_banned
+				}
+			}
+		}
+    }
+	
+
 	ownership_type = self
 
 	background = "gfx/interface/icons/building_icons/backgrounds/building_panel_bg_mining.dds"
@@ -216,6 +230,14 @@ building_iron_mine = {
 	}
 	ownership_type = self
 
+	possible = {
+		owner = {
+			NOT = {
+				has_law = law_type:law_polluting_mining_banned
+			}
+		}
+    }
+
 	background = "gfx/interface/icons/building_icons/backgrounds/building_panel_bg_mining.dds"
  }
 
@@ -240,6 +262,19 @@ building_lead_mine = {
 		pmg_selective_mineral_extraction_lead_mine
 		pmg_data_optimization_primary_sector
 	}
+
+	possible = {
+		owner = {
+			NOT = {
+				OR = {
+					has_law = law_type:law_mining_restrict_hazardous
+					has_law = law_type:law_mining_strategic
+					has_law = law_type:law_polluting_mining_banned
+				}
+			}
+		}
+    }
+	
 	ownership_type = self
 
 	background = "gfx/interface/icons/building_icons/backgrounds/building_panel_bg_mining.dds"
@@ -267,6 +302,18 @@ building_sulfur_mine = {
 		pmg_data_optimization_primary_sector
 	}
 	ownership_type = self
+
+	possible = {
+		owner = {
+			NOT = {
+				OR = {
+					has_law = law_type:law_mining_restrict_hazardous
+					has_law = law_type:law_mining_strategic
+					has_law = law_type:law_polluting_mining_banned
+				}
+			}
+		}
+    }
 
 	background = "gfx/interface/icons/building_icons/backgrounds/building_panel_bg_mining.dds"
  }

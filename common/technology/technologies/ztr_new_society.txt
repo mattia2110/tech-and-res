@@ -94,6 +94,27 @@ modern_urban_planning = {
 
 #Era 6
 
+socialdemocracy = {
+	era = era_6
+	texture = "gfx/interface/icons/invention_icons/socialdemocracy.dds"
+	category = society
+	modifier = {
+		political_movement_radicalism_from_enactment_disapproval_mult = -0.1
+		country_authority_mult = 0.1
+		state_radicals_and_loyalists_from_sol_change_mult = 0.2
+		state_radicals_from_political_movements_mult = -0.2
+		state_expected_sol_from_literacy = 1
+	}
+	unlocking_technologies = {
+		international_organizations
+		keynesian_economics
+	}
+		
+	ai_weight = {
+		value = 1
+	}
+}
+
 highway_systems = {
 	era = era_6
 	texture = "gfx/interface/icons/invention_icons/highway_systems.dds"
@@ -282,6 +303,8 @@ vaccination_campaigns = {
 
     modifier = {
         state_mortality_mult = -0.01
+		state_harvest_condition_disease_outbreak_impact_mult = -0.1
+		state_harvest_condition_disease_outbreak_duration_mult = -0.1
     }
 
     ai_weight = {
@@ -297,7 +320,7 @@ funded_research_projects = {
 
 	unlocking_technologies = {
 		analytical_philosophy
-		keynesian_economics
+		socialdemocracy
 	}
 
 	modifier = {
@@ -341,7 +364,6 @@ neuroscience = {
 
 	modifier = {
 		state_mortality_mult = -0.01
-		country_authority_mult = 0.1
 	}
 
 	ai_weight = { value = 1 }
@@ -373,6 +395,7 @@ government_broadcasting = {
 	unlocking_technologies = {
 		market_studies
 		international_sporting_events
+		socialdemocracy
 	}
 	
 		ai_weight = {
@@ -807,6 +830,11 @@ mri_development = {
 		genetic_engineering
 		neuroscience
     }
+
+	modifier = {
+		state_harvest_condition_disease_outbreak_impact_mult = -0.1
+		state_harvest_condition_disease_outbreak_duration_mult = -0.1
+	}
 
     ai_weight = {
         value = 1

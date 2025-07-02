@@ -80,6 +80,14 @@ building_uranium_mine = {
 
 	possible = {
         modifier:state_building_uranium_mine_max_level_add > 0
+		owner = {
+			NOT = {
+				OR = {
+					has_law = law_type:law_mining_strategic
+					has_law = law_type:law_polluting_mining_banned
+				}
+			}
+		}
     }
 
     potential = {

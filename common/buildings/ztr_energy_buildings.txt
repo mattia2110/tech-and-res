@@ -130,7 +130,12 @@ building_nuclear_power_plant = {
 	
 	possible = {
 		owner = {
-			NOT = { has_law = law_type:law_industry_banned } 
+			NOT = {
+				OR = {
+					has_law = law_type:law_uranium_ban
+					has_law = law_type:law_industry_banned
+				}
+			}
 		}
 	}	
 	
