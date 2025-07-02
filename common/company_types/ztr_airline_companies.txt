@@ -64,7 +64,7 @@ curtiss_company_KLM = {
 	}
 
 	potential = {
-		country_has_primary_culture = cu:dutch
+		has_interest_marker_in_region = region_rhine
 	}
 
 	attainable = {
@@ -139,7 +139,7 @@ curtiss_company_DLR = {
 	}
 
 	potential = {
-		country_has_primary_culture = cu:north_german
+		has_interest_marker_in_region = region_north_germany
 	}
 
 	attainable = {
@@ -151,8 +151,8 @@ curtiss_company_DLR = {
 	}
 	
 	possible = {
-		
 		any_scope_state = {
+			state_region = s:STATE_BRANDENBURG
 			is_incorporated = yes
 			any_scope_building = {
 				is_building_type = building_airport
@@ -168,7 +168,6 @@ curtiss_company_DLR = {
 	}
 
 	ai_will_do = {
-		
 		any_scope_state = {
 			state_region = s:STATE_BRANDENBURG
 			is_incorporated = yes
@@ -207,7 +206,7 @@ curtiss_company_imperial_airways = {
 	}
 
 	potential = {
-		country_has_primary_culture = cu:british
+		has_interest_marker_in_region = region_england
 	}
 
 	attainable = {
@@ -221,6 +220,7 @@ curtiss_company_imperial_airways = {
 	possible = {
 		
 		any_scope_state = {
+			state_region = s:STATE_HOME_COUNTIES
 			is_incorporated = yes
 			any_scope_building = {
 				is_building_type = building_airport
@@ -275,7 +275,7 @@ curtiss_company_air_france = {
 	}
 
 	potential = {
-		country_has_primary_culture = cu:french
+		has_interest_marker_in_region = region_france
 	}
 
 	attainable = {
@@ -289,6 +289,7 @@ curtiss_company_air_france = {
 	possible = {
 		
 		any_scope_state = {
+			state_region = s:STATE_ILE_DE_FRANCE
 			is_incorporated = yes
 			any_scope_building = {
 				is_building_type = building_airport
@@ -343,7 +344,7 @@ curtiss_company_swissair = {
 	}
 
 	potential = {
-		country_has_primary_culture = cu:alemannic
+		has_interest_marker_in_region = region_south_germany
 	}
 
 	attainable = {
@@ -357,6 +358,7 @@ curtiss_company_swissair = {
 	possible = {
 		
 		any_scope_state = {
+			state_region = s:STATE_EAST_SWITZERLAND
 			is_incorporated = yes
 			any_scope_building = {
 				is_building_type = building_airport
@@ -411,10 +413,7 @@ company_pan_american_airways = {
 	}
 
 	potential = {
-		OR = {
-			country_has_primary_culture = cu:dixie
-			country_has_primary_culture = cu:yankee
-		}
+		has_interest_marker_in_region = region_dixie
 	}
 
 	attainable = {
@@ -431,6 +430,10 @@ company_pan_american_airways = {
 	possible = {
 		
 		any_scope_state = {
+			OR = {
+					state_region = s:STATE_FLORIDA
+					state_region = s:STATE_PANAMA
+				}
 			is_incorporated = yes
 			any_scope_building = {
 				is_building_type = building_airport
@@ -488,7 +491,7 @@ company_turk_hava_yollari_turkish = {
 	}
 
 	potential = {
-		country_has_primary_culture = cu:turkish
+		has_interest_marker_in_region = region_anatolia
 	}
 
 	attainable = {
@@ -501,6 +504,7 @@ company_turk_hava_yollari_turkish = {
 
 	possible = {
 		any_scope_state = {
+			state_region = s:STATE_EASTERN_THRACE
 			is_incorporated = yes
 			any_scope_building = {
 				is_building_type = building_airport
@@ -556,7 +560,7 @@ company_emirates_airline = {
 	}
 
 	potential = {
-		country_has_primary_culture = cu:bedouin
+		has_interest_marker_in_region = region_arabic
 	}
 
 	attainable = {
@@ -569,6 +573,7 @@ company_emirates_airline = {
 
 	possible = {
 		any_scope_state = {
+			state_region = s:STATE_ABU_DHABI
 			is_incorporated = yes
 			any_scope_building = {
 				is_building_type = building_airport
@@ -625,7 +630,7 @@ company_air_china = {
 	}
 
 	potential = {
-		country_has_primary_culture = cu:han
+		has_interest_marker_in_region = region_north_china
 	}
 
 	attainable = {
@@ -639,6 +644,7 @@ company_air_china = {
 	possible = {
 		any_scope_state = {
 			is_incorporated = yes
+			state_region = s:STATE_BEIJING
 			any_scope_building = {
 				is_building_type = building_airport
 				level >= 1
@@ -698,7 +704,7 @@ company_boeing = {
 	}
 
 	potential = {
-		country_has_primary_culture = cu:yankee
+		has_interest_marker_in_region = region_dixie
 	}
 
 	attainable = {
@@ -712,6 +718,7 @@ company_boeing = {
 	possible = {
 		
 		any_scope_state = {
+			state_region = s:STATE_VIRGINIA
 			is_incorporated = yes
 			any_scope_building = {
 				is_building_type = building_aircraft_industry
@@ -774,10 +781,9 @@ company_airbus = {
 
 	potential = {
 		OR = {
-			country_has_primary_culture = cu:french
-			country_has_primary_culture = cu:dutch
-			country_has_primary_culture = cu:south_german
-			country_has_primary_culture = cu:spanish
+			has_interest_marker_in_region = region_france
+			has_interest_marker_in_region = region_rhine
+			has_interest_marker_in_region = region_iberia
 		}
 	}
 
@@ -796,24 +802,28 @@ company_airbus = {
 
 	possible = {
 		OR = {
+			any_scope_state = {
+				state_region = s:STATE_ILE_DE_FRANCE
+				is_incorporated = yes
+				any_scope_building = {
+					is_building_type = building_aircraft_industry
+					level >= 3
+				}
+			}
 			AND = {
-				
+				has_technology_researched = international_travel
 				any_scope_state = {
-					state_region = s:STATE_ILE_DE_FRANCE
+					OR = {
+						state_region = s:STATE_RUHR
+						state_region = s:STATE_HOLLAND
+						state_region = s:STATE_CATALONIA
+					}
 					is_incorporated = yes
 					any_scope_building = {
 						is_building_type = building_aircraft_industry
 						level >= 3
 					}
 				}
-			}
-			has_technology_researched = international_travel
-		}
-		any_scope_state = {
-			is_incorporated = yes
-			any_scope_building = {
-				is_building_type = building_aircraft_industry
-				level >= 3
 			}
 		}
 	}
@@ -826,7 +836,6 @@ company_airbus = {
 	ai_will_do = {
 		OR = {
 			AND = {
-				
 				any_scope_state = {
 					state_region = s:STATE_ILE_DE_FRANCE
 					is_incorporated = yes
@@ -873,7 +882,7 @@ company_embraer = {
 	}
 	
 	potential = {
-		country_has_primary_culture = cu:brazilian
+		has_interest_marker_in_region = region_brazil
 	}
 
 	attainable = {
@@ -886,6 +895,7 @@ company_embraer = {
 	
 	possible = {
 		any_scope_state = {
+			state_region = s:STATE_SAO_PAULO
 			is_incorporated = yes
 			any_scope_building = {
 				is_building_type = building_aircraft_industry
@@ -938,10 +948,7 @@ company_bombardier = {
 	}
 	
 	potential = {
-		OR = {
-			country_has_primary_culture = cu:anglo_canadian
-			country_has_primary_culture = cu:franco_canadian
-		}
+		has_interest_marker_in_region = region_canada
 	}
 
 	attainable = {
@@ -954,6 +961,7 @@ company_bombardier = {
 	
 	possible = {
 		any_scope_state = {
+			state_region = s:STATE_QUEBEC
 			is_incorporated = yes
 			any_scope_building = {
 				is_building_type = building_aircraft_industry
@@ -1007,7 +1015,7 @@ company_comac = {
 	}
 	
 	potential = {
-		country_has_primary_culture = cu:han
+		has_interest_marker_in_region = region_south_china
 	}
 
 	attainable = {
@@ -1020,6 +1028,7 @@ company_comac = {
 	
 	possible = {
 		any_scope_state = {
+			state_region = s:STATE_SUZHOU
 			is_incorporated = yes
 			any_scope_building = {
 				is_building_type = building_aircraft_industry

@@ -22,13 +22,18 @@ law_uranium_full_usage = {
 	
 	progressiveness = -50
 
-	ai_enact_weight_modifier = { #Petitions
-		value = 0
+	unlocking_technologies = {
+		atomic_bomb
+	}
+
+	modifier = {
+		country_prestige_mult = 0.25
+		country_prestige_from_army_power_projection_mult = 0.25
 		
-		if = {
-			limit = { ai_has_enact_weight_modifier_journal_entries = yes }
-			add = 750
-		}
+	}
+
+	ai_enact_weight_modifier = { #Only through Journal Entry
+		value = -10000
 	}
 }
 
@@ -46,6 +51,10 @@ law_uranium_ban = {
 			limit = { ai_has_enact_weight_modifier_journal_entries = yes }
 			add = 750
 		}
+	}
+
+	unlocking_technologies = {
+		nuclear_reactor
 	}
 
 	on_activate = {

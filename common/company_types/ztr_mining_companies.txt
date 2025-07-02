@@ -92,8 +92,7 @@ company_bhp = {
 	
 	potential = {
 		OR = {
-			country_has_primary_culture = cu:australian
-			country_has_primary_culture = cu:british
+			has_interest_marker_in_region = region_oceania
 		}
 	}
 	
@@ -189,13 +188,13 @@ company_union_miniere_du_haut_katanga = {
 
 	potential = {
 		OR = {
-			country_has_primary_culture = cu:flemish
-			country_has_primary_culture = cu:wallonian
+			has_interest_marker_in_region = region_congo
+			has_interest_marker_in_region = region_southern_africa
 		}
 	}
 
 	attainable = {
-		hidden_trigger = { # Hide attainable if it's always fulfilled by possible
+		hidden_trigger = { 
 			OR = {
 				has_state_in_state_region = STATE_KATANGA
 				has_state_in_state_region = STATE_BOTSWANA
@@ -203,6 +202,7 @@ company_union_miniere_du_haut_katanga = {
 		}
 	}
 	
+	# Incorporation is not needed
 	possible = {
 		any_scope_state = {
 			OR = {
@@ -284,7 +284,10 @@ company_cameco = {
 	}
 	
 	potential = {
-		country_has_primary_culture = cu:anglo_canadian
+		OR = {
+			has_interest_marker_in_region = region_canada
+			has_interest_marker_in_region = region_great_plains
+		}
 	}
 	
 	attainable = {
@@ -294,7 +297,6 @@ company_cameco = {
 					state_region = s:STATE_NORTHWEST_TERRITORIES
 					state_region = s:STATE_SASKATCHEWAN
 				}
-				is_incorporated = yes
 			}
 		}
 	}
@@ -380,19 +382,28 @@ company_compagnie_generale_des_matieres_nucleaires = {
 
 	potential = {
 		OR = {
-			country_has_primary_culture = cu:french
-			country_has_primary_culture = cu:occitan
+			has_interest_marker_in_region = region_france
+			has_interest_marker_in_region = region_occitania
 		}
 	}
 
 	attainable = {
 		hidden_trigger = { # Hide attainable if it's always fulfilled by possible
-			has_state_in_state_region = STATE_ILE_DE_FRANCE
+			any_scope_state = {
+				OR = {
+					state_region = s:STATE_ILE_DE_FRANCE
+					state_region = s:STATE_PROVENCE
+				}
+			}
 		}
 	}
 	
 	possible = {
 		any_scope_state = {
+			OR = {
+				state_region = s:STATE_ILE_DE_FRANCE
+				state_region = s:STATE_PROVENCE
+			}
 			is_incorporated = yes
 			any_scope_building = {
 				is_building_type = building_uranium_mine
@@ -452,7 +463,7 @@ company_kazatomprom = {
 	}
 	
 	potential = {
-		country_has_primary_culture = cu:kazak	
+		has_interest_marker_in_region = region_central_asia
 	}
 	
 	attainable = {
@@ -463,7 +474,6 @@ company_kazatomprom = {
 					state_region = s:STATE_SEMIRECHE
 					state_region = s:STATE_AKMOLINSK
 				}
-				is_incorporated = yes
 			}
 		}
 	}
@@ -553,7 +563,7 @@ company_rosatom = {
 	}
 
 	potential = {
-		country_has_primary_culture = cu:russian
+		has_interest_marker_in_region = region_russia
 	}
 	
 	attainable = {
@@ -570,6 +580,10 @@ company_rosatom = {
 	
 	possible = {
 		any_scope_state = {
+			OR = {
+				state_region = s:STATE_TVER
+				state_region = s:STATE_CHERSON
+			}
 			is_incorporated = yes
 			any_scope_building = {
 				is_building_type = building_uranium_mine
@@ -632,7 +646,7 @@ company_Glencore = {
 	}
 
 	potential = {
-		country_has_primary_culture = cu:alemannic
+		has_interest_marker_in_region = region_south_germany
 	}
 	
 	attainable = {
@@ -649,6 +663,10 @@ company_Glencore = {
 	
 	possible = {
 		any_scope_state = {
+			OR = {
+				state_region = s:STATE_WEST_SWITZERLAND
+				state_region = s:STATE_EAST_SWITZERLAND
+			}
 			is_incorporated = yes
 			any_scope_building = {
 				is_building_type = building_rare_earths_mine
@@ -781,7 +799,7 @@ company_rio_tinto = {
 	background = "gfx/interface/icons/company_icons/company_backgrounds/comp_illu_mining.dds"
 	
 	flavored_company = yes
-	preferred_headquarters = { STATE_ANDALUSIA STATE_NEW_SOUTH_WALES STATE_HOME_COUNTIES }
+	preferred_headquarters = { STATE_GRANADA STATE_NEW_SOUTH_WALES STATE_HOME_COUNTIES }
 
 	building_types = {  
 		building_rare_earths_mine
@@ -795,16 +813,16 @@ company_rio_tinto = {
 
 	potential = {
 		OR = {
-				country_has_primary_culture = cu:british
-				country_has_primary_culture = cu:australian
-			}
+			has_interest_marker_in_region = region_oceania
+			has_interest_marker_in_region = region_iberia
+		}
 	}
 	
 	attainable = {
 		hidden_trigger = { # Hide attainable if it's always fulfilled by possible
 			any_scope_state = {
 				OR = {
-					state_region = s:STATE_ANDALUSIA
+					state_region = s:STATE_GRANADA
 					state_region = s:STATE_NEW_SOUTH_WALES
 				}
 			}
@@ -813,6 +831,10 @@ company_rio_tinto = {
 	
 	possible = {
 		any_scope_state = {
+			OR = {
+				state_region = s:STATE_GRANADA
+				state_region = s:STATE_NEW_SOUTH_WALES
+			}
 			is_incorporated = yes
 			any_scope_building = {
 				is_building_type = building_copper_mine
@@ -830,7 +852,7 @@ company_rio_tinto = {
 	ai_will_do = {
 		any_scope_state = {
 			OR = {
-				state_region = s:STATE_ANDALUSIA
+				state_region = s:STATE_GRANADA
 				state_region = s:STATE_NEW_SOUTH_WALES
 			}
 			is_incorporated = yes
@@ -842,7 +864,7 @@ company_rio_tinto = {
 			level = 5
 			state_trigger = {
 				OR = {
-					state_region = s:STATE_ANDALUSIA
+					state_region = s:STATE_GRANADA
 					state_region = s:STATE_NEW_SOUTH_WALES
 				}
 			}
@@ -879,13 +901,23 @@ company_china_rare_earth_group = {
 	
 	attainable = {
 		hidden_trigger = { # Hide attainable if it's always fulfilled by possible
-			country_has_primary_culture = cu:han
-			
+			any_scope_state = {
+				OR = {
+					state_region = s:STATE_SHANXI
+					state_region = s:STATE_JIANGXI
+					state_region = s:STATE_HINGGAN
+				}
+			}
 		}
 	}
 	
 	possible = {
 		any_scope_state = {
+			OR = {
+				state_region = s:STATE_SHANXI
+				state_region = s:STATE_JIANGXI
+				state_region = s:STATE_HINGGAN
+			}
 			is_incorporated = yes
 			any_scope_building = {
 				is_building_type = building_rare_earths_mine
@@ -903,10 +935,10 @@ company_china_rare_earth_group = {
 	ai_will_do = {
 		any_scope_state = {
 			OR = {
-					state_region = s:STATE_SHANXI
-					state_region = s:STATE_JIANGXI
-					state_region = s:STATE_HINGGAN
-				}
+				state_region = s:STATE_SHANXI
+				state_region = s:STATE_JIANGXI
+				state_region = s:STATE_HINGGAN
+			}
 			is_incorporated = yes
 		}
 	}

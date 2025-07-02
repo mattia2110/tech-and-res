@@ -85,8 +85,8 @@ elgar_company_steinway = {
 
 	potential = {
 		OR = {
-			country_has_primary_culture = cu:yankee
-			country_has_primary_culture = cu:north_german
+			has_interest_marker_in_region = region_new_england
+			has_interest_marker_in_region = region_north_germany
 		}
 	}
 
@@ -171,7 +171,7 @@ company_yamaha = {
 	}
 	
 	potential = {
-		country_has_primary_culture = cu:japanese
+		has_interest_marker_in_region = region_japan
 	}
 	
 	attainable = {
@@ -202,9 +202,9 @@ company_yamaha = {
 
 	ai_will_do = {
 		has_technology_researched = rubber_mastication
-		any_scope_building = {
-			is_building_type = building_instrument_workshops
-			level >= 3
+		any_scope_state = {
+			state_region = s:STATE_CHUBU
+			is_incorporated = yes
 		}
 	}
 
@@ -290,7 +290,7 @@ company_columbia_records = {
 
 	flavored_company = yes
 	
-	preferred_headquarters = { STATE_DISTRICT_OF_COLUMBIA }
+	preferred_headquarters = { STATE_DISTRICT_OF_COLUMBIA STATE_MARYLAND }
 
 	building_types = {
 		building_elgar_opera
@@ -307,7 +307,7 @@ company_columbia_records = {
 	}
 
 	potential = {
-		country_has_primary_culture = cu:yankee
+		has_interest_marker_in_region = region_dixie
 	}
 
 	attainable = {
@@ -320,6 +320,10 @@ company_columbia_records = {
 
 	possible = {
 		any_scope_state = {
+			OR = {
+				state_region = s:STATE_DISTRICT_OF_COLUMBIA
+				state_region = s:STATE_MARYLAND
+			}
 			is_incorporated = yes
 			any_scope_building = {
 				OR = {
@@ -340,14 +344,11 @@ company_columbia_records = {
 
 	ai_will_do = {
 		any_scope_state = {
-			is_incorporated = yes
-			any_scope_building = {
-				OR = {
-					is_building_type = building_elgar_opera
-					is_building_type = building_entertainment_industry
-				}
-				level >= 3
+			OR = {
+				state_region = s:STATE_DISTRICT_OF_COLUMBIA
+				state_region = s:STATE_MARYLAND
 			}
+			is_incorporated = yes
 		}
 	}
 	
@@ -388,7 +389,7 @@ company_societe_pathe_freres = {
 	}
 
 	potential = {
-		country_has_primary_culture = cu:french
+		has_interest_marker_in_region = region_france
 	}
 
 	attainable = {
@@ -401,6 +402,7 @@ company_societe_pathe_freres = {
 
 	possible = {
 		any_scope_state = {
+			state_region = s:STATE_ILE_DE_FRANCE
 			is_incorporated = yes
 			any_scope_building = {
 				OR = {
@@ -422,14 +424,8 @@ company_societe_pathe_freres = {
 	ai_will_do = {
 		has_technology_researched = elgar_mass_culture_tech
 		any_scope_state = {
+			state_region = s:STATE_ILE_DE_FRANCE
 			is_incorporated = yes
-			any_scope_building = {
-				OR = {
-					is_building_type = building_elgar_opera
-					is_building_type = building_entertainment_industry
-				}
-				level >= 3
-			}
 		}
 	}
 	
@@ -475,7 +471,7 @@ company_warner_bros_records = {
 	}
 
 	potential = {
-		country_has_primary_culture = cu:yankee
+		has_interest_marker_in_region = region_pacific_coast
 	}
 
 	attainable = {
@@ -566,9 +562,9 @@ company_universal_records = {
 
 	potential = {
 		OR = {
-			country_has_primary_culture = cu:british
-			country_has_primary_culture = cu:yankee
-			country_has_primary_culture = cu:dutch
+			has_interest_marker_in_region = region_pacific_coast
+			has_interest_marker_in_region = region_england
+			has_interest_marker_in_region = region_rhine
 		}
 	}
 
@@ -617,13 +613,6 @@ company_universal_records = {
 				state_region = s:STATE_HOLLAND
 			}
 			is_incorporated = yes
-			any_scope_building = {
-				OR = {
-					is_building_type = building_elgar_opera
-					is_building_type = building_entertainment_industry
-				}
-				level >= 3
-			}
 		}
 	}
 	

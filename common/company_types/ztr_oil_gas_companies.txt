@@ -27,13 +27,16 @@ company_petrobas = {
 	}
 
 	potential = {
-		country_has_primary_culture = cu:brazilian
+		has_interest_marker_in_region = region_brazil
 	}
 
 	attainable = {
 		hidden_trigger = { # Hide attainable if it's always fulfilled by possible
 			any_scope_state = {
-				state_region = s:STATE_RIO_DE_JANEIRO
+				OR = {
+					state_region = s:STATE_MINAS_GERAIS
+					state_region = s:STATE_RIO_DE_JANEIRO
+				}
 			}
 		}
 	}
@@ -41,6 +44,10 @@ company_petrobas = {
 	possible = {
 		has_technology_researched = pumpjacks
 		any_scope_state = {
+			OR = {
+				state_region = s:STATE_MINAS_GERAIS
+				state_region = s:STATE_RIO_DE_JANEIRO
+			}
 			any_scope_building = {
 				is_building_type = building_oil_rig
 				level >= 5
@@ -57,6 +64,10 @@ company_petrobas = {
 	ai_will_do = {
 		has_technology_researched = pumpjacks
 		any_scope_state = {
+			OR = {
+				state_region = s:STATE_MINAS_GERAIS
+				state_region = s:STATE_RIO_DE_JANEIRO
+			}
 			has_potential_resource = bg_oil_extraction
 		}
 	}
@@ -64,6 +75,12 @@ company_petrobas = {
 	ai_construction_targets = {
 		building_oil_rig = {
 			level = 5
+			state_trigger = {
+				OR = {
+					state_region = s:STATE_MINAS_GERAIS
+					state_region = s:STATE_RIO_DE_JANEIRO
+				}
+			}
 		}
 	}
 
@@ -95,13 +112,14 @@ company_sinopec = {
 	}
 
 	potential = {
-		country_has_primary_culture = cu:han
+		has_interest_marker_in_region = region_north_china
 	}
 
 	attainable = {
 		hidden_trigger = { # Hide attainable if it's always fulfilled by possible
 			any_scope_state = {
 				state_region = s:STATE_BEIJING
+				is_incorporated = yes # Necessary in this case
 			}
 		}
 	}
@@ -162,13 +180,14 @@ company_total = {
 	}
 
 	potential = {
-		country_has_primary_culture = cu:french
+		has_interest_marker_in_region = region_france
 	}
 
 	attainable = {
 		hidden_trigger = { # Hide attainable if it's always fulfilled by possible
 			any_scope_state = {
 				state_region = s:STATE_ILE_DE_FRANCE
+				is_incorporated = yes # Necessary in this case
 			}
 		}
 	}
@@ -228,13 +247,14 @@ company_bg = {
 	}
 
 	potential = {
-		country_has_primary_culture = cu:british
+		has_interest_marker_in_region = region_england
 	}
 
 	attainable = {
 		hidden_trigger = { # Hide attainable if it's always fulfilled by possible
 			any_scope_state = {
 				state_region = s:STATE_HOME_COUNTIES
+				is_incorporated = yes # Necessary in this case
 			}
 		}
 	}
@@ -295,16 +315,14 @@ company_eni = {
 	}
 
 	potential = {
-		OR = {
-			country_has_primary_culture = cu:north_italian
-			country_has_primary_culture = cu:south_italian
-		}
+		has_interest_marker_in_region = region_italy
 	}
 
 	attainable = {
 		hidden_trigger = { # Hide attainable if it's always fulfilled by possible
 			any_scope_state = {
 				state_region = s:STATE_LAZIO
+				is_incorporated = yes # Necessary in this case
 			}
 		}
 	}
@@ -367,13 +385,14 @@ company_gazprom = {
 	}
 
 	potential = {
-		country_has_primary_culture = cu:russian
+		has_interest_marker_in_region = region_russia
 	}
 
 	attainable = {
 		hidden_trigger = { # Hide attainable if it's always fulfilled by possible
 			any_scope_state = {
 				state_region = s:STATE_INGRIA
+				is_incorporated = yes # Necessary in this case
 			}
 		}
 	}
@@ -438,7 +457,7 @@ company_saudi_aramco = {
 	}
 
 	potential = {
-		country_has_primary_culture = cu:bedouin
+		has_interest_marker_in_region = region_arabic
 	}
 
 	attainable = {
@@ -456,6 +475,11 @@ company_saudi_aramco = {
 		year >= 1900
 		has_technology_researched = pumpjacks
 		any_scope_state = {
+			OR = {
+				state_region = s:STATE_NEJD
+				state_region = s:STATE_ABU_DHABI
+			}
+			is_incorporated = yes
 			any_scope_building = {
 				is_building_type = building_oil_rig
 				level >= 5
@@ -472,6 +496,7 @@ company_saudi_aramco = {
 	ai_will_do = {
 		has_technology_researched = pumpjacks
 		any_scope_state = {
+			is_incorporated = yes
 			has_potential_resource = bg_oil_extraction
 		}
 	}
@@ -479,6 +504,12 @@ company_saudi_aramco = {
 	ai_construction_targets = {
 		building_oil_rig = {
 			level = 5
+			state_trigger = {
+				OR = {
+					state_region = s:STATE_NEJD
+					state_region = s:STATE_ABU_DHABI
+				}
+			}
 		}
 	}
 
