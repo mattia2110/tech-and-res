@@ -111,8 +111,6 @@ building_nuclear_power_plant = {
 	icon = "gfx/interface/icons/building_icons/building_nuclear_power_plant.dds"
 	levels_per_mesh = 5
 	city_type = city
-	ignore_stateregion_max_level = yes
-	expandable = no
 	
 	unlocking_technologies = {
 		nuclear_reactor
@@ -130,12 +128,7 @@ building_nuclear_power_plant = {
 	
 	possible = {
 		owner = {
-			NOT = {
-				OR = {
-					has_law = law_type:law_uranium_ban
-					has_law = law_type:law_industry_banned
-				}
-			}
+			NOT = { has_law = law_type:law_industry_banned } 
 		}
 	}	
 	
@@ -143,7 +136,7 @@ building_nuclear_power_plant = {
 		always = no
 	}
 
-	ai_value = 1500
+	ai_value = 1200
 }
 
 #Geothermal Power Plant
