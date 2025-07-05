@@ -161,11 +161,10 @@ international_travel = {
 	texture = "gfx/interface/icons/invention_icons/international_travel.dds"
 	category = society
 	modifier = {
-		country_prestige_mult = 0.1
-		country_influence_mult = 0.05
 		country_production_tech_spread_mult = 0.5
 		country_society_tech_spread_mult = 0.5
 		country_trade_route_competitiveness_mult = 0.5
+		state_pollution_reduction_health_mult = 0.05
 	}
 	unlocking_technologies = {
 		international_organizations
@@ -183,8 +182,8 @@ decolonization = {
 	texture = "gfx/interface/icons/invention_icons/decolonization.dds"
 	category = society
 	modifier = {
-		country_prestige_mult = 0.1
-		country_influence_mult = 0.05
+		country_prestige_mult = 0.2
+		country_influence_mult = 0.1
 		country_infamy_generation_against_unrecognized_mult = 0.33
 		country_liberty_desire_of_subjects_add = 0.33
 	}
@@ -413,7 +412,6 @@ multinational_corporations = {
 		country_production_tech_spread_mult = 0.5
 		country_military_tech_spread_mult = 0.5
 		country_society_tech_spread_mult = 0.5
-		country_trade_route_competitiveness_mult = 0.1
 	}
 	unlocking_technologies = {
 		financial_deregulation
@@ -678,6 +676,25 @@ genetic_engineering = {
 
 # Era 8
 
+e_government = {
+	era = era_8
+	texture = "gfx/interface/icons/invention_icons/e_government.dds"
+	category = society
+
+	modifier = {
+		state_tax_capacity_add = 25
+	}
+
+	unlocking_technologies = {
+		networking_protocols
+		software_development_paradigms
+	}
+
+	ai_weight = {
+		value = 1
+	}
+}
+
 machine_learning = {
 	era = era_8
 	texture = "gfx/interface/icons/invention_icons/machine_learning.dds"
@@ -749,7 +766,6 @@ data_processing = {
 	texture = "gfx/interface/icons/invention_icons/data_processing.dds"
 	category = society
 	modifier = {
-		state_tax_capacity_add = 25
 		country_authority_mult = 0.1
 	}
 	unlocking_technologies = {
@@ -851,6 +867,7 @@ globalization = {
 		country_max_companies_add = 1
 		state_expected_sol_from_literacy = 1
 		state_working_adult_ratio_add = 0.05
+		state_pollution_reduction_health_mult = 0.05
 	}
 
 	unlocking_technologies = {
@@ -921,6 +938,23 @@ internet = {
 	}
 }
 
+ambientalism = {
+	era = era_9
+	texture = "gfx/interface/icons/invention_icons/ambientalism.dds"
+	category = society
+	modifier = {
+		state_pollution_reduction_health_mult = 0.05 #This is made in order to create the problem of pollution in the game
+		building_renewable_energy_power_plant_throughput_add = 0.05
+	}
+	unlocking_technologies = {
+		transnational_activism
+		globalization
+	}
+	ai_weight = {
+		value = 1
+	}
+}
+
 cloud_computing = {
 	era = era_9
 	texture = "gfx/interface/icons/invention_icons/cloud_computing.dds"
@@ -937,8 +971,81 @@ cloud_computing = {
 	}
 }
 
-app_economy = {
+neural_networks = {
 	era = era_9
+	texture = "gfx/interface/icons/invention_icons/neural_networks.dds"
+	category = society
+	modifier = {
+	}
+	unlocking_technologies = {
+		machine_learning
+		computerized_research_networking
+	}
+
+	ai_weight = {
+		value = 1
+	}
+}
+
+# Era 10
+
+big_data_analytics = {
+    # Sfrutta tecniche di analisi massiva dei dati per migliorare l’efficacia delle politiche pubbliche
+    era = era_10
+    texture = "gfx/interface/icons/invention_icons/big_data_analytics.dds"
+    category = society
+
+    unlocking_technologies = {
+        cloud_computing
+    }
+
+    modifier = {
+		building_datacenter_industry_throughput_add = 0.05
+    }
+
+    ai_weight = { value = 1 }
+}
+
+artificial_intelligence = {
+	# Introduce AI per l'automazione e l'ottimizzazione dei processi
+	era = era_10
+	texture = "gfx/interface/icons/invention_icons/artificial_intelligence.dds"
+	category = society
+
+	unlocking_technologies = {
+		neural_networks
+		big_data_analytics
+	}
+
+	modifier = {
+		state_tax_capacity_add = 25
+		building_datacenter_industry_throughput_add = 0.1
+	}
+
+	ai_weight = { value = 1 }
+}
+
+digital_governance = {
+    # Introduce piattaforme digitali di e-government e partecipazione civica online
+    era = era_9
+    texture = "gfx/interface/icons/invention_icons/digital_governance.dds"
+    category = society
+
+    unlocking_technologies = {
+        e_government
+        internet
+    }
+
+    modifier = {
+        political_movement_radicalism_from_enactment_disapproval_mult = -0.10  # –10% radicalismo dai cambiamenti
+        country_authority_mult = 0.1
+    }
+
+    ai_weight = { value = 1 }
+}
+
+app_economy = {
+	era = era_10
 	texture = "gfx/interface/icons/invention_icons/app_economy.dds"
 	category = society
 
@@ -954,7 +1061,7 @@ app_economy = {
 }
 
 social_media = {
-	era = era_9
+	era = era_10
 	texture = "gfx/interface/icons/invention_icons/social_media.dds"
 	category = society
 	modifier = {
@@ -970,20 +1077,22 @@ social_media = {
 	}
 }
 
-ambientalism = {
-	era = era_9
-	texture = "gfx/interface/icons/invention_icons/ambientalism.dds"
-	category = society
-	modifier = {
-		state_pollution_reduction_health_mult = -0.05
-		building_renewable_energy_power_plant_throughput_add = 0.05
-	}
-	unlocking_technologies = {
-		transnational_activism
-		internet
-	}
-	ai_weight = {
-		value = 1
-	}
-}
+urban_sustainability = {
+    # Introduce pianificazione urbana verde e infrastrutture "smart"
+    era = era_10
+    texture = "gfx/interface/icons/invention_icons/urban_sustainability.dds"
+    category = society
 
+    unlocking_technologies = {
+        interactive_media
+        ambientalism
+    }
+
+    modifier = {
+        state_expected_sol_from_literacy = 1
+    }
+
+    ai_weight = {
+        value = 1
+    }
+}

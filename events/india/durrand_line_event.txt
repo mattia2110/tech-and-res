@@ -1,0 +1,98 @@
+namespace = durrand_line_event
+
+durrand_line_event.1 = {
+	type = country_event
+	placement = ROOT
+
+	title = durrand_line_event.1.t
+	desc = durrand_line_event.1.d
+	flavor = durrand_line_event.1.f
+
+	event_image = {
+		video = "ep1_central_asian_city"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	icon = "gfx/interface/icons/event_icons/event_map.dds"
+
+	duration = 3
+
+	trigger = {
+		# triggered by decision
+	}
+	
+	immediate = {
+		c:GBR = {
+			save_scope_as = afg_gbr_scope
+		}
+		c:RUS = {
+			save_scope_as = afg_rus_scope
+		}
+		c:AFG = {
+			save_scope_as = afg_afg_scope
+		}
+		c:PER = {
+			save_scope_as = afg_per_scope
+		}
+		c:BIC = {
+			save_scope_as = afg_bic_scope
+			
+			ig:ig_armed_forces = {
+				leader= {
+					save_scope_as = durand_scope
+				}
+			}
+		}
+	}
+	
+	option = {
+		name = durrand_line_event.1.a
+		default_option = yes
+		
+		s:STATE_SINDH = {
+				every_scope_state = {
+					limit = {
+						owner = {
+							NOT = { this = c:BIC }
+							is_ai = yes
+						}
+					}
+					set_state_owner = c:BIC
+				}
+			}
+			s:STATE_BALUCHISTAN = {
+				every_scope_state = {
+					limit = {
+						owner = {
+							NOT = { this = c:BIC }
+							is_ai = yes
+						}
+					}
+					set_state_owner = c:BIC
+				}
+			}
+			s:STATE_QUETTA = {
+				every_scope_state = {
+					limit = {
+						owner = {
+							NOT = { this = c:BIC }
+							is_ai = yes
+						}
+					}
+					set_state_owner = c:BIC
+				}
+			}
+			s:STATE_PASHTUNISTAN = {
+				every_scope_state = {
+					limit = {
+						owner = {
+							NOT = { this = c:BIC }
+							is_ai = yes
+						}
+					}
+					set_state_owner = c:BIC
+				}
+			}
+	}
+}

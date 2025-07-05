@@ -1,5 +1,6 @@
 namespace = brazil_pop
 
+# Brazil end of slavery
 brazil_pop.1 = {
 	dlc = dlc_tech_res
 	type = country_event
@@ -22,7 +23,7 @@ brazil_pop.1 = {
 	trigger = {
 		c:BRZ ?= root
 		has_law = law_type:law_slavery_banned
-		year < 1935
+		year < 1920 # After that, demographic is too late
 		NOT = { has_modifier = population_of_brazil_end_of_slavery }
 		NOT = { has_modifier = population_of_brazil_end_of_slavery_player }
 	}
@@ -38,16 +39,92 @@ brazil_pop.1 = {
 			limit = {
 				is_ai = no
 			}
+			remove_modifier = population_of_brazil_during_slavery_player
 			add_modifier = {
 				name = population_of_brazil_end_of_slavery_player
 				months = 900 # 75 years
 			}
 		}
 		else = {
+			remove_modifier = population_of_brazil_during_slavery
 			add_modifier = {
 				name = population_of_brazil_end_of_slavery
 				months = 900 # 75 years
 			}
+		}
+	}
+}
+
+# Brazil during slavery
+brazil_pop.2 = {
+	dlc = dlc_tech_res
+	type = country_event
+	placement = root
+
+	duration = 1
+
+	title = brazil_pop.2.t
+	desc = brazil_pop.2.d
+
+	event_image = {
+		video = "southamerica_child_labor"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	on_opened_soundeffect = "event:/SFX/Events/middleeast/middleclass_cafe"
+
+	icon = "gfx/interface/icons/event_icons/event_newspaper.dds"
+
+	trigger = {
+		c:BRZ ?= root
+		NOT = { has_law = law_type:law_slavery_banned }
+		year < 1920
+		NOT = { has_modifier = population_of_brazil_during_slavery }
+		NOT = { has_modifier = population_of_brazil_during_slavery_player }
+	}
+
+	immediate = {
+
+	}
+
+	option = {
+		name = brazil_pop.2.a
+		default_option = yes
+		if = {
+			limit = {
+				is_ai = no
+			}
+			add_modifier = {
+				name = population_of_brazil_during_slavery_player
+			}
+		}
+		else = {
+			add_modifier = {
+				name = population_of_brazil_during_slavery
+			}
+		}
+		ai_chance = {
+			base = 1
+		}
+	}
+
+	option = {
+		name = brazil_pop.2.b
+		if = {
+			limit = {
+				is_ai = no
+			}
+			add_modifier = {
+				name = population_of_brazil_during_slavery_player
+			}
+		}
+		else = {
+			add_modifier = {
+				name = population_of_brazil_during_slavery
+			}
+		}
+		ai_chance = {
+			base = 0
 		}
 	}
 }

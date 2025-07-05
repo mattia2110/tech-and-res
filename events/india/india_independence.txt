@@ -1,0 +1,204 @@
+namespace = ztr_india
+
+# British Raj formation event
+ztr_india.1 = {
+	dlc = dlc_tech_res
+	type = country_event
+	placement = root
+
+	duration = 1
+
+	title = ztr_india.1.t
+	desc = ztr_india.1.d
+
+	event_image = {
+		video = "ep1_central_asian_city"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	icon = "gfx/interface/icons/event_icons/event_map.dds"
+
+	trigger = {
+		# UK Decision
+	}
+
+	immediate = {
+		c:BIC = {
+			save_scope_as = bic_independence
+		}	
+		c:GBR = {
+			save_scope_as = bic_gbr_scope
+		}
+	}
+
+	option = {
+		name = ztr_india.1.a
+		default_option = yes
+		custom_tooltip = british_raj_annexation_custom_tooltip
+		hidden_effect = {
+			british_raj_annexation_effect = yes
+		}
+		c:BIC = {
+			add_modifier = {
+				name = jewel_in_the_crown_modifier
+			}
+		}
+	}
+}
+
+# British Raj independence revolts
+ztr_india.2 = {
+	dlc = dlc_tech_res
+	type = country_event
+	placement = root
+
+	duration = 1
+
+	title = ztr_india.2.t
+	desc = ztr_india.2.d
+
+	event_image = {
+		video = "ip2_india_protest"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	icon = "gfx/interface/icons/event_icons/event_map.dds"
+
+	trigger = {
+		# British Raj Decision
+	}
+
+	immediate = {
+		c:BIC = {
+			save_scope_as = bic_independence
+		}
+	}
+
+	option = {
+		name = ztr_india.2.a
+		default_option = yes
+		ai_chance = {
+			base = 90
+		}
+		create_unidirectional_truce = { country = c:BIC months = 120 }
+		change_relations = {
+			country = c:BIC
+			value = 100
+		}
+		change_infamy = -20
+		c:BIC = {
+			trigger_event = ztr_india.3
+		}
+	}
+
+	option = {
+		name = ztr_india.2.b
+		ai_chance = {
+			base = 10
+		}
+		change_infamy = 10
+		change_relations = {
+			country = c:BIC
+			value = -100
+		}
+		c:BIC = {
+			trigger_event = ztr_india.4
+		}
+	}
+}
+
+# British Raj independence
+ztr_india.3 = {
+	dlc = dlc_tech_res
+	type = country_event
+	placement = root
+
+	duration = 1
+
+	title = ztr_india.3.t
+	desc = ztr_india.3.d
+
+	event_image = {
+		video = "ip2_crosscultural_festival"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	icon = "gfx/interface/icons/event_icons/event_map.dds"
+
+	trigger = {
+		# British Raj Decision
+	}
+
+	immediate = {
+		c:BIC = {
+			save_scope_as = bic_independence
+		}	
+		c:GBR = {
+			save_scope_as = bic_gbr_scope
+		}
+	}
+
+	option = {
+		name = ztr_india.3.a
+		default_option = yes
+		change_relations = {
+			country = overlord
+			value = 100
+		}
+		british_raj_annexation_effect = yes
+		make_independent = yes
+		remove_modifier = jewel_in_the_crown_modifier
+		remove_variable = ztr_india_request_independence
+	}
+}
+
+# British Raj independence refusal
+ztr_india.4 = {
+	dlc = dlc_tech_res
+	type = country_event
+	placement = root
+
+	duration = 1
+
+	title = ztr_india.4.t
+	desc = ztr_india.4.d
+
+	event_image = {
+		video = "ip2_unruly_soldiers"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	icon = "gfx/interface/icons/event_icons/event_map.dds"
+
+	trigger = {
+	}
+
+	immediate = {
+		c:BIC = {
+			save_scope_as = bic_independence
+		}	
+		c:GBR = {
+			save_scope_as = bic_gbr_scope
+		}
+	}
+
+	option = {
+		name = ztr_india.4.a
+		default_option = yes
+		change_relations = {
+			country = overlord
+			value = -100
+		}
+		british_raj_annexation_effect = yes
+		create_diplomatic_play = {
+			target_country = overlord
+			type = dp_independence
+		}
+		remove_modifier = jewel_in_the_crown_modifier
+		remove_variable = ztr_india_request_independence
+	}
+}

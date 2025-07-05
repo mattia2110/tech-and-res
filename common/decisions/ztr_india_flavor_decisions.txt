@@ -1,0 +1,112 @@
+durrand_line = {
+	is_shown = {
+		has_technology_researched = pan-nationalism
+		year > 1880
+		exists = c:BIC
+		c:BIC = {
+			overlord = root
+		}
+		has_game_rule = allow_ztr_decolonization_content
+		NOT = { has_global_variable = durand_line }
+	}
+
+	possible = {
+	}
+
+	when_taken = {
+		set_global_variable = {
+			name = durand_line
+			value = 0
+		}
+		root = { trigger_event = durrand_line_event.1 }
+	}
+
+	ai_chance = {
+		value = 3	
+	}
+}
+
+decolonization_india_raj_consolidation = {
+	is_shown = {
+		has_technology_researched = pan-nationalism
+		year > 1900
+		exists = c:BIC
+		c:BIC = {
+			overlord = root
+		}
+		NOT = { has_global_variable = british_raj_consolidated }
+		has_game_rule = allow_ztr_decolonization_content
+	}
+
+	possible = {
+	}
+
+	when_taken = {
+		set_global_variable = {
+			name = british_raj_consolidated
+			value = 0
+		}
+		root = { trigger_event = ztr_india.1 }
+	}
+
+	ai_chance = {
+		value = 3	
+	}
+}
+
+decolonization_india_raj_takes_uk_states = {
+	is_shown = {
+		exists = c:BIC
+		c:BIC = {
+			overlord = root
+		}
+		has_global_variable = british_raj_consolidated
+		has_game_rule = allow_ztr_decolonization_content
+	}
+
+	possible = {
+		any_scope_state = {
+			state_is_in_india = yes
+		}
+	}
+
+	when_taken = {
+		change_infamy = -10
+		every_scope_state = {
+			limit = {
+				state_is_in_india = yes
+			}
+			set_state_owner = c:BIC
+		}
+	}
+
+	ai_chance = {
+		value = 3	
+	}
+}
+
+decolonization_india_raj_independence_request = {
+	is_shown = {
+		exists = overlord
+		overlord = { has_technology_researched = decolonization }
+		#year > 1940
+		exists = c:BIC
+		c:BIC = THIS
+		has_game_rule = allow_ztr_decolonization_content
+		NOT = {	is_diplomatic_play_enemy_of = overlord }
+		NOT = {	has_truce_with = overlord }
+	}
+
+	possible = {
+		NOT = { has_variable = ztr_india_request_independence }
+	}
+
+	when_taken = {
+		overlord = { trigger_event = ztr_india.2 }
+		set_variable = ztr_india_request_independence
+	}
+
+	ai_chance = {
+		value = 3	
+	}
+}

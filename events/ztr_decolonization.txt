@@ -33,6 +33,7 @@ ztr_decolonization.1 = {
 			NOT = { is_subject_of = c:DEI} #No decolonization events for west indies vassals, as they are too much and very annoying
 			NOT = {	is_diplomatic_play_enemy_of = ROOT }
 			NOT = {	has_truce_with = ROOT }
+			NOT = {	c:BIC = THIS }
 			# NOT = { 
 			# 	OR = {
 			# 		c:BIC = THIS
@@ -51,6 +52,7 @@ ztr_decolonization.1 = {
 				NOT = { is_subject_of = c:DEI} #No decolonization events for west indies vassals, as they are too much and very annoying
 				NOT = { is_diplomatic_play_enemy_of = ROOT }
 				NOT = { has_truce_with = ROOT }
+				NOT = {	c:BIC = THIS }
 				# NOT = {
 				# 	OR = {
 				# 		c:BIC = THIS
@@ -2748,6 +2750,62 @@ ztr_decolonization.17 = {
 
 	option = {
 		name = ztr_decolonization.17.b
+		ai_chance = {
+			base = 10
+		}
+		change_infamy = 10
+	}
+}
+
+ztr_decolonization.18 = {
+	dlc = dlc_tech_res
+	type = country_event
+	placement = ROOT
+	event_image = {
+		video = "southamerica_war_civilians"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	icon = "gfx/interface/icons/event_icons/event_default.dds"
+
+	title = ztr_decolonization.18.t
+	desc = ztr_decolonization.18.d
+
+
+	duration = 3
+	
+	trigger = {
+		has_game_rule = allow_ztr_decolonization_content
+		exists = c:BHT
+		has_technology_researched = decolonization
+		year > 1945
+		country_is_in_europe = yes # Using culture would be better, but there are too many cultures in India
+	}
+
+	immediate = {
+
+	}
+
+	option = {
+		name = ztr_decolonization.18.a
+		default_option = yes
+		ai_chance = {
+			base = 90
+		}
+		change_infamy = -5
+		every_scope_state = {
+			limit = {
+				state_is_in_india = yes
+			}
+			set_state_owner = c:BHT
+		}
+		
+		create_unidirectional_truce = { country = c:BHT months = 120 }
+	}
+
+	option = {
+		name = ztr_decolonization.18.b
 		ai_chance = {
 			base = 10
 		}
