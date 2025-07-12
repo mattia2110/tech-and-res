@@ -1037,7 +1037,7 @@ pm_robotic_building_motor_industry = {
 	}
 	
 	unlocking_technologies = {
-		mechatronics
+		automated_industrial_robots
 	}
 	
 	building_modifiers = {
@@ -1058,6 +1058,38 @@ pm_robotic_building_motor_industry = {
 	required_input_goods = electricity
 }
 
+pm_robotic_building_furniture_manufacturies = {
+	texture = "gfx/interface/icons/production_method_icons/pm_mechatronics_assembly_lines.dds"
+
+	state_modifiers = {
+		workforce_scaled = {
+			state_pollution_generation_add = 5
+		}
+	}
+	
+	unlocking_technologies = {
+		automated_industrial_robots
+	}
+	
+	building_modifiers = {
+		workforce_scaled = {
+			# input goods
+			goods_input_robotics_add = 3
+			goods_input_processors_add = 1
+			goods_input_electricity_add = 5
+			goods_input_lubricant_add = 2
+		}
+
+		level_scaled = {
+			building_employment_laborers_add = -3000
+			building_employment_machinists_add = -250
+			building_employment_engineers_add = -250
+			building_employment_shopkeepers_add = -250
+		}
+	}
+	required_input_goods = electricity
+}
+
 pm_robotic_building_aircraft_industry = {
 	texture = "gfx/interface/icons/production_method_icons/pm_mechatronics_assembly_lines.dds"
 
@@ -1068,7 +1100,7 @@ pm_robotic_building_aircraft_industry = {
 	}
 	
 	unlocking_technologies = {
-		mechatronics
+		automated_industrial_robots
 	}
 	
 	building_modifiers = {
@@ -1099,7 +1131,7 @@ pm_robotic_building_automotive_industry = {
 	}
 	
 	unlocking_technologies = {
-		mechatronics
+		automated_industrial_robots
 	}
 	
 	building_modifiers = {
@@ -1130,7 +1162,7 @@ pm_robotic_building_electrics_industry = {
 	}
 	
 	unlocking_technologies = {
-		mechatronics
+		automated_industrial_robots
 	}
 	
 	building_modifiers = {
@@ -1161,7 +1193,7 @@ pm_robotic_building_battery_plant = {
 	}
 	
 	unlocking_technologies = {
-		mechatronics
+		automated_industrial_robots
 	}
 	
 	building_modifiers = {
@@ -1191,7 +1223,7 @@ pm_robotic_building_commonalloys_plant = {
 	}
 	
 	unlocking_technologies = {
-		mechatronics
+		automated_industrial_robots
 	}
 
 	unlocking_production_methods = {
@@ -1227,7 +1259,7 @@ pm_robotic_building_steel_mills = {
 	}
 	
 	unlocking_technologies = {
-		mechatronics
+		automated_industrial_robots
 	}
 	
 	building_modifiers = {
@@ -1258,7 +1290,7 @@ pm_robotic_building_robotics_industry = {
 	}
 	
 	unlocking_technologies = {
-		mechatronics
+		automated_industrial_robots
 	}
 	
 	building_modifiers = {
@@ -4976,13 +5008,18 @@ pm_rudimental_homeappliances = {
 		}
 	}
 
+	unlocking_production_methods = {
+		pm_no_luxuries
+	}
+
 	building_modifiers = {
         workforce_scaled = {
             # input goods
             goods_input_plastics_add = 10  # 250
 			goods_input_copperwires_add = 10 # 500
 			goods_input_batteries_add = 15   # 600
-            goods_input_steel_add = 25       # 500
+            goods_input_steel_add = 15       # 500
+			goods_input_aluminium_add = 10 # 500
 
             # output goods
 			goods_output_furniture_add = -20 # 900 #4200
@@ -5003,7 +5040,7 @@ pm_basic_homeappliances = {
 	}
 
 	unlocking_production_methods = {
-		pm_assembly_lines_building_furniture_manufacturies
+		pm_no_luxuries
 	}
 	
 	state_modifiers = {
@@ -5017,9 +5054,9 @@ pm_basic_homeappliances = {
             # input goods
             goods_input_aluminium_add = 20
 			goods_input_gas_add = 10
-			goods_input_batteries_add = 5
+			goods_input_copperwires_add = 10
 			goods_input_electroniccomponents_add = 20
-            goods_input_steel_add = 35
+            goods_input_steel_add = 30
 
             # output goods
 			goods_output_furniture_add = -30
@@ -5996,7 +6033,7 @@ pm_advanced_healtcare = {
 # PHARMACEUTICALS
 
 pm_handcraft_natural_medicinals = {
-	texture = "gfx/interface/icons/production_method_icons/pm_handcraft_natural_medicinals.dds"
+	texture = "gfx/interface/icons/production_method_icons/panum_clinic_pm_pharmaceuticals.dds"
 	is_default = yes		
 	unlocking_technologies = {
 		pharmaceuticals
@@ -7253,7 +7290,7 @@ pm_designers_furniture_collections  = {
 		}
 
 		level_scaled = {
-			building_employment_shopkeepers_add = 1000
+			building_employment_shopkeepers_add = 750
 		}
 	}
 	required_input_goods = electricity
