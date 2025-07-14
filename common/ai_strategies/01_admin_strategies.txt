@@ -18,11 +18,27 @@
 
 	goods_stances = {
 		grain = { stance = wants_export trigger = { kai_has_high_supply = { GOODS = grain } } }
-		meat = { stance = wants_export trigger = { kai_has_high_supply = { GOODS = meat } } }
+		meat = {
+			stance = wants_export
+			trigger = {
+				NOR = {
+					country_has_state_religion = rel:hindu
+				}
+				kai_has_high_supply = { GOODS = meat }
+			}
+		}
 		fish = { stance = wants_export trigger = { kai_has_high_supply = { GOODS = fish } } }
 		fruit = { stance = wants_export trigger = { kai_has_high_supply = { GOODS = fruit } } }
-		liquor = { stance = wants_export trigger = { kai_has_high_supply = { GOODS = liquor } } }
-		wine = { stance = wants_export trigger = { kai_has_high_supply = { GOODS = wine } } }
+		wine = {
+			stance = wants_export
+			trigger = {
+				NOR = {
+					country_has_state_religion = rel:sunni
+					country_has_state_religion = rel:shiite
+				}
+				kai_has_high_supply = { GOODS = wine }
+			}
+		}
 		fabric = { stance = wants_export trigger = { kai_has_high_supply = { GOODS = fabric } } }
 	}
 
@@ -32,57 +48,6 @@
 
 	weight = {
 		value = 10
-
-		if = {
-			limit = {
-				exists = c:FRA
-				c:FRA = this
-				ruler = {
-					has_variable = legitimist_leader
-				}
-			}
-			add = 20
-		}
-
-		if = {
-			limit = { literacy_rate < 0.25 }
-			multiply = 1.5
-		}
-
-		if = {
-			limit = { literacy_rate < 0.35 }
-			multiply = 1.5
-		}
-
-		if = {
-			limit = { literacy_rate >= 0.50 }
-			multiply = 0.5
-		}
-
-		if = {
-			limit = {
-				exists = ig:ig_landowners
-				ig:ig_landowners = { is_powerful = yes }
-			}
-			multiply = 1.5
-		}
-
-		if = {
-			limit = {
-				exists = overlord
-				overlord = {
-					OR = {
-						AND = {
-							is_ai = no
-							NOT = { has_law = law_type:law_traditionalism }
-						}
-						has_strategy = ai_strategy_resource_expansion
-						has_strategy = ai_strategy_industrial_expansion
-					}
-				}
-			}
-			multiply = 0.5
-		}
 	}
 }
 
@@ -105,9 +70,9 @@ ai_strategy_plantation_economy = {
 	}
 
 	building_group_weights = {
-		bg_plantations = 2.0
+		bg_plantations = 1.5
 		# KAI: Add rubber
-		bg_rubber = 2.0
+		bg_rubber = 1.5
 	}
 
 	possible = {
@@ -121,18 +86,11 @@ ai_strategy_plantation_economy = {
 			country_is_in_east_asia = yes
 			country_is_in_middle_east = yes
 		}
+		modifier:country_disallow_trade_bool = no
 	}
 
 	weight = {
-		value = 10
-
-		if = {
-			limit = {
-				exists = ig:ig_landowners
-				ig:ig_landowners = { is_powerful = yes }
-			}
-			multiply = 1.5
-		}
+		value = 15
 
 		if = {
 			limit = {
@@ -164,14 +122,13 @@ ai_strategy_resource_expansion = {
 		hardwood = { stance = wants_export trigger = { kai_has_high_supply = { GOODS = hardwood } } }
 		sulfur = { stance = wants_export trigger = { kai_has_high_supply = { GOODS = sulfur } } }
 		rubber = { stance = wants_export trigger = { kai_has_high_supply = { GOODS = rubber } } }
-		#T&R
+	#T&R
 		good_uranium = { stance = wants_export trigger = { kai_has_high_supply = { GOODS = good_uranium } } }
 		bauxite = { stance = wants_export trigger = { kai_has_high_supply = { GOODS = bauxite } } }
 		copper = { stance = wants_export trigger = { kai_has_high_supply = { GOODS = copper } } }
 		commonores = { stance = wants_export trigger = { kai_has_high_supply = { GOODS = commonores } } }
 		advancedores = { stance = wants_export trigger = { kai_has_high_supply = { GOODS = advancedores } } }
 		rare_earths = { stance = wants_export trigger = { kai_has_high_supply = { GOODS = rare_earths } } }
-		water = { stance = wants_export trigger = { kai_has_high_supply = { GOODS = water } } }
 		gas = { stance = wants_export trigger = { kai_has_high_supply = { GOODS = gas } } }
 	}
 
@@ -181,51 +138,15 @@ ai_strategy_resource_expansion = {
 	}
 
 	weight = {
-		value = 10
+		value = 20
 
-		if = {
-			limit = {
-				has_radical_leftist_government = yes
-				NOT = {
-					ig:ig_rural_folk ?= {
-						is_powerful = yes
-						is_in_government = yes
-					}
-				}
-			}
-			add = 25
-		}
-
-		if = {
-			limit = {
-				exists = ig:ig_industrialists
-				ig:ig_industrialists = { is_powerful = yes }
-			}
-			multiply = 1.5
-		}
-
-		if = {
-			limit = {
-				has_technology_researched = railways
-			}
-			multiply = 2.0
-		}
-
-		if = {
-			limit = {
-				exists = overlord
-				overlord = {
-					OR = {
-						AND = {
-							is_ai = no
-							NOT = { has_law = law_type:law_traditionalism }
-						}
-						has_strategy = ai_strategy_resource_expansion
-						has_strategy = ai_strategy_industrial_expansion
-					}
-				}
-			}
-			multiply = 2.0
+		# Scaling with literacy 10-30%
+		multiply = {
+			value = literacy_rate
+			add = -0.10
+			divide = 0.20
+			min = 0
+			max = 1
 		}
 	}
 }
@@ -236,74 +157,55 @@ ai_strategy_industrial_expansion = {
 	type = administrative
 
 	goods_stances = {
-		telephones = {
-			stance = wants_high_supply
-			trigger = {
-				has_technology_researched = central_planning
-				kai_should_use_goods_stances = yes
-			}
-		}
-		tools = {
-			stance = wants_high_supply
-			trigger = {
-				has_technology_researched = urban_planning
-				kai_should_use_goods_stances = yes
-			}
-		}
-		fertilizer = { 
-			stance = wants_high_supply
-			trigger = {
-				has_technology_researched = intensive_agriculture
-				kai_should_use_goods_stances = yes
-			}
-		}
-		explosives = {
-			stance = wants_high_supply
-			trigger = {
-				OR = {
-					has_technology_researched = nitroglycerin
-					has_building = building_munition_plants
-				}
-				kai_should_use_goods_stances = yes
-			}
-		}
-		steel = {
-			stance = wants_high_supply
-			trigger = {
-				has_technology_researched = mechanical_tools
-				kai_should_use_goods_stances = yes
-			}
-		}
+		tools = { stance = wants_export trigger = { kai_has_high_supply = { GOODS = tools } } }
+		fertilizer = { stance = wants_export trigger = { kai_has_high_supply = { GOODS = fertilizer } } }
+		explosives = { stance = wants_export trigger = { kai_has_high_supply = { GOODS = explosives } } }
+		steel = { stance = wants_export trigger = { kai_has_high_supply = { GOODS = steel } } }
+		engines = { stance = wants_export trigger = { kai_has_high_supply = { GOODS = engines } } }
+		automobiles = { stance = wants_export trigger = { kai_has_high_supply = { GOODS = automobiles } } }
+		telephones = { stance = wants_export trigger = { kai_has_high_supply = { GOODS = telephones } } }
+		radios = { stance = wants_export trigger = { kai_has_high_supply = { GOODS = radios } } }
+		#T&R (Construction goods)
 		glass = {
 			stance = wants_high_supply
 			trigger = {
 				has_technology_researched = steel_frame_buildings
-				kai_should_use_goods_stances = yes
 			}
 		}
+		#T&R (Needs)
 		electricity = { 
 			stance = wants_high_supply
 			trigger = {
 				has_technology_researched = electrical_generation
-				kai_should_use_goods_stances = yes
 			}
 		}
-		engines = { 
+		telecommunications = {
 			stance = wants_high_supply
 			trigger = {
-				has_technology_researched = railways
-				kai_should_use_goods_stances = yes
+				has_technology_researched = telephones
 			}
 		}
-		#T&R
-		civil_planes = {
+		# (Probably here should be added processors, robotics and computers)
+		#T&R (Data)
+		raw_data = {
 			stance = wants_high_supply
 			trigger = {
-				has_technology_researched = zeppelins
-				kai_should_use_goods_stances = yes
-				country_rank >= rank_value:major_power
+				has_technology_researched = data_processing
 			}
 		}
+		organized_data = {
+			stance = wants_high_supply
+			trigger = {
+				has_technology_researched = market_studies
+			}
+		}
+		business_data = {
+			stance = wants_high_supply
+			trigger = {
+				has_technology_researched = market_studies
+			}
+		}
+		#T&R (Transportation)
 		air_travel = {
 			stance = wants_high_supply
 			trigger = {
@@ -311,162 +213,25 @@ ai_strategy_industrial_expansion = {
 				kai_should_use_goods_stances = yes
 			}
 		}
-		alloys = {
-			stance = wants_high_supply
-			trigger = {
-				has_technology_researched = alloysworking
-				kai_should_use_goods_stances = yes
-			}
-		}
-		aluminium = {
-			stance = wants_high_supply
-			trigger = {
-				has_technology_researched = bayer_process
-				kai_should_use_goods_stances = yes
-			}
-		}
-		plastics = {
-			stance = wants_high_supply
-			trigger = {
-				has_technology_researched = plastics
-				kai_should_use_goods_stances = yes
-			}
-		}
-		light_fuel = {
-			stance = wants_high_supply
-			trigger = {
-				has_technology_researched = oil_distillation
-				kai_should_use_goods_stances = yes
-			}
-		}
-		lubricant = {
-			stance = wants_high_supply
-			trigger = {
-				has_technology_researched = conveyors
-				kai_should_use_goods_stances = yes
-			}
-		}
-		heavy_fuel = {
-			stance = wants_high_supply
-			trigger = {
-				has_technology_researched = steam_turbine
-				kai_should_use_goods_stances = yes
-			}
-		}
-		nuclear_fuel = {
-			stance = wants_high_supply
-			trigger = {
-				has_technology_researched = pm_nuclear_second_generation
-				kai_should_use_goods_stances = yes
-				country_rank >= rank_value:major_power
-			}
-		}
-		copperwires = {
-			stance = wants_high_supply
-			trigger = {
-				has_technology_researched = verrier_electromagnetism_tech
-				kai_should_use_goods_stances = yes
-			}
-		}
-		batteries = {
-			stance = wants_high_supply
-			trigger = {
-				has_technology_researched = verrier_electromagnetism_tech
-				kai_should_use_goods_stances = yes
-			}
-		}
-		electroniccomponents = {
-			stance = wants_high_supply
-			trigger = {
-				has_technology_researched = electrical_capacitors
-				kai_should_use_goods_stances = yes
-			}
-		}
-		processors = {
-			stance = wants_high_supply
-			trigger = {
-				has_technology_researched = integrated_circuits
-				kai_should_use_goods_stances = yes
-			}
-		}
-		homeappliances = {
-			stance = wants_high_supply
-			trigger = {
-				has_technology_researched = rudimental_home_appliances
-				kai_should_use_goods_stances = yes
-			}
-		}
-		fuel_cells = {
-			stance = wants_high_supply
-			trigger = {
-				has_technology_researched = fuel_cells
-				kai_should_use_goods_stances = yes
-			}
-		}
-		pharmaceuticals = {
-			stance = wants_high_supply
-			trigger = {
-				has_technology_researched = panum_antitoxins_tech
-				kai_should_use_goods_stances = yes
-			}
-		}
-		robotics = {
-			stance = wants_high_supply
-			trigger = {
-				has_technology_researched = mechanical_arms
-				kai_should_use_goods_stances = yes
-			}
-		}
-		computer = {
-			stance = wants_high_supply
-			trigger = {
-				has_technology_researched = computer
-				kai_should_use_goods_stances = yes
-			}
-		}
-		space_assets = {
-			stance = wants_high_supply
-			trigger = {
-				has_technology_researched = space_assets
-				kai_should_use_goods_stances = yes
-				country_rank >= rank_value:major_power
-			}
-		}
-		raw_data = {
-			stance = wants_high_supply
-			trigger = {
-				has_technology_researched = data_processing
-				kai_should_use_goods_stances = yes
-			}
-		}
-		organized_data = {
-			stance = wants_high_supply
-			trigger = {
-				has_technology_researched = market_studies
-				kai_should_use_goods_stances = yes
-			}
-		}
-		business_data = {
-			stance = wants_high_supply
-			trigger = {
-				has_technology_researched = market_studies
-				kai_should_use_goods_stances = yes
-			}
-		}
-		telecommunications = {
-			stance = wants_high_supply
-			trigger = {
-				has_technology_researched = telephones
-				kai_should_use_goods_stances = yes
-			}
-		}
-		automobiles = { 
-			stance = wants_high_supply
-			trigger = {
-				has_technology_researched = compression_ignition
-				kai_should_use_goods_stances = yes
-			}
-		}
+		#T&R (Scripted goods production)
+		alloys = { stance = wants_export trigger = { kai_has_high_supply = { GOODS = alloys } } }
+		aluminium = { stance = wants_export trigger = { kai_has_high_supply = { GOODS = aluminum } } }
+		plastics = { stance = wants_export trigger = { kai_has_high_supply = { GOODS = plastics } } }
+		civil_planes = { stance = wants_export trigger = { kai_has_high_supply = { GOODS = civil_planes } } }
+		light_fuel = { stance = wants_export trigger = { kai_has_high_supply = { GOODS = light_fuel } } }
+		lubricant = { stance = wants_export trigger = { kai_has_high_supply = { GOODS = lubricant } } }
+		heavy_fuel = { stance = wants_export trigger = { kai_has_high_supply = { GOODS = heavy_fuel } } }
+		nuclear_fuel = { stance = wants_export trigger = { kai_has_high_supply = { GOODS = nuclear_fuel } } }
+		processors = { stance = wants_export trigger = { kai_has_high_supply = { GOODS = processors } } }
+		computer = { stance = wants_export trigger = { kai_has_high_supply = { GOODS = computer } } }
+		homeappliances = { stance = wants_export trigger = { kai_has_high_supply = { GOODS = homeappliances } } }
+		robotics = { stance = wants_export trigger = { kai_has_high_supply = { GOODS = robotics } } }
+		space_assets = { stance = wants_export trigger = { kai_has_high_supply = { GOODS = space_assets } } }
+		copperwires = { stance = wants_export trigger = { kai_has_high_supply = { GOODS = copperwires } } }
+		electroniccomponents = { stance = wants_export trigger = { kai_has_high_supply = { GOODS = electroniccomponents } } }
+		batteries = { stance = wants_export trigger = { kai_has_high_supply = { GOODS = batteries } } }
+		fuel_cells = { stance = wants_export trigger = { kai_has_high_supply = { GOODS = fuel_cells } } }
+		pharmaceuticals = { stance = wants_export trigger = { kai_has_high_supply = { GOODS = pharmaceuticals } } }
 	}
 
 	building_group_weights = {
@@ -477,288 +242,103 @@ ai_strategy_industrial_expansion = {
 		bg_logging = 1.25
 	}
 
+	possible = {
+		NOR = {
+			has_law = law_type:law_industry_banned
+			has_law = law_type:law_extraction_economy
+		}
+	}
+
 	weight = {
-		value = -80
+		value = -50
 
 		if = {
 			limit = {
-				exists = c:GBR
-				c:GBR = this
-			}
-			add = 150
-		}
-		if = {
-			limit = {
-				exists = c:USA
-				c:USA = this
-			}
-			add = 150
-		}
-		if = {
-			limit = {
-				exists = c:BEL
-				c:BEL = this
-			}
-			add = 150
-		}
-		if = {
-			limit = {
-				exists = c:NET
-				c:NET = this
-			}
-			add = 130
-		}
-		if = {
-			limit = {
-				exists = c:SWE
-				c:SWE = this
-			}
-			add = 130
-		}
-		if = {
-			limit = {
-				exists = c:NOR
-				c:NOR = this
-			}
-			add = 130
-		}
-		if = {
-			limit = {
-				exists = c:CAN
-				c:CAN = this
-			}
-			add = 130
-		}
-		if = {
-			limit = {
-				exists = c:DEN
-				c:DEN = this
-			}
-			add = 130
-		}
-		if = {
-			limit = {
-				year < 1910
-				exists = c:RUS
-				c:RUS = this
-			}
-			add = -100
-		}
-		if = {
-			limit = {
-				year < 1910
-				exists = c:SPA
-				c:SPA = this
-			}
-			add = -100
-		}
-		if = {
-			limit = {
-				year < 1880
-				exists = c:ITA
-				c:ITA = this
-			}
-			add = -100
-		}
-		if = {
-			limit = {
-				year < 1870
-				exists = c:AUS
-				c:AUS = this
-			}
-			add = -100
-		}
-		if = {
-			limit = {
-				year < 1920
-				exists = c:POR
-				c:POR = this
-			}
-			add = -100
-		}
-		if = {
-			limit = {
-				year < 1920
-				exists = c:GRE
-				c:GRE = this
-			}
-			add = -100
-		}
-		if = {
-			limit = {
-				year < 1920
-				exists = c:ROM
-				c:ROM = this
-			}
-			add = -100
-		}
-				if = {
-			limit = {
-				year < 1920
-				exists = c:SER
-				c:SER = this
-			}
-			add = -100
-		}
-		if = {
-			limit = {
-				year < 1910
-				exists = c:SIC
-				c:SIC = this
-			}
-			add = -100
-		}
-		if = {
-			limit = {
-				year < 1970
-				exists = c:TUR
-				c:TUR = this
-			}
-			add = -100
-		}
-		if = {
-			limit = {
-				year < 1970
-				exists = c:MEX
-				c:MEX = this
-			}
-			add = -100
-		}
-		if = {
-			limit = {
-				year < 1970
-				exists = c:EGY
-				c:EGY = this
-			}
-			add = -100
-		} # Needed because Egypt starts with Crete in Europe.
-
-		if = {
-			limit = { 
-				AND = {
-					year > 1850
-					OR = {
-						country_is_in_europe = yes
-						country_is_in_north_america = yes
-						capital.region = sr:region_oceania
-					}
-			}
-			}
-			add = 150
-		}
-
-		if = {
-			limit = { 
-				AND = {
-					year > 1930
-					OR = {
-						country_is_in_east_asia = yes
-					}
+				OR = {
+					c:GBR = this
+					c:USA = this
+					c:BEL = this
+					c:NET = this
+					c:SWE = this
+					c:NOR = this
+					c:CAN = this
+					c:DEN = this
+					c:AST = this
+					c:SWI = this
 				}
 			}
-			add = 1000
+			add = 100
 		}
 
+		# This is for Germany, France and North Italy
 		if = {
 			limit = { 
-				AND = {
-					year > 1975
-					OR = {
-						country_is_in_south_america = yes
-					}
-			}
-			}
-			add = 50
-		}
-
-		if = {
-			limit = { 
-				AND = {
-					year > 1980
-					OR = {
-						country_is_in_central_america = yes
-						country_is_in_middle_east = yes
-					}
-			}
-			}
-			add = 50
-		}
-
-		if = {
-			limit = { 
-				AND = {
-					year > 1985
-					OR = {
-						country_is_in_southeast_asia = yes
-						country_is_in_india = yes
-					}
-			}
+				year > 1850
+				country_is_in_europe = yes
+				NOT = { c:EGY = this }
+				NOT = { c:TUR = this }
 			}
 			add = 150
 		}
 
 		if = {
 			limit = { 
-				AND = {
-					year > 1995
-					OR = {
-						country_is_in_africa = yes
-					}
+				year < 1880
+				OR = {
+					c:ITA = this
+					c:AUS = this
+				}
 			}
-			}
-			add = 150
+			add = -100
 		}
-		
+
+		if = {
+			limit = {
+				year < 1920
+				OR = {
+					c:RUS = this
+					c:SPA = this
+					c:POR = this
+					c:GRE = this
+					c:ROM = this
+					c:SER = this
+				}
+			}
+			add = -100
+		}
+		if = {
+			limit = { 
+				year > 1930
+				country_is_in_east_asia = yes
+			}
+			add = 100
+		}
+
+		if = {
+			limit = { 
+				year > 1970
+				OR = {
+					country_is_in_south_america = yes
+					country_is_in_central_america = yes
+					country_is_in_middle_east = yes
+					country_is_in_southeast_asia = yes
+					country_is_in_india = yes
+					c:SAF = this #South Africa
+				}
+			}
+			add = 100
+		}
+
+		# No Africa
+
 		if = {
 			limit = {
 				OR = {
 					has_modifier = shogun_ig_forced_to_open_market
-					has_journal_entry = je_meiji_main					
+					has_journal_entry = je_meiji_main
 				}
 			}
 			add = 1000
-		}
-
-		if = {
-			limit = {
-				exists = c:FRA
-				c:FRA = this
-				ruler = {
-					OR = {
-						has_variable = orleanist_leader
-						has_variable = bonapartist_leader
-					}
-				}
-			}
-			add = 20
-		}
-
-		if = {
-			limit = {
-				has_radical_leftist_government = yes
-				NOT = {
-					ig:ig_rural_folk ?= {
-						is_powerful = yes
-						is_in_government = yes
-					}
-				}
-			}
-			add = 50
-		}
-
-		if = {
-			limit = {
-				has_law = law_type:law_command_economy
-			}
-			multiply = 2
-		}
-
-		if = {
-			limit = {
-				exists = ig:ig_industrialists
-				ig:ig_industrialists = { is_powerful = yes }
-			}
-			multiply = 2.0
 		}
 
 		if = {
@@ -781,12 +361,6 @@ ai_strategy_industrial_expansion = {
 			multiply = 1.5
 		}
 
-		if = {
-			limit = {
-				has_technology_researched = railways
-			}
-			multiply = 1.5
-		}
 	}
 }
 
@@ -796,7 +370,6 @@ ai_strategy_placate_population = {
 	type = administrative
 
 	# KAI: Lowering taxes can be crippling when backwards countries can barely stay solvent to begin with
-	# Even for Sepoy Mutiny JE it's better to raise military wages than lowering taxes
 	#desired_tax_level = low
 	#max_tax_level = medium
 	#min_tax_level = very_low
@@ -820,53 +393,6 @@ ai_strategy_placate_population = {
 
 	weight = {
 		value = 10
-
-		if = {
-			limit = { literacy_rate < 0.25 }
-			multiply = 1.5
-		}
-
-		if = {
-			limit = { literacy_rate < 0.35 }
-			multiply = 1.5
-		}
-
-		if = {
-			limit = { literacy_rate >= 0.50 }
-			multiply = 0.5
-		}
-
-		if = {
-			limit = {
-				has_technology_researched = railways
-			}
-			multiply = 0.5
-		}
-
-		if = {
-			limit = {
-				exists = ig:ig_rural_folk
-				ig:ig_rural_folk = { is_powerful = yes }
-			}
-			multiply = 1.5
-		}
-
-		if = {
-			limit = {
-				exists = overlord
-				overlord = {
-					OR = {
-						AND = {
-							is_ai = no
-							NOT = { has_law = law_type:law_traditionalism }
-						}
-						has_strategy = ai_strategy_resource_expansion
-						has_strategy = ai_strategy_industrial_expansion
-					}
-				}
-			}
-			multiply = 0.1
-		}
 	}
 }
 
