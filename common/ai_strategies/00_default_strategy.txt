@@ -1,4 +1,4 @@
-# This is a special strategy that sets the default values for different AI scores
+﻿# This is a special strategy that sets the default values for different AI scores
 # All AIs always load data from this strategy, which can then be either added to or overridden by data from its other strategies
 
 ai_strategy_default = {
@@ -1084,19 +1084,19 @@ ai_strategy_default = {
 					scope:target_state = { owner = root }
 				}
 
-				if = {
-					limit = {
-						scope:target_state = { ai_can_incorporate_state = yes }
-					}
-					add = 50
-				}
+				# if = {
+				# 	limit = {
+				# 		scope:target_state = { ai_can_incorporate_state = yes } # ai_can_incorporate_state is a nonexist trigger
+				# 	}
+				# 	add = 50
+				# }
 
 				if = { # Very reluctant to cede incorporated states
 					limit = {
 						scope:target_state = {
 							OR = {
 								is_incorporated = yes
-								ai_can_incorporate_state = yes
+								# ai_can_incorporate_state = yes
 							}
 						}
 					}
@@ -3999,7 +3999,7 @@ ai_strategy_default = {
 		missiles = {
 			stance = wants_high_supply
 			trigger = {
-				has_technology_researched = missiles
+				has_technology_researched = guided_missiles
 				country_rank >= rank_value:major_power
 			}
 		}

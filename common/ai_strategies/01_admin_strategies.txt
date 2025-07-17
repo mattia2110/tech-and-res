@@ -182,7 +182,7 @@ ai_strategy_industrial_expansion = {
 		telecommunications = {
 			stance = wants_high_supply
 			trigger = {
-				has_technology_researched = telephones
+				has_technology_researched = telephone
 			}
 		}
 		# (Probably here should be added processors, robotics and computers)
@@ -210,12 +210,12 @@ ai_strategy_industrial_expansion = {
 			stance = wants_high_supply
 			trigger = {
 				has_technology_researched = zeppelins
-				kai_should_use_goods_stances = yes
+				# kai_should_use_goods_stances = yes # nonexist trigger
 			}
 		}
 		#T&R (Scripted goods production)
 		alloys = { stance = wants_export trigger = { kai_has_high_supply = { GOODS = alloys } } }
-		aluminium = { stance = wants_export trigger = { kai_has_high_supply = { GOODS = aluminum } } }
+		aluminium = { stance = wants_export trigger = { kai_has_high_supply = { GOODS = aluminium } } }
 		plastics = { stance = wants_export trigger = { kai_has_high_supply = { GOODS = plastics } } }
 		civil_planes = { stance = wants_export trigger = { kai_has_high_supply = { GOODS = civil_planes } } }
 		light_fuel = { stance = wants_export trigger = { kai_has_high_supply = { GOODS = light_fuel } } }
@@ -254,18 +254,80 @@ ai_strategy_industrial_expansion = {
 
 		if = {
 			limit = {
-				OR = {
-					c:GBR = this
-					c:USA = this
-					c:BEL = this
-					c:NET = this
-					c:SWE = this
-					c:NOR = this
-					c:CAN = this
-					c:DEN = this
-					c:AST = this
-					c:SWI = this
-				}
+				exists = c:GBR
+				c:GBR = this
+			}
+			add = 100
+		}
+
+		if = {
+			limit = {
+				exists = c:USA
+				c:USA = this
+			}
+			add = 100
+		}
+
+		if = {
+			limit = {
+				exists = c:BEL
+				c:BEL = this
+			}
+			add = 100
+		}
+
+		if= {
+			limit = {
+				exists = c:NET
+				c:NET = this
+			}
+			add = 100
+		}
+
+		if = {
+			limit = {
+				exists = c:SWE
+				c:SWE = this
+			}
+			add = 100
+		}
+
+		if = {
+			limit = {
+				exists = c:NOR
+				c:NOR = this
+			}
+			add = 100
+		}
+
+		if = {
+			limit = {
+				exists = c:CAN
+				c:CAN = this
+			}
+			add = 100
+		}
+
+		if = {
+			limit = {
+				exists = c:DEN
+				c:DEN = this
+			}
+			add = 100
+		}
+
+		if = {
+			limit = {
+				exists = c:AST
+				c:AST = this
+			}
+			add = 100
+		}
+
+		if = {
+			limit = {
+				exists = c:SWI
+				c:SWI = this
 			}
 			add = 100
 		}
@@ -284,28 +346,75 @@ ai_strategy_industrial_expansion = {
 		if = {
 			limit = { 
 				year < 1880
-				OR = {
-					c:ITA = this
-					c:AUS = this
-				}
+				exists = c:ITA
+				c:ITA = this
 			}
 			add = -100
 		}
 
 		if = {
-			limit = {
-				year < 1920
-				OR = {
-					c:RUS = this
-					c:SPA = this
-					c:POR = this
-					c:GRE = this
-					c:ROM = this
-					c:SER = this
-				}
+			limit = { 
+				year < 1880
+				exists = c:AUS
+				c:AUS = this
 			}
 			add = -100
 		}
+
+		if = {
+			limit = { 
+				year < 1880
+				exists = c:RUS
+				c:RUS = this
+			}
+			add = -100
+		}
+
+		if = {
+			limit = { 
+				year < 1880
+				exists = c:SPA
+				c:SPA = this
+			}
+			add = -100
+		}
+		
+		if = {
+			limit = { 
+				year < 1880
+				exists = c:POR
+				c:POR = this
+			}
+			add = -100
+		}
+
+		if = {
+			limit = { 
+				year < 1880
+				exists = c:GRE
+				c:GRE = this
+			}
+			add = -100
+		}
+
+		if = {
+			limit = { 
+				year < 1880
+				exists = c:ROM
+				c:ROM = this
+			}
+			add = -100
+		}
+
+		if = {
+			limit = { 
+				year < 1880
+				exists = c:SER
+				c:SER = this
+			}
+			add = -100
+		}
+		
 		if = {
 			limit = { 
 				year > 1930
@@ -323,8 +432,16 @@ ai_strategy_industrial_expansion = {
 					country_is_in_middle_east = yes
 					country_is_in_southeast_asia = yes
 					country_is_in_india = yes
-					c:SAF = this #South Africa
 				}
+			}
+			add = 100
+		}
+
+		if = {
+			limit = { 
+				year > 1970
+				exists = c:SAF
+				c:SAF = this #South Africa
 			}
 			add = 100
 		}

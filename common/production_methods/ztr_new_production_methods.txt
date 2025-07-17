@@ -1,4 +1,4 @@
-####################NEW###########################
+﻿####################NEW###########################
 
 #GENERAL AUTOMATION
 
@@ -558,7 +558,7 @@ pm_delivering_bakery = {
 		level_scaled = {
 			building_employment_laborers_add = -250
 			building_employment_machinists_add = -450
-			building_employment_shopkeepers_mult = -0.5
+			building_employment_shopkeepers_mult = -0.5 # this gives error. maybe change it to building_employment_shopkeepers_add
 		}
 	}
 }
@@ -1415,7 +1415,7 @@ pm_refined_fuel_building_uranium_mine = {
 			building_employment_engineers_add = 500
 		}
 	}
-	required_input_goods = electricity
+	# required_input_goods = electricity
 	ai_value = 2000
 }
 
@@ -1454,7 +1454,7 @@ pm_turbo_diesel_engines = {
 			building_employment_engineers_add = 1500
 		}
 	}
-	required_input_goods = electricity
+	# required_input_goods = electricity
 }
 
 pm_ev_motors = {
@@ -2015,13 +2015,15 @@ pm_electric_fueled_pump_building_rare_earths_mine = {
 			building_employment_engineers_add = 750
 			building_employment_shopkeepers_add = 500
 		}
+
+		unscaled = {
+			building_laborers_mortality_mult = 0.05
+			building_machinists_mortality_mult = 0.05
+			building_engineers_mortality_mult = 0.05
+		}
 	}
 
-	unscaled = {
-		building_laborers_mortality_mult = 0.05
-		building_machinists_mortality_mult = 0.05
-		building_engineers_mortality_mult = 0.05
-	}
+	
 
 	required_input_goods = electricity
 }
@@ -2396,12 +2398,12 @@ pm_advanced_mining_systems_building_rare_earths_mine = {
 			building_employment_engineers_add = 1250
 			building_employment_shopkeepers_add = 500
 		}
-	}
 
-	unscaled = {
-		building_laborers_mortality_mult = 0.05
-		building_machinists_mortality_mult = 0.05
-		building_engineers_mortality_mult = 0.05
+		unscaled = {
+			building_laborers_mortality_mult = 0.05
+			building_machinists_mortality_mult = 0.05
+			building_engineers_mortality_mult = 0.05
+		}
 	}
 
 	required_input_goods = electricity
@@ -3122,7 +3124,7 @@ pm_advanced_copperwires = {
         }
     }
 
-	required_input_goods = electricity
+	# required_input_goods = electricity
 	ai_value = 2000
 }
 
@@ -3164,7 +3166,7 @@ pm_electronic_grade_wires = {
         }
     }
 
-	required_input_goods = electricity
+	# required_input_goods = electricity
 	ai_value = 2000
 }
 
@@ -3778,7 +3780,7 @@ pm_mechanical_arm = {
 		}
 	}
 
-	required_input_goods = electricity
+	# required_input_goods = electricity
 }
 
 pm_cnc_machines = {
@@ -3807,7 +3809,7 @@ pm_cnc_machines = {
 		}
 	}
 
-	required_input_goods = electricity
+	# required_input_goods = electricity
 }
 
 pm_cobots = {
@@ -3837,7 +3839,7 @@ pm_cobots = {
 		}
 	}
 
-	required_input_goods = electricity
+	# required_input_goods = electricity
 }
 
 # Space
@@ -3868,9 +3870,9 @@ pm_orbital_launch_system = {
 
 		level_scaled = {
 			
-			building_employment_labourers_add_add = 5000
+			building_employment_laborers_add = 5000
 			building_employment_machinists_add = 4000
-			building_employment_engineers_add_add = 4000
+			building_employment_engineers_add = 4000
 			building_employment_academics_add = 1000
 		}
 	}
@@ -5030,7 +5032,7 @@ pm_rudimental_homeappliances = {
 			building_employment_engineers_add = 250
 		}
 	}
-	required_input_goods = electricity
+	# required_input_goods = electricity
 }
 
 pm_basic_homeappliances = {
@@ -5067,7 +5069,7 @@ pm_basic_homeappliances = {
 			building_employment_engineers_add = 250
 		}
 	}
-	required_input_goods = electricity
+	# required_input_goods = electricity
 }
 
 # Synthetic Fabric
@@ -6207,7 +6209,7 @@ pm_insulated_packaging = {
 			building_employment_machinists_add = 200
 		}
 	}
-	required_input_goods = electricity
+	# required_input_goods = electricity
 }
 
 pm_ultraprocessed_snacks = {
@@ -6240,7 +6242,7 @@ pm_ultraprocessed_snacks = {
 			building_employment_shopkeepers_add = 500
 		}
 	}
-	required_input_goods = electricity
+	# required_input_goods = electricity
 }
 
 #Gas e Oil
@@ -7235,7 +7237,7 @@ pm_synthetic_furniture_molding = {
 			building_employment_shopkeepers_add = 500
 		}
 	}
-	required_input_goods = electricity
+	# required_input_goods = electricity
 }
 
 pm_fast_modular_furniture_systems = {
@@ -7263,7 +7265,7 @@ pm_fast_modular_furniture_systems = {
 			building_employment_shopkeepers_add = 500
 		}
 	}
-	required_input_goods = electricity
+	# required_input_goods = electricity
 }
 
 pm_designers_furniture_collections  = {
@@ -7294,7 +7296,7 @@ pm_designers_furniture_collections  = {
 			building_employment_shopkeepers_add = 750
 		}
 	}
-	required_input_goods = electricity
+	# required_input_goods = electricity
 }
 
 # Purification
@@ -7379,14 +7381,13 @@ pm_picks_and_shovels_building_rare_earths_mine = {
 		level_scaled = {
 			building_employment_laborers_add = 4500
 		}
-	}
 
-	unscaled = {
-		building_laborers_mortality_mult = 0.2
-		building_machinists_mortality_mult = 0.1
-		building_engineers_mortality_mult = 0.1
+		unscaled = {
+			building_laborers_mortality_mult = 0.2
+			building_machinists_mortality_mult = 0.1
+			building_engineers_mortality_mult = 0.1
+		}
 	}
-
 }
 
 pm_diesel_pump_building_rare_earths_mine = {
@@ -7418,12 +7419,12 @@ pm_diesel_pump_building_rare_earths_mine = {
 			building_employment_machinists_add = 1500
 			building_employment_engineers_add = 750
 		}
-	}
 
-	unscaled = {
-		building_laborers_mortality_mult = 0.05
-		building_machinists_mortality_mult = 0.05
-		building_engineers_mortality_mult = 0.05
+		unscaled = {
+			building_laborers_mortality_mult = 0.05
+			building_machinists_mortality_mult = 0.05
+			building_engineers_mortality_mult = 0.05
+		}
 	}
 }
 
@@ -7520,7 +7521,7 @@ pm_advanced_express_trains = {
 		}
 	}
 
-	required_input_goods = electricity
+	# required_input_goods = electricity
 }
 
 pm_advanced_express_trains_principle_transport_3 = {
@@ -7558,7 +7559,7 @@ pm_advanced_express_trains_principle_transport_3 = {
 		}
 	}
 
-	required_input_goods = electricity
+	# required_input_goods = electricity
 }
 
 pm_bullet_trains = {

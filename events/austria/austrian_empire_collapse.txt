@@ -1,4 +1,4 @@
-namespace = austrian_empire_collapse
+﻿namespace = austrian_empire_collapse
 
 austrian_empire_collapse.1 = {
 	dlc = dlc_tech_res
@@ -234,11 +234,21 @@ austrian_empire_collapse.3 = {
 			name = magyar_language_var
 			value = 0
 		}
+		s:STATE_CENTRAL_HUNGARY = {
+			random_scope_state = {
+				save_scope_as = central_hungary_scope
+			}
+		}
+		s:STATE_TRANSDANUBIA = {
+			random_scope_state = {
+				save_scope_as = transdanubia_scope
+			}
+		}
 	}
 
 	# Opzione dura: il tedesco resta unica lingua ufficiale
 	option = {
-		name           = austrian_empire_collapse.3.a   # "Il tedesco o niente!"
+		name = austrian_empire_collapse.3.a   # "Il tedesco o niente!"
 		default_option = yes
 
 		# Aggrava la crisi imperiale
@@ -248,13 +258,13 @@ austrian_empire_collapse.3 = {
 		}
 
 		# Malcontento in Ungheria
-		s:STATE_CENTRAL_HUNGARY = {
+		scope:central_hungary_scope = {
 			add_modifier = {
 				name   = magyar_linguistic_discrimination
 				months = 60
 			}
 		}
-		s:STATE_TRANSDANUBIA = {
+		scope:transdanubia_scope = {
 			add_modifier = {
 				name   = magyar_linguistic_discrimination
 				months = 60
@@ -274,13 +284,13 @@ austrian_empire_collapse.3 = {
 			subtract  = 1
 		}
 
-		s:STATE_CENTRAL_HUNGARY = {
+		scope:central_hungary_scope = {
 			add_modifier = {
 				name   = magyar_linguistic_freedom
 				months = 60
 			}
 		}
-		s:STATE_TRANSDANUBIA = {
+		scope:transdanubia_scope = {
 			add_modifier = {
 				name   = magyar_linguistic_freedom
 				months = 60
@@ -326,6 +336,17 @@ austrian_empire_collapse.4 = {
 			name  = hungarian_revolts_var
 			value = 0
 		}
+
+		s:STATE_CENTRAL_HUNGARY = {
+			random_scope_state = {
+				save_scope_as = central_hungary_scope
+			}
+		}
+		s:STATE_TRANSDANUBIA = {
+			random_scope_state = {
+				save_scope_as = transdanubia_scope
+			}
+		}
 	}
 
 	### Opzione 1 – Repressione dura
@@ -340,13 +361,13 @@ austrian_empire_collapse.4 = {
 		}
 
 		# Malus locali
-		s:STATE_CENTRAL_HUNGARY = {
+		scope:central_hungary_scope = {
 			add_modifier = {
 				name   = austrian_collapse_revolt_crushed
 				months = 48
 			}
 		}
-		s:STATE_TRANSDANUBIA = {
+		scope:transdanubia_scope = {
 			add_modifier = {
 				name   = austrian_collapse_revolt_crushed
 				months = 48
@@ -373,13 +394,13 @@ austrian_empire_collapse.4 = {
 		}
 
 		# Bonus generico all’ordine
-		s:STATE_CENTRAL_HUNGARY = {
+		scope:central_hungary_scope = {
 			add_modifier = {
 				name   = austrian_collapse_revolt_appeased
 				months = 24
 			}
 		}
-		s:STATE_TRANSDANUBIA = {
+		scope:transdanubia_scope = {
 			add_modifier = {
 				name   = austrian_collapse_revolt_appeased
 				months = 24
@@ -436,6 +457,17 @@ austrian_empire_collapse.5 = {
 			name  = hungarian_civil_rights_var
 			value = 0
 		}
+
+		s:STATE_CENTRAL_HUNGARY = {
+			random_scope_state = {
+				save_scope_as = central_hungary_scope
+			}
+		}
+		s:STATE_TRANSDANUBIA = {
+			random_scope_state = {
+				save_scope_as = transdanubia_scope
+			}
+		}
 	}
 
 	### Opzione 1 – Rifiuto delle rivendicazioni
@@ -469,13 +501,13 @@ austrian_empire_collapse.5 = {
 		}
 
 		# Bonus di stabilità locale
-		s:STATE_CENTRAL_HUNGARY = {
+		scope:central_hungary_scope = {
 			add_modifier = {
 				name   = hungarian_rights_granted
 				months = 60
 			}
 		}
-		s:STATE_TRANSDANUBIA = {
+		scope:transdanubia_scope = {
 			add_modifier = {
 				name   = hungarian_rights_granted
 				months = 60
@@ -804,6 +836,18 @@ austrian_empire_collapse.8 = {
 		c:ITA = {
 			save_scope_as = stirs_italy_scope
 		}
+
+		s:STATE_LOMBARDY = {
+			random_scope_state = {
+				save_scope_as = lombardy_scope
+			}
+		}
+
+		s:STATE_VENETIA = {
+			random_scope_state = {
+				save_scope_as = venetia_scope
+			}
+		}
 	}
 
 	### Opzione 1 – Repressione dura
@@ -818,13 +862,13 @@ austrian_empire_collapse.8 = {
 		}
 
 		# Malus locali
-		s:STATE_LOMBARDY = {
+		scope:lombardy_scope = {
 			add_modifier = {
 				name   = austrian_collapse_revolt_crushed
 				months = 48
 			}
 		}
-		s:STATE_VENETIA = {
+		scope:venetia_scope = {
 			add_modifier = {
 				name   = austrian_collapse_revolt_crushed
 				months = 48
@@ -850,13 +894,13 @@ austrian_empire_collapse.8 = {
 			subtract  = 1
 		}
 
-		s:STATE_LOMBARDY = {
+		scope:lombardy_scope = {
 			add_modifier = {
 				name   = austrian_collapse_revolt_appeased
 				months = 24
 			}
 		}
-		s:STATE_VENETIA = {
+		scope:venetia_scope = {
 			add_modifier = {
 				name   = austrian_collapse_revolt_appeased
 				months = 24
@@ -1042,6 +1086,18 @@ austrian_empire_collapse.10 = {
 			name = czech_civil_rights_var
 			value = 0
 		}
+
+		s:STATE_BOHEMIA = {
+			random_scope_state = {
+				save_scope_as = bohemia_scope
+			}
+		}
+
+		s:STATE_MORAVIA = {
+			random_scope_state = {
+				save_scope_as = moravia_scope
+			}
+		}
 	}
 
 	### Opzione 1 – Rifiuto delle richieste ceche
@@ -1071,13 +1127,13 @@ austrian_empire_collapse.10 = {
 			subtract  = 2
 		}
 
-		s:STATE_BOHEMIA = {
+		scope:bohemia_scope = {
 			add_modifier = {
 				name   = czech_rights_granted
 				months = 60
 			}
 		}
-		s:STATE_MORAVIA = {
+		scope:moravia_scope = {
 			add_modifier = {
 				name   = czech_rights_granted
 				months = 60
@@ -1472,6 +1528,18 @@ austrian_empire_collapse.14 = {
 			name  = transylvania_union_var
 			value = 0
 		}
+
+		s:STATE_SOUTHERN_TRANSYLVANIA = {
+			random_scope_state = {
+				save_scope_as = southern_transylvania_scope
+			}
+		}
+
+		s:STATE_NORTHERN_TRANSYLVANIA = {
+			random_scope_state = {
+				save_scope_as = northern_transylvania_scope
+			}
+		}
 	}
 
 	### Opzione 1 – Repressione dura
@@ -1486,13 +1554,13 @@ austrian_empire_collapse.14 = {
 		}
 
 		# Malus locali
-		s:STATE_SOUTHERN_TRANSYLVANIA = {
+		scope:southern_transylvania_scope = {
 			add_modifier = {
 				name   = austrian_collapse_revolt_crushed
 				months = 48
 			}
 		}
-		s:STATE_NORTHERN_TRANSYLVANIA = {
+		scope:northern_transylvania_scope = {
 			add_modifier = {
 				name   = austrian_collapse_revolt_crushed
 				months = 48
@@ -1519,13 +1587,13 @@ austrian_empire_collapse.14 = {
 		}
 
 		# Bonus locali d’ordine
-		s:STATE_SOUTHERN_TRANSYLVANIA = {
+		scope:southern_transylvania_scope = {
 			add_modifier = {
 				name   = austrian_collapse_revolt_appeased
 				months = 24
 			}
 		}
-		s:STATE_NORTHERN_TRANSYLVANIA = {
+		scope:northern_transylvania_scope = {
 			add_modifier = {
 				name   = austrian_collapse_revolt_appeased
 				months = 24
@@ -1626,6 +1694,18 @@ austrian_empire_collapse.15 = {
 		c:POL = {
 			save_scope_as = polish_question_scope
 		}
+
+		s:STATE_WEST_GALICIA = {
+			random_scope_state = {
+				save_scope_as = west_galicia_scope
+			}
+		}
+
+		s:STATE_EAST_GALICIA = {
+			random_scope_state = {
+				save_scope_as = east_galicia_scope
+			}
+		}
 	}
 
 	### Opzione 1 – Repressione dura
@@ -1640,13 +1720,13 @@ austrian_empire_collapse.15 = {
 		}
 
 		# Malus locali
-		s:STATE_WEST_GALICIA = {
+		scope:west_galicia_scope = {
 			add_modifier = {
 				name   = austrian_collapse_revolt_crushed
 				months = 48
 			}
 		}
-		s:STATE_EAST_GALICIA = {
+		scope:east_galicia_scope = {
 			add_modifier = {
 				name   = austrian_collapse_revolt_crushed
 				months = 48
@@ -1673,13 +1753,13 @@ austrian_empire_collapse.15 = {
 		}
 
 		# Bonus locali d’ordine
-		s:STATE_WEST_GALICIA = {
+		scope:west_galicia_scope = {
 			add_modifier = {
 				name   = austrian_collapse_revolt_appeased
 				months = 24
 			}
 		}
-		s:STATE_EAST_GALICIA = {
+		scope:east_galicia_scope = {
 			add_modifier = {
 				name   = austrian_collapse_revolt_appeased
 				months = 24
@@ -1932,8 +2012,8 @@ austrian_empire_collapse.18 = {
 		video = "unspecific_devastation"
 	}
 
-	title = austrian_empire_collapse.18.t
-	desc = austrian_empire_collapse.18.d
+	title = austrian_empire_collapse.18.t # missing loc key
+	desc = austrian_empire_collapse.18.d # missing loc key
 
 	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
 	on_opened_soundeffect = "event:/SFX/Events/middleeast/middleclass_cafe"
@@ -1950,7 +2030,7 @@ austrian_empire_collapse.18 = {
 
 	# Austria declares annexation war only on Hungary
 	option = {
-		name = austrian_empire_collapse.18.a
+		name = austrian_empire_collapse.18.a # missing loc key
 		default_option = yes
 		add_journal_entry = {
 			type = je_austrian_empire_collapse

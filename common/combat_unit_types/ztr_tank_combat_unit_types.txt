@@ -1,15 +1,16 @@
-# Tank
+﻿# Tank
 
 combat_unit_type_heavy_tank = {
     group = combat_unit_group_artillery
     max_manpower = 1000
 
-    can_build_conscript = {
-        NOT = {
-            has_law = law_type:law_peasant_levies
-        }
-    }
-    
+    # if = {
+    #     limit = { ROOT = { NOT = { has_law = law_type:law_peasant_levies } } }
+    #     conscript_peasant_levies = yes
+    # } this does not work, i guess if-else statements can not be use in defining unit types
+
+    conscript_peasant_levies = yes
+
     upkeep_modifier = {
         goods_input_tanks_add = 3
         goods_input_artillery_add = 4
@@ -48,11 +49,7 @@ combat_unit_type_modern_heavy_tank = {
     group = combat_unit_group_artillery
     max_manpower = 1000
 
-    can_build_conscript = {
-        NOT = {
-            has_law = law_type:law_peasant_levies
-        }
-    }
+    conscript_peasant_levies = yes
     
     upkeep_modifier = {
         goods_input_tanks_add = 4
@@ -92,11 +89,7 @@ combat_unit_type_light_tanks = {
     group = combat_unit_group_cavalry
     max_manpower = 1000
 
-    can_build_conscript = {
-        NOT = {
-            has_law = law_type:law_peasant_levies
-        }
-    }
+    conscript_peasant_levies = yes
     
     upkeep_modifier = {
         goods_input_tanks_add = 2
@@ -134,11 +127,7 @@ combat_unit_type_modern_light_tanks = {
     group = combat_unit_group_cavalry
     max_manpower = 1000
 
-    can_build_conscript = {
-        NOT = {
-            has_law = law_type:law_peasant_levies
-        }
-    }
+    conscript_peasant_levies = yes
     
     upkeep_modifier = {
         goods_input_tanks_add = 3
@@ -176,11 +165,7 @@ combat_unit_type_main_battle_tanks = {
     group = combat_unit_group_cavalry
     max_manpower = 1000
 
-    can_build_conscript = {
-        NOT = {
-            has_law = law_type:law_peasant_levies
-        }
-    }
+    conscript_peasant_levies = yes
     
     upkeep_modifier = {
         goods_input_tanks_add = 4
