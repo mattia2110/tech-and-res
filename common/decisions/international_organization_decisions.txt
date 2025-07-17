@@ -1,4 +1,4 @@
-#ORGANIZZAZIONI INTERNAZIONALI
+﻿#ORGANIZZAZIONI INTERNAZIONALI
 
 firm_ztr_geneva_convention = {
 
@@ -248,8 +248,19 @@ withdraw_united_nations = {
 					has_law = law_type:law_anarchy
 					has_law = law_type:law_elder_council
 				}
-				NOT = { root = c:CHI }
-				NOT = { root = c:RUS }
+				if = {
+					limit = {
+						exists = c:CHI
+						
+					}
+					NOT = { root = c:CHI }				
+				}
+				if = {
+					limit = {
+						exists = c:RUS
+					}
+					NOT = { root = c:RUS }
+				}
 				country_rank < rank_value:major_power
 			}
 			add = 3

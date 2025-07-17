@@ -1,4 +1,4 @@
-namespace = bic_breakup
+﻿namespace = bic_breakup
 
 # Independent British East India Company decides how to proceed (Changed from Vanilla)
 bic_breakup.1 = {
@@ -40,14 +40,25 @@ bic_breakup.1 = {
 
 	option = {
 		name = bic_breakup.1.a
+
 		ai_chance = {
-			base = 40 # this is the default pick for the AI
+			base = 1 # this is the default pick for the AI
 			modifier = {
 				trigger = {
-					has_technology_researched = pan-nationalism
+					NOT = {
+						has_technology_researched = pan-nationalism
+					}
 				}
-				subtract = 39
-			}
+			add = 39
+		}
+
+		# this is the default pick for the AI
+		# modifier = {
+		# 	trigger = {
+		# 		has_technology_researched = pan-nationalism
+		# 	}
+		# subtract = 39 gives error for subtract so making it reverse should work
+		# }
 		}
 		collapse_india_effect = yes
 		change_tag = BGL
