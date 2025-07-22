@@ -42,12 +42,9 @@ bic_breakup.1 = {
 		name = bic_breakup.1.a
 		ai_chance = {
 			base = 40 # this is the default pick for the AI
-			modifier = {
-				trigger = {
-					has_technology_researched = pan-nationalism
-				}
-				subtract = 39
-			}
+		}
+		trigger = {
+			NOT = { has_technology_researched = pan-nationalism }
 		}
 		collapse_india_effect = yes
 		change_tag = BGL
@@ -118,7 +115,7 @@ bic_breakup.1 = {
 		}
 		british_raj_annexation_effect = yes #T&R: This is a custom script that handles the annexation of Rajahs to the ex-British Raj
 		ai_chance = {
-			base = 5 # this will be quite rare for the AI
+			base = 40 # this will be quite rare for the AI
 		}
 		change_tag = BHT
 		hidden_effect = {

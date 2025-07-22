@@ -157,36 +157,184 @@ ai_strategy_industrial_expansion = {
 	type = administrative
 
 	goods_stances = {
-		tools = { stance = wants_export trigger = { kai_has_high_supply = { GOODS = tools } } }
-		fertilizer = { stance = wants_export trigger = { kai_has_high_supply = { GOODS = fertilizer } } }
-		explosives = { stance = wants_export trigger = { kai_has_high_supply = { GOODS = explosives } } }
-		steel = { stance = wants_export trigger = { kai_has_high_supply = { GOODS = steel } } }
-		engines = { stance = wants_export trigger = { kai_has_high_supply = { GOODS = engines } } }
-		automobiles = { stance = wants_export trigger = { kai_has_high_supply = { GOODS = automobiles } } }
-		telephones = { stance = wants_export trigger = { kai_has_high_supply = { GOODS = telephones } } }
-		radios = { stance = wants_export trigger = { kai_has_high_supply = { GOODS = radios } } }
-		#T&R (Construction goods)
+		telephones = {
+			stance = wants_high_supply
+			trigger = {
+				has_technology_researched = central_planning
+			}
+		}
+		tools = {
+			stance = wants_high_supply
+			trigger = {
+				has_technology_researched = urban_planning
+			}
+		}
+		fertilizer = { 
+			stance = wants_high_supply
+			trigger = {
+				has_technology_researched = intensive_agriculture
+			}
+		}
+		explosives = {
+			stance = wants_high_supply
+			trigger = {
+				OR = {
+					has_technology_researched = nitroglycerin
+					has_building = building_munition_plants
+				}
+			}
+		}
+		steel = {
+			stance = wants_high_supply
+			trigger = {
+				has_technology_researched = mechanical_tools
+			}
+		}
 		glass = {
 			stance = wants_high_supply
 			trigger = {
 				has_technology_researched = steel_frame_buildings
 			}
 		}
-		#T&R (Needs)
 		electricity = { 
 			stance = wants_high_supply
 			trigger = {
 				has_technology_researched = electrical_generation
 			}
 		}
+		engines = { 
+			stance = wants_high_supply
+			trigger = {
+				has_technology_researched = railways
+			}
+		}
+		#T&R
+		civil_planes = {
+			stance = wants_high_supply
+			trigger = {
+				has_technology_researched = zeppelins
+				country_rank >= rank_value:major_power
+			}
+		}
+		air_travel = {
+			stance = wants_high_supply
+			trigger = {
+				has_technology_researched = zeppelins
+			}
+		}
+		nuclear_fuel = {
+			stance = wants_high_supply
+			trigger = {
+				has_technology_researched = pm_nuclear_second_generation
+				country_rank >= rank_value:major_power
+			}
+		}
+		homeappliances = {
+			stance = wants_high_supply
+			trigger = {
+				has_technology_researched = rudimental_home_appliances
+			}
+		}
+		fuel_cells = {
+			stance = wants_high_supply
+			trigger = {
+				has_technology_researched = fuel_cells
+			}
+		}
+		pharmaceuticals = {
+			stance = wants_high_supply
+			trigger = {
+				has_technology_researched = panum_antitoxins_tech
+			}
+		}
+		robotics = {
+			stance = wants_high_supply
+			trigger = {
+				has_technology_researched = mechanical_arms
+			}
+		}
+		computer = {
+			stance = wants_high_supply
+			trigger = {
+				has_technology_researched = computer
+			}
+		}
+		space_assets = {
+			stance = wants_high_supply
+			trigger = {
+				has_technology_researched = space_assets
+				country_rank >= rank_value:major_power
+			}
+		}
+		automobiles = { 
+			stance = wants_high_supply
+			trigger = {
+				has_technology_researched = compression_ignition
+			}
+		}
+		# Vital goods
+		alloys = {
+			stance = wants_high_supply
+			trigger = {
+				has_technology_researched = alloysworking
+			}
+		}
+		aluminium = {
+			stance = wants_high_supply
+			trigger = {
+				has_technology_researched = bayer_process
+			}
+		}
+		plastics = {
+			stance = wants_high_supply
+			trigger = {
+				has_technology_researched = plastics
+			}
+		}
+		light_fuel = {
+			stance = wants_high_supply
+			trigger = {
+				has_technology_researched = oil_distillation
+			}
+		}
+		lubricant = {
+			stance = wants_high_supply
+			trigger = {
+				has_technology_researched = conveyors
+			}
+		}
+		heavy_fuel = {
+			stance = wants_high_supply
+			trigger = {
+				has_technology_researched = steam_turbine
+			}
+		}
+		copperwires = {
+			stance = wants_high_supply
+			trigger = {
+				has_technology_researched = verrier_electromagnetism_tech
+			}
+		}
+		batteries = {
+			stance = wants_high_supply
+			trigger = {
+				has_technology_researched = verrier_electromagnetism_tech
+			}
+		}
+		processors = {
+			stance = wants_high_supply
+			trigger = {
+				has_technology_researched = integrated_circuits
+			}
+		}
+		# Local goods
 		telecommunications = {
 			stance = wants_high_supply
 			trigger = {
 				has_technology_researched = telephones
 			}
 		}
-		# (Probably here should be added processors, robotics and computers)
-		#T&R (Data)
+		#Data
 		raw_data = {
 			stance = wants_high_supply
 			trigger = {
@@ -205,33 +353,6 @@ ai_strategy_industrial_expansion = {
 				has_technology_researched = market_studies
 			}
 		}
-		#T&R (Transportation)
-		air_travel = {
-			stance = wants_high_supply
-			trigger = {
-				has_technology_researched = zeppelins
-				kai_should_use_goods_stances = yes
-			}
-		}
-		#T&R (Scripted goods production)
-		alloys = { stance = wants_export trigger = { kai_has_high_supply = { GOODS = alloys } } }
-		aluminium = { stance = wants_export trigger = { kai_has_high_supply = { GOODS = aluminum } } }
-		plastics = { stance = wants_export trigger = { kai_has_high_supply = { GOODS = plastics } } }
-		civil_planes = { stance = wants_export trigger = { kai_has_high_supply = { GOODS = civil_planes } } }
-		light_fuel = { stance = wants_export trigger = { kai_has_high_supply = { GOODS = light_fuel } } }
-		lubricant = { stance = wants_export trigger = { kai_has_high_supply = { GOODS = lubricant } } }
-		heavy_fuel = { stance = wants_export trigger = { kai_has_high_supply = { GOODS = heavy_fuel } } }
-		nuclear_fuel = { stance = wants_export trigger = { kai_has_high_supply = { GOODS = nuclear_fuel } } }
-		processors = { stance = wants_export trigger = { kai_has_high_supply = { GOODS = processors } } }
-		computer = { stance = wants_export trigger = { kai_has_high_supply = { GOODS = computer } } }
-		homeappliances = { stance = wants_export trigger = { kai_has_high_supply = { GOODS = homeappliances } } }
-		robotics = { stance = wants_export trigger = { kai_has_high_supply = { GOODS = robotics } } }
-		space_assets = { stance = wants_export trigger = { kai_has_high_supply = { GOODS = space_assets } } }
-		copperwires = { stance = wants_export trigger = { kai_has_high_supply = { GOODS = copperwires } } }
-		electroniccomponents = { stance = wants_export trigger = { kai_has_high_supply = { GOODS = electroniccomponents } } }
-		batteries = { stance = wants_export trigger = { kai_has_high_supply = { GOODS = batteries } } }
-		fuel_cells = { stance = wants_export trigger = { kai_has_high_supply = { GOODS = fuel_cells } } }
-		pharmaceuticals = { stance = wants_export trigger = { kai_has_high_supply = { GOODS = pharmaceuticals } } }
 	}
 
 	building_group_weights = {
@@ -254,20 +375,73 @@ ai_strategy_industrial_expansion = {
 
 		if = {
 			limit = {
-				OR = {
-					c:GBR = this
-					c:USA = this
-					c:BEL = this
-					c:NET = this
-					c:SWE = this
-					c:NOR = this
-					c:CAN = this
-					c:DEN = this
-					c:AST = this
-					c:SWI = this
-				}
+				exists = c:GBR
+				c:GBR = this
 			}
-			add = 100
+			add = 150
+		}
+		if = {
+			limit = {
+				exists = c:USA
+				c:USA = this
+			}
+			add = 150
+		}
+		if = {
+			limit = {
+				exists = c:BEL
+				c:BEL = this
+			}
+			add = 150
+		}
+		if = {
+			limit = {
+				exists = c:NET
+				c:NET = this
+			}
+			add = 150
+		}
+		if = {
+			limit = {
+				exists = c:SWE
+				c:SWE = this
+			}
+			add = 150
+		}
+		if = {
+			limit = {
+				exists = c:NOR
+				c:NOR = this
+			}
+			add = 150
+		}
+		if = {
+			limit = {
+				exists = c:CAN
+				c:CAN = this
+			}
+			add = 150
+		}
+		if = {
+			limit = {
+				exists = c:DEN
+				c:DEN = this
+			}
+			add = 150
+		}
+		if = {
+			limit = {
+				exists = c:AST
+				c:AST = this
+			}
+			add = 150
+		}
+		if = {
+			limit = {
+				exists = c:SWI
+				c:SWI = this
+			}
+			add = 150
 		}
 
 		# This is for Germany, France and North Italy
@@ -278,58 +452,60 @@ ai_strategy_industrial_expansion = {
 				NOT = { c:EGY = this }
 				NOT = { c:TUR = this }
 			}
-			add = 150
-		}
-
-		if = {
-			limit = { 
-				year < 1880
-				OR = {
-					c:ITA = this
-					c:AUS = this
-				}
-			}
-			add = -100
+			add = 250
 		}
 
 		if = {
 			limit = {
-				year < 1920
-				OR = {
-					c:RUS = this
-					c:SPA = this
-					c:POR = this
-					c:GRE = this
-					c:ROM = this
-					c:SER = this
-				}
+				year < 1880
+				exists = c:ITA
+				c:ITA = this
 			}
-			add = -100
+			add = -150
 		}
 		if = {
+			limit = {
+				year < 1900
+				exists = c:SIC
+				c:SIC = this
+			}
+			add = -150
+		}
+		if = {
+			limit = {
+				year < 1870
+				exists = c:AUS
+				c:AUS = this
+			}
+			add = -150
+		}
+		if = {
+			limit = {
+				year < 1910
+				exists = c:SPA
+				c:SPA = this
+			}
+			add = -200
+		}
+		if = {
+			limit = {
+				year < 1930
+				exists = c:RUS
+				c:RUS = this
+			}
+			add = -200
+		}
+
+		
+		if = {
 			limit = { 
-				year > 1930
+				year > 1940
 				country_is_in_east_asia = yes
 			}
-			add = 100
+			add = 250
 		}
 
-		if = {
-			limit = { 
-				year > 1970
-				OR = {
-					country_is_in_south_america = yes
-					country_is_in_central_america = yes
-					country_is_in_middle_east = yes
-					country_is_in_southeast_asia = yes
-					country_is_in_india = yes
-					c:SAF = this #South Africa
-				}
-			}
-			add = 100
-		}
-
-		# No Africa
+		# No other continents
 
 		if = {
 			limit = {
@@ -426,6 +602,14 @@ ai_strategy_colonial_extraction = {
         dye = { stance = wants_export trigger = { kai_has_high_supply = { GOODS = dye } } }
         silk = { stance = wants_export trigger = { kai_has_high_supply = { GOODS = silk } } }
         rubber = { stance = wants_export trigger = { kai_has_high_supply = { GOODS = rubber } } }
+		#T&R
+		good_uranium = { stance = wants_export trigger = { kai_has_high_supply = { GOODS = good_uranium } } }
+		bauxite = { stance = wants_export trigger = { kai_has_high_supply = { GOODS = bauxite } } }
+		copper = { stance = wants_export trigger = { kai_has_high_supply = { GOODS = copper } } }
+		commonores = { stance = wants_export trigger = { kai_has_high_supply = { GOODS = commonores } } }
+		advancedores = { stance = wants_export trigger = { kai_has_high_supply = { GOODS = advancedores } } }
+		rare_earths = { stance = wants_export trigger = { kai_has_high_supply = { GOODS = rare_earths } } }
+		gas = { stance = wants_export trigger = { kai_has_high_supply = { GOODS = gas } } }
     }
     possible = {
     	is_subject = yes

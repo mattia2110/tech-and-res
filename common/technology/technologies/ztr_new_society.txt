@@ -25,7 +25,7 @@ international_organizations = {
 		country_influence_mult = 0.1
 		country_infamy_generation_against_unrecognized_mult = 0.1 #Second Italian-Ethiopian War 1936
 		country_infamy_generation_mult = 0.1 #Second World War
-		country_trade_route_cost_mult = -0.1
+		#country_trade_route_cost_mult = -0.1
 		country_free_charters_add = 1
 	}
 	unlocking_technologies = {
@@ -204,7 +204,7 @@ market_studies = {
 	texture = "gfx/interface/icons/invention_icons/market_studies.dds"
 	category = society
 	modifier = {
-		
+		state_pop_qualifications_mult = 0.05
 	}
 	unlocking_technologies = {
 		mass_surveillance
@@ -335,6 +335,29 @@ funded_research_projects = {
 
 # Era 7
 
+prefabricated_concrete_buildings = {
+	# Unlocks modular prefab concrete structures for construction industry
+	era = era_7
+	texture = "gfx/interface/icons/invention_icons/prefabricated_concrete_buildings.dds"
+	category = society
+
+	unlocking_technologies = {
+		highway_systems
+	}
+
+	modifier = {
+		building_construction_sector_throughput_add = 0.1
+	}
+
+	ai_weight = {
+		value = 1
+		if = {
+			limit = { has_strategy = ai_strategy_industrial_expansion }
+			add = 1
+		}
+	}
+}
+
 cognitive_sciences = {
 	era = era_7
 	texture = "gfx/interface/icons/invention_icons/cognitive_sciences.dds"
@@ -347,7 +370,7 @@ cognitive_sciences = {
 
 	modifier = {
 		country_influence_mult = 0.1
-		building_university_throughput_add = 0.15
+		building_university_throughput_add = 0.1
 	}
 
 	ai_weight = { value = 1 }
@@ -364,6 +387,7 @@ neuroscience = {
 
 	modifier = {
 		state_mortality_mult = -0.01
+		state_pop_qualifications_mult = 0.05
 	}
 
 	ai_weight = { value = 1 }
@@ -431,7 +455,7 @@ financial_deregulation = {
 	modifier = {
 		state_urbanization_per_level_mult = -0.1
 		country_capitalists_pol_str_mult = 0.50
-		country_trade_route_cost_mult = -0.1
+		#country_trade_route_cost_mult = -0.1
 		state_market_access_price_impact = 0.05
 	}
 	unlocking_technologies = {
@@ -530,6 +554,7 @@ telecommunications = {
 	modifier = {
 		country_influence_mult = 0.2
 		country_authority_mult = 0.1
+		state_working_adult_ratio_add = 0.05
 	}
 	unlocking_technologies = {
 		government_broadcasting
@@ -551,6 +576,8 @@ counterculture = {
 		country_infamy_generation_mult = 0.2
 		country_infamy_generation_against_unrecognized_mult = 0.2
 		state_expected_sol_from_literacy = 1
+		state_working_adult_ratio_add = 0.05
+		state_pop_qualifications_mult = 0.05
 	}
 	
 	unlocking_technologies = {
@@ -624,7 +651,7 @@ neo_feminism = {
 	category = society
 
 	modifier = {
-		state_working_adult_ratio_add = 0.05
+		state_working_adult_ratio_add = 0.08
 	}
 	
 	unlocking_technologies = {
@@ -821,7 +848,7 @@ global_stock_market = {
 	modifier = {
 		country_minting_mult = 0.1
 		country_loan_interest_rate_add = -0.05
-		country_trade_route_cost_mult = -0.1
+		#country_trade_route_cost_mult = -0.1
 		country_government_dividends_efficiency_add = 0.05
 	}
 

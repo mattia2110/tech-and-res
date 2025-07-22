@@ -85,7 +85,7 @@ pm_steel_frame_buildings = {
 
 	country_modifiers = {
 		workforce_scaled = {
-			country_construction_add = 9 #10
+			country_construction_add = 8 #9
 		}
 	}
 
@@ -125,7 +125,7 @@ pm_arc_welded_buildings = {
 		
 	country_modifiers = {
 		workforce_scaled = {
-			country_construction_add = 12 #15
+			country_construction_add = 11 #12
 		}
 	}
 
@@ -158,4 +158,48 @@ pm_arc_welded_buildings = {
 	}
 
 	required_input_goods = electricity
+}
+
+pm_prefabricated_concrete_buildings = {
+	texture = "gfx/interface/icons/production_method_icons/prefabricated_concrete_buildings.dds"
+
+	unlocking_technologies = {
+		prefabricated_concrete_buildings
+	}
+
+	country_modifiers = {
+		workforce_scaled = {
+			country_construction_add = 14 #15
+		}
+	}
+
+	building_modifiers = {
+		workforce_scaled = {
+			goods_input_steel_add = 30
+			goods_input_aluminium_add = 10
+			goods_input_alloys_add = 10
+			goods_input_glass_add = 40 #800
+			goods_input_plastics_add = 20 #100
+			goods_input_explosives_add = 20
+			goods_input_robotics_add = 15 #-100
+			goods_input_electricity_add = 40
+		}
+
+		level_scaled = {
+			building_employment_bureaucrats_add = 100
+			building_employment_clerks_add = 100
+			building_employment_engineers_add = 100
+			building_employment_machinists_add = 150
+			building_employment_laborers_add = 500
+		}
+		unscaled = {
+			building_laborers_mortality_mult = 0.05
+		}
+	}
+
+	state_modifiers = {
+		workforce_scaled = {
+			state_construction_mult = 0.01
+		}
+	}
 }
