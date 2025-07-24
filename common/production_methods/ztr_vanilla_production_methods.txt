@@ -1127,8 +1127,47 @@ pm_arc_welding_shipbuilding = {
 			# employment
 			building_employment_shopkeepers_add = 500
 			building_employment_laborers_add = 1000
-			building_employment_machinists_add = 2000
+			building_employment_machinists_add = 1500
 			building_employment_engineers_add = 1500
+		}
+	}
+
+	required_input_goods = electricity
+}
+
+pm_modular_shipbuilding = {
+	texture = "gfx/interface/icons/production_method_icons/pm_modular_shipbuilding.dds"
+	
+	unlocking_technologies = {
+		modular_shipbuilding
+	}
+
+	state_modifiers = {
+		workforce_scaled = {
+			state_pollution_generation_add = 15
+		}
+	}
+	
+	building_modifiers = {
+		workforce_scaled = {
+			# input goods
+			goods_input_steel_add = 15
+			goods_input_electricity_add = 20
+			goods_input_engines_add = 10
+			goods_input_aluminium_add = 15
+			goods_input_processors_add = 5
+			goods_input_robotics_add = 10
+			
+			# output goods
+			goods_output_steamers_add = 105
+		}
+
+		level_scaled = {
+			# employment
+			building_employment_shopkeepers_add = 500
+			building_employment_laborers_add = 500
+			building_employment_machinists_add = 1000
+			building_employment_engineers_add = 1000
 		}
 	}
 
@@ -1188,8 +1227,40 @@ pm_military_shipbuilding_steam_2 = {
 		level_scaled = {
 			# employment
 			building_employment_shopkeepers_add = 500
-			building_employment_laborers_add = 2000
+			building_employment_laborers_add = 1500
 			building_employment_machinists_add = 1500
+			building_employment_engineers_add = 1000
+		}
+	}
+
+	required_input_goods = electricity
+}
+
+pm_modular_military_shipbuilding = {
+	texture = "gfx/interface/icons/production_method_icons/pm_modular_military_shipbuilding.dds"
+	
+	unlocking_technologies = {
+		modular_shipbuilding
+	}
+	
+	building_modifiers = {
+		workforce_scaled = {
+			#input
+			goods_input_steel_add = 40
+			goods_input_electricity_add = 20
+			goods_input_engines_add = 20
+			goods_input_artillery_add = 10
+			goods_input_processors_add = 5
+			goods_input_robotics_add = 10
+
+			# output goods
+			goods_output_ironclads_add = 95
+		}
+		level_scaled = {
+			# employment
+			building_employment_shopkeepers_add = 500
+			building_employment_laborers_add = 500
+			building_employment_machinists_add = 1000
 			building_employment_engineers_add = 1000
 		}
 	}
@@ -1284,6 +1355,68 @@ pm_bolt_action_rifles = {
 		}
 	}
 }
+
+pm_selective_automatic_rifles = {
+	texture = "gfx/interface/icons/production_method_icons/pm_selective_automatic_rifles.dds"
+	
+	unlocking_technologies = {
+		semi_automatic_rifle
+	}
+	
+	building_modifiers = {
+		workforce_scaled = {
+			# input goods
+			goods_input_steel_add = 20
+			goods_input_tools_add = 10
+			goods_input_aluminium_add = 10 #100
+			goods_input_electroniccomponents_add = 1 #80
+			goods_input_alloys_add = 10 #500
+			
+			# output goods
+			goods_output_small_arms_add = 120
+		}
+
+		level_scaled = {
+			# employment
+			building_employment_shopkeepers_add = 500
+			building_employment_laborers_add = 2500
+			building_employment_machinists_add = 1250
+			building_employment_engineers_add = 750
+		}
+	}
+}
+
+pm_assault_rifles = {
+	texture = "gfx/interface/icons/production_method_icons/pm_assault_rifles.dds"
+
+	unlocking_technologies = {
+		assault_rifles
+	}
+
+	building_modifiers = {
+		workforce_scaled = {
+			# input goods
+			goods_input_steel_add = 25 #250
+			goods_input_tools_add = 5 #-200
+			goods_input_aluminium_add = 15 #250
+			goods_input_electroniccomponents_add = 3 #160
+			goods_input_alloys_add = 15 #250
+			
+			# output goods
+			goods_output_small_arms_add = 140
+		}
+
+		level_scaled = {
+			# employment
+			building_employment_shopkeepers_add = 500
+			building_employment_laborers_add = 2500
+			building_employment_machinists_add = 1250
+			building_employment_engineers_add = 750
+		}
+	}
+}
+
+# Artillery
 
 pm_cannons = {
 	texture = "gfx/interface/icons/production_method_icons/artillery_production.dds"

@@ -103,6 +103,35 @@ offset_printing = {
 	}
 }
 
+cabled_wire = {
+	# Unlocks cabled wire production method
+	era = era_4
+	texture = "gfx/interface/icons/invention_icons/cabled_wire.dds"
+	category = production
+	
+	unlocking_technologies = {
+		vulcanization
+		telephone
+	}
+
+	modifier = {
+		building_group_bg_power_throughput_add = 0.05
+	}
+
+	ai_weight = {
+		value = 1 # Important tech for modern economies
+		
+		if = {
+			limit = { 
+				OR = {
+					has_strategy = ai_strategy_industrial_expansion
+				}
+			}
+			add = 1
+		}
+	}
+}
+
 #ERA 5
 
 synthetic_cosmetics = {
@@ -305,6 +334,36 @@ synthetic_pesticides = {
 
 #ERA 6
 
+advanced_wire = {
+	# Unlocks advanced wire production method
+	era = era_6
+	texture = "gfx/interface/icons/invention_icons/advanced_wire.dds"
+	category = production
+	
+	unlocking_technologies = {
+		alkaline_battery
+		selective_mineral_extraction
+		rudimental_home_appliances
+	}
+
+	modifier = {
+		building_group_bg_power_throughput_add = 0.05
+	}
+
+	ai_weight = {
+		value = 1 # Important tech for modern economies
+		
+		if = {
+			limit = { 
+				OR = {
+					has_strategy = ai_strategy_industrial_expansion
+				}
+			}
+			add = 1
+		}
+	}
+}
+
 silicon = {
     # Unlocks advanced ores mining
     era = era_6
@@ -364,7 +423,6 @@ gas_turbine = {
 	}
 
 	modifier = {
-		building_group_bg_power_throughput_add = 0.05
 		building_group_bg_natural_gas_extraction_throughput_add = 0.05
 	}
 	
@@ -985,7 +1043,7 @@ basic_home_appliances = {
 	category = production
 
 	unlocking_technologies = {
-		rudimental_home_appliances
+		advanced_wire
 		mechanical_arms
 		hdpe
 	}
@@ -1390,7 +1448,6 @@ hybrid_vehicles = {
 	category = production
 
 	unlocking_technologies = {
-		wind_turbines
 		modern_transport
 		high_speed_rail_tech
 	}

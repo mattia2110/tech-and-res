@@ -257,6 +257,27 @@ paratroopers = {
 	}
 }
 
+naval_oil_propulsion = {
+	# Unlocks Naval Oil Propulsion
+	era = era_6
+	texture = "gfx/interface/icons/invention_icons/naval_oil_propulsion.dds"
+	category = military
+	
+	modifier = {
+		building_shipyards_throughput_add = 0.05
+		building_military_shipyards_throughput_add = 0.05
+	}
+	
+	unlocking_technologies = {	
+		concrete_dockyards
+		agassiz_sounding_tech
+	}
+	
+	ai_weight = {
+		value = 1
+	}
+}
+
 advanced_harbor_facilities = { #Cargo Ship to add
 	era = era_6
 	texture = "gfx/interface/icons/invention_icons/advanced_harbor_facilities.dds"
@@ -265,8 +286,7 @@ advanced_harbor_facilities = { #Cargo Ship to add
 	}
 
 	unlocking_technologies = {	
-		agassiz_sounding_tech
-		concrete_dockyards
+		naval_oil_propulsion
 	}
 	ai_weight = {
 		value = 1
@@ -289,7 +309,77 @@ atomic_bomb = {
 	}
 }
 
+semi_automatic_rifle = {
+	# Unlocks Modular Firearms Design
+	era = era_6
+	texture = "gfx/interface/icons/invention_icons/semi_automatic_rifle.dds"
+	category = military
+
+	modifier = {
+		unit_kill_rate_add = 0.2
+	}
+
+	unlocking_technologies = {
+		flamethrowers
+	}
+
+	ai_weight = {
+		value = 1
+	}
+}
+
+jet_aviation = {
+	# unlocks jet aviation
+	era = era_6
+	texture = "gfx/interface/icons/invention_icons/jet_aviation.dds"
+	category = military
+	
+	unlocking_technologies = {	
+		modern_warplanes
+		curtiss_modern_aviation_tech
+	}
+	
+	ai_weight = {
+		value = 1
+	}
+}
+
 # Era 7
+
+assault_rifles = {
+	# Unlocks Modular Firearms Design
+	era = era_7
+	texture = "gfx/interface/icons/invention_icons/assault_rifles.dds"
+	category = military
+
+	unlocking_technologies = {
+		semi_automatic_rifle
+		blitzkrieg
+	}
+
+	ai_weight = {
+		value = 1
+	}
+}
+
+modular_shipbuilding = {
+	# unlocks main battle tank
+	era = era_7
+	texture = "gfx/interface/icons/invention_icons/modular_shipbuilding.dds"
+	category = military
+
+	modifier = {
+		unit_navy_defense_mult = 0.2
+	}
+	
+	unlocking_technologies = {	
+		advanced_harbor_facilities
+	}
+	
+	ai_weight = {
+		value = 1
+	}
+}
 
 main_battle_tank = {
 	# unlocks main battle tank
@@ -329,27 +419,6 @@ naval_logistic_automation = {
 	}
 }
 
-integrated_naval_air_tactics = {
-	# unlocks integrated naval air doctrine
-	era = era_7
-	texture = "gfx/interface/icons/invention_icons/integrated_naval_air_tactics.dds"
-	category = military
-
-	modifier = {
-		unit_convoy_defense_mult = 0.2
-		unit_combat_unit_type_carrier_offense_mult = 0.2
-	}
-	
-	unlocking_technologies = {	
-		naval_logistic_automation
-		supersonic_aviation
-	}
-	
-	ai_weight = {
-		value = 1
-	}
-}
-
 modern_naval_doctrine = {
 	# unlocks modern naval doctrine
 	era = era_7
@@ -357,12 +426,11 @@ modern_naval_doctrine = {
 	category = military
 
 	modifier = {
-		unit_navy_defense_mult = 0.2
 		country_prestige_from_navy_power_projection_mult = 0.2
 	}
 	
 	unlocking_technologies = {	
-		
+		modular_shipbuilding
 		naval_logistic_automation
 	}
 	
@@ -384,22 +452,6 @@ helicopters = {
 	unlocking_technologies = {	
 		air_support
 		paratroopers
-	}
-	
-	ai_weight = {
-		value = 1
-	}
-}
-
-jet_aviation = {
-	# unlocks jet aviation
-	era = era_6
-	texture = "gfx/interface/icons/invention_icons/jet_aviation.dds"
-	category = military
-	
-	unlocking_technologies = {	
-		modern_warplanes
-		curtiss_modern_aviation_tech
 	}
 	
 	ai_weight = {
@@ -500,7 +552,84 @@ satellites = {
 	}
 }
 
+supersonic_aviation = {
+	# unlocks supersonic aviation
+	era = era_7
+	texture = "gfx/interface/icons/invention_icons/supersonic_aviation.dds"
+	category = military
+	
+	unlocking_technologies = {	
+		jet_aviation
+	}
+	
+	ai_weight = {
+		value = 1
+	}
+}
+
+precision_ammunition = {
+	# unlocks precision ammunition
+	era = era_7
+	texture = "gfx/interface/icons/invention_icons/precision_ammunition.dds"
+	category = military
+
+	modifier = {
+		country_military_wages_mult = 0.10
+		unit_kill_rate_add = -0.25
+	}
+	
+	unlocking_technologies = {	
+		guided_missiles
+		assault_rifles
+	}
+	
+	ai_weight = {
+		value = 1
+	}
+}
+
 # Era 8
+
+laser_guided_weapons = {
+	# unlocks laser guided weapons
+	era = era_8
+	texture = "gfx/interface/icons/invention_icons/laser_guided_weapons.dds"
+	category = military
+
+	modifier = {
+		country_military_wages_mult = 0.10
+		unit_army_offense_mult = 0.1
+	}
+	
+	unlocking_technologies = {	
+		precision_ammunition
+	}
+	
+	ai_weight = {
+		value = 1
+	}
+}
+
+integrated_naval_air_tactics = {
+	# unlocks integrated naval air doctrine
+	era = era_8
+	texture = "gfx/interface/icons/invention_icons/integrated_naval_air_tactics.dds"
+	category = military
+
+	modifier = {
+		unit_convoy_defense_mult = 0.2
+		unit_combat_unit_type_carrier_offense_mult = 0.2
+	}
+	
+	unlocking_technologies = {	
+		modern_naval_doctrine
+		supersonic_aviation
+	}
+	
+	ai_weight = {
+		value = 1
+	}
+}
 
 high_performance_apparel = {
 	# unlocks high performance apparel
@@ -510,20 +639,42 @@ high_performance_apparel = {
 
 	modifier = {
 		country_military_wages_mult = 0.10
-		unit_kill_rate_add = -0.2
-		unit_army_offense_mult = 0.2
-		unit_army_defense_mult = 0.2
+		unit_kill_rate_add = -0.35
+		unit_army_defense_mult = 0.1
 	}
 	
 	unlocking_technologies = {	
 		composite_armor
 		amphibious_warfare
+		assault_rifles
 	}
 	
 	ai_weight = {
 		value = 1
 	}
 }
+
+cannon_launched_guided_projectiles = {
+	# unlocks cannon-launched guided projectiles
+	era = era_8
+	texture = "gfx/interface/icons/invention_icons/cannon_launched_guided_projectiles.dds"
+	category = military
+
+	modifier = {
+		unit_combat_unit_type_main_battle_tanks_offense_mult = 0.1
+		unit_kill_rate_add = -0.15
+	}
+	
+	unlocking_technologies = {	
+		composite_armor
+		laser_guided_weapons
+	}
+	
+	ai_weight = {
+		value = 1
+	}
+}
+
 
 astronautics = {
 	# prestige bonus
@@ -538,44 +689,8 @@ astronautics = {
 	
 	unlocking_technologies = {	
 		satellites
-		high_performance_apparel
+		#high_performance_apparel (Next tech that unify astronautics with high performance apparel)
 		guided_missiles
-	}
-	
-	ai_weight = {
-		value = 1
-	}
-}
-
-laser_guided_weapons = {
-	# unlocks laser guided weapons
-	era = era_8
-	texture = "gfx/interface/icons/invention_icons/laser_guided_weapons.dds"
-	category = military
-
-	modifier = {
-		country_military_wages_mult = 0.10
-		unit_army_offense_mult = 0.1
-		unit_devastation_mult = -0.1
-	}
-	
-	unlocking_technologies = {	
-		guided_missiles
-	}
-	
-	ai_weight = {
-		value = 1
-	}
-}
-
-supersonic_aviation = {
-	# unlocks supersonic aviation
-	era = era_7
-	texture = "gfx/interface/icons/invention_icons/supersonic_aviation.dds"
-	category = military
-	
-	unlocking_technologies = {	
-		jet_aviation
 	}
 	
 	ai_weight = {
