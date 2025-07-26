@@ -9,6 +9,7 @@
 # TSMC
 # SAP
 # Xiaomi
+# Huawei
 # Sony
 
 #Generic Tech
@@ -616,65 +617,65 @@ company_sap = {
 	ai_weight = { value = 4 }
 }
 
-# Xiaomi
+# Huawei
 
-company_xiaomi = {
-	icon = "gfx/interface/icons/company_icons/historical_company_icons/chinese_xiaomi.dds"
+company_huawei = {
+	icon = "gfx/interface/icons/company_icons/historical_company_icons/chinese_huawei.dds"
 	background = "gfx/interface/icons/company_icons/company_backgrounds/comp_illu_tech.dds"
 
 	flavored_company = yes
-	preferred_headquarters = { STATE_BEIJING }
+	preferred_headquarters = { STATE_GUANGDONG }
 
 	building_types = {
-		building_electrics_industry # Xiaomi phones
+		building_electronics_industry
+		building_telecommunications_industry
 	}
 
 	extension_building_types = {
-		building_automotive_industry # Xiaomi electric vehicles
+		building_electrics_industry # Huawei phones
 	}
 
 	possible_prestige_goods = {
 		prestige_good_smartphones
 	}
 
-	potential = { has_interest_marker_in_region = region_north_china }
+	potential = { has_interest_marker_in_region = region_south_china }
 
 	attainable = {
 		hidden_trigger = {
-			any_scope_state = { state_region = s:STATE_BEIJING }
+			any_scope_state = { state_region = s:STATE_GUANGDONG }
 		}
 	}
 
 	possible = {
 		has_technology_researched = mobile_devices
 		any_scope_state = {
-			state_region = s:STATE_BEIJING
+			state_region = s:STATE_GUANGDONG
 			is_incorporated = yes
 			any_scope_building = {
-				is_building_type = building_electrics_industry
+				is_building_type = building_electronics_industry
 				level >= 5
 			}
 		}
 	}
 
 	prosperity_modifier = {
-		building_telecommunications_industry_throughput_add = 0.1
-		building_renewable_energy_power_plant_throughput_add = 0.1
-		country_prestige_mult = 0.05
+		building_rare_earths_mine_throughput_add = 0.1
+		building_datacenter_industry_throughput_add = 0.1
 	}
 
 	ai_will_do = {
 		has_technology_researched = mobile_devices
 		any_scope_state = {
-			state_region = s:STATE_BEIJING
+			state_region = s:STATE_GUANGDONG
 			is_incorporated = yes
 		}
 	}
 
 	ai_construction_targets = {
-		building_electrics_industry = {
+		building_electronics_industry = {
 			level = 5
-			state_trigger = { state_region = s:STATE_BEIJING }
+			state_trigger = { state_region = s:STATE_GUANGDONG }
 		}
 	}
 
