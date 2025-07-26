@@ -1396,14 +1396,15 @@ pm_assault_rifles = {
 	building_modifiers = {
 		workforce_scaled = {
 			# input goods
-			goods_input_steel_add = 25 #250
-			goods_input_tools_add = 5 #-200
-			goods_input_aluminium_add = 15 #250
-			goods_input_electroniccomponents_add = 3 #160
-			goods_input_alloys_add = 15 #250
+			goods_input_steel_add = 20
+			goods_input_tools_add = 10 #-200
+			goods_input_aluminium_add = 10
+			goods_input_electroniccomponents_add = 2 #160
+			goods_input_lubricant_add = 10 #700
+			goods_input_alloys_add = 10
 			
 			# output goods
-			goods_output_small_arms_add = 140
+			goods_output_small_arms_add = 140 #1200
 		}
 
 		level_scaled = {
@@ -2266,6 +2267,41 @@ pm_rayon = {
 		level_scaled = {
 			# employment
 			building_employment_machinists_add = 250
+		}
+	}
+}
+
+# Whaling
+
+pm_steam_whaling_ships = {
+	texture = "gfx/interface/icons/production_method_icons/steam_whaling_ships.dds"
+
+	state_modifiers = {
+		workforce_scaled = {
+			state_pollution_generation_add = 10
+		}
+	}
+
+	unlocking_technologies = {
+		gantry_cranes
+	}
+	building_modifiers = {
+		workforce_scaled = {
+			# input
+			goods_input_steamers_add = 5
+			goods_input_coal_add = 20
+
+			goods_output_meat_add = 20
+			goods_output_oil_add = 20
+			goods_output_lubricant_add = 10
+		}
+
+		level_scaled = {
+			# employment
+			building_employment_shopkeepers_add = 500
+			building_employment_laborers_add = 3000
+			building_employment_machinists_add = 1000
+			building_employment_engineers_add = 500
 		}
 	}
 }

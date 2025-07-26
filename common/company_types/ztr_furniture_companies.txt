@@ -1,4 +1,15 @@
-# Ikea
+# Companies in this file about furniture/home appliance/home objects
+# Ikea (Sweden)
+# Electrolux (Sweden)
+# Haier (China)
+# Bosch (Germany)
+# LG (South Korea)
+# Whirlpool (USA)
+# Arçelik (Turkey)
+# Indesit (Italia)
+# Defy Appliances (South Africa)
+# Mabe (Mexico)
+# Fagor (Spain)
 
 company_ikea = {
 	icon = "gfx/interface/icons/company_icons/historical_company_icons/swedish_ikea.dds"
@@ -10,6 +21,7 @@ company_ikea = {
 
 	building_types = {
 		building_furniture_manufacturies
+		building_glassworks
 		building_logging_camp
 	}
 
@@ -69,5 +81,671 @@ company_ikea = {
 
 	ai_weight = {
 		value = 5 # Higher base value for flavored companies
+	}
+}
+
+company_electrolux = {
+	icon = "gfx/interface/icons/company_icons/historical_company_icons/swedish_electrolux.dds"
+	background = "gfx/interface/icons/company_icons/company_backgrounds/comp_illu_manufactering_light.dds"
+
+	flavored_company = yes
+
+	preferred_headquarters = { STATE_SVEALAND }
+
+	building_types = {
+		building_furniture_manufacturies
+		building_electronics_industry
+	}
+
+	potential = {
+		has_interest_marker_in_region = region_baltic
+	}
+
+	attainable = {
+		hidden_trigger = { # Hide attainable if it's always fulfilled by possible
+			any_scope_state = {
+				state_region = s:STATE_SVEALAND
+			}
+		}
+	}
+
+	possible = {
+		has_technology_researched = flash_freezing
+		any_scope_state = {
+			state_region = s:STATE_SVEALAND
+			is_incorporated = yes
+			any_scope_building = {
+				is_building_type = building_furniture_manufacturies
+				level >= 5
+			}
+		}
+	}
+
+	prosperity_modifier = {
+		building_fishing_wharf_throughput_add = 0.1
+		building_whaling_station_throughput_add = 0.1
+		building_livestock_ranch_throughput_add = 0.1
+		goods_output_homeappliances_mult = 0.05
+	}
+
+	ai_will_do = {
+		has_technology_researched = flash_freezing
+		any_scope_state = {
+			state_region = s:STATE_SVEALAND
+			is_incorporated = yes
+		}
+	}
+
+	ai_construction_targets = {
+		building_furniture_manufacturies = {
+			level = 5
+			state_trigger = {
+				state_region = s:STATE_SVEALAND
+			}
+		}
+	}
+
+	ai_weight = {
+		value = 5 # Higher base value for flavored companies
+	}
+}
+
+company_haier = {
+	icon = "gfx/interface/icons/company_icons/historical_company_icons/chinese_haier.dds"
+	background = "gfx/interface/icons/company_icons/company_backgrounds/comp_illu_manufactering_light.dds"
+
+	flavored_company = yes
+
+	preferred_headquarters = { STATE_BEIJING }
+
+	building_types = {
+		building_furniture_manufacturies
+	}
+
+	extension_building_types = {
+		building_electrics_industry
+	}
+
+	# possible_prestige_goods = {
+	# 	prestige_good_haier_appliances
+	# }
+
+	potential = {
+		has_interest_marker_in_region = region_north_china
+	}
+
+	attainable = {
+		hidden_trigger = { # Hide attainable if it's always fulfilled by possible
+			any_scope_state = {
+				state_region = s:STATE_BEIJING
+			}
+		}
+	}
+
+	possible = {
+		has_technology_researched = rudimental_home_appliances
+		any_scope_state = {
+			state_region = s:STATE_BEIJING
+			is_incorporated = yes
+			any_scope_building = {
+				is_building_type = building_furniture_manufacturies
+				level >= 5
+			}
+		}
+	}
+
+	prosperity_modifier = {
+		goods_output_homeappliances_mult = 0.15
+		state_standard_of_living_add = 0.25
+	}
+
+	ai_will_do = {
+		has_technology_researched = rudimental_home_appliances
+		any_scope_state = {
+			state_region = s:STATE_BEIJING
+			is_incorporated = yes
+		}
+	}
+
+	ai_construction_targets = {
+		building_furniture_manufacturies = {
+			level = 5
+			state_trigger = {
+				state_region = s:STATE_BEIJING
+			}
+		}
+	}
+
+	ai_weight = {
+		value = 5 # Higher base value for flavored companies
+	}
+}
+
+company_bosch = {
+	icon = "gfx/interface/icons/company_icons/historical_company_icons/german_bosch.dds"
+	background = "gfx/interface/icons/company_icons/company_backgrounds/comp_illu_manufactering_light.dds"
+
+	flavored_company = yes
+
+	preferred_headquarters = { STATE_WURTTEMBERG STATE_BAVARIA }
+
+	building_types = {
+		building_tooling_workshops
+		building_robotics_industry
+	}
+
+	extension_building_types = {
+		building_furniture_manufacturies
+		building_electronics_industry
+		building_motor_industry
+	}
+
+	potential = {
+		has_interest_marker_in_region = region_south_germany
+	}
+
+	attainable = {
+		hidden_trigger = { # Hide attainable if it's always fulfilled by possible
+			any_scope_state = {
+				state_region = s:STATE_WURTTEMBERG
+			}
+		}
+	}
+
+	possible = {
+		has_technology_researched = combustion_engine
+		any_scope_state = {
+			state_region = s:STATE_WURTTEMBERG
+			is_incorporated = yes
+			any_scope_building = {
+				is_building_type = building_tooling_workshops
+				level >= 5
+			}
+		}
+	}
+
+	prosperity_modifier = {
+		building_automotive_industry_throughput_add = 0.33
+	}
+
+	ai_will_do = {
+		has_technology_researched = combustion_engine
+		any_scope_state = {
+			state_region = s:STATE_WURTTEMBERG
+			is_incorporated = yes
+		}
+	}
+
+	ai_construction_targets = {
+		building_tooling_workshops = {
+			level = 5
+			state_trigger = {
+				state_region = s:STATE_WURTTEMBERG
+			}
+		}
+	}
+
+	ai_weight = {
+		value = 4 # Higher base value for flavored companies
+	}
+}
+
+company_lg = {
+	icon = "gfx/interface/icons/company_icons/historical_company_icons/south_korean_lg.dds"
+	background = "gfx/interface/icons/company_icons/company_backgrounds/comp_illu_manufactering_light.dds"
+
+	flavored_company = yes
+
+	preferred_headquarters = { STATE_SEOUL }
+
+	building_types = {
+		building_furniture_manufacturies
+		building_petrochemical_industry
+		building_chemical_plants
+	}
+
+	extension_building_types = {
+		building_electrics_industry
+	}
+
+	potential = {
+		has_interest_marker_in_region = region_manchuria
+	}
+
+	attainable = {
+		hidden_trigger = { # Hide attainable if it's always fulfilled by possible
+			any_scope_state = {
+				state_region = s:STATE_SEOUL
+			}
+		}
+	}
+
+	possible = {
+		has_technology_researched = rudimental_home_appliances
+		any_scope_state = {
+			state_region = s:STATE_SEOUL
+			is_incorporated = yes
+			any_scope_building = {
+				is_building_type = building_chemical_plants
+				level >= 5
+			}
+		}
+	}
+
+	prosperity_modifier = {
+		building_electronics_industry_throughput_add = 0.1
+		building_processors_foundry_throughput_add = 0.05
+	}
+
+	ai_will_do = {
+		has_technology_researched = rudimental_home_appliances
+		any_scope_state = {
+			state_region = s:STATE_SEOUL
+			is_incorporated = yes
+		}
+	}
+
+	ai_construction_targets = {
+		building_chemical_plants = {
+			level = 5
+			state_trigger = {
+				state_region = s:STATE_SEOUL
+			}
+		}
+	}
+
+	ai_weight = {
+		value = 4 # Higher base value for flavored companies
+	}
+}
+
+company_whirlpool = {
+	icon = "gfx/interface/icons/company_icons/historical_company_icons/american_whirlpool.dds"
+	background = "gfx/interface/icons/company_icons/company_backgrounds/comp_illu_manufactering_light.dds"
+
+	flavored_company = yes
+
+	preferred_headquarters = { STATE_MICHIGAN }
+
+	building_types = {
+		building_furniture_manufacturies
+	}
+
+	extension_building_types = {
+		building_tooling_workshops
+	}
+
+	potential = {
+		has_interest_marker_in_region = region_the_midwest
+	}
+
+	attainable = {
+		hidden_trigger = { # Hide attainable if it's always fulfilled by possible
+			any_scope_state = {
+				state_region = s:STATE_MICHIGAN
+			}
+		}
+	}
+
+	possible = {
+		has_technology_researched = rudimental_home_appliances
+		any_scope_state = {
+			state_region = s:STATE_MICHIGAN
+			is_incorporated = yes
+			any_scope_building = {
+				is_building_type = building_furniture_manufacturies
+				level >= 5
+			}
+		}
+	}
+
+	prosperity_modifier = {
+		goods_output_homeappliances_mult = 0.15
+		state_standard_of_living_add = 0.25
+	}
+
+	ai_will_do = {
+		has_technology_researched = rudimental_home_appliances
+		any_scope_state = {
+			state_region = s:STATE_MICHIGAN
+			is_incorporated = yes
+		}
+	}
+
+	ai_construction_targets = {
+		building_furniture_manufacturies = {
+			level = 5
+			state_trigger = {
+				state_region = s:STATE_MICHIGAN
+			}
+		}
+	}
+
+	ai_weight = {
+		value = 4 # Higher base value for flavored companies
+	}
+}
+
+company_arcelik = {
+	icon = "gfx/interface/icons/company_icons/historical_company_icons/turkish_arcelik.dds"
+	background = "gfx/interface/icons/company_icons/company_backgrounds/comp_illu_manufactering_light.dds"
+
+	flavored_company = yes
+
+	preferred_headquarters = { STATE_EASTERN_THRACE }
+
+	building_types = {
+		building_furniture_manufacturies
+	}
+
+	extension_building_types = {
+		building_electrics_industry
+	}
+
+	potential = {
+		has_interest_marker_in_region = region_anatolia
+	}
+
+	attainable = {
+		hidden_trigger = { # Hide attainable if it's always fulfilled by possible
+			any_scope_state = {
+				state_region = s:STATE_EASTERN_THRACE
+			}
+		}
+	}
+
+	possible = {
+		has_technology_researched = rudimental_home_appliances
+		any_scope_state = {
+			state_region = s:STATE_EASTERN_THRACE
+			is_incorporated = yes
+			any_scope_building = {
+				is_building_type = building_furniture_manufacturies
+				level >= 5
+			}
+		}
+	}
+
+	prosperity_modifier = {
+		building_textile_mills_throughput_add = 0.1
+		state_standard_of_living_add = 0.25
+	}
+
+	ai_will_do = {
+		has_technology_researched = rudimental_home_appliances
+		any_scope_state = {
+			state_region = s:STATE_EASTERN_THRACE
+			is_incorporated = yes
+		}
+	}
+
+	ai_construction_targets = {
+		building_furniture_manufacturies = {
+			level = 5
+			state_trigger = {
+				state_region = s:STATE_EASTERN_THRACE
+			}
+		}
+	}
+
+	ai_weight = {
+		value = 4 # Higher base value for flavored companies
+	}
+}
+
+company_indesit = {
+	icon = "gfx/interface/icons/company_icons/historical_company_icons/italian_indesit.dds"
+	background = "gfx/interface/icons/company_icons/company_backgrounds/comp_illu_manufactering_light.dds"
+
+	flavored_company = yes
+
+	preferred_headquarters = { STATE_UMBRIA }
+
+	building_types = {
+		building_furniture_manufacturies
+	}
+
+	extension_building_types = {
+		building_glassworks
+	}
+
+	potential = {
+		has_interest_marker_in_region = region_italy
+	}
+
+	attainable = {
+		hidden_trigger = { # Hide attainable if it's always fulfilled by possible
+			any_scope_state = {
+				state_region = s:STATE_UMBRIA
+			}
+		}
+	}
+
+	possible = {
+		has_technology_researched = rudimental_home_appliances
+		any_scope_state = {
+			state_region = s:STATE_UMBRIA
+			is_incorporated = yes
+			any_scope_building = {
+				is_building_type = building_furniture_manufacturies
+				level >= 5
+			}
+		}
+	}
+
+	prosperity_modifier = {
+		goods_output_homeappliances_mult = 0.05
+		building_automotive_industry_throughput_add = 0.05
+		state_standard_of_living_add = 0.25
+	}
+
+	ai_will_do = {
+		has_technology_researched = rudimental_home_appliances
+		any_scope_state = {
+			state_region = s:STATE_UMBRIA
+			is_incorporated = yes
+		}
+	}
+
+	ai_construction_targets = {
+		building_furniture_manufacturies = {
+			level = 5
+			state_trigger = {
+				state_region = s:STATE_UMBRIA
+			}
+		}
+	}
+
+	ai_weight = {
+		value = 4 # Higher base value for flavored companies
+	}
+}
+
+company_defy = {
+	icon = "gfx/interface/icons/company_icons/historical_company_icons/south_african_defy.dds"
+	background = "gfx/interface/icons/company_icons/company_backgrounds/comp_illu_manufactering_light.dds"
+
+	flavored_company = yes
+
+	preferred_headquarters = { STATE_EASTERN_CAPE }
+
+	building_types = {
+		building_furniture_manufacturies
+	}
+
+	potential = {
+		has_interest_marker_in_region = region_southern_africa
+	}
+
+	attainable = {
+		hidden_trigger = { # Hide attainable if it's always fulfilled by possible
+			any_scope_state = {
+				state_region = s:STATE_EASTERN_CAPE
+			}
+		}
+	}
+
+	possible = {
+		has_technology_researched = rudimental_home_appliances
+		any_scope_state = {
+			state_region = s:STATE_EASTERN_CAPE
+			is_incorporated = yes
+			any_scope_building = {
+				is_building_type = building_furniture_manufacturies
+				level >= 5
+			}
+		}
+	}
+
+	prosperity_modifier = {
+		state_birth_rate_mult = 0.1
+	}
+
+	ai_will_do = {
+		has_technology_researched = rudimental_home_appliances
+		any_scope_state = {
+			state_region = s:STATE_EASTERN_CAPE
+			is_incorporated = yes
+		}
+	}
+
+	ai_construction_targets = {
+		building_furniture_manufacturies = {
+			level = 5
+			state_trigger = {
+				state_region = s:STATE_EASTERN_CAPE
+			}
+		}
+	}
+
+	ai_weight = {
+		value = 4 # Higher base value for flavored companies
+	}
+}
+
+company_mabe = {
+	icon = "gfx/interface/icons/company_icons/historical_company_icons/mexican_mabe.dds"
+	background = "gfx/interface/icons/company_icons/company_backgrounds/comp_illu_manufactering_light.dds"
+
+	flavored_company = yes
+
+	preferred_headquarters = { STATE_MEXICO }
+
+	building_types = {
+		building_furniture_manufacturies
+		building_glassworks
+	}
+
+	potential = {
+		has_interest_marker_in_region = region_mexico
+	}
+
+	attainable = {
+		hidden_trigger = { # Hide attainable if it's always fulfilled by possible
+			any_scope_state = {
+				state_region = s:STATE_MEXICO
+			}
+		}
+	}
+
+	possible = {
+		has_technology_researched = rudimental_home_appliances
+		any_scope_state = {
+			state_region = s:STATE_MEXICO
+			is_incorporated = yes
+			any_scope_building = {
+				is_building_type = building_furniture_manufacturies
+				level >= 5
+			}
+		}
+	}
+
+	prosperity_modifier = {
+		state_birth_rate_mult = 0.05
+		building_tooling_workshops_throughput_add = 0.05
+	}
+
+	ai_will_do = {
+		has_technology_researched = rudimental_home_appliances
+		any_scope_state = {
+			state_region = s:STATE_MEXICO
+			is_incorporated = yes
+		}
+	}
+
+	ai_construction_targets = {
+		building_furniture_manufacturies = {
+			level = 5
+			state_trigger = {
+				state_region = s:STATE_MEXICO
+			}
+		}
+	}
+
+	ai_weight = {
+		value = 4 # Higher base value for flavored companies
+	}
+}
+
+company_fragor = {
+	icon = "gfx/interface/icons/company_icons/historical_company_icons/spanish_fagor.dds"
+	background = "gfx/interface/icons/company_icons/company_backgrounds/comp_illu_manufactering_light.dds"
+
+	flavored_company = yes
+
+	preferred_headquarters = { STATE_NAVARRA }
+
+	building_types = {
+		building_furniture_manufacturies
+	}
+
+	potential = {
+		has_interest_marker_in_region = region_iberia
+	}
+
+	attainable = {
+		hidden_trigger = { # Hide attainable if it's always fulfilled by possible
+			any_scope_state = {
+				state_region = s:STATE_NAVARRA
+			}
+		}
+	}
+
+	possible = {
+		has_technology_researched = rudimental_home_appliances
+		any_scope_state = {
+			state_region = s:STATE_NAVARRA
+			is_incorporated = yes
+			any_scope_building = {
+				is_building_type = building_furniture_manufacturies
+				level >= 5
+			}
+		}
+	}
+
+	prosperity_modifier = {
+		state_standard_of_living_add = 0.25
+		goods_output_homeappliances_mult = 0.05
+	}
+
+	ai_will_do = {
+		has_technology_researched = rudimental_home_appliances
+		any_scope_state = {
+			state_region = s:STATE_NAVARRA
+			is_incorporated = yes
+		}
+	}
+
+	ai_construction_targets = {
+		building_furniture_manufacturies = {
+			level = 5
+			state_trigger = {
+				state_region = s:STATE_NAVARRA
+			}
+		}
+	}
+
+	ai_weight = {
+		value = 3 # Higher base value for flavored companies
 	}
 }
