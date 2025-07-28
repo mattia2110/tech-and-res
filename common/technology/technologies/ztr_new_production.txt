@@ -96,6 +96,7 @@ offset_printing = {
 	
 	unlocking_technologies = {
 		manzoni_linotype_tech
+		aniline
 	}
 	
 	ai_weight = {
@@ -785,6 +786,30 @@ direct_reduced_iron = {
 
 #ERA 7
 
+horizontal_drilling = {
+	# Unlocks PM horizontal drilling in Oil Refineries
+	era = era_7
+	texture = "gfx/interface/icons/invention_icons/horizontal_drilling.dds"
+	category = production
+	
+	unlocking_technologies = {
+		hdpe
+	}
+
+	ai_weight = {
+		value = 1 # Important tech for modern economies
+		
+		if = {
+			limit = { 
+				OR = {
+					has_strategy = ai_strategy_industrial_expansion
+				}
+			}
+			add = 1
+		}
+	}
+}
+
 mechanical_arms = {
 	# Unlocks PM mechanical arms in Steel Mills, Alloys, Glassworks and Motor Industries
 	era = era_7
@@ -889,30 +914,6 @@ proto_digital_devices = {
 	
 	unlocking_technologies = {
 		semiconductor
-	}
-
-	ai_weight = {
-		value = 1 # Important tech for modern economies
-		
-		if = {
-			limit = { 
-				OR = {
-					has_strategy = ai_strategy_industrial_expansion
-				}
-			}
-			add = 1
-		}
-	}
-}
-
-horizontal_drilling = {
-	# Unlocks PM horizontal drilling in Oil Refineries
-	era = era_8
-	texture = "gfx/interface/icons/invention_icons/horizontal_drilling.dds"
-	category = production
-	
-	unlocking_technologies = {
-		hdpe
 	}
 
 	ai_weight = {
@@ -1237,9 +1238,11 @@ tv_color = {
 	}
 }
 
+#ERA 8
+
 advanced_mining = {
 	# Unlocks advanced ores mining
-	era = era_7
+	era = era_8
 	texture = "gfx/interface/icons/invention_icons/advanced_mining_2.dds"
 	category = production
 	
@@ -1261,8 +1264,6 @@ advanced_mining = {
 		}
 	}
 }
-
-#ERA 8
 
 home_delivery_networks = {
 	# Unlocks PM home delivery networks in Food Industry
@@ -1450,7 +1451,6 @@ wind_turbines = {
 
 	unlocking_technologies = {
 		fuel_cell_tech
-		photovoltaic_effect
 		second_nuclear_reactor
 	}
 
@@ -1502,7 +1502,7 @@ rare_earths_advanced_purification = {
 	unlocking_technologies = {
 		rare_earths
 		advanced_electric_arc_processes
-		advanced_mining
+		#advanced_mining
 	}
 
 	ai_weight = {
@@ -1650,7 +1650,6 @@ high_definition_television = {
   
 	unlocking_technologies = {
 		user_interface
-		high_speed_rail_tech
 	}
 
 	ai_weight = { value = 1 }
@@ -1725,6 +1724,7 @@ advanced_personal_computer = {
 	unlocking_technologies = {
 		personal_computer
 		parallel_computing_architecture
+		high_definition_television
 	}
 
 	modifier = {

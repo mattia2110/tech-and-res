@@ -1,0 +1,204 @@
+# Early Progressist Ideologies
+
+je_old_progressive_ideologies = {
+	icon = "gfx/interface/icons/event_icons/event_election.dds"
+
+	group = je_group_historical_content
+
+	immediate = {
+		set_variable = {
+			name = has_progressist_ideology
+			value = 1
+		}
+	}
+
+	is_shown_when_inactive = {
+		NOT = { has_variable = has_progressist_ideology }
+	}
+
+	possible = {
+		OR = {
+            has_modifier = dev_4_country
+            has_modifier = dev_5_country
+		}
+		NOT = { has_variable = has_progressist_ideology }
+		OR = {
+			has_technology_researched = human_rights
+			has_technology_researched = dubois_nature_protection_tech
+		}
+	}
+
+	complete = {
+		OR = {
+			has_technology_researched = human_rights
+			has_technology_researched = dubois_nature_protection_tech
+		}
+	}
+
+	on_complete = {
+		ig:ig_landowners = {
+			add_ideology = ideology_extreme_traditionalist
+		}
+		ig:ig_armed_forces = {
+			add_ideology = ideology_extreme_traditionalist
+			add_ideology = ideology_neg_ambientalist
+		}
+		ig:ig_devout = {
+			add_ideology = ideology_extreme_traditionalist
+		}
+		ig:ig_industrialists = {
+			add_ideology = ideology_moderate_progressist
+			add_ideology = ideology_neg_ambientalist
+		}
+		ig:ig_intelligentsia = {
+			add_ideology = ideology_moderate_progressist
+			add_ideology = ideology_moderate_ambientalist
+		}
+		ig:ig_petty_bourgeoisie = {
+			add_ideology = ideology_moderate_traditionalist
+		}
+		ig:ig_rural_folk = {
+			add_ideology = ideology_moderate_traditionalist
+		}
+		ig:ig_trade_unions = {
+			add_ideology = ideology_moderate_progressist
+			add_ideology = ideology_neg_ambientalist
+		}
+	}
+
+	weight = 2
+}
+
+# Mid Progressist Ideologies
+
+je_mid_progressive_ideologies = {
+	icon = "gfx/interface/icons/event_icons/event_election.dds"
+
+	group = je_group_historical_content
+
+	immediate = {
+		change_variable = {
+			name = has_progressist_ideology
+			add = 1
+		}
+	}
+
+	is_shown_when_inactive = {
+		var:has_progressist_ideology = 1
+	}
+
+	possible = {
+		OR = {
+            has_modifier = dev_4_country
+            has_modifier = dev_5_country
+		}
+		var:has_progressist_ideology = 1
+		has_technology_researched = socialdemocracy
+	}
+
+	complete = {
+		has_technology_researched = socialdemocracy
+	}
+
+	on_complete = {
+		# ig:ig_landowners = {
+		# 	remove_ideology = ideology_extreme_traditionalist
+		# }
+		ig:ig_armed_forces = {
+			remove_ideology = ideology_extreme_traditionalist
+			add_ideology = ideology_moderate_traditionalist
+		}
+		ig:ig_devout = {
+			remove_ideology = ideology_extreme_traditionalist
+			add_ideology = ideology_moderate_traditionalist
+			add_ideology = ideology_moderate_ambientalist
+		}
+		# ig:ig_industrialists = {
+		# 	remove_ideology = ideology_moderate_progressist
+		# }
+		# ig:ig_intelligentsia = {
+		# 	remove_ideology = ideology_moderate_progressist
+		# }
+		ig:ig_petty_bourgeoisie = {
+			add_ideology = ideology_neg_ambientalist
+		}
+		ig:ig_rural_folk = {
+			add_ideology = ideology_moderate_ambientalist
+		}
+		ig:ig_trade_unions = {
+			remove_ideology = ideology_moderate_progressist
+			add_ideology = ideology_extreme_progressist
+			remove_ideology = ideology_neg_ambientalist
+			add_ideology = ideology_moderate_ambientalist
+		}
+	}
+
+	weight = 2
+}
+
+# Late Progressist Ideologies
+
+je_late_progressive_ideologies = {
+	icon = "gfx/interface/icons/event_icons/event_election.dds"
+
+	group = je_group_historical_content
+
+	immediate = {
+		change_variable = {
+			name = has_progressist_ideology
+			add = 1
+		}
+	}
+
+	is_shown_when_inactive = {
+		var:has_progressist_ideology = 2
+	}
+
+	possible = {
+		OR = {
+            has_modifier = dev_4_country
+            has_modifier = dev_5_country
+		}
+		var:has_progressist_ideology = 2
+		has_technology_researched = neoliberism
+	}
+
+	complete = {
+		has_technology_researched = neoliberism
+	}
+
+	on_complete = {
+		ig:ig_landowners = {
+			remove_ideology = ideology_extreme_traditionalist
+			add_ideology = ideology_neoliberal_progressist
+		}
+		# ig:ig_armed_forces = {
+		# 	remove_ideology = ideology_moderate_traditionalist
+		# }
+		# ig:ig_devout = {
+		# 	remove_ideology = ideology_moderate_traditionalist
+		# }
+		ig:ig_industrialists = {
+			remove_ideology = ideology_moderate_progressist
+			add_ideology = ideology_neoliberal_progressist
+			remove_ideology = ideology_neg_ambientalist
+			add_ideology = ideology_neoliberal_ambientalist
+		}
+		ig:ig_intelligentsia = {
+			remove_ideology = ideology_moderate_progressist
+			add_ideology = ideology_extreme_progressist
+		}
+		# ig:ig_petty_bourgeoisie = {
+		# 	remove_ideology = ideology_moderate_traditionalist
+		# }
+		ig:ig_rural_folk = {
+			remove_ideology = ideology_moderate_ambientalist
+			add_ideology = ideology_extreme_ambientalist
+		}
+		# ig:ig_trade_unions = {
+		# 	remove_ideology = ideology_extreme_progressist
+		# }
+	}
+
+	weight = 2
+}

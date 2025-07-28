@@ -205,6 +205,7 @@ market_studies = {
 	category = society
 	modifier = {
 		state_pop_qualifications_mult = 0.05
+		country_max_companies_add = 1
 	}
 	unlocking_technologies = {
 		mass_surveillance
@@ -325,9 +326,7 @@ funded_research_projects = {
 
 	modifier = {
 		building_university_throughput_add = 0.1
-		country_production_tech_spread_mult = 0.5
-		country_military_tech_spread_mult = 0.5
-		country_society_tech_spread_mult = 0.5
+		country_tech_spread_mult = 0.33
 	}
 
 	ai_weight = { value = 1 }
@@ -346,7 +345,8 @@ prefabricated_concrete_buildings = {
 	}
 
 	modifier = {
-		building_construction_sector_throughput_add = 0.1
+		building_construction_sector_throughput_add = 0.05
+		state_building_construction_sector_max_level_add = 5
 	}
 
 	ai_weight = {
@@ -434,9 +434,7 @@ multinational_corporations = {
 	modifier = {
 		country_max_companies_add = 1
 		country_influence_mult = 0.1
-		country_production_tech_spread_mult = 0.5
-		country_military_tech_spread_mult = 0.5
-		country_society_tech_spread_mult = 0.5
+		country_tech_spread_mult = 0.33
 	}
 	unlocking_technologies = {
 		financial_deregulation
@@ -511,10 +509,10 @@ neoliberism = {
 	texture = "gfx/interface/icons/invention_icons/neoliberism.dds"
 	category = society
 	modifier = {
+		country_max_companies_add = 1
 		country_authority_mult = -0.2
 		country_minting_mult = -0.2
 		country_loan_interest_rate_add = -0.02
-		state_capitalists_investment_pool_efficiency_mult = 0.05
 		state_shopkeepers_investment_pool_efficiency_mult = -0.05
 		building_nationalization_cost_mult = 0.25
 		state_political_strength_from_wealth_mult = 0.35
@@ -583,7 +581,6 @@ counterculture = {
 	unlocking_technologies = {
 		international_organizations
 		mass_propaganda
-		mass_surveillance
 	}
 		
 	ai_weight = {
@@ -987,7 +984,9 @@ cloud_computing = {
 	era = era_9
 	texture = "gfx/interface/icons/invention_icons/cloud_computing.dds"
 	category = society
+	
 	modifier = {
+		country_max_companies_add = 1
 	}
 	unlocking_technologies = {
 		data_processing
@@ -1077,12 +1076,12 @@ app_economy = {
 	texture = "gfx/interface/icons/invention_icons/app_economy.dds"
 	category = society
 
+	modifier = {
+		country_max_companies_add = 1
+	}
 	unlocking_technologies = {
 		interactive_media
 		internet
-	}
-
-	modifier = {
 	}
 
 	ai_weight = { value = 1 }
