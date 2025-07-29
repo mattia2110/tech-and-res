@@ -5,27 +5,12 @@ je_old_progressive_ideologies = {
 
 	group = je_group_historical_content
 
-	immediate = {
-		set_variable = {
-			name = has_progressist_ideology
-			value = 1
-		}
-	}
-
 	is_shown_when_inactive = {
 		NOT = { has_variable = has_progressist_ideology }
 	}
 
 	possible = {
-		OR = {
-            has_modifier = dev_4_country
-            has_modifier = dev_5_country
-		}
 		NOT = { has_variable = has_progressist_ideology }
-		OR = {
-			has_technology_researched = human_rights
-			has_technology_researched = dubois_nature_protection_tech
-		}
 	}
 
 	complete = {
@@ -33,9 +18,17 @@ je_old_progressive_ideologies = {
 			has_technology_researched = human_rights
 			has_technology_researched = dubois_nature_protection_tech
 		}
+		OR = {
+            has_modifier = dev_4_country
+            has_modifier = dev_5_country
+		}
 	}
 
 	on_complete = {
+		set_variable = {
+			name = has_progressist_ideology
+			value = 1
+		}
 		ig:ig_landowners = {
 			add_ideology = ideology_extreme_traditionalist
 		}
@@ -76,38 +69,35 @@ je_mid_progressive_ideologies = {
 
 	group = je_group_historical_content
 
-	immediate = {
-		change_variable = {
-			name = has_progressist_ideology
-			add = 1
-		}
-	}
-
 	is_shown_when_inactive = {
 		var:has_progressist_ideology = 1
+		has_variable = has_progressist_ideology
 	}
 
 	possible = {
-		OR = {
-            has_modifier = dev_4_country
-            has_modifier = dev_5_country
-		}
 		var:has_progressist_ideology = 1
-		has_technology_researched = socialdemocracy
 	}
 
 	complete = {
 		has_technology_researched = socialdemocracy
+		OR = {
+            has_modifier = dev_4_country
+            has_modifier = dev_5_country
+		}
 	}
 
 	on_complete = {
+		change_variable = {
+			name = has_progressist_ideology
+			add = 1
+		}
 		# ig:ig_landowners = {
 		# 	remove_ideology = ideology_extreme_traditionalist
 		# }
-		ig:ig_armed_forces = {
-			remove_ideology = ideology_extreme_traditionalist
-			add_ideology = ideology_moderate_traditionalist
-		}
+		# ig:ig_armed_forces = {
+		# 	remove_ideology = ideology_extreme_traditionalist
+		# 	add_ideology = ideology_moderate_traditionalist
+		# }
 		ig:ig_devout = {
 			remove_ideology = ideology_extreme_traditionalist
 			add_ideology = ideology_moderate_traditionalist
@@ -143,31 +133,28 @@ je_late_progressive_ideologies = {
 
 	group = je_group_historical_content
 
-	immediate = {
-		change_variable = {
-			name = has_progressist_ideology
-			add = 1
-		}
-	}
-
 	is_shown_when_inactive = {
 		var:has_progressist_ideology = 2
+		has_variable = has_progressist_ideology
 	}
 
 	possible = {
-		OR = {
-            has_modifier = dev_4_country
-            has_modifier = dev_5_country
-		}
 		var:has_progressist_ideology = 2
-		has_technology_researched = neoliberism
 	}
 
 	complete = {
 		has_technology_researched = neoliberism
+		OR = {
+            has_modifier = dev_4_country
+            has_modifier = dev_5_country
+		}
 	}
 
 	on_complete = {
+		change_variable = {
+			name = has_progressist_ideology
+			add = 1
+		}
 		ig:ig_landowners = {
 			remove_ideology = ideology_extreme_traditionalist
 			add_ideology = ideology_neoliberal_progressist

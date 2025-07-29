@@ -3598,10 +3598,11 @@ pm_alkaline_fuel_cell = {
 			goods_input_electricity_add = 20 #600
 			goods_input_gas_add = 15 #250
 			goods_input_water_add = 10 #500
-			goods_output_batteries_add = -20 #600
+			#goods_output_batteries_add = -20 #600
 			
 			# Output goods
-			goods_output_fuel_cells_add = 45 # 5000
+			#goods_output_fuel_cells_add = 45 # 5000
+			goods_output_batteries_add = 55
 		}
 	}
 
@@ -3629,10 +3630,11 @@ pm_pem_fuel_cell = {
 			goods_input_electricity_add = 20 #600
 			goods_input_gas_add = 15 #250
 			goods_input_water_add = 10 #500
-			goods_output_batteries_add = -30 #600
+			#goods_output_batteries_add = -30 #600
 			
 			# Output goods
-			goods_output_fuel_cells_add = 70 # 5000
+			#goods_output_fuel_cells_add = 70 # 5000
+			goods_output_batteries_add = 85
 		}
 	}
 
@@ -6829,7 +6831,8 @@ pm_rocket_probes = {
 			goods_input_steel_add = 10 #1000
 			goods_input_alloys_add = 5 
 			goods_input_electroniccomponents_add = 5
-			goods_input_missiles_add = 5
+			#goods_input_missiles_add = 5
+			goods_input_ammunition_add = 8
 			goods_input_robotics_add = 2
 			goods_input_light_fuel_add = 2
 
@@ -6859,7 +6862,8 @@ pm_rocket_satellites = {
 			goods_input_aluminium_add = 15 #1000
 			goods_input_alloys_add = 10
 			goods_input_processors_add = 5
-			goods_input_missiles_add = 5
+			#goods_input_missiles_add = 5
+			goods_input_ammunition_add = 8
 			goods_input_robotics_add = 3
 			goods_input_light_fuel_add = 3
 
@@ -6889,7 +6893,8 @@ pm_rocket_spacecraft = {
 			goods_input_aluminium_add = 15 #1000
 			goods_input_alloys_add = 15
 			goods_input_computer_add = 5
-			goods_input_missiles_add = 10
+			#goods_input_missiles_add = 10
+			goods_input_ammunition_add = 16
 			goods_input_robotics_add = 4
 			goods_input_light_fuel_add = 4
 
@@ -7051,15 +7056,14 @@ pm_theater = {
 	}
 	building_modifiers = {
 		workforce_scaled = {
-			goods_output_organized_data_add = 0.5
-			goods_output_fine_art_add = 2
+			goods_output_organized_data_add = 1
 			goods_input_groceries_add = 5
 			goods_input_furniture_add = 5
 		}
 
 		level_scaled = {
-			building_employment_shopkeepers_add = 50
-			building_employment_clerks_add = 50
+			building_employment_shopkeepers_add = 100
+			building_employment_clerks_add = 450
 		}
 	}
 }
@@ -7073,15 +7077,14 @@ pm_cinema = {
 
 	building_modifiers = {
 		workforce_scaled = {
-			goods_output_organized_data_add = 0.5
-			goods_output_fine_art_add = 2
+			goods_output_organized_data_add = 1
 			goods_input_groceries_add = 5
 			goods_input_furniture_add = 5
 		}
 
 		level_scaled = {
-			building_employment_shopkeepers_add = 50
-			building_employment_clerks_add = 50
+			building_employment_shopkeepers_add = 100
+			building_employment_clerks_add = 450
 		}
 	}
 }
@@ -7108,11 +7111,6 @@ local_plays_pm = {
 			goods_input_fabric_add = 5
 
 			goods_output_elgar_music_add = 15
-			goods_output_fine_art_add = -2
-		}
-		level_scaled = {
-			building_employment_laborers_add = 200
-			building_employment_machinists_add = 50
 		}
 	}
 
@@ -7132,26 +7130,14 @@ classic_plays_pm = {
 		pm_theater
 	}
 
-	state_modifiers = {
-		unscaled = {
-			state_middle_strata_standard_of_living_add = 0.05
-			state_upper_strata_standard_of_living_add = 0.05
-		}
-	}
-
 	building_modifiers = {
 		workforce_scaled = {
 			goods_input_elgar_instruments_add = 10
 			goods_input_clothes_add = 5
 			goods_input_luxury_clothes_add = 5
 
-			goods_output_elgar_music_add = 10
-			goods_output_fine_art_add = 3
-		}
-		level_scaled = {
-			building_employment_laborers_add = 200
-			building_employment_machinists_add = 50
-			building_employment_academics_add = 100
+			goods_output_elgar_music_add = 15
+			goods_output_fine_art_add = 2
 		}
 	}
 }
@@ -7167,26 +7153,14 @@ modern_productions_pm = {
 		pm_theater
 	}
 
-	state_modifiers = {
-		unscaled = {
-			state_middle_strata_standard_of_living_add = 0.05
-			state_upper_strata_standard_of_living_add = 0.05
-		}
-	}
-
 	building_modifiers = {
 		workforce_scaled = {
 			goods_input_elgar_instruments_add = 10
 			goods_input_clothes_add = 5
 			goods_input_luxury_clothes_add = 10
 
-			goods_output_elgar_music_add = 20
-			goods_output_fine_art_add = 2
-		}
-		level_scaled = {
-			building_employment_laborers_add = 200
-			building_employment_machinists_add = 50
-			building_employment_academics_add = 100
+			goods_output_elgar_music_add = 25
+			goods_output_fine_art_add = 1
 		}
 	}
 }
@@ -7208,13 +7182,7 @@ kinetoscope = {
 			goods_input_electricity_add = 2
 			goods_input_copperwires_add = 2
 
-			goods_output_elgar_music_add = 5
-		}
-		level_scaled = {
-			building_employment_laborers_add = 100
-			building_employment_machinists_add = 50
-			building_employment_engineers_add = 50
-			building_employment_academics_add = 50
+			goods_output_elgar_music_add = 10
 		}
 	}
 }
@@ -7229,12 +7197,6 @@ silent_films = {
 	unlocking_production_methods = {
 		pm_cinema
 	}
-
-	state_modifiers = {
-		unscaled = {
-			state_middle_strata_standard_of_living_add = 0.05
-		}
-	}
 	
 	building_modifiers = {
 		workforce_scaled = {
@@ -7242,14 +7204,7 @@ silent_films = {
 			goods_input_electricity_add = 5
 			goods_input_copperwires_add = 5
 
-			goods_output_elgar_music_add = 8
-			goods_output_fine_art_add = 1
-		}
-		level_scaled = {
-			building_employment_laborers_add = 100
-			building_employment_machinists_add = 50
-			building_employment_engineers_add = 50
-			building_employment_academics_add = 50
+			goods_output_elgar_music_add = 15
 		}
 	}
 }
@@ -7264,13 +7219,6 @@ celluloide_films = {
 	unlocking_production_methods = {
 		pm_cinema
 	}
-
-	state_modifiers = {
-		unscaled = {
-			state_lower_strata_standard_of_living_add = 0.05
-			state_middle_strata_standard_of_living_add = 0.05
-		}
-	}
 	
 	building_modifiers = {
 		workforce_scaled = {
@@ -7279,14 +7227,7 @@ celluloide_films = {
 			goods_input_electroniccomponents_add = 5
 			goods_input_elgar_instruments_add = 5
 
-			goods_output_elgar_music_add = 15
-			goods_output_fine_art_add = 2
-		}
-		level_scaled = {
-			building_employment_laborers_add = 100
-			building_employment_machinists_add = 50
-			building_employment_engineers_add = 50
-			building_employment_academics_add = 50
+			goods_output_elgar_music_add = 25
 		}
 	}
 }
@@ -7301,13 +7242,6 @@ blockbuster_films = {
 	unlocking_production_methods = {
 		pm_cinema
 	}
-
-	state_modifiers = {
-		unscaled = {
-			state_lower_strata_standard_of_living_add = 0.05
-			state_middle_strata_standard_of_living_add = 0.05
-		}
-	}
 	
 	building_modifiers = {
 		workforce_scaled = {
@@ -7316,7 +7250,7 @@ blockbuster_films = {
 			goods_input_processors_add = 4
 			goods_input_elgar_instruments_add = 5
 
-			goods_output_elgar_music_add = 30
+			goods_output_elgar_music_add = 35
 		}
 		level_scaled = {
 			building_employment_laborers_add = 100
@@ -7757,7 +7691,8 @@ pm_high_speed_trains = {
 	building_modifiers = {
 		workforce_scaled = {
 			goods_input_engines_add = 5 # 300
-			goods_input_fuel_cells_add = 1 #100
+			#goods_input_fuel_cells_add = 1 #100
+			goods_input_batteries_add = 2
 			goods_input_aluminium_add = 2 # 100
 			goods_input_steel_add = 3 #150
 			goods_input_processors_add = 1 #130
@@ -7792,7 +7727,8 @@ pm_high_speed_trains_principle_transport_3 = {
 	building_modifiers = {
 		workforce_scaled = {
 			goods_input_engines_add = 6 # 360
-			goods_input_fuel_cells_add = 1 #100
+			#goods_input_fuel_cells_add = 1 #100
+			goods_input_batteries_add = 2
 			goods_input_aluminium_add = 3 # 150
 			goods_input_steel_add = 5 #250
 			goods_input_processors_add = 1 #130
