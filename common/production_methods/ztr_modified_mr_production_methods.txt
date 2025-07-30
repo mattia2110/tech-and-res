@@ -10,20 +10,20 @@ pm_mendelejew_coal_liquefaction = {
 	building_modifiers = {
 		workforce_scaled = { 
 			# input goods
-			goods_input_coal_add = 40 #1200
+			goods_input_coal_add = 65 #1200
 			goods_input_electricity_add = 10 #300
 			goods_input_electroniccomponents_add = 5 #400
 			goods_input_engines_add = 5 #300 #2200
 
 			# output goods
 			goods_output_light_fuel_add = 30 #2100
-			goods_output_heavy_fuel_add = 15 #350 #2450
+			goods_output_heavy_fuel_add = 25 #350 #2450
 		}				
 
 		level_scaled = {
-			building_employment_laborers_add = 1000
-			building_employment_machinists_add = 500
-			building_employment_engineers_add = 500
+			building_employment_laborers_add = 2000
+			building_employment_machinists_add = 800
+			building_employment_engineers_add = 300
 		}
 	}
 	required_input_goods = electricity
@@ -41,27 +41,28 @@ pm_mendelejew_isoprene = {
 	building_modifiers = {
 		workforce_scaled = { 
 			# input goods
-			goods_input_sulfur_add = 8	# 400
-			goods_input_light_fuel_add = 15	# 1050
-			goods_input_silk_add = 25	# 1000
-			goods_input_electricity_add = 10 #300 
-			goods_input_electroniccomponents_add = 2 # 160 #2910
+			goods_input_sulfur_add = 6	# 300
+			goods_input_silk_add = 10	# 400
+			goods_input_electricity_add = 10 #300
+			goods_input_light_fuel_add = 15 #900
 
 			# output goods
-			goods_output_rubber_add = 80 #3200
-		}				
-
+			goods_output_rubber_add = 70 #2800
+		}
+		
 		level_scaled = {
-			building_employment_laborers_add = 1000
-			building_employment_machinists_add = 500
-			building_employment_engineers_add = 500
+			# employment
+			building_employment_laborers_add = 2200 #1900/3600=0.66
+			building_employment_machinists_add = 800
+			building_employment_engineers_add = 300
 		}
 	}
+
 	required_input_goods = electricity
 }
 
 pm_mendelejev_butadiene = {
-	texture = "gfx/interface/icons/production_method_icons/mendelejew_isoprene_pm.dds"
+	texture = "gfx/interface/icons/production_method_icons/mendelejew_butadiene_pm.dds"
 
 	unlocking_technologies = {
 		elastomers
@@ -70,22 +71,24 @@ pm_mendelejev_butadiene = {
 	building_modifiers = {
 		workforce_scaled = { 
 			# input goods
-			goods_input_sulfur_add = 8	# 400
-			goods_input_light_fuel_add = 10	# 700
-			goods_input_silk_add = 25	# 1000
+			goods_input_sulfur_add = 14	# 700
+			goods_input_silk_add = 10	# 400
 			goods_input_electricity_add = 10 #300
-			goods_input_electroniccomponents_add = 2 # 160 # 2560
+			goods_input_light_fuel_add = 15 #900
+			goods_input_electroniccomponents_add = 5 # 400
 
 			# output goods
-			goods_output_rubber_add = 80 #3200
-		}				
-
+			goods_output_rubber_add = 100 #4000
+		}
+		
 		level_scaled = {
-			building_employment_laborers_add = 1000
-			building_employment_machinists_add = 500
-			building_employment_engineers_add = 500
+			# employment
+			building_employment_laborers_add = 2200 #1900/3600=0.66
+			building_employment_machinists_add = 800
+			building_employment_engineers_add = 300
 		}
 	}
+
 	required_input_goods = electricity
 }
 
@@ -268,6 +271,28 @@ pm_elgar_modern_ballet = {
 
 #Instruments
 
+pm_elgar_artisan_instruments = {
+	texture = "gfx/interface/icons/production_method_icons/elgar_artisan_instruments_pm.dds"
+
+	unlocking_technologies = {
+		elgar_classicism_tech
+	}			
+	
+	building_modifiers = {
+		workforce_scaled = {
+			# input goods
+			goods_input_wood_add = 30
+			
+			# output goods
+			goods_output_elgar_instruments_add = 25
+		}
+
+		level_scaled = {
+			building_employment_laborers_add = 1000
+		}
+	}
+}
+
 pm_elgar_artisan_brass_instruments = {
 	texture = "gfx/interface/icons/production_method_icons/elgar_artisan_instruments_pm.dds"
 
@@ -278,16 +303,16 @@ pm_elgar_artisan_brass_instruments = {
 	building_modifiers = {
 		workforce_scaled = {
 			# input goods
-			goods_input_wood_add = 10
-			goods_input_copper_add = 3
-			goods_input_commonores_add = 2
+			goods_input_wood_add = 30
+			goods_input_copper_add = 5
+			goods_input_commonores_add = 5
 			
 			# output goods
-			goods_output_elgar_instruments_add = 25
+			goods_output_elgar_instruments_add = 35
 		}
 
 		level_scaled = {
-			building_employment_laborers_add = 750
+			building_employment_laborers_add = 500
 			building_employment_machinists_add = 250
 		}
 	}
@@ -303,16 +328,16 @@ pm_elgar_industrial_instruments = {
 	building_modifiers = {
 		workforce_scaled = {
 			# input goods
-			goods_input_wood_add = 10
-			goods_input_alloys_add = 5
-			goods_input_tools_add = 5
+			goods_input_wood_add = 30 #200
+			goods_input_alloys_add = 10 #250
+			goods_input_tools_add = 5 #200
 			
 			# output goods
-			goods_output_elgar_instruments_add = 35
+			goods_output_elgar_instruments_add = 45 #1400
 		}
 
 		level_scaled = {
-			building_employment_laborers_add = 500
+			building_employment_laborers_add = 250
 			building_employment_machinists_add = 500		
 		}
 	}
@@ -328,17 +353,16 @@ pm_elgar_electric_instruments = {
 	building_modifiers = {
 		workforce_scaled = {
 			# input goods
-			goods_input_alloys_add = 5
-			goods_input_copperwires_add = 2
-			goods_input_electroniccomponents_add = 3
-			goods_input_tools_add = 5
+			goods_input_alloys_add = 10
+			goods_input_plastics_add = 10
+			goods_input_electroniccomponents_add = 5
+			goods_input_tools_add = 10
 			
 			# output goods
-			goods_output_elgar_instruments_add = 45
+			goods_output_elgar_instruments_add = 60
 		}
 
 		level_scaled = {
-			building_employment_laborers_add = 250
 			building_employment_machinists_add = 500
 			building_employment_engineers_add = 250		
 		}
@@ -355,16 +379,17 @@ pm_elgar_digital_instruments = {
 	building_modifiers = {
 		workforce_scaled = {
 			# input goods
-			goods_input_alloys_add = 5
-			goods_input_processors_add = 2
-			goods_input_tools_add = 5
+			goods_input_plastics_add = 10
+			goods_input_alloys_add = 15
+			goods_input_processors_add = 5
+			goods_input_tools_add = 10
 			
 			# output goods
-			goods_output_elgar_instruments_add = 50
+			goods_output_elgar_instruments_add = 75
 		}
 
 		level_scaled = {
-			building_employment_machinists_add = 500
+			building_employment_machinists_add = 250
 			building_employment_engineers_add = 250	
 		}
 	}
@@ -585,17 +610,19 @@ pm_private_charters = {
 
 	building_modifiers = {
 		workforce_scaled = {
-			goods_input_civil_planes_add = 25
-			goods_input_oil_add = 35
-			goods_input_light_fuel_add = 15
-			goods_output_air_travel_add = 50
-			goods_output_services_add = 35
-			goods_output_transportation_add = 35
+			goods_input_civil_planes_add = 15
+			goods_input_electricity_add = 10
+			goods_input_telephones_add = 5
+			goods_output_services_add = 60 #65
+			goods_output_transportation_add = 75 #75*30 = 2250
+
+			# Morgenrote compatch basta sostituire l'output con
+			# goods_output_services_add = 50
+			# goods_output_air_travel_add = 20
 		}
 		level_scaled = {
-			building_employment_laborers_add = 2000
-			building_employment_machinists_add = 1500
-			building_employment_bureaucrats_add = 500
+			building_employment_laborers_add = 1000
+			building_employment_machinists_add = 1000
 		}
 	}
 	
@@ -616,18 +643,23 @@ pm_regional_routes = {
 
 	building_modifiers = {
 		workforce_scaled = {
+			goods_input_civil_planes_add = 20
 			goods_input_telephones_add = 10
+			goods_input_telecommunications_add = 5
 			goods_input_electricity_add = 10
-			goods_input_civil_planes_add = 25
-			goods_output_air_travel_add = 50
-			goods_output_services_add = 50
-			goods_output_transportation_add = 40
+			goods_output_services_add = 70
+			goods_output_transportation_add = 115
+
+			# Morgenrote compatch basta sostituire l'output con
+			# goods_output_services_add = 60
+			# goods_output_air_travel_add = 30
+
 		}
 		level_scaled = {
-			building_employment_laborers_add = 1500
-			building_employment_machinists_add = 1500
-			building_employment_clerks_add = 500
-			building_employment_bureaucrats_add = 500
+			building_employment_laborers_add = 1000
+			building_employment_machinists_add = 750
+			building_employment_engineers_add = 250
+			building_employment_clerks_add = 250
 		}
 	}
 	
@@ -647,19 +679,22 @@ pm_domestic_routes = {
 
 	building_modifiers = {
 		workforce_scaled = {
-			goods_input_radios_add = 5
-			goods_input_telephones_add = 10
-			goods_input_electricity_add = 10
 			goods_input_civil_planes_add = 25
-			goods_output_air_travel_add = 50
-			goods_output_services_add = 60
-			goods_output_transportation_add = 60
+			goods_input_telephones_add = 10
+			goods_input_telecommunications_add = 25
+			goods_input_electricity_add = 10
+			goods_output_services_add = 100
+			goods_output_transportation_add = 130 #130 * 30 = 3900
+
+			# Morgenrote compatch basta sostituire l'output con
+			# goods_output_services_add = 85
+			# goods_output_air_travel_add = 35
 		}
 		level_scaled = {
-			building_employment_laborers_add = 1000
-			building_employment_machinists_add = 1500
-			building_employment_clerks_add = 1000
-			building_employment_bureaucrats_add = 500
+			building_employment_laborers_add = 750
+			building_employment_machinists_add = 500
+			building_employment_engineers_add = 250
+			building_employment_clerks_add = 500
 		}
 	}
 
@@ -668,6 +703,8 @@ pm_domestic_routes = {
 			state_pollution_generation_add = 15
 		}
 	}
+
+	required_input_goods = electricity
 }
 
 pm_international_routes = {
@@ -679,19 +716,22 @@ pm_international_routes = {
 
 	building_modifiers = {
 		workforce_scaled = {
-			goods_input_radios_add = 5
+			goods_input_civil_planes_add = 30
 			goods_input_telephones_add = 10
+			goods_input_telecommunications_add = 50
 			goods_input_electricity_add = 10
-			goods_input_civil_planes_add = 25
-			goods_output_air_travel_add = 80
-			goods_output_services_add = 80
-			goods_output_transportation_add = 70
+			goods_output_services_add = 140
+			goods_output_transportation_add = 140 #140 * 30 = 4200
+
+			# Morgenrote compatch basta sostituire l'output con
+			# goods_output_services_add = 130
+			# goods_output_air_travel_add = 35
 		}
 		level_scaled = {
-			building_employment_laborers_add = 1000
-			building_employment_machinists_add = 1500
-			building_employment_clerks_add = 1000
-			building_employment_bureaucrats_add = 500
+			building_employment_laborers_add = 500
+			building_employment_machinists_add = 500
+			building_employment_engineers_add = 250
+			building_employment_clerks_add = 500
 		}
 	}
 
@@ -700,6 +740,8 @@ pm_international_routes = {
 			state_pollution_generation_add = 15
 		}
 	}
+
+	required_input_goods = electricity
 }
 
 pm_air_passenger_only = {
@@ -709,21 +751,21 @@ pm_air_passenger_only = {
 pm_air_mail = {
 	texture = "gfx/interface/icons/production_method_icons/air_mail.dds"
 
+	# unlocking_technologies = {
+	# 	air_mail
+	# }
+
 	building_modifiers = {
 		workforce_scaled = {
 			goods_input_paper_add = 20
-			goods_output_services_add = 15
-			goods_output_air_travel_add = -5
+			goods_output_services_add = 25
 		}
 		level_scaled = {
-			building_employment_clerks_add = 500
+			building_employment_clerks_add = 250
 		}
 	}
 	
 	state_modifiers = {
-		workforce_scaled = {
-			state_pollution_generation_add = 5
-		}
 		unscaled = {
 			building_government_administration_throughput_add = 0.05
 		}
@@ -733,29 +775,26 @@ pm_air_mail = {
 pm_air_freight = {
 	texture = "gfx/interface/icons/production_method_icons/air_freight.dds"
 
-	#unlocking_technologies = {
-	#	steel_railway_cars
-	#}
+	# unlocking_technologies = {
+	# 	air_logistics
+	# }
 
 	building_modifiers = {
 		workforce_scaled = {
-			goods_input_engines_add = 12
-			goods_input_tools_add = 5
-			goods_input_light_fuel_add = 10
-			goods_output_transportation_add = 40
+			goods_input_light_fuel_add = 10 #700
+			goods_output_transportation_add = 30 #900
 		}
 		level_scaled = {
-			building_employment_laborers_add = 500
-			building_employment_clerks_add = 500
+			building_employment_machinists_add = 250
 		}
 	}
 	
 	state_modifiers = {
 		workforce_scaled = {
-			state_infrastructure_add = 1
+			state_infrastructure_add = 2
 			state_pollution_generation_add = 5
 		}
-	}		
+	}	
 }
 
 #Rotary Press

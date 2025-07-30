@@ -529,8 +529,7 @@ pm_multiway_transport_building_robotics_industry = {
 		}
 
 		level_scaled = {
-			building_employment_laborers_add = -700
-			building_employment_machinists_add = -200
+			building_employment_laborers_add = -1000
 		}
 	}
 }
@@ -1420,8 +1419,7 @@ pm_robotic_building_robotics_industry = {
 		}
 
 		level_scaled = {
-			building_employment_laborers_add = -500
-			building_employment_machinists_add = -500
+			building_employment_machinists_add = -1000
 		}
 	}
 	required_input_goods = electricity
@@ -2691,11 +2689,11 @@ pm_bakelite_molding = {
 			# input goods
 			goods_input_electricity_add = 20 #600
 			goods_input_coal_add = 30 #900
-			goods_input_wood_add = 10 #200
+			goods_input_wood_add = 25 #200
 			goods_input_water_add = 2 #100 #1800
 			
 			# output goods
-			goods_output_plastics_add = 60 #2250
+			goods_output_plastics_add = 65 #2700
 		}
 
 		level_scaled = {
@@ -2727,11 +2725,11 @@ pm_celluloid_processing = {
 			# input goods
 			goods_input_electricity_add = 20 #600
 			goods_input_liquor_add = 5 #150
-			goods_input_wood_add = 55 #1100
+			goods_input_wood_add = 65 #1000
 			goods_input_water_add = 2 #100 
 			
 			# output goods
-			goods_output_plastics_add = 60 #2250
+			goods_output_plastics_add = 65 #2250
 		}
 
 		level_scaled = {
@@ -2766,7 +2764,7 @@ pm_polyethylene_synthesis = {
 			goods_input_light_fuel_add = 25 #1600
 			
 			# output goods
-			goods_output_plastics_add = 95 #4500
+			goods_output_plastics_add = 95 #4275
 		}
 
 		level_scaled = {
@@ -2845,7 +2843,6 @@ pm_transistor_radios = {
 		}
 	}
 
-	required_input_goods = telecommunications
 }
 
 pm_digital_sound_devices = {
@@ -2873,8 +2870,6 @@ pm_digital_sound_devices = {
 			building_employment_engineers_add = 250
 		}
 	}
-
-	required_input_goods = telecommunications
 }
 
 # Electric industries TELEVISIONS
@@ -2909,7 +2904,6 @@ pm_cathode_tube_televisions = {
 		}		
 	}
 
-	required_input_goods = telecommunications
 }
 
 pm_colored_cathode_tube_televisions = {
@@ -2937,8 +2931,6 @@ pm_colored_cathode_tube_televisions = {
 			building_employment_engineers_add = 250
 		}
 	}
-
-	required_input_goods = telecommunications
 }
 
 pm_hd_televisions = {
@@ -2965,8 +2957,6 @@ pm_hd_televisions = {
 			building_employment_engineers_add = 250
 		}
 	}
-
-	required_input_goods = telecommunications
 }
 
 pm_smart_televisions = {
@@ -2994,8 +2984,6 @@ pm_smart_televisions = {
 			building_employment_engineers_add = 250
 		}
 	}
-
-	required_input_goods = telecommunications
 }
 
 # Telephones
@@ -3050,8 +3038,6 @@ pm_bakelite_telephones = {
 			building_employment_engineers_add = 1000
 		}
 	}
-
-	required_input_goods = telecommunications
 }
 
 pm_touch_tone_telephones = {
@@ -3078,8 +3064,6 @@ pm_touch_tone_telephones = {
 			building_employment_engineers_add = 1000
 		}
 	}
-
-	required_input_goods = telecommunications
 }
 
 pm_cell_phones = {
@@ -3105,8 +3089,6 @@ pm_cell_phones = {
 			building_employment_engineers_add = 1000
 		}
 	}
-
-	required_input_goods = telecommunications
 }
 
 pm_smartphones = {
@@ -3134,8 +3116,6 @@ pm_smartphones = {
 			building_employment_engineers_add = 1000
 		}
 	}
-
-	required_input_goods = telecommunications
 }
 
 # Electronic Components industries
@@ -3595,14 +3575,14 @@ pm_alkaline_fuel_cell = {
 			# Input goods
 			goods_input_advancedores_add = 5  #800
 			goods_input_alloys_add = 10 #500
-			goods_input_electricity_add = 20 #600
+			#goods_input_electricity_add = 20 #600
 			goods_input_gas_add = 15 #250
 			goods_input_water_add = 10 #500
 			#goods_output_batteries_add = -20 #600
 			
 			# Output goods
 			#goods_output_fuel_cells_add = 45 # 5000
-			goods_output_batteries_add = 55
+			goods_output_batteries_add = 35 #2100
 		}
 	}
 
@@ -3627,14 +3607,14 @@ pm_pem_fuel_cell = {
 			# Input goods
 			goods_input_advancedores_add = 10  #800
 			goods_input_rare_earths_add = 20
-			goods_input_electricity_add = 20 #600
+			#goods_input_electricity_add = 20 #600
 			goods_input_gas_add = 15 #250
 			goods_input_water_add = 10 #500
 			#goods_output_batteries_add = -30 #600
 			
 			# Output goods
 			#goods_output_fuel_cells_add = 70 # 5000
-			goods_output_batteries_add = 85
+			goods_output_batteries_add = 55
 		}
 	}
 
@@ -3644,7 +3624,7 @@ pm_pem_fuel_cell = {
 #Computer
 
 pm_no_computer_production = {
-	texture = "gfx/interface/icons/production_method_icons/disabled_purple.dds"
+	texture = "gfx/interface/icons/production_method_icons/no_computer.dds"
 }
 
 pm_computer_teleprinters = {
@@ -5461,30 +5441,7 @@ pm_electric_pumped_water = {
     }
 }
 
-pm_electric_pumped_desalinated_water = {
-    texture = "gfx/interface/icons/production_method_icons/pm_electric_pumped_water.dds"
-	unlocking_technologies = {
-		sea_water_desalination
-	}
-    
-    building_modifiers = {
-        workforce_scaled = {
-            # input goods
-            goods_input_tools_add = 30 #600
-			goods_input_electricity_add = 40 #600
-			goods_input_engines_add = 30 #900 #2100
-            
-            # output goods
-            goods_output_water_add = 90 #2500
-        }
-        
-        level_scaled = {
-            building_employment_laborers_add = 2000
-			building_employment_machinists_add = 400
-			building_employment_engineers_add = 400
-        }
-    }
-}
+# Desalinated has been moved to ports, and they are 5 times smaller than water plants.
 
 pm_advanced_water_filtration  = {
     texture = "gfx/interface/icons/production_method_icons/pm_advanced_water_filtration.dds"
@@ -5513,6 +5470,38 @@ pm_advanced_water_filtration  = {
     }
 }
 
+pm_no_desalinated_water = {
+	texture = "gfx/interface/icons/production_method_icons/pm_no_desalinated_water.dds"
+}
+
+pm_electric_pumped_desalinated_water = {
+    texture = "gfx/interface/icons/production_method_icons/pm_electric_pumped_water.dds"
+	unlocking_technologies = {
+		sea_water_desalination
+	}
+    
+    building_modifiers = {
+        workforce_scaled = {
+            # input goods
+            goods_input_tools_add = 6 #240
+			goods_input_electricity_add = 4 #120
+			goods_input_engines_add = 4 #240
+			goods_input_plastics_add = 2 #90
+            
+            # output goods
+            goods_output_water_add = 20 #1000
+        }
+        
+        level_scaled = {
+            building_employment_laborers_add = 300
+			building_employment_machinists_add = 80
+			building_employment_engineers_add = 80
+        }
+    }
+
+	required_input_goods = electricity
+}
+
 pm_advanced_desalinated_water_filtration = {
     texture = "gfx/interface/icons/production_method_icons/pm_advanced_water_filtration.dds"
 
@@ -5523,19 +5512,20 @@ pm_advanced_desalinated_water_filtration = {
     building_modifiers = {
         workforce_scaled = {
             # input goods
-            goods_input_tools_add = 20 #400
-			goods_input_electricity_add = 60 #900
-			goods_input_engines_add = 40 #1200
-			goods_input_electroniccomponents_add = 10 #400 #2900
+            goods_input_tools_add = 4 #160
+			goods_input_electricity_add = 8 #240
+			goods_input_engines_add = 6 #360
+			goods_input_electroniccomponents_add = 2 #160
+			goods_input_plastics_add = 2 #90
             
             # output goods
-            goods_output_water_add = 120 #3500
+            goods_output_water_add = 26 #1300
         }
         
         level_scaled = {
-            building_employment_laborers_add = 2000
-			building_employment_machinists_add = 200
-			building_employment_engineers_add = 200
+            building_employment_laborers_add = 250
+			building_employment_machinists_add = 80
+			building_employment_engineers_add = 80
         }
     }
 }
@@ -5580,7 +5570,7 @@ pm_rotary_valve_engine_building_water_plant = {
 pm_plastics_pipes_and_pet = {
 	texture = "gfx/interface/icons/production_method_icons/pm_bottles.dds"
 	unlocking_technologies = {
-		polyethylene
+		hdpe
 	}
 	building_modifiers = {
         workforce_scaled = {
@@ -5905,10 +5895,10 @@ pm_modern_urban_utilities = {
 
 	building_modifiers = {
 		workforce_scaled = {
-			goods_input_alloys_add = 0.3
-			goods_input_electricity_add = 5
+			goods_input_alloys_add = 0.5
+			goods_input_electricity_add = 6
 			goods_input_copperwires_add = 2
-			goods_input_gas_add = 5
+			goods_input_telecommunications_add = 2
 			goods_output_services_add = 25
 		}
 
@@ -5947,11 +5937,10 @@ pm_smart_city_infrastructure = {
 	building_modifiers = {
 		workforce_scaled = {
 			goods_input_alloys_add = 0.5
-			goods_input_electricity_add = 10
-			goods_input_copperwires_add = 2
-			goods_input_telecommunications_add = 2
-			goods_input_gas_add = 5
-			goods_input_water_add = 3 # Park maintenance
+			goods_input_electricity_add = 8
+			goods_input_copperwires_add = 4
+			goods_input_telecommunications_add = 4
+			goods_input_water_add = 4 # Park maintenance
 			goods_output_services_add = 35
 		}
 
@@ -7007,7 +6996,6 @@ pm_local_computer_networks = {
 			building_employment_clerks_add = 500
 		}
 	}
-	required_input_goods = telecommunications
 }
 
 pm_rudimental_data_networks = {
@@ -7043,7 +7031,6 @@ pm_rudimental_data_networks = {
 			building_employment_clerks_add = 500
 		}
 	}
-	required_input_goods = telecommunications
 }
 
 #Entertainment Industry
@@ -7091,10 +7078,18 @@ pm_cinema = {
 
 no_theater = {
 	texture = "gfx/interface/icons/production_method_icons/no_theater.dds"
+
+	unlocking_production_methods = {
+		pm_cinema
+	}
 }
 
 no_cinema = {
 	texture = "gfx/interface/icons/production_method_icons/no_cinema.dds"
+
+	unlocking_production_methods = {
+		pm_theater
+	}
 }
 
 local_plays_pm = {
@@ -7106,9 +7101,8 @@ local_plays_pm = {
 
 	building_modifiers = {
 		workforce_scaled = {
-			goods_input_elgar_instruments_add = 10
 			goods_input_clothes_add = 5
-			goods_input_fabric_add = 5
+			goods_input_fabric_add = 25
 
 			goods_output_elgar_music_add = 15
 		}
@@ -7155,11 +7149,11 @@ modern_productions_pm = {
 
 	building_modifiers = {
 		workforce_scaled = {
-			goods_input_elgar_instruments_add = 10
+			goods_input_radios_add = 2
 			goods_input_clothes_add = 5
 			goods_input_luxury_clothes_add = 10
 
-			goods_output_elgar_music_add = 25
+			goods_output_elgar_music_add = 20
 			goods_output_fine_art_add = 1
 		}
 	}
@@ -7224,8 +7218,8 @@ celluloide_films = {
 		workforce_scaled = {
 			goods_input_plastics_add = 10
 			goods_input_electricity_add = 8
-			goods_input_electroniccomponents_add = 5
-			goods_input_elgar_instruments_add = 5
+			goods_input_copperwires_add = 8
+			goods_input_radios_add = 2
 
 			goods_output_elgar_music_add = 25
 		}
@@ -7246,17 +7240,11 @@ blockbuster_films = {
 	building_modifiers = {
 		workforce_scaled = {
 			goods_input_plastics_add = 15
-			goods_input_electricity_add = 15
-			goods_input_processors_add = 4
-			goods_input_elgar_instruments_add = 5
+			goods_input_electricity_add = 12
+			goods_input_copperwires_add = 10
+			goods_input_televisions_add = 2
 
 			goods_output_elgar_music_add = 35
-		}
-		level_scaled = {
-			building_employment_laborers_add = 100
-			building_employment_machinists_add = 50
-			building_employment_engineers_add = 50
-			building_employment_academics_add = 50
 		}
 	}
 }
@@ -7476,65 +7464,65 @@ pm_diesel_pump_building_rare_earths_mine = {
 	}
 }
 
-pm_no_gasification = {
-	texture = "gfx/interface/icons/production_method_icons/no_gasification.dds"
-}
+# pm_no_gasification = {
+# 	texture = "gfx/interface/icons/production_method_icons/no_gasification.dds"
+# }
 
-pm_gasification_building_coal_mine = {
-	texture = "gfx/interface/icons/production_method_icons/gasification.dds"
+# pm_gasification_building_coal_mine = {
+# 	texture = "gfx/interface/icons/production_method_icons/gasification.dds"
 
-	unlocking_technologies = {
-		coal_gasification
-	}
+# 	unlocking_technologies = {
+# 		coal_gasification
+# 	}
 
-	state_modifiers = {
-		workforce_scaled = {
-			state_pollution_generation_add = 10
-		}
-	}
+# 	state_modifiers = {
+# 		workforce_scaled = {
+# 			state_pollution_generation_add = 10
+# 		}
+# 	}
 	
-	building_modifiers = {
-		workforce_scaled = {
-			# input goods
-			goods_input_water_add = 1 #50
-			goods_output_coal_add = -5 #150
+# 	building_modifiers = {
+# 		workforce_scaled = {
+# 			# input goods
+# 			goods_input_water_add = 1 #50
+# 			goods_output_coal_add = -5 #150
 			
-			# output goods
-			goods_output_gas_add = 7 #210
-		}
-	}
-}
+# 			# output goods
+# 			goods_output_gas_add = 7 #210
+# 		}
+# 	}
+# }
 
-pm_gasification_building_oil_refinerie = {
-	texture = "gfx/interface/icons/production_method_icons/gasification.dds"
+# pm_gasification_building_mendelejew_hydrogenation_plants = {
+# 	texture = "gfx/interface/icons/production_method_icons/gasification.dds"
 
-	unlocking_technologies = {
-		oil_turbine
-	}
+# 	unlocking_technologies = {
+# 		oil_turbine
+# 	}
 
-	unlocking_production_methods = {
-		pm_thermal_cracking
-		pm_vacuum_distillation
-		pm_fractional_distillation
-	}
+# 	unlocking_production_methods = {
+# 		pm_thermal_cracking
+# 		pm_vacuum_distillation
+# 		pm_fractional_distillation
+# 	}
 
-	state_modifiers = {
-		workforce_scaled = {
-			state_pollution_generation_add = 10
-		}
-	}
+# 	state_modifiers = {
+# 		workforce_scaled = {
+# 			state_pollution_generation_add = 10
+# 		}
+# 	}
 	
-	building_modifiers = {
-		workforce_scaled = {
-			# input goods
-			goods_input_water_add = 1 #50
-			goods_output_heavy_fuel_add = -5 #350
+# 	building_modifiers = {
+# 		workforce_scaled = {
+# 			# input goods
+# 			goods_input_water_add = 1 #50
+# 			goods_output_heavy_fuel_add = -5 #350
 			
-			# output goods
-			goods_output_gas_add = 15 #450
-		}
-	}
-}
+# 			# output goods
+# 			goods_output_gas_add = 15 #450
+# 		}
+# 	}
+# }
 
 # Trains
 
@@ -8083,5 +8071,109 @@ pm_launched_guided_projectiles = {
 			building_employment_machinists_add = 1250
 			building_employment_engineers_add = 750
 		}
+	}
+}
+
+# Recycling
+
+pm_no_recycling = {
+	texture = "gfx/interface/icons/production_method_icons/no_recycling.dds"
+
+	disallowing_laws = {
+		law_basic_protection
+		law_active_restoration
+	}
+}
+
+pm_steel_recycling = {
+	texture = "gfx/interface/icons/production_method_icons/steel_recycling.dds"
+
+	unlocking_technologies = {
+		direct_reduced_iron
+	}
+
+	building_modifiers = {
+		workforce_scaled = {
+			goods_output_steel_add = 1.5 #75
+		}
+	}
+
+	disallowing_laws = {
+		law_no_protection
+	}
+}
+
+pm_aluminium_recycling = {
+	texture = "gfx/interface/icons/production_method_icons/aluminium_recycling.dds"
+
+	unlocking_technologies = {
+		advanced_electric_arc_processes
+	}
+
+	building_modifiers = {
+		workforce_scaled = {
+			goods_output_aluminium_add = 1.5 #75
+		}
+	}
+
+	disallowing_laws = {
+		law_no_protection
+	}
+}
+
+pm_paper_recycling = {
+	texture = "gfx/interface/icons/production_method_icons/paper_recycling.dds"
+
+	unlocking_technologies = {
+		paper_recycling
+	}
+
+	building_modifiers = {
+		workforce_scaled = {
+			goods_output_paper_add = 2 #60
+		}
+	}
+
+	disallowing_laws = {
+		law_no_protection
+	}
+}
+
+pm_plastic_recycling = {
+	texture = "gfx/interface/icons/production_method_icons/plastic_recycling.dds"
+
+	unlocking_technologies = {
+		plastic_recovery
+	}
+
+	building_modifiers = {
+		workforce_scaled = {
+			goods_output_plastics_add = 1 #45
+		}
+	}
+
+	disallowing_laws = {
+		law_no_protection
+	}
+}
+
+pm_mixed_recycling = {
+	texture = "gfx/interface/icons/production_method_icons/mixed_recycling.dds"
+
+	unlocking_technologies = {
+		urban_sustainability
+	}
+
+	building_modifiers = {
+		workforce_scaled = {
+			goods_output_steel_add = 0.5
+			goods_output_aluminium_add = 0.5
+			goods_output_paper_add = 0.5
+			goods_output_plastics_add = 0.25
+		}
+	}
+
+	disallowing_laws = {
+		law_no_protection
 	}
 }

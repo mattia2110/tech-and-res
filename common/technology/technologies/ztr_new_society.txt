@@ -923,7 +923,39 @@ videogames = {
 	}
 }
 
+ambientalism = {
+	era = era_8
+	texture = "gfx/interface/icons/invention_icons/ambientalism.dds"
+	category = society
+	modifier = {
+
+	}
+	unlocking_technologies = {
+		transnational_activism
+		multinational_corporations
+	}
+	ai_weight = {
+		value = 1
+	}
+}
+
 # Era 9
+
+circular_economy = {
+	era = era_9
+	texture = "gfx/interface/icons/invention_icons/circular_economy.dds"
+	category = society
+	modifier = {
+		state_pollution_reduction_health_mult = 0.1 #This is made in order to create the problem of pollution in the game
+	}
+	unlocking_technologies = {
+		ambientalism
+		globalization
+	}
+	ai_weight = {
+		value = 1
+	}
+}
 
 interactive_media = {
 	era = era_9
@@ -958,23 +990,6 @@ internet = {
 		country_influence_mult = 0.1
 	}
 		
-	ai_weight = {
-		value = 1
-	}
-}
-
-ambientalism = {
-	era = era_9
-	texture = "gfx/interface/icons/invention_icons/ambientalism.dds"
-	category = society
-	modifier = {
-		state_pollution_reduction_health_mult = 0.05 #This is made in order to create the problem of pollution in the game
-		building_renewable_energy_power_plant_throughput_add = 0.05
-	}
-	unlocking_technologies = {
-		transnational_activism
-		globalization
-	}
 	ai_weight = {
 		value = 1
 	}
@@ -1112,7 +1127,7 @@ urban_sustainability = {
 
     unlocking_technologies = {
         interactive_media
-        ambientalism
+        circular_economy
     }
 
     modifier = {

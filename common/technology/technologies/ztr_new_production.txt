@@ -358,7 +358,7 @@ advanced_wire = {
 	
 	unlocking_technologies = {
 		alkaline_battery
-		selective_mineral_extraction
+		#selective_mineral_extraction
 		rudimental_home_appliances
 	}
 
@@ -794,6 +794,7 @@ horizontal_drilling = {
 	
 	unlocking_technologies = {
 		hdpe
+		gas_liquefaction
 	}
 
 	ai_weight = {
@@ -952,6 +953,7 @@ sea_water_desalination = {
 	
 	unlocking_technologies = {
 		hdpe
+		hydroponic_farming
 	}
 
 	ai_weight = {
@@ -1017,7 +1019,8 @@ modern_transport = {
 	category = production
 	
 	unlocking_technologies = {
-		thermal_cracking
+		#thermal_cracking
+		enhanced_cracking_distillation
 		mechanical_arms
 	}
 
@@ -1290,7 +1293,6 @@ hydraulic_fracturing = {
 	unlocking_technologies = {
 		advanced_mining
 		horizontal_drilling
-		gas_liquefaction
 	}
 
 	ai_weight = {
@@ -1331,7 +1333,6 @@ acquafarm_systems = {
 	category = production
 	
 	unlocking_technologies = {	
-		hydroponic_farming
 		sea_water_desalination
 	}
 
@@ -1374,7 +1375,6 @@ micro_processors = {
 	category = production
 
 	unlocking_technologies = {
-		integrated_circuits
 		mechatronics
 	}
 
@@ -1500,9 +1500,9 @@ rare_earths_advanced_purification = {
 	category = production
 	
 	unlocking_technologies = {
-		rare_earths
+		#rare_earths
 		advanced_electric_arc_processes
-		#advanced_mining
+		advanced_mining
 	}
 
 	ai_weight = {
@@ -1543,7 +1543,37 @@ automated_industrial_robots = {
 	}
 }
 
+paper_recycling = {
+	era = era_8
+	texture = "gfx/interface/icons/invention_icons/paper_recycling.dds"
+	category = production
+
+	unlocking_technologies = {
+		home_delivery_networks
+		advanced_mining
+	}
+
+	ai_weight = {
+		value = 1
+	}
+}
+
 # ERA 9
+
+plastic_recovery = {
+	era = era_9
+	texture = "gfx/interface/icons/invention_icons/plastic_recovery.dds"
+	category = production
+
+	unlocking_technologies = {
+		paper_recycling
+		rare_earths_advanced_purification
+	}
+
+	ai_weight = {
+		value = 1
+	}
+}
 
 iot_driven_manufacturing = {
     # Unlocks production methods for IoT-driven Manufacturing in factories
@@ -1662,7 +1692,6 @@ parallel_computing_architecture = {
 	category = production
 
 	unlocking_technologies = {
-		micro_processors
 		embedded_control_systems
 	}
 
@@ -1683,8 +1712,7 @@ cobots = {
     category = production
 
     unlocking_technologies = {
-        mechatronics               # robotica industriale :contentReference[oaicite:4]{index=4}
-        embedded_control_systems   # sistemi di controllo integrati :contentReference[oaicite:5]{index=5}
+        parallel_computing_architecture
         iot_driven_manufacturing   # infrastruttura IoT (nuova techno)
     }
 

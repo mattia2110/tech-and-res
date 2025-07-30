@@ -22,7 +22,7 @@ building_manzoni_publishing_industry = {
 		has_building = building_urban_center				
 	}
 
-	required_construction = construction_cost_medium
+	required_construction = construction_cost_high
 
 	ownership_type = self
 
@@ -44,7 +44,7 @@ building_instrument_workshops = {
 		pmg_data_optimization_light_industry
 	}
 
-	required_construction = construction_cost_medium
+	required_construction = construction_cost_high
 
 	ownership_type = self
 
@@ -213,7 +213,7 @@ building_railway = {
 	background = "gfx/interface/icons/building_icons/backgrounds/building_panel_bg_railways.dds"
 }
 
-# Mendelejev Rubber & Oil
+# Mendelejev Rubber & Oil (In Tech & Res these are respectively Refinery Industry and Petrochemical Industry)
 
 #Hydrogenation Plants
 building_mendelejew_hydrogenation_plants = {
@@ -221,11 +221,14 @@ building_mendelejew_hydrogenation_plants = {
 	icon = "gfx/interface/icons/building_icons/building_mendelejew_hydrogenation_plants.dds"
 
 	unlocking_technologies = {
-		mendelejew_synthetic_fuel_tech
+		oil_distillation
 	}
 
 	production_method_groups = {
-		pmg_mendelejew_coal_liquefaction #Coal liquefaction
+		pmg_fuel_production
+		#pmg_gasification_building_mendelejew_hydrogenation_plants
+		pmg_automation_building_general
+		pmg_transport_automation_building_general
 		pmg_data_optimization_light_industry
 	}
 
@@ -242,11 +245,14 @@ building_mendelejew_synthetic_rubber_factory = {
 	icon = "gfx/interface/icons/building_icons/building_mendelejew_synthetic_rubber_factory.dds"
 
 	unlocking_technologies = {
-		mendelejew_synthetic_rubber_tech
+		plastics
 	}
 
 	production_method_groups = {
-		pmg_mendelejew_isoprene #Isoprene and butadiene
+		pmg_plastics_production
+		#pmg_mendelejew_isoprene
+		pmg_automation_building_general
+		pmg_transport_automation_building_general
 		pmg_data_optimization_light_industry
 	}
 
