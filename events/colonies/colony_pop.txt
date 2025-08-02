@@ -1,15 +1,15 @@
-namespace = indonesia_pop
+namespace = colony_pop
 
-# Indonesia during dutch colonialism
-indonesia_pop.1 = {
+# Indonesia and Philippines during dutchand spanish colonialism
+colony_pop.1 = {
 	dlc = dlc_tech_res
 	type = country_event
 	placement = root
 
 	duration = 1
 
-	title = indonesia_pop.1.t
-	desc = indonesia_pop.1.d
+	title = colony_pop.1.t
+	desc = colony_pop.1.d
 
 	event_image = {
 		video = "asia_farmers_market"
@@ -21,20 +21,26 @@ indonesia_pop.1 = {
 	icon = "gfx/interface/icons/event_icons/event_newspaper.dds"
 
 	trigger = {
-		c:DEI ?= root
+		OR = {
+			c:DEI ?= root
+			c:PHI ?= root
+		}
 		year < 1920
 		NOT = { has_modifier = colonial_agricultural_shift }
 		NOT = { has_modifier = colonial_agricultural_shift_player }
 	}
 
 	immediate = {
-		c:NET = {
-			save_scope_as = ned_scope
+		overlord = {
+			save_scope_as = overlord_scope
+		}
+		root = {
+			save_scope_as = root_scope
 		}
 	}
 
 	option = {
-		name = indonesia_pop.1.a
+		name = colony_pop.1.a
 		default_option = yes
 		if = {
 			limit = {

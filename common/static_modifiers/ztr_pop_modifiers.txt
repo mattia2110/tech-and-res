@@ -1,35 +1,72 @@
-population_of_country_modernizing = {
-	icon = gfx/interface/icons/timed_modifier_icons/modifier_industry_positive.dds
-	state_birth_rate_mult = 0.2
-} #It last for 50 years after modernization.
-
 #Global Bonus from 1900
 modern_medicine_0 = {
 	icon = gfx/interface/icons/timed_modifier_icons/modifier_pharma_positive.dds
-	state_mortality_mult = 0.1
+	state_mortality_mult = 0.8
 }
 
 #Global Bonus from 1890
 modern_medicine_1 = {
 	icon = gfx/interface/icons/timed_modifier_icons/modifier_pharma_positive.dds
-	state_mortality_mult = 0.05
+	state_mortality_mult = 0.45
 }
 
 #Global Bonus from 1940
 modern_medicine_2 = {
 	icon = gfx/interface/icons/timed_modifier_icons/modifier_pharma_positive.dds
-	state_mortality_mult = -0.2
-	state_birth_rate_mult = 0.1
+	state_mortality_mult = -0.05
 }
 
 #Global Bonus from 1990
 modern_medicine_3 = {
 	icon = gfx/interface/icons/timed_modifier_icons/modifier_pharma_positive.dds
-	state_mortality_mult = -0.25
-	state_birth_rate_mult = -0.05
+	state_mortality_mult = -0.15
 }
 
-# population_of_country_crisis = {
-# 	icon = gfx/interface/icons/modifier_icons/population.dds
-# 	state_birth_rate_mult = -0.1
-# }
+# Demographic Stages
+# After a country reach a certain level of development, birth rate is no more proportional to quality of life.
+# So, since the standard of living reach 13 the country enter in a sequence of stages:
+# Stage 0: Birth rate is high, mortality is high, population growth is stagnant.
+demographic_stage_0 = {
+	icon = gfx/interface/icons/timed_modifier_icons/demographic_stage_0.dds
+	state_birth_rate_mult = 0.45
+	#state_mortality_mult = 0.35
+}
+# Stage 1: Birth rate is very high, mortality is medium, population growth is high. SoL expected stage: 11.
+demographic_stage_1 = {
+	icon = gfx/interface/icons/timed_modifier_icons/demographic_stage_1.dds
+	state_birth_rate_mult = 0.45
+	#state_mortality_mult = 0.15
+}
+# Stage 2: Birth rate is high, mortality is low, population growth is high. SoL expected stage: 14.
+demographic_stage_2 = {
+	icon = gfx/interface/icons/timed_modifier_icons/demographic_stage_2.dds
+	state_birth_rate_mult = 0.4
+	#state_mortality_mult = 0.05
+}
+# Stage 3: Birth rate is medium, mortality is low, population growth is medium. SoL expected stage: 17.
+demographic_stage_3 = {
+	icon = gfx/interface/icons/timed_modifier_icons/demographic_stage_3.dds
+	state_birth_rate_mult = 0.3
+}
+# Stage 4: Birth rate is low, mortality is very low, population growth is low. SoL expected stage: 20.
+demographic_stage_4 = {
+	icon = gfx/interface/icons/timed_modifier_icons/demographic_stage_4.dds
+	state_birth_rate_mult = 0.15
+}
+# Stage 5: Birth rate is very low, mortality is very low, population growth is stagnant. SoL expected stage: 23.
+demographic_stage_5 = {
+	icon = gfx/interface/icons/timed_modifier_icons/demographic_stage_5.dds
+	state_birth_rate_mult = -0.15
+}
+# Stage 6: Birth rate is very very low, mortality is very low, population growth is negative. SoL expected stage: 26.
+demographic_stage_6 = {
+	icon = gfx/interface/icons/timed_modifier_icons/demographic_stage_6.dds
+	state_birth_rate_mult = -0.3
+}
+
+# A stage is reached when one of these conditions is met:
+# Or Standard of living is 3 higher than expected previous stage.
+# Or X years passed since last stage was reached. In order to simulate the transition.
+# The X depends on culture, religion, literacy and specific stage.
+# Actually, if every nation would be in stage 6, the richer nations would have an higher birth rate than poorer nations.
+

@@ -59,12 +59,6 @@ civilizing_mission = {
 			}
 			add = 1
 		}
-		if = {
-			limit = {
-				kai_eligible_for_american_migration_je = yes
-			}
-			add = 1
-		}
 	}
 }
 
@@ -87,12 +81,11 @@ mutual_funds = {
 		value = 1
 		if = {
 			limit = { 
-				OR = {
-					c:USA ?= ROOT # Gilded Age modifier
-				}
+				exists = c:USA # Gilded Age modifier
+				c:USA = ROOT 
 			}
 			add = 2
-		}	
+		}
 	}
 }
 

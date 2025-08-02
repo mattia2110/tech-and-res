@@ -1,0 +1,800 @@
+je_demographic_0_to_1 = {
+	icon = "gfx/interface/icons/event_icons/medical_degrees.dds"
+	group = je_group_technology
+
+	is_shown_when_inactive = {
+		has_modifier = demographic_stage_0
+	}
+
+	possible = {
+		has_modifier = demographic_stage_0
+	}
+
+	immediate = {
+		set_variable = {
+			name = demographic_stage_var
+			value = 0
+		}
+	}
+
+	on_yearly_pulse = {
+		effect = {
+			# Country parameters conditions
+			if = {
+				limit = {
+					NOT = { has_modifier = dev_0_country }
+				}
+				change_variable = {
+					name = demographic_stage_var
+					add = 0.5
+				}
+			}
+			if = {
+				limit = {
+					average_sol > 11
+				}
+				change_variable = {
+					name = demographic_stage_var
+					add = 1
+				}
+			}
+			if = {
+				limit = {
+					literacy_rate > 0.4
+				}
+				change_variable = {
+					name = demographic_stage_var
+					add = 0.25
+				}
+			}
+			# Flavor conditions
+			if = {
+				limit = {
+					OR = {
+						country_has_state_religion = rel:sunni
+						country_has_state_religion = rel:shiite
+						AND = {
+							exists = c:DEI
+							c:DEI = this #Since Dutch East Indies is prostestant, but actually Indonesia is muslim
+						}
+						AND = {
+							exists = c:BIC
+							c:BIC = this #Since British Indian Ocean Territory is protestant, but actually Pakistan and Bangladesh are Muslim
+						}
+					}
+				}
+				change_variable = {
+					name = demographic_stage_var
+					add = -0.3
+				}
+			}
+		}
+	}
+
+	complete = {
+		scope:journal_entry = { is_goal_complete = yes }
+	}
+
+	on_complete = {
+		remove_state_demographic_modifier = yes
+		add_modifier = demographic_stage_1
+	}
+
+	transferable = yes
+
+	current_value = {
+		value = var:demographic_stage_var
+	}
+
+	goal_add_value = {
+		value = 30
+	}
+
+	progressbar = yes
+
+	weight = 1
+}
+
+je_demographic_1_to_2 = {
+	icon = "gfx/interface/icons/event_icons/medical_degrees.dds"
+	group = je_group_technology
+
+	is_shown_when_inactive = {
+		has_modifier = demographic_stage_1
+	}
+
+	possible = {
+		has_modifier = demographic_stage_1
+	}
+
+	immediate = {
+		set_variable = {
+			name = demographic_stage_var
+			value = 0
+		}
+	}
+
+	on_yearly_pulse = {
+		effect = {
+			change_variable = {
+				name = demographic_stage_var
+				add = 1
+			}
+			# Country parameters conditions
+			if = {
+				limit = {
+					NOT = { has_modifier = dev_0_country }
+					NOT = { has_modifier = dev_1_country }
+				}
+				change_variable = {
+					name = demographic_stage_var
+					add = 0.25
+				}
+			}
+			if = {
+				limit = {
+					average_sol > 14
+				}
+				change_variable = {
+					name = demographic_stage_var
+					add = 1
+				}
+			}
+			if = {
+				limit = {
+					literacy_rate > 0.5
+				}
+				change_variable = {
+					name = demographic_stage_var
+					add = 0.25
+				}
+			}
+			# Laws conditions
+			if = {
+				limit = {
+					OR = {
+						has_law = law_type:law_oligarchy
+						has_law = law_type:law_theocracy
+						has_law = law_type:law_elder_council
+						NOT = { has_law = law_type:law_slavery_banned }
+					}
+				}
+				change_variable = {
+					name = demographic_stage_var
+					add = -0.3
+				}
+			}
+			# Flavor conditions
+			if = {
+				limit = {
+					OR = {
+						country_has_state_religion = rel:sunni
+						country_has_state_religion = rel:shiite
+						AND = {
+							exists = c:DEI
+							c:DEI = this #Since Dutch East Indies is prostestant, but actually Indonesia is muslim
+						}
+						AND = {
+							exists = c:BIC
+							c:BIC = this #Since British Indian Ocean Territory is protestant, but actually Pakistan and Bangladesh are Muslim
+						}
+					}
+				}
+				change_variable = {
+					name = demographic_stage_var
+					add = -0.3
+				}
+			}
+			if = {
+				limit = {
+					has_building = building_white_house
+				}
+				change_variable = {
+					name = demographic_stage_var
+					add = -0.3
+				}
+			}
+		}
+	}
+
+	complete = {
+		scope:journal_entry = { is_goal_complete = yes }
+	}
+
+	on_complete = {
+		remove_state_demographic_modifier = yes
+		add_modifier = demographic_stage_2
+	}
+
+	transferable = yes
+
+	current_value = {
+		value = var:demographic_stage_var
+	}
+
+	goal_add_value = {
+		value = 30
+	}
+
+	progressbar = yes
+
+	weight = 1
+}
+
+je_demographic_2_to_3 = {
+	icon = "gfx/interface/icons/event_icons/medical_degrees.dds"
+	group = je_group_technology
+
+	is_shown_when_inactive = {
+		has_modifier = demographic_stage_2
+	}
+
+	possible = {
+		has_modifier = demographic_stage_2
+	}
+
+	immediate = {
+		set_variable = {
+			name = demographic_stage_var
+			value = 0
+		}
+	}
+
+	on_yearly_pulse = {
+		effect = {
+			change_variable = {
+				name = demographic_stage_var
+				add = 1
+			}
+			# Country parameters conditions
+			if = {
+				limit = {
+					NOT = { has_modifier = dev_0_country }
+					NOT = { has_modifier = dev_1_country }
+					NOT = { has_modifier = dev_2_country }
+				}
+				change_variable = {
+					name = demographic_stage_var
+					add = 0.25
+				}
+			}
+			if = {
+				limit = {
+					average_sol > 17
+				}
+				change_variable = {
+					name = demographic_stage_var
+					add = 1
+				}
+			}
+			if = {
+				limit = {
+					literacy_rate > 0.6
+				}
+				change_variable = {
+					name = demographic_stage_var
+					add = 0.25
+				}
+			}
+			# Laws conditions
+			if = {
+				limit = {
+					OR = {
+						has_law = law_type:law_single_party_state
+						has_law = law_type:law_autocracy
+						has_law = law_type:law_oligarchy
+						has_law = law_type:law_theocracy
+						has_law = law_type:law_elder_council
+						NOT = { has_law = law_type:law_slavery_banned }
+					}
+				}
+				change_variable = {
+					name = demographic_stage_var
+					add = -0.3
+				}
+			}
+			if = {
+				limit = {
+					OR = {
+						has_law = law_type:law_multicultural
+						has_law = law_type:law_no_migration_controls
+					}
+				}
+				change_variable = {
+					name = demographic_stage_var
+					add = -0.1
+				}
+			}
+			# Flavor conditions
+			if = {
+				limit = {
+					OR = {
+						country_has_state_religion = rel:sunni
+						country_has_state_religion = rel:shiite
+						AND = {
+							exists = c:DEI
+							c:DEI = this #Since Dutch East Indies is prostestant, but actually Indonesia is muslim
+						}
+						AND = {
+							exists = c:BIC
+							c:BIC = this #Since British Indian Ocean Territory is protestant, but actually Pakistan and Bangladesh are Muslim
+						}
+					}
+				}
+				change_variable = {
+					name = demographic_stage_var
+					add = -0.3
+				}
+			}
+			if = {
+				limit = {
+					has_building = building_white_house
+				}
+				change_variable = {
+					name = demographic_stage_var
+					add = -0.3
+				}
+			}
+		}
+	}
+
+	complete = {
+		scope:journal_entry = { is_goal_complete = yes }
+	}
+
+	on_complete = {
+		remove_state_demographic_modifier = yes
+		add_modifier = demographic_stage_3
+	}
+
+	transferable = yes
+
+	current_value = {
+		value = var:demographic_stage_var
+	}
+
+	goal_add_value = {
+		value = 30
+	}
+
+	progressbar = yes
+
+	weight = 1
+}
+
+je_demographic_3_to_4 = {
+	icon = "gfx/interface/icons/event_icons/medical_degrees.dds"
+	group = je_group_technology
+
+	is_shown_when_inactive = {
+		has_modifier = demographic_stage_3
+	}
+
+	possible = {
+		has_modifier = demographic_stage_3
+	}
+
+	immediate = {
+		set_variable = {
+			name = demographic_stage_var
+			value = 0
+		}
+	}
+
+	on_yearly_pulse = {
+		effect = {
+			change_variable = {
+				name = demographic_stage_var
+				add = 1
+			}
+			# Country parameters conditions
+			if = {
+				limit = {
+					NOT = { has_modifier = dev_0_country }
+					NOT = { has_modifier = dev_1_country }
+					NOT = { has_modifier = dev_2_country }
+					NOT = { has_modifier = dev_3_country }
+				}
+				change_variable = {
+					name = demographic_stage_var
+					add = 0.25
+				}
+			}
+			if = {
+				limit = {
+					average_sol > 20
+				}
+				change_variable = {
+					name = demographic_stage_var
+					add = 1
+				}
+			}
+			if = {
+				limit = {
+					literacy_rate > 0.7
+				}
+				change_variable = {
+					name = demographic_stage_var
+					add = 0.25
+				}
+			}
+			# Laws conditions
+			if = {
+				limit = {
+					OR = {
+						has_law = law_type:law_single_party_state
+						has_law = law_type:law_autocracy
+						has_law = law_type:law_oligarchy
+						has_law = law_type:law_theocracy
+						has_law = law_type:law_elder_council
+						NOT = { has_law = law_type:law_slavery_banned }
+					}
+				}
+				change_variable = {
+					name = demographic_stage_var
+					add = -0.3
+				}
+			}
+			if = {
+				limit = {
+					OR = {
+						has_law = law_type:law_multicultural
+						has_law = law_type:law_no_migration_controls
+					}
+				}
+				change_variable = {
+					name = demographic_stage_var
+					add = -0.2
+				}
+			}
+			# Flavor conditions
+			if = {
+				limit = {
+					OR = {
+						country_has_state_religion = rel:sunni
+						country_has_state_religion = rel:shiite
+						AND = {
+							exists = c:DEI
+							c:DEI = this #Since Dutch East Indies is prostestant, but actually Indonesia is muslim
+						}
+						AND = {
+							exists = c:BIC
+							c:BIC = this #Since British Indian Ocean Territory is protestant, but actually Pakistan and Bangladesh are Muslim
+						}
+					}
+				}
+				change_variable = {
+					name = demographic_stage_var
+					add = -0.3
+				}
+			}
+			if = {
+				limit = {
+					has_building = building_white_house
+				}
+				change_variable = {
+					name = demographic_stage_var
+					add = -0.3
+				}
+			}
+		}
+	}
+
+	complete = {
+		scope:journal_entry = { is_goal_complete = yes }
+	}
+
+	on_complete = {
+		remove_state_demographic_modifier = yes
+		add_modifier = demographic_stage_4
+	}
+
+	transferable = yes
+
+	current_value = {
+		value = var:demographic_stage_var
+	}
+
+	goal_add_value = {
+		value = 30
+	}
+
+	progressbar = yes
+
+	weight = 1
+}
+
+je_demographic_4_to_5 = {
+	icon = "gfx/interface/icons/event_icons/medical_degrees.dds"
+	group = je_group_technology
+
+	is_shown_when_inactive = {
+		has_modifier = demographic_stage_4
+	}
+
+	possible = {
+		has_modifier = demographic_stage_4
+	}
+
+	immediate = {
+		set_variable = {
+			name = demographic_stage_var
+			value = 0
+		}
+	}
+
+	on_yearly_pulse = {
+		effect = {
+			change_variable = {
+				name = demographic_stage_var
+				add = 1
+			}
+			# Country parameters conditions
+			if = {
+				limit = {
+					NOT = { has_modifier = dev_0_country }
+					NOT = { has_modifier = dev_1_country }
+					NOT = { has_modifier = dev_2_country }
+					NOT = { has_modifier = dev_3_country }
+					NOT = { has_modifier = dev_4_country }
+				}
+				change_variable = {
+					name = demographic_stage_var
+					add = 0.25
+				}
+			}
+			if = {
+				limit = {
+					average_sol > 23
+				}
+				change_variable = {
+					name = demographic_stage_var
+					add = 1
+				}
+			}
+			if = {
+				limit = {
+					literacy_rate > 0.75
+				}
+				change_variable = {
+					name = demographic_stage_var
+					add = 0.25
+				}
+			}
+			# Laws conditions
+			if = {
+				limit = {
+					OR = {
+						has_law = law_type:law_single_party_state
+						has_law = law_type:law_autocracy
+						has_law = law_type:law_oligarchy
+						has_law = law_type:law_theocracy
+						has_law = law_type:law_elder_council
+						NOT = { has_law = law_type:law_slavery_banned }
+					}
+				}
+				change_variable = {
+					name = demographic_stage_var
+					add = -0.3
+				}
+			}
+			if = {
+				limit = {
+					OR = {
+						has_law = law_type:law_multicultural
+						has_law = law_type:law_no_migration_controls
+					}
+				}
+				change_variable = {
+					name = demographic_stage_var
+					add = -0.3
+				}
+			}
+			# Flavor conditions
+			if = {
+				limit = {
+					OR = {
+						country_has_state_religion = rel:sunni
+						country_has_state_religion = rel:shiite
+						AND = {
+							exists = c:DEI
+							c:DEI = this #Since Dutch East Indies is prostestant, but actually Indonesia is muslim
+						}
+						AND = {
+							exists = c:BIC
+							c:BIC = this #Since British Indian Ocean Territory is protestant, but actually Pakistan and Bangladesh are Muslim
+						}
+					}
+				}
+				change_variable = {
+					name = demographic_stage_var
+					add = -0.3
+				}
+			}
+			if = {
+				limit = {
+					has_building = building_white_house
+				}
+				change_variable = {
+					name = demographic_stage_var
+					add = -0.3
+				}
+			}
+		}
+	}
+
+	complete = {
+		scope:journal_entry = { is_goal_complete = yes }
+	}
+
+	on_complete = {
+		remove_state_demographic_modifier = yes
+		add_modifier = demographic_stage_5
+	}
+
+	transferable = yes
+
+	current_value = {
+		value = var:demographic_stage_var
+	}
+
+	goal_add_value = {
+		value = 30
+	}
+
+	progressbar = yes
+
+	weight = 1
+}
+
+je_demographic_5_to_6 = {
+	icon = "gfx/interface/icons/event_icons/medical_degrees.dds"
+	group = je_group_technology
+
+	is_shown_when_inactive = {
+		has_modifier = demographic_stage_5
+	}
+
+	possible = {
+		has_modifier = demographic_stage_5
+	}
+
+	immediate = {
+		set_variable = {
+			name = demographic_stage_var
+			value = 0
+		}
+	}
+
+	on_yearly_pulse = {
+		effect = {
+			change_variable = {
+				name = demographic_stage_var
+				add = 1
+			}
+			# Country parameters conditions
+			if = {
+				limit = {
+					NOT = { has_modifier = dev_0_country }
+					NOT = { has_modifier = dev_1_country }
+					NOT = { has_modifier = dev_2_country }
+					NOT = { has_modifier = dev_3_country }
+					NOT = { has_modifier = dev_4_country }
+				}
+				change_variable = {
+					name = demographic_stage_var
+					add = 0.25
+				}
+			}
+			if = {
+				limit = {
+					average_sol > 26
+				}
+				change_variable = {
+					name = demographic_stage_var
+					add = 1
+				}
+			}
+			if = {
+				limit = {
+					literacy_rate > 0.8
+				}
+				change_variable = {
+					name = demographic_stage_var
+					add = 0.25
+				}
+			}
+			# Laws conditions
+			if = {
+				limit = {
+					OR = {
+						has_law = law_type:law_single_party_state
+						has_law = law_type:law_autocracy
+						has_law = law_type:law_oligarchy
+						has_law = law_type:law_theocracy
+						has_law = law_type:law_elder_council
+						NOT = { has_law = law_type:law_slavery_banned }
+					}
+				}
+				change_variable = {
+					name = demographic_stage_var
+					add = -0.3
+				}
+			}
+			if = {
+				limit = {
+					OR = {
+						has_law = law_type:law_multicultural
+						has_law = law_type:law_no_migration_controls
+					}
+				}
+				change_variable = {
+					name = demographic_stage_var
+					add = -0.5
+				}
+			}
+			# Flavor conditions
+			if = {
+				limit = {
+					OR = {
+						country_has_state_religion = rel:sunni
+						country_has_state_religion = rel:shiite
+						AND = {
+							exists = c:DEI
+							c:DEI = this #Since Dutch East Indies is prostestant, but actually Indonesia is muslim
+						}
+						AND = {
+							exists = c:BIC
+							c:BIC = this #Since British Indian Ocean Territory is protestant, but actually Pakistan and Bangladesh are Muslim
+						}
+					}
+				}
+				change_variable = {
+					name = demographic_stage_var
+					add = -0.3
+				}
+			}
+			if = {
+				limit = {
+					has_building = building_white_house
+				}
+				change_variable = {
+					name = demographic_stage_var
+					add = -0.3
+				}
+			}
+			if = {
+				limit = {
+					has_variable = historical_population_of_france_var
+				}
+				change_variable = {
+					name = demographic_stage_var
+					add = -0.3
+				}
+			}
+		}
+	}
+
+	complete = {
+		scope:journal_entry = { is_goal_complete = yes }
+	}
+
+	on_complete = {
+		remove_state_demographic_modifier = yes
+		add_modifier = demographic_stage_6
+	}
+
+	transferable = yes
+
+	current_value = {
+		value = var:demographic_stage_var
+	}
+
+	goal_add_value = {
+		value = 30
+	}
+
+	progressbar = yes
+
+	weight = 1
+}

@@ -3487,6 +3487,13 @@ ai_strategy_default = {
 			}
 		}
 
+		multiply = {
+			value = kai_income_efficiency
+			divide = 0.7
+			min = 0.33
+			max = 1.0
+		}
+
 		max = 200 # No more than 200 from population & rank
 
 		if = {
@@ -3569,25 +3576,33 @@ ai_strategy_default = {
 	wanted_navy_size = {
 		value = 0
 
-		# 1 level of naval base per 500k coastal incorporated population
+		# KAI: These numbers are halved compared to vanilla in order to match up with the numbers in army size
+		# 1 level of naval base per 1 million coastal incorporated population
 		add = {
 			value = cached_ai_incorporated_coastal_population
-			divide = 500000
+			divide = 1000000
 		}
 
-		# 1 level of naval base per 2 million coastal unincorporated population
+		# 1 level of naval base per 4 million coastal unincorporated population
 		add = {
 			value = cached_ai_unincorporated_coastal_population
-			divide = 2000000
+			divide = 4000000
 		}
 
-		# 1 level of naval base per 10 million population in direct overseas subjects
+		# 1 level of naval base per 20 million population in direct overseas subjects
 		add = {
 			value = cached_ai_overseas_subject_population
-			divide = 10000000
+			divide = 20000000
 		}
 
-		max = 100 # No more than 100 from population
+		multiply = {
+			value = kai_income_efficiency
+			divide = 0.7
+			min = 0.33
+			max = 1.0
+		}
+
+		max = 50 # No more than 50 from population
 
 		# 1 level of naval base per 5k income, multiplied by relative incorporated coastal population to total incorporated population
 		if = {
@@ -3641,8 +3656,8 @@ ai_strategy_default = {
 		}
 
 		if = {
-			limit = { has_strategy = ai_strategy_armed_isolationism }
-			multiply = 0.75
+			limit = { has_law_or_variant = law_type:law_isolationism }
+			multiply = 0.5
 		}
 
 		max = 10000
@@ -3797,14 +3812,12 @@ ai_strategy_default = {
 
 	# Add a multiplier to the score AI assigns to particular building groups (default 1)
 	# Using this value in other strategies will result in several multiplications
-	building_group_weights = {
-		bg_power = 5.0
-	}
+	building_group_weights = {}
 
 	# Which buildings should the AI subsidize
 	# Using a different value in a strategy will override this value
 	subsidies = {
-		building_power_plant = must_have
+		building_power_plant = wants_to_have
 		building_railway = must_have
 		building_port = must_have
 	}
@@ -6353,13 +6366,7 @@ ai_strategy_default = {
 			if = {
 				limit = {
 					country_rank >= rank_value:major_power
-					OR = {
-						has_diplomatic_pact = {
-							who = scope:target_country.top_overlord
-							type = rivalry
-						}
-						"ai_ideological_opinion(scope:target_country)" <= -25
-					}
+					"ai_ideological_opinion(scope:target_country)" <= -25
 				}
 				add = 10
 			}

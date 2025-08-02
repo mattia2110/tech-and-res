@@ -1,7 +1,7 @@
 ﻿namespace = ztr_economic_update
 
 
-# Poor-> Developing
+# Economy and Demographic Update
 
 ztr_economic_update.0 = {
 	dlc = dlc_tech_res
@@ -36,7 +36,11 @@ ztr_economic_update.0 = {
 	option = {
 		name = ztr_economic_update.0.a
 		default_option = yes
-		remove_state_economy_modifier = yes
+		hidden_effect = {
+			remove_state_economy_modifier = yes
+			remove_state_demographic_modifier = yes
+		}
+		# Economic Update
 		if = {
 			limit = {
 				get_country_gdp_per < 0.55
@@ -71,7 +75,7 @@ ztr_economic_update.0 = {
 		}
 		else_if = {
 			limit = {
-				get_country_gdp_per < 6.6
+				get_country_gdp_per < 8.8
 			}
 			add_modifier = {
 				name = dev_4_country
@@ -80,6 +84,64 @@ ztr_economic_update.0 = {
 		else = {
 			add_modifier = {
 				name = dev_5_country
+			}
+		}
+		# Demographic Update
+		if = {
+			limit = {
+				average_sol < 11
+				NOT = { country_is_in_europe = yes }
+				NOT = { c:USA = this }
+			}
+			add_modifier = {
+				name = demographic_stage_0
+			}
+		}
+		else_if = {
+			limit = {
+				average_sol < 14
+				NOT = { c:FRA = this }
+			}
+			add_modifier = {
+				name = demographic_stage_1
+			}
+		}
+		else_if = {
+			limit = {
+				average_sol < 17
+				NOT = { c:FRA = this }
+			}
+			add_modifier = {
+				name = demographic_stage_2
+			}
+		}
+		else_if = {
+			limit = {
+				average_sol < 20
+			}
+			add_modifier = {
+				name = demographic_stage_3
+			}
+		}
+		else_if = {
+			limit = {
+				average_sol < 23
+			}
+			add_modifier = {
+				name = demographic_stage_4
+			}
+		}
+		else_if = {
+			limit = {
+				average_sol < 26
+			}
+			add_modifier = {
+				name = demographic_stage_5
+			}
+		}
+		else = {
+			add_modifier = {
+				name = demographic_stage_6
 			}
 		}
 		ai_chance = {
@@ -116,7 +178,9 @@ ztr_economic_update.1 = {
 	option = {
 		name = ztr_economic_update.1.a
 		default_option = yes
-		remove_state_economy_modifier = yes
+		hidden_effect = {
+			remove_state_economy_modifier = yes
+		}
 		add_modifier = {
 			name = dev_1_country
 		}
@@ -154,7 +218,9 @@ ztr_economic_update.2 = {
 	option = {
 		name = ztr_economic_update.2.a
 		default_option = yes
-		remove_state_economy_modifier = yes
+		hidden_effect = {
+			remove_state_economy_modifier = yes
+		}
 		add_modifier = {
 			name = dev_2_country
 		}
@@ -193,7 +259,9 @@ ztr_economic_update.3 = {
 	option = {
 		name = ztr_economic_update.3.a
 		default_option = yes
-		remove_state_economy_modifier = yes
+		hidden_effect = {
+			remove_state_economy_modifier = yes
+		}
 		add_modifier = {
 			name = dev_3_country
 		}
@@ -231,7 +299,9 @@ ztr_economic_update.4 = {
 	option = {
 		name = ztr_economic_update.4.a
 		default_option = yes
-		remove_state_economy_modifier = yes
+		hidden_effect = {
+			remove_state_economy_modifier = yes
+		}
 		add_modifier = {
 			name = dev_4_country
 		}
@@ -263,13 +333,15 @@ ztr_economic_update.5 = {
 	trigger = {
 		game_date >= 1836.1.1
 		has_modifier = dev_4_country
-		get_country_gdp_per > 7
+		get_country_gdp_per > 9
 	}
 
 	option = {
 		name = ztr_economic_update.5.a
 		default_option = yes
-		remove_state_economy_modifier = yes
+		hidden_effect = {
+			remove_state_economy_modifier = yes
+		}
 		add_modifier = {
 			name = dev_5_country
 		}
@@ -301,13 +373,15 @@ ztr_economic_update.6 = {
 	trigger = {
 		game_date >= 1836.1.1
 		has_modifier = dev_5_country
-		get_country_gdp_per < 6.6
+		get_country_gdp_per < 8.6
 	}
 
 	option = {
 		name = ztr_economic_update.6.a
 		default_option = yes
-		remove_state_economy_modifier = yes
+		hidden_effect = {
+			remove_state_economy_modifier = yes
+		}
 		add_modifier = {
 			name = dev_4_country
 		}
@@ -345,7 +419,9 @@ ztr_economic_update.7 = {
 	option = {
 		name = ztr_economic_update.7.a
 		default_option = yes
-		remove_state_economy_modifier = yes
+		hidden_effect = {
+			remove_state_economy_modifier = yes
+		}
 		add_modifier = {
 			name = dev_3_country
 		}
@@ -383,7 +459,9 @@ ztr_economic_update.8 = {
 	option = {
 		name = ztr_economic_update.8.a
 		default_option = yes
-		remove_state_economy_modifier = yes
+		hidden_effect = {
+			remove_state_economy_modifier = yes
+		}
 		add_modifier = {
 			name = dev_2_country
 		}
@@ -421,7 +499,9 @@ ztr_economic_update.9 = {
 	option = {
 		name = ztr_economic_update.9.a
 		default_option = yes
-		remove_state_economy_modifier = yes
+		hidden_effect = {
+			remove_state_economy_modifier = yes
+		}
 		add_modifier = {
 			name = dev_1_country
 		}
@@ -459,7 +539,9 @@ ztr_economic_update.10 = {
 	option = {
 		name = ztr_economic_update.10.a
 		default_option = yes
-		remove_state_economy_modifier = yes
+		hidden_effect = {
+			remove_state_economy_modifier = yes
+		}
 		add_modifier = {
 			name = dev_0_country
 		}

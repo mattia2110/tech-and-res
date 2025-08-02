@@ -18,22 +18,25 @@ france_pop.1 = {
 
 	trigger = {
 		c:FRA ?= root
-		NOT = { has_modifier = historical_population_of_france_1}
-		NOT = { has_modifier = historical_population_of_france_2}
+		NOT = { has_variable = historical_population_of_france_var }
+		year < 1940
 	}
 
 	immediate = {
-
+		set_variable = {
+			name = historical_population_of_france_var
+			value = 0
+		}
 	}
 
 	option = {
 		name = france_pop.1.a
 		default_option = yes
 		hidden_effect = {
-			remove_modifier = historical_population_of_france_1
+			remove_modifier = demographic_stage_3
 		}
 		add_modifier = {
-			name = historical_population_of_france_1
+			name = demographic_stage_3
 		}
 	}
 }
@@ -67,11 +70,58 @@ france_pop.2 = {
 	option = {
 		name = france_pop.2.a
 		default_option = yes
-		hidden_effect = {
-			remove_modifier = historical_population_of_france_2
+		if = {
+			limit = {
+				has_variable = demographic_stage_var
+			}
+			hidden_effect = {
+				change_variable = {
+					name = demographic_stage_var
+					value = 0
+				}
+			}
 		}
-		add_modifier = {
-			name = historical_population_of_france_2
+		else = {
+			hidden_effect = {
+				set_variable = {
+					name = demographic_stage_var
+					value = 0
+				}
+			}
+		}
+
+		if = {
+			limit = {
+				has_modifier = demographic_stage_3
+			}
+			hidden_effect = {
+				remove_modifier = demographic_stage_3
+			}
+			add_modifier = {
+				name = demographic_stage_2
+			}
+		}
+		if = {
+			limit = {
+				has_modifier = demographic_stage_4
+			}
+			hidden_effect = {
+				remove_modifier = demographic_stage_4
+			}
+			add_modifier = {
+				name = demographic_stage_3
+			}
+		}
+		if = {
+			limit = {
+				has_modifier = demographic_stage_5
+			}
+			hidden_effect = {
+				remove_modifier = demographic_stage_5
+			}
+			add_modifier = {
+				name = demographic_stage_4
+			}
 		}
 	}
 }

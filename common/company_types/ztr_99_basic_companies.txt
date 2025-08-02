@@ -516,3 +516,66 @@ company_basic_munitions = {
 		}
 	}
 }
+
+company_basic_food = {
+	icon = "gfx/interface/icons/company_icons/basic_food.dds"
+	background = "gfx/interface/icons/company_icons/company_backgrounds/comp_illu_manufacturing_light.dds"
+
+	flavored_company = no
+
+	uses_dynamic_naming = yes
+
+	dynamic_company_type_names = {
+		"dynamic_company_type_company"
+		"dynamic_company_type_consortium"
+		"dynamic_company_type_corporation"
+		"dynamic_company_type_conglomerate"
+		"dynamic_company_type_syndicate"
+		"dynamic_company_type_combine"
+	}
+
+	building_types = {
+		building_food_industry
+	}
+
+	extension_building_types = {
+		building_livestock_ranch
+		building_wheat_farm
+	}
+
+	possible_prestige_goods = {
+		prestige_good_generic_groceries
+	}
+
+	prestige_goods_trigger = {
+		custom_tooltip = {
+			text = je_prestige_goods_groceries_complete_tt
+			has_variable = prestige_good_generic_groceries_var
+		}
+	}
+
+	possible = {
+		any_scope_state = {
+			is_incorporated = yes
+			any_scope_building = {
+				is_building_type = building_food_industry
+				level >= 5
+			}
+		}
+	}
+
+	prosperity_modifier = {
+		state_standard_of_living_add = 1
+		state_food_security_add = 0.05
+	}
+
+	ai_will_do = {
+		any_scope_state = {
+			is_incorporated = yes
+			any_scope_building = {
+				is_building_type = building_food_industry
+				level >= 3
+			}
+		}
+	}
+}

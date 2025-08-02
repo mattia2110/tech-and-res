@@ -449,160 +449,6 @@ pm_elgar_radio_stations = {
 	}
 }
 
-### Transmission ###
-
-#Physical Transport
-manzoni_pm_physical = {
-	texture = "gfx/interface/icons/production_method_icons/manzoni_transmission_physical.dds"
-	is_default = yes
-	
-	building_modifiers = {
-		workforce_scaled = {
-			goods_output_organized_data_add = 0.5
-		}
-		level_scaled = {
-			building_employment_laborers_add = 2000
-		}
-	}
-}
-
-#Electric Telegraph
-manzoni_pm_electric_telegraph = {
-	texture = "gfx/interface/icons/production_method_icons/manzoni_transmission_telegraph.dds"
-	
-	unlocking_technologies = {
-		electric_telegraph
-	}
-
-	building_modifiers = {
-		workforce_scaled = {
-			goods_input_tools_add = 3 #200
-			goods_input_alloys_add = 2 #100
-			goods_input_electricity_add = 5 #150
-			goods_output_organized_data_add = 1
-		}
-		level_scaled = {
-			building_employment_machinists_add = 250
-			building_employment_laborers_add = 1000
-		}
-	}
-}
-
-#Telephone
-manzoni_pm_telephone = {
-	texture = "gfx/interface/icons/production_method_icons/manzoni_transmission_telephone.dds"
-
-	unlocking_technologies = {
-		telephone
-	}
-
-	building_modifiers = {
-		workforce_scaled = {
-			goods_input_telephones_add = 5
-			goods_input_electricity_add = 5 #150
-			goods_output_organized_data_add = 2
-		}
-		level_scaled = {
-			building_employment_machinists_add = 500
-			building_employment_laborers_add = 500
-		}
-	}
-}
-
-#Radio
-manzoni_pm_radio = {
-	texture = "gfx/interface/icons/production_method_icons/manzoni_transmission_radio.dds"
-	
-	unlocking_technologies = {
-		radio
-	}
-
-	building_modifiers = {
-		workforce_scaled = {
-			goods_input_electricity_add = 5
-			goods_input_radios_add = 5
-			goods_output_organized_data_add = 4
-		}
-		level_scaled = {
-			building_employment_machinists_add = 500
-			building_employment_laborers_add = 600
-		}
-	}
-}
-
-#Cinema
-manzoni_pm_cinema = {
-	texture = "gfx/interface/icons/production_method_icons/manzoni_pm_cinema.dds"
-	
-	unlocking_technologies = {
-		elgar_mass_culture_tech
-	}
-
-	building_modifiers = {
-		workforce_scaled = {
-			goods_input_electricity_add = 10
-			goods_input_groceries_add = 3
-			goods_input_radios_add = 3
-			goods_input_elgar_music_add = 3
-			goods_output_organized_data_add = 7
-		}
-		level_scaled = {
-			building_employment_machinists_add = 500
-			building_employment_laborers_add = 300
-		}
-	}
-}
-
-#Televisions
-manzoni_pm_television = {
-	texture = "gfx/interface/icons/production_method_icons/manzoni_pm_television.dds"
-	
-	unlocking_technologies = {
-		government_broadcasting
-	}
-
-	building_modifiers = {
-		workforce_scaled = {
-			goods_input_electricity_add = 15 #450
-			goods_input_televisions_add = 5 #700
-			goods_input_elgar_music_add = 5 # 400 #1600
-			goods_output_organized_data_add = 10
-		}
-		level_scaled = {
-			building_employment_machinists_add = 400
-			building_employment_laborers_add = 200
-		}
-	}
-}
-
-# Digital Media
-
-manzoni_pm_digital_media = {
-	texture = "gfx/interface/icons/production_method_icons/manzoni_pm_digital_media.dds"
-	
-	unlocking_technologies = {
-		social_media
-	}
-
-	unlocking_production_methods = {
-		pm_digital_press
-	}
-
-	building_modifiers = {
-		workforce_scaled = {
-			goods_input_electricity_add = 20 #600
-			goods_input_computer_add = 5 #650
-			goods_output_digital_entertainment_add = -5 #400 #1650
-
-			goods_output_organized_data_add = 15
-		}
-		level_scaled = {
-			building_employment_machinists_add = 300
-			building_employment_engineers_add = 200
-		}
-	}
-}
-
 # Airport
 
 pm_private_charters = {
@@ -797,6 +643,49 @@ pm_air_freight = {
 	}	
 }
 
+#Publishing Industry
+
+manzoni_pm_printing_presses = {
+	texture = "gfx/interface/icons/production_method_icons/manzoni_printing_press.dds"
+
+	building_modifiers = {
+		workforce_scaled = {
+			goods_input_tools_add = 5
+			goods_input_paper_add = 15
+
+			goods_output_manzoni_prints_add = 25
+		}
+	}
+	unlocking_production_methods = {
+		manzoni_pm_physical
+		manzoni_pm_electric_telegraph
+		manzoni_pm_telephone
+	}
+}
+
+#Circular Pressure Printing Machine
+manzoni_pm_cylinder_presses = {
+	texture = "gfx/interface/icons/production_method_icons/manzoni_cylinder_press.dds"
+
+	unlocking_technologies = {
+		lathe
+	}
+
+	building_modifiers = {
+		workforce_scaled = {
+			goods_input_tools_add = 10
+			goods_input_paper_add = 20
+
+			goods_output_manzoni_prints_add = 40
+		}
+	}
+	unlocking_production_methods = {
+		manzoni_pm_physical
+		manzoni_pm_electric_telegraph
+		manzoni_pm_telephone
+	}
+}
+
 #Rotary Press
 manzoni_pm_rotary_presses = {
 	texture = "gfx/interface/icons/production_method_icons/manzoni_rotary_press.dds"
@@ -808,18 +697,16 @@ manzoni_pm_rotary_presses = {
 	building_modifiers = {
 		workforce_scaled = {
 			goods_input_paper_add = 30
-			goods_input_tools_add = 5
-			goods_input_commonores_add = 5
+			goods_input_tools_add = 15
 			goods_input_coal_add = 10
 
-			goods_output_manzoni_prints_add = 65
+			goods_output_manzoni_prints_add = 60
 		}
-
-		level_scaled = {
-			building_employment_academics_add = 500
-			building_employment_engineers_add = 500
-			building_employment_machinists_add = 1000
-		}
+	}
+	unlocking_production_methods = {
+		manzoni_pm_physical
+		manzoni_pm_electric_telegraph
+		manzoni_pm_telephone
 	}
 }
 
@@ -834,18 +721,112 @@ manzoni_pm_linotype = {
 	building_modifiers = {
 		workforce_scaled = {
 			goods_input_paper_add = 40
-			goods_input_commonores_add = 5
 			goods_input_coal_add = 15
-			goods_input_tools_add = 5
+			goods_input_tools_add = 20
 			goods_input_engines_add = 5
 
-			goods_output_manzoni_prints_add = 90
-		}
-
-		level_scaled = {
-			building_employment_academics_add = 1000
-			building_employment_engineers_add = 500
-			building_employment_machinists_add = 500
+			goods_output_manzoni_prints_add = 80
 		}
 	}
+	unlocking_production_methods = {
+		manzoni_pm_physical
+		manzoni_pm_electric_telegraph
+		manzoni_pm_telephone
+	}
+}
+
+### Transmission ###
+
+#Physical Transport
+manzoni_pm_physical = {
+	texture = "gfx/interface/icons/production_method_icons/manzoni_transmission_physical.dds"
+	is_default = yes
+	
+	building_modifiers = {
+		workforce_scaled = {
+			goods_output_organized_data_add = 1
+		}
+		level_scaled = {
+			building_employment_laborers_add = 3500
+			building_employment_clerks_add = 250
+			building_employment_academics_add = 250
+		}
+	}
+}
+
+#Electric Telegraph
+manzoni_pm_electric_telegraph = {
+	texture = "gfx/interface/icons/production_method_icons/manzoni_transmission_telegraph.dds"
+	
+	unlocking_technologies = {
+		electric_telegraph
+	}
+
+	building_modifiers = {
+		workforce_scaled = {
+			goods_input_tools_add = 3 #200
+			goods_input_alloys_add = 2 #100
+			goods_input_electricity_add = 2 #150
+			goods_output_organized_data_add = 2
+		}
+		level_scaled = {
+			building_employment_machinists_add = 250
+			building_employment_laborers_add = 2000
+			building_employment_clerks_add = 500
+			building_employment_academics_add = 250
+		}
+	}
+	required_input_goods = electricity
+}
+
+#Telephone
+manzoni_pm_telephone = {
+	texture = "gfx/interface/icons/production_method_icons/manzoni_transmission_telephone.dds"
+
+	unlocking_technologies = {
+		telephone
+	}
+
+	building_modifiers = {
+		workforce_scaled = {
+			goods_input_telephones_add = 5
+			goods_input_electricity_add = 3 #150
+			goods_input_telecommunications_add = 3
+			goods_output_organized_data_add = 4
+		}
+		level_scaled = {
+			building_employment_academics_add = 250
+			building_employment_machinists_add = 250
+			building_employment_laborers_add = 750
+			building_employment_clerks_add = 750
+		}
+	}
+	required_input_goods = electricity
+}
+
+#Radio
+manzoni_pm_radio = {
+	texture = "gfx/interface/icons/production_method_icons/manzoni_transmission_radio.dds"
+	
+	unlocking_technologies = {
+		mass_propaganda
+	}
+
+	building_modifiers = {
+		workforce_scaled = {
+			goods_input_electricity_add = 5
+			goods_input_radios_add = 10
+			goods_input_telephones_add = 5
+			goods_input_telecommunications_add = 10
+
+			goods_output_organized_data_add = 6
+		}
+		level_scaled = {
+			building_employment_clerks_add = 1000
+			building_employment_machinists_add = 500
+			building_employment_engineers_add = 250
+			building_employment_academics_add = 250
+		}
+	}
+	required_input_goods = electricity
 }
