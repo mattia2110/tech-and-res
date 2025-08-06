@@ -234,11 +234,21 @@ austrian_empire_collapse.3 = {
 			name = magyar_language_var
 			value = 0
 		}
+		s:STATE_CENTRAL_HUNGARY = {
+			random_scope_state = {
+				save_scope_as = central_hungary_scope
+			}
+		}
+		s:STATE_TRANSDANUBIA = {
+			random_scope_state = {
+				save_scope_as = transdanubia_scope
+			}
+		}
 	}
 
 	# Opzione dura: il tedesco resta unica lingua ufficiale
 	option = {
-		name           = austrian_empire_collapse.3.a   # "Il tedesco o niente!"
+		name = austrian_empire_collapse.3.a   # "Il tedesco o niente!"
 		default_option = yes
 
 		# Aggrava la crisi imperiale
@@ -248,13 +258,13 @@ austrian_empire_collapse.3 = {
 		}
 
 		# Malcontento in Ungheria
-		s:STATE_CENTRAL_HUNGARY = {
+		scope:central_hungary_scope = {
 			add_modifier = {
 				name   = magyar_linguistic_discrimination
 				months = 60
 			}
 		}
-		s:STATE_TRANSDANUBIA = {
+		scope:transdanubia_scope = {
 			add_modifier = {
 				name   = magyar_linguistic_discrimination
 				months = 60
@@ -274,13 +284,13 @@ austrian_empire_collapse.3 = {
 			subtract  = 1
 		}
 
-		s:STATE_CENTRAL_HUNGARY = {
+		scope:central_hungary_scope = {
 			add_modifier = {
 				name   = magyar_linguistic_freedom
 				months = 60
 			}
 		}
-		s:STATE_TRANSDANUBIA = {
+		scope:transdanubia_scope = {
 			add_modifier = {
 				name   = magyar_linguistic_freedom
 				months = 60

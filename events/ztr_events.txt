@@ -3,7 +3,7 @@
 
 # Economy and Demographic Update
 
-ztr_economic_update.0 = {
+ztr_economic_update.1 = {
 	dlc = dlc_tech_res
 	type = country_event
 	placement = ROOT
@@ -15,8 +15,8 @@ ztr_economic_update.0 = {
 
 	icon = "gfx/interface/icons/event_icons/event_default.dds"
 
-	title = ztr_economic_update.0.t
-	desc = ztr_economic_update.0.d
+	title = ztr_economic_update.1.t
+	desc = ztr_economic_update.1.d
 
 
 	duration = 1
@@ -34,7 +34,7 @@ ztr_economic_update.0 = {
 	}
 
 	option = {
-		name = ztr_economic_update.0.a
+		name = ztr_economic_update.1.a
 		default_option = yes
 		hidden_effect = {
 			remove_state_economy_modifier = yes
@@ -152,46 +152,6 @@ ztr_economic_update.0 = {
 }
 
 # Poor-> Developing
-ztr_economic_update.1 = {
-	dlc = dlc_tech_res
-	type = country_event
-	placement = ROOT
-	event_image = {
-		video = "unspecific_world_fair"
-	}
-
-	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
-
-	icon = "gfx/interface/icons/event_icons/event_default.dds"
-
-	title = ztr_economic_update.1.t
-	desc = ztr_economic_update.1.d
-
-
-	duration = 1
-	
-	trigger = {
-		game_date >= 1836.1.1
-		has_modifier = dev_0_country
-		get_country_gdp_per > 0.65
-	}
-	
-	option = {
-		name = ztr_economic_update.1.a
-		default_option = yes
-		hidden_effect = {
-			remove_state_economy_modifier = yes
-		}
-		add_modifier = {
-			name = dev_1_country
-		}
-		ai_chance = {
-			base = 100										
-		}		
-	}
-}
-
-# Developing-> Semi-Developed
 ztr_economic_update.2 = {
 	dlc = dlc_tech_res
 	type = country_event
@@ -212,10 +172,10 @@ ztr_economic_update.2 = {
 	
 	trigger = {
 		game_date >= 1836.1.1
-		has_modifier = dev_1_country
-		get_country_gdp_per > 1.3
+		has_modifier = dev_0_country
+		get_country_gdp_per > 0.65
 	}
-
+	
 	option = {
 		name = ztr_economic_update.2.a
 		default_option = yes
@@ -223,7 +183,7 @@ ztr_economic_update.2 = {
 			remove_state_economy_modifier = yes
 		}
 		add_modifier = {
-			name = dev_2_country
+			name = dev_1_country
 		}
 		ai_chance = {
 			base = 100										
@@ -231,8 +191,7 @@ ztr_economic_update.2 = {
 	}
 }
 
-
-# Semi-Developed-> Partially Developed
+# Developing-> Semi-Developed
 ztr_economic_update.3 = {
 	dlc = dlc_tech_res
 	type = country_event
@@ -253,8 +212,8 @@ ztr_economic_update.3 = {
 	
 	trigger = {
 		game_date >= 1836.1.1
-		has_modifier = dev_2_country
-		get_country_gdp_per > 2.5
+		has_modifier = dev_1_country
+		get_country_gdp_per > 1.3
 	}
 
 	option = {
@@ -264,7 +223,7 @@ ztr_economic_update.3 = {
 			remove_state_economy_modifier = yes
 		}
 		add_modifier = {
-			name = dev_3_country
+			name = dev_2_country
 		}
 		ai_chance = {
 			base = 100										
@@ -272,7 +231,8 @@ ztr_economic_update.3 = {
 	}
 }
 
-# Partially Developed-> Developed
+
+# Semi-Developed-> Partially Developed
 ztr_economic_update.4 = {
 	dlc = dlc_tech_res
 	type = country_event
@@ -293,8 +253,8 @@ ztr_economic_update.4 = {
 	
 	trigger = {
 		game_date >= 1836.1.1
-		has_modifier = dev_3_country
-		get_country_gdp_per > 5
+		has_modifier = dev_2_country
+		get_country_gdp_per > 2.5
 	}
 
 	option = {
@@ -304,7 +264,7 @@ ztr_economic_update.4 = {
 			remove_state_economy_modifier = yes
 		}
 		add_modifier = {
-			name = dev_4_country
+			name = dev_3_country
 		}
 		ai_chance = {
 			base = 100										
@@ -312,7 +272,7 @@ ztr_economic_update.4 = {
 	}
 }
 
-# Developed-> hyper-Developed
+# Partially Developed-> Developed
 ztr_economic_update.5 = {
 	dlc = dlc_tech_res
 	type = country_event
@@ -333,8 +293,8 @@ ztr_economic_update.5 = {
 	
 	trigger = {
 		game_date >= 1836.1.1
-		has_modifier = dev_4_country
-		get_country_gdp_per > 9
+		has_modifier = dev_3_country
+		get_country_gdp_per > 5
 	}
 
 	option = {
@@ -344,7 +304,7 @@ ztr_economic_update.5 = {
 			remove_state_economy_modifier = yes
 		}
 		add_modifier = {
-			name = dev_5_country
+			name = dev_4_country
 		}
 		ai_chance = {
 			base = 100										
@@ -352,13 +312,13 @@ ztr_economic_update.5 = {
 	}
 }
 
-# hyper-Developed-> Developed
+# Developed-> hyper-Developed
 ztr_economic_update.6 = {
 	dlc = dlc_tech_res
 	type = country_event
 	placement = ROOT
 	event_image = {
-		video = "southamerica_war_civilians"
+		video = "unspecific_world_fair"
 	}
 
 	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
@@ -373,8 +333,8 @@ ztr_economic_update.6 = {
 	
 	trigger = {
 		game_date >= 1836.1.1
-		has_modifier = dev_5_country
-		get_country_gdp_per < 8.6
+		has_modifier = dev_4_country
+		get_country_gdp_per > 9
 	}
 
 	option = {
@@ -384,7 +344,7 @@ ztr_economic_update.6 = {
 			remove_state_economy_modifier = yes
 		}
 		add_modifier = {
-			name = dev_4_country
+			name = dev_5_country
 		}
 		ai_chance = {
 			base = 100										
@@ -392,7 +352,7 @@ ztr_economic_update.6 = {
 	}
 }
 
-# Developed-> Partially Developed
+# hyper-Developed-> Developed
 ztr_economic_update.7 = {
 	dlc = dlc_tech_res
 	type = country_event
@@ -413,8 +373,8 @@ ztr_economic_update.7 = {
 	
 	trigger = {
 		game_date >= 1836.1.1
-		has_modifier = dev_4_country
-		get_country_gdp_per < 4.4
+		has_modifier = dev_5_country
+		get_country_gdp_per < 8.6
 	}
 
 	option = {
@@ -424,7 +384,7 @@ ztr_economic_update.7 = {
 			remove_state_economy_modifier = yes
 		}
 		add_modifier = {
-			name = dev_3_country
+			name = dev_4_country
 		}
 		ai_chance = {
 			base = 100										
@@ -432,7 +392,7 @@ ztr_economic_update.7 = {
 	}
 }
 
-# Partially Developed-> Semi-Developed
+# Developed-> Partially Developed
 ztr_economic_update.8 = {
 	dlc = dlc_tech_res
 	type = country_event
@@ -453,8 +413,8 @@ ztr_economic_update.8 = {
 	
 	trigger = {
 		game_date >= 1836.1.1
-		has_modifier = dev_3_country
-		get_country_gdp_per < 2.2
+		has_modifier = dev_4_country
+		get_country_gdp_per < 4.4
 	}
 
 	option = {
@@ -464,7 +424,7 @@ ztr_economic_update.8 = {
 			remove_state_economy_modifier = yes
 		}
 		add_modifier = {
-			name = dev_2_country
+			name = dev_3_country
 		}
 		ai_chance = {
 			base = 100										
@@ -472,7 +432,7 @@ ztr_economic_update.8 = {
 	}
 }
 
-# Semi-Developed-> Developing
+# Partially Developed-> Semi-Developed
 ztr_economic_update.9 = {
 	dlc = dlc_tech_res
 	type = country_event
@@ -493,8 +453,8 @@ ztr_economic_update.9 = {
 	
 	trigger = {
 		game_date >= 1836.1.1
-		has_modifier = dev_2_country
-		get_country_gdp_per < 1.1
+		has_modifier = dev_3_country
+		get_country_gdp_per < 2.2
 	}
 
 	option = {
@@ -504,7 +464,7 @@ ztr_economic_update.9 = {
 			remove_state_economy_modifier = yes
 		}
 		add_modifier = {
-			name = dev_1_country
+			name = dev_2_country
 		}
 		ai_chance = {
 			base = 100										
@@ -512,7 +472,7 @@ ztr_economic_update.9 = {
 	}
 }
 
-# Developing-> Poor
+# Semi-Developed-> Developing
 ztr_economic_update.10 = {
 	dlc = dlc_tech_res
 	type = country_event
@@ -533,12 +493,52 @@ ztr_economic_update.10 = {
 	
 	trigger = {
 		game_date >= 1836.1.1
+		has_modifier = dev_2_country
+		get_country_gdp_per < 1.1
+	}
+
+	option = {
+		name = ztr_economic_update.10.a
+		default_option = yes
+		hidden_effect = {
+			remove_state_economy_modifier = yes
+		}
+		add_modifier = {
+			name = dev_1_country
+		}
+		ai_chance = {
+			base = 100										
+		}		
+	}
+}
+
+# Developing-> Poor
+ztr_economic_update.11 = {
+	dlc = dlc_tech_res
+	type = country_event
+	placement = ROOT
+	event_image = {
+		video = "southamerica_war_civilians"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	icon = "gfx/interface/icons/event_icons/event_default.dds"
+
+	title = ztr_economic_update.11.t
+	desc = ztr_economic_update.11.d
+
+
+	duration = 1
+	
+	trigger = {
+		game_date >= 1836.1.1
 		has_modifier = dev_1_country
 		get_country_gdp_per < 0.55
 	}
 
 	option = {
-		name = ztr_economic_update.10.a
+		name = ztr_economic_update.11.a
 		default_option = yes
 		hidden_effect = {
 			remove_state_economy_modifier = yes

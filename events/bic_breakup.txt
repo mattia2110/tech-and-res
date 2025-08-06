@@ -41,10 +41,14 @@ bic_breakup.1 = {
 	option = {
 		name = bic_breakup.1.a
 		ai_chance = {
-			base = 40 # this is the default pick for the AI
-		}
-		trigger = {
-			NOT = { has_technology_researched = pan-nationalism }
+			base = 1 # this is the default pick for the AI
+			modifier = {
+				trigger = {
+					NOT = {
+						has_technology_researched = pan-nationalism
+					}
+				}
+			add = 39
 		}
 		collapse_india_effect = yes
 		change_tag = BGL
