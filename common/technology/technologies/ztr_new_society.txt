@@ -86,6 +86,7 @@ modern_urban_planning = {
 		country_prestige_add = 100
 		state_infrastructure_from_automobiles_consumption_add = 0.25
 		market_land_trade_capacity_add = 10
+		state_decree_cost_mult = -0.1
 	}
 	
 	ai_weight = {
@@ -190,7 +191,6 @@ decolonization = {
 	}
 	unlocking_technologies = {
 		international_organizations
-		mass_propaganda
 		antibiotics
 	}
 		
@@ -297,7 +297,6 @@ vaccination_campaigns = {
     category = society
 
     unlocking_technologies = {
-        penicillin
 		antibiotics
 		central_planning
     }
@@ -411,9 +410,9 @@ neuroscience = {
 	ai_weight = { value = 1 }
 }
 
-information_systems_management = {
+software_tech = {
 	era = era_7
-	texture = "gfx/interface/icons/invention_icons/information_systems_management.dds"
+	texture = "gfx/interface/icons/invention_icons/software_tech.dds"
 	category = society
 
 	unlocking_technologies = {
@@ -474,7 +473,7 @@ modern_statistics = {
 		state_tax_capacity_add = 25
 	}
 	unlocking_technologies = {
-		information_systems_management
+		software_tech
 		math_finance
 		funded_research_projects
 	}
@@ -537,7 +536,7 @@ networking_protocols = {
 	}
 	unlocking_technologies = {
 		computability_theory
-		information_systems_management
+		software_tech
 	}
 		
 	ai_weight = {
@@ -551,12 +550,10 @@ telecommunications = {
 	category = society
 	modifier = {
 		country_influence_mult = 0.2
-		country_authority_mult = 0.1
 		state_working_adult_ratio_add = 0.05
 	}
 	unlocking_technologies = {
 		government_broadcasting
-		international_sporting_events
 		international_travel
 	}
 		
@@ -579,7 +576,7 @@ counterculture = {
 	}
 	
 	unlocking_technologies = {
-		international_organizations
+		decolonization
 		mass_propaganda
 	}
 		
@@ -660,26 +657,6 @@ neo_feminism = {
 	}
 }
 
-advanced_medical_imaging = {
-    # Development of advanced medical imaging technologies (e.g., CT scans)
-    era = era_7
-    texture = "gfx/interface/icons/invention_icons/advanced_medical_imaging.dds"
-    category = society
-
-    unlocking_technologies = {
-        genetic_disease_screening
-		cognitive_sciences
-    }
-
-    modifier = {
-        state_mortality_mult = -0.01
-    }
-
-    ai_weight = {
-        value = 1
-    }
-}
-
 genetic_engineering = {
     # Pioneering genetic modification techniques
     era = era_7
@@ -699,7 +676,48 @@ genetic_engineering = {
     }
 }
 
+mass_entertainment = {
+	era = era_7
+	texture = "gfx/interface/icons/invention_icons/mass_entertainment.dds"
+	category = society
+
+	unlocking_technologies = {
+		telecommunications
+		counterculture
+	}
+
+	modifier = {
+		building_elgar_opera_throughput_add = -0.05 # Blockbuster Pm should balance this malus
+		building_manzoni_publishing_industry_throughput_add = 0.1
+		country_authority_mult = 0.1
+	}
+
+	ai_weight = {
+		value = 1
+	}
+}
+
 # Era 8
+
+advanced_medical_imaging = {
+    # Development of advanced medical imaging technologies (e.g., CT scans)
+    era = era_8
+    texture = "gfx/interface/icons/invention_icons/advanced_medical_imaging.dds"
+    category = society
+
+    unlocking_technologies = {
+        genetic_disease_screening
+		cognitive_sciences
+    }
+
+    modifier = {
+        state_mortality_mult = -0.01
+    }
+
+    ai_weight = {
+        value = 1
+    }
+}
 
 e_government = {
 	era = era_8
@@ -728,7 +746,7 @@ machine_learning = {
 	}
 	unlocking_technologies = {
 		data_processing
-		cognitive_sciences
+		neuroscience
 	}
 		
 	ai_weight = {
@@ -745,7 +763,6 @@ computerized_research_networking = {
 	}
 	unlocking_technologies = {
 		data_processing
-		cognitive_sciences
 	}
 
 	ai_weight = {
@@ -759,8 +776,7 @@ software_development_paradigms = {
 	category = society
 
 	unlocking_technologies = {
-		information_systems_management
-		multinational_corporations
+		software_tech
 	}
 
 	modifier = {
@@ -794,7 +810,6 @@ data_processing = {
 		country_authority_mult = 0.1
 	}
 	unlocking_technologies = {
-		math_finance
 		modern_statistics
 		networking_protocols
 	}
@@ -812,6 +827,7 @@ transnational_activism = {
 		country_infamy_generation_mult = 0.2
 		country_infamy_generation_against_unrecognized_mult = 0.2
 		country_liberty_desire_of_subjects_add = 0.25
+		state_decree_cost_mult = -0.1
 	}
 	unlocking_technologies = {
 		anti_discrimination
@@ -829,7 +845,7 @@ global_music = {
 	category = society
 	unlocking_technologies = {
 		rock_and_roll
-		telecommunications
+		mass_entertainment
 	}
 		
 	ai_weight = {
@@ -914,8 +930,8 @@ videogames = {
 		country_influence_mult = 0.1
 	}
 	unlocking_technologies = {
-		telecommunications
-		multinational_corporations
+		mass_entertainment
+		software_tech
 	}
 		
 	ai_weight = {

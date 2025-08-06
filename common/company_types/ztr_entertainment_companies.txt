@@ -75,7 +75,7 @@ elgar_company_steinway = {
 	}
 
 	extension_building_types = {  
-		building_tooling_workshops
+		#building_tooling_workshops
 		building_logging_camp
 	}
 
@@ -225,7 +225,7 @@ company_yamaha = {
 #Generic Records
 company_basic_records_and_films = {
 	icon = "gfx/interface/icons/company_icons/records_and_films_generic.dds" #####
-	background = "gfx/interface/icons/company_icons/company_backgrounds/comp_illu_cinema.dds"
+	background = "gfx/interface/icons/company_icons/company_backgrounds/comp_illu_music.dds"
 
 	uses_dynamic_naming = yes
 
@@ -247,6 +247,13 @@ company_basic_records_and_films = {
 
 	possible_prestige_goods = {
 		prestige_good_generic_records_and_films
+	}
+
+	prestige_goods_trigger = {
+		custom_tooltip = {
+			text = je_prestige_good_generic_records_and_films_complete_tt
+			has_variable = prestige_good_generic_records_and_films_var
+		}
 	}
 
 	possible = {
@@ -279,7 +286,7 @@ company_basic_records_and_films = {
 #Columbia Records
 company_columbia_records = {
 	icon = "gfx/interface/icons/company_icons/historical_company_icons/columbia_records.dds" #####
-	background = "gfx/interface/icons/company_icons/company_backgrounds/comp_illu_cinema.dds"
+	background = "gfx/interface/icons/company_icons/company_backgrounds/comp_illu_music.dds"
 
 	flavored_company = yes
 	
@@ -299,6 +306,13 @@ company_columbia_records = {
 		prestige_good_generic_records_and_films
 	}
 
+	prestige_goods_trigger = {
+		custom_tooltip = {
+			text = je_prestige_good_generic_records_and_films_complete_tt
+			has_variable = prestige_good_generic_records_and_films_var
+		}
+	}
+
 	potential = {
 		has_interest_marker_in_region = region_dixie
 	}
@@ -312,6 +326,7 @@ company_columbia_records = {
 	}	
 
 	possible = {
+		has_technology_researched = elgar_modern_art_tech
 		any_scope_state = {
 			OR = {
 				state_region = s:STATE_DISTRICT_OF_COLUMBIA
@@ -323,16 +338,16 @@ company_columbia_records = {
 				level >= 3
 			}
 		}
-		has_technology_researched = elgar_mass_culture_tech
 	}
 
 	prosperity_modifier = {
 		country_prestige_mult = 0.1
-		goods_output_elgar_music_mult = 0.05
+		#goods_output_elgar_music_mult = 0.05
 		state_loyalists_from_political_movements_mult = 0.05
 	}
 
 	ai_will_do = {
+		has_technology_researched = elgar_modern_art_tech
 		any_scope_state = {
 			OR = {
 				state_region = s:STATE_DISTRICT_OF_COLUMBIA
@@ -373,13 +388,20 @@ company_societe_pathe_freres = {
 	}
 
 	extension_building_types = {  
-		building_instrument_workshops
-		#building_elgar_opera
+		#building_instrument_workshops
+		building_elgar_opera
 		building_arts_academy
 	}
 
 	possible_prestige_goods = {
 		prestige_good_generic_records_and_films
+	}
+
+	prestige_goods_trigger = {
+		custom_tooltip = {
+			text = je_prestige_good_generic_records_and_films_complete_tt
+			has_variable = prestige_good_generic_records_and_films_var
+		}
 	}
 
 	potential = {
@@ -395,6 +417,7 @@ company_societe_pathe_freres = {
 	}
 
 	possible = {
+		has_technology_researched = elgar_mass_culture_tech
 		any_scope_state = {
 			state_region = s:STATE_ILE_DE_FRANCE
 			is_incorporated = yes
@@ -403,7 +426,6 @@ company_societe_pathe_freres = {
 				level >= 3
 			}
 		}
-		has_technology_researched = elgar_mass_culture_tech
 	}
 
 	prosperity_modifier = {
@@ -446,9 +468,9 @@ company_warner_bros_records = {
 		building_manzoni_publishing_industry
 	}
 
-	extension_building_types = {  
-		building_arts_academy
-	}
+	# extension_building_types = {  
+	# 	building_arts_academy
+	# }
 
 	possible_prestige_goods = {
 		prestige_good_generic_records_and_films
@@ -480,7 +502,7 @@ company_warner_bros_records = {
 
 	prosperity_modifier = {
 		country_prestige_mult = 0.05
-		goods_output_elgar_music_mult = 0.05
+		#goods_output_elgar_music_mult = 0.05
 		state_loyalists_from_political_movements_mult = 0.05
 	}
 
@@ -513,7 +535,7 @@ company_warner_bros_records = {
  # Decca Records (Universal)
 company_universal_records = {
 	icon = "gfx/interface/icons/company_icons/historical_company_icons/universal_records.dds" 
-	background = "gfx/interface/icons/company_icons/company_backgrounds/comp_illu_cinema.dds"
+	background = "gfx/interface/icons/company_icons/company_backgrounds/comp_illu_music.dds"
 
 	flavored_company = yes
 	

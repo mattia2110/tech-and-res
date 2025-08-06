@@ -1,0 +1,690 @@
+# Companies in this file about media companies
+# Hitotsubashi Group=Shueisha + Shogakukan + Hakusensha (Japan)
+# Toei Animation (Japan)
+# Studio Ghibli (Japan)
+# Penguin Group (UK)
+# BBC (UK)
+# Hachette Livre (France)
+# Bertelsmann (Germany)
+# Fininvest (Italy)
+# Grupo Televisa (Mexico)
+# The Times Group (India)
+# Walt Disney Company (USA)
+
+# Hitotsubashi Group (Japan)
+
+company_hitotsubashi  = {
+	icon = "gfx/interface/icons/company_icons/historical_company_icons/japanese_hitotsubashi.dds"
+	background = "gfx/interface/icons/company_icons/company_backgrounds/comp_illu_publishing.dds"
+
+	flavored_company = yes
+	preferred_headquarters = { STATE_KANTO }
+
+	building_types = {
+		building_manzoni_publishing_industry # Manga and Magazines
+	}
+
+	possible_prestige_goods = {
+		prestige_good_japanese_anime_manga
+	}
+
+	potential = { has_interest_marker_in_region = region_japan }
+
+	attainable = {
+		hidden_trigger = {
+			any_scope_state = { state_region = s:STATE_KANTO }
+		}
+	}
+
+	possible = {
+		has_technology_researched = mass_entertainment
+		any_scope_state = {
+			state_region = s:STATE_KANTO
+			is_incorporated = yes
+			any_scope_building = {
+				is_building_type = building_manzoni_publishing_industry
+				level >= 5
+			}
+		}
+	}
+
+	prosperity_modifier = {
+		building_manzoni_publishing_industry_throughput_add = 0.15
+		country_influence_mult = 0.25
+		state_birth_rate_mult = -0.02
+	}
+
+	ai_will_do = {
+		has_technology_researched = mass_entertainment
+		any_scope_state = {
+			state_region = s:STATE_KANTO
+			is_incorporated = yes
+		}
+	}
+
+	ai_construction_targets = {
+		building_manzoni_publishing_industry = {
+			level = 5
+			state_trigger = { state_region = s:STATE_KANTO }
+		}
+	}
+
+	ai_weight = { value = 5 }
+}
+
+# Toei Animation (Japan)
+
+company_toei = {
+	icon = "gfx/interface/icons/company_icons/historical_company_icons/japanese_toei.dds"
+	background = "gfx/interface/icons/company_icons/company_backgrounds/comp_illu_media.dds"
+
+	flavored_company = yes
+	preferred_headquarters = { STATE_KANTO }
+
+	building_types = {
+		building_manzoni_publishing_industry # Anime
+		building_elgar_opera # Cinemas
+	}
+
+	possible_prestige_goods = {
+		prestige_good_japanese_anime_manga
+	}
+
+	potential = { has_interest_marker_in_region = region_japan }
+
+	attainable = {
+		hidden_trigger = {
+			any_scope_state = { state_region = s:STATE_KANTO }
+		}
+	}
+
+	possible = {
+		has_technology_researched = mass_entertainment
+		any_scope_state = {
+			state_region = s:STATE_KANTO
+			is_incorporated = yes
+			any_scope_building = {
+				is_building_type = building_manzoni_publishing_industry
+				level >= 5
+			}
+		}
+	}
+
+	prosperity_modifier = {
+		building_telecommunications_industry_throughput_add = 0.05
+		building_electrics_industry_throughput_add = 0.05
+		building_interactive_media_industry_throughput_add = 0.05
+	}
+
+	ai_will_do = {
+		has_technology_researched = mass_entertainment
+		any_scope_state = {
+			state_region = s:STATE_KANTO
+			is_incorporated = yes
+		}
+	}
+
+	ai_construction_targets = {
+		building_manzoni_publishing_industry = {
+			level = 5
+			state_trigger = { state_region = s:STATE_KANTO }
+		}
+	}
+
+	ai_weight = { value = 5 }
+}
+
+# Studio Ghibli (Japan)
+
+company_studio_ghibli = {
+	icon = "gfx/interface/icons/company_icons/historical_company_icons/japanese_studio_ghibli.dds"
+	background = "gfx/interface/icons/company_icons/company_backgrounds/comp_illu_media.dds"
+
+	flavored_company = yes
+	preferred_headquarters = { STATE_KANTO }
+
+	building_types = {
+		building_manzoni_publishing_industry # Anime
+	}
+
+	possible_prestige_goods = {
+		prestige_good_japanese_anime_manga
+	}
+
+	potential = { has_interest_marker_in_region = region_japan }
+
+	attainable = {
+		hidden_trigger = {
+			any_scope_state = { state_region = s:STATE_KANTO }
+		}
+	}
+
+	possible = {
+		has_technology_researched = counterculture
+		any_scope_state = {
+			state_region = s:STATE_KANTO
+			is_incorporated = yes
+			any_scope_building = {
+				is_building_type = building_manzoni_publishing_industry
+				level >= 5
+			}
+		}
+	}
+
+	prosperity_modifier = {
+		country_prestige_mult = 0.1
+		interest_group_ig_industrialists_pol_str_mult = -0.05
+		interest_group_ig_rural_folk_approval_add = 1
+		interest_group_ig_intelligentsia_approval_add = 1
+	}
+
+	ai_will_do = {
+		has_technology_researched = counterculture
+		any_scope_state = {
+			state_region = s:STATE_KANTO
+			is_incorporated = yes
+		}
+	}
+
+	ai_construction_targets = {
+		building_manzoni_publishing_industry = {
+			level = 5
+			state_trigger = { state_region = s:STATE_KANTO }
+		}
+	}
+
+	ai_weight = { value = 3 } # More like an easter egg company
+}
+
+# Penguin Group (UK)
+
+company_penguin_group = {
+	icon = "gfx/interface/icons/company_icons/historical_company_icons/uk_penguin_group.dds"
+	background = "gfx/interface/icons/company_icons/company_backgrounds/comp_illu_publishing.dds"
+
+	flavored_company = yes
+	preferred_headquarters = { STATE_HOME_COUNTIES }
+
+	building_types = {
+		building_manzoni_publishing_industry # Books and Magazines
+	}
+
+	# possible_prestige_goods = {
+	# 	prestige_good_english_books
+	# }
+
+	potential = { has_interest_marker_in_region = region_england }
+
+	attainable = {
+		hidden_trigger = {
+			any_scope_state = { state_region = s:STATE_HOME_COUNTIES }
+		}
+	}
+
+	possible = {
+		has_technology_researched = offset_printing
+		any_scope_state = {
+			state_region = s:STATE_HOME_COUNTIES
+			is_incorporated = yes
+			any_scope_building = {
+				is_building_type = building_manzoni_publishing_industry
+				level >= 5
+			}
+		}
+	}
+
+	prosperity_modifier = {
+		country_society_tech_spread_mult = 0.05
+		interest_group_ig_intelligentsia_approval_add = 1
+		interest_group_ig_intelligentsia_pop_attraction_mult = 0.05
+		country_influence_mult = 0.1
+	}
+
+	ai_will_do = {
+		has_technology_researched = offset_printing
+		any_scope_state = {
+			state_region = s:STATE_HOME_COUNTIES
+			is_incorporated = yes
+		}
+	}
+
+	ai_construction_targets = {
+		building_manzoni_publishing_industry = {
+			level = 5
+			state_trigger = { state_region = s:STATE_HOME_COUNTIES }
+		}
+	}
+
+	ai_weight = { value = 4 }
+}
+
+# Hachette Livre (France)
+
+company_hachette_livre = {
+	icon = "gfx/interface/icons/company_icons/historical_company_icons/france_hachette_livre.dds"
+	background = "gfx/interface/icons/company_icons/company_backgrounds/comp_illu_publishing.dds"
+
+	flavored_company = yes
+	preferred_headquarters = { STATE_ILE_DE_FRANCE }
+
+	building_types = {
+		building_manzoni_publishing_industry # Books and Magazines
+	}
+
+	potential = { has_interest_marker_in_region = region_france }
+
+	attainable = {
+		hidden_trigger = {
+			any_scope_state = { state_region = s:STATE_ILE_DE_FRANCE }
+		}
+	}
+
+	possible = {
+		has_technology_researched = offset_printing
+		any_scope_state = {
+			state_region = s:STATE_ILE_DE_FRANCE
+			is_incorporated = yes
+			any_scope_building = {
+				is_building_type = building_manzoni_publishing_industry
+				level >= 5
+			}
+		}
+	}
+
+	prosperity_modifier = {
+		country_society_tech_research_speed_mult = 0.05
+		state_education_access_add = 0.05
+		building_paper_mills_throughput_add = 0.05
+	}
+
+	ai_will_do = {
+		has_technology_researched = offset_printing
+		any_scope_state = {
+			state_region = s:STATE_ILE_DE_FRANCE
+			is_incorporated = yes
+		}
+	}
+
+	ai_construction_targets = {
+		building_manzoni_publishing_industry = {
+			level = 5
+			state_trigger = { state_region = s:STATE_ILE_DE_FRANCE }
+		}
+	}
+
+	ai_weight = { value = 4 }
+}
+
+# Bertelsmann (Germany)
+
+company_bertelsmann = {
+	icon = "gfx/interface/icons/company_icons/historical_company_icons/germany_bertelsmann.dds"
+	background = "gfx/interface/icons/company_icons/company_backgrounds/comp_illu_publishing.dds"
+
+	flavored_company = yes
+	preferred_headquarters = { STATE_WESTPHALIA }
+
+	building_types = {
+		building_manzoni_publishing_industry # Books and Magazines
+	}
+
+	extension_building_types = {
+		building_telecommunications_industry
+	}
+
+	potential = { has_interest_marker_in_region = region_north_germany }
+
+	attainable = {
+		hidden_trigger = {
+			any_scope_state = { state_region = s:STATE_WESTPHALIA }
+		}
+	}
+
+	possible = {
+		has_technology_researched = manzoni_linotype_tech
+		any_scope_state = {
+			state_region = s:STATE_WESTPHALIA
+			is_incorporated = yes
+			any_scope_building = {
+				is_building_type = building_manzoni_publishing_industry
+				level >= 5
+			}
+		}
+	}
+
+	prosperity_modifier = {
+		country_society_tech_spread_mult = 0.05
+		country_influence_mult = 0.1
+		building_paper_mills_throughput_add = 0.05
+	}
+
+	ai_will_do = {
+		has_technology_researched = manzoni_linotype_tech
+		any_scope_state = {
+			state_region = s:STATE_WESTPHALIA
+			is_incorporated = yes
+		}
+	}
+
+	ai_construction_targets = {
+		building_manzoni_publishing_industry = {
+			level = 5
+			state_trigger = { state_region = s:STATE_WESTPHALIA }
+		}
+	}
+
+	ai_weight = { value = 4 }
+}
+
+# BBC (UK)
+
+company_bbc = {
+	icon = "gfx/interface/icons/company_icons/historical_company_icons/uk_bbc.dds"
+	background = "gfx/interface/icons/company_icons/company_backgrounds/comp_illu_media.dds"
+
+	flavored_company = yes
+	preferred_headquarters = { STATE_HOME_COUNTIES }
+
+	building_types = {
+		building_manzoni_publishing_industry # Broadcasting
+	}
+
+	extension_building_types = {
+		building_telecommunications_industry
+	}
+
+	potential = { has_interest_marker_in_region = region_england }
+
+	attainable = {
+		hidden_trigger = {
+			any_scope_state = { state_region = s:STATE_HOME_COUNTIES }
+		}
+	}
+
+	possible = {
+		has_technology_researched = government_broadcasting
+		any_scope_state = {
+			state_region = s:STATE_HOME_COUNTIES
+			is_incorporated = yes
+			any_scope_building = {
+				is_building_type = building_manzoni_publishing_industry
+				level >= 5
+			}
+		}
+	}
+
+	prosperity_modifier = {
+		building_telecommunications_industry_throughput_add = 0.1
+		country_prestige_add = 0.1
+		state_decree_cost_mult = -0.05
+	}
+
+	ai_will_do = {
+		has_technology_researched = government_broadcasting
+		any_scope_state = {
+			state_region = s:STATE_HOME_COUNTIES
+			is_incorporated = yes
+		}
+	}
+
+	ai_construction_targets = {
+		building_manzoni_publishing_industry = {
+			level = 5
+			state_trigger = { state_region = s:STATE_HOME_COUNTIES }
+		}
+	}
+
+	ai_weight = { value = 4 }
+}
+
+# Fininvest (Italy)
+
+company_fininvest = {
+	icon = "gfx/interface/icons/company_icons/historical_company_icons/italy_fininvest.dds"
+	background = "gfx/interface/icons/company_icons/company_backgrounds/comp_illu_media.dds"
+
+	flavored_company = yes
+	preferred_headquarters = { STATE_LOMBARDY STATE_LAZIO}
+
+	building_types = {
+		building_manzoni_publishing_industry # Mondadori and Mediaset
+		building_telecommunications_industry # Broadcasting
+	}
+
+	extension_building_types = {
+		building_elgar_opera # Teatro Manzoni a Milano
+	}
+
+	potential = { has_interest_marker_in_region = region_italy }
+
+	attainable = {
+		hidden_trigger = {
+			any_scope_state = { state_region = s:STATE_LOMBARDY }
+		}
+	}
+
+	possible = {
+		has_technology_researched = mass_entertainment
+		any_scope_state = {
+			state_region = s:STATE_LOMBARDY
+			is_incorporated = yes
+			any_scope_building = {
+				is_building_type = building_manzoni_publishing_industry
+				level >= 5
+			}
+		}
+	}
+
+	prosperity_modifier = {
+		building_telecommunications_industry_throughput_add = 0.1
+		country_loan_interest_rate_mult = -0.02 # Financial Services
+		interest_group_ig_industrialists_pol_str_mult = 0.05 # Industrialists
+		goods_output_elgar_music_mult = 0.05 # Entertainment and Sport
+	}
+
+	ai_will_do = {
+		has_technology_researched = mass_entertainment
+		any_scope_state = {
+			state_region = s:STATE_LOMBARDY
+			is_incorporated = yes
+		}
+	}
+
+	ai_construction_targets = {
+		building_manzoni_publishing_industry = {
+			level = 5
+			state_trigger = { state_region = s:STATE_LOMBARDY }
+		}
+	}
+
+	ai_weight = { value = 4 }
+}
+
+# Grupo Televisa (Mexico)
+
+company_televisa = {
+	icon = "gfx/interface/icons/company_icons/historical_company_icons/mexico_televisa.dds"
+	background = "gfx/interface/icons/company_icons/company_backgrounds/comp_illu_media.dds"
+
+	flavored_company = yes
+	preferred_headquarters = { STATE_MEXICO }
+
+	building_types = {
+		building_manzoni_publishing_industry # Television
+	}
+
+	extension_building_types = {
+		building_telecommunications_industry
+	}
+
+	potential = { has_interest_marker_in_region = region_mexico }
+
+	attainable = {
+		hidden_trigger = {
+			any_scope_state = { state_region = s:STATE_MEXICO }
+		}
+	}
+
+	possible = {
+		has_technology_researched = mass_entertainment
+		any_scope_state = {
+			state_region = s:STATE_MEXICO
+			is_incorporated = yes
+			any_scope_building = {
+				is_building_type = building_manzoni_publishing_industry
+				level >= 5
+			}
+		}
+	}
+
+	prosperity_modifier = {
+		building_telecommunications_industry_throughput_add = 0.05
+		country_prestige_add = 0.05
+		state_decree_cost_mult = -0.05
+	}
+
+	ai_will_do = {
+		has_technology_researched = mass_entertainment
+		any_scope_state = {
+			state_region = s:STATE_MEXICO
+			is_incorporated = yes
+		}
+	}
+
+	ai_construction_targets = {
+		building_manzoni_publishing_industry = {
+			level = 5
+			state_trigger = { state_region = s:STATE_MEXICO }
+		}
+	}
+
+	ai_weight = { value = 4 }
+}
+
+# The Times Group (BCCL) (India)
+
+company_bccl = {
+	icon = "gfx/interface/icons/company_icons/historical_company_icons/india_bccl.dds"
+	background = "gfx/interface/icons/company_icons/company_backgrounds/comp_illu_media.dds"
+
+	flavored_company = yes
+	preferred_headquarters = { STATE_DELHI }
+
+	building_types = {
+		building_manzoni_publishing_industry # Newspapers and Magazines
+	}
+
+	extension_building_types = {
+		building_telecommunications_industry
+	}
+
+	potential = { has_interest_marker_in_region = region_punjab }
+
+	attainable = {
+		hidden_trigger = {
+			any_scope_state = { state_region = s:STATE_DELHI }
+		}
+	}
+
+	possible = {
+		has_technology_researched = manzoni_linotype_tech
+		any_scope_state = {
+			state_region = s:STATE_DELHI
+			is_incorporated = yes
+			any_scope_building = {
+				is_building_type = building_manzoni_publishing_industry
+				level >= 5
+			}
+		}
+	}
+
+	prosperity_modifier = {
+		state_decree_cost_mult = -0.2
+		country_prestige_mult = 0.05
+	}
+
+	ai_will_do = {
+		has_technology_researched = manzoni_linotype_tech
+		any_scope_state = {
+			state_region = s:STATE_DELHI
+			is_incorporated = yes
+		}
+	}
+
+	ai_construction_targets = {
+		building_manzoni_publishing_industry = {
+			level = 5
+			state_trigger = { state_region = s:STATE_DELHI }
+		}
+	}
+
+	ai_weight = { value = 4 }
+}
+
+# Walt Disney Company (USA)
+
+company_disney = {
+	icon = "gfx/interface/icons/company_icons/historical_company_icons/usa_disney.dds"
+	background = "gfx/interface/icons/company_icons/company_backgrounds/comp_illu_media.dds"
+
+	flavored_company = yes
+	preferred_headquarters = { STATE_CALIFORNIA }
+
+	building_types = {
+		building_manzoni_publishing_industry # Entertainment and Media
+		building_elgar_opera
+	}
+
+	extension_building_types = {
+		building_telecommunications_industry
+	}
+
+	possible_prestige_goods = {
+		prestige_good_generic_records_and_films
+	}
+
+	potential = { has_interest_marker_in_region = region_pacific_coast }
+
+	attainable = {
+		hidden_trigger = {
+			any_scope_state = { state_region = s:STATE_CALIFORNIA }
+		}
+	}
+
+	possible = {
+		has_technology_researched = film
+		any_scope_state = {
+			state_region = s:STATE_CALIFORNIA
+			is_incorporated = yes
+			any_scope_building = {
+				is_building_type = building_manzoni_publishing_industry
+				level >= 5
+			}
+		}
+	}
+
+	prosperity_modifier = {
+		goods_output_elgar_music_mult = 0.05
+		country_influence_mult = 0.2
+		state_decree_cost_mult = -0.1
+	}
+
+	ai_will_do = {
+		has_technology_researched = film
+		any_scope_state = {
+			state_region = s:STATE_CALIFORNIA
+			is_incorporated = yes
+		}
+	}
+
+	ai_construction_targets = {
+		building_manzoni_publishing_industry = {
+			level = 5
+			state_trigger = { state_region = s:STATE_CALIFORNIA }
+		}
+	}
+
+	ai_weight = { value = 4 }
+}
+
+
