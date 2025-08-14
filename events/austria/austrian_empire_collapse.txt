@@ -26,11 +26,11 @@ austrian_empire_collapse.1 = {
 	immediate = {
 		if = {
 			limit = { exists = c:HUN }
-			save_scope_as = collapse_hungary_scope
+			c:HUN = { save_scope_as = collapse_hungary_scope }
 		}
 		if = {
 			limit = { exists = c:CZH }
-			save_scope_as = collapse_czech_scope
+			c:CZH = { save_scope_as = collapse_czech_scope }
 		}
 	}
 
@@ -56,7 +56,7 @@ austrian_empire_collapse.1 = {
 
 	# Austria declares annexation war only on Czechoslovakia
 	option = {
-		name = austrian_empire_collapse.1.a
+		name = austrian_empire_collapse.1.b
 		trigger = {
 			exists = c:CZH
 			NOT = { exists = c:HUN }
@@ -76,7 +76,7 @@ austrian_empire_collapse.1 = {
 
 	# Austria declares annexation war only on Hungary and Czechoslovakia
 	option = {
-		name = austrian_empire_collapse.1.b
+		name = austrian_empire_collapse.1.c
 		trigger = {
 			exists = c:HUN
 			exists = c:CZH
@@ -100,7 +100,7 @@ austrian_empire_collapse.1 = {
 
 	# Austria declares annexation against everyone
 	option = {
-		name = austrian_empire_collapse.1.c
+		name = austrian_empire_collapse.1.e
 		if = {
 			limit = {
 				exists = c:HUN
@@ -158,7 +158,7 @@ austrian_empire_collapse.1 = {
 
 	# Austria accepts its fate
 	option = {
-		name = austrian_empire_collapse.1.e
+		name = austrian_empire_collapse.1.f
 		change_infamy = -30
 		ai_chance = {
 			base = 4
@@ -1931,6 +1931,8 @@ austrian_empire_collapse.17 = {
 	}
 }
 
+# Debug Event
+
 austrian_empire_collapse.18 = {
 	dlc = dlc_tech_res
 	type = country_event
@@ -1951,14 +1953,13 @@ austrian_empire_collapse.18 = {
 	icon = "gfx/interface/icons/event_icons/waving_flag_austria.dds"
 
 	trigger = {
-		# JE
+		# Debug Event
 	}
 
 	immediate = {
 
 	}
 
-	# Austria declares annexation war only on Hungary
 	option = {
 		name = austrian_empire_collapse.18.a
 		default_option = yes

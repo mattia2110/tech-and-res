@@ -86,6 +86,34 @@ ztr_economic_update.1 = {
 				name = dev_5_country
 			}
 		}
+		# Ideologies Update (In order to take nations that avoids JEs)
+		if = {
+			limit = {
+				NOT = { has_variable = has_progressist_ideology }
+				NOT = { has_journal_entry = je_old_progressive_ideologies }
+			}
+			add_journal_entry = {
+				type = je_old_progressive_ideologies
+			}
+		}
+		else_if = {
+			limit = {
+				var:has_progressist_ideology = 1
+				NOT = { has_journal_entry = je_mid_progressive_ideologies }
+			}
+			add_journal_entry = {
+				type = je_mid_progressive_ideologies
+			}
+		}
+		else_if = {
+			limit = {
+				var:has_progressist_ideology = 2
+				NOT = { has_journal_entry = je_late_progressive_ideologies }
+			}
+			add_journal_entry = {
+				type = je_late_progressive_ideologies
+			}
+		}
 		# Demographic Update
 		if = {
 			limit = {
@@ -95,6 +123,21 @@ ztr_economic_update.1 = {
 			}
 			add_modifier = {
 				name = demographic_stage_0
+			}
+			if = {
+				limit = {
+					NOR = {
+						has_journal_entry = je_demographic_0_to_1
+						has_journal_entry = je_demographic_1_to_2
+						has_journal_entry = je_demographic_2_to_3
+						has_journal_entry = je_demographic_3_to_4
+						has_journal_entry = je_demographic_4_to_5
+						has_journal_entry = je_demographic_5_to_6
+					}
+				}
+				add_journal_entry = {
+					type = je_demographic_0_to_1
+				}
 			}
 		}
 		else_if = {
@@ -106,6 +149,21 @@ ztr_economic_update.1 = {
 			add_modifier = {
 				name = demographic_stage_1
 			}
+			if = {
+				limit = {
+					NOR = {
+						has_journal_entry = je_demographic_0_to_1
+						has_journal_entry = je_demographic_1_to_2
+						has_journal_entry = je_demographic_2_to_3
+						has_journal_entry = je_demographic_3_to_4
+						has_journal_entry = je_demographic_4_to_5
+						has_journal_entry = je_demographic_5_to_6
+					}
+				}
+				add_journal_entry = {
+					type = je_demographic_1_to_2
+				}
+			}
 		}
 		else_if = {
 			limit = {
@@ -115,6 +173,21 @@ ztr_economic_update.1 = {
 			add_modifier = {
 				name = demographic_stage_2
 			}
+			if = {
+				limit = {
+					NOR = {
+						has_journal_entry = je_demographic_0_to_1
+						has_journal_entry = je_demographic_1_to_2
+						has_journal_entry = je_demographic_2_to_3
+						has_journal_entry = je_demographic_3_to_4
+						has_journal_entry = je_demographic_4_to_5
+						has_journal_entry = je_demographic_5_to_6
+					}
+				}
+				add_journal_entry = {
+					type = je_demographic_2_to_3
+				}
+			}			
 		}
 		else_if = {
 			limit = {
@@ -123,6 +196,21 @@ ztr_economic_update.1 = {
 			add_modifier = {
 				name = demographic_stage_3
 			}
+			if = {
+				limit = {
+					NOR = {
+						has_journal_entry = je_demographic_0_to_1
+						has_journal_entry = je_demographic_1_to_2
+						has_journal_entry = je_demographic_2_to_3
+						has_journal_entry = je_demographic_3_to_4
+						has_journal_entry = je_demographic_4_to_5
+						has_journal_entry = je_demographic_5_to_6
+					}
+				}
+				add_journal_entry = {
+					type = je_demographic_3_to_4
+				}
+			}			
 		}
 		else_if = {
 			limit = {
@@ -130,6 +218,21 @@ ztr_economic_update.1 = {
 			}
 			add_modifier = {
 				name = demographic_stage_4
+			}
+			if = {
+				limit = {
+					NOR = {
+						has_journal_entry = je_demographic_0_to_1
+						has_journal_entry = je_demographic_1_to_2
+						has_journal_entry = je_demographic_2_to_3
+						has_journal_entry = je_demographic_3_to_4
+						has_journal_entry = je_demographic_4_to_5
+						has_journal_entry = je_demographic_5_to_6
+					}
+				}
+				add_journal_entry = {
+					type = je_demographic_4_to_5
+				}
 			}
 		}
 		else_if = {
@@ -139,11 +242,27 @@ ztr_economic_update.1 = {
 			add_modifier = {
 				name = demographic_stage_5
 			}
+			if = {
+				limit = {
+					NOR = {
+						has_journal_entry = je_demographic_0_to_1
+						has_journal_entry = je_demographic_1_to_2
+						has_journal_entry = je_demographic_2_to_3
+						has_journal_entry = je_demographic_3_to_4
+						has_journal_entry = je_demographic_4_to_5
+						has_journal_entry = je_demographic_5_to_6
+					}
+				}
+				add_journal_entry = {
+					type = je_demographic_5_to_6
+				}
+			}
 		}
 		else = {
 			add_modifier = {
 				name = demographic_stage_6
 			}
+			
 		}
 		ai_chance = {
 			base = 100										

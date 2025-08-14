@@ -330,3 +330,14 @@ british_raj_annexation_effect = {
 		}
 	}
 }
+
+give_claims_on_india = {
+	every_state = {
+		limit = {
+			NOT = { owner = ROOT }
+			state_is_in_india = yes
+			NOT = { state_region = s:STATE_CEYLON }
+		}
+		state_region = { add_claim = ROOT }
+	}
+}

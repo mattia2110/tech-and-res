@@ -145,12 +145,6 @@ company_sinopec = {
 		}
 	}
 
-	ai_construction_targets = {
-		building_oil_rig = {
-			level = 5
-		}
-	}
-
 	ai_weight = {
 		value = 4 # Higher base value for flavored companies
 	}
@@ -211,12 +205,6 @@ company_total = {
 		}
 	}
 
-	ai_construction_targets = {
-		building_oil_rig = {
-			level = 5
-		}
-	}
-
 	ai_weight = {
 		value = 4 # Higher base value for flavored companies
 	}
@@ -274,12 +262,6 @@ company_bg = {
 		has_technology_researched = pumpjacks
 		any_scope_state = {
 			has_potential_resource = bg_oil_extraction
-		}
-	}
-
-	ai_construction_targets = {
-		building_oil_rig = {
-			level = 5
 		}
 	}
 
@@ -347,6 +329,12 @@ company_eni = {
 	ai_construction_targets = {
 		building_oil_rig = {
 			level = 5
+			state_trigger = {
+				OR = {
+					state_region = s:STATE_SICILY
+					state_region = s:STATE_VENETIA
+				}
+			}
 		}
 	}
 
@@ -402,7 +390,7 @@ company_gazprom = {
 	}
 
 	prosperity_modifier = {
-		building_natural_gas_rig_throughput_add = 0.2
+		building_natural_gas_rig_throughput_add = 0.25
 		country_prestige_from_army_power_projection_mult = 0.2
 		state_mortality_mult = 0.05
 	}
@@ -410,13 +398,19 @@ company_gazprom = {
 	ai_will_do = {
 		has_technology_researched = natural_gas_extraction
 		any_scope_state = {
-			has_potential_resource = building_natural_gas_rig
+			has_potential_resource = bg_natural_gas_extraction
 		}
 	}
 
 	ai_construction_targets = {
 		building_oil_rig = {
 			level = 5
+			state_trigger = {
+				OR = {
+					state_region = s:STATE_TAMBOV
+					state_region = s:STATE_IRKUTSK
+				}
+			}
 		}
 	}
 

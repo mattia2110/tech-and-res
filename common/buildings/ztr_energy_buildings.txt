@@ -20,31 +20,20 @@ building_power_plant = {
 	required_construction = construction_cost_medium # Medium as it is in vanilla
 
 	ai_value = {
-		value = 2000 
+		value = 2000
 
 		# Need 1 level of Power Plants everywhere as its a local good and a prerequisite to enabling electricity PMs to begin with
 		if = {
 			limit = {
-				owner = {
-					NOR = {
+				NOR = {
 					has_building = building_power_plant
 					any_scope_building = {
 						is_building_type = building_power_plant
 						is_under_construction = yes
 					}
 				}
-				}
 			}
 			add = 3000
-		}
-
-		if = {
-			limit = {
-				owner = {
-					has_technology_researched = advanced_solar_panels
-				}
-			}
-			add = -2000
 		}
 	}
 
@@ -85,18 +74,16 @@ building_renewable_energy_power_plant = {
 
 		if = {
 			limit = {
-				owner = {
-					has_technology_researched = advanced_solar_panels
-					NOR = {
-						has_building = building_renewable_energy_power_plant
-						any_scope_building = {
-							is_building_type = building_renewable_energy_power_plant
-							is_under_construction = yes
-						}
+				has_technology_researched = advanced_solar_panels
+				NOR = {
+					has_building = building_renewable_energy_power_plant
+					any_scope_building = {
+						is_building_type = building_renewable_energy_power_plant
+						is_under_construction = yes
 					}
 				}
 			}
-			add = 2000
+			add = 3000
 		}
 	}
 

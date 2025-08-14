@@ -5,44 +5,48 @@
 # 	state_mortality_mult = -0.02
 # }
 
+# Scales with total navy power projection of a country
+country_navy_power_projection = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_rifle_positive.dds
+	country_max_declared_interests_add = 0.005
+}
+
 historical_population_of_france_2 = {
 	icon = gfx/interface/icons/timed_modifier_icons/pop_positive.dds
-	state_birth_rate_mult = 0.05
+	state_birth_rate_mult = 0.02
 }
 
 #Germany modifiers
 historical_population_of_germany = {
 	icon = gfx/interface/icons/timed_modifier_icons/pop_positive.dds
 	state_birth_rate_mult = 0.05
-	state_mortality_mult = -0.05
 }
 
 #USA modifiers
 usa_gilded_age = {
 	icon = gfx/interface/icons/timed_modifier_icons/modifier_capitalist_positive.dds
-	interest_group_ig_trade_unions_pol_str_mult = -0.2
+	interest_group_ig_trade_unions_pol_str_mult = -0.33
 	country_construction_goods_cost_mult = -0.2
-	state_birth_rate_mult = 0.1
-	state_construction_mult = 0.1
-	state_capitalists_investment_pool_efficiency_mult = 0.15
-	country_mass_migration_attraction_mult = 0.75
+	state_birth_rate_mult = 0.08 #This should be migration attraction but USA AI loves migration control
+	building_construction_sector_throughput_add = 0.15
+	state_capitalists_investment_pool_efficiency_mult = 0.25
 }
 
 usa_gilded_age_player = {
 	icon = gfx/interface/icons/timed_modifier_icons/modifier_capitalist_positive.dds
-	interest_group_ig_trade_unions_pol_str_mult = -0.2
-	state_construction_mult = 0.05
-	state_capitalists_investment_pool_efficiency_mult = 0.1
+	interest_group_ig_trade_unions_pol_str_mult = -0.1
+	country_construction_goods_cost_mult = -0.05
+	state_capitalists_investment_pool_efficiency_mult = 0.05
 	country_mass_migration_attraction_mult = 0.25
 }
 
 #Japan modifiers
 japan_meiji_modernization = {
 	icon = gfx/interface/icons/timed_modifier_icons/modifier_industry_positive.dds
-	state_birth_rate_mult = 0.1 #0.1
-	country_construction_goods_cost_mult = -0.2 #0.2
+	state_birth_rate_mult = 0.05 #0.1
+	country_construction_goods_cost_mult = -0.1 #0.2
 	state_turmoil_effects_mult = -0.2
-	state_construction_mult = 0.15
+	state_construction_mult = 0.1
 } #It lasts for 100 years after the Meiji Restoration.
 
 japan_meiji_modernization_player = {
@@ -151,16 +155,18 @@ galicia_agricultural_subsidies = {
 
 arabia_renaissance_modifier = {
 	icon = gfx/interface/icons/timed_modifier_icons/arabia_renaissance.dds
-	building_group_bg_oil_extraction_throughput_add = 0.25
-	state_birth_rate_mult = 0.25
+	building_group_bg_oil_extraction_throughput_add = 0.2
+	country_minting_mult = 1
+	state_birth_rate_mult = 0.1
 }
 
 # India modifiers
 
 jewel_in_the_crown_modifier = {
 	icon = gfx/interface/icons/timed_modifier_icons/modifier_raj_positive.dds
-	state_birth_rate_mult = 0.25
-	state_turmoil_effects_mult = -0.25
+	state_birth_rate_mult = 0.1
+	state_construction_mult = -0.25
+	state_radicals_from_political_movements_mult = -0.15
 	state_education_access_add = -0.1
 }
 
@@ -168,6 +174,7 @@ jewel_in_the_crown_modifier = {
 colonial_agricultural_shift = {
 	icon = gfx/interface/icons/timed_modifier_icons/modifier_colonization_positive.dds
 	state_birth_rate_mult = 0.25
+	state_construction_mult = -0.25
 	state_turmoil_effects_mult = -0.15
 	state_education_access_add = -0.1
 }
@@ -176,6 +183,6 @@ colonial_agricultural_shift_player = {
 	icon = gfx/interface/icons/timed_modifier_icons/modifier_colonization_positive.dds
 	state_birth_rate_mult = 0.1
 	state_turmoil_effects_mult = -0.05
-	state_construction_mult = -0.05
+	state_construction_mult = -0.1
 	state_education_access_add = -0.1
 }

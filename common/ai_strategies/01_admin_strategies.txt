@@ -255,7 +255,7 @@ ai_strategy_industrial_expansion = {
 		space_assets = {
 			stance = wants_high_supply
 			trigger = {
-				has_technology_researched = space_assets
+				has_technology_researched = space_rocketery
 				country_rank >= rank_value:major_power
 			}
 		}
@@ -447,7 +447,14 @@ ai_strategy_industrial_expansion = {
 			}
 			add = 250
 		}
-
+		if = {
+			limit = {
+				year < 1870
+				exists = c:AUS
+				c:AUS = this
+			}
+			add = -150
+		}
 		if = {
 			limit = {
 				year < 1880
@@ -466,27 +473,19 @@ ai_strategy_industrial_expansion = {
 		}
 		if = {
 			limit = {
-				year < 1870
-				exists = c:AUS
-				c:AUS = this
-			}
-			add = -150
-		}
-		if = {
-			limit = {
-				year < 1910
+				year < 1920
 				exists = c:SPA
 				c:SPA = this
 			}
-			add = -200
+			add = -250
 		}
 		if = {
 			limit = {
-				year < 1930
+				year < 1920
 				exists = c:RUS
 				c:RUS = this
 			}
-			add = -200
+			add = -250
 		}
 
 		

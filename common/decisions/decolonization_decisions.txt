@@ -5,6 +5,7 @@ decolonization_tunisia_decision = {
 	is_shown = {
 		has_technology_researched = decolonization
 		year > 1945
+		NOT = { is_subject = yes }
 		NOT = {
 			OR = {
 				c:TUN ?= root
@@ -67,6 +68,7 @@ decolonization_algeria_decision = {
 	is_shown = {
 		has_technology_researched = decolonization
 		year > 1945
+		NOT = { is_subject = yes }
 		NOT = {
 			OR = {
 				c:ALD ?= root
@@ -225,6 +227,7 @@ decolonization_morocco_decision = {
 	is_shown = {
 		has_technology_researched = decolonization
 		year > 1945
+		NOT = { is_subject = yes }
 		NOT = {
 			OR = {
 				c:MOR ?= root
@@ -397,6 +400,7 @@ decolonization_libya_decision = {
 	is_shown = {
 		has_technology_researched = decolonization
 		year > 1945
+		NOT = { is_subject = yes }
 		NOT = {
 			OR = {
 				c:TRI ?= root
@@ -511,6 +515,7 @@ decolonization_egypt_decision = {
 	is_shown = {
 		has_technology_researched = decolonization
 		year > 1945
+		NOT = { is_subject = yes }
 		NOT = {
 			OR = {
 				c:EGY ?= root
@@ -669,6 +674,7 @@ decolonization_sudan_decision = {
 	is_shown = {
 		has_technology_researched = decolonization
 		year > 1945
+		NOT = { is_subject = yes }
 		OR = {
 			country_is_in_europe = yes
 			country_is_in_north_america = yes
@@ -834,6 +840,7 @@ decolonization_arabia_decision = {
 	is_shown = {
 		has_technology_researched = decolonization
 		year > 1945
+		NOT = { is_subject = yes }
 		NOT = {
 			country_has_primary_culture = cu:bedouin
 		}
@@ -947,6 +954,7 @@ decolonization_oman_decision = {
 	is_shown = {
 		has_technology_researched = decolonization
 		year > 1945
+		NOT = { is_subject = yes }
 		NOT = {
 			country_has_primary_culture = cu:bedouin
 		}
@@ -1016,6 +1024,7 @@ decolonization_yemen_decision = {
 	is_shown = {
 		has_technology_researched = decolonization
 		year > 1945
+		NOT = { is_subject = yes }
 		NOT = {
 			country_has_primary_culture = cu:bedouin
 		}
@@ -1085,6 +1094,7 @@ decolonization_uae_decision = {
 	is_shown = {
 		has_technology_researched = decolonization
 		year > 1945
+		NOT = { is_subject = yes }
 		NOT = {
 			country_has_primary_culture = cu:bedouin
 		}
@@ -1176,6 +1186,7 @@ decolonization_persia_decision = {
 	is_shown = {
 		has_technology_researched = decolonization
 		year > 1945
+		NOT = { is_subject = yes }
 		NOT = {
 			country_has_primary_culture = cu:persian
 		}
@@ -1559,11 +1570,7 @@ decolonization_birmania_decision = {
 	is_shown = {
 		has_technology_researched = decolonization
 		year > 1945
-		NOT = {
-			OR = {
-				c:BUR ?= root
-			}
-		}
+		NOT = { is_subject = yes }
 		NOT = {
 			country_has_primary_culture = cu:burmese
 		}
@@ -1718,11 +1725,7 @@ decolonization_siam_decision = {
 	is_shown = {
 		has_technology_researched = decolonization
 		year > 1945
-		NOT = {
-			OR = {
-				c:SIA ?= root
-			}
-		}
+		NOT = { is_subject = yes }
 		NOT = {
 			country_has_primary_culture = cu:thai
 		}
@@ -1855,11 +1858,7 @@ decolonization_laos_decision = {
 	is_shown = {
 		has_technology_researched = decolonization
 		year > 1945
-		NOT = {
-			OR = {
-				c:LAO ?= root
-			}
-		}
+		NOT = { is_subject = yes }
 		NOT = {
 			country_has_primary_culture = cu:lao
 		}
@@ -1924,11 +1923,7 @@ decolonization_vietnam_decision = {
 	is_shown = {
 		has_technology_researched = decolonization
 		year > 1945
-		NOT = {
-			OR = {
-				c:DAI ?= root
-			}
-		}
+		NOT = { is_subject = yes }
 		NOT = {
 			country_has_primary_culture = cu:vietnamese
 		}
@@ -2039,11 +2034,7 @@ decolonization_cambodia_decision = {
 	is_shown = {
 		has_technology_researched = decolonization
 		year > 1945
-		NOT = {
-			OR = {
-				c:CAM ?= root
-			}
-		}
+		NOT = { is_subject = yes }
 		NOT = {
 			country_has_primary_culture = cu:khmer
 		}
@@ -2109,12 +2100,342 @@ decolonization_cambodia_decision = {
 
 #decolonization_syria_decision
 
-#decolonization_india_decision from UK after 1945
+#decolonization_india_decision from indian states
+
+decolonization_india_decision = {
+
+	is_shown = {
+		has_game_rule = allow_ztr_decolonization_content
+		has_global_variable = ztr_indian_unifier_global_var
+		NOT = { has_variable = ztr_indian_unifier_var }
+		# exists = scope:ztr_indian_unifier_scope
+		# NOT = { scope:ztr_indian_unifier_scope = root }
+		#NOT = { c:PAK ?= root } #Pakistan future addition
+		#NOT = { c:BGD ?= root } #Bangladesh future addition
+		OR = {
+			AND = {
+				has_technology_researched = pan-nationalism
+				country_is_in_india = yes
+			}
+			AND = {
+				has_technology_researched = decolonization
+				NOT = { country_is_in_india = yes }
+			}
+		}
+		year > 1945
+		NOT = { is_subject = yes }
+		any_scope_state = {
+			state_is_in_india = yes
+			NOT = { state_region = s:STATE_CEYLON }
+		}
+	}
+
+	possible = {
+	}
+
+	when_taken = {
+		change_infamy = -5
+		if = {
+			limit = {
+				exists = c:BHT
+				c:BHT = { has_variable = ztr_indian_unifier_var }
+			}
+			every_scope_state = {
+				limit = {
+					state_is_in_india = yes
+					NOT = { state_region = s:STATE_CEYLON }
+				}
+				set_state_owner = c:BHT
+			}
+		}
+		# else_if = {
+		# 	limit = {
+		# 		exists = c:BGL
+		# 		c:BGL = { has_variable = ztr_indian_unifier_var }
+		# 	}
+		# 	every_scope_state = {
+		# 		limit = {
+		# 			state_is_in_india = yes
+		# 			NOT = { state_region = s:STATE_CEYLON }
+		# 		}
+		# 		set_state_owner = c:BGL
+		# 	}
+		# }
+		if = {
+			limit = {
+				country_is_in_europe = yes 
+			}
+			create_unidirectional_truce = { country = scope:ztr_indian_unifier_scope months = 120 }
+		}
+	}
+
+	ai_chance = {
+		value = 5	
+	}
+}
 
 #decolonization_afghanistan_decision
-
-#decolonization_china_decision
 
 #decolonization_malasia_decision
 
 #decolonization_new_zealand_decision
+
+#decolonization_korea_decision
+
+decolonization_korea_decision = {
+
+	is_shown = {
+		has_game_rule = allow_ztr_decolonization_content
+		has_technology_researched = decolonization
+		year > 1945
+		NOT = { is_subject = yes }
+		NOT = {
+			country_has_primary_culture = cu:korean
+		}
+		OR = {
+			s:STATE_SEOUL = {
+			any_scope_state = {
+					owner = ROOT
+				}
+			}
+			s:STATE_BUSAN = {
+			any_scope_state = {
+					owner = ROOT
+				}
+			}
+			s:STATE_SARIWON = {
+			any_scope_state = {
+					owner = ROOT
+				}
+			}
+			s:STATE_PYONGYANG = {
+			any_scope_state = {
+					owner = ROOT
+				}
+			}
+			s:STATE_YANGHO = {
+			any_scope_state = {
+					owner = ROOT
+				}
+			}
+		}
+	}
+
+	possible = {
+	}
+
+	when_taken = {
+		change_infamy = -15
+		if = {
+			limit = {
+				NOT = {
+					exists = c:KOR
+				}
+			}
+			create_country = {
+			tag = KOR
+			origin = this
+			province = p:x03EAAF
+			on_created = {
+				set_country_type = recognized
+				activate_law = law_type:law_presidential_republic
+			}
+			}
+		}
+		if = {
+			limit = {
+				s:STATE_SEOUL = {
+				any_scope_state = {
+						owner = ROOT
+					}
+				}
+			}
+			s:STATE_SEOUL = {
+				random_scope_state = {
+					limit = {
+						owner = root
+					}
+					set_state_owner = c:KOR
+				}
+			}
+		}
+		if = {
+			limit = {
+				s:STATE_BUSAN = {
+				any_scope_state = {
+						owner = ROOT
+					}
+				}
+			}
+			s:STATE_BUSAN = {
+				random_scope_state = {
+					limit = {
+						owner = root
+					}
+					set_state_owner = c:KOR
+				}
+			}
+		}
+		if = {
+			limit = {
+				s:STATE_SARIWON = {
+				any_scope_state = {
+						owner = ROOT
+					}
+				}
+			}
+			s:STATE_SARIWON = {
+				random_scope_state = {
+					limit = {
+						owner = root
+					}
+					set_state_owner = c:KOR
+				}
+			}
+		}
+		if = {
+			limit = {
+				s:STATE_PYONGYANG = {
+				any_scope_state = {
+						owner = ROOT
+					}
+				}
+			}
+			s:STATE_PYONGYANG = {
+				random_scope_state = {
+					limit = {
+						owner = root
+					}
+					set_state_owner = c:KOR
+				}
+			}
+		}
+		if = {
+			limit = {
+				s:STATE_YANGHO = {
+				any_scope_state = {
+						owner = ROOT
+					}
+				}
+			}
+			s:STATE_YANGHO = {
+				random_scope_state = {
+					limit = {
+						owner = root
+					}
+					set_state_owner = c:KOR
+				}
+			}
+		}
+		create_unidirectional_truce = { country = c:KOR months = 120 }
+	}
+
+	ai_chance = {
+		value = 5	
+	}
+}
+
+#decolonization_japan_decision
+
+decolonization_japan_decision = {
+
+	is_shown = {
+		has_game_rule = allow_ztr_decolonization_content
+		has_technology_researched = decolonization
+		year > 1945
+		NOT = { is_subject = yes }
+		NOT = {
+			country_has_primary_culture = cu:japanese
+		}
+		any_scope_state = {
+			region = sr:region_japan
+			owner = ROOT
+		}
+		exists = c:JAP # This event only works if Japan exists
+	}
+
+	possible = {
+	}
+
+	when_taken = {
+		change_infamy = -15
+		# if = {
+		# 	limit = {
+		# 		NOT = {
+		# 			exists = c:DAI
+		# 		}
+		# 	}
+		# 	create_country = {
+		# 	tag = KOR
+		# 	origin = this
+		# 	province = p:x03EAAF
+		# 	on_created = {
+		# 		set_country_type = recognized
+		# 		activate_law = law_type:law_presidential_republic
+		# 	}
+		# 	}
+		# } It's very rare that Japan doesn't exist any more, so this is not needed
+		every_scope_state = {
+			limit = {
+				region = sr:region_japan
+			}
+			set_state_owner = c:JAP
+		}
+		create_unidirectional_truce = { country = c:JAP months = 120 }
+	}
+
+	ai_chance = {
+		value = 5	
+	}
+}
+
+#decolonization_china_decision
+
+decolonization_china_decision = {
+
+	is_shown = {
+		has_game_rule = allow_ztr_decolonization_content
+		has_technology_researched = decolonization
+		year > 1945
+		NOT = { is_subject = yes }
+		NOT = {	country_is_in_china = yes } # Better than using chinese/han culture
+		any_scope_state = {
+			OR = {
+				region = sr:region_north_china
+				region = sr:region_south_china
+			}
+			NOT = { state_region = s:STATE_SHAOZHOU }
+			owner = ROOT
+		}
+		exists = c:CHI # This event only works if China exists
+	}
+
+	possible = {
+	}
+
+	when_taken = {
+		change_infamy = -15
+		every_scope_state = {
+			limit = {
+				OR = {
+					region = sr:region_north_china
+					region = sr:region_south_china
+				}
+				NOT = { state_region = s:STATE_SHAOZHOU }
+			}
+			set_state_owner = c:CHI
+		}
+		create_unidirectional_truce = { country = c:CHI months = 120 }
+		c:CHI = {
+			change_relations = {
+				country = root
+				value = 50
+			}
+		}
+		#Hong Kong WIP TODO
+	}
+
+	ai_chance = {
+		value = 5	
+	}
+}

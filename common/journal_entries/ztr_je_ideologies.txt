@@ -13,18 +13,37 @@ je_old_progressive_ideologies = {
 		NOT = { has_variable = has_progressist_ideology }
 	}
 
-	complete = {
-		OR = {
-			has_technology_researched = human_rights
-			has_technology_researched = dubois_nature_protection_tech
-		}
-		OR = {
-            has_modifier = dev_4_country
-            has_modifier = dev_5_country
+	immediate = {
+		set_variable = {
+			name = ideology_stage_var
+			value = 0
 		}
 	}
 
+	on_yearly_pulse = {
+		effect = {
+			if = {
+				limit = {
+					has_technology_researched = human_rights
+					OR = {
+						has_modifier = dev_4_country
+						has_modifier = dev_5_country
+					}
+				}
+				change_variable = {
+					name = ideology_stage_var
+					add = 1
+				}
+			}
+		}
+	}
+
+	complete = {
+		scope:journal_entry = { is_goal_complete = yes }
+	}
+
 	on_complete = {
+		remove_variable = ideology_stage_var
 		set_variable = {
 			name = has_progressist_ideology
 			value = 1
@@ -57,6 +76,19 @@ je_old_progressive_ideologies = {
 			add_ideology = ideology_moderate_progressist
 			add_ideology = ideology_neg_ambientalist
 		}
+		add_journal_entry = {
+			type = je_mid_progressive_ideologies
+		}
+	}
+
+	transferable = no
+
+	current_value = {
+		value = var:ideology_stage_var
+	}
+
+	goal_add_value = {
+		value = 1
 	}
 
 	weight = 2
@@ -79,15 +111,37 @@ je_mid_progressive_ideologies = {
 		var:has_progressist_ideology = 1
 	}
 
-	complete = {
-		has_technology_researched = socialdemocracy
-		OR = {
-            has_modifier = dev_4_country
-            has_modifier = dev_5_country
+	immediate = {
+		set_variable = {
+			name = ideology_stage_var
+			value = 0
 		}
 	}
 
+	on_yearly_pulse = {
+		effect = {
+			if = {
+				limit = {
+					has_technology_researched = socialdemocracy
+					OR = {
+						has_modifier = dev_4_country
+						has_modifier = dev_5_country
+					}
+				}
+				change_variable = {
+					name = ideology_stage_var
+					add = 1
+				}
+			}
+		}
+	}
+
+	complete = {
+		scope:journal_entry = { is_goal_complete = yes }
+	}
+
 	on_complete = {
+		remove_variable = ideology_stage_var
 		change_variable = {
 			name = has_progressist_ideology
 			add = 1
@@ -122,7 +176,20 @@ je_mid_progressive_ideologies = {
 			remove_ideology = ideology_neg_ambientalist
 			add_ideology = ideology_moderate_ambientalist
 		}
+		add_journal_entry = {
+			type = je_late_progressive_ideologies
+		}
 	}
+
+	current_value = {
+		value = var:ideology_stage_var
+	}
+
+	goal_add_value = {
+		value = 1
+	}
+
+	transferable = no
 
 	weight = 2
 }
@@ -134,25 +201,37 @@ je_late_progressive_ideologies = {
 
 	group = je_group_historical_content
 
-	is_shown_when_inactive = {
-		has_variable = has_progressist_ideology
-		var:has_progressist_ideology = 2
-	}
-
-	possible = {
-		has_variable = has_progressist_ideology
-		var:has_progressist_ideology = 2
-	}
-
-	complete = {
-		has_technology_researched = neoliberism
-		OR = {
-            has_modifier = dev_4_country
-            has_modifier = dev_5_country
+	immediate = {
+		set_variable = {
+			name = ideology_stage_var
+			value = 0
 		}
 	}
 
+	on_yearly_pulse = {
+		effect = {
+			if = {
+				limit = {
+					has_technology_researched = neoliberism
+					OR = {
+						has_modifier = dev_4_country
+						has_modifier = dev_5_country
+					}
+				}
+				change_variable = {
+					name = ideology_stage_var
+					add = 1
+				}
+			}
+		}
+	}
+
+	complete = {
+		scope:journal_entry = { is_goal_complete = yes }
+	}
+
 	on_complete = {
+		remove_variable = ideology_stage_var
 		change_variable = {
 			name = has_progressist_ideology
 			add = 1
@@ -188,6 +267,16 @@ je_late_progressive_ideologies = {
 		# 	remove_ideology = ideology_extreme_progressist
 		# }
 	}
+
+	current_value = {
+		value = var:ideology_stage_var
+	}
+
+	goal_add_value = {
+		value = 1
+	}
+
+	transferable = no
 
 	weight = 2
 }

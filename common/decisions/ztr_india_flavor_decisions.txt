@@ -1,3 +1,4 @@
+#This decision is actually more flavor than decolonization, so it will be activated by historical_content rule
 durrand_line = {
 	is_shown = {
 		has_technology_researched = pan-nationalism
@@ -6,7 +7,25 @@ durrand_line = {
 		c:BIC = {
 			overlord = root
 		}
-		has_game_rule = allow_ztr_decolonization_content
+		NOT = { exists = c:PAN }
+		OR = {
+			NOT = { exists = c:KAN }
+			c:KAN = { is_ai = yes }
+		}
+		OR = {
+			NOT = { exists = c:KAB }
+			c:KAB = { is_ai = yes }
+		}
+		OR = {
+			NOT = { exists = c:KAL }
+			c:KAL = { is_ai = yes }
+		}
+		OR = {
+			NOT = { exists = c:MAK }
+			c:MAK = { is_ai = yes }
+		}
+		# This is done in order to automatically disable the event if one of these countries are player
+		has_game_rule = allow_ztr_historical_content
 		NOT = { has_global_variable = durand_line }
 	}
 
@@ -26,6 +45,7 @@ durrand_line = {
 	}
 }
 
+#These next decisions are more decolonization content, so they will be activated by decolonization_content rule
 decolonization_india_raj_consolidation = {
 	is_shown = {
 		has_technology_researched = pan-nationalism
@@ -104,6 +124,46 @@ decolonization_india_raj_independence_request = {
 	when_taken = {
 		overlord = { trigger_event = ztr_india.2 }
 		set_variable = ztr_india_request_independence
+	}
+
+	ai_chance = {
+		value = 10	
+	}
+}
+
+# British Raj Destruction Scenario
+
+indian_unifier_decision = {
+	is_shown = {
+		has_game_rule = allow_ztr_decolonization_content
+		has_technology_researched = pan-nationalism
+		country_rank >= rank_value:minor_power # In this way dwarf state will not unify India
+		year > 1944
+		NOT = { exists = c:BIC }
+		OR = {
+			AND = {
+				exists = c:BHT
+				c:BHT = this
+				NOT = { has_variable = ztr_indian_unifier_var }
+			}
+			AND = {
+				NOT = { exists = c:BHT }
+				exists = c:BGL
+				c:BGL = this
+				NOT = { has_variable = ztr_indian_unifier_var }
+			}
+		}
+	}
+
+	possible = {
+	}
+
+	when_taken = {
+		set_variable = {
+			name = ztr_indian_unifier_var
+			value = 0
+		}
+		trigger_event = ztr_india.5
 	}
 
 	ai_chance = {

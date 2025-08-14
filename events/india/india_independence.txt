@@ -202,3 +202,51 @@ ztr_india.4 = {
 		remove_variable = ztr_india_request_independence
 	}
 }
+
+# Indian Unifier Declaration
+ztr_india.5 = {
+	dlc = dlc_tech_res
+	type = country_event
+	placement = root
+
+	duration = 1
+
+	title = ztr_india.5.t
+	desc = ztr_india.5.d
+
+	event_image = {
+		video = "ip2_india_countryside"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	icon = "gfx/interface/icons/event_icons/event_map.dds"
+
+	trigger = {
+	}
+
+	immediate = {
+		set_global_variable = {
+			name = ztr_indian_unifier_global_var
+			value = 0
+		}
+		root = {
+			save_scope_as = ztr_root_scope
+		}
+	}
+
+	option = {
+		name = ztr_india.5.a
+		default_option = yes
+		hidden_effect = {
+			give_claims_on_india = yes
+		}
+		if = {
+			limit = {
+				root = c:BGL
+			}
+			change_tag = BHT
+		}
+		custom_tooltip = decolonization_india_decision_custom_tt
+	}
+}
