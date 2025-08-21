@@ -10,7 +10,7 @@ je_ottoman_empire_collapse = {
     }
 
     possible = {
-		global_country_ranking > 5
+		NOT = { country_rank = rank_value:great_power }
         get_country_gdp_per < 2.5
         is_ai = yes
     }
@@ -51,9 +51,9 @@ je_ottoman_empire_collapse = {
                     add = -1
                 }
             }
-            # Economic malaise
+            # Economic problems
             if = {
-                limit = { get_country_gdp_per < 2 }
+                limit = { get_country_gdp_per < 2.5 }
                 change_variable = {
                     name = ottoman_empire_collapse_var
                     add = 1
@@ -75,25 +75,28 @@ je_ottoman_empire_collapse = {
             # Slipping down the prestige ladder
             if = {
 				limit = {
-					country_rank < rank_value:great_power
+					country_rank < rank_value:major_power
 				}
 				change_variable = {
 					name = ottoman_empire_collapse_var
-					add = 1
+					add = 2
 				}
 			}
+            #TODO -2 for Ottoman concession to the British (Egypt, Sudan, Palestine, Iraq)
+            #TODO -2 for Ottoman concession to the French (Syria, Lebanon)
+            #TODO -1 for Ottoman concession to the Italians (Libya)
+            #TODO -1 for Ottoman concession to the Balkans (Some states to Serbia and Greece)
         }
         # Random flavour events (grant ± modifiers to the JE variable)
-        random_events = {
-            20 = 0
-            # 5  = ottoman_empire_collapse.3  # Young Turks agitation
-            # 5  = ottoman_empire_collapse.4  # Greco‑Turkish clashes in Macedonia
-            # 5  = ottoman_empire_collapse.5  # Arab nationalism in the Levant
-            # 5  = ottoman_empire_collapse.6  # Bulgarian uprising in Rumelia
-            # 5  = ottoman_empire_collapse.7  # Armenian autonomy demands
-            # 5  = ottoman_empire_collapse.9  # Fiscal crisis in Constantinople
-            # 5  = ottoman_empire_collapse.10 # The Sick Man of Europe headline
-        }
+        # random_events = {
+        #     20 = 0
+        #     # 5 = ottoman_empire_collapse.4  # Concession to the British
+        #     # 5 = ottoman_empire_collapse.5  # Concession to the French
+        #     # 5 = ottoman_empire_collapse.6  # Concession to the Italians
+        #     # 5 = ottoman_empire_collapse.7  # Balkans Revolts
+        #     # 5 = ottoman_empire_collapse.8  # Armenian Russophiles
+        #     # 5 = ottoman_empire_collapse.10 # The Sick Man of Europe headline
+        # }
     }
 
     complete = {
@@ -128,6 +131,9 @@ je_ottoman_empire_collapse = {
             }
         }
 		s:STATE_PELOPONNESE.region_state:TUR = {
+			set_state_owner = c:GRE
+		}
+        s:STATE_ATTICA.region_state:TUR = {
 			set_state_owner = c:GRE
 		}
 		s:STATE_MACEDONIA.region_state:TUR = {
@@ -168,6 +174,9 @@ je_ottoman_empire_collapse = {
                 }
             }
         }
+        s:STATE_BULGARIA.region_state:TUR = {
+			set_state_owner = c:BUL
+		}
 		s:STATE_NORTHERN_THRACE.region_state:TUR = {
 			set_state_owner = c:BUL
 		}
@@ -193,6 +202,9 @@ je_ottoman_empire_collapse = {
                     activate_law     = law_type:law_census_voting
                 }
             }
+        }
+        s:STATE_WALLACHIA.region_state:TUR = {
+            set_state_owner = c:ROM
         }
 		s:STATE_MOLDAVIA.region_state:TUR = {
 			set_state_owner = c:ROM
@@ -256,6 +268,40 @@ je_ottoman_empire_collapse = {
 			set_state_owner = c:SER
 		}
 
+        #Sudan
+		if = {
+            limit = {
+                NOT = { exists = c:SUD }
+                s:STATE_DONGOLA= {
+                    any_scope_state = { owner = ROOT }
+                }
+            }
+            create_country = {
+                tag    = SUD
+                origin = this
+                state  = s:STATE_DONGOLA.region_state:TUR
+                on_created = {
+                    set_country_type = recognized
+                    activate_law     = law_type:law_monarchy
+                }
+            }
+        }
+        s:STATE_DONGOLA.region_state:TUR = {
+			set_state_owner = c:SUD
+		}
+		s:STATE_BLUE_NILE.region_state:TUR = {
+			set_state_owner = c:SUD
+		}
+		s:STATE_KORDOFAN.region_state:TUR = {
+			set_state_owner = c:SUD
+		}
+		s:STATE_DARFUR.region_state:TUR = {
+			set_state_owner = c:SUD
+		}
+		s:STATE_EQUATORIA.region_state:TUR = {
+			set_state_owner = c:SUD
+		}
+
 		# Egypt
         if = {
             limit = {
@@ -275,51 +321,20 @@ je_ottoman_empire_collapse = {
                 }
             }
         }
+        s:STATE_LOWER_EGYPT.region_state:TUR = {
+			set_state_owner = c:EGY
+		}
 		s:STATE_MIDDLE_EGYPT.region_state:TUR = {
-			set_state_owner = c:SER
+			set_state_owner = c:EGY
 		}
 		s:STATE_UPPER_EGYPT.region_state:TUR = {
-			set_state_owner = c:SER
+			set_state_owner = c:EGY
 		}
 		s:STATE_MATRUH.region_state:TUR = {
-			set_state_owner = c:SER
+			set_state_owner = c:EGY
 		}
 		s:STATE_EGYPTIAN_DESERT.region_state:TUR = {
-			set_state_owner = c:SER
-		}
-		s:STATE_DALMATIA.region_state:TUR = {
-			set_state_owner = c:SER
-		}
-
-		#Sudan
-		if = {
-            limit = {
-                NOT = { exists = c:SUD }
-                s:STATE_DONGOLA= {
-                    any_scope_state = { owner = ROOT }
-                }
-            }
-            create_country = {
-                tag    = EGY
-                origin = this
-                state  = s:STATE_DONGOLA.region_state:TUR
-                on_created = {
-                    set_country_type = recognized
-                    activate_law     = law_type:law_monarchy
-                }
-            }
-        }
-		s:STATE_BLUE_NILE.region_state:TUR = {
-			set_state_owner = c:SER
-		}
-		s:STATE_KORDOFAN.region_state:TUR = {
-			set_state_owner = c:SER
-		}
-		s:STATE_DARFUR.region_state:TUR = {
-			set_state_owner = c:SER
-		}
-		s:STATE_EQUATORIA.region_state:TUR = {
-			set_state_owner = c:SER
+			set_state_owner = c:EGY
 		}
 
         # Armenia
@@ -339,6 +354,7 @@ je_ottoman_empire_collapse = {
                     activate_law     = law_type:law_universal_suffrage
                 }
             }
+            s:STATE_ERZURUM.region_state:TUR = { set_state_owner = c:ARM }
 			s:STATE_KARS.region_state:TUR = { set_state_owner = c:ARM }
 			s:STATE_ARMENIA.region_state:TUR = { set_state_owner = c:ARM }
         }
@@ -359,6 +375,7 @@ je_ottoman_empire_collapse = {
                 }
             }
         }
+        s:STATE_BAGHDAD.region_state:TUR = { set_state_owner = c:IRQ }
 		s:STATE_BASRA.region_state:TUR = { set_state_owner = c:IRQ }
 		s:STATE_MOSUL.region_state:TUR = { set_state_owner = c:IRQ }
 
@@ -397,6 +414,7 @@ je_ottoman_empire_collapse = {
                 }
             }
         }
+        s:STATE_PALESTINE.region_state:TUR = { set_state_owner = c:PAL }
 
 		# Giordania
 		if = {
@@ -414,6 +432,7 @@ je_ottoman_empire_collapse = {
 				}
 			}
 		}
+        s:STATE_TRANSJORDAN.region_state:TUR = { set_state_owner = c:EOT }
 
 		# Lebanon
 		if = {
@@ -431,6 +450,7 @@ je_ottoman_empire_collapse = {
                 }
             }
         }
+        s:STATE_LEBANON.region_state:TUR = { set_state_owner = c:LEB }
 
         #trigger_event = { id = ottoman_empire_collapse.1 days = 3 }
     }
@@ -438,10 +458,10 @@ je_ottoman_empire_collapse = {
     fail = {
 		OR = {
 			has_law = law_type:law_multicultural
-        	get_country_gdp_per > 2.5
-			global_country_ranking < 6
+        	get_country_gdp_per > 3.5
+			country_rank = rank_value:great_power
+            year > 1940
 		}
-        var:ottoman_empire_collapse_var < 10
     }
 
     on_fail = {

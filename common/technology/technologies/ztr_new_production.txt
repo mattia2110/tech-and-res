@@ -45,8 +45,7 @@ quartz_glass = {
     category = production
 
     unlocking_technologies = {
-		reinforced_concrete
-		chemical_bleaching
+		verrier_modern_physics_tech
     }
 
     # Peso AI
@@ -88,22 +87,6 @@ oil_distillation = {
 	}
 }
 
-offset_printing = {
-	# Unlocks offset printing
-	era = era_4
-	texture = "gfx/interface/icons/invention_icons/offset_printing.dds"
-	category = production
-	
-	unlocking_technologies = {
-		manzoni_linotype_tech
-		aniline
-	}
-	
-	ai_weight = {
-		value = 1
-	}
-}
-
 cabled_wire = {
 	# Unlocks cabled wire production method
 	era = era_4
@@ -112,7 +95,6 @@ cabled_wire = {
 	
 	unlocking_technologies = {
 		vulcanization
-		telephone
 	}
 
 	modifier = {
@@ -135,6 +117,22 @@ cabled_wire = {
 
 #ERA 5
 
+offset_printing = {
+	# Unlocks offset printing
+	era = era_5
+	texture = "gfx/interface/icons/invention_icons/offset_printing.dds"
+	category = production
+	
+	unlocking_technologies = {
+		manzoni_linotype_tech
+		art_silk
+	}
+	
+	ai_weight = {
+		value = 1
+	}
+}
+
 synthetic_cosmetics = {
 	# Unlocks PM synthetic cosmetics in Textile Mills
 	era = era_5
@@ -142,8 +140,6 @@ synthetic_cosmetics = {
 	category = production
 	
 	unlocking_technologies = {
-		art_silk
-		plastics
 		automatic_bottle_blowers
 	}
 	
@@ -159,7 +155,7 @@ bauxite_processing = {
 	category = production
 
 	unlocking_technologies = {
-		quartz_glass
+		electrical_capacitors
 	}
 	
 		ai_weight = {
@@ -174,7 +170,6 @@ bayer_process = {
 	category = production
 
 	unlocking_technologies = {
-		electrical_capacitors
 		bauxite_processing
 	}
 	
@@ -222,7 +217,6 @@ geothermal_energy = {
 
 	unlocking_technologies = {
 		steam_turbine
-		verrier_modern_physics_tech
 	}
 
 	ai_weight = {
@@ -245,7 +239,6 @@ vacuum_distillation = {
 	
 	unlocking_technologies = {
 		oil_turbine
-		oil_distillation
 	}
 
 	ai_weight = {
@@ -292,14 +285,42 @@ natural_gas_extraction = {
 	}
 }
 
+synthetic_pesticides = {
+	# Introduce pesticidi chimici per migliorare la produzione agricola
+	era = era_5
+	texture = "gfx/interface/icons/invention_icons/synthetic_pesticides.dds"
+	category = production
+	
+	unlocking_technologies = {
+		nitrogen_fixation
+	}
+	
+	ai_weight = {
+		value = 1
+		
+		if = {
+			limit = { 
+				OR = {
+					has_strategy = ai_strategy_agricultural_expansion
+					has_strategy = ai_strategy_plantation_economy
+				}
+			}
+			add = 1
+		}	
+	}
+}
+
+#ERA 6
+
 kraft_recovery_process = {
     # Permette di recuperare e riutilizzare i prodotti chimici nel processo di produzione della carta Kraft
-    era = era_5
+    era = era_6
     texture = "gfx/interface/icons/invention_icons/kraft_recovery_process.dds"
     category = production
 
     unlocking_technologies = {
         #polyethylene
+		mendelejew_synthetic_fuel_tech
 		offset_printing
     }
 
@@ -322,34 +343,6 @@ kraft_recovery_process = {
 	}
 }
 
-synthetic_pesticides = {
-	# Introduce pesticidi chimici per migliorare la produzione agricola
-	era = era_5
-	texture = "gfx/interface/icons/invention_icons/synthetic_pesticides.dds"
-	category = production
-	
-	unlocking_technologies = {
-		nitrogen_fixation
-		mechanized_farming
-	}
-	
-	ai_weight = {
-		value = 1
-		
-		if = {
-			limit = { 
-				OR = {
-					has_strategy = ai_strategy_agricultural_expansion
-					has_strategy = ai_strategy_plantation_economy
-				}
-			}
-			add = 1
-		}	
-	}
-}
-
-#ERA 6
-
 advanced_wire = {
 	# Unlocks advanced wire production method
 	era = era_6
@@ -359,7 +352,6 @@ advanced_wire = {
 	unlocking_technologies = {
 		alkaline_battery
 		#selective_mineral_extraction
-		rudimental_home_appliances
 	}
 
 	modifier = {
@@ -387,7 +379,6 @@ silicon = {
     category = production
 
     unlocking_technologies = {
-		compression_ignition
 		selective_mineral_extraction
     }
 
@@ -411,7 +402,6 @@ alkaline_battery = {
     category = production
 
     unlocking_technologies = {
-        polyethylene
         selective_mineral_extraction
     }
 
@@ -434,7 +424,6 @@ gas_turbine = {
 	category = production
 	
 	unlocking_technologies = {
-		oil_turbine
 		natural_gas_extraction
 	}
 
@@ -545,7 +534,6 @@ rudimental_home_appliances = {
 	unlocking_technologies = {
 		bayer_process
 		flash_freezing
-		polyethylene
 	}
 	
 	modifier = {
@@ -609,7 +597,6 @@ thermal_cracking = {
 	
 	unlocking_technologies = {
 		compression_ignition
-		vacuum_distillation
 	}
 
 	ai_weight = {
@@ -659,7 +646,6 @@ supermarket = {
 	unlocking_technologies = {
 		flash_freezing
 		dough_rollers
-		polyethylene
 	}
 
 	ai_weight = {
@@ -681,7 +667,6 @@ fast_food = {
 	
 	unlocking_technologies = {
 		supermarket
-		dough_rollers
 	}
 
 	ai_weight = {
@@ -713,7 +698,6 @@ elastomers = {
 
 	unlocking_technologies = {
 		synthetic_fibres
-		kraft_recovery_process
 	}
 
 	modifier = {
@@ -780,21 +764,19 @@ direct_reduced_iron = {
 	}
 }
 
-#ERA 7
-
-horizontal_drilling = {
-	# Unlocks PM horizontal drilling in Oil Refineries
-	era = era_7
-	texture = "gfx/interface/icons/invention_icons/horizontal_drilling.dds"
+mechanical_arms = {
+	# Unlocks PM mechanical arms in Steel Mills, Alloys, Glassworks and Motor Industries
+	era = era_6
+	texture = "gfx/interface/icons/invention_icons/mechanical_arms.dds"
 	category = production
 	
 	unlocking_technologies = {
-		hdpe
-		gas_liquefaction
+		modern_tools
+		vacuum_distillation
 	}
 
 	ai_weight = {
-		value = 1 # Important tech for modern economies
+		value = 3 # Important tech for modern economies
 		
 		if = {
 			limit = { 
@@ -807,20 +789,35 @@ horizontal_drilling = {
 	}
 }
 
-mechanical_arms = {
-	# Unlocks PM mechanical arms in Steel Mills, Alloys, Glassworks and Motor Industries
-	era = era_6
-	texture = "gfx/interface/icons/invention_icons/mechanical_arms.dds"
+#ERA 7
+
+fast_modular_furniture = {
+	# Unlocks PM fast modular furniture in Glassworks
+	era = era_7
+	texture = "gfx/interface/icons/invention_icons/fast_modular_furniture.dds"
 	category = production
 	
 	unlocking_technologies = {
-		modern_tools
-		silicon
-		vacuum_distillation
+		supermarket
 	}
 
 	ai_weight = {
-		value = 3 # Important tech for modern economies
+		value = 1
+	}
+}
+
+horizontal_drilling = {
+	# Unlocks PM horizontal drilling in Oil Refineries
+	era = era_7
+	texture = "gfx/interface/icons/invention_icons/horizontal_drilling.dds"
+	category = production
+	
+	unlocking_technologies = {
+		hdpe
+	}
+
+	ai_weight = {
+		value = 1 # Important tech for modern economies
 		
 		if = {
 			limit = { 
@@ -841,22 +838,6 @@ rare_earths = {
 	
 	unlocking_technologies = {
 		advanced_electric_arc_processes
-		enhanced_cracking_distillation
-	}
-
-	ai_weight = {
-		value = 1
-	}
-}
-
-fast_modular_furniture = {
-	# Unlocks PM fast modular furniture in Glassworks
-	era = era_7
-	texture = "gfx/interface/icons/invention_icons/fast_modular_furniture.dds"
-	category = production
-	
-	unlocking_technologies = {
-		rudimental_home_appliances
 	}
 
 	ai_weight = {
@@ -888,7 +869,6 @@ hdpe = {
 
 	unlocking_technologies = {
 		elastomers
-		gas_turbine
 	}
 
 	ai_weight = {
@@ -911,6 +891,7 @@ proto_digital_devices = {
 	
 	unlocking_technologies = {
 		semiconductor
+		basic_home_appliances
 	}
 
 	ai_weight = {
@@ -933,9 +914,7 @@ photovoltaic_effect = {
 	category = production
 
 	unlocking_technologies = {
-		semiconductor
 		verrier_astro_physics_tech
-		nuclear_reactor
 	}
 
 	ai_weight = { value = 1 }
@@ -943,13 +922,12 @@ photovoltaic_effect = {
 
 sea_water_desalination = {
 	# Unlocks PM sea water desalination in Power plants
-	era = era_7
+	era = era_8
 	texture = "gfx/interface/icons/invention_icons/sea_water_desalination.dds"
 	category = production
 	
 	unlocking_technologies = {
 		hdpe
-		hydroponic_farming
 	}
 
 	ai_weight = {
@@ -999,7 +977,6 @@ second_nuclear_reactor = {
 	category = production
 	
 	unlocking_technologies = {
-		photovoltaic_effect
 		integrated_circuits
 	}
 
@@ -1060,7 +1037,6 @@ basic_home_appliances = {
 	unlocking_technologies = {
 		advanced_wire
 		mechanical_arms
-		hdpe
 	}
 
 		ai_weight = {
@@ -1122,7 +1098,6 @@ fuel_cell_tech = {
 	category = production
 
 	unlocking_technologies = {
-		gas_turbine
 		photovoltaic_effect
 	}
 
@@ -1150,7 +1125,6 @@ laser = {
 	category = production
 
 	unlocking_technologies = {
-		semiconductor
 		cathode_tube
 	}
 
@@ -1189,7 +1163,6 @@ mechatronics = {
 	category = production
 	
 	unlocking_technologies = {
-		mechanical_arms
 		integrated_circuits
 		laser
 	}
@@ -1216,7 +1189,6 @@ tv_color = {
 
 	unlocking_technologies = {
 		cathode_tube
-		integrated_circuits
 	}
 
 	ai_weight = {
@@ -1238,11 +1210,11 @@ tv_color = {
 advanced_mining = {
 	# Unlocks advanced ores mining
 	era = era_8
-	texture = "gfx/interface/icons/invention_icons/advanced_mining_2.dds"
+	texture = "gfx/interface/icons/invention_icons/advanced_mining.dds"
 	category = production
 	
 	unlocking_technologies = {
-		mechanical_arms
+		modern_transport
 		rare_earths
 	}
 
@@ -1267,8 +1239,8 @@ home_delivery_networks = {
 	category = production
 
 	unlocking_technologies = {
-		modern_transport
 		fast_food
+		modern_transport
 	}
 
 	ai_weight = {
@@ -1283,7 +1255,6 @@ hydraulic_fracturing = {
 	category = production
 	
 	unlocking_technologies = {
-		advanced_mining
 		horizontal_drilling
 	}
 
@@ -1300,7 +1271,6 @@ optic_fibers = {
 
     unlocking_technologies = {
         laser
-        proto_digital_devices
     }
 
 	modifier = {
@@ -1350,7 +1320,6 @@ high_speed_rail_tech = {
 
     unlocking_technologies = {
 		bullet_train_tech
-		fuel_cell_tech
     }
 
 	ai_weight = {
@@ -1442,7 +1411,6 @@ wind_turbines = {
 
 	unlocking_technologies = {
 		fuel_cell_tech
-		second_nuclear_reactor
 	}
 
 	ai_weight = { value = 1 }
@@ -1473,7 +1441,6 @@ embedded_control_systems = {
 
 	unlocking_technologies = {
 		micro_processors
-		high_speed_rail_tech
 	}
 
 	modifier = {
@@ -1486,13 +1453,13 @@ embedded_control_systems = {
 
 rare_earths_advanced_purification = {
 	# Unlocks rare earth metals mining
-	era = era_8
+	era = era_9
 	texture = "gfx/interface/icons/invention_icons/rare_earths_advanced_purification.dds"
 	category = production
 	
 	unlocking_technologies = {
 		#rare_earths
-		advanced_electric_arc_processes
+		#advanced_electric_arc_processes
 		advanced_mining
 	}
 
@@ -1541,7 +1508,7 @@ paper_recycling = {
 
 	unlocking_technologies = {
 		home_delivery_networks
-		advanced_mining
+		sea_water_desalination
 	}
 
 	ai_weight = {
@@ -1551,6 +1518,60 @@ paper_recycling = {
 
 # ERA 9
 
+mobile_phone = {
+	era = era_9
+	texture = "gfx/interface/icons/invention_icons/mobile_phone.dds"
+	category = production
+
+	unlocking_technologies = {
+		proto_digital_devices
+		user_interface
+	}
+
+	ai_weight = {
+		value = 1
+	}
+}
+
+wireless_broadband_networks = {
+	era = era_9
+	texture = "gfx/interface/icons/invention_icons/wireless_broadband_networks.dds"
+	category = production
+
+	unlocking_technologies = {
+		optic_fibers
+	}
+
+	ai_weight = {
+		value = 1
+	}
+}
+
+high_pressure_grinding_rolls = {
+	# Unlocks PM "hpgr_comminution" in Iron/Copper/Gold Mines and Ore Processing (comminuzione ad alta pressione)
+	era = era_9
+	texture = "gfx/interface/icons/invention_icons/high_pressure_grinding_rolls.dds"
+	category = production
+
+	unlocking_technologies = {
+		advanced_mining
+	}
+
+	modifier = {
+		building_group_bg_mining_throughput_add = 0.05
+	}
+
+	ai_weight = {
+		value = 1
+		if = {
+			limit = { has_strategy = ai_strategy_industrial_expansion }
+			add = 1
+		}
+	}
+
+	#Aggiungere pm_autonomous_and_remote_ops_building_mine
+}
+
 plastic_recovery = {
 	era = era_9
 	texture = "gfx/interface/icons/invention_icons/plastic_recovery.dds"
@@ -1558,7 +1579,6 @@ plastic_recovery = {
 
 	unlocking_technologies = {
 		paper_recycling
-		rare_earths_advanced_purification
 	}
 
 	ai_weight = {
@@ -1573,9 +1593,8 @@ iot_driven_manufacturing = {
     category = production
 
     unlocking_technologies = {
-        parallel_computing_architecture  # multicore & cloud computing
-        mobile_devices                   # connettività ubiqua
 		automated_industrial_robots
+		wireless_broadband_networks
     }
 
 	modifier = {
@@ -1599,7 +1618,6 @@ third_nuclear_reactor = {
 	
 	unlocking_technologies = {
 		embedded_control_systems
-		wind_turbines
 	}
 
 	ai_weight = {
@@ -1613,9 +1631,9 @@ mobile_devices = {
 	category = production
 
 	unlocking_technologies = {
-		user_interface
-		micro_processors
-		optic_fibers
+		personal_computer
+		wireless_broadband_networks
+		mobile_phone
 	}
 
 	modifier = {
@@ -1633,7 +1651,7 @@ smart_vehicles = {
 
 	unlocking_technologies = {
 		hybrid_vehicles
-		parallel_computing_architecture
+		embedded_control_systems
 	}
 
 	modifier = {
@@ -1650,8 +1668,6 @@ lithium_battery = {
 	category = production
 
 	unlocking_technologies = {
-		wind_turbines
-		micro_processors
 		rare_earths_advanced_purification
 	}
 
@@ -1683,7 +1699,7 @@ parallel_computing_architecture = {
 	category = production
 
 	unlocking_technologies = {
-		embedded_control_systems
+		micro_processors
 	}
 
 	modifier = {
@@ -1723,7 +1739,6 @@ smartphones = {
 
 	unlocking_technologies = {
 		mobile_devices
-		personal_computer
 		lithium_battery
 	}
 
@@ -1741,7 +1756,6 @@ advanced_personal_computer = {
 	category = production
 
 	unlocking_technologies = {
-		personal_computer
 		parallel_computing_architecture
 		high_definition_television
 	}
@@ -1762,7 +1776,6 @@ smart_television = {
   
 	unlocking_technologies = {
 		high_definition_television
-		smartphones
 	}
 
 	ai_weight = { value = 1 }
@@ -1775,7 +1788,6 @@ advanced_solar_panels = {
 
 	unlocking_technologies = {
 		lithium_battery
-		third_nuclear_reactor
 	}
 
 	ai_weight = { value = 1 }
@@ -1787,7 +1799,7 @@ smart_energy_grid = {
 	category = production
 
 	unlocking_technologies = {
-		parallel_computing_architecture
+		iot_driven_manufacturing
 		advanced_solar_panels
 	}
 
@@ -1806,7 +1818,6 @@ electric_vehicles = {
 	unlocking_technologies = {
 		lithium_battery
 		smart_vehicles
-		advanced_solar_panels
 	}
 
 	ai_weight = { value = 1 }

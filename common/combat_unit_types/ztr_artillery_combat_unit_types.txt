@@ -1,0 +1,133 @@
+combat_unit_type_siege_artillery = {
+    group = combat_unit_group_artillery
+	max_manpower = 1000
+
+    upkeep_modifier = {
+        goods_input_artillery_add = 4 #280
+        goods_input_ammunition_add = 4 #200
+		goods_input_radios_add = 1 #80 #560
+    }
+
+    battle_modifier = {
+        unit_offense_add = 55
+        unit_defense_add = 30
+        unit_morale_loss_add = 6
+        unit_kill_rate_add = 0.25
+        unit_devastation_mult = 0.2
+    }
+
+    formation_modifier = {
+        military_formation_mobilization_speed_mult = -0.2
+        military_formation_movement_speed_mult = -0.2
+    }
+
+	unlocking_technologies = { defense_in_depth }
+
+    combat_unit_image = {
+        trigger = {
+            has_culture_graphics = east_asian
+        }
+        texture = "gfx/unit_illustrations/artillery_east_asian_siege.dds"
+    }
+
+    combat_unit_image = {
+        trigger = {
+            has_culture_graphics = south_asian
+        }
+        texture = "gfx/unit_illustrations/artillery_south_asian_siege.dds"
+    }
+
+    combat_unit_image = {
+        trigger = {
+            has_culture_graphics = african
+        }
+        texture = "gfx/unit_illustrations/artillery_african_siege.dds"
+    }
+
+    combat_unit_image = {
+        trigger = {
+            has_culture_graphics = arabic
+        }
+        texture = "gfx/unit_illustrations/artillery_arabic_siege.dds"
+    }
+
+    combat_unit_image = {
+        # fallback
+        texture = "gfx/unit_illustrations/artillery_eu_siege.dds"
+    }
+
+	upgrades = {
+		combat_unit_type_self_propelled_artillery
+		combat_unit_type_rocket_artillery
+	}
+}
+
+combat_unit_type_self_propelled_artillery = {
+    group = combat_unit_group_artillery
+    max_manpower = 1000
+
+    upkeep_modifier = {
+        goods_input_artillery_add = 4 # 280
+        goods_input_tanks_add = 1 #80
+        goods_input_ammunition_add = 4 #200
+        goods_input_light_fuel_add = 1 #70
+        goods_input_radios_add = 1 #80 #710
+    }
+
+    battle_modifier = {
+        unit_offense_add = 70
+        unit_defense_add = 30
+        unit_morale_loss_add = 5
+        unit_kill_rate_add = 0.25
+        unit_devastation_mult = 0.15
+    }
+
+    formation_modifier = {
+        military_formation_mobilization_speed_mult = -0.05
+        military_formation_movement_speed_mult = -0.15
+    }
+
+    unlocking_technologies = { mobile_armor }
+
+    combat_unit_image = {
+        texture = "gfx/unit_illustrations/artillery_spg.dds"
+    }
+
+    upgrades = {
+        combat_unit_type_rocket_artillery
+    }
+}
+
+combat_unit_type_rocket_artillery = {
+    group = combat_unit_group_artillery
+    max_manpower = 1000
+
+    upkeep_modifier = {
+        goods_input_artillery_add = 4 #280
+        goods_input_ammunition_add = 7 #350
+        goods_input_light_fuel_add = 1 #70
+        goods_input_radios_add = 1 #80
+        goods_input_electroniccomponents_add = 2 #160 #940
+    }
+
+    battle_modifier = {
+        unit_offense_add = 95
+        unit_defense_add = 40
+        unit_morale_loss_add = 7
+        unit_kill_rate_add = 0.20
+        unit_morale_damage_mult = 0.1
+        unit_devastation_mult = 0.25
+    }
+
+    formation_modifier = {
+        military_formation_mobilization_speed_mult = -0.05
+        military_formation_movement_speed_mult = -0.1
+    }
+
+    unlocking_technologies = { rocket_artillery }
+
+    combat_unit_image = {
+        # fallback
+        texture = "gfx/unit_illustrations/artillery_rocket.dds"
+    }
+}

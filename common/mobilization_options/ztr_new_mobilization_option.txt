@@ -47,7 +47,7 @@ mobilization_option_close_air_support = {
 		goods_input_light_fuel_add = 1
 	}
 	unit_modifier = {
-		unit_offense_mult = 0.15
+		unit_offense_mult = 0.2
 		unit_occupation_mult = 0.15
 	}
 	ai_weight = {
@@ -104,7 +104,7 @@ mobilization_option_supersonic_close_air_support = {
 		goods_input_light_fuel_add = 1
 	}
 	unit_modifier = {
-		unit_offense_mult = 0.25
+		unit_offense_mult = 0.35
 		unit_occupation_mult = 0.25
 	}
 	ai_weight = {
@@ -280,7 +280,7 @@ mobilization_option_paratroopers = {
 		goods_input_light_fuel_add = 0.5
 	}
 	unit_modifier = {
-		unit_offense_mult = 0.1
+		unit_offense_mult = 0.15
 		character_battle_condition_rapid_advance_mult = 0.25
 	}
 	ai_weight = {
@@ -420,71 +420,10 @@ mobilization_option_rocket_artillery = {
 		goods_input_light_fuel_add = 1
 	}
 	unit_modifier = {
-		unit_offense_mult = 0.10
+		unit_offense_mult = 0.15
 		unit_kill_rate_add = 0.05
 		unit_devastation_mult = 0.10	
 	}
-	ai_weight = {
-		value = 1
-	}
-
-	group = tactical_weapons
-}
-
-mobilization_option_nuclear_artillery = {
-	texture = "gfx/interface/icons/mobilization_options/chemical_weapons.dds"
-
-	possible = {
-		scope:military_formation = {
-			NOR = {
-				has_mobilization_option = mobilization_option:mobilization_option_rocket_artillery
-				has_mobilization_option = mobilization_option:mobilization_option_guided_missiles
-			}
-		}
-		market ?= {
-			mg:artillery ?= {
-				market_goods_sell_orders > 0
-			}
-			mg:good_uranium ?= {
-				market_goods_sell_orders > 0
-			}
-		}
-	}
-	
-	on_activate_while_mobilized = {
-		custom_tooltip = {
-			text = mobilization_option_it_hurts_organization_when_you_adjust_equipment_tt
-			add_organization = {
-				value = organization
-				multiply = -0.2
-			}
-		}
-	}
-	
-	on_deactivate = {
-		custom_tooltip = {
-			text = mobilization_option_it_hurts_organization_when_you_adjust_equipment_tt
-			add_organization = {
-				value = organization
-				multiply = -0.2
-			}
-		}
-	}
-	
-	unlocking_technologies = {
-		atomic_bomb
-	}
-
-	upkeep_modifier = {
-		goods_input_artillery_add = 3
-		goods_input_good_uranium_add = 4
-	}
-
-	unit_modifier = {
-		unit_kill_rate_add = 0.5
-		unit_devastation_mult = 1
-	}
-
 	ai_weight = {
 		value = 1
 	}
@@ -551,9 +490,71 @@ mobilization_option_guided_missiles = {
 	}
 
 	unit_modifier = {
-		unit_offense_mult = 0.25
-		unit_defense_mult = 0.1
+		unit_offense_mult = 0.35
+		unit_defense_mult = 0.2
 		unit_devastation_mult = 0.10
+	}
+
+	ai_weight = {
+		value = 1
+	}
+
+	group = tactical_weapons
+}
+
+mobilization_option_nuclear_artillery = {
+	texture = "gfx/interface/icons/mobilization_options/chemical_weapons.dds"
+
+	possible = {
+		scope:military_formation = {
+			NOR = {
+				has_mobilization_option = mobilization_option:mobilization_option_rocket_artillery
+				has_mobilization_option = mobilization_option:mobilization_option_guided_missiles
+			}
+		}
+		has_law = law_type:law_uranium_full_usage
+		market ?= {
+			mg:artillery ?= {
+				market_goods_sell_orders > 0
+			}
+			mg:good_uranium ?= {
+				market_goods_sell_orders > 0
+			}
+		}
+	}
+	
+	on_activate_while_mobilized = {
+		custom_tooltip = {
+			text = mobilization_option_it_hurts_organization_when_you_adjust_equipment_tt
+			add_organization = {
+				value = organization
+				multiply = -0.2
+			}
+		}
+	}
+	
+	on_deactivate = {
+		custom_tooltip = {
+			text = mobilization_option_it_hurts_organization_when_you_adjust_equipment_tt
+			add_organization = {
+				value = organization
+				multiply = -0.2
+			}
+		}
+	}
+	
+	unlocking_technologies = {
+		atomic_bomb
+	}
+
+	upkeep_modifier = {
+		goods_input_artillery_add = 3
+		goods_input_good_uranium_add = 4
+	}
+
+	unit_modifier = {
+		unit_kill_rate_add = 0.5
+		unit_devastation_mult = 1
 	}
 
 	ai_weight = {
@@ -584,7 +585,7 @@ mobilization_option_helicopters_support = {
 			text = mobilization_option_it_hurts_organization_when_you_adjust_equipment_tt
 			add_organization = {
 				value = organization
-				multiply = -0.2
+				multiply = -0.25
 			}
 		}
 	}
@@ -594,7 +595,7 @@ mobilization_option_helicopters_support = {
 			text = mobilization_option_it_hurts_organization_when_you_adjust_equipment_tt
 			add_organization = {
 				value = organization
-				multiply = -0.2
+				multiply = -0.25
 			}
 		}
 	}
@@ -609,7 +610,7 @@ mobilization_option_helicopters_support = {
 	}
 
 	unit_modifier = {
-		unit_defense_mult = 0.05
+		unit_defense_mult = 0.1
 		unit_recovery_rate_add = 0.10
 		unit_morale_recovery_mult = 0.10
 		unit_occupation_mult = 0.05
@@ -645,7 +646,7 @@ mobilization_option_satellites_support = {
 			text = mobilization_option_it_hurts_organization_when_you_adjust_equipment_tt
 			add_organization = {
 				value = organization
-				multiply = -0.1
+				multiply = -0.25
 			}
 		}
 	}
@@ -655,7 +656,7 @@ mobilization_option_satellites_support = {
 			text = mobilization_option_it_hurts_organization_when_you_adjust_equipment_tt
 			add_organization = {
 				value = organization
-				multiply = -0.1
+				multiply = -0.25
 			}
 		}
 	}
@@ -671,7 +672,7 @@ mobilization_option_satellites_support = {
 
 	unit_modifier = {
 		military_formation_organization_gain_mult = 0.05
-		unit_defense_mult = 0.1
+		unit_defense_mult = 0.2
 	}
 
 	ai_weight = {
@@ -708,7 +709,7 @@ mobilization_option_awacs_support = {
 			text = mobilization_option_it_hurts_organization_when_you_adjust_equipment_tt
 			add_organization = {
 				value = organization
-				multiply = -0.3
+				multiply = -0.25
 			}
 		}
 	}
@@ -718,7 +719,7 @@ mobilization_option_awacs_support = {
 			text = mobilization_option_it_hurts_organization_when_you_adjust_equipment_tt
 			add_organization = {
 				value = organization
-				multiply = -0.3
+				multiply = -0.25
 			}
 		}
 	}
@@ -736,8 +737,8 @@ mobilization_option_awacs_support = {
 
 	unit_modifier = {
 		military_formation_organization_gain_mult = 0.05
-		unit_defense_mult = 0.1
-		unit_offense_mult = 0.15
+		unit_defense_mult = 0.2
+		unit_offense_mult = 0.2
 		unit_recovery_rate_add = 0.10
 	}
 	ai_weight = {
@@ -745,4 +746,287 @@ mobilization_option_awacs_support = {
 	}
 
 	group = extra
+}
+
+# Electronic Support
+
+mobilization_option_electronic_countermeasures = {
+	texture = "gfx/interface/icons/mobilization_options/electronic_countermeasures.dds"
+
+	possible = {
+		market ?= {
+			mg:electroniccomponents ?= {
+				market_goods_sell_orders > 0
+			}
+			mg:radios ?= {
+				market_goods_sell_orders > 0
+			}
+			mg:telecommunications ?= {
+				market_goods_sell_orders > 0
+			}
+		}
+		scope:military_formation = {
+			OR = {
+				has_mobilization_option = mobilization_option:mobilization_option_satellites_support
+				has_mobilization_option = mobilization_option:mobilization_option_awacs_support
+			}
+			NOR = {
+				has_mobilization_option = mobilization_option:mobilization_option_electronic_support_measures
+				has_mobilization_option = mobilization_option:mobilization_option_electronic_attack
+				has_mobilization_option = mobilization_option:mobilization_option_electronic_counter_countermeasures
+			}
+		}
+	}
+
+	on_activate_while_mobilized = {
+		custom_tooltip = {
+			text = mobilization_option_it_hurts_organization_when_you_adjust_equipment_tt
+			add_organization = {
+				value = organization
+				multiply = -0.25
+			}
+		}
+	}
+
+	on_deactivate = {
+		custom_tooltip = {
+			text = mobilization_option_it_hurts_organization_when_you_adjust_equipment_tt
+			add_organization = {
+				value = organization
+				multiply = -0.25
+			}
+		}
+	}
+
+	unlocking_technologies = {
+		electronic_countermeasures
+	}
+
+	upkeep_modifier = {
+		goods_input_electroniccomponents_add = 2
+		goods_input_radios_add = 1
+		goods_input_telecommunications_add = 5
+	}
+
+	unit_modifier = {
+		unit_army_offense_mult = 0.05
+		unit_army_defense_mult = 0.1
+		unit_morale_damage_mult = 0.1
+	}
+
+	ai_weight = {
+		value = 1
+	}
+
+	group = electronic_support
+}
+
+mobilization_option_electronic_attack = {
+	texture = "gfx/interface/icons/mobilization_options/electronic_attack.dds"
+
+	possible = {
+		market ?= {
+			mg:electroniccomponents ?= {
+				market_goods_sell_orders > 0
+			}
+			mg:computer ?= {
+				market_goods_sell_orders > 0
+			}
+			mg:telecommunications ?= {
+				market_goods_sell_orders > 0
+			}
+		}
+		scope:military_formation = {
+			OR = {
+				has_mobilization_option = mobilization_option:mobilization_option_satellites_support
+				has_mobilization_option = mobilization_option:mobilization_option_awacs_support
+			}
+			NOR = {
+				has_mobilization_option = mobilization_option:mobilization_option_electronic_countermeasures
+				has_mobilization_option = mobilization_option:mobilization_option_electronic_support_measures
+				has_mobilization_option = mobilization_option:mobilization_option_electronic_counter_countermeasures
+			}
+		}
+	}
+
+	on_activate_while_mobilized = {
+		custom_tooltip = {
+			text = mobilization_option_it_hurts_organization_when_you_adjust_equipment_tt
+			add_organization = {
+				value = organization
+				multiply = -0.25
+			}
+		}
+	}
+
+	on_deactivate = {
+		custom_tooltip = {
+			text = mobilization_option_it_hurts_organization_when_you_adjust_equipment_tt
+			add_organization = {
+				value = organization
+				multiply = -0.25
+			}
+		}
+	}
+
+	unlocking_technologies = {
+		electronic_warfare
+	}
+
+	upkeep_modifier = {
+		goods_input_electroniccomponents_add = 2
+		goods_input_computer_add = 1
+		goods_input_telecommunications_add = 10
+	}
+
+	unit_modifier = {
+		unit_army_offense_mult = 0.25
+	}
+
+	ai_weight = {
+		value = 1
+	}
+
+	group = electronic_support
+}
+
+mobilization_option_electronic_support_measures = {
+	texture = "gfx/interface/icons/mobilization_options/electronic_support_measures.dds"
+
+	possible = {
+		market ?= {
+			mg:electroniccomponents ?= {
+				market_goods_sell_orders > 0
+			}
+			mg:computer ?= {
+				market_goods_sell_orders > 0
+			}
+			mg:telecommunications ?= {
+				market_goods_sell_orders > 0
+			}
+		}
+		scope:military_formation = {
+			OR = {
+				has_mobilization_option = mobilization_option:mobilization_option_satellites_support
+				has_mobilization_option = mobilization_option:mobilization_option_awacs_support
+			}
+			NOR = {
+				has_mobilization_option = mobilization_option:mobilization_option_electronic_countermeasures
+				has_mobilization_option = mobilization_option:mobilization_option_electronic_attack
+				has_mobilization_option = mobilization_option:mobilization_option_electronic_counter_countermeasures
+			}
+		}
+	}
+
+	on_activate_while_mobilized = {
+		custom_tooltip = {
+			text = mobilization_option_it_hurts_organization_when_you_adjust_equipment_tt
+			add_organization = {
+				value = organization
+				multiply = -0.25
+			}
+		}
+	}
+
+	on_deactivate = {
+		custom_tooltip = {
+			text = mobilization_option_it_hurts_organization_when_you_adjust_equipment_tt
+			add_organization = {
+				value = organization
+				multiply = -0.25
+			}
+		}
+	}
+
+	unlocking_technologies = {
+		electronic_warfare
+	}
+
+	upkeep_modifier = {
+		goods_input_electroniccomponents_add = 2
+		goods_input_computer_add = 1
+		goods_input_telecommunications_add = 10
+	}
+
+	unit_modifier = {
+		unit_army_defense_mult = 0.25
+	}
+
+	ai_weight = {
+		value = 1
+	}
+
+	group = electronic_support
+}
+
+mobilization_option_electronic_counter_countermeasures = {
+	texture = "gfx/interface/icons/mobilization_options/electronic_counter_countermeasures.dds"
+
+	possible = {
+		market ?= {
+			mg:electroniccomponents ?= {
+				market_goods_sell_orders > 0
+			}
+			mg:computer ?= {
+				market_goods_sell_orders > 0
+			}
+			mg:telecommunications ?= {
+				market_goods_sell_orders > 0
+			}
+		}
+		scope:military_formation = {
+			OR = {
+				has_mobilization_option = mobilization_option:mobilization_option_satellites_support
+				has_mobilization_option = mobilization_option:mobilization_option_awacs_support
+			}
+			NOR = {
+				has_mobilization_option = mobilization_option:mobilization_option_electronic_countermeasures
+				has_mobilization_option = mobilization_option:mobilization_option_electronic_support_measures
+				has_mobilization_option = mobilization_option:mobilization_option_electronic_attack
+			}
+		}
+	}
+
+	on_activate_while_mobilized = {
+		custom_tooltip = {
+			text = mobilization_option_it_hurts_organization_when_you_adjust_equipment_tt
+			add_organization = {
+				value = organization
+				multiply = -0.25
+			}
+		}
+	}
+
+	on_deactivate = {
+		custom_tooltip = {
+			text = mobilization_option_it_hurts_organization_when_you_adjust_equipment_tt
+			add_organization = {
+				value = organization
+				multiply = -0.25
+			}
+		}
+	}
+
+	unlocking_technologies = {
+		electronic_warfare
+	}
+
+	upkeep_modifier = {
+		goods_input_electroniccomponents_add = 2
+		goods_input_computer_add = 1
+		goods_input_telecommunications_add = 10
+	}
+
+	unit_modifier = {
+		unit_army_offense_mult = 0.1
+		unit_army_defense_mult = 0.1
+		unit_morale_damage_mult = 0.1
+		military_formation_organization_gain_mult = 0.1
+	}
+
+	ai_weight = {
+		value = 1
+	}
+
+	group = electronic_support
 }

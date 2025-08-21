@@ -26,7 +26,7 @@ je_demographic_0_to_1 = {
 				}
 				change_variable = {
 					name = demographic_stage_var
-					add = 0.5
+					add = 0.4
 				}
 			}
 			if = {
@@ -35,7 +35,7 @@ je_demographic_0_to_1 = {
 				}
 				change_variable = {
 					name = demographic_stage_var
-					add = 0.5
+					add = 0.4
 				}
 			}
 			if = {
@@ -140,7 +140,7 @@ je_demographic_1_to_2 = {
 				}
 				change_variable = {
 					name = demographic_stage_var
-					add = 0.5
+					add = 0.25
 				}
 			}
 			if = {
@@ -280,7 +280,7 @@ je_demographic_2_to_3 = {
 				}
 				change_variable = {
 					name = demographic_stage_var
-					add = 0.5
+					add = 0.25
 				}
 			}
 			if = {
@@ -435,7 +435,7 @@ je_demographic_3_to_4 = {
 				}
 				change_variable = {
 					name = demographic_stage_var
-					add = 0.5
+					add = 0.25
 				}
 			}
 			if = {
@@ -591,7 +591,7 @@ je_demographic_4_to_5 = {
 				}
 				change_variable = {
 					name = demographic_stage_var
-					add = 0.5
+					add = 0.25
 				}
 			}
 			if = {
@@ -727,7 +727,7 @@ je_demographic_5_to_6 = {
 				}
 				change_variable = {
 					name = demographic_stage_var
-					add = 0.5
+					add = 0.25
 				}
 			}
 			if = {
@@ -797,6 +797,290 @@ je_demographic_5_to_6 = {
 	on_complete = {
 		remove_state_demographic_modifier = yes
 		add_modifier = demographic_stage_6
+	}
+
+	transferable = no
+
+	current_value = {
+		value = var:demographic_stage_var
+	}
+
+	goal_add_value = {
+		value = 30
+	}
+
+	progressbar = yes
+
+	weight = 1
+}
+
+je_demographic_6_to_7 = {
+	icon = "gfx/interface/icons/event_icons/medical_degrees.dds"
+	group = je_group_technology
+
+	is_shown_when_inactive = {
+		has_modifier = demographic_stage_6
+	}
+
+	possible = {
+		has_modifier = demographic_stage_6
+	}
+
+	immediate = {
+		set_variable = {
+			name = demographic_stage_var
+			value = 0
+		}
+	}
+
+	on_yearly_pulse = {
+		effect = {
+			change_variable = {
+				name = demographic_stage_var
+				add = 1
+			}
+			# Player parameters conditions, as player tends to overperform AI in economy
+			if = {
+				limit = {
+					is_player = yes
+				}
+				change_variable = {
+					name = demographic_stage_var
+					subtract = 0.2
+				}
+			}
+			# Country parameters conditions
+			if = {
+				limit = {
+					NOT = { has_modifier = dev_0_country }
+					NOT = { has_modifier = dev_1_country }
+					NOT = { has_modifier = dev_2_country }
+					NOT = { has_modifier = dev_3_country }
+					NOT = { has_modifier = dev_4_country }
+				}
+				change_variable = {
+					name = demographic_stage_var
+					add = 0.2
+				}
+			}
+			if = {
+				limit = {
+					average_sol > 26
+				}
+				change_variable = {
+					name = demographic_stage_var
+					add = 0.2
+				}
+			}
+			if = {
+				limit = {
+					literacy_rate > 0.9
+				}
+				change_variable = {
+					name = demographic_stage_var
+					add = 0.2
+				}
+			}
+			# Laws conditions
+			if = {
+				limit = {
+					OR = {
+						has_law = law_type:law_single_party_state
+						has_law = law_type:law_autocracy
+						has_law = law_type:law_oligarchy
+						has_law = law_type:law_theocracy
+						has_law = law_type:law_elder_council
+						NOT = { has_law = law_type:law_slavery_banned }
+					}
+				}
+				change_variable = {
+					name = demographic_stage_var
+					subtract = 0.3
+				}
+			}
+			if = {
+				limit = {
+					OR = {
+						has_law = law_type:law_multicultural
+						has_law = law_type:law_no_migration_controls
+					}
+				}
+				change_variable = {
+					name = demographic_stage_var
+					subtract = 0.5
+				}
+			}
+			# Flavor conditions (Sunni rich countries do not have this bonus)
+			if = {
+				limit = {
+					has_building = building_white_house
+				}
+				change_variable = {
+					name = demographic_stage_var
+					subtract = 0.3
+				}
+			}
+			if = {
+				limit = {
+					has_variable = historical_population_of_france_var
+				}
+				change_variable = {
+					name = demographic_stage_var
+					subtract = 0.3
+				}
+			}
+		}
+	}
+
+	complete = {
+		scope:journal_entry = { is_goal_complete = yes }
+	}
+
+	on_complete = {
+		remove_state_demographic_modifier = yes
+		add_modifier = demographic_stage_7
+	}
+
+	transferable = no
+
+	current_value = {
+		value = var:demographic_stage_var
+	}
+
+	goal_add_value = {
+		value = 30
+	}
+
+	progressbar = yes
+
+	weight = 1
+}
+
+je_demographic_7_to_8 = {
+	icon = "gfx/interface/icons/event_icons/medical_degrees.dds"
+	group = je_group_technology
+
+	is_shown_when_inactive = {
+		has_modifier = demographic_stage_7
+	}
+
+	possible = {
+		has_modifier = demographic_stage_7
+	}
+
+	immediate = {
+		set_variable = {
+			name = demographic_stage_var
+			value = 0
+		}
+	}
+
+	on_yearly_pulse = {
+		effect = {
+			change_variable = {
+				name = demographic_stage_var
+				add = 1
+			}
+			# Player parameters conditions, as player tends to overperform AI in economy
+			if = {
+				limit = {
+					is_player = yes
+				}
+				change_variable = {
+					name = demographic_stage_var
+					subtract = 0.2
+				}
+			}
+			# Country parameters conditions
+			if = {
+				limit = {
+					NOT = { has_modifier = dev_0_country }
+					NOT = { has_modifier = dev_1_country }
+					NOT = { has_modifier = dev_2_country }
+					NOT = { has_modifier = dev_3_country }
+					NOT = { has_modifier = dev_4_country }
+				}
+				change_variable = {
+					name = demographic_stage_var
+					add = 0.2
+				}
+			}
+			if = {
+				limit = {
+					average_sol > 26
+				}
+				change_variable = {
+					name = demographic_stage_var
+					add = 0.2
+				}
+			}
+			if = {
+				limit = {
+					literacy_rate > 0.9
+				}
+				change_variable = {
+					name = demographic_stage_var
+					add = 0.2
+				}
+			}
+			# Laws conditions
+			if = {
+				limit = {
+					OR = {
+						has_law = law_type:law_single_party_state
+						has_law = law_type:law_autocracy
+						has_law = law_type:law_oligarchy
+						has_law = law_type:law_theocracy
+						has_law = law_type:law_elder_council
+						NOT = { has_law = law_type:law_slavery_banned }
+					}
+				}
+				change_variable = {
+					name = demographic_stage_var
+					subtract = 0.3
+				}
+			}
+			if = {
+				limit = {
+					OR = {
+						has_law = law_type:law_multicultural
+						has_law = law_type:law_no_migration_controls
+					}
+				}
+				change_variable = {
+					name = demographic_stage_var
+					subtract = 0.5
+				}
+			}
+			# Flavor conditions (Sunni rich countries do not have this bonus)
+			if = {
+				limit = {
+					has_building = building_white_house
+				}
+				change_variable = {
+					name = demographic_stage_var
+					subtract = 0.3
+				}
+			}
+			if = {
+				limit = {
+					has_variable = historical_population_of_france_var
+				}
+				change_variable = {
+					name = demographic_stage_var
+					subtract = 0.3
+				}
+			}
+		}
+	}
+
+	complete = {
+		scope:journal_entry = { is_goal_complete = yes }
+	}
+
+	on_complete = {
+		remove_state_demographic_modifier = yes
+		add_modifier = demographic_stage_8
 	}
 
 	transferable = no

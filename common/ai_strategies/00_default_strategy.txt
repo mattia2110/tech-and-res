@@ -3618,6 +3618,48 @@ ai_strategy_default = {
 			multiply = 0.8
 		}
 
+		#T&R
+
+		if = {
+			limit = { has_technology_researched = mechanized_infantry }
+			multiply = 0.85 #+25% in country_military_wages_mult
+		}
+
+		if = {
+			limit = { has_technology_researched = main_battle_tank }
+			multiply = 0.85 #+25% in country_military_wages_mult
+		}
+
+		if = {
+			limit = { has_technology_researched = composite_armor }
+			multiply = 0.85 #+25% in country_military_wages_mult
+		}
+
+		if = {
+			limit = { has_technology_researched = radar }
+			multiply = 0.85 #+25% in country_military_wages_mult
+		}
+
+		if = {
+			limit = { has_technology_researched = precision_ammunition }
+			multiply = 0.85 #+25% in country_military_wages_mult
+		}
+
+		if = {
+			limit = { has_technology_researched = laser_guided_weapons }
+			multiply = 0.85 #+25% in country_military_wages_mult
+		}
+
+		if = {
+			limit = { has_technology_researched = high_performance_apparel }
+			multiply = 0.85 #+25% in country_military_wages_mult
+		}
+
+		if = {
+			limit = { has_technology_researched = cannon_launched_guided_projectiles }
+			multiply = 0.85 #+25% in country_military_wages_mult
+		}
+
 		# Factor in strategies
 		if = {
 			limit = {
@@ -3681,8 +3723,17 @@ ai_strategy_default = {
 			min = 0.33
 			max = 1.0
 		}
-
-		max = 50 # No more than 50 from population
+		
+		#T&R
+		if = {
+			limit = {
+				year < 1945
+			}
+			max = 50 # No more than 50 from population
+		}
+		else = {
+			max = 200 # No more than 200 from population after 1945
+		}
 
 		# 1 level of naval base per 5k income, multiplied by relative incorporated coastal population to total incorporated population
 		if = {
@@ -3697,6 +3748,20 @@ ai_strategy_default = {
 				divide = 5000
 				multiply = 1.4 # KAI: To compensate for the difference from excluding investment pool
 			}
+		}
+
+		#T&R First and Second Great Powers are always in a naval race
+		if = {
+			limit = {
+				global_country_ranking = 1
+			}
+			add = 100
+		}
+		if = {
+			limit = {
+				global_country_ranking = 2
+			}
+			add = 75
 		}
 
 		if = { # GPs and MPs should want to maintain a bit of a navy
@@ -3722,6 +3787,23 @@ ai_strategy_default = {
 		if = {
 			limit = { has_technology_researched = battleship_tech }
 			multiply = 0.75
+		}
+
+		#T&R
+
+		if = {
+			limit = { has_technology_researched = modular_shipbuilding }
+			multiply = 0.9
+		}
+
+		if = {
+			limit = { has_technology_researched = radar }
+			multiply = 0.9
+		}
+
+		if = {
+			limit = { has_technology_researched = modern_naval_doctrine }
+			multiply = 0.9
 		}
 
 		# Factor in strategies
@@ -3875,6 +3957,19 @@ ai_strategy_default = {
 				has_technology_researched = war_propaganda
 			}
 			multiply = 1.25
+		}
+		#T&R
+		if = {
+			limit = {
+				has_technology_researched = socialdemocracy
+			}
+			multiply = 0.75
+		}
+		if = {
+			limit = {
+				has_technology_researched = counterculture
+			}
+			multiply = 0.5
 		}
 	}
 

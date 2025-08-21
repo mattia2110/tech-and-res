@@ -2845,7 +2845,7 @@ pm_transistor_radios = {
 pm_digital_sound_devices = {
 	texture = "gfx/interface/icons/production_method_icons/pm_digital_sound_devices.dds"
 	unlocking_technologies = {
-		mobile_devices
+		wireless_broadband_networks
 	}	
 	building_modifiers = {
 		workforce_scaled = {
@@ -2950,7 +2950,7 @@ pm_touch_tone_telephones = {
 pm_cell_phones = {
 	texture = "gfx/interface/icons/production_method_icons/pm_cell_phone.dds"
 	unlocking_technologies = {
-		mobile_devices
+		mobile_phone
 	}	
 	building_modifiers = {
 		workforce_scaled = {
@@ -6691,17 +6691,17 @@ pm_mobile_artillery = {
 	texture = "gfx/interface/icons/production_method_icons/rocket_artillery.dds"
 	
 	unlocking_technologies = {
-		rocketery
+		rocket_artillery
 	}
 	
 	building_modifiers = {
 		workforce_scaled = {
 			# input goods
-			goods_input_steel_add = 30
+			goods_input_steel_add = 35
 			goods_input_tools_add = 20
 			goods_input_plastics_add = 10
-			goods_input_alloys_add = 10
-			goods_input_light_fuel_add = 10
+			goods_input_alloys_add = 12
+			goods_input_lubricant_add = 5
 
 			# output goods
 			goods_output_artillery_add = 110
@@ -7204,6 +7204,50 @@ pm_purification_mine = {
 
 		level_scaled = {
 			building_employment_laborers_add = -1000
+		}
+	}
+}
+
+pm_hpgr_comminution = {
+	texture = "gfx/interface/icons/production_method_icons/hpgr_comminution.dds"
+
+	unlocking_technologies = {
+		high_pressure_grinding_rolls
+	}
+
+	unlocking_production_methods = {
+		pm_advanced_mining_systems_building_advancedores_mine
+		pm_advanced_mining_systems_building_iron_mine
+		pm_advanced_mining_systems_building_copper_mine
+		pm_advanced_mining_systems_building_commonores_mine
+		pm_advanced_mining_systems_building_uranium_mine
+		#pm_autonomous_and_remote_ops_building_mine_advancedores_mine
+		#pm_autonomous_and_remote_ops_building_mine_iron_mine
+		#pm_autonomous_and_remote_ops_building_mine_copper_mine
+		#pm_autonomous_and_remote_ops_building_mine_commonores_mine
+		#pm_autonomous_and_remote_ops_building_mine_uranium_mine
+	}
+
+	state_modifiers = {
+		workforce_scaled = {
+			state_pollution_generation_add = 10
+		}
+	}
+
+	building_modifiers = {
+		workforce_scaled = {
+			goods_input_electricity_add = -5 #-150
+			goods_input_robotics_add = 1 #100
+			goods_input_steel_add = 1 #50
+			goods_input_lubricant_add = 0.5 #35
+		}
+
+		level_scaled = {
+			building_employment_laborers_add = -1000
+		}
+
+		unscaled = {
+			building_throughput_add = 0.15
 		}
 	}
 }

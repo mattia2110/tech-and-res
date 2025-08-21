@@ -1,0 +1,748 @@
+namespace = ztr_super_germany
+
+# In order to nerf Super Germany (Aka Prussia + Austria), we trigger this event in which ex-Austrian Empire other cultures asks for higher autonomy, or civil war
+ztr_super_germany.1 = {
+	dlc = dlc_tech_res
+	type = country_event
+	placement = root
+
+	duration = 1
+
+	title = ztr_super_germany.1.t
+	desc = ztr_super_germany.1.d
+
+	event_image = {
+		video = "europenorthamerica_springtime_of_nations"
+	}
+
+	icon = "gfx/interface/icons/event_icons/event_newspaper.dds"
+
+	trigger = {
+		year > 1915
+		exists = c:GER
+		c:GER = root
+		NOT = { exists = c:AUS }
+		OR = {
+			s:STATE_LOMBARDY = {
+				any_scope_state = {
+					owner = ROOT
+				}
+			}
+			s:STATE_VENETIA = {
+				any_scope_state = {
+					owner = ROOT
+				}
+			}
+			s:STATE_SLAVONIA = {
+				any_scope_state = {
+					owner = ROOT
+				}
+			}
+			s:STATE_DALMATIA = {
+				any_scope_state = {
+					owner = ROOT
+				}
+			}
+			s:STATE_TRANSDANUBIA = {
+				any_scope_state = {
+					owner = ROOT
+				}
+			}
+			s:STATE_NORTHERN_TRANSYLVANIA = {
+				any_scope_state = {
+					owner = ROOT
+				}
+			}
+			s:STATE_SOUTHERN_TRANSYLVANIA = {
+				any_scope_state = {
+					owner = ROOT
+				}
+			}
+			s:STATE_EAST_GALICIA = {
+				any_scope_state = {
+					owner = ROOT
+				}
+			}
+			s:STATE_WEST_SLOVAKIA = {
+				any_scope_state = {
+					owner = ROOT
+				}
+			}
+		}
+		NOT = { has_variable = ztr_super_germany_sphere_var }
+		has_game_rule = allow_ztr_uchronia_content
+	}
+
+	immediate = {
+		# Create the sphere variable
+		set_variable = {
+			name  = ztr_super_germany_sphere_var
+			value = 1
+		}
+		c:GER = {
+			save_scope_as = ztr_super_germany_scope
+		}
+	}
+
+	# Total Acceptance
+	option = {
+		name = ztr_super_germany.1.a
+		ai_chance = {
+			base = 4
+		}
+
+		# Slovakia
+		if = {
+			limit = {
+				OR = {
+					NOT = { exists = c:SLV }
+					AND = {
+						exists = c:SLV
+						c:SLV = { overlord = c:GER }
+					}
+				}
+			}
+			cu:south_german = { save_scope_as = ztr_major_primary_culture }
+			ztr_define_slovakia = yes
+			if = {
+				limit = {
+					exists = c:SLV
+				}
+				create_diplomatic_pact = {
+					country = c:SLV
+					type = puppet
+				}
+			}
+		}
+
+		# Galicia
+		if = {
+			limit = {
+				OR = {
+					NOT = { exists = c:GAL }
+					AND = {
+						exists = c:GAL
+						c:GAL = { overlord = c:GER }
+					}
+				}
+			}
+			cu:north_german = { save_scope_as = ztr_major_primary_culture }
+			ztr_define_galicia = yes
+			if = {
+				limit = {
+					exists = c:GAL
+				}
+				s:STATE_MOLDAVIA.region_state:GER = {
+					set_state_owner = c:GAL
+				}
+				create_diplomatic_pact = {
+					country = c:GAL
+					type = puppet
+				}
+			}
+		}
+
+		# Hungary
+		if = {
+			limit = {
+				OR = {
+					NOT = { exists = c:HUN }
+					AND = {
+						exists = c:HUN
+						c:HUN = { overlord = c:GER }
+					}
+				}
+			}
+			cu:south_german = { save_scope_as = ztr_major_primary_culture }
+			ztr_define_hungary = yes
+			if = {
+				limit = {
+					exists = c:HUN
+				}
+				s:STATE_TRANSDANUBIA.region_state:GER = {
+					set_state_owner = c:HUN
+				}
+				create_diplomatic_pact = {
+					country = c:HUN
+					type = puppet
+				}
+			}
+		}
+
+		#Croatia
+		if = {
+			limit = {
+				OR = {
+					NOT = { exists = c:CRO }
+					AND = {
+						exists = c:CRO
+						c:CRO = { overlord = c:GER }
+					}
+				}
+			}
+			cu:north_italian = { save_scope_as = ztr_major_primary_culture }
+			ztr_define_croatia = yes
+			if = {
+				limit = {
+					exists = c:CRO
+				}
+				# s:STATE_DALMATIA.region_state:GER = {
+				# 	set_state_owner = c:CRO
+				# }
+				create_diplomatic_pact = {
+					country = c:CRO
+					type = puppet
+				}
+			}
+		}
+
+		#Venetian Republic
+		if = {
+			limit = {
+				OR = {
+					NOT = { exists = c:VEN }
+					AND = {
+						exists = c:VEN
+						c:VEN = { overlord = c:GER }
+					}
+				}
+			}
+			cu:south_german = { save_scope_as = ztr_major_primary_culture }
+			ztr_define_republic_venice = yes
+			if = {
+				limit = {
+					exists = c:VEN
+				}
+				s:STATE_ISTRIA.region_state:VEN = {
+					set_state_owner = c:GER
+				}
+				create_diplomatic_pact = {
+					country = c:VEN
+					type = puppet
+				}
+			}
+		}
+	}
+
+	# Acceptance but not Northern Italy
+	option = {
+		name = ztr_super_germany.1.b
+		ai_chance = {
+			base = 6
+		}
+
+		# Slovakia
+		if = {
+			limit = {
+				OR = {
+					NOT = { exists = c:SLV }
+					AND = {
+						exists = c:SLV
+						c:SLV = { overlord = c:GER }
+					}
+				}
+			}
+			cu:south_german = { save_scope_as = ztr_major_primary_culture }
+			ztr_define_slovakia = yes
+			if = {
+				limit = {
+					exists = c:SLV
+				}
+				create_diplomatic_pact = {
+					country = c:SLV
+					type = puppet
+				}
+			}
+		}
+
+		# Galicia
+		if = {
+			limit = {
+				OR = {
+					NOT = { exists = c:GAL }
+					AND = {
+						exists = c:GAL
+						c:GAL = { overlord = c:GER }
+					}
+				}
+			}
+			cu:north_german = { save_scope_as = ztr_major_primary_culture }
+			ztr_define_galicia = yes
+			if = {
+				limit = {
+					exists = c:GAL
+				}
+				s:STATE_MOLDAVIA.region_state:GER = {
+					set_state_owner = c:GAL
+				}
+				create_diplomatic_pact = {
+					country = c:GAL
+					type = puppet
+				}
+			}
+		}
+
+		# Hungary
+		if = {
+			limit = {
+				OR = {
+					NOT = { exists = c:HUN }
+					AND = {
+						exists = c:HUN
+						c:HUN = { overlord = c:GER }
+					}
+				}
+			}
+			cu:south_german = { save_scope_as = ztr_major_primary_culture }
+			ztr_define_hungary = yes
+			if = {
+				limit = {
+					exists = c:HUN
+				}
+				s:STATE_TRANSDANUBIA.region_state:GER = {
+					set_state_owner = c:HUN
+				}
+				create_diplomatic_pact = {
+					country = c:HUN
+					type = puppet
+				}
+			}
+		}
+
+		#Croatia
+		if = {
+			limit = {
+				OR = {
+					NOT = { exists = c:CRO }
+					AND = {
+						exists = c:CRO
+						c:CRO = { overlord = c:GER }
+					}
+				}
+			}
+			cu:north_italian = { save_scope_as = ztr_major_primary_culture }
+			ztr_define_croatia = yes
+			if = {
+				limit = {
+					exists = c:CRO
+				}
+				# s:STATE_DALMATIA.region_state:GER = {
+				# 	set_state_owner = c:CRO
+				# }
+				create_diplomatic_pact = {
+					country = c:CRO
+					type = puppet
+				}
+			}
+		}
+		add_radicals = {
+			value   = 0.4
+			culture = cu:north_italian
+		}
+	}
+
+	# Refusal
+	option = {
+		name = ztr_super_germany.1.c
+		default_option = yes
+		ai_chance = {
+			base = 2
+		}
+		if = {
+			limit = {
+				NOT = { has_variable = ztr_super_germany_sphere_refused_var }
+			}
+			if = {
+				limit = {
+					has_law = law_type:law_multicultural
+				}
+				change_infamy = 15
+			}
+			else = {
+				change_infamy = 5
+			}
+			# Radicalizza gli ungheresi
+			add_radicals = {
+				value   = 0.25
+				culture = cu:hungarian
+			}
+			add_radicals = {
+				value   = 0.25
+				culture = cu:serb
+			}
+			add_radicals = {
+				value   = 0.25
+				culture = cu:croat
+			}
+			add_radicals = {
+				value   = 0.25
+				culture = cu:north_italian
+			}
+			add_radicals = {
+				value   = 0.25
+				culture = cu:slovak
+			}
+			add_radicals = {
+				value   = 0.25
+				culture = cu:polish
+			}
+			add_radicals = {
+				value   = 0.25
+				culture = cu:ukrainian
+			}
+			add_radicals = {
+				value   = 0.25
+				culture = cu:romanian
+			}
+			set_variable = {
+				name  = ztr_super_germany_sphere_refused_var
+				value = 1
+			}
+		}
+	}
+}
+
+ztr_super_germany.2 = {
+	dlc = dlc_tech_res
+	type = country_event
+	placement = root
+
+	duration = 1
+
+	title = ztr_super_germany.2.t
+	desc = ztr_super_germany.2.d
+
+	event_image = {
+		video = "europenorthamerica_springtime_of_nations"
+	}
+
+	icon = "gfx/interface/icons/event_icons/event_newspaper.dds"
+
+	trigger = {
+	# Decision
+	}
+
+	immediate = {
+		# Create the sphere variable
+		c:GER = {
+			save_scope_as = ztr_super_germany_scope
+		}
+	}
+
+	# Total Acceptance
+	option = {
+		name = ztr_super_germany.2.a
+		ai_chance = {
+			base = 4
+		}
+
+		# Slovakia
+		if = {
+			limit = {
+				OR = {
+					NOT = { exists = c:SLV }
+					AND = {
+						exists = c:SLV
+						c:SLV = { overlord = c:GER }
+					}
+				}
+			}
+			cu:south_german = { save_scope_as = ztr_major_primary_culture }
+			ztr_define_slovakia = yes
+			if = {
+				limit = {
+					exists = c:SLV
+				}
+				create_diplomatic_pact = {
+					country = c:SLV
+					type = puppet
+				}
+			}
+		}
+
+		# Galicia
+		if = {
+			limit = {
+				OR = {
+					NOT = { exists = c:GAL }
+					AND = {
+						exists = c:GAL
+						c:GAL = { overlord = c:GER }
+					}
+				}
+			}
+			cu:north_german = { save_scope_as = ztr_major_primary_culture }
+			ztr_define_galicia = yes
+			if = {
+				limit = {
+					exists = c:GAL
+				}
+				s:STATE_MOLDAVIA.region_state:GER = {
+					set_state_owner = c:GAL
+				}
+				create_diplomatic_pact = {
+					country = c:GAL
+					type = puppet
+				}
+			}
+		}
+
+		# Hungary
+		if = {
+			limit = {
+				OR = {
+					NOT = { exists = c:HUN }
+					AND = {
+						exists = c:HUN
+						c:HUN = { overlord = c:GER }
+					}
+				}
+			}
+			cu:south_german = { save_scope_as = ztr_major_primary_culture }
+			ztr_define_hungary = yes
+			if = {
+				limit = {
+					exists = c:HUN
+				}
+				s:STATE_TRANSDANUBIA.region_state:GER = {
+					set_state_owner = c:HUN
+				}
+				create_diplomatic_pact = {
+					country = c:HUN
+					type = puppet
+				}
+			}
+		}
+
+		#Croatia
+		if = {
+			limit = {
+				OR = {
+					NOT = { exists = c:CRO }
+					AND = {
+						exists = c:CRO
+						c:CRO = { overlord = c:GER }
+					}
+				}
+			}
+			cu:north_italian = { save_scope_as = ztr_major_primary_culture }
+			ztr_define_croatia = yes
+			if = {
+				limit = {
+					exists = c:CRO
+				}
+				# s:STATE_DALMATIA.region_state:GER = {
+				# 	set_state_owner = c:CRO
+				# }
+				create_diplomatic_pact = {
+					country = c:CRO
+					type = puppet
+				}
+			}
+		}
+
+		#Venetian Republic
+		if = {
+			limit = {
+				OR = {
+					NOT = { exists = c:VEN }
+					AND = {
+						exists = c:VEN
+						c:VEN = { overlord = c:GER }
+					}
+				}
+			}
+			cu:south_german = { save_scope_as = ztr_major_primary_culture }
+			ztr_define_republic_venice = yes
+			if = {
+				limit = {
+					exists = c:VEN
+				}
+				s:STATE_ISTRIA.region_state:VEN = {
+					set_state_owner = c:GER
+				}
+				create_diplomatic_pact = {
+					country = c:VEN
+					type = puppet
+				}
+			}
+		}
+	}
+
+	# Acceptance but not Northern Italy
+	option = {
+		name = ztr_super_germany.2.b
+		ai_chance = {
+			base = 6
+		}
+
+		# Slovakia
+		if = {
+			limit = {
+				OR = {
+					NOT = { exists = c:SLV }
+					AND = {
+						exists = c:SLV
+						c:SLV = { overlord = c:GER }
+					}
+				}
+			}
+			cu:south_german = { save_scope_as = ztr_major_primary_culture }
+			ztr_define_slovakia = yes
+			if = {
+				limit = {
+					exists = c:SLV
+				}
+				create_diplomatic_pact = {
+					country = c:SLV
+					type = puppet
+				}
+			}
+		}
+
+		# Galicia
+		if = {
+			limit = {
+				OR = {
+					NOT = { exists = c:GAL }
+					AND = {
+						exists = c:GAL
+						c:GAL = { overlord = c:GER }
+					}
+				}
+			}
+			cu:north_german = { save_scope_as = ztr_major_primary_culture }
+			ztr_define_galicia = yes
+			if = {
+				limit = {
+					exists = c:GAL
+				}
+				s:STATE_MOLDAVIA.region_state:GER = {
+					set_state_owner = c:GAL
+				}
+				create_diplomatic_pact = {
+					country = c:GAL
+					type = puppet
+				}
+			}
+		}
+
+		# Hungary
+		if = {
+			limit = {
+				OR = {
+					NOT = { exists = c:HUN }
+					AND = {
+						exists = c:HUN
+						c:HUN = { overlord = c:GER }
+					}
+				}
+			}
+			cu:south_german = { save_scope_as = ztr_major_primary_culture }
+			ztr_define_hungary = yes
+			if = {
+				limit = {
+					exists = c:HUN
+				}
+				s:STATE_TRANSDANUBIA.region_state:GER = {
+					set_state_owner = c:HUN
+				}
+				create_diplomatic_pact = {
+					country = c:HUN
+					type = puppet
+				}
+			}
+		}
+
+		#Croatia
+		if = {
+			limit = {
+				OR = {
+					NOT = { exists = c:CRO }
+					AND = {
+						exists = c:CRO
+						c:CRO = { overlord = c:GER }
+					}
+				}
+			}
+			cu:north_italian = { save_scope_as = ztr_major_primary_culture }
+			ztr_define_croatia = yes
+			if = {
+				limit = {
+					exists = c:CRO
+				}
+				# s:STATE_DALMATIA.region_state:GER = {
+				# 	set_state_owner = c:CRO
+				# }
+				create_diplomatic_pact = {
+					country = c:CRO
+					type = puppet
+				}
+			}
+		}
+		add_radicals = {
+			value   = 0.4
+			culture = cu:north_italian
+		}
+	}
+
+	# Refusal
+	option = {
+		name = ztr_super_germany.2.c
+		default_option = yes
+		ai_chance = {
+			base = 2
+		}
+		if = {
+			limit = {
+				NOT = { has_variable = ztr_super_germany_sphere_refused_var }
+			}
+			if = {
+				limit = {
+					has_law = law_type:law_multicultural
+				}
+				change_infamy = 15
+			}
+			else = {
+				change_infamy = 5
+			}
+			# Radicalizza gli ungheresi
+			add_radicals = {
+				value   = 0.25
+				culture = cu:hungarian
+			}
+			add_radicals = {
+				value   = 0.25
+				culture = cu:serb
+			}
+			add_radicals = {
+				value   = 0.25
+				culture = cu:croat
+			}
+			add_radicals = {
+				value   = 0.25
+				culture = cu:north_italian
+			}
+			add_radicals = {
+				value   = 0.25
+				culture = cu:slovak
+			}
+			add_radicals = {
+				value   = 0.25
+				culture = cu:polish
+			}
+			add_radicals = {
+				value   = 0.25
+				culture = cu:ukrainian
+			}
+			add_radicals = {
+				value   = 0.25
+				culture = cu:romanian
+			}
+			set_variable = {
+				name  = ztr_super_germany_sphere_refused_var
+				value = 1
+			}
+		}
+	}
+}

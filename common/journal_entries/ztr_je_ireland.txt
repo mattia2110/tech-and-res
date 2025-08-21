@@ -115,77 +115,18 @@ je_irish_independence = {
 
 	on_complete = {
 		trigger_event = { id = irish_independence.1 }
-		if = {
-			limit = {
-				NOT = {
-				exists = c:IRE
-				}
-			}
-			create_country = {
-				tag = IRE
-				origin = this
-				province = p:xA0E040
-				on_created = {
-					set_country_type = recognized
-					activate_law = law_type:law_parliamentary_republic
-					activate_law = law_type:law_universal_suffrage
-				}
-			}
-		}
-		s:STATE_LEINSTER = {
-			random_scope_state = {
-				limit = {
-					owner = root
-				}
-			set_state_owner = c:IRE
-			}
-		}
-		s:STATE_CONNAUGHT = {
-			random_scope_state = {
-				limit = {
-					owner = root
-				}
-			set_state_owner = c:IRE
-			}
-		}
-		s:STATE_MUNSTER = {
-			random_scope_state = {
-				limit = {
-					owner = root
-				}
-			set_state_owner = c:IRE
-			}
-		}
-		if = {
-			limit = {
-				any_scope_state = {
-					state_region = s:STATE_ULSTER
-					owner = root
-					any_scope_pop = {
-                        culture = cu:irish
-						percent > 0.6
-                    }
-				}
-			}
-			s:STATE_ULSTER = {
-				random_scope_state = {
-				limit = {
-						owner = root
-					}
-				set_state_owner = c:IRE
-				}
-			}
-		}
 	}
 
 
 	fail = {
-		var:irish_independence_var < 10
+		OR = {
+			year > 1940
+			var:irish_independence_var < 10
+		}
 		OR = {
 			has_law = law_type:law_cultural_exclusion
 			has_law = law_type:law_multicultural
 		}
-		year < 1940
 	}
 
 	on_fail = {

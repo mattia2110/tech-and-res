@@ -31,6 +31,7 @@ ztr_economic_update.1 = {
 				has_modifier = dev_4_country
 				has_modifier = dev_5_country
 		}
+		is_in_civil_war = no
 	}
 
 	option = {
@@ -133,6 +134,8 @@ ztr_economic_update.1 = {
 						has_journal_entry = je_demographic_3_to_4
 						has_journal_entry = je_demographic_4_to_5
 						has_journal_entry = je_demographic_5_to_6
+						has_journal_entry = je_demographic_6_to_7
+						has_journal_entry = je_demographic_7_to_8
 					}
 				}
 				add_journal_entry = {
@@ -145,6 +148,7 @@ ztr_economic_update.1 = {
 				average_sol < 14
 				NOT = { c:FRA = this }
 				NOT = { c:GBR = this }
+				NOT = { c:SPA = this }
 			}
 			add_modifier = {
 				name = demographic_stage_1
@@ -158,6 +162,8 @@ ztr_economic_update.1 = {
 						has_journal_entry = je_demographic_3_to_4
 						has_journal_entry = je_demographic_4_to_5
 						has_journal_entry = je_demographic_5_to_6
+						has_journal_entry = je_demographic_6_to_7
+						has_journal_entry = je_demographic_7_to_8
 					}
 				}
 				add_journal_entry = {
@@ -182,6 +188,8 @@ ztr_economic_update.1 = {
 						has_journal_entry = je_demographic_3_to_4
 						has_journal_entry = je_demographic_4_to_5
 						has_journal_entry = je_demographic_5_to_6
+						has_journal_entry = je_demographic_6_to_7
+						has_journal_entry = je_demographic_7_to_8
 					}
 				}
 				add_journal_entry = {
@@ -205,6 +213,8 @@ ztr_economic_update.1 = {
 						has_journal_entry = je_demographic_3_to_4
 						has_journal_entry = je_demographic_4_to_5
 						has_journal_entry = je_demographic_5_to_6
+						has_journal_entry = je_demographic_6_to_7
+						has_journal_entry = je_demographic_7_to_8
 					}
 				}
 				add_journal_entry = {
@@ -228,6 +238,8 @@ ztr_economic_update.1 = {
 						has_journal_entry = je_demographic_3_to_4
 						has_journal_entry = je_demographic_4_to_5
 						has_journal_entry = je_demographic_5_to_6
+						has_journal_entry = je_demographic_6_to_7
+						has_journal_entry = je_demographic_7_to_8
 					}
 				}
 				add_journal_entry = {
@@ -251,6 +263,8 @@ ztr_economic_update.1 = {
 						has_journal_entry = je_demographic_3_to_4
 						has_journal_entry = je_demographic_4_to_5
 						has_journal_entry = je_demographic_5_to_6
+						has_journal_entry = je_demographic_6_to_7
+						has_journal_entry = je_demographic_7_to_8
 					}
 				}
 				add_journal_entry = {
@@ -262,7 +276,23 @@ ztr_economic_update.1 = {
 			add_modifier = {
 				name = demographic_stage_6
 			}
-			
+			if = {
+				limit = {
+					NOR = {
+						has_journal_entry = je_demographic_0_to_1
+						has_journal_entry = je_demographic_1_to_2
+						has_journal_entry = je_demographic_2_to_3
+						has_journal_entry = je_demographic_3_to_4
+						has_journal_entry = je_demographic_4_to_5
+						has_journal_entry = je_demographic_5_to_6
+						has_journal_entry = je_demographic_6_to_7
+						has_journal_entry = je_demographic_7_to_8
+					}
+				}
+				add_journal_entry = {
+					type = je_demographic_6_to_7
+				}
+			}
 		}
 		ai_chance = {
 			base = 100										

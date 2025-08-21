@@ -1,0 +1,533 @@
+namespace = ztr_austrian_german_partition_treaty
+
+# Austrian Proposal to Prussia
+ztr_austrian_german_partition_treaty.1 = {
+	dlc = dlc_tech_res
+	type = country_event
+	placement = ROOT
+	event_image = {
+		video = "unspecific_ruler_speaking_to_people"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	icon = "gfx/interface/icons/event_icons/event_default.dds"
+
+	title = ztr_austrian_german_partition_treaty.1.t
+	desc = ztr_austrian_german_partition_treaty.1.d
+
+	duration = 4
+	
+	trigger = {
+	}
+
+	immediate = {
+		c:PRU = {
+			save_scope_as = ztr_prussia_treaty_scope
+		}
+		c:AUS = {
+			save_scope_as = ztr_austria_treaty_scope
+		}
+	}
+
+	# Prussian refusal option, always active
+	option = {
+		name = ztr_austrian_german_partition_treaty.1.a
+		default_option = yes
+		ai_chance = {
+			base = 4
+		}
+		scope:ztr_austria_treaty_scope = {
+			trigger_event = ztr_austrian_german_partition_treaty.3
+		}
+	}
+
+	# This option is active if Austria is the only great power or Austria owns Bavaria
+	option = {
+		name = ztr_austrian_german_partition_treaty.1.b
+		ai_chance = {
+			base = 6
+		}
+		trigger = {
+			OR = {
+				scope:ztr_prussia_treaty_scope = { NOT = { country_rank = rank_value:great_power } }
+				s:STATE_BAVARIA = {
+				any_scope_state = {
+						owner = scope:ztr_austria_treaty_scope
+					}
+				}
+			}
+		}
+		every_state = {
+			limit = {
+				region = sr:region_south_germany
+				owner = {
+					OR = {
+						country_has_primary_culture = cu:south_german
+						scope:ztr_prussia_treaty_scope = this
+					}
+				}
+			}
+			set_state_owner = c:AUS
+		}
+		every_state = {
+			limit = {
+				OR = {
+					region = sr:region_north_germany
+					region = sr:region_rhine
+				}
+				owner = {
+					OR = {
+						country_has_primary_culture = cu:north_german
+						scope:ztr_austria_treaty_scope = this
+					}
+				}
+			}
+			set_state_owner = c:PRU
+		}
+		create_bidirectional_truce = {
+			country = c:AUS
+			months = 120
+		}
+		c:PRU = { change_tag = NGF }
+	}
+
+	# This option is active always if Bavaria owns Bavaria
+	option = {
+		name = ztr_austrian_german_partition_treaty.1.c
+		ai_chance = {
+			base = 12
+		}
+		trigger = {
+			exists = c:BAV
+			s:STATE_BAVARIA = {
+				any_scope_state = {
+					owner = c:BAV
+				}
+			}
+		}
+		set_variable = {
+			name = ztr_prussia_counteroffer_german_partition_treaty_var
+			value = 1
+		}
+		scope:ztr_austria_treaty_scope = {
+			trigger_event = ztr_austrian_german_partition_treaty.4
+		}
+	}
+}
+
+# Prussian Proposal to Austria
+ztr_austrian_german_partition_treaty.2 = {
+	dlc = dlc_tech_res
+	type = country_event
+	placement = ROOT
+	event_image = {
+		video = "europenorthamerica_capitalists_meeting"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	icon = "gfx/interface/icons/event_icons/event_default.dds"
+
+	title = ztr_austrian_german_partition_treaty.2.t
+	desc = ztr_austrian_german_partition_treaty.2.d
+
+	duration = 4
+	
+	trigger = {
+	}
+
+	immediate = {
+		c:PRU = {
+			save_scope_as = ztr_prussia_treaty_scope
+		}
+		c:AUS = {
+			save_scope_as = ztr_austria_treaty_scope
+		}
+	}
+
+	# Austrian refusal option, always active
+	option = {
+		name = ztr_austrian_german_partition_treaty.2.a
+		default_option = yes
+		scope:ztr_prussia_treaty_scope = {
+			trigger_event = ztr_austrian_german_partition_treaty.3
+		}
+		ai_chance = {
+			base = 4
+		}
+	}
+
+	# This option is active if Prussia is the only great power or both are great powers but Austria doesn't own Bavaria
+	option = {
+		name = ztr_austrian_german_partition_treaty.2.b
+		ai_chance = {
+			base = 6
+		}
+		trigger = {
+			OR = {
+				scope:ztr_austria_treaty_scope = { NOT = { country_rank = rank_value:great_power } }
+				AND = {
+					exists = c:BAV
+					s:STATE_BAVARIA = {
+						any_scope_state = {
+							owner = c:BAV
+						}
+					}
+				}
+			}
+		}
+		every_state = {
+			limit = {
+				region = sr:region_south_germany
+				owner = {
+					NOT = { scope:ztr_austria_treaty_scope = this }
+					OR = {
+						country_has_primary_culture = cu:south_german
+						scope:ztr_prussia_treaty_scope = this
+					}
+				}
+			}
+			set_state_owner = c:BAV
+		}
+		c:BAV = { change_tag = SGF } # Southern German Confederation
+		c:PRU = { 
+			create_diplomatic_pact = {
+				country = c:SGF
+				type = dominion
+			}
+		}
+		every_state = {
+			limit = {
+				OR = {
+					region = sr:region_north_germany
+					region = sr:region_rhine
+				}
+				owner = {
+					OR = {
+						country_has_primary_culture = cu:north_german
+						scope:ztr_austria_treaty_scope = this
+					}
+				}
+			}
+			set_state_owner = c:PRU
+		}
+		s:STATE_BAVARIA.region_state:SGF = {
+			set_state_owner = c:AUS
+		}
+		create_bidirectional_truce = {
+			country = c:PRU
+			months = 120
+		}
+		c:PRU = { change_tag = NGF }
+	}
+
+	# This option is active always if Bavaria exists
+	option = {
+		name = ztr_austrian_german_partition_treaty.2.c
+		ai_chance = {
+			base = 12
+		}
+		trigger = {
+			exists = c:BAV
+			s:STATE_BAVARIA = {
+				any_scope_state = {
+					owner = c:BAV
+				}
+			}
+		}
+		set_variable = {
+			name = ztr_austria_counteroffer_german_partition_treaty_var
+			value = 1
+		}
+		scope:ztr_prussia_treaty_scope = {
+			trigger_event = ztr_austrian_german_partition_treaty.4
+		}
+	}
+
+	# This option is active if Austria owns already Bavaria
+	option = {
+		name = ztr_austrian_german_partition_treaty.2.e
+		ai_chance = {
+			base = 15
+		}
+		trigger = {
+			s:STATE_BAVARIA = {
+				any_scope_state = {
+					owner = scope:ztr_austria_treaty_scope
+				}
+			}
+		}
+		set_variable = {
+			name = ztr_austria_strong_counteroffer_german_partition_treaty_var
+			value = 1
+		}
+		scope:ztr_prussia_treaty_scope = {
+			trigger_event = ztr_austrian_german_partition_treaty.4
+		}
+	}
+}
+
+# Refusal
+ztr_austrian_german_partition_treaty.3 = {
+	dlc = dlc_tech_res
+	type = country_event
+	placement = ROOT
+	event_image = {
+		video = "unspecific_ruler_speaking_to_people"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	icon = "gfx/interface/icons/event_icons/event_default.dds"
+
+	title = ztr_austrian_german_partition_treaty.3.t
+
+	desc = {
+		first_valid = {
+			triggered_desc = {
+				trigger = {
+					c:PRU = root
+				}
+				desc = ztr_austrian_german_partition_treaty.3.prussia
+			}
+			triggered_desc = {
+				trigger = {
+					c:AUS = root
+				}
+				desc = ztr_austrian_german_partition_treaty.3.austria
+			}
+		}
+	}
+
+	duration = 4
+	
+	trigger = {
+	}
+
+	immediate = {
+		c:PRU = {
+			save_scope_as = ztr_prussia_treaty_scope
+		}
+		c:AUS = {
+			save_scope_as = ztr_austria_treaty_scope
+		}
+	}
+
+	# Munich Treaty is not signed
+	option = {
+		name = ztr_austrian_german_partition_treaty.3.a
+		default_option = yes
+		ai_chance = {
+			base = 1
+		}
+	}
+}
+
+# Counteroffer during negotiations
+
+ztr_austrian_german_partition_treaty.4 = {
+	dlc = dlc_tech_res
+	type = country_event
+	placement = ROOT
+	event_image = {
+		video = "europenorthamerica_capitalists_meeting"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	icon = "gfx/interface/icons/event_icons/event_default.dds"
+
+	title = ztr_austrian_german_partition_treaty.4.t
+
+	desc = {
+		first_valid = {
+			triggered_desc = {
+				trigger = {
+					c:PRU = { has_variable = ztr_prussia_counteroffer_german_partition_treaty_var }
+				}
+				desc = ztr_austrian_german_partition_treaty.4.prussia
+			}
+			triggered_desc = {
+				trigger = {
+					c:AUS = { has_variable = ztr_austria_counteroffer_german_partition_treaty_var }
+				}
+				desc = ztr_austrian_german_partition_treaty.4.austria
+			}
+			triggered_desc = {
+				trigger = {
+					c:AUS = { has_variable = ztr_austria_strong_counteroffer_german_partition_treaty_var }
+				}
+				desc = ztr_austrian_german_partition_treaty.4.strongaustria
+			}
+		}
+	}
+
+	duration = 4
+	
+	trigger = {
+	}
+
+	immediate = {
+		c:PRU = {
+			save_scope_as = ztr_prussia_treaty_scope
+		}
+		c:AUS = {
+			save_scope_as = ztr_austria_treaty_scope
+		}
+	}
+
+	# Refusal of the new proposal
+	option = {
+		name = ztr_austrian_german_partition_treaty.4.a
+		default_option = yes
+		ai_chance = {
+			base = 4
+		}
+	}
+
+	# Austria accepts Prussia counteroffer
+	option = {
+		name = ztr_austrian_german_partition_treaty.4.b
+		trigger = {
+			c:PRU = { has_variable = ztr_prussia_counteroffer_german_partition_treaty_var }
+		}
+		every_state = {
+			limit = {
+				region = sr:region_south_germany
+				owner = {
+					NOT = { scope:ztr_austria_treaty_scope = this }
+					OR = {
+						country_has_primary_culture = cu:south_german
+						scope:ztr_prussia_treaty_scope = this
+					}
+				}
+			}
+			set_state_owner = c:BAV
+		}
+		c:BAV = { change_tag = SGF } # Southern German Confederation
+		c:AUS = { 
+			create_diplomatic_pact = {
+				country = c:SGF
+				type = dominion
+			}
+		}
+		every_state = {
+			limit = {
+				OR = {
+					region = sr:region_north_germany
+					region = sr:region_rhine
+				}
+				owner = {
+					OR = {
+						country_has_primary_culture = cu:north_german
+						scope:ztr_austria_treaty_scope = this
+					}
+				}
+			}
+			set_state_owner = c:PRU
+		}
+		create_bidirectional_truce = {
+			country = c:AUS
+			months = 120
+		}
+		c:PRU = { change_tag = NGF }
+		ai_chance = {
+			base = 10
+		}
+	}
+
+	# Prussia accepts Austria counteroffer
+	option = {
+		name = ztr_austrian_german_partition_treaty.4.c
+		trigger = {
+			c:AUS = { has_variable = ztr_austria_counteroffer_german_partition_treaty_var }
+		}
+		every_state = {
+			limit = {
+				region = sr:region_south_germany
+				owner = {
+					NOT = { scope:ztr_austria_treaty_scope = this }
+					OR = {
+						country_has_primary_culture = cu:south_german
+						scope:ztr_prussia_treaty_scope = this
+					}
+				}
+			}
+			set_state_owner = c:BAV
+		}
+		c:BAV = { change_tag = SGF } # Southern German Confederation
+		c:AUS = { 
+			create_diplomatic_pact = {
+				country = c:SGF
+				type = dominion
+			}
+		}
+		every_state = {
+			limit = {
+				OR = {
+					region = sr:region_north_germany
+					region = sr:region_rhine
+				}
+				owner = {
+					OR = {
+						country_has_primary_culture = cu:north_german
+						scope:ztr_austria_treaty_scope = this
+					}
+				}
+			}
+			set_state_owner = c:PRU
+		}
+		create_bidirectional_truce = {
+			country = c:PRU
+			months = 120
+		}
+		c:PRU = { change_tag = NGF }
+		ai_chance = {
+			base = 10
+		}
+	}
+
+	# Prussia accepts Austria strong counteroffer
+	option = {
+		name = ztr_austrian_german_partition_treaty.4.e
+		trigger = {
+			c:AUS = { has_variable = ztr_austria_strong_counteroffer_german_partition_treaty_var }
+		}
+		every_state = {
+			limit = {
+				region = sr:region_south_germany
+				owner = {
+					OR = {
+						country_has_primary_culture = cu:south_german
+						scope:ztr_prussia_treaty_scope = this
+					}
+				}
+			}
+			set_state_owner = c:AUS
+		}
+		every_state = {
+			limit = {
+				OR = {
+					region = sr:region_north_germany
+					region = sr:region_rhine
+				}
+				owner = {
+					OR = {
+						country_has_primary_culture = cu:north_german
+						scope:ztr_austria_treaty_scope = this
+					}
+				}
+			}
+			set_state_owner = c:PRU
+		}
+		create_bidirectional_truce = {
+			country = c:PRU
+			months = 120
+		}
+		c:PRU = { change_tag = NGF }
+		ai_chance = {
+			base = 7
+		}
+	}
+}

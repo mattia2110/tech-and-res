@@ -4,14 +4,14 @@ je_austrian_empire_collapse = {
 
 	is_shown_when_inactive = {
 		has_game_rule = allow_ztr_historical_content
-		year > 1910
+		year > 1900
 		exists = c:AUS
         THIS = c:AUS
 	}
 
 	possible = {
-		global_country_ranking > 3
-		NOT = {has_law = law_type:law_multicultural}
+		NOT = { global_country_ranking < 5 }
+		NOT = { has_law = law_type:law_multicultural }
 		get_country_gdp_per < 3
 		#is_ai = yes
 	}
@@ -72,7 +72,7 @@ je_austrian_empire_collapse = {
 			# Economic Factors
 			if = {
 				limit = {
-					get_country_gdp_per < 2
+					get_country_gdp_per < 3
 				}
 				change_variable = {
 					name = austrian_empire_collapse_var
@@ -592,10 +592,10 @@ je_austrian_empire_collapse = {
 	fail = {
 		OR = {
 			has_law = law_type:law_multicultural
-			get_country_gdp_per > 3
-			global_country_ranking < 4
+			get_country_gdp_per > 4
+			global_country_ranking < 5
+			year > 1940
 		}
-		var:austrian_empire_collapse_var < 10
 	}
 
 	on_fail = {

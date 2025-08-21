@@ -382,6 +382,13 @@ ai_strategy_industrial_expansion = {
 		}
 		if = {
 			limit = {
+				exists = c:FRA
+				c:FRA = this
+			}
+			add = 150
+		}
+		if = {
+			limit = {
 				exists = c:BEL
 				c:BEL = this
 			}
@@ -479,19 +486,45 @@ ai_strategy_industrial_expansion = {
 			}
 			add = -250
 		}
+		# if = {
+		# 	limit = {
+		# 		year < 1920
+		# 		exists = c:RUS
+		# 		c:RUS = this
+		# 	}
+		# 	add = -250
+		# } # Actually Russia never industrialize like the west
+
 		if = {
 			limit = {
-				year < 1920
-				exists = c:RUS
-				c:RUS = this
+				year > 1950
+				exists = c:JAP
+				c:JAP = this
 			}
-			add = -250
+			add = 250
+		} # This is especially for Japan without Meiji restoration.
+
+		if = {
+			limit = {
+				year > 1960
+				exists = c:KOR
+				c:KOR = this
+			}
+			add = 250
 		}
 
+		if = {
+			limit = { 
+				year > 1990
+				exists = c:CHI
+				c:CHI = this
+			}
+			add = 250
+		}
 		
 		if = {
 			limit = { 
-				year > 1940
+				year > 2000
 				country_is_in_east_asia = yes
 			}
 			add = 250

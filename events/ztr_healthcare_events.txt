@@ -19,7 +19,7 @@ ztr_healthcare.1 = {
 	icon = "gfx/interface/icons/event_icons/medical_degrees.dds"
 
 	trigger = {
-		year < 1889
+		year < 1879
 		NOT = { has_modifier = modern_medicine_0 }
 	}
 
@@ -53,8 +53,8 @@ ztr_healthcare.2 = {
 	icon = "gfx/interface/icons/event_icons/medical_degrees.dds"
 
 	trigger = {
-		year > 1889
-		year < 1939
+		year > 1879
+		year < 1909
 		NOT = { has_modifier = modern_medicine_1 }
 	}
 
@@ -91,8 +91,8 @@ ztr_healthcare.3 = {
 	icon = "gfx/interface/icons/event_icons/medical_degrees.dds"
 
 	trigger = {
-		year > 1939
-		year < 1989
+		year > 1909
+		year < 1934
 		NOT = { has_modifier = modern_medicine_2 }
 	}
 
@@ -130,8 +130,9 @@ ztr_healthcare.4 = {
 	icon = "gfx/interface/icons/event_icons/medical_degrees.dds"
 
 	trigger = {
-		year > 1989
-		NOT = { has_modifier = modern_medicine_2 }
+		year > 1934
+		year < 1959
+		NOT = { has_modifier = modern_medicine_3 }
 	}
 
 	immediate = {
@@ -147,5 +148,45 @@ ztr_healthcare.4 = {
 			remove_modifier = modern_medicine_2
 		}
 		add_modifier = modern_medicine_3
+	}
+}
+
+ztr_healthcare.5 = {
+	dlc = dlc_tech_res
+	type = country_event
+	placement = root
+
+	duration = 1
+
+	title = ztr_healthcare.5.t
+	desc = ztr_healthcare.5.d
+
+	event_image = {
+		video = "unspecific_sick_in_hospital"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	icon = "gfx/interface/icons/event_icons/medical_degrees.dds"
+
+	trigger = {
+		year > 1959
+		NOT = { has_modifier = modern_medicine_4 }
+	}
+
+	immediate = {
+	}
+
+	#Add modern medicine modifier
+	option = {
+		name = ztr_healthcare.5.a
+		default_option = yes
+		hidden_effect = {
+			remove_modifier = modern_medicine_0
+			remove_modifier = modern_medicine_1
+			remove_modifier = modern_medicine_2
+			remove_modifier = modern_medicine_3
+		}
+		add_modifier = modern_medicine_4
 	}
 }

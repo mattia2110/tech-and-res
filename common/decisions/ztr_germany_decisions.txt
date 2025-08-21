@@ -1,0 +1,117 @@
+# A simple decision made to simulate German Unification question if it's not completed after 1900
+# This decision will make Austria and Prussia partitioning Germany: North Germany goes to Prussia, South Germany goes to Austria
+# The outcome of the decision and the chain of events will depend on the global role of Prussia and Austria.
+# If only one is a great power, then the other will have much greater freedom.
+# This is an uchronia event
+
+ztr_austrian_german_partition_treaty = {
+	is_shown = {
+		has_technology_researched = pan-nationalism
+		country_rank = rank_value:great_power
+		year > 1920
+		# North German Confederation or Germany must not exist
+		NOT = { exists = c:NGF }
+		NOT = { exists = c:GER }
+		exists = c:PRU
+		exists = c:AUS
+		OR = {
+			c:PRU = root
+			c:AUS = root
+		}
+		has_game_rule = allow_ztr_uchronia_content
+		NOT = { has_global_variable = austrian_german_partition_treaty }
+	}
+
+	possible = {
+		c:PRU = { NOT = { is_diplomatic_play_enemy_of = c:AUS} }
+		c:AUS = { NOT = { is_diplomatic_play_enemy_of = c:PRU} }
+	}
+
+	when_taken = {
+		set_global_variable = {
+			name = austrian_german_partition_treaty
+			value = 0
+		}
+		if = {
+			limit = { c:AUS = root }
+			c:PRU = { trigger_event = ztr_austrian_german_partition_treaty.1 } # Austrian Proposal
+		}
+		else = {
+			c:AUS = { trigger_event = ztr_austrian_german_partition_treaty.2 } # Prussian Proposal
+		}
+	}
+
+	ai_chance = {
+		value = 10
+	}
+}
+
+ztr_super_germany_sphere_of_influence = {
+	is_shown = {
+		year > 1915
+		exists = c:GER
+		c:GER = root
+		NOT = { exists = c:AUS }
+		OR = {
+			s:STATE_LOMBARDY = {
+				any_scope_state = {
+					owner = ROOT
+				}
+			}
+			s:STATE_VENETIA = {
+				any_scope_state = {
+					owner = ROOT
+				}
+			}
+			s:STATE_SLAVONIA = {
+				any_scope_state = {
+					owner = ROOT
+				}
+			}
+			s:STATE_DALMATIA = {
+				any_scope_state = {
+					owner = ROOT
+				}
+			}
+			s:STATE_TRANSDANUBIA = {
+				any_scope_state = {
+					owner = ROOT
+				}
+			}
+			s:STATE_NORTHERN_TRANSYLVANIA = {
+				any_scope_state = {
+					owner = ROOT
+				}
+			}
+			s:STATE_SOUTHERN_TRANSYLVANIA = {
+				any_scope_state = {
+					owner = ROOT
+				}
+			}
+			s:STATE_EAST_GALICIA = {
+				any_scope_state = {
+					owner = ROOT
+				}
+			}
+			s:STATE_WEST_SLOVAKIA = {
+				any_scope_state = {
+					owner = ROOT
+				}
+			}
+		}
+		has_variable = ztr_super_germany_sphere_var
+		has_game_rule = allow_ztr_uchronia_content
+	}
+
+	possible = {
+
+	}
+
+	when_taken = {
+		c:GER = { trigger_event = ztr_super_germany.2 }
+	}
+
+	ai_chance = {
+		value = 1
+	}
+}

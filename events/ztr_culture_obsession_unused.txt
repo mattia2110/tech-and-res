@@ -1,0 +1,174 @@
+namespace = ztr_culture_obsession
+
+# Cosmetic Obsession (French)
+
+ztr_culture_obsession.1 = {
+	dlc = dlc_tech_res
+	type = country_event
+	placement = ROOT
+	event_image = {
+		video = "unspecific_world_fair"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	icon = "gfx/interface/icons/event_icons/event_default.dds"
+
+	title = ztr_culture_obsession.1.t
+	desc = ztr_culture_obsession.1.d
+
+
+	duration = 1
+	
+	trigger = {
+		OR = {
+			AND = {
+				exists = c:FRA
+				c:FRA = this
+				NOT = { has_global_variable = ztr_cosmetic_french_obsession }
+			}
+			OR = {
+				exists = c:WAL
+				c:WAL = this
+				NOT = { has_global_variable = ztr_cosmetic_wallonian_obsession }
+			}
+		}
+		
+	}
+
+	immediate = {
+		
+	}
+	
+	option = {
+		name = ztr_culture_obsession.1.a
+		default_option = yes
+		trigger = {
+			c:FRA = this
+		}
+		set_global_variable = {
+			name = ztr_cosmetic_french_obsession
+			value = 1
+		}
+		cu:french = { add_cultural_obsession = cosmetics }
+		ai_chance = {
+			base = 2										
+		}		
+	}
+
+	option = {
+		name = ztr_culture_obsession.1.b
+		trigger = {
+			c:BEL = this
+		}
+		set_global_variable = {
+			name = ztr_cosmetic_wallonian_obsession
+			value = 1
+		}
+		cu:wallonian = { add_cultural_obsession = cosmetics }
+		ai_chance = {
+			base = 2										
+		}		
+	}
+}
+
+# Automobiles Obsession (America, German and Italian)
+
+ztr_culture_obsession.2 = {
+	dlc = dlc_tech_res
+	type = country_event
+	placement = ROOT
+	event_image = {
+		video = "unspecific_world_fair"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	icon = "gfx/interface/icons/event_icons/event_default.dds"
+
+	title = ztr_culture_obsession.2.t
+	desc = ztr_culture_obsession.2.d
+
+	duration = 1
+	
+	trigger = {
+		OR = {
+			AND = {
+				exists = c:USA
+				c:USA = this
+				NOT = { has_global_variable = ztr_automobile_american_obsession }
+			}
+			AND = {
+				exists = c:GER
+				c:GER = this
+				NOT = { has_global_variable = ztr_automobile_german_obsession }
+			}
+			AND = {
+				exists = c:ITA
+				c:ITA = this
+				NOT = { has_global_variable = ztr_automobile_italian_obsession }
+			}
+		}
+		
+	}
+
+	immediate = {
+		
+	}
+	
+	option = {
+		name = ztr_culture_obsession.2.a
+		default_option = yes
+		trigger = {
+			c:USA = this
+		}
+		set_global_variable = {
+			name = ztr_automobile_american_obsession
+			value = 1
+		}
+		cu:american = { add_cultural_obsession = automobiles }
+		ai_chance = {
+			base = 2										
+		}		
+	}
+
+	option = {
+		name = ztr_culture_obsession.2.b
+		trigger = {
+			c:GER = this
+		}
+		set_global_variable = {
+			name = ztr_automobile_german_obsession
+			value = 1
+		}
+		cu:south_german = { add_cultural_obsession = automobiles }
+		cu:north_german = { add_cultural_obsession = automobiles }
+		ai_chance = {
+			base = 2
+		}
+	}
+
+	option = {
+		name = ztr_culture_obsession.2.c
+		trigger = {
+			c:ITA = this
+		}
+		set_global_variable = {
+			name = ztr_automobile_italian_obsession
+			value = 1
+		}
+		cu:italian = { add_cultural_obsession = automobiles }
+		ai_chance = {
+			base = 2
+		}
+	}
+}
+
+
+
+
+# Media Content Obsession (Primary Culture of IV/V tier rich countries after cathode tube researched)
+# Interactive Media Obsession (Primary Culture of V tier rich countries after videogames tech researched)
+# Telephones Obsession (Primary Culture of IV/V tier rich countries after smartphones tech researched)
+# Media Content Obsession (Manga & Anime for Japanese, Chinese and Korean)
+

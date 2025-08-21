@@ -1,0 +1,167 @@
+# namespace = ottoman_empire_collapse
+
+# ottoman_empire_collapse.1 = {
+# 	dlc = dlc_tech_res
+# 	type = country_event
+# 	placement = root
+
+# 	duration = 1
+
+# 	event_image = {
+# 		video = "unspecific_devastation"
+# 	}
+
+# 	title = ottoman_empire_collapse.1.t
+# 	desc = ottoman_empire_collapse.1.d
+
+# 	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+# 	on_opened_soundeffect = "event:/SFX/Events/middleeast/middleclass_cafe"
+
+# 	icon = "gfx/interface/icons/event_icons/waving_flag_austria.dds"
+
+# 	trigger = {
+# 		# JE
+# 	}
+
+# 	immediate = {
+# 		if = {
+# 			limit = { exists = c:HUN }
+# 			c:HUN = { save_scope_as = collapse_hungary_scope }
+# 		}
+# 		if = {
+# 			limit = { exists = c:CZH }
+# 			c:CZH = { save_scope_as = collapse_czech_scope }
+# 		}
+# 	}
+
+# 	# Austria declares annexation war only on Hungary
+# 	option = {
+# 		name = ottoman_empire_collapse.1.a
+# 		default_option = yes
+# 		trigger = {
+# 			exists = c:HUN
+# 			NOT = { exists = c:CZH }
+# 		}
+# 		create_diplomatic_play = {
+# 		target_country = c:HUN
+# 		type = dp_annex_war
+# 		}
+# 		hidden_effect = {
+# 			change_infamy = -2000
+# 		}
+# 		ai_chance = {
+# 			base = 4
+# 		}
+# 	}
+
+# 	# Austria declares annexation war only on Czechoslovakia
+# 	option = {
+# 		name = ottoman_empire_collapse.1.b
+# 		trigger = {
+# 			exists = c:CZH
+# 			NOT = { exists = c:HUN }
+# 		}
+# 		change_infamy = -20
+# 		create_diplomatic_play = {
+# 		target_country = c:CZH
+# 		type = dp_annex_war
+# 		}
+# 		hidden_effect = {
+# 			change_infamy = -2000
+# 		}
+# 		ai_chance = {
+# 			base = 4
+# 		}
+# 	}
+
+# 	# Austria declares annexation war only on Hungary and Czechoslovakia
+# 	option = {
+# 		name = ottoman_empire_collapse.1.c
+# 		trigger = {
+# 			exists = c:HUN
+# 			exists = c:CZH
+# 		}
+# 		change_infamy = -10
+# 		create_diplomatic_play = {
+# 		target_country = c:HUN
+# 		type = dp_annex_war
+# 		}
+# 		create_diplomatic_play = {
+# 		target_country = c:CZH
+# 		type = dp_annex_war
+# 		}
+# 		hidden_effect = {
+# 			change_infamy = -2000
+# 		}
+# 		ai_chance = {
+# 			base = 4
+# 		}
+# 	}
+
+# 	# Austria declares annexation against everyone
+# 	option = {
+# 		name = ottoman_empire_collapse.1.e
+# 		if = {
+# 			limit = {
+# 				exists = c:HUN
+# 			}
+# 			create_diplomatic_play = {
+# 			target_country = c:HUN
+# 			type = dp_annex_war
+# 			}
+# 		}
+# 		if = {
+# 			limit = {
+# 				exists = c:CZH
+# 			}
+# 			create_diplomatic_play = {
+# 			target_country = c:CZH
+# 			type = dp_annex_war
+# 			}
+# 		}
+# 		if = {
+# 			limit = {
+# 				exists = c:SER
+# 			}
+# 			create_diplomatic_play = {
+# 			target_country = c:SER
+# 			type = dp_annex_war
+# 			}
+# 		}
+# 		if = {
+# 			limit = {
+# 				exists = c:ITA
+# 			}
+# 			create_diplomatic_play = {
+# 			target_country = c:ITA
+# 			type = dp_return_state
+# 			target_state = s:STATE_VENETIA.region_state:ITA
+# 			}
+# 		}
+# 		if = {
+# 			limit = {
+# 				exists = c:VEN
+# 			}
+# 			create_diplomatic_play = {
+# 			target_country = c:VEN
+# 			type = dp_return_state
+# 			target_state = s:STATE_VENETIA.region_state:VEN
+# 			}
+# 		}
+# 		hidden_effect = {
+# 			change_infamy = -2000
+# 		}
+# 		ai_chance = {
+# 			base = 0
+# 		}
+# 	}
+
+# 	# Austria accepts its fate
+# 	option = {
+# 		name = ottoman_empire_collapse.1.f
+# 		change_infamy = -30
+# 		ai_chance = {
+# 			base = 4
+# 		}
+# 	}
+# }

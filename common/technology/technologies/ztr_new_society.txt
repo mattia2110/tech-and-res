@@ -25,7 +25,7 @@ international_organizations = {
 		country_influence_mult = 0.1
 		country_infamy_generation_against_unrecognized_mult = 0.1 #Second Italian-Ethiopian War 1936
 		country_infamy_generation_mult = 0.1 #Second World War
-		country_tech_spread_mult = 0.33
+		country_tech_spread_mult = 0.1
 		country_free_charters_add = 1
 	}
 	unlocking_technologies = {
@@ -56,6 +56,7 @@ keynesian_economics = {
 	texture = "gfx/interface/icons/invention_icons/keynesian_economics.dds"
 	category = society
 	modifier = {
+		interest_group_ig_industrialists_pol_str_mult = -0.25
 		country_authority_mult = 0.1
 		state_market_access_price_impact = 0.05
 		building_cash_reserves_mult = 0.1
@@ -94,6 +95,25 @@ modern_urban_planning = {
 	}
 }
 
+molecular_biology = {
+	era = era_5
+	texture = "gfx/interface/icons/invention_icons/molecular_biology.dds"
+	category = society
+
+	modifier = {
+		state_mortality_mult = -0.01
+		country_society_tech_research_speed_mult = 0.05
+	}
+
+	unlocking_technologies = {
+		dubois_genetics_tech
+	}
+
+	ai_weight = {
+		value = 1
+	}
+}
+
 #Era 6
 
 socialdemocracy = {
@@ -102,6 +122,9 @@ socialdemocracy = {
 	category = society
 	modifier = {
 		political_movement_radicalism_from_enactment_disapproval_mult = -0.1
+		interest_group_ig_industrialists_pol_str_mult = -0.5
+		interest_group_ig_intelligentsia_pol_str_mult = 0.25
+		interest_group_ig_trade_unions_pol_str_mult = 0.25
 		country_authority_mult = 0.1
 		state_radicals_and_loyalists_from_sol_change_mult = 0.2
 		state_radicals_from_political_movements_mult = -0.2
@@ -144,7 +167,7 @@ antibiotics = {
     category = society
 
     unlocking_technologies = {
-        panum_antitoxins_tech
+        molecular_biology
 		penicillin
     }
 
@@ -164,13 +187,12 @@ international_travel = {
 	texture = "gfx/interface/icons/invention_icons/international_travel.dds"
 	category = society
 	modifier = {
-		country_production_tech_spread_mult = 0.5
-		country_society_tech_spread_mult = 0.5
+		country_production_tech_spread_mult = 0.25
+		country_society_tech_spread_mult = 0.25
 		state_trade_capacity_mult = 0.2
 		state_pollution_reduction_health_mult = 0.05
 	}
 	unlocking_technologies = {
-		international_organizations
 		highway_systems
 		elgar_mass_culture_tech
 	}
@@ -213,7 +235,6 @@ market_studies = {
 		modern_financial_instruments
 		keynesian_economics
 		mass_propaganda
-		modern_urban_planning
 	}
 		
 	ai_weight = {
@@ -326,7 +347,7 @@ funded_research_projects = {
 
 	modifier = {
 		building_university_throughput_add = 0.1
-		country_tech_spread_mult = 0.33
+		country_tech_spread_mult = 0.2
 	}
 
 	ai_weight = { value = 1 }
@@ -404,7 +425,8 @@ neuroscience = {
 	}
 
 	modifier = {
-		state_mortality_mult = -0.01
+		state_turmoil_effects_mult = -0.1
+		state_mortality_turmoil_mult = -0.1
 		state_pop_qualifications_mult = 0.05
 	}
 
@@ -435,7 +457,7 @@ multinational_corporations = {
 		country_max_companies_add = 1
 		country_free_charters_add = 1
 		country_influence_mult = 0.1
-		country_tech_spread_mult = 0.33
+		country_tech_spread_mult = 0.25
 	}
 	unlocking_technologies = {
 		financial_deregulation
@@ -453,12 +475,11 @@ financial_deregulation = {
 	category = society
 	modifier = {
 		state_urbanization_per_level_mult = -0.1
-		country_capitalists_pol_str_mult = 0.50
+		country_capitalists_pol_str_mult = 0.05
 		#country_trade_route_cost_mult = -0.1
 		state_market_access_price_impact = 0.05
 	}
 	unlocking_technologies = {
-		market_studies
 		secure_market_transactions
 	}
 		
@@ -477,7 +498,7 @@ modern_statistics = {
 	unlocking_technologies = {
 		software_tech
 		math_finance
-		funded_research_projects
+		#funded_research_projects
 	}
 		
 	ai_weight = {
@@ -521,7 +542,7 @@ neoliberism = {
 	}
 	unlocking_technologies = {
 		financial_deregulation
-		international_travel
+		#international_travel
 		math_finance
 	}
 		
@@ -595,7 +616,7 @@ genetic_disease_screening = {
     category = society
 
     unlocking_technologies = {
-        dubois_genetics_tech
+        molecular_biology
         vaccination_campaigns
 		funded_research_projects
     }
@@ -648,7 +669,7 @@ neo_feminism = {
 	category = society
 
 	modifier = {
-		state_working_adult_ratio_add = 0.08
+		state_working_adult_ratio_add = 0.05
 	}
 	
 	unlocking_technologies = {
@@ -720,25 +741,6 @@ advanced_medical_imaging = {
     ai_weight = {
         value = 1
     }
-}
-
-e_government = {
-	era = era_8
-	texture = "gfx/interface/icons/invention_icons/e_government.dds"
-	category = society
-
-	modifier = {
-		state_tax_capacity_add = 25
-	}
-
-	unlocking_technologies = {
-		networking_protocols
-		software_development_paradigms
-	}
-
-	ai_weight = {
-		value = 1
-	}
 }
 
 machine_learning = {
@@ -889,7 +891,6 @@ mri_development = {
     unlocking_technologies = {
         advanced_medical_imaging # Pre-requisito
 		genetic_engineering
-		neuroscience
     }
 
 	modifier = {
@@ -952,7 +953,6 @@ ambientalism = {
 	}
 	unlocking_technologies = {
 		transnational_activism
-		multinational_corporations
 	}
 	ai_weight = {
 		value = 1
@@ -960,6 +960,25 @@ ambientalism = {
 }
 
 # Era 9
+
+e_government = {
+	era = era_9
+	texture = "gfx/interface/icons/invention_icons/e_government.dds"
+	category = society
+
+	modifier = {
+		state_tax_capacity_add = 25
+	}
+
+	unlocking_technologies = {
+		networking_protocols
+		operating_systems
+	}
+
+	ai_weight = {
+		value = 1
+	}
+}
 
 circular_economy = {
 	era = era_9
@@ -1147,7 +1166,6 @@ urban_sustainability = {
     category = society
 
     unlocking_technologies = {
-        interactive_media
         circular_economy
     }
 
