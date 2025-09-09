@@ -25,8 +25,6 @@ international_organizations = {
 		country_influence_mult = 0.1
 		country_infamy_generation_against_unrecognized_mult = 0.1 #Second Italian-Ethiopian War 1936
 		country_infamy_generation_mult = 0.1 #Second World War
-		country_tech_spread_mult = 0.1
-		country_free_charters_add = 1
 	}
 	unlocking_technologies = {
 		feminism
@@ -57,11 +55,11 @@ keynesian_economics = {
 	category = society
 	modifier = {
 		interest_group_ig_industrialists_pol_str_mult = -0.25
+		country_max_weekly_construction_progress_add = 40
 		country_authority_mult = 0.1
 		state_market_access_price_impact = 0.05
 		building_cash_reserves_mult = 0.1
 		state_political_strength_from_wealth_mult = -0.15 #WIP
-		country_max_companies_add = 1
 	}
 	unlocking_technologies = {
 		behaviorism
@@ -86,7 +84,8 @@ modern_urban_planning = {
 	modifier = {
 		country_prestige_add = 100
 		state_infrastructure_from_automobiles_consumption_add = 0.25
-		state_trade_capacity_add = 10
+		state_building_construction_sector_max_level_add = 10
+		state_trade_capacity_mult = 0.05
 		state_decree_cost_mult = -0.1
 	}
 	
@@ -123,8 +122,8 @@ socialdemocracy = {
 	modifier = {
 		political_movement_radicalism_from_enactment_disapproval_mult = -0.1
 		interest_group_ig_industrialists_pol_str_mult = -0.5
-		interest_group_ig_intelligentsia_pol_str_mult = 0.25
-		interest_group_ig_trade_unions_pol_str_mult = 0.25
+		interest_group_ig_intelligentsia_pol_str_mult = 0.5
+		interest_group_ig_trade_unions_pol_str_mult = 0.5
 		country_authority_mult = 0.1
 		state_radicals_and_loyalists_from_sol_change_mult = 0.2
 		state_radicals_from_political_movements_mult = -0.2
@@ -147,8 +146,10 @@ highway_systems = {
 	category = society
 
 	modifier = {
-		state_trade_capacity_add = 10
+		unit_advancement_speed_mult = 0.1
 		state_market_access_price_impact = 0.05
+		country_max_weekly_construction_progress_add = 50
+		state_building_construction_sector_max_level_add = 10
 	}
 
 	unlocking_technologies = {
@@ -187,9 +188,8 @@ international_travel = {
 	texture = "gfx/interface/icons/invention_icons/international_travel.dds"
 	category = society
 	modifier = {
-		country_production_tech_spread_mult = 0.25
-		country_society_tech_spread_mult = 0.25
-		state_trade_capacity_mult = 0.2
+		country_production_tech_spread_mult = 0.5
+		country_society_tech_spread_mult = 0.5
 		state_pollution_reduction_health_mult = 0.05
 	}
 	unlocking_technologies = {
@@ -209,7 +209,7 @@ decolonization = {
 	modifier = {
 		country_prestige_mult = 0.2
 		country_influence_mult = 0.1
-		country_infamy_generation_against_unrecognized_mult = 0.33
+		country_infamy_generation_against_unrecognized_mult = 0.2
 		country_liberty_desire_of_subjects_add = 0.5
 	}
 	unlocking_technologies = {
@@ -347,7 +347,7 @@ funded_research_projects = {
 
 	modifier = {
 		building_university_throughput_add = 0.1
-		country_tech_spread_mult = 0.2
+		country_free_charters_add = 1
 	}
 
 	ai_weight = { value = 1 }
@@ -384,8 +384,8 @@ prefabricated_concrete_buildings = {
 	}
 
 	modifier = {
-		building_construction_sector_throughput_add = 0.05
-		state_building_construction_sector_max_level_add = 5
+		country_max_weekly_construction_progress_add = 70
+		state_building_construction_sector_max_level_add = 10
 	}
 
 	ai_weight = {
@@ -457,7 +457,6 @@ multinational_corporations = {
 		country_max_companies_add = 1
 		country_free_charters_add = 1
 		country_influence_mult = 0.1
-		country_tech_spread_mult = 0.25
 	}
 	unlocking_technologies = {
 		financial_deregulation
@@ -477,7 +476,6 @@ financial_deregulation = {
 		state_urbanization_per_level_mult = -0.1
 		country_capitalists_pol_str_mult = 0.05
 		#country_trade_route_cost_mult = -0.1
-		state_market_access_price_impact = 0.05
 	}
 	unlocking_technologies = {
 		secure_market_transactions
@@ -531,14 +529,13 @@ neoliberism = {
 	texture = "gfx/interface/icons/invention_icons/neoliberism.dds"
 	category = society
 	modifier = {
-		country_max_companies_add = 1
 		country_free_charters_add = 1
 		country_authority_mult = -0.2
 		country_minting_mult = -0.2
 		country_loan_interest_rate_add = -0.02
 		state_shopkeepers_investment_pool_efficiency_mult = -0.05
 		building_nationalization_cost_mult = 0.25
-		state_political_strength_from_wealth_mult = 0.35
+		state_political_strength_from_wealth_mult = 0.25
 	}
 	unlocking_technologies = {
 		financial_deregulation
@@ -594,6 +591,8 @@ counterculture = {
 	modifier = {
 		country_infamy_generation_mult = 0.2
 		country_infamy_generation_against_unrecognized_mult = 0.2
+		interest_group_ig_devout_pol_str_mult = -0.25
+		interest_group_ig_intelligentsia_pol_str_mult = 0.5
 		state_expected_sol_from_literacy = 1
 		state_working_adult_ratio_add = 0.05
 		state_pop_qualifications_mult = 0.05
@@ -721,6 +720,26 @@ mass_entertainment = {
 	}
 }
 
+modern_city_transport = {
+	# Unlocks advanced public transportation systems for urban areas
+	era = era_7
+	texture = "gfx/interface/icons/invention_icons/modern_city_transport.dds"
+	category = society
+
+	unlocking_technologies = {
+		prefabricated_concrete_buildings
+	}
+
+	modifier = {
+		urbanization_per_level_mult = 0.1
+		building_group_bg_service_throughput_add = 0.1
+	}
+
+	ai_weight = {
+		value = 1
+	}
+}
+
 # Era 8
 
 advanced_medical_imaging = {
@@ -829,6 +848,7 @@ transnational_activism = {
 	texture = "gfx/interface/icons/invention_icons/transnational_activism.dds"
 	category = society
 	modifier = {
+		interest_group_ig_intelligentsia_pol_str_mult = 0.5
 		country_infamy_generation_mult = 0.2
 		country_infamy_generation_against_unrecognized_mult = 0.2
 		country_liberty_desire_of_subjects_add = 0.25
@@ -961,6 +981,27 @@ ambientalism = {
 
 # Era 9
 
+freight_village = {
+    era = era_9
+    texture = "gfx/interface/icons/invention_icons/freight_village.dds"
+    category = society
+
+    unlocking_technologies = {
+        modern_city_transport
+    }
+
+    modifier = {
+        building_port_throughput_add = 0.05
+		state_market_access_price_impact = 0.05
+		state_building_construction_sector_max_level_add = 10
+		military_formation_mobilization_speed_mult = 0.1
+    }
+
+	ai_weight = {
+		value = 1
+	}
+}
+
 e_government = {
 	era = era_9
 	texture = "gfx/interface/icons/invention_icons/e_government.dds"
@@ -1070,6 +1111,43 @@ neural_networks = {
 }
 
 # Era 10
+
+e_commerce = {
+	era = era_10
+	texture = "gfx/interface/icons/invention_icons/e_commerce.dds"
+	category = society
+
+	unlocking_technologies = {
+		internet
+		freight_village
+	}
+
+	modifier = {
+		# country_trade_route_cost_mult = -0.1
+	}
+
+	ai_weight = {
+		value = 1
+	}
+}
+
+algorithmic_dispatch = {
+	era = era_10
+	texture = "gfx/interface/icons/invention_icons/algorithmic_dispatch.dds"
+	category = society
+
+	unlocking_technologies = {
+		social_media
+		e_commerce
+	}
+
+	modifier = {
+		# building_datacenter_industry_throughput_add = 0.05
+		# state_market_access_price_impact = 0.05
+	}
+
+	ai_weight = { value = 1 }
+}
 
 big_data_analytics = {
     # Sfrutta tecniche di analisi massiva dei dati per migliorare l’efficacia delle politiche pubbliche

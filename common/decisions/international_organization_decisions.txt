@@ -151,7 +151,7 @@ un_foundation = {
 	}
 
 	possible = {
-		year > 1945
+		year > 1944
 	}
 
 	when_taken = {
@@ -163,14 +163,14 @@ un_foundation = {
 	}
 
 	ai_chance = {
-		value = 5
+		value = 100
 	}
 }
 
 become_member_united_nations = {
 
 	is_shown = {
-		has_technology_researched = international_organizations
+		has_technology_researched = human_rights
 		year > 1945
 		NOT = {
 			OR = {
@@ -214,6 +214,7 @@ become_member_united_nations = {
 			}
 			set_country_type = recognized
 		}
+		join_un_law_changes = yes
 	}
 
 	ai_chance = {
@@ -260,7 +261,7 @@ withdraw_united_nations = {
 become_permanent_member_united_nations = {
 
 	is_shown = {
-		has_technology_researched = international_organizations
+		has_technology_researched = human_rights
 		year > 1945
 		has_modifier = ztr_onu_member
 		NOT = { has_modifier = ztr_onu_permanent_member }
@@ -287,6 +288,13 @@ become_permanent_member_united_nations = {
 			remove_modifier = ztr_onu_member
 		}
 		add_modifier = ztr_onu_permanent_member
+		if = {
+			limit = {
+				is_country_type = unrecognized
+			}
+			set_country_type = recognized
+		}
+		join_un_law_changes = yes
 	}
 
 	ai_chance = {

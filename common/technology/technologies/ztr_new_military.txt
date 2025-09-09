@@ -279,7 +279,7 @@ semi_automatic_rifle = {
 	category = military
 
 	modifier = {
-		unit_kill_rate_add = 0.2
+		unit_kill_rate_add = 0.05
 	}
 
 	unlocking_technologies = {
@@ -413,32 +413,12 @@ main_battle_tank = {
 		country_military_wages_mult = 0.25
 		unit_army_offense_mult = 0.3
 		unit_army_defense_mult = 0.2
-		unit_kill_rate_add = -0.15
 	}
 	
 	unlocking_technologies = {	
 		blitzkrieg
 	}
 	
-	ai_weight = {
-		value = 1
-	}
-}
-
-naval_logistic_automation = {
-	era = era_7
-	texture = "gfx/interface/icons/invention_icons/naval_logistics_automation.dds"
-	category = military
-	modifier = {
-		country_prestige_from_army_power_projection_mult = -0.2 # Economy becomes more important
-		country_port_connection_cost_mult = -0.05
-	}
-
-	unlocking_technologies = {	
-		carrier_tech
-		advanced_harbor_facilities
-		battlefleet_tactics
-	}
 	ai_weight = {
 		value = 1
 	}
@@ -532,7 +512,7 @@ precision_ammunition = {
 		country_military_wages_mult = 0.25
 		unit_army_offense_mult = 0.25
 		building_artillery_foundries_throughput_add = 0.05
-		unit_kill_rate_add = -0.1
+		unit_kill_rate_add = 0.05
 	}
 	
 	unlocking_technologies = {	
@@ -575,7 +555,50 @@ satellites = {
 	}
 }
 
+modern_naval_doctrine = {
+	# unlocks modern naval doctrine
+	era = era_7
+	texture = "gfx/interface/icons/invention_icons/modern_naval_doctrine.dds"
+	category = military
+
+	modifier = {
+		unit_navy_offense_mult = 0.15
+		unit_navy_defense_mult = 0.35
+		country_military_wages_mult = 0.15
+		country_military_goods_cost_mult = 0.15
+		country_prestige_from_army_power_projection_mult = -0.2
+		unit_navy_experience_gain_mult = 0.1
+	}
+
+	unlocking_technologies = {	
+		carrier_tech
+		battlefleet_tactics
+	}
+	
+	ai_weight = {
+		value = 1
+	}
+}
+
 # Era 8
+
+naval_logistic_automation = {
+	era = era_8
+	texture = "gfx/interface/icons/invention_icons/naval_logistics_automation.dds"
+	category = military
+	modifier = {
+		country_prestige_from_army_power_projection_mult = -0.2 # Economy becomes more important
+		country_port_connection_cost_mult = -0.05
+	}
+
+	unlocking_technologies = {	
+		modular_shipbuilding
+		modern_naval_doctrine
+	}
+	ai_weight = {
+		value = 1
+	}
+}
 
 anti_satellite_weapons = {
 	era = era_8
@@ -650,31 +673,6 @@ composite_armor = {
 	}
 }
 
-modern_naval_doctrine = {
-	# unlocks modern naval doctrine
-	era = era_8
-	texture = "gfx/interface/icons/invention_icons/modern_naval_doctrine.dds"
-	category = military
-
-	modifier = {
-		unit_navy_offense_mult = 0.15
-		unit_navy_defense_mult = 0.35
-		country_military_wages_mult = 0.15
-		country_military_goods_cost_mult = 0.15
-		country_prestige_from_army_power_projection_mult = -0.2
-		unit_navy_experience_gain_mult = 0.1
-	}
-	
-	unlocking_technologies = {	
-		modular_shipbuilding
-		naval_logistic_automation
-	}
-	
-	ai_weight = {
-		value = 1
-	}
-}
-
 laser_guided_weapons = {
 	# unlocks laser guided weapons
 	era = era_8
@@ -710,7 +708,7 @@ integrated_naval_air_tactics = {
 	}
 	
 	unlocking_technologies = {	
-		modern_naval_doctrine
+		naval_logistic_automation
 		supersonic_aviation
 	}
 	
@@ -728,7 +726,6 @@ high_performance_apparel = {
 	modifier = {
 		country_military_wages_mult = 0.25
 		country_military_goods_cost_mult = 0.25
-		unit_kill_rate_add = -0.1
 		unit_army_defense_mult = 0.5
 	}
 	
@@ -919,7 +916,6 @@ cannon_launched_guided_projectiles = {
 		unit_combat_unit_type_mechanized_infantry_offense_mult = 0.1
 		unit_combat_unit_type_modern_mechanized_infantry_offense_mult = 0.15
 		unit_combat_unit_type_advanced_mechanized_infantry_offense_mult = 0.2
-		unit_kill_rate_add = -0.1
 		country_military_wages_mult = 0.25
 	}
 	

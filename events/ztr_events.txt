@@ -22,7 +22,6 @@ ztr_economic_update.1 = {
 	duration = 1
 	
 	trigger = {
-		game_date >= 1836.1.1
 		NOR = { 
 				has_modifier = dev_0_country
 				has_modifier = dev_1_country
@@ -30,8 +29,11 @@ ztr_economic_update.1 = {
 				has_modifier = dev_3_country
 				has_modifier = dev_4_country
 				has_modifier = dev_5_country
+				has_modifier = dev_6_country
+				has_modifier = dev_7_country
+				has_modifier = dev_8_country
 		}
-		is_in_civil_war = no
+		is_diplomatic_play_initiator = no
 	}
 
 	option = {
@@ -76,15 +78,39 @@ ztr_economic_update.1 = {
 		}
 		else_if = {
 			limit = {
-				get_country_gdp_per < 8.8
+				get_country_gdp_per < 6.6
 			}
 			add_modifier = {
 				name = dev_4_country
 			}
 		}
-		else = {
+		else_if = {
+			limit = {
+				get_country_gdp_per < 9.5
+			}
 			add_modifier = {
 				name = dev_5_country
+			}
+		}
+		else_if = {
+			limit = {
+				get_country_gdp_per < 14.5
+			}
+			add_modifier = {
+				name = dev_6_country
+			}
+		}
+		else_if = {
+			limit = {
+				get_country_gdp_per < 21.5
+			}
+			add_modifier = {
+				name = dev_7_country
+			}
+		}
+		else = {
+			add_modifier = {
+				name = dev_8_country
 			}
 		}
 		# Ideologies Update (In order to take nations that avoids JEs)
@@ -121,178 +147,190 @@ ztr_economic_update.1 = {
 				average_sol < 11
 				NOT = { country_is_in_europe = yes }
 				NOT = { c:USA = this }
-			}
-			add_modifier = {
-				name = demographic_stage_0
-			}
-			if = {
-				limit = {
-					NOR = {
-						has_journal_entry = je_demographic_0_to_1
-						has_journal_entry = je_demographic_1_to_2
-						has_journal_entry = je_demographic_2_to_3
-						has_journal_entry = je_demographic_3_to_4
-						has_journal_entry = je_demographic_4_to_5
-						has_journal_entry = je_demographic_5_to_6
-						has_journal_entry = je_demographic_6_to_7
-						has_journal_entry = je_demographic_7_to_8
-					}
+				NOR = {
+					has_journal_entry = je_demographic_0_to_1
+					has_journal_entry = je_demographic_1_to_2
+					has_journal_entry = je_demographic_2_to_3
+					has_journal_entry = je_demographic_3_to_4
+					has_journal_entry = je_demographic_4_to_5
+					has_journal_entry = je_demographic_5_to_6
+					has_journal_entry = je_demographic_6_to_7
+					has_journal_entry = je_demographic_7_to_8
 				}
-				add_journal_entry = {
-					type = je_demographic_0_to_1
-				}
+			}
+			add_journal_entry = {
+				type = je_demographic_0_to_1
 			}
 		}
 		else_if = {
 			limit = {
 				average_sol < 14
 				NOT = { c:FRA = this }
-				NOT = { c:GBR = this }
 				NOT = { c:SPA = this }
-			}
-			add_modifier = {
-				name = demographic_stage_1
-			}
-			if = {
-				limit = {
-					NOR = {
-						has_journal_entry = je_demographic_0_to_1
-						has_journal_entry = je_demographic_1_to_2
-						has_journal_entry = je_demographic_2_to_3
-						has_journal_entry = je_demographic_3_to_4
-						has_journal_entry = je_demographic_4_to_5
-						has_journal_entry = je_demographic_5_to_6
-						has_journal_entry = je_demographic_6_to_7
-						has_journal_entry = je_demographic_7_to_8
-					}
+				NOR = {
+					has_journal_entry = je_demographic_0_to_1
+					has_journal_entry = je_demographic_1_to_2
+					has_journal_entry = je_demographic_2_to_3
+					has_journal_entry = je_demographic_3_to_4
+					has_journal_entry = je_demographic_4_to_5
+					has_journal_entry = je_demographic_5_to_6
+					has_journal_entry = je_demographic_6_to_7
+					has_journal_entry = je_demographic_7_to_8
 				}
-				add_journal_entry = {
-					type = je_demographic_1_to_2
-				}
+			}
+			add_journal_entry = {
+				type = je_demographic_1_to_2
 			}
 		}
 		else_if = {
 			limit = {
 				average_sol < 17
 				NOT = { c:FRA = this }
-			}
-			add_modifier = {
-				name = demographic_stage_2
-			}
-			if = {
-				limit = {
-					NOR = {
-						has_journal_entry = je_demographic_0_to_1
-						has_journal_entry = je_demographic_1_to_2
-						has_journal_entry = je_demographic_2_to_3
-						has_journal_entry = je_demographic_3_to_4
-						has_journal_entry = je_demographic_4_to_5
-						has_journal_entry = je_demographic_5_to_6
-						has_journal_entry = je_demographic_6_to_7
-						has_journal_entry = je_demographic_7_to_8
-					}
+				NOR = {
+					has_journal_entry = je_demographic_0_to_1
+					has_journal_entry = je_demographic_1_to_2
+					has_journal_entry = je_demographic_2_to_3
+					has_journal_entry = je_demographic_3_to_4
+					has_journal_entry = je_demographic_4_to_5
+					has_journal_entry = je_demographic_5_to_6
+					has_journal_entry = je_demographic_6_to_7
+					has_journal_entry = je_demographic_7_to_8
 				}
-				add_journal_entry = {
-					type = je_demographic_2_to_3
-				}
-			}			
+			}
+			add_journal_entry = {
+				type = je_demographic_2_to_3
+			}		
 		}
 		else_if = {
 			limit = {
 				average_sol < 20
-			}
-			add_modifier = {
-				name = demographic_stage_3
-			}
-			if = {
-				limit = {
-					NOR = {
-						has_journal_entry = je_demographic_0_to_1
-						has_journal_entry = je_demographic_1_to_2
-						has_journal_entry = je_demographic_2_to_3
-						has_journal_entry = je_demographic_3_to_4
-						has_journal_entry = je_demographic_4_to_5
-						has_journal_entry = je_demographic_5_to_6
-						has_journal_entry = je_demographic_6_to_7
-						has_journal_entry = je_demographic_7_to_8
-					}
+				NOR = {
+					has_journal_entry = je_demographic_0_to_1
+					has_journal_entry = je_demographic_1_to_2
+					has_journal_entry = je_demographic_2_to_3
+					has_journal_entry = je_demographic_3_to_4
+					has_journal_entry = je_demographic_4_to_5
+					has_journal_entry = je_demographic_5_to_6
+					has_journal_entry = je_demographic_6_to_7
+					has_journal_entry = je_demographic_7_to_8
 				}
-				add_journal_entry = {
-					type = je_demographic_3_to_4
-				}
+			}
+			add_journal_entry = {
+				type = je_demographic_3_to_4
 			}			
 		}
 		else_if = {
 			limit = {
 				average_sol < 23
-			}
-			add_modifier = {
-				name = demographic_stage_4
-			}
-			if = {
-				limit = {
-					NOR = {
-						has_journal_entry = je_demographic_0_to_1
-						has_journal_entry = je_demographic_1_to_2
-						has_journal_entry = je_demographic_2_to_3
-						has_journal_entry = je_demographic_3_to_4
-						has_journal_entry = je_demographic_4_to_5
-						has_journal_entry = je_demographic_5_to_6
-						has_journal_entry = je_demographic_6_to_7
-						has_journal_entry = je_demographic_7_to_8
-					}
+				NOR = {
+					has_journal_entry = je_demographic_0_to_1
+					has_journal_entry = je_demographic_1_to_2
+					has_journal_entry = je_demographic_2_to_3
+					has_journal_entry = je_demographic_3_to_4
+					has_journal_entry = je_demographic_4_to_5
+					has_journal_entry = je_demographic_5_to_6
+					has_journal_entry = je_demographic_6_to_7
+					has_journal_entry = je_demographic_7_to_8
 				}
-				add_journal_entry = {
-					type = je_demographic_4_to_5
-				}
+			}
+			add_journal_entry = {
+				type = je_demographic_4_to_5
 			}
 		}
 		else_if = {
 			limit = {
 				average_sol < 26
-			}
-			add_modifier = {
-				name = demographic_stage_5
-			}
-			if = {
-				limit = {
-					NOR = {
-						has_journal_entry = je_demographic_0_to_1
-						has_journal_entry = je_demographic_1_to_2
-						has_journal_entry = je_demographic_2_to_3
-						has_journal_entry = je_demographic_3_to_4
-						has_journal_entry = je_demographic_4_to_5
-						has_journal_entry = je_demographic_5_to_6
-						has_journal_entry = je_demographic_6_to_7
-						has_journal_entry = je_demographic_7_to_8
-					}
+				NOR = {
+					has_journal_entry = je_demographic_0_to_1
+					has_journal_entry = je_demographic_1_to_2
+					has_journal_entry = je_demographic_2_to_3
+					has_journal_entry = je_demographic_3_to_4
+					has_journal_entry = je_demographic_4_to_5
+					has_journal_entry = je_demographic_5_to_6
+					has_journal_entry = je_demographic_6_to_7
+					has_journal_entry = je_demographic_7_to_8
 				}
-				add_journal_entry = {
-					type = je_demographic_5_to_6
-				}
+			}
+			add_journal_entry = {
+				type = je_demographic_5_to_6
 			}
 		}
+		else_if = {
+			limit = {
+				NOR = {
+					has_journal_entry = je_demographic_0_to_1
+					has_journal_entry = je_demographic_1_to_2
+					has_journal_entry = je_demographic_2_to_3
+					has_journal_entry = je_demographic_3_to_4
+					has_journal_entry = je_demographic_4_to_5
+					has_journal_entry = je_demographic_5_to_6
+					has_journal_entry = je_demographic_6_to_7
+					has_journal_entry = je_demographic_7_to_8
+				}
+			}
+			add_journal_entry = {
+				type = je_demographic_6_to_7
+			}
+		}
+		#These other updates are activated when the country has the JE but not the modifier
+		if = {
+			limit = {
+				has_journal_entry = je_demographic_0_to_1
+				NOT = { has_modifier = demographic_stage_0 }
+			}
+			add_modifier = demographic_stage_0
+		}
+		else_if = {
+			limit = {
+				has_journal_entry = je_demographic_1_to_2
+				NOT = { has_modifier = demographic_stage_1 }
+			}
+			add_modifier = demographic_stage_1
+		}
+		else_if = {
+			limit = {
+				has_journal_entry = je_demographic_2_to_3
+				NOT = { has_modifier = demographic_stage_2 }
+			}
+			add_modifier = demographic_stage_2
+		}
+		else_if = {
+			limit = {
+				has_journal_entry = je_demographic_3_to_4
+				NOT = { has_modifier = demographic_stage_3 }
+			}
+			add_modifier = demographic_stage_3
+		}
+		else_if = {
+			limit = {
+				has_journal_entry = je_demographic_4_to_5
+				NOT = { has_modifier = demographic_stage_4 }
+			}
+			add_modifier = demographic_stage_4
+		}
+		else_if = {
+			limit = {
+				has_journal_entry = je_demographic_5_to_6
+				NOT = { has_modifier = demographic_stage_5 }
+			}
+			add_modifier = demographic_stage_5
+		}
+		else_if = {
+			limit = {
+				has_journal_entry = je_demographic_6_to_7
+				NOT = { has_modifier = demographic_stage_6 }
+			}
+			add_modifier = demographic_stage_6
+		}
+		else_if = {
+			limit = {
+				has_journal_entry = je_demographic_7_to_8
+				NOT = { has_modifier = demographic_stage_7 }
+			}
+			add_modifier = demographic_stage_7
+		}
 		else = {
-			add_modifier = {
-				name = demographic_stage_6
-			}
-			if = {
-				limit = {
-					NOR = {
-						has_journal_entry = je_demographic_0_to_1
-						has_journal_entry = je_demographic_1_to_2
-						has_journal_entry = je_demographic_2_to_3
-						has_journal_entry = je_demographic_3_to_4
-						has_journal_entry = je_demographic_4_to_5
-						has_journal_entry = je_demographic_5_to_6
-						has_journal_entry = je_demographic_6_to_7
-						has_journal_entry = je_demographic_7_to_8
-					}
-				}
-				add_journal_entry = {
-					type = je_demographic_6_to_7
-				}
-			}
+			add_modifier = demographic_stage_8
 		}
 		ai_chance = {
 			base = 100										
@@ -300,7 +338,7 @@ ztr_economic_update.1 = {
 	}
 }
 
-# Poor-> Developing
+# Poor-> Low-Development
 ztr_economic_update.2 = {
 	dlc = dlc_tech_res
 	type = country_event
@@ -320,7 +358,6 @@ ztr_economic_update.2 = {
 	duration = 1
 	
 	trigger = {
-		game_date >= 1836.1.1
 		has_modifier = dev_0_country
 		get_country_gdp_per > 0.65
 	}
@@ -340,7 +377,7 @@ ztr_economic_update.2 = {
 	}
 }
 
-# Developing-> Semi-Developed
+# Low-Development -> Developing
 ztr_economic_update.3 = {
 	dlc = dlc_tech_res
 	type = country_event
@@ -360,7 +397,6 @@ ztr_economic_update.3 = {
 	duration = 1
 	
 	trigger = {
-		game_date >= 1836.1.1
 		has_modifier = dev_1_country
 		get_country_gdp_per > 1.3
 	}
@@ -381,7 +417,7 @@ ztr_economic_update.3 = {
 }
 
 
-# Semi-Developed-> Partially Developed
+# Developing -> Semi-Developed
 ztr_economic_update.4 = {
 	dlc = dlc_tech_res
 	type = country_event
@@ -401,7 +437,6 @@ ztr_economic_update.4 = {
 	duration = 1
 	
 	trigger = {
-		game_date >= 1836.1.1
 		has_modifier = dev_2_country
 		get_country_gdp_per > 2.5
 	}
@@ -421,7 +456,7 @@ ztr_economic_update.4 = {
 	}
 }
 
-# Partially Developed-> Developed
+# Semi-Developed -> Partially Developed
 ztr_economic_update.5 = {
 	dlc = dlc_tech_res
 	type = country_event
@@ -441,9 +476,8 @@ ztr_economic_update.5 = {
 	duration = 1
 	
 	trigger = {
-		game_date >= 1836.1.1
 		has_modifier = dev_3_country
-		get_country_gdp_per > 5
+		get_country_gdp_per > 4.8
 	}
 
 	option = {
@@ -461,7 +495,7 @@ ztr_economic_update.5 = {
 	}
 }
 
-# Developed-> hyper-Developed
+# Partially Developed -> Developed
 ztr_economic_update.6 = {
 	dlc = dlc_tech_res
 	type = country_event
@@ -481,9 +515,8 @@ ztr_economic_update.6 = {
 	duration = 1
 	
 	trigger = {
-		game_date >= 1836.1.1
 		has_modifier = dev_4_country
-		get_country_gdp_per > 9
+		get_country_gdp_per > 7
 	}
 
 	option = {
@@ -501,13 +534,13 @@ ztr_economic_update.6 = {
 	}
 }
 
-# hyper-Developed-> Developed
+# Developed -> Advanced Developed
 ztr_economic_update.7 = {
 	dlc = dlc_tech_res
 	type = country_event
 	placement = ROOT
 	event_image = {
-		video = "southamerica_war_civilians"
+		video = "unspecific_world_fair"
 	}
 
 	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
@@ -521,9 +554,8 @@ ztr_economic_update.7 = {
 	duration = 1
 	
 	trigger = {
-		game_date >= 1836.1.1
 		has_modifier = dev_5_country
-		get_country_gdp_per < 8.6
+		get_country_gdp_per > 9.8
 	}
 
 	option = {
@@ -533,7 +565,7 @@ ztr_economic_update.7 = {
 			remove_state_economy_modifier = yes
 		}
 		add_modifier = {
-			name = dev_4_country
+			name = dev_6_country
 		}
 		ai_chance = {
 			base = 100										
@@ -541,13 +573,13 @@ ztr_economic_update.7 = {
 	}
 }
 
-# Developed-> Partially Developed
+# Advanced Developed -> Hyper-Developed
 ztr_economic_update.8 = {
 	dlc = dlc_tech_res
 	type = country_event
 	placement = ROOT
 	event_image = {
-		video = "southamerica_war_civilians"
+		video = "unspecific_world_fair"
 	}
 
 	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
@@ -561,9 +593,8 @@ ztr_economic_update.8 = {
 	duration = 1
 	
 	trigger = {
-		game_date >= 1836.1.1
-		has_modifier = dev_4_country
-		get_country_gdp_per < 4.4
+		has_modifier = dev_6_country
+		get_country_gdp_per > 14.8
 	}
 
 	option = {
@@ -573,7 +604,7 @@ ztr_economic_update.8 = {
 			remove_state_economy_modifier = yes
 		}
 		add_modifier = {
-			name = dev_3_country
+			name = dev_7_country
 		}
 		ai_chance = {
 			base = 100										
@@ -581,13 +612,13 @@ ztr_economic_update.8 = {
 	}
 }
 
-# Partially Developed-> Semi-Developed
+# Hyper-Developed -> Ultra-Developed
 ztr_economic_update.9 = {
 	dlc = dlc_tech_res
 	type = country_event
 	placement = ROOT
 	event_image = {
-		video = "southamerica_war_civilians"
+		video = "unspecific_world_fair"
 	}
 
 	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
@@ -601,9 +632,8 @@ ztr_economic_update.9 = {
 	duration = 1
 	
 	trigger = {
-		game_date >= 1836.1.1
-		has_modifier = dev_3_country
-		get_country_gdp_per < 2.2
+		has_modifier = dev_7_country
+		get_country_gdp_per > 21.8
 	}
 
 	option = {
@@ -613,7 +643,7 @@ ztr_economic_update.9 = {
 			remove_state_economy_modifier = yes
 		}
 		add_modifier = {
-			name = dev_2_country
+			name = dev_8_country
 		}
 		ai_chance = {
 			base = 100										
@@ -621,13 +651,13 @@ ztr_economic_update.9 = {
 	}
 }
 
-# Semi-Developed-> Developing
+# Ultra-Developed -> Hyper-Developed
 ztr_economic_update.10 = {
 	dlc = dlc_tech_res
 	type = country_event
 	placement = ROOT
 	event_image = {
-		video = "southamerica_war_civilians"
+		video = "unspecific_world_fair"
 	}
 
 	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
@@ -641,9 +671,8 @@ ztr_economic_update.10 = {
 	duration = 1
 	
 	trigger = {
-		game_date >= 1836.1.1
-		has_modifier = dev_2_country
-		get_country_gdp_per < 1.1
+		has_modifier = dev_8_country
+		get_country_gdp_per < 21
 	}
 
 	option = {
@@ -653,7 +682,7 @@ ztr_economic_update.10 = {
 			remove_state_economy_modifier = yes
 		}
 		add_modifier = {
-			name = dev_1_country
+			name = dev_7_country
 		}
 		ai_chance = {
 			base = 100										
@@ -661,13 +690,13 @@ ztr_economic_update.10 = {
 	}
 }
 
-# Developing-> Poor
+# Hyper-Developed -> Advanced Developed
 ztr_economic_update.11 = {
 	dlc = dlc_tech_res
 	type = country_event
 	placement = ROOT
 	event_image = {
-		video = "southamerica_war_civilians"
+		video = "unspecific_world_fair"
 	}
 
 	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
@@ -681,13 +710,246 @@ ztr_economic_update.11 = {
 	duration = 1
 	
 	trigger = {
-		game_date >= 1836.1.1
+		has_modifier = dev_7_country
+		get_country_gdp_per < 14
+	}
+
+	option = {
+		name = ztr_economic_update.11.a
+		default_option = yes
+		hidden_effect = {
+			remove_state_economy_modifier = yes
+		}
+		add_modifier = {
+			name = dev_6_country
+		}
+		ai_chance = {
+			base = 100										
+		}		
+	}
+}
+
+# Advanced Developed -> Developed
+ztr_economic_update.12 = {
+	dlc = dlc_tech_res
+	type = country_event
+	placement = ROOT
+	event_image = {
+		video = "unspecific_world_fair"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	icon = "gfx/interface/icons/event_icons/event_default.dds"
+
+	title = ztr_economic_update.12.t
+	desc = ztr_economic_update.12.d
+
+
+	duration = 1
+	
+	trigger = {
+		has_modifier = dev_6_country
+		get_country_gdp_per < 9
+	}
+
+	option = {
+		name = ztr_economic_update.12.a
+		default_option = yes
+		hidden_effect = {
+			remove_state_economy_modifier = yes
+		}
+		add_modifier = {
+			name = dev_5_country
+		}
+		ai_chance = {
+			base = 100										
+		}		
+	}
+}
+
+# Developed -> Partially Developed
+ztr_economic_update.13 = {
+	dlc = dlc_tech_res
+	type = country_event
+	placement = ROOT
+	event_image = {
+		video = "southamerica_war_civilians"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	icon = "gfx/interface/icons/event_icons/event_default.dds"
+
+	title = ztr_economic_update.13.t
+	desc = ztr_economic_update.13.d
+
+
+	duration = 1
+	
+	trigger = {
+		has_modifier = dev_5_country
+		get_country_gdp_per < 6
+	}
+
+	option = {
+		name = ztr_economic_update.13.a
+		default_option = yes
+		hidden_effect = {
+			remove_state_economy_modifier = yes
+		}
+		add_modifier = {
+			name = dev_4_country
+		}
+		ai_chance = {
+			base = 100										
+		}		
+	}
+}
+
+# Partially Developed -> Semi-Developed
+ztr_economic_update.14 = {
+	dlc = dlc_tech_res
+	type = country_event
+	placement = ROOT
+	event_image = {
+		video = "southamerica_war_civilians"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	icon = "gfx/interface/icons/event_icons/event_default.dds"
+
+	title = ztr_economic_update.14.t
+	desc = ztr_economic_update.14.d
+
+
+	duration = 1
+	
+	trigger = {
+		has_modifier = dev_4_country
+		get_country_gdp_per < 4.4
+	}
+
+	option = {
+		name = ztr_economic_update.14.a
+		default_option = yes
+		hidden_effect = {
+			remove_state_economy_modifier = yes
+		}
+		add_modifier = {
+			name = dev_3_country
+		}
+		ai_chance = {
+			base = 100										
+		}		
+	}
+}
+
+# Semi-Developed -> Developing
+ztr_economic_update.15 = {
+	dlc = dlc_tech_res
+	type = country_event
+	placement = ROOT
+	event_image = {
+		video = "southamerica_war_civilians"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	icon = "gfx/interface/icons/event_icons/event_default.dds"
+
+	title = ztr_economic_update.15.t
+	desc = ztr_economic_update.15.d
+
+
+	duration = 1
+	
+	trigger = {
+		has_modifier = dev_3_country
+		get_country_gdp_per < 2.2
+	}
+
+	option = {
+		name = ztr_economic_update.15.a
+		default_option = yes
+		hidden_effect = {
+			remove_state_economy_modifier = yes
+		}
+		add_modifier = {
+			name = dev_2_country
+		}
+		ai_chance = {
+			base = 100										
+		}		
+	}
+}
+
+# Developing -> Low-Development
+ztr_economic_update.16 = {
+	dlc = dlc_tech_res
+	type = country_event
+	placement = ROOT
+	event_image = {
+		video = "southamerica_war_civilians"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	icon = "gfx/interface/icons/event_icons/event_default.dds"
+
+	title = ztr_economic_update.16.t
+	desc = ztr_economic_update.16.d
+
+
+	duration = 1
+	
+	trigger = {
+		has_modifier = dev_2_country
+		get_country_gdp_per < 1.1
+	}
+
+	option = {
+		name = ztr_economic_update.16.a
+		default_option = yes
+		hidden_effect = {
+			remove_state_economy_modifier = yes
+		}
+		add_modifier = {
+			name = dev_1_country
+		}
+		ai_chance = {
+			base = 100										
+		}		
+	}
+}
+
+# Low-Development -> Poor
+ztr_economic_update.17 = {
+	dlc = dlc_tech_res
+	type = country_event
+	placement = ROOT
+	event_image = {
+		video = "southamerica_war_civilians"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	icon = "gfx/interface/icons/event_icons/event_default.dds"
+
+	title = ztr_economic_update.17.t
+	desc = ztr_economic_update.17.d
+
+
+	duration = 1
+	
+	trigger = {
 		has_modifier = dev_1_country
 		get_country_gdp_per < 0.55
 	}
 
 	option = {
-		name = ztr_economic_update.11.a
+		name = ztr_economic_update.17.a
 		default_option = yes
 		hidden_effect = {
 			remove_state_economy_modifier = yes
@@ -700,14 +962,3 @@ ztr_economic_update.11 = {
 		}		
 	}
 }
-
-# if = {
-			# 	limit = {
-			# 		can_increase_autonomy = no
-			# 	}
-			# 	make_independent = yes
-			# 	set_owes_obligation_to = {
-			# 	country = ROOT
-			# 	setting = yes
-			# 	}
-			# }

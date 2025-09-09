@@ -1,0 +1,78 @@
+namespace = ztr_decolonization_age
+
+ztr_decolonization_age.1 = {
+	dlc = dlc_tech_res
+	type = country_event
+	placement = ROOT
+	hidden = yes
+	event_image = {
+		video = "southamerica_war_civilians"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	icon = "gfx/interface/icons/event_icons/event_default.dds"
+
+	title = ztr_decolonization_age.1.t
+	desc = ztr_decolonization_age.1.d
+
+
+	duration = 3
+	
+	trigger = {
+		has_game_rule = allow_ztr_decolonization_content
+		has_technology_researched = decolonization
+		NOT = { has_global_variable = ztr_decolonization_age_var }
+	}
+
+	immediate = {
+		set_global_variable = ztr_decolonization_age_var
+	}
+
+	option = {
+		name = ztr_decolonization_age.1.a
+		ai_chance = {
+			base = 90
+		}
+	}
+}
+
+# Event to counterbalance +0.5 liberty desire of subject of decolonization tech
+
+ztr_decolonization_age.2 = {
+	dlc = dlc_tech_res
+	type = country_event
+	placement = ROOT
+	hidden = yes
+	event_image = {
+		video = "southamerica_war_civilians"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	icon = "gfx/interface/icons/event_icons/event_default.dds"
+
+	title = ztr_decolonization_age.2.t
+	desc = ztr_decolonization_age.2.d
+
+
+	duration = 3
+	
+	trigger = {
+		has_game_rule = no_ztr_decolonization_content
+		has_technology_researched = decolonization # This gives a +0.5 liberty desire
+		NOT = { has_modifier = decolonization_liberty_desire_counter_modifier }
+	}
+
+	immediate = {
+
+	}
+
+	option = {
+		name = ztr_decolonization_age.2.a
+		add_modifier = decolonization_liberty_desire_counter_modifier # This gives a -0.5 liberty desire
+		ai_chance = {
+			base = 90
+		}
+	}
+}

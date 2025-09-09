@@ -31,6 +31,21 @@ agassiz_geology_tech = {
 
 # Era 5
 
+mendelejew_synthetic_fuel_tech = {
+	# Unlocks Synthetic Fuel Factory
+	era = era_6
+	texture = "gfx/interface/icons/invention_icons/mendelejew_synthetic_fuel_tech.dds"
+	category = production
+
+	unlocking_technologies = {
+		selective_mineral_extraction
+	}
+
+	ai_weight = {
+		value = 1
+	}
+}
+
 mendelejew_synthetic_rubber_tech = {
 	# Unlocks Synthetic Rubber Factory
 	era = era_5
@@ -69,7 +84,41 @@ vikelas_streamliners_tech = {
 	ai_weight = {
 		value = 1
 	}
+}
 
+verrier_astro_physics_tech = {
+	# Unlocks Lemaître and the Great Debate
+	# Unlocks Astrolab
+	# Gives additional astronomical objects per year
+	era = era_6
+	texture = "gfx/interface/icons/invention_icons/verrier_astro_physics_tech.dds"
+	category = production
+
+	unlocking_technologies = {
+		verrier_nuclear_physics_tech
+	}
+
+	modifier = {
+		country_tech_research_speed_mult = 0.05
+		building_telecommunications_industry_throughput_add = 0.05
+	}
+
+	can_research = yes
+
+	ai_weight = {
+		value = 1 
+
+		if = {
+			limit = { 
+				OR = {
+					c:USA ?= ROOT
+					c:RUS ?= ROOT
+				}
+				
+			}
+			add = 2 #Cold War Space Race
+		}		
+	}
 }
 
 # Era 7

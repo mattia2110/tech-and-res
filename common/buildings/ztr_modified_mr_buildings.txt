@@ -72,7 +72,7 @@ building_manzoni_publishing_industry = {
 		has_building = building_urban_center				
 	}
 
-	required_construction = construction_cost_high
+	required_construction = construction_cost_very_high
 
 	ownership_type = self
 
@@ -104,7 +104,7 @@ building_instrument_workshops = {
 #Telegraph and Radio Stations for Railway
 
 building_railway = {
-	building_group = bg_private_infrastructure	
+	building_group = bg_private_infrastructure
 	icon = "gfx/interface/icons/building_icons/building_railway.dds"
 	
 	ai_nationalization_desire = 0.5 # AI is reluctant to privatize railways since they are likely to need subsidies anyway
@@ -116,7 +116,8 @@ building_railway = {
 	production_method_groups = {
 		pmg_base_building_railway
 		pmg_passenger_trains
-		pmg_gaudi_communication #MORGENRÖTE
+		pmg_transport_infrastructure_building_railway
+		#pmg_gaudi_communication #MORGENRÖTE
 		pmg_data_optimization_light_industry
 	}
 
@@ -129,13 +130,6 @@ building_railway = {
 			limit = {
 				owner = {
 					has_journal_entry = je_trans_siberian_railway
-					NOR = {
-						has_building = building_railway
-						any_scope_building = {
-							is_building_type = building_railway
-							is_under_construction = yes
-						}
-					}
 				}
 				OR = {
 					state_region = s:STATE_MOSCOW
@@ -156,6 +150,13 @@ building_railway = {
 					state_region = s:STATE_OKHOTSK
 					state_region = s:STATE_AMUR
 					state_region = s:STATE_OUTER_MANCHURIA
+				}
+				NOR = {
+					has_building = building_railway
+					any_scope_building = {
+						is_building_type = building_railway
+						is_under_construction = yes
+					}
 				}
 			}
 			add = 10000
@@ -283,7 +284,7 @@ building_mendelejew_hydrogenation_plants = {
 		pmg_data_optimization_light_industry
 	}
 
-	required_construction = construction_cost_very_high
+	required_construction = construction_cost_modern
 
 	ownership_type = self
 
@@ -308,7 +309,7 @@ building_mendelejew_synthetic_rubber_factory = {
 		pmg_data_optimization_light_industry
 	}
 
-	required_construction = construction_cost_very_high
+	required_construction = construction_cost_modern
 
 	ownership_type = self
 

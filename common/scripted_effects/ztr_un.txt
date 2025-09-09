@@ -1,0 +1,60 @@
+join_un_law_changes = {
+	if = {
+		limit = {
+			has_law = law_type:law_no_health_system
+		}
+		activate_law = law_type:law_charitable_health_system
+	}
+	# The United Nations will activate a restricted child labor law if child labor is allowed
+	if = {
+		limit = {
+			has_law = law_type:law_restricted_child_labor
+		}
+		activate_law = law_type:law_compulsory_primary_school
+	}
+	if = {
+		limit = {
+			has_law = law_type:law_child_labor_allowed
+		}
+		activate_law = law_type:law_restricted_child_labor
+	}
+	# The United Nations will abolish outlawed dissent
+	if = {
+		limit = {
+			OR = {
+				has_law = law_type:law_outlawed_dissent
+			}
+		}
+		activate_law = law_type:law_censorship
+	}
+	# The United Nations will adopt women's rights
+	if = {
+		limit = {
+			OR = {
+				has_law = law_type:law_no_womens_rights
+			}
+		}
+		activate_law = law_type:law_women_own_property
+	}
+	# The United Nations will abolish slavery if it is still present
+	if = {
+		limit = {
+			OR = {
+				has_law = law_type:law_slave_trade
+				has_law = law_type:law_legacy_slavery
+				has_law = law_type:law_debt_slavery
+			}
+		}
+		activate_law = law_type:law_slavery_banned
+	}
+	# The United Nations will abolish racist laws if they are still present
+	if = {
+		limit = {
+			OR = {
+				has_law = law_type:law_ethnostate
+				has_law = law_type:law_national_supremacy
+			}
+		}
+		activate_law = law_type:law_racial_segregation
+	}
+}

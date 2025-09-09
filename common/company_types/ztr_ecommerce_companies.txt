@@ -1,0 +1,250 @@
+# Companies in this file
+# Shein
+# Amazon
+# Alibaba
+
+
+# Shein
+
+company_shein = {
+	icon = "gfx/interface/icons/company_icons/historical_company_icons/chinese_shein.dds"
+	background = "gfx/interface/icons/company_icons/company_backgrounds/curtiss_comp_illu_e_commerce.dds"
+
+	flavored_company = yes
+
+	preferred_headquarters = { STATE_SUZHOU }
+
+	building_types = {
+		building_textile_mills
+		building_ecommerce_logistics
+	}
+
+	extension_building_types = {
+		building_mendelejew_synthetic_rubber_factory
+		building_synthetics_plants
+		building_rubber_plantation
+	}
+
+	# possible_prestige_goods = {
+	# 	prestige_good_fast_fashion_clothes
+	# }
+
+	potential = {
+		has_interest_marker_in_region = region_south_china
+	}
+
+	attainable = {
+		hidden_trigger = { # Hide attainable if it's always fulfilled by possible
+			any_scope_state = {
+				state_region = s:STATE_SUZHOU
+			}
+		}
+	}
+
+	possible = {
+		has_technology_researched = elastomers
+		any_scope_state = {
+			state_region = s:STATE_SUZHOU
+			is_incorporated = yes
+			any_scope_building = {
+				is_building_type = building_textile_mills
+				level >= 5
+			}
+		}
+	}
+
+	prosperity_modifier = {
+		building_mendelejew_synthetic_rubber_factory_throughput_add = 0.05
+		building_textile_mills_throughput_add = 0.05
+		building_datacenter_industry_throughput_add = 0.05
+	}
+
+	ai_will_do = {
+		has_technology_researched = elastomers
+		any_scope_state = {
+			state_region = s:STATE_SUZHOU
+			is_incorporated = yes
+		}
+	}
+
+	ai_construction_targets = {
+		building_textile_mills = {
+			level = 5
+			state_trigger = {
+				state_region = s:STATE_SUZHOU
+			}
+		}
+	}
+
+	ai_weight = {
+		value = 4 # Higher base value for flavored companies
+	}
+}
+
+# Amazon
+
+company_amazon = {
+	icon = "gfx/interface/icons/company_icons/historical_company_icons/american_amazon.dds"
+	background = "gfx/interface/icons/company_icons/company_backgrounds/curtiss_comp_illu_e_commerce.dds"
+
+	flavored_company = yes
+
+	preferred_headquarters = { STATE_WASHINGTON STATE_CALIFORNIA }
+
+	building_types = {
+		building_ecommerce_logistics # Fulfillment centers
+		building_datacenter_industry # AWS
+		building_robotics_industry # Robotics
+	}
+
+	extension_building_types = {
+		building_electrics_industry # Kindle, Echo, Fire
+		building_hydroponic # Amazon Fresh
+	}
+
+	# possible_prestige_goods = {
+	# 	prestige_good_fast_fashion_clothes
+	# }
+
+	potential = {
+		has_interest_marker_in_region = region_pacific_coast
+	}
+
+	attainable = {
+		hidden_trigger = { # Hide attainable if it's always fulfilled by possible
+			any_scope_state = {
+				OR = {
+					state_region = s:STATE_WASHINGTON
+					state_region = s:STATE_CALIFORNIA
+				}
+			}
+		}
+		# Amazon can be founded by USA or Canada. California only because Washington could remain Canadian during the game
+	}
+
+	possible = {
+		has_technology_researched = on_demand_delivery
+		any_scope_state = {
+			OR = {
+				state_region = s:STATE_WASHINGTON
+				state_region = s:STATE_CALIFORNIA
+			}
+			is_incorporated = yes
+			any_scope_building = {
+				is_building_type = building_ecommerce_logistics
+				level >= 5
+			}
+		}
+	}
+
+	prosperity_modifier = {
+		building_software_industry_throughput_add = 0.05
+		building_automotive_industry_throughput_add = 0.05
+		building_office_throughput_add = 0.05
+		state_trade_capacity_mult = 0.1
+	}
+
+	ai_will_do = {
+		has_technology_researched = on_demand_delivery
+		any_scope_state = {
+			OR = {
+				state_region = s:STATE_WASHINGTON
+				state_region = s:STATE_CALIFORNIA
+			}
+			is_incorporated = yes
+		}
+	}
+
+	ai_construction_targets = {
+		building_ecommerce_logistics = {
+			level = 5
+			state_trigger = {
+				OR = {
+					state_region = s:STATE_WASHINGTON
+					state_region = s:STATE_CALIFORNIA
+				}
+			}
+		}
+	}
+
+	ai_weight = {
+		value = 5 # Higher base value for flavored companies
+	}
+}
+
+# Alibaba
+
+company_alibaba = {
+	icon = "gfx/interface/icons/company_icons/historical_company_icons/chinese_alibaba.dds"
+	background = "gfx/interface/icons/company_icons/company_backgrounds/curtiss_comp_illu_e_commerce.dds"
+
+	flavored_company = yes
+
+	preferred_headquarters = { STATE_ZHEJIANG }
+
+	building_types = {
+		building_ecommerce_logistics
+		building_software_industry
+	}
+
+	extension_building_types = {
+		building_datacenter_industry
+		building_pharmaceuticals_industry #Alihealth
+	}
+
+	# possible_prestige_goods = {
+	# 	prestige_good_fast_fashion_clothes
+	# }
+
+	potential = {
+		has_interest_marker_in_region = region_south_china
+	}
+
+	attainable = {
+		hidden_trigger = { # Hide attainable if it's always fulfilled by possible
+			any_scope_state = {
+				state_region = s:STATE_ZHEJIANG
+			}
+		}
+	}
+
+	possible = {
+		has_technology_researched = on_demand_delivery
+		any_scope_state = {
+			state_region = s:STATE_ZHEJIANG
+			is_incorporated = yes
+			any_scope_building = {
+				is_building_type = building_ecommerce_logistics
+				level >= 5
+			}
+		}
+	}
+
+	prosperity_modifier = {
+		building_automotive_industry_throughput_add = 0.05
+		building_office_throughput_add = 0.05
+		state_trade_capacity_mult = 0.1
+		state_trade_quantity_mult = 0.1
+	}
+
+	ai_will_do = {
+		has_technology_researched = on_demand_delivery
+		any_scope_state = {
+			state_region = s:STATE_ZHEJIANG
+			is_incorporated = yes
+		}
+	}
+
+	ai_construction_targets = {
+		building_ecommerce_logistics = {
+			level = 5
+			state_trigger = {
+				state_region = s:STATE_ZHEJIANG
+			}
+		}
+	}
+
+	ai_weight = {
+		value = 4 # Higher base value for flavored companies
+	}
+}

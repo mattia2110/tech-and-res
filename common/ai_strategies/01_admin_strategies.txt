@@ -346,6 +346,13 @@ ai_strategy_industrial_expansion = {
 				has_technology_researched = market_studies
 			}
 		}
+		# On-Demand Goods
+		on_demand_goods = {
+			stance = wants_high_supply
+			trigger = {
+				has_technology_researched = on_demand_delivery
+			}
+		}
 	}
 
 	building_group_weights = {
@@ -486,15 +493,13 @@ ai_strategy_industrial_expansion = {
 			}
 			add = -250
 		}
-		# if = {
-		# 	limit = {
-		# 		year < 1920
-		# 		exists = c:RUS
-		# 		c:RUS = this
-		# 	}
-		# 	add = -250
-		# } # Actually Russia never industrialize like the west
-
+		if = {
+			limit = {
+				exists = c:RUS
+				c:RUS = this
+			}
+			add = -250
+		} # Actually Russia never industrialize like the west
 		if = {
 			limit = {
 				year > 1950

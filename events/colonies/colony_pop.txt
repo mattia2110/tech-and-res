@@ -1,6 +1,6 @@
 namespace = colony_pop
 
-# Indonesia and Philippines during dutchand spanish colonialism
+# Indonesia, India and Philippines during dutchand spanish colonialism
 colony_pop.1 = {
 	dlc = dlc_tech_res
 	type = country_event
@@ -22,10 +22,12 @@ colony_pop.1 = {
 
 	trigger = {
 		OR = {
-			c:DEI ?= root
-			c:PHI ?= root
+			country_is_in_southeast_asia = yes
+			country_is_in_india = yes
 		}
-		year < 1920
+		is_subject = yes
+		overlord = { country_is_in_europe = yes }
+		year < 1860
 		NOT = { has_modifier = colonial_agricultural_shift }
 		NOT = { has_modifier = colonial_agricultural_shift_player }
 	}
@@ -48,13 +50,13 @@ colony_pop.1 = {
 			}
 			add_modifier = {
 				name = colonial_agricultural_shift_player
-				years = 100
+				years = 80
 			}
 		}
 		else = {
 			add_modifier = {
 				name = colonial_agricultural_shift
-				years = 100
+				years = 120
 			}
 		}
 		ai_chance = {

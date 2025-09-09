@@ -201,7 +201,7 @@ pmg_data_optimization_heavy_industry_telecommunications = {
 		pm_digital_data_optimization_heavy_industry
 		pm_digital_data_on_premises_heavy_industry
 		pm_internet_data_reporting_heavy_industry_telecommunications
-		pm_internet_data_optimization_heavy_industry_telecommunications
+		pm_internet_data_algorithmic_dispatch_heavy_industry_telecommunications
 	}
 }
 
@@ -231,5 +231,52 @@ pmg_base_building_telecommunications = {
 		#pm_mass_broadcasting_network_building_telecommunications
 		pm_satellite_communications_network_building_telecommunications
 		pm_internet_global_network_building_telecommunications
+	}
+}
+
+# E-Commerce Logistics
+
+pmg_delivery_mode_building_ecommerce_logistics = {
+	texture = "gfx/interface/icons/generic_icons/mixed_icon_base.dds"
+	production_methods = {
+		pm_local_courier_network         # reti locali (telefono/pager) (Qui pochissima robotica, normali telefoni e pochi componenti elettronici)
+		pm_platform_gig_delivery             # piattaforme on-demand (Qui poca robotica, pochi telefoni, pochi computer)
+		pm_integrated_retail_ecommerce       # integrazione completo retail+online (Qui tanta robotica, normali telefoni e computer)
+	}
+}
+
+# Tipo  di fulfilment
+pmg_fulfilment_model_building_ecommerce_logistics = {
+	texture = "gfx/interface/icons/generic_icons/mixed_icon_delivery.dds"
+	production_methods = {
+		# Ritiro da negozi/ristoranti (groceries, clothes, media content)
+		pm_light_store_pickup
+		# Grandi poli regionali (home appliances, furniture, televisions, computers, radios, phones)
+		pm_heavy_centralized_fulfilment # (Richiede pm_integrated_retail_ecommerce o pm_platform_gig_delivery)
+		# MFC urbani robotizzati (home appliances, furniture, televisions, computers, radios, phones, groceries, clothes, media content)
+		pm_mixed_robotic_microfulfilment # (Richiede pm_integrated_retail_ecommerce)
+	}
+}
+
+# Dispatch & ottimizzazione (software/organizzazione)
+pmg_data_optimization_building_ecommerce_logistics = {
+	texture = "gfx/interface/icons/generic_icons/mixed_icon_i_o.dds"
+	production_methods = {
+		pm_manual_data_reporting_heavy_industry
+		pm_manual_data_optimization_heavy_industry
+		pm_digital_data_optimization_heavy_industry
+		pm_internet_data_reporting_heavy_industry
+		pm_internet_data_algorithmic_dispatch_heavy_industry             # matching algoritmico dinamico pm_internet_data_optimization_heavy_industry_software
+	}
+}
+
+# Powertrain e mezzi per l'ultimo miglio
+pmg_transport_building_ecommerce_logistics = {
+	texture = "gfx/interface/icons/generic_icons/mixed_icon_automation.dds"
+	production_methods = {
+		pm_bike_scooter_transportation           # bike/scooter ICE (carburanti) richiede pm_light_store_pickup
+		pm_drone_last_mile         # droni per tratte leggere richiede pm_light_store_pickup
+		pm_truck_van_transportation         # furgoni/camion ICE (carburanti)
+		#pm_automatized_truck_van_transportation # automatizzati
 	}
 }

@@ -10,6 +10,7 @@ ztr_un_event.1 = {
 
 	title = ztr_un_event.1.t
 	desc = ztr_un_event.1.d
+	flavor = ztr_un_event.1.f
 
 	event_image = {
 		video = "unspecific_ruler_speaking_to_people"
@@ -26,7 +27,6 @@ ztr_un_event.1 = {
 	immediate = {
 	}
 
-	#UN wants to resolve the war peacefully, the superpower is not interested, but we accept
 	option = {
 		name = ztr_un_event.1.a
 		default_option = yes
@@ -46,18 +46,11 @@ ztr_un_event.1 = {
 			}
 		}
 		add_modifier = ztr_onu_permanent_member
-		# every_country = {
-		# 	limit = {
-		# 		global_country_ranking <= 3
-		# 	}
-		# 	add_modifier = {
-		# 		name = ztr_onu_permanent_member
-		# 	}
-		# }
+		join_un_law_changes = yes
 		every_country = {
 			limit = {
 				NOT = { this = root }
-				has_technology_researched = international_organizations
+				has_technology_researched = human_rights
 			}
 			trigger_event = ztr_un_event.2
 		}
@@ -77,6 +70,7 @@ ztr_un_event.2 = {
 
 	title = ztr_un_event.2.t
 	desc = ztr_un_event.2.d
+	flavor = ztr_un_event.1.f
 
 	event_image = {
 		video = "unspecific_ruler_speaking_to_people"
@@ -119,6 +113,7 @@ ztr_un_event.2 = {
 			remove_modifier = ztr_society_of_nations
 		}
 		add_modifier = ztr_onu_member
+		join_un_law_changes = yes
 		ai_chance = {
 			base = 10
 			modifier = {
@@ -161,6 +156,20 @@ ztr_un_event.2 = {
 			remove_modifier = ztr_society_of_nations
 		}
 		add_modifier = ztr_onu_permanent_member
+		join_un_law_changes = yes
+		ai_chance = {
+			base = 10
+			modifier = {
+				trigger = {
+					OR= {
+						has_law = law_type:law_single_party_state
+						has_law = law_type:law_anarchy
+						has_law = law_type:law_elder_council
+					}
+				}
+				add = -10
+			}
+		}
 	}
 
 	# Refuse option
@@ -205,8 +214,7 @@ ztr_un_event.3 = {
 			has_modifier = ztr_onu_member
 			has_modifier = ztr_onu_permanent_member
 		}
-		infamy > 20
-		has_technology_researched = decolonization
+		infamy > 30
 		any_diplomatic_play = {
 			is_war = no
 			any_scope_play_involved = {
@@ -258,7 +266,6 @@ ztr_un_event.3 = {
 					relations:root >= relations_threshold:cordial
 					owes_obligation_to = root
 				}
-				
 			}
 			save_scope_as = un_leader_with_good_relations
 		}
@@ -271,11 +278,10 @@ ztr_un_event.3 = {
 		scope:un_resolution_play = {
 			end_play = yes
 		}
-		change_infamy = -5
 		ai_chance = {
 			base = 5
 		}
-		create_unidirectional_truce = {
+		create_bidirectional_truce = {
 			country = scope:attacked_country
 			months = 36
 		}
@@ -296,7 +302,8 @@ ztr_un_event.3 = {
 		add_modifier = {
 			name = ztr_un_resolution_refused_modifier
 			months = 120
-		}	
+		}
+		change_infamy = 5
 		ai_chance = {
 			base = 0
 			modifier = {
@@ -383,7 +390,7 @@ ztr_un_event.3 = {
 		trigger = {
 			has_modifier = ztr_onu_permanent_member
 		}
-		change_infamy = 5
+		change_infamy = 10
 		add_modifier = {
 			name = ztr_un_resolution_used_veto_modifier
 			months = 48

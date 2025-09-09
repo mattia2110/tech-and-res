@@ -837,7 +837,7 @@ rare_earths = {
 	category = production
 	
 	unlocking_technologies = {
-		advanced_electric_arc_processes
+		oxygen_steelmaking_process
 	}
 
 	ai_weight = {
@@ -946,10 +946,10 @@ sea_water_desalination = {
 	}
 }
 
-advanced_electric_arc_processes = {
-	# Unlocks better iron production method
+oxygen_steelmaking_process = {
+	# Unlocks better steel production method
 	era = era_7
-	texture = "gfx/interface/icons/invention_icons/advanced_electric_arc_processes.dds"
+	texture = "gfx/interface/icons/invention_icons/oxygen_steelmaking_process.dds"
 	category = production
 	
 	unlocking_technologies = {
@@ -1207,6 +1207,42 @@ tv_color = {
 
 #ERA 8
 
+advanced_electric_arc_processes = {
+	# Unlocks pm vacuum arc remelting in Steel mills
+	era = era_8
+	texture = "gfx/interface/icons/invention_icons/advanced_electric_arc_processes.dds"
+	category = production
+
+	unlocking_technologies = {
+		oxygen_steelmaking_process
+		gas_liquefaction
+	}
+
+	ai_weight = {
+		value = 1
+	}
+}
+
+continuous_casting = {
+	# Unlocks continuous casting in Steel mills
+	era = era_8
+	texture = "gfx/interface/icons/invention_icons/continuous_casting_process.dds"
+	category = production
+
+	unlocking_technologies = {
+		advanced_electric_arc_processes
+	}
+
+	modifier = {
+		building_steel_mills_throughput_add = 0.1
+		building_alloys_plant_throughput_add = 0.05
+	}
+
+	ai_weight = {
+		value = 1
+	}
+}
+
 advanced_mining = {
 	# Unlocks advanced ores mining
 	era = era_8
@@ -1294,7 +1330,7 @@ acquafarm_systems = {
 	category = production
 	
 	unlocking_technologies = {	
-		sea_water_desalination
+		hydroponic_farming
 	}
 
 	ai_weight = {
@@ -1321,6 +1357,11 @@ high_speed_rail_tech = {
     unlocking_technologies = {
 		bullet_train_tech
     }
+
+	modifier = {
+		building_railway_throughput_add = 0.05
+		building_group_bg_power_throughput_add = 0.05		
+	}
 
 	ai_weight = {
 		value = 1
@@ -1405,10 +1446,6 @@ wind_turbines = {
 	texture = "gfx/interface/icons/invention_icons/wind_turbines.dds"
 	category = production
 
-	modifier = {
-		building_group_bg_power_throughput_add = 0.05
-	}
-
 	unlocking_technologies = {
 		fuel_cell_tech
 	}
@@ -1451,32 +1488,6 @@ embedded_control_systems = {
 	}
 }
 
-rare_earths_advanced_purification = {
-	# Unlocks rare earth metals mining
-	era = era_9
-	texture = "gfx/interface/icons/invention_icons/rare_earths_advanced_purification.dds"
-	category = production
-	
-	unlocking_technologies = {
-		#rare_earths
-		#advanced_electric_arc_processes
-		advanced_mining
-	}
-
-	ai_weight = {
-		value = 1 # Important tech for modern economies
-		
-		if = {
-			limit = { 
-				OR = {
-					has_strategy = ai_strategy_industrial_expansion
-				}
-			}
-			add = 1
-		}
-	}
-}
-
 automated_industrial_robots = {
 	# Unlocks PM industrial_robotics_1970s in Steel Mills, Motor Industries and Alloys
 	era = era_8
@@ -1516,7 +1527,133 @@ paper_recycling = {
 	}
 }
 
+controlled_environment_agriculture = {
+	era = era_8
+	texture = "gfx/interface/icons/invention_icons/controlled_environment_agriculture.dds"
+	category = production
+
+	unlocking_technologies = {
+		micro_processors
+		acquafarm_systems
+	}
+
+	ai_weight = {
+		value = 1
+	}
+}
+
+mine_precision_blasting = {
+	era = era_8
+	texture = "gfx/interface/icons/invention_icons/mine_precision_blasting.dds"
+	category = production
+
+	unlocking_technologies = {
+		advanced_mining
+		optic_fibers
+	}
+
+	ai_weight = {
+		value = 1
+	}
+}
+
 # ERA 9
+
+on_demand_delivery = {
+	era = era_9
+	texture = "gfx/interface/icons/invention_icons/on_demand_delivery.dds"
+	category = production
+
+	unlocking_technologies = {
+		home_delivery_networks
+		automated_industrial_robots
+	}
+
+	ai_weight = {
+		value = 1
+		if = {
+			limit = { has_strategy = ai_strategy_industrial_expansion }
+			add = 1
+		}
+	}
+}
+
+rare_earths_advanced_purification = {
+	# Unlocks rare earth metals mining
+	era = era_9
+	texture = "gfx/interface/icons/invention_icons/rare_earths_advanced_purification.dds"
+	category = production
+	
+	unlocking_technologies = {
+		#rare_earths
+		#oxygen_steelmaking_process
+		advanced_mining
+	}
+
+	ai_weight = {
+		value = 1 # Important tech for modern economies
+		
+		if = {
+			limit = { 
+				OR = {
+					has_strategy = ai_strategy_industrial_expansion
+				}
+			}
+			add = 1
+		}
+	}
+}
+
+advanced_alloys = {
+	era = era_9
+	texture = "gfx/interface/icons/invention_icons/advanced_alloys.dds"
+	category = production
+
+	unlocking_technologies = {
+		rare_earths_advanced_purification
+		continuous_casting
+	}
+
+	modifier = {
+		building_automotive_industry_throughput_add = 0.05
+		building_alloys_plant_throughput_add = 0.1
+		building_advancedores_mine_throughput_add = 0.05
+	}
+
+	ai_weight = {
+		value = 1
+	}
+}
+
+advanced_water_filtration = {
+	era = era_9
+	texture = "gfx/interface/icons/invention_icons/advanced_water_filtration.dds"
+	category = production
+
+	unlocking_technologies = {
+		embedded_control_systems
+		sea_water_desalination
+	}
+
+	ai_weight = {
+		value = 1
+	}
+}
+
+vertical_farming = {
+	era = era_9
+	texture = "gfx/interface/icons/invention_icons/vertical_farming.dds"
+	category = production
+
+	# Vertical Farming increase by +50% input and output of agriculture, with a +30% of employment
+	unlocking_technologies = {
+		controlled_environment_agriculture
+	}
+
+	ai_weight = {
+		value = 1
+	}
+}
 
 mobile_phone = {
 	era = era_9
@@ -1671,9 +1808,6 @@ lithium_battery = {
 		rare_earths_advanced_purification
 	}
 
-	modifier = {
-	}
-
 	ai_weight = {
 		value = 1
 	}
@@ -1711,6 +1845,21 @@ parallel_computing_architecture = {
 }
 
 # Era 10
+
+civil_drones = {
+    era = era_10
+    texture = "gfx/interface/icons/invention_icons/civil_drones.dds"
+    category = production
+
+    unlocking_technologies = {
+        iot_driven_manufacturing
+		mobile_devices
+    }
+
+    ai_weight = {
+        value = 1
+    }
+}
 
 cobots = {
     # Unlocks Collaborative Robots (Cobots) that lavorano fianco a fianco con l’uomo

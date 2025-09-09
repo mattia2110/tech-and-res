@@ -39,7 +39,10 @@ building_power_plant = {
 
 	possible = {
 		owner = {
-			NOT = { has_law = law_type:law_industry_banned } 
+			NOR = {
+				has_law = law_type:law_industry_banned
+				has_law = law_type:law_active_restoration
+			} 
 		}
 	}
 	
@@ -70,21 +73,21 @@ building_renewable_energy_power_plant = {
 	required_construction = construction_cost_monument
 
 	ai_value = {
-		value = 1000 
+		value = 1500 
 
-		if = {
-			limit = {
-				has_technology_researched = advanced_solar_panels
-				NOR = {
-					has_building = building_renewable_energy_power_plant
-					any_scope_building = {
-						is_building_type = building_renewable_energy_power_plant
-						is_under_construction = yes
-					}
-				}
-			}
-			add = 3000
-		}
+		# if = {
+		# 	limit = {
+		# 		has_technology_researched = advanced_solar_panels
+		# 		NOR = {
+		# 			has_building = building_renewable_energy_power_plant
+		# 			any_scope_building = {
+		# 				is_building_type = building_renewable_energy_power_plant
+		# 				is_under_construction = yes
+		# 			}
+		# 		}
+		# 	}
+		# 	add = 3000
+		# }
 	}
 
 	possible = {

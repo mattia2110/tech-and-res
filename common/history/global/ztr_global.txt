@@ -1,0 +1,13 @@
+﻿# This is executed last among all history
+GLOBAL = {
+	every_country = {
+		trigger_event = ztr_economic_update.1
+		trigger_event = ztr_healthcare.1
+	}
+	if = {
+		limit = {
+			exists = c:FRA
+		}
+		c:FRA = { trigger_event = france_pop.1 }
+	}
+}

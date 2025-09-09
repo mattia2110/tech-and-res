@@ -20,13 +20,7 @@ ztr_decolonization.1 = {
 	
 	trigger = {
 		has_game_rule = allow_ztr_decolonization_content
-		OR = {
-			year > 1960			
-			AND = {
-				has_technology_researched = decolonization
-				year > 1940 #We don't want decolonization before 1940	
-			}
-		}
+		has_global_variable = ztr_decolonization_age_var
 		any_country = {
 			is_subject_of = ROOT
 			NOT = { is_subject_of = c:BIC} #No decolonization events for british raj vassals, as they are too much and very annoying
@@ -70,7 +64,7 @@ ztr_decolonization.1 = {
 		ai_chance = {
 			base = 90
 		}
-		create_unidirectional_truce = { country = scope:subject_scope months = 120 }
+		create_bidirectional_truce = { country = scope:subject_scope months = 120 }
 		change_infamy = -2
 		scope:subject_scope = {
 			make_independent = yes
@@ -121,7 +115,7 @@ ztr_decolonization.2 = {
 	
 	trigger = {
 		has_game_rule = allow_ztr_decolonization_content
-		has_technology_researched = decolonization
+		has_global_variable = ztr_decolonization_age_var
 		year > 1945
 		NOT = { is_subject = yes }
 		NOT = {
@@ -181,7 +175,7 @@ ztr_decolonization.2 = {
 			set_state_owner = c:TUN
 			}
 		}
-		create_unidirectional_truce = { country = c:TUN months = 120 }
+		create_bidirectional_truce = { country = c:TUN months = 120 }
 		c:TUN = {
 			change_relations = {
 				country = root
@@ -220,7 +214,7 @@ ztr_decolonization.3 = {
 	
 	trigger = {
 		has_game_rule = allow_ztr_decolonization_content
-		has_technology_researched = decolonization
+		has_global_variable = ztr_decolonization_age_var
 		year > 1945
 		NOT = { is_subject = yes }
 		NOT = {
@@ -371,7 +365,7 @@ ztr_decolonization.3 = {
 				}
 			}
 		}
-		create_unidirectional_truce = { country = c:ALD months = 120 }
+		create_bidirectional_truce = { country = c:ALD months = 120 }
 		c:ALD = {
 			change_relations = {
 				country = root
@@ -411,7 +405,7 @@ ztr_decolonization.4 = {
 	trigger = {
 		has_game_rule = allow_ztr_decolonization_content
 		
-		has_technology_researched = decolonization
+		has_global_variable = ztr_decolonization_age_var
 		year > 1945
 		NOT = { is_subject = yes }
 		NOT = {
@@ -576,7 +570,7 @@ ztr_decolonization.4 = {
 				}
 			}
 		}
-		create_unidirectional_truce = { country = c:MOR months = 120 }
+		create_bidirectional_truce = { country = c:MOR months = 120 }
 		c:MOR = {
 			change_relations = {
 				country = root
@@ -616,7 +610,7 @@ ztr_decolonization.5 = {
 	trigger = {
 		has_game_rule = allow_ztr_decolonization_content
 		
-		has_technology_researched = decolonization
+		has_global_variable = ztr_decolonization_age_var
 		year > 1945
 		NOT = { is_subject = yes }
 		NOT = {
@@ -723,7 +717,7 @@ ztr_decolonization.5 = {
 				}
 			}
 		}
-		create_unidirectional_truce = { country = c:TRI months = 120 }
+		create_bidirectional_truce = { country = c:TRI months = 120 }
 		c:TRI = {
 			change_relations = {
 				country = root
@@ -763,7 +757,7 @@ ztr_decolonization.6 = {
 	trigger = {
 		has_game_rule = allow_ztr_decolonization_content
 		
-		has_technology_researched = decolonization
+		has_global_variable = ztr_decolonization_age_var
 		year > 1945
 		NOT = { is_subject = yes }
 		NOT = {
@@ -914,7 +908,7 @@ ztr_decolonization.6 = {
 				}
 			}
 		}
-		create_unidirectional_truce = { country = c:EGY months = 120 }
+		create_bidirectional_truce = { country = c:EGY months = 120 }
 		c:EGY = {
 			change_relations = {
 				country = root
@@ -954,7 +948,7 @@ ztr_decolonization.7 = {
 	trigger = {
 		has_game_rule = allow_ztr_decolonization_content
 		
-		has_technology_researched = decolonization
+		has_global_variable = ztr_decolonization_age_var
 		year > 1945
 		NOT = { is_subject = yes }
 		NOT = {
@@ -1107,7 +1101,7 @@ ztr_decolonization.7 = {
 				}
 			}
 		}
-		create_unidirectional_truce = { country = c:SUD months = 120 }
+		create_bidirectional_truce = { country = c:SUD months = 120 }
 		c:SUD = {
 			change_relations = {
 				country = root
@@ -1147,7 +1141,7 @@ ztr_decolonization.8 = {
 	trigger = {
 		has_game_rule = allow_ztr_decolonization_content
 		
-		has_technology_researched = decolonization
+		has_global_variable = ztr_decolonization_age_var
 		year > 1945
 		NOT = { is_subject = yes }
 		NOT = {
@@ -1253,7 +1247,7 @@ ztr_decolonization.8 = {
 				}
 			}
 		}
-		create_unidirectional_truce = { country = c:NEJ months = 120 }
+		create_bidirectional_truce = { country = c:NEJ months = 120 }
 		c:NEJ = {
 			change_relations = {
 				country = root
@@ -1293,7 +1287,7 @@ ztr_decolonization.9 = {
 	trigger = {
 		has_game_rule = allow_ztr_decolonization_content
 		
-		has_technology_researched = decolonization
+		has_global_variable = ztr_decolonization_age_var
 		year > 1945
 		NOT = { is_subject = yes }
 		NOT = {
@@ -1355,7 +1349,7 @@ ztr_decolonization.9 = {
 				}
 			}
 		}
-		create_unidirectional_truce = { country = c:OMA months = 120 }
+		create_bidirectional_truce = { country = c:OMA months = 120 }
 		c:OMA = {
 			change_relations = {
 				country = root
@@ -1395,7 +1389,7 @@ ztr_decolonization.10 = {
 	trigger = {
 		has_game_rule = allow_ztr_decolonization_content
 		
-		has_technology_researched = decolonization
+		has_global_variable = ztr_decolonization_age_var
 		year > 1945
 		NOT = { is_subject = yes }
 		NOT = {
@@ -1457,7 +1451,7 @@ ztr_decolonization.10 = {
 				}
 			}
 		}
-		create_unidirectional_truce = { country = c:YEM months = 120 }
+		create_bidirectional_truce = { country = c:YEM months = 120 }
 		c:YEM = {
 			change_relations = {
 				country = root
@@ -1497,7 +1491,7 @@ ztr_decolonization.11 = {
 	trigger = {
 		has_game_rule = allow_ztr_decolonization_content
 		
-		has_technology_researched = decolonization
+		has_global_variable = ztr_decolonization_age_var
 		year > 1945
 		NOT = { is_subject = yes }
 		NOT = {
@@ -1580,8 +1574,8 @@ ztr_decolonization.11 = {
 				}
 			}
 		}
-		create_unidirectional_truce = { country = c:BHN months = 120 }
-		create_unidirectional_truce = { country = c:ABU months = 120 }
+		create_bidirectional_truce = { country = c:BHN months = 120 }
+		create_bidirectional_truce = { country = c:ABU months = 120 }
 		c:BHN = {
 			change_relations = {
 				country = root
@@ -1627,7 +1621,7 @@ ztr_decolonization.12 = {
 	trigger = {
 		has_game_rule = allow_ztr_decolonization_content
 		
-		has_technology_researched = decolonization
+		has_global_variable = ztr_decolonization_age_var
 		year > 1945
 		NOT = { is_subject = yes }
 		NOT = {
@@ -2001,7 +1995,7 @@ ztr_decolonization.12 = {
 				}
 			}
 		}
-		create_unidirectional_truce = { country = c:PER months = 120 }
+		create_bidirectional_truce = { country = c:PER months = 120 }
 		c:PER = {
 			change_relations = {
 				country = root
@@ -2041,7 +2035,7 @@ ztr_decolonization.13 = {
 	trigger = {
 		has_game_rule = allow_ztr_decolonization_content
 		
-		has_technology_researched = decolonization
+		has_global_variable = ztr_decolonization_age_var
 		year > 1945
 		NOT = { is_subject = yes }
 		NOT = {
@@ -2186,7 +2180,7 @@ ztr_decolonization.13 = {
 				}
 			}
 		}
-		create_unidirectional_truce = { country = c:BUR months = 120 }
+		create_bidirectional_truce = { country = c:BUR months = 120 }
 		c:BUR = {
 			change_relations = {
 				country = root
@@ -2226,7 +2220,7 @@ ztr_decolonization.14 = {
 	trigger = {
 		has_game_rule = allow_ztr_decolonization_content
 		
-		has_technology_researched = decolonization
+		has_global_variable = ztr_decolonization_age_var
 		year > 1945
 		NOT = { is_subject = yes }
 		NOT = {
@@ -2349,7 +2343,7 @@ ztr_decolonization.14 = {
 				}
 			}
 		}
-		create_unidirectional_truce = { country = c:SIA months = 120 }
+		create_bidirectional_truce = { country = c:SIA months = 120 }
 		c:SIA = {
 			change_relations = {
 				country = root
@@ -2389,7 +2383,7 @@ ztr_decolonization.15 = {
 	trigger = {
 		has_game_rule = allow_ztr_decolonization_content
 		
-		has_technology_researched = decolonization
+		has_global_variable = ztr_decolonization_age_var
 		year > 1945
 		NOT = { is_subject = yes }
 		NOT = {
@@ -2444,7 +2438,7 @@ ztr_decolonization.15 = {
 				}
 			}
 		}
-		create_unidirectional_truce = { country = c:LAO months = 120 }
+		create_bidirectional_truce = { country = c:LAO months = 120 }
 		c:LAO = {
 			change_relations = {
 				country = root
@@ -2484,7 +2478,7 @@ ztr_decolonization.16 = {
 	trigger = {
 		has_game_rule = allow_ztr_decolonization_content
 		
-		has_technology_researched = decolonization
+		has_global_variable = ztr_decolonization_age_var
 		year > 1945
 		NOT = { is_subject = yes }
 		NOT = {
@@ -2585,7 +2579,7 @@ ztr_decolonization.16 = {
 				}
 			}
 		}
-		create_unidirectional_truce = { country = c:DAI months = 120 }
+		create_bidirectional_truce = { country = c:DAI months = 120 }
 		c:DAI = {
 			change_relations = {
 				country = root
@@ -2625,7 +2619,7 @@ ztr_decolonization.17 = {
 	trigger = {
 		has_game_rule = allow_ztr_decolonization_content
 		
-		has_technology_researched = decolonization
+		has_global_variable = ztr_decolonization_age_var
 		year > 1945
 		NOT = { is_subject = yes }
 		NOT = {
@@ -2680,7 +2674,7 @@ ztr_decolonization.17 = {
 				}
 			}
 		}
-		create_unidirectional_truce = { country = c:CAM months = 120 }
+		create_bidirectional_truce = { country = c:CAM months = 120 }
 		c:CAM = {
 			change_relations = {
 				country = root
@@ -2766,7 +2760,7 @@ ztr_decolonization.18 = {
 			limit = {
 				country_is_in_europe = yes 
 			}
-			create_unidirectional_truce = { country = scope:ztr_indian_unifier_scope months = 120 }
+			create_bidirectional_truce = { country = scope:ztr_indian_unifier_scope months = 120 }
 		}
 	}
 
@@ -2802,7 +2796,7 @@ ztr_decolonization.19 = {
 	
 	trigger = {
 		has_game_rule = allow_ztr_decolonization_content
-		has_technology_researched = decolonization
+		has_global_variable = ztr_decolonization_age_var
 		year > 1945
 		NOT = { is_subject = yes }
 		NOT = {	country_has_primary_culture = cu:korean	}
@@ -2945,7 +2939,7 @@ ztr_decolonization.19 = {
 				}
 			}
 		}
-		create_unidirectional_truce = { country = c:KOR months = 120 }
+		create_bidirectional_truce = { country = c:KOR months = 120 }
 		c:KOR = {
 			change_relations = {
 				country = root
@@ -2986,7 +2980,7 @@ ztr_decolonization.20 = {
 	
 	trigger = {
 		has_game_rule = allow_ztr_decolonization_content
-		has_technology_researched = decolonization
+		has_global_variable = ztr_decolonization_age_var
 		year > 1945
 		NOT = { is_subject = yes }
 		NOT = {	country_has_primary_culture = cu:japanese }
@@ -3028,7 +3022,7 @@ ztr_decolonization.20 = {
 			}
 			set_state_owner = c:JAP
 		}
-		create_unidirectional_truce = { country = c:JAP months = 120 }
+		create_bidirectional_truce = { country = c:JAP months = 120 }
 		c:JAP = {
 			change_relations = {
 				country = root
@@ -3069,7 +3063,7 @@ ztr_decolonization.21 = {
 	
 	trigger = {
 		has_game_rule = allow_ztr_decolonization_content
-		has_technology_researched = decolonization
+		has_global_variable = ztr_decolonization_age_var
 		year > 1945
 		NOT = { is_subject = yes }
 		NOT = {	country_is_in_china = yes } # Better than using chinese/han culture
@@ -3105,7 +3099,7 @@ ztr_decolonization.21 = {
 			}
 			set_state_owner = c:CHI
 		}
-		create_unidirectional_truce = { country = c:CHI months = 120 }
+		create_bidirectional_truce = { country = c:CHI months = 120 }
 		c:CHI = {
 			change_relations = {
 				country = root
@@ -3147,7 +3141,7 @@ ztr_decolonization.21 = {
 # 	trigger = {
 # 		has_game_rule = allow_ztr_decolonization_content
 		
-# 		has_technology_researched = decolonization
+# 		has_global_variable = ztr_decolonization_age_var
 # 		year > 1945
 #		NOT = { is_subject = yes }
 # 		NOT = {
@@ -3253,7 +3247,7 @@ ztr_decolonization.21 = {
 # 				}
 # 			}
 # 		}
-# 		create_unidirectional_truce = { country = c:DAI months = 120 }
+# 		create_bidirectional_truce = { country = c:DAI months = 120 }
 # 		c:DAI = {
 # 			change_relations = {
 # 				country = root

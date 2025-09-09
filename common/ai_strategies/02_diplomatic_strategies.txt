@@ -645,17 +645,15 @@ ai_strategy_colonial_expansion = {
 			multiply = 0.01
 		}
 
-		#T&R: After 1945 territorial expansion is no more available with UN and decolonization
+		#T&R: After 1945 territorial expansion is less available with UN and decolonization
 		if = {
 			limit = {
-				game_year >= 1945
-				has_technology_researched = decolonization
 				OR = {
 					has_modifier = ztr_onu_permanent_member
 					has_modifier = ztr_onu_member
 				}
 			}
-			multiply = 0.01
+			multiply = 0.05
 		}
 	}
 }

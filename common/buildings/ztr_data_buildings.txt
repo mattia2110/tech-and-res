@@ -17,7 +17,7 @@ building_office = {
 		pmg_data_transportation_building_office
 	}
 	
-	required_construction = construction_cost_high
+	required_construction = construction_cost_modern
 	ownership_type = self
 
 	background = "gfx/interface/icons/building_icons/backgrounds/building_panel_bg_light_industry.dds"
@@ -44,7 +44,7 @@ building_software_industry = {
 		pmg_data_optimization_heavy_industry_software
 	}
 	
-	required_construction = construction_cost_high
+	required_construction = construction_cost_modern
 	ownership_type = self
 
 	background = "gfx/interface/icons/building_icons/backgrounds/building_panel_bg_light_industry.dds"
@@ -68,7 +68,7 @@ building_interactive_media_industry = {
 		pmg_data_optimization_heavy_industry
 	}
 	
-	required_construction = construction_cost_high
+	required_construction = construction_cost_modern
 	ownership_type = self
 
 	background = "gfx/interface/icons/building_icons/backgrounds/building_panel_bg_light_industry.dds"
@@ -145,10 +145,37 @@ building_datacenter_industry = {
 		pmg_data_transportation_building_datacenter
 	}
 	
-	required_construction = construction_cost_very_high
+	required_construction = construction_cost_monument
 	ownership_type = self
 
 	background = "gfx/interface/icons/building_icons/backgrounds/building_panel_bg_light_industry.dds"
 
 	ai_value = 2500 # Datacenter is very important
+}
+
+# E-Commerce Logistic Building
+
+building_ecommerce_logistics = {
+	building_group = bg_heavy_industry
+	icon = "gfx/interface/icons/building_icons/building_ecommerce_logistics.dds"
+	city_type = city
+	levels_per_mesh = 5
+
+	unlocking_technologies = {
+		on_demand_delivery
+	}
+
+	production_method_groups = {
+		pmg_delivery_mode_building_ecommerce_logistics
+		pmg_fulfilment_model_building_ecommerce_logistics
+		pmg_automation_building_ecommerce_logistics
+		pmg_transport_building_ecommerce_logistics
+		pmg_data_optimization_building_ecommerce_logistics
+	}
+
+	ownership_type = self
+	background = "gfx/interface/icons/building_icons/backgrounds/building_panel_bg_light_industry.dds"
+
+	required_construction = construction_cost_modern
+	ai_value = 1800
 }

@@ -21,6 +21,41 @@ camera = {
 
 # Era 4
 
+organized_sports = {
+	era = era_4 #Morgenröte: changed from Era 2
+	texture = "gfx/interface/icons/invention_icons/organized_sports.dds"
+	category = society
+	
+	modifier = {
+		country_prestige_mult = 0.05
+	}
+	
+	unlocking_technologies = {
+		pan-nationalism #Morgenröte: changed from nationalism
+	}
+
+	ai_weight = {
+		value = 1
+
+		#Morgenröte: added this part
+		if = {
+			limit = { 
+				exists = c:FRA
+				c:FRA = ROOT 
+			}
+			add = 1 #Pierre de Coubertin
+		}
+
+		if = {
+			limit = { 
+				exists = c:GRE
+				c:GRE = ROOT 
+			}
+			add = 1 #Greece should at least try to host the Games
+		}
+	}
+}
+
 dubois_genetics_tech = {
 
 	era = era_4

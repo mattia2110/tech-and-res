@@ -373,8 +373,8 @@ mobilization_option_rocket_artillery = {
 	possible = {
 		scope:military_formation = {
 			NOR = {
-				has_mobilization_option = mobilization_option:mobilization_option_nuclear_artillery
 				has_mobilization_option = mobilization_option:mobilization_option_guided_missiles
+				#has_mobilization_option = mobilization_option:mobilization_option_space_artillery
 			}
 		}
 		market ?= {
@@ -438,7 +438,7 @@ mobilization_option_guided_missiles = {
 		scope:military_formation = {
 			NOR = {
 				has_mobilization_option = mobilization_option:mobilization_option_rocket_artillery
-				has_mobilization_option = mobilization_option:mobilization_option_nuclear_artillery
+				#has_mobilization_option = mobilization_option:mobilization_option_space_artillery
 			}
 		}
 		market ?= {
@@ -484,7 +484,7 @@ mobilization_option_guided_missiles = {
 	upkeep_modifier = {
 		goods_input_artillery_add = 3
 		#goods_input_missiles_add = 3
-		goods_input_ammunition_add = 5
+		goods_input_ammunition_add = 6
 		goods_input_processors_add = 1
 		goods_input_light_fuel_add = 1
 	}
@@ -493,68 +493,6 @@ mobilization_option_guided_missiles = {
 		unit_offense_mult = 0.35
 		unit_defense_mult = 0.2
 		unit_devastation_mult = 0.10
-	}
-
-	ai_weight = {
-		value = 1
-	}
-
-	group = tactical_weapons
-}
-
-mobilization_option_nuclear_artillery = {
-	texture = "gfx/interface/icons/mobilization_options/chemical_weapons.dds"
-
-	possible = {
-		scope:military_formation = {
-			NOR = {
-				has_mobilization_option = mobilization_option:mobilization_option_rocket_artillery
-				has_mobilization_option = mobilization_option:mobilization_option_guided_missiles
-			}
-		}
-		has_law = law_type:law_uranium_full_usage
-		market ?= {
-			mg:artillery ?= {
-				market_goods_sell_orders > 0
-			}
-			mg:good_uranium ?= {
-				market_goods_sell_orders > 0
-			}
-		}
-	}
-	
-	on_activate_while_mobilized = {
-		custom_tooltip = {
-			text = mobilization_option_it_hurts_organization_when_you_adjust_equipment_tt
-			add_organization = {
-				value = organization
-				multiply = -0.2
-			}
-		}
-	}
-	
-	on_deactivate = {
-		custom_tooltip = {
-			text = mobilization_option_it_hurts_organization_when_you_adjust_equipment_tt
-			add_organization = {
-				value = organization
-				multiply = -0.2
-			}
-		}
-	}
-	
-	unlocking_technologies = {
-		atomic_bomb
-	}
-
-	upkeep_modifier = {
-		goods_input_artillery_add = 3
-		goods_input_good_uranium_add = 4
-	}
-
-	unit_modifier = {
-		unit_kill_rate_add = 0.5
-		unit_devastation_mult = 1
 	}
 
 	ai_weight = {
@@ -613,7 +551,7 @@ mobilization_option_helicopters_support = {
 		unit_defense_mult = 0.1
 		unit_recovery_rate_add = 0.10
 		unit_morale_recovery_mult = 0.10
-		unit_occupation_mult = 0.05
+		character_battle_condition_lost_mult = -0.25
 	}
 	ai_weight = {
 		value = 1
@@ -673,6 +611,7 @@ mobilization_option_satellites_support = {
 	unit_modifier = {
 		military_formation_organization_gain_mult = 0.05
 		unit_defense_mult = 0.2
+		character_battle_condition_lost_mult = -0.5
 	}
 
 	ai_weight = {
@@ -739,13 +678,138 @@ mobilization_option_awacs_support = {
 		military_formation_organization_gain_mult = 0.05
 		unit_defense_mult = 0.2
 		unit_offense_mult = 0.2
-		unit_recovery_rate_add = 0.10
+		character_battle_condition_lost_mult = -0.5
 	}
 	ai_weight = {
 		value = 1
 	}
 
 	group = extra
+}
+
+# Nuclear Weapons
+
+mobilization_option_nuclear_artillery = {
+	texture = "gfx/interface/icons/mobilization_options/nuclear_artillery.dds"
+
+	possible = {
+		scope:military_formation = {
+			NOR = {
+				has_mobilization_option = mobilization_option:mobilization_option_icbms_artillery
+			}
+		}
+		has_law = law_type:law_uranium_full_usage
+		market ?= {
+			mg:artillery ?= {
+				market_goods_sell_orders > 0
+			}
+			mg:good_uranium ?= {
+				market_goods_sell_orders > 0
+			}
+		}
+	}
+	
+	on_activate_while_mobilized = {
+		custom_tooltip = {
+			text = mobilization_option_it_hurts_organization_when_you_adjust_equipment_tt
+			add_organization = {
+				value = organization
+				multiply = -0.2
+			}
+		}
+	}
+	
+	on_deactivate = {
+		custom_tooltip = {
+			text = mobilization_option_it_hurts_organization_when_you_adjust_equipment_tt
+			add_organization = {
+				value = organization
+				multiply = -0.2
+			}
+		}
+	}
+	
+	unlocking_technologies = {
+		atomic_bomb
+	}
+
+	upkeep_modifier = {
+		goods_input_artillery_add = 3
+		goods_input_good_uranium_add = 4
+	}
+
+	unit_modifier = {
+		unit_kill_rate_add = 0.5
+		unit_devastation_mult = 1
+	}
+
+	ai_weight = {
+		value = 1
+	}
+
+	group = nuclear_weapons
+}
+
+mobilization_option_icbms_artillery = {
+	texture = "gfx/interface/icons/mobilization_options/icbms_artillery.dds"
+
+	possible = {
+		scope:military_formation = {
+			NOR = {
+				has_mobilization_option = mobilization_option:mobilization_option_nuclear_artillery
+			}
+		}
+		has_law = law_type:law_uranium_full_usage
+		market ?= {
+			mg:artillery ?= {
+				market_goods_sell_orders > 0
+			}
+			mg:good_uranium ?= {
+				market_goods_sell_orders > 0
+			}
+		}
+	}
+	
+	on_activate_while_mobilized = {
+		custom_tooltip = {
+			text = mobilization_option_it_hurts_organization_when_you_adjust_equipment_tt
+			add_organization = {
+				value = organization
+				multiply = -0.2
+			}
+		}
+	}
+	
+	on_deactivate = {
+		custom_tooltip = {
+			text = mobilization_option_it_hurts_organization_when_you_adjust_equipment_tt
+			add_organization = {
+				value = organization
+				multiply = -0.2
+			}
+		}
+	}
+	
+	unlocking_technologies = {
+		icbms
+	}
+
+	upkeep_modifier = {
+		goods_input_artillery_add = 6
+		goods_input_good_uranium_add = 5
+	}
+
+	unit_modifier = {
+		unit_kill_rate_add = 0.25
+		unit_devastation_mult = 1.5
+		unit_morale_damage_mult = 0.25
+	}
+
+	ai_weight = {
+		value = 1
+	}
+
+	group = nuclear_weapons
 }
 
 # Electronic Support
@@ -810,7 +874,7 @@ mobilization_option_electronic_countermeasures = {
 
 	unit_modifier = {
 		unit_army_offense_mult = 0.05
-		unit_army_defense_mult = 0.1
+		unit_army_defense_mult = 0.05
 		unit_morale_damage_mult = 0.1
 	}
 
@@ -880,7 +944,9 @@ mobilization_option_electronic_attack = {
 	}
 
 	unit_modifier = {
-		unit_army_offense_mult = 0.25
+		unit_army_offense_mult = 0.15
+		character_battle_condition_rapid_advance_mult = 0.5
+		character_battle_condition_surprise_maneuver_mult = 0.25
 	}
 
 	ai_weight = {
@@ -949,7 +1015,8 @@ mobilization_option_electronic_support_measures = {
 	}
 
 	unit_modifier = {
-		unit_army_defense_mult = 0.25
+		unit_army_defense_mult = 0.2
+		character_battle_condition_death_from_below_mult = -0.25
 	}
 
 	ai_weight = {

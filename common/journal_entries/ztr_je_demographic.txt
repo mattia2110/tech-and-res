@@ -3,11 +3,9 @@ je_demographic_0_to_1 = {
 	group = je_group_technology
 
 	is_shown_when_inactive = {
-		has_modifier = demographic_stage_0
 	}
 
 	possible = {
-		has_modifier = demographic_stage_0
 	}
 
 	immediate = {
@@ -22,7 +20,10 @@ je_demographic_0_to_1 = {
 			# Country parameters conditions
 			if = {
 				limit = {
-					NOT = { has_modifier = dev_0_country }
+					OR = {
+						NOT = { has_modifier = dev_0_country }
+						year > 1900
+					}
 				}
 				change_variable = {
 					name = demographic_stage_var
@@ -44,7 +45,7 @@ je_demographic_0_to_1 = {
 				}
 				change_variable = {
 					name = demographic_stage_var
-					add = 0.25
+					add = 0.4
 				}
 			}
 			# Flavor conditions
@@ -59,7 +60,7 @@ je_demographic_0_to_1 = {
 						}
 						AND = {
 							exists = c:BIC
-							c:BIC = this #Since British Indian Ocean Territory is protestant, but actually Pakistan and Bangladesh are Muslim
+							c:BIC = this #Since British Indian Ocean Territory is protestant, but actually Pakistan and Bangladesh are muslim
 						}
 					}
 				}
@@ -78,6 +79,7 @@ je_demographic_0_to_1 = {
 	on_complete = {
 		remove_state_demographic_modifier = yes
 		add_modifier = demographic_stage_1
+		remove_variable = demographic_stage_var
 		add_journal_entry = {
 			type = je_demographic_1_to_2
 		}
@@ -103,11 +105,9 @@ je_demographic_1_to_2 = {
 	group = je_group_technology
 
 	is_shown_when_inactive = {
-		has_modifier = demographic_stage_1
 	}
 
 	possible = {
-		has_modifier = demographic_stage_1
 	}
 
 	immediate = {
@@ -123,11 +123,20 @@ je_demographic_1_to_2 = {
 				name = demographic_stage_var
 				add = 1
 			}
+			if = {
+				limit = {
+					year > 1950
+				}
+				change_variable = {
+					name = demographic_stage_var
+					add = 0.5
+				}
+			}
 			# Country parameters condition
 			if = {
 				limit = {
 					NOT = { has_modifier = dev_0_country }
-					NOT = { has_modifier = dev_1_country }
+					NOT = { has_modifier = dev_1_country }					
 				}
 				change_variable = {
 					name = demographic_stage_var
@@ -140,7 +149,7 @@ je_demographic_1_to_2 = {
 				}
 				change_variable = {
 					name = demographic_stage_var
-					add = 0.25
+					add = 0.4
 				}
 			}
 			if = {
@@ -149,7 +158,7 @@ je_demographic_1_to_2 = {
 				}
 				change_variable = {
 					name = demographic_stage_var
-					add = 0.25
+					add = 0.4
 				}
 			}
 			# Laws conditions
@@ -207,6 +216,7 @@ je_demographic_1_to_2 = {
 	on_complete = {
 		remove_state_demographic_modifier = yes
 		add_modifier = demographic_stage_2
+		remove_variable = demographic_stage_var
 		add_journal_entry = {
 			type = je_demographic_2_to_3
 		}
@@ -232,11 +242,9 @@ je_demographic_2_to_3 = {
 	group = je_group_technology
 
 	is_shown_when_inactive = {
-		has_modifier = demographic_stage_2
 	}
 
 	possible = {
-		has_modifier = demographic_stage_2
 	}
 
 	immediate = {
@@ -252,14 +260,13 @@ je_demographic_2_to_3 = {
 				name = demographic_stage_var
 				add = 1
 			}
-			# Player parameters conditions, as player tends to overperform AI in economy
 			if = {
 				limit = {
-					is_player = yes
+					year > 1980
 				}
 				change_variable = {
 					name = demographic_stage_var
-					subtract = 0.1
+					add = 0.5
 				}
 			}
 			# Country parameters conditions
@@ -280,7 +287,7 @@ je_demographic_2_to_3 = {
 				}
 				change_variable = {
 					name = demographic_stage_var
-					add = 0.25
+					add = 0.4
 				}
 			}
 			if = {
@@ -289,7 +296,7 @@ je_demographic_2_to_3 = {
 				}
 				change_variable = {
 					name = demographic_stage_var
-					add = 0.25
+					add = 0.4
 				}
 			}
 			# Laws conditions
@@ -314,6 +321,10 @@ je_demographic_2_to_3 = {
 					OR = {
 						has_law = law_type:law_multicultural
 						has_law = law_type:law_no_migration_controls
+					}
+					OR = {
+						total_population < 200000000
+						country_is_in_americas = yes #Americas are a special case due to the fact that they are countries of immigrants, but they still have to have one of the two laws activated.
 					}
 				}
 				change_variable = {
@@ -361,6 +372,7 @@ je_demographic_2_to_3 = {
 	on_complete = {
 		remove_state_demographic_modifier = yes
 		add_modifier = demographic_stage_3
+		remove_variable = demographic_stage_var
 		add_journal_entry = {
 			type = je_demographic_3_to_4
 		}
@@ -386,11 +398,9 @@ je_demographic_3_to_4 = {
 	group = je_group_technology
 
 	is_shown_when_inactive = {
-		has_modifier = demographic_stage_3
 	}
 
 	possible = {
-		has_modifier = demographic_stage_3
 	}
 
 	immediate = {
@@ -406,14 +416,13 @@ je_demographic_3_to_4 = {
 				name = demographic_stage_var
 				add = 1
 			}
-			# Player parameters conditions, as player tends to overperform AI in economy
 			if = {
 				limit = {
-					is_player = yes
+					year > 2000
 				}
 				change_variable = {
 					name = demographic_stage_var
-					subtract = 0.1
+					add = 0.5
 				}
 			}
 			# Country parameters conditions
@@ -426,16 +435,16 @@ je_demographic_3_to_4 = {
 				}
 				change_variable = {
 					name = demographic_stage_var
-					add = 0.25
+					add = 0.3
 				}
 			}
 			if = {
 				limit = {
-					average_sol > 20
+					average_sol > 18
 				}
 				change_variable = {
 					name = demographic_stage_var
-					add = 0.25
+					add = 0.4
 				}
 			}
 			if = {
@@ -444,7 +453,7 @@ je_demographic_3_to_4 = {
 				}
 				change_variable = {
 					name = demographic_stage_var
-					add = 0.25
+					add = 0.4
 				}
 			}
 			# Laws conditions
@@ -469,6 +478,10 @@ je_demographic_3_to_4 = {
 					OR = {
 						has_law = law_type:law_multicultural
 						has_law = law_type:law_no_migration_controls
+					}
+					OR = {
+						total_population < 200000000
+						country_is_in_americas = yes #Americas are a special case due to the fact that they are countries of immigrants, but they still have to have one of the two laws activated.
 					}
 				}
 				change_variable = {
@@ -516,6 +529,7 @@ je_demographic_3_to_4 = {
 	on_complete = {
 		remove_state_demographic_modifier = yes
 		add_modifier = demographic_stage_4
+		remove_variable = demographic_stage_var
 		add_journal_entry = {
 			type = je_demographic_4_to_5
 		}
@@ -541,11 +555,9 @@ je_demographic_4_to_5 = {
 	group = je_group_technology
 
 	is_shown_when_inactive = {
-		has_modifier = demographic_stage_4
 	}
 
 	possible = {
-		has_modifier = demographic_stage_4
 	}
 
 	immediate = {
@@ -560,16 +572,6 @@ je_demographic_4_to_5 = {
 			change_variable = {
 				name = demographic_stage_var
 				add = 1
-			}
-			# Player parameters conditions, as player tends to overperform AI in economy
-			if = {
-				limit = {
-					is_player = yes
-				}
-				change_variable = {
-					name = demographic_stage_var
-					subtract = 0.2
-				}
 			}
 			# Country parameters conditions
 			if = {
@@ -587,20 +589,26 @@ je_demographic_4_to_5 = {
 			}
 			if = {
 				limit = {
-					average_sol > 23
+					OR = {
+						average_sol > 20
+						year > 1950
+					}
 				}
 				change_variable = {
 					name = demographic_stage_var
-					add = 0.25
+					add = 0.4
 				}
 			}
 			if = {
 				limit = {
-					literacy_rate > 0.75
+					OR = {
+						literacy_rate > 0.75
+						year > 1950
+					}
 				}
 				change_variable = {
 					name = demographic_stage_var
-					add = 0.25
+					add = 0.4
 				}
 			}
 			# Laws conditions
@@ -626,13 +634,17 @@ je_demographic_4_to_5 = {
 						has_law = law_type:law_multicultural
 						has_law = law_type:law_no_migration_controls
 					}
+					OR = {
+						total_population < 200000000
+						country_is_in_americas = yes #Americas are a special case due to the fact that they are countries of immigrants, but they still have to have one of the two laws activated.
+					}
 				}
 				change_variable = {
 					name = demographic_stage_var
 					subtract = 0.3
 				}
 			}
-			# Flavor conditions (Sunni rich countries do not have this bonus)
+			# Flavor conditions (Sunni in advanced demographic stage do not have this bonus)
 			if = {
 				limit = {
 					has_building = building_white_house
@@ -652,6 +664,7 @@ je_demographic_4_to_5 = {
 	on_complete = {
 		remove_state_demographic_modifier = yes
 		add_modifier = demographic_stage_5
+		remove_variable = demographic_stage_var
 		add_journal_entry = {
 			type = je_demographic_5_to_6
 		}
@@ -677,11 +690,9 @@ je_demographic_5_to_6 = {
 	group = je_group_technology
 
 	is_shown_when_inactive = {
-		has_modifier = demographic_stage_5
 	}
 
 	possible = {
-		has_modifier = demographic_stage_5
 	}
 
 	immediate = {
@@ -696,16 +707,6 @@ je_demographic_5_to_6 = {
 			change_variable = {
 				name = demographic_stage_var
 				add = 1
-			}
-			# Player parameters conditions, as player tends to overperform AI in economy
-			if = {
-				limit = {
-					is_player = yes
-				}
-				change_variable = {
-					name = demographic_stage_var
-					subtract = 0.2
-				}
 			}
 			# Country parameters conditions
 			if = {
@@ -723,20 +724,26 @@ je_demographic_5_to_6 = {
 			}
 			if = {
 				limit = {
-					average_sol > 26
+					OR = {
+						average_sol > 21
+						year > 1960
+					}
 				}
 				change_variable = {
 					name = demographic_stage_var
-					add = 0.25
+					add = 0.4
 				}
 			}
 			if = {
 				limit = {
-					literacy_rate > 0.8
+					OR = {
+						literacy_rate > 0.8
+						year > 1960
+					}
 				}
 				change_variable = {
 					name = demographic_stage_var
-					add = 0.25
+					add = 0.4
 				}
 			}
 			# Laws conditions
@@ -762,13 +769,17 @@ je_demographic_5_to_6 = {
 						has_law = law_type:law_multicultural
 						has_law = law_type:law_no_migration_controls
 					}
+					OR = {
+						total_population < 200000000
+						country_is_in_americas = yes #Americas are a special case due to the fact that they are countries of immigrants, but they still have to have one of the two laws activated.
+					}
 				}
 				change_variable = {
 					name = demographic_stage_var
 					subtract = 0.5
 				}
 			}
-			# Flavor conditions (Sunni rich countries do not have this bonus)
+			# Flavor conditions Flavor conditions (Sunni in advanced demographic stage do not have this bonus)
 			if = {
 				limit = {
 					has_building = building_white_house
@@ -784,7 +795,7 @@ je_demographic_5_to_6 = {
 				}
 				change_variable = {
 					name = demographic_stage_var
-					subtract = 0.3
+					subtract = 0.1
 				}
 			}
 		}
@@ -797,6 +808,10 @@ je_demographic_5_to_6 = {
 	on_complete = {
 		remove_state_demographic_modifier = yes
 		add_modifier = demographic_stage_6
+		remove_variable = demographic_stage_var
+		add_journal_entry = {
+			type = je_demographic_6_to_7
+		}
 	}
 
 	transferable = no
@@ -819,11 +834,9 @@ je_demographic_6_to_7 = {
 	group = je_group_technology
 
 	is_shown_when_inactive = {
-		has_modifier = demographic_stage_6
 	}
 
 	possible = {
-		has_modifier = demographic_stage_6
 	}
 
 	immediate = {
@@ -838,16 +851,6 @@ je_demographic_6_to_7 = {
 			change_variable = {
 				name = demographic_stage_var
 				add = 1
-			}
-			# Player parameters conditions, as player tends to overperform AI in economy
-			if = {
-				limit = {
-					is_player = yes
-				}
-				change_variable = {
-					name = demographic_stage_var
-					subtract = 0.2
-				}
 			}
 			# Country parameters conditions
 			if = {
@@ -865,20 +868,11 @@ je_demographic_6_to_7 = {
 			}
 			if = {
 				limit = {
-					average_sol > 26
+					year > 1970
 				}
 				change_variable = {
 					name = demographic_stage_var
-					add = 0.2
-				}
-			}
-			if = {
-				limit = {
-					literacy_rate > 0.9
-				}
-				change_variable = {
-					name = demographic_stage_var
-					add = 0.2
+					add = 0.5
 				}
 			}
 			# Laws conditions
@@ -904,13 +898,17 @@ je_demographic_6_to_7 = {
 						has_law = law_type:law_multicultural
 						has_law = law_type:law_no_migration_controls
 					}
+					OR = {
+						total_population < 200000000
+						country_is_in_americas = yes #Americas are a special case due to the fact that they are countries of immigrants, but they still have to have one of the two laws activated.
+					}
 				}
 				change_variable = {
 					name = demographic_stage_var
 					subtract = 0.5
 				}
 			}
-			# Flavor conditions (Sunni rich countries do not have this bonus)
+			# Flavor conditions Flavor conditions (Sunni in advanced demographic stage do not have this bonus)
 			if = {
 				limit = {
 					has_building = building_white_house
@@ -926,7 +924,7 @@ je_demographic_6_to_7 = {
 				}
 				change_variable = {
 					name = demographic_stage_var
-					subtract = 0.3
+					subtract = 0.1
 				}
 			}
 		}
@@ -939,6 +937,10 @@ je_demographic_6_to_7 = {
 	on_complete = {
 		remove_state_demographic_modifier = yes
 		add_modifier = demographic_stage_7
+		remove_variable = demographic_stage_var
+		add_journal_entry = {
+			type = je_demographic_7_to_8
+		}
 	}
 
 	transferable = no
@@ -961,11 +963,9 @@ je_demographic_7_to_8 = {
 	group = je_group_technology
 
 	is_shown_when_inactive = {
-		has_modifier = demographic_stage_7
 	}
 
 	possible = {
-		has_modifier = demographic_stage_7
 	}
 
 	immediate = {
@@ -980,16 +980,6 @@ je_demographic_7_to_8 = {
 			change_variable = {
 				name = demographic_stage_var
 				add = 1
-			}
-			# Player parameters conditions, as player tends to overperform AI in economy
-			if = {
-				limit = {
-					is_player = yes
-				}
-				change_variable = {
-					name = demographic_stage_var
-					subtract = 0.2
-				}
 			}
 			# Country parameters conditions
 			if = {
@@ -1007,20 +997,11 @@ je_demographic_7_to_8 = {
 			}
 			if = {
 				limit = {
-					average_sol > 26
+					year > 1970
 				}
 				change_variable = {
 					name = demographic_stage_var
-					add = 0.2
-				}
-			}
-			if = {
-				limit = {
-					literacy_rate > 0.9
-				}
-				change_variable = {
-					name = demographic_stage_var
-					add = 0.2
+					add = 0.5
 				}
 			}
 			# Laws conditions
@@ -1046,13 +1027,17 @@ je_demographic_7_to_8 = {
 						has_law = law_type:law_multicultural
 						has_law = law_type:law_no_migration_controls
 					}
+					OR = {
+						total_population < 200000000
+						country_is_in_americas = yes #Americas are a special case due to the fact that they are countries of immigrants, but they still have to have one of the two laws activated.
+					}
 				}
 				change_variable = {
 					name = demographic_stage_var
 					subtract = 0.5
 				}
 			}
-			# Flavor conditions (Sunni rich countries do not have this bonus)
+			# Flavor conditions Flavor conditions (Sunni in advanced demographic stage do not have this bonus)
 			if = {
 				limit = {
 					has_building = building_white_house
@@ -1068,7 +1053,7 @@ je_demographic_7_to_8 = {
 				}
 				change_variable = {
 					name = demographic_stage_var
-					subtract = 0.3
+					subtract = 0.1
 				}
 			}
 		}
@@ -1081,6 +1066,7 @@ je_demographic_7_to_8 = {
 	on_complete = {
 		remove_state_demographic_modifier = yes
 		add_modifier = demographic_stage_8
+		remove_variable = demographic_stage_var
 	}
 
 	transferable = no
