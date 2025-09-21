@@ -1,0 +1,267 @@
+firm_ztr_treaty_of_rome = {
+
+	is_shown = {
+		has_technology_researched = socialdemocracy
+		year > 1950
+		year < 1992
+		is_subject = no
+		OR = {
+			capital.region = sr:region_rhine
+			capital.region = sr:region_italy
+			capital.region = sr:region_north_germany
+			capital.region = sr:region_south_germany
+			capital.region = sr:region_france
+			capital.region = sr:region_england
+			capital.region = sr:region_north_sea_coast
+			capital.region = sr:region_iberia
+		}
+		NOT = { has_modifier = ztr_eec_member }
+		NOT = { has_modifier = ztr_eu_member }
+	}
+
+	possible = {
+		OR = {
+			has_modifier = ztr_onu_member
+			has_modifier = ztr_onu_permanent_member
+		}
+		NOR = {
+			has_law = law_type:law_single_party_state
+			has_law = law_type:law_anarchy
+			has_law = law_type:law_autocracy
+			has_law = law_type:law_council_republic
+		}
+	}
+
+	when_taken = {
+		change_infamy = -5
+		hidden_effect = {
+			if = {
+				limit = {
+					has_modifier = ztr_eec_member
+				}
+				remove_modifier = ztr_eec_member
+			}
+			if = {
+				limit = {
+					has_modifier = ztr_eu_member
+				}
+				remove_modifier = ztr_eu_member
+			}
+			join_eu_law_changes = yes
+		}
+		add_modifier = {
+			name = ztr_eec_member
+		}
+		every_country = {
+			limit = {
+				has_modifier = ztr_eec_member
+			}
+			change_relations = {
+				country = root
+				value = 200
+			}
+		}
+		every_rival_country = {
+			limit = {
+				has_modifier = ztr_eec_member
+			}
+			remove_diplomatic_pact = {
+				country = root
+				type = rivalry
+			}
+			change_relations = {
+				country = root
+				value = 200
+			}
+		}
+	}
+
+	ai_chance = {
+		value = 10
+	}
+}
+
+create_eu_decision = {
+	is_shown = {
+		has_technology_researched = globalization
+		year > 1992
+		has_modifier = ztr_eec_member
+		country_rank = rank_value:great_power
+		OR = {
+			capital.region = sr:region_rhine
+			capital.region = sr:region_italy
+			capital.region = sr:region_north_germany
+			capital.region = sr:region_south_germany
+			capital.region = sr:region_france
+			capital.region = sr:region_england
+			capital.region = sr:region_north_sea_coast
+			capital.region = sr:region_iberia
+			capital.region = sr:region_poland
+			capital.region = sr:region_baltic
+			capital.region = sr:region_danubia
+			capital.region = sr:region_balkans
+			capital.region = sr:region_finland
+			capital.region = sr:region_baltic_states
+		}
+		NOT = { has_global_variable = ztr_eu_created }
+	}
+
+	possible = {
+		OR = {
+			has_modifier = ztr_onu_member
+			has_modifier = ztr_onu_permanent_member
+		}
+		NOR = {
+			has_law = law_type:law_single_party_state
+			has_law = law_type:law_anarchy
+			has_law = law_type:law_autocracy
+			has_law = law_type:law_council_republic
+		}
+	}
+
+	when_taken = {
+		change_infamy = -5
+		set_global_variable = ztr_eu_created
+		set_variable = {
+			name = ztr_eu_founder
+			value = 1
+		}
+		# In order to destroy and recreate the power bloc (and to update its principles), we first set the country type to unrecognized to avoid issues. (NOT WORKING)
+		# set_country_type = unrecognized
+		# set_country_type = recognized
+		# create_power_bloc = {
+		# 	name = EUROPEAN_UNION
+		# 	map_color = { 0 51 153 } # Official EU blue
+
+		# 	identity = identity_trade_league
+		# 	principle = principle_defensive_cooperation_1
+		# }
+		if = {
+			limit = {
+				has_dlc_feature = power_bloc_features
+			}
+			power_bloc = {
+				add_principle = principle_internal_trade_1
+				add_principle = principle_external_trade_1
+				add_principle = principle_companies_1
+			}
+		}
+		trigger_event = ztr_eu_event.1
+	}
+
+	ai_chance = {
+		value = 50
+	}
+}
+
+join_european_union = {
+	is_shown = {
+		has_technology_researched = globalization
+		year > 1992
+		NOT = { has_modifier = ztr_eu_member }
+		has_global_variable = ztr_eu_created
+		is_subject = no
+	}
+
+	possible = {
+		OR = {
+			has_modifier = ztr_onu_member
+			has_modifier = ztr_onu_permanent_member
+		}
+		NOR = {
+			has_law = law_type:law_single_party_state
+			has_law = law_type:law_anarchy
+			has_law = law_type:law_autocracy
+			has_law = law_type:law_council_republic
+		}
+	}
+
+	when_taken = {
+		change_infamy = -5
+		hidden_effect = {
+			if = {
+				limit = {
+					has_modifier = ztr_eec_member
+				}
+				remove_modifier = ztr_eec_member
+			}
+			if = {
+				limit = {
+					has_modifier = ztr_eu_member
+				}
+				remove_modifier = ztr_eu_member
+			}
+			join_eu_law_changes = yes
+		}
+		add_modifier = {
+			name = ztr_eu_member
+		}
+		every_country = {
+			limit = {
+				has_modifier = ztr_eu_member
+			}
+			change_relations = {
+				country = root
+				value = 200
+			}
+		}
+		every_rival_country = {
+			limit = {
+				has_modifier = ztr_eu_member
+			}
+			remove_diplomatic_pact = {
+				country = root
+				type = rivalry
+			}
+			change_relations = {
+				country = root
+				value = 200
+			}
+		}
+	}
+
+	ai_chance = {
+		value = 50
+	}
+}
+
+withdraw_from_european_union = {
+	is_shown = {
+		has_modifier = ztr_eu_member
+		year > 2010 # A sort of Brexit
+		is_subject = no
+	}
+
+	possible = {
+		OR = {
+			AND = {
+				is_ai = no
+				ig:ig_petty_bourgeoisie = {
+					is_powerful = yes
+				}
+			}
+			has_law = law_type:law_single_party_state
+			has_law = law_type:law_anarchy
+			has_law = law_type:law_autocracy
+			has_law = law_type:law_council_republic
+		}
+	}
+
+	when_taken = {
+		change_infamy = 10
+		remove_modifier = ztr_eu_member
+		every_country = {
+			limit = {
+				has_modifier = ztr_eu_member
+			}
+			change_relations = {
+				country = root
+				value = -50
+			}
+		}
+	}
+
+	ai_chance = {
+		value = 10
+	}
+}

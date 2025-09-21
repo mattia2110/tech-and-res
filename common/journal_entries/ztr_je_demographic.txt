@@ -48,6 +48,18 @@ je_demographic_0_to_1 = {
 					add = 0.4
 				}
 			}
+			if = {
+				limit = {
+					OR = {
+						has_law = law_type:law_private_health_insurance
+						has_law = law_type:law_public_health_insurance
+					}
+				}
+				change_variable = {
+					name = demographic_stage_var
+					add = 0.2
+				}
+			}
 			# Flavor conditions
 			if = {
 				limit = {
@@ -170,16 +182,33 @@ je_demographic_1_to_2 = {
 						has_law = law_type:law_elder_council
 						NOT = { has_law = law_type:law_slavery_banned }
 					}
+					OR = {
+						total_population < 200000000
+						country_is_in_americas = yes #Americas are a special case due to the fact that they are countries of immigrants, but they still have to have one of the two laws activated.
+					}
 				}
 				change_variable = {
 					name = demographic_stage_var
 					subtract = 0.3
 				}
 			}
+			if = {
+				limit = {
+					OR = {
+						has_law = law_type:law_private_health_insurance
+						has_law = law_type:law_public_health_insurance
+					}
+				}
+				change_variable = {
+					name = demographic_stage_var
+					add = 0.2
+				}
+			}
 			# Flavor conditions
 			if = {
 				limit = {
 					OR = {
+						has_building = building_white_house
 						country_has_state_religion = rel:sunni
 						country_has_state_religion = rel:shiite
 						AND = {
@@ -191,15 +220,6 @@ je_demographic_1_to_2 = {
 							c:BIC = this #Since British Indian Ocean Territory is protestant, but actually Pakistan and Bangladesh are Muslim
 						}
 					}
-				}
-				change_variable = {
-					name = demographic_stage_var
-					subtract = 0.3
-				}
-			}
-			if = {
-				limit = {
-					has_building = building_white_house
 				}
 				change_variable = {
 					name = demographic_stage_var
@@ -310,10 +330,26 @@ je_demographic_2_to_3 = {
 						has_law = law_type:law_elder_council
 						NOT = { has_law = law_type:law_slavery_banned }
 					}
+					OR = {
+						total_population < 200000000
+						country_is_in_americas = yes #Americas are a special case due to the fact that they are countries of immigrants, but they still have to have one of the two laws activated.
+					}
 				}
 				change_variable = {
 					name = demographic_stage_var
 					subtract = 0.3
+				}
+			}
+			if = {
+				limit = {
+					OR = {
+						has_law = law_type:law_private_health_insurance
+						has_law = law_type:law_public_health_insurance
+					}
+				}
+				change_variable = {
+					name = demographic_stage_var
+					add = 0.2
 				}
 			}
 			if = {
@@ -336,6 +372,7 @@ je_demographic_2_to_3 = {
 			if = {
 				limit = {
 					OR = {
+						has_building = building_white_house
 						country_has_state_religion = rel:sunni
 						country_has_state_religion = rel:shiite
 						AND = {
@@ -347,15 +384,6 @@ je_demographic_2_to_3 = {
 							c:BIC = this #Since British Indian Ocean Territory is protestant, but actually Pakistan and Bangladesh are Muslim
 						}
 					}
-				}
-				change_variable = {
-					name = demographic_stage_var
-					subtract = 0.3
-				}
-			}
-			if = {
-				limit = {
-					has_building = building_white_house
 				}
 				change_variable = {
 					name = demographic_stage_var
@@ -467,6 +495,10 @@ je_demographic_3_to_4 = {
 						has_law = law_type:law_elder_council
 						NOT = { has_law = law_type:law_slavery_banned }
 					}
+					OR = {
+						total_population < 200000000
+						country_is_in_americas = yes #Americas are a special case due to the fact that they are countries of immigrants, but they still have to have one of the two laws activated.
+					}
 				}
 				change_variable = {
 					name = demographic_stage_var
@@ -489,10 +521,23 @@ je_demographic_3_to_4 = {
 					subtract = 0.2
 				}
 			}
+			if = {
+				limit = {
+					OR = {
+						has_law = law_type:law_private_health_insurance
+						has_law = law_type:law_public_health_insurance
+					}
+				}
+				change_variable = {
+					name = demographic_stage_var
+					add = 0.1
+				}
+			}
 			# Flavor conditions
 			if = {
 				limit = {
 					OR = {
+						has_building = building_white_house
 						country_has_state_religion = rel:sunni
 						country_has_state_religion = rel:shiite
 						AND = {
@@ -504,15 +549,6 @@ je_demographic_3_to_4 = {
 							c:BIC = this #Since British Indian Ocean Territory is protestant, but actually Pakistan and Bangladesh are Muslim
 						}
 					}
-				}
-				change_variable = {
-					name = demographic_stage_var
-					subtract = 0.3
-				}
-			}
-			if = {
-				limit = {
-					has_building = building_white_house
 				}
 				change_variable = {
 					name = demographic_stage_var
@@ -622,6 +658,10 @@ je_demographic_4_to_5 = {
 						has_law = law_type:law_elder_council
 						NOT = { has_law = law_type:law_slavery_banned }
 					}
+					OR = {
+						total_population < 200000000
+						country_is_in_americas = yes #Americas are a special case due to the fact that they are countries of immigrants, but they still have to have one of the two laws activated.
+					}
 				}
 				change_variable = {
 					name = demographic_stage_var
@@ -642,6 +682,18 @@ je_demographic_4_to_5 = {
 				change_variable = {
 					name = demographic_stage_var
 					subtract = 0.3
+				}
+			}
+			if = {
+				limit = {
+					OR = {
+						has_law = law_type:law_private_health_insurance
+						has_law = law_type:law_public_health_insurance
+					}
+				}
+				change_variable = {
+					name = demographic_stage_var
+					add = 0.1
 				}
 			}
 			# Flavor conditions (Sunni in advanced demographic stage do not have this bonus)
@@ -757,6 +809,10 @@ je_demographic_5_to_6 = {
 						has_law = law_type:law_elder_council
 						NOT = { has_law = law_type:law_slavery_banned }
 					}
+					OR = {
+						total_population < 200000000
+						country_is_in_americas = yes #Americas are a special case due to the fact that they are countries of immigrants, but they still have to have one of the two laws activated.
+					}
 				}
 				change_variable = {
 					name = demographic_stage_var
@@ -779,6 +835,18 @@ je_demographic_5_to_6 = {
 					subtract = 0.5
 				}
 			}
+			if = {
+				limit = {
+					OR = {
+						has_law = law_type:law_private_health_insurance
+						has_law = law_type:law_public_health_insurance
+					}
+				}
+				change_variable = {
+					name = demographic_stage_var
+					add = 0.1
+				}
+			}
 			# Flavor conditions Flavor conditions (Sunni in advanced demographic stage do not have this bonus)
 			if = {
 				limit = {
@@ -787,15 +855,6 @@ je_demographic_5_to_6 = {
 				change_variable = {
 					name = demographic_stage_var
 					subtract = 0.3
-				}
-			}
-			if = {
-				limit = {
-					has_variable = historical_population_of_france_var
-				}
-				change_variable = {
-					name = demographic_stage_var
-					subtract = 0.1
 				}
 			}
 		}
@@ -886,6 +945,10 @@ je_demographic_6_to_7 = {
 						has_law = law_type:law_elder_council
 						NOT = { has_law = law_type:law_slavery_banned }
 					}
+					OR = {
+						total_population < 200000000
+						country_is_in_americas = yes #Americas are a special case due to the fact that they are countries of immigrants, but they still have to have one of the two laws activated.
+					}
 				}
 				change_variable = {
 					name = demographic_stage_var
@@ -916,15 +979,6 @@ je_demographic_6_to_7 = {
 				change_variable = {
 					name = demographic_stage_var
 					subtract = 0.3
-				}
-			}
-			if = {
-				limit = {
-					has_variable = historical_population_of_france_var
-				}
-				change_variable = {
-					name = demographic_stage_var
-					subtract = 0.1
 				}
 			}
 		}
@@ -1015,6 +1069,10 @@ je_demographic_7_to_8 = {
 						has_law = law_type:law_elder_council
 						NOT = { has_law = law_type:law_slavery_banned }
 					}
+					OR = {
+						total_population < 200000000
+						country_is_in_americas = yes #Americas are a special case due to the fact that they are countries of immigrants, but they still have to have one of the two laws activated.
+					}
 				}
 				change_variable = {
 					name = demographic_stage_var
@@ -1045,15 +1103,6 @@ je_demographic_7_to_8 = {
 				change_variable = {
 					name = demographic_stage_var
 					subtract = 0.3
-				}
-			}
-			if = {
-				limit = {
-					has_variable = historical_population_of_france_var
-				}
-				change_variable = {
-					name = demographic_stage_var
-					subtract = 0.1
 				}
 			}
 		}

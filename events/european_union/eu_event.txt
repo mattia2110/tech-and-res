@@ -1,0 +1,184 @@
+namespace = ztr_eu_event
+
+#EU foundation through Treaty of Maastricht
+ztr_eu_event.1 = {
+	dlc = dlc_tech_res
+	type = country_event
+	placement = root
+
+	duration = 1
+
+	title = ztr_eu_event.1.t
+	desc = ztr_eu_event.1.d
+	flavor = ztr_eu_event.1.f
+
+	event_image = {
+		video = "unspecific_ruler_speaking_to_people"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	icon = "gfx/interface/icons/event_icons/ztr_eu.dds"
+
+	trigger = {
+		#Decision
+	}
+
+	immediate = {
+		root = {
+			save_scope_as = eu_founder
+		}
+	}
+
+	option = {
+		name = ztr_eu_event.1.a
+		default_option = yes
+		change_infamy = -5
+		hidden_effect = {
+			if = {
+				limit = {
+					has_modifier = ztr_eec_member
+				}
+				remove_modifier = ztr_eec_member
+			}
+			if = {
+				limit = {
+					has_modifier = ztr_eu_member
+				}
+				remove_modifier = ztr_eu_member
+			}
+			join_eu_law_changes = yes
+		}
+		add_modifier = {
+			name = ztr_eu_member
+		}
+		every_country = {
+			limit = {
+				NOT = { this = root }
+				has_modifier = ztr_eec_member
+			}
+			trigger_event = ztr_eu_event.2
+		}
+		ai_chance = {
+			base = 100
+		}
+	}
+}
+
+#EU foundation - other countries in Treaty of Maastricht
+ztr_eu_event.2 = {
+	dlc = dlc_tech_res
+	type = country_event
+	placement = root
+
+	duration = 1
+
+	title = ztr_eu_event.2.t
+	desc = ztr_eu_event.2.d
+	flavor = ztr_eu_event.1.f
+
+	event_image = {
+		video = "unspecific_ruler_speaking_to_people"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	icon = "gfx/interface/icons/event_icons/ztr_eu.dds"
+
+	trigger = {
+	}
+
+	immediate = {
+	}
+
+	# Standard Option
+	option = {
+		name = ztr_eu_event.2.a
+		default_option = yes
+		# set_country_type = unrecognized
+		# set_country_type = recognized
+		# join_power_bloc = scope:eu_founder
+		change_infamy = -5
+		hidden_effect = {
+			if = {
+				limit = {
+					has_modifier = ztr_eec_member
+				}
+				remove_modifier = ztr_eec_member
+			}
+			if = {
+				limit = {
+					has_modifier = ztr_eu_member
+				}
+				remove_modifier = ztr_eu_member
+			}
+			join_eu_law_changes = yes
+		}
+		add_modifier = {
+			name = ztr_eu_member
+		}
+		every_country = {
+			limit = {
+				OR = {
+					has_modifier = ztr_eu_member
+					has_modifier = ztr_eec_member
+				}
+			}
+			change_relations = {
+				country = root
+				value = 200
+			}
+		}
+		every_rival_country = {
+			limit = {
+				OR = {
+					has_modifier = ztr_eu_member
+					has_modifier = ztr_eec_member
+				}
+			}
+			remove_diplomatic_pact = {
+				country = root
+				type = rivalry
+			}
+			change_relations = {
+				country = root
+				value = 200
+			}
+		}
+		ai_chance = {
+			base = 100
+		}
+	}
+
+	# Refusal option
+	option = {
+		name = ztr_eu_event.2.b
+		hidden_effect = {
+			if = {
+				limit = {
+					has_modifier = ztr_eec_member
+				}
+				remove_modifier = ztr_eec_member
+			}
+			if = {
+				limit = {
+					has_modifier = ztr_eu_member
+				}
+				remove_modifier = ztr_eu_member
+			}
+		}
+		ai_chance = {
+			base = 0
+			modifier = {
+				trigger = {
+					OR= {
+						has_law = law_type:law_single_party_state
+						has_law = law_type:law_anarchy
+						has_law = law_type:law_elder_council
+					}
+				}
+				add = 10
+			}
+		}
+	}
+}

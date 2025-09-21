@@ -3,41 +3,40 @@
 
 ztr_population_measure_decision = {
 	is_shown = {
+		# The country should be a bit advanced technologically and economically
 		has_technology_researched = central_planning
-		is_ai = yes
-		NOR = {
-			has_modifier = dev_0_country
-			has_modifier = dev_1_country
-			has_modifier = dev_2_country
-			has_modifier = dev_3_country
+		OR = {
+			has_modifier = dev_5_country
+			has_modifier = dev_6_country
+			has_modifier = dev_7_country
+			has_modifier = dev_8_country
 		}
-		has_law = law_type:law_no_health_system
+		# The country should have a poor healthcare system
+		OR = {
+			has_law = law_type:law_no_health_system
+			has_law = law_type:law_charitable_health_system
+		}
+		# The country should not be Russia (to avoid population boom issues)
+		NOT = { c:RUS = this }
 	}
 
 	possible = {
-		NOR = {
-			has_modifier = demographic_stage_0
-			has_modifier = demographic_stage_1
-			has_modifier = demographic_stage_2
-			has_modifier = demographic_stage_3
-		}
+		# The country should be in an advanced demographic stage
 		OR = {
+			has_modifier = demographic_stage_6
+			has_modifier = demographic_stage_7
+			has_modifier = demographic_stage_8
+		}
+		# The country should not have a strong devout influence
+		NOT = {
 			ig:ig_devout = {
-				is_powerful = yes
-			}
-			ig:ig_industrialists = {
-				is_powerful = yes
-			}
-			ig:ig_intelligentsia = {
-				is_powerful = yes
-			}
-			ig:ig_trade_unions = {
 				is_powerful = yes
 			}
 		}
 	}
 
 	when_taken = {
+		# Public choice
 		if = {
 			limit = {
 				AND = {
@@ -51,26 +50,70 @@ ztr_population_measure_decision = {
 			}
 			activate_law = law_type:law_public_health_insurance
 		}
+		# Private choice
 		else_if = {
 			limit = {
-				ig:ig_industrialists = {
+				AND = {
+					ig:ig_petty_bourgeoisie = {
 					is_powerful = yes
+					}
+					ig:ig_industrialists = {
+						is_powerful = yes
+					}
+				}
+			}
+			activate_law = law_type:law_private_health_insurance
+		}
+		# Mixed choice
+		else_if = {
+			limit = {
+				AND = {
+					ig:ig_intelligentsia = {
+					is_powerful = yes
+					}
+					ig:ig_industrialists = {
+						is_powerful = yes
+					}
 				}
 			}
 			activate_law = law_type:law_private_health_insurance
 		}
 		else_if = {
 			limit = {
-				ig:ig_devout = {
+				AND = {
+					ig:ig_intelligentsia = {
 					is_powerful = yes
+					}
+					ig:ig_petty_bourgeoisie = {
+						is_powerful = yes
+					}
 				}
 			}
-			activate_law = law_type:law_charitable_health_system
+			activate_law = law_type:law_private_health_insurance
+		}
+		# Single choice
+		else_if = {
+			limit = {
+				OR = {
+					ig:ig_trade_unions = {
+						is_powerful = yes
+					}
+					ig:ig_intelligentsia = {
+						is_powerful = yes
+					}
+				}
+			}
+			activate_law = law_type:law_public_health_insurance
 		}
 		else_if = {
 			limit = {
-				ig:ig_intelligentsia = {
-					is_powerful = yes
+				OR = {
+					ig:ig_industrialists = {
+						is_powerful = yes
+					}
+					ig:ig_petty_bourgeoisie = {
+						is_powerful = yes
+					}
 				}
 			}
 			activate_law = law_type:law_private_health_insurance
@@ -81,6 +124,6 @@ ztr_population_measure_decision = {
 	}
 
 	ai_chance = {
-		value = 10
+		value = 100
 	}
 }

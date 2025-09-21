@@ -82,7 +82,6 @@ modern_urban_planning = {
 	}
 
 	modifier = {
-		country_prestige_add = 100
 		state_infrastructure_from_automobiles_consumption_add = 0.25
 		state_building_construction_sector_max_level_add = 10
 		state_trade_capacity_mult = 0.05
@@ -121,14 +120,11 @@ socialdemocracy = {
 	category = society
 	modifier = {
 		political_movement_radicalism_from_enactment_disapproval_mult = -0.1
-		interest_group_ig_industrialists_pol_str_mult = -0.5
-		interest_group_ig_intelligentsia_pol_str_mult = 0.5
-		interest_group_ig_trade_unions_pol_str_mult = 0.5
-		country_authority_mult = 0.1
 		state_radicals_and_loyalists_from_sol_change_mult = 0.2
 		state_radicals_from_political_movements_mult = -0.2
 		state_expected_sol_from_literacy = 1
-		country_free_charters_add = 1
+		interest_group_ig_intelligentsia_pol_str_mult = 1
+		interest_group_ig_trade_unions_pol_str_mult = 0.5
 	}
 	unlocking_technologies = {
 		international_organizations
@@ -188,6 +184,7 @@ international_travel = {
 	texture = "gfx/interface/icons/invention_icons/international_travel.dds"
 	category = society
 	modifier = {
+		country_free_charters_add = 1
 		country_production_tech_spread_mult = 0.5
 		country_society_tech_spread_mult = 0.5
 		state_pollution_reduction_health_mult = 0.05
@@ -207,8 +204,7 @@ decolonization = {
 	texture = "gfx/interface/icons/invention_icons/decolonization.dds"
 	category = society
 	modifier = {
-		country_prestige_mult = 0.2
-		country_influence_mult = 0.1
+		country_prestige_mult = 0.25
 		country_infamy_generation_against_unrecognized_mult = 0.2
 		country_liberty_desire_of_subjects_add = 0.5
 	}
@@ -227,7 +223,6 @@ market_studies = {
 	texture = "gfx/interface/icons/invention_icons/market_studies.dds"
 	category = society
 	modifier = {
-		state_pop_qualifications_mult = 0.05
 		country_max_companies_add = 1
 	}
 	unlocking_technologies = {
@@ -248,7 +243,6 @@ cryptographic_communication = {
 	category = society
 	modifier = {
 		country_authority_mult = 0.1
-		state_bureaucracy_population_base_cost_factor_mult = -0.05
 	}
 	unlocking_technologies = {
 		mass_surveillance
@@ -282,6 +276,7 @@ computability_theory = {
 	texture = "gfx/interface/icons/invention_icons/computability_theory.dds"
 	category = society
 	modifier = {
+		state_bureaucracy_population_base_cost_factor_mult = -0.05
 	}
 	unlocking_technologies = {
 		cryptographic_communication
@@ -297,8 +292,8 @@ international_sporting_events = {
 	texture = "gfx/interface/icons/invention_icons/international_sporting_events.dds"
 	category = society
 	modifier = {
-		country_prestige_mult = 0.05
-		country_influence_mult = 0.05
+		country_prestige_mult = 0.1
+		country_influence_mult = 0.1
 		country_improve_relations_speed_mult = 0.05
 		country_infamy_decay_mult = 0.05
 	}
@@ -325,6 +320,7 @@ vaccination_campaigns = {
 
     modifier = {
         state_mortality_mult = -0.01
+		country_institution_cost_institution_health_system_mult = -0.1
 		state_harvest_condition_disease_outbreak_impact_mult = -0.1
 		state_harvest_condition_disease_outbreak_duration_mult = -0.1
     }
@@ -372,6 +368,23 @@ government_broadcasting = {
 }
 
 # Era 7
+
+neoimperialism = {
+	era = era_7
+	texture = "gfx/interface/icons/invention_icons/neoimperialism.dds"
+	category = society
+	modifier = {
+		country_influence_mult = 0.25 # Neo-colonialism, a different form of influence
+		country_institution_cost_institution_police_mult = -0.1
+	}
+	unlocking_technologies = {
+		decolonization
+	}
+		
+	ai_weight = {
+		value = 1
+	}
+}
 
 prefabricated_concrete_buildings = {
 	# Unlocks modular prefab concrete structures for construction industry
@@ -427,6 +440,7 @@ neuroscience = {
 	modifier = {
 		state_turmoil_effects_mult = -0.1
 		state_mortality_turmoil_mult = -0.1
+		state_bureaucracy_population_base_cost_factor_mult = -0.1
 		state_pop_qualifications_mult = 0.05
 	}
 
@@ -457,28 +471,11 @@ multinational_corporations = {
 		country_max_companies_add = 1
 		country_free_charters_add = 1
 		country_influence_mult = 0.1
-	}
-	unlocking_technologies = {
-		financial_deregulation
-		international_travel
-	}
-		
-	ai_weight = {
-		value = 1
-	}
-}
-
-financial_deregulation = {
-	era = era_7
-	texture = "gfx/interface/icons/invention_icons/financial_deregulation.dds"
-	category = society
-	modifier = {
 		state_urbanization_per_level_mult = -0.1
-		country_capitalists_pol_str_mult = 0.05
-		#country_trade_route_cost_mult = -0.1
 	}
 	unlocking_technologies = {
-		secure_market_transactions
+		neoimperialism
+		international_travel
 	}
 		
 	ai_weight = {
@@ -526,20 +523,16 @@ math_finance = {
 neoliberism = {
 	# To be against keynesian economics bonus or malus
 	era = era_7
-	texture = "gfx/interface/icons/invention_icons/neoliberism.dds"
+	texture = "gfx/interface/icons/invention_icons/financial_deregulation.dds"
 	category = society
 	modifier = {
 		country_free_charters_add = 1
 		country_authority_mult = -0.2
-		country_minting_mult = -0.2
-		country_loan_interest_rate_add = -0.02
 		state_shopkeepers_investment_pool_efficiency_mult = -0.05
 		building_nationalization_cost_mult = 0.25
 		state_political_strength_from_wealth_mult = 0.25
 	}
 	unlocking_technologies = {
-		financial_deregulation
-		#international_travel
 		math_finance
 	}
 		
@@ -591,11 +584,11 @@ counterculture = {
 	modifier = {
 		country_infamy_generation_mult = 0.2
 		country_infamy_generation_against_unrecognized_mult = 0.2
-		interest_group_ig_devout_pol_str_mult = -0.25
-		interest_group_ig_intelligentsia_pol_str_mult = 0.5
+		interest_group_ig_devout_pol_str_mult = -1
+		interest_group_ig_intelligentsia_pol_str_mult = 1
+		interest_group_ig_trade_unions_pol_str_mult = 0.5
 		state_expected_sol_from_literacy = 1
 		state_working_adult_ratio_add = 0.05
-		state_pop_qualifications_mult = 0.05
 	}
 	
 	unlocking_technologies = {
@@ -615,7 +608,6 @@ genetic_disease_screening = {
     category = society
 
     unlocking_technologies = {
-        molecular_biology
         vaccination_campaigns
 		funded_research_projects
     }
@@ -848,7 +840,7 @@ transnational_activism = {
 	texture = "gfx/interface/icons/invention_icons/transnational_activism.dds"
 	category = society
 	modifier = {
-		interest_group_ig_intelligentsia_pol_str_mult = 0.5
+		interest_group_ig_intelligentsia_pol_str_mult = 1
 		country_infamy_generation_mult = 0.2
 		country_infamy_generation_against_unrecognized_mult = 0.2
 		country_liberty_desire_of_subjects_add = 0.25
@@ -885,7 +877,6 @@ global_stock_market = {
 
 	modifier = {
 		country_minting_mult = 0.1
-		country_loan_interest_rate_add = -0.05
 		country_free_charters_add = 1
 		#country_trade_route_cost_mult = -0.1
 		country_government_dividends_efficiency_add = 0.05
@@ -894,7 +885,6 @@ global_stock_market = {
 	unlocking_technologies = {
 		neoliberism
 		networking_protocols
-		multinational_corporations
 	}
 		
 	ai_weight = {
@@ -937,9 +927,9 @@ globalization = {
 	}
 
 	unlocking_technologies = {
-		transnational_activism
 		global_music
 		global_stock_market
+		multinational_corporations
 	}
 		
 	ai_weight = {
@@ -1042,9 +1032,7 @@ interactive_media = {
 	era = era_9
 	texture = "gfx/interface/icons/invention_icons/interactive_media.dds"
 	category = society
-	modifier = {
-		country_influence_mult = 0.1
-	}
+
 	unlocking_technologies = {
 		global_music
 		operating_systems
@@ -1065,10 +1053,6 @@ internet = {
 		networking_protocols
 		globalization
 		operating_systems
-	}
-
-	modifier = {
-		country_influence_mult = 0.1
 	}
 		
 	ai_weight = {
@@ -1225,7 +1209,7 @@ social_media = {
 	texture = "gfx/interface/icons/invention_icons/social_media.dds"
 	category = society
 	modifier = {
-		country_influence_mult = 0.1
+		country_influence_mult = 0.25
 	}
 	unlocking_technologies = {
 		interactive_media
