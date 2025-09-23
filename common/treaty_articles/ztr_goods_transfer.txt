@@ -2,9 +2,6 @@
     kind = directed
     cost = 10
 
-    relations_progress_per_day = 0.1
-    relations_improvement_max = 20
-
 	icon = "gfx/interface/icons/diplomatic_treaties_articles_icons/goods_transfer_treaties.dds"
 
 	flags = {
@@ -26,6 +23,9 @@
 
 	visible = {
         is_junior_in_customs_union = no
+        scope:other_country ?= {
+           is_junior_in_customs_union = no
+        }
 	}
 
 	possible = {
@@ -41,7 +41,7 @@
                     }
                 }
             }
-            is_adjacent_to_country = scope:other_country
+            market = { is_adjacent_to_market = scope:other_country.market }
         }
 	}
 
@@ -53,22 +53,28 @@
                 scope:article = {
 					OR = {
                         source_country = {
-                            supply_network_strength < 0.25
-                            NOT = { is_adjacent_to_country = scope:article.target_country }
+                            supply_network_strength < 0.5
+                            NOT = { market = { is_adjacent_to_market = scope:article.target_country.market } }
                         }
 						"scope:article.input_market_goods(scope:article.source_country)" = {
-                            OR = {
-    							market_goods_production < 1
-                                market_goods_pricier > 0.70
-                            }
+							treaty_exports > market_export_cap
 						}
-                        NOT = { scope:article.source_country = { is_market_reachable_for_trade = scope:article.target_country.market } }
+                        NOT = { source_country = { is_market_reachable_for_trade = scope:article.target_country.market } }
+						source_country = {
+							NOR = {
+								market = { is_adjacent_to_market = scope:article.target_country.market }
+								any_scope_state = {
+									has_port = yes
+								}
+							}
+						}
 					}
                 }
             }
         }
     }
 
+    # root = article
     # root = article
     can_ratify = {
         scope:source_country = {
@@ -240,6 +246,10 @@
 		inherent_accept_score = {
 			value = 0
 
+			scope:article.input_goods = {
+				save_temporary_scope_as = input
+			}
+
             if = {
                 limit = {
                     exists = "scope:article.input_market_goods(root)"
@@ -256,27 +266,33 @@
                 }
 
                 add = {
-                    desc = "DIPLOMATIC_ACCEPTANCE_INPUT_QUANTITY"
-					value = scope:article.input_quantity
-					multiply = {
+                    desc = "DIPLOMATIC_ACCEPTANCE_INPUT_QUANTITY_GOODS"
+                    value = scope:article.input_quantity
+                    max = {
+                        "scope:article.input_market_goods(root)" ?= {
+                            add = market_goods_delta
+                            add = 10
+                        }
+                    }
+                    multiply = {
                         "scope:article.input_market_goods(root)" ?= {
                             value = ai_treaty_export_value:root
-							divide = 4 # Have to pay for convoys etc
+                            divide = 4 # Have to pay for convoys etc
                         }
-					}
-					divide = {
-						"scope:article.input_market_goods(root)" ?= {
-							value = market_goods_production
-						}
-						min = 10
-					}
-					max = {
-	                    "scope:article.input_market_goods(root)" ?= {
+                    }
+                    divide = {
+                        "scope:article.input_market_goods(root)" ?= {
+                            value = market_goods_production
+                        }
+                        min = 10
+                    }
+                    max = {
+                        "scope:article.input_market_goods(root)" ?= {
                             value = ai_treaty_export_value:root
-							divide = 4 # Have to pay for convoys etc
+                            divide = 4 # Have to pay for convoys etc
                         }
-						max = 50
-					}
+                        max = 50
+                    }
                 }
 
                 if = {
@@ -400,6 +416,59 @@
                         value = 1.25
                     }
                 }
+
+                if = {
+                    limit = {
+                        OR = {
+                            NOT = { exists = scope:is_treaty_active }
+                            exists = scope:is_renegotiation
+                        }
+                        scope:article.input_quantity >= {
+                            "scope:article.input_market_goods(root)" ?= {
+                                add = market_goods_delta
+                                add = 10
+                            }
+                        }
+                    }
+                    subtract = {
+                        desc = "DIPLOMATIC_ACCEPTANCE_INPUT_QUANTITY_GOODS"
+                        value = scope:article.input_quantity
+                        subtract = {
+                            "scope:article.input_market_goods(root)" ?= {
+                                add = market_goods_delta
+                                add = 10
+                            }
+                        }
+                        multiply = 0.5
+
+                        if = {
+                            limit = {
+                                "scope:article.input_market_goods(root)" ?= {
+                                    goods ?= {
+                                        g:grain ?= this
+                                    }
+                                }
+                            }
+                            multiply = 6
+                        }
+                        else_if = {
+                            limit = {
+                                "scope:article.input_market_goods(root)" ?= {
+                                    goods ?= {
+                                        OR = {
+                                            g:fish ?= this
+                                            g:meat ?= this
+                                            g:fruit ?= this
+                                            g:groceries ?= this
+                                        }
+                                    }
+                                }
+                            }
+                            multiply = 3
+                        }
+                        max = 1000
+                    }
+                }
             }
             else_if = {
                 limit = {
@@ -408,18 +477,18 @@
                     "scope:article.input_market_goods(root)" ?= {
                         ai_treaty_import_value:root > 0
                     }
-                    scope:article.input_quantity <= {
+                }
+
+                add = {
+                    desc = "DIPLOMATIC_ACCEPTANCE_INPUT_QUANTITY_GOODS"
+                    value = scope:article.input_quantity
+                    max = {
                         "scope:article.input_market_goods(root)" ?= {
                             add = market_goods_delta
                             multiply = -1
                             add = 10
                         }
                     }
-                }
-
-                add = {
-                    desc = "DIPLOMATIC_ACCEPTANCE_INPUT_QUANTITY"
-                    value = scope:article.input_quantity
 					multiply = {
                         "scope:article.input_market_goods(root)" ?= {
                             value = ai_treaty_import_value:root
@@ -506,6 +575,7 @@
                                 OR = {
                                     g:fertilizer ?= this
                                     g:tools ?= this
+                                    g:light_fuel ?= this
                                 }
                             }
                         }
@@ -523,8 +593,7 @@
 								OR = {
 									g:explosives ?= this
 									g:tools ?= this
-                                    #T&R
-                                    g:robotics ?= this
+                                    g:light_fuel ?= this
 								}
 							}
                         }
@@ -532,6 +601,32 @@
                     multiply = {
                         desc = "DIPLOMATIC_ACCEPTANCE_RESOURCE_EXPANSION"
                         value = 1.25
+                    }
+                }
+
+                if = {
+                    limit = {
+                        scope:article.input_quantity >= {
+                            "scope:article.input_market_goods(root)" ?= {
+                                add = market_goods_delta
+                                multiply = -1
+                                add = 10
+                            }
+                        }
+                    }
+                    subtract = {
+                        desc = "DIPLOMATIC_ACCEPTANCE_INPUT_QUANTITY_GOODS"
+                        value = scope:article.input_quantity
+                        subtract = {
+                            "scope:article.input_market_goods(root)" ?= {
+                                add = market_goods_delta
+                                multiply = -1
+                                add = 10
+                            }
+                        }
+                        multiply = 0.5
+
+                        max = 1000
                     }
                 }
             }
@@ -561,11 +656,16 @@
 	}
 
 	wargoal = {
-		execution_priority = 60
-		contestion_type = control_target_country_capital
+		execution_priority = 21
+		contestion_type = control_any_target_incorporated_state
 
 		maneuvers = {
-			value = 2.5
+			value = 0
+
+			add = {
+				desc = "MANEUVERS_BASE_VALUE"
+				value = 2.5
+			}
 
 			if = {
 				limit = {
@@ -574,15 +674,46 @@
 				}
 
 				add = {
+					desc = "MANEUVERS_QUANTITY_FACTOR"
 					value = scope:quantity
 					divide = {
 						value = scope:market_goods.market_goods_sell_orders
 						min = 10
 					}
 					multiply = 15
-					subtract = 5
 					min = 0
 					max = 10
+
+                    if = {
+                        limit = {
+                            scope:market_goods ?= {
+                                goods ?= {
+                                    g:grain ?= this
+                                }
+                            }
+                        }
+                        multiply = 6
+                    }
+                    else_if = {
+                        limit = {
+                            scope:market_goods ?= {
+                                goods ?= {
+                                    OR = {
+                                        g:fish ?= this
+                                        g:meat ?= this
+                                        g:fruit ?= this
+                                        g:groceries ?= this
+                                    }
+                                }
+                            }
+                        }
+                        multiply = 3
+                    }
+                    max = {
+                        value = scope:market_goods.market_goods_sell_orders
+                        max = 50
+                        min = 5
+                    }
 				}
 			}
 		}
@@ -597,15 +728,46 @@
 				}
 
 				add = {
+					desc = "INFAMY_QUANTITY_FACTOR"
 					value = scope:quantity
 					divide = {
 						value = scope:market_goods.market_goods_sell_orders
 						min = 10
 					}
-					multiply = 20
-					subtract = 5
+					multiply = 15
 					min = 0
 					max = 20
+
+                    if = {
+                        limit = {
+                            scope:market_goods ?= {
+                                goods ?= {
+                                    g:grain ?= this
+                                }
+                            }
+                        }
+                        multiply = 6
+                    }
+                    else_if = {
+                        limit = {
+                            scope:market_goods ?= {
+                                goods ?= {
+                                    OR = {
+                                        g:fish ?= this
+                                        g:meat ?= this
+                                        g:fruit ?= this
+                                        g:groceries ?= this
+                                    }
+                                }
+                            }
+                        }
+                        multiply = 3
+                    }
+                    max = {
+                        value = scope:market_goods.market_goods_sell_orders
+                        max = 75
+                        min = 10
+                    }
 				}
 			}
 		}

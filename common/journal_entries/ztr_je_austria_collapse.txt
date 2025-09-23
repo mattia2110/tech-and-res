@@ -3,10 +3,11 @@ je_austrian_empire_collapse = {
 	group = je_group_historical_content
 
 	is_shown_when_inactive = {
-		has_game_rule = allow_ztr_historical_content
-		year > 1900
-		exists = c:AUS
-        THIS = c:AUS
+		# has_game_rule = allow_ztr_historical_content
+		# year > 1900
+		# exists = c:AUS
+        # THIS = c:AUS
+		always = no # Temporarily disabled as vanilla has added Austria Decline Flavor
 	}
 
 	possible = {
@@ -202,10 +203,10 @@ je_austrian_empire_collapse = {
 		s:STATE_MORAVIA.region_state:AUS = {
 			set_state_owner = c:CZH
 		}
-		s:STATE_WEST_SLOVAKIA.region_state:AUS = {
+		s:STATE_SLOVAKIA.region_state:AUS = {
 			set_state_owner = c:CZH
 		}
-		s:STATE_EAST_SLOVAKIA.region_state:AUS = {
+		s:STATE_RUTHENIA.region_state:AUS = {
 			set_state_owner = c:CZH
 		}
 
@@ -214,7 +215,7 @@ je_austrian_empire_collapse = {
 			limit = {
 				NOT = {	exists = c:CZH }
 				var:czech_civil_rights_var = 2
-				s:STATE_WEST_SLOVAKIA = {
+				s:STATE_SLOVAKIA = {
 					any_scope_state = {
 					owner = ROOT
 					}
@@ -223,7 +224,7 @@ je_austrian_empire_collapse = {
 			create_country = {
 				tag = SLV
 				origin = this
-				state = s:STATE_WEST_SLOVAKIA.region_state:AUS
+				state = s:STATE_SLOVAKIA.region_state:AUS
 				on_created = {
 					set_country_type = recognized
 					activate_law = law_type:law_parliamentary_republic
@@ -231,7 +232,7 @@ je_austrian_empire_collapse = {
 				}
 			}
 		}
-		s:STATE_EAST_SLOVAKIA.region_state:AUS = {
+		s:STATE_RUTHENIA.region_state:AUS = {
 			set_state_owner = c:SLV
 		}
 

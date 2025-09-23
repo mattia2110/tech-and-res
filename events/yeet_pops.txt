@@ -1,0 +1,180 @@
+﻿namespace = yeet_pops
+
+# Thanks to Glompspark and Caracus for the on_action lag fix
+
+yeet_pops.1 = {
+	type = country_event
+	placement = ROOT
+	hidden = yes
+
+	title = yeet_pops.1.t
+
+	flavor = yeet_pops.1.f
+
+	event_image = {
+		video = "gfx/event_pictures/unspecific_ruler_speaking_to_people.bk2"
+	}
+	icon = "gfx/interface/icons/event_icons/event_portrait.dds"
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	on_opened_soundeffect = "event:/SFX/Events/unspecific/leader_speaking_to_a_group_of_people"
+
+	trigger = {
+		has_game_rule = allow_ztr_pop_lag_fix
+		NOT = {
+			c:CHI ?= this
+			OR = { 
+				has_journal_entry = je_chinese_missions
+				has_journal_entry = je_heavenly_kingdom_main
+			}
+		}
+		is_secessionist = no
+		game_date < 1936.1.1
+	}
+
+	immediate = {
+
+			ordered_primary_culture = {
+				position = 0
+				save_scope_as = primary_culture
+			}
+	
+			every_state = {
+				limit = {
+					owner = root
+				}
+	
+				this = {
+					save_scope_as = executing_state
+				}
+	
+				every_scope_pop = {
+					limit = {
+						this.culture = {
+							NOT = { 
+								is_primary_culture_of = root
+							}
+							NOT = { 
+								has_homeland = scope:executing_state
+							}
+						}
+						OR = { 
+							pop_acceptance >= 60
+							total_size < 10000
+							root = {
+								has_law = law_type:law_multicultural
+							}
+							AND = {
+								root = {
+									has_law = law_type:law_cultural_exclusion
+								}
+								this.culture = {
+									shares_heritage_trait_with_any_primary_culture = root
+								}
+							}	
+							AND = {
+								root = {
+									has_law = law_type:law_racial_segregation
+								}
+								this.culture = {
+									shares_heritage_and_other_trait_with_any_primary_culture = root
+								}
+							}	
+							
+						}
+						
+					}
+					change_pop_culture = { target = scope:primary_culture value = 1 }
+				}
+	
+				every_scope_pop = {
+					limit = {
+						has_state_religion = no
+						OR = { 
+							pop_acceptance >= 60
+							total_size < 10000
+							#root = {
+								#has_law = law_type:law_total_separation
+							#}
+						}
+					}
+					change_pop_religion = { target = root.religion value = 1 }
+				}
+			}
+		
+	}
+}
+
+yeet_pops.2 = {
+	type = country_event
+	placement = ROOT
+	hidden = yes
+
+	title = yeet_pops.1.t
+
+	flavor = yeet_pops.1.f
+
+	event_image = {
+		video = "gfx/event_pictures/unspecific_ruler_speaking_to_people.bk2"
+	}
+	icon = "gfx/interface/icons/event_icons/event_portrait.dds"
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	on_opened_soundeffect = "event:/SFX/Events/unspecific/leader_speaking_to_a_group_of_people"
+
+	trigger = {
+		OR = {
+			has_game_rule = allow_ztr_pop_lag_fix
+			has_game_rule = mid_ztr_pop_lag_fix
+		}
+		NOT = {
+			c:CHI ?= this
+			OR = { 
+				has_journal_entry = je_chinese_missions
+				has_journal_entry = je_heavenly_kingdom_main
+			}
+		}
+		is_secessionist = no
+		game_date >= 1936.1.1
+	}
+
+	immediate = {
+
+			ordered_primary_culture = {
+				position = 0
+				save_scope_as = primary_culture
+			}
+	
+			every_state = {
+				limit = {
+					owner = root
+				}
+	
+				this = {
+					save_scope_as = executing_state
+				}
+	
+				every_scope_pop = {
+					limit = {
+						this.culture = {
+							NOT = { 
+								is_primary_culture_of = root
+							}
+							NOT = { 
+								has_homeland = scope:executing_state
+							}
+						}
+					}
+					change_pop_culture = { target = scope:primary_culture value = 1 }
+				}
+	
+				every_scope_pop = {
+					limit = {
+						has_state_religion = no
+					}
+					change_pop_religion = { target = root.religion value = 1 }
+				}
+			}
+		
+	}
+}

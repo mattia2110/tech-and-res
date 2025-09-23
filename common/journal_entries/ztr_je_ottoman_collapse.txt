@@ -3,10 +3,11 @@ je_ottoman_empire_collapse = {
     group = je_group_historical_content
 
     is_shown_when_inactive = {
-        has_game_rule = allow_ztr_historical_content
-        year > 1900
-        exists = c:TUR
-        THIS = c:TUR
+        # has_game_rule = allow_ztr_historical_content
+        # year > 1900
+        # exists = c:TUR
+        # THIS = c:TUR
+        always = no # Temporarily disabled as vanilla has added Ottoman Decline Flavor
     }
 
     possible = {
@@ -234,14 +235,14 @@ je_ottoman_empire_collapse = {
         if = {
             limit = {
                 NOT = { exists = c:SER }
-                s:STATE_SOUTHERN_SERBIA = {
+                s:STATE_WESTERN_SERBIA = {
                     any_scope_state = { owner = ROOT }
                 }
             }
             create_country = {
                 tag    = SER
                 origin = this
-                state  = s:STATE_SOUTHERN_SERBIA.region_state:TUR
+                state  = s:STATE_WESTERN_SERBIA.region_state:TUR
                 on_created = {
                     set_country_type = recognized
                     activate_law     = law_type:law_parliamentary_republic
@@ -249,10 +250,10 @@ je_ottoman_empire_collapse = {
                 }
             }
         }
-        s:STATE_SOUTHERN_SERBIA.region_state:TUR = {
+        s:STATE_WESTERN_SERBIA.region_state:TUR = {
 			set_state_owner = c:SER
 		}
-		s:STATE_NORTHERN_SERBIA.region_state:TUR = {
+		s:STATE_EASTERN_SERBIA.region_state:TUR = {
 			set_state_owner = c:SER
 		}
 		s:STATE_SKOPIA.region_state:TUR = {
