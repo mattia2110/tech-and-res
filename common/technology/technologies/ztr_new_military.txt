@@ -714,12 +714,6 @@ high_performance_apparel = {
 	era = era_8
 	texture = "gfx/interface/icons/invention_icons/high_performance_apparel.dds"
 	category = military
-
-	modifier = {
-		country_military_wages_mult = 0.25
-		country_military_goods_cost_mult = 0.25
-		unit_army_defense_mult = 0.5
-	}
 	
 	unlocking_technologies = {	
 		composite_armor
@@ -872,7 +866,7 @@ military_uav = {
 }
 
 military_ugv = {
-	era = era_10
+	era = era_9
 	texture = "gfx/interface/icons/invention_icons/military_ugv.dds"
 	category = military
 
@@ -881,7 +875,8 @@ military_ugv = {
 	}
 
 	modifier = {
-
+		unit_army_offense_mult = 0.05
+		unit_army_defense_mult = 0.05
 	}
 
 	ai_weight = {
@@ -952,6 +947,26 @@ directed_energy_weapons = {
 
 # ERA 10
 
+exoskeleton_warfare = {
+	era = era_10
+	texture = "gfx/interface/icons/invention_icons/exoskeleton_warfare.dds"
+	category = military
+
+	modifier = {
+		country_military_wages_mult = 0.25
+		country_military_goods_cost_mult = 0.25
+		unit_army_defense_mult = 0.5
+	}
+	
+	unlocking_technologies = {	
+		cyber_warfare
+	}
+	
+	ai_weight = {
+		value = 1
+	}
+}
+
 ai_warfare = {
 	era = era_10
 	texture = "gfx/interface/icons/invention_icons/ai_warfare.dds"
@@ -961,7 +976,7 @@ ai_warfare = {
 	}
 	
 	unlocking_technologies = {	
-		military_uav
+		military_ugv
 		network_centric_warfare
 	}
 	
@@ -969,3 +984,29 @@ ai_warfare = {
 		value = 1
 	}
 }
+
+# This next technology will unlock Giant Death Robot, the strongest military unit in the game.
+# This tech is a generalition of what discover
+
+mecha_engineering = {
+	era = era_11
+	texture = "gfx/interface/icons/invention_icons/mecha_engineering.dds"
+	category = military
+
+	modifier = {
+		building_robotics_industry_throughput_add = 0.05
+		country_military_wages_mult = 0.25
+		country_military_goods_cost_mult = 0.25
+	}
+	
+	unlocking_technologies = {	
+		ai_warfare
+		#exoskeleton_warfare
+	}
+	
+	ai_weight = {
+		value = 1
+	}
+}
+
+

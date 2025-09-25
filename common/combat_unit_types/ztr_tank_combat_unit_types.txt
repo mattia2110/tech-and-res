@@ -35,6 +35,7 @@ combat_unit_type_heavy_tank = {
     upgrades = {
         combat_unit_type_modern_heavy_tank
         combat_unit_type_main_battle_tanks
+        combat_unit_type_giant_death_robot
     }
 }
 
@@ -46,14 +47,14 @@ combat_unit_type_modern_heavy_tank = {
         goods_input_tanks_add = 4 #320
         goods_input_artillery_add = 5 #350
         goods_input_electroniccomponents_add = 1 #80
-		goods_input_ammunition_add = 4 #280
+		goods_input_ammunition_add = 4 #200
         goods_input_radios_add = 1 #80
-        goods_input_light_fuel_add = 2 #140 #1250
+        goods_input_light_fuel_add = 2 #140 #1170
     }
 
     battle_modifier = {
         unit_offense_add = 90
-        unit_defense_add = 50
+        unit_defense_add = 55
         unit_morale_loss_add = 5
         unit_kill_rate_add = 0.25
         unit_morale_damage_mult = 0.15
@@ -73,6 +74,7 @@ combat_unit_type_modern_heavy_tank = {
 
     upgrades = {
         combat_unit_type_main_battle_tanks
+        combat_unit_type_giant_death_robot
     }
 }
 
@@ -81,11 +83,11 @@ combat_unit_type_light_tanks = {
     max_manpower = 1000
     
     upkeep_modifier = {
-        goods_input_tanks_add = 2 #240
-        goods_input_artillery_add = 2 #280
+        goods_input_tanks_add = 2 #160
+        goods_input_artillery_add = 2 #140
         goods_input_light_fuel_add = 1 #70
-        goods_input_ammunition_add = 2 #140
-        goods_input_radios_add = 2 #80 #810
+        goods_input_ammunition_add = 2 #100
+        goods_input_radios_add = 2 #160 #630
     }
 
     battle_modifier = {
@@ -109,6 +111,7 @@ combat_unit_type_light_tanks = {
     upgrades = {
         combat_unit_type_modern_light_tanks
         combat_unit_type_main_battle_tanks
+        combat_unit_type_giant_death_robot
     }
 }
 
@@ -121,13 +124,13 @@ combat_unit_type_modern_light_tanks = {
         goods_input_artillery_add = 3 #210
         goods_input_light_fuel_add = 1 #70
         goods_input_electroniccomponents_add = 1 #80
-        goods_input_ammunition_add = 2 #140
-        goods_input_radios_add = 2 #160 #900
+        goods_input_ammunition_add = 2 #100
+        goods_input_radios_add = 2 #160 #860
     }
 
     battle_modifier = {
         unit_offense_add = 65
-        unit_defense_add = 60
+        unit_defense_add = 65
         unit_morale_loss_add = 4
         unit_devastation_mult = 0.1
         unit_occupation_mult = 0.3
@@ -145,21 +148,21 @@ combat_unit_type_modern_light_tanks = {
 
     upgrades = {
         combat_unit_type_main_battle_tanks
+        combat_unit_type_giant_death_robot
     }
 }
 
 combat_unit_type_main_battle_tanks = {
     group = combat_unit_group_cavalry
-    max_manpower = 1000
+    max_manpower = 800 #1000
     
     upkeep_modifier = {
         goods_input_tanks_add = 4 #320
-        goods_input_artillery_add = 3 #210
+        goods_input_artillery_add = 4 #280
         goods_input_light_fuel_add = 1 #70
-        goods_input_processors_add = 1 #130
-        goods_input_ammunition_add = 2 #140
-        goods_input_radios_add = 1 #80
-        goods_input_computer_add = 1 #140 #1090
+        goods_input_electroniccomponents_add = 2 #160
+        goods_input_ammunition_add = 3 #150
+        goods_input_radios_add = 2 #160 #1140
     }
 
     battle_modifier = {
@@ -180,41 +183,42 @@ combat_unit_type_main_battle_tanks = {
     combat_unit_image = {
         texture = "gfx/unit_illustrations/cavalry_main_battle_tank.dds"
     }
+
+    upgrades = {
+        combat_unit_type_giant_death_robot
+    }
 }
 
-# combat_unit_type_modern_main_battle_tanks = {
-#     group = combat_unit_group_cavalry
-
-#     can_build_conscript = {
-#         NOT = {
-#             has_law = law_type:law_peasant_levies
-#         }
-#     }
+#Civ 6 Giant Death Robot
+combat_unit_type_giant_death_robot = {
+    group = combat_unit_group_cavalry
+    max_manpower = 500
     
-#     upkeep_modifier = {
-#         goods_input_tanks_add = 3
-#         goods_input_artillery_add = 3
-#         goods_input_light_fuel_add = 1
-#         goods_input_electroniccomponents_add = 1
-#         goods_input_ammunition_add = 2
-#         goods_input_radios_add = 2
-#     }
+    upkeep_modifier = {
+        goods_input_tanks_add = 4 #320
+        goods_input_artillery_add = 4 #280
+        goods_input_good_uranium_add = 5 #200
+        goods_input_robotics_add = 5 # 500
+        goods_input_processors_add = 5 #650
+        goods_input_ammunition_add = 4 #200 #2150
+    }
 
-#     battle_modifier = {
-#         unit_offense_add = 70
-#         unit_defense_add = 65
-#         unit_morale_loss_add = 4
-#         unit_devastation_mult = 0.1
-#         unit_occupation_mult = 0.3
-#     }
+    battle_modifier = {
+        unit_offense_add = 225
+        unit_defense_add = 125
+        unit_morale_loss_add = 5
+        unit_kill_rate_add = 0.3
+        unit_devastation_mult = 0.2
+        unit_occupation_mult = 0.4
+    }
 
-#     formation_modifier = {
-#         military_formation_mobilization_speed_mult = 0.2
-#     }
+    formation_modifier = {
+        military_formation_mobilization_speed_mult = 0.25
+    }
 
-# 	unlocking_technologies = { main_battle_tank }
+	unlocking_technologies = { mecha_engineering }
 
-#     combat_unit_image = {
-#         texture = "gfx/unit_illustrations/cavalry_light_tank.dds"
-#     }
-# }
+    combat_unit_image = {
+        texture = "gfx/unit_illustrations/civ_huge_death_robot.dds"
+    }
+}
