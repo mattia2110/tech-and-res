@@ -1,5 +1,142 @@
 ﻿#VANILLA
 
+mobilization_option_basic_supplies = {
+	texture = "gfx/interface/icons/mobilization_options/basic_supplies.dds"
+	can_be_turned_off = {
+		custom_tooltip = {
+		    text = mobilization_option_basic_supplies_can_be_turned_off_tt
+			always = no
+		}
+	}
+	upkeep_modifier = {
+		goods_input_grain_add = 0.75
+	}
+	upkeep_modifier_unscaled = {
+        goods_input_small_arms_mult = 0.1
+        goods_input_artillery_mult = 0.1
+		goods_input_ammunition_mult = 0.1
+        goods_input_oil_mult = 0.1
+        goods_input_radios_mult = 0.1
+        goods_input_tanks_mult = 0.1
+	}
+
+	unit_modifier = {
+		# empty on purpose - this is the minimum mobilization cost
+	}
+	ai_weight = {
+		value = 1
+	}
+
+	group = supplies
+}
+
+mobilization_option_extra_supplies = {
+	texture = "gfx/interface/icons/mobilization_options/extra_supplies.dds"
+
+	possible = {
+		market ?= {
+			mg:groceries ?= {
+				has_potential_supply = yes
+			}
+		}
+	}
+
+	unlocking_technologies = {
+		army_reserves
+	}
+
+	on_deactivate_while_mobilized = {
+		custom_tooltip = {
+			text = mobilization_option_it_hurts_morale_when_you_remove_supplies_while_in_combat_tt
+			every_combat_unit = {
+				add_morale = {
+					value = morale
+					multiply = -0.5
+				}
+			}
+		}
+	}
+
+	upkeep_modifier = {
+		goods_input_groceries_add = 1.5
+	}
+	upkeep_modifier_unscaled = {
+        goods_input_small_arms_mult = 0.05
+        goods_input_artillery_mult = 0.05
+		goods_input_ammunition_mult = 0.05
+        goods_input_oil_mult = 0.05
+        goods_input_radios_mult = 0.05
+        goods_input_tanks_mult = 0.05
+	}
+
+	unit_modifier = {
+		unit_morale_loss_mult = -0.05
+		unit_offense_mult = 0.1
+		unit_defense_mult = 0.1
+	}
+	ai_weight = {
+		value = 1
+	}
+
+	group = supplies
+}
+
+mobilization_option_luxurious_supplies = {
+	texture = "gfx/interface/icons/mobilization_options/luxurious_supplies.dds"
+
+	possible = {
+		scope:military_formation = { has_mobilization_option = mobilization_option:mobilization_option_extra_supplies }
+		market ?= {
+			mg:meat ?= {
+				has_potential_supply = yes
+			}
+			mg:wine ?= {
+				has_potential_supply = yes
+			}
+		}
+	}
+
+	unlocking_technologies = {
+		military_statistics
+	}
+
+	on_deactivate_while_mobilized = {
+		custom_tooltip = {
+			text = mobilization_option_it_hurts_morale_when_you_remove_supplies_while_in_combat_tt
+			every_combat_unit = {
+				add_morale = {
+					value = morale
+					multiply = -0.5
+				}
+			}
+		}
+	}
+
+	upkeep_modifier = {
+		goods_input_meat_add = 1.5
+		goods_input_wine_add = 1.5
+	}
+	upkeep_modifier_unscaled = {
+        goods_input_small_arms_mult = 0.05
+        goods_input_artillery_mult = 0.05
+		goods_input_ammunition_mult = 0.05
+        goods_input_oil_mult = 0.05
+        goods_input_radios_mult = 0.05
+        goods_input_tanks_mult = 0.05
+	}
+
+	unit_modifier = {
+		unit_morale_loss_mult = -0.05
+		unit_offense_mult = 0.1
+		unit_defense_mult = 0.1
+	}
+	ai_weight = {
+		value = 1
+	}
+
+	group = supplies
+}
+
 mobilization_option_aerial_recon = {
 	texture = "gfx/interface/icons/mobilization_options/aerial_reconaissance.dds"
 

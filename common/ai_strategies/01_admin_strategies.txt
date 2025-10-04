@@ -35,6 +35,7 @@
 				NOR = {
 					country_has_state_religion = rel:sunni
 					country_has_state_religion = rel:shiite
+					country_has_state_religion = rel:ibadi
 				}
 				kai_has_high_supply = { GOODS = wine }
 			}
@@ -331,7 +332,7 @@ ai_strategy_industrial_expansion = {
 		raw_data = {
 			stance = wants_high_supply
 			trigger = {
-				has_technology_researched = data_processing
+				has_technology_researched = data_infrastructures
 			}
 		}
 		organized_data = {
@@ -375,88 +376,28 @@ ai_strategy_industrial_expansion = {
 
 		if = {
 			limit = {
-				exists = c:GBR
-				c:GBR = this
-			}
-			add = 150
-		}
-		if = {
-			limit = {
-				exists = c:USA
-				c:USA = this
-			}
-			add = 150
-		}
-		if = {
-			limit = {
-				exists = c:FRA
-				c:FRA = this
-			}
-			add = 150
-		}
-		if = {
-			limit = {
-				exists = c:BEL
-				c:BEL = this
-			}
-			add = 150
-		}
-		if = {
-			limit = {
-				exists = c:NET
-				c:NET = this
-			}
-			add = 150
-		}
-		if = {
-			limit = {
-				exists = c:SWE
-				c:SWE = this
-			}
-			add = 150
-		}
-		if = {
-			limit = {
-				exists = c:NOR
-				c:NOR = this
-			}
-			add = 150
-		}
-		if = {
-			limit = {
-				exists = c:CAN
-				c:CAN = this
-			}
-			add = 150
-		}
-		if = {
-			limit = {
-				exists = c:DEN
-				c:DEN = this
-			}
-			add = 150
-		}
-		if = {
-			limit = {
-				exists = c:AST
-				c:AST = this
-			}
-			add = 150
-		}
-		if = {
-			limit = {
-				exists = c:SWI
-				c:SWI = this
+				OR = {
+					c:GBR ?= this
+					c:USA ?= this
+					c:FRA ?= this
+					c:BEL ?= this
+					c:NET ?= this
+					c:SWE ?= this
+					c:NOR ?= this
+					c:DEN ?= this
+					c:CAN ?= this
+					c:AST ?= this
+
+				}
 			}
 			add = 150
 		}
 
-		# This is for Germany, France and North Italy
+		# This is for Germany, Switzerland, France and North Italy
 		if = {
 			limit = { 
 				year > 1850
 				country_is_in_europe = yes
-				NOT = { c:EGY = this }
 				NOT = { c:TUR = this }
 			}
 			add = 250
@@ -464,16 +405,11 @@ ai_strategy_industrial_expansion = {
 		if = {
 			limit = {
 				year < 1870
-				exists = c:AUS
-				c:AUS = this
-			}
-			add = -150
-		}
-		if = {
-			limit = {
-				year < 1880
-				exists = c:ITA
-				c:ITA = this
+				OR = {
+					c:AUS ?= this
+					c:HUN ?= this
+					c:ITA ?= this
+				}
 			}
 			add = -150
 		}
@@ -500,36 +436,21 @@ ai_strategy_industrial_expansion = {
 			}
 			add = -250
 		} # Actually Russia never industrialize like the west
-		if = {
-			limit = {
-				year > 1950
-				exists = c:JAP
-				c:JAP = this
-			}
-			add = 250
-		} # This is especially for Japan without Meiji restoration.
 
 		if = {
 			limit = {
 				year > 1960
-				exists = c:KOR
-				c:KOR = this
+				OR = {
+					c:KOR ?= this
+					c:JAP ?= this
+				}
 			}
 			add = 250
-		}
+		} # This is for Japan without Meiji restoration.
 
 		if = {
 			limit = { 
-				year > 1990
-				exists = c:CHI
-				c:CHI = this
-			}
-			add = 250
-		}
-		
-		if = {
-			limit = { 
-				year > 2000
+				year > 1980
 				country_is_in_east_asia = yes
 			}
 			add = 250
@@ -545,6 +466,22 @@ ai_strategy_industrial_expansion = {
 				}
 			}
 			add = 1000
+		}
+
+		if = { # Grunderzeit
+			limit = {
+				has_journal_entry = je_grunderzeit
+			}
+			add = 100
+		}
+
+		# Metternich agenda of 1844 - inclined to industrialise
+		if = {
+			limit = {
+				c:AUS ?= this
+				has_journal_entry = je_metternich
+			}
+			add = 10
 		}
 
 		if = {
@@ -644,6 +581,51 @@ ai_strategy_colonial_extraction = {
     possible = {
     	is_subject = yes
     	is_country_type = colonial
+    }
+
+    weight = {
+        value = 100
+    }
+}
+
+ai_strategy_montenegro_admin = {
+    icon = "gfx/interface/icons/ai_strategy_icons/placate_population.dds"
+
+    type = administrative
+    building_group_weights = {
+		bg_private_infrastructure = 2.0
+		bg_agriculture = 2.0
+		bg_ranching = 2.0
+		bg_logging = 1.5
+		bg_manufacturing = 0.5
+    }
+
+    subsidies = {
+        building_trade_center = must_have
+    }
+
+    goods_stances = {
+		grain = { stance = wants_high_supply }
+		meat = { stance = wants_high_supply }
+		fish = { stance = wants_high_supply }
+		fruit = { stance = wants_high_supply }
+		fabric = { stance = wants_high_supply }
+		wood = { stance = wants_high_supply }
+		liquor = { stance = wants_high_supply }
+		small_arms = { stance = wants_high_supply }
+	}
+    possible = {
+    	c:MON ?= this
+		NOR = {
+			any_scope_state = { # Has a port
+				has_building = building_port
+			}
+			ROOT.market_capital = { # Is in another market
+				NOT = {
+					owner = ROOT
+				}
+			}
+		}
     }
 
     weight = {

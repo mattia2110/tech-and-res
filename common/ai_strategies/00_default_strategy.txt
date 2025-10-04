@@ -1823,15 +1823,19 @@ ai_strategy_default = {
 				multiply = 0
 			}
 
-			if = { #Do Not Take Chinese States In Full, unless another power has already done so
+			if = { #Do Not Take core Chinese States In Full, unless another power has already done so
 				limit = {
 					country_rank >= rank_value:major_power
 					scope:target_state = {
-						owner = { has_journal_entry = je_warlord_china }
+						owner = {
+							OR = {
+								c:CHI ?= this
+								c:TPG ?= this
+							}
+						}
 						OR = {
 							region = sr:region_north_china
 							region = sr:region_south_china
-							region = sr:region_manchuria
 						}
 					}
 					OR = {
@@ -1843,6 +1847,7 @@ ai_strategy_default = {
 						sr:region_north_china = {
 							any_scope_state = {
 								NOT = { is_treaty_port = yes }
+								is_largest_state_in_region = yes
 								owner = {
 									NOT = { THIS = ROOT }
 									country_rank >= rank_value:major_power
@@ -1857,20 +1862,7 @@ ai_strategy_default = {
 						sr:region_south_china = {
 							any_scope_state = {
 								NOT = { is_treaty_port = yes }
-								owner = {
-									NOT = { THIS = ROOT }
-									country_rank >= rank_value:major_power
-									OR = {
-										country_is_in_north_america = yes
-										country_is_in_europe = yes
-										country_is_in_south_america = yes
-									}
-								}
-							}
-						}
-						sr:region_manchuria = {
-							any_scope_state = {
-								NOT = { is_treaty_port = yes }
+								is_largest_state_in_region = yes
 								owner = {
 									NOT = { THIS = ROOT }
 									country_rank >= rank_value:major_power
@@ -3894,7 +3886,6 @@ ai_strategy_default = {
 
 		add = {
 			value = investment_pool_income
-			#T&R
 			subtract = 5000 # So small nations don't overshoot early on
 			divide = 500 # 1 construction output per this much into the investment pool
 			min = 0
@@ -3939,6 +3930,27 @@ ai_strategy_default = {
 		add = 10 # Accounts for the 10 free construction from base modifiers
 
 		min = 10
+	}
+		
+	# How much does the AI want to prioritize economic construction vs government spending?
+	# Having a value above 0 here makes the AI less willing to spend on government expenses and more willing to take on debt to build production buildings
+	# Values below 0 have the opposite effect and thus also increase AI government spending
+	# +0.1 = +10% higher acceptable debt threshold for economic construction / +10% stricter budget requirements for government expenses
+	# Acceptable debt threshold for economic construction is capped at CONSTRUCTION_DEBT_PAUSE
+	# Using this value in other strategies will function additively
+	economic_vs_government_spending_balance = {
+		value = 0.0
+		if = {
+			limit = {
+				is_at_war = no
+				kai_interest_rate < {
+					value = kai_income_efficiency
+					# It costs 300k to create jobs for 5k pops
+					divide = 60
+				}
+			}
+			add = 0.4
+		}
 	}
 
 	# How many levels of barracks should the AI have
@@ -4123,20 +4135,6 @@ ai_strategy_default = {
 			multiply = 2.5
 		}
 
-
-		if = {
-			limit = {
-				capital = {
-					OR = {
-						region = sr:region_england
-						region = sr:region_north_sea_coast
-					}
-				}
-			}
-
-			multiply = 0.75
-		}
-
 		min = {
 			value = 1
 
@@ -4193,16 +4191,7 @@ ai_strategy_default = {
 			max = 1.0
 		}
 		
-		#T&R
-		if = {
-			limit = {
-				year < 1945
-			}
-			max = 50 # No more than 50 from population
-		}
-		else = {
-			max = 200 # No more than 200 from population after 1945
-		}
+		max = 50 # No more than 50 from population
 
 		# 1 level of naval base per 5k income, multiplied by relative incorporated coastal population to total incorporated population
 		if = {
@@ -4217,20 +4206,6 @@ ai_strategy_default = {
 				divide = 5000
 				multiply = 1.4 # KAI: To compensate for the difference from excluding investment pool
 			}
-		}
-
-		#T&R First and Second Great Powers are always in a naval race
-		if = {
-			limit = {
-				global_country_ranking = 1
-			}
-			add = 100
-		}
-		if = {
-			limit = {
-				global_country_ranking = 2
-			}
-			add = 75
 		}
 
 		if = { # GPs and MPs should want to maintain a bit of a navy
@@ -4386,7 +4361,7 @@ ai_strategy_default = {
 		value = 0.5
 		if = {
 			limit = { has_law_or_variant = law_type:law_national_militia }
-			add = 2.5
+			add = 4.5
 		}
 		else_if = {
 			limit = { has_law_or_variant = law_type:law_peasant_levies }
@@ -4466,10 +4441,10 @@ ai_strategy_default = {
 	# Using a different value in a strategy will override this value
 	subsidies = {
 		building_power_plant = wants_to_have
-		building_railway = must_have
+		building_railway = wants_to_have
 		building_port = must_have
 		#T&R
-		building_telecommunications_industry = must_have
+		building_telecommunications_industry = wants_to_have
 	}
 
 	# Specifying values here will override subsidy priorities while at war

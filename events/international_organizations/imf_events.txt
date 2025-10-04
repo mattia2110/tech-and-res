@@ -1,0 +1,114 @@
+namespace = ztr_imf_event
+
+#UN foundation
+ztr_imf_event.1 = {
+	dlc = dlc_tech_res
+	type = country_event
+	placement = root
+
+	duration = 1
+
+	title = ztr_imf_event.1.t
+	desc = ztr_imf_event.1.d
+	flavor = ztr_imf_event.1.f
+
+	event_image = {
+		video = "un_foundation"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	icon = "gfx/interface/icons/event_icons/ztr_onu_permanent_member.dds"
+
+	trigger = {
+		#Decision
+	}
+
+	immediate = {
+	}
+
+	option = {
+		name = ztr_imf_event.1.a
+		default_option = yes
+		every_country = {
+			limit = {
+				NOT = { this = root }
+				has_technology_researched = human_rights
+			}
+			trigger_event = ztr_un_event.2
+		}
+		ai_chance = {
+			base = 100
+		}
+	}
+}
+
+#UN foundation - other countries
+ztr_imf_event.2 = {
+	dlc = dlc_tech_res
+	type = country_event
+	placement = root
+
+	duration = 1
+
+	title = ztr_imf_event.2.t
+	desc = ztr_imf_event.2.d
+	flavor = ztr_imf_event.1.f
+
+	event_image = {
+		video = "un_foundation"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	icon = "gfx/interface/icons/event_icons/ztr_onu_permanent_member.dds"
+
+	trigger = {
+	}
+
+	immediate = {
+	}
+
+	# Standard member Option
+	option = {
+		name = ztr_un_event.2.a
+		default_option = yes
+		trigger = {
+			global_country_ranking > 3
+		}
+		if = {
+			limit = {
+				is_country_type = unrecognized
+			}
+			set_country_type = recognized
+		}
+		change_infamy = -5
+		if = {
+			limit = {
+				has_modifier = ztr_geneva_convention
+			}
+			remove_modifier = ztr_geneva_convention
+		}
+		if = {
+			limit = {
+				has_modifier = ztr_society_of_nations
+			}
+			remove_modifier = ztr_society_of_nations
+		}
+		add_modifier = ztr_onu_member
+		join_un_law_changes = yes
+		ai_chance = {
+			base = 10
+			modifier = {
+				trigger = {
+					OR= {
+						has_law = law_type:law_single_party_state
+						has_law = law_type:law_anarchy
+						has_law = law_type:law_elder_council
+					}
+				}
+				add = -10
+			}
+		}
+	}
+}

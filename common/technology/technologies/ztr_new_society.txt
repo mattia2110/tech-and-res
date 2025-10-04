@@ -25,6 +25,7 @@ international_organizations = {
 		country_influence_mult = 0.1
 		country_infamy_generation_against_unrecognized_mult = 0.1 #Second Italian-Ethiopian War 1936
 		country_infamy_generation_mult = 0.1 #Second World War
+		country_liberty_desire_of_subjects_add = 0.25
 	}
 	unlocking_technologies = {
 		feminism
@@ -122,7 +123,7 @@ socialdemocracy = {
 		political_movement_radicalism_from_enactment_disapproval_mult = -0.1
 		state_radicals_and_loyalists_from_sol_change_mult = 0.2
 		state_radicals_from_political_movements_mult = -0.2
-		state_expected_sol_from_literacy = 1
+		country_institution_social_security_max_investment_add = 1
 		interest_group_ig_intelligentsia_pol_str_mult = 1
 		interest_group_ig_trade_unions_pol_str_mult = 0.5
 	}
@@ -155,26 +156,6 @@ highway_systems = {
 	ai_weight = {
 		value = 1
 	}
-}
-
-antibiotics = {
-    # Mass production of penicillin for widespread medical use
-    era = era_6
-    texture = "gfx/interface/icons/invention_icons/antibiotics.dds"
-    category = society
-
-    unlocking_technologies = {
-        molecular_biology
-		penicillin
-    }
-
-    modifier = {
-        state_mortality_mult = -0.01
-    }
-
-    ai_weight = {
-        value = 1
-    }
 }
 
 international_travel = {
@@ -635,23 +616,44 @@ rock_and_roll = {
 	}
 }
 
-anti_discrimination = {
-	era = era_7
-	texture = "gfx/interface/icons/invention_icons/anti_discrimination.dds"
-	category = society
+# anti_discrimination = {
+# 	era = era_7
+# 	texture = "gfx/interface/icons/invention_icons/anti_discrimination.dds"
+# 	category = society
 
-	modifier = {
-		state_pop_support_movement_cultural_minority_mult = 0.1
-	}
+# 	modifier = {
+# 		state_pop_support_movement_cultural_minority_mult = 0.1
+# 	}
 	
-	unlocking_technologies = {
-		counterculture
-		decolonization
-	}
+# 	unlocking_technologies = {
+# 		counterculture
+# 		decolonization
+# 	}
 		
-	ai_weight = {
-		value = 1
-	}
+# 	ai_weight = {
+# 		value = 1
+# 	}
+# }
+
+pop_art = {
+    era = era_7
+    texture = "gfx/interface/icons/invention_icons/pop_art.dds"
+    category = society
+
+    unlocking_technologies = {
+        telecommunications
+        counterculture
+    }
+
+    modifier = {
+        country_prestige_mult = 0.1
+		building_manzoni_publishing_industry_throughput_add = 0.05
+		state_decree_cost_mult = -0.1
+    }
+
+    ai_weight = {
+        value = 1
+    }
 }
 
 neo_feminism = {
@@ -747,6 +749,7 @@ advanced_medical_imaging = {
 
     modifier = {
         state_mortality_mult = -0.01
+		country_institution_health_system_max_investment_add = 1
     }
 
     ai_weight = {
@@ -755,30 +758,30 @@ advanced_medical_imaging = {
 }
 
 machine_learning = {
+	# Introduce AI per l'automazione e l'ottimizzazione dei processi
 	era = era_8
 	texture = "gfx/interface/icons/invention_icons/machine_learning.dds"
 	category = society
-	modifier = {
-	}
+
 	unlocking_technologies = {
-		data_processing
 		neuroscience
+		data_infrastructures
+		software_development_paradigms
 	}
-		
-	ai_weight = {
-		value = 1
-	}
+
+	ai_weight = { value = 1 }
 }
 
-computerized_research_networking = {
+data_processing = {
 	era = era_8
-	texture = "gfx/interface/icons/invention_icons/computerized_research_networking.dds"
+	texture = "gfx/interface/icons/invention_icons/data_processing.dds"
 	category = society
 	modifier = {
-
+		country_authority_mult = 0.1
+		building_throughput_add = 0.05
 	}
 	unlocking_technologies = {
-		data_processing
+		data_infrastructures
 	}
 
 	ai_weight = {
@@ -818,13 +821,11 @@ operating_systems = {
 	}
 }
 
-data_processing = {
+data_infrastructures = {
 	era = era_8
-	texture = "gfx/interface/icons/invention_icons/data_processing.dds"
+	texture = "gfx/interface/icons/invention_icons/data_infrastructures.dds"
 	category = society
-	modifier = {
-		country_authority_mult = 0.1
-	}
+	
 	unlocking_technologies = {
 		modern_statistics
 		networking_protocols
@@ -844,10 +845,9 @@ transnational_activism = {
 		country_infamy_generation_mult = 0.2
 		country_infamy_generation_against_unrecognized_mult = 0.2
 		country_liberty_desire_of_subjects_add = 0.25
-		state_decree_cost_mult = -0.1
 	}
 	unlocking_technologies = {
-		anti_discrimination
+		pop_art
 		neo_feminism
 	}
 		
@@ -1002,8 +1002,8 @@ e_government = {
 	}
 
 	unlocking_technologies = {
-		networking_protocols
-		operating_systems
+		internet
+		#operating_systems
 	}
 
 	ai_weight = {
@@ -1069,7 +1069,7 @@ cloud_computing = {
 		country_max_companies_add = 1
 	}
 	unlocking_technologies = {
-		data_processing
+		data_infrastructures
 		internet
 	}
 		
@@ -1086,7 +1086,7 @@ neural_networks = {
 	}
 	unlocking_technologies = {
 		machine_learning
-		computerized_research_networking
+		data_processing
 	}
 
 	ai_weight = {
@@ -1095,6 +1095,25 @@ neural_networks = {
 }
 
 # Era 10
+
+artificial_intelligence = {
+	# Introduce AI per l'automazione e l'ottimizzazione dei processi
+	era = era_10
+	texture = "gfx/interface/icons/invention_icons/artificial_intelligence.dds"
+	category = society
+
+	unlocking_technologies = {
+		neural_networks
+		big_data_analytics
+	}
+
+	modifier = {
+		state_tax_capacity_add = 25
+		building_datacenter_industry_throughput_add = 0.1
+	}
+
+	ai_weight = { value = 1 }
+}
 
 e_commerce = {
 	era = era_10
@@ -1150,34 +1169,15 @@ big_data_analytics = {
     ai_weight = { value = 1 }
 }
 
-artificial_intelligence = {
-	# Introduce AI per l'automazione e l'ottimizzazione dei processi
-	era = era_10
-	texture = "gfx/interface/icons/invention_icons/artificial_intelligence.dds"
-	category = society
-
-	unlocking_technologies = {
-		neural_networks
-		big_data_analytics
-	}
-
-	modifier = {
-		state_tax_capacity_add = 25
-		building_datacenter_industry_throughput_add = 0.1
-	}
-
-	ai_weight = { value = 1 }
-}
-
 digital_governance = {
     # Introduce piattaforme digitali di e-government e partecipazione civica online
-    era = era_9
+    era = era_10
     texture = "gfx/interface/icons/invention_icons/digital_governance.dds"
     category = society
 
     unlocking_technologies = {
         e_government
-        internet
+        #internet
     }
 
     modifier = {

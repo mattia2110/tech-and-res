@@ -20,7 +20,18 @@ yeet_pops.1 = {
 	on_opened_soundeffect = "event:/SFX/Events/unspecific/leader_speaking_to_a_group_of_people"
 
 	trigger = {
-		has_game_rule = allow_ztr_pop_lag_fix
+		OR = {
+			#Low-Aggressive active from 1836 to 1936 with allow
+			AND = {
+				has_game_rule = allow_ztr_pop_lag_fix
+				game_date < 1936.1.1
+			}
+			#Low-Aggressive active from 1936 with low
+			AND = {
+				has_game_rule = low_ztr_pop_lag_fix
+				game_date > 1936.1.1
+			}
+		}
 		NOT = {
 			c:CHI ?= this
 			OR = { 
@@ -29,7 +40,6 @@ yeet_pops.1 = {
 			}
 		}
 		is_secessionist = no
-		game_date < 1936.1.1
 	}
 
 	immediate = {
@@ -54,7 +64,10 @@ yeet_pops.1 = {
 							NOT = { 
 								is_primary_culture_of = root
 							}
-							NOT = { 
+							NOT = { this = cu:ashkenazi } # We don't want to change Ashkenazi culture as this is important for Israel migration events
+							NOT = { this = cu:sephardic } # We don't want to change Sephardic culture as this is important for Israel migration events
+							NOT = {this = cu:yankee } # Sometimes indian states removes yankee pops, we don't want that
+							NOT = {
 								has_homeland = scope:executing_state
 							}
 						}
@@ -123,6 +136,7 @@ yeet_pops.2 = {
 	on_opened_soundeffect = "event:/SFX/Events/unspecific/leader_speaking_to_a_group_of_people"
 
 	trigger = {
+		#Aggressive active from 1836 to 1936 with allow and mid
 		OR = {
 			has_game_rule = allow_ztr_pop_lag_fix
 			has_game_rule = mid_ztr_pop_lag_fix
@@ -135,6 +149,9 @@ yeet_pops.2 = {
 			}
 		}
 		is_secessionist = no
+		AND = {
+			
+		}
 		game_date >= 1936.1.1
 	}
 
@@ -160,6 +177,9 @@ yeet_pops.2 = {
 							NOT = { 
 								is_primary_culture_of = root
 							}
+							NOT = { this = cu:ashkenazi } # We don't want to change Ashkenazi culture as this is important for Israel migration events
+							NOT = { this = cu:sephardic } # We don't want to change Sephardic culture as this is important for Israel migration events
+							NOT = { this = cu:yankee } # Sometimes indian states removes yankee pops, we don't want that
 							NOT = { 
 								has_homeland = scope:executing_state
 							}

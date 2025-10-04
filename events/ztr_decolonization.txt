@@ -28,12 +28,6 @@ ztr_decolonization.1 = {
 			NOT = {	is_diplomatic_play_enemy_of = ROOT }
 			NOT = {	has_truce_with = ROOT }
 			NOT = {	c:BIC = THIS }
-			# NOT = { 
-			# 	OR = {
-			# 		c:BIC = THIS
-			# 		c:DEI = THIS
-			# 	}
-			# }
 			liberty_desire > 90
 		}
 	}
@@ -47,12 +41,6 @@ ztr_decolonization.1 = {
 				NOT = { is_diplomatic_play_enemy_of = ROOT }
 				NOT = { has_truce_with = ROOT }
 				NOT = {	c:BIC = THIS }
-				# NOT = {
-				# 	OR = {
-				# 		c:BIC = THIS
-				# 		c:DEI = THIS
-				# 	}
-				# }
 				liberty_desire > 90
 			}
 			save_scope_as = subject_scope
@@ -114,31 +102,19 @@ ztr_decolonization.2 = {
 	duration = 3
 	
 	trigger = {
-		has_game_rule = allow_ztr_decolonization_content
 		has_global_variable = ztr_decolonization_age_var
-		year > 1945
 		NOT = { is_subject = yes }
-		NOT = {
+		any_scope_state = {
+			NOT = { is_homeland_of_country_cultures = root }
 			OR = {
-				c:TUN ?= root
+				state_region = s:STATE_TUNISIA
 			}
-		}
-		NOT = {
-			country_has_primary_culture = cu:maghrebi
-		}
-		OR = {
-			country_is_in_europe = yes
-			country_is_in_north_america = yes
-			country_is_in_middle_east = yes
-		}
-		s:STATE_TUNISIA = {
-			any_scope_state = {
-				owner = ROOT
-			}
+			count > 0
 		}
 		NOT = {
 			c:ITA ?= root
 		}
+		has_game_rule = allow_ztr_decolonization_content
 	}
 
 	immediate = {
@@ -150,31 +126,7 @@ ztr_decolonization.2 = {
 			base = 90
 		}
 		change_infamy = -5
-		if = {
-			limit = {
-				NOT = {
-				exists = c:TUN
-			}
-			}
-			create_country = {
-			tag = TUN
-			origin = this
-			province = p:x80D0A0
-			on_created = {
-				set_country_type = recognized
-				activate_law = law_type:law_parliamentary_republic
-				activate_law = law_type:law_autocracy
-			}
-			}
-		}
-		s:STATE_TUNISIA = {
-			random_scope_state = {
-				limit = {
-					owner = root
-				}
-			set_state_owner = c:TUN
-			}
-		}
+		ztr_define_tunisia = yes
 		create_bidirectional_truce = { country = c:TUN months = 120 }
 		c:TUN = {
 			change_relations = {
@@ -213,45 +165,20 @@ ztr_decolonization.3 = {
 	duration = 3
 	
 	trigger = {
-		has_game_rule = allow_ztr_decolonization_content
 		has_global_variable = ztr_decolonization_age_var
-		year > 1945
 		NOT = { is_subject = yes }
-		NOT = {
+		any_scope_state = {
+			NOT = { is_homeland_of_country_cultures = root }
 			OR = {
-				c:ALD ?= root
+				state_region = s:STATE_ORAN
+				state_region = s:STATE_ALGIERS
+				state_region = s:STATE_CONSTANTINE
+				state_region = s:STATE_EAST_SAHARA
+				state_region = s:STATE_SAHARA
 			}
+			count > 0
 		}
-		NOT = {
-			country_has_primary_culture = cu:maghrebi
-		}
-		OR = {
-			s:STATE_ORAN = {
-			any_scope_state = {
-					owner = ROOT
-				}
-			}
-			s:STATE_ALGIERS = {
-			any_scope_state = {
-					owner = ROOT
-				}
-			}
-			s:STATE_CONSTANTINE = {
-			any_scope_state = {
-					owner = ROOT
-				}
-			}
-			s:STATE_EAST_SAHARA = {
-			any_scope_state = {
-					owner = ROOT
-				}
-			}
-			s:STATE_SAHARA = {
-			any_scope_state = {
-					owner = ROOT
-				}
-			}
-		}
+		has_game_rule = allow_ztr_decolonization_content
 	}
 
 	immediate = {
@@ -262,109 +189,8 @@ ztr_decolonization.3 = {
 		ai_chance = {
 			base = 90
 		}
-		change_infamy = -15
-		if = {
-			limit = {
-				NOT = {
-				exists = c:ALD
-			}
-			}
-			create_country = {
-			tag = ALD
-			origin = this
-			province = p:x713C2F
-			on_created = {
-				set_country_type = recognized
-				activate_law = law_type:law_parliamentary_republic
-				activate_law = law_type:law_autocracy
-			}
-			}
-		}
-		if = {
-			limit = {
-				s:STATE_ORAN = {
-				any_scope_state = {
-						owner = ROOT
-					}
-				}
-			}
-			s:STATE_ORAN = {
-				random_scope_state = {
-					limit = {
-						owner = root
-					}
-					set_state_owner = c:ALD
-				}
-			}
-		}
-		if = {
-			limit = {
-				s:STATE_ALGIERS = {
-				any_scope_state = {
-						owner = ROOT
-					}
-				}
-			}
-			s:STATE_ALGIERS = {
-				random_scope_state = {
-					limit = {
-						owner = root
-					}
-					set_state_owner = c:ALD
-				}
-			}
-		}
-		if = {
-			limit = {
-				s:STATE_CONSTANTINE = {
-				any_scope_state = {
-						owner = ROOT
-					}
-				}
-			}
-			s:STATE_CONSTANTINE = {
-				random_scope_state = {
-					limit = {
-						owner = root
-					}
-					set_state_owner = c:ALD
-				}
-			}
-		}
-		if = {
-			limit = {
-				s:STATE_EAST_SAHARA = {
-				any_scope_state = {
-						owner = ROOT
-					}
-				}
-			}
-			s:STATE_EAST_SAHARA = {
-				random_scope_state = {
-					limit = {
-						owner = root
-					}
-					set_state_owner = c:ALD
-				}
-			}
-		}
-		if = {
-			limit = {
-				s:STATE_SAHARA = {
-				any_scope_state = {
-						owner = ROOT
-					}
-				}
-			}
-			s:STATE_SAHARA = {
-				random_scope_state = {
-					limit = {
-						owner = root
-					}
-					set_state_owner = c:ALD
-				}
-			}
-		}
+		change_infamy = -10
+		ztr_define_algeria = yes
 		create_bidirectional_truce = { country = c:ALD months = 120 }
 		c:ALD = {
 			change_relations = {
@@ -403,54 +229,26 @@ ztr_decolonization.4 = {
 	duration = 3
 	
 	trigger = {
-		has_game_rule = allow_ztr_decolonization_content
-		
 		has_global_variable = ztr_decolonization_age_var
-		year > 1945
 		NOT = { is_subject = yes }
-		NOT = {
+		any_scope_state = {
+			NOT = { is_homeland_of_country_cultures = root }
 			OR = {
-				c:MOR ?= root
-			}
-		}
-		NOT = {
-			country_has_primary_culture = cu:maghrebi
-		}
-		OR = {
-			AND = {
-				s:STATE_AL_RIF = {
-					any_scope_state = {
-						owner = ROOT
-					}
-				}
-				NOT = {
-					OR = {
+				state_region = s:STATE_FEZ
+				state_region = s:STATE_INNER_MOROCCO
+				state_region = s:STATE_WEST_SAHARA
+				state_region = s:STATE_MARRAKECH
+				AND = {
+					NOR = {
 						c:SPA ?= root
 						c:POR ?= root
 					}
+					state_region = s:STATE_AL_RIF
 				}
 			}
-			s:STATE_FEZ = {
-			any_scope_state = {
-					owner = ROOT
-				}
-			}
-			s:STATE_INNER_MOROCCO = {
-			any_scope_state = {
-					owner = ROOT
-				}
-			}
-			s:STATE_WEST_SAHARA = {
-			any_scope_state = {
-					owner = ROOT
-				}
-			}
-			s:STATE_MARRAKECH = {
-			any_scope_state = {
-					owner = ROOT
-				}
-			}
+			count > 0
 		}
+		has_game_rule = allow_ztr_decolonization_content
 	}
 
 	immediate = {
@@ -461,115 +259,8 @@ ztr_decolonization.4 = {
 		ai_chance = {
 			base = 90
 		}
-		change_infamy = -15
-		if = {
-			limit = {
-				NOT = {
-				exists = c:MOR
-			}
-			}
-			create_country = {
-			tag = MOR
-			origin = this
-			province = p:x5A68FC
-			on_created = {
-				set_country_type = recognized
-				activate_law = law_type:law_monarchy
-				activate_law = law_type:law_autocracy
-			}
-			}
-		}
-		if = {
-			limit = {
-				NOT = {
-					OR = {
-						c:SPA ?= root
-						c:POR ?= root
-					}
-				}
-				s:STATE_AL_RIF = {
-				any_scope_state = {
-						owner = ROOT
-					}
-				}
-			}
-			s:STATE_AL_RIF = {
-				random_scope_state = {
-					limit = {
-						owner = root
-					}
-					set_state_owner = c:MOR
-				}
-			}
-		}
-		if = {
-			limit = {
-				s:STATE_FEZ = {
-				any_scope_state = {
-						owner = ROOT
-					}
-				}
-			}
-			s:STATE_FEZ = {
-				random_scope_state = {
-					limit = {
-						owner = root
-					}
-					set_state_owner = c:MOR
-				}
-			}
-		}
-		if = {
-			limit = {
-				s:STATE_INNER_MOROCCO = {
-				any_scope_state = {
-						owner = ROOT
-					}
-				}
-			}
-			s:STATE_INNER_MOROCCO = {
-				random_scope_state = {
-					limit = {
-						owner = root
-					}
-					set_state_owner = c:MOR
-				}
-			}
-		}
-		if = {
-			limit = {
-				s:STATE_WEST_SAHARA = {
-				any_scope_state = {
-						owner = ROOT
-					}
-				}
-			}
-			s:STATE_WEST_SAHARA = {
-				random_scope_state = {
-					limit = {
-						owner = root
-					}
-					set_state_owner = c:MOR
-				}
-			}
-		}
-		if = {
-			limit = {
-				s:STATE_MARRAKECH = {
-				any_scope_state = {
-						owner = ROOT
-					}
-				}
-			}
-			s:STATE_MARRAKECH = {
-				random_scope_state = {
-					limit = {
-						owner = root
-					}
-					set_state_owner = c:MOR
-				}
-			}
-		}
+		change_infamy = -10
+		ztr_define_morocco = yes
 		create_bidirectional_truce = { country = c:MOR months = 120 }
 		c:MOR = {
 			change_relations = {
@@ -608,36 +299,18 @@ ztr_decolonization.5 = {
 	duration = 3
 	
 	trigger = {
-		has_game_rule = allow_ztr_decolonization_content
-		
 		has_global_variable = ztr_decolonization_age_var
-		year > 1945
 		NOT = { is_subject = yes }
-		NOT = {
+		any_scope_state = {
+			NOT = { is_homeland_of_country_cultures = root }
 			OR = {
-				c:TRI ?= root
+				state_region = s:STATE_TRIPOLI
+				state_region = s:STATE_LIBYA
+				state_region = s:STATE_LIBYAN_DESERT
 			}
+			count > 0
 		}
-		NOT = {
-			country_has_primary_culture = cu:maghrebi
-		}
-		OR = {
-			s:STATE_TRIPOLI = {
-			any_scope_state = {
-					owner = ROOT
-				}
-			}
-			s:STATE_LIBYA = {
-			any_scope_state = {
-					owner = ROOT
-				}
-			}
-			s:STATE_LIBYAN_DESERT = {
-			any_scope_state = {
-					owner = ROOT
-				}
-			}
-		}
+		has_game_rule = allow_ztr_decolonization_content
 	}
 
 	immediate = {
@@ -648,75 +321,8 @@ ztr_decolonization.5 = {
 		ai_chance = {
 			base = 90
 		}
-		change_infamy = -10
-		if = {
-			limit = {
-				NOT = {
-				exists = c:TRI
-			}
-			}
-			create_country = {
-			tag = TRI
-			origin = this
-			province = p:xC050A0
-			on_created = {
-				set_country_type = recognized
-				activate_law = law_type:law_monarchy
-				activate_law = law_type:law_autocracy
-			}
-			}
-		}
-		if = {
-			limit = {
-				s:STATE_TRIPOLI = {
-				any_scope_state = {
-						owner = ROOT
-					}
-				}
-			}
-			s:STATE_TRIPOLI = {
-				random_scope_state = {
-					limit = {
-						owner = root
-					}
-					set_state_owner = c:TRI
-				}
-			}
-		}
-		if = {
-			limit = {
-				s:STATE_LIBYA = {
-				any_scope_state = {
-						owner = ROOT
-					}
-				}
-			}
-			s:STATE_LIBYA = {
-				random_scope_state = {
-					limit = {
-						owner = root
-					}
-					set_state_owner = c:TRI
-				}
-			}
-		}
-		if = {
-			limit = {
-				s:STATE_LIBYAN_DESERT = {
-				any_scope_state = {
-						owner = ROOT
-					}
-				}
-			}
-			s:STATE_LIBYAN_DESERT = {
-				random_scope_state = {
-					limit = {
-						owner = root
-					}
-					set_state_owner = c:TRI
-				}
-			}
-		}
+		change_infamy = -5
+		ztr_define_libya = yes
 		create_bidirectional_truce = { country = c:TRI months = 120 }
 		c:TRI = {
 			change_relations = {
@@ -755,46 +361,21 @@ ztr_decolonization.6 = {
 	duration = 3
 	
 	trigger = {
-		has_game_rule = allow_ztr_decolonization_content
-		
 		has_global_variable = ztr_decolonization_age_var
-		year > 1945
 		NOT = { is_subject = yes }
-		NOT = {
+		any_scope_state = {
+			NOT = { is_homeland_of_country_cultures = root }
 			OR = {
-				c:EGY ?= root
+				state_region = s:STATE_LOWER_EGYPT
+				state_region = s:STATE_MIDDLE_EGYPT
+				state_region = s:STATE_UPPER_EGYPT
+				state_region = s:STATE_MATRUH
+				state_region = s:STATE_EGYPTIAN_DESERT
+				#TODO Sinai can be Egyptian after a Suez Canal event
 			}
+			count > 0
 		}
-		NOT = {
-			country_has_primary_culture = cu:misri
-		}
-		OR = {
-			s:STATE_LOWER_EGYPT = {
-				any_scope_state = {
-					owner = ROOT
-				}
-			}
-			s:STATE_MIDDLE_EGYPT = {
-				any_scope_state = {
-					owner = ROOT
-				}
-			}
-			s:STATE_UPPER_EGYPT = {
-				any_scope_state = {
-					owner = ROOT
-				}
-			}
-			s:STATE_EGYPTIAN_DESERT = {
-				any_scope_state = {
-					owner = ROOT
-				}
-			}
-			s:STATE_MATRUH = {
-				any_scope_state = {
-					owner = ROOT
-				}
-			}
-		}
+		has_game_rule = allow_ztr_decolonization_content
 	}
 
 	immediate = {
@@ -806,108 +387,7 @@ ztr_decolonization.6 = {
 			base = 90
 		}
 		change_infamy = -15
-		if = {
-			limit = {
-				NOT = {
-				exists = c:EGY
-			}
-			}
-			create_country = {
-			tag = EGY
-			origin = this
-			province = p:x409060
-			on_created = {
-				set_country_type = recognized
-				activate_law = law_type:law_monarchy
-				activate_law = law_type:law_autocracy
-			}
-			}
-		}
-		if = {
-			limit = {
-				s:STATE_LOWER_EGYPT = {
-				any_scope_state = {
-						owner = ROOT
-					}
-				}
-			}
-			s:STATE_LOWER_EGYPT = {
-				random_scope_state = {
-					limit = {
-						owner = root
-					}
-					set_state_owner = c:EGY
-				}
-			}
-		}
-		if = {
-			limit = {
-				s:STATE_MIDDLE_EGYPT = {
-				any_scope_state = {
-						owner = ROOT
-					}
-				}
-			}
-			s:STATE_MIDDLE_EGYPT = {
-				random_scope_state = {
-					limit = {
-						owner = root
-					}
-					set_state_owner = c:EGY
-				}
-			}
-		}
-		if = {
-			limit = {
-				s:STATE_UPPER_EGYPT = {
-				any_scope_state = {
-						owner = ROOT
-					}
-				}
-			}
-			s:STATE_UPPER_EGYPT = {
-				random_scope_state = {
-					limit = {
-						owner = root
-					}
-					set_state_owner = c:EGY
-				}
-			}
-		}
-		if = {
-			limit = {
-				s:STATE_EGYPTIAN_DESERT = {
-				any_scope_state = {
-						owner = ROOT
-					}
-				}
-			}
-			s:STATE_EGYPTIAN_DESERT = {
-				random_scope_state = {
-					limit = {
-						owner = root
-					}
-					set_state_owner = c:EGY
-				}
-			}
-		}
-		if = {
-			limit = {
-				s:STATE_MATRUH = {
-				any_scope_state = {
-						owner = ROOT
-					}
-				}
-			}
-			s:STATE_MATRUH = {
-				random_scope_state = {
-					limit = {
-						owner = root
-					}
-					set_state_owner = c:EGY
-				}
-			}
-		}
+		ztr_define_egypt = yes
 		create_bidirectional_truce = { country = c:EGY months = 120 }
 		c:EGY = {
 			change_relations = {
@@ -946,48 +426,20 @@ ztr_decolonization.7 = {
 	duration = 3
 	
 	trigger = {
-		has_game_rule = allow_ztr_decolonization_content
-		
 		has_global_variable = ztr_decolonization_age_var
-		year > 1945
 		NOT = { is_subject = yes }
-		NOT = {
+		any_scope_state = {
+			NOT = { is_homeland_of_country_cultures = root }
 			OR = {
-				c:SUD ?= root
+				state_region = s:STATE_BLUE_NILE
+				state_region = s:STATE_DONGOLA
+				state_region = s:STATE_DARFUR
+				state_region = s:STATE_KORDOFAN
+				state_region = s:STATE_EQUATORIA
 			}
+			count > 0
 		}
-		NOT = {
-			country_has_primary_culture = cu:misri
-			country_has_primary_culture = cu:fur
-			country_has_primary_culture = cu:dinka
-		}
-		OR = {
-			s:STATE_BLUE_NILE = {
-			any_scope_state = {
-					owner = ROOT
-				}
-			}
-			s:STATE_DONGOLA = {
-			any_scope_state = {
-					owner = ROOT
-				}
-			}
-			s:STATE_DARFUR = {
-			any_scope_state = {
-					owner = ROOT
-				}
-			}
-			s:STATE_EQUATORIA = {
-			any_scope_state = {
-					owner = ROOT
-				}
-			}
-			s:STATE_KORDOFAN = {
-			any_scope_state = {
-					owner = ROOT
-				}
-			}
-		}
+		has_game_rule = allow_ztr_decolonization_content
 	}
 
 	immediate = {
@@ -999,108 +451,7 @@ ztr_decolonization.7 = {
 			base = 90
 		}
 		change_infamy = -10
-		if = {
-			limit = {
-				NOT = {
-					exists = c:SUD
-				}
-			}
-			create_country = {
-			tag = SUD
-			origin = this
-			province = p:x19094A
-			on_created = {
-				set_country_type = recognized
-				activate_law = law_type:law_parliamentary_republic
-				activate_law = law_type:law_autocracy
-			}
-			}
-		}
-		if = {
-			limit = {
-				s:STATE_BLUE_NILE = {
-				any_scope_state = {
-						owner = ROOT
-					}
-				}
-			}
-			s:STATE_BLUE_NILE = {
-				random_scope_state = {
-					limit = {
-						owner = root
-					}
-					set_state_owner = c:SUD
-				}
-			}
-		}
-		if = {
-			limit = {
-				s:STATE_DONGOLA = {
-				any_scope_state = {
-						owner = ROOT
-					}
-				}
-			}
-			s:STATE_DONGOLA = {
-				random_scope_state = {
-					limit = {
-						owner = root
-					}
-					set_state_owner = c:SUD
-				}
-			}
-		}
-		if = {
-			limit = {
-				s:STATE_DARFUR = {
-				any_scope_state = {
-						owner = ROOT
-					}
-				}
-			}
-			s:STATE_DARFUR = {
-				random_scope_state = {
-					limit = {
-						owner = root
-					}
-					set_state_owner = c:SUD
-				}
-			}
-		}
-		if = {
-			limit = {
-				s:STATE_EQUATORIA = {
-				any_scope_state = {
-						owner = ROOT
-					}
-				}
-			}
-			s:STATE_EQUATORIA = {
-				random_scope_state = {
-					limit = {
-						owner = root
-					}
-					set_state_owner = c:SUD
-				}
-			}
-		}
-		if = {
-			limit = {
-				s:STATE_KORDOFAN = {
-				any_scope_state = {
-						owner = ROOT
-					}
-				}
-			}
-			s:STATE_KORDOFAN = {
-				random_scope_state = {
-					limit = {
-						owner = root
-					}
-					set_state_owner = c:SUD
-				}
-			}
-		}
+		ztr_define_sudan = yes
 		create_bidirectional_truce = { country = c:SUD months = 120 }
 		c:SUD = {
 			change_relations = {
@@ -1139,36 +490,18 @@ ztr_decolonization.8 = {
 	duration = 3
 	
 	trigger = {
-		has_game_rule = allow_ztr_decolonization_content
-		
 		has_global_variable = ztr_decolonization_age_var
-		year > 1945
 		NOT = { is_subject = yes }
-		NOT = {
-			country_has_primary_culture = cu:bedouin
-		}
-		NOT = {
+		any_scope_state = {
+			NOT = { is_homeland_of_country_cultures = root }
 			OR = {
-				c:NEJ ?= root
+				state_region = s:STATE_NEJD
+				state_region = s:STATE_HEDJAZ
+				state_region = s:STATE_HAIL
 			}
+			count > 0
 		}
-		OR = {
-			s:STATE_NEJD = {
-			any_scope_state = {
-					owner = ROOT
-				}
-			}
-			s:STATE_HEDJAZ = {
-			any_scope_state = {
-					owner = ROOT
-				}
-			}
-			s:STATE_HAIL = {
-			any_scope_state = {
-					owner = ROOT
-				}
-			}
-		}
+		has_game_rule = allow_ztr_decolonization_content
 	}
 
 	immediate = {
@@ -1179,74 +512,8 @@ ztr_decolonization.8 = {
 		ai_chance = {
 			base = 90
 		}
-		change_infamy = -15
-		if = {
-			limit = {
-				NOT = {
-					exists = c:NEJ
-				}
-			}
-			create_country = {
-			tag = NEJ
-			origin = this
-			province = p:x371FC4
-			on_created = {
-				set_country_type = recognized
-				activate_law = law_type:law_theocracy
-			}
-			}
-		}
-		if = {
-			limit = {
-				s:STATE_NEJD = {
-				any_scope_state = {
-						owner = ROOT
-					}
-				}
-			}
-			s:STATE_NEJD = {
-				random_scope_state = {
-					limit = {
-						owner = root
-					}
-					set_state_owner = c:NEJ
-				}
-			}
-		}
-		if = {
-			limit = {
-				s:STATE_HEDJAZ = {
-				any_scope_state = {
-						owner = ROOT
-					}
-				}
-			}
-			s:STATE_HEDJAZ = {
-				random_scope_state = {
-					limit = {
-						owner = root
-					}
-					set_state_owner = c:NEJ
-				}
-			}
-		}
-		if = {
-			limit = {
-				s:STATE_HAIL = {
-				any_scope_state = {
-						owner = ROOT
-					}
-				}
-			}
-			s:STATE_HAIL = {
-				random_scope_state = {
-					limit = {
-						owner = root
-					}
-					set_state_owner = c:NEJ
-				}
-			}
-		}
+		change_infamy = -10
+		ztr_define_arabia = yes
 		create_bidirectional_truce = { country = c:NEJ months = 120 }
 		c:NEJ = {
 			change_relations = {
@@ -1285,26 +552,16 @@ ztr_decolonization.9 = {
 	duration = 3
 	
 	trigger = {
-		has_game_rule = allow_ztr_decolonization_content
-		
 		has_global_variable = ztr_decolonization_age_var
-		year > 1945
 		NOT = { is_subject = yes }
-		NOT = {
-			country_has_primary_culture = cu:bedouin
-		}
-		NOT = {
+		any_scope_state = {
+			NOT = { is_homeland_of_country_cultures = root }
 			OR = {
-				c:OMA ?= root
+				state_region = s:STATE_OMAN
 			}
+			count > 0
 		}
-		OR = {
-			s:STATE_OMAN = {
-			any_scope_state = {
-					owner = ROOT
-				}
-			}
-		}
+		has_game_rule = allow_ztr_decolonization_content
 	}
 
 	immediate = {
@@ -1316,39 +573,7 @@ ztr_decolonization.9 = {
 			base = 90
 		}
 		change_infamy = -5
-		if = {
-			limit = {
-				NOT = {
-					exists = c:OMA
-				}
-			}
-			create_country = {
-			tag = OMA
-			origin = this
-			province = p:xBC6325
-			on_created = {
-				set_country_type = recognized
-				activate_law = law_type:law_theocracy
-			}
-			}
-		}
-		if = {
-			limit = {
-				s:STATE_OMAN = {
-				any_scope_state = {
-						owner = ROOT
-					}
-				}
-			}
-			s:STATE_OMAN = {
-				random_scope_state = {
-					limit = {
-						owner = root
-					}
-					set_state_owner = c:OMA
-				}
-			}
-		}
+		ztr_define_oman = yes
 		create_bidirectional_truce = { country = c:OMA months = 120 }
 		c:OMA = {
 			change_relations = {
@@ -1387,26 +612,16 @@ ztr_decolonization.10 = {
 	duration = 3
 	
 	trigger = {
-		has_game_rule = allow_ztr_decolonization_content
-		
 		has_global_variable = ztr_decolonization_age_var
-		year > 1945
 		NOT = { is_subject = yes }
-		NOT = {
-			country_has_primary_culture = cu:bedouin
-		}
-		NOT = {
+		any_scope_state = {
+			NOT = { is_homeland_of_country_cultures = root }
 			OR = {
-				c:YEM ?= root
+				state_region = s:STATE_YEMEN
 			}
+			count > 0
 		}
-		OR = {
-			s:STATE_YEMEN = {
-			any_scope_state = {
-					owner = ROOT
-				}
-			}
-		}
+		has_game_rule = allow_ztr_decolonization_content
 	}
 
 	immediate = {
@@ -1418,39 +633,7 @@ ztr_decolonization.10 = {
 			base = 90
 		}
 		change_infamy = -10
-		if = {
-			limit = {
-				NOT = {
-					exists = c:YEM
-				}
-			}
-			create_country = {
-			tag = YEM
-			origin = this
-			province = p:x319060
-			on_created = {
-				set_country_type = recognized
-				activate_law = law_type:law_theocracy
-			}
-			}
-		}
-		if = {
-			limit = {
-				s:STATE_YEMEN = {
-				any_scope_state = {
-						owner = ROOT
-					}
-				}
-			}
-			s:STATE_YEMEN = {
-				random_scope_state = {
-					limit = {
-						owner = root
-					}
-					set_state_owner = c:YEM
-				}
-			}
-		}
+		ztr_define_yemen = yes
 		create_bidirectional_truce = { country = c:YEM months = 120 }
 		c:YEM = {
 			change_relations = {
@@ -1619,108 +802,16 @@ ztr_decolonization.12 = {
 	duration = 3
 	
 	trigger = {
-		has_game_rule = allow_ztr_decolonization_content
-		
 		has_global_variable = ztr_decolonization_age_var
-		year > 1945
 		NOT = { is_subject = yes }
-		NOT = {
-			country_has_primary_culture = cu:persian
+		any_scope_state = {
+			NOT = { is_homeland_of_country_cultures = root }
+			state_region = {
+				region = sr:region_persia
+			}
+			count > 0
 		}
-		NOT = {
-			OR = {
-				c:PER ?= root
-				c:ABU ?= root
-				c:OMA ?= root
-			}
-		}
-		OR = {
-			AND = {
-				s:STATE_URMIA = {
-					any_scope_state = {
-						owner = ROOT
-					}
-				}
-				NOT = {
-					c:TUR ?= root
-				}
-			}
-			AND = {
-				s:STATE_TABRIZ = {
-					any_scope_state = {
-						owner = ROOT
-					}
-				}
-				NOT = {
-					c:TUR ?= root
-				}
-			}
-			AND = {
-				s:STATE_PERSIAN_KURDISTAN = {
-					any_scope_state = {
-						owner = ROOT
-					}
-				}
-				NOT = {
-					c:TUR ?= root
-				}
-			}
-			s:STATE_LURISTAN = {
-			any_scope_state = {
-					owner = ROOT
-				}
-			}
-			s:STATE_IRAKAJEMI = {
-			any_scope_state = {
-					owner = ROOT
-				}
-			}
-			s:STATE_MAZANDARAN = {
-			any_scope_state = {
-					owner = ROOT
-				}
-			}
-			s:STATE_KHORASAN = {
-			any_scope_state = {
-					owner = ROOT
-				}
-			}
-			s:STATE_SEMNAN = {
-			any_scope_state = {
-					owner = ROOT
-				}
-			}
-			s:STATE_KERMAN = {
-			any_scope_state = {
-					owner = ROOT
-				}
-			}
-			s:STATE_ISFAHAN = {
-			any_scope_state = {
-					owner = ROOT
-				}
-			}
-			s:STATE_LARISTAN = {
-			any_scope_state = {
-					owner = ROOT
-				}
-			}
-			s:STATE_FARS = {
-			any_scope_state = {
-					owner = ROOT
-				}
-			}
-			s:STATE_KHUZESTAN = {
-			any_scope_state = {
-					owner = ROOT
-				}
-			}
-			s:STATE_SISTAN = {
-			any_scope_state = {
-					owner = ROOT
-				}
-			}
-		}
+		has_game_rule = allow_ztr_decolonization_content
 	}
 
 	immediate = {
@@ -1731,270 +822,8 @@ ztr_decolonization.12 = {
 		ai_chance = {
 			base = 90
 		}
-		change_infamy = -10
-		if = {
-			limit = {
-				NOT = {
-					exists = c:PER
-				}
-			}
-			create_country = {
-			tag = PER
-			origin = this
-			province = p:xC0F0A0
-			on_created = {
-				set_country_type = recognized
-				activate_law = law_type:law_monarchy
-			}
-			}
-		}
-		if = {
-			limit = {
-				NOT = {
-					c:TUR ?= root
-				}
-				s:STATE_URMIA = {
-				any_scope_state = {
-						owner = ROOT
-					}
-				}
-			}
-			s:STATE_URMIA = {
-				random_scope_state = {
-					limit = {
-						owner = root
-					}
-					set_state_owner = c:PER
-				}
-			}
-		}
-		if = {
-			limit = {
-				NOT = {
-					c:TUR ?= root
-				}
-				s:STATE_TABRIZ = {
-				any_scope_state = {
-						owner = ROOT
-					}
-				}
-			}
-			s:STATE_TABRIZ = {
-				random_scope_state = {
-					limit = {
-						owner = root
-					}
-					set_state_owner = c:PER
-				}
-			}
-		}
-		if = {
-			limit = {
-				s:STATE_LURISTAN = {
-				any_scope_state = {
-						owner = ROOT
-					}
-				}
-			}
-			s:STATE_LURISTAN = {
-				random_scope_state = {
-					limit = {
-						owner = root
-					}
-					set_state_owner = c:PER
-				}
-			}
-		}
-		if = {
-			limit = {
-				s:STATE_LARISTAN = {
-				any_scope_state = {
-						owner = ROOT
-					}
-				}
-			}
-			s:STATE_LARISTAN = {
-				random_scope_state = {
-					limit = {
-						owner = root
-					}
-					set_state_owner = c:PER
-				}
-			}
-		}
-		if = {
-			limit = {
-				s:STATE_IRAKAJEMI = {
-				any_scope_state = {
-						owner = ROOT
-					}
-				}
-			}
-			s:STATE_IRAKAJEMI = {
-				random_scope_state = {
-					limit = {
-						owner = root
-					}
-					set_state_owner = c:PER
-				}
-			}
-		}
-		if = {
-			limit = {
-				s:STATE_MAZANDARAN = {
-				any_scope_state = {
-						owner = ROOT
-					}
-				}
-			}
-			s:STATE_MAZANDARAN = {
-				random_scope_state = {
-					limit = {
-						owner = root
-					}
-					set_state_owner = c:PER
-				}
-			}
-		}
-		if = {
-			limit = {
-				s:STATE_KHORASAN = {
-				any_scope_state = {
-						owner = ROOT
-					}
-				}
-			}
-			s:STATE_KHORASAN = {
-				random_scope_state = {
-					limit = {
-						owner = root
-					}
-					set_state_owner = c:PER
-				}
-			}
-		}
-		if = {
-			limit = {
-				s:STATE_SEMNAN = {
-				any_scope_state = {
-						owner = ROOT
-					}
-				}
-			}
-			s:STATE_SEMNAN = {
-				random_scope_state = {
-					limit = {
-						owner = root
-					}
-					set_state_owner = c:PER
-				}
-			}
-		}
-		if = {
-			limit = {
-				s:STATE_KERMAN = {
-				any_scope_state = {
-						owner = ROOT
-					}
-				}
-			}
-			s:STATE_KERMAN = {
-				random_scope_state = {
-					limit = {
-						owner = root
-					}
-					set_state_owner = c:PER
-				}
-			}
-		}
-		if = {
-			limit = {
-				s:STATE_ISFAHAN = {
-				any_scope_state = {
-						owner = ROOT
-					}
-				}
-			}
-			s:STATE_ISFAHAN = {
-				random_scope_state = {
-					limit = {
-						owner = root
-					}
-					set_state_owner = c:PER
-				}
-			}
-		}
-		if = {
-			limit = {
-				s:STATE_FARS = {
-				any_scope_state = {
-						owner = ROOT
-					}
-				}
-			}
-			s:STATE_FARS = {
-				random_scope_state = {
-					limit = {
-						owner = root
-					}
-					set_state_owner = c:PER
-				}
-			}
-		}
-		if = {
-			limit = {
-				NOT = {
-					c:TUR ?= root
-				}
-				s:STATE_PERSIAN_KURDISTAN = {
-				any_scope_state = {
-						owner = ROOT
-					}
-				}
-			}
-			s:STATE_PERSIAN_KURDISTAN = {
-				random_scope_state = {
-					limit = {
-						owner = root
-					}
-					set_state_owner = c:PER
-				}
-			}
-		}
-		if = {
-			limit = {
-				s:STATE_KHUZESTAN = {
-				any_scope_state = {
-						owner = ROOT
-					}
-				}
-			}
-			s:STATE_KHUZESTAN = {
-				random_scope_state = {
-					limit = {
-						owner = root
-					}
-					set_state_owner = c:PER
-				}
-			}
-		}
-		if = {
-			limit = {
-				s:STATE_SISTAN = {
-				any_scope_state = {
-						owner = ROOT
-					}
-				}
-			}
-			s:STATE_SISTAN = {
-				random_scope_state = {
-					limit = {
-						owner = root
-					}
-					set_state_owner = c:PER
-				}
-			}
-		}
+		change_infamy = -15
+		ztr_define_persia = yes
 		create_bidirectional_truce = { country = c:PER months = 120 }
 		c:PER = {
 			change_relations = {
@@ -2033,41 +862,16 @@ ztr_decolonization.13 = {
 	duration = 3
 	
 	trigger = {
-		has_game_rule = allow_ztr_decolonization_content
-		
 		has_global_variable = ztr_decolonization_age_var
-		year > 1945
 		NOT = { is_subject = yes }
-		NOT = {
-			country_has_primary_culture = cu:burmese
+		any_scope_state = {
+			NOT = { is_homeland_of_country_cultures = root }
+			state_region = {
+				is_homeland = cu:burmese
+			}
+			count > 0
 		}
-		OR = {
-			s:STATE_PEGU = {
-			any_scope_state = {
-					owner = ROOT
-				}
-			}
-			s:STATE_MANDALAY = {
-			any_scope_state = {
-					owner = ROOT
-				}
-			}
-			s:STATE_SHAN_STATES = {
-			any_scope_state = {
-					owner = ROOT
-				}
-			}
-			s:STATE_KACHIN = {
-			any_scope_state = {
-					owner = ROOT
-				}
-			}
-			s:STATE_ARAKAN = {
-			any_scope_state = {
-					owner = ROOT
-				}
-			}
-		}
+		has_game_rule = allow_ztr_decolonization_content
 	}
 
 	immediate = {
@@ -2079,107 +883,7 @@ ztr_decolonization.13 = {
 			base = 90
 		}
 		change_infamy = -15
-		if = {
-			limit = {
-				NOT = {
-				exists = c:BUR
-			}
-			}
-			create_country = {
-			tag = BUR
-			origin = this
-			province = p:x620442
-			on_created = {
-				set_country_type = recognized
-				activate_law = law_type:law_monarchy
-			}
-			}
-		}
-		if = {
-			limit = {
-				s:STATE_PEGU = {
-				any_scope_state = {
-						owner = ROOT
-					}
-				}
-			}
-			s:STATE_PEGU = {
-				random_scope_state = {
-					limit = {
-						owner = root
-					}
-					set_state_owner = c:BUR
-				}
-			}
-		}
-		if = {
-			limit = {
-				s:STATE_MANDALAY = {
-				any_scope_state = {
-						owner = ROOT
-					}
-				}
-			}
-			s:STATE_MANDALAY = {
-				random_scope_state = {
-					limit = {
-						owner = root
-					}
-					set_state_owner = c:BUR
-				}
-			}
-		}
-		if = {
-			limit = {
-				s:STATE_SHAN_STATES = {
-				any_scope_state = {
-						owner = ROOT
-					}
-				}
-			}
-			s:STATE_SHAN_STATES = {
-				random_scope_state = {
-					limit = {
-						owner = root
-					}
-					set_state_owner = c:BUR
-				}
-			}
-		}
-		if = {
-			limit = {
-				s:STATE_KACHIN = {
-				any_scope_state = {
-						owner = ROOT
-					}
-				}
-			}
-			s:STATE_KACHIN = {
-				random_scope_state = {
-					limit = {
-						owner = root
-					}
-					set_state_owner = c:BUR
-				}
-			}
-		}
-		if = {
-			limit = {
-				s:STATE_ARAKAN = {
-				any_scope_state = {
-						owner = ROOT
-					}
-				}
-			}
-			s:STATE_ARAKAN = {
-				random_scope_state = {
-					limit = {
-						owner = root
-					}
-					set_state_owner = c:BUR
-				}
-			}
-		}
+		ztr_define_birmania = yes
 		create_bidirectional_truce = { country = c:BUR months = 120 }
 		c:BUR = {
 			change_relations = {
@@ -2218,36 +922,16 @@ ztr_decolonization.14 = {
 	duration = 3
 	
 	trigger = {
-		has_game_rule = allow_ztr_decolonization_content
-		
 		has_global_variable = ztr_decolonization_age_var
-		year > 1945
 		NOT = { is_subject = yes }
-		NOT = {
-			country_has_primary_culture = cu:thai
+		any_scope_state = {
+			NOT = { is_homeland_of_country_cultures = root }
+			state_region = {
+				is_homeland = cu:thai
+			}
+			count > 0
 		}
-		OR = {
-			s:STATE_BANGKOK = {
-			any_scope_state = {
-					owner = ROOT
-				}
-			}
-			s:STATE_TENASSERIM = {
-			any_scope_state = {
-					owner = ROOT
-				}
-			}
-			s:STATE_CHIANG_MAI = {
-			any_scope_state = {
-					owner = ROOT
-				}
-			}
-			s:STATE_NAKHON_RATCHASIMA = {
-			any_scope_state = {
-					owner = ROOT
-				}
-			}
-		}
+		has_game_rule = allow_ztr_decolonization_content
 	}
 
 	immediate = {
@@ -2259,90 +943,7 @@ ztr_decolonization.14 = {
 			base = 90
 		}
 		change_infamy = -15
-		if = {
-			limit = {
-				NOT = {
-				exists = c:SIA
-			}
-			}
-			create_country = {
-			tag = SIA
-			origin = this
-			province = p:x20DFD0
-			on_created = {
-				set_country_type = recognized
-				activate_law = law_type:law_monarchy
-			}
-			}
-		}
-		if = {
-			limit = {
-				s:STATE_BANGKOK = {
-				any_scope_state = {
-						owner = ROOT
-					}
-				}
-			}
-			s:STATE_BANGKOK = {
-				random_scope_state = {
-					limit = {
-						owner = root
-					}
-					set_state_owner = c:SIA
-				}
-			}
-		}
-		if = {
-			limit = {
-				s:STATE_TENASSERIM = {
-				any_scope_state = {
-						owner = ROOT
-					}
-				}
-			}
-			s:STATE_TENASSERIM = {
-				random_scope_state = {
-					limit = {
-						owner = root
-					}
-					set_state_owner = c:SIA
-				}
-			}
-		}
-		if = {
-			limit = {
-				s:STATE_CHIANG_MAI = {
-				any_scope_state = {
-						owner = ROOT
-					}
-				}
-			}
-			s:STATE_CHIANG_MAI = {
-				random_scope_state = {
-					limit = {
-						owner = root
-					}
-					set_state_owner = c:SIA
-				}
-			}
-		}
-		if = {
-			limit = {
-				s:STATE_NAKHON_RATCHASIMA = {
-				any_scope_state = {
-						owner = ROOT
-					}
-				}
-			}
-			s:STATE_NAKHON_RATCHASIMA = {
-				random_scope_state = {
-					limit = {
-						owner = root
-					}
-					set_state_owner = c:SIA
-				}
-			}
-		}
+		ztr_define_siam = yes
 		create_bidirectional_truce = { country = c:SIA months = 120 }
 		c:SIA = {
 			change_relations = {
@@ -2381,19 +982,16 @@ ztr_decolonization.15 = {
 	duration = 3
 	
 	trigger = {
-		has_game_rule = allow_ztr_decolonization_content
-		
 		has_global_variable = ztr_decolonization_age_var
-		year > 1945
 		NOT = { is_subject = yes }
-		NOT = {
-			country_has_primary_culture = cu:lao
-		}
-		s:STATE_LAOS = {
 		any_scope_state = {
-				owner = ROOT
+			NOT = { is_homeland_of_country_cultures = root }
+			state_region = {
+				is_homeland = cu:lao
 			}
+			count > 0
 		}
+		has_game_rule = allow_ztr_decolonization_content
 	}
 
 	immediate = {
@@ -2405,39 +1003,7 @@ ztr_decolonization.15 = {
 			base = 90
 		}
 		change_infamy = -5
-		if = {
-			limit = {
-				NOT = {
-				exists = c:LAO
-			}
-			}
-			create_country = {
-			tag = LAO
-			origin = this
-			province = p:x1E6D3C
-			on_created = {
-				set_country_type = recognized
-				activate_law = law_type:law_monarchy
-			}
-			}
-		}
-		if = {
-			limit = {
-				s:STATE_LAOS = {
-				any_scope_state = {
-						owner = ROOT
-					}
-				}
-			}
-			s:STATE_LAOS = {
-				random_scope_state = {
-					limit = {
-						owner = root
-					}
-					set_state_owner = c:LAO
-				}
-			}
-		}
+		ztr_define_laos = yes
 		create_bidirectional_truce = { country = c:LAO months = 120 }
 		c:LAO = {
 			change_relations = {
@@ -2476,31 +1042,16 @@ ztr_decolonization.16 = {
 	duration = 3
 	
 	trigger = {
-		has_game_rule = allow_ztr_decolonization_content
-		
 		has_global_variable = ztr_decolonization_age_var
-		year > 1945
 		NOT = { is_subject = yes }
-		NOT = {
-			country_has_primary_culture = cu:vietnamese
+		any_scope_state = {
+			NOT = { is_homeland_of_country_cultures = root }
+			state_region = {
+				is_homeland = cu:vietnamese
+			}
+			count > 0
 		}
-		OR = {
-			s:STATE_MEKONG = {
-			any_scope_state = {
-					owner = ROOT
-				}
-			}
-			s:STATE_ANNAM = {
-			any_scope_state = {
-					owner = ROOT
-				}
-			}
-			s:STATE_TONKIN = {
-			any_scope_state = {
-					owner = ROOT
-				}
-			}
-		}
+		has_game_rule = allow_ztr_decolonization_content
 	}
 
 	immediate = {
@@ -2512,73 +1063,7 @@ ztr_decolonization.16 = {
 			base = 90
 		}
 		change_infamy = -15
-		if = {
-			limit = {
-				NOT = {
-				exists = c:DAI
-			}
-			}
-			create_country = {
-			tag = DAI
-			origin = this
-			province = p:xF0E531
-			on_created = {
-				set_country_type = recognized
-				activate_law = law_type:law_council_republic
-			}
-			}
-		}
-		if = {
-			limit = {
-				s:STATE_MEKONG = {
-				any_scope_state = {
-						owner = ROOT
-					}
-				}
-			}
-			s:STATE_MEKONG = {
-				random_scope_state = {
-					limit = {
-						owner = root
-					}
-					set_state_owner = c:DAI
-				}
-			}
-		}
-		if = {
-			limit = {
-				s:STATE_TONKIN = {
-				any_scope_state = {
-						owner = ROOT
-					}
-				}
-			}
-			s:STATE_TONKIN = {
-				random_scope_state = {
-					limit = {
-						owner = root
-					}
-					set_state_owner = c:DAI
-				}
-			}
-		}
-		if = {
-			limit = {
-				s:STATE_ANNAM = {
-				any_scope_state = {
-						owner = ROOT
-					}
-				}
-			}
-			s:STATE_ANNAM = {
-				random_scope_state = {
-					limit = {
-						owner = root
-					}
-					set_state_owner = c:DAI
-				}
-			}
-		}
+		ztr_define_vietnam = yes
 		create_bidirectional_truce = { country = c:DAI months = 120 }
 		c:DAI = {
 			change_relations = {
@@ -2617,19 +1102,16 @@ ztr_decolonization.17 = {
 	duration = 3
 	
 	trigger = {
-		has_game_rule = allow_ztr_decolonization_content
-		
 		has_global_variable = ztr_decolonization_age_var
-		year > 1945
 		NOT = { is_subject = yes }
-		NOT = {
-			country_has_primary_culture = cu:khmer
-		}
-		s:STATE_CAMBODIA = {
 		any_scope_state = {
-				owner = ROOT
+			NOT = { is_homeland_of_country_cultures = root }
+			state_region = {
+				is_homeland = cu:khmer
 			}
+			count > 0
 		}
+		has_game_rule = allow_ztr_decolonization_content
 	}
 
 	immediate = {
@@ -2641,39 +1123,7 @@ ztr_decolonization.17 = {
 			base = 90
 		}
 		change_infamy = -5
-		if = {
-			limit = {
-				NOT = {
-				exists = c:CAM
-			}
-			}
-			create_country = {
-			tag = CAM
-			origin = this
-			province = p:xD45279
-			on_created = {
-				set_country_type = recognized
-				activate_law = law_type:law_monarchy
-			}
-			}
-		}
-		if = {
-			limit = {
-				s:STATE_CAMBODIA = {
-				any_scope_state = {
-						owner = ROOT
-					}
-				}
-			}
-			s:STATE_CAMBODIA = {
-				random_scope_state = {
-					limit = {
-						owner = root
-					}
-					set_state_owner = c:CAM
-				}
-			}
-		}
+		ztr_define_cambodia = yes
 		create_bidirectional_truce = { country = c:CAM months = 120 }
 		c:CAM = {
 			change_relations = {
@@ -2795,38 +1245,22 @@ ztr_decolonization.19 = {
 	duration = 3
 	
 	trigger = {
-		has_game_rule = allow_ztr_decolonization_content
 		has_global_variable = ztr_decolonization_age_var
-		year > 1945
 		NOT = { is_subject = yes }
-		NOT = {	country_has_primary_culture = cu:korean	}
-		OR = {
-			s:STATE_SEOUL = {
-			any_scope_state = {
-					owner = ROOT
-				}
+		any_scope_state = {
+			NOT = { is_homeland_of_country_cultures = root }
+			state_region = {
+				is_homeland = cu:korean
 			}
-			s:STATE_BUSAN = {
-			any_scope_state = {
-					owner = ROOT
-				}
-			}
-			s:STATE_SARIWON = {
-			any_scope_state = {
-					owner = ROOT
-				}
-			}
-			s:STATE_PYONGYANG = {
-			any_scope_state = {
-					owner = ROOT
-				}
-			}
-			s:STATE_YANGHO = {
-			any_scope_state = {
-					owner = ROOT
-				}
-			}
+			count > 0
 		}
+		NOT = {
+			AND = {
+				c:JAP ?= root
+				year < 1970
+			}
+		} #Japan can own Korea for a while
+		has_game_rule = allow_ztr_decolonization_content
 	}
 
 	immediate = {
@@ -2838,107 +1272,7 @@ ztr_decolonization.19 = {
 			base = 90
 		}
 		change_infamy = -15
-		if = {
-			limit = {
-				NOT = {
-					exists = c:KOR
-				}
-			}
-			create_country = {
-			tag = KOR
-			origin = this
-			province = p:x03EAAF
-			on_created = {
-				set_country_type = recognized
-				activate_law = law_type:law_presidential_republic
-			}
-			}
-		}
-		if = {
-			limit = {
-				s:STATE_SEOUL = {
-				any_scope_state = {
-						owner = ROOT
-					}
-				}
-			}
-			s:STATE_SEOUL = {
-				random_scope_state = {
-					limit = {
-						owner = root
-					}
-					set_state_owner = c:KOR
-				}
-			}
-		}
-		if = {
-			limit = {
-				s:STATE_BUSAN = {
-				any_scope_state = {
-						owner = ROOT
-					}
-				}
-			}
-			s:STATE_BUSAN = {
-				random_scope_state = {
-					limit = {
-						owner = root
-					}
-					set_state_owner = c:KOR
-				}
-			}
-		}
-		if = {
-			limit = {
-				s:STATE_SARIWON = {
-				any_scope_state = {
-						owner = ROOT
-					}
-				}
-			}
-			s:STATE_SARIWON = {
-				random_scope_state = {
-					limit = {
-						owner = root
-					}
-					set_state_owner = c:KOR
-				}
-			}
-		}
-		if = {
-			limit = {
-				s:STATE_PYONGYANG = {
-				any_scope_state = {
-						owner = ROOT
-					}
-				}
-			}
-			s:STATE_PYONGYANG = {
-				random_scope_state = {
-					limit = {
-						owner = root
-					}
-					set_state_owner = c:KOR
-				}
-			}
-		}
-		if = {
-			limit = {
-				s:STATE_YANGHO = {
-				any_scope_state = {
-						owner = ROOT
-					}
-				}
-			}
-			s:STATE_YANGHO = {
-				random_scope_state = {
-					limit = {
-						owner = root
-					}
-					set_state_owner = c:KOR
-				}
-			}
-		}
+		ztr_define_korea = yes
 		create_bidirectional_truce = { country = c:KOR months = 120 }
 		c:KOR = {
 			change_relations = {
@@ -2979,16 +1313,16 @@ ztr_decolonization.20 = {
 	duration = 3
 	
 	trigger = {
-		has_game_rule = allow_ztr_decolonization_content
 		has_global_variable = ztr_decolonization_age_var
-		year > 1945
 		NOT = { is_subject = yes }
-		NOT = {	country_has_primary_culture = cu:japanese }
 		any_scope_state = {
-			region = sr:region_japan
-			owner = ROOT
+			NOT = { is_homeland_of_country_cultures = root }
+			state_region = {
+				is_homeland = cu:japanese
+			}
+			count > 0
 		}
-		exists = c:JAP # This event only works if Japan exists
+		has_game_rule = allow_ztr_decolonization_content
 	}
 
 	immediate = {
@@ -3000,28 +1334,7 @@ ztr_decolonization.20 = {
 			base = 90
 		}
 		change_infamy = -15
-		# if = {
-		# 	limit = {
-		# 		NOT = {
-		# 			exists = c:DAI
-		# 		}
-		# 	}
-		# 	create_country = {
-		# 	tag = KOR
-		# 	origin = this
-		# 	province = p:x03EAAF
-		# 	on_created = {
-		# 		set_country_type = recognized
-		# 		activate_law = law_type:law_presidential_republic
-		# 	}
-		# 	}
-		# } It's very rare that Japan doesn't exist any more, so this is not needed
-		every_scope_state = {
-			limit = {
-				region = sr:region_japan
-			}
-			set_state_owner = c:JAP
-		}
+		ztr_define_japan = yes
 		create_bidirectional_truce = { country = c:JAP months = 120 }
 		c:JAP = {
 			change_relations = {

@@ -1,0 +1,2825 @@
+# For events only consider first culture
+# Kenya ZKN kikuyu, lacustrine_bantu
+# Namibia ZNB khoisan, herero
+# Somalia ZSO somali, swahili
+# Eritrea ZER tigray, afar
+# Chad ZCH fur, equatorial_bantu
+# Niger ZNI equatorial_bantu
+# Mauritania ZMU bidan
+# Senegal ZSE wolof, fulbe
+# Guinea ZGU fulbe, mande
+# Ivory Coast ZIC akan
+# Ghana ZGH akan
+# Togo ZTG ewe, akan
+# Benin ZBN fon, mande
+# Burkina Faso ZBF mossi, mande
+# Nigeria ZNG yoruba, hausa, ibo, equatorial_bantu
+# Camerun ZCM fulbe, equatorial_bantu
+# Central African Republic ZCA azande, equatorial_bantu
+# Gabon ZGB fang, equatorial_bantu
+# Republic of the Congo ZCG fluvian_bantu, bakongo
+# Democratic Republic of the Congo ZDC fluvian_bantu, bakongo
+# Uganda ZUG baganda, luo
+# Rwanda ZRW ruanda
+# Tanzania ZTZ lacustrine_bantu, unyamwezi
+# Angola ZAG kavango_bantu, ovimbundu
+# Zambia ZZM lunda, chewa
+# Mozambico ZMZ sena, makua, tonga
+# Malawi ZMW chewa, lunda
+# Eswatini ZSW zulu
+# Lesotho ZUL sotho
+# Botswana ZBT tswana
+# Mali MAL bambara
+
+#Africa
+
+ztr_define_kenya = {
+	cu:kikuyu = {
+		save_scope_as = ztr_minor_primary_culture
+	}
+	ztr_state_finder_script = yes
+	if = {
+		limit = { NOT = { exists = c:ZKN } }
+		create_country = {
+			tag    = ZKN
+			origin = this
+			state  = SCOPE:ztr_state_finder
+			on_created = {
+				set_country_type = recognized
+				activate_law     = law_type:law_parliamentary_republic
+				activate_law     = law_type:law_census_voting
+				activate_law     = law_type:law_no_schools
+			}
+		}
+	}
+	c:ZKN = {
+		if = {
+			limit = { religion = rel:animist }
+			african_religion_setting = yes
+		}
+	}
+	every_scope_state = {
+		limit = {
+			NOT = { is_homeland_of_country_cultures = root }
+			state_region = {
+				OR = {
+					region = sr:region_zanj
+					region = sr:region_ethiopia
+				}
+				is_homeland = scope:ztr_minor_primary_culture
+			}
+		}
+		set_state_owner = c:ZKN
+	}
+}
+
+ztr_define_namibia = {
+	cu:khoisan = {
+		save_scope_as = ztr_minor_primary_culture
+	}
+	ztr_state_finder_script = yes
+	if = {
+		limit = { NOT = { exists = c:ZNB } }
+		create_country = {
+			tag    = ZNB
+			origin = this
+			state  = SCOPE:ztr_state_finder
+			on_created = {
+				set_country_type = recognized
+				activate_law     = law_type:law_parliamentary_republic
+				activate_law     = law_type:law_census_voting
+				activate_law     = law_type:law_no_schools
+			}
+		}
+	}
+	c:ZNB = {
+		if = {
+			limit = { religion = rel:animist }
+			african_religion_setting = yes
+		}
+	}
+	every_scope_state = {
+		limit = {
+			NOT = { is_homeland_of_country_cultures = root }
+			state_region = {
+				OR = {
+					region = sr:region_southern_africa
+				}
+				is_homeland = scope:ztr_minor_primary_culture
+			}
+		}
+		set_state_owner = c:ZNB
+	}
+}
+
+ztr_define_somalia = {
+	cu:somali = {
+		save_scope_as = ztr_minor_primary_culture
+	}
+	ztr_state_finder_script = yes
+	if = {
+		limit = { NOT = { exists = c:ZSO } }
+		create_country = {
+			tag    = ZSO
+			origin = this
+			state  = SCOPE:ztr_state_finder
+			on_created = {
+				set_country_type = recognized
+				activate_law     = law_type:law_parliamentary_republic
+				activate_law     = law_type:law_census_voting
+				activate_law     = law_type:law_no_schools
+			}
+		}
+	}
+	c:ZSO = {
+		if = {
+			limit = { religion = rel:animist }
+			african_religion_setting = yes
+		}
+	}
+	every_scope_state = {
+		limit = {
+			NOT = { is_homeland_of_country_cultures = root }
+			state_region = {
+				OR = {
+					region = sr:region_ethiopia
+				}
+				is_homeland = scope:ztr_minor_primary_culture
+			}
+		}
+		set_state_owner = c:ZSO
+	}
+}
+
+ztr_define_eritrea = {
+	cu:tigray = {
+		save_scope_as = ztr_minor_primary_culture
+	}
+		ztr_state_finder_script = yes
+		if = {
+			limit = { NOT = { exists = c:ZER } }
+			create_country = {
+				tag    = ZER
+				origin = this
+				state  = SCOPE:ztr_state_finder
+				on_created = {
+					set_country_type = recognized
+					activate_law     = law_type:law_parliamentary_republic
+					activate_law     = law_type:law_census_voting
+					activate_law     = law_type:law_no_schools
+				}
+			}
+		}
+		c:ZER = {
+			if = {
+			limit = { religion = rel:animist }
+			african_religion_setting = yes
+		}
+	}
+		every_scope_state = {
+			limit = {
+				NOT = { is_homeland_of_country_cultures = root }
+				state_region = {
+					OR = {
+						region = sr:region_ethiopia
+					}
+					is_homeland = scope:ztr_minor_primary_culture
+				}
+			}
+			set_state_owner = c:ZER
+		}
+	}
+
+ztr_define_chad = {
+	cu:fur = {
+		save_scope_as = ztr_minor_primary_culture
+	}
+		ztr_state_finder_script = yes
+		if = {
+			limit = { NOT = { exists = c:ZCH } }
+			create_country = {
+				tag    = ZCH
+				origin = this
+				state  = SCOPE:ztr_state_finder
+				on_created = {
+					set_country_type = recognized
+					activate_law     = law_type:law_parliamentary_republic
+					activate_law     = law_type:law_census_voting
+					activate_law     = law_type:law_no_schools
+				}
+			}
+		}
+		c:ZCH = {
+			if = {
+			limit = { religion = rel:animist }
+			african_religion_setting = yes
+		}
+	}
+		every_scope_state = {
+			limit = {
+				NOT = { is_homeland_of_country_cultures = root }
+				state_region = {
+					OR = {
+						region = sr:region_niger
+					}
+					is_homeland = scope:ztr_minor_primary_culture
+				}
+			}
+			set_state_owner = c:ZCH
+		}
+	}
+
+ztr_define_niger = {
+	cu:equatorial_bantu = {
+		save_scope_as = ztr_minor_primary_culture
+	}
+		ztr_state_finder_script = yes
+		if = {
+			limit = { NOT = { exists = c:ZNI } }
+			create_country = {
+				tag    = ZNI
+				origin = this
+				state  = SCOPE:ztr_state_finder
+				on_created = {
+					set_country_type = recognized
+					activate_law     = law_type:law_parliamentary_republic
+					activate_law     = law_type:law_census_voting
+					activate_law     = law_type:law_no_schools
+				}
+			}
+		}
+		c:ZNI = {
+			if = {
+			limit = { religion = rel:animist }
+			african_religion_setting = yes
+		}
+	}
+		every_scope_state = {
+			limit = {
+				NOT = { is_homeland_of_country_cultures = root }
+				state_region = {
+					OR = {
+						region = sr:region_niger
+					}
+					is_homeland = scope:ztr_minor_primary_culture
+				}
+			}
+			set_state_owner = c:ZNI
+		}
+	}
+
+ztr_define_mauritania = {
+	cu:bidan = {
+		save_scope_as = ztr_minor_primary_culture
+	}
+		ztr_state_finder_script = yes
+		if = {
+			limit = { NOT = { exists = c:ZMU } }
+			create_country = {
+				tag    = ZMU
+				origin = this
+				state  = SCOPE:ztr_state_finder
+				on_created = {
+					set_country_type = recognized
+					activate_law     = law_type:law_parliamentary_republic
+					activate_law     = law_type:law_census_voting
+					activate_law     = law_type:law_no_schools
+				}
+			}
+		}
+		c:ZMU = {
+			if = {
+			limit = { religion = rel:animist }
+			african_religion_setting = yes
+		}
+	}
+		every_scope_state = {
+			limit = {
+				NOT = { is_homeland_of_country_cultures = root }
+				state_region = {
+					OR = {
+						region = sr:region_senegal
+					}
+					is_homeland = cu:bidan
+				}
+			}
+			set_state_owner = c:ZMU
+		}
+	}
+
+ztr_define_senegal = {
+	cu:wolof = {
+		save_scope_as = ztr_minor_primary_culture
+	}
+		ztr_state_finder_script = yes
+		if = {
+			limit = { NOT = { exists = c:ZSE } }
+			create_country = {
+				tag    = ZSE
+				origin = this
+				state  = SCOPE:ztr_state_finder
+				on_created = {
+					set_country_type = recognized
+					activate_law     = law_type:law_parliamentary_republic
+					activate_law     = law_type:law_census_voting
+					activate_law     = law_type:law_no_schools
+				}
+			}
+		}
+		c:ZSE = {
+			if = {
+			limit = { religion = rel:animist }
+			african_religion_setting = yes
+		}
+	}
+		every_scope_state = {
+			limit = {
+				NOT = { is_homeland_of_country_cultures = root }
+				state_region = {
+					OR = {
+						region = sr:region_senegal
+					}
+					is_homeland = scope:ztr_minor_primary_culture
+				}
+			}
+			set_state_owner = c:ZSE
+		}
+	}
+
+ztr_define_guinea = {
+	cu:fulbe = {
+		save_scope_as = ztr_minor_primary_culture
+	}
+		ztr_state_finder_script = yes
+		if = {
+			limit = { NOT = { exists = c:ZGU } }
+			create_country = {
+				tag    = ZGU
+				origin = this
+				state  = SCOPE:ztr_state_finder
+				on_created = {
+					set_country_type = recognized
+					activate_law     = law_type:law_parliamentary_republic
+					activate_law     = law_type:law_census_voting
+					activate_law     = law_type:law_no_schools
+				}
+			}
+		}
+		c:ZGU = {
+			if = {
+			limit = { religion = rel:animist }
+			african_religion_setting = yes
+		}
+	}
+		every_scope_state = {
+			limit = {
+				NOT = { is_homeland_of_country_cultures = root }
+				state_region = {
+					OR = {
+						region = sr:region_senegal
+					}
+					is_homeland = scope:ztr_minor_primary_culture
+				}
+			}
+			set_state_owner = c:ZGU
+		}
+	}
+
+ztr_define_ivory_coast = {
+	cu:akan = {
+		save_scope_as = ztr_minor_primary_culture
+	}
+		ztr_state_finder_script = yes
+		if = {
+			limit = { NOT = { exists = c:ZIC } }
+			create_country = {
+				tag    = ZIC
+				origin = this
+				state  = SCOPE:ztr_state_finder
+				on_created = {
+					set_country_type = recognized
+					activate_law     = law_type:law_parliamentary_republic
+					activate_law     = law_type:law_census_voting
+					activate_law     = law_type:law_no_schools
+				}
+			}
+		}
+		c:ZIC = {
+			if = {
+			limit = { religion = rel:animist }
+			african_religion_setting = yes
+		}
+	}
+		every_scope_state = {
+			limit = {
+				NOT = { is_homeland_of_country_cultures = root }
+				state_region = {
+					OR = {
+						region = sr:region_senegal
+					}
+					is_homeland = scope:ztr_minor_primary_culture
+				}
+			}
+			set_state_owner = c:ZIC
+		}
+	}
+
+ztr_define_ghana = {
+	cu:akan = {
+		save_scope_as = ztr_minor_primary_culture
+	}
+		ztr_state_finder_script = yes
+		if = {
+			limit = { NOT = { exists = c:ZGH } }
+			create_country = {
+				tag    = ZGH
+				origin = this
+				state  = SCOPE:ztr_state_finder
+				on_created = {
+					set_country_type = recognized
+					activate_law     = law_type:law_parliamentary_republic
+					activate_law     = law_type:law_census_voting
+					activate_law     = law_type:law_no_schools
+				}
+			}
+		}
+		c:ZGH = {
+			if = {
+			limit = { religion = rel:animist }
+			african_religion_setting = yes
+		}
+	}
+		every_scope_state = {
+			limit = {
+				NOT = { is_homeland_of_country_cultures = root }
+				state_region = {
+					OR = {
+						region = sr:region_senegal
+					}
+					is_homeland = scope:ztr_minor_primary_culture
+				}
+			}
+			set_state_owner = c:ZGH
+		}
+	}
+
+ztr_define_togo = {
+	cu:ewe = {
+		save_scope_as = ztr_minor_primary_culture
+	}
+		ztr_state_finder_script = yes
+		if = {
+			limit = { NOT = { exists = c:ZTG } }
+			create_country = {
+				tag    = ZTG
+				origin = this
+				state  = SCOPE:ztr_state_finder
+				on_created = {
+					set_country_type = recognized
+					activate_law     = law_type:law_parliamentary_republic
+					activate_law     = law_type:law_census_voting
+					activate_law     = law_type:law_no_schools
+				}
+			}
+		}
+		c:ZTG = {
+			if = {
+			limit = { religion = rel:animist }
+			african_religion_setting = yes
+		}
+	}
+		every_scope_state = {
+			limit = {
+				NOT = { is_homeland_of_country_cultures = root }
+				state_region = {
+					OR = {
+						region = sr:region_niger
+					}
+					is_homeland = scope:ztr_minor_primary_culture
+				}
+			}
+			set_state_owner = c:ZTG
+		}
+	}
+
+ztr_define_benin = {
+	cu:fon = {
+		save_scope_as = ztr_minor_primary_culture
+	}
+		ztr_state_finder_script = yes
+		if = {
+			limit = { NOT = { exists = c:ZBN } }
+			create_country = {
+				tag    = ZBN
+				origin = this
+				state  = SCOPE:ztr_state_finder
+				on_created = {
+					set_country_type = recognized
+					activate_law     = law_type:law_parliamentary_republic
+					activate_law     = law_type:law_census_voting
+					activate_law     = law_type:law_no_schools
+				}
+			}
+		}
+		c:ZBN = {
+			if = {
+			limit = { religion = rel:animist }
+			african_religion_setting = yes
+		}
+	}
+		every_scope_state = {
+			limit = {
+				NOT = { is_homeland_of_country_cultures = root }
+				state_region = {
+					OR = {
+						region = sr:region_niger
+					}
+					is_homeland = scope:ztr_minor_primary_culture
+				}
+			}
+			set_state_owner = c:ZBN
+		}
+	}
+
+ztr_define_burkina_faso = {
+	cu:mossi = {
+		save_scope_as = ztr_minor_primary_culture
+	}
+		ztr_state_finder_script = yes
+		if = {
+			limit = { NOT = { exists = c:ZBF } }
+			create_country = {
+				tag    = ZBF
+				origin = this
+				state  = SCOPE:ztr_state_finder
+				on_created = {
+					set_country_type = recognized
+					activate_law     = law_type:law_parliamentary_republic
+					activate_law     = law_type:law_census_voting
+					activate_law     = law_type:law_no_schools
+				}
+			}
+		}
+		c:ZBF = {
+			if = {
+			limit = { religion = rel:animist }
+			african_religion_setting = yes
+		}
+	}
+		every_scope_state = {
+			limit = {
+				NOT = { is_homeland_of_country_cultures = root }
+				state_region = {
+					OR = {
+						region = sr:region_senegal
+					}
+					is_homeland = scope:ztr_minor_primary_culture
+				}
+			}
+			set_state_owner = c:ZBF
+		}
+	}
+
+ztr_define_nigeria = {
+	cu:yoruba = {
+		save_scope_as = ztr_minor_primary_culture
+	}
+		ztr_state_finder_script = yes
+		if = {
+			limit = { NOT = { exists = c:ZNG } }
+			create_country = {
+				tag    = ZNG
+				origin = this
+				state  = SCOPE:ztr_state_finder
+				on_created = {
+					set_country_type = recognized
+					activate_law     = law_type:law_parliamentary_republic
+					activate_law     = law_type:law_census_voting
+					activate_law     = law_type:law_no_schools
+				}
+			}
+		}
+		c:ZNG = {
+			if = {
+			limit = { religion = rel:animist }
+			african_religion_setting = yes
+		}
+	}
+		every_scope_state = {
+			limit = {
+				NOT = { is_homeland_of_country_cultures = root }
+				state_region = {
+					OR = {
+						region = sr:region_niger
+					}
+					is_homeland = scope:ztr_minor_primary_culture
+				}
+			}
+			set_state_owner = c:ZNG
+		}
+	}
+
+ztr_define_camerun = {
+	cu:fulbe = {
+		save_scope_as = ztr_minor_primary_culture
+	}
+		ztr_state_finder_script = yes
+		if = {
+			limit = { NOT = { exists = c:ZCM } }
+			create_country = {
+				tag    = ZCM
+				origin = this
+				state  = SCOPE:ztr_state_finder
+				on_created = {
+					set_country_type = recognized
+					activate_law     = law_type:law_parliamentary_republic
+					activate_law     = law_type:law_census_voting
+					activate_law     = law_type:law_no_schools
+				}
+			}
+		}
+		c:ZCM = {
+			if = {
+			limit = { religion = rel:animist }
+			african_religion_setting = yes
+		}
+	}
+		every_scope_state = {
+			limit = {
+				NOT = { is_homeland_of_country_cultures = root }
+				OR = {
+					state_region = s:STATE_NORTH_CAMEROON
+					state_region = s:STATE_SOUTH_CAMEROON
+				}
+			}
+			set_state_owner = c:ZCM
+		}
+	}
+
+ztr_define_central_african_republic = {
+	cu:azande = {
+		save_scope_as = ztr_minor_primary_culture
+	}
+		ztr_state_finder_script = yes
+		if = {
+			limit = { NOT = { exists = c:ZCA } }
+			create_country = {
+				tag    = ZCA
+				origin = this
+				state  = SCOPE:ztr_state_finder
+				on_created = {
+					set_country_type = recognized
+					activate_law     = law_type:law_parliamentary_republic
+					activate_law     = law_type:law_census_voting
+					activate_law     = law_type:law_no_schools
+				}
+			}
+		}
+		c:ZCA = {
+			if = {
+			limit = { religion = rel:animist }
+			african_religion_setting = yes
+		}
+	}
+		every_scope_state = {
+			limit = {
+				NOT = { is_homeland_of_country_cultures = root }
+				state_region = {
+					OR = {
+						region = sr:region_congo
+					}
+					is_homeland = scope:ztr_minor_primary_culture
+				}
+			}
+			set_state_owner = c:ZCA
+		}
+	}
+
+ztr_define_gabon = {
+	cu:fang = {
+		save_scope_as = ztr_minor_primary_culture
+	}
+		ztr_state_finder_script = yes
+		if = {
+			limit = { NOT = { exists = c:ZGB } }
+			create_country = {
+				tag    = ZGB
+				origin = this
+				state  = SCOPE:ztr_state_finder
+				on_created = {
+					set_country_type = recognized
+					activate_law     = law_type:law_parliamentary_republic
+					activate_law     = law_type:law_census_voting
+					activate_law     = law_type:law_no_schools
+				}
+			}
+		}
+		c:ZGB = {
+			if = {
+			limit = { religion = rel:animist }
+			african_religion_setting = yes
+		}
+	}
+		every_scope_state = {
+			limit = {
+				NOT = { is_homeland_of_country_cultures = root }
+				state_region = {
+					OR = {
+						region = sr:region_congo
+					}
+					is_homeland = scope:ztr_minor_primary_culture
+				}
+			}
+			set_state_owner = c:ZGB
+		}
+	}
+
+ztr_define_republic_of_the_congo = {
+	cu:bakongo = {
+		save_scope_as = ztr_minor_primary_culture
+	}
+		ztr_state_finder_script = yes
+		if = {
+			limit = { NOT = { exists = c:ZCG } }
+			create_country = {
+				tag    = ZCG
+				origin = this
+				state  = SCOPE:ztr_state_finder
+				on_created = {
+					set_country_type = recognized
+					activate_law     = law_type:law_parliamentary_republic
+					activate_law     = law_type:law_census_voting
+					activate_law     = law_type:law_no_schools
+				}
+			}
+		}
+		c:ZCG = {
+			if = {
+			limit = { religion = rel:animist }
+			african_religion_setting = yes
+		}
+	}
+		every_scope_state = {
+			limit = {
+				NOT = { is_homeland_of_country_cultures = root }
+				state_region = {
+					OR = {
+						region = sr:region_congo
+					}
+					is_homeland = scope:ztr_minor_primary_culture
+				}
+			}
+			set_state_owner = c:ZCG
+		}
+	}
+
+ztr_define_democratic_republic_of_the_congo = {
+	cu:fluvian_bantu = {
+		save_scope_as = ztr_minor_primary_culture
+	}
+		ztr_state_finder_script = yes
+		if = {
+			limit = { NOT = { exists = c:ZDC } }
+			create_country = {
+				tag    = ZDC
+				origin = this
+				state  = SCOPE:ztr_state_finder
+				on_created = {
+					set_country_type = recognized
+					activate_law     = law_type:law_parliamentary_republic
+					activate_law     = law_type:law_census_voting
+					activate_law     = law_type:law_no_schools
+				}
+			}
+		}
+		c:ZDC = {
+			if = {
+			limit = { religion = rel:animist }
+			african_religion_setting = yes
+		}
+	}
+		every_scope_state = {
+			limit = {
+				NOT = { is_homeland_of_country_cultures = root }
+				state_region = {
+					OR = {
+						region = sr:region_congo
+					}
+					is_homeland = scope:ztr_minor_primary_culture
+				}
+			}
+			set_state_owner = c:ZDC
+		}
+	}
+
+ztr_define_uganda = {
+	cu:baganda = {
+		save_scope_as = ztr_minor_primary_culture
+	}
+		ztr_state_finder_script = yes
+		if = {
+			limit = { NOT = { exists = c:ZUG } }
+			create_country = {
+				tag    = ZUG
+				origin = this
+				state  = SCOPE:ztr_state_finder
+				on_created = {
+					set_country_type = recognized
+					activate_law     = law_type:law_parliamentary_republic
+					activate_law     = law_type:law_census_voting
+					activate_law     = law_type:law_no_schools
+				}
+			}
+		}
+		c:ZUG = {
+			if = {
+			limit = { religion = rel:animist }
+			african_religion_setting = yes
+		}
+	}
+		every_scope_state = {
+			limit = {
+				NOT = { is_homeland_of_country_cultures = root }
+				state_region = {
+					OR = {
+						region = sr:region_zanj
+					}
+					is_homeland = scope:ztr_minor_primary_culture
+				}
+			}
+			set_state_owner = c:ZUG
+		}
+	}
+
+ztr_define_rwanda = {
+	cu:ruanda = {
+		save_scope_as = ztr_minor_primary_culture
+	}
+		ztr_state_finder_script = yes
+		if = {
+			limit = { NOT = { exists = c:ZRW } }
+			create_country = {
+				tag    = ZRW
+				origin = this
+				state  = SCOPE:ztr_state_finder
+				on_created = {
+					set_country_type = recognized
+					activate_law     = law_type:law_parliamentary_republic
+					activate_law     = law_type:law_census_voting
+					activate_law     = law_type:law_no_schools
+				}
+			}
+		}
+		c:ZRW = {
+			if = {
+			limit = { religion = rel:animist }
+			african_religion_setting = yes
+		}
+	}
+		every_scope_state = {
+			limit = {
+				NOT = { is_homeland_of_country_cultures = root }
+				state_region = {
+					OR = {
+						region = sr:region_zanj
+					}
+					is_homeland = scope:ztr_minor_primary_culture
+				}
+			}
+			set_state_owner = c:ZRW
+		}
+	}
+
+ztr_define_tanzania = {
+	cu:lacustrine_bantu = {
+		save_scope_as = ztr_minor_primary_culture
+	}
+		ztr_state_finder_script = yes
+		if = {
+			limit = { NOT = { exists = c:ZTZ } }
+			create_country = {
+				tag    = ZTZ
+				origin = this
+				state  = SCOPE:ztr_state_finder
+				on_created = {
+					set_country_type = recognized
+					activate_law     = law_type:law_parliamentary_republic
+					activate_law     = law_type:law_census_voting
+					activate_law     = law_type:law_no_schools
+				}
+			}
+		}
+		c:ZTZ = {
+			if = {
+			limit = { religion = rel:animist }
+			african_religion_setting = yes
+		}
+	}
+		every_scope_state = {
+			limit = {
+				NOT = { is_homeland_of_country_cultures = root }
+				state_region = {
+					OR = {
+						region = sr:region_zanj
+					}
+					is_homeland = scope:ztr_minor_primary_culture
+				}
+			}
+			set_state_owner = c:ZTZ
+		}
+	}
+
+ztr_define_angola = {
+	cu:kavango_bantu = {
+		save_scope_as = ztr_minor_primary_culture
+	}
+		ztr_state_finder_script = yes
+		if = {
+			limit = { NOT = { exists = c:ZAG } }
+			create_country = {
+				tag    = ZAG
+				origin = this
+				state  = SCOPE:ztr_state_finder
+				on_created = {
+					set_country_type = recognized
+					activate_law     = law_type:law_parliamentary_republic
+					activate_law     = law_type:law_census_voting
+					activate_law     = law_type:law_no_schools
+				}
+			}
+		}
+		c:ZAG = {
+			if = {
+			limit = { religion = rel:animist }
+			african_religion_setting = yes
+		}
+	}
+		every_scope_state = {
+			limit = {
+				NOT = { is_homeland_of_country_cultures = root }
+				state_region = {
+					OR = {
+						region = sr:region_congo
+					}
+					is_homeland = scope:ztr_minor_primary_culture
+				}
+			}
+			set_state_owner = c:ZAG
+		}
+	}
+
+ztr_define_zambia = {
+	cu:lunda = {
+		save_scope_as = ztr_minor_primary_culture
+	}
+		ztr_state_finder_script = yes
+		if = {
+			limit = { NOT = { exists = c:ZZM } }
+			create_country = {
+				tag    = ZZM
+				origin = this
+				state  = SCOPE:ztr_state_finder
+				on_created = {
+					set_country_type = recognized
+					activate_law     = law_type:law_parliamentary_republic
+					activate_law     = law_type:law_census_voting
+					activate_law     = law_type:law_no_schools
+				}
+			}
+		}
+		c:ZZM = {
+			if = {
+			limit = { religion = rel:animist }
+			african_religion_setting = yes
+		}
+	}
+		every_scope_state = {
+			limit = {
+				NOT = { is_homeland_of_country_cultures = root }
+				state_region = {
+					OR = {
+						region = sr:region_congo
+						region = sr:region_zanj
+					}
+					is_homeland = scope:ztr_minor_primary_culture
+				}
+			}
+			set_state_owner = c:ZZM
+		}
+	}
+
+ztr_define_mozambico = {
+	cu:sena = {
+		save_scope_as = ztr_minor_primary_culture
+	}
+		ztr_state_finder_script = yes
+		if = {
+			limit = { NOT = { exists = c:ZMZ } }
+			create_country = {
+				tag    = ZMZ
+				origin = this
+				state  = SCOPE:ztr_state_finder
+				on_created = {
+					set_country_type = recognized
+					activate_law     = law_type:law_parliamentary_republic
+					activate_law     = law_type:law_census_voting
+					activate_law     = law_type:law_no_schools
+				}
+			}
+		}
+		c:ZMZ = {
+			if = {
+			limit = { religion = rel:animist }
+			african_religion_setting = yes
+		}
+	}
+		every_scope_state = {
+			limit = {
+				NOT = { is_homeland_of_country_cultures = root }
+				state_region = {
+					OR = {
+						region = sr:region_zanj
+						region = sr:region_southern_africa
+					}
+					is_homeland = scope:ztr_minor_primary_culture
+				}
+			}
+			set_state_owner = c:ZMZ
+		}
+	}
+
+ztr_define_malawi = {
+	cu:chewa = {
+		save_scope_as = ztr_minor_primary_culture
+	}
+		ztr_state_finder_script = yes
+		if = {
+			limit = { NOT = { exists = c:ZMW } }
+			create_country = {
+				tag    = ZMW
+				origin = this
+				state  = SCOPE:ztr_state_finder
+				on_created = {
+					set_country_type = recognized
+					activate_law     = law_type:law_parliamentary_republic
+					activate_law     = law_type:law_census_voting
+					activate_law     = law_type:law_no_schools
+				}
+			}
+		}
+		c:ZMW = {
+			if = {
+			limit = { religion = rel:animist }
+			african_religion_setting = yes
+		}
+	}
+		every_scope_state = {
+			limit = {
+				NOT = { is_homeland_of_country_cultures = root }
+				state_region = {
+					OR = {
+						region = sr:region_zanj
+					}
+					is_homeland = scope:ztr_minor_primary_culture
+				}
+			}
+			set_state_owner = c:ZMW
+		}
+	}
+
+ztr_define_eswatini = {
+	cu:zulu = {
+		save_scope_as = ztr_minor_primary_culture
+	}
+		ztr_state_finder_script = yes
+		if = {
+			limit = { NOT = { exists = c:ZSW } }
+			create_country = {
+				tag    = ZSW
+				origin = this
+				state  = SCOPE:ztr_state_finder
+				on_created = {
+					set_country_type = recognized
+					activate_law     = law_type:law_parliamentary_republic
+					activate_law     = law_type:law_census_voting
+					activate_law     = law_type:law_no_schools
+				}
+			}
+		}
+		c:ZSW = {
+			if = {
+			limit = { religion = rel:animist }
+			african_religion_setting = yes
+		}
+	}
+		every_scope_state = {
+			limit = {
+				NOT = { is_homeland_of_country_cultures = root }
+				state_region = {
+					OR = {
+						region = sr:region_southern_africa
+					}
+					is_homeland = scope:ztr_minor_primary_culture
+				}
+			}
+			set_state_owner = c:ZSW
+		}
+	}
+
+ztr_define_lesotho = {
+	cu:sotho = {
+		save_scope_as = ztr_minor_primary_culture
+	}
+		ztr_state_finder_script = yes
+		if = {
+			limit = { NOT = { exists = c:ZLS } }
+			create_country = {
+				tag    = ZLS
+				origin = this
+				state  = SCOPE:ztr_state_finder
+				on_created = {
+					set_country_type = recognized
+					activate_law     = law_type:law_parliamentary_republic
+					activate_law     = law_type:law_census_voting
+					activate_law     = law_type:law_no_schools
+				}
+			}
+		}
+		c:ZLS = {
+			if = {
+			limit = { religion = rel:animist }
+			african_religion_setting = yes
+		}
+	}
+		every_scope_state = {
+			limit = {
+				NOT = { is_homeland_of_country_cultures = root }
+				state_region = {
+					OR = {
+						region = sr:region_southern_africa
+					}
+					is_homeland = scope:ztr_minor_primary_culture
+				}
+			}
+			set_state_owner = c:ZLS
+		}
+	}
+
+ztr_define_mali = {
+	cu:bambara = {
+		save_scope_as = ztr_minor_primary_culture
+	}
+		ztr_state_finder_script = yes
+		if = {
+			limit = { NOT = { exists = c:MAL } }
+			create_country = {
+				tag    = MAL
+				origin = this
+				state  = SCOPE:ztr_state_finder
+				on_created = {
+					set_country_type = recognized
+					activate_law     = law_type:law_parliamentary_republic
+					activate_law     = law_type:law_census_voting
+					activate_law     = law_type:law_no_schools
+				}
+			}
+		}
+		c:MAL = {
+			if = {
+			limit = { religion = rel:animist }
+			african_religion_setting = yes
+		}
+	}
+		every_scope_state = {
+			limit = {
+				NOT = { is_homeland_of_country_cultures = root }
+				state_region = {
+					OR = {
+						region = sr:region_senegal
+					}
+					is_homeland = scope:ztr_minor_primary_culture
+				}
+			}
+			set_state_owner = c:MAL
+		}
+	}
+
+ztr_define_madagascar = {
+	cu:malagasy = {
+		save_scope_as = ztr_minor_primary_culture
+	}
+	ztr_state_finder_script = yes
+	if = {
+		limit = { NOT = { exists = c:MAD } }
+		create_country = {
+			tag    = MAD
+			origin = this
+			state  = SCOPE:ztr_state_finder
+			on_created = {
+				set_country_type = recognized
+				activate_law     = law_type:law_parliamentary_republic
+				activate_law     = law_type:law_census_voting
+				activate_law     = law_type:law_no_schools
+			}
+		}
+	}
+	c:MAD = {
+		if = {
+			limit = { religion = rel:animist }
+			african_religion_setting = yes
+		}
+	}
+	every_scope_state = {
+		limit = {
+			NOT = { is_homeland_of_country_cultures = root }
+			state_region = {
+				OR = {
+					region = sr:region_zanj
+				}
+				is_homeland = scope:ztr_minor_primary_culture
+			}
+		}
+		set_state_owner = c:MAD
+	}
+}
+
+ztr_define_ethiopia = {
+	cu:amhara = {
+		save_scope_as = ztr_minor_primary_culture
+	}
+	ztr_state_finder_script = yes
+	if = {
+		limit = { NOT = { exists = c:ETH } }
+		create_country = {
+			tag    = ETH
+			origin = this
+			state  = SCOPE:ztr_state_finder
+			on_created = {
+				set_country_type = recognized
+				activate_law     = law_type:law_parliamentary_republic
+				activate_law     = law_type:law_census_voting
+				activate_law     = law_type:law_no_schools
+			}
+		}
+	}
+	every_scope_state = {
+		limit = {
+			NOT = { is_homeland_of_country_cultures = root }
+			state_region = {
+				OR = {
+					region = sr:region_ethiopia
+				}
+				is_homeland = scope:ztr_minor_primary_culture
+			}
+		}
+		set_state_owner = c:ETH
+	}
+}
+
+ztr_define_tunisia = {
+	cu:maghrebi = {
+		save_scope_as = ztr_minor_primary_culture
+	}
+	ordered_scope_state = {
+		limit = {
+			NOT = { is_homeland_of_country_cultures = root }
+			OR = {
+				state_region = s:STATE_TUNISIA
+			}
+		}
+		order_by = gdp
+		save_scope_as = ztr_state_finder
+	}
+	if = {
+		limit = { NOT = { exists = c:TUN } }
+		create_country = {
+			tag    = TUN
+			origin = this
+			state  = SCOPE:ztr_state_finder
+			on_created = {
+				set_country_type = recognized
+				activate_law     = law_type:law_parliamentary_republic
+				activate_law     = law_type:law_census_voting
+				activate_law     = law_type:law_no_schools
+			}
+		}
+	}
+	every_scope_state = {
+		limit = {
+			NOT = { is_homeland_of_country_cultures = root }
+			OR = {
+				state_region = s:STATE_TUNISIA
+			}
+		}
+		set_state_owner = c:TUN
+	}
+}
+
+ztr_define_algeria = {
+	cu:maghrebi = {
+		save_scope_as = ztr_minor_primary_culture
+	}
+	ordered_scope_state = {
+		limit = {
+			NOT = { is_homeland_of_country_cultures = root }
+			OR = {
+				state_region = s:STATE_ORAN
+				state_region = s:STATE_ALGIERS
+				state_region = s:STATE_CONSTANTINE
+				state_region = s:STATE_EAST_SAHARA
+				state_region = s:STATE_SAHARA
+			}
+		}
+		order_by = gdp
+		save_scope_as = ztr_state_finder
+	}
+	if = {
+		limit = { NOT = { exists = c:ALD } }
+		create_country = {
+			tag    = ALD
+			origin = this
+			state  = SCOPE:ztr_state_finder
+			on_created = {
+				set_country_type = recognized
+				activate_law     = law_type:law_parliamentary_republic
+				activate_law     = law_type:law_census_voting
+				activate_law     = law_type:law_no_schools
+			}
+		}
+	}
+	every_scope_state = {
+		limit = {
+			NOT = { is_homeland_of_country_cultures = root }
+			OR = {
+				state_region = s:STATE_ORAN
+				state_region = s:STATE_ALGIERS
+				state_region = s:STATE_CONSTANTINE
+				state_region = s:STATE_EAST_SAHARA
+				state_region = s:STATE_SAHARA
+			}
+		}
+		set_state_owner = c:ALD
+	}
+}
+
+ztr_define_morocco = {
+	cu:maghrebi = {
+		save_scope_as = ztr_minor_primary_culture
+	}
+	ordered_scope_state = {
+		limit = {
+			NOT = { is_homeland_of_country_cultures = root }
+			OR = {
+				state_region = s:STATE_FEZ
+				state_region = s:STATE_INNER_MOROCCO
+				state_region = s:STATE_WEST_SAHARA
+				state_region = s:STATE_MARRAKECH
+				AND = {
+					NOR = {
+						c:SPA ?= root
+						c:POR ?= root
+					}
+					state_region = s:STATE_AL_RIF
+				}
+			}
+		}
+		order_by = gdp
+		save_scope_as = ztr_state_finder
+	}
+	if = {
+		limit = { NOT = { exists = c:MOR } }
+		create_country = {
+			tag    = MOR
+			origin = this
+			state  = SCOPE:ztr_state_finder
+			on_created = {
+				set_country_type = recognized
+				activate_law     = law_type:law_parliamentary_republic
+				activate_law     = law_type:law_census_voting
+				activate_law     = law_type:law_no_schools
+			}
+		}
+	}
+	every_scope_state = {
+		limit = {
+			NOT = { is_homeland_of_country_cultures = root }
+			OR = {
+				state_region = s:STATE_FEZ
+				state_region = s:STATE_INNER_MOROCCO
+				state_region = s:STATE_WEST_SAHARA
+				state_region = s:STATE_MARRAKECH
+				AND = {
+					NOR = {
+						c:SPA ?= root
+						c:POR ?= root
+					}
+					state_region = s:STATE_AL_RIF
+				}
+			}
+		}
+		set_state_owner = c:MOR
+	}
+}
+
+ztr_define_libya = {
+	cu:maghrebi = {
+		save_scope_as = ztr_minor_primary_culture
+	}
+	ordered_scope_state = {
+		limit = {
+			NOT = { is_homeland_of_country_cultures = root }
+			OR = {
+				state_region = s:STATE_TRIPOLI
+				state_region = s:STATE_LIBYA
+				state_region = s:STATE_LIBYAN_DESERT
+			}
+		}
+		order_by = gdp
+		save_scope_as = ztr_state_finder
+	}
+	if = {
+		limit = { NOT = { exists = c:TRI } }
+		create_country = {
+			tag    = TRI
+			origin = this
+			state  = SCOPE:ztr_state_finder
+			on_created = {
+				set_country_type = recognized
+				activate_law     = law_type:law_parliamentary_republic
+				activate_law     = law_type:law_census_voting
+				activate_law     = law_type:law_no_schools
+			}
+		}
+	}
+	every_scope_state = {
+		limit = {
+			NOT = { is_homeland_of_country_cultures = root }
+			OR = {
+				state_region = s:STATE_TRIPOLI
+				state_region = s:STATE_LIBYA
+				state_region = s:STATE_LIBYAN_DESERT
+			}
+		}
+		set_state_owner = c:TRI
+	}
+}
+
+ztr_define_egypt = {
+	cu:misri = {
+		save_scope_as = ztr_minor_primary_culture
+	}
+	ordered_scope_state = {
+		limit = {
+			NOT = { is_homeland_of_country_cultures = root }
+			OR = {
+				state_region = s:STATE_LOWER_EGYPT
+				state_region = s:STATE_MIDDLE_EGYPT
+				state_region = s:STATE_UPPER_EGYPT
+				state_region = s:STATE_MATRUH
+				state_region = s:STATE_EGYPTIAN_DESERT
+				#TODO Sinai can be Egyptian after a Suez Canal event
+			}
+		}
+		order_by = gdp
+		save_scope_as = ztr_state_finder
+	}
+	if = {
+		limit = { NOT = { exists = c:EGY } }
+		create_country = {
+			tag    = EGY
+			origin = this
+			state  = SCOPE:ztr_state_finder
+			on_created = {
+				set_country_type = recognized
+				activate_law     = law_type:law_parliamentary_republic
+				activate_law     = law_type:law_census_voting
+				activate_law     = law_type:law_no_schools
+			}
+		}
+	}
+	every_scope_state = {
+		limit = {
+			NOT = { is_homeland_of_country_cultures = root }
+			state_region = {
+				region = sr:region_nile_basin
+				OR = {
+					is_homeland = cu:misri
+					is_homeland = cu:bedouin
+				}
+			}
+		}
+		set_state_owner = c:EGY
+	}
+}
+
+ztr_define_sudan = {
+	cu:sudanese = {
+		save_scope_as = ztr_minor_primary_culture
+	}
+	ordered_scope_state = {
+		limit = {
+			NOT = { is_homeland_of_country_cultures = root }
+			OR = {
+				state_region = s:STATE_BLUE_NILE
+				state_region = s:STATE_DONGOLA
+				state_region = s:STATE_DARFUR
+				state_region = s:STATE_KORDOFAN
+				state_region = s:STATE_EQUATORIA
+			}
+		}
+		order_by = gdp
+		save_scope_as = ztr_state_finder
+	}
+	if = {
+		limit = { NOT = { exists = c:SUD } }
+		create_country = {
+			tag    = SUD
+			origin = this
+			state  = SCOPE:ztr_state_finder
+			on_created = {
+				set_country_type = recognized
+				activate_law     = law_type:law_parliamentary_republic
+				activate_law     = law_type:law_census_voting
+				activate_law     = law_type:law_no_schools
+			}
+		}
+	}
+	every_scope_state = {
+		limit = {
+			NOT = { is_homeland_of_country_cultures = root }
+			OR = {
+				state_region = s:STATE_BLUE_NILE
+				state_region = s:STATE_DONGOLA
+				state_region = s:STATE_DARFUR
+				state_region = s:STATE_KORDOFAN
+				state_region = s:STATE_EQUATORIA
+			}
+		}
+		set_state_owner = c:SUD
+	}
+}
+
+# Asia
+
+ztr_define_arabia = {
+	cu:bedouin = {
+		save_scope_as = ztr_minor_primary_culture
+	}
+	ordered_scope_state = {
+		limit = {
+			NOT = { is_homeland_of_country_cultures = root }
+			OR = {
+				state_region = s:STATE_NEJD
+				state_region = s:STATE_HEDJAZ
+				state_region = s:STATE_HAIL
+			}
+		}
+		order_by = gdp
+		save_scope_as = ztr_state_finder
+	}
+	if = {
+		limit = { NOT = { exists = c:NEJ } }
+		create_country = {
+			tag    = NEJ
+			origin = this
+			state  = SCOPE:ztr_state_finder
+			on_created = {
+				set_country_type = recognized
+				activate_law = law_type:law_theocracy
+				activate_law = law_type:law_census_voting
+				activate_law = law_type:law_religious_schools
+			}
+		}
+	}
+	every_scope_state = {
+		limit = {
+			NOT = { is_homeland_of_country_cultures = root }
+			OR = {
+				state_region = s:STATE_NEJD
+				state_region = s:STATE_HEDJAZ
+				state_region = s:STATE_HAIL
+				state_region = s:STATE_OMAN
+				state_region = s:STATE_YEMEN
+				state_region = s:STATE_ABU_DHABI
+			}
+		}
+		set_state_owner = c:NEJ
+	}
+}
+
+ztr_define_oman = {
+	cu:bedouin = {
+		save_scope_as = ztr_minor_primary_culture
+	}
+	ordered_scope_state = {
+		limit = {
+			NOT = { is_homeland_of_country_cultures = root }
+			OR = {
+				state_region = s:STATE_OMAN
+			}
+		}
+		order_by = gdp
+		save_scope_as = ztr_state_finder
+	}
+	if = {
+		limit = { NOT = { exists = c:OMA } }
+		create_country = {
+			tag    = OMA
+			origin = this
+			state  = SCOPE:ztr_state_finder
+			on_created = {
+				set_country_type = recognized
+				activate_law = law_type:law_theocracy
+				activate_law = law_type:law_census_voting
+				activate_law = law_type:law_religious_schools
+			}
+		}
+	}
+	every_scope_state = {
+		limit = {
+			NOT = { is_homeland_of_country_cultures = root }
+			OR = {
+				state_region = s:STATE_OMAN
+			}
+		}
+		set_state_owner = c:OMA
+	}
+}
+
+ztr_define_yemen = {
+	cu:bedouin = {
+		save_scope_as = ztr_minor_primary_culture
+	}
+	ordered_scope_state = {
+		limit = {
+			NOT = { is_homeland_of_country_cultures = root }
+			OR = {
+				state_region = s:STATE_YEMEN
+			}
+		}
+		order_by = gdp
+		save_scope_as = ztr_state_finder
+	}
+	if = {
+		limit = { NOT = { exists = c:YEM } }
+		create_country = {
+			tag    = YEM
+			origin = this
+			state  = SCOPE:ztr_state_finder
+			on_created = {
+				set_country_type = recognized
+				activate_law = law_type:law_theocracy
+				activate_law = law_type:law_census_voting
+				activate_law = law_type:law_religious_schools
+			}
+		}
+	}
+	every_scope_state = {
+		limit = {
+			NOT = { is_homeland_of_country_cultures = root }
+			OR = {
+				state_region = s:STATE_YEMEN
+			}
+		}
+		set_state_owner = c:YEM
+	}
+}
+
+ztr_define_iraq = {
+	cu:mashriqi = {
+		save_scope_as = ztr_minor_primary_culture
+	}
+	ordered_scope_state = {
+		limit = {
+			NOT = { is_homeland_of_country_cultures = root }
+			OR = {
+				state_region = s:STATE_BAGHDAD
+				state_region = s:STATE_BASRA
+				state_region = s:STATE_MOSUL
+				AND = {
+					NOT = { c:PER ?= root }
+					state_region = s:STATE_MOSUL
+				}
+			}
+		}
+		order_by = gdp
+		save_scope_as = ztr_state_finder
+	}
+	if = {
+		limit = { NOT = { exists = c:IRQ } }
+		create_country = {
+			tag    = IRQ
+			origin = this
+			state  = SCOPE:ztr_state_finder
+			on_created = {
+				set_country_type = recognized
+				activate_law     = law_type:law_parliamentary_republic
+				activate_law     = law_type:law_census_voting
+				activate_law     = law_type:law_no_schools
+			}
+		}
+	}
+	every_scope_state = {
+		limit = {
+			NOT = { is_homeland_of_country_cultures = root }
+			OR = {
+				state_region = s:STATE_BAGHDAD
+				state_region = s:STATE_BASRA
+				state_region = s:STATE_DEIR_EZ_ZOR
+				AND = {
+					NOT = { c:PER ?= root }
+					state_region = s:STATE_MOSUL
+					state_region = s:STATE_KHUZESTAN
+				}
+			}
+		}
+		set_state_owner = c:IRQ
+	}
+}
+
+ztr_define_syria = {
+	cu:mashriqi = {
+		save_scope_as = ztr_minor_primary_culture
+	}
+	ordered_scope_state = {
+		limit = {
+			NOT = { is_homeland_of_country_cultures = root }
+			OR = {
+				state_region = s:STATE_ALEPPO
+				state_region = s:STATE_SYRIA
+				state_region = s:STATE_DEIR_EZ_ZOR
+				state_region = s:STATE_ADANA
+				AND = {
+					NOT = { c:TUR ?= root }
+					state_region = s:STATE_ADANA
+				}
+			}
+		}
+		order_by = gdp
+		save_scope_as = ztr_state_finder
+	}
+	if = {
+		limit = { NOT = { exists = c:SYR } }
+		create_country = {
+			tag    = SYR
+			origin = this
+			state  = SCOPE:ztr_state_finder
+			on_created = {
+				set_country_type = recognized
+				activate_law     = law_type:law_parliamentary_republic
+				activate_law     = law_type:law_census_voting
+				activate_law     = law_type:law_no_schools
+			}
+		}
+	}
+	every_scope_state = {
+		limit = {
+			NOT = { is_homeland_of_country_cultures = root }
+			OR = {
+				state_region = s:STATE_ALEPPO
+				state_region = s:STATE_SYRIA
+				state_region = s:STATE_DEIR_EZ_ZOR
+				state_region = s:STATE_ADANA
+				AND = {
+					NOT = { c:TUR ?= root }
+					state_region = s:STATE_ADANA
+				}
+			}
+		}
+		set_state_owner = c:SYR
+	}
+}
+
+ztr_define_lebanon = {
+	cu:misri = {
+		save_scope_as = ztr_minor_primary_culture
+	}
+	ordered_scope_state = {
+		limit = {
+			NOT = { is_homeland_of_country_cultures = root }
+			state_region = s:STATE_LEBANON
+		}
+		order_by = gdp
+		save_scope_as = ztr_state_finder
+	}
+	if = {
+		limit = { NOT = { exists = c:LEB } }
+		create_country = {
+			tag    = LEB
+			origin = this
+			state  = SCOPE:ztr_state_finder
+			on_created = {
+				set_country_type = recognized
+				activate_law     = law_type:law_parliamentary_republic
+				activate_law     = law_type:law_census_voting
+				activate_law     = law_type:law_no_schools
+			}
+		}
+	}
+	SCOPE:ztr_state_finder = {
+		set_state_owner = c:LEB
+	}
+}
+
+ztr_define_transjordan = {
+	cu:misri = {
+		save_scope_as = ztr_minor_primary_culture
+	}
+	ordered_scope_state = {
+		limit = {
+			NOT = { is_homeland_of_country_cultures = root }
+			state_region = s:STATE_TRANSJORDAN
+		}
+		order_by = gdp
+		save_scope_as = ztr_state_finder
+	}
+	if = {
+		limit = { NOT =	 { exists = c:EOT } }
+		create_country = {
+			tag    = EOT
+			origin = this
+			state  = SCOPE:ztr_state_finder
+			on_created = {
+				set_country_type = recognized
+				activate_law     = law_type:law_parliamentary_republic
+				activate_law     = law_type:law_census_voting
+				activate_law     = law_type:law_no_schools
+			}
+		}
+	}
+	SCOPE:ztr_state_finder = {
+		set_state_owner = c:EOT
+	}
+}
+
+ztr_define_palestine = {
+	cu:misri = {
+		save_scope_as = ztr_minor_primary_culture
+	}
+	ordered_scope_state = {
+		limit = {
+			NOT = { is_homeland_of_country_cultures = root }
+			state_region = s:STATE_PALESTINE
+		}
+		order_by = gdp
+		save_scope_as = ztr_state_finder
+	}
+	if = {
+		limit = { NOT = { exists = c:PAL } }
+		create_country = {
+			tag    = PAL
+			origin = this
+			state  = SCOPE:ztr_state_finder
+			on_created = {
+				set_country_type = recognized
+				activate_law     = law_type:law_parliamentary_republic
+				activate_law     = law_type:law_census_voting
+				activate_law     = law_type:law_no_schools
+			}
+		}
+	}
+	SCOPE:ztr_state_finder = {
+		set_state_owner = c:PAL
+	}
+}
+
+ztr_define_kurdistan = {
+	cu:kurdish = {
+		save_scope_as = ztr_minor_primary_culture
+	}
+	ordered_scope_state = {
+		limit = {
+			NOT = { is_homeland_of_country_cultures = root }
+			state_region = {
+				is_homeland = cu:kurdish
+			}
+		}
+	order_by = gdp
+	save_scope_as = ztr_state_finder
+	}
+	if = {
+		limit = { NOT = { exists = c:KUR } }
+		create_country = {
+			tag    = KUR
+			origin = this
+			state  = SCOPE:ztr_state_finder
+			on_created = {
+				set_country_type = recognized
+				activate_law     = law_type:law_parliamentary_republic
+				activate_law     = law_type:law_census_voting
+				activate_law     = law_type:law_no_schools
+			}
+		}
+	}
+	every_scope_state = {
+		limit = {
+			NOT = { is_homeland_of_country_cultures = root }
+			state_region = {
+				is_homeland = cu:kurdish
+			}
+		}
+		set_state_owner = c:KUR
+	}
+}
+
+ztr_define_persia = {
+	cu:persian = {
+		save_scope_as = ztr_minor_primary_culture
+	}
+	ordered_scope_state = {
+		limit = {
+			NOT = { is_homeland_of_country_cultures = root }
+			state_region = {
+				is_homeland = cu:persian
+			}
+		}
+		order_by = gdp
+		save_scope_as = ztr_state_finder
+	}
+	if = {
+		limit = { NOT = { exists = c:PER } }
+		create_country = {
+			tag    = PER
+			origin = this
+			state  = SCOPE:ztr_state_finder
+			on_created = {
+				set_country_type = recognized
+				activate_law = law_type:law_theocracy
+				activate_law = law_type:law_census_voting
+				activate_law = law_type:law_religious_schools
+			}
+		}
+	}
+	every_scope_state = {
+		limit = {
+			NOT = { is_homeland_of_country_cultures = root }
+			state_region = {
+				region = sr:region_persia
+			}
+		}
+		set_state_owner = c:PER
+	}
+}
+
+ztr_define_birmania = {
+	cu:burmese = {
+		save_scope_as = ztr_minor_primary_culture
+	}
+	ordered_scope_state = {
+		limit = {
+			NOT = { is_homeland_of_country_cultures = root }
+			state_region = {
+				is_homeland = cu:burmese
+			}
+		}
+		order_by = gdp
+		save_scope_as = ztr_state_finder
+	}
+	if = {
+		limit = { NOT = { exists = c:BUR } }
+		create_country = {
+			tag    = BUR
+			origin = this
+			state  = SCOPE:ztr_state_finder
+			on_created = {
+				set_country_type = recognized
+				activate_law = law_type:law_theocracy
+				activate_law = law_type:law_census_voting
+				activate_law = law_type:law_religious_schools
+			}
+		}
+	}
+	every_scope_state = {
+		limit = {
+			NOT = { is_homeland_of_country_cultures = root }
+			state_region = {
+				is_homeland = cu:burmese
+			}
+		}
+		set_state_owner = c:BUR
+	}
+}
+
+ztr_define_siam = {
+	cu:thai = {
+		save_scope_as = ztr_minor_primary_culture
+	}
+	ordered_scope_state = {
+		limit = {
+			NOT = { is_homeland_of_country_cultures = root }
+			state_region = {
+				is_homeland = cu:thai
+			}
+		}
+		order_by = gdp
+		save_scope_as = ztr_state_finder
+	}
+	if = {
+		limit = { NOT = { exists = c:SIA } }
+		create_country = {
+			tag    = SIA
+			origin = this
+			state  = SCOPE:ztr_state_finder
+			on_created = {
+				set_country_type = recognized
+				activate_law     = law_type:law_parliamentary_republic
+				activate_law     = law_type:law_census_voting
+				activate_law     = law_type:law_no_schools
+			}
+		}
+	}
+	every_scope_state = {
+		limit = {
+			NOT = { is_homeland_of_country_cultures = root }
+			state_region = {
+				is_homeland = cu:thai
+			}
+		}
+		set_state_owner = c:SIA
+	}
+}
+
+ztr_define_laos = {
+	cu:lao = {
+		save_scope_as = ztr_minor_primary_culture
+	}
+	ordered_scope_state = {
+		limit = {
+			NOT = { is_homeland_of_country_cultures = root }
+			state_region = {
+				is_homeland = cu:lao
+			}
+		}
+		order_by = gdp
+		save_scope_as = ztr_state_finder
+	}
+	if = {
+		limit = { NOT = { exists = c:LAO } }
+		create_country = {
+			tag    = LAO
+			origin = this
+			state  = SCOPE:ztr_state_finder
+			on_created = {
+				set_country_type = recognized
+				activate_law     = law_type:law_parliamentary_republic
+				activate_law     = law_type:law_census_voting
+				activate_law     = law_type:law_no_schools
+			}
+		}
+	}
+	every_scope_state = {
+		limit = {
+			NOT = { is_homeland_of_country_cultures = root }
+			state_region = {
+				is_homeland = cu:lao
+			}
+		}
+		set_state_owner = c:LAO
+	}
+}
+
+ztr_define_cambodia = {
+	cu:khmer = {
+		save_scope_as = ztr_minor_primary_culture
+	}
+	ordered_scope_state = {
+		limit = {
+			NOT = { is_homeland_of_country_cultures = root }
+			state_region = {
+				is_homeland = cu:khmer
+			}
+		}
+		order_by = gdp
+		save_scope_as = ztr_state_finder
+	}
+	if = {
+		limit = { NOT = { exists = c:CAM } }
+		create_country = {
+			tag    = CAM
+			origin = this
+			state  = SCOPE:ztr_state_finder
+			on_created = {
+				set_country_type = recognized
+				activate_law     = law_type:law_parliamentary_republic
+				activate_law     = law_type:law_census_voting
+				activate_law     = law_type:law_no_schools
+			}
+		}
+	}
+	every_scope_state = {
+		limit = {
+			NOT = { is_homeland_of_country_cultures = root }
+			state_region = {
+				is_homeland = cu:khmer
+			}
+		}
+		set_state_owner = c:CAM
+	}
+}
+
+ztr_define_vietnam = {
+	cu:vietnamese = {
+		save_scope_as = ztr_minor_primary_culture
+	}
+	ordered_scope_state = {
+		limit = {
+			NOT = { is_homeland_of_country_cultures = root }
+			state_region = {
+				is_homeland = cu:vietnamese
+			}
+		}
+		order_by = gdp
+		save_scope_as = ztr_state_finder
+	}
+	if = {
+		limit = { NOT = { exists = c:VIE } }
+		create_country = {
+			tag    = VIE
+			origin = this
+			state  = SCOPE:ztr_state_finder
+			on_created = {
+				set_country_type = recognized
+				activate_law     = law_type:law_parliamentary_republic
+				activate_law     = law_type:law_census_voting
+				activate_law     = law_type:law_no_schools
+			}
+		}
+	}
+	every_scope_state = {
+		limit = {
+			NOT = { is_homeland_of_country_cultures = root }
+			state_region = {
+				is_homeland = cu:vietnamese
+			}
+		}
+		set_state_owner = c:VIE
+	}
+}
+
+ztr_define_afghanistan = {
+	cu:pashtun = {
+		save_scope_as = ztr_minor_primary_culture
+	}
+	ordered_scope_state = {
+		limit = {
+			NOT = { is_homeland_of_country_cultures = root }
+			OR = {
+				state_region = s:STATE_HERAT
+				state_region = s:STATE_KABUL
+				state_region = s:STATE_NORTHERN_BALUCHISTAN
+				state_region = s:STATE_KANDAHAR
+				state_region = s:STATE_BALKH
+				state_region = s:STATE_CENTRAL_HIGHLANDS
+				# Durrand Line has divided Pashtun from Indian subcontinent
+				AND = {
+					NOT = { has_global_variable = durand_line }
+					state_region = s:STATE_PASHTUNISTAN
+					state_region = s:STATE_QUETTA
+					state_region = s:STATE_BALUCHISTAN
+				}
+			}
+		}
+		order_by = gdp
+		save_scope_as = ztr_state_finder
+	}
+	if = {
+		limit = { NOT = { exists = c:AFG } }
+		create_country = {
+			tag    = AFG
+			origin = this
+			state  = SCOPE:ztr_state_finder
+			on_created = {
+				set_country_type = recognized
+				activate_law     = law_type:law_theocracy
+				activate_law     = law_type:law_census_voting
+				activate_law     = law_type:law_no_schools
+			}
+		}
+	}
+	every_scope_state = {
+		limit = {
+			NOT = { is_homeland_of_country_cultures = root }
+			OR = {
+				state_region = s:STATE_HERAT
+				state_region = s:STATE_KABUL
+				state_region = s:STATE_NORTHERN_BALUCHISTAN
+				state_region = s:STATE_KANDAHAR
+				state_region = s:STATE_BALKH
+				state_region = s:STATE_CENTRAL_HIGHLANDS
+				# Durrand Line has divided Pashtun from Indian subcontinent
+				AND = {
+					NOT = { has_global_variable = durand_line }
+					state_region = s:STATE_PASHTUNISTAN
+					state_region = s:STATE_QUETTA
+					state_region = s:STATE_BALUCHISTAN
+				}
+			}
+		}
+		set_state_owner = c:AFG
+	}
+}
+
+ztr_define_malaysia = {
+	cu:malay = {
+		save_scope_as = ztr_minor_primary_culture
+	}
+	ordered_scope_state = {
+		limit = {
+			NOT = { is_homeland_of_country_cultures = root }
+			state_region = {
+				is_homeland = cu:malay
+			}
+		}
+		order_by = gdp
+		save_scope_as = ztr_state_finder
+	}
+	if = {
+		limit = { NOT = { exists = c:JOH } }
+		create_country = {
+			tag    = JOH
+			origin = this
+			state  = SCOPE:ztr_state_finder
+			on_created = {
+				set_country_type = recognized
+				activate_law     = law_type:law_parliamentary_republic
+				activate_law     = law_type:law_census_voting
+				activate_law     = law_type:law_no_schools
+			}
+		}
+	}
+	every_scope_state = {
+		limit = {
+			NOT = { is_homeland_of_country_cultures = root }
+			state_region = {
+				is_homeland = cu:malay
+			}
+		}
+		set_state_owner = c:JOH
+	}
+}
+
+ztr_define_nepal = {
+	cu:nepali = {
+		save_scope_as = ztr_minor_primary_culture
+	}
+	ordered_scope_state = {
+		limit = {
+			NOT = { is_homeland_of_country_cultures = root }
+			state_region = {
+				is_homeland = cu:nepali
+			}
+		}
+		order_by = gdp
+		save_scope_as = ztr_state_finder
+	}
+	if = {
+		limit = { NOT = { exists = c:NEP } }
+		create_country = {
+			tag    = NEP
+			origin = this
+			state  = SCOPE:ztr_state_finder
+			on_created = {
+				set_country_type = recognized
+				activate_law     = law_type:law_theocracy
+				activate_law     = law_type:law_census_voting
+				activate_law     = law_type:law_no_schools
+			}
+		}
+	}
+	every_scope_state = {
+		limit = {
+			NOT = { is_homeland_of_country_cultures = root }
+			state_region = {
+				is_homeland = cu:nepali
+			}
+		}
+		set_state_owner = c:NEP
+	}
+}
+
+ztr_define_bhutan = {
+	cu:tibetan = {
+		save_scope_as = ztr_minor_primary_culture
+	}
+	ordered_scope_state = {
+		limit = {
+			NOT = { is_homeland_of_country_cultures = root }
+			state_region = s:STATE_EASTERN_HIMALAYAS
+		}
+		order_by = gdp
+		save_scope_as = ztr_state_finder
+	}
+	if = {
+		limit = { NOT = { exists = c:BHU } }
+		create_country = {
+			tag    = BHU
+			origin = this
+			state  = SCOPE:ztr_state_finder
+			on_created = {
+				set_country_type = recognized
+				activate_law     = law_type:law_theocracy
+				activate_law     = law_type:law_census_voting
+				activate_law     = law_type:law_no_schools
+			}
+		}
+	}
+	scope:ztr_state_finder = {
+		set_state_owner = c:BHU
+	}
+}
+
+ztr_define_tibet = {
+	cu:tibetan = {
+		save_scope_as = ztr_minor_primary_culture
+	}
+	ordered_scope_state = {
+		limit = {
+			NOT = { is_homeland_of_country_cultures = root }
+			state_region = {
+				is_homeland = cu:tibetan
+			}
+		}
+		order_by = gdp
+		save_scope_as = ztr_state_finder
+	}
+	if = {
+		limit = { NOT = { exists = c:TIB } }
+		create_country = {
+			tag    = TIB
+			origin = this
+			state  = SCOPE:ztr_state_finder
+			on_created = {
+				set_country_type = recognized
+				activate_law     = law_type:law_theocracy
+				activate_law     = law_type:law_census_voting
+				activate_law     = law_type:law_no_schools
+			}
+		}
+	}
+	every_scope_state = {
+		limit = {
+			NOT = { is_homeland_of_country_cultures = root }
+			state_region = {
+				is_homeland = cu:tibetan
+			}
+		}
+		set_state_owner = c:TIB
+	}
+}
+
+ztr_define_korea = {
+	cu:korean = {
+		save_scope_as = ztr_minor_primary_culture
+	}
+	ordered_scope_state = {
+		limit = {
+			NOT = { is_homeland_of_country_cultures = root }
+			state_region = {
+				is_homeland = cu:korean
+			}
+		}
+		order_by = gdp
+		save_scope_as = ztr_state_finder
+	}
+	if = {
+		limit = { NOT = { exists = c:KOR } }
+		create_country = {
+			tag    = KOR
+			origin = this
+			state  = SCOPE:ztr_state_finder
+			on_created = {
+				set_country_type = recognized
+				activate_law     = law_type:law_parliamentary_republic
+				activate_law     = law_type:law_census_voting
+				activate_law     = law_type:law_no_schools
+			}
+		}
+	}
+	every_scope_state = {
+		limit = {
+			NOT = { is_homeland_of_country_cultures = root }
+			state_region = {
+				is_homeland = cu:korean
+			}
+		}
+		set_state_owner = c:KOR
+	}
+}
+
+ztr_define_japan = {
+	cu:japanese = {
+		save_scope_as = ztr_minor_primary_culture
+	}
+	ordered_scope_state = {
+		limit = {
+			NOT = { is_homeland_of_country_cultures = root }
+			state_region = {
+				is_homeland = cu:japanese
+			}
+		}
+		order_by = gdp
+		save_scope_as = ztr_state_finder
+	}
+	if = {
+		limit = { NOT = { exists = c:JAP } }
+		create_country = {
+			tag    = JAP
+			origin = this
+			state  = SCOPE:ztr_state_finder
+			on_created = {
+				set_country_type = recognized
+				activate_law     = law_type:law_parliamentary_republic
+				activate_law     = law_type:law_census_voting
+				activate_law     = law_type:law_no_schools
+			}
+		}
+	}
+	every_scope_state = {
+		limit = {
+			NOT = { is_homeland_of_country_cultures = root }
+			state_region = {
+				is_homeland = cu:japanese
+			}
+		}
+		set_state_owner = c:JAP
+	}
+}
+
+ztr_define_new_zealand = {
+	cu:maori = {
+		save_scope_as = ztr_minor_primary_culture
+	}
+	ordered_scope_state = {
+		limit = {
+			OR = {
+				state_region = s:STATE_NORTH_ISLAND
+				state_region = s:STATE_SOUTH_ISLAND
+			}
+		}
+		order_by = gdp
+		save_scope_as = ztr_state_finder
+	}
+	if = {
+		limit = { NOT = { exists = c:NZL } }
+		create_country = {
+			tag    = NZL
+			origin = this
+			state  = SCOPE:ztr_state_finder
+			on_created = {
+				set_country_type = recognized
+				activate_law     = law_type:law_parliamentary_republic
+				activate_law     = law_type:law_universal_suffrage
+				activate_law     = law_type:law_state_atheism
+				activate_law     = law_type:law_public_health_insurance
+				activate_law     = law_type:law_public_schools
+			}
+		}
+	}
+	every_scope_state = {
+		limit = {
+			OR = {
+				state_region = s:STATE_NORTH_ISLAND
+				state_region = s:STATE_SOUTH_ISLAND
+			}
+		}
+		set_state_owner = c:NZL
+	}
+}
+
+# Europe
+
+# Slovakia Country Creation
+ztr_define_slovakia = {
+	cu:slovak = {
+		save_scope_as = ztr_minor_primary_culture
+	}
+		ztr_state_finder_script = yes
+		if = {
+			limit = { NOT = { exists = c:SLV } }
+			create_country = {
+				tag    = SLV
+				origin = this
+				state  = SCOPE:ztr_state_finder
+				on_created = {
+					set_country_type = recognized
+					activate_law     = law_type:law_parliamentary_republic
+					activate_law     = law_type:law_census_voting
+				}
+			}
+		}
+		every_scope_state = {
+			limit = {
+				NOT = { is_homeland_of_country_cultures = root }
+				state_region = {
+					is_homeland = scope:ztr_minor_primary_culture
+				}
+			}
+			set_state_owner = c:SLV
+		}
+	}
+
+# Galicia Lodomeria Country Creation
+ztr_define_galicia = {
+	cu:polish = {
+		save_scope_as = ztr_minor_primary_culture
+	}
+		ztr_state_finder_script = yes
+		if = {
+			limit = { NOT = { exists = c:GAL } }
+			create_country = {
+				tag    = GAL
+				origin = this
+				state  = SCOPE:ztr_state_finder
+				on_created = {
+					set_country_type = recognized
+					activate_law     = law_type:law_parliamentary_republic
+					activate_law     = law_type:law_census_voting
+				}
+			}
+		}
+		every_scope_state = {
+			limit = {
+				NOT = { is_homeland_of_country_cultures = root }
+				state_region = {
+					is_homeland = scope:ztr_minor_primary_culture
+				}
+			}
+			set_state_owner = c:GAL
+		}
+	}
+
+# Hungary Country Creation
+ztr_define_hungary = {
+	cu:hungarian = {
+		save_scope_as = ztr_minor_primary_culture
+	}
+		ztr_state_finder_script = yes
+		if = {
+			limit = { NOT = { exists = c:HUN } }
+			create_country = {
+				tag    = HUN
+				origin = this
+				state  = SCOPE:ztr_state_finder
+				on_created = {
+					set_country_type = recognized
+					activate_law     = law_type:law_parliamentary_republic
+					activate_law     = law_type:law_census_voting
+				}
+			}
+		}
+		every_scope_state = {
+			limit = {
+				NOT = { is_homeland_of_country_cultures = root }
+				state_region = {
+					is_homeland = scope:ztr_minor_primary_culture
+				}
+			}
+			set_state_owner = c:HUN
+		}
+	}
+
+# Croatia Country Creation
+ztr_define_croatia = {
+	cu:croat = {
+		save_scope_as = ztr_minor_primary_culture
+	}
+		ztr_state_finder_script = yes
+		if = {
+			limit = { NOT = { exists = c:CRO } }
+			create_country = {
+				tag    = CRO
+				origin = this
+				state  = SCOPE:ztr_state_finder
+				on_created = {
+					set_country_type = recognized
+					activate_law     = law_type:law_parliamentary_republic
+					activate_law     = law_type:law_census_voting
+				}
+			}
+		}
+		every_scope_state = {
+			limit = {
+				NOT = { is_homeland_of_country_cultures = root }
+				state_region = {
+					is_homeland = scope:ztr_minor_primary_culture
+				}
+			}
+			set_state_owner = c:CRO
+		}
+	}
+
+# Republic Venice Creation
+ztr_define_republic_venice = {
+	cu:north_italian = {
+		save_scope_as = ztr_minor_primary_culture
+	}
+		ztr_state_finder_script = yes
+		if = {
+			limit = { NOT = { exists = c:VEN } }
+			create_country = {
+				tag    = VEN
+				origin = this
+				state  = SCOPE:ztr_state_finder
+				on_created = {
+					set_country_type = recognized
+					activate_law     = law_type:law_parliamentary_republic
+					activate_law     = law_type:law_census_voting
+				}
+			}
+		}
+		every_scope_state = {
+			limit = {
+				NOT = { is_homeland_of_country_cultures = root }
+				state_region = {
+					is_homeland = scope:ztr_minor_primary_culture
+				}
+			}
+			set_state_owner = c:VEN
+		}
+	}
+
+# Bosnia Country Creation
+ztr_define_bosnia = {
+	cu:bosniak = {
+		save_scope_as = ztr_minor_primary_culture
+	}
+		ztr_state_finder_script = yes
+		if = {
+			limit = { NOT = { exists = c:BOS } }
+			create_country = {
+				tag    = BOS
+				origin = this
+				state  = SCOPE:ztr_state_finder
+				on_created = {
+					set_country_type = recognized
+					activate_law     = law_type:law_parliamentary_republic
+					activate_law     = law_type:law_census_voting
+				}
+			}
+		}
+		every_scope_state = {
+			limit = {
+				NOT = { is_homeland_of_country_cultures = root }
+				state_region = {
+					is_homeland = scope:ztr_minor_primary_culture
+				}
+			}
+			set_state_owner = c:BOS
+		}
+	}
+
+# Albanian Country Creation
+ztr_define_albania = {
+	cu:albanian = {
+		save_scope_as = ztr_minor_primary_culture
+	}
+	ztr_state_finder_script = yes
+	if = {
+		limit = { NOT = { exists = c:ALB } }
+		create_country = {
+			tag    = ALB
+			origin = this
+			state  = SCOPE:ztr_state_finder
+			on_created = {
+				set_country_type = recognized
+				activate_law     = law_type:law_parliamentary_republic
+				activate_law     = law_type:law_census_voting
+			}
+		}
+	}
+	every_scope_state = {
+		limit = {
+			NOT = { is_homeland_of_country_cultures = root }
+			state_region = {
+				is_homeland = scope:ztr_minor_primary_culture
+			}
+		}
+		set_state_owner = c:ALB
+	}
+}
+
+# Serbia Country Creation
+ztr_define_serbia = {
+	cu:serb = {
+		save_scope_as = ztr_minor_primary_culture
+	}
+	ztr_state_finder_script = yes
+	if = {
+		limit = { NOT = { exists = c:SER } }
+		create_country = {
+			tag    = SER
+			origin = this
+			state  = SCOPE:ztr_state_finder
+			on_created = {
+				set_country_type = recognized
+				activate_law     = law_type:law_parliamentary_republic
+				activate_law     = law_type:law_census_voting
+			}
+		}
+	}
+	every_scope_state = {
+		limit = {
+			NOT = { is_homeland_of_country_cultures = root }
+			state_region = {
+				is_homeland = scope:ztr_minor_primary_culture
+			}
+		}
+		set_state_owner = c:SER
+	}
+}
+
+# Greece Country Creation
+ztr_define_greece = {
+	cu:greek = {
+		save_scope_as = ztr_minor_primary_culture
+	}
+	ztr_state_finder_script = yes
+	if = {
+		limit = { NOT = { exists = c:GRE } }
+		create_country = {
+			tag    = GRE
+			origin = this
+			state  = SCOPE:ztr_state_finder
+			on_created = {
+				set_country_type = recognized
+				activate_law     = law_type:law_parliamentary_republic
+				activate_law     = law_type:law_census_voting
+			}
+		}
+	}
+	every_scope_state = {
+		limit = {
+			NOT = { is_homeland_of_country_cultures = root }
+			state_region = {
+				is_homeland = scope:ztr_minor_primary_culture
+			}
+		}
+		set_state_owner = c:GRE
+	}
+}
+
+
+ztr_define_israel = {
+	change_infamy = -10
+	if = {
+		limit = {
+			s:STATE_PALESTINE = {
+				NOT = { is_homeland = cu:ashkenazi }
+			}
+		}
+		s:STATE_PALESTINE = {
+			add_homeland = cu:ashkenazi
+			add_homeland = cu:sephardic
+		}
+	}
+	create_country = {
+		tag = ISR
+		origin = this
+		province = p:x605060
+		on_created = {
+			set_country_type = recognized
+
+			add_primary_culture = cu:ashkenazi
+			add_primary_culture = cu:sephardic
+			set_state_religion = rel:jewish
+			
+			activate_law = law_type:law_monarchy
+			activate_law = law_type:law_universal_suffrage
+			activate_law = law_type:law_national_supremacy
+			activate_law = law_type:law_state_religion
+			activate_law = law_type:law_laissez_faire
+			activate_law = law_type:law_private_health_insurance
+			activate_law = law_type:law_public_schools
+			activate_law = law_type:law_compulsory_primary_school
+			activate_law = law_type:law_right_of_assembly
+			s:STATE_PALESTINE = {
+				set_owner_of_provinces = {
+					country = c:ISR
+					provinces = { x365E8F xE0D060 x136A0C x0EC997 x60D060 }
+				}
+			}
+		}
+	}
+	c:ISR = {
+		add_modifier = ztr_israel_land_settling_modifier
+		year = 50	
+	}
+	every_country = {
+		limit = {
+			country_is_in_europe = yes
+		}
+		change_relations = {
+			country = c:ISR
+			value = 1000
+		}
+	}
+	every_country = {
+		limit = {
+			country_is_in_europe = yes
+		}
+		change_relations = {
+			country = root
+			value = 100
+		}
+	}
+}

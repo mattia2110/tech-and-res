@@ -320,7 +320,7 @@ ai_strategy_territorial_expansion = {
 					has_modifier = ztr_onu_member
 				}
 			}
-			multiply = 0.25
+			multiply = 0.2
 		}
 	}
 }
@@ -675,7 +675,7 @@ ai_strategy_colonial_expansion = {
 					has_modifier = ztr_onu_member
 				}
 			}
-			multiply = 0.05
+			multiply = 0.2
 		}
 	}
 }
@@ -1281,7 +1281,7 @@ ai_strategy_unify_germany = {
 	}
 
 	aggression = {
-		value = 0
+		value = -2.0
 
 		if = {
 			limit = {
@@ -1290,7 +1290,14 @@ ai_strategy_unify_germany = {
 				}
 				NOT = { has_journal_entry = je_schleswig_holstein_question }
 			}
+			add = 0.25
+
+			if = {
+				limit = {
+					has_technology_researched = enlistment_offices
+			}
 			add = 10
+			}
 		}
 		else_if = {
 			# KAI: The vanilla trigger would evaluate to true for ALL other countries, which makes little sense
@@ -1306,7 +1313,14 @@ ai_strategy_unify_germany = {
 					}
 				}
 			}
+			add = 0.25
+
+			if = {
+				limit = {
+					has_technology_researched = enlistment_offices
+			}
 			add = 2
+			}
 		}
 
 		# Schleswig-Holstein question
@@ -1343,6 +1357,9 @@ ai_strategy_unify_germany = {
 
 	building_group_weights = {
 		bg_army = 1.5
+		bg_artillery_foundries = 1.5
+		bg_arms_industries = 1.5
+		bg_munition_plants = 1.5
 	}
 
 	state_value = {
@@ -1402,7 +1419,7 @@ ai_strategy_unify_germany = {
 							}
 						}
 					}
-					multiply = 2 # Maximum 220 if Pan-National, 60 if not
+					multiply = 1.5 # Maximum 155 if Pan-National, 45 if not
 				}
 				else_if = {
 					limit = {
@@ -1413,7 +1430,7 @@ ai_strategy_unify_germany = {
 							}
 						}
 					}
-					multiply = 5 # Maximum 550 if Pan-National, 150 if not
+					multiply = 2.5 # Maximum 275 if Pan-National, 75 if not
 				}
 			}
 			if = {
@@ -1515,7 +1532,7 @@ ai_strategy_unify_germany = {
 						}
 					}
 				}
-				multiply = 2 # Maximum 220 if Pan-National, 60 if not
+				multiply = 1.5 # Maximum 155 if Pan-National, 45 if not
 			}
 			else_if = {
 				limit = {
@@ -1526,7 +1543,7 @@ ai_strategy_unify_germany = {
 						}
 					}
 				}
-				multiply = 5 # Maximum 550 if Pan-National, 150 if not
+				multiply = 2.5 # Maximum 275 if Pan-National, 75 if not
 			}
 		}
 		if = {
@@ -1650,7 +1667,64 @@ ai_strategy_unify_italy = {
 
 	wargoal_scores = {
 		unification_leadership = {
-			value = 1000
+			value = 5
+			if = { # Fervour
+				limit = {
+					has_technology_researched = pan-nationalism
+				}
+				add = {
+					value = country_fervor_primary_culture
+					divide = 2
+				}
+			}
+			else = {
+				add = {
+					value = country_fervor_primary_culture
+					divide = 10
+				}
+			}
+			if = { # At this point - up to 55 if Pan-National, 15 if not
+				limit = {
+					any_political_movement ?= {
+						is_political_movement_type = movement_italian_national
+						save_temporary_scope_as = italian_national_movement
+					}
+				}
+				scope:italian_national_movement ?= {
+					multiply = {
+						value = 1
+						add = this.political_movement_radicalism # At this point - maximum 110 [if Pan-National] to 30 [if not]
+					}
+				}
+				if = {
+					limit = {
+						scope:italian_national_movement ?= {
+							any_influenced_interest_group = {
+								is_in_government = yes
+								is_powerful = no
+							}
+						}
+					}
+					multiply = 1.5 # Maximum 155 if Pan-National, 45 if not
+				}
+				else_if = {
+					limit = {
+						scope:italian_national_movement ?= {
+							any_influenced_interest_group = {
+								is_in_government = yes
+								is_powerful = yes
+							}
+						}
+					}
+					multiply = 2.5 # Maximum 275 if Pan-National, 75 if not
+				}
+			}
+			if = {
+				limit = {
+					has_law = law_type:law_subjecthood
+				}
+				multiply = 0.1
+			}
 		}
 	}
 
@@ -1750,7 +1824,7 @@ ai_strategy_unify_italy = {
 						}
 					}
 				}
-				multiply = 5 # Maximum 550 if Pan-National, 150 if not
+				multiply = 1.5 # Maximum 155 if Pan-National, 45 if not
 			}
 			else_if = {
 				limit = {
@@ -1761,7 +1835,7 @@ ai_strategy_unify_italy = {
 						}
 					}
 				}
-				multiply = 10 # Maximum 1100 if Pan-National, 300 if not
+				multiply = 2.5 # Maximum 275 if Pan-National, 75 if not
 			}
 		}
 		if = {
@@ -3048,7 +3122,7 @@ ai_strategy_prussia_of_the_balkans = {
 
 	building_group_weights = {
 		bg_army = 1.5
-		bg_artillery_foundaries = 1.5
+		bg_artillery_foundries = 1.5
 		bg_arms_industries = 1.5
 		bg_munition_plants = 1.5
 	}
@@ -3204,7 +3278,10 @@ ai_strategy_un_stability = {
 	type = diplomatic
 
 	will_form_power_bloc = {
-		global_country_ranking <= 2
+		OR = {
+			global_country_ranking <= 2
+			has_variable = ztr_eu_founder
+		}
 	}
 
 	undesirable_infamy_level = {

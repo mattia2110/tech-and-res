@@ -1,0 +1,93 @@
+remove_state_economy_modifier = {
+	hidden_effect = {
+		remove_modifier = dev_0_country
+		remove_modifier = dev_1_country
+		remove_modifier = dev_2_country
+		remove_modifier = dev_3_country
+		remove_modifier = dev_4_country
+		remove_modifier = dev_5_country
+		remove_modifier = dev_6_country
+		remove_modifier = dev_7_country
+		remove_modifier = dev_8_country
+	}
+}
+
+remove_state_demographic_modifier = {
+	hidden_effect = {
+		remove_modifier = demographic_stage_0
+		remove_modifier = demographic_stage_1
+		remove_modifier = demographic_stage_2
+		remove_modifier = demographic_stage_3
+		remove_modifier = demographic_stage_4
+		remove_modifier = demographic_stage_5
+		remove_modifier = demographic_stage_6
+		remove_modifier = demographic_stage_7
+		remove_modifier = demographic_stage_8
+	}
+}
+
+# State Finder Script
+
+ztr_state_finder_script = {
+	ordered_scope_state = {
+		limit = {
+			NOT = { is_homeland_of_country_cultures = root }
+			state_region = {
+				is_homeland = scope:ztr_minor_primary_culture
+			}
+		}
+	order_by = gdp
+	save_scope_as = ztr_state_finder
+	}
+}
+
+# Unincorporated State Finder Script
+
+ztr_unincorporated_state_finder_script = {
+	ordered_scope_state = {
+		limit = {
+			NOT = { is_homeland_of_country_cultures = root }
+			state_region = {
+				is_homeland = scope:ztr_minor_primary_culture
+			}
+			is_incorporated = no
+		}
+	order_by = gdp
+	save_scope_as = ztr_unincorporated_state_finder
+	}
+}
+
+# Religions Script
+
+african_religion_setting = {
+	if = {
+		limit = {
+			religion_percent_country = {
+				target = rel:catholic
+				value >= 0.5
+			}
+		}
+		set_state_religion = rel:catholic
+	}
+	else_if = {
+		limit = {
+			religion_percent_country = {
+				target = rel:protestant
+				value >= 0.5
+			}
+		}
+		set_state_religion = rel:protestant
+	}
+	else_if = {
+		limit = {
+			religion_percent_country = {
+				target = rel:sunni
+				value >= 0.5
+			}
+		}
+		set_state_religion = rel:sunni
+	}
+	else = {
+		set_state_religion = rel:sunni
+	}
+}

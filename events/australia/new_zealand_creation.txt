@@ -1,0 +1,120 @@
+namespace = new_zealand_formation
+
+new_zealand_formation.1 = {
+	dlc = dlc_tech_res
+	type = country_event
+	placement = root
+
+	duration = 1
+
+	title = new_zealand_formation.1.t
+	desc = new_zealand_formation.1.d
+
+	event_image = {
+		video = "unspecific_politicians_arguing"
+	}
+
+	icon = "gfx/interface/icons/event_icons/event_newspaper.dds"
+
+	trigger = {
+		# Triggered by decision
+	}
+
+	immediate = {
+		c:GBR = {
+			save_scope_as = ztr_australian_cession_overlord
+		}
+	}
+
+	# Australia accepts New Zealand's formation
+
+	option = {
+		name = new_zealand_formation.1.a
+		default_option = yes
+		ztr_define_new_zealand = yes
+		c:GBR = {
+			create_diplomatic_pact = {
+				country = c:NZL
+				type = puppet
+			}
+		}
+		remove_global_variable = new_zealand_formation_var
+		ai_chance = {
+			base = 10
+		}
+	}
+
+	# Australia rejects New Zealand's formation and fight for independence
+
+	option = {
+		name = new_zealand_formation.1.b
+		change_relations = {
+			country = c:GBR
+			value = -100
+		}
+		c:GBR = { trigger_event = new_zealand_formation.2 }
+		#This should be quite rare, so lower chance
+		ai_chance = {
+			base = 2
+		}
+	}
+}
+
+new_zealand_formation.2 = {
+	dlc = dlc_tech_res
+	type = country_event
+	placement = root
+
+	duration = 1
+
+	title = new_zealand_formation.2.t
+	desc = new_zealand_formation.2.d
+
+	event_image = {
+		video = "unspecific_politicians_arguing"
+	}
+
+	icon = "gfx/interface/icons/event_icons/event_newspaper.dds"
+
+	trigger = {
+		# Triggered by decision
+	}
+
+	immediate = {
+		c:AST = {
+			save_scope_as = ztr_australian_cession_subject
+		}
+	}
+
+	# Great Britain accepts Australia's control over New Zealand
+
+	option = {
+		name = new_zealand_formation.2.a
+		default_option = yes
+		c:AST = {
+			change_relations = {
+				country = c:GBR
+				value = 200
+			}
+		}
+		ai_chance = {
+			base = 5
+		}
+	}
+
+	# Great Britain rejects Australia's control over New Zealand and fight for independence
+
+	option = {
+		name = new_zealand_formation.2.b
+		c:AST = {
+			create_diplomatic_play = {
+				target_country = c:GBR
+				type = dp_independence
+			}
+		}
+		remove_global_variable = new_zealand_formation_var
+		ai_chance = {
+			base = 5
+		}
+	}
+}

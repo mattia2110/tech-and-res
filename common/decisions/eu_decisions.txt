@@ -3,7 +3,7 @@ firm_ztr_treaty_of_rome = {
 	is_shown = {
 		has_technology_researched = socialdemocracy
 		year > 1950
-		year < 1992
+		year < 1962
 		is_subject = no
 		OR = {
 			capital.region = sr:region_rhine
@@ -84,7 +84,7 @@ firm_ztr_treaty_of_rome = {
 create_eu_decision = {
 	is_shown = {
 		has_technology_researched = globalization
-		year > 1992
+		year > 1962
 		has_modifier = ztr_eec_member
 		country_rank = rank_value:great_power
 		OR = {
@@ -127,15 +127,16 @@ create_eu_decision = {
 			value = 1
 		}
 		# In order to destroy and recreate the power bloc (and to update its principles), we first set the country type to unrecognized to avoid issues. (NOT WORKING)
-		# set_country_type = unrecognized
-		# set_country_type = recognized
-		# create_power_bloc = {
-		# 	name = EUROPEAN_UNION
-		# 	map_color = { 0 51 153 } # Official EU blue
+		set_country_type = unrecognized
+		set_country_type = recognized
+		create_power_bloc = {
+			name = EUROPEAN_UNION
+			map_color = { 0 51 153 } # Official EU blue
 
-		# 	identity = identity_trade_league
-		# 	principle = principle_defensive_cooperation_1
-		# }
+			founding_date = 1936.1.1
+			identity = identity_trade_league
+			principle = principle_defensive_cooperation_1
+		}
 		if = {
 			limit = {
 				has_dlc_feature = power_bloc_features

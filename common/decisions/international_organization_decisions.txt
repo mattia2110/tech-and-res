@@ -51,8 +51,8 @@ withdraw_ztr_geneva_convention = {
 
 	ai_chance = {
 		value = 0
-		if = {
-			limit = {
+		modifier = {
+			trigger = {
 				NOT = {
 					OR = {
 						has_law = law_type:law_universal_suffrage
@@ -125,8 +125,8 @@ withdraw_ztr_society_of_nations = {
 
 	ai_chance = {
 		value = 0
-		if = {
-			limit = {
+		modifier = {
+			trigger = {
 				NOT = {
 					OR = {
 						has_law = law_type:law_universal_suffrage
@@ -166,6 +166,29 @@ un_foundation = {
 		value = 100
 	}
 }
+
+# imf_foundation = {
+
+# 	is_shown = {
+# 		NOT = { has_global_variable = imf_founded_var }
+# 		has_technology_researched = international_organizations
+# 		global_country_ranking = 1
+# 	}
+
+# 	possible = {
+# 		has_global_variable = un_founded_var
+# 		year > 1945
+# 	}
+
+# 	when_taken = {
+# 		set_global_variable = imf_founded_var
+# 		root = { trigger_event = ztr_imf_event.1 }
+# 	}
+
+# 	ai_chance = {
+# 		value = 100
+# 	}
+# }
 
 become_member_united_nations = {
 
@@ -242,8 +265,8 @@ withdraw_united_nations = {
 
 	ai_chance = {
 		value = 0
-		if = {
-			limit = {
+		modifier = {
+			trigger = {
 				OR= {
 					has_law = law_type:law_single_party_state
 					has_law = law_type:law_anarchy

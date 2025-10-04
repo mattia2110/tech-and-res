@@ -395,96 +395,6 @@ company_philips = {
 	}
 }
 
-# Achilleas Kouppas Machine Manufacturing A.E.
-company_kouppas = {
-	icon = "gfx/interface/icons/company_icons/historical_company_icons/kouppas.dds"
-	background = "gfx/interface/icons/company_icons/company_backgrounds/comp_illu_manufacturing_heavy.dds"
-
-	flavored_company = yes
-
-	preferred_headquarters = { STATE_ATTICA }
-
-	building_types = {
-		building_motor_industry
-		building_tooling_workshops
-	}
-
-	extension_building_types = {
-		building_automotive_industry
-		building_aircraft_industry
-	}
-
-	possible_prestige_goods = {
-		prestige_good_generic_tools
-	}
-
-	prestige_goods_trigger = {
-		custom_tooltip = {
-			text = je_prestige_goods_tools_complete_tt
-			has_variable = prestige_good_generic_tools_var
-		}
-	}
-
-	potential = {
-		has_interest_marker_in_region = region_balkans
-	}
-
-	attainable = {
-		hidden_trigger = { # Hide attainable if it's always fulfilled by possible
-			any_scope_state = {
-				state_region = s:STATE_ATTICA
-			}
-		}
-	}
-
-	possible = {
-		has_technology_researched = mechanical_tools
-		any_scope_state = {
-			state_region = s:STATE_ATTICA
-			is_incorporated = yes
-			any_scope_building = {
-				OR = {
-					is_building_type = building_motor_industry
-					is_building_type = building_tooling_workshops
-				}
-				level >= 5
-			}
-		}
-	}
-
-	prosperity_modifier = {
-		building_railway_throughput_add = 0.1
-		building_steel_mills_throughput_add = 0.05
-	}
-
-	ai_will_do = {
-		has_technology_researched = mechanical_tools
-		any_scope_state = {
-			state_region = s:STATE_ATTICA
-			is_incorporated = yes
-		}
-	}
-
-	ai_construction_targets = {
-		building_motor_industry = {
-			level = 5
-			state_trigger = {
-				state_region = s:STATE_ATTICA
-			}
-		}
-		building_tooling_workshops = {
-			level = 5
-			state_trigger = {
-				state_region = s:STATE_ATTICA
-			}
-		}
-	}
-
-	ai_weight = {
-		value = 3 # Higher base value for flavored companies
-	}
-}
-
 # Aktiebolaget L. M. Ericsson & Co
 company_ericsson = {
 	icon = "gfx/interface/icons/company_icons/historical_company_icons/ericsson.dds"
@@ -717,75 +627,6 @@ company_nokia = {
 			level = 5
 			state_trigger = {
 				state_region = s:STATE_UUSIMAA
-			}
-		}
-	}
-
-	ai_weight = {
-		value = 3 # Higher base value for flavored companies
-	}
-}
-
-# Ursus
-company_ursus = {
-	icon = "gfx/interface/icons/company_icons/historical_company_icons/polish_ursus.dds"
-	background = "gfx/interface/icons/company_icons/company_backgrounds/comp_illu_manufacturing_heavy.dds"
-
-	flavored_company = yes
-
-	preferred_headquarters = { STATE_GREATER_POLAND }
-
-	building_types = {
-		building_motor_industry
-	}
-
-	extension_building_types = {
-		building_automotive_industry
-		building_steel_mills
-		building_aircraft_industry
-	}
-
-	potential = {
-		has_interest_marker_in_region = region_poland
-	}
-
-	attainable = {
-		hidden_trigger = { # Hide attainable if it's always fulfilled by possible
-			any_scope_state = {
-				state_region = s:STATE_GREATER_POLAND
-			}
-		}
-	}
-
-	possible = {
-		has_technology_researched = combustion_engine
-		any_scope_state = {
-			state_region = s:STATE_GREATER_POLAND
-			is_incorporated = yes
-			any_scope_building = {
-				is_building_type = building_motor_industry
-				level >= 5
-			}
-		}
-	}
-
-	prosperity_modifier = {
-		building_wheat_farm_throughput_add = 0.2
-	}
-
-	ai_will_do = {
-		has_technology_researched = combustion_engine
-		any_scope_state = {
-			state_region = s:STATE_GREATER_POLAND
-			is_incorporated = yes
-		}
-	}
-
-	ai_construction_targets = {
-		building_motor_industry = {
-			level = 5
-			state_trigger = {
-				state_region = s:STATE_GREATER_POLAND
 			}
 		}
 	}
@@ -1237,7 +1078,7 @@ company_zastava = {
 
 	flavored_company = yes
 
-	preferred_headquarters = { STATE_NORTHERN_SERBIA }
+	preferred_headquarters = { STATE_WESTERN_SERBIA }
 
 	building_types = {
 		building_arms_industry
@@ -1263,7 +1104,7 @@ company_zastava = {
 	attainable = {
 		hidden_trigger = { # Hide attainable if it's always fulfilled by possible
 			any_scope_state = {
-				state_region = s:STATE_NORTHERN_SERBIA
+				state_region = s:STATE_WESTERN_SERBIA
 			}
 		}
 	}
@@ -1271,7 +1112,7 @@ company_zastava = {
 	possible = {
 		has_technology_researched = gunsmithing
 		any_scope_state = {
-			state_region = s:STATE_NORTHERN_SERBIA
+			state_region = s:STATE_WESTERN_SERBIA
 			is_incorporated = yes
 			any_scope_building = {
 				is_building_type = building_arms_industry
@@ -1288,7 +1129,7 @@ company_zastava = {
 	ai_will_do = {
 		has_technology_researched = gunsmithing
 		any_scope_state = {
-			state_region = s:STATE_NORTHERN_SERBIA
+			state_region = s:STATE_WESTERN_SERBIA
 			is_incorporated = yes
 		}
 	}
@@ -1297,96 +1138,7 @@ company_zastava = {
 		building_arms_industry = {
 			level = 5
 			state_trigger = {
-				state_region = s:STATE_NORTHERN_SERBIA
-			}
-		}
-	}
-
-	ai_weight = {
-		value = 3 # Higher base value for flavored companies
-	}
-}
-
-# Chr. Hansens teknisk-kemiske Laboratorium A/S
-company_chr_hansens = {
-	icon = "gfx/interface/icons/company_icons/historical_company_icons/denmark_chr_hansens_teknisk_kemiske_laboratorium.dds"
-	background = "gfx/interface/icons/company_icons/company_backgrounds/comp_illu_farm_rye.dds"
-
-	flavored_company = yes
-
-	preferred_headquarters = { STATE_ZEALAND }
-
-	building_types = {
-		building_food_industry
-		building_chemical_plants
-	}
-
-	extension_building_types = {
-		building_rubber_plantation
-		#building_synthetics_plants
-		building_hydroponic
-	}
-
-	possible_prestige_goods = {
-		prestige_good_generic_groceries
-	}
-
-	prestige_goods_trigger = {
-		custom_tooltip = {
-			text = je_prestige_goods_groceries_complete_tt
-			has_variable = prestige_good_generic_groceries_var
-		}
-	}
-
-	potential = {
-		has_interest_marker_in_region = region_baltic
-	}
-
-	attainable = {
-		hidden_trigger = { # Hide attainable if it's always fulfilled by possible
-			any_scope_state = {
-				state_region = s:STATE_ZEALAND
-			}
-		}
-	}
-
-	possible = {
-		any_scope_state = {
-			state_region = s:STATE_ZEALAND
-			is_incorporated = yes
-			any_scope_building = {
-				OR = {
-					is_building_type = building_food_industry
-					is_building_type = building_chemical_plants
-				}
-				level >= 5
-			}
-		}
-	}
-
-	prosperity_modifier = {
-		building_livestock_ranch_throughput_add = 0.1
-		building_fishing_wharf_throughput_add = 0.1
-	}
-
-	ai_will_do = {
-		any_scope_state = {
-			state_region = s:STATE_ZEALAND
-			is_incorporated = yes
-		}
-	}
-
-	ai_construction_targets = {
-		building_food_industry = {
-			level = 5
-			state_trigger = {
-				state_region = s:STATE_ZEALAND
-			}
-		}
-		building_chemical_plants = {
-			level = 5
-			state_trigger = {
-				state_region = s:STATE_ZEALAND
+				state_region = s:STATE_WESTERN_SERBIA
 			}
 		}
 	}

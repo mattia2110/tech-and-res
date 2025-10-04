@@ -41,6 +41,7 @@
 
 	prosperity_modifier = {
 		country_influence_mult = 0.1
+		building_textile_mills_throughput_add = 0.1
 	}
 
 	ai_will_do = {
@@ -205,6 +206,7 @@ company_basic_metal_mining = {
 
 	prosperity_modifier = {
 		building_steel_mills_throughput_add = 0.1
+		state_pollution_reduction_health_mult = 0.05
 	}
 
 	ai_will_do = {
@@ -341,8 +343,8 @@ company_basic_food = {
 	}
 }
 
-company_basic_steel = {
-	icon = "gfx/interface/icons/company_icons/basic_steel.dds"
+company_basic_metalworks = {
+	icon = "gfx/interface/icons/company_icons/basic_metalworks.dds"
 	background = "gfx/interface/icons/company_icons/company_backgrounds/comp_illu_manufacturing_heavy.dds"
 
 	flavored_company = no
@@ -359,46 +361,51 @@ company_basic_steel = {
 	}
 
 	building_types = {
+		building_tooling_workshops
+	}
+
+	extension_building_types = {
 		building_steel_mills
 		building_alloys_plant
 	}
 
 	possible_prestige_goods = {
-		prestige_good_generic_steel
+		prestige_good_generic_tools
 	}
 
 	prestige_goods_trigger = {
 		custom_tooltip = {
-			text = je_prestige_goods_steel_complete_tt
-			has_variable = prestige_good_generic_steel_var
+			text = je_prestige_goods_tools_complete_tt
+			has_variable = prestige_good_generic_tools_var
 		}
-	}
-
-	extension_building_types = {
-		building_iron_mine
-		building_coal_mine
 	}
 
 	possible = {
 		any_scope_state = {
 			is_incorporated = yes
 			any_scope_building = {
-				is_building_type = building_steel_mills
+				OR = {
+					is_building_type = building_tooling_workshops
+				}
 				level >= 5
 			}
 		}
 	}
 
 	prosperity_modifier = {
-		state_construction_mult = 0.05
+		building_group_bg_manufacturing_throughput_add = 0.05
 	}
 
 	ai_will_do = {
 		any_scope_state = {
 			is_incorporated = yes
 			any_scope_building = {
-				is_building_type = building_steel_mills
-				level >= 5
+				OR = {
+					is_building_type = building_tooling_workshops
+					is_building_type = building_arms_industry
+					is_building_type = building_artillery_foundries
+				}
+				level >= 3
 			}
 		}
 	}
@@ -456,6 +463,7 @@ company_basic_chemicals = {
 
 	prosperity_modifier = {
 		unit_supply_consumption_mult = -0.05
+		building_chemical_plants_throughput_add = 0.1
 	}
 
 	ai_will_do = {
