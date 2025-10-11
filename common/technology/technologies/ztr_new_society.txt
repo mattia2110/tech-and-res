@@ -268,23 +268,43 @@ computability_theory = {
 	}
 }
 
-international_sporting_events = {
-	era = era_6
-	texture = "gfx/interface/icons/invention_icons/international_sporting_events.dds"
+vikelas_international_sports_tech = {
+	# 
+	era = era_5
+	texture = "gfx/interface/icons/invention_icons/vikelas_international_sports_tech.dds"
 	category = society
+
+	unlocking_technologies = {
+		organized_sports
+		international_organizations
+	}
+
 	modifier = {
 		country_prestige_mult = 0.1
 		country_influence_mult = 0.1
 		country_improve_relations_speed_mult = 0.05
 		country_infamy_decay_mult = 0.05
 	}
-	unlocking_technologies = {
-		organized_sports
-		international_organizations
-	}
-		
+
 	ai_weight = {
 		value = 1
+
+		#Morgenröte: added this part
+		if = {
+			limit = { 
+				exists = c:FRA
+				c:FRA = ROOT 
+			}
+			add = 1 #Pierre de Coubertin
+		}
+
+		if = {
+			limit = { 
+				exists = c:GRE
+				c:GRE = ROOT 
+			}
+			add = 1 #Greece should at least try to host the Games
+		}
 	}
 }
 
@@ -339,7 +359,7 @@ government_broadcasting = {
 	}
 	unlocking_technologies = {
 		market_studies
-		international_sporting_events
+		vikelas_international_sports_tech
 		socialdemocracy
 	}
 	
