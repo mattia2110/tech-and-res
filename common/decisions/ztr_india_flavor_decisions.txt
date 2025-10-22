@@ -170,3 +170,51 @@ indian_unifier_decision = {
 		value = 10	
 	}
 }
+
+decolonization_indonesia_netherlands_consolidation = {
+	is_shown = {
+		year > 1900
+		exists = c:DEI
+		c:DEI = {
+			overlord = root
+		}
+		has_game_rule = allow_ztr_decolonization_content
+	}
+
+	possible = {
+		OR = {
+			any_subject_or_below = {
+				capital.region = sr:region_indonesia
+				NOT = { c:DEI ?= this }
+			}
+			any_scope_state = {
+				region = sr:region_indonesia
+			}
+		}
+	}
+
+	when_taken = {
+		every_subject_or_below = {
+			limit = {
+				capital.region = sr:region_indonesia
+				NOT = { c:DEI ?= this }
+			}
+			every_scope_state = {
+				limit = {
+					region = sr:region_indonesia
+				}
+				set_state_owner = c:DEI
+			}
+		}
+		every_scope_state = {
+			limit = {
+				region = sr:region_indonesia
+			}
+			set_state_owner = c:DEI
+		}
+	}
+
+	ai_chance = {
+		value = 15	
+	}
+}

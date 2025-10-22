@@ -166,7 +166,6 @@ ztr_economic_update.1 = {
 			limit = {
 				average_sol < 14
 				NOT = { c:FRA = this }
-				NOT = { c:GBR = this }
 				NOT = { c:SPA = this }
 				NOR = {
 					has_journal_entry = je_demographic_0_to_1
@@ -989,31 +988,22 @@ ztr_economic_update.18 = {
 	trigger = {
 		has_technology_researched = modern_urban_planning
 		# This is a flag to avoid running this event multiple times
-		NOT = { has_variable = baseline_building_initialized_var }
+		any_scope_state = {
+			is_capital = yes
+			NOT = { has_building = building_modern_state_baseline }
+		}
 	}
 
 	immediate = {
-		set_variable = baseline_building_initialized_var
 		random_scope_state = {
 			limit = {
 				is_capital = yes
 			}
-			save_scope_as = capital_state_scope
-		}
-	}
-
-	option = {
-		name = ztr_economic_update.18.a
-		default_option = yes
-		scope:capital_state_scope = {
 			create_building={
 				building="building_modern_state_baseline"
 				level = 1
 			}
 		}
-		ai_chance = {
-			base = 10										
-		}		
 	}
 }
 
@@ -1035,13 +1025,11 @@ ztr_economic_update.19 = {
 	title = ztr_economic_update.19.t
 	desc = ztr_economic_update.19.d
 
-
 	duration = 1
 	
 	trigger = {
 		has_technology_researched = modern_urban_planning
 		# This is a flag to avoid running this event multiple times
-		NOT = { has_variable = baseline_building_initialized_var }
 		any_scope_state = {
 			is_capital = no
 			has_building = building_modern_state_baseline
@@ -1049,24 +1037,12 @@ ztr_economic_update.19 = {
 	}
 
 	immediate = {
-		set_variable = baseline_building_initialized_var
 		random_scope_state = {
 			limit = {
 				is_capital = no
 				has_building = building_modern_state_baseline
 			}
-			save_scope_as = removal_state_scope
-		}
-	}
-
-	option = {
-		name = ztr_economic_update.19.a
-		default_option = yes
-		scope:removal_state_scope = {
 			remove_building = building_modern_state_baseline
 		}
-		ai_chance = {
-			base = 10										
-		}		
 	}
 }

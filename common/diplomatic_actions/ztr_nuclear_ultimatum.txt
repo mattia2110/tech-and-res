@@ -1,0 +1,418 @@
+﻿nuclear_ultimatum_white_peace = {
+	groups= { general } 
+	requires_approval = yes
+	can_use_obligations = no
+	uses_random_approval = yes
+	should_notify_third_parties = yes
+
+	unlocking_technologies = {
+		atomic_bomb
+	}
+
+	potential = {
+		#THIS has nuclear weapons
+		has_modifier = nuclear_capability
+		
+		#THIS is at war OR a country that THIS has stationed nuclear weapons in is at war
+		OR = { 
+			is_at_war = yes
+			any_country = {
+				has_diplomatic_pact = { who = scope:actor type = station_nuclear_weapons is_initiator = no }
+				is_at_war = yes
+				any_scope_war = {
+					is_warleader = root
+				}
+			}
+		}
+		
+		#Can only threaten an enemy war leader
+		OR = {
+			AND = {
+				any_scope_war = {
+					is_warleader = scope:actor
+					is_warleader = scope:target_country
+					is_war_participant = scope:actor
+					is_war_participant = scope:target_country
+				}
+				scope:target_country = { is_diplomatic_play_enemy_of = scope:actor }
+				has_war_with = scope:target_country
+				NOT = { is_in_war_together = scope:target_country }
+			}
+			AND = {
+				NOT = { is_in_war_together = scope:target_country }
+				any_country = {
+					has_diplomatic_pact = { who = scope:actor type = station_nuclear_weapons is_initiator = no }
+					has_war_with = scope:target_country
+					any_scope_war = {
+						is_warleader = this
+						is_warleader = scope:target_country
+					}
+					is_diplomatic_play_enemy_of = scope:target_country
+				}
+			}
+		}
+		
+		#Civil war countries do not nuke each other
+		is_revolutionary = no is_secessionist = no is_subject = no
+		scope:target_country = { is_revolutionary = no is_secessionist = no }
+	}
+
+	possible = {
+		# If ICBM technology is not researched and nuclear weapon silo doesn't have ICBM production method, nuclear strike can be lauched only on neighboring countries
+		OR = {
+			AND = {
+				has_technology_researched = icbms
+				any_scope_building = {
+					is_building_type = building_nuclear_weapons_silo
+					has_active_production_method = pm_icbms
+				}
+			}
+			has_strategic_adjacency = scope:target_country
+		}
+		#Only once a month
+		NOT = { has_modifier = nuclear_attack_cooldown }
+		
+		#Only radical leaders think of launching nukes
+		
+		#Only an independent country can issue ultimatums
+		is_subject = no	
+	}
+	
+	accept_effect = {
+	
+		#Lobby
+		add_lobby_appeasement_from_diplomacy_unidirectional = { 
+			FIRST = root
+			SECOND = scope:target_country 
+			PRO_AMOUNT = -10
+			ANTI_AMOUNT = 5
+			FACTOR = appeasement_embargo_declared
+		}
+		
+		save_scope_as = THIS_country_scope
+		scope:target_country = { save_scope_as = TARGET_country_scope }
+		
+		#Immediate white peace with truce
+		custom_tooltip = {
+			text = enter_into_a_white_peace.tt
+			every_diplomatic_play = {
+				limit = {
+					OR = { 
+						AND = { initiator_is = scope:target_country target_is = scope:actor }
+						AND = { initiator_is = scope:actor target_is = scope:target_country }
+						AND = { 
+							any_scope_play_involved = { this = scope:actor }
+							any_scope_play_involved = { this = scope:target_country }
+						}
+					}
+				}
+				end_play = yes
+			}
+			scope:actor = { 
+				create_bidirectional_truce = {
+					country = scope:target_country
+					months = 24
+				}
+			}
+		}
+		
+		#Nuclear umbrella system
+		random_country = {
+			limit = {
+				has_diplomatic_pact = { who = scope:actor type = station_nuclear_weapons is_initiator = no }
+				has_war_with = scope:target_country
+				any_scope_war = {
+					is_warleader = root
+					is_warleader = scope:target_country
+				}
+				is_diplomatic_play_enemy_of = scope:target_country
+			}
+			save_scope_as = THIS_umbrella_country_scope
+			ROOT = {
+				if = {
+					limit = { exists = scope:THIS_umbrella_country_scope }
+					custom_tooltip = {
+						text = enter_into_a_white_peace_umbrella.tt
+						every_diplomatic_play = {
+							limit = {
+								OR = { 
+									AND = { initiator_is = scope:target_country target_is = scope:THIS_umbrella_country_scope }
+									AND = { initiator_is = scope:THIS_umbrella_country_scope target_is = scope:target_country }
+									AND = { 
+										any_scope_play_involved = { this = scope:target_country }
+										any_scope_play_involved = { this = scope:THIS_umbrella_country_scope }
+									}
+								}
+							}
+							end_play = yes
+						}
+						scope:THIS_umbrella_country_scope = { 
+							create_bidirectional_truce = {
+								country = scope:target_country
+								months = 24
+							}
+						}
+					}
+				}
+			}
+		}
+		
+	}
+
+	decline_effect = {
+		hidden_effect = {
+		#Fail safe in case parties peaced out before timer expired
+		
+		if = {
+			limit = {
+				OR = {
+					AND = {
+						any_scope_war = {
+							is_warleader = scope:actor
+							is_warleader = scope:target_country
+							is_war_participant = scope:actor
+							is_war_participant = scope:target_country
+						}
+						scope:target_country = { is_diplomatic_play_enemy_of = scope:actor }
+						has_war_with = scope:target_country
+						NOT = { is_in_war_together = scope:target_country }
+					}
+					AND = {
+						NOT = { is_in_war_together = scope:target_country }
+						any_country = {
+							has_diplomatic_pact = { who = scope:actor type = station_nuclear_weapons is_initiator = no }
+							has_war_with = scope:target_country
+							any_scope_war = {
+								is_warleader = root
+								is_warleader = scope:target_country
+							}
+							is_diplomatic_play_enemy_of = scope:target_country
+						}
+					}
+				}
+			}
+		
+			#THIS gains infamy for unprovoked nuclear attack
+			create_incident = {
+				country = scope:target_country
+				value = 50
+			}
+			
+			#Notice
+			scope:actor = { save_scope_as = nuclear_war_actor }
+			scope:target_country = { save_scope_as = nuclear_war_target }
+			
+			#Start nuclear war
+			# This calculates damage between actor and target country
+			effect_launch_nuclear_weapons_to_target = yes
+			# This calculates damage between actor and all target allied countries
+			effect_launch_nuclear_weapons_to_all_enemy_countries = yes
+			# This calculates damage between target and all actor allied countries
+			effect_launch_nuclear_weapons_to_all_allied_countries = yes
+			# This will remove possible duplicates
+			effect_cleanup_nuclear_damage = yes
+		}
+		}
+		custom_tooltip = {
+			text = launch_nuclear_weapons.1.tt
+		}		
+	}
+	
+	ai = {
+	
+		evaluation_chance = {
+			value = 0.25		
+		}
+	
+		propose_score = {
+			value = 10
+		}
+		
+		will_propose = {
+			#THIS is losing the war against TARGET
+			has_war_with = scope:target_country
+			OR = {
+			
+				AND = {
+					#THIS is losing the war against TARGET
+					OR = { 
+						enemy_occupation > 0.5
+						any_scope_war = {
+							has_war_support = { target = scope:actor value <= 0 }
+						}
+					}
+				}
+				
+				AND = {
+					#THIS is losing the war against TARGET
+					OR = { 
+						enemy_occupation > 0.75
+						any_scope_war = {
+							has_war_support = { target = scope:actor value <= -50 }
+						}
+					}
+				}
+			}
+			# There are some condition about actor country
+			OR = {
+				# No restriction for dictatorships
+				is_dictatorship = yes
+				# An autocracy would use them if it not signed the NPT or is a great power
+				AND = {
+					OR = {
+						NOT = { has_variable = signed_nuclear_non_proliferation_treaty }
+						country_rank = rank_value:great_power
+					}
+					is_autocracy = yes
+				}
+				# An imperfect democracy would use them if it is not signed the NPT, target is not a democracy or is simply a superpower
+				AND = {
+					OR = {
+						NOT = { has_variable = signed_nuclear_non_proliferation_treaty }
+						scope:target_country = { is_democracy = no }
+						has_modifier = ztr_superpower
+					}
+					is_imperfect_democracy = yes
+				}
+				# A full democracy would use them if atomic bomb was never used in the world, and either it not signed the NPT or is a great power or is a superpower
+				AND = {
+					OR = {
+						AND = {
+							NOT = { has_global_variable = ztr_atomic_bomb_first_use_var }
+							scope:target_country = { is_democracy = no }
+						}
+						AND = {
+							NOT = { has_variable = signed_nuclear_non_proliferation_treaty }
+							country_rank = rank_value:great_power
+						}
+						has_modifier = ztr_superpower
+					}
+					is_full_democracy = yes
+				}
+			}
+		}
+	
+		accept_score = {
+			value = 0
+			if = {
+				limit = { 
+					scope:target_country = { NOT = { has_modifier = nuclear_capability } }
+				}
+				add = {
+					desc = "THIS_DOES_NOT_HAVE_NUKES"
+					value = 200
+				}
+			}
+			add = {
+				desc = "ENEMY_COUNTRY_IS_GOING_TO_CAPITULATE"
+				if = {
+					limit = {
+						scope:actor = { 
+							any_scope_war = {
+								OR = { 
+									has_war_exhaustion = { target = scope:actor value > 90 }
+									has_war_support = { target = scope:actor value < 10 }
+								}
+							}
+						}
+					}
+					value = 50
+				}
+			}
+			add = {
+				desc = "ENEMY_HAS_NUKES"
+				if = { 
+					limit = { 
+						scope:actor = { has_modifier = nuclear_capability }
+						scope:target_country = { has_modifier = nuclear_capability }
+					}
+					value = 100
+				}
+			}
+			add = {
+				desc = "THIS_COUNTRY_IS_GOING_TO_CAPITULATE"
+				if = { 
+					limit = { scope:target_country = { any_scope_war = { has_war_support = { target = scope:target_country value < 10 } } } }
+					value = 25
+				}
+			}
+			
+			if = {
+				limit = { 
+					scope:target_country = {
+						is_full_democracy = yes
+					}
+				}
+				add = {
+					desc = "THIS_COUNTRY_IS_PEACE_LOVING"
+					value = 1000
+				}
+			}
+
+			if = {
+				limit = { 
+					scope:target_country = {
+						is_autocracy = yes
+					}
+				}
+				add = {
+					desc = "THIS_COUNTRY_IS_RECKLESS"
+					value = -75
+				}
+			}
+			
+			if = {
+				limit = { 
+					scope:target_country = {
+						is_dictatorship = yes
+					}
+				}
+				add = {
+					desc = "THIS_COUNTRY_IS_VERY_RECKLESS"
+					value = -150
+				}
+			}
+
+			if = {
+				limit = {
+					scope:target_country = {
+						OR = {
+							country_rank >= scope:actor.country_rank
+							army_size >= scope:actor.army_size
+						}
+					}
+				}
+				add = {
+					desc = "COUNTRY_THINKS_IT_CAN_WIN"
+					value = -50
+				}
+			}
+			# add = {
+			# 	desc = "COUNTRY_IS_PREPARED_FOR_NUCLEAR_WAR"
+			# 	if = {
+			# 		limit = { scope:target_country = { any_scope_building = { is_building_type = building_urban_center has_active_production_method = pm_city_civil_defence_5 } } }
+			# 		value = -50
+			# 	}
+			# 	else_if = {
+			# 		limit = { scope:target_country = { any_scope_building = { is_building_type = building_urban_center has_active_production_method = pm_city_civil_defence_4 } } }
+			# 		value = -40
+			# 	}
+			# 	else_if = {
+			# 		limit = { scope:target_country = { any_scope_building = { is_building_type = building_urban_center has_active_production_method = pm_city_civil_defence_3 } } }
+			# 		value = -30
+			# 	}
+			# 	else_if = {
+			# 		limit = { scope:target_country = { any_scope_building = { is_building_type = building_urban_center has_active_production_method = pm_city_civil_defence_2 } } }
+			# 		value = -20
+			# 	}
+			# 	else_if = {
+			# 		limit = { scope:target_country = { any_scope_building = { is_building_type = building_urban_center has_active_production_method = pm_city_civil_defence_1 } } }
+			# 		value = -10
+			# 	}
+			# 	else = {
+			# 		value = 0
+			# 	}
+			# }
+		}
+	}
+}

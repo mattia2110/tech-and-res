@@ -1,0 +1,417 @@
+je_austrian_empire_collapse = {
+	icon = "gfx/interface/icons/event_icons/waving_flag_austria.dds"
+	group = je_group_historical_content
+
+	is_shown_when_inactive = {
+		has_game_rule = allow_ztr_historical_content
+		year > 1910
+        c:AUS ?= this
+		#always = no # Temporarily disabled as vanilla has added Austria Decline Flavor
+	}
+
+	possible = {
+		NOT = { global_country_ranking < 5 }
+		NOT = { is_democracy = yes }
+		get_country_gdp_per < 4
+	}
+
+	immediate = {
+		set_variable = {
+			name = austrian_empire_collapse_var
+			value = 0
+		}
+	}
+
+	on_yearly_pulse = {
+		effect = {
+			change_variable = {
+				name = austrian_empire_collapse_var
+				add = 2
+			}
+			# Habsburgs
+			if = {
+				limit = {
+					has_law = law_type:law_monarchy
+					is_ai = yes
+				}
+				change_variable = {
+					name = austrian_empire_collapse_var
+					add = 1
+				}
+			}
+			# Universal Suffrage
+			if = {
+				limit = {
+					has_law = law_type:law_universal_suffrage
+				}
+				change_variable = {
+					name = austrian_empire_collapse_var
+					subtract = 1
+				}
+			}
+			# Cultural Discrimination Laws
+			if = {
+				limit = {
+					has_law = law_type:law_racial_segregation
+				}
+				change_variable = {
+					name = austrian_empire_collapse_var
+					subtract = 1
+				}
+			}
+			if = {
+				limit = {
+					has_law = law_type:law_cultural_exclusion
+				}
+				change_variable = {
+					name = austrian_empire_collapse_var
+					subtract = 2
+				}
+			}
+			# Economic Factors
+			if = {
+				limit = {
+					get_country_gdp_per < 3
+				}
+				change_variable = {
+					name = austrian_empire_collapse_var
+					add = 1
+				}
+			}
+			# Geopolitical Factors
+			if = {
+				limit = {
+					OR = {
+						c:ITA = {
+							exists = yes
+							country_rank = rank_value:great_power
+						}
+						c:GER = {
+							exists = yes
+							country_rank = rank_value:great_power
+						}
+					}
+				}
+				change_variable = {
+					name = austrian_empire_collapse_var
+					add = 1
+				}
+			}
+			# Global Country Ranking
+			if = {
+				limit = {
+					global_country_ranking > 6
+				}
+				change_variable = {
+					name = austrian_empire_collapse_var
+					add = 1
+				}
+			}
+			if = {
+				limit = {
+					country_rank < rank_value:great_power
+				}
+				change_variable = {
+					name = austrian_empire_collapse_var
+					add = 1
+				}
+			}
+		}
+		#Events (These events in general have two options, one that gives a positive modifier to the JE and one that gives a negative modifier)
+		random_events = {
+			10 = 0
+			5 = austrian_empire_collapse.3 # Magyar Language against German
+			5 = austrian_empire_collapse.4 # Hungarian Revolts
+			5 = austrian_empire_collapse.5 # Hungarian ask same rights as Germanic citizens
+			5 = austrian_empire_collapse.6 # Hungary Independence
+			5 = austrian_empire_collapse.7 # Trieste, Mittleeuropa harbor
+			5 = austrian_empire_collapse.8 # Italy is unified
+			5 = austrian_empire_collapse.9 # Galicia, granary of the Empire
+			5 = austrian_empire_collapse.10 # Czech ask same rights as Germanic and Hungarian citizens (After accepted hungarian requests austrian_empire_collapse.5)
+			5 = austrian_empire_collapse.11 # Slovakia between Hungarians and Czechs pressures (After acceptations on austrian_empire_collapse.5 and .10)
+			5 = austrian_empire_collapse.12 # Czech Independence
+			5 = austrian_empire_collapse.13 # A Yugoslavian union ideas
+			5 = austrian_empire_collapse.14 # Romania is unified
+			5 = austrian_empire_collapse.15 # Poland is reborn (So Galicia has more reasons to ask for independence)
+			5 = austrian_empire_collapse.16 # Serbian Territories asks for Serbian union
+			5 = austrian_empire_collapse.17 # Krakow asks for Polish union
+		}
+	}
+
+	complete = {
+		OR = {
+			scope:journal_entry = { is_goal_complete = yes }
+		}
+	}
+
+	on_complete = {
+
+		add_loyalists = {
+			value   = 0.9
+		}
+
+		# Bohemia independence if it exists and civil right is not maxed
+		if = {
+			limit = {
+				NOT = {	exists = c:BOH }
+				NOT = { var:czech_civil_rights_var = 2 }
+				has_state_in_state_region = STATE_BOHEMIA
+			}
+			create_country = {
+				tag = BOH
+				origin = this
+				state = s:STATE_BOHEMIA.region_state:AUS
+				on_created = {
+					set_country_type = recognized
+					activate_law = law_type:law_parliamentary_republic
+					activate_law = law_type:law_census_voting
+				}
+			}
+		}
+		if = {
+			limit = {
+				exists = c:BOH
+			}
+			s:STATE_BOHEMIA.region_state:AUS = {
+				set_state_owner = c:BOH
+			}
+			s:STATE_MORAVIA.region_state:AUS = {
+				set_state_owner = c:BOH
+			}
+			s:STATE_UPPER_SILESIA.region_state:AUS = {
+				set_state_owner = c:BOH
+			}
+		}
+
+		# Czechoslovakia creation if bohemia exists and c
+		if = {
+			limit = {
+				exists = c:BOH
+				NOT = { var:czech_civil_rights_var = 2 }
+				var:hungarian_civil_rights_var = 2
+			}
+			c:BOH = { change_tag = CZH}
+			if = {
+				limit = { hungary_is_subject_or_personal_union_austria = yes }
+				s:STATE_SLOVAKIA.region_state:HUN = {
+					set_state_owner = c:CZH
+				}
+				s:STATE_RUTHENIA.region_state:HUN = {
+					set_state_owner = c:CZH
+				}
+			}
+			else = {
+				s:STATE_SLOVAKIA.region_state:AUS = {
+					set_state_owner = c:CZH
+				}
+				s:STATE_RUTHENIA.region_state:AUS = {
+					set_state_owner = c:CZH
+				}
+			}
+		}
+
+		# Slovacchia dalla moravia se appunto la bohemia non è austriaca o vuole rimanere con  l'austria
+		if = {
+			limit = {
+				NOT = {	exists = c:BOH }
+				var:czech_civil_rights_var = 2
+				has_state_in_state_region = STATE_SLOVAKIA
+			}
+			ztr_define_slovakia = yes
+		}
+
+		# Romania takes what is romanian if part of Austria
+		if = {
+			limit = {
+				exists = c:ROM
+			}
+			ztr_define_romania = yes
+		}
+		else_if = {
+            limit = {
+                any_scope_state = {
+                    NOT = { is_homeland_of_country_cultures = root }
+                    state_region = {
+                        is_homeland = cu:romanian 
+                    }
+                    count > 0
+                }
+            }
+			ztr_define_transilvania = yes
+		}
+
+		# San Marco Republic takes northeastern Italy
+		if = {
+			limit = {
+				NOT = { exists = c:ITA }
+				any_scope_state = {
+                    NOT = { is_homeland_of_country_cultures = root }
+                    state_region = {
+                        is_homeland = cu:north_italian 
+                    }
+                    count > 0
+                }
+			}
+			ztr_define_republic_venice = yes
+			if = {
+				limit = {
+					var:trieste_harbor_var = 1
+				}
+				s:STATE_ISTRIA.region_state:VEN = {
+					set_state_owner = c:AUS
+				}
+			}
+		}
+
+		# Italy takes northeastern Italy
+		if = {
+			limit = {
+				exists = c:ITA
+			}
+			every_scope_state = {
+				limit = {
+					NOT = { is_homeland_of_country_cultures = root }
+					state_region = {
+						is_homeland = cu:north_italian
+					}
+				}
+				set_state_owner = c:ITA
+			}
+		}
+
+		# Serbia takes northern Serbia, Croatia and Slovenia -> Potentially becomes Yugoslavia
+		if = {
+			limit = {
+				exists = c:SER
+				any_scope_state = {
+                    NOT = { is_homeland_of_country_cultures = root }
+                    state_region = {
+                        is_homeland = cu:serb 
+                    }
+                    count > 0
+                }
+			}
+			ztr_define_serbia = yes
+			if = {
+				limit = {
+					has_state_in_state_region = STATE_SLOVENIA
+					has_variable = yugoslav_union_var
+					var:yugoslav_union_var = 0
+				}
+				s:STATE_SLOVENIA.region_state:SER = {
+					set_state_owner = c:AUS
+				}
+			}
+		}
+
+		# Galicia Lodomeria Creation
+		if = {
+			limit = {
+				NOT = {	exists = c:POL }
+				has_state_in_state_region = STATE_WEST_GALICIA
+				any_scope_state = {
+                    NOT = { is_homeland_of_country_cultures = root }
+                    state_region = {
+                        is_homeland = cu:polish 
+                    }
+                    count > 0
+                }
+			}
+			ztr_define_galicia = yes
+		}
+
+		# Poland takes Galicia
+		if = {
+			limit = {
+				exists = c:POL
+				NOT = { exists = c:GAL }
+				any_scope_state = {
+                    NOT = { is_homeland_of_country_cultures = root }
+                    state_region = {
+                        is_homeland = cu:polish 
+                    }
+                    count > 0
+                }
+			}
+			ztr_define_poland = yes
+			if = {
+				limit = {
+					c:KRA = {
+						exists = yes
+						overlord = c:AUS
+					}
+				}
+				c:POL = { annex = c:KRA	}
+			}
+		}
+
+		# Hungary indipendece if it exists and civil right is not maxed
+		if = {
+			limit = {
+				NOT = { var:hungarian_civil_rights_var = 2 }
+				hungary_is_subject_or_personal_union_austria = yes
+			}
+			remove_diplomatic_pact = {
+				country = c:HUN
+				type = personal_union
+			}
+			remove_diplomatic_pact = {
+				country = c:HUN
+				type = crown_land
+			}
+			remove_diplomatic_pact = {
+				country = c:HUN
+				type = vassal
+			}
+		}
+		# Hungary is created or takes states if it exists
+		else_if = {
+			limit = {
+				NOT = { var:hungarian_civil_rights_var = 2 }
+				any_scope_state = {
+                    NOT = { is_homeland_of_country_cultures = root }
+                    state_region = {
+                        is_homeland = cu:hungarian 
+                    }
+                    count > 0
+                }
+			}
+			ztr_define_hungary = yes
+		}
+		
+		trigger_event = { id = austrian_empire_collapse.1 days = 3 } #3 days after the collapse
+	}
+
+
+	fail = {
+		OR = {
+			is_full_democracy = yes
+			get_country_gdp_per > 6
+			global_country_ranking < 5
+		}
+	}
+
+	on_fail = {
+		add_loyalists = {
+			value   = 0.9
+		}
+		trigger_event = { id = austrian_empire_collapse.2 }
+	}
+
+	transferable = yes
+
+	current_value = {
+		value = var:austrian_empire_collapse_var
+	}
+
+	#
+	goal_add_value = {
+		value = 60
+	}
+
+	progressbar = yes
+
+	weight = 20
+	should_be_pinned_by_default = yes
+
+}

@@ -4124,6 +4124,11 @@ ai_strategy_default = {
 			limit = { has_law_or_variant = law_type:law_national_militia }
 			multiply = 0.33
 		}
+		
+		if = {
+			limit = { has_law_or_variant = law_type:law_peasant_levies }
+			multiply = 0.66
+		}
 
 		if = {
 			limit = {
@@ -4443,8 +4448,6 @@ ai_strategy_default = {
 		building_power_plant = wants_to_have
 		building_railway = wants_to_have
 		building_port = must_have
-		#T&R
-		building_telecommunications_industry = wants_to_have
 	}
 
 	# Specifying values here will override subsidy priorities while at war
@@ -4520,6 +4523,12 @@ ai_strategy_default = {
 				has_port = yes
 			}
 		}
+		telephones = {
+			stance = wants_high_supply
+			trigger = {
+				has_technology_researched = central_planning
+			}
+		}
 		radios = {
 			stance = wants_high_supply
 			trigger = {
@@ -4535,16 +4544,17 @@ ai_strategy_default = {
 				has_technology_researched = centralization
 			}
 		}
+		oil = {
+			stance = wants_export
+			trigger = {
+				has_technology_researched = combustion_engine
+				kai_has_high_supply = { GOODS = oil }
+			}
+		}
 		hardwood = {
 			stance = wants_high_supply
 			trigger = {
 				has_technology_researched = urbanization
-			}
-		}
-		oil = {
-			stance = wants_high_supply
-			trigger = {
-				has_technology_researched = combustion_engine
 			}
 		}
 		# Construction goods (Helps early game)
@@ -4568,62 +4578,68 @@ ai_strategy_default = {
 			}
 		}
 		#T&R
-		water = {
-			stance = wants_high_supply
-		}
+		water = { stance = wants_high_supply }
 		gas = {
-			stance = wants_high_supply
+			stance = wants_export
 			trigger = {
 				has_technology_researched = gas_turbine
+				kai_has_high_supply = { GOODS = gas }
 			}
 		}
 		good_uranium = {
-			stance = wants_high_supply
+			stance = wants_export
 			trigger = {
-				has_building = building_power_plant
 				has_technology_researched = verrier_nuclear_physics_tech
+				kai_has_high_supply = { GOODS = good_uranium }
 			}
 		}
 		lead = {
-			stance = wants_high_supply
+			stance = wants_export
 			trigger = {
 				has_technology_researched = thermal_cracking
+				kai_has_high_supply = { GOODS = lead }
 			}
 		}
 		sulfur = {
-			stance = wants_high_supply
+			stance = wants_export
 			trigger = {
 				has_technology_researched = thermal_cracking
+				kai_has_high_supply = { GOODS = sulfur }
 			}
 		}
 		bauxite = {
-			stance = wants_high_supply
+			stance = wants_export
 			trigger = {
 				has_technology_researched = bayer_process
+				kai_has_high_supply = { GOODS = bauxite }
 			}
 		}
 		copper = {
-			stance = wants_high_supply
+			stance = wants_export
 			trigger = {
 				has_technology_researched = thermal_cracking
+				kai_has_high_supply = { GOODS = copper }
 			}
 		}
 		commonores = {
-			stance = wants_high_supply
+			stance = wants_export
 			trigger = {
 				has_technology_researched = thermal_cracking
+				kai_has_high_supply = { GOODS = commonores }
 			}
 		}
 		advancedores = {
-			stance = wants_high_supply
+			stance = wants_export
 			trigger = {
 				has_technology_researched = semiconductor
+				kai_has_high_supply = { GOODS = advancedores }
 			}
 		}
 		rare_earths = {
-			stance = wants_high_supply
+			stance = wants_export
 			trigger = {
 				has_technology_researched = rare_earths
+				kai_has_high_supply = { GOODS = rare_earths }
 			}
 		}
 		#T&R (Military)

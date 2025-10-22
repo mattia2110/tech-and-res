@@ -3,17 +3,15 @@ je_ottoman_empire_collapse = {
     group = je_group_historical_content
 
     is_shown_when_inactive = {
-        # has_game_rule = allow_ztr_historical_content
-        # year > 1900
-        # exists = c:TUR
-        # THIS = c:TUR
-        always = no # Temporarily disabled as vanilla has added Ottoman Decline Flavor
+        has_game_rule = allow_ztr_historical_content
+        year > 1900
+        c:TUR ?= this
+        #always = no # Temporarily disabled as vanilla has added Ottoman Decline Flavor
     }
 
     possible = {
 		NOT = { country_rank = rank_value:great_power }
-        get_country_gdp_per < 2.5
-        is_ai = yes
+        NOT = { is_democracy = yes }
     }
 
     immediate = {
@@ -115,54 +113,41 @@ je_ottoman_empire_collapse = {
 		# Greece
         if = {
             limit = {
-                NOT = { exists = c:GRE }
-                s:STATE_ATTICA = {
-                    any_scope_state = { owner = ROOT }
+                any_scope_state = {
+                    NOT = { is_homeland_of_country_cultures = root }
+                    state_region = {
+                        is_homeland = cu:greek 
+                    }
+                    count > 0
                 }
             }
-            create_country = {
-                tag    = GRE
-                origin = this
-                state  = s:STATE_ATTICA.region_state:TUR
-                on_created = {
-                    set_country_type = recognized
-                    activate_law     = law_type:law_parliamentary_republic
-                    activate_law     = law_type:law_census_voting
-                }
+            ztr_define_greece = yes
+        }
+        if = {
+            limit = { exists = c:GRE}
+            s:STATE_CRETE.region_state:TUR = {
+                set_state_owner = c:GRE
+            }
+            s:STATE_CYPRUS.region_state:TUR = {
+                set_state_owner = c:GRE
+            }
+            s:STATE_EAST_AEGEAN_ISLANDS.region_state:TUR = {
+                set_state_owner = c:GRE
+            }
+            s:STATE_MACEDONIA.region_state:TUR = {
+                set_state_owner = c:GRE
+            }
+            s:STATE_WESTERN_THRACE.region_state:TUR = {
+                set_state_owner = c:GRE
             }
         }
-		s:STATE_PELOPONNESE.region_state:TUR = {
-			set_state_owner = c:GRE
-		}
-        s:STATE_ATTICA.region_state:TUR = {
-			set_state_owner = c:GRE
-		}
-		s:STATE_MACEDONIA.region_state:TUR = {
-			set_state_owner = c:GRE
-		}
-		s:STATE_THESSALIA.region_state:TUR = {
-			set_state_owner = c:GRE
-		}
-		s:STATE_WESTERN_THRACE.region_state:TUR = {
-			set_state_owner = c:GRE
-		}
-		s:STATE_EAST_AEGEAN_ISLANDS.region_state:TUR = {
-			set_state_owner = c:GRE
-		}
-		s:STATE_CRETE.region_state:TUR = {
-			set_state_owner = c:GRE
-		}
-        s:STATE_CYPRUS.region_state:TUR = {
-            set_state_owner = c:GRE
-        }
+		
 
         # Bulgaria
         if = {
             limit = {
                 NOT = { exists = c:BUL }
-                s:STATE_BULGARIA = {
-                    any_scope_state = { owner = ROOT }
-                }
+                has_state_in_state_region = STATE_BULGARIA
             }
             create_country = {
                 tag    = BUL
@@ -175,175 +160,94 @@ je_ottoman_empire_collapse = {
                 }
             }
         }
-        s:STATE_BULGARIA.region_state:TUR = {
-			set_state_owner = c:BUL
-		}
 		s:STATE_NORTHERN_THRACE.region_state:TUR = {
 			set_state_owner = c:BUL
 		}
 		s:STATE_DOBRUDJA.region_state:TUR = {
 			set_state_owner = c:BUL
 		}
+        s:STATE_SKOPIA.region_state:TUR = {
+			set_state_owner = c:BUL
+		}
 
         # Romania
         if = {
             limit = {
-                NOT = { exists = c:WAL }
-                s:STATE_WALLACHIA = {
-                    any_scope_state = { owner = ROOT }
+                any_scope_state = {
+                    NOT = { is_homeland_of_country_cultures = root }
+                    state_region = {
+                        is_homeland = cu:romanian 
+                    }
+                    count > 0
                 }
             }
-            create_country = {
-                tag    = ROM
-                origin = this
-                state  = s:STATE_WALLACHIA.region_state:TUR
-                on_created = {
-                    set_country_type = recognized
-                    activate_law     = law_type:law_parliamentary_republic
-                    activate_law     = law_type:law_census_voting
-                }
-            }
+            ztr_define_romania = yes
         }
-        s:STATE_WALLACHIA.region_state:TUR = {
-            set_state_owner = c:ROM
-        }
-		s:STATE_MOLDAVIA.region_state:TUR = {
-			set_state_owner = c:ROM
-		}
 
         # Albania
         if = {
             limit = {
-                NOT = { exists = c:ALB }
-                s:STATE_ALBANIA = {
-                    any_scope_state = { owner = ROOT }
+                any_scope_state = {
+                    NOT = { is_homeland_of_country_cultures = root }
+                    state_region = {
+                        is_homeland = cu:albanian 
+                    }
+                    count > 0
                 }
             }
-            create_country = {
-                tag    = ALB
-                origin = this
-                state  = s:STATE_ALBANIA.region_state:TUR
-                on_created = {
-                    set_country_type = recognized
-                    activate_law     = law_type:law_monarchy
-                    activate_law     = law_type:law_census_voting
-                }
-            }
+            ztr_define_albania = yes
         }
 
-		# Serbia
+        # Serbia
         if = {
             limit = {
-                NOT = { exists = c:SER }
-                s:STATE_WESTERN_SERBIA = {
-                    any_scope_state = { owner = ROOT }
+                any_scope_state = {
+                    NOT = { is_homeland_of_country_cultures = root }
+                    state_region = {
+                        is_homeland = cu:serb
+                    }
+                    count > 0
                 }
             }
-            create_country = {
-                tag    = SER
-                origin = this
-                state  = s:STATE_WESTERN_SERBIA.region_state:TUR
-                on_created = {
-                    set_country_type = recognized
-                    activate_law     = law_type:law_parliamentary_republic
-                    activate_law     = law_type:law_census_voting
-                }
-            }
+            ztr_define_serbia = yes
         }
-        s:STATE_WESTERN_SERBIA.region_state:TUR = {
-			set_state_owner = c:SER
-		}
-		s:STATE_EASTERN_SERBIA.region_state:TUR = {
-			set_state_owner = c:SER
-		}
-		s:STATE_SKOPIA.region_state:TUR = {
-			set_state_owner = c:SER
-		}
-		s:STATE_BOSNIA.region_state:TUR = {
-			set_state_owner = c:SER
-		}
-		s:STATE_MONTENEGRO.region_state:TUR = {
-			set_state_owner = c:SER
-		}
-		s:STATE_DALMATIA.region_state:TUR = {
-			set_state_owner = c:SER
-		}
+        #c:SER = { trigger_event = { id = ztr_serbia.1 } } This will create a war for Kosovo and North Macedonia
 
         #Sudan
-		if = {
+        if = {
             limit = {
-                NOT = { exists = c:SUD }
-                s:STATE_DONGOLA= {
-                    any_scope_state = { owner = ROOT }
+                any_scope_state = {
+                    NOT = { is_homeland_of_country_cultures = root }
+                    state_region = {
+                        is_homeland = cu:sudanese 
+                    }
+                    count > 0
                 }
             }
-            create_country = {
-                tag    = SUD
-                origin = this
-                state  = s:STATE_DONGOLA.region_state:TUR
-                on_created = {
-                    set_country_type = recognized
-                    activate_law     = law_type:law_monarchy
-                }
-            }
+            ztr_define_sudan = yes
         }
-        s:STATE_DONGOLA.region_state:TUR = {
-			set_state_owner = c:SUD
-		}
-		s:STATE_BLUE_NILE.region_state:TUR = {
-			set_state_owner = c:SUD
-		}
-		s:STATE_KORDOFAN.region_state:TUR = {
-			set_state_owner = c:SUD
-		}
-		s:STATE_DARFUR.region_state:TUR = {
-			set_state_owner = c:SUD
-		}
-		s:STATE_EQUATORIA.region_state:TUR = {
-			set_state_owner = c:SUD
-		}
 
 		# Egypt
         if = {
             limit = {
-                NOT = { exists = c:EGY }
-                s:STATE_LOWER_EGYPT = {
-                    any_scope_state = { owner = ROOT }
+                any_scope_state = {
+                    NOT = { is_homeland_of_country_cultures = root }
+                    state_region = {
+                        is_homeland = cu:misri 
+                    }
+                    count > 0
                 }
             }
-            create_country = {
-                tag    = EGY
-                origin = this
-                state  = s:STATE_LOWER_EGYPT.region_state:TUR
-                on_created = {
-                    set_country_type = recognized
-                    activate_law     = law_type:law_monarchy
-                    activate_law     = law_type:law_census_voting
-                }
-            }
+            ztr_define_egypt = yes
         }
-        s:STATE_LOWER_EGYPT.region_state:TUR = {
-			set_state_owner = c:EGY
-		}
-		s:STATE_MIDDLE_EGYPT.region_state:TUR = {
-			set_state_owner = c:EGY
-		}
-		s:STATE_UPPER_EGYPT.region_state:TUR = {
-			set_state_owner = c:EGY
-		}
-		s:STATE_MATRUH.region_state:TUR = {
-			set_state_owner = c:EGY
-		}
-		s:STATE_EGYPTIAN_DESERT.region_state:TUR = {
-			set_state_owner = c:EGY
-		}
+
+        # We can create some events about western powers taking advantage of the situation to seize Ottoman territories in Middle East for Oil interests
 
         # Armenia
         if = {
             limit = {
                 NOT = { exists = c:ARM }
                 s:STATE_ERZURUM = { any_scope_state = { owner = ROOT } }
-				#NOT = { has_variable = armenian_gen}
             }
             create_country = {
                 tag    = ARM
@@ -458,10 +362,10 @@ je_ottoman_empire_collapse = {
 
     fail = {
 		OR = {
-			has_law = law_type:law_multicultural
+			is_democracy = yes
         	get_country_gdp_per > 3.5
 			country_rank = rank_value:great_power
-            year > 1940
+            year > 1945
 		}
     }
 

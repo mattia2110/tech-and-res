@@ -1,0 +1,76 @@
+research_center_decision = {
+	is_shown = {
+		has_technology_researched = verrier_modern_physics_tech
+		NOT = {
+			any_scope_building = {
+				is_building_type = building_research_center
+			}
+		}
+		NOT = {
+			any_scope_state = {
+				has_modifier = research_center_survey
+			}
+		}
+		NOT = {
+			has_variable = research_center_var
+		}
+	}
+
+	possible = {
+		produced_bureaucracy > 1000
+		literacy_rate > 0.6
+		any_scope_state = {
+			is_incorporated = yes
+			is_split_state = no
+			any_scope_building = {
+				is_building_type = building_urban_center
+				level >= 100
+			}
+			any_scope_building = {
+				is_building_type = building_university
+				level >= 5
+			}
+		}
+	}
+
+	when_taken = {
+		set_variable = {
+			name = research_center_var
+			value = 0
+		}
+		add_modifier = {
+			name = research_center_survey
+			months = 24
+		}
+		add_journal_entry = {
+			type = je_research_center_site
+		}
+	}
+
+	ai_chance = {
+		value = 0
+		if = {
+			limit = { produced_bureaucracy > 2500 }
+			add = 5
+		}
+		if = {
+			limit = {
+				produced_bureaucracy > 5000
+				any_country = {
+					is_ai = no
+					has_variable = research_center_var
+				}
+			}
+			add = 50
+		}
+		if = {
+			limit = {
+				OR = {
+					is_diplomatic_play_committed_participant = yes
+					is_at_war = yes
+				}
+			}
+			multiply = 0
+		}
+	}
+}

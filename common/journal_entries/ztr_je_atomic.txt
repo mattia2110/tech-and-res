@@ -1,0 +1,432 @@
+﻿je_develop_nuclear_weapons = {
+	icon = "gfx/interface/icons/event_icons/je_atomic_bomb.dds"
+
+	group = je_group_technology
+	
+	possible = {
+		#Country is actively developing nukes
+		has_variable = nuclear_program_started
+		
+		#Must be a sovereign state
+		is_subject = no
+		
+		#Has not already acquired nuclear weapons
+		NOT = { has_modifier = nuclear_capability }
+		
+	}
+
+	immediate = {
+		set_variable = {
+			name = nuclear_development_var
+			value = 0
+		}
+		if = {
+			limit = {
+				capital = {
+					is_split_state = no
+					gdp >= 25000000 # This needs to be a decent state (>25M GDP)
+				}
+			}
+			capital = {
+				add_modifier = nuclear_weapon_site
+			}
+		}
+		else = {
+			ordered_scope_state = {
+				limit = {
+					is_incorporated = yes
+					is_split_state = no
+				}
+				order_by = gdp
+				add_modifier = nuclear_weapon_site
+			}
+		}
+	}
+
+	on_monthly_pulse = {
+		effect = {
+			set_variable = {
+				name = nuclear_development_var_delta
+				value = 0
+			}
+			if = {
+				limit = {
+					#Has nuclear weapons tech
+					has_technology_researched = atomic_bomb
+					#Has at least 1 functional nuclear weapons building
+					any_scope_state = {
+						any_scope_building = {
+							is_building_type = building_nuclear_weapons_silo
+							level >= 1
+							building_has_goods_shortage = no
+						}
+					}
+					NOT = { 
+						any_scope_treaty = { binds = ROOT any_scope_article = { has_type = pause_nuclear_weapons_development } }
+					}
+				}
+				change_variable = {
+					name = nuclear_development_var_delta
+					add = 1
+				}
+
+				# Literacy
+				if = {
+					limit = { literacy_rate < 0.50 }
+					change_variable = {
+						name = nuclear_development_var_delta
+						multiply = 0.33
+					}
+				}
+				else_if = {
+					limit = { literacy_rate < 0.80 }
+					change_variable = {
+						name = nuclear_development_var_delta
+						multiply = 0.75
+					}
+				}
+
+				# Population
+				if = {
+					limit = { total_population < 25000000 }
+					change_variable = {
+						name = nuclear_development_var_delta
+						multiply = 0.33
+					}
+				}
+				else_if = {
+					limit = { total_population < 100000000 }
+					change_variable = {
+						name = nuclear_development_var_delta
+						multiply = 0.66
+					}
+				}
+
+				# Geopolitic
+				# The need to rush nuclear development if rivals have nukes or if at war
+				if = {
+					limit = {
+						OR = {
+							any_rival_country = {
+								has_modifier = nuclear_capability
+							}
+							is_at_war = yes
+						}
+					}
+					change_variable = {
+						name = nuclear_development_var_delta
+						multiply = 2
+					}
+				}
+
+				change_variable = {
+					name = nuclear_development_var
+					add = var:nuclear_development_var_delta
+				}
+
+				remove_variable = nuclear_development_var_delta
+			}
+		}
+	}
+
+	complete = {
+
+		scope:journal_entry = { is_goal_complete = yes }
+	
+		#Has nuclear weapons tech
+		has_technology_researched = atomic_bomb
+		
+		custom_tooltip = {
+			text = je_develop_nuclear_weapons_1.tt
+		
+			#Has at least 1 functional nuclear weapons building
+			any_scope_state = {
+				any_scope_building = {
+					is_building_type = building_nuclear_weapons_silo
+					level >= 1
+					building_has_goods_shortage = no
+				}
+			}
+			
+		}
+		
+		custom_tooltip = {
+			text = je_develop_nuclear_weapons_2.tt
+			NOT = { 
+				any_scope_treaty = { binds = ROOT any_scope_article = { has_type = pause_nuclear_weapons_development } }
+			}
+		}
+		
+	}
+	
+	on_complete = {
+		#Set nuclear capability
+		trigger_event = { id = nuclear_warfare_system.1 }
+
+		remove_variable = nuclear_development_var
+		
+		#Add nuclear development cost
+		add_modifier = { 
+			name = nuclear_dev_cost 
+			years = 5
+			is_decaying = yes
+		}
+		
+	}
+	
+	invalid = {
+		NAND = {
+			#Country is actively developing nukes
+			has_variable = nuclear_program_started
+			
+			#Has nuclear weapons law
+			#has_law = law_type:law_wmd_allowed
+			has_law = law_type:law_uranium_full_usage
+			
+			#Must be a sovereign state
+			is_subject = no
+		}
+	}
+	
+	# zero or more static modifiers that will be applied to the Journal Entry when it activates, where they will propagate to the country
+	modifiers_while_active = {
+		nuclear_dev_cost
+	}
+
+	current_value = {
+		value = var:thermonuclear_development_var
+	}
+
+	goal_add_value = {
+		value = 36
+	}
+
+	weight = 100
+
+	should_be_pinned_by_default = yes
+
+	transferable = no
+
+	progressbar = yes
+}
+
+je_develop_thermonuclear_weapons = {
+	icon = "gfx/interface/icons/event_icons/je_hydrogen_bomb.dds"
+
+	group = je_group_technology
+	
+	possible = {
+		#Country is actively developing nukes
+		has_modifier = nuclear_capability
+		
+		#Must be a sovereign state
+		is_subject = no
+		
+		#Has not already acquired nuclear weapons
+		NOT = { has_variable = thermonuclear_capability_var }
+		
+	}
+
+	immediate = {
+		set_variable = {
+			name = thermonuclear_development_var
+			value = 0
+		}
+	}
+
+	on_monthly_pulse = {
+		effect = {
+			set_variable = {
+				name = thermonuclear_development_var_delta
+				value = 0
+			}
+			if = {
+				limit = {
+					#Has nuclear weapons tech
+					has_technology_researched = second_nuclear_reactor
+					#Has at least 1 functional nuclear weapons building
+					# any_scope_state = {
+					# 	any_scope_building = {
+					# 		is_building_type = building_nuclear_weapons_silo
+					# 		level >= 1
+					# 		building_has_goods_shortage = no
+					# 	}
+					# }
+					NOT = { 
+						any_scope_treaty = { binds = ROOT any_scope_article = { has_type = pause_nuclear_weapons_development } }
+					}
+				}
+				change_variable = {
+					name = thermonuclear_development_var_delta
+					add = 1
+				}
+
+				# Literacy
+				if = {
+					limit = { literacy_rate < 0.70 }
+					change_variable = {
+						name = thermonuclear_development_var_delta
+						multiply = 0.33
+					}
+				}
+				else_if = {
+					limit = { literacy_rate < 0.90 }
+					change_variable = {
+						name = thermonuclear_development_var_delta
+						multiply = 0.75
+					}
+				}
+
+				# Population
+				if = {
+					limit = { total_population < 50000000 }
+					change_variable = {
+						name = thermonuclear_development_var_delta
+						multiply = 0.33
+					}
+				}
+				else_if = {
+					limit = { total_population < 150000000 }
+					change_variable = {
+						name = thermonuclear_development_var_delta
+						multiply = 0.66
+					}
+				}
+
+				# Geopolitic
+				# The need to rush nuclear development if rivals have nukes or if at war
+				if = {
+					limit = {
+						OR = {
+							any_rival_country = {
+								has_variable = thermonuclear_capability_var
+							}
+							is_at_war = yes
+						}
+					}
+					change_variable = {
+						name = thermonuclear_development_var_delta
+						multiply = 3
+					}
+				}
+
+				change_variable = {
+					name = thermonuclear_development_var
+					add = var:thermonuclear_development_var_delta
+				}
+
+				remove_variable = thermonuclear_development_var_delta
+			}
+		}
+	}
+
+	complete = {
+		scope:journal_entry = { is_goal_complete = yes }
+	
+		#Has nuclear weapons tech
+		has_technology_researched = second_nuclear_reactor
+		
+		custom_tooltip = {
+			text = je_develop_nuclear_weapons_2.tt
+			NOT = { 
+				any_scope_treaty = { binds = ROOT any_scope_article = { has_type = pause_nuclear_weapons_development } }
+			}
+		}
+		
+	}
+	
+	on_complete = {
+		#Set nuclear capability
+		trigger_event = { id = nuclear_warfare_system.10 }
+
+		remove_variable = thermonuclear_development_var
+		
+		#Add nuclear development cost
+		add_modifier = { 
+			name = nuclear_dev_cost 
+			years = 5
+			is_decaying = yes
+		}
+		
+	}
+	
+	invalid = {
+		NAND = {
+			#Country is actively developing nukes
+			has_variable = nuclear_program_started
+			
+			#Has nuclear weapons law
+			has_law = law_type:law_uranium_full_usage
+			
+			#Must be a sovereign state
+			is_subject = no
+		}
+	}
+	
+	# zero or more static modifiers that will be applied to the Journal Entry when it activates, where they will propagate to the country
+	modifiers_while_active = {
+		nuclear_dev_cost
+	}
+
+	current_value = {
+		value = var:thermonuclear_development_var
+	}
+
+	goal_add_value = {
+		value = 36
+	}
+
+	weight = 100
+
+	should_be_pinned_by_default = yes
+
+	transferable = no
+
+	progressbar = yes
+}
+
+je_nuclear_weapons_info_panel = {
+	icon = "gfx/interface/icons/event_icons/nuclear_capability.dds"
+
+	group = je_group_foreign_affairs
+
+	is_shown_when_inactive = {
+		has_global_variable = atomic_bomb_discovered
+	}
+
+	possible = {
+		has_global_variable = ztr_atomic_bomb_first_use_var
+	}
+
+	immediate = {
+		every_country = {
+			limit = {
+				has_variable = first_nuclear_country_var
+			}
+			save_scope_as = first_nuclear_country
+		}
+	}
+	
+	on_yearly_pulse = {
+		effect = {
+			every_country = {
+				limit = { has_modifier = nuclear_capability }
+				calculate_nuclear_strength_info = yes
+				calculate_nuclear_defence_info = yes
+				ztr_nuclear_ranking_variables = yes
+				ztr_nuclear_strength_ranking_effect = yes
+				ztr_nuclear_defence_ranking_effect = yes
+				#calculate_enemy_nuclear_strength_info = yes
+				#calculate_allied_nuclear_strength_info = yes
+				#calculate_nuclear_arms_race_ratio = yes
+			}
+		}
+	}
+
+	weight = 100
+
+	transferable = no
+
+	progressbar = no
+	
+}

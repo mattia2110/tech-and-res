@@ -1,0 +1,107 @@
+je_research_center_site = {
+	icon = "gfx/interface/icons/event_icons/event_map.dds"
+
+	group = je_group_technology
+
+	on_monthly_pulse = {
+		effect = {
+			change_variable = {
+				name = research_center_var
+				add = 1
+			}
+		}
+	}
+
+	complete = {
+		scope:journal_entry = { is_goal_complete = yes }
+		any_scope_state = {
+			is_split_state = no
+			is_incorporated = yes
+			any_scope_building = {
+				is_building_type = building_urban_center
+				level >= 100
+			}
+			any_scope_building = {
+				is_building_type = building_university
+				level >= 5
+			}
+		}
+	}
+
+	on_complete = {
+		#remove_modifier = research_center_survey
+		trigger_event = { id = ztr_technology.1 } # site found
+	}
+
+	invalid = {
+		NOT = {
+			any_scope_state = {
+				is_split_state = no
+				is_incorporated = yes
+				any_scope_building = {
+					is_building_type = building_urban_center
+					level >= 100
+				}
+				any_scope_building = {
+					is_building_type = building_university
+					level >= 5
+				}
+			}
+		}
+	}
+
+	on_invalid = {
+		#remove_modifier = research_center_survey
+		remove_variable = research_center_var
+	}
+
+	current_value = {
+		value = root.var:research_center_var
+	}
+
+	goal_add_value = {
+		value = 24
+	}
+
+	modifiers_while_active = {
+		research_center_survey
+	}
+
+	progressbar = yes
+
+	weight = 10
+
+	should_be_pinned_by_default = yes
+}
+
+je_research_center_construction = {
+	icon = "gfx/interface/icons/event_icons/event_map.dds"
+
+	group = je_group_technology
+
+	complete = {
+		scope:target = { has_research_center = yes }
+	}
+
+	fail = {
+		NOT = {
+			any_scope_state = {
+				has_modifier = research_center_site
+			}
+		}
+	}
+
+	on_fail = {
+		remove_variable = research_center_var
+	}
+
+	on_complete = {
+		trigger_event = { id = ztr_technology.2 }
+		remove_variable = research_center_var
+		scope:target = {
+			remove_modifier = research_center_site
+		}
+	}
+
+	should_be_pinned_by_default = yes
+}

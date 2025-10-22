@@ -1,0 +1,551 @@
+# International Organizations Decisions
+
+firm_ztr_geneva_convention = {
+
+	is_shown = {
+		has_technology_researched = human_rights
+		year > 1865
+		year < 1920
+		NOT = {
+			has_modifier = ztr_geneva_convention
+		}
+	}
+
+	possible = {
+		OR = {
+			is_imperfect_democracy = yes
+			is_full_democracy = yes
+		}
+	}
+
+	when_taken = {
+		change_infamy = -5
+		add_modifier = {
+			name = ztr_geneva_convention
+		}
+	}
+
+	ai_chance = {
+		value = 5
+	}
+}
+
+withdraw_ztr_geneva_convention = {
+
+	is_shown = {
+		has_technology_researched = human_rights
+		year > 1865
+		year < 1920
+		has_modifier = ztr_geneva_convention
+	}
+
+	possible = {
+		has_modifier = ztr_geneva_convention
+	}
+
+	when_taken = {
+		change_infamy = 15
+		remove_modifier = ztr_geneva_convention
+	}
+
+	ai_chance = {
+		value = 0
+		modifier = {
+			trigger = {
+				OR = {
+					is_dictatorship = yes
+					is_autocracy = yes
+				}
+			}
+			add = 5
+		}
+	}
+}
+
+enter_ztr_society_of_nations = {
+
+	is_shown = {
+		has_technology_researched = international_organizations
+		year > 1920
+		year < 1945
+		NOT = {
+			has_modifier = ztr_society_of_nations
+		}
+	}
+
+	possible = {
+		OR = {
+			is_autocracy = yes
+			is_imperfect_democracy = yes
+			is_full_democracy = yes
+		}
+	}
+
+	when_taken = {
+		change_infamy = -5
+		if = {
+			limit = {
+				has_modifier = ztr_geneva_convention
+			}
+			remove_modifier = ztr_geneva_convention
+		}
+		add_modifier = {
+			name = ztr_society_of_nations
+		}
+	}
+
+	ai_chance = {
+		value = 5
+	}
+}
+
+withdraw_ztr_society_of_nations = {
+
+	is_shown = {
+		has_technology_researched = international_organizations
+		year > 1920
+		year < 1945
+		has_modifier = ztr_society_of_nations
+	}
+
+	possible = {
+		has_modifier = ztr_society_of_nations
+	}
+
+	when_taken = {
+		change_infamy = 20
+		remove_modifier = ztr_society_of_nations
+	}
+
+	ai_chance = {
+		value = 0
+		modifier = {
+			trigger = {
+				is_dictatorship = yes
+			}
+			add = 5
+		}
+	}
+}
+
+un_foundation = {
+
+	is_shown = {
+		NOT = { has_global_variable = un_founded_var }
+		has_technology_researched = international_organizations
+		global_country_ranking = 1
+	}
+
+	possible = {
+		year > 1944
+	}
+
+	when_taken = {
+		set_global_variable = {
+			name = un_founded_var
+			value = 1
+		}
+		root = { trigger_event = ztr_un_event.1 }
+	}
+
+	ai_chance = {
+		value = 100
+	}
+}
+
+# imf_foundation = {
+
+# 	is_shown = {
+# 		NOT = { has_global_variable = imf_founded_var }
+# 		has_technology_researched = international_organizations
+# 		global_country_ranking = 1
+# 	}
+
+# 	possible = {
+# 		has_global_variable = un_founded_var
+# 		year > 1945
+# 	}
+
+# 	when_taken = {
+# 		set_global_variable = imf_founded_var
+# 		root = { trigger_event = ztr_imf_event.1 }
+# 	}
+
+# 	ai_chance = {
+# 		value = 100
+# 	}
+# }
+
+become_member_united_nations = {
+
+	is_shown = {
+		has_technology_researched = human_rights
+		year > 1945
+		NOT = {
+			OR = {
+				has_modifier = ztr_onu_permanent_member
+				has_modifier = ztr_onu_member
+			}
+		}
+		has_global_variable = un_founded_var
+	}
+
+	possible = {
+		NOT = { is_distopia = yes }
+	}
+
+	when_taken = {
+		change_infamy = -5
+		if = {
+			limit = {
+				has_modifier = ztr_geneva_convention
+			}
+			remove_modifier = ztr_geneva_convention
+		}
+		if = {
+			limit = {
+				has_modifier = ztr_society_of_nations
+			}
+			remove_modifier = ztr_society_of_nations
+		}
+		add_modifier = {
+			name = ztr_onu_member
+		}
+		if = {
+			limit = {
+				is_country_type = unrecognized
+			}
+			set_country_type = recognized
+		}
+		join_un_law_changes = yes
+	}
+
+	ai_chance = {
+		value = 5
+	}
+}
+
+withdraw_united_nations = {
+
+	is_shown = {
+		has_technology_researched = international_organizations
+		year > 1945
+		has_modifier = ztr_onu_member
+		has_global_variable = un_founded_var
+	}
+
+	possible = {
+		has_modifier = ztr_onu_member
+	}
+
+	when_taken = {
+		change_infamy = 25
+		remove_modifier = ztr_onu_member
+	}
+
+	ai_chance = {
+		value = 0
+		modifier = {
+			trigger = {
+				is_distopia = yes
+				# China and Russia cannot withdraw as they could use UN for their interests
+				NOT = { root = c:CHI }
+				NOT = { root = c:RUS }
+				country_rank < rank_value:great_power
+			}
+			add = 3
+		}
+	}
+}
+
+become_permanent_member_united_nations = {
+
+	is_shown = {
+		has_technology_researched = human_rights
+		year > 1945
+		has_modifier = ztr_onu_member
+		NOT = { has_modifier = ztr_onu_permanent_member }
+		has_global_variable = un_founded_var
+		global_country_ranking <= 3
+	}
+
+	possible = {
+		NOT = { is_distopia = yes }
+	}
+
+	when_taken = {
+		change_infamy = -5
+		if = {
+			limit = {
+				has_modifier = ztr_onu_member
+			}
+			remove_modifier = ztr_onu_member
+		}
+		add_modifier = ztr_onu_permanent_member
+		if = {
+			limit = {
+				is_country_type = unrecognized
+			}
+			set_country_type = recognized
+		}
+		join_un_law_changes = yes
+	}
+
+	ai_chance = {
+		value = 5
+	}
+}
+
+# EU
+
+firm_ztr_treaty_of_rome = {
+
+	is_shown = {
+		has_technology_researched = socialdemocracy
+		year > 1950
+		year < 1962
+		is_subject = no
+		OR = {
+			capital.region = sr:region_rhine
+			capital.region = sr:region_italy
+			capital.region = sr:region_north_germany
+			capital.region = sr:region_south_germany
+			capital.region = sr:region_france
+			capital.region = sr:region_england
+			capital.region = sr:region_north_sea_coast
+			capital.region = sr:region_iberia
+		}
+		NOT = { has_modifier = ztr_eec_member }
+		NOT = { has_modifier = ztr_eu_member }
+	}
+
+	possible = {
+		OR = {
+			has_modifier = ztr_onu_member
+			has_modifier = ztr_onu_permanent_member
+		}
+		is_democracy = yes
+	}
+
+	when_taken = {
+		change_infamy = -5
+		hidden_effect = {
+			if = {
+				limit = {
+					has_modifier = ztr_eec_member
+				}
+				remove_modifier = ztr_eec_member
+			}
+			if = {
+				limit = {
+					has_modifier = ztr_eu_member
+				}
+				remove_modifier = ztr_eu_member
+			}
+			join_eu_law_changes = yes
+		}
+		add_modifier = {
+			name = ztr_eec_member
+		}
+		every_country = {
+			limit = {
+				has_modifier = ztr_eec_member
+			}
+			change_relations = {
+				country = root
+				value = 200
+			}
+		}
+		every_rival_country = {
+			limit = {
+				has_modifier = ztr_eec_member
+			}
+			remove_diplomatic_pact = {
+				country = root
+				type = rivalry
+			}
+			change_relations = {
+				country = root
+				value = 200
+			}
+		}
+	}
+
+	ai_chance = {
+		value = 10
+	}
+}
+
+create_eu_decision = {
+	is_shown = {
+		has_technology_researched = globalization
+		year > 1962
+		has_modifier = ztr_eec_member
+		country_rank = rank_value:great_power
+		OR = {
+			capital.region = sr:region_rhine
+			capital.region = sr:region_italy
+			capital.region = sr:region_north_germany
+			capital.region = sr:region_south_germany
+			capital.region = sr:region_france
+			capital.region = sr:region_england
+			capital.region = sr:region_north_sea_coast
+			capital.region = sr:region_iberia
+			capital.region = sr:region_poland
+			capital.region = sr:region_baltic
+			capital.region = sr:region_danubia
+			capital.region = sr:region_balkans
+			capital.region = sr:region_finland
+			capital.region = sr:region_baltic_states
+		}
+		NOT = { has_global_variable = ztr_eu_created }
+	}
+
+	possible = {
+		OR = {
+			has_modifier = ztr_onu_member
+			has_modifier = ztr_onu_permanent_member
+		}
+		is_democracy = yes
+	}
+
+	when_taken = {
+		change_infamy = -5
+		set_global_variable = ztr_eu_created
+		set_variable = {
+			name = ztr_eu_founder
+			value = 1
+		}
+		# In order to destroy and recreate the power bloc (and to update its principles), we first set the country type to unrecognized to avoid issues. (NOT WORKING)
+		set_country_type = unrecognized
+		set_country_type = recognized
+		create_power_bloc = {
+			name = EUROPEAN_UNION
+			map_color = { 0 51 153 } # Official EU blue
+
+			founding_date = 1936.1.1
+			identity = identity_trade_league
+			principle = principle_defensive_cooperation_1
+		}
+		if = {
+			limit = {
+				has_dlc_feature = power_bloc_features
+			}
+			power_bloc = {
+				add_principle = principle_internal_trade_1
+				add_principle = principle_external_trade_1
+				add_principle = principle_companies_1
+			}
+		}
+		trigger_event = ztr_eu_event.1
+	}
+
+	ai_chance = {
+		value = 50
+	}
+}
+
+join_european_union = {
+	is_shown = {
+		has_technology_researched = globalization
+		year > 1992
+		NOT = { has_modifier = ztr_eu_member }
+		has_global_variable = ztr_eu_created
+		is_subject = no
+	}
+
+	possible = {
+		OR = {
+			has_modifier = ztr_onu_member
+			has_modifier = ztr_onu_permanent_member
+		}
+		is_democracy = yes
+	}
+
+	when_taken = {
+		change_infamy = -5
+		hidden_effect = {
+			if = {
+				limit = {
+					has_modifier = ztr_eec_member
+				}
+				remove_modifier = ztr_eec_member
+			}
+			if = {
+				limit = {
+					has_modifier = ztr_eu_member
+				}
+				remove_modifier = ztr_eu_member
+			}
+			join_eu_law_changes = yes
+		}
+		add_modifier = {
+			name = ztr_eu_member
+		}
+		every_country = {
+			limit = {
+				has_modifier = ztr_eu_member
+			}
+			change_relations = {
+				country = root
+				value = 200
+			}
+		}
+		every_rival_country = {
+			limit = {
+				has_modifier = ztr_eu_member
+			}
+			remove_diplomatic_pact = {
+				country = root
+				type = rivalry
+			}
+			change_relations = {
+				country = root
+				value = 200
+			}
+		}
+	}
+
+	ai_chance = {
+		value = 50
+	}
+}
+
+withdraw_from_european_union = {
+	is_shown = {
+		has_modifier = ztr_eu_member
+		year > 2010 # A sort of Brexit
+		is_subject = no
+	}
+
+	possible = {
+		OR = {
+			#TODO, Brexit mechanics after right wing populism tech discovery
+			AND = {
+				is_ai = no
+				ig:ig_petty_bourgeoisie = {
+					is_powerful = yes
+				}
+			}
+			NOT = { is_democracy = yes }
+		}
+	}
+
+	when_taken = {
+		change_infamy = 10
+		remove_modifier = ztr_eu_member
+		every_country = {
+			limit = {
+				has_modifier = ztr_eu_member
+			}
+			change_relations = {
+				country = root
+				value = -50
+			}
+		}
+	}
+
+	ai_chance = {
+		value = 10
+	}
+}

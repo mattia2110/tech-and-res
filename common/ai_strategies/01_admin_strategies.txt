@@ -157,40 +157,16 @@ ai_strategy_industrial_expansion = {
 
 	type = administrative
 
+	subsidies = {
+		building_power_plant = must_have
+		building_railway = wants_to_have
+		building_port = must_have
+		#T&R
+		building_telecommunications_industry = must_have
+	}
+
 	goods_stances = {
-		telephones = {
-			stance = wants_high_supply
-			trigger = {
-				has_technology_researched = central_planning
-			}
-		}
-		tools = {
-			stance = wants_high_supply
-			trigger = {
-				has_technology_researched = urban_planning
-			}
-		}
-		fertilizer = { 
-			stance = wants_high_supply
-			trigger = {
-				has_technology_researched = intensive_agriculture
-			}
-		}
-		explosives = {
-			stance = wants_high_supply
-			trigger = {
-				OR = {
-					has_technology_researched = nitroglycerin
-					has_building = building_munition_plants
-				}
-			}
-		}
-		steel = {
-			stance = wants_high_supply
-			trigger = {
-				has_technology_researched = mechanical_tools
-			}
-		}
+		steel = { stance = wants_high_supply }
 		glass = {
 			stance = wants_high_supply
 			trigger = {
@@ -203,76 +179,83 @@ ai_strategy_industrial_expansion = {
 				has_technology_researched = electrical_generation
 			}
 		}
-		engines = { 
-			stance = wants_high_supply
+		tools = { stance = wants_export trigger = { kai_has_high_supply = { GOODS = tools } } }
+		fertilizer = { stance = wants_export trigger = { kai_has_high_supply = { GOODS = fertilizer } } }
+		explosives = { stance = wants_export trigger = { kai_has_high_supply = { GOODS = explosives } } }
+		engines = {
+			stance = wants_export
 			trigger = {
-				has_technology_researched = railways
+				has_technology_researched = atmospheric_engine
+				kai_has_high_supply = { GOODS = engines }
 			}
 		}
+		automobiles = {
+			stance = wants_export
+			trigger = {
+				has_technology_researched = combustion_engine
+				kai_has_high_supply = { GOODS = automobiles }
+			}
+		}
+		telephones = {
+			stance = wants_export
+			trigger = {
+				has_technology_researched = telephone
+				kai_has_high_supply = { GOODS = telephones }
+			}
+		}
+		radios = {
+			stance = wants_export
+			trigger = {
+				has_technology_researched = radio
+				kai_has_high_supply = { GOODS = radios }
+			}
+		}
+		
 		#T&R
+		# Advanced goods
 		civil_planes = {
-			stance = wants_high_supply
+			stance = wants_export
 			trigger = {
 				has_technology_researched = zeppelins
-				country_rank >= rank_value:major_power
+				kai_has_high_supply = { GOODS = civil_planes }
 			}
 		}
-		# air_travel = {
-		# 	stance = wants_high_supply
-		# 	trigger = {
-		# 		has_technology_researched = zeppelins
-		# 	}
-		# }
 		homeappliances = {
-			stance = wants_high_supply
+			stance = wants_export
 			trigger = {
 				has_technology_researched = rudimental_home_appliances
-			}
-		}
-		# fuel_cells = {
-		# 	stance = wants_high_supply
-		# 	trigger = {
-		# 		has_technology_researched = fuel_cells
-		# 	}
-		# }
-		pharmaceuticals = {
-			stance = wants_high_supply
-			trigger = {
-				has_technology_researched = panum_antitoxins_tech
+				kai_has_high_supply = { GOODS = homeappliances }
 			}
 		}
 		robotics = {
-			stance = wants_high_supply
+			stance = wants_export
 			trigger = {
 				has_technology_researched = mechanical_arms
+				kai_has_high_supply = { GOODS = robotics }
 			}
 		}
 		computer = {
-			stance = wants_high_supply
+			stance = wants_export
 			trigger = {
 				has_technology_researched = computer
+				kai_has_high_supply = { GOODS = computer }
 			}
 		}
-		space_assets = {
-			stance = wants_high_supply
+		interactive_entertainment = {
+			stance = wants_export
 			trigger = {
-				has_technology_researched = space_rocketery
-				country_rank >= rank_value:major_power
-			}
-		}
-		automobiles = { 
-			stance = wants_high_supply
-			trigger = {
-				has_technology_researched = compression_ignition
+				has_technology_researched = videogames
+				kai_has_high_supply = { GOODS = interactive_entertainment }
 			}
 		}
 		# Vital goods
-		alloys = {
+		telecommunications = {
 			stance = wants_high_supply
 			trigger = {
-				has_technology_researched = alloysworking
+				has_technology_researched = telephone
 			}
 		}
+		alloys = { stance = wants_high_supply }
 		aluminium = {
 			stance = wants_high_supply
 			trigger = {
@@ -315,43 +298,51 @@ ai_strategy_industrial_expansion = {
 				has_technology_researched = verrier_electromagnetism_tech
 			}
 		}
+		electroniccomponents = {
+			stance = wants_high_supply
+			trigger = {
+				has_technology_researched = electrical_generation
+			}
+		}
 		processors = {
 			stance = wants_high_supply
 			trigger = {
 				has_technology_researched = integrated_circuits
 			}
 		}
-		# Local goods
-		telecommunications = {
+		on_demand_goods = {
 			stance = wants_high_supply
 			trigger = {
-				has_technology_researched = telephone
+				has_technology_researched = on_demand_delivery
+			}
+		}
+		space_assets = {
+			stance = wants_high_supply
+			trigger = {
+				has_technology_researched = space_rocketery
+				country_rank = rank_value:great_power
 			}
 		}
 		#Data
-		raw_data = {
+		# Universities
+		business_data = {
 			stance = wants_high_supply
 			trigger = {
-				has_technology_researched = data_infrastructures
+				has_technology_researched = corporate_management
 			}
 		}
+		# Offices
 		organized_data = {
 			stance = wants_high_supply
 			trigger = {
 				has_technology_researched = market_studies
 			}
 		}
-		business_data = {
+		# Data Centers
+		raw_data = {
 			stance = wants_high_supply
 			trigger = {
-				has_technology_researched = market_studies
-			}
-		}
-		# On-Demand Goods
-		on_demand_goods = {
-			stance = wants_high_supply
-			trigger = {
-				has_technology_researched = on_demand_delivery
+				has_technology_researched = data_infrastructures
 			}
 		}
 	}
@@ -416,30 +407,27 @@ ai_strategy_industrial_expansion = {
 		if = {
 			limit = {
 				year < 1900
-				exists = c:SIC
-				c:SIC = this
+				c:SIC ?= this
 			}
 			add = -150
 		}
 		if = {
 			limit = {
 				year < 1920
-				exists = c:SPA
-				c:SPA = this
+				c:SPA ?= this
 			}
 			add = -250
 		}
 		if = {
 			limit = {
-				exists = c:RUS
-				c:RUS = this
+				c:RUS ?= this
 			}
 			add = -250
 		} # Actually Russia never industrialize like the west
 
 		if = {
 			limit = {
-				year > 1960
+				year > 1950
 				OR = {
 					c:KOR ?= this
 					c:JAP ?= this
@@ -450,7 +438,7 @@ ai_strategy_industrial_expansion = {
 
 		if = {
 			limit = { 
-				year > 1980
+				year > 1970
 				country_is_in_east_asia = yes
 			}
 			add = 250

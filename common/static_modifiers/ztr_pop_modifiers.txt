@@ -1,7 +1,9 @@
+# General Modifiers
+
 #Global Malus from 1836
 modern_medicine_0 = {
 	icon = gfx/interface/icons/timed_modifier_icons/modifier_pharma_positive.dds
-	state_mortality_mult = 0.8
+	state_mortality_mult = 0.75
 }
 
 #Global Malus from 1880
@@ -13,16 +15,16 @@ modern_medicine_1 = {
 #Global Malus from 1910
 modern_medicine_2 = {
 	icon = gfx/interface/icons/timed_modifier_icons/modifier_pharma_positive.dds
-	state_mortality_mult = 0.4
+	state_mortality_mult = 0.5
 }
 
-#Global Malus from 1935
+#Global Malus from 1940
 modern_medicine_3 = {
 	icon = gfx/interface/icons/timed_modifier_icons/modifier_pharma_positive.dds
-	state_mortality_mult = 0.15
+	state_mortality_mult = 0.25
 }
 
-#Global Malus from 1955
+#Global Malus from 1960
 modern_medicine_4 = {
 	icon = gfx/interface/icons/timed_modifier_icons/modifier_pharma_positive.dds
 }
@@ -50,39 +52,39 @@ demographic_stage_2 = {
 # Stage 3: Birth rate is medium, mortality is low, population growth is medium. SoL expected stage: 17.
 demographic_stage_3 = {
 	icon = gfx/interface/icons/timed_modifier_icons/demographic_stage_3.dds
-	state_birth_rate_mult = 0.3
+	state_birth_rate_mult = 0.25
 	state_working_adult_ratio_add = 0.02
 }
 # Stage 4: Birth rate is low, mortality is very low, population growth is low. SoL expected stage: 20.
 demographic_stage_4 = {
 	icon = gfx/interface/icons/timed_modifier_icons/demographic_stage_4.dds
-	state_birth_rate_mult = 0.15
+	state_birth_rate_mult = 0.1
 	state_working_adult_ratio_add = 0.04
 }
 # Stage 5: Birth rate is very low, mortality is very low, population growth is very low. SoL expected stage: 23.
 demographic_stage_5 = {
 	icon = gfx/interface/icons/timed_modifier_icons/demographic_stage_5.dds
-	state_birth_rate_mult = 0.05
+	state_birth_rate_mult = -0.1
 	state_working_adult_ratio_add = 0.07
 }
 # Stage 6: Birth rate is very very low, mortality is very low, population growth is very very low. SoL expected stage: 25.
 demographic_stage_6 = {
 	icon = gfx/interface/icons/timed_modifier_icons/demographic_stage_6.dds
-	state_birth_rate_mult = -0.1 #Qui nell'update ho messo 10
+	state_birth_rate_mult = -0.3 #Qui nell'update ho messo 10
 	state_working_adult_ratio_add = 0.1
 }
 
 # Stage 7: Birth rate is minimal, mortality is minimal, population growth is stagnant. SoL expected stage: 25.
 demographic_stage_7 = {
 	icon = gfx/interface/icons/timed_modifier_icons/demographic_stage_7.dds
-	state_birth_rate_mult = -0.25 #Qui nell'update ho messo 20
+	state_birth_rate_mult = -0.5 #Qui nell'update ho messo 20
 	state_working_adult_ratio_add = 0.1
 }
 
 # Stage 8: Birth rate is non-existent, mortality is minimal, population growth is negative. SoL expected stage: 25.
 demographic_stage_8 = {
 	icon = gfx/interface/icons/timed_modifier_icons/demographic_stage_8.dds
-	state_birth_rate_mult = -0.4 #Qui nell'update ho messo 30
+	state_birth_rate_mult = -0.75 #Qui nell'update ho messo 30
 	state_working_adult_ratio_add = 0.1
 }
 
@@ -92,3 +94,71 @@ demographic_stage_8 = {
 # The X depends on culture, religion, literacy and specific stage.
 # Actually, if every nation would be in stage 6, the richer nations would have an higher birth rate than poorer nations.
 
+# Pop Flavor Modifiers
+
+#France modifiers
+historical_population_of_france_1 = {
+	icon = gfx/interface/icons/timed_modifier_icons/pop_negative.dds
+	state_birth_rate_mult = -0.03
+	state_education_access_add = 0.05
+}
+
+historical_population_of_france_2 = {
+	icon = gfx/interface/icons/timed_modifier_icons/pop_positive.dds
+	state_birth_rate_mult = 0.05
+}
+
+#Germany modifiers
+historical_population_of_germany = {
+	icon = gfx/interface/icons/timed_modifier_icons/pop_positive.dds
+	state_birth_rate_mult = 0.1
+}
+
+#Brazil modifiers
+population_of_brazil_during_slavery = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_peasant_negative.dds
+	state_birth_rate_mult = 0.2
+	state_education_access_add = -0.1
+	state_pop_support_movement_anti_slavery_mult = 0.2
+} #It last for 100 years after slavery ban.
+
+population_of_brazil_during_slavery_player = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_peasant_negative.dds
+	state_birth_rate_mult = 0.05
+	state_education_access_add = -0.1
+	state_pop_support_movement_anti_slavery_mult = 0.05
+} #It last for 100 years after slavery ban.
+
+population_of_brazil_end_of_slavery = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_peasant_positive.dds
+	state_birth_rate_mult = 0.25
+	state_education_access_add = -0.05
+} #It last for 100 years after slavery ban.
+
+population_of_brazil_end_of_slavery_player = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_peasant_positive.dds
+	state_birth_rate_mult = 0.1
+	state_education_access_add = -0.05
+} #It last for 100 years after slavery ban.
+
+# India modifiers
+
+jewel_in_the_crown_modifier = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_raj_positive.dds
+	state_birth_rate_mult = 0.1
+	state_radicals_from_political_movements_mult = -0.15
+}
+
+#India, Indonesia and Philippines modifiers
+colonial_agricultural_shift = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_colonization_positive.dds
+	state_birth_rate_mult = 0.25
+	state_turmoil_effects_mult = -0.2
+	state_education_access_add = -0.1
+}
+
+colonial_agricultural_shift_player = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_colonization_positive.dds
+	state_birth_rate_mult = 0.1
+	state_education_access_add = -0.1
+}

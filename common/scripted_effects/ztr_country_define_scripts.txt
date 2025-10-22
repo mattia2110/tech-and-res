@@ -2493,90 +2493,238 @@ ztr_define_slovakia = {
 	cu:slovak = {
 		save_scope_as = ztr_minor_primary_culture
 	}
-		ztr_state_finder_script = yes
-		if = {
-			limit = { NOT = { exists = c:SLV } }
-			create_country = {
-				tag    = SLV
-				origin = this
-				state  = SCOPE:ztr_state_finder
-				on_created = {
-					set_country_type = recognized
-					activate_law     = law_type:law_parliamentary_republic
-					activate_law     = law_type:law_census_voting
-				}
+	ztr_state_finder_script = yes
+	if = {
+		limit = { NOT = { exists = c:SLV } }
+		create_country = {
+			tag    = SLV
+			origin = this
+			state  = SCOPE:ztr_state_finder
+			on_created = {
+				set_country_type = recognized
+				activate_law     = law_type:law_parliamentary_republic
+				activate_law     = law_type:law_census_voting
 			}
-		}
-		every_scope_state = {
-			limit = {
-				NOT = { is_homeland_of_country_cultures = root }
-				state_region = {
-					is_homeland = scope:ztr_minor_primary_culture
-				}
-			}
-			set_state_owner = c:SLV
 		}
 	}
+	every_scope_state = {
+		limit = {
+			NOT = { is_homeland_of_country_cultures = root }
+			state_region = {
+				is_homeland = scope:ztr_minor_primary_culture
+			}
+		}
+		set_state_owner = c:SLV
+	}
+}
 
 # Galicia Lodomeria Country Creation
 ztr_define_galicia = {
 	cu:polish = {
 		save_scope_as = ztr_minor_primary_culture
 	}
-		ztr_state_finder_script = yes
-		if = {
-			limit = { NOT = { exists = c:GAL } }
-			create_country = {
-				tag    = GAL
-				origin = this
-				state  = SCOPE:ztr_state_finder
-				on_created = {
-					set_country_type = recognized
-					activate_law     = law_type:law_parliamentary_republic
-					activate_law     = law_type:law_census_voting
-				}
+	ztr_state_finder_script = yes
+	if = {
+		limit = { NOT = { exists = c:GAL } }
+		create_country = {
+			tag    = GAL
+			origin = this
+			state  = SCOPE:ztr_state_finder
+			on_created = {
+				set_country_type = recognized
+				activate_law     = law_type:law_parliamentary_republic
+				activate_law     = law_type:law_census_voting
 			}
-		}
-		every_scope_state = {
-			limit = {
-				NOT = { is_homeland_of_country_cultures = root }
-				state_region = {
-					is_homeland = scope:ztr_minor_primary_culture
-				}
-			}
-			set_state_owner = c:GAL
 		}
 	}
+	every_scope_state = {
+		limit = {
+			NOT = { is_homeland_of_country_cultures = root }
+			state_region = {
+				is_homeland = scope:ztr_minor_primary_culture
+			}
+		}
+		set_state_owner = c:GAL
+	}
+}
+
+# Poland Country Creation
+ztr_define_poland = {
+	cu:polish = {
+		save_scope_as = ztr_minor_primary_culture
+	}
+	ztr_state_finder_script = yes
+	if = {
+		limit = { NOT = { exists = c:POL } }
+		create_country = {
+			tag    = POL
+			origin = this
+			state  = SCOPE:ztr_state_finder
+			on_created = {
+				set_country_type = recognized
+				activate_law     = law_type:law_parliamentary_republic
+				activate_law     = law_type:law_census_voting
+			}
+		}
+	}
+	every_scope_state = {
+		limit = {
+			NOT = { is_homeland_of_country_cultures = root }
+			state_region = {
+				is_homeland = scope:ztr_minor_primary_culture
+			}
+		}
+		set_state_owner = c:POL
+	}
+}
+
+# Romania Country Creation
+ztr_define_romania = {
+	cu:romanian = {
+		save_scope_as = ztr_minor_primary_culture
+	}
+	ztr_state_finder_script = yes
+	if = {
+		limit = { NOT = { exists = c:ROM } }
+		create_country = {
+			tag    = ROM
+			origin = this
+			state  = SCOPE:ztr_state_finder
+			on_created = {
+				set_country_type = recognized
+				activate_law     = law_type:law_parliamentary_republic
+				activate_law     = law_type:law_census_voting
+			}
+		}
+	}
+	every_scope_state = {
+		limit = {
+			NOT = { is_homeland_of_country_cultures = root }
+			state_region = {
+				is_homeland = scope:ztr_minor_primary_culture
+			}
+		}
+		set_state_owner = c:ROM
+	}
+}
+
+ztr_define_transilvania = {
+	cu:romanian = {
+		save_scope_as = ztr_minor_primary_culture
+	}
+	ztr_state_finder_script = yes
+	if = {
+		limit = { NOT = { exists = c:TRS } }
+		create_country = {
+			tag    = TRS
+			origin = this
+			state  = SCOPE:ztr_state_finder
+			on_created = {
+				set_country_type = recognized
+				activate_law     = law_type:law_parliamentary_republic
+				activate_law     = law_type:law_census_voting
+			}
+		}
+	}
+	every_scope_state = {
+		limit = {
+			NOT = { is_homeland_of_country_cultures = root }
+			state_region = {
+				is_homeland = scope:ztr_minor_primary_culture
+			}
+		}
+		set_state_owner = c:TRS
+	}
+}
 
 # Hungary Country Creation
 ztr_define_hungary = {
 	cu:hungarian = {
 		save_scope_as = ztr_minor_primary_culture
 	}
-		ztr_state_finder_script = yes
-		if = {
-			limit = { NOT = { exists = c:HUN } }
-			create_country = {
-				tag    = HUN
-				origin = this
-				state  = SCOPE:ztr_state_finder
-				on_created = {
-					set_country_type = recognized
-					activate_law     = law_type:law_parliamentary_republic
-					activate_law     = law_type:law_census_voting
-				}
+	ztr_state_finder_script = yes
+	if = {
+		limit = { NOT = { exists = c:HUN } }
+		create_country = {
+			tag    = HUN
+			origin = this
+			state  = SCOPE:ztr_state_finder
+			on_created = {
+				set_country_type = recognized
+				activate_law     = law_type:law_parliamentary_republic
+				activate_law     = law_type:law_census_voting
 			}
-		}
-		every_scope_state = {
-			limit = {
-				NOT = { is_homeland_of_country_cultures = root }
-				state_region = {
-					is_homeland = scope:ztr_minor_primary_culture
-				}
-			}
-			set_state_owner = c:HUN
 		}
 	}
+	every_scope_state = {
+		limit = {
+			NOT = { is_homeland_of_country_cultures = root }
+			state_region = {
+				is_homeland = scope:ztr_minor_primary_culture
+			}
+		}
+		set_state_owner = c:HUN
+	}
+}
+
+# Bohemia Country Creation
+ztr_define_czech = {
+	cu:czech = {
+		save_scope_as = ztr_minor_primary_culture
+	}
+	ztr_state_finder_script = yes
+	if = {
+		limit = { NOT = { exists = c:CZH } }
+		create_country = {
+			tag    = CZH
+			origin = this
+			state  = SCOPE:ztr_state_finder
+			on_created = {
+				set_country_type = recognized
+				activate_law     = law_type:law_parliamentary_republic
+				activate_law     = law_type:law_census_voting
+			}
+		}
+	}
+	every_scope_state = {
+		limit = {
+			NOT = { is_homeland_of_country_cultures = root }
+			state_region = {
+				is_homeland = scope:ztr_minor_primary_culture
+			}
+		}
+		set_state_owner = c:CZH
+	}
+}
+
+ztr_define_bohemia = {
+	cu:czech = {
+		save_scope_as = ztr_minor_primary_culture
+	}
+	ztr_state_finder_script = yes
+	if = {
+		limit = { NOT = { exists = c:BOH } }
+		create_country = {
+			tag    = BOH
+			origin = this
+			state  = SCOPE:ztr_state_finder
+			on_created = {
+				set_country_type = recognized
+				activate_law     = law_type:law_parliamentary_republic
+				activate_law     = law_type:law_census_voting
+			}
+		}
+	}
+	every_scope_state = {
+		limit = {
+			NOT = { is_homeland_of_country_cultures = root }
+			state_region = {
+				is_homeland = scope:ztr_minor_primary_culture
+			}
+		}
+		set_state_owner = c:BOH
+	}
+}
 
 # Croatia Country Creation
 ztr_define_croatia = {
@@ -2613,30 +2761,30 @@ ztr_define_republic_venice = {
 	cu:north_italian = {
 		save_scope_as = ztr_minor_primary_culture
 	}
-		ztr_state_finder_script = yes
-		if = {
-			limit = { NOT = { exists = c:VEN } }
-			create_country = {
-				tag    = VEN
-				origin = this
-				state  = SCOPE:ztr_state_finder
-				on_created = {
-					set_country_type = recognized
-					activate_law     = law_type:law_parliamentary_republic
-					activate_law     = law_type:law_census_voting
-				}
+	ztr_state_finder_script = yes
+	if = {
+		limit = { NOT = { exists = c:VEN } }
+		create_country = {
+			tag    = VEN
+			origin = this
+			state  = SCOPE:ztr_state_finder
+			on_created = {
+				set_country_type = recognized
+				activate_law     = law_type:law_parliamentary_republic
+				activate_law     = law_type:law_census_voting
 			}
-		}
-		every_scope_state = {
-			limit = {
-				NOT = { is_homeland_of_country_cultures = root }
-				state_region = {
-					is_homeland = scope:ztr_minor_primary_culture
-				}
-			}
-			set_state_owner = c:VEN
 		}
 	}
+	every_scope_state = {
+		limit = {
+			NOT = { is_homeland_of_country_cultures = root }
+			state_region = {
+				is_homeland = scope:ztr_minor_primary_culture
+			}
+		}
+		set_state_owner = c:VEN
+	}
+}
 
 # Bosnia Country Creation
 ztr_define_bosnia = {
@@ -2758,6 +2906,35 @@ ztr_define_greece = {
 	}
 }
 
+# Bulgaria Country Creation
+ztr_define_bulgaria = {
+	cu:bulgarian = {
+		save_scope_as = ztr_minor_primary_culture
+	}
+	ztr_state_finder_script = yes
+	if = {
+		limit = { NOT = { exists = c:BUL } }
+		create_country = {
+			tag    = BUL
+			origin = this
+			state  = SCOPE:ztr_state_finder
+			on_created = {
+				set_country_type = recognized
+				activate_law     = law_type:law_parliamentary_republic
+				activate_law     = law_type:law_census_voting
+			}
+		}
+	}
+	every_scope_state = {
+		limit = {
+			NOT = { is_homeland_of_country_cultures = root }
+			state_region = {
+				is_homeland = scope:ztr_minor_primary_culture
+			}
+		}
+		set_state_owner = c:BUL
+	}
+}
 
 ztr_define_israel = {
 	change_infamy = -10

@@ -1,0 +1,45 @@
+je_liberty_index = {
+	icon = "gfx/interface/icons/event_icons/ideologies.dds"
+	group = je_group_historical_content
+
+	is_shown_when_inactive = {
+		has_game_rule = allow_ztr_historical_content
+	}
+
+	possible = {
+		#has_technology_researched = human_rights
+	}
+
+	immediate = {
+		set_variable = {
+			name = liberty_index_var
+			value = 0
+		}
+	}
+
+	on_yearly_pulse = {
+		effect = {
+			# Calculate Liberty Index
+			calculate_liberty_index = yes
+			ztr_liberty_autocracy_index_ranking_variables = yes
+			ztr_liberty_gdp_ranking_effect = yes
+			ztr_autocracy_gdp_ranking_effect = yes
+			ztr_liberty_index_ranking_effect = yes
+			ztr_autocracy_index_ranking_effect = yes
+		}
+	}
+
+	transferable = no
+
+	current_value = {
+		value = var:liberty_index_var
+	}
+
+	goal_add_value = {
+		value = 100
+	}
+
+	progressbar = yes
+
+	weight = 1
+}

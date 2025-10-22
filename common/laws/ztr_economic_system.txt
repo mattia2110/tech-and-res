@@ -152,16 +152,13 @@ law_extraction_economy = {
 		colonization
 	}
 
+	disallowing_laws = {
+		law_anarchy
+		law_women_in_the_fields
+	}
+
 	can_enact = {
-		trigger_if = {
-			limit = {
-				game_date > 1836.1.1
-			}
-			is_subject = yes # Subject relationships load after laws' validities are checked
-		}
-		trigger_else = {
-			always = yes
-		}
+		is_subject = yes
 	}
 
 	on_activate = {
@@ -262,6 +259,7 @@ law_extraction_economy = {
 		building_group_bg_plantations_throughput_add = 0.1
 		building_group_bg_extraction_throughput_add = 0.1
 		state_shopkeepers_investment_pool_efficiency_mult = -0.5
+		state_bureaucrats_investment_pool_efficiency_mult = -0.5
 		state_capitalists_investment_pool_efficiency_mult = -0.25
 		state_farmers_investment_pool_efficiency_mult = -0.75
 		state_clergymen_investment_pool_efficiency_mult = -0.75

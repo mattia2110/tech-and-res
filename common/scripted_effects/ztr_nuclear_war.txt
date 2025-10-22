@@ -1,0 +1,1504 @@
+effect_compute_nuclear_capability_points_attacker = {
+
+	#Always first reset to 0
+	set_global_variable = { 
+		name = nuclear_strike_power_global
+		value = 0
+	}
+
+	#Create total score from all working buildings (max score: 10/state)
+	
+	#Nuclear weapons type
+	every_scope_state = {
+		limit = { has_building = building_nuclear_weapons_silo any_scope_building = { has_active_production_method = pm_atomic_bomb } }
+		owner = { change_global_variable = { name = nuclear_strike_power_global add = 1 } }
+	}
+	every_scope_state = {
+		limit = { has_building = building_nuclear_weapons_silo any_scope_building = { has_active_production_method = pm_hydrogen_bomb } }
+		owner = { change_global_variable = { name = nuclear_strike_power_global add = 4 } }
+	}
+	
+	#Stockpile
+	every_scope_state = {
+		limit = { has_building = building_nuclear_weapons_silo any_scope_building = { has_active_production_method = pm_nuclear_stockpile_2 } }
+		owner = { change_global_variable = { name = nuclear_strike_power_global add = 1 } }
+	}
+	every_scope_state = {
+		limit = { has_building = building_nuclear_weapons_silo any_scope_building = { has_active_production_method = pm_nuclear_stockpile_3 } }
+		owner = { change_global_variable = { name = nuclear_strike_power_global add = 2 } }
+	}
+	every_scope_state = {
+		limit = { has_building = building_nuclear_weapons_silo any_scope_building = { has_active_production_method = pm_nuclear_stockpile_4 } }
+		owner = { change_global_variable = { name = nuclear_strike_power_global add = 3 } }
+	}
+	every_scope_state = {
+		limit = { has_building = building_nuclear_weapons_silo any_scope_building = { has_active_production_method = pm_nuclear_stockpile_5 } }
+		owner = { change_global_variable = { name = nuclear_strike_power_global add = 4 } }
+	}
+	
+	#Nuclear bomber
+	every_scope_state = {
+		limit = { has_building = building_nuclear_weapons_silo any_scope_building = { has_active_production_method = pm_nuclear_bomber } }
+		owner = { change_global_variable = { name = nuclear_strike_power_global add = 1 } }
+	}
+	
+	#Nuclear rocket
+	every_scope_state = {
+		limit = { has_building = building_nuclear_weapons_silo any_scope_building = { has_active_production_method = pm_icbms } }
+		owner = { change_global_variable = { name = nuclear_strike_power_global add = 3 } }
+	}
+
+	#Nuclear submarine
+
+	
+	#Reduce nuclear power due to nuclear disarmament treaty
+
+
+}
+
+effect_compute_nuclear_capability_points_states = {
+
+	#Always first reset to 0
+	set_global_variable = { 
+		name = nuclear_strike_defence_global
+		value = 0
+	}
+
+
+	#Calculate total number of states
+	every_scope_state = { 
+		owner = { 
+			change_global_variable = { name = nuclear_strike_defence_global add = 1 }
+
+		}
+	}
+}
+
+effect_compute_nuclear_capability_points_stationed_nukes_actor = {
+
+	#Reduce defence due to nuclear weapons stationed next to THIS
+	every_country = {
+		limit = { 
+			OR = { has_diplomatic_pact = { who = scope:actor type = station_nuclear_weapons } is_subject_of = scope:actor }
+			has_strategic_adjacency = scope:target_country
+		}
+		change_global_variable = { name = nuclear_strike_defence_global multiply = 0.9 }
+	}
+	
+}
+
+effect_compute_nuclear_capability_points_stationed_nukes_target_country = {
+
+	#Reduce defence due to nuclear weapons stationed next to THIS
+	every_country = {
+		limit = { 
+			OR = { has_diplomatic_pact = { who = scope:target_country type = station_nuclear_weapons } is_subject_of = scope:target_country }
+			has_strategic_adjacency = scope:actor
+		}
+		change_global_variable = { name = nuclear_strike_defence_global multiply = 0.9 }
+	}
+	
+}
+
+effect_tiny_nuclear_damage = {
+
+	capital = {
+		
+		#Give benefits from civil defence (Protects people)
+		random_list = {
+		15= {		
+			add_modifier = {
+				name = nuclear_damage_1
+				years = 25
+				is_decaying = yes
+			}
+			kill_population_percent_in_state = { percent = 0.16 }
+			state_region = { add_devastation = 18 }
+		}
+		25 = {
+			add_modifier = {
+				name = nuclear_damage_1
+				years = 25
+				is_decaying = yes
+			}
+			kill_population_percent_in_state = { percent = 0.12 }
+			state_region = { add_devastation = 16 }
+		}
+		25 = {
+			add_modifier = {
+				name = nuclear_damage_1
+				years = 25
+				is_decaying = yes
+			}
+			kill_population_percent_in_state = { percent = 0.08 }
+			state_region = { add_devastation = 14 }
+		}
+		15 = {
+			add_modifier = {
+				name = nuclear_damage_1
+				years = 25
+				is_decaying = yes
+			}
+			kill_population_percent_in_state = { percent = 0.04 }
+			state_region = { add_devastation = 12 }
+		}
+		10 = {
+			add_modifier = {
+				name = nuclear_damage_1
+				years = 25
+				is_decaying = yes
+			}
+			kill_population_percent_in_state = { percent = 0.01 }
+			state_region = { add_devastation = 10 }
+		}
+		
+		#If there was no civil defence (Max radiation, deaths and devastation)
+		10 = {
+			add_modifier = {
+				name = nuclear_damage_1
+				years = 25
+				is_decaying = yes
+			}
+			kill_population_percent_in_state = { percent = 0.20 }
+			state_region = { add_devastation = 20 }
+		}
+		}
+		set_variable = {
+			name = nuclear_strike_entity
+			days = 14
+		}
+		#Destroy buildings
+		effect_nuclear_war_destroy_infrastructure_buildings = yes
+		effect_nuclear_war_destroy_city_buildings = yes
+		effect_nuclear_war_destroy_industrial_buildings = yes
+		#effect_nuclear_war_destroy_rural_buildings = yes
+		effect_nuclear_war_destroy_monument_buildings = yes
+		effect_nuclear_war_destroy_tnr_buildings = yes
+
+		save_scope_as = nuclear_striked_state_target
+	}
+	
+	trigger_event = { id = nuclear_warfare_system.4 }
+	
+}
+
+effect_very_low_nuclear_damage = {
+
+	every_scope_state = {
+		limit = {
+    		OR = {
+        		is_capital = yes
+       	 		is_market_capital = yes
+        		state_population > 3000000
+   		 	}
+		}
+		#Give benefits from civil defence (Protects people)
+		random_list = {
+		15 = {
+			add_modifier = {
+				name = nuclear_damage_1
+				years = 25
+				is_decaying = yes
+			}
+			kill_population_percent_in_state = { percent = 0.16 }
+			state_region = { add_devastation = 18 }
+		}
+		25 = {
+			add_modifier = {
+				name = nuclear_damage_1
+				years = 25
+				is_decaying = yes
+			}
+			kill_population_percent_in_state = { percent = 0.12 }
+			state_region = { add_devastation = 16 }
+		}
+		25 = {
+			add_modifier = {
+				name = nuclear_damage_1
+				years = 25
+				is_decaying = yes
+			}
+			kill_population_percent_in_state = { percent = 0.08 }
+			state_region = { add_devastation = 14 }
+		}
+		15 = {
+			add_modifier = {
+				name = nuclear_damage_1
+				years = 25
+				is_decaying = yes
+			}
+			kill_population_percent_in_state = { percent = 0.04 }
+			state_region = { add_devastation = 12 }
+		}
+		10 = {
+			add_modifier = {
+				name = nuclear_damage_1
+				years = 25
+				is_decaying = yes
+			}
+			kill_population_percent_in_state = { percent = 0.01 }
+			state_region = { add_devastation = 10 }
+		}
+		
+		#If there was no civil defence (Max radiation, deaths and devastation)
+		10 = {
+			add_modifier = {
+				name = nuclear_damage_1
+				years = 25
+				is_decaying = yes
+			}
+			kill_population_percent_in_state = { percent = 0.20 }
+			state_region = { add_devastation = 20 }
+		}
+		}
+		set_variable = {
+			name = nuclear_strike_entity
+			days = 14
+		}
+		#Destroy buildings
+		effect_nuclear_war_destroy_infrastructure_buildings = yes
+		effect_nuclear_war_destroy_city_buildings = yes
+		effect_nuclear_war_destroy_industrial_buildings = yes
+		#effect_nuclear_war_destroy_rural_buildings = yes
+		effect_nuclear_war_destroy_monument_buildings = yes
+		effect_nuclear_war_destroy_tnr_buildings = yes
+
+		save_scope_as = nuclear_striked_state_target
+		
+	}
+	trigger_event = { id = nuclear_warfare_system.4 }
+	
+}
+
+effect_low_nuclear_damage = {
+
+	every_scope_state = {
+		random_list = {
+		limit = {
+    		OR = {
+        		is_capital = yes
+       	 		is_market_capital = yes
+        		state_population > 1000000
+   		 	}
+		}
+		#Give benefits from civil defence (Protects people)
+		15 = {
+			add_modifier = {
+				name = nuclear_damage_2
+				years = 50
+				is_decaying = yes
+			}
+			kill_population_percent_in_state = { percent = 0.25 }
+			state_region = { add_devastation = 40 }
+		}
+		25 = {
+			add_modifier = {
+				name = nuclear_damage_2
+				years = 50
+				is_decaying = yes
+			}
+			kill_population_percent_in_state = { percent = 0.20 }
+			state_region = { add_devastation = 35 }
+		}
+		25 = {
+			add_modifier = {
+				name = nuclear_damage_2
+				years = 50
+				is_decaying = yes
+			}
+			kill_population_percent_in_state = { percent = 0.15 }
+			state_region = { add_devastation = 30 }
+		}
+		15 = {
+			add_modifier = {
+				name = nuclear_damage_2
+				years = 50
+				is_decaying = yes
+			}
+			kill_population_percent_in_state = { percent = 0.10 }
+			state_region = { add_devastation = 25 }
+		}
+		10 = {
+			add_modifier = {
+				name = nuclear_damage_2
+				years = 50
+				is_decaying = yes
+			}
+			kill_population_percent_in_state = { percent = 0.05 }
+			state_region = { add_devastation = 20 }
+		}
+		
+		#If there was no civil defence (Max radiation, deaths and devastation)
+		10 = {
+			add_modifier = {
+				name = nuclear_damage_2
+				years = 50
+				is_decaying = yes
+			}
+			kill_population_percent_in_state = { percent = 0.30 }
+			state_region = { add_devastation = 40 }
+		}
+		}
+		set_variable = {
+			name = nuclear_strike_entity
+			days = 14
+		}
+		#Destroy buildings
+		effect_nuclear_war_destroy_infrastructure_buildings = yes
+		effect_nuclear_war_destroy_city_buildings = yes
+		effect_nuclear_war_destroy_industrial_buildings = yes
+		#effect_nuclear_war_destroy_rural_buildings = yes
+		effect_nuclear_war_destroy_monument_buildings = yes
+		effect_nuclear_war_destroy_tnr_buildings = yes
+
+		save_scope_as = nuclear_striked_state_target
+		
+	}
+	trigger_event = { id = nuclear_warfare_system.4 }
+
+}
+
+effect_medium_nuclear_damage = {
+
+	every_scope_state = {
+		limit = {
+    		OR = {
+        		is_capital = yes
+       	 		is_market_capital = yes
+        		state_population > 300000
+   		 	}
+		}
+		random_list = {
+		#Give benefits from civil defence (Protects people)
+		15 = {
+			add_modifier = {
+				name = nuclear_damage_3
+				years = 50
+				is_decaying = yes
+			}
+			kill_population_percent_in_state = { percent = 0.35 }
+			state_region = { add_devastation = 50 }
+		}
+		25 = {
+			add_modifier = {
+				name = nuclear_damage_3
+				years = 50
+				is_decaying = yes
+			}
+			kill_population_percent_in_state = { percent = 0.30 }
+			state_region = { add_devastation = 45 }
+		}
+		25 = {
+			add_modifier = {
+				name = nuclear_damage_3
+				years = 50
+				is_decaying = yes
+			}
+			kill_population_percent_in_state = { percent = 0.25 }
+			state_region = { add_devastation = 40 }
+		}
+		15 = {
+			add_modifier = {
+				name = nuclear_damage_3
+				years = 50
+				is_decaying = yes
+			}
+			kill_population_percent_in_state = { percent = 0.20 }
+			state_region = { add_devastation = 35 }
+		}
+		10 = {
+			add_modifier = {
+				name = nuclear_damage_3
+				years = 50
+				is_decaying = yes
+			}
+			kill_population_percent_in_state = { percent = 0.10 }
+			state_region = { add_devastation = 30 }
+		}
+		
+		#If there was no civil defence (Max radiation, deaths and devastation)
+		10 = {
+			add_modifier = {
+				name = nuclear_damage_3
+				years = 50
+				is_decaying = yes
+			}
+			kill_population_percent_in_state = { percent = 0.40 }
+			state_region = { add_devastation = 60 }
+		}
+		}
+		set_variable = {
+			name = nuclear_strike_entity
+			days = 14
+		}
+		#Destroy buildings
+		effect_nuclear_war_destroy_infrastructure_buildings = yes
+		effect_nuclear_war_destroy_city_buildings = yes
+		effect_nuclear_war_destroy_industrial_buildings = yes
+		#effect_nuclear_war_destroy_rural_buildings = yes
+		effect_nuclear_war_destroy_monument_buildings = yes
+		effect_nuclear_war_destroy_tnr_buildings = yes
+
+		save_scope_as = nuclear_striked_state_target
+		
+	}
+	trigger_event = { id = nuclear_warfare_system.4 }
+
+}
+
+effect_high_nuclear_damage = {
+
+	every_scope_state = {
+		limit = {
+    		OR = {
+        		is_capital = yes
+       	 		is_market_capital = yes
+        		state_population > 100000
+   		 	}
+		}
+		random_list = {
+		#Give benefits from civil defence (Protects people)
+		15 = {
+			add_modifier = {
+				name = nuclear_damage_4
+				years = 50
+				is_decaying = yes
+			}
+			kill_population_percent_in_state = { percent = 0.45 }
+			state_region = { add_devastation = 60 }
+		}
+		25 = {
+			add_modifier = {
+				name = nuclear_damage_4
+				years = 50
+				is_decaying = yes
+			}
+			kill_population_percent_in_state = { percent = 0.40 }
+			state_region = { add_devastation = 55 }
+		}
+		25 = {
+			add_modifier = {
+				name = nuclear_damage_4
+				years = 50
+				is_decaying = yes
+			}
+			kill_population_percent_in_state = { percent = 0.35 }
+			state_region = { add_devastation = 50 }
+		}
+		15 = {
+			add_modifier = {
+				name = nuclear_damage_4
+				years = 50
+				is_decaying = yes
+			}
+			kill_population_percent_in_state = { percent = 0.30 }
+			state_region = { add_devastation = 45 }
+		}
+		10 = {
+			add_modifier = {
+				name = nuclear_damage_4
+				years = 50
+				is_decaying = yes
+			}
+			kill_population_percent_in_state = { percent = 0.20 }
+			state_region = { add_devastation = 40 }
+		}
+		
+		#If there was no civil defence (Max radiation, deaths and devastation)
+		10 = {
+			add_modifier = {
+				name = nuclear_damage_4
+				years = 75
+				is_decaying = yes
+			}
+			kill_population_percent_in_state = { percent = 0.50 }
+			state_region = { add_devastation = 80 }
+		}
+		}
+		set_variable = {
+			name = nuclear_strike_entity
+			days = 14
+		}
+		#Destroy buildings
+		effect_nuclear_war_destroy_infrastructure_buildings = yes
+		effect_nuclear_war_destroy_city_buildings = yes
+		effect_nuclear_war_destroy_industrial_buildings = yes
+		effect_nuclear_war_destroy_rural_buildings = yes
+		effect_nuclear_war_destroy_monument_buildings = yes
+		effect_nuclear_war_destroy_tnr_buildings = yes
+
+		save_scope_as = nuclear_striked_state_target
+		
+	}
+	trigger_event = { id = nuclear_warfare_system.4 }
+
+}
+
+# Disabled for now, too much devastation
+effect_very_high_nuclear_damage = {
+
+	every_scope_state = {
+		random_list = {
+		#Give benefits from civil defence (Protects people)
+		15 = {
+			add_modifier = {
+				name = nuclear_damage_5
+				years = 50
+				is_decaying = yes
+			}
+			kill_population_percent_in_state = { percent = 0.55 }
+			state_region = { add_devastation = 70 }
+		}
+		25 = {
+			add_modifier = {
+				name = nuclear_damage_5
+				years = 50
+				is_decaying = yes
+			}
+			kill_population_percent_in_state = { percent = 0.50 }
+			state_region = { add_devastation = 65 }
+		}
+		25 = {
+			add_modifier = {
+				name = nuclear_damage_5
+				years = 50
+				is_decaying = yes
+			}
+			kill_population_percent_in_state = { percent = 0.45 }
+			state_region = { add_devastation = 60 }
+		}
+		15 = {
+			add_modifier = {
+				name = nuclear_damage_5
+				years = 50
+				is_decaying = yes
+			}
+			kill_population_percent_in_state = { percent = 0.40 }
+			state_region = { add_devastation = 55 }
+		}
+		10 = {
+			add_modifier = {
+				name = nuclear_damage_5
+				years = 50
+				is_decaying = yes
+			}
+			kill_population_percent_in_state = { percent = 0.30 }
+			state_region = { add_devastation = 50 }
+		}
+		
+		#If there was no civil defence (Max radiation, deaths and devastation)
+		10 = {
+			add_modifier = {
+				name = nuclear_damage_5
+				years = 75
+				is_decaying = yes
+			}
+			kill_population_percent_in_state = { percent = 0.60 }
+			state_region = { add_devastation = 100 }
+		}
+		}
+		set_variable = {
+			name = nuclear_strike_entity
+			days = 14
+		}
+		#Destroy buildings
+		effect_nuclear_war_destroy_infrastructure_buildings = yes
+		effect_nuclear_war_destroy_city_buildings = yes
+		effect_nuclear_war_destroy_industrial_buildings = yes
+		effect_nuclear_war_destroy_rural_buildings = yes
+		effect_nuclear_war_destroy_tnr_buildings = yes
+
+	}
+	
+	trigger_event = { id = nuclear_warfare_system.99 }
+	activate_law = law_type:law_chiefdom
+	activate_law = law_type:law_anarchy
+	set_variable = postapocalypse
+	#set_country_type = decentralized
+	#ruler = {
+    #	kill_character = yes
+	#}
+}
+
+effect_nuclear_war_destroy_rural_buildings = {
+
+	# Delete rural buildings
+	#every_scope_state = { 
+		remove_building = building_wheat_farm
+		remove_building = building_rice_farm
+		remove_building = building_rye_farm
+		remove_building = building_maize_farm
+		remove_building = building_millet_farm
+		remove_building = building_fishing_wharf
+		remove_building = building_livestock_ranch
+		remove_building = building_tobacco_plantation
+		remove_building = building_vineyard_plantation
+		remove_building = building_cotton_plantation
+		remove_building = building_banana_plantation
+		remove_building = building_coffee_plantation
+		remove_building = building_tea_plantation
+		remove_building = building_rubber_plantation
+		
+		remove_building = building_logging_camp
+		
+		remove_building = building_gold_mine
+		remove_building = building_gold_fields
+		remove_building = building_iron_mine
+		remove_building = building_lead_mine
+		remove_building = building_coal_mine
+		remove_building = building_oil_rig
+		remove_building = building_sulfur_mine
+	#}
+	
+}
+
+effect_nuclear_war_destroy_infrastructure_buildings = {
+
+	# Delete infrastructure buildings
+	#every_scope_state = { 
+		remove_building = building_power_plant
+		remove_building = building_hydroelectric_power_plant
+		
+		remove_building = building_railway
+		remove_building = building_port
+		remove_building = building_communications_network
+		
+		remove_building = building_suez_canal
+		remove_building = building_panama_canal
+		
+		remove_building = building_government_administration
+		
+		#remove_building = building_nuclear_naval_base
+		#remove_building = building_nuclear_weapons_silo
+		
+		remove_building = building_skyscraper
+	#}
+
+}
+
+effect_nuclear_war_destroy_industrial_buildings = {
+
+	# Delete industrial buildings
+	#every_scope_state = { 
+		remove_building = building_munition_plants
+		remove_building = building_arms_industry
+		remove_building = building_artillery_foundries
+		remove_building = building_war_machine_industry
+		remove_building = building_warplanes_industry
+		remove_building = building_military_shipyards
+		remove_building = building_explosives_factory
+		remove_building = building_aeroplane_industry
+		remove_building = building_shipyards
+		remove_building = building_locomotives_industry
+		remove_building = building_motor_industry
+		remove_building = building_food_industry
+		remove_building = building_furniture_manufacturies
+		remove_building = building_arts_academy
+		remove_building = building_electrics_industry
+		remove_building = building_synthetics_plants
+		remove_building = building_tooling_workshops
+		remove_building = building_steel_mills
+		remove_building = building_chemical_plants
+		remove_building = building_circuit_boards_factory
+		remove_building = building_engines_factory
+		remove_building = building_textile_mills
+		remove_building = building_plastics_factory
+		remove_building = building_liquor_industry
+		remove_building = building_consumer_robots_factory
+		remove_building = building_synthetic_rubber_factory
+	#}
+
+}
+
+effect_nuclear_war_destroy_city_buildings = {
+
+	# Delete City buildings
+	#every_scope_state = { 
+		remove_building = building_retail_services_industry
+		remove_building = building_corporate_services_industry
+		remove_building = building_professional_services_industry
+		remove_building = building_software_industry
+		remove_building = building_recreational_services_industry
+		remove_building = building_university
+		remove_building = building_construction_sector
+	#}
+
+}
+
+effect_nuclear_war_destroy_tnr_buildings = {
+
+	# Delete City buildings 
+	remove_building = building_office
+	remove_building = building_software_industry
+	remove_building = building_digital_media_industry
+	remove_building = building_telecommunications_industry
+	remove_building = building_datacenter_industry
+	remove_building = building_power_plant
+	remove_building = building_renewable_energy_power_plant
+	remove_building = building_nuclear_power_plant
+	remove_building = building_geothermal_power_plant	
+	remove_building = building_spaceport
+	remove_building = building_highway
+	remove_building = building_manzoni_publishing_industry
+	remove_building = building_instrument_workshops
+	remove_building = building_railway
+	remove_building = building_mendelejew_hydrogenation_plants
+	remove_building = building_mendelejew_synthetic_rubber_factory
+	remove_building = building_airport
+	remove_building = building_elgar_opera
+	remove_building = building_uranium_mining
+	remove_building = building_petrochemical_industry
+	remove_building = building_oil_refinerie
+	remove_building = building_alloys_plant
+	remove_building = building_electronics_industry
+	remove_building = building_battery_plant
+	remove_building = building_processors_foundry
+	remove_building = building_robotics_industry
+	remove_building = building_aircraft_industry
+	remove_building = building_pharmaceuticals_industry
+	remove_building = building_hydroponic
+	remove_building = building_entertainment_industry
+	remove_building = building_space_assets_industry
+	remove_building = building_water_plant
+	remove_building = building_water_desalination_plant
+	remove_building = building_bauxite_mine
+	remove_building = building_copper_mine
+	remove_building = building_commonores_mine
+	remove_building = building_advancedores_mine
+	remove_building = building_natural_gas_rig
+	remove_building = building_rare_earths_mine
+	remove_building = building_tooling_workshops
+	remove_building = building_explosives_factory
+	remove_building = building_shipyards
+	remove_building = building_military_shipyards
+	remove_building = building_electrics_industry
+	remove_building = building_arms_industry
+	remove_building = building_artillery_foundries
+	remove_building = building_arts_academy
+	remove_building = building_government_administration
+	remove_building = building_university
+	remove_building = building_textile_mills
+	remove_building = building_paper_mills
+	remove_building = building_port
+	remove_building = building_oil_rig
+
+}
+
+effect_nuclear_war_destroy_monument_buildings = {
+
+	# Delete City buildings
+	destroy_monuments_nuke_effect = yes
+
+}
+
+effect_launch_nuclear_weapons_to_target = {
+
+	#Enable fallout system
+	#set_global_variable = nuclear_weapons_used_somewhere
+	
+	### Calculate strike capability ###
+	#Attacker's gross attack ability
+	effect_compute_nuclear_capability_points_attacker = yes
+	
+	#Defender's inherent defence
+	scope:target_country = {
+		effect_compute_nuclear_capability_points_states = yes
+		effect_compute_nuclear_capability_points_stationed_nukes_actor = yes
+	}
+	#Aggregate score (Total attack points / Total states of defender)
+	change_global_variable = { 
+		name = nuclear_strike_power_global
+		divide = global_var:nuclear_strike_defence_global
+	}
+	
+	### Apply damage based on ratio calculated above ###
+	scope:target_country = {
+		if = {
+			limit = { 
+				global_var:nuclear_strike_power_global > 0
+				global_var:nuclear_strike_power_global <= 1 
+			}
+			custom_tooltip = {
+				text = tiny_nuclear_damage_custom_tooltip
+				effect_tiny_nuclear_damage = yes
+			}
+		}
+		else_if = {
+			limit = { 
+				global_var:nuclear_strike_power_global > 1
+				global_var:nuclear_strike_power_global <= 2 
+			}
+			custom_tooltip = {
+				text = very_low_nuclear_damage_custom_tooltip
+				effect_very_low_nuclear_damage = yes
+			}
+		}
+		else_if = {
+			limit = { 
+				global_var:nuclear_strike_power_global > 2
+				global_var:nuclear_strike_power_global <= 4 
+			}
+			custom_tooltip = {
+				text = low_nuclear_damage_custom_tooltip
+				effect_low_nuclear_damage = yes
+			}
+		}
+		else_if = {
+			limit = { 
+				global_var:nuclear_strike_power_global > 4
+				global_var:nuclear_strike_power_global <= 6 
+			}
+			custom_tooltip = {
+				text = medium_nuclear_damage_custom_tooltip
+				effect_medium_nuclear_damage = yes
+			}
+		}
+		else_if = {
+			limit = { 
+				global_var:nuclear_strike_power_global > 6
+				#global_var:nuclear_strike_power_global <= 8 
+			}
+			custom_tooltip = {
+				text = high_nuclear_damage_custom_tooltip
+				effect_high_nuclear_damage = yes
+			}
+		}
+		# else_if = {
+		# 	limit = { 
+		# 		global_var:nuclear_strike_power_global > 8
+		# 		#global_var:nuclear_strike_power_global <= 10 
+		# 	}
+		# 	custom_tooltip = {
+		# 		text = very_high_nuclear_damage_custom_tooltip
+		# 		effect_very_high_nuclear_damage = yes
+		# 	}
+		# }
+	}
+	
+	### Attacker Cooldown ###
+	hidden_effect = { remove_modifier = nuclear_attack_cooldown }
+	add_modifier = {
+		name = nuclear_attack_cooldown
+		years = 1
+	}
+	
+	### Possible Second Strike ###
+	if = {
+		limit = { 
+			scope:target_country = {
+				has_modifier = nuclear_capability
+				OR = {
+					AND = {
+						has_technology_researched = icbms
+						any_scope_building = {
+							is_building_type = building_nuclear_weapons_silo
+							has_active_production_method = pm_icbms
+						}
+					}
+					has_strategic_adjacency = scope:actor
+				}
+			} 
+		}
+		
+		#Notice
+		scope:actor = { save_scope_as = nuclear_war_actor }
+		scope:target_country = {
+			custom_tooltip = {
+				text = launch_nuclear_weapons.2.tt
+			}
+		}
+		
+		### Calculate strike capability ###
+		#Attacker's gross attack ability
+		scope:target_country = {
+			effect_compute_nuclear_capability_points_attacker = yes
+		}
+		
+		#Defender's inherent defence
+		effect_compute_nuclear_capability_points_states = yes
+		effect_compute_nuclear_capability_points_stationed_nukes_target_country = yes
+		
+		#Aggregate score (Total attack points / Total states of defender)
+		change_global_variable = { 
+			name = nuclear_strike_power_global
+			divide = global_var:nuclear_strike_defence_global
+		}
+		
+		### Apply damage based on ratio calculated above ###
+		if = {
+			limit = { 
+				global_var:nuclear_strike_power_global > 0
+				global_var:nuclear_strike_power_global <= 1 
+			}
+			custom_tooltip = {
+				text = tiny_nuclear_damage_custom_tooltip
+				effect_tiny_nuclear_damage = yes
+			}
+		}
+		else_if = {
+			limit = { 
+				global_var:nuclear_strike_power_global > 1
+				global_var:nuclear_strike_power_global <= 2 
+			}
+			custom_tooltip = {
+				text = very_low_nuclear_damage_custom_tooltip
+				effect_very_low_nuclear_damage = yes
+			}
+		}
+		else_if = {
+			limit = { 
+				global_var:nuclear_strike_power_global > 2
+				global_var:nuclear_strike_power_global <= 4 
+			}
+			custom_tooltip = {
+				text = low_nuclear_damage_custom_tooltip
+				effect_low_nuclear_damage = yes
+			}
+		}
+		else_if = {
+			limit = { 
+				global_var:nuclear_strike_power_global > 4
+				global_var:nuclear_strike_power_global <= 6 
+			}
+			custom_tooltip = {
+				text = medium_nuclear_damage_custom_tooltip
+				effect_medium_nuclear_damage = yes
+			}
+		}
+		else_if = {
+			limit = { 
+				global_var:nuclear_strike_power_global > 6
+				#global_var:nuclear_strike_power_global <= 8 
+			}
+			custom_tooltip = {
+				text = high_nuclear_damage_custom_tooltip
+				effect_high_nuclear_damage = yes
+			}
+		}
+		# else_if = {
+		# 	limit = { 
+		# 		global_var:nuclear_strike_power_global > 8
+		# 		#global_var:nuclear_strike_power_global <= 10 
+		# 	}
+		# 	custom_tooltip = {
+		# 		text = very_high_nuclear_damage_custom_tooltip
+		# 		effect_very_high_nuclear_damage = yes
+		# 	}
+		# }
+		
+		### Defender Cooldown ###
+		scope:target_country = {
+			hidden_effect = { 
+				remove_modifier = nuclear_attack_cooldown
+				add_modifier = {
+					name = nuclear_attack_cooldown
+					years = 1
+				}
+			}
+		}
+	}
+
+}
+
+effect_launch_nuclear_weapons_to_all_enemy_countries = {
+	
+	every_country = {
+		limit = { 
+			has_war_with = scope:actor
+			NOT = { this = scope:target_country }
+			any_scope_war = {
+				is_warleader = scope:actor
+				is_warleader = scope:target_country
+				#is_war_participant = this
+			}
+			OR = {
+				AND = {
+					has_technology_researched = icbms
+					any_scope_building = {
+						is_building_type = building_nuclear_weapons_silo
+						has_active_production_method = pm_icbms
+					}
+				}
+				has_strategic_adjacency = this
+			}
+		}
+		
+		### Calculate strike capability ###
+		ROOT = {
+		
+			#Attacker's gross attack ability
+			effect_compute_nuclear_capability_points_attacker = yes
+		
+		}
+		
+		#Notice
+		this = { save_scope_as = nuclear_war_target }
+		scope:actor = { save_scope_as = nuclear_war_actor }
+		custom_tooltip = {
+			text = launch_nuclear_weapons.3.tt
+		}
+		
+		#Defender's inherent defence
+		this = {
+			effect_compute_nuclear_capability_points_states = yes
+			effect_compute_nuclear_capability_points_stationed_nukes_actor = yes
+		}
+		#Aggregate score (Total attack points / Total states of defender)
+		change_global_variable = { 
+			name = nuclear_strike_power_global
+			divide = global_var:nuclear_strike_defence_global
+		}
+		
+		### Apply damage based on ratio calculated above ###
+		this = {
+			if = {
+				limit = { 
+					global_var:nuclear_strike_power_global > 0
+					global_var:nuclear_strike_power_global <= 1 
+				}
+				effect_tiny_nuclear_damage = yes
+			}
+			else_if = {
+				limit = { 
+					global_var:nuclear_strike_power_global > 1
+					global_var:nuclear_strike_power_global <= 2 
+				}
+				effect_very_low_nuclear_damage = yes
+			}
+			else_if = {
+				limit = { 
+					global_var:nuclear_strike_power_global > 2
+					global_var:nuclear_strike_power_global <= 4 
+				}
+				effect_low_nuclear_damage = yes
+			}
+			else_if = {
+				limit = { 
+					global_var:nuclear_strike_power_global > 4
+					global_var:nuclear_strike_power_global <= 6 
+				}
+				effect_medium_nuclear_damage = yes
+			}
+			else_if = {
+				limit = { 
+					global_var:nuclear_strike_power_global > 6
+					#global_var:nuclear_strike_power_global <= 8 
+				}
+				effect_high_nuclear_damage = yes
+			}
+			# else_if = {
+			# 	limit = { 
+			# 		global_var:nuclear_strike_power_global > 8
+			# 		#global_var:nuclear_strike_power_global <= 10 
+			# 	}
+			# 	effect_very_high_nuclear_damage = yes
+			# }
+		}
+		
+		### Possible Second Strike ###
+		if = {
+			limit = { 
+				this = {
+					has_modifier = nuclear_capability
+					OR = {
+						AND = {
+							has_technology_researched = icbms
+							any_scope_building = {
+								is_building_type = building_nuclear_weapons_silo
+								has_active_production_method = pm_icbms
+							}
+						}
+						has_strategic_adjacency = scope:actor
+					}
+				}
+			}
+			
+			#Notice
+			scope:actor = { save_scope_as = nuclear_war_actor }
+			this = {
+				save_scope_as = nuclear_war_target
+				custom_tooltip = {
+					text = launch_nuclear_weapons.4.tt
+				}
+			}
+			
+			### Calculate strike capability ###
+			#Attacker's gross attack ability
+			this = {
+				effect_compute_nuclear_capability_points_attacker = yes
+			}
+			
+			#Defender's inherent defence
+			effect_compute_nuclear_capability_points_states = yes
+			effect_compute_nuclear_capability_points_stationed_nukes_target_country = yes
+			
+			#Aggregate score (Total attack points / Total states of defender)
+			change_global_variable = { 
+				name = nuclear_strike_power_global
+				divide = global_var:nuclear_strike_defence_global
+			}
+			
+			### Apply damage based on ratio calculated above ###
+			if = {
+				limit = { 
+					global_var:nuclear_strike_power_global > 0
+					global_var:nuclear_strike_power_global <= 1 
+				}
+				custom_tooltip = {
+					text = tiny_nuclear_damage_custom_tooltip
+					effect_tiny_nuclear_damage = yes
+				}
+			}
+			else_if = {
+				limit = { 
+					global_var:nuclear_strike_power_global > 1
+					global_var:nuclear_strike_power_global <= 2 
+				}
+				custom_tooltip = {
+					text = very_low_nuclear_damage_custom_tooltip
+					effect_very_low_nuclear_damage = yes
+				}
+			}
+			else_if = {
+				limit = { 
+					global_var:nuclear_strike_power_global > 2
+					global_var:nuclear_strike_power_global <= 4 
+				}
+				custom_tooltip = {
+					text = low_nuclear_damage_custom_tooltip
+					effect_low_nuclear_damage = yes
+				}
+			}
+			else_if = {
+				limit = { 
+					global_var:nuclear_strike_power_global > 4
+					global_var:nuclear_strike_power_global <= 6 
+				}
+				custom_tooltip = {
+					text = medium_nuclear_damage_custom_tooltip
+					effect_medium_nuclear_damage = yes
+				}
+			}
+			else_if = {
+				limit = { 
+					global_var:nuclear_strike_power_global > 6
+					#global_var:nuclear_strike_power_global <= 8 
+				}
+				custom_tooltip = {
+					text = high_nuclear_damage_custom_tooltip
+					effect_high_nuclear_damage = yes
+				}
+			}
+			# else_if = {
+			# 	limit = { 
+			# 		global_var:nuclear_strike_power_global > 8
+			# 		#global_var:nuclear_strike_power_global <= 10 
+			# 	}
+			# 	custom_tooltip = {
+			# 		text = very_high_nuclear_damage_custom_tooltip
+			# 		effect_very_high_nuclear_damage = yes
+			# 	}
+			# }
+			
+			### Defender Cooldown ###
+			this = {
+				hidden_effect = { 
+					remove_modifier = nuclear_attack_cooldown
+					add_modifier = {
+						name = nuclear_attack_cooldown
+						years = 1
+					}
+				}
+			}
+		}
+		
+	}
+
+}
+
+effect_launch_nuclear_weapons_to_all_allied_countries = {
+	
+	if = { 
+		limit = { 
+			scope:target_country = { has_modifier = nuclear_capability }
+		}
+		
+		every_country = {
+			limit = { 
+				has_war_with = scope:target_country
+				NOT = { this = scope:actor }
+				any_scope_war = {
+					is_warleader = scope:actor
+					is_warleader = scope:target_country
+					#is_war_participant = this
+				}
+				scope:target_country = {
+					OR = {
+						AND = {
+							has_technology_researched = icbms
+							any_scope_building = {
+								is_building_type = building_nuclear_weapons_silo
+								has_active_production_method = pm_icbms
+							}
+						}
+						has_strategic_adjacency = this
+					}
+				}
+			}
+			
+			### Calculate strike capability ###
+			scope:target_country = {
+			
+				#Attacker's gross attack ability
+				effect_compute_nuclear_capability_points_attacker = yes
+			
+			}
+			
+			#Notice
+			this = { save_scope_as = nuclear_war_target }
+			scope:target_country = { save_scope_as = nuclear_war_actor }
+			custom_tooltip = {
+				text = launch_nuclear_weapons.3.tt
+			}
+			
+			#Defender's inherent defence
+			this = {
+				effect_compute_nuclear_capability_points_states = yes
+				effect_compute_nuclear_capability_points_stationed_nukes_actor = yes
+			}
+			#Aggregate score (Total attack points / Total states of defender)
+			change_global_variable = { 
+				name = nuclear_strike_power_global
+				divide = global_var:nuclear_strike_defence_global
+			}
+			
+			### Apply damage based on ratio calculated above ###
+			this = {
+				if = {
+					limit = { 
+						global_var:nuclear_strike_power_global > 0
+						global_var:nuclear_strike_power_global <= 1 
+					}
+					effect_tiny_nuclear_damage = yes
+				}
+				else_if = {
+					limit = { 
+						global_var:nuclear_strike_power_global > 1
+						global_var:nuclear_strike_power_global <= 2 
+					}
+					effect_very_low_nuclear_damage = yes
+				}
+				else_if = {
+					limit = { 
+						global_var:nuclear_strike_power_global > 2
+						global_var:nuclear_strike_power_global <= 4 
+					}
+					effect_low_nuclear_damage = yes
+				}
+				else_if = {
+					limit = { 
+						global_var:nuclear_strike_power_global > 4
+						global_var:nuclear_strike_power_global <= 6 
+					}
+					effect_medium_nuclear_damage = yes
+				}
+				else_if = {
+					limit = { 
+						global_var:nuclear_strike_power_global > 6
+						#global_var:nuclear_strike_power_global <= 8 
+					}
+					effect_high_nuclear_damage = yes
+				}
+				# else_if = {
+				# 	limit = { 
+				# 		global_var:nuclear_strike_power_global > 8
+				# 		#global_var:nuclear_strike_power_global <= 10 
+				# 	}
+				# 	effect_very_high_nuclear_damage = yes
+				# }
+			}
+			
+			### Possible Second Strike ###
+			if = {
+				limit = { 
+					this = {
+						has_modifier = nuclear_capability
+						OR = {
+							AND = {
+								has_technology_researched = icbms
+								any_scope_building = {
+									is_building_type = building_nuclear_weapons_silo
+									has_active_production_method = pm_icbms
+								}
+							}
+							has_strategic_adjacency = scope:target_country
+						}
+					}
+				}
+				
+				#Notice
+				scope:target_country = { save_scope_as = nuclear_war_actor }
+				this = {
+					save_scope_as = nuclear_war_target
+					custom_tooltip = {
+						text = launch_nuclear_weapons.4.tt
+					}
+				}
+				
+				### Calculate strike capability ###
+				#Attacker's gross attack ability
+				this = {
+					effect_compute_nuclear_capability_points_attacker = yes
+				}
+				
+				#Defender's inherent defence
+				effect_compute_nuclear_capability_points_states = yes
+				effect_compute_nuclear_capability_points_stationed_nukes_target_country = yes
+				
+				#Aggregate score (Total attack points / Total states of defender)
+				change_global_variable = { 
+					name = nuclear_strike_power_global
+					divide = global_var:nuclear_strike_defence_global
+				}
+				
+				### Apply damage based on ratio calculated above ###
+				if = {
+					limit = { 
+						global_var:nuclear_strike_power_global > 0
+						global_var:nuclear_strike_power_global <= 1 
+					}
+					custom_tooltip = {
+						text = tiny_nuclear_damage_custom_tooltip
+						effect_tiny_nuclear_damage = yes
+					}
+				}
+				else_if = {
+					limit = { 
+						global_var:nuclear_strike_power_global > 1
+						global_var:nuclear_strike_power_global <= 2 
+					}
+					custom_tooltip = {
+						text = very_low_nuclear_damage_custom_tooltip
+						effect_very_low_nuclear_damage = yes
+					}
+				}
+				else_if = {
+					limit = { 
+						global_var:nuclear_strike_power_global > 2
+						global_var:nuclear_strike_power_global <= 4 
+					}
+					custom_tooltip = {
+						text = low_nuclear_damage_custom_tooltip
+						effect_low_nuclear_damage = yes
+					}
+				}
+				else_if = {
+					limit = { 
+						global_var:nuclear_strike_power_global > 4
+						global_var:nuclear_strike_power_global <= 6 
+					}
+					custom_tooltip = {
+						text = medium_nuclear_damage_custom_tooltip
+						effect_medium_nuclear_damage = yes
+					}
+				}
+				else_if = {
+					limit = { 
+						global_var:nuclear_strike_power_global > 6
+						#global_var:nuclear_strike_power_global <= 8 
+					}
+					custom_tooltip = {
+						text = high_nuclear_damage_custom_tooltip
+						effect_high_nuclear_damage = yes
+					}
+				}
+				# else_if = {
+				# 	limit = { 
+				# 		global_var:nuclear_strike_power_global > 8
+				# 		#global_var:nuclear_strike_power_global <= 10 
+				# 	}
+				# 	custom_tooltip = {
+				# 		text = very_high_nuclear_damage_custom_tooltip
+				# 		effect_very_high_nuclear_damage = yes
+				# 	}
+				# }
+				
+				### Defender Cooldown ###
+				this = {
+					hidden_effect = { 
+						remove_modifier = nuclear_attack_cooldown
+						add_modifier = {
+							name = nuclear_attack_cooldown
+							years = 1
+						}
+					}
+				}
+			}
+			
+		}
+
+	}
+	
+}
+
+effect_cleanup_nuclear_damage = {
+	every_country = {
+		every_scope_state = {
+			limit = {
+				OR = {
+					has_modifier = nuclear_damage_5
+					has_modifier = nuclear_damage_4
+					has_modifier = nuclear_damage_3
+					has_modifier = nuclear_damage_2
+					has_modifier = nuclear_damage_1
+				}
+			}
+			if = { 
+				limit = { 
+					has_modifier = nuclear_damage_5
+					OR = {
+						has_modifier = nuclear_damage_4
+						has_modifier = nuclear_damage_3
+						has_modifier = nuclear_damage_2
+						has_modifier = nuclear_damage_1
+					}
+				}
+				remove_modifier = nuclear_damage_4
+				remove_modifier = nuclear_damage_3
+				remove_modifier = nuclear_damage_2
+				remove_modifier = nuclear_damage_1
+			}
+			if = { 
+				limit = { 
+					has_modifier = nuclear_damage_4
+					OR = {
+						has_modifier = nuclear_damage_3
+						has_modifier = nuclear_damage_2
+						has_modifier = nuclear_damage_1
+					}
+				}
+				remove_modifier = nuclear_damage_3
+				remove_modifier = nuclear_damage_2
+				remove_modifier = nuclear_damage_1
+			}
+			if = { 
+				limit = { 
+					has_modifier = nuclear_damage_3
+					OR = {
+						has_modifier = nuclear_damage_2
+						has_modifier = nuclear_damage_1
+					}
+				}
+				remove_modifier = nuclear_damage_2
+				remove_modifier = nuclear_damage_1
+			}
+			if = { 
+				limit = { 
+					has_modifier = nuclear_damage_2
+					has_modifier = nuclear_damage_1
+				}
+				remove_modifier = nuclear_damage_1
+			}
+		}
+	}
+}

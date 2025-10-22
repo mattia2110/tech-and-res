@@ -646,8 +646,8 @@ ztr_middle_east.6 = {
 		has_game_rule = allow_ztr_historical_content
 		exists = c:ISR
 		country_is_in_europe = yes
-		religion_percent_country = {
-			target = rel:jewish
+		culture_percent_country = {
+			target = cu:ashkenazi
 			value > 0 #This should work if there are Jewish pops in the country
 		}
 		# If there is multiculturalism or total separation, Jewish pops are already happy
@@ -667,14 +667,31 @@ ztr_middle_east.6 = {
 	# This will start a mass migration of jewish from our country to Israel, and give some arable land and a farm building to help them settle
 	option = {
 		name = ztr_middle_east.6.a
-		s:STATE_PALESTINE.region_state:ISR = {
-			create_mass_migration = {
-				origin = root
-				culture = cu:ashkenazi
-			}
-		}
+		# SOmehow this doesn't work
+		# s:STATE_PALESTINE.region_state:ISR = {
+		# 	create_mass_migration = {
+		# 		origin = root
+		# 		culture = cu:ashkenazi
+		# 	}
+		# }
 		s:STATE_PALESTINE = {
-			add_arable_land = 1
+			add_arable_land = 2
+		}
+		hidden_effect = {
+			every_scope_state = {
+				random_list = {
+					25 = {
+					}
+					75 = {
+						every_scope_pop = {
+							limit = {
+								culture = cu:ashkenazi
+							}
+							move_pop = s:STATE_PALESTINE.region_state:ISR
+						}
+					}
+				}
+			}
 		}
 		s:STATE_PALESTINE.region_state:ISR = {
 			create_building = {
@@ -686,10 +703,6 @@ ztr_middle_east.6 = {
 					}
 				}
 				reserves = 1
-			}
-			create_pop = {
-				culture = ashkenazi
-				size = 5000
 			}
 		}
 	}

@@ -693,12 +693,16 @@ mobilization_option_nuclear_artillery = {
 	texture = "gfx/interface/icons/mobilization_options/nuclear_artillery.dds"
 
 	possible = {
+		custom_tooltip = {
+			text = has_not_signed_nuclear_non_proliferation_treaty_tt
+			NOT = { has_variable = signed_nuclear_non_proliferation_treaty }
+		}
+		has_law = law_type:law_uranium_full_usage
 		scope:military_formation = {
 			NOR = {
 				has_mobilization_option = mobilization_option:mobilization_option_icbms_artillery
 			}
 		}
-		has_law = law_type:law_uranium_full_usage
 		market ?= {
 			mg:artillery ?= {
 				has_potential_supply = yes
@@ -754,12 +758,13 @@ mobilization_option_icbms_artillery = {
 	texture = "gfx/interface/icons/mobilization_options/icbms_artillery.dds"
 
 	possible = {
+		NOT = { has_variable = signed_nuclear_non_proliferation_treaty }
+		has_law = law_type:law_uranium_full_usage
 		scope:military_formation = {
 			NOR = {
 				has_mobilization_option = mobilization_option:mobilization_option_nuclear_artillery
 			}
 		}
-		has_law = law_type:law_uranium_full_usage
 		market ?= {
 			mg:artillery ?= {
 				has_potential_supply = yes

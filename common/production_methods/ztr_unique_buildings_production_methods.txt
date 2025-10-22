@@ -1,0 +1,311 @@
+# Victoria 3 small nations AI is not able to handle such complex supply chains. So the idea is to provide a minimal viable raw material capable to help small nations.production_method = {
+# Yes, this is cheat, but otherwise many small nations are doomed and will often go to 0K GDP after 1980 (Only because their AI don't import some raw materials)
+# This cheat is so small that for big nations it will be negligible, but for small nations it will be a life saver of a 500K GDP.
+
+# Prewar Base, just a bit of everything raw
+
+pm_prewar_base = {
+	texture = "gfx/interface/icons/production_method_icons/refining1.dds"
+
+	unlocking_technologies = {
+		modern_urban_planning
+	}
+
+	state_modifiers = {
+	}
+
+	building_modifiers = {
+		workforce_scaled = {
+			goods_output_wood_add = 200
+			goods_output_water_add = 200
+			goods_output_iron_add = 200
+			goods_output_coal_add = 200
+			goods_output_sulfur_add = 200
+			goods_output_bauxite_add = 200
+			goods_output_lead_add = 200
+			goods_output_copper_add = 200
+			goods_output_commonores_add = 200
+
+			goods_output_oil_add = 200
+		}
+		level_scaled = {
+			building_employment_machinists_add = 10000
+		}
+	}
+}
+
+# Postwar Base, more of everything raw + refined like paper, tools and light fuel
+
+pm_postwar_base = {
+	texture = "gfx/interface/icons/production_method_icons/refining2.dds"
+
+	unlocking_technologies = {
+		neoliberism
+	}
+
+	state_modifiers = {
+	}
+
+	building_modifiers = {
+		workforce_scaled = {
+			goods_output_wood_add = 300
+			goods_output_water_add = 300
+			goods_output_iron_add = 300
+			goods_output_coal_add = 300
+			goods_output_sulfur_add = 300
+			goods_output_bauxite_add = 300
+			goods_output_lead_add = 300
+			goods_output_copper_add = 300
+			goods_output_commonores_add = 300
+			goods_output_advancedores_add = 300
+
+			goods_output_tools_add = 300
+			goods_output_paper_add = 300
+			goods_output_light_fuel_add = 300
+
+			goods_output_oil_add = 300
+			goods_output_gas_add = 300
+		}
+		level_scaled = {
+			building_employment_machinists_add = 10000
+		}
+	}
+}
+
+# Advanced Base, even more of everything raw + refined like tools, paper and light fuel
+
+pm_advanced_base = {
+	texture = "gfx/interface/icons/production_method_icons/refining3.dds"
+
+	unlocking_technologies = {
+		globalization
+	}
+
+	state_modifiers = {
+	}
+
+	building_modifiers = {
+		workforce_scaled = {
+			goods_output_wood_add = 400
+			goods_output_water_add = 400
+			goods_output_iron_add = 400
+			goods_output_coal_add = 400
+			goods_output_sulfur_add = 400
+			goods_output_bauxite_add = 400
+			goods_output_lead_add = 400
+			goods_output_copper_add = 400
+			goods_output_commonores_add = 400
+			goods_output_advancedores_add = 400
+			goods_output_rare_earths_add = 400
+
+			goods_output_tools_add = 400
+			goods_output_paper_add = 400
+			goods_output_light_fuel_add = 400
+
+			goods_output_oil_add = 400
+			goods_output_gas_add = 400
+		}
+		level_scaled = {
+			building_employment_machinists_add = 10000
+		}
+	}
+}
+
+# Research Center
+
+pm_research_center_basic = {
+	texture = "gfx/interface/icons/production_method_icons/pm_research_center_basic.dds"
+
+	unlocking_technologies = {
+		verrier_modern_physics_tech
+	}
+
+	country_modifiers = {
+		workforce_scaled = {
+			country_weekly_innovation_add = 10
+			state_education_access_add = 0.05
+		}
+	}
+
+	building_modifiers = {
+		workforce_scaled = {
+			goods_input_organized_data_add = 100 #1000
+			goods_input_paper_add = 50 #1500
+			goods_input_manzoni_prints_add = 25 #1500
+			goods_input_electroniccomponents_add = 25 #2000 #6000
+		}	
+	
+		level_scaled = {
+			building_employment_academics_add = 5000
+			building_employment_machinists_add = 5000
+			building_employment_engineers_add = 2500
+			building_employment_clerks_add = 2500
+		}
+	}
+}
+
+pm_research_center_medium = {
+	texture = "gfx/interface/icons/production_method_icons/pm_research_center_medium.dds"
+
+	unlocking_technologies = {
+		funded_research_projects
+	}
+
+	country_modifiers = {
+		workforce_scaled = { 
+			country_weekly_innovation_add = 25
+			state_education_access_add = 0.05
+		}
+	}
+
+	building_modifiers = {
+		workforce_scaled = {
+			goods_input_organized_data_add = 300 #3000
+			goods_input_paper_add = 50 #1500
+			goods_input_manzoni_prints_add = 25 #1500
+			goods_input_electroniccomponents_add = 50 #4000
+			goods_input_robotics_add = 20 #2000 #12000
+		}	
+	
+		level_scaled = {
+			building_employment_academics_add = 7000
+			building_employment_machinists_add = 3500
+			building_employment_engineers_add = 2000
+			building_employment_clerks_add = 2500
+		}
+	}
+}
+
+pm_research_center_advanced = {
+	texture = "gfx/interface/icons/production_method_icons/pm_research_center_advanced.dds"
+
+	unlocking_technologies = {
+		data_processing
+	}
+
+	country_modifiers = {
+		workforce_scaled = { 
+			country_weekly_innovation_add = 50
+			state_education_access_add = 0.05
+		}
+	}
+
+	building_modifiers = {
+		workforce_scaled = {
+			goods_input_raw_data_add = 800 #4000
+			goods_input_paper_add = 20 #600
+			goods_input_manzoni_prints_add = 10 #600
+			goods_input_processors_add = 40 #5200
+			goods_input_computer_add = 40 #5600
+			goods_input_robotics_add = 30 #3000 #19000
+		}	
+	
+		level_scaled = {
+			building_employment_academics_add = 10000
+			building_employment_machinists_add = 1500
+			building_employment_engineers_add = 1500
+			building_employment_clerks_add = 2000
+		}
+	}
+}
+
+pm_research_center_education = {
+	texture = "gfx/interface/icons/production_method_icons/research_education.dds"
+
+	unlocking_technologies = {
+		verrier_modern_physics_tech
+	}
+
+	country_modifiers = {
+		workforce_scaled = { 
+			state_education_access_add = 0.05
+			state_pop_qualifications_mult = 0.1
+			country_society_tech_research_speed_mult = 0.15
+		}
+		unscaled = {
+			interest_group_ig_intelligentsia_approval_add = 2
+		}
+	}
+}
+
+pm_research_military_modernization = {
+	texture = "gfx/interface/icons/production_method_icons/pm_research_military_modernization.dds"
+
+	unlocking_technologies = {
+		verrier_modern_physics_tech
+	}
+
+	country_modifiers = {
+		workforce_scaled = { 
+			unit_offense_mult = 0.1
+			unit_defense_mult = 0.1
+			country_military_tech_spread_mult = 0.05
+			country_military_tech_research_speed_mult = 0.15
+		}
+		unscaled = {
+			interest_group_ig_armed_forces_approval_add = 2
+		}
+	}
+}
+
+pm_research_center_tech_spread = {
+	texture = "gfx/interface/icons/production_method_icons/pm_global_outsourcing_hub_purple.dds"
+
+	unlocking_technologies = {
+		verrier_modern_physics_tech
+	}
+
+	country_modifiers = {
+		workforce_scaled = {
+			country_tech_spread_mult = 0.15
+			country_production_tech_research_speed_mult = 0.15
+		}
+		unscaled = {
+			interest_group_ig_industrialists_approval_add = 2
+		}
+	}
+
+	ai_weight = {
+		value = 1 # Important tech for modern economies
+		
+		if = {
+			limit = {
+				NOR = {
+					has_modifier = dev_6_country
+					has_modifier = dev_7_country
+					has_modifier = dev_8_country
+				} 
+				has_strategy = ai_strategy_industrial_expansion
+			}
+			add = 1
+		}
+	}
+}
+
+pm_research_center_future_studies = {
+	texture = "gfx/interface/icons/production_method_icons/pm_research_center_future_studies.dds"
+
+	unlocking_technologies = {
+		funded_research_projects
+	}
+
+	country_modifiers = {
+		workforce_scaled = {
+			country_weekly_innovation_max_add = 25
+		}
+	}
+	ai_weight = {
+		value = 1 # Important tech for modern economies
+		
+		if = {
+			limit = { 
+				OR = {
+					has_modifier = dev_6_country
+					has_modifier = dev_7_country
+					has_modifier = dev_8_country
+				}
+			}
+			add = 1
+		}
+	}
+}

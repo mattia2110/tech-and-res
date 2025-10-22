@@ -13,6 +13,19 @@ law_uranium_civil_usage = {
 			add = 750
 		}
 	}
+
+	on_activate = {
+		custom_tooltip = {
+			text = nuclear_weapons_silo_destroy_tt
+			every_scope_state = {
+				limit = { has_modifier = nuclear_weapon_site}
+				if = {
+					limit = { has_building = building_nuclear_weapons_silo }
+					remove_building = building_nuclear_weapons_silo
+				}
+			}
+		}
+	}
 }
 
 law_uranium_full_usage = {
@@ -27,13 +40,15 @@ law_uranium_full_usage = {
 	}
 
 	modifier = {
-		country_prestige_mult = 0.25
-		country_prestige_from_army_power_projection_mult = 0.25
-		
 	}
 
 	ai_enact_weight_modifier = { #Only through Journal Entry
-		value = -10000
+		value = 0
+		
+		if = {
+			limit = { has_variable = nuclear_program_started }
+			add = 1000
+		}
 	}
 }
 
@@ -55,5 +70,18 @@ law_uranium_ban = {
 
 	unlocking_technologies = {
 		nuclear_reactor
+	}
+
+	on_activate = {
+		custom_tooltip = {
+			text = nuclear_weapons_silo_destroy_and_nuclear_power_plant_disabled_tt
+			every_scope_state = {
+				limit = { has_modifier = nuclear_weapon_site}
+				if = {
+					limit = { has_building = building_nuclear_weapons_silo }
+					remove_building = building_nuclear_weapons_silo
+				}
+			}
+		}
 	}
 }

@@ -1,3 +1,359 @@
+﻿# Airport
+
+pm_airport_oil = {
+	texture = "gfx/interface/icons/production_method_icons/pm_airport_oil.dds"
+
+	building_modifiers = {
+		workforce_scaled = {
+			goods_input_oil_add = 35
+		}
+	}
+}
+
+pm_airport_kerosene = {
+	texture = "gfx/interface/icons/production_method_icons/pm_airport_kerosene.dds"
+
+	unlocking_technologies = {
+		curtiss_modern_aviation_tech
+	}
+
+	building_modifiers = {
+		workforce_scaled = {
+			goods_input_light_fuel_add = 20
+		}
+		level_scaled = {
+			building_employment_laborers_add = -500
+		}
+	}
+}
+
+# Munition Plant
+
+# Missiles
+
+pm_no_missiles_building_munition_plants = {
+	texture = "gfx/interface/icons/production_method_icons/no_missiles_purple.dds"
+}
+
+pm_rocket_building_munition_plants = {
+	texture = "gfx/interface/icons/production_method_icons/rockets_purple.dds"
+
+	unlocking_technologies = {
+		rocketery
+	}	
+
+	building_modifiers = {
+		workforce_scaled = {
+			# input goods
+			goods_input_steel_add = 10 #500
+			goods_input_alloys_add = 10 #500
+			goods_input_light_fuel_add = 5 #350
+			goods_input_engines_add = 5 #300
+
+			# output goods
+			goods_output_ammunition_add = 35
+			#goods_output_ammunition_add = -10
+			#goods_output_missiles_add = 30
+		}
+	}
+}
+
+pm_guided_missiles_building_munition_plants = {
+	texture = "gfx/interface/icons/production_method_icons/guided_missiles_purple.dds"
+
+	unlocking_technologies = {
+		guided_missiles
+	}	
+
+	building_modifiers = {
+		workforce_scaled = {
+			# input goods
+			goods_input_aluminium_add = 10 #500
+			goods_input_alloys_add = 10 #500
+			goods_input_light_fuel_add = 5 #350
+			goods_input_electroniccomponents_add = 5 #400
+			goods_input_engines_add = 5 #300
+
+			# output goods
+			goods_output_ammunition_add = 50
+			# goods_output_ammunition_add = -20 #1000
+			# goods_output_missiles_add = 45 #3600
+		}
+	}
+}
+
+# Machine industries
+
+# Helicopters
+
+# pm_no_helicopter_production = {
+# 	texture = "gfx/interface/icons/production_method_icons/no_helicopter_purple.dds"
+# }
+
+# pm_helicopter_production = {
+# 	texture = "gfx/interface/icons/production_method_icons/helicopter_purple.dds"
+
+# 	unlocking_technologies = {
+# 		helicopters
+# 	}
+
+# 	unlocking_production_methods = {
+# 		pm_civil_planes_production
+# 	}
+
+# 	building_modifiers = {
+# 		workforce_scaled = {
+# 			# input goods
+# 			goods_input_engines_add = 5 #300
+# 			goods_input_aluminium_add = 10 #500
+# 			goods_input_electroniccomponents_add = 5 #400
+# 			goods_input_artillery_add = 5 #350
+# 			goods_output_civil_planes_add = -10 #900
+
+# 			# output goods
+# 			goods_output_helicopters_add = 30 #2700
+# 		}
+		
+# 		level_scaled = {
+# 			# employment
+# 			building_employment_engineers_add = 250
+# 		}
+# 	}
+# }
+
+# Tank
+
+pm_tank_production = {
+	texture = "gfx/interface/icons/production_method_icons/tanks.dds"
+
+	unlocking_technologies = {
+		mobile_armor
+	}
+
+	building_modifiers = {
+		workforce_scaled = {
+			# input goods
+			goods_input_steel_add = 10 #500
+			goods_input_artillery_add = 10 #700
+			goods_output_automobiles_add = -15 #-1800 #3000
+
+			# output goods
+			goods_output_tanks_add = 40 #3200
+		}
+		
+		level_scaled = {
+			# employment
+			building_employment_engineers_add = 500
+		}
+	}
+}
+
+pm_second_gen_tank_production = {
+	texture = "gfx/interface/icons/production_method_icons/second_gen_tanks.dds"
+
+	unlocking_technologies = {
+		blitzkrieg
+	}
+
+	building_modifiers = {
+		workforce_scaled = {
+			# input goods
+			goods_input_artillery_add = 10 #700
+			goods_input_steel_add = 25 #750
+			goods_input_alloys_add = 8 #500
+			goods_output_automobiles_add = -15 #1800 #4150
+
+			# output goods
+			goods_output_tanks_add = 60 #4800
+		}
+		
+		level_scaled = {
+			# employment
+			building_employment_engineers_add = 500
+		}
+	}
+}
+
+pm_third_gen_tank_production = {
+	texture = "gfx/interface/icons/production_method_icons/third_gen_tanks.dds"
+
+	unlocking_technologies = {
+		main_battle_tank
+	}
+
+	building_modifiers = {
+		workforce_scaled = {
+			# input goods
+			goods_input_artillery_add = 10 #700
+			goods_input_steel_add = 26 #1000
+			goods_input_alloys_add = 12 #250
+			goods_input_advancedores_add = 5 #400
+			goods_output_automobiles_add = -15 #1800 #4800
+
+			# output goods
+			goods_output_tanks_add = 70 #5600
+		}
+		
+		level_scaled = {
+			# employment
+			building_employment_engineers_add = 500
+		}
+	}
+}
+
+# Aircraft Industry
+
+pm_zeppelins_production = {
+	texture = "gfx/interface/icons/production_method_icons/zeppelins.dds"
+	unlocking_technologies = {
+		zeppelins
+	}	
+
+	building_modifiers = {
+		workforce_scaled = {
+			# input goods
+			goods_input_engines_add = 10 #600
+			goods_input_aluminium_add = 5 #500
+			goods_input_fabric_add = 80 # 200
+			goods_input_electroniccomponents_add = 5 #400 #2000
+
+			# output goods
+			goods_output_civil_planes_add = 50 #2700
+		}
+
+		level_scaled = {
+			# employment
+			building_employment_laborers_add = 2000
+			building_employment_machinists_add = 1500
+			building_employment_engineers_add = 1000
+		}
+	}
+}
+
+pm_civil_planes_production = {
+	texture = "gfx/interface/icons/production_method_icons/civil_planes_production.dds"
+	unlocking_technologies = {
+		jet_aviation
+	}	
+
+	building_modifiers = {
+		workforce_scaled = {
+			# input goods
+			goods_input_engines_add = 25
+			goods_input_glass_add = 5
+			goods_input_aluminium_add = 20
+			goods_input_plastics_add = 10
+			goods_input_electroniccomponents_add = 15
+
+			# output goods
+			goods_output_civil_planes_add = 80
+		}
+
+		level_scaled = {
+			# employment
+			building_employment_laborers_add = 2000
+			building_employment_machinists_add = 1500
+			building_employment_engineers_add = 1000
+		}
+	}
+}
+
+pm_no_aeroplane_production = {
+	texture = "gfx/interface/icons/production_method_icons/no_aeroplanes_purple.dds"
+}
+
+pm_aeroplane_production = {
+	texture = "gfx/interface/icons/production_method_icons/aeroplanes_purple.dds"
+	unlocking_technologies = {
+		military_aviation
+	}
+
+	unlocking_production_methods = {
+		pm_zeppelins_production
+	}
+
+	building_modifiers = {
+		workforce_scaled = {
+			# input goods
+			goods_input_hardwood_add = 10 #800
+			goods_input_light_fuel_add = 5 #700
+			goods_input_small_arms_add = 10 #300
+			goods_output_civil_planes_add = -25 #1800 #3900
+
+			# output goods
+			goods_output_aeroplanes_add = 40 #4000
+		}
+
+		level_scaled = {
+			# employment
+			building_employment_engineers_add = 250
+		}
+	}
+}
+
+pm_modern_warplanes_production = {
+	texture = "gfx/interface/icons/production_method_icons/pm_modern_warplanes_production_purple.dds"
+	unlocking_technologies = {
+		modern_warplanes
+	}
+
+	unlocking_production_methods = {
+		pm_zeppelins_production
+		pm_civil_planes_production
+	}
+
+	building_modifiers = {
+		workforce_scaled = {
+			# input goods
+			goods_input_artillery_add = 5 #500
+			goods_input_light_fuel_add = 5 #1050
+			goods_input_small_arms_add = 15 #600
+			goods_output_civil_planes_add = -25 #3150 #5300
+
+			# output goods
+			goods_output_aeroplanes_add = 45 #5500
+		}
+
+		level_scaled = {
+			# employment
+			building_employment_engineers_add = 250
+		}		
+	}
+}
+
+pm_supersonic_warplanes_production = {
+	texture = "gfx/interface/icons/production_method_icons/pm_supersonic_warplanes_production_purple.dds"
+
+	unlocking_technologies = {
+		supersonic_aviation
+	}
+
+	unlocking_production_methods = {
+		pm_civil_planes_production
+	}
+
+	building_modifiers = {
+		workforce_scaled = {
+			# input goods
+			goods_input_processors_add = 5 #650
+			goods_input_light_fuel_add = 5 #1050
+			goods_input_artillery_add = 10 #700
+			goods_input_small_arms_add = 20 #600
+			goods_output_civil_planes_add = -25 #3150 5850
+
+			# output goods
+			goods_output_aeroplanes_add = 60 #6500
+		}
+
+		level_scaled = {
+			# employment
+			building_employment_engineers_add = 250
+		}
+	}
+}
+
+# Military Doctrine
+
 pm_network_centric_warfare = {
 	texture = "gfx/interface/icons/production_method_icons/network_centric_warfare.dds"
 
@@ -65,5 +421,237 @@ pm_modern_naval_doctrine = {
 			unit_morale_damage_mult = 0.5
 			building_training_rate_add = 10
 		}
+	}
+}
+
+# Atomic
+
+## -10k/week is a reasonable cost for a WMD.
+#Atomic Bomb
+pm_atomic_bomb = {
+	texture = "gfx/interface/icons/production_method_icons/pm_atomic_bomb.dds"
+	
+
+	unlocking_technologies = {
+		atomic_bomb
+	}
+
+	building_modifiers = {
+		workforce_scaled = {
+			#goods_input_good_uranium_add = 10 # Vecchio input
+			goods_input_good_uranium_add = 20 #800
+			goods_input_steel_add = 10 #500
+			goods_input_explosives_add = 10 #500
+			goods_input_electroniccomponents_add = 5 #400
+			goods_input_water_add = 10 #500
+		}
+		level_scaled = {
+			building_employment_academics_add = 1000
+			building_employment_soldiers_add = 100
+		}
+	}
+
+	timed_modifiers = {
+		pm_offense_defense_readjustment
+	}
+}
+
+## -20k/week is a reasonable cost for a WMD.
+## Each level of this is actually equivalent to 
+## 2 levels of an Atomic bomb.
+#Hydrogen Bomb/ICBM
+pm_hydrogen_bomb = {
+	texture = "gfx/interface/icons/production_method_icons/pm_hydrogen_bomb.dds"
+
+	unlocking_technologies = {
+		hydrogen_bomb
+	}
+	
+	building_modifiers = {
+		workforce_scaled = {
+			#goods_input_nuclear_fuel_add = 20 # Vecchio input (presumibilmente un errore)
+			goods_input_advancedores_add = 10 #800
+			goods_input_alloys_add = 10 #500			
+			goods_input_robotics_add = 5 #500
+			goods_input_processors_add = 5 #650
+			goods_input_water_add = 20 #1000
+		}
+		level_scaled = {
+			building_employment_academics_add = 1500
+			building_employment_soldiers_add = 150
+		}
+	}
+	
+	country_modifiers = {
+		workforce_scaled = {
+			country_prestige_from_army_power_projection_mult = 0.1
+		}
+	}
+	
+	timed_modifiers = {
+		pm_offense_defense_readjustment
+	}
+}
+
+### Stockpile ###
+
+#Very Low Nuclear Stockpile
+pm_nuclear_stockpile_1 = {
+	texture = "gfx/interface/icons/production_method_icons/chemical_artillery.dds"
+	
+	building_modifiers = {
+		workforce_scaled = {
+			goods_input_good_uranium_add = 20
+		}
+	}
+	
+	country_modifiers = {
+		workforce_scaled = {
+			country_prestige_from_army_power_projection_mult = 0.01
+		}
+	}
+	
+	timed_modifiers = {
+		pm_offense_defense_readjustment
+	}
+}
+
+#Low Nuclear Stockpile
+pm_nuclear_stockpile_2 = {
+	texture = "gfx/interface/icons/production_method_icons/chemical_artillery.dds"
+	
+	building_modifiers = {
+		workforce_scaled = {
+			goods_input_good_uranium_add = 45
+		}
+	}
+	
+	country_modifiers = {
+		workforce_scaled = {
+			country_prestige_from_army_power_projection_mult = 0.02
+		}
+	}
+	
+	timed_modifiers = {
+		pm_offense_defense_readjustment
+	}
+}
+
+#Medium Nuclear Stockpile
+pm_nuclear_stockpile_3 = {
+	texture = "gfx/interface/icons/production_method_icons/chemical_artillery.dds"
+	
+	building_modifiers = {
+		workforce_scaled = {
+			goods_input_good_uranium_add = 100
+		}
+	}
+	
+	country_modifiers = {
+		workforce_scaled = {
+			country_prestige_from_army_power_projection_mult = 0.03
+		}
+	}
+	
+	timed_modifiers = {
+		pm_offense_defense_readjustment
+	}
+}
+
+#Large Nuclear Stockpile
+pm_nuclear_stockpile_4 = {
+	texture = "gfx/interface/icons/production_method_icons/chemical_artillery.dds"
+	
+	building_modifiers = {
+		workforce_scaled = {
+			goods_input_good_uranium_add = 220
+		}
+	}
+	
+	country_modifiers = {
+		workforce_scaled = {
+			country_prestige_from_army_power_projection_mult = 0.04
+		}
+	}
+	
+	timed_modifiers = {
+		pm_offense_defense_readjustment
+	}
+}
+
+#Very Large Nuclear Stockpile
+pm_nuclear_stockpile_5 = {
+	texture = "gfx/interface/icons/production_method_icons/chemical_artillery.dds"
+	
+	building_modifiers = {
+		workforce_scaled = {
+			goods_input_good_uranium_add = 500
+		}
+	}
+	
+	country_modifiers = {
+		workforce_scaled = {
+			country_prestige_from_army_power_projection_mult = 0.05
+		}
+	}
+	
+	timed_modifiers = {
+		pm_offense_defense_readjustment
+	}
+}
+
+### Nuclear Bomber ###
+
+#Have Nuclear Bomber
+# p = -472.7, e = 275, pe = -129992.5
+pm_nuclear_bomber = {
+	texture = "gfx/interface/icons/production_method_icons/pm_bomber.dds"
+	
+	building_modifiers = {
+		workforce_scaled = {
+			goods_input_aeroplanes_add = 10
+			goods_input_ammunition_add = 20
+			goods_input_light_fuel_add = 50
+		}
+
+		level_scaled = {
+			building_employment_officers_add = 200
+		}
+	}
+	
+	timed_modifiers = {
+		pm_offense_defense_readjustment
+	}
+}
+
+#Have Nuclear Rocket
+# p = -283.6, e = 275, pe = -77990.0
+pm_icbms = {
+	texture = "gfx/interface/icons/production_method_icons/pm_icbms.dds"
+	
+	unlocking_technologies = {
+		icbms
+	}
+	
+	building_modifiers = {
+		workforce_scaled = {
+			goods_input_aeroplanes_add = 10
+			goods_input_ammunition_add = 50
+			goods_input_light_fuel_add = 100
+		}
+
+		level_scaled = {
+			building_employment_officers_add = 300
+		}
+	}
+	
+	country_modifiers = {
+		workforce_scaled = {
+			country_prestige_from_army_power_projection_mult = 0.05
+		}
+	}
+	
+	timed_modifiers = {
+		pm_offense_defense_readjustment
 	}
 }

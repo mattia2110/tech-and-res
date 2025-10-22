@@ -1,0 +1,616 @@
+# Creates a list of the ten countries with the most artifacts
+#As this effect is called in an effect, it creates the list with normal variables
+#Look at the customizable localizations to see how the countries are displayed.
+#Basically the custom loc uses the variable to display both the countries in their order as well as the variables of those countries
+ztr_liberty_gdp_ranking_effect = {
+	ordered_country = {
+		limit = {
+			NOT = { #Hopefully keeps revolutions to appear in the ranking
+				is_revolutionary = yes
+			}
+			is_democracy = yes
+		}
+		order_by = gdp
+		max = 5 #Limits the list to the ten top countires
+		check_range_bounds = no #prevents errors
+
+		#This part checks one after another whether the the first, second, etc. ranked countries are saved already.
+		#Luckily the ordered_country effect iterates through the countries one after another.
+		#So the first country gets saved to the first variable but as that variable now is set,
+		# the second country gets saved to the second variable and so on.
+		if = {
+			limit = {
+				NOT = {
+					root = {
+						has_variable = ztr_liberty_gdp_rank_1_var
+					}
+				}
+			}
+			root = { #The countries are actually saved to the country that uses the effect in the event window
+				set_variable = {
+					name = ztr_liberty_gdp_rank_1_var
+					value = prev
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				NOT = {
+					root = {
+						has_variable = ztr_liberty_gdp_rank_2_var
+					}
+				}
+			}
+			root = {
+				set_variable = {
+					name = ztr_liberty_gdp_rank_2_var
+					value = prev
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				NOT = {
+					root = {
+						has_variable = ztr_liberty_gdp_rank_3_var
+					}
+				}
+			}
+			root = {
+				set_variable = {
+					name = ztr_liberty_gdp_rank_3_var
+					value = prev
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				NOT = {
+					root = {
+						has_variable = ztr_liberty_gdp_rank_4_var
+					}
+				}
+			}
+			root = {
+				set_variable = {
+					name = ztr_liberty_gdp_rank_4_var
+					value = prev
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				NOT = {
+					root = {
+						has_variable = ztr_liberty_gdp_rank_5_var
+					}
+				}
+			}
+			root = {
+				set_variable = {
+					name = ztr_liberty_gdp_rank_5_var
+					value = prev
+				}
+			}
+		}
+	}	
+}
+
+ztr_autocracy_gdp_ranking_effect = {
+	ordered_country = {
+		limit = {
+			NOT = { #Hopefully keeps revolutions to appear in the ranking
+				is_revolutionary = yes
+			}
+			NOT = { is_democracy = yes }
+		}
+		order_by = gdp
+		max = 5 #Limits the list to the ten top countires
+		check_range_bounds = no #prevents errors
+
+		#This part checks one after another whether the the first, second, etc. ranked countries are saved already.
+		#Luckily the ordered_country effect iterates through the countries one after another.
+		#So the first country gets saved to the first variable but as that variable now is set,
+		# the second country gets saved to the second variable and so on.
+		if = {
+			limit = {
+				NOT = {
+					root = {
+						has_variable = ztr_autocracy_gdp_rank_1_var
+					}
+				}
+			}
+			root = { #The countries are actually saved to the country that uses the effect in the event window
+				set_variable = {
+					name = ztr_autocracy_gdp_rank_1_var
+					value = prev
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				NOT = {
+					root = {
+						has_variable = ztr_autocracy_gdp_rank_2_var
+					}
+				}
+			}
+			root = {
+				set_variable = {
+					name = ztr_autocracy_gdp_rank_2_var
+					value = prev
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				NOT = {
+					root = {
+						has_variable = ztr_autocracy_gdp_rank_3_var
+					}
+				}
+			}
+			root = {
+				set_variable = {
+					name = ztr_autocracy_gdp_rank_3_var
+					value = prev
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				NOT = {
+					root = {
+						has_variable = ztr_autocracy_gdp_rank_4_var
+					}
+				}
+			}
+			root = {
+				set_variable = {
+					name = ztr_autocracy_gdp_rank_4_var
+					value = prev
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				NOT = {
+					root = {
+						has_variable = ztr_autocracy_gdp_rank_5_var
+					}
+				}
+			}
+			root = {
+				set_variable = {
+					name = ztr_autocracy_gdp_rank_5_var
+					value = prev
+				}
+			}
+		}
+	}	
+}
+
+# Order by Liberty Index
+
+ztr_liberty_index_ranking_effect = {
+	ordered_country = {
+		limit = {
+			NOT = { #Hopefully keeps revolutions to appear in the ranking
+				is_revolutionary = yes
+			}
+			is_democracy = yes
+		}
+		order_by = var:liberty_index_var
+		max = 5 #Limits the list to the ten top countires
+		check_range_bounds = no #prevents errors
+
+		#This part checks one after another whether the the first, second, etc. ranked countries are saved already.
+		#Luckily the ordered_country effect iterates through the countries one after another.
+		#So the first country gets saved to the first variable but as that variable now is set,
+		# the second country gets saved to the second variable and so on.
+		if = {
+			limit = {
+				NOT = {
+					root = {
+						has_variable = ztr_liberty_index_rank_1_var
+					}
+				}
+			}
+			root = { #The countries are actually saved to the country that uses the effect in the event window
+				set_variable = {
+					name = ztr_liberty_index_rank_1_var
+					value = prev
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				NOT = {
+					root = {
+						has_variable = ztr_liberty_index_rank_2_var
+					}
+				}
+			}
+			root = {
+				set_variable = {
+					name = ztr_liberty_index_rank_2_var
+					value = prev
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				NOT = {
+					root = {
+						has_variable = ztr_liberty_index_rank_3_var
+					}
+				}
+			}
+			root = {
+				set_variable = {
+					name = ztr_liberty_index_rank_3_var
+					value = prev
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				NOT = {
+					root = {
+						has_variable = ztr_liberty_index_rank_4_var
+					}
+				}
+			}
+			root = {
+				set_variable = {
+					name = ztr_liberty_index_rank_4_var
+					value = prev
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				NOT = {
+					root = {
+						has_variable = ztr_liberty_index_rank_5_var
+					}
+				}
+			}
+			root = {
+				set_variable = {
+					name = ztr_liberty_index_rank_5_var
+					value = prev
+				}
+			}
+		}
+	}	
+}
+
+ztr_autocracy_index_ranking_effect = {
+	ordered_country = {
+		limit = {
+			NOT = { #Hopefully keeps revolutions to appear in the ranking
+				is_revolutionary = yes
+			}
+			NOT = { is_democracy = yes }
+			var:liberty_index_var >= 1
+			gdp > 1000000 # Avoids very small countries
+		}
+		order_by = {
+			value =	{
+				add = var:liberty_index_var
+				multiply = -1 # revert sort order so the highest penalty delta goes first
+			}
+		}
+		max = 5 #Limits the list to the ten top countires
+		check_range_bounds = no #prevents errors
+
+		#This part checks one after another whether the the first, second, etc. ranked countries are saved already.
+		#Luckily the ordered_country effect iterates through the countries one after another.
+		#So the first country gets saved to the first variable but as that variable now is set,
+		# the second country gets saved to the second variable and so on.
+		if = {
+			limit = {
+				NOT = {
+					root = {
+						has_variable = ztr_autocracy_index_rank_1_var
+					}
+				}
+			}
+			root = { #The countries are actually saved to the country that uses the effect in the event window
+				set_variable = {
+					name = ztr_autocracy_index_rank_1_var
+					value = prev
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				NOT = {
+					root = {
+						has_variable = ztr_autocracy_index_rank_2_var
+					}
+				}
+			}
+			root = {
+				set_variable = {
+					name = ztr_autocracy_index_rank_2_var
+					value = prev
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				NOT = {
+					root = {
+						has_variable = ztr_autocracy_index_rank_3_var
+					}
+				}
+			}
+			root = {
+				set_variable = {
+					name = ztr_autocracy_index_rank_3_var
+					value = prev
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				NOT = {
+					root = {
+						has_variable = ztr_autocracy_index_rank_4_var
+					}
+				}
+			}
+			root = {
+				set_variable = {
+					name = ztr_autocracy_index_rank_4_var
+					value = prev
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				NOT = {
+					root = {
+						has_variable = ztr_autocracy_index_rank_5_var
+					}
+				}
+			}
+			root = {
+				set_variable = {
+					name = ztr_autocracy_index_rank_5_var
+					value = prev
+				}
+			}
+		}
+	}	
+}
+
+#Removes the ranking variables
+ztr_liberty_autocracy_index_ranking_variables = {
+	#GDP
+	remove_variable = ztr_liberty_gdp_rank_1_var
+	remove_variable = ztr_liberty_gdp_rank_2_var
+	remove_variable = ztr_liberty_gdp_rank_3_var
+	remove_variable = ztr_liberty_gdp_rank_4_var
+	remove_variable = ztr_liberty_gdp_rank_5_var
+	remove_variable = ztr_autocracy_gdp_rank_1_var
+	remove_variable = ztr_autocracy_gdp_rank_2_var
+	remove_variable = ztr_autocracy_gdp_rank_3_var
+	remove_variable = ztr_autocracy_gdp_rank_4_var
+	remove_variable = ztr_autocracy_gdp_rank_5_var
+	#Liberty Index
+	remove_variable = ztr_liberty_index_rank_1_var
+	remove_variable = ztr_liberty_index_rank_2_var
+	remove_variable = ztr_liberty_index_rank_3_var
+	remove_variable = ztr_liberty_index_rank_4_var
+	remove_variable = ztr_liberty_index_rank_5_var
+	remove_variable = ztr_autocracy_index_rank_1_var
+	remove_variable = ztr_autocracy_index_rank_2_var
+	remove_variable = ztr_autocracy_index_rank_3_var
+	remove_variable = ztr_autocracy_index_rank_4_var
+	remove_variable = ztr_autocracy_index_rank_5_var
+}
+
+# Nuclear Offense
+
+ztr_nuclear_strength_ranking_effect = {
+	ordered_country = {
+		limit = {
+			has_modifier = nuclear_capability
+		}
+		order_by = var:nuclear_strike_power_display
+		max = 5 #Limits the list to the ten top countires
+		check_range_bounds = no #prevents errors
+
+		#This part checks one after another whether the the first, second, etc. ranked countries are saved already.
+		#Luckily the ordered_country effect iterates through the countries one after another.
+		#So the first country gets saved to the first variable but as that variable now is set,
+		# the second country gets saved to the second variable and so on.
+		if = {
+			limit = {
+				NOT = {
+					root = {
+						has_variable = ztr_nuclear_strike_power_display_rank_1_var
+					}
+				}
+			}
+			root = { #The countries are actually saved to the country that uses the effect in the event window
+				set_variable = {
+					name = ztr_nuclear_strike_power_display_rank_1_var
+					value = prev
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				NOT = {
+					root = {
+						has_variable = ztr_nuclear_strike_power_display_rank_2_var
+					}
+				}
+			}
+			root = {
+				set_variable = {
+					name = ztr_nuclear_strike_power_display_rank_2_var
+					value = prev
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				NOT = {
+					root = {
+						has_variable = ztr_nuclear_strike_power_display_rank_3_var
+					}
+				}
+			}
+			root = {
+				set_variable = {
+					name = ztr_nuclear_strike_power_display_rank_3_var
+					value = prev
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				NOT = {
+					root = {
+						has_variable = ztr_nuclear_strike_power_display_rank_4_var
+					}
+				}
+			}
+			root = {
+				set_variable = {
+					name = ztr_nuclear_strike_power_display_rank_4_var
+					value = prev
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				NOT = {
+					root = {
+						has_variable = ztr_nuclear_strike_power_display_rank_5_var
+					}
+				}
+			}
+			root = {
+				set_variable = {
+					name = ztr_nuclear_strike_power_display_rank_5_var
+					value = prev
+				}
+			}
+		}
+	}	
+}
+
+# Nuclear Defense
+
+ztr_nuclear_defence_ranking_effect = {
+	ordered_country = {
+		limit = {
+			has_modifier = nuclear_capability
+		}
+		order_by = var:nuclear_strike_defence_display
+		max = 5 #Limits the list to the ten top countires
+		check_range_bounds = no #prevents errors
+
+		#This part checks one after another whether the the first, second, etc. ranked countries are saved already.
+		#Luckily the ordered_country effect iterates through the countries one after another.
+		#So the first country gets saved to the first variable but as that variable now is set,
+		# the second country gets saved to the second variable and so on.
+		if = {
+			limit = {
+				NOT = {
+					root = {
+						has_variable = ztr_nuclear_strike_defence_display_rank_1_var
+					}
+				}
+			}
+			root = { #The countries are actually saved to the country that uses the effect in the event window
+				set_variable = {
+					name = ztr_nuclear_strike_defence_display_rank_1_var
+					value = prev
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				NOT = {
+					root = {
+						has_variable = ztr_nuclear_strike_defence_display_rank_2_var
+					}
+				}
+			}
+			root = {
+				set_variable = {
+					name = ztr_nuclear_strike_defence_display_rank_2_var
+					value = prev
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				NOT = {
+					root = {
+						has_variable = ztr_nuclear_strike_defence_display_rank_3_var
+					}
+				}
+			}
+			root = {
+				set_variable = {
+					name = ztr_nuclear_strike_defence_display_rank_3_var
+					value = prev
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				NOT = {
+					root = {
+						has_variable = ztr_nuclear_strike_defence_display_rank_4_var
+					}
+				}
+			}
+			root = {
+				set_variable = {
+					name = ztr_nuclear_strike_defence_display_rank_4_var
+					value = prev
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				NOT = {
+					root = {
+						has_variable = ztr_nuclear_strike_defence_display_rank_5_var
+					}
+				}
+			}
+			root = {
+				set_variable = {
+					name = ztr_nuclear_strike_defence_display_rank_5_var
+					value = prev
+				}
+			}
+		}
+	}	
+}
+
+#Removes the nuclear ranking variables
+ztr_nuclear_ranking_variables = {
+	# Offense
+	remove_variable = ztr_nuclear_strike_power_display_rank_1_var
+	remove_variable = ztr_nuclear_strike_power_display_rank_2_var
+	remove_variable = ztr_nuclear_strike_power_display_rank_3_var
+	remove_variable = ztr_nuclear_strike_power_display_rank_4_var
+	remove_variable = ztr_nuclear_strike_power_display_rank_5_var
+	# Defense
+	remove_variable = ztr_nuclear_strike_defence_display_rank_1_var
+	remove_variable = ztr_nuclear_strike_defence_display_rank_2_var
+	remove_variable = ztr_nuclear_strike_defence_display_rank_3_var
+	remove_variable = ztr_nuclear_strike_defence_display_rank_4_var
+	remove_variable = ztr_nuclear_strike_defence_display_rank_5_var
+}

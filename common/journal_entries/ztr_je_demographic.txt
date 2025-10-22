@@ -32,7 +32,7 @@ je_demographic_0_to_1 = {
 			}
 			if = {
 				limit = {
-					average_sol > 11
+					average_sol > 10
 				}
 				change_variable = {
 					name = demographic_stage_var
@@ -41,7 +41,7 @@ je_demographic_0_to_1 = {
 			}
 			if = {
 				limit = {
-					literacy_rate > 0.4
+					literacy_rate > 0.3
 				}
 				change_variable = {
 					name = demographic_stage_var
@@ -107,6 +107,10 @@ je_demographic_0_to_1 = {
 		value = 30
 	}
 
+	# modifiers_while_active = {
+	# 	demographic_stage_0
+	# }
+
 	progressbar = yes
 
 	weight = 1
@@ -157,7 +161,7 @@ je_demographic_1_to_2 = {
 			}
 			if = {
 				limit = {
-					average_sol > 14
+					average_sol > 12
 				}
 				change_variable = {
 					name = demographic_stage_var
@@ -166,7 +170,7 @@ je_demographic_1_to_2 = {
 			}
 			if = {
 				limit = {
-					literacy_rate > 0.5
+					literacy_rate > 0.4
 				}
 				change_variable = {
 					name = demographic_stage_var
@@ -176,16 +180,7 @@ je_demographic_1_to_2 = {
 			# Laws conditions
 			if = {
 				limit = {
-					OR = {
-						has_law = law_type:law_oligarchy
-						has_law = law_type:law_theocracy
-						has_law = law_type:law_elder_council
-						NOT = { has_law = law_type:law_slavery_banned }
-					}
-					OR = {
-						total_population < 200000000
-						country_is_in_americas = yes #Americas are a special case due to the fact that they are countries of immigrants, but they still have to have one of the two laws activated.
-					}
+					NOT = { has_law = law_type:law_slavery_banned }
 				}
 				change_variable = {
 					name = demographic_stage_var
@@ -252,6 +247,10 @@ je_demographic_1_to_2 = {
 		value = 30
 	}
 
+	# modifiers_while_active = {
+	# 	demographic_stage_1
+	# }
+
 	progressbar = yes
 
 	weight = 1
@@ -303,7 +302,7 @@ je_demographic_2_to_3 = {
 			}
 			if = {
 				limit = {
-					average_sol > 17
+					average_sol > 14
 				}
 				change_variable = {
 					name = demographic_stage_var
@@ -312,7 +311,7 @@ je_demographic_2_to_3 = {
 			}
 			if = {
 				limit = {
-					literacy_rate > 0.6
+					literacy_rate > 0.5
 				}
 				change_variable = {
 					name = demographic_stage_var
@@ -322,18 +321,7 @@ je_demographic_2_to_3 = {
 			# Laws conditions
 			if = {
 				limit = {
-					OR = {
-						has_law = law_type:law_single_party_state
-						has_law = law_type:law_autocracy
-						has_law = law_type:law_oligarchy
-						has_law = law_type:law_theocracy
-						has_law = law_type:law_elder_council
-						NOT = { has_law = law_type:law_slavery_banned }
-					}
-					OR = {
-						total_population < 200000000
-						country_is_in_americas = yes #Americas are a special case due to the fact that they are countries of immigrants, but they still have to have one of the two laws activated.
-					}
+					NOT = { has_law = law_type:law_slavery_banned }
 				}
 				change_variable = {
 					name = demographic_stage_var
@@ -416,6 +404,10 @@ je_demographic_2_to_3 = {
 		value = 30
 	}
 
+	# modifiers_while_active = {
+	# 	demographic_stage_2
+	# }
+
 	progressbar = yes
 
 	weight = 1
@@ -468,7 +460,7 @@ je_demographic_3_to_4 = {
 			}
 			if = {
 				limit = {
-					average_sol > 18
+					average_sol > 16
 				}
 				change_variable = {
 					name = demographic_stage_var
@@ -477,7 +469,7 @@ je_demographic_3_to_4 = {
 			}
 			if = {
 				limit = {
-					literacy_rate > 0.7
+					literacy_rate > 0.6
 				}
 				change_variable = {
 					name = demographic_stage_var
@@ -487,18 +479,7 @@ je_demographic_3_to_4 = {
 			# Laws conditions
 			if = {
 				limit = {
-					OR = {
-						has_law = law_type:law_single_party_state
-						has_law = law_type:law_autocracy
-						has_law = law_type:law_oligarchy
-						has_law = law_type:law_theocracy
-						has_law = law_type:law_elder_council
-						NOT = { has_law = law_type:law_slavery_banned }
-					}
-					OR = {
-						total_population < 200000000
-						country_is_in_americas = yes #Americas are a special case due to the fact that they are countries of immigrants, but they still have to have one of the two laws activated.
-					}
+					NOT = { has_law = law_type:law_slavery_banned }
 				}
 				change_variable = {
 					name = demographic_stage_var
@@ -581,6 +562,10 @@ je_demographic_3_to_4 = {
 		value = 30
 	}
 
+	# modifiers_while_active = {
+	# 	demographic_stage_3
+	# }
+
 	progressbar = yes
 
 	weight = 1
@@ -626,7 +611,7 @@ je_demographic_4_to_5 = {
 			if = {
 				limit = {
 					OR = {
-						average_sol > 20
+						average_sol > 17
 						year > 1950
 					}
 				}
@@ -638,7 +623,7 @@ je_demographic_4_to_5 = {
 			if = {
 				limit = {
 					OR = {
-						literacy_rate > 0.75
+						literacy_rate > 0.65
 						year > 1950
 					}
 				}
@@ -650,18 +635,7 @@ je_demographic_4_to_5 = {
 			# Laws conditions
 			if = {
 				limit = {
-					OR = {
-						has_law = law_type:law_single_party_state
-						has_law = law_type:law_autocracy
-						has_law = law_type:law_oligarchy
-						has_law = law_type:law_theocracy
-						has_law = law_type:law_elder_council
-						NOT = { has_law = law_type:law_slavery_banned }
-					}
-					OR = {
-						total_population < 200000000
-						country_is_in_americas = yes #Americas are a special case due to the fact that they are countries of immigrants, but they still have to have one of the two laws activated.
-					}
+					NOT = { has_law = law_type:law_slavery_banned }
 				}
 				change_variable = {
 					name = demographic_stage_var
@@ -732,6 +706,10 @@ je_demographic_4_to_5 = {
 		value = 30
 	}
 
+	# modifiers_while_active = {
+	# 	demographic_stage_4
+	# }
+
 	progressbar = yes
 
 	weight = 1
@@ -777,7 +755,7 @@ je_demographic_5_to_6 = {
 			if = {
 				limit = {
 					OR = {
-						average_sol > 21
+						average_sol > 18
 						year > 1960
 					}
 				}
@@ -789,7 +767,7 @@ je_demographic_5_to_6 = {
 			if = {
 				limit = {
 					OR = {
-						literacy_rate > 0.8
+						literacy_rate > 0.7
 						year > 1960
 					}
 				}
@@ -801,18 +779,7 @@ je_demographic_5_to_6 = {
 			# Laws conditions
 			if = {
 				limit = {
-					OR = {
-						has_law = law_type:law_single_party_state
-						has_law = law_type:law_autocracy
-						has_law = law_type:law_oligarchy
-						has_law = law_type:law_theocracy
-						has_law = law_type:law_elder_council
-						NOT = { has_law = law_type:law_slavery_banned }
-					}
-					OR = {
-						total_population < 200000000
-						country_is_in_americas = yes #Americas are a special case due to the fact that they are countries of immigrants, but they still have to have one of the two laws activated.
-					}
+					NOT = { has_law = law_type:law_slavery_banned }
 				}
 				change_variable = {
 					name = demographic_stage_var
@@ -883,6 +850,10 @@ je_demographic_5_to_6 = {
 		value = 30
 	}
 
+	# modifiers_while_active = {
+	# 	demographic_stage_5
+	# }
+
 	progressbar = yes
 
 	weight = 1
@@ -937,18 +908,7 @@ je_demographic_6_to_7 = {
 			# Laws conditions
 			if = {
 				limit = {
-					OR = {
-						has_law = law_type:law_single_party_state
-						has_law = law_type:law_autocracy
-						has_law = law_type:law_oligarchy
-						has_law = law_type:law_theocracy
-						has_law = law_type:law_elder_council
-						NOT = { has_law = law_type:law_slavery_banned }
-					}
-					OR = {
-						total_population < 200000000
-						country_is_in_americas = yes #Americas are a special case due to the fact that they are countries of immigrants, but they still have to have one of the two laws activated.
-					}
+					NOT = { has_law = law_type:law_slavery_banned }
 				}
 				change_variable = {
 					name = demographic_stage_var
@@ -1007,6 +967,10 @@ je_demographic_6_to_7 = {
 		value = 30
 	}
 
+	# modifiers_while_active = {
+	# 	demographic_stage_6
+	# }
+
 	progressbar = yes
 
 	weight = 1
@@ -1061,18 +1025,7 @@ je_demographic_7_to_8 = {
 			# Laws conditions
 			if = {
 				limit = {
-					OR = {
-						has_law = law_type:law_single_party_state
-						has_law = law_type:law_autocracy
-						has_law = law_type:law_oligarchy
-						has_law = law_type:law_theocracy
-						has_law = law_type:law_elder_council
-						NOT = { has_law = law_type:law_slavery_banned }
-					}
-					OR = {
-						total_population < 200000000
-						country_is_in_americas = yes #Americas are a special case due to the fact that they are countries of immigrants, but they still have to have one of the two laws activated.
-					}
+					NOT = { has_law = law_type:law_slavery_banned }
 				}
 				change_variable = {
 					name = demographic_stage_var
@@ -1127,6 +1080,10 @@ je_demographic_7_to_8 = {
 	goal_add_value = {
 		value = 30
 	}
+
+	# modifiers_while_active = {
+	# 	demographic_stage_7
+	# }
 
 	progressbar = yes
 

@@ -1,0 +1,75 @@
+# demographic_0_to_1_pressure_progress_bar = {
+#  	name = "demographic_0_to_1_pressure_progress_bar"
+#  	desc = "demographic_0_to_1_pressure_progress_bar_desc"
+
+#  	default_bad = yes
+
+#  	yearly_progress = {
+#  		if = {
+# 			limit = {
+# 				OR = {
+# 					NOT = { has_modifier = dev_0_country }
+# 					year > 1900
+# 				}
+# 			}
+# 			add = {
+# 				desc = "demo_society_modernization"
+# 				value = 0.4
+# 			}
+# 		}
+# 		if = {
+# 			limit = {
+# 				average_sol > 11
+# 			}
+# 			add = {
+# 				desc = "demo_high_sol"
+# 				value = 0.4
+# 			}
+# 		}
+# 		if = {
+# 			limit = {
+# 				literacy_rate > 0.4
+# 			}
+# 			add = {
+# 				desc = "demo_high_literacy"
+# 				value = 0.4
+# 			}
+# 		}
+# 		if = {
+# 			limit = {
+# 				OR = {
+# 					has_law = law_type:law_private_health_insurance
+# 					has_law = law_type:law_public_health_insurance
+# 				}
+# 			}
+# 			add = {
+# 				desc = "demo_advanced_healthcare"
+# 				value = 0.2
+# 			}
+# 		}
+# 		# Flavor conditions
+# 		if = {
+# 			limit = {
+# 				OR = {
+# 					country_has_state_religion = rel:sunni
+# 					country_has_state_religion = rel:shiite
+# 					AND = {
+# 						exists = c:DEI
+# 						c:DEI = this #Since Dutch East Indies is prostestant, but actually Indonesia is muslim
+# 					}
+# 					AND = {
+# 						exists = c:BIC
+# 						c:BIC = this #Since British Indian Ocean Territory is protestant, but actually Pakistan and Bangladesh are muslim
+# 					}
+# 				}
+# 			}
+# 			subtract = {
+# 				desc = "demo_culture"
+# 				value = 0.3
+# 			}
+# 		}
+# 	}
+#  	start_value = 0
+#  	min_value = 0
+#  	max_value = 30
+# }

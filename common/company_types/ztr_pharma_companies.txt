@@ -1,3 +1,15 @@
+# Companies in this file
+# Hoffma La Roche
+# Bayer
+# GlaxoSmithKline
+# Johnson & Johnson
+# Sanofi
+# Takeda Pharmaceutical Company
+# AstraZeneca
+# Teva Pharmaceutical Industries
+# CSL
+# Novo Nordisk
+
 company_basic_pharmaceuticals = {
 	icon = "gfx/interface/icons/company_icons/pharma_generic_icon.dds"
 	background = "gfx/interface/icons/company_icons/company_backgrounds/curtiss_comp_illu_pharma.dds"
@@ -48,5 +60,726 @@ company_basic_pharmaceuticals = {
 				level >= 5
 			}
 		}
+	}
+}
+
+company_hoffmann_la_roche = {
+	icon = "gfx/interface/icons/company_icons/historical_company_icons/swiss_hoffmann_la_roche.dds"
+	background = "gfx/interface/icons/company_icons/company_backgrounds/curtiss_comp_illu_pharma.dds"
+
+	flavored_company = yes
+	preferred_headquarters = { STATE_WEST_SWITZERLAND }
+
+	building_types = {
+		building_pharmaceuticals_industry
+	}
+
+	potential = {
+		has_interest_marker_in_region = region_south_germany
+	}
+
+	attainable = {
+		hidden_trigger = { # Hide attainable if it's always fulfilled by possible
+			any_scope_state = {
+				state_region = s:STATE_WEST_SWITZERLAND
+			}
+		}
+	}
+
+	possible = {
+		has_technology_researched = theiler_microbiology_tech
+		any_scope_state = {
+			state_region = s:STATE_WEST_SWITZERLAND
+			is_incorporated = yes
+			any_scope_building = {
+				is_building_type = building_pharmaceuticals_industry
+				level >= 5
+			}
+		}
+	}
+
+	prosperity_modifier = {
+		state_birth_rate_mult = 0.02 # Hoffmann-La Roche is known for its contributions to medicine and healthcare, improving population health
+		country_institution_cost_institution_health_system_mult = -0.25
+		state_turmoil_effects_mult = -0.1
+	}
+
+	ai_will_do = {
+		has_technology_researched = theiler_microbiology_tech
+		any_scope_state = {
+			state_region = s:STATE_WEST_SWITZERLAND
+			is_incorporated = yes
+		}
+	}
+
+	ai_construction_targets = {
+		building_pharmaceuticals_industry = {
+			level = 5
+			state_trigger = {
+				state_region = s:STATE_WEST_SWITZERLAND
+			}
+		}
+	}
+
+	ai_weight = {
+		value = 4
+	}
+}
+
+company_novartis = {
+	icon = "gfx/interface/icons/company_icons/historical_company_icons/swiss_novartis.dds"
+	background = "gfx/interface/icons/company_icons/company_backgrounds/curtiss_comp_illu_pharma.dds"
+
+	flavored_company = yes
+	preferred_headquarters = { STATE_WEST_SWITZERLAND }
+
+	building_types = {
+		building_pharmaceuticals_industry
+	}
+
+	potential = {
+		has_interest_marker_in_region = region_south_germany
+	}
+
+	attainable = {
+		hidden_trigger = { # Hide attainable if it's always fulfilled by possible
+			any_scope_state = {
+				state_region = s:STATE_WEST_SWITZERLAND
+			}
+		}
+	}
+
+	possible = {
+		has_technology_researched = penicillin
+		any_scope_state = {
+			state_region = s:STATE_WEST_SWITZERLAND
+			is_incorporated = yes
+			any_scope_building = {
+				is_building_type = building_pharmaceuticals_industry
+				level >= 5
+			}
+		}
+	}
+
+	prosperity_modifier = {
+		building_throughput_add = 0.02 # Generic pharma companies give a small bonus to all buildings since it improves people health
+		country_prestige_mult = 0.05
+	}
+
+	ai_will_do = {
+		has_technology_researched = penicillin
+		any_scope_state = {
+			state_region = s:STATE_WEST_SWITZERLAND
+			is_incorporated = yes
+		}
+	}
+
+	ai_construction_targets = {
+		building_pharmaceuticals_industry = {
+			level = 5
+			state_trigger = {
+				state_region = s:STATE_WEST_SWITZERLAND
+			}
+		}
+	}
+
+	ai_weight = {
+		value = 4
+	}
+}
+
+company_glaxosmithkline = {
+	icon = "gfx/interface/icons/company_icons/historical_company_icons/british_glaxosmithkline.dds"
+	background = "gfx/interface/icons/company_icons/company_backgrounds/curtiss_comp_illu_pharma.dds"
+
+	flavored_company = yes
+	preferred_headquarters = { STATE_HOME_COUNTIES }
+
+	building_types = {
+		building_pharmaceuticals_industry
+	}
+
+	potential = {
+		has_interest_marker_in_region = region_england
+	}
+
+	attainable = {
+		hidden_trigger = {
+			any_scope_state = {
+				state_region = s:STATE_HOME_COUNTIES
+			}
+		}
+	}
+
+	possible = {
+		has_technology_researched = penicillin
+		any_scope_state = {
+			state_region = s:STATE_HOME_COUNTIES
+			is_incorporated = yes
+			any_scope_building = {
+				is_building_type = building_pharmaceuticals_industry
+				level >= 5
+			}
+		}
+	}
+
+	prosperity_modifier = {
+		building_synthetics_plants_throughput_add = 0.05
+		country_institution_cost_institution_health_system_mult = -0.25
+	}
+
+	ai_will_do = {
+		has_technology_researched = penicillin
+		any_scope_state = {
+			state_region = s:STATE_HOME_COUNTIES
+			is_incorporated = yes
+		}
+	}
+
+	ai_construction_targets = {
+		building_pharmaceuticals_industry = {
+			level = 5
+			state_trigger = {
+				state_region = s:STATE_HOME_COUNTIES
+			}
+		}
+	}
+
+	ai_weight = {
+		value = 4
+	}
+}
+
+company_johnson_and_johnson = {
+	icon = "gfx/interface/icons/company_icons/historical_company_icons/american_johnson_and_johnson.dds"
+	background = "gfx/interface/icons/company_icons/company_backgrounds/curtiss_comp_illu_pharma.dds"
+
+	flavored_company = yes
+	preferred_headquarters = { STATE_NEW_JERSEY }
+
+	building_types = {
+		building_pharmaceuticals_industry
+	}
+
+	extension_building_types = {
+		building_synthetics_plants
+	}
+
+	potential = {
+		has_interest_marker_in_region = region_new_england
+	}
+
+	attainable = {
+		hidden_trigger = {
+			any_scope_state = {
+				state_region = s:STATE_NEW_JERSEY
+			}
+		}
+	}
+
+	possible = {
+		has_technology_researched = theiler_microbiology_tech
+		any_scope_state = {
+			state_region = s:STATE_NEW_JERSEY
+			is_incorporated = yes
+			any_scope_building = {
+				is_building_type = building_pharmaceuticals_industry
+				level >= 5
+			}
+		}
+	}
+
+	prosperity_modifier = {
+		state_birth_rate_mult = 0.02
+		state_turmoil_effects_mult = -0.1
+	}
+
+	ai_will_do = {
+		has_technology_researched = theiler_microbiology_tech
+		any_scope_state = {
+			state_region = s:STATE_NEW_JERSEY
+			is_incorporated = yes
+		}
+	}
+
+	ai_construction_targets = {
+		building_pharmaceuticals_industry = {
+			level = 5
+			state_trigger = {
+				state_region = s:STATE_NEW_JERSEY
+			}
+		}
+	}
+
+	ai_weight = {
+		value = 4
+	}
+}
+
+company_sanofi = {
+	icon = "gfx/interface/icons/company_icons/historical_company_icons/french_sanofi.dds"
+	background = "gfx/interface/icons/company_icons/company_backgrounds/curtiss_comp_illu_pharma.dds"
+
+	flavored_company = yes
+	preferred_headquarters = { STATE_ILE_DE_FRANCE }
+
+	building_types = {
+		building_pharmaceuticals_industry
+	}
+
+	potential = {
+		has_interest_marker_in_region = region_france
+	}
+
+	attainable = {
+		hidden_trigger = {
+			any_scope_state = {
+				state_region = s:STATE_ILE_DE_FRANCE
+			}
+		}
+	}
+
+	possible = {
+		has_technology_researched = synthetic_cosmetics
+		any_scope_state = {
+			state_region = s:STATE_ILE_DE_FRANCE
+			is_incorporated = yes
+			any_scope_building = {
+				is_building_type = building_pharmaceuticals_industry
+				level >= 5
+			}
+		}
+	}<
+
+	prosperity_modifier = {
+		building_synthetics_plants_throughput_add = 0.05
+		building_mendelejew_synthetic_rubber_factory_throughput_add = 0.05
+		country_institution_cost_institution_health_system_mult = -0.25
+	}
+
+	ai_will_do = {
+		has_technology_researched = synthetic_cosmetics
+		any_scope_state = {
+			state_region = s:STATE_ILE_DE_FRANCE
+			is_incorporated = yes
+		}
+	}
+
+	ai_construction_targets = {
+		building_pharmaceuticals_industry = {
+			level = 5
+			state_trigger = {
+				state_region = s:STATE_ILE_DE_FRANCE
+			}
+		}
+	}
+
+	ai_weight = {
+		value = 4
+	}
+}
+
+company_bayer = {
+	icon = "gfx/interface/icons/company_icons/historical_company_icons/german_bayer.dds"
+	background = "gfx/interface/icons/company_icons/company_backgrounds/curtiss_comp_illu_pharma.dds"
+
+	flavored_company = yes
+	preferred_headquarters = { STATE_NORTH_RHINE }
+
+	building_types = {
+		building_pharmaceuticals_industry
+	}
+
+	extension_building_types = {
+		building_hydroponic
+	}
+
+	potential = {
+		has_interest_marker_in_region = region_north_germany
+	}
+
+	attainable = {
+		hidden_trigger = {
+			any_scope_state = {
+				state_region = s:STATE_NORTH_RHINE
+			}
+		}
+	}
+
+	possible = {
+		has_technology_researched = synthetic_cosmetics
+		any_scope_state = {
+			state_region = s:STATE_NORTH_RHINE
+			is_incorporated = yes
+			any_scope_building = {
+				is_building_type = building_pharmaceuticals_industry
+				level >= 5
+			}
+		}
+	}
+
+	prosperity_modifier = {
+		building_pharmaceuticals_industry_throughput_add = 0.05
+		building_synthetics_plants_throughput_add = 0.05
+		country_institution_cost_institution_health_system_mult = -0.25
+	}
+
+	ai_will_do = {
+		has_technology_researched = synthetic_cosmetics
+		any_scope_state = {
+			state_region = s:STATE_NORTH_RHINE
+			is_incorporated = yes
+		}
+	}
+
+	ai_construction_targets = {
+		building_pharmaceuticals_industry = {
+			level = 5
+			state_trigger = {
+				state_region = s:STATE_NORTH_RHINE
+			}
+		}
+	}
+
+	ai_weight = {
+		value = 4
+	}
+}
+
+company_takeda_pharmaceutical = {
+	icon = "gfx/interface/icons/company_icons/historical_company_icons/japanese_takeda.dds"
+	background = "gfx/interface/icons/company_icons/company_backgrounds/curtiss_comp_illu_pharma.dds"
+
+	flavored_company = yes
+	preferred_headquarters = { STATE_KANTO }
+
+	building_types = {
+		building_pharmaceuticals_industry
+	}
+
+	potential = {
+		has_interest_marker_in_region = region_japan
+	}
+
+	attainable = {
+		hidden_trigger = {
+			any_scope_state = {
+				state_region = s:STATE_KANTO
+			}
+		}
+	}
+
+	possible = {
+		has_technology_researched = theiler_microbiology_tech
+		any_scope_state = {
+			state_region = s:STATE_KANTO
+			is_incorporated = yes
+			any_scope_building = {
+				is_building_type = building_pharmaceuticals_industry
+				level >= 5
+			}
+		}
+	}
+
+	prosperity_modifier = {
+		building_chemical_plants_throughput_add = 0.05
+		country_institution_cost_institution_health_system_mult = -0.25
+		country_prestige_mult = 0.05
+	}
+
+	ai_will_do = {
+		has_technology_researched = theiler_microbiology_tech
+		any_scope_state = {
+			state_region = s:STATE_KANTO
+			is_incorporated = yes
+		}
+	}
+
+	ai_construction_targets = {
+		building_pharmaceuticals_industry = {
+			level = 5
+			state_trigger = {
+				state_region = s:STATE_KANTO
+			}
+		}
+	}
+
+	ai_weight = {
+		value = 4
+	}
+}
+
+company_astrazeneca = {
+	icon = "gfx/interface/icons/company_icons/historical_company_icons/swedish_astrazeneca.dds"
+	background = "gfx/interface/icons/company_icons/company_backgrounds/curtiss_comp_illu_pharma.dds"
+
+	flavored_company = yes
+	preferred_headquarters = { STATE_EAST_ANGLIA STATE_SVEALAND }
+
+	building_types = {
+		building_pharmaceuticals_industry
+	}
+
+	potential = {
+		OR = {
+			has_interest_marker_in_region = region_england
+			has_interest_marker_in_region = region_baltic
+		}
+	}
+
+	attainable = {
+		hidden_trigger = {
+			any_scope_state = {
+				OR = {
+					state_region = s:STATE_EAST_ANGLIA
+					state_region = s:STATE_SVEALAND
+				}
+			}
+		}
+	}
+
+	possible = {
+		has_technology_researched = panum_antitoxins_tech
+		any_scope_state = {
+			OR = {
+				state_region = s:STATE_EAST_ANGLIA
+				state_region = s:STATE_SVEALAND
+			}
+			is_incorporated = yes
+			any_scope_building = {
+				is_building_type = building_pharmaceuticals_industry
+				level >= 5
+			}
+		}
+	}
+
+	prosperity_modifier = {
+		country_weekly_innovation_max_add = 5
+		building_glassworks_throughput_add = 0.05
+		state_turmoil_effects_mult = -0.05
+	}
+
+	ai_will_do = {
+		has_technology_researched = panum_antitoxins_tech
+		any_scope_state = {
+			OR = {
+				state_region = s:STATE_EAST_ANGLIA
+				state_region = s:STATE_SVEALAND
+			}
+			is_incorporated = yes
+		}
+	}
+
+	ai_construction_targets = {
+		building_pharmaceuticals_industry = {
+			level = 5
+			state_trigger = {
+				OR = {
+					state_region = s:STATE_EAST_ANGLIA
+					state_region = s:STATE_SVEALAND
+				}
+			}
+		}
+	}
+
+	ai_weight = {
+		value = 4
+	}
+}
+
+company_teva_pharmaceutical = {
+	icon = "gfx/interface/icons/company_icons/historical_company_icons/israeli_teva.dds"
+	background = "gfx/interface/icons/company_icons/company_backgrounds/curtiss_comp_illu_pharma.dds"
+
+	flavored_company = yes
+	preferred_headquarters = { STATE_PALESTINE }
+
+	building_types = {
+		building_pharmaceuticals_industry
+	}
+
+	extension_building_types = {
+		building_chemical_plants
+	}
+
+	potential = {
+		has_interest_marker_in_region = region_arabic
+		c:ISR ?= this
+	}
+
+	attainable = {
+		hidden_trigger = {
+			any_scope_state = {
+				state_region = s:STATE_PALESTINE
+			}
+		}
+	}
+
+	possible = {
+		has_technology_researched = penicillin
+		any_scope_state = {
+			state_region = s:STATE_PALESTINE
+			is_incorporated = yes
+			any_scope_building = {
+				is_building_type = building_pharmaceuticals_industry
+				level >= 5
+			}
+		}
+	}
+
+	prosperity_modifier = {
+		country_weekly_innovation_max_add = 20
+		country_institution_cost_institution_health_system_mult = -0.25
+		state_turmoil_effects_mult = -0.25
+		state_birth_rate_mult = 0.05
+	}
+
+	ai_will_do = {
+		has_technology_researched = penicillin
+		any_scope_state = {
+			state_region = s:STATE_PALESTINE
+			is_incorporated = yes
+		}
+	}
+
+	ai_construction_targets = {
+		building_pharmaceuticals_industry = {
+			level = 5
+			state_trigger = {
+				state_region = s:STATE_PALESTINE
+			}
+		}
+	}
+
+	ai_weight = {
+		value = 4
+	}
+}
+
+company_csl = {
+	icon = "gfx/interface/icons/company_icons/historical_company_icons/australian_csl.dds"
+	background = "gfx/interface/icons/company_icons/company_backgrounds/curtiss_comp_illu_pharma.dds"
+
+	flavored_company = yes
+	preferred_headquarters = { STATE_VICTORIA }
+
+	building_types = {
+		building_pharmaceuticals_industry
+	}
+
+	potential = {
+		has_interest_marker_in_region = region_oceania
+	}
+
+	attainable = {
+		hidden_trigger = {
+			any_scope_state = {
+				state_region = s:STATE_VICTORIA
+			}
+		}
+	}
+
+	possible = {
+		has_technology_researched = penicillin
+		any_scope_state = {
+			state_region = s:STATE_VICTORIA
+			is_incorporated = yes
+			any_scope_building = {
+				is_building_type = building_pharmaceuticals_industry
+				level >= 5
+			}
+		}
+	}
+
+	prosperity_modifier = {
+		state_birth_rate_mult = 0.02
+		state_laborers_mortality_mult = -0.25
+		state_machinists_mortality_mult = -0.25
+		country_institution_cost_institution_health_system_mult = -0.25
+	}
+
+	ai_will_do = {
+		has_technology_researched = penicillin
+		any_scope_state = {
+			state_region = s:STATE_VICTORIA
+			is_incorporated = yes
+		}
+	}
+
+	ai_construction_targets = {
+		building_pharmaceuticals_industry = {
+			level = 5
+			state_trigger = {
+				state_region = s:STATE_VICTORIA
+			}
+		}
+	}
+
+	ai_weight = {
+		value = 4
+	}
+}
+
+company_novo_nordisk = {
+	icon = "gfx/interface/icons/company_icons/historical_company_icons/danish_novo_nordisk.dds"
+	background = "gfx/interface/icons/company_icons/company_backgrounds/curtiss_comp_illu_pharma.dds"
+
+	flavored_company = yes
+	preferred_headquarters = { STATE_ZEALAND }
+
+	building_types = {
+		building_pharmaceuticals_industry
+		building_chemical_plants
+	}
+
+	potential = {
+		has_interest_marker_in_region = region_baltic
+	}
+
+	attainable = {
+		hidden_trigger = {
+			any_scope_state = {
+				state_region = s:STATE_ZEALAND
+			}
+		}
+	}
+
+	possible = {
+		has_technology_researched = theiler_microbiology_tech
+		any_scope_state = {
+			state_region = s:STATE_ZEALAND
+			is_incorporated = yes
+			any_scope_building = {
+				is_building_type = building_pharmaceuticals_industry
+				level >= 5
+			}
+		}
+	}
+
+	prosperity_modifier = {
+		building_food_industry_throughput_add = 0.05 # Novo Nordisk started as a sugar factory
+		building_throughput_add = 0.02
+		country_institution_cost_institution_health_system_mult = -0.25
+	}
+
+	ai_will_do = {
+		has_technology_researched = theiler_microbiology_tech
+		any_scope_state = {
+			state_region = s:STATE_ZEALAND
+			is_incorporated = yes
+		}
+	}
+
+	ai_construction_targets = {
+		building_pharmaceuticals_industry = {
+			level = 5
+			state_trigger = {
+				state_region = s:STATE_ZEALAND
+			}
+		}
+	}
+
+	ai_weight = {
+		value = 4
 	}
 }

@@ -1,0 +1,66 @@
+###Volcano Triggers###
+
+agassiz_state_has_volcano = {
+	has_state_trait = dubois_state_trait_volcano
+}
+
+dubois_has_volcano = {
+	any_scope_state = {
+		has_state_trait = dubois_state_trait_volcano
+	}
+}
+
+# Flavor Triggers
+
+hungary_is_subject_or_personal_union_austria = {
+	c:AUS ?= this
+	exists = c:HUN
+	c:HUN = {
+		OR = {
+			overlord = root
+			has_diplomatic_pact = {
+				who = root
+				type = personal_union
+				is_initiator = no
+			}
+		}
+		has_state_in_state_region = STATE_TRANSDANUBIA
+	}
+}
+
+# Building Triggers
+
+has_research_center = {
+	any_scope_building = {
+		is_building_type = building_research_center
+		is_under_construction = no
+	}
+}
+
+# Liberty Index Triggers
+
+is_distopia = {
+	var:liberty_index_var < 10
+}
+
+is_dictatorship = {
+	var:liberty_index_var < 25
+}
+
+is_autocracy = {
+	var:liberty_index_var < 50
+	var:liberty_index_var >= 25
+}
+
+is_imperfect_democracy = {
+	var:liberty_index_var >= 50
+	var:liberty_index_var < 75
+}
+
+is_full_democracy = {
+	var:liberty_index_var >= 75
+}
+
+is_democracy = {
+	var:liberty_index_var >= 50
+}

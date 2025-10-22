@@ -1,0 +1,122 @@
+namespace = ztr_technology
+
+# Site identified
+ztr_technology.1 = {
+	type = country_event
+
+	title = research_center.1.t
+	desc = research_center.1.d
+	flavor = research_center.1.f
+
+	placement = scope:research_center_site
+
+	event_image = {
+		video = "generic_university"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	icon = "gfx/interface/icons/event_icons/innovation.dds"
+
+	duration = 3
+
+	trigger = {
+		# triggered by je_research_center_site
+	}
+
+	immediate = {
+		if = {
+			limit = {
+				capital = {
+					is_split_state = no
+					any_scope_building = {
+						is_building_type = building_urban_center
+						level >= 20
+					}
+				}
+			}
+			capital = {
+				save_scope_as = research_center_site
+			}
+		}
+		else = {
+			random_scope_state = {
+				limit = {
+					is_incorporated = yes
+					is_split_state = no
+					any_scope_building = {
+						is_building_type = building_urban_center
+						level >= 20
+					}
+				}
+				save_scope_as = research_center_site
+			}
+		}
+	}
+
+	option = {
+		name = research_center.1.a
+        default_option = yes
+        scope:research_center_site = {
+        	add_modifier = {
+        		name = research_center_site
+        	}
+        }
+        # show_as_tooltip = {
+        # 	remove_modifier = research_center_survey
+        # }
+        add_journal_entry = {
+        	type = je_research_center_construction
+        	target = scope:research_center_site
+        }
+	}
+}
+
+# research_center complete
+ztr_technology.2 = {
+	type = country_event
+
+	title = research_center.2.t
+	desc = research_center.2.d
+
+	placement = scope:research_center_state
+
+	event_image = {
+		video = "quantum_physics"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	icon = "gfx/interface/icons/event_icons/innovation.dds"
+
+	duration = 3
+
+	trigger = {
+		# triggered by je_research_center_construction
+	}
+
+	immediate = {
+		random_scope_state = {
+			limit = {
+				has_building = building_research_center
+			}
+			save_scope_as = research_center_state
+			random_scope_building = {
+				limit = {
+					is_building_type = building_research_center
+				}
+				save_scope_as = research_center_building_scope
+			}
+		}
+	}
+
+	option = {
+		name = research_center.2.a
+        default_option = yes
+        # add_modifier = {
+        # 	name = research_center_modifier
+		# 	years = 5
+        # 	is_decaying = yes
+        # }
+	}
+}

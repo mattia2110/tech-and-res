@@ -1,0 +1,331 @@
+start_nuclear_weapons_program_decision = {
+
+	is_shown = {
+		has_technology_researched = verrier_nuclear_physics_tech
+		NOT = { has_modifier = nuclear_capability }
+		NOT = { has_variable = nuclear_program_started }
+
+		#THIS is a major power or dictatorship
+		OR = {
+			country_rank >= rank_value:great_power
+			NOT = { is_full_democracy = yes }
+			is_dictatorship = yes
+		}
+		
+		#THIS must not be a revolutionary
+		is_revolutionary = no
+		is_secessionist = no
+	}
+
+	possible = {
+		has_research_center = yes
+		#Must be a sovereign state
+		is_subject = no
+		#THIS is not broke
+		in_default = no
+		#THIS is not in the midst of a revolution
+		has_revolution = no
+		#Has nuclear weapons tech
+	}
+	
+	when_taken = {
+		#Mark country as having started a nuclear program
+		set_variable = nuclear_program_started
+
+		activate_law = law_type:law_uranium_full_usage
+		
+		#Add JE
+		add_journal_entry = { type = je_develop_nuclear_weapons }
+
+		if = {
+			limit = { has_global_variable = ztr_atomic_bomb_first_use_var }
+			#Hostile countries become more hostile
+			every_country = {
+				limit = {
+					OR = {
+						AND = {
+							country_rank > root.country_rank
+							OR = { has_modifier = nuclear_capability has_variable = nuclear_program_started}
+							OR = { 
+								has_attitude = {
+									who = ROOT
+									attitude <= antagonistic
+								}
+								relations:root < relations_threshold:poor
+							}
+						}
+						AND = {
+							NOT = { is_subject = yes }
+							has_diplomatic_pact = { who = ROOT type = rivalry }
+							OR = { has_modifier = nuclear_capability has_variable = nuclear_program_started }
+						}
+						
+					}
+				}
+				change_relations = {
+					country = root
+					value = -100
+				}
+			}
+			#International community does not like this
+			change_infamy = 20
+		}
+		else = {
+			#Nothing, since no one knows what is going on
+		}	
+	}
+
+	ai_chance = {
+		value = 0
+		if = {
+			#THIS is a superpower, Israel or great power
+			limit = {
+				OR = {
+					country_rank >= rank_value:great_power
+					c:ISR ?= this
+				}
+			}
+			add = 1000
+		}
+
+	}
+}
+
+develop_thermonuclear_weapons_decision = {
+
+	is_shown = {
+		has_modifier = nuclear_capability
+		NOT = { has_variable = thermonuclear_program_started }
+		NOT = { has_variable = signed_nuclear_non_proliferation_treaty }
+		has_law = law_type:law_uranium_full_usage
+
+		#THIS is a major power or dictatorship
+		OR = {
+			country_rank >= rank_value:great_power
+			NOT = { is_full_democracy = yes }
+			is_dictatorship = yes
+		}
+		
+		#THIS must not be a revolutionary
+		is_revolutionary = no
+		is_secessionist = no
+	}
+
+	possible = {
+		#Since it has nukes, it has already a research center
+		#Must be a sovereign state
+		is_subject = no		
+		#THIS is not broke
+		in_default = no		
+		#THIS is not in the midst of a revolution
+		has_revolution = no
+	}
+	
+	when_taken = {
+		#Mark country as having started a nuclear program
+		set_variable = thermonuclear_program_started
+		
+		#Add JE
+		add_journal_entry = { type = je_develop_thermonuclear_weapons }
+
+		every_country = {
+			limit = {
+				OR = {
+					AND = {
+						country_rank > root.country_rank
+						OR = { has_modifier = nuclear_capability has_variable = nuclear_program_started}
+						OR = { 
+							has_attitude = {
+								who = ROOT
+								attitude <= antagonistic
+							}
+							relations:root < relations_threshold:poor
+						}
+					}
+					AND = {
+						NOT = { is_subject = yes }
+						has_diplomatic_pact = { who = ROOT type = rivalry }
+						OR = { has_modifier = nuclear_capability has_variable = nuclear_program_started }
+					}
+					
+				}
+			}
+			change_relations = {
+				country = root
+				value = -100
+			}
+		}
+		#International community does not like this
+		change_infamy = 20	
+	}
+
+	ai_chance = {
+		value = 0
+		if = {
+			#THIS is a superpower, Israel or great power
+			limit = {
+				has_modifier = ztr_superpower
+			}
+			add = 1000
+		}
+
+	}
+}
+
+join_nuclear_non_proliferation_treaty_decision = {
+
+	is_shown = {
+		#THIS has not already signed the NPT
+		NOT = { has_variable = signed_nuclear_non_proliferation_treaty }
+		OR = {
+			has_modifier = ztr_onu_member
+			has_modifier = ztr_onu_permanent_member
+		}
+		any_country = {
+			has_technology_researched = neoimperialism
+			count > 0
+		}
+		#Date of establishment
+		#year > 1965
+	}
+
+	possible = {
+		#Not currently developing WMD
+		NOT = { has_journal_entry = je_develop_nuclear_weapons }
+		#THIS is independent
+		is_subject = no
+		#THIS is not currently at war
+		is_at_war = no
+	}
+	
+	when_taken = {
+		custom_tooltip = {
+			text = signed_NPT_1_tt
+			
+			#Mark THIS as having signed the NPT
+			set_variable = signed_nuclear_non_proliferation_treaty
+			
+			#No cheesing
+			set_variable = {
+				name = nuclear_non_proliferation_treaty_timer
+				years = 10
+			}	
+		}
+		
+		#Disable nuclear program & weapons
+		change_infamy = -10
+		every_country = {
+			limit = { OR = { has_strategic_adjacency = ROOT country_rank >= rank_value:great_power } }
+			change_relations = {
+				country = ROOT
+				value = 10
+			}
+		}	
+	}
+
+	ai_chance = {
+		value = 0
+		if = {
+			limit = {
+				#Country is not faced with a nuclear threat from somewhere
+				NOR = {
+					country_rank >= rank_value:great_power
+					any_rival_country = { 
+						OR = { 
+							has_modifier = nuclear_capability
+							has_variable = nuclear_program_started
+						}
+					}
+					any_country = {
+						relations:root < relations_threshold:poor
+						OR = { 
+							has_modifier = nuclear_capability
+							has_variable = nuclear_program_started
+						}
+					}
+				}
+				#Country is democratic
+				NOT = { has_modifier = ztr_superpower }
+				is_democracy = yes
+			}
+			add = 100
+		}
+		
+		#Special
+		# if = {
+		# 	limit = {
+		# 		c:JAP ?= this
+		# 		is_democracy = yes
+		# 	}
+		# 	add = 100
+		# }
+	}
+}
+
+leave_nuclear_non_proliferation_treaty_decision = {
+
+	is_shown = {
+		#THIS has already signed the NPT
+		has_variable = signed_nuclear_non_proliferation_treaty
+	}
+
+	possible = {
+		
+		#THIS must have upheld the treaty for at least 10 years
+		custom_tooltip = {
+			text = signed_NPT_2_tt
+			NOT = { has_variable = nuclear_non_proliferation_treaty_timer }
+		}
+		
+		#THIS is sufficiently independent
+		is_subject = no
+		
+		#THIS is not currently at war
+		is_at_war = no
+	}
+	
+	when_taken = {
+		#Mark THIS as having signed the NPT
+		remove_variable = signed_nuclear_non_proliferation_treaty
+		
+		#Everyone is not happy with THIS
+		change_infamy = 20
+		every_country = {
+			limit = { OR = { has_strategic_adjacency = ROOT country_rank >= rank_value:great_power } }
+			change_relations = {
+				country = ROOT
+				value = -25
+			}
+		}
+		
+	}
+
+	ai_chance = {
+		value = 0
+		
+		if = {
+		
+			limit = {
+			
+				#Country is faced with a nuclear threat from somewhere
+				OR = {
+					any_rival_country = { 
+						OR = { 
+							has_modifier = nuclear_capability
+							has_variable = nuclear_program_started
+						}
+					}
+					any_country = {
+						relations:root < relations_threshold:poor
+						OR = { 
+							has_modifier = nuclear_capability
+							has_variable = nuclear_program_started
+						}
+					}
+				}
+				is_dictatorship = yes	
+			}
+			add = 100
+		}
+	}
+}

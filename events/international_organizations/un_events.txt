@@ -13,7 +13,8 @@ ztr_un_event.1 = {
 	flavor = ztr_un_event.1.f
 
 	event_image = { 
-		texture = "gfx/event_pictures/un_foundation.dds"
+		#texture = "gfx/event_pictures/un_foundation.dds"
+		video = "un_foundation"
 	}
 
 	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
@@ -118,11 +119,7 @@ ztr_un_event.2 = {
 			base = 10
 			modifier = {
 				trigger = {
-					OR= {
-						has_law = law_type:law_single_party_state
-						has_law = law_type:law_anarchy
-						has_law = law_type:law_elder_council
-					}
+					is_dictatorship = yes
 				}
 				add = -10
 			}
@@ -134,13 +131,7 @@ ztr_un_event.2 = {
 		name = ztr_un_event.2.b
 		trigger = {
 			global_country_ranking <= 3
-			NOT = {
-				OR= {
-					has_law = law_type:law_single_party_state
-					has_law = law_type:law_anarchy
-					has_law = law_type:law_elder_council
-				}
-			}
+			NOT = {	is_distopia = yes }
 		}
 		change_infamy = -10
 		if = {
@@ -161,11 +152,7 @@ ztr_un_event.2 = {
 			base = 10
 			modifier = {
 				trigger = {
-					OR= {
-						has_law = law_type:law_single_party_state
-						has_law = law_type:law_anarchy
-						has_law = law_type:law_elder_council
-					}
+					is_dictatorship = yes
 				}
 				add = -10
 			}
@@ -179,11 +166,7 @@ ztr_un_event.2 = {
 			base = 0
 			modifier = {
 				trigger = {
-					OR= {
-						has_law = law_type:law_single_party_state
-						has_law = law_type:law_anarchy
-						has_law = law_type:law_elder_council
-					}
+					is_dictatorship = yes
 				}
 				add = 10
 			}
@@ -309,14 +292,9 @@ ztr_un_event.3 = {
 			modifier = {
 				trigger = {
 					country_rank > rank_value:great_power
-					NOT = {
-					OR = {
-						has_law = law_type:law_universal_suffrage
-						has_law = law_type:law_census_voting
-					}
+					NOT = { is_full_democracy = yes }
 				}
-				}
-				add = 5
+			add = 5
 			}
 		}
 		scope:attacked_country = {
@@ -367,12 +345,7 @@ ztr_un_event.3 = {
 			base = 2
 			modifier = {
 				trigger = {
-					NOT = {
-						OR = {
-							has_law = law_type:law_universal_suffrage
-							has_law = law_type:law_census_voting
-						}
-					}
+					NOT = { is_full_democracy = yes }
 				}
 				add = 8
 			}

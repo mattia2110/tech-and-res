@@ -1,0 +1,358 @@
+﻿war_nuclear_strike = {
+	groups= { general } requires_approval = no
+	should_notify_third_parties = yes
+
+	unlocking_technologies = {
+		atomic_bomb
+	}
+
+	potential = {
+		#THIS has nuclear weapons
+		has_modifier = nuclear_capability
+		#THIS is at war OR a country that THIS has stationed nuclear weapons in is at war
+		OR = { 
+			is_at_war = yes
+			any_country = {
+				has_diplomatic_pact = { who = scope:actor type = station_nuclear_weapons is_initiator = no }
+				is_at_war = yes
+				any_scope_war = {
+					is_warleader = this
+				}
+			}
+		}
+		#Can only threaten an enemy war leader
+		OR = {
+			AND = {
+				any_scope_war = {
+					is_warleader = scope:actor
+					is_warleader = scope:target_country
+					is_war_participant = scope:actor
+					is_war_participant = scope:target_country
+				}
+				scope:target_country = { is_diplomatic_play_enemy_of = scope:actor }
+				has_war_with = scope:target_country
+				NOT = { is_in_war_together = scope:target_country }
+			}
+			AND = {
+				NOT = { is_in_war_together = scope:target_country }
+				any_country = {
+					has_diplomatic_pact = { who = scope:actor type = station_nuclear_weapons is_initiator = no }
+					has_war_with = scope:target_country
+					any_scope_war = {
+						is_warleader = this
+						is_warleader = scope:target_country
+					}
+					is_diplomatic_play_enemy_of = scope:target_country
+				}
+			}
+		}
+		#Civil war countries do not nuke each other
+		is_revolutionary = no is_secessionist = no
+		scope:target_country = { is_revolutionary = no is_secessionist = no }
+	}
+
+	possible = {
+		# If ICBM technology is not researched and nuclear weapon silo doesn't have ICBM production method, nuclear strike can be lauched only on neighboring countries
+		OR = {
+			AND = {
+				has_technology_researched = icbms
+				any_scope_building = {
+					is_building_type = building_nuclear_weapons_silo
+					has_active_production_method = pm_icbms
+				}
+			}
+			has_strategic_adjacency = scope:target_country
+		}
+		#Only once a month
+		NOT = { has_modifier = nuclear_attack_cooldown }
+		#Only an independent country can issue ultimatums
+		is_subject = no
+		# This is shifted from nuclear ultimatum in order to give more freedom to the player
+		OR = {
+			# A Dictatorship would use them if it not signed the NPT or is a great power
+			AND = {
+				OR = {
+					NOT = { has_variable = signed_nuclear_non_proliferation_treaty }
+					country_rank = rank_value:great_power
+				}
+				is_dictatorship = yes
+			}
+			# An autocracy would use them if it is not signed the NPT, target is a dictatorship or is simply a superpower
+			AND = {
+				OR = {
+					NOT = { has_variable = signed_nuclear_non_proliferation_treaty }
+					scope:target_country = { is_dictatorship = yes }
+					has_modifier = ztr_superpower
+				}
+				is_autocracy = yes
+			}
+			# A democracy would use them if atomic bomb was never used in the world, and either it not signed the NPT or is a great power or is a superpower
+			AND = {
+				OR = {
+					AND = {
+						NOT = { has_global_variable = ztr_atomic_bomb_first_use_var }
+						scope:target_country = { is_dictatorship = yes }
+					}
+					AND = {
+						NOT = { has_variable = signed_nuclear_non_proliferation_treaty }
+						country_rank = rank_value:great_power
+					}
+					has_modifier = ztr_superpower
+				}
+				is_democracy = yes
+			}
+		}
+	}
+
+	accept_effect = {
+		#Lobby
+		add_lobby_appeasement_from_diplomacy_unidirectional = { 
+			FIRST = root
+			SECOND = scope:target_country 
+			PRO_AMOUNT = -10
+			ANTI_AMOUNT = 5
+			FACTOR = appeasement_embargo_declared
+		}
+		#THIS gains infamy and international hatred for unprovoked nuclear attack
+		create_incident = {
+			value = 50
+			country = scope:target_country
+		}
+		#Notice
+		scope:target_country = { save_scope_as = nuclear_war_target }
+		custom_tooltip = {
+			text = launch_nuclear_weapons.1.tt
+		}
+		
+		### Calculate strike capability  ###
+		#Attacker's gross attack ability
+		effect_compute_nuclear_capability_points_attacker = yes
+
+		#Enable fallout system
+		#set_global_variable = nuclear_weapons_used_somewhere
+		
+		#Defender's inherent defence
+		scope:target_country = {
+			effect_compute_nuclear_capability_points_states = yes
+			effect_compute_nuclear_capability_points_stationed_nukes_actor = yes
+		}
+		#Aggregate score (Total attack points / Total states of defender)
+		change_global_variable = { 
+			name = nuclear_strike_power_global
+			divide = global_var:nuclear_strike_defence_global
+		}
+		
+		### Apply damage based on ratio calculated above ###
+		scope:target_country = {
+			if = {
+				limit = { 
+					global_var:nuclear_strike_power_global > 0
+					global_var:nuclear_strike_power_global <= 1 
+				}
+				custom_tooltip = {
+					text = tiny_nuclear_damage_custom_tooltip
+					effect_tiny_nuclear_damage = yes
+				}
+			}
+			else_if = {
+				limit = { 
+					global_var:nuclear_strike_power_global > 1
+					global_var:nuclear_strike_power_global <= 2 
+				}
+				custom_tooltip = {
+					text = very_low_nuclear_damage_custom_tooltip
+					effect_very_low_nuclear_damage = yes
+				}
+			}
+			else_if = {
+				limit = { 
+					global_var:nuclear_strike_power_global > 2
+					global_var:nuclear_strike_power_global <= 4 
+				}
+				custom_tooltip = {
+					text = low_nuclear_damage_custom_tooltip
+					effect_low_nuclear_damage = yes
+				}
+			}
+			else_if = {
+				limit = { 
+					global_var:nuclear_strike_power_global > 4
+					global_var:nuclear_strike_power_global <= 6 
+				}
+				custom_tooltip = {
+					text = medium_nuclear_damage_custom_tooltip
+					effect_medium_nuclear_damage = yes
+				}
+			}
+			else_if = {
+				limit = { 
+					global_var:nuclear_strike_power_global > 6
+					#global_var:nuclear_strike_power_global <= 8 
+				}
+				custom_tooltip = {
+					text = high_nuclear_damage_custom_tooltip
+					effect_high_nuclear_damage = yes
+				}
+			}
+			# else_if = {
+			# 	limit = { 
+			# 		global_var:nuclear_strike_power_global > 8
+			# 		#global_var:nuclear_strike_power_global <= 10 
+			# 	}
+			# 	custom_tooltip = {
+			# 		text = very_high_nuclear_damage_custom_tooltip
+			# 		effect_very_high_nuclear_damage = yes
+			# 	}
+			# }
+		}
+		
+		### Attacker Cooldown ###
+		add_modifier = {
+			name = nuclear_attack_cooldown
+			years = 1
+		}
+		
+		### Possible Second Strike ###
+		if = {
+			limit = { 
+				scope:target_country = {
+					has_modifier = nuclear_capability
+					OR = {
+						AND = {
+							has_technology_researched = icbms
+							any_scope_building = {
+								is_building_type = building_nuclear_weapons_silo
+								has_active_production_method = pm_icbms
+							}
+						}
+						has_strategic_adjacency = scope:actor
+					}
+				}
+			}
+			
+			#Notice
+			scope:actor = { save_scope_as = nuclear_war_actor }
+			scope:target_country = {
+				custom_tooltip = {
+					text = launch_nuclear_weapons.2.tt
+				}
+			}
+			
+			### Calculate strike capability ###
+			#Attacker's gross attack ability
+			scope:target_country = {
+				effect_compute_nuclear_capability_points_attacker = yes
+			}
+			
+			#Defender's inherent defence
+			effect_compute_nuclear_capability_points_states = yes
+			effect_compute_nuclear_capability_points_stationed_nukes_target_country = yes
+			
+			#Aggregate score (Total attack points / Total states of defender)
+			change_global_variable = { 
+				name = nuclear_strike_power_global
+				divide = global_var:nuclear_strike_defence_global
+			}
+
+			### Apply damage based on ratio calculated above ###
+			if = {
+				limit = { 
+					global_var:nuclear_strike_power_global > 0
+					global_var:nuclear_strike_power_global <= 1 
+				}
+				custom_tooltip = {
+					text = tiny_nuclear_damage_custom_tooltip
+					effect_tiny_nuclear_damage = yes
+				}
+			}
+			else_if = {
+				limit = { 
+					global_var:nuclear_strike_power_global > 1
+					global_var:nuclear_strike_power_global <= 2 
+				}
+				custom_tooltip = {
+					text = very_low_nuclear_damage_custom_tooltip
+					effect_very_low_nuclear_damage = yes
+				}
+			}
+			else_if = {
+				limit = { 
+					global_var:nuclear_strike_power_global > 2
+					global_var:nuclear_strike_power_global <= 4 
+				}
+				custom_tooltip = {
+					text = low_nuclear_damage_custom_tooltip
+					effect_low_nuclear_damage = yes
+				}
+			}
+			else_if = {
+				limit = { 
+					global_var:nuclear_strike_power_global > 4
+					global_var:nuclear_strike_power_global <= 6 
+				}
+				custom_tooltip = {
+					text = medium_nuclear_damage_custom_tooltip
+					effect_medium_nuclear_damage = yes
+				}
+			}
+			else_if = {
+				limit = { 
+					global_var:nuclear_strike_power_global > 6
+					#global_var:nuclear_strike_power_global <= 8 
+				}
+				custom_tooltip = {
+					text = high_nuclear_damage_custom_tooltip
+					effect_high_nuclear_damage = yes
+				}
+			}
+			# else_if = {
+			# 	limit = { 
+			# 		global_var:nuclear_strike_power_global > 8
+			# 		#global_var:nuclear_strike_power_global <= 10 
+			# 	}
+			# 	custom_tooltip = {
+			# 		text = very_high_nuclear_damage_custom_tooltip
+			# 		effect_very_high_nuclear_damage = yes
+			# 	}
+			# }
+			
+			### Defender Cooldown ###
+			scope:target_country = {
+				add_modifier = {
+					name = nuclear_attack_cooldown
+					years = 1
+				}
+			}
+		}
+
+		hidden_effect = {
+			if = {
+				limit = {
+					NOT = { has_global_variable = ztr_atomic_bomb_first_use_var }
+				}
+				every_country = {
+					limit = {
+						NOR = {
+							scope:actor = this
+							scope:target_country = this
+						}
+					}
+					trigger_event = nuclear_warfare_system.9
+				}
+			}
+		}
+	}
+	
+	ai = {
+		evaluation_chance = {
+			value = 0.25		
+		}
+		propose_score = {
+			value = 0
+		}
+		will_propose = {
+			# This would be an hell to balance properly, so AI can use this only if is the first time that nuclear weapons are used in the world
+			NOT = { has_global_variable = ztr_atomic_bomb_first_use_var }
+		}
+	}
+}
