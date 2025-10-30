@@ -48,15 +48,17 @@ quartz_glass = {
 		verrier_modern_physics_tech
     }
 
+	modifier = {
+		country_allow_everywhere_advanced_ores_mining_bool = yes
+	}
+
     # Peso AI
     ai_weight = {
 		value = 1 # Important tech for modern economies
 		
 		if = {
 			limit = { 
-				OR = {
-					has_strategy = ai_strategy_industrial_expansion
-				}
+				has_strategy = ai_strategy_industrial_expansion
 			}
 			add = 1
 		}
@@ -104,8 +106,15 @@ cabled_wire = {
 	}
 
 	ai_weight = {
-        value = 1
-    }
+		value = 1 # Important tech for modern economies
+		
+		if = {
+			limit = { 
+				has_strategy = ai_strategy_industrial_expansion
+			}
+			add = 1
+		}
+	}
 }
 
 #ERA 5
@@ -147,11 +156,15 @@ bauxite_processing = {
 	texture = "gfx/interface/icons/invention_icons/bauxite_processing.dds"
 	category = production
 
+	modifier = {
+		country_allow_everywhere_bauxite_mining_bool = yes
+	}
+
 	unlocking_technologies = {
 		electrical_capacitors
 	}
 	
-		ai_weight = {
+	ai_weight = {
 		value = 2 #Before Zeppelin
 	}
 }
@@ -166,8 +179,15 @@ bayer_process = {
 		bauxite_processing
 	}
 	
-		ai_weight = {
-		value = 1
+	ai_weight = {
+		value = 1 # Important tech for modern economies
+		
+		if = {
+			limit = { 
+				has_strategy = ai_strategy_industrial_expansion
+			}
+			add = 1
+		}
 	}
 }
 
@@ -197,8 +217,16 @@ polyethylene = {
 		oil_distillation
 		plastics
 	}
-		ai_weight = {
-		value = 1
+	
+	ai_weight = {
+		value = 1 # Important tech for modern economies
+		
+		if = {
+			limit = { 
+				has_strategy = ai_strategy_industrial_expansion
+			}
+			add = 1
+		}
 	}
 }
 
@@ -244,6 +272,7 @@ natural_gas_extraction = {
 	}
 
 	modifier = {
+		country_allow_everywhere_gas_extraction_bool = yes
 		building_natural_gas_rig_throughput_add = 0.05
 		building_group_bg_oil_extraction_throughput_add = 0.05
 	}
@@ -255,6 +284,7 @@ natural_gas_extraction = {
 			limit = { 
 				OR = {
 					has_strategy = ai_strategy_industrial_expansion
+					has_strategy = ai_strategy_resource_expansion
 				}
 			}
 			add = 1
@@ -327,8 +357,15 @@ advanced_wire = {
 	}
 
 	ai_weight = {
-        value = 1
-    }
+		value = 1 # Important tech for modern economies
+		
+		if = {
+			limit = { 
+				has_strategy = ai_strategy_industrial_expansion
+			}
+			add = 1
+		}
+	}
 }
 
 silicon = {
@@ -343,8 +380,17 @@ silicon = {
 
     # Peso AI
     ai_weight = {
-        value = 1
-    }
+		value = 1 # Important tech for modern economies
+		
+		if = {
+			limit = { 
+				OR = {
+					has_strategy = ai_strategy_industrial_expansion
+				}
+			}
+			add = 2
+		}
+	}
 }
 
 alkaline_battery = {
@@ -358,8 +404,15 @@ alkaline_battery = {
     }
 
     ai_weight = {
-        value = 1
-    }
+		value = 1 # Important tech for modern economies
+		
+		if = {
+			limit = { 
+				has_strategy = ai_strategy_industrial_expansion
+			}
+			add = 1
+		}
+	}
 }
 
 gas_turbine = {
@@ -413,8 +466,15 @@ modern_tools = {
 
     # Peso AI
     ai_weight = {
-        value = 1
-    }
+		value = 1 # Important tech for modern economies
+		
+		if = {
+			limit = { 
+				has_strategy = ai_strategy_industrial_expansion
+			}
+			add = 1
+		}
+	}
 }
 
 hydroponic_farming = {
@@ -460,8 +520,15 @@ rudimental_home_appliances = {
 	}
 	
 	ai_weight = {
-        value = 1
-    }
+		value = 1 # Important tech for modern economies
+		
+		if = {
+			limit = { 
+				has_strategy = ai_strategy_industrial_expansion
+			}
+			add = 1
+		}
+	}
 }
 
 semiconductor = {
@@ -475,8 +542,15 @@ semiconductor = {
     }
 
     ai_weight = {
-        value = 1
-    }
+		value = 1 # Important tech for modern economies
+		
+		if = {
+			limit = { 
+				c:USA ?= this
+			}
+			add = 1
+		}
+	}
 }
 
 nuclear_reactor = {
@@ -489,7 +563,14 @@ nuclear_reactor = {
 		verrier_nuclear_physics_tech
 	}
 	ai_weight = {
-		value = 1
+		value = 1 # Important tech for modern economies
+		
+		if = {
+			limit = { 
+				has_strategy = ai_strategy_industrial_expansion
+			}
+			add = 1
+		}
 	}
 }
 
@@ -508,9 +589,7 @@ thermal_cracking = {
 		
 		if = {
 			limit = { 
-				OR = {
-					has_strategy = ai_strategy_industrial_expansion
-				}
+				has_strategy = ai_strategy_industrial_expansion
 			}
 			add = 1
 		}
@@ -609,8 +688,15 @@ enhanced_cracking_distillation = {
 	}
 
 	ai_weight = {
-        value = 1
-    }
+		value = 1 # Important tech for modern economies
+		
+		if = {
+			limit = { 
+				has_strategy = ai_strategy_industrial_expansion
+			}
+			add = 1
+		}
+	}
 }
 
 direct_reduced_iron = {
@@ -685,9 +771,7 @@ horizontal_drilling = {
 		
 		if = {
 			limit = { 
-				OR = {
-					has_strategy = ai_strategy_industrial_expansion
-				}
+				has_strategy = ai_strategy_industrial_expansion
 			}
 			add = 1
 		}
@@ -699,6 +783,10 @@ rare_earths = {
 	era = era_7
 	texture = "gfx/interface/icons/invention_icons/rare_earths.dds"
 	category = production
+
+	modifier = {
+		country_allow_everywhere_rare_earths_mining_bool = yes
+	}
 	
 	unlocking_technologies = {
 		oxygen_steelmaking_process
@@ -740,8 +828,15 @@ hdpe = {
 	}
 
 	ai_weight = {
-        value = 1
-    }
+		value = 1 # Important tech for modern economies
+		
+		if = {
+			limit = { 
+				has_strategy = ai_strategy_industrial_expansion
+			}
+			add = 1
+		}
+	}
 }
 
 polyester_synthesis = {
@@ -776,8 +871,15 @@ proto_digital_devices = {
 	}
 
 	ai_weight = {
-        value = 1
-    }
+		value = 1 # Important tech for modern economies
+		
+		if = {
+			limit = { 
+				has_strategy = ai_strategy_industrial_expansion
+			}
+			add = 1
+		}
+	}
 }
 
 photovoltaic_effect = {
@@ -822,9 +924,7 @@ oxygen_steelmaking_process = {
 		
 		if = {
 			limit = { 
-				OR = {
-					has_strategy = ai_strategy_industrial_expansion
-				}
+				has_strategy = ai_strategy_industrial_expansion
 			}
 			add = 1
 		}
@@ -859,8 +959,17 @@ modern_transport = {
 	}
 
 	ai_weight = {
-        value = 1
-    }
+		value = 2 # Important tech for modern economies
+		
+		if = {
+			limit = { 
+				OR = {
+					has_strategy = ai_strategy_industrial_expansion
+				}
+			}
+			add = 1
+		}
+	}
 }
 
 bullet_train_tech = {
@@ -907,8 +1016,15 @@ integrated_circuits = {
 	}
 
 	ai_weight = {
-        value = 1
-    }
+		value = 1 # Important tech for modern economies
+		
+		if = {
+			limit = { 
+				has_strategy = ai_strategy_industrial_expansion
+			}
+			add = 1
+		}
+	}
 }
 
 gas_liquefaction = {
@@ -968,8 +1084,15 @@ computer = {
 	}
 
 	ai_weight = {
-        value = 1
-    }
+		value = 1 # Important tech for modern economies
+		
+		if = {
+			limit = { 
+				has_strategy = ai_strategy_industrial_expansion
+			}
+			add = 1
+		}
+	}
 }
 
 mechatronics = {
@@ -984,8 +1107,15 @@ mechatronics = {
 	}
 
 	ai_weight = {
-        value = 1
-    }
+		value = 1 # Important tech for modern economies
+		
+		if = {
+			limit = { 
+				has_strategy = ai_strategy_industrial_expansion
+			}
+			add = 1
+		}
+	}
 }
 
 tv_color = {
@@ -1018,9 +1148,7 @@ heavy_machinery = {
 		
 		if = {
 			limit = { 
-				OR = {
-					has_strategy = ai_strategy_industrial_expansion
-				}
+				has_strategy = ai_strategy_industrial_expansion
 			}
 			add = 1
 		}
@@ -1041,7 +1169,14 @@ advanced_electric_arc_processes = {
 	}
 
 	ai_weight = {
-		value = 1
+		value = 1 # Important tech for modern economies
+		
+		if = {
+			limit = { 
+				has_strategy = ai_strategy_industrial_expansion
+			}
+			add = 1
+		}
 	}
 }
 
@@ -1167,8 +1302,15 @@ micro_processors = {
 	}
 
 	ai_weight = {
-        value = 1
-    }
+		value = 1 # Important tech for modern economies
+		
+		if = {
+			limit = { 
+				has_strategy = ai_strategy_industrial_expansion
+			}
+			add = 1
+		}
+	}
 }
 
 cnc_control = {
@@ -1182,7 +1324,14 @@ cnc_control = {
 	}
 
 	ai_weight = {
-		value = 1
+		value = 1 # Important tech for modern economies
+		
+		if = {
+			limit = { 
+				has_strategy = ai_strategy_industrial_expansion
+			}
+			add = 1
+		}
 	}
 }
 
@@ -1215,7 +1364,14 @@ personal_computer = {
 	}
 
 	ai_weight = {
-		value = 1
+		value = 1 # Important tech for modern economies
+		
+		if = {
+			limit = { 
+				has_strategy = ai_strategy_industrial_expansion
+			}
+			add = 1
+		}
 	}
 }
 
@@ -1453,7 +1609,14 @@ advanced_alloys = {
 	}
 
 	ai_weight = {
-		value = 1
+		value = 1 # Important tech for modern economies
+		
+		if = {
+			limit = { 
+				has_strategy = ai_strategy_industrial_expansion
+			}
+			add = 1
+		}
 	}
 }
 
@@ -1500,7 +1663,14 @@ mobile_phone = {
 	}
 
 	ai_weight = {
-		value = 1
+		value = 1 # Important tech for modern economies
+		
+		if = {
+			limit = { 
+				has_strategy = ai_strategy_industrial_expansion
+			}
+			add = 1
+		}
 	}
 }
 
@@ -1583,7 +1753,14 @@ mobile_devices = {
 	}
 
 	ai_weight = {
-		value = 1
+		value = 1 # Important tech for modern economies
+		
+		if = {
+			limit = { 
+				has_strategy = ai_strategy_industrial_expansion
+			}
+			add = 1
+		}
 	}
 }
 
@@ -1646,7 +1823,14 @@ parallel_computing_architecture = {
 	}
 
 	ai_weight = {
-		value = 1
+		value = 1 # Important tech for modern economies
+		
+		if = {
+			limit = { 
+				has_strategy = ai_strategy_industrial_expansion
+			}
+			add = 1
+		}
 	}
 }
 
@@ -1706,7 +1890,14 @@ smartphones = {
 	}
 
 	ai_weight = {
-		value = 1
+		value = 1 # Important tech for modern economies
+		
+		if = {
+			limit = { 
+				has_strategy = ai_strategy_industrial_expansion
+			}
+			add = 1
+		}
 	}
 }
 
@@ -1724,7 +1915,14 @@ advanced_personal_computer = {
 	}
 
 	ai_weight = {
-		value = 1
+		value = 1 # Important tech for modern economies
+		
+		if = {
+			limit = { 
+				has_strategy = ai_strategy_industrial_expansion
+			}
+			add = 1
+		}
 	}
 }
 
@@ -1738,7 +1936,16 @@ smart_appliances = {
 		high_definition_television
 	}
 
-	ai_weight = { value = 1 }
+	ai_weight = {
+		value = 1 # Important tech for modern economies
+		
+		if = {
+			limit = { 
+				has_strategy = ai_strategy_industrial_expansion
+			}
+			add = 1
+		}
+	}
   }
 
 advanced_solar_panels = {
@@ -1780,8 +1987,15 @@ electric_vehicles = {
 	}
 
 	ai_weight = {
-        value = 1
-    }
+		value = 1 # Important tech for modern economies
+		
+		if = {
+			limit = { 
+				has_strategy = ai_strategy_industrial_expansion
+			}
+			add = 1
+		}
+	}
 }
 
 precision_agriculture = {

@@ -167,6 +167,7 @@ ztr_economic_update.1 = {
 				average_sol < 14
 				NOT = { c:FRA = this }
 				NOT = { c:SPA = this }
+				NOT = { c:GBR = this }
 				NOR = {
 					has_journal_entry = je_demographic_0_to_1
 					has_journal_entry = je_demographic_1_to_2
@@ -1044,5 +1045,301 @@ ztr_economic_update.19 = {
 			}
 			remove_building = building_modern_state_baseline
 		}
+	}
+}
+
+# Mining Deposits Addition Trait
+
+# Bauxite
+
+ztr_economic_update.20 = {
+	dlc = dlc_tech_res
+	type = country_event
+	placement = ROOT
+	event_image = {
+		video = "southamerica_war_civilians"
+	}
+	hidden = yes
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	icon = "gfx/interface/icons/event_icons/event_default.dds"
+
+	title = ztr_economic_update.20.t
+	desc = ztr_economic_update.20.d
+
+	duration = 1
+	
+	trigger = {
+		#On Actions
+	}
+
+	immediate = {
+		set_global_variable = ztr_bauxite_added_var
+		if = {
+			limit = {
+				NOT = { has_global_variable = ztr_hidden_traits_var }
+			}
+			bauxite_nano_add_deposits = yes
+			bauxite_small_add_deposits = yes
+			bauxite_medium_add_deposits = yes
+			bauxite_big_add_deposits = yes
+			bauxite_huge_add_deposits = yes
+		}
+		else = {
+			bauxite_nano_add_deposits_hidden = yes
+			bauxite_small_add_deposits_hidden = yes
+			bauxite_medium_add_deposits_hidden = yes
+			bauxite_big_add_deposits_hidden = yes
+			bauxite_huge_add_deposits_hidden = yes
+		}
+	}
+}
+
+# Advancedores
+
+ztr_economic_update.21 = {
+	dlc = dlc_tech_res
+	type = country_event
+	placement = ROOT
+	event_image = {
+		video = "southamerica_war_civilians"
+	}
+	hidden = yes
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	icon = "gfx/interface/icons/event_icons/event_default.dds"
+
+	title = ztr_economic_update.21.t
+	desc = ztr_economic_update.21.d
+
+	duration = 1
+	
+	trigger = {
+		#On Actions
+	}
+
+	immediate = {
+		set_global_variable = ztr_advancedores_added_var
+		if = {
+			limit = {
+				NOT = { has_global_variable = ztr_hidden_traits_var }
+			}
+			advancedores_nano_add_deposits = yes
+			advancedores_small_add_deposits = yes
+			advancedores_medium_add_deposits = yes
+			advancedores_big_add_deposits = yes
+		}
+		else = {
+			advancedores_nano_add_deposits_hidden = yes
+			advancedores_small_add_deposits_hidden = yes
+			advancedores_medium_add_deposits_hidden = yes
+			advancedores_big_add_deposits_hidden = yes
+		}
+	}
+}
+
+# Uranium
+
+ztr_economic_update.22 = {
+	dlc = dlc_tech_res
+	type = country_event
+	placement = ROOT
+	event_image = {
+		video = "southamerica_war_civilians"
+	}
+	hidden = yes
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	icon = "gfx/interface/icons/event_icons/event_default.dds"
+
+	title = ztr_economic_update.22.t
+	desc = ztr_economic_update.22.d
+
+	duration = 1
+	
+	trigger = {
+		#On Actions
+	}
+
+	immediate = {
+		set_global_variable = ztr_uranium_added_var
+		if = {
+			limit = {
+				NOT = { has_global_variable = ztr_hidden_traits_var }
+			}
+			good_uranium_small_add_deposits = yes
+			good_uranium_medium_add_deposits = yes
+			good_uranium_big_add_deposits = yes
+		}
+		else = {
+			good_uranium_small_add_deposits_hidden = yes
+			good_uranium_medium_add_deposits = yes
+			good_uranium_big_add_deposits = yes
+		}
+	}
+}
+
+# Gas
+
+ztr_economic_update.23 = {
+	dlc = dlc_tech_res
+	type = country_event
+	placement = ROOT
+	event_image = {
+		video = "southamerica_war_civilians"
+	}
+	hidden = yes
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	icon = "gfx/interface/icons/event_icons/event_default.dds"
+
+	title = ztr_economic_update.23.t
+	desc = ztr_economic_update.23.d
+
+	duration = 1
+	
+	trigger = {
+		#On Actions
+	}
+
+	immediate = {
+		set_global_variable = ztr_gas_added_var
+		if = {
+			limit = {
+				NOT = { has_global_variable = ztr_hidden_traits_var }
+			}
+			gas_small_add_deposits = yes
+			gas_medium_add_deposits = yes
+			gas_big_add_deposits = yes
+			gas_huge_add_deposits = yes
+		}
+		else = {
+			gas_small_add_deposits_hidden = yes
+			gas_medium_add_deposits_hidden = yes
+			gas_big_add_deposits_hidden = yes
+			gas_huge_add_deposits_hidden = yes
+		}
+	}
+}
+
+# Rare Earths
+
+ztr_economic_update.24 = {
+	dlc = dlc_tech_res
+	type = country_event
+	placement = ROOT
+	event_image = {
+		video = "southamerica_war_civilians"
+	}
+	hidden = yes
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	icon = "gfx/interface/icons/event_icons/event_default.dds"
+
+	title = ztr_economic_update.24.t
+	desc = ztr_economic_update.24.d
+
+	duration = 1
+	
+	trigger = {
+		#On Actions
+	}
+
+	immediate = {
+		set_global_variable = ztr_rare_earths_added_var
+		if = {
+			limit = {
+				NOT = { has_global_variable = ztr_hidden_traits_var }
+			}
+			rare_earths_small_add_deposits = yes
+			rare_earths_medium_add_deposits = yes
+			rare_earths_big_add_deposits = yes
+		}
+		else = {
+			rare_earths_small_add_deposits_hidden = yes
+			rare_earths_medium_add_deposits_hidden = yes
+			rare_earths_big_add_deposits_hidden = yes
+		}
+	}
+}
+
+# Liberty Index Rankings
+
+ztr_economic_update.100 = {
+	dlc = dlc_tech_res
+	type = country_event
+	placement = ROOT
+	event_image = {
+		video = "unspecific_world_fair"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	icon = "gfx/interface/icons/event_icons/liberty_index_small.dds"
+
+	title = liberty_index.t
+	desc = liberty_index_rankings.d
+
+	duration = 1
+
+	
+	
+	trigger = {
+		#On Actions
+	}
+
+	immediate = {
+		ztr_liberty_autocracy_index_ranking_variables = yes
+		ztr_liberty_gdp_ranking_effect = yes
+		ztr_autocracy_gdp_ranking_effect = yes
+		#ztr_liberty_index_ranking_effect = yes
+		#ztr_autocracy_index_ranking_effect = yes
+	}
+
+	option = {
+		name = liberty_index_rankings.option
+		default_option = yes
+		remove_variable = liberty_index_opened_var	
+	}
+}
+
+ztr_economic_update.101 = {
+	dlc = dlc_tech_res
+	type = country_event
+	placement = ROOT
+	event_image = {
+		video = "unspecific_world_fair"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	icon = "gfx/interface/icons/event_icons/equality_index.dds"
+
+	title = equality_index.t
+	desc = equality_index_rankings.d
+
+	duration = 1
+	
+	trigger = {
+		#On Actions
+	}
+
+	immediate = {
+		ztr_socialist_individualist_index_ranking_variables = yes
+		ztr_socialist_gdp_ranking_effect = yes
+		ztr_individualist_gdp_ranking_effect = yes
+		#ztr_equality_index_ranking_effect = yes
+		#ztr_capitalist_index_ranking_effect = yes
+	}
+
+	option = {
+		name = equality_index_rankings.option
+		default_option = yes
+		remove_variable = equality_index_opened_var			
 	}
 }

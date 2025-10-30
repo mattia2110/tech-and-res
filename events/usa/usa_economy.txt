@@ -23,7 +23,11 @@ usa_economy.1 = {
 		year < 1875
 		NOT = { has_modifier = usa_gilded_age }
 		NOT = { has_modifier = usa_gilded_age_player }
-		is_democracy = yes
+		OR = {
+			is_democracy = yes
+			ig:ig_landowners = { is_powerful = no }
+			ig:ig_industrialists = { is_powerful = yes }
+		}
 		has_technology_researched = mutual_funds
 	}
 

@@ -62,9 +62,11 @@
 		OR = {
 			AND = {
 				has_technology_researched = icbms
-				any_scope_building = {
-					is_building_type = building_nuclear_weapons_silo
-					has_active_production_method = pm_icbms
+				any_scope_state = {
+					any_scope_building = {
+						is_building_type = building_nuclear_weapons_silo
+						has_active_production_method = pm_icbms
+					}
 				}
 			}
 			has_strategic_adjacency = scope:target_country
@@ -161,57 +163,73 @@
 
 	decline_effect = {
 		hidden_effect = {
-		#Fail safe in case parties peaced out before timer expired
-		
-		if = {
-			limit = {
-				OR = {
-					AND = {
-						any_scope_war = {
-							is_warleader = scope:actor
-							is_warleader = scope:target_country
-							is_war_participant = scope:actor
-							is_war_participant = scope:target_country
-						}
-						scope:target_country = { is_diplomatic_play_enemy_of = scope:actor }
-						has_war_with = scope:target_country
-						NOT = { is_in_war_together = scope:target_country }
-					}
-					AND = {
-						NOT = { is_in_war_together = scope:target_country }
-						any_country = {
-							has_diplomatic_pact = { who = scope:actor type = station_nuclear_weapons is_initiator = no }
-							has_war_with = scope:target_country
+			#Fail safe in case parties peaced out before timer expired
+			
+			if = {
+				limit = {
+					OR = {
+						AND = {
 							any_scope_war = {
-								is_warleader = root
+								is_warleader = scope:actor
 								is_warleader = scope:target_country
+								is_war_participant = scope:actor
+								is_war_participant = scope:target_country
 							}
-							is_diplomatic_play_enemy_of = scope:target_country
+							scope:target_country = { is_diplomatic_play_enemy_of = scope:actor }
+							has_war_with = scope:target_country
+							NOT = { is_in_war_together = scope:target_country }
+						}
+						AND = {
+							NOT = { is_in_war_together = scope:target_country }
+							any_country = {
+								has_diplomatic_pact = { who = scope:actor type = station_nuclear_weapons is_initiator = no }
+								has_war_with = scope:target_country
+								any_scope_war = {
+									is_warleader = root
+									is_warleader = scope:target_country
+								}
+								is_diplomatic_play_enemy_of = scope:target_country
+							}
 						}
 					}
 				}
-			}
-		
-			#THIS gains infamy for unprovoked nuclear attack
-			create_incident = {
-				country = scope:target_country
-				value = 50
-			}
 			
-			#Notice
-			scope:actor = { save_scope_as = nuclear_war_actor }
-			scope:target_country = { save_scope_as = nuclear_war_target }
-			
-			#Start nuclear war
-			# This calculates damage between actor and target country
-			effect_launch_nuclear_weapons_to_target = yes
-			# This calculates damage between actor and all target allied countries
-			effect_launch_nuclear_weapons_to_all_enemy_countries = yes
-			# This calculates damage between target and all actor allied countries
-			effect_launch_nuclear_weapons_to_all_allied_countries = yes
-			# This will remove possible duplicates
-			effect_cleanup_nuclear_damage = yes
-		}
+				#THIS gains infamy for unprovoked nuclear attack
+				create_incident = {
+					country = scope:target_country
+					value = 50
+				}
+				
+				#Notice
+				scope:actor = { save_scope_as = nuclear_war_actor }
+				scope:target_country = { save_scope_as = nuclear_war_target }
+				
+				#Start nuclear war
+				# This calculates damage between actor and target country
+				effect_launch_nuclear_weapons_to_target = yes
+
+				if = {
+					limit = {
+						NOT = { has_global_variable = ztr_atomic_bomb_first_use_var }
+					}
+					every_country = {
+						limit = {
+							NOR = {
+								scope:actor = this
+								scope:target_country = this
+							}
+						}
+						trigger_event = nuclear_warfare_system.9
+					}
+				}
+
+				# This calculates damage between actor and all target allied countries
+				effect_launch_nuclear_weapons_to_all_enemy_countries = yes
+				# This calculates damage between target and all actor allied countries
+				effect_launch_nuclear_weapons_to_all_allied_countries = yes
+				# This will remove possible duplicates
+				effect_cleanup_nuclear_damage = yes
+			}
 		}
 		custom_tooltip = {
 			text = launch_nuclear_weapons.1.tt
@@ -232,7 +250,12 @@
 			#THIS is losing the war against TARGET
 			has_war_with = scope:target_country
 			OR = {
-			
+				# No one knows how powerful nukes are as if they were never used before
+				# So actor will instantaneously use it against target if it is important enough
+				AND = {
+					scope:target_country = { country_rank >= scope:actor.country_rank }
+					NOT = { has_global_variable = ztr_atomic_bomb_first_use_var }
+				}
 				AND = {
 					#THIS is losing the war against TARGET
 					OR = { 
@@ -269,17 +292,17 @@
 				AND = {
 					OR = {
 						NOT = { has_variable = signed_nuclear_non_proliferation_treaty }
-						scope:target_country = { is_democracy = no }
+						scope:target_country = { is_not_democracy = yes }
 						has_modifier = ztr_superpower
 					}
 					is_imperfect_democracy = yes
 				}
-				# A full democracy would use them if atomic bomb was never used in the world, and either it not signed the NPT or is a great power or is a superpower
+				# A full democracy would use them if atomic bomb was never used in the world, and either it hasn't signed the NPT or is a great power or is a superpower
 				AND = {
 					OR = {
 						AND = {
 							NOT = { has_global_variable = ztr_atomic_bomb_first_use_var }
-							scope:target_country = { is_democracy = no }
+							scope:target_country = { is_not_democracy = yes }
 						}
 						AND = {
 							NOT = { has_variable = signed_nuclear_non_proliferation_treaty }
@@ -294,6 +317,16 @@
 	
 		accept_score = {
 			value = 0
+			
+			if = {
+				limit = { 
+					NOT = { has_global_variable = ztr_atomic_bomb_first_use_var }
+				}
+				add = {
+					desc = "WHAT_IS_A_NUKE"
+					value = -1000
+				}
+			}
 			if = {
 				limit = { 
 					scope:target_country = { NOT = { has_modifier = nuclear_capability } }

@@ -102,7 +102,7 @@ ztr_autocracy_gdp_ranking_effect = {
 			NOT = { #Hopefully keeps revolutions to appear in the ranking
 				is_revolutionary = yes
 			}
-			NOT = { is_democracy = yes }
+			is_not_democracy = yes
 		}
 		order_by = gdp
 		max = 5 #Limits the list to the ten top countires
@@ -183,6 +183,196 @@ ztr_autocracy_gdp_ranking_effect = {
 			root = {
 				set_variable = {
 					name = ztr_autocracy_gdp_rank_5_var
+					value = prev
+				}
+			}
+		}
+	}	
+}
+
+# Order by GDP
+
+ztr_socialist_gdp_ranking_effect = {
+	ordered_country = {
+		limit = {
+			NOT = { #Hopefully keeps revolutions to appear in the ranking
+				is_revolutionary = yes
+			}
+			is_socialist_state = yes
+		}
+		order_by = gdp
+		max = 5 #Limits the list to the ten top countires
+		check_range_bounds = no #prevents errors
+
+		#This part checks one after another whether the the first, second, etc. ranked countries are saved already.
+		#Luckily the ordered_country effect iterates through the countries one after another.
+		#So the first country gets saved to the first variable but as that variable now is set,
+		# the second country gets saved to the second variable and so on.
+		if = {
+			limit = {
+				NOT = {
+					root = {
+						has_variable = ztr_socialist_gdp_rank_1_var
+					}
+				}
+			}
+			root = { #The countries are actually saved to the country that uses the effect in the event window
+				set_variable = {
+					name = ztr_socialist_gdp_rank_1_var
+					value = prev
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				NOT = {
+					root = {
+						has_variable = ztr_socialist_gdp_rank_2_var
+					}
+				}
+			}
+			root = {
+				set_variable = {
+					name = ztr_socialist_gdp_rank_2_var
+					value = prev
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				NOT = {
+					root = {
+						has_variable = ztr_socialist_gdp_rank_3_var
+					}
+				}
+			}
+			root = {
+				set_variable = {
+					name = ztr_socialist_gdp_rank_3_var
+					value = prev
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				NOT = {
+					root = {
+						has_variable = ztr_socialist_gdp_rank_4_var
+					}
+				}
+			}
+			root = {
+				set_variable = {
+					name = ztr_socialist_gdp_rank_4_var
+					value = prev
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				NOT = {
+					root = {
+						has_variable = ztr_socialist_gdp_rank_5_var
+					}
+				}
+			}
+			root = {
+				set_variable = {
+					name = ztr_socialist_gdp_rank_5_var
+					value = prev
+				}
+			}
+		}
+	}	
+}
+
+ztr_individualist_gdp_ranking_effect = {
+	ordered_country = {
+		limit = {
+			NOT = { #Hopefully keeps revolutions to appear in the ranking
+				is_revolutionary = yes
+			}
+			is_individualist_state = yes
+		}
+		order_by = gdp
+		max = 5 #Limits the list to the ten top countires
+		check_range_bounds = no #prevents errors
+
+		#This part checks one after another whether the the first, second, etc. ranked countries are saved already.
+		#Luckily the ordered_country effect iterates through the countries one after another.
+		#So the first country gets saved to the first variable but as that variable now is set,
+		# the second country gets saved to the second variable and so on.
+		if = {
+			limit = {
+				NOT = {
+					root = {
+						has_variable = ztr_individualist_gdp_rank_1_var
+					}
+				}
+			}
+			root = { #The countries are actually saved to the country that uses the effect in the event window
+				set_variable = {
+					name = ztr_individualist_gdp_rank_1_var
+					value = prev
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				NOT = {
+					root = {
+						has_variable = ztr_individualist_gdp_rank_2_var
+					}
+				}
+			}
+			root = {
+				set_variable = {
+					name = ztr_individualist_gdp_rank_2_var
+					value = prev
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				NOT = {
+					root = {
+						has_variable = ztr_individualist_gdp_rank_3_var
+					}
+				}
+			}
+			root = {
+				set_variable = {
+					name = ztr_individualist_gdp_rank_3_var
+					value = prev
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				NOT = {
+					root = {
+						has_variable = ztr_individualist_gdp_rank_4_var
+					}
+				}
+			}
+			root = {
+				set_variable = {
+					name = ztr_individualist_gdp_rank_4_var
+					value = prev
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				NOT = {
+					root = {
+						has_variable = ztr_individualist_gdp_rank_5_var
+					}
+				}
+			}
+			root = {
+				set_variable = {
+					name = ztr_individualist_gdp_rank_5_var
 					value = prev
 				}
 			}
@@ -292,7 +482,7 @@ ztr_autocracy_index_ranking_effect = {
 			NOT = { #Hopefully keeps revolutions to appear in the ranking
 				is_revolutionary = yes
 			}
-			NOT = { is_democracy = yes }
+			is_not_democracy = yes
 			var:liberty_index_var >= 1
 			gdp > 1000000 # Avoids very small countries
 		}
@@ -395,22 +585,35 @@ ztr_liberty_autocracy_index_ranking_variables = {
 	remove_variable = ztr_liberty_gdp_rank_3_var
 	remove_variable = ztr_liberty_gdp_rank_4_var
 	remove_variable = ztr_liberty_gdp_rank_5_var
-	remove_variable = ztr_autocracy_gdp_rank_1_var
-	remove_variable = ztr_autocracy_gdp_rank_2_var
-	remove_variable = ztr_autocracy_gdp_rank_3_var
-	remove_variable = ztr_autocracy_gdp_rank_4_var
-	remove_variable = ztr_autocracy_gdp_rank_5_var
+	# remove_variable = ztr_autocracy_gdp_rank_1_var
+	# remove_variable = ztr_autocracy_gdp_rank_2_var
+	# remove_variable = ztr_autocracy_gdp_rank_3_var
+	# remove_variable = ztr_autocracy_gdp_rank_4_var
+	# remove_variable = ztr_autocracy_gdp_rank_5_var
 	#Liberty Index
 	remove_variable = ztr_liberty_index_rank_1_var
 	remove_variable = ztr_liberty_index_rank_2_var
 	remove_variable = ztr_liberty_index_rank_3_var
 	remove_variable = ztr_liberty_index_rank_4_var
 	remove_variable = ztr_liberty_index_rank_5_var
-	remove_variable = ztr_autocracy_index_rank_1_var
-	remove_variable = ztr_autocracy_index_rank_2_var
-	remove_variable = ztr_autocracy_index_rank_3_var
-	remove_variable = ztr_autocracy_index_rank_4_var
-	remove_variable = ztr_autocracy_index_rank_5_var
+	# remove_variable = ztr_autocracy_index_rank_1_var
+	# remove_variable = ztr_autocracy_index_rank_2_var
+	# remove_variable = ztr_autocracy_index_rank_3_var
+	# remove_variable = ztr_autocracy_index_rank_4_var
+	# remove_variable = ztr_autocracy_index_rank_5_var
+}
+
+ztr_socialist_individualist_index_ranking_variables = {
+    remove_variable = ztr_socialist_gdp_rank_1_var
+	remove_variable = ztr_socialist_gdp_rank_2_var
+	remove_variable = ztr_socialist_gdp_rank_3_var
+	remove_variable = ztr_socialist_gdp_rank_4_var
+	remove_variable = ztr_socialist_gdp_rank_5_var
+	remove_variable = ztr_individualist_gdp_rank_1_var
+	remove_variable = ztr_individualist_gdp_rank_2_var
+	remove_variable = ztr_individualist_gdp_rank_3_var
+	remove_variable = ztr_individualist_gdp_rank_4_var
+	remove_variable = ztr_individualist_gdp_rank_5_var
 }
 
 # Nuclear Offense

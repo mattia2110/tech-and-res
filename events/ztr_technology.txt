@@ -25,37 +25,49 @@ ztr_technology.1 = {
 	}
 
 	immediate = {
-		if = {
-			limit = {
-				capital = {
-					is_split_state = no
-					any_scope_building = {
-						is_building_type = building_urban_center
-						level >= 20
-					}
-				}
-			}
-			capital = {
-				save_scope_as = research_center_site
-			}
-		}
-		else = {
-			random_scope_state = {
-				limit = {
-					is_incorporated = yes
-					is_split_state = no
-					any_scope_building = {
-						is_building_type = building_urban_center
-						level >= 20
-					}
-				}
-				save_scope_as = research_center_site
-			}
+		# if = {
+		# 	limit = {
+		# 		capital = {
+		# 			is_split_state = no
+		# 			any_scope_building = {
+		# 				is_building_type = building_urban_center
+		# 				level >= 100
+		# 			}
+		# 			any_scope_building = {
+		# 				is_building_type = building_university
+		# 				level >= 5
+		# 			}
+		# 		}
+		# 	}
+		# 	capital = {
+		# 		save_scope_as = research_center_site
+		# 	}
+		# }
+		# else = {
+		# 	random_scope_state = {
+		# 		limit = {
+		# 			is_incorporated = yes
+		# 			is_split_state = no
+		# 			any_scope_building = {
+		# 				is_building_type = building_urban_center
+		# 				level >= 100
+		# 			}
+		# 			any_scope_building = {
+		# 				is_building_type = building_university
+		# 				level >= 5
+		# 			}
+		# 		}
+		# 		save_scope_as = research_center_site
+		# 	}
+		# }
+		# For now, always in capital
+		capital = {
+			save_scope_as = research_center_site
 		}
 	}
 
 	option = {
-		name = research_center.1.a
+		name = research_center.1.major_power
         default_option = yes
         scope:research_center_site = {
         	add_modifier = {
@@ -69,6 +81,20 @@ ztr_technology.1 = {
         	type = je_research_center_construction
         	target = scope:research_center_site
         }
+		ai_chance = {
+			base = 1
+		}
+	}
+
+	option = {
+		name = research_center.1.minor_power
+		add_modifier = ztr_modern_universities_linkage
+		trigger = {
+			country_rank < rank_value:major_power
+		}
+		ai_chance = {
+			base = 1000
+		}
 	}
 }
 
@@ -118,5 +144,43 @@ ztr_technology.2 = {
 		# 	years = 5
         # 	is_decaying = yes
         # }
+	}
+}
+
+# research_center complete
+ztr_technology.3 = {
+	type = country_event
+
+	title = research_center.3.t
+	desc = research_center.3.d
+
+	placement = root
+
+	event_image = {
+		video = "quantum_physics"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	icon = "gfx/interface/icons/event_icons/innovation.dds"
+
+	duration = 3
+
+	trigger = {
+		any_scope_state = {
+			is_capital = no
+			has_building = building_research_center
+			count > 0
+		}
+	}
+
+	immediate = {
+		every_scope_state = {
+			limit = {
+				is_capital = no
+				has_building = building_research_center
+			}
+			remove_building = building_research_center
+		}
 	}
 }

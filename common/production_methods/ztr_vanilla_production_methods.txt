@@ -8,7 +8,7 @@ pm_basic_port = {
 			goods_output_organized_data_add = 0.5
 		}
 		level_scaled = {
-			building_employment_laborers_add = 700
+			building_employment_laborers_add = 650
 			building_employment_clerks_add = 200
 			building_employment_bureaucrats_add = 100
 		}
@@ -16,7 +16,7 @@ pm_basic_port = {
 
 	country_modifiers = {
 		workforce_scaled = {
-			country_convoys_capacity_add = 125
+			country_convoys_capacity_add = 100
 		}
 	}
 	state_modifiers = {
@@ -41,7 +41,7 @@ pm_industrial_port = {
 			goods_output_organized_data_add = 1
 		}
 		level_scaled = {
-			building_employment_laborers_add = 500
+			building_employment_laborers_add = 450
 			building_employment_machinists_add = 200
 			building_employment_clerks_add = 200
 			building_employment_bureaucrats_add = 100
@@ -50,7 +50,7 @@ pm_industrial_port = {
 
 	country_modifiers = {
 		workforce_scaled = {
-			country_convoys_capacity_add = 200
+			country_convoys_capacity_add = 150
 		}
 	}
 	state_modifiers = {
@@ -74,7 +74,7 @@ pm_modern_port = {
 			goods_output_organized_data_add = 2
 		}
 		level_scaled = {
-			building_employment_laborers_add = 400
+			building_employment_laborers_add = 350
 			building_employment_machinists_add = 250
 			building_employment_engineers_add = 50
 			building_employment_clerks_add = 200
@@ -84,7 +84,7 @@ pm_modern_port = {
 
 	country_modifiers = {
 		workforce_scaled = {
-			country_convoys_capacity_add = 275
+			country_convoys_capacity_add = 200
 		}
 	}
 	state_modifiers = {
@@ -103,25 +103,24 @@ pm_advanced_port = {
 	building_modifiers = {
 		workforce_scaled = {	
 			goods_input_steamers_add = 5 #New Cargo Ship
-			goods_input_telephones_add = 1
 			goods_input_robotics_add = 1
-			goods_input_heavy_fuel_add = 5
+			goods_input_heavy_fuel_add = 4
 			goods_output_merchant_marine_add = 45 # 1500
 			goods_output_organized_data_add = 5
 
 		}
 		level_scaled = {
-			building_employment_laborers_add = 300
-			building_employment_machinists_add = 300
-			building_employment_engineers_add = 100
-			building_employment_clerks_add = 200
+			building_employment_laborers_add = 250
+			building_employment_machinists_add = 250
+			building_employment_engineers_add = 50
+			building_employment_clerks_add = 150
 			building_employment_bureaucrats_add = 100
 		}
 	}
 
 	country_modifiers = {
 		workforce_scaled = {
-			country_convoys_capacity_add = 350
+			country_convoys_capacity_add = 250
 		}
 	}
 	state_modifiers = {
@@ -2300,6 +2299,101 @@ pm_steam_whaling_ships = {
 			building_employment_laborers_add = 3000
 			building_employment_machinists_add = 1000
 			building_employment_engineers_add = 500
+		}
+	}
+}
+
+# Subsistence PMs
+
+default_building_subsistence_farms = {
+	texture = "gfx/interface/icons/production_method_icons/subsistence_farming.dds"
+	
+	building_modifiers = {
+		workforce_scaled = { # 55
+			goods_output_grain_add = 1.0 # 20
+			goods_output_fabric_add = 0.5 # 10
+			goods_output_wood_add = 0.5 # 10
+			goods_output_services_add = 0.5 # 15
+			goods_output_water_add = 0.05
+		}
+
+		level_scaled = {
+			building_employment_peasants_add = 5000
+		}
+	}
+}
+
+default_building_subsistence_orchards = {
+	texture = "gfx/interface/icons/production_method_icons/subsistence_farming.dds"
+	
+	building_modifiers = {
+		workforce_scaled = { # 55
+			goods_output_grain_add = 0.25 # 5 
+			goods_output_fruit_add = 0.5 # 15
+			goods_output_fabric_add = 0.5 # 10
+			goods_output_wood_add = 0.5 # 10
+			goods_output_services_add = 0.5 # 15
+			goods_output_water_add = 0.05
+		}
+
+		level_scaled = {
+			building_employment_peasants_add = 5000
+		}
+	}
+}
+
+default_building_subsistence_pastures = {
+	texture = "gfx/interface/icons/production_method_icons/subsistence_farming.dds"
+	
+	building_modifiers = {
+		workforce_scaled = { # 55
+			goods_output_grain_add = 0.25 # 5
+			goods_output_meat_add = 0.5 # 15
+			goods_output_fabric_add = 0.75 # 15
+			goods_output_wood_add = 0.25 # 5
+			goods_output_services_add = 0.5 # 15
+			goods_output_water_add = 0.05
+		}
+
+		level_scaled = {
+			building_employment_peasants_add = 5000
+		}
+	}
+}
+
+default_building_subsistence_fishing_villages = {
+	texture = "gfx/interface/icons/production_method_icons/subsistence_farming.dds"
+	
+	building_modifiers = {
+		workforce_scaled = { # 55
+			goods_output_grain_add = 0.5 # 10
+			goods_output_fish_add = 1.0 # 20
+			goods_output_fabric_add = 0.25 # 5
+			goods_output_wood_add = 0.25 # 5
+			goods_output_services_add = 0.5 # 15
+			goods_output_water_add = 0.05
+		}
+
+		level_scaled = {
+			building_employment_peasants_add = 5000
+		}
+	}
+}
+
+default_building_subsistence_rice_paddies = {
+	texture = "gfx/interface/icons/production_method_icons/subsistence_farming.dds"
+	
+	building_modifiers = {
+		workforce_scaled = { # 100
+			goods_output_grain_add = 2 # 40
+			goods_output_fabric_add = 0.75 # 15
+			goods_output_wood_add = 0.75 # 15
+			goods_output_services_add = 1 # 30
+			goods_output_water_add = 0.05
+		}
+
+		level_scaled = {
+			building_employment_peasants_add = 10000
 		}
 	}
 }

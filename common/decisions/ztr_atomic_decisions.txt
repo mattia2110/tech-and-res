@@ -2,30 +2,41 @@ start_nuclear_weapons_program_decision = {
 
 	is_shown = {
 		has_technology_researched = verrier_nuclear_physics_tech
+		# Nuclear Weapon without bombers doesn't make any sense (Missiles tech need bombers tech too)
+		has_technology_researched = bombing
 		NOT = { has_modifier = nuclear_capability }
 		NOT = { has_variable = nuclear_program_started }
+		NOT = { has_variable = signed_nuclear_non_proliferation_treaty }
 
 		#THIS is a major power or dictatorship
 		OR = {
-			country_rank >= rank_value:great_power
-			NOT = { is_full_democracy = yes }
+			AND = {
+				# Flawed democracy and autocracy only if it is a great power
+				country_rank >= rank_value:great_power
+				# Not a full democracy
+				is_not_full_democracy = yes
+			}
+			# A dictatorship will always want nukes
 			is_dictatorship = yes
 		}
 		
 		#THIS must not be a revolutionary
 		is_revolutionary = no
 		is_secessionist = no
+
+		#TODO Israel
+		#c:ISR ?= this
 	}
 
 	possible = {
+		# Must have a research center
 		has_research_center = yes
-		#Must be a sovereign state
+		# Must be a sovereign state
 		is_subject = no
-		#THIS is not broke
+		# THIS is not broke
 		in_default = no
-		#THIS is not in the midst of a revolution
+		# THIS is not in the midst of a revolution
 		has_revolution = no
-		#Has nuclear weapons tech
 	}
 	
 	when_taken = {
@@ -37,6 +48,7 @@ start_nuclear_weapons_program_decision = {
 		#Add JE
 		add_journal_entry = { type = je_develop_nuclear_weapons }
 
+		# World will hate this only if nuclear bomb is actually used
 		if = {
 			limit = { has_global_variable = ztr_atomic_bomb_first_use_var }
 			#Hostile countries become more hostile
@@ -68,10 +80,7 @@ start_nuclear_weapons_program_decision = {
 				}
 			}
 			#International community does not like this
-			change_infamy = 20
-		}
-		else = {
-			#Nothing, since no one knows what is going on
+			change_infamy = 30
 		}	
 	}
 
@@ -102,7 +111,7 @@ develop_thermonuclear_weapons_decision = {
 		#THIS is a major power or dictatorship
 		OR = {
 			country_rank >= rank_value:great_power
-			NOT = { is_full_democracy = yes }
+			is_not_full_democracy = yes
 			is_dictatorship = yes
 		}
 		
@@ -128,6 +137,7 @@ develop_thermonuclear_weapons_decision = {
 		#Add JE
 		add_journal_entry = { type = je_develop_thermonuclear_weapons }
 
+		# Here world will already know about nukes
 		every_country = {
 			limit = {
 				OR = {
@@ -146,8 +156,7 @@ develop_thermonuclear_weapons_decision = {
 						NOT = { is_subject = yes }
 						has_diplomatic_pact = { who = ROOT type = rivalry }
 						OR = { has_modifier = nuclear_capability has_variable = nuclear_program_started }
-					}
-					
+					}					
 				}
 			}
 			change_relations = {
@@ -155,8 +164,12 @@ develop_thermonuclear_weapons_decision = {
 				value = -100
 			}
 		}
-		#International community does not like this
-		change_infamy = 20	
+		#International community doesn't like this, but if it is a superpower, less
+		if = {
+			limit = { has_modifier = ztr_superpower }
+			change_infamy = 25	
+		}
+		change_infamy = 50	
 	}
 
 	ai_chance = {
@@ -191,7 +204,7 @@ join_nuclear_non_proliferation_treaty_decision = {
 
 	possible = {
 		#Not currently developing WMD
-		NOT = { has_journal_entry = je_develop_nuclear_weapons }
+		#NOT = { has_journal_entry = je_develop_nuclear_weapons }
 		#THIS is independent
 		is_subject = no
 		#THIS is not currently at war
@@ -227,9 +240,10 @@ join_nuclear_non_proliferation_treaty_decision = {
 		value = 0
 		if = {
 			limit = {
-				#Country is not faced with a nuclear threat from somewhere
 				NOR = {
-					country_rank >= rank_value:great_power
+					# Not a Superpower
+					has_modifier = ztr_superpower
+					# Not a rival nuclear power
 					any_rival_country = { 
 						OR = { 
 							has_modifier = nuclear_capability
@@ -243,10 +257,17 @@ join_nuclear_non_proliferation_treaty_decision = {
 							has_variable = nuclear_program_started
 						}
 					}
+					# Not an autocracy/dictatorship with nukes
+					AND = {
+						is_not_democracy = yes
+						has_modifier = nuclear_capability
+					}
+					# Not a dictatorship with nuclear program
+					AND = {
+						is_dictatorship = yes
+						has_variable = nuclear_program_started
+					}
 				}
-				#Country is democratic
-				NOT = { has_modifier = ztr_superpower }
-				is_democracy = yes
 			}
 			add = 100
 		}
@@ -307,7 +328,7 @@ leave_nuclear_non_proliferation_treaty_decision = {
 		
 			limit = {
 			
-				#Country is faced with a nuclear threat from somewhere
+				#Country is faced with a nuclear threat from somewhere or is a Distopia (e.g. North Korea)
 				OR = {
 					any_rival_country = { 
 						OR = { 
@@ -322,8 +343,8 @@ leave_nuclear_non_proliferation_treaty_decision = {
 							has_variable = nuclear_program_started
 						}
 					}
+					is_distopia = yes	
 				}
-				is_dictatorship = yes	
 			}
 			add = 100
 		}

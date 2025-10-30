@@ -63,7 +63,6 @@ ztr_superpower.2 = {
 
 	trigger = {
 		global_country_ranking > 2
-		has_technology_researched = neoimperialism
 		has_modifier = ztr_superpower
 	}
 
@@ -75,5 +74,59 @@ ztr_superpower.2 = {
 		name = ztr_superpower.2.a
 		default_option = yes
 		remove_modifier = ztr_superpower
+	}
+}
+
+#This event is very useful for USA, since it normally maintains militia law for a long time
+#UNUSED STILL KEEPING IT FOR NOW
+ztr_superpower.3 = {
+	dlc = dlc_tech_res
+	type = country_event
+	placement = root
+
+	duration = 1
+
+	title = ztr_superpower.3.t
+	desc = ztr_superpower.3.d
+
+	event_image = {
+		video = "unspecific_military_parade"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	icon = "gfx/interface/icons/event_icons/bicorne_hat.dds"
+
+	trigger = {
+		has_modifier = ztr_superpower
+		has_law_or_variant = law_type:law_national_militia
+	}
+
+	immediate = {
+		law_type:law_professional_army = {
+			save_scope_as = professional_law_scope
+		}
+		law_type:law_mass_conscription = {
+			save_scope_as = conscription_law_scope
+		}
+	}
+
+	#Accept Professional Army
+	option = {
+		name = ztr_superpower.professional.option
+		default_option = yes
+		activate_law = law_type:law_professional_army
+	}
+
+	#Accept Mass Conscription
+	option = {
+		name = ztr_superpower.mass.option
+		default_option = yes
+		activate_law = law_type:law_mass_conscription
+	}
+
+	#Decline
+	option = {
+		name = ztr_superpower.decline.option
 	}
 }

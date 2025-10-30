@@ -115,3 +115,31 @@ ztr_super_germany_sphere_of_influence = {
 		value = 1
 	}
 }
+
+ztr_anschluss_decision = {
+	is_shown = {
+		NOT = { has_global_variable = ztr_anschluss_requested }
+		year > 1930
+		c:GER ?= this
+		exists = c:AUS
+		c:AUS = { has_variable = ztr_austria_has_collapsed_var } # Austrian Empire has collapsed
+		has_game_rule = allow_ztr_historical_content
+		OR = {
+			is_dictatorship = yes # Germany is a dictatorship
+			has_state_in_state_region = STATE_AUSTRIA # Germany controls Austria, so Anschluss is obvious
+		}
+	}
+
+	possible = {
+		c:AUS = { country_rank < rank_value:major_power }
+	}
+
+	when_taken = {
+		set_global_variable = ztr_anschluss_requested
+		c:AUS = { trigger_event = germany_pop.2 }
+	}
+
+	ai_chance = {
+		value = 1000
+	}
+}

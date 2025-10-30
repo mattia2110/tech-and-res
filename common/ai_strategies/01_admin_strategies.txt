@@ -262,6 +262,12 @@ ai_strategy_industrial_expansion = {
 				has_technology_researched = bauxite_processing
 			}
 		}
+		rubber = {
+			stance = wants_high_supply
+			trigger = {
+				has_technology_researched = vulcanization
+			}
+		}
 		plastics = {
 			stance = wants_high_supply
 			trigger = {
@@ -427,22 +433,19 @@ ai_strategy_industrial_expansion = {
 
 		if = {
 			limit = {
-				year > 1950
-				OR = {
-					c:KOR ?= this
-					c:JAP ?= this
-				}
+				year > 1945
+				country_is_in_east_asia = yes
 			}
-			add = 250
-		} # This is for Japan without Meiji restoration.
+			add = 1000
+		} # This is for East Asia industrialization
 
 		if = {
 			limit = { 
-				year > 1970
-				country_is_in_east_asia = yes
+				year > 1960
+				country_is_in_southeast_asia = yes
 			}
 			add = 250
-		}
+		} # This is for Asiatic Tiger economies
 
 		# No other continents
 

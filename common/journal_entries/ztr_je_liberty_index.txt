@@ -15,31 +15,38 @@ je_liberty_index = {
 			name = liberty_index_var
 			value = 0
 		}
+		set_variable = {
+			name = equality_index_var
+			value = 0
+		}
 	}
+
+	scripted_button = show_liberty_index_rankings_button
+	scripted_button = show_equality_index_rankings_button
+
+	scripted_progress_bar = liberty_index_progress_bar
+	scripted_progress_bar = equality_index_progress_bar
 
 	on_yearly_pulse = {
 		effect = {
-			# Calculate Liberty Index
-			calculate_liberty_index = yes
-			ztr_liberty_autocracy_index_ranking_variables = yes
-			ztr_liberty_gdp_ranking_effect = yes
-			ztr_autocracy_gdp_ranking_effect = yes
-			ztr_liberty_index_ranking_effect = yes
-			ztr_autocracy_index_ranking_effect = yes
+			# Calculate Liberty and Equality Index
+			calculate_liberty_equality_index = yes
+			calculate_max_liberty_index = yes
+
+			scope:journal_entry = {
+				set_bar_progress = {
+					value = root.var:liberty_index_var
+					name = liberty_index_progress_bar
+				}
+				set_bar_progress = {
+					value = root.var:equality_index_var
+					name = equality_index_progress_bar
+				}
+			}
 		}
 	}
 
 	transferable = no
-
-	current_value = {
-		value = var:liberty_index_var
-	}
-
-	goal_add_value = {
-		value = 100
-	}
-
-	progressbar = yes
 
 	weight = 1
 }

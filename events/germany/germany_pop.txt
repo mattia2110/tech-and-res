@@ -39,3 +39,136 @@ germany_pop.1 = {
 		}
 	}
 }
+
+# Anschluss
+
+germany_pop.2 = {
+	dlc = dlc_tech_res
+	type = country_event
+	placement = root
+
+	duration = 1
+
+	title = anschluss.t
+	desc = {
+         first_valid = {
+			triggered_desc = {
+				trigger = {
+					c:GER = { is_dictatorship = yes }
+				}
+				desc = anschluss_dictatorship.d
+			}
+			triggered_desc = {
+				trigger = {
+					c:GER = { has_state_in_state_region = STATE_AUSTRIA }
+				}
+				desc = anschluss_vienna.d
+			}
+		}
+	}
+
+	event_image = {
+		video = "unspecific_military_parade"
+	}
+
+	icon = "gfx/interface/icons/event_icons/event_newspaper.dds"
+
+	trigger = {
+		# JE
+	}
+
+	immediate = {
+		c:GER = {
+			save_scope_as = ztr_germany_scope
+		}
+	}
+
+	# Accept Anschluss
+	option = {
+		name = anschluss_accept.option
+		default_option = yes
+		c:GER = { trigger_event = germany_pop.3 }
+		c:GER = {
+			annex = c:AUS
+		}
+		ai_chance = {
+			value = 5
+			modifier = {
+				trigger = {
+					scope:germany_scope.relations:root > relations_threshold:cordial
+				}
+				add = 5
+			}
+		}
+	}
+
+	# Austria will never refuse if it doesn't control Vienna
+
+	# Refuse despite Germany is a dictatorship and may annex Austria anyway
+	option = {
+		name = anschluss_refuse.option
+		trigger = {
+			c:GER = { is_dictatorship = yes }
+			has_state_in_state_region = STATE_AUSTRIA
+		}
+		change_relations = {
+			country = c:GER
+			value = -100
+		}
+		c:GER = {
+			# create_incident = {
+			# 	value = 10
+			# 	country = c:AUS
+			# }
+			create_diplomatic_play = {
+				target_country = c:AUS
+				type = dp_annex_war
+			}
+		}
+		ai_chance = {
+			value = 5
+		}
+	}
+}
+
+# Anschluss Accepted
+
+germany_pop.3 = {
+	dlc = dlc_tech_res
+	type = country_event
+	placement = root
+
+	duration = 1
+
+	title = anschluss_accepted.t
+	desc = anschluss_accepted.d
+
+	event_image = {
+		video = "unspecific_military_parade"
+	}
+
+	icon = "gfx/interface/icons/event_icons/event_newspaper.dds"
+
+	trigger = {
+		# JE
+	}
+
+	immediate = {
+		
+	}
+
+	option = {
+		name = anschluss_accepted.option
+		default_option = yes
+		trigger = {
+			c:GER = { is_not_dictatorship = yes }
+		}
+	}
+
+	option = {
+		name = anschluss_accepted_reich.option
+		trigger = {
+			c:GER = { is_dictatorship = yes }
+		}
+	}
+}

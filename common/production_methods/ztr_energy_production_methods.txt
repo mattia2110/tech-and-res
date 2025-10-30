@@ -1,29 +1,197 @@
-#Power Plant
+# Hydroelectric Power Plants
 
-# pm_hydroelectric_plant = {
-# 	texture = "gfx/interface/icons/production_method_icons/hydroelectric_plant.dds"
+pm_run_of_river_plants = {
+	texture = "gfx/interface/icons/production_method_icons/pm_run_of_river_plants.dds"
 
-# 	state_modifiers = {
-# 		workforce_scaled = {
-# 			state_pollution_generation_add = 10
-# 		}
-# 	}
+	building_modifiers = {
+		workforce_scaled = {
+			goods_input_steel_add = 10 # 1000
+			goods_input_batteries_add = 5 #300
+			goods_input_engines_add = 10 # 600
+			goods_input_wood_add = 20 #400
+			goods_input_copperwires_add = 5 #250 #2150
+			goods_output_electricity_add = 160 # 54000
+		}
+
+		level_scaled = {
+			building_employment_laborers_add = 2500
+			building_employment_machinists_add = 2250
+			building_employment_engineers_add = 250
+		}
+	}
+}
+
+pm_reservoir_dams = {
+	texture = "gfx/interface/icons/production_method_icons/hydroelectric_plant.dds"
+
+	unlocking_technologies = {
+		pneumatic_tools
+	}
+
+	building_modifiers = {
+		workforce_scaled = {
+			goods_input_steel_add = 50 # 1000
+			goods_input_batteries_add = 10 #300
+			goods_input_engines_add = 20 # 600
+			goods_input_copperwires_add = 10 #250 #2150
+			goods_output_electricity_add = 300 # 54000
+		}
+
+		level_scaled = {
+			building_employment_laborers_add = 2500
+			building_employment_machinists_add = 2250
+			building_employment_engineers_add = 250
+		}
+	}
+}
+
+pm_advanced_turbine_generators = {
+	texture = "gfx/interface/icons/production_method_icons/pm_advanced_turbine_generators.dds"
+
+	unlocking_technologies = {
+		oil_turbine
+	}
+
+	building_modifiers = {
+		workforce_scaled = {
+			goods_input_steel_add = 75 # 1000
+			goods_input_batteries_add = 10 #300
+			goods_input_engines_add = 30 # 600
+			goods_input_copperwires_add = 10 #250 #2150
+			goods_input_electroniccomponents_add = 10
+			goods_output_electricity_add = 450 # 54000
+		}
+
+		level_scaled = {
+			building_employment_laborers_add = 2500
+			building_employment_machinists_add = 2250
+			building_employment_engineers_add = 250
+		}
+	}
+}
+
+pm_manual_hydro_operation = {
+	texture = "gfx/interface/icons/production_method_icons/pm_manual_hydro_operation.dds"
+}
+
+pm_pressurized_hydro_systems = {
+	texture = "gfx/interface/icons/production_method_icons/pm_pressurized_hdpe_systems.dds"
 	
-# 	building_modifiers = {
-# 		workforce_scaled = {
-# 			goods_input_engines_add = 8
-# 			goods_input_copperwires_add = 1
-# 			goods_input_batteries_add = 1
-# 			goods_output_electricity_add = 50
-# 		}
+	unlocking_technologies = {
+		hdpe
+	}
+	
+	building_modifiers = {
+		workforce_scaled = {
+			# input goods
+			goods_input_tools_add = 2
+			goods_input_plastics_add = 2
+		}
 
-# 		level_scaled = {
-# 			building_employment_laborers_add = 2000
-# 			building_employment_machinists_add = 1800
-# 			building_employment_engineers_add = 500
-# 		}
-# 	}
-# }
+		level_scaled = {
+			building_employment_laborers_add = -1000
+			building_employment_machinists_add = -500
+		}
+	}
+}
+
+pm_automated_hydro_control_systems = {
+	texture = "gfx/interface/icons/production_method_icons/pm_automated_hydro_control_systems.dds"
+	
+	unlocking_technologies = {
+		automated_industrial_robots
+	}
+	
+	building_modifiers = {
+		workforce_scaled = {
+			# input goods
+			goods_input_robotics_add = 4
+			goods_input_electroniccomponents_add = 5
+			goods_input_lubricant_add = 5
+			goods_input_plastics_add = 2
+		}
+
+		level_scaled = {
+			building_employment_laborers_add = -2000
+			building_employment_machinists_add = -1000
+		}
+	}
+}
+
+pm_smart_grid_hydro = {
+	texture = "gfx/interface/icons/production_method_icons/pm_smart_grid_hydro.dds"
+	
+	unlocking_technologies = {
+		smart_energy_grid
+	}
+	
+	building_modifiers = {
+		workforce_scaled = {
+			# input goods
+			goods_input_robotics_add = 10
+			goods_input_plastics_add = 2
+			goods_input_telecommunications_add = 25
+		}
+
+		level_scaled = {
+			building_employment_laborers_add = -2500
+			building_employment_machinists_add = -1500
+		}
+	}
+}
+
+#Power Plantù
+
+pm_automation_disabled_power_plant = {
+	texture = "gfx/interface/icons/production_method_icons/elgar_no_ballet.dds"
+}
+
+pm_pressurized_systems_power_plant = {
+	texture = "gfx/interface/icons/production_method_icons/pm_pressurized_hdpe_systems.dds"
+
+	unlocking_technologies = {
+		hdpe
+	}
+	
+	building_modifiers = {
+		workforce_scaled = {
+			# input goods
+			goods_input_robotics_add = 1
+			goods_input_plastics_add = 1
+			goods_output_electricity_add = 5
+		}
+
+		level_scaled = {
+			building_employment_laborers_add = -200
+			building_employment_machinists_add = -50
+		}
+	}
+}
+
+pm_smart_grid_energy_management_power_plant = {
+	texture = "gfx/interface/icons/production_method_icons/pm_smart_grid_energy_management.dds"
+	
+	unlocking_technologies = {
+		smart_energy_grid
+	}
+	
+	building_modifiers = {
+		workforce_scaled = {
+			# input goods
+			goods_input_robotics_add = 1
+			goods_input_plastics_add = 1
+			goods_input_telecommunications_add = 5
+			goods_output_electricity_add = 10
+		}
+
+		level_scaled = {
+			building_employment_laborers_add = -200
+			building_employment_machinists_add = -200
+			building_employment_engineers_add = -50
+
+		}
+	}
+}
 
 pm_early_power_plant = {
 	texture = "gfx/interface/icons/production_method_icons/power_plant.dds"
@@ -45,7 +213,7 @@ pm_early_power_plant = {
 		}
 
 		level_scaled = {
-			building_employment_laborers_add = 500
+			building_employment_laborers_add = 400
 			building_employment_machinists_add = 400
 			building_employment_engineers_add = 100
 		}
@@ -147,8 +315,8 @@ pm_gas-fired_plant = {
 		}
 
 		level_scaled = {
-			building_employment_laborers_add = 100
-			building_employment_machinists_add = 600
+			building_employment_laborers_add = 200
+			building_employment_machinists_add = 500
 			building_employment_engineers_add = 200
 		}
 	}
@@ -181,9 +349,10 @@ pm_nuclear-fission_plant = {
 		}
 
 		level_scaled = {
-			building_employment_laborers_add = 100
+			building_employment_laborers_add = 200
 			building_employment_machinists_add = 400
-			building_employment_engineers_add = 400
+			building_employment_engineers_add = 250
+			building_employment_academics_add = 50
 		}
 	}
 
@@ -206,13 +375,9 @@ pm_nuclear_second_generation = {
 	building_modifiers = {
 		workforce_scaled = {
 			# input goods
-			goods_input_robotics_add = 3 #300
+			goods_input_robotics_add = 2 #300
 			goods_input_processors_add = 2 #260
 			goods_output_electricity_add = 20 #600
-		}
-
-		level_scaled = {
-			building_employment_machinists_add = -50
 		}
 	}
 }
@@ -231,14 +396,10 @@ pm_nuclear_third_generation = {
 	building_modifiers = {
 		workforce_scaled = {
 			# input goods
-			goods_input_robotics_add = 4 #400
+			goods_input_robotics_add = 3 #400
 			goods_input_computer_add = 3 #420
 			goods_input_softwares_add = 1 #60
 			goods_output_electricity_add = 35 #1200
-		}
-
-		level_scaled = {
-			building_employment_machinists_add = -50
 		}
 	}
 }
@@ -247,8 +408,12 @@ pm_nuclear_third_generation = {
 
 #Power Plant
 
-no_automation_power_plant = {
+no_refining_power_plant = {
 	texture = "gfx/interface/icons/production_method_icons/elgar_no_radio_stations.dds"
+}
+
+no_automation_power_plant = {
+	texture = "gfx/interface/icons/production_method_icons/elgar_no_ballet.dds"
 }
 
 pm_automation_HFO_fuel = {
@@ -273,11 +438,7 @@ pm_automation_HFO_fuel = {
 			# input goods
 			goods_input_heavy_fuel_add = 15
 			goods_input_oil_add = -25
-			goods_output_electricity_add = 15 #10 +5 for more buildings
-		}
-
-		level_scaled = {
-			building_employment_machinists_add = -100
+			goods_output_electricity_add = 20 #10 +5 for more buildings
 		}
 	}
 }

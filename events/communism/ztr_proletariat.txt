@@ -1,0 +1,681 @@
+namespace = ztr_proletariat
+
+# This happens when the general strike is active after 10 years without resolution
+ztr_proletariat.1 = {
+	dlc = dlc_tech_res
+	type = country_event
+	placement = root
+
+	duration = 1
+
+	title = ztr_strike_ultimatum.t
+	desc = ztr_strike_ultimatum.d
+
+	event_image = {
+		video = "ztr_strike"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	icon = "gfx/interface/icons/event_icons/event_protest.dds"
+
+	trigger = {
+		# JE
+	}
+
+	immediate = {
+		# Here we save possible scopes for later use in the options
+		save_scope_as = strike_country
+		ig:ig_trade_unions ?= {
+			save_scope_as = union_ig_scope
+		}
+		ig:ig_industrialists ?= {
+			save_scope_as = industrialist_ig_scope
+		}
+		# Possible requested law scope
+		ordered_law = {
+			limit = {
+				# They can't be the same law that strikers want
+				OR = {
+					AND = {
+						root = { has_variable = strike_promised_pensions }
+						type ?= law_type:law_old_age_pension
+					}
+					AND = {
+						root = { has_variable = strike_promised_wage_controls }
+						type ?= law_type:law_wage_subsidies
+					}
+					AND = {
+						root = { has_variable = strike_promised_regulatory_bodies }
+						type ?= law_type:law_regulatory_bodies
+					}
+					AND = {
+						root = { has_variable = strike_promised_worker_protections }
+						type ?= law_type:law_worker_protections
+					}
+				}
+			}
+			min = 0
+            max = 2
+            check_range_bounds = no
+			save_scope_as = ztr_strike_law_promised
+		}
+		# Here we determine the other law option
+		ig:ig_trade_unions = {
+			ordered_preferred_law = {
+				limit = {
+					# This laws are too important for a strike concession
+					law_is_valid_for_ig_petition = yes
+					# They can't be the same law that strikers want
+					OR = {
+					AND = {
+						root = { has_variable = strike_promised_pensions }
+						NOT = { type ?= law_type:law_old_age_pension }
+					}
+					AND = {
+						root = { has_variable = strike_promised_wage_controls }
+						NOT = { type ?= law_type:law_wage_subsidies }
+					}
+					AND = {
+						root = { has_variable = strike_promised_regulatory_bodies }
+						NOT = { type ?= law_type:law_regulatory_bodies }
+					}
+					AND = {
+						root = { has_variable = strike_promised_worker_protections }
+						NOT = { type ?= law_type:law_worker_protections }
+					}
+				}
+				}
+				min = 0
+                max = 2
+                check_range_bounds = no
+				save_scope_as = ztr_strike_law_concession
+			}
+		}
+		# Here is a possible fascist movement
+		random_political_movement = {
+			limit = {
+				OR = {
+					is_political_movement_type = movement_fascist
+					is_political_movement_type = movement_reactionary
+					is_political_movement_type = movement_corporatist
+				}
+			}
+			save_scope_as = fascist_movement_scope
+		}
+		# Here we set a variable starting from liberty index and changed based on strike and police laws
+		set_variable = {
+			name = ztr_temporary_liberty_index_var
+			value = var:liberty_index_var
+		}
+		if = {
+			limit = {
+				OR = {
+					ig:ig_armed_forces ?= {
+						is_in_government = yes
+					}
+					ig:ig_landowners ?= {
+						is_in_government = yes
+					}
+				}
+			}
+			change_variable = {
+				name = ztr_temporary_liberty_index_var
+				add = -20
+			}
+		}
+		else_if = {
+			limit = {
+				OR = {
+					ig:ig_industrialists ?= {
+						is_in_government = yes
+					}
+					ig:ig_petty_bourgeoisie ?= {
+						is_in_government = yes
+					}
+				}
+			}
+			change_variable = {
+				name = ztr_temporary_liberty_index_var
+				add = -10
+			}
+		}
+	}
+
+	# Accept Strike requests
+	option = {
+		name = ztr_strike_ultimatum_accept.option
+		trigger = {
+			OR = {
+				has_variable = strike_promised_pensions
+				has_variable = strike_promised_wage_controls
+				has_variable = strike_promised_regulatory_bodies
+				has_variable = strike_promised_worker_protections
+			}
+		}
+		# Effects
+		custom_tooltip = je_end_strike_tt
+		activate_law = scope:ztr_strike_law_promised.type
+		# Response
+		ig:ig_trade_unions ?= {
+			add_modifier = {
+				name = strike_successful_unions
+				days = normal_modifier_time
+			}
+		}
+		add_radicals = {
+			value = 0.15
+			strata = upper
+		}
+		add_radicals = {
+			value = 0.15
+			strata = middle
+		}
+		add_loyalists = {
+			value = 0.15
+			pop_type = laborers
+		}
+		add_loyalists = {
+			value = 0.15
+			pop_type = machinists
+		}
+		remove_variable = ztr_temporary_liberty_index_var
+		ai_chance = {
+			base = 2
+			# Democrazia liberale → più probabile accettare
+			modifier = {
+				trigger = {
+					var:ztr_temporary_liberty_index_var >= 50
+				}
+				add = 10
+			}
+			# Unioni potenti spingono per l'accettazione
+			modifier = {
+				trigger = {
+					ig:ig_trade_unions = { is_powerful = yes }
+				}
+				add = 8
+			}
+			# Industriali NON potenti riducono la resistenza
+			modifier = {
+				trigger = {
+					ig:ig_industrialists ?= { is_powerful = no }
+				}
+				add = 4
+			}
+			# Dittatura/Autocrazia scoraggia l’accettazione
+			modifier = {
+				trigger = {
+					is_autocracy = yes
+				}
+				add = -5
+			}
+			modifier = {
+				trigger = {
+					is_dictatorship = yes
+				}
+				add = -10
+			}
+		}
+	}
+
+	# Give a small concession or another one to finally end the strike
+	option = {
+		name = ztr_strike_ultimatum_give_concession.option
+		trigger = {
+			OR = {
+				NOR = {
+					has_variable = strike_promised_pensions
+					has_variable = strike_promised_wage_controls
+					has_variable = strike_promised_regulatory_bodies
+					has_variable = strike_promised_worker_protections
+				}
+				ig:ig_trade_unions = {
+					is_powerful = yes
+				}
+			}
+		}
+		# Effects
+		custom_tooltip = je_end_strike_tt
+		activate_law = scope:ztr_strike_law_concession.type
+		ig:ig_trade_unions ?= {
+			add_modifier = {
+				name = strike_successful_unions
+				days = normal_modifier_time
+			}
+		}
+
+		# Response
+		add_radicals = {
+			value = 0.1
+			strata = upper
+		}
+		add_radicals = {
+			value = 0.1
+			strata = middle
+		}
+		add_loyalists = {
+			value = 0.1
+			pop_type = laborers
+		}
+		add_loyalists = {
+			value = 0.1
+			pop_type = machinists
+		}
+		remove_variable = ztr_temporary_liberty_index_var
+
+		ai_chance = {
+			base = 3
+			# Democrazia + Unioni in salute → concedere per chiudere la crisi
+			modifier = {
+				trigger = {
+					is_democracy = yes
+					ig:ig_trade_unions = { is_powerful = yes }
+				}
+				add = 8
+			}
+			# Libertà medio-alta ma non altissima → compromesso “alla buona”
+			modifier = {
+				trigger = { var:ztr_temporary_liberty_index_var >= 45 }
+				add = 4
+			}
+			# Industriali non in governo riducono i costi politici della concessione
+			modifier = {
+				trigger = {
+					NOT = { ig:ig_industrialists ?= { is_in_government = yes } }
+				}
+				add = 3
+			}
+			# Se hai già promesso qualcosa (ma non vuoi accettare in pieno) → medio
+			modifier = {
+				trigger = { exists = scope:ztr_strike_law_promised }
+				add = -2
+			}
+			# Regimi autoritari preferiscono altre vie
+			modifier = {
+				trigger = {
+					is_autocracy = yes
+				}
+				add = -4
+			}
+			modifier = {
+				trigger = {
+					is_dictatorship = yes
+				}
+				add = -6
+			}
+		}
+	}
+
+	# Force end the strike with pecuniary and non violent measures
+	option = {
+		name = ztr_strike_ultimatum_non_violent.option
+		default_option = yes
+		# Effects
+		custom_tooltip = je_end_strike_tt
+		if = {
+			limit = {
+				NOT = { has_modifier = rise_of_left_modifier }
+			}
+			add_modifier = {
+				name = rise_of_left_modifier
+				years = 10
+				is_decaying = yes
+			}
+		}
+		# If the strike was legal, the backlash is bigger
+		if = {
+			limit = {
+				has_law_or_variant = law_type:law_right_to_associate
+			}
+			add_radicals = {
+				value = 0.2
+				pop_type = laborers
+			}
+			add_radicals = {
+				value = 0.2
+				pop_type = machinists
+			}
+		}
+		else = {
+			add_radicals = {
+				value = 0.05
+				pop_type = laborers
+			}
+			add_radicals = {
+				value = 0.05
+				pop_type = machinists
+			}
+		}
+		if = {
+			limit = {
+				has_law_or_variant = law_type:law_right_to_associate
+			}
+			activate_law = law_type:law_anti_strike_laws
+		}
+		add_treasury = 50000
+		remove_variable = ztr_temporary_liberty_index_var
+		ai_chance = {
+			base = 2
+			# Democrazia con Unioni potenti: preferisce evitare il sangue
+			modifier = {
+				trigger = {
+					is_democracy = yes
+					ig:ig_trade_unions = { is_powerful = yes }
+				}
+				add = 5
+			}
+			# Se NON c'è diritto d'associazione, il backlash è minore → più appetibile
+			modifier = {
+				trigger = {
+					NOT = { has_law_or_variant = law_type:law_right_to_associate }
+				}
+				add = 4
+			}
+			# Industriali in governo gradiscono soluzioni “d’ordine” ma non estreme
+			modifier = {
+				trigger = { ig:ig_industrialists ?= { is_in_government = yes } }
+				add = 3
+			}
+			# Libertà medio-bassa → soluzione “dura ma incruenta”
+			modifier = {
+				trigger = { var:ztr_temporary_liberty_index_var <= 55 }
+				add = 3
+			}
+			# Se già c’è un’ondata a sinistra, evitare misure violente per non radicalizzare
+			modifier = {
+				trigger = { has_modifier = rise_of_left_modifier }
+				add = 2
+			}
+		}
+	}
+
+	# Crush the strike with national police force
+	option = {
+		name = ztr_strike_ultimatum_crush.option
+		trigger = {
+			NOT = { has_law_or_variant = law_type:law_right_to_associate }
+			OR = {
+				has_law_or_variant = law_type:law_national_guard
+				has_law_or_variant = law_type:law_militarized_police
+				is_dictatorship = yes
+			}
+		}
+		# Effects
+		custom_tooltip = je_end_strike_tt
+		ig:ig_trade_unions ?= {
+			add_modifier = {
+				name = strike_suppression_unions
+				days = normal_modifier_time
+			}
+		}
+		ig:ig_industrialists = {
+			add_modifier = {
+				name = strike_suppression_industrialists
+				days = normal_modifier_time
+			}
+		}
+		add_loyalists = {
+			value = medium_radicals
+			strata = upper
+		}
+		add_loyalists = {
+			value = medium_radicals
+			strata = middle
+		}
+		add_radicals = {
+			value = 0.1
+			pop_type = laborers
+		}
+		add_radicals = {
+			value = 0.1
+			pop_type = machinists
+		}
+		remove_variable = ztr_temporary_liberty_index_var
+		ai_chance = {
+			base = 0
+			# Literacy bassa → più predisposizione alla repressione
+			modifier = {
+				trigger = { literacy_rate < 0.6 }
+				add = 10
+			}
+			# Dittatura → scelta naturale
+			modifier = {
+				trigger = { is_dictatorship = yes }
+				add = 10
+			}
+			# Autocrazia o IG reazionari al governo → più probabile
+			modifier = {
+				trigger = {
+					OR = {
+						ig:ig_armed_forces ?= { is_in_government = yes }
+						ig:ig_landowners ?= { is_in_government = yes }
+						is_autocracy = yes
+					}
+				}
+				add = 6
+			}
+			# Se Unioni sono marginali, si rischia meno backlash
+			modifier = {
+				trigger = {
+					ig:ig_trade_unions = {
+						is_powerful = no
+						is_in_government = no
+					}
+				}
+				add = 3
+			}
+			# Presenza di forze nazionali/polizia militarizzata incoraggia la repressione
+			modifier = {
+				trigger = {
+					OR = {
+						has_law_or_variant = law_type:law_national_guard
+						has_law_or_variant = law_type:law_militarized_police
+					}
+				}
+				add = 3
+			}
+			# Libertà bassa → coerenza di regime
+			modifier = {
+				trigger = { var:ztr_temporary_liberty_index_var <= 50 }
+				add = 3
+			}
+		}
+	}
+
+	# Crush the strike with strikebreakers and fascist police force
+	option = {
+		name = ztr_strike_ultimatum_crush_fascists_and_strikebreakers.option
+		trigger = {
+			scope:fascist_movement_scope = { exists = yes }
+			NOT = { has_law_or_variant = law_type:law_right_to_associate }
+			has_technology_researched = mass_propaganda
+			NOR = {
+				has_law_or_variant = law_type:law_national_guard
+				has_law_or_variant = law_type:law_militarized_police
+			}
+		}
+		# Effects
+		custom_tooltip = je_end_strike_tt
+		ig:ig_trade_unions ?= {
+			add_modifier = {
+				name = strike_suppression_unions
+				days = normal_modifier_time
+			}
+		}
+		ig:ig_industrialists = {
+			add_modifier = {
+				name = strike_suppression_industrialists
+				days = normal_modifier_time
+			}
+		}
+		add_modifier = {
+			name = rise_of_extremism_modifier
+			years = 10
+			is_decaying = yes
+		}
+		add_loyalists = {
+			value = medium_radicals
+			strata = upper
+		}
+		add_loyalists = {
+			value = medium_radicals
+			strata = middle
+		}
+		add_radicals = {
+			value = 0.1
+			pop_type = laborers
+		}
+		add_radicals = {
+			value = 0.1
+			pop_type = machinists
+		}
+		remove_variable = ztr_temporary_liberty_index_var
+		ai_chance = {
+			base = 0
+			# Bassa literacy favorisce estremismi
+			modifier = {
+				trigger = { literacy_rate < 0.6 }
+				add = 6
+			}
+			# Dittatura → più probabile
+			modifier = {
+				trigger = { is_dictatorship = yes }
+				add = 8
+			}
+			# IG reazionari al governo o Autocrazia → più probabile
+			modifier = {
+				trigger = {
+					OR = {
+						ig:ig_armed_forces ?= { is_in_government = yes }
+						ig:ig_landowners ?= { is_in_government = yes }
+						is_autocracy = yes
+					}
+				}
+				add = 6
+			}
+			# Movimento fascista presente → finestra di opportunità
+			modifier = {
+				trigger = { scope:fascist_movement_scope = { is_political_movement_type = movement_fascist } }
+				add = 6
+			}
+			# Libertà molto bassa → coerenza con linea dura
+			modifier = {
+				trigger = { var:ztr_temporary_liberty_index_var <= 45 }
+				add = 3
+			}
+		}
+	}
+
+	# Define an emergency law to abolish strikes forever
+	option = {
+		name = ztr_strike_ultimatum_emergency_law.option
+		trigger = {
+			NOT = { has_law_or_variant = law_type:law_combination_acts }
+			ztr_temporary_liberty_index_var <= 45
+		}
+		# Effects
+		custom_tooltip = je_end_strike_tt
+		if = {
+			limit = {
+				has_law_or_variant = law_type:law_anti_strike_laws
+			}
+			activate_law = law_type:law_combination_acts
+		}
+		else = {
+			activate_law = law_type:law_anti_strike_laws
+		}
+		# Response
+		ig:ig_industrialists = {
+			add_modifier = {
+				name = strike_successful_industrialists
+				days = normal_modifier_time
+			}
+		}
+		ig:ig_trade_unions ?= {
+			add_modifier = {
+				name = strike_weak_unions
+				days = normal_modifier_time
+			}
+		}
+		add_loyalists = {
+			value = medium_radicals
+			strata = upper
+		}
+		add_loyalists = {
+			value = medium_radicals
+			strata = middle
+		}
+		# There was the right of strike, but now it is gone
+		if = {
+			limit = {
+				has_law_or_variant = law_type:law_anti_strike_laws
+			}
+			add_radicals = {
+				value = 0.2
+				pop_type = laborers
+			}
+			add_radicals = {
+				value = 0.2
+				pop_type = machinists
+			}
+		}
+		# There wasn't, so the backlash is smaller
+		else = {
+			add_radicals = {
+				value = 0.1
+				pop_type = laborers
+			}
+			add_radicals = {
+				value = 0.1
+				pop_type = machinists
+			}
+		}
+		remove_variable = ztr_temporary_liberty_index_var
+
+		ai_chance = {
+			base = 0
+			# Bassa literacy
+			modifier = {
+				trigger = { literacy_rate < 0.6 }
+				add = 5
+			}
+			# Dittatura + Unioni potenti → “colpo di mano”
+			modifier = {
+				trigger = {
+					is_dictatorship = yes
+					ig:ig_trade_unions = {
+						is_powerful = yes
+						is_in_government = no
+					}
+				}
+				add = 12
+			}
+			# Autocrazia con IG d’ordine al governo
+			modifier = {
+				trigger = {
+					OR = {
+						ig:ig_armed_forces ?= { is_in_government = yes }
+						ig:ig_landowners ?= { is_in_government = yes }
+						is_autocracy = yes
+					}
+				}
+				add = 5
+			}
+			# Già dotati di strumenti coercitivi → più credibile passare alle leggi d’emergenza
+			modifier = {
+				trigger = {
+					has_law_or_variant = law_type:law_anti_strike_laws
+				}
+				add = 4
+			}
+			# Presenza di movimento fascista aumenta la pressione per soluzioni definitive
+			modifier = {
+				trigger = {
+					scope:fascist_movement_scope = { is_political_movement_type = movement_fascist }
+				}
+				add = 3
+			}
+		}
+	}
+}

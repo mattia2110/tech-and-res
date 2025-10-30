@@ -70,19 +70,23 @@
 					add = 1
 				}
 
+				# Indicators affecting nuclear development speed
+				# This will emulate a factor of literacy * population = total research capacity
+				# Unliterate and small North Korea: good luck! (42 years of work to do!)
+
 				# Literacy
 				if = {
 					limit = { literacy_rate < 0.50 }
 					change_variable = {
 						name = nuclear_development_var_delta
-						multiply = 0.33
+						multiply = 0.1
 					}
 				}
 				else_if = {
 					limit = { literacy_rate < 0.80 }
 					change_variable = {
 						name = nuclear_development_var_delta
-						multiply = 0.75
+						multiply = 0.5
 					}
 				}
 
@@ -91,14 +95,14 @@
 					limit = { total_population < 25000000 }
 					change_variable = {
 						name = nuclear_development_var_delta
-						multiply = 0.33
+						multiply = 0.1
 					}
 				}
 				else_if = {
 					limit = { total_population < 100000000 }
 					change_variable = {
 						name = nuclear_development_var_delta
-						multiply = 0.66
+						multiply = 0.33
 					}
 				}
 
@@ -119,12 +123,54 @@
 					}
 				}
 
+				# If country has signed the NPT, halt new developments
+				if = {
+					limit = {
+						has_variable = signed_nuclear_non_proliferation_treaty
+					}
+					change_variable = {
+						name = nuclear_development_var_delta
+						multiply = 0
+					}
+				}
+
 				change_variable = {
 					name = nuclear_development_var
 					add = var:nuclear_development_var_delta
 				}
 
 				remove_variable = nuclear_development_var_delta
+			}
+		}
+	}
+
+	on_yearly_pulse = {
+		effect = {
+			if = {
+				limit = {
+					# This will be removed when dev will resolve AI not building great buildings while being in deficit
+					any_scope_state = {
+						has_modifier = nuclear_weapon_site
+						NOR = {
+							any_scope_building = {
+								is_building_type = building_nuclear_weapons_silo
+								is_under_construction = yes
+							}
+							any_scope_building = {
+								is_building_type = building_nuclear_weapons_silo
+								is_under_construction = no
+							}
+						}
+					}
+					is_ai = yes
+				}
+				random_scope_state = {
+					limit = { has_modifier = nuclear_weapon_site }
+					create_building = {
+						building = building_nuclear_weapons_silo
+						level = 1
+					}
+				}
 			}
 		}
 	}
@@ -194,7 +240,7 @@
 	}
 
 	current_value = {
-		value = var:thermonuclear_development_var
+		value = var:nuclear_development_var
 	}
 
 	goal_add_value = {
@@ -413,13 +459,13 @@ je_nuclear_weapons_info_panel = {
 				limit = { has_modifier = nuclear_capability }
 				calculate_nuclear_strength_info = yes
 				calculate_nuclear_defence_info = yes
-				ztr_nuclear_ranking_variables = yes
-				ztr_nuclear_strength_ranking_effect = yes
-				ztr_nuclear_defence_ranking_effect = yes
 				#calculate_enemy_nuclear_strength_info = yes
 				#calculate_allied_nuclear_strength_info = yes
 				#calculate_nuclear_arms_race_ratio = yes
 			}
+			ztr_nuclear_ranking_variables = yes
+			ztr_nuclear_strength_ranking_effect = yes
+			ztr_nuclear_defence_ranking_effect = yes
 		}
 	}
 

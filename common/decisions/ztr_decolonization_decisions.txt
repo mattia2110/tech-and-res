@@ -1,9 +1,323 @@
-#Legacy script for decolonization
+#Irish Decolonization Decision
+
+good_friday_agreement_decision = {
+
+	is_shown = {
+		year > 1980
+		exists = c:IRE
+        THIS = c:IRE
+		has_modifier = good_friday_agreement_modifier
+		#Good Friday Agreement
+	}
+
+	possible = {
+		any_scope_state = {
+			state_region = s:STATE_ULSTER
+			owner = c:GBR
+			any_scope_pop = {
+                culture = cu:irish
+				percent > 0.6
+            }
+		}
+	}
+
+	when_taken = {
+		c:GBR = {
+			trigger_event = irish_independence.7
+		}
+	}
+
+	ai_chance = {
+		value = 100	
+	}
+}
+
+#This decision is actually more flavor than decolonization, so it will be activated by historical_content rule
+durrand_line = {
+	is_shown = {
+		has_technology_researched = pan-nationalism
+		year > 1875
+		exists = c:BIC
+		c:BIC = {
+			overlord = root
+		}
+		NOT = { exists = c:PAN }
+		OR = {
+			NOT = { exists = c:KAN }
+			c:KAN = { is_ai = yes }
+		}
+		OR = {
+			NOT = { exists = c:KAB }
+			c:KAB = { is_ai = yes }
+		}
+		OR = {
+			NOT = { exists = c:KAL }
+			c:KAL = { is_ai = yes }
+		}
+		OR = {
+			NOT = { exists = c:MAK }
+			c:MAK = { is_ai = yes }
+		}
+		# This is done in order to automatically disable the event if one of these countries are player
+		has_game_rule = allow_ztr_historical_content
+		NOT = { has_global_variable = durand_line }
+	}
+
+	possible = {
+	}
+
+	when_taken = {
+		set_global_variable = {
+			name = durand_line
+			value = 0
+		}
+		root = { trigger_event = durrand_line_event.1 }
+	}
+
+	ai_chance = {
+		value = 10
+	}
+}
+
+#These next decisions are more decolonization content, so they will be activated by decolonization_content rule
+decolonization_india_raj_consolidation = {
+	is_shown = {
+		has_technology_researched = pan-nationalism
+		year > 1885
+		exists = c:BIC
+		c:BIC = {
+			overlord = root
+		}
+		NOT = { has_global_variable = british_raj_consolidated }
+		has_game_rule = allow_ztr_decolonization_content
+	}
+
+	possible = {
+	}
+
+	when_taken = {
+		set_global_variable = {
+			name = british_raj_consolidated
+			value = 0
+		}
+		root = { trigger_event = ztr_india.1 }
+	}
+
+	ai_chance = {
+		value = 15	
+	}
+}
+
+decolonization_india_raj_takes_uk_states = {
+	is_shown = {
+		exists = c:BIC
+		c:BIC = {
+			overlord = root
+		}
+		#has_global_variable = british_raj_consolidated
+		has_game_rule = allow_ztr_decolonization_content
+	}
+
+	possible = {
+		any_scope_state = {
+			state_is_in_india = yes
+		}
+	}
+
+	when_taken = {
+		change_infamy = -10
+		every_scope_state = {
+			limit = {
+				state_is_in_india = yes
+			}
+			set_state_owner = c:BIC
+		}
+	}
+
+	ai_chance = {
+		value = 50	
+	}
+}
+
+decolonization_india_raj_independence_request = {
+	is_shown = {
+		exists = overlord
+		has_global_variable = ztr_decolonization_age_var
+		year > 1940
+		exists = c:BIC
+		c:BIC = THIS
+		has_game_rule = allow_ztr_decolonization_content
+		NOT = {	is_diplomatic_play_enemy_of = overlord }
+		NOT = {	has_truce_with = overlord }
+	}
+
+	possible = {
+		NOT = { has_variable = ztr_india_request_independence }
+	}
+
+	when_taken = {
+		overlord = { trigger_event = ztr_india.2 }
+		set_variable = ztr_india_request_independence
+	}
+
+	ai_chance = {
+		value = 10	
+	}
+}
+
+# British Raj Destruction Scenario
+
+indian_unifier_decision = {
+	is_shown = {
+		has_game_rule = allow_ztr_decolonization_content
+		has_technology_researched = pan-nationalism
+		country_rank >= rank_value:minor_power # In this way dwarf state will not unify India
+		year > 1944
+		NOT = { exists = c:BIC }
+		is_subject = no
+		OR = {
+			AND = {
+				exists = c:BHT
+				c:BHT = this
+				NOT = { has_variable = ztr_indian_unifier_var }
+			}
+			AND = {
+				NOT = { exists = c:BHT }
+				exists = c:BGL
+				c:BGL = this
+				NOT = { has_variable = ztr_indian_unifier_var }
+			}
+			AND = {
+				NOR = { exists = c:BHT }
+				exists = c:MUG
+				c:MUG = this
+				NOT = { has_variable = ztr_indian_unifier_var }
+			}
+		}
+	}
+
+	possible = {
+	}
+
+	when_taken = {
+		set_variable = {
+			name = ztr_indian_unifier_var
+			value = 0
+		}
+		trigger_event = ztr_india.5
+	}
+
+	ai_chance = {
+		value = 100	
+	}
+}
+
+# India can adopt Hinduism as state religion if Religion has an important role
+ztr_hindu_decision = {
+	is_shown = {
+		c:BHT ?= this
+		NOT = {
+			country_has_state_religion = rel:hindu
+		}
+	}
+
+	possible = {
+		ig:ig_devout ?= {
+			is_marginal = no
+		}
+		NOR = {
+			has_law_or_variant = law_type:law_total_separation
+			has_law_or_variant = law_type:law_state_atheism
+		}
+	}
+
+	when_taken = {
+		set_state_religion = rel:hindu
+		state_religion_switch_effect = yes
+		india_independence_ig_effects = yes
+		random_scope_state = {
+			limit = {
+				owner = ROOT
+				is_capital = yes
+			}
+			convert_population = {
+				target = rel:hindu
+				value = 0.7
+			}
+		}
+		every_scope_state = {
+			limit = {
+				owner = ROOT
+				is_incorporated = yes
+				NOT = { is_capital = yes }
+			}
+			convert_population = {
+				target = rel:hindu
+				value = 0.3
+			}
+		}
+	}
+
+	ai_chance = {
+		value = 20
+	}
+}
+
+decolonization_indonesia_netherlands_consolidation = {
+	is_shown = {
+		year > 1900
+		exists = c:DEI
+		c:DEI = {
+			overlord = root
+		}
+		has_game_rule = allow_ztr_decolonization_content
+	}
+
+	possible = {
+		OR = {
+			any_subject_or_below = {
+				capital.region = sr:region_indonesia
+				NOT = { c:DEI ?= this }
+			}
+			any_scope_state = {
+				region = sr:region_indonesia
+			}
+		}
+	}
+
+	when_taken = {
+		every_subject_or_below = {
+			limit = {
+				capital.region = sr:region_indonesia
+				NOT = { c:DEI ?= this }
+			}
+			every_scope_state = {
+				limit = {
+					region = sr:region_indonesia
+				}
+				set_state_owner = c:DEI
+			}
+		}
+		every_scope_state = {
+			limit = {
+				region = sr:region_indonesia
+			}
+			set_state_owner = c:DEI
+		}
+	}
+
+	ai_chance = {
+		value = 15	
+	}
+}
+
+###Legacy script for decolonization###
 
 decolonization_uae_decision = {
 
 	is_shown = {
 		has_global_variable = ztr_decolonization_age_var
+		cu:bedouin = { wants_to_be_decolonized = yes }
 		NOT = { is_subject = yes }
 		NOT = {
 			country_has_primary_culture = cu:bedouin
@@ -25,6 +339,7 @@ decolonization_uae_decision = {
 	}
 
 	possible = {
+		cu:bedouin = { wants_to_be_decolonized = yes }
 	}
 
 	when_taken = {
@@ -98,6 +413,10 @@ decolonization_india_decision = {
 	is_shown = {
 		has_game_rule = allow_ztr_decolonization_content		
 		NOT = { has_variable = ztr_indian_unifier_var }
+		any_scope_culture = {
+			shares_heritage_trait_group_with_culture = cu:bengali #Indian
+			this = { wants_to_be_decolonized = yes }
+		}
 		# exists = scope:ztr_indian_unifier_scope
 		# NOT = { scope:ztr_indian_unifier_scope = root }
 		#NOT = { c:PAK ?= root } #Pakistan future addition
@@ -123,7 +442,7 @@ decolonization_india_decision = {
 	}
 
 	when_taken = {
-		change_infamy = -5
+		change_infamy = -10
 		if = {
 			limit = {
 				exists = c:BHT
@@ -157,6 +476,7 @@ decolonization_china_decision = {
 	is_shown = {
 		has_game_rule = allow_ztr_decolonization_content
 		has_global_variable = ztr_decolonization_age_var
+		cu:han = { wants_to_be_decolonized = yes }
 		NOT = { is_subject = yes }
 		NOT = {	country_is_in_china = yes } # Better than using chinese/han culture
 		any_scope_state = {
@@ -171,10 +491,11 @@ decolonization_china_decision = {
 	}
 
 	possible = {
+		cu:han = { wants_to_be_decolonized = yes }
 	}
 
 	when_taken = {
-		change_infamy = -15
+		change_infamy = -5
 		every_scope_state = {
 			limit = {
 				OR = {
@@ -208,6 +529,7 @@ decolonization_kenya_decision = {
 
 	is_shown = {
 		has_global_variable = ztr_decolonization_age_var
+		cu:kikuyu = { wants_to_be_decolonized = yes }
 		NOT = { is_subject = yes }
 		any_scope_state = {
 			NOT = { is_homeland_of_country_cultures = root }
@@ -228,10 +550,11 @@ decolonization_kenya_decision = {
 	}
 
 	possible = {
+		cu:kikuyu = { wants_to_be_decolonized = yes }
 	}
 
 	when_taken = {
-		change_infamy = -5
+		change_infamy = -10
 		ztr_define_kenya = yes
 		create_bidirectional_truce = { country = c:ZKN months = 120 }
 		c:ZKN = {
@@ -250,6 +573,7 @@ decolonization_namibia_decision = {
 
 	is_shown = {
 		has_global_variable = ztr_decolonization_age_var
+		cu:khoisan = { wants_to_be_decolonized = yes }
 		NOT = { is_subject = yes }
 		any_scope_state = {
 			NOT = { is_homeland_of_country_cultures = root }
@@ -268,7 +592,9 @@ decolonization_namibia_decision = {
 		has_game_rule = allow_ztr_decolonization_content
 	}
 
-	possible = { }
+	possible = {
+		cu:khoisan = { wants_to_be_decolonized = yes }
+	}
 
 	when_taken = {
 		change_infamy = -5
@@ -284,6 +610,7 @@ decolonization_somalia_decision = {
 
 	is_shown = {
 		has_global_variable = ztr_decolonization_age_var
+		cu:somali = { wants_to_be_decolonized = yes }
 		NOT = { is_subject = yes }
 		any_scope_state = {
 			NOT = { is_homeland_of_country_cultures = root }
@@ -301,7 +628,9 @@ decolonization_somalia_decision = {
 		has_game_rule = allow_ztr_decolonization_content
 	}
 
-	possible = { }
+	possible = {
+		cu:somali = { wants_to_be_decolonized = yes }
+	}
 
 	when_taken = {
 		change_infamy = -5
@@ -317,6 +646,7 @@ decolonization_eritrea_decision = {
 
 	is_shown = {
 		has_global_variable = ztr_decolonization_age_var
+		cu:tigray = { wants_to_be_decolonized = yes }
 		NOT = { is_subject = yes }
 		any_scope_state = {
 			NOT = { is_homeland_of_country_cultures = root }
@@ -334,7 +664,9 @@ decolonization_eritrea_decision = {
 		has_game_rule = allow_ztr_decolonization_content
 	}
 
-	possible = { }
+	possible = {
+		cu:tigray = { wants_to_be_decolonized = yes }
+	}
 
 	when_taken = {
 		change_infamy = -5
@@ -350,6 +682,7 @@ decolonization_chad_decision = {
 
 	is_shown = {
 		has_global_variable = ztr_decolonization_age_var
+		cu:fur = { wants_to_be_decolonized = yes }
 		NOT = { is_subject = yes }
 		any_scope_state = {
 			NOT = { is_homeland_of_country_cultures = root }
@@ -368,7 +701,9 @@ decolonization_chad_decision = {
 		has_game_rule = allow_ztr_decolonization_content
 	}
 
-	possible = { }
+	possible = {
+		cu:fur = { wants_to_be_decolonized = yes }
+	}
 
 	when_taken = {
 		change_infamy = -5
@@ -384,6 +719,7 @@ decolonization_niger_decision = {
 
 	is_shown = {
 		has_global_variable = ztr_decolonization_age_var
+		cu:equatorial_bantu = { wants_to_be_decolonized = yes }
 		NOT = { is_subject = yes }
 		any_scope_state = {
 			NOT = { is_homeland_of_country_cultures = root }
@@ -402,7 +738,9 @@ decolonization_niger_decision = {
 		has_game_rule = allow_ztr_decolonization_content
 	}
 
-	possible = { }
+	possible = {
+		cu:equatorial_bantu = { wants_to_be_decolonized = yes }
+	}
 
 	when_taken = {
 		change_infamy = -5
@@ -421,6 +759,7 @@ decolonization_mauritania_decision = {
 
 	is_shown = {
 		has_global_variable = ztr_decolonization_age_var
+		cu:bidan = { wants_to_be_decolonized = yes }
 		NOT = { is_subject = yes }
 		any_scope_state = {
 			NOT = { is_homeland_of_country_cultures = root }
@@ -439,7 +778,9 @@ decolonization_mauritania_decision = {
 		has_game_rule = allow_ztr_decolonization_content
 	}
 
-	possible = { }
+	possible = {
+		cu:bidan = { wants_to_be_decolonized = yes }
+	}
 
 	when_taken = {
 		change_infamy = -5
@@ -455,6 +796,7 @@ decolonization_senegal_decision = {
 
 	is_shown = {
 		has_global_variable = ztr_decolonization_age_var
+		cu:wolof = { wants_to_be_decolonized = yes }
 		NOT = { is_subject = yes }
 		any_scope_state = {
 			NOT = { is_homeland_of_country_cultures = root }
@@ -473,7 +815,9 @@ decolonization_senegal_decision = {
 		has_game_rule = allow_ztr_decolonization_content
 	}
 
-	possible = { }
+	possible = {
+		cu:wolof = { wants_to_be_decolonized = yes }
+	}
 
 	when_taken = {
 		change_infamy = -5
@@ -489,6 +833,7 @@ decolonization_guinea_decision = {
 
 	is_shown = {
 		has_global_variable = ztr_decolonization_age_var
+		cu:fulbe = { wants_to_be_decolonized = yes }
 		NOT = { is_subject = yes }
 		any_scope_state = {
 			NOT = { is_homeland_of_country_cultures = root }
@@ -506,7 +851,9 @@ decolonization_guinea_decision = {
 		has_game_rule = allow_ztr_decolonization_content
 	}
 
-	possible = { }
+	possible = {
+		cu:fulbe = { wants_to_be_decolonized = yes }
+	}
 
 	when_taken = {
 		change_infamy = -5
@@ -522,6 +869,7 @@ decolonization_ivory_coast_decision = {
 
 	is_shown = {
 		has_global_variable = ztr_decolonization_age_var
+		cu:akan = { wants_to_be_decolonized = yes }
 		NOT = { is_subject = yes }
 		any_scope_state = {
 			NOT = { is_homeland_of_country_cultures = root }
@@ -540,7 +888,9 @@ decolonization_ivory_coast_decision = {
 		has_game_rule = allow_ztr_decolonization_content
 	}
 
-	possible = { }
+	possible = {
+		cu:akan = { wants_to_be_decolonized = yes }
+	}
 
 	when_taken = {
 		change_infamy = -5
@@ -556,6 +906,7 @@ decolonization_ghana_decision = {
 
 	is_shown = {
 		has_global_variable = ztr_decolonization_age_var
+		cu:akan = { wants_to_be_decolonized = yes }
 		NOT = { is_subject = yes }
 		any_scope_state = {
 			NOT = { is_homeland_of_country_cultures = root }
@@ -573,7 +924,9 @@ decolonization_ghana_decision = {
 		has_game_rule = allow_ztr_decolonization_content
 	}
 
-	possible = { }
+	possible = {
+		cu:akan = { wants_to_be_decolonized = yes }
+	}
 
 	when_taken = {
 		change_infamy = -5
@@ -589,6 +942,7 @@ decolonization_togo_decision = {
 
 	is_shown = {
 		has_global_variable = ztr_decolonization_age_var
+		cu:ewe = { wants_to_be_decolonized = yes }
 		NOT = { is_subject = yes }
 		any_scope_state = {
 			NOT = { is_homeland_of_country_cultures = root }
@@ -606,7 +960,9 @@ decolonization_togo_decision = {
 		has_game_rule = allow_ztr_decolonization_content
 	}
 
-	possible = { }
+	possible = {
+		cu:ewe = { wants_to_be_decolonized = yes }
+	}
 
 	when_taken = {
 		change_infamy = -5
@@ -622,6 +978,7 @@ decolonization_benin_decision = {
 
 	is_shown = {
 		has_global_variable = ztr_decolonization_age_var
+		cu:fon = { wants_to_be_decolonized = yes }
 		NOT = { is_subject = yes }
 		any_scope_state = {
 			NOT = { is_homeland_of_country_cultures = root }
@@ -639,7 +996,9 @@ decolonization_benin_decision = {
 		has_game_rule = allow_ztr_decolonization_content
 	}
 
-	possible = { }
+	possible = {
+		cu:fon = { wants_to_be_decolonized = yes }
+	}
 
 	when_taken = {
 		change_infamy = -5
@@ -655,6 +1014,7 @@ decolonization_burkina_faso_decision = {
 
 	is_shown = {
 		has_global_variable = ztr_decolonization_age_var
+		cu:mossi = { wants_to_be_decolonized = yes }
 		NOT = { is_subject = yes }
 		any_scope_state = {
 			NOT = { is_homeland_of_country_cultures = root }
@@ -672,7 +1032,9 @@ decolonization_burkina_faso_decision = {
 		has_game_rule = allow_ztr_decolonization_content
 	}
 
-	possible = { }
+	possible = {
+		cu:mossi = { wants_to_be_decolonized = yes }
+	}
 
 	when_taken = {
 		change_infamy = -5
@@ -687,6 +1049,7 @@ decolonization_nigeria_decision = {
 
 	is_shown = {
 		has_global_variable = ztr_decolonization_age_var
+		cu:yoruba = { wants_to_be_decolonized = yes }
 		NOT = { is_subject = yes }
 		any_scope_state = {
 			NOT = { is_homeland_of_country_cultures = root }
@@ -709,7 +1072,11 @@ decolonization_nigeria_decision = {
 		}
 		has_game_rule = allow_ztr_decolonization_content
 	}
-	possible = { }
+
+	possible = {
+		cu:yoruba = { wants_to_be_decolonized = yes }
+	}
+
 	when_taken = {
 		change_infamy = -5
 		ztr_define_nigeria = yes
@@ -735,6 +1102,7 @@ decolonization_cameroon_decision = {
 
 	is_shown = {
 		has_global_variable = ztr_decolonization_age_var
+		cu:fulbe = { wants_to_be_decolonized = yes }
 		NOT = { is_subject = yes }
 		any_scope_state = {
 			NOT = { is_homeland_of_country_cultures = root }
@@ -750,7 +1118,11 @@ decolonization_cameroon_decision = {
 		}
 		has_game_rule = allow_ztr_decolonization_content
 	}
-	possible = { }
+
+	possible = {
+		cu:fulbe = { wants_to_be_decolonized = yes }
+	}
+
 	when_taken = {
 		change_infamy = -5
 		ztr_define_camerun = yes
@@ -767,6 +1139,7 @@ decolonization_central_african_republic_decision = {
 
 	is_shown = {
 		has_global_variable = ztr_decolonization_age_var
+		cu:azande = { wants_to_be_decolonized = yes }
 		NOT = { is_subject = yes }
 		any_scope_state = {
 			NOT = { is_homeland_of_country_cultures = root }
@@ -783,7 +1156,11 @@ decolonization_central_african_republic_decision = {
 		}
 		has_game_rule = allow_ztr_decolonization_content
 	}
-	possible = { }
+
+	possible = {
+		cu:azande = { wants_to_be_decolonized = yes }
+	}
+
 	when_taken = {
 		change_infamy = -5
 		ztr_define_central_african_republic = yes
@@ -797,6 +1174,7 @@ decolonization_gabon_decision = {
 
 	is_shown = {
 		has_global_variable = ztr_decolonization_age_var
+		cu:fang = { wants_to_be_decolonized = yes }
 		NOT = { is_subject = yes }
 		any_scope_state = {
 			NOT = { is_homeland_of_country_cultures = root }
@@ -813,7 +1191,9 @@ decolonization_gabon_decision = {
 		}
 		has_game_rule = allow_ztr_decolonization_content
 	}
-	possible = { }
+	possible = {
+		cu:fang = { wants_to_be_decolonized = yes }
+	}
 	when_taken = {
 		change_infamy = -5
 		ztr_define_gabon = yes
@@ -827,6 +1207,7 @@ decolonization_republic_of_the_congo_decision = {
 
 	is_shown = {
 		has_global_variable = ztr_decolonization_age_var
+		cu:bakongo = { wants_to_be_decolonized = yes }
 		NOT = { is_subject = yes }
 		any_scope_state = {
 			NOT = { is_homeland_of_country_cultures = root }
@@ -843,7 +1224,9 @@ decolonization_republic_of_the_congo_decision = {
 		}
 		has_game_rule = allow_ztr_decolonization_content
 	}
-	possible = { }
+	possible = {
+		cu:bakongo = { wants_to_be_decolonized = yes }
+	}
 	when_taken = {
 		change_infamy = -5
 		ztr_define_republic_of_the_congo = yes
@@ -857,6 +1240,7 @@ decolonization_democratic_republic_of_the_congo_decision = {
 
 	is_shown = {
 		has_global_variable = ztr_decolonization_age_var
+		cu:fluvian_bantu = { wants_to_be_decolonized = yes }
 		NOT = { is_subject = yes }
 		any_scope_state = {
 			NOT = { is_homeland_of_country_cultures = root }
@@ -877,7 +1261,9 @@ decolonization_democratic_republic_of_the_congo_decision = {
 		}
 		has_game_rule = allow_ztr_decolonization_content
 	}
-	possible = { }
+	possible = {
+		cu:fluvian_bantu = { wants_to_be_decolonized = yes }
+	}
 	when_taken = {
 		change_infamy = -5
 		ztr_define_democratic_republic_of_the_congo = yes
@@ -891,6 +1277,7 @@ decolonization_uganda_decision = {
 
 	is_shown = {
 		has_global_variable = ztr_decolonization_age_var
+		cu:baganda = { wants_to_be_decolonized = yes }
 		NOT = { is_subject = yes }
 		any_scope_state = {
 			NOT = { is_homeland_of_country_cultures = root }
@@ -907,7 +1294,7 @@ decolonization_uganda_decision = {
 		}
 		has_game_rule = allow_ztr_decolonization_content
 	}
-	possible = { }
+	possible = { cu:baganda = { wants_to_be_decolonized = yes } }
 	when_taken = {
 		change_infamy = -5
 		ztr_define_uganda = yes
@@ -921,6 +1308,7 @@ decolonization_rwanda_decision = {
 
 	is_shown = {
 		has_global_variable = ztr_decolonization_age_var
+		cu:ruanda = { wants_to_be_decolonized = yes }
 		NOT = { is_subject = yes }
 		any_scope_state = {
 			NOT = { is_homeland_of_country_cultures = root }
@@ -937,7 +1325,7 @@ decolonization_rwanda_decision = {
 		}
 		has_game_rule = allow_ztr_decolonization_content
 	}
-	possible = { }
+	possible = { cu:ruanda = { wants_to_be_decolonized = yes } }
 	when_taken = {
 		change_infamy = -5
 		ztr_define_rwanda = yes
@@ -951,6 +1339,7 @@ decolonization_tanzania_decision = {
 
 	is_shown = {
 		has_global_variable = ztr_decolonization_age_var
+		cu:swahili = { wants_to_be_decolonized = yes }
 		NOT = { is_subject = yes }
 		any_scope_state = {
 			NOT = { is_homeland_of_country_cultures = root }
@@ -969,7 +1358,7 @@ decolonization_tanzania_decision = {
 		}
 		has_game_rule = allow_ztr_decolonization_content
 	}
-	possible = { }
+	possible = { cu:swahili = { wants_to_be_decolonized = yes } }
 	when_taken = {
 		change_infamy = -5
 		ztr_define_tanzania = yes
@@ -983,6 +1372,7 @@ decolonization_angola_decision = {
 
 	is_shown = {
 		has_global_variable = ztr_decolonization_age_var
+		cu:kavango_bantu = { wants_to_be_decolonized = yes }
 		NOT = { is_subject = yes }
 		any_scope_state = {
 			NOT = { is_homeland_of_country_cultures = root }
@@ -1000,7 +1390,7 @@ decolonization_angola_decision = {
 		}
 		has_game_rule = allow_ztr_decolonization_content
 	}
-	possible = { }
+	possible = { cu:kavango_bantu = { wants_to_be_decolonized = yes } }
 	when_taken = {
 		change_infamy = -5
 		ztr_define_angola = yes
@@ -1014,6 +1404,7 @@ decolonization_zambia_decision = {
 
 	is_shown = {
 		has_global_variable = ztr_decolonization_age_var
+		cu:lunda = { wants_to_be_decolonized = yes }
 		NOT = { is_subject = yes }
 		any_scope_state = {
 			NOT = { is_homeland_of_country_cultures = root }
@@ -1032,7 +1423,7 @@ decolonization_zambia_decision = {
 		}
 		has_game_rule = allow_ztr_decolonization_content
 	}
-	possible = { }
+	possible = { cu:lunda = { wants_to_be_decolonized = yes } }
 	when_taken = {
 		change_infamy = -5
 		ztr_define_zambia = yes
@@ -1046,6 +1437,7 @@ decolonization_mozambique_decision = {
 
 	is_shown = {
 		has_global_variable = ztr_decolonization_age_var
+		cu:sena = { wants_to_be_decolonized = yes }
 		NOT = { is_subject = yes }
 		any_scope_state = {
 			NOT = { is_homeland_of_country_cultures = root }
@@ -1065,7 +1457,7 @@ decolonization_mozambique_decision = {
 		}
 		has_game_rule = allow_ztr_decolonization_content
 	}
-	possible = { }
+	possible = { cu:sena = { wants_to_be_decolonized = yes } }
 	when_taken = {
 		change_infamy = -5
 		ztr_define_mozambico = yes
@@ -1082,6 +1474,7 @@ decolonization_malawi_decision = {
 
 	is_shown = {
 		has_global_variable = ztr_decolonization_age_var
+		cu:chewa = { wants_to_be_decolonized = yes }
 		NOT = { is_subject = yes }
 		any_scope_state = {
 			NOT = { is_homeland_of_country_cultures = root }
@@ -1098,7 +1491,7 @@ decolonization_malawi_decision = {
 		}
 		has_game_rule = allow_ztr_decolonization_content
 	}
-	possible = { }
+	possible = { cu:chewa = { wants_to_be_decolonized = yes } }
 	when_taken = {
 		change_infamy = -5
 		ztr_define_malawi = yes
@@ -1112,6 +1505,7 @@ decolonization_eswatini_decision = {
 
 	is_shown = {
 		has_global_variable = ztr_decolonization_age_var
+		cu:zulu = { wants_to_be_decolonized = yes }
 		NOT = { is_subject = yes }
 		any_scope_state = {
 			NOT = { is_homeland_of_country_cultures = root }
@@ -1129,7 +1523,7 @@ decolonization_eswatini_decision = {
 		}
 		has_game_rule = allow_ztr_decolonization_content
 	}
-	possible = { }
+	possible = { cu:zulu = { wants_to_be_decolonized = yes } }
 	when_taken = {
 		change_infamy = -5
 		ztr_define_eswatini = yes
@@ -1143,6 +1537,7 @@ decolonization_lesotho_decision = {
 
 	is_shown = {
 		has_global_variable = ztr_decolonization_age_var
+		cu:sotho = { wants_to_be_decolonized = yes }
 		NOT = { is_subject = yes }
 		any_scope_state = {
 			NOT = { is_homeland_of_country_cultures = root }
@@ -1160,7 +1555,7 @@ decolonization_lesotho_decision = {
 		}
 		has_game_rule = allow_ztr_decolonization_content
 	}
-	possible = { }
+	possible = { cu:sotho = { wants_to_be_decolonized = yes } }
 	when_taken = {
 		change_infamy = -5
 		ztr_define_lesotho = yes
@@ -1174,6 +1569,7 @@ decolonization_mali_decision = {
 
 	is_shown = {
 		has_global_variable = ztr_decolonization_age_var
+		cu:bambara = { wants_to_be_decolonized = yes }
 		NOT = { is_subject = yes }
 		any_scope_state = {
 			NOT = { is_homeland_of_country_cultures = root }
@@ -1192,7 +1588,7 @@ decolonization_mali_decision = {
 		}
 		has_game_rule = allow_ztr_decolonization_content
 	}
-	possible = { }
+	possible = { cu:bambara = { wants_to_be_decolonized = yes } }
 	when_taken = {
 		change_infamy = -5
 		ztr_define_mali = yes
@@ -1209,6 +1605,7 @@ decolonization_botswana_decision = {
 
 	is_shown = {
 		has_global_variable = ztr_decolonization_age_var
+		cu:tswana = { wants_to_be_decolonized = yes }
 		NOT = { is_subject = yes }
 		NOT = { OR = { c:ZBT ?= root } }
 		NOR = {
@@ -1222,6 +1619,7 @@ decolonization_botswana_decision = {
 	}
 
 	possible = {
+		cu:tswana = { wants_to_be_decolonized = yes }
 	}
 
 	when_taken = {
@@ -1258,6 +1656,7 @@ decolonization_zimbabwe_decision = {
 
 	is_shown = {
 		has_global_variable = ztr_decolonization_age_var
+		cu:lunda = { wants_to_be_decolonized = yes }
 		NOT = { is_subject = yes }
 		NOT = { OR = { c:ZIM ?= root } }
 		NOR = {
@@ -1271,6 +1670,7 @@ decolonization_zimbabwe_decision = {
 	}
 
 	possible = {
+		cu:lunda = { wants_to_be_decolonized = yes }
 	}
 
 	when_taken = {
@@ -1307,6 +1707,7 @@ decolonization_madagascar_decision = {
 
 	is_shown = {
 		has_global_variable = ztr_decolonization_age_var
+		cu:malagasy = { wants_to_be_decolonized = yes }
 		NOT = { is_subject = yes }
 		any_scope_state = {
 			NOT = { is_homeland_of_country_cultures = root }
@@ -1320,7 +1721,7 @@ decolonization_madagascar_decision = {
 		}
 		has_game_rule = allow_ztr_decolonization_content
 	}
-	possible = { }
+	possible = { cu:malagasy = { wants_to_be_decolonized = yes } }
 	when_taken = {
 		change_infamy = -5
 		ztr_define_madagascar = yes
@@ -1334,6 +1735,7 @@ decolonization_ethiopia_decision = {
 
 	is_shown = {
 		has_global_variable = ztr_decolonization_age_var
+		cu:amhara = { wants_to_be_decolonized = yes }
 		NOT = { is_subject = yes }
 		any_scope_state = {
 			NOT = { is_homeland_of_country_cultures = root }
@@ -1353,7 +1755,7 @@ decolonization_ethiopia_decision = {
 		}
 		has_game_rule = allow_ztr_decolonization_content
 	}
-	possible = { }
+	possible = { cu:amhara = { wants_to_be_decolonized = yes } }
 	when_taken = {
 		change_infamy = -5
 		ztr_define_ethiopia = yes
@@ -1372,6 +1774,7 @@ decolonization_tunisia_decision = {
 
 	is_shown = {
 		has_global_variable = ztr_decolonization_age_var
+		cu:maghrebi = { wants_to_be_decolonized = yes }
 		NOT = { is_subject = yes }
 		any_scope_state = {
 			NOT = { is_homeland_of_country_cultures = root }
@@ -1387,6 +1790,7 @@ decolonization_tunisia_decision = {
 	}
 
 	possible = {
+		cu:maghrebi = { wants_to_be_decolonized = yes }
 	}
 
 	when_taken = {
@@ -1404,6 +1808,7 @@ decolonization_algeria_decision = {
 
 	is_shown = {
 		has_global_variable = ztr_decolonization_age_var
+		cu:maghrebi = { wants_to_be_decolonized = yes }
 		NOT = { is_subject = yes }
 		any_scope_state = {
 			NOT = { is_homeland_of_country_cultures = root }
@@ -1420,10 +1825,11 @@ decolonization_algeria_decision = {
 	}
 
 	possible = {
+		cu:maghrebi = { wants_to_be_decolonized = yes }
 	}
 
 	when_taken = {
-		change_infamy = -10
+		change_infamy = -5
 		ztr_define_algeria = yes
 		create_bidirectional_truce = { country = c:ALD months = 120 }
 	}
@@ -1437,6 +1843,7 @@ decolonization_morocco_decision = {
 
 	is_shown = {
 		has_global_variable = ztr_decolonization_age_var
+		cu:maghrebi = { wants_to_be_decolonized = yes }
 		NOT = { is_subject = yes }
 		any_scope_state = {
 			NOT = { is_homeland_of_country_cultures = root }
@@ -1459,10 +1866,11 @@ decolonization_morocco_decision = {
 	}
 
 	possible = {
+		cu:maghrebi = { wants_to_be_decolonized = yes }
 	}
 
 	when_taken = {
-		change_infamy = -10
+		change_infamy = -5
 		ztr_define_morocco = yes
 		create_bidirectional_truce = { country = c:MOR months = 120 }
 	}
@@ -1476,6 +1884,7 @@ decolonization_libya_decision = {
 
 	is_shown = {
 		has_global_variable = ztr_decolonization_age_var
+		cu:maghrebi = { wants_to_be_decolonized = yes }
 		NOT = { is_subject = yes }
 		any_scope_state = {
 			NOT = { is_homeland_of_country_cultures = root }
@@ -1490,6 +1899,7 @@ decolonization_libya_decision = {
 	}
 
 	possible = {
+		cu:maghrebi = { wants_to_be_decolonized = yes }
 	}
 
 	when_taken = {
@@ -1507,6 +1917,7 @@ decolonization_egypt_decision = {
 
 	is_shown = {
 		has_global_variable = ztr_decolonization_age_var
+		cu:misri = { wants_to_be_decolonized = yes }
 		NOT = { is_subject = yes }
 		any_scope_state = {
 			NOT = { is_homeland_of_country_cultures = root }
@@ -1524,10 +1935,11 @@ decolonization_egypt_decision = {
 	}
 
 	possible = {
+		cu:misri = { wants_to_be_decolonized = yes }
 	}
 
 	when_taken = {
-		change_infamy = -15
+		change_infamy = -5
 		ztr_define_egypt = yes
 		create_bidirectional_truce = { country = c:EGY months = 120 }
 	}
@@ -1541,6 +1953,7 @@ decolonization_sudan_decision = {
 
 	is_shown = {
 		has_global_variable = ztr_decolonization_age_var
+		cu:sudanese = { wants_to_be_decolonized = yes }
 		NOT = { is_subject = yes }
 		any_scope_state = {
 			NOT = { is_homeland_of_country_cultures = root }
@@ -1557,6 +1970,7 @@ decolonization_sudan_decision = {
 	}
 
 	possible = {
+		cu:sudanese = { wants_to_be_decolonized = yes }
 	}
 
 	when_taken = {
@@ -1574,6 +1988,7 @@ decolonization_arabia_decision = {
 
 	is_shown = {
 		has_global_variable = ztr_decolonization_age_var
+		cu:bedouin = { wants_to_be_decolonized = yes }
 		NOT = { is_subject = yes }
 		any_scope_state = {
 			NOT = { is_homeland_of_country_cultures = root }
@@ -1588,10 +2003,11 @@ decolonization_arabia_decision = {
 	}
 
 	possible = {
+		cu:bedouin = { wants_to_be_decolonized = yes }
 	}
 
 	when_taken = {
-		change_infamy = -10
+		change_infamy = -5
 		ztr_define_arabia = yes
 		create_bidirectional_truce = { country = c:NEJ months = 120 }
 	}
@@ -1605,6 +2021,7 @@ decolonization_oman_decision = {
 
 	is_shown = {
 		has_global_variable = ztr_decolonization_age_var
+		cu:bedouin = { wants_to_be_decolonized = yes }
 		NOT = { is_subject = yes }
 		any_scope_state = {
 			NOT = { is_homeland_of_country_cultures = root }
@@ -1617,6 +2034,7 @@ decolonization_oman_decision = {
 	}
 
 	possible = {
+		cu:bedouin = { wants_to_be_decolonized = yes }
 	}
 
 	when_taken = {
@@ -1634,6 +2052,7 @@ decolonization_yemen_decision = {
 
 	is_shown = {
 		has_global_variable = ztr_decolonization_age_var
+		cu:bedouin = { wants_to_be_decolonized = yes }
 		NOT = { is_subject = yes }
 		any_scope_state = {
 			NOT = { is_homeland_of_country_cultures = root }
@@ -1646,6 +2065,7 @@ decolonization_yemen_decision = {
 	}
 
 	possible = {
+		cu:bedouin = { wants_to_be_decolonized = yes }
 	}
 
 	when_taken = {
@@ -1665,6 +2085,7 @@ decolonization_iraq_decision = {
 
 	is_shown = {
 		has_global_variable = ztr_decolonization_age_var
+		cu:mashriqi = { wants_to_be_decolonized = yes }
 		NOT = { is_subject = yes }
 		any_scope_state = {
 			NOT = { is_homeland_of_country_cultures = root }
@@ -1672,14 +2093,13 @@ decolonization_iraq_decision = {
 				state_region = s:STATE_BAGHDAD
 				state_region = s:STATE_BASRA
 				state_region = s:STATE_MOSUL
-				state_region = s:STATE_MOSUL
 			}
 			count > 0
 		}
 		NOT = { c:PER ?= root }
 		has_game_rule = allow_ztr_decolonization_content
 	}
-	possible = { }
+	possible = { cu:mashriqi = { wants_to_be_decolonized = yes } }
 	when_taken = {
 		change_infamy = -5
 		ztr_define_iraq = yes
@@ -1693,6 +2113,7 @@ decolonization_syria_decision = {
 
 	is_shown = {
 		has_global_variable = ztr_decolonization_age_var
+		cu:mashriqi = { wants_to_be_decolonized = yes }
 		NOT = { is_subject = yes }
 		any_scope_state = {
 			NOT = { is_homeland_of_country_cultures = root }
@@ -1710,7 +2131,7 @@ decolonization_syria_decision = {
 		}
 		has_game_rule = allow_ztr_decolonization_content
 	}
-	possible = { }
+	possible = { cu:mashriqi = { wants_to_be_decolonized = yes } }
 	when_taken = {
 		change_infamy = -5
 		ztr_define_syria = yes
@@ -1724,6 +2145,7 @@ decolonization_lebanon_decision = {
 
 	is_shown = {
 		has_global_variable = ztr_decolonization_age_var
+		cu:mashriqi = { wants_to_be_decolonized = yes }
 		NOT = { is_subject = yes }
 		any_scope_state = {
 			NOT = { is_homeland_of_country_cultures = root }
@@ -1732,7 +2154,7 @@ decolonization_lebanon_decision = {
 		}
 		has_game_rule = allow_ztr_decolonization_content
 	}
-	possible = { }
+	possible = { cu:mashriqi = { wants_to_be_decolonized = yes } }
 	when_taken = {
 		change_infamy = -5
 		ztr_define_lebanon = yes
@@ -1746,6 +2168,7 @@ decolonization_transjordan_decision = {
 
 	is_shown = {
 		has_global_variable = ztr_decolonization_age_var
+		cu:mashriqi = { wants_to_be_decolonized = yes }
 		NOT = { is_subject = yes }
 		any_scope_state = {
 			NOT = { is_homeland_of_country_cultures = root }
@@ -1754,7 +2177,7 @@ decolonization_transjordan_decision = {
 		}
 		has_game_rule = allow_ztr_decolonization_content
 	}
-	possible = { }
+	possible = { cu:mashriqi = { wants_to_be_decolonized = yes } }
 	when_taken = {
 		change_infamy = -5
 		ztr_define_transjordan = yes
@@ -1768,6 +2191,7 @@ decolonization_palestine_decision = {
 
 	is_shown = {
 		has_global_variable = ztr_decolonization_age_var
+		cu:mashriqi = { wants_to_be_decolonized = yes }
 		NOT = { is_subject = yes }
 		any_scope_state = {
 			NOT = { is_homeland_of_country_cultures = root }
@@ -1776,7 +2200,7 @@ decolonization_palestine_decision = {
 		}
 		has_game_rule = allow_ztr_decolonization_content
 	}
-	possible = { }
+	possible = { cu:mashriqi = { wants_to_be_decolonized = yes } }
 	when_taken = {
 		change_infamy = -5
 		ztr_define_palestine = yes
@@ -1790,6 +2214,7 @@ decolonization_kurdistan_decision = {
 
 	is_shown = {
 		has_global_variable = ztr_decolonization_age_var
+		cu:kurdish = { wants_to_be_decolonized = yes }
 		NOT = { is_subject = yes }
 		any_scope_state = {
 			NOT = { is_homeland_of_country_cultures = root }
@@ -1803,7 +2228,7 @@ decolonization_kurdistan_decision = {
 		}
 		has_game_rule = allow_ztr_decolonization_content
 	}
-	possible = { }
+	possible = { cu:kurdish = { wants_to_be_decolonized = yes } }
 	when_taken = {
 		change_infamy = -5
 		ztr_define_kurdistan = yes
@@ -1817,6 +2242,7 @@ decolonization_persia_decision = {
 
 	is_shown = {
 		has_global_variable = ztr_decolonization_age_var
+		cu:persian = { wants_to_be_decolonized = yes }
 		NOT = { is_subject = yes }
 		any_scope_state = {
 			NOT = { is_homeland_of_country_cultures = root }
@@ -1829,10 +2255,11 @@ decolonization_persia_decision = {
 	}
 
 	possible = {
+		cu:persian = { wants_to_be_decolonized = yes }
 	}
 
 	when_taken = {
-		change_infamy = -15
+		change_infamy = -5
 		ztr_define_persia = yes
 		create_bidirectional_truce = { country = c:PER months = 120 }
 	}
@@ -1846,6 +2273,7 @@ decolonization_birmania_decision = {
 
 	is_shown = {
 		has_global_variable = ztr_decolonization_age_var
+		cu:burmese = { wants_to_be_decolonized = yes }
 		NOT = { is_subject = yes }
 		any_scope_state = {
 			NOT = { is_homeland_of_country_cultures = root }
@@ -1858,10 +2286,11 @@ decolonization_birmania_decision = {
 	}
 
 	possible = {
+		cu:burmese = { wants_to_be_decolonized = yes }
 	}
 
 	when_taken = {
-		change_infamy = -10
+		change_infamy = -5
 		ztr_define_birmania = yes
 		create_bidirectional_truce = { country = c:BUR months = 120 }
 	}
@@ -1875,6 +2304,7 @@ decolonization_siam_decision = {
 
 	is_shown = {
 		has_global_variable = ztr_decolonization_age_var
+		cu:thai = { wants_to_be_decolonized = yes }
 		NOT = { is_subject = yes }
 		any_scope_state = {
 			NOT = { is_homeland_of_country_cultures = root }
@@ -1887,10 +2317,11 @@ decolonization_siam_decision = {
 	}
 
 	possible = {
+		cu:thai = { wants_to_be_decolonized = yes }
 	}
 
 	when_taken = {
-		change_infamy = -10
+		change_infamy = -5
 		ztr_define_siam = yes
 		create_bidirectional_truce = { country = c:SIA months = 120 }
 	}
@@ -1904,6 +2335,7 @@ decolonization_laos_decision = {
 
 	is_shown = {
 		has_global_variable = ztr_decolonization_age_var
+		cu:lao = { wants_to_be_decolonized = yes }
 		NOT = { is_subject = yes }
 		any_scope_state = {
 			NOT = { is_homeland_of_country_cultures = root }
@@ -1916,10 +2348,11 @@ decolonization_laos_decision = {
 	}
 
 	possible = {
+		cu:lao = { wants_to_be_decolonized = yes }
 	}
 
 	when_taken = {
-		change_infamy = -10
+		change_infamy = -5
 		ztr_define_laos = yes
 		create_bidirectional_truce = { country = c:LAO months = 120 }
 	}
@@ -1933,6 +2366,7 @@ decolonization_cambodia_decision = {
 
 	is_shown = {
 		has_global_variable = ztr_decolonization_age_var
+		cu:khmer = { wants_to_be_decolonized = yes }
 		NOT = { is_subject = yes }
 		any_scope_state = {
 			NOT = { is_homeland_of_country_cultures = root }
@@ -1945,10 +2379,11 @@ decolonization_cambodia_decision = {
 	}
 
 	possible = {
+		cu:khmer = { wants_to_be_decolonized = yes }
 	}
 
 	when_taken = {
-		change_infamy = -10
+		change_infamy = -5
 		ztr_define_cambodia = yes
 		create_bidirectional_truce = { country = c:CAM months = 120 }
 	}
@@ -1962,6 +2397,7 @@ decolonization_vietnam_decision = {
 
 	is_shown = {
 		has_global_variable = ztr_decolonization_age_var
+		cu:vietnamese = { wants_to_be_decolonized = yes }
 		NOT = { is_subject = yes }
 		any_scope_state = {
 			NOT = { is_homeland_of_country_cultures = root }
@@ -1974,10 +2410,11 @@ decolonization_vietnam_decision = {
 	}
 
 	possible = {
+		cu:vietnamese = { wants_to_be_decolonized = yes }
 	}
 
 	when_taken = {
-		change_infamy = -10
+		change_infamy = -5
 		ztr_define_vietnam = yes
 		create_bidirectional_truce = { country = c:DAI months = 120 }
 	}
@@ -1991,6 +2428,7 @@ decolonization_afghanistan_decision = {
 
 	is_shown = {
 		has_global_variable = ztr_decolonization_age_var
+		cu:pashtun = { wants_to_be_decolonized = yes }
 		NOT = { is_subject = yes }
 		any_scope_state = {
 			NOT = { is_homeland_of_country_cultures = root }
@@ -2016,10 +2454,11 @@ decolonization_afghanistan_decision = {
 	}
 
 	possible = {
+		cu:pashtun = { wants_to_be_decolonized = yes }
 	}
 
 	when_taken = {
-		change_infamy = -10
+		change_infamy = -5
 		ztr_define_afghanistan = yes
 		create_bidirectional_truce = { country = c:AFG months = 120 }
 	}
@@ -2033,6 +2472,7 @@ decolonization_malaysia_decision = {
 
 	is_shown = {
 		has_global_variable = ztr_decolonization_age_var
+		cu:malay = { wants_to_be_decolonized = yes }
 		NOT = { is_subject = yes }
 		any_scope_state = {
 			NOT = { is_homeland_of_country_cultures = root }
@@ -2045,10 +2485,11 @@ decolonization_malaysia_decision = {
 	}
 
 	possible = {
+		cu:malay = { wants_to_be_decolonized = yes }
 	}
 
 	when_taken = {
-		change_infamy = -10
+		change_infamy = -5
 		ztr_define_malaysia = yes
 		create_bidirectional_truce = { country = c:JOH months = 120 }
 	}
@@ -2062,6 +2503,7 @@ decolonization_nepal_decision = {
 
 	is_shown = {
 		has_global_variable = ztr_decolonization_age_var
+		cu:nepali = { wants_to_be_decolonized = yes }
 		NOT = { is_subject = yes }
 		any_scope_state = {
 			NOT = { is_homeland_of_country_cultures = root }
@@ -2075,6 +2517,7 @@ decolonization_nepal_decision = {
 	}
 
 	possible = {
+		cu:nepali = { wants_to_be_decolonized = yes }
 	}
 
 	when_taken = {
@@ -2092,6 +2535,7 @@ decolonization_bhutan_decision = {
 
 	is_shown = {
 		has_global_variable = ztr_decolonization_age_var
+		cu:tibetan = { wants_to_be_decolonized = yes }
 		NOT = { is_subject = yes }
 		any_scope_state = {
 			NOT = { is_homeland_of_country_cultures = root }
@@ -2103,6 +2547,7 @@ decolonization_bhutan_decision = {
 	}
 
 	possible = {
+		cu:tibetan = { wants_to_be_decolonized = yes }
 	}
 
 	when_taken = {
@@ -2120,6 +2565,7 @@ decolonization_tibet_decision = {
 
 	is_shown = {
 		has_global_variable = ztr_decolonization_age_var
+		cu:tibetan = { wants_to_be_decolonized = yes }
 		NOT = { is_subject = yes }
 		any_scope_state = {
 			NOT = { is_homeland_of_country_cultures = root }
@@ -2133,6 +2579,7 @@ decolonization_tibet_decision = {
 	}
 
 	possible = {
+		cu:tibetan = { wants_to_be_decolonized = yes }
 	}
 
 	when_taken = {
@@ -2150,6 +2597,7 @@ decolonization_korea_decision = {
 
 	is_shown = {
 		has_global_variable = ztr_decolonization_age_var
+		cu:korean = { wants_to_be_decolonized = yes }
 		NOT = { is_subject = yes }
 		any_scope_state = {
 			NOT = { is_homeland_of_country_cultures = root }
@@ -2168,6 +2616,7 @@ decolonization_korea_decision = {
 	}
 
 	possible = {
+		cu:korean = { wants_to_be_decolonized = yes }
 	}
 
 	when_taken = {
@@ -2185,6 +2634,7 @@ decolonization_japan_decision = {
 
 	is_shown = {
 		has_global_variable = ztr_decolonization_age_var
+		cu:japanese = { wants_to_be_decolonized = yes }
 		NOT = { is_subject = yes }
 		any_scope_state = {
 			NOT = { is_homeland_of_country_cultures = root }
@@ -2197,6 +2647,7 @@ decolonization_japan_decision = {
 	}
 
 	possible = {
+		cu:japanese = { wants_to_be_decolonized = yes }
 	}
 
 	when_taken = {
@@ -2213,6 +2664,8 @@ decolonization_japan_decision = {
 decolonization_new_zealand_decision = {
 
 	is_shown = {
+		has_global_variable = ztr_decolonization_age_var
+		cu:maori = { wants_to_be_decolonized = yes }
 		any_scope_state = {
 			OR = {
 				state_region = s:STATE_NORTH_ISLAND
@@ -2221,10 +2674,12 @@ decolonization_new_zealand_decision = {
 			count > 0
 		}
 		NOT = { c:AST ?= root } #Australia has its own event
+		NOT = { c:NZL ?= root } #New Zealand can't decolonize itself
 		has_game_rule = allow_ztr_historical_content
 	}
 
 	possible = {
+		cu:maori = { wants_to_be_decolonized = yes }
 	}
 
 	when_taken = {

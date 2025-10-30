@@ -12,6 +12,36 @@ dubois_has_volcano = {
 
 # Flavor Triggers
 
+# Trigger is altered by liberty index and not multiculturalism laws since they already modify culture acceptance score values.
+wants_to_be_decolonized = {
+		root = {
+			hidden_trigger = { has_variable = liberty_index_var }
+			OR = {
+				AND = {
+					is_full_democracy = yes
+					cultural_acceptance_base = {
+						target = prev
+						value < acceptance_status_4
+					}
+				}
+				AND = {
+					is_imperfect_democracy = yes
+					cultural_acceptance_base = {
+						target = prev
+						value <= acceptance_status_4
+					}
+				}
+				AND = {
+					is_not_democracy = yes
+					cultural_acceptance_base = {
+						target = prev
+						value <= acceptance_status_5
+					}
+				}
+			}
+		}
+}
+
 hungary_is_subject_or_personal_union_austria = {
 	c:AUS ?= this
 	exists = c:HUN
@@ -31,6 +61,15 @@ hungary_is_subject_or_personal_union_austria = {
 # Building Triggers
 
 has_research_center = {
+	any_scope_state = {
+		any_scope_building = {
+			is_building_type = building_research_center
+			is_under_construction = no
+		}
+	}
+}
+
+has_research_center_target = {
 	any_scope_building = {
 		is_building_type = building_research_center
 		is_under_construction = no
@@ -40,27 +79,91 @@ has_research_center = {
 # Liberty Index Triggers
 
 is_distopia = {
-	var:liberty_index_var < 10
+	custom_tooltip = {
+		text = ztr_tooltip_is_distopia
+		var:liberty_index_var < 15
+	}
 }
 
 is_dictatorship = {
-	var:liberty_index_var < 25
+	custom_tooltip = {
+		text = ztr_tooltip_is_dictatorship
+		var:liberty_index_var < 25
+	}
 }
 
 is_autocracy = {
-	var:liberty_index_var < 50
-	var:liberty_index_var >= 25
+	custom_tooltip = {
+		text = ztr_tooltip_is_autocracy
+		var:liberty_index_var >= 25
+		var:liberty_index_var < 50
+	}
 }
 
 is_imperfect_democracy = {
-	var:liberty_index_var >= 50
-	var:liberty_index_var < 75
+	custom_tooltip = {
+		text = ztr_tooltip_is_imperfect_democracy
+		var:liberty_index_var >= 50
+		var:liberty_index_var < 75
+	}
 }
 
 is_full_democracy = {
-	var:liberty_index_var >= 75
+	custom_tooltip = {
+		text = ztr_tooltip_is_full_democracy
+		var:liberty_index_var >= 75
+	}
 }
 
 is_democracy = {
-	var:liberty_index_var >= 50
+	custom_tooltip = {
+		text = ztr_tooltip_is_democracy
+		var:liberty_index_var >= 50
+	}
+}
+
+# Negatives
+
+is_not_distopia = {
+	custom_tooltip = {
+		text = ztr_tooltip_is_not_distopia
+		var:liberty_index_var >= 10
+	}
+}
+
+is_not_dictatorship = {
+	custom_tooltip = {
+		text = ztr_tooltip_is_not_dictatorship
+		var:liberty_index_var >= 25
+	}
+}
+
+is_not_democracy = {
+	custom_tooltip = {
+		text = ztr_tooltip_is_not_democracy
+		var:liberty_index_var < 50
+	}
+}
+
+is_not_full_democracy = {
+	custom_tooltip = {
+		text = ztr_tooltip_is_not_full_democracy
+		var:liberty_index_var < 75
+	}
+}
+
+# Equality Index Triggers
+
+is_individualist_state = {
+	custom_tooltip = {
+		text = ztr_tooltip_is_capitalist_state
+		var:equality_index_var < 50
+	}
+}
+
+is_socialist_state = {
+	custom_tooltip = {
+		text = ztr_tooltip_is_welfare_state
+		var:equality_index_var >= 50
+	}
 }

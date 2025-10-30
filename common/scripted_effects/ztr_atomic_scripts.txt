@@ -170,10 +170,6 @@ effect_tiny_nuclear_damage = {
 		#Destroy buildings
 		effect_nuclear_war_destroy_infrastructure_buildings = yes
 		effect_nuclear_war_destroy_city_buildings = yes
-		effect_nuclear_war_destroy_industrial_buildings = yes
-		#effect_nuclear_war_destroy_rural_buildings = yes
-		effect_nuclear_war_destroy_monument_buildings = yes
-		effect_nuclear_war_destroy_tnr_buildings = yes
 
 		save_scope_as = nuclear_striked_state_target
 	}
@@ -259,9 +255,6 @@ effect_very_low_nuclear_damage = {
 		effect_nuclear_war_destroy_infrastructure_buildings = yes
 		effect_nuclear_war_destroy_city_buildings = yes
 		effect_nuclear_war_destroy_industrial_buildings = yes
-		#effect_nuclear_war_destroy_rural_buildings = yes
-		effect_nuclear_war_destroy_monument_buildings = yes
-		effect_nuclear_war_destroy_tnr_buildings = yes
 
 		save_scope_as = nuclear_striked_state_target
 		
@@ -347,9 +340,6 @@ effect_low_nuclear_damage = {
 		effect_nuclear_war_destroy_infrastructure_buildings = yes
 		effect_nuclear_war_destroy_city_buildings = yes
 		effect_nuclear_war_destroy_industrial_buildings = yes
-		#effect_nuclear_war_destroy_rural_buildings = yes
-		effect_nuclear_war_destroy_monument_buildings = yes
-		effect_nuclear_war_destroy_tnr_buildings = yes
 
 		save_scope_as = nuclear_striked_state_target
 		
@@ -435,9 +425,7 @@ effect_medium_nuclear_damage = {
 		effect_nuclear_war_destroy_infrastructure_buildings = yes
 		effect_nuclear_war_destroy_city_buildings = yes
 		effect_nuclear_war_destroy_industrial_buildings = yes
-		#effect_nuclear_war_destroy_rural_buildings = yes
-		effect_nuclear_war_destroy_monument_buildings = yes
-		effect_nuclear_war_destroy_tnr_buildings = yes
+		effect_nuclear_war_destroy_rural_buildings = yes
 
 		save_scope_as = nuclear_striked_state_target
 		
@@ -524,8 +512,6 @@ effect_high_nuclear_damage = {
 		effect_nuclear_war_destroy_city_buildings = yes
 		effect_nuclear_war_destroy_industrial_buildings = yes
 		effect_nuclear_war_destroy_rural_buildings = yes
-		effect_nuclear_war_destroy_monument_buildings = yes
-		effect_nuclear_war_destroy_tnr_buildings = yes
 
 		save_scope_as = nuclear_striked_state_target
 		
@@ -606,7 +592,6 @@ effect_very_high_nuclear_damage = {
 		effect_nuclear_war_destroy_city_buildings = yes
 		effect_nuclear_war_destroy_industrial_buildings = yes
 		effect_nuclear_war_destroy_rural_buildings = yes
-		effect_nuclear_war_destroy_tnr_buildings = yes
 
 	}
 	
@@ -623,171 +608,107 @@ effect_very_high_nuclear_damage = {
 effect_nuclear_war_destroy_rural_buildings = {
 
 	# Delete rural buildings
-	#every_scope_state = { 
-		remove_building = building_wheat_farm
-		remove_building = building_rice_farm
-		remove_building = building_rye_farm
-		remove_building = building_maize_farm
-		remove_building = building_millet_farm
-		remove_building = building_fishing_wharf
-		remove_building = building_livestock_ranch
-		remove_building = building_tobacco_plantation
-		remove_building = building_vineyard_plantation
-		remove_building = building_cotton_plantation
-		remove_building = building_banana_plantation
-		remove_building = building_coffee_plantation
-		remove_building = building_tea_plantation
-		remove_building = building_rubber_plantation
-		
-		remove_building = building_logging_camp
-		
-		remove_building = building_gold_mine
-		remove_building = building_gold_fields
-		remove_building = building_iron_mine
-		remove_building = building_lead_mine
-		remove_building = building_coal_mine
-		remove_building = building_oil_rig
-		remove_building = building_sulfur_mine
-	#}
+	remove_building = building_wheat_farm
+	remove_building = building_rice_farm
+	remove_building = building_rye_farm
+	remove_building = building_maize_farm
+	remove_building = building_millet_farm
+	remove_building = building_fishing_wharf
+	remove_building = building_livestock_ranch
+	remove_building = building_tobacco_plantation
+	remove_building = building_vineyard_plantation
+	remove_building = building_cotton_plantation
+	remove_building = building_banana_plantation
+	remove_building = building_coffee_plantation
+	remove_building = building_tea_plantation
+	remove_building = building_rubber_plantation
 	
-}
-
-effect_nuclear_war_destroy_infrastructure_buildings = {
-
-	# Delete infrastructure buildings
-	#every_scope_state = { 
-		remove_building = building_power_plant
-		remove_building = building_hydroelectric_power_plant
-		
-		remove_building = building_railway
-		remove_building = building_port
-		remove_building = building_communications_network
-		
-		remove_building = building_suez_canal
-		remove_building = building_panama_canal
-		
-		remove_building = building_government_administration
-		
-		#remove_building = building_nuclear_naval_base
-		#remove_building = building_nuclear_weapons_silo
-		
-		remove_building = building_skyscraper
-	#}
-
-}
-
-effect_nuclear_war_destroy_industrial_buildings = {
-
-	# Delete industrial buildings
-	#every_scope_state = { 
-		remove_building = building_munition_plants
-		remove_building = building_arms_industry
-		remove_building = building_artillery_foundries
-		remove_building = building_war_machine_industry
-		remove_building = building_warplanes_industry
-		remove_building = building_military_shipyards
-		remove_building = building_explosives_factory
-		remove_building = building_aeroplane_industry
-		remove_building = building_shipyards
-		remove_building = building_locomotives_industry
-		remove_building = building_motor_industry
-		remove_building = building_food_industry
-		remove_building = building_furniture_manufacturies
-		remove_building = building_arts_academy
-		remove_building = building_electrics_industry
-		remove_building = building_synthetics_plants
-		remove_building = building_tooling_workshops
-		remove_building = building_steel_mills
-		remove_building = building_chemical_plants
-		remove_building = building_circuit_boards_factory
-		remove_building = building_engines_factory
-		remove_building = building_textile_mills
-		remove_building = building_plastics_factory
-		remove_building = building_liquor_industry
-		remove_building = building_consumer_robots_factory
-		remove_building = building_synthetic_rubber_factory
-	#}
-
-}
-
-effect_nuclear_war_destroy_city_buildings = {
-
-	# Delete City buildings
-	#every_scope_state = { 
-		remove_building = building_retail_services_industry
-		remove_building = building_corporate_services_industry
-		remove_building = building_professional_services_industry
-		remove_building = building_software_industry
-		remove_building = building_recreational_services_industry
-		remove_building = building_university
-		remove_building = building_construction_sector
-	#}
-
-}
-
-effect_nuclear_war_destroy_tnr_buildings = {
-
-	# Delete City buildings 
-	remove_building = building_office
-	remove_building = building_software_industry
-	remove_building = building_digital_media_industry
-	remove_building = building_telecommunications_industry
-	remove_building = building_datacenter_industry
-	remove_building = building_power_plant
-	remove_building = building_renewable_energy_power_plant
-	remove_building = building_nuclear_power_plant
-	remove_building = building_geothermal_power_plant	
-	remove_building = building_spaceport
-	remove_building = building_highway
-	remove_building = building_manzoni_publishing_industry
-	remove_building = building_instrument_workshops
-	remove_building = building_railway
-	remove_building = building_mendelejew_hydrogenation_plants
-	remove_building = building_mendelejew_synthetic_rubber_factory
-	remove_building = building_airport
-	remove_building = building_elgar_opera
-	remove_building = building_uranium_mining
-	remove_building = building_petrochemical_industry
-	remove_building = building_oil_refinerie
-	remove_building = building_alloys_plant
-	remove_building = building_electronics_industry
-	remove_building = building_battery_plant
-	remove_building = building_processors_foundry
-	remove_building = building_robotics_industry
-	remove_building = building_aircraft_industry
-	remove_building = building_pharmaceuticals_industry
-	remove_building = building_hydroponic
-	remove_building = building_entertainment_industry
-	remove_building = building_space_assets_industry
-	remove_building = building_water_plant
-	remove_building = building_water_desalination_plant
+	remove_building = building_logging_camp
+	
+	remove_building = building_gold_mine
+	remove_building = building_gold_fields
+	remove_building = building_iron_mine
+	remove_building = building_lead_mine
+	remove_building = building_coal_mine
+	remove_building = building_oil_rig
+	remove_building = building_sulfur_mine
+	#T&R
+	remove_building = building_uranium_mine
 	remove_building = building_bauxite_mine
 	remove_building = building_copper_mine
 	remove_building = building_commonores_mine
 	remove_building = building_advancedores_mine
 	remove_building = building_natural_gas_rig
 	remove_building = building_rare_earths_mine
-	remove_building = building_tooling_workshops
-	remove_building = building_explosives_factory
-	remove_building = building_shipyards
-	remove_building = building_military_shipyards
-	remove_building = building_electrics_industry
-	remove_building = building_arms_industry
-	remove_building = building_artillery_foundries
-	remove_building = building_arts_academy
-	remove_building = building_government_administration
-	remove_building = building_university
-	remove_building = building_textile_mills
-	remove_building = building_paper_mills
-	remove_building = building_port
-	remove_building = building_oil_rig
-
+	remove_building = building_hydroponic
 }
 
-effect_nuclear_war_destroy_monument_buildings = {
+effect_nuclear_war_destroy_infrastructure_buildings = {
+
+	# Delete infrastructure buildings
+	remove_building = building_power_plant
+	remove_building = building_railway
+	remove_building = building_port
+	remove_building = building_suez_canal
+	remove_building = building_panama_canal
+	remove_building = building_government_administration
+	remove_building = building_skyscraper
+	#T&R
+	remove_building = building_hydroelectric_power_plant
+	remove_building = building_geothermal_power_plant
+	remove_building = building_airport
+	remove_building = building_telecommunications_industry
+	remove_building = building_datacenter_industry
+}
+
+effect_nuclear_war_destroy_industrial_buildings = {
+
+	# Delete industrial buildings
+	remove_building = building_munition_plants
+	remove_building = building_arms_industry
+	remove_building = building_artillery_foundries
+	remove_building = building_military_shipyards
+	remove_building = building_explosives_factory
+	remove_building = building_shipyards
+	remove_building = building_motor_industry
+	remove_building = building_food_industry
+	remove_building = building_furniture_manufacturies
+	remove_building = building_electrics_industry
+	remove_building = building_synthetics_plants
+	remove_building = building_tooling_workshops
+	remove_building = building_steel_mills
+	remove_building = building_chemical_plants
+	remove_building = building_textile_mills
+	remove_building = building_automotive_industry
+	#T&R
+	remove_building = building_aircraft_industry
+	remove_building = building_mendelejew_hydrogenation_plants
+	remove_building = building_mendelejew_synthetic_rubber_factory
+	remove_building = building_alloys_plant
+	remove_building = building_electronics_industry
+	remove_building = building_battery_plant
+	remove_building = building_processors_foundry
+	remove_building = building_robotics_industry
+	remove_building = building_pharmaceuticals_industry
+	remove_building = building_consumer_electronics_industry
+}
+
+effect_nuclear_war_destroy_city_buildings = {
 
 	# Delete City buildings
-	destroy_monuments_nuke_effect = yes
+	remove_building = building_university
+	remove_building = building_construction_sector
+	remove_building = building_arts_academy
+	# T&R
+	remove_building = building_software_industry
+	remove_building = building_research_center
+	remove_building = building_office
+	remove_building = building_interactive_media_industry
+	remove_building = building_manzoni_publishing_industry
+	remove_building = building_instrument_workshops
+	remove_building = building_elgar_opera
+	remove_building = building_ecommerce_logistics
+	
 
 }
 
@@ -890,9 +811,11 @@ effect_launch_nuclear_weapons_to_target = {
 				OR = {
 					AND = {
 						has_technology_researched = icbms
-						any_scope_building = {
-							is_building_type = building_nuclear_weapons_silo
-							has_active_production_method = pm_icbms
+						any_scope_state = {
+							any_scope_building = {
+								is_building_type = building_nuclear_weapons_silo
+								has_active_production_method = pm_icbms
+							}
 						}
 					}
 					has_strategic_adjacency = scope:actor
@@ -1014,9 +937,11 @@ effect_launch_nuclear_weapons_to_all_enemy_countries = {
 			OR = {
 				AND = {
 					has_technology_researched = icbms
-					any_scope_building = {
-						is_building_type = building_nuclear_weapons_silo
-						has_active_production_method = pm_icbms
+					any_scope_state = {
+						any_scope_building = {
+							is_building_type = building_nuclear_weapons_silo
+							has_active_production_method = pm_icbms
+						}
 					}
 				}
 				has_strategic_adjacency = this
@@ -1103,9 +1028,11 @@ effect_launch_nuclear_weapons_to_all_enemy_countries = {
 					OR = {
 						AND = {
 							has_technology_researched = icbms
-							any_scope_building = {
-								is_building_type = building_nuclear_weapons_silo
-								has_active_production_method = pm_icbms
+							any_scope_state = {
+								any_scope_building = {
+									is_building_type = building_nuclear_weapons_silo
+									has_active_production_method = pm_icbms
+								}
 							}
 						}
 						has_strategic_adjacency = scope:actor
@@ -1236,9 +1163,11 @@ effect_launch_nuclear_weapons_to_all_allied_countries = {
 					OR = {
 						AND = {
 							has_technology_researched = icbms
-							any_scope_building = {
-								is_building_type = building_nuclear_weapons_silo
-								has_active_production_method = pm_icbms
+							any_scope_state = {
+								any_scope_building = {
+									is_building_type = building_nuclear_weapons_silo
+									has_active_production_method = pm_icbms
+								}
 							}
 						}
 						has_strategic_adjacency = this
@@ -1326,9 +1255,11 @@ effect_launch_nuclear_weapons_to_all_allied_countries = {
 						OR = {
 							AND = {
 								has_technology_researched = icbms
-								any_scope_building = {
-									is_building_type = building_nuclear_weapons_silo
-									has_active_production_method = pm_icbms
+								any_scope_state = {
+									any_scope_building = {
+										is_building_type = building_nuclear_weapons_silo
+										has_active_production_method = pm_icbms
+									}
 								}
 							}
 							has_strategic_adjacency = scope:target_country
@@ -1501,4 +1432,298 @@ effect_cleanup_nuclear_damage = {
 			}
 		}
 	}
+}
+
+### Nuclear Weapon Info Panel ###
+
+calculate_nuclear_strength_info = {
+	
+	#Always first reset to 0
+	set_variable = { 
+		name = nuclear_strike_power_display
+		value = 0
+	}
+
+	#Create total score from all working buildings (max score: 10/state)
+	
+	#Nuclear weapons type
+	every_scope_state = {
+		limit = { has_building = building_nuclear_weapons_silo any_scope_building = { has_active_production_method = pm_atomic_bomb } }
+		owner = { change_variable = { name = nuclear_strike_power_display add = 1 } }
+	}
+	every_scope_state = {
+		limit = { has_building = building_nuclear_weapons_silo any_scope_building = { has_active_production_method = pm_hydrogen_bomb } }
+		owner = { change_variable = { name = nuclear_strike_power_display add = 4 } }
+	}
+	
+	#Stockpile
+	every_scope_state = {
+		limit = { has_building = building_nuclear_weapons_silo any_scope_building = { has_active_production_method = pm_nuclear_stockpile_2 } }
+		owner = { change_variable = { name = nuclear_strike_power_display add = 1 } }
+	}
+	every_scope_state = {
+		limit = { has_building = building_nuclear_weapons_silo any_scope_building = { has_active_production_method = pm_nuclear_stockpile_3 } }
+		owner = { change_variable = { name = nuclear_strike_power_display add = 2 } }
+	}
+	every_scope_state = {
+		limit = { has_building = building_nuclear_weapons_silo any_scope_building = { has_active_production_method = pm_nuclear_stockpile_4 } }
+		owner = { change_variable = { name = nuclear_strike_power_display add = 3 } }
+	}
+	every_scope_state = {
+		limit = { has_building = building_nuclear_weapons_silo any_scope_building = { has_active_production_method = pm_nuclear_stockpile_5 } }
+		owner = { change_variable = { name = nuclear_strike_power_display add = 4 } }
+	}
+	
+	#Nuclear bomber
+	every_scope_state = {
+		limit = { has_building = building_nuclear_weapons_silo any_scope_building = { has_active_production_method = pm_nuclear_bomber } }
+		owner = { change_variable = { name = nuclear_strike_power_display add = 1 } }
+	}
+	
+	#Nuclear rocket
+	every_scope_state = {
+		limit = { has_building = building_nuclear_weapons_silo any_scope_building = { has_active_production_method = pm_icbms } }
+		owner = { change_variable = { name = nuclear_strike_power_display add = 3 } }
+	}
+
+	#Nuclear submarine
+	# every_scope_state = {
+	# 	limit = { has_building = building_nuclear_naval_base any_scope_building = { has_active_production_method = pm_nuclear_submarine_1 } }
+	# 	owner = { change_variable = { name = nuclear_strike_power_display add = 1 } }
+	# }
+	
+	#Reduce nuclear power due to nuclear disarmament treaty
+	if = {
+		limit = { 
+			OR = { 
+				any_scope_treaty = { binds = THIS any_scope_article = { has_type = nuclear_de_escalation_treaty } }
+				has_modifier = recently_reduced_nukes
+			}
+		}
+		change_variable = { name = nuclear_strike_power_display divide = 2 }
+	}
+}
+
+calculate_nuclear_defence_info = {
+
+	#Always first reset to 0
+	set_variable = { 
+		name = nuclear_strike_defence_display
+		value = 0
+	}
+
+	#Calculate total number of states
+	every_scope_state = { 
+		owner = { change_variable = { name = nuclear_strike_defence_display add = 1 } }
+	}
+}
+
+calculate_enemy_nuclear_strength_info = {
+	
+	#Always first reset to 0
+	set_variable = { 
+		name = nuclear_strike_power_enemy_display
+		value = 0
+	}
+	set_variable = { 
+		name = nuclear_strike_defence_enemy_display
+		value = 0
+	}
+	set_variable = { 
+		name = nuclear_enemy_counter_display
+		value = 1
+	}
+
+	#Calculate enemy nuclear strength
+	every_country = {
+		limit = { 
+			NOT = { THIS = ROOT }
+			has_modifier = nuclear_capability 
+			
+			has_variable = nuclear_strike_power_display
+			has_variable = nuclear_strike_defence_display
+			
+			OR = { 
+				relations:root < relations_threshold:poor
+				has_diplomatic_pact = { who = ROOT type = rivalry }
+			}
+		}
+		calculate_nuclear_strength_info = yes
+		calculate_nuclear_defence_info = yes
+		
+		set_global_variable = {
+			name = nuclear_strike_power_enemy_display_global
+			value = this.var:nuclear_strike_power_display
+		}
+		set_global_variable = {
+			name = nuclear_strike_defence_display_global
+			value = this.var:nuclear_strike_defence_display
+		}
+		
+		ROOT = {
+			change_variable = {
+				name = nuclear_strike_power_enemy_display
+				add = global_var:nuclear_strike_power_enemy_display_global
+			}
+			change_variable = {
+				name = nuclear_strike_defence_enemy_display
+				add = global_var:nuclear_strike_defence_display_global
+			}
+			change_variable = {
+				name = nuclear_enemy_counter_display
+				add = 1
+			}
+		}
+		
+		remove_global_variable = nuclear_strike_power_enemy_display_global
+		remove_global_variable = nuclear_strike_defence_display_global
+		
+	}
+	
+}
+
+calculate_allied_nuclear_strength_info = {
+	
+	#Always first reset to 0
+	set_variable = { 
+		name = nuclear_strike_power_allied_display
+		value = 0
+	}
+	set_variable = { 
+		name = nuclear_strike_defence_allied_display
+		value = 0
+	}
+
+	#Calculate allied nuclear strength
+	every_country = {
+		limit = { 
+			NOT = { THIS = ROOT }
+			has_modifier = nuclear_capability 
+			
+			#has_variable = nuclear_strike_power_display
+			#has_variable = nuclear_strike_defence_display
+			
+			OR = { 
+				any_scope_treaty = { binds = ROOT any_scope_article = { has_type = alliance } }
+				any_scope_treaty = { binds = ROOT any_scope_article = { has_type = defensive_pact } }
+			}
+		}
+		calculate_nuclear_strength_info = yes
+		calculate_nuclear_defence_info = yes
+		
+		set_global_variable = {
+			name = nuclear_strike_power_allied_display_global
+			value = this.var:nuclear_strike_power_display
+		}
+		set_global_variable = {
+			name = nuclear_strike_defence_display_global
+			value = this.var:nuclear_strike_defence_display
+		}
+		
+		ROOT = {
+			change_variable = {
+				name = nuclear_strike_power_allied_display
+				add = global_var:nuclear_strike_power_allied_display_global
+			}
+			change_variable = {
+				name = nuclear_strike_defence_allied_display
+				add = global_var:nuclear_strike_defence_display_global
+			}
+		}
+		
+		remove_global_variable = nuclear_strike_power_allied_display_global
+		remove_global_variable = nuclear_strike_defence_display_global
+		
+	}
+	
+	change_variable = { 
+		name = nuclear_strike_power_display
+		add = root.var:nuclear_strike_power_allied_display
+	}
+	
+	change_variable = { 
+		name = nuclear_strike_defence_display
+		add = root.var:nuclear_strike_defence_allied_display
+	}
+	
+}
+
+calculate_nuclear_arms_race_ratio = {
+	
+	#THIS vs Enemy ratio
+	set_variable = { 
+		name = nuclear_strike_power_THIS_enemy_ratio
+		value = root.var:nuclear_strike_power_display
+	}
+	if = {
+		limit = { root.var:nuclear_strike_defence_enemy_display > 0 }
+		change_variable = {
+			name = nuclear_strike_power_THIS_enemy_ratio
+			divide = root.var:nuclear_strike_defence_enemy_display
+		}
+	}
+	else = {
+		set_variable = { 
+			name = nuclear_strike_power_THIS_enemy_ratio
+			value = 0
+		}
+	}
+	
+	#Enemy vs THIS ratio
+	set_variable = { 
+		name = nuclear_strike_power_enemy_THIS_ratio
+		value = root.var:nuclear_strike_power_enemy_display
+	}
+	if = {
+		limit = { root.var:nuclear_strike_defence_display > 0 }
+		change_variable = {
+			name = nuclear_strike_power_enemy_THIS_ratio
+			divide = root.var:nuclear_strike_defence_display
+		}
+	}
+	else = {
+		set_variable = { 
+			name = nuclear_strike_power_enemy_THIS_ratio
+			value = 0
+		}
+	}
+	
+	#Aggregate
+	set_variable = { 
+		name = nuclear_strike_power_ratio
+		value = root.var:nuclear_strike_power_THIS_enemy_ratio
+	}
+	change_variable = { 
+		name = nuclear_strike_power_ratio
+		multiply = root.var:nuclear_enemy_counter_display
+	}
+	change_variable = { 
+		name = nuclear_strike_power_ratio
+		subtract = root.var:nuclear_strike_power_enemy_THIS_ratio
+	}
+	if = {
+		limit = { 
+			root.var:nuclear_strike_power_THIS_enemy_ratio >= root.var:nuclear_strike_power_enemy_THIS_ratio 
+			root.var:nuclear_strike_power_THIS_enemy_ratio > 0
+		}
+		change_variable = { 
+			name = nuclear_strike_power_ratio
+			divide = root.var:nuclear_strike_power_THIS_enemy_ratio
+		}
+	}
+	if = {
+		limit = { 
+			root.var:nuclear_strike_power_THIS_enemy_ratio < root.var:nuclear_strike_power_enemy_THIS_ratio 
+			root.var:nuclear_strike_power_enemy_THIS_ratio > 0
+		}
+		change_variable = { 
+			name = nuclear_strike_power_ratio
+			divide = root.var:nuclear_strike_power_enemy_THIS_ratio
+		}
+	}
+	change_variable = { 
+		name = nuclear_strike_power_ratio
+		multiply = 100
+	}
+
 }

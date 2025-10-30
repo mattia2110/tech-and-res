@@ -1,0 +1,446 @@
+ztr_trait_hiddening_decision = {
+
+	is_shown = {
+		is_player = yes
+		NOT = { has_global_variable = ztr_hidden_traits_var }
+	}
+
+	possible = {
+		always = yes
+	}
+
+	when_taken = {
+		hidden_effect = {
+			add_arid_water_deposits_hidden = yes
+			add_normal_water_deposits_hidden = yes
+			add_humid_water_deposits_hidden = yes
+			add_very_humid_water_deposits_hidden = yes
+			add_hydroelectric_water_deposits_hidden = yes
+
+			copper_nano_add_deposits_hidden = yes
+			copper_small_add_deposits_hidden = yes
+			copper_medium_add_deposits_hidden = yes
+			copper_big_add_deposits_hidden = yes
+			copper_huge_add_deposits_hidden = yes
+
+			commonores_nano_add_deposits_hidden = yes
+			commonores_small_add_deposits_hidden = yes
+			commonores_medium_add_deposits_hidden = yes
+			commonores_big_add_deposits_hidden = yes
+			commonores_huge_add_deposits_hidden = yes
+			if = {
+				limit = {
+					any_state = {
+						has_state_trait = state_trait_nano_bauxite_mine
+					}
+				}
+				bauxite_nano_add_deposits_hidden = yes
+			}
+			if = {
+				limit = {
+					any_state = {
+						has_state_trait = state_trait_small_bauxite_mine
+					}
+				}
+				bauxite_small_add_deposits_hidden = yes
+			}
+			if = {
+				limit = {
+					any_state = {
+						has_state_trait = state_trait_medium_bauxite_mine
+					}
+				}
+				bauxite_medium_add_deposits_hidden = yes
+			}
+			if = {
+				limit = {
+					any_state = {
+						has_state_trait = state_trait_big_bauxite_mine
+					}
+				}
+				bauxite_big_add_deposits_hidden = yes
+			}
+			if = {
+				limit = {
+					any_state = {
+						has_state_trait = state_trait_huge_bauxite_mine
+					}
+				}
+				bauxite_huge_add_deposits_hidden = yes
+			}
+			if = {
+				limit = {
+					any_state = {
+						has_state_trait = state_trait_nano_advancedores_mine
+					}
+				}
+				advancedores_nano_add_deposits_hidden = yes
+			}
+			if = {
+				limit = {
+					any_state = {
+						has_state_trait = state_trait_small_advancedores_mine
+					}
+				}
+				advancedores_small_add_deposits_hidden = yes
+			}
+			if = {
+				limit = {
+					any_state = {
+						has_state_trait = state_trait_medium_advancedores_mine
+					}
+				}
+				advancedores_medium_add_deposits_hidden = yes
+			}
+			if = {
+				limit = {
+					any_state = {
+						has_state_trait = state_trait_small_natural_gas_rig
+					}
+				}
+				advancedores_big_add_deposits_hidden = yes
+			}
+			if = {
+				limit = {
+					any_state = {
+						has_state_trait = state_trait_small_natural_gas_rig
+					}
+				}
+				gas_small_add_deposits_hidden = yes
+			}
+			if = {
+				limit = {
+					any_state = {
+						has_state_trait = state_trait_medium_natural_gas_rig
+					}
+				}
+				gas_medium_add_deposits_hidden = yes
+			}
+			if = {
+				limit = {
+					any_state = {
+						has_state_trait = state_trait_big_natural_gas_rig
+					}
+				}
+				gas_big_add_deposits_hidden = yes
+			}
+			if = {
+				limit = {
+					any_state = {
+						has_state_trait = state_trait_huge_natural_gas_rig
+					}
+				}
+				gas_huge_add_deposits_hidden = yes
+			}
+			if = {
+				limit = {
+					any_state = {
+						has_state_trait = state_trait_small_rare_earths_mine
+					}
+				}
+				rare_earths_small_add_deposits_hidden = yes
+			}
+			if = {
+				limit = {
+					any_state = {
+						has_state_trait = state_trait_medium_rare_earths_mine
+					}
+				}
+				rare_earths_medium_add_deposits_hidden = yes
+			}
+			if = {
+				limit = {
+					any_state = {
+						has_state_trait = state_trait_big_rare_earths_mine
+					}
+				}
+				rare_earths_big_add_deposits_hidden = yes
+			}
+			if = {
+				limit = {
+					any_state = {
+						has_state_trait = state_trait_small_uranium_mine
+					}
+				}
+				good_uranium_small_add_deposits_hidden = yes
+			}
+			if = {
+				limit = {
+					any_state = {
+						has_state_trait = state_trait_medium_uranium_mine
+					}
+				}
+				good_uranium_medium_add_deposits_hidden = yes
+			}
+			if = {
+				limit = {
+					any_state = {
+						has_state_trait = state_trait_big_uranium_mine
+					}
+				}
+				good_uranium_big_add_deposits_hidden = yes
+			}
+			every_state_region = {
+				remove_state_trait = state_trait_groundwater_scarce
+				remove_state_trait = state_trait_groundwater_normal
+				remove_state_trait = state_trait_groundwater_humid
+				remove_state_trait = state_trait_groundwater_very_humid
+				remove_state_trait = state_trait_hydroelectric_water_deposits
+				remove_state_trait = state_trait_nano_copper_mine
+				remove_state_trait = state_trait_small_copper_mine
+				remove_state_trait = state_trait_medium_copper_mine
+				remove_state_trait = state_trait_big_copper_mine
+				remove_state_trait = state_trait_huge_copper_mine
+				remove_state_trait = state_trait_nano_commonores_mine
+				remove_state_trait = state_trait_small_commonores_mine
+				remove_state_trait = state_trait_medium_commonores_mine
+				remove_state_trait = state_trait_big_commonores_mine
+				remove_state_trait = state_trait_huge_commonores_mine
+				remove_state_trait = state_trait_nano_bauxite_mine
+				remove_state_trait = state_trait_small_bauxite_mine
+				remove_state_trait = state_trait_medium_bauxite_mine
+				remove_state_trait = state_trait_big_bauxite_mine
+				remove_state_trait = state_trait_huge_bauxite_mine
+				remove_state_trait = state_trait_nano_advancedores_mine
+				remove_state_trait = state_trait_small_advancedores_mine
+				remove_state_trait = state_trait_medium_advancedores_mine
+				remove_state_trait = state_trait_big_advancedores_mine
+				remove_state_trait = state_trait_small_natural_gas_rig
+				remove_state_trait = state_trait_medium_natural_gas_rig
+				remove_state_trait = state_trait_big_natural_gas_rig
+				remove_state_trait = state_trait_huge_natural_gas_rig
+				remove_state_trait = state_trait_small_rare_earths_mine
+				remove_state_trait = state_trait_medium_rare_earths_mine
+				remove_state_trait = state_trait_big_rare_earths_mine
+				remove_state_trait = state_trait_small_uranium_mine
+				remove_state_trait = state_trait_medium_uranium_mine
+				remove_state_trait = state_trait_big_uranium_mine
+			}
+		}
+		set_global_variable = ztr_hidden_traits_var
+	}
+}
+
+ztr_trait_unhiddening_decision = {
+
+	is_shown = {
+		is_player = yes
+		has_global_variable = ztr_hidden_traits_var
+	}
+
+	possible = {
+		always = yes
+	}
+
+	when_taken = {
+		hidden_effect = {
+			add_arid_water_deposits = yes
+			add_normal_water_deposits = yes
+			add_humid_water_deposits = yes
+			add_very_humid_water_deposits = yes
+			add_hydroelectric_water_deposits = yes
+
+			copper_nano_add_deposits = yes
+			copper_small_add_deposits = yes
+			copper_medium_add_deposits = yes
+			copper_big_add_deposits = yes
+			copper_huge_add_deposits = yes
+
+			commonores_nano_add_deposits = yes
+			commonores_small_add_deposits = yes
+			commonores_medium_add_deposits = yes
+			commonores_big_add_deposits = yes
+			commonores_huge_add_deposits = yes
+			if = {
+				limit = {
+					any_state = {
+						has_state_trait = state_trait_nano_bauxite_mine_hidden
+					}
+				}
+				bauxite_nano_add_deposits = yes
+			}
+			if = {
+				limit = {
+					any_state = {
+						has_state_trait = state_trait_small_bauxite_mine_hidden
+					}
+				}
+				bauxite_small_add_deposits = yes
+			}
+			if = {
+				limit = {
+					any_state = {
+						has_state_trait = state_trait_medium_bauxite_mine_hidden
+					}
+				}
+				bauxite_medium_add_deposits = yes
+			}
+			if = {
+				limit = {
+					any_state = {
+						has_state_trait = state_trait_big_bauxite_mine_hidden
+					}
+				}
+				bauxite_big_add_deposits = yes
+			}
+			if = {
+				limit = {
+					any_state = {
+						has_state_trait = state_trait_huge_bauxite_mine_hidden
+					}
+				}
+				bauxite_huge_add_deposits = yes
+			}
+			if = {
+				limit = {
+					any_state = {
+						has_state_trait = state_trait_nano_advancedores_mine_hidden
+					}
+				}
+				advancedores_nano_add_deposits = yes
+			}
+			if = {
+				limit = {
+					any_state = {
+						has_state_trait = state_trait_small_advancedores_mine_hidden
+					}
+				}
+				advancedores_small_add_deposits = yes
+			}
+			if = {
+				limit = {
+					any_state = {
+						has_state_trait = state_trait_medium_advancedores_mine_hidden
+					}
+				}
+				advancedores_medium_add_deposits = yes
+			}
+			if = {
+				limit = {
+					any_state = {
+						has_state_trait = state_trait_small_natural_gas_rig_hidden
+					}
+				}
+				advancedores_big_add_deposits = yes
+			}
+			if = {
+				limit = {
+					any_state = {
+						has_state_trait = state_trait_small_natural_gas_rig_hidden
+					}
+				}
+				gas_small_add_deposits = yes
+			}
+			if = {
+				limit = {
+					any_state = {
+						has_state_trait = state_trait_medium_natural_gas_rig_hidden
+					}
+				}
+				gas_medium_add_deposits = yes
+			}
+			if = {
+				limit = {
+					any_state = {
+						has_state_trait = state_trait_big_natural_gas_rig_hidden
+					}
+				}
+				gas_big_add_deposits = yes
+			}
+			if = {
+				limit = {
+					any_state = {
+						has_state_trait = state_trait_huge_natural_gas_rig_hidden
+					}
+				}
+				gas_huge_add_deposits = yes
+			}
+			if = {
+				limit = {
+					any_state = {
+						has_state_trait = state_trait_small_rare_earths_mine_hidden
+					}
+				}
+				rare_earths_small_add_deposits = yes
+			}
+			if = {
+				limit = {
+					any_state = {
+						has_state_trait = state_trait_medium_rare_earths_mine_hidden
+					}
+				}
+				rare_earths_medium_add_deposits = yes
+			}
+			if = {
+				limit = {
+					any_state = {
+						has_state_trait = state_trait_big_rare_earths_mine_hidden
+					}
+				}
+				rare_earths_big_add_deposits = yes
+			}
+			if = {
+				limit = {
+					any_state = {
+						has_state_trait = state_trait_small_uranium_mine_hidden
+					}
+				}
+				good_uranium_small_add_deposits = yes
+			}
+			if = {
+				limit = {
+					any_state = {
+						has_state_trait = state_trait_medium_uranium_mine_hidden
+					}
+				}
+				good_uranium_medium_add_deposits = yes
+			}
+			if = {
+				limit = {
+					any_state = {
+						has_state_trait = state_trait_big_uranium_mine_hidden
+						count > 0
+					}
+				}
+				good_uranium_big_add_deposits = yes
+			}
+			every_state_region = {
+				remove_state_trait = state_trait_groundwater_scarce_hidden
+				remove_state_trait = state_trait_groundwater_normal_hidden
+				remove_state_trait = state_trait_groundwater_humid_hidden
+				remove_state_trait = state_trait_groundwater_very_humid_hidden
+				remove_state_trait = state_trait_hydroelectric_water_deposits_hidden
+				remove_state_trait = state_trait_nano_copper_mine_hidden
+				remove_state_trait = state_trait_small_copper_mine_hidden
+				remove_state_trait = state_trait_medium_copper_mine_hidden
+				remove_state_trait = state_trait_big_copper_mine_hidden
+				remove_state_trait = state_trait_huge_copper_mine_hidden
+				remove_state_trait = state_trait_nano_commonores_mine_hidden
+				remove_state_trait = state_trait_small_commonores_mine_hidden
+				remove_state_trait = state_trait_medium_commonores_mine_hidden
+				remove_state_trait = state_trait_big_commonores_mine_hidden
+				remove_state_trait = state_trait_huge_commonores_mine_hidden
+				remove_state_trait = state_trait_nano_bauxite_mine_hidden
+				remove_state_trait = state_trait_small_bauxite_mine_hidden
+				remove_state_trait = state_trait_medium_bauxite_mine_hidden
+				remove_state_trait = state_trait_big_bauxite_mine_hidden
+				remove_state_trait = state_trait_huge_bauxite_mine_hidden
+				remove_state_trait = state_trait_nano_advancedores_mine_hidden
+				remove_state_trait = state_trait_small_advancedores_mine_hidden
+				remove_state_trait = state_trait_medium_advancedores_mine_hidden
+				remove_state_trait = state_trait_big_advancedores_mine_hidden
+				remove_state_trait = state_trait_small_natural_gas_rig_hidden
+				remove_state_trait = state_trait_medium_natural_gas_rig_hidden
+				remove_state_trait = state_trait_big_natural_gas_rig_hidden
+				remove_state_trait = state_trait_huge_natural_gas_rig_hidden
+				remove_state_trait = state_trait_small_rare_earths_mine_hidden
+				remove_state_trait = state_trait_medium_rare_earths_mine_hidden
+				remove_state_trait = state_trait_big_rare_earths_mine_hidden
+				remove_state_trait = state_trait_small_uranium_mine_hidden
+				remove_state_trait = state_trait_medium_uranium_mine_hidden
+				remove_state_trait = state_trait_big_uranium_mine_hidden
+			}
+		}
+		remove_global_variable = ztr_hidden_traits_var
+	}
+}

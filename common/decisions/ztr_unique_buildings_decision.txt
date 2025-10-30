@@ -2,8 +2,10 @@ research_center_decision = {
 	is_shown = {
 		has_technology_researched = verrier_modern_physics_tech
 		NOT = {
-			any_scope_building = {
-				is_building_type = building_research_center
+			any_scope_state = {
+				any_scope_building = {
+					is_building_type = building_research_center
+				}
 			}
 		}
 		NOT = {
@@ -24,7 +26,7 @@ research_center_decision = {
 			is_split_state = no
 			any_scope_building = {
 				is_building_type = building_urban_center
-				level >= 100
+				level >= 50
 			}
 			any_scope_building = {
 				is_building_type = building_university
@@ -38,9 +40,16 @@ research_center_decision = {
 			name = research_center_var
 			value = 0
 		}
-		add_modifier = {
-			name = research_center_survey
-			months = 24
+		if = {
+			limit = {
+				NOT = {
+					has_modifier = research_center_survey
+				}
+			}
+			add_modifier = {
+				name = research_center_survey
+				months = 24
+			}
 		}
 		add_journal_entry = {
 			type = je_research_center_site
@@ -55,13 +64,9 @@ research_center_decision = {
 		}
 		if = {
 			limit = {
-				produced_bureaucracy > 5000
-				any_country = {
-					is_ai = no
-					has_variable = research_center_var
-				}
+				has_strategy = ai_strategy_industrial_expansion
 			}
-			add = 50
+			add = 1000
 		}
 		if = {
 			limit = {

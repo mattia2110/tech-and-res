@@ -10,9 +10,13 @@ je_austrian_empire_collapse = {
 	}
 
 	possible = {
-		NOT = { global_country_ranking < 5 }
-		NOT = { is_democracy = yes }
-		get_country_gdp_per < 4
+		OR = {
+			country_rank < rank_value:great_power
+			AND = {
+				is_not_democracy = yes
+				NOT = { global_country_ranking < 5 }
+			}
+		}
 	}
 
 	immediate = {
@@ -145,6 +149,7 @@ je_austrian_empire_collapse = {
 	}
 
 	on_complete = {
+		set_variable = ztr_austria_has_collapsed_var
 
 		add_loyalists = {
 			value   = 0.9
@@ -384,10 +389,14 @@ je_austrian_empire_collapse = {
 
 
 	fail = {
+		get_country_gdp_per > 6
 		OR = {
-			is_full_democracy = yes
-			get_country_gdp_per > 6
+			AND = {
+				country_rank = rank_value:great_power
+				is_democracy = yes
+			}
 			global_country_ranking < 5
+			is_full_democracy = yes
 		}
 	}
 

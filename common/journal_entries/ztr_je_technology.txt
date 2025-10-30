@@ -1,5 +1,5 @@
 je_research_center_site = {
-	icon = "gfx/interface/icons/event_icons/event_map.dds"
+	icon = "gfx/interface/icons/event_icons/innovation.dds"
 
 	group = je_group_technology
 
@@ -14,12 +14,13 @@ je_research_center_site = {
 
 	complete = {
 		scope:journal_entry = { is_goal_complete = yes }
+		# There should be a state like that, despite research center will always be built in capital
 		any_scope_state = {
-			is_split_state = no
 			is_incorporated = yes
+			is_split_state = no
 			any_scope_building = {
 				is_building_type = building_urban_center
-				level >= 100
+				level >= 50
 			}
 			any_scope_building = {
 				is_building_type = building_university
@@ -36,11 +37,11 @@ je_research_center_site = {
 	invalid = {
 		NOT = {
 			any_scope_state = {
-				is_split_state = no
 				is_incorporated = yes
+				is_split_state = no
 				any_scope_building = {
 					is_building_type = building_urban_center
-					level >= 100
+					level >= 50
 				}
 				any_scope_building = {
 					is_building_type = building_university
@@ -51,7 +52,7 @@ je_research_center_site = {
 	}
 
 	on_invalid = {
-		#remove_modifier = research_center_survey
+		remove_modifier = research_center_survey
 		remove_variable = research_center_var
 	}
 
@@ -63,10 +64,6 @@ je_research_center_site = {
 		value = 24
 	}
 
-	modifiers_while_active = {
-		research_center_survey
-	}
-
 	progressbar = yes
 
 	weight = 10
@@ -75,12 +72,50 @@ je_research_center_site = {
 }
 
 je_research_center_construction = {
-	icon = "gfx/interface/icons/event_icons/event_map.dds"
+	icon = "gfx/interface/icons/event_icons/academia.dds"
 
 	group = je_group_technology
 
 	complete = {
-		scope:target = { has_research_center = yes }
+		scope:target = { has_research_center_target = yes }
+	}
+
+	on_yearly_pulse = {
+		effect = {
+			if = {
+				limit = {
+					# This will be removed when dev will resolve AI not building great buildings while being in deficit
+					capital = {
+						NOR = {
+							any_scope_building = {
+								is_building_type = building_research_center
+								is_under_construction = no
+							}
+							any_scope_building = {
+								is_building_type = building_research_center
+								is_under_construction = yes
+							}
+						}
+					}
+					is_ai = yes
+				}
+				capital = {
+					create_building = {
+						building = building_research_center
+						level = 1
+					}
+				}
+				# random_scope_state = {
+				# 	limit = {
+				# 		is_capital = yes
+				# 	}
+				# 	create_building = {
+				# 		building = building_research_center
+				# 		level = 1
+				# 	}
+				# }
+			}
+		}
 	}
 
 	fail = {

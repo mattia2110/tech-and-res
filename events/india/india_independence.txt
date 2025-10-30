@@ -37,7 +37,7 @@ ztr_india.1 = {
 		default_option = yes
 		custom_tooltip = british_raj_annexation_custom_tooltip
 		hidden_effect = {
-			british_raj_annexation_effect = yes
+			british_raj_consolidation_effect = yes
 		}
 		c:BIC = {
 			add_modifier = {
@@ -148,9 +148,39 @@ ztr_india.3 = {
 			country = overlord
 			value = 100
 		}
-		british_raj_annexation_effect = yes
+		british_raj_consolidation_effect = yes
 		make_independent = yes
-		remove_modifier = jewel_in_the_crown_modifier
+		india_independence_ig_effects = yes
+		if = {
+			limit = {
+				has_modifier = jewel_in_the_crown_modifier
+			}
+			remove_modifier = jewel_in_the_crown_modifier
+		}
+		if = {
+			limit = {
+				has_modifier = modifier_india_crown_rule
+			}
+			remove_modifier = modifier_india_crown_rule
+		}
+		if = {
+			limit = {
+				has_modifier = modifier_india_company_rule
+			}
+			remove_modifier = modifier_india_company_rule
+		}
+		if = {
+			limit = {
+				has_modifier = modifier_india_company_rule_upgraded
+			}
+			remove_modifier = modifier_india_company_rule_upgraded
+		}
+		if = {
+			limit = {
+				has_modifier = modifier_indian_imperial_police
+			}
+			remove_modifier = modifier_indian_imperial_police
+		}
 		remove_variable = ztr_india_request_independence
 	}
 }
@@ -193,7 +223,7 @@ ztr_india.4 = {
 			country = overlord
 			value = -100
 		}
-		british_raj_annexation_effect = yes
+		british_raj_consolidation_effect = yes
 		create_diplomatic_play = {
 			target_country = overlord
 			type = dp_independence
@@ -241,9 +271,23 @@ ztr_india.5 = {
 		hidden_effect = {
 			give_claims_on_india = yes
 		}
+		every_subject_or_below = {
+			limit = {
+				country_is_in_india = yes
+			}
+			every_scope_state = {
+				limit = {
+					state_is_in_india = yes
+				}
+				set_state_owner = root
+			}
+		}
 		if = {
 			limit = {
-				root = c:BGL
+				OR = {
+					root = c:BGL
+					root = c:MUG
+				}
 			}
 			change_tag = BHT
 		}

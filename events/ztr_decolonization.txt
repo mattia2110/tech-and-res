@@ -1,5 +1,6 @@
 namespace = ztr_decolonization
 
+# Winds of Decolonization
 ztr_decolonization.1 = {
 	dlc = dlc_tech_res
 	type = country_event
@@ -50,10 +51,23 @@ ztr_decolonization.1 = {
 	option = {
 		name = ztr_decolonization.1.a
 		ai_chance = {
-			base = 90
+			base = 10
+			# 3:1 for full democracies, 4:1 for democracies and 2,5:1 for others
+			modifier = {
+				trigger = {
+					is_full_democracy = yes
+				}
+				add = 15
+			}
+			modifier = {
+				trigger = {
+					is_democracy = yes
+				}
+				add = 15
+			}
 		}
 		create_bidirectional_truce = { country = scope:subject_scope months = 120 }
-		change_infamy = -2
+		change_infamy = -5
 		scope:subject_scope = {
 			make_independent = yes
 			change_relations = {
@@ -69,7 +83,10 @@ ztr_decolonization.1 = {
 		ai_chance = {
 			base = 10
 		}
-		change_infamy = 5
+		create_incident = {
+			country = scope:subject_scope
+			value = 2
+		}
 		scope:subject_scope = {
 			change_relations = {
 				country = root
@@ -83,6 +100,9 @@ ztr_decolonization.1 = {
 	}
 }
 
+#ASIA/NORTH AFRICA
+
+#Tunisia
 ztr_decolonization.2 = {
 	dlc = dlc_tech_res
 	type = country_event
@@ -103,6 +123,7 @@ ztr_decolonization.2 = {
 	
 	trigger = {
 		has_global_variable = ztr_decolonization_age_var
+		cu:maghrebi = { wants_to_be_decolonized = yes }
 		NOT = { is_subject = yes }
 		any_scope_state = {
 			NOT = { is_homeland_of_country_cultures = root }
@@ -146,6 +167,7 @@ ztr_decolonization.2 = {
 	}
 }
 
+#Algeria
 ztr_decolonization.3 = {
 	dlc = dlc_tech_res
 	type = country_event
@@ -166,6 +188,7 @@ ztr_decolonization.3 = {
 	
 	trigger = {
 		has_global_variable = ztr_decolonization_age_var
+		cu:maghrebi = { wants_to_be_decolonized = yes }
 		NOT = { is_subject = yes }
 		any_scope_state = {
 			NOT = { is_homeland_of_country_cultures = root }
@@ -189,7 +212,7 @@ ztr_decolonization.3 = {
 		ai_chance = {
 			base = 90
 		}
-		change_infamy = -10
+		change_infamy = -5
 		ztr_define_algeria = yes
 		create_bidirectional_truce = { country = c:ALD months = 120 }
 		c:ALD = {
@@ -206,10 +229,11 @@ ztr_decolonization.3 = {
 		ai_chance = {
 			base = 10
 		}
-		change_infamy = 10
+		change_infamy = 5
 	}
 }
 
+#Morocco
 ztr_decolonization.4 = {
 	dlc = dlc_tech_res
 	type = country_event
@@ -230,6 +254,7 @@ ztr_decolonization.4 = {
 	
 	trigger = {
 		has_global_variable = ztr_decolonization_age_var
+		cu:maghrebi = { wants_to_be_decolonized = yes }
 		NOT = { is_subject = yes }
 		any_scope_state = {
 			NOT = { is_homeland_of_country_cultures = root }
@@ -259,7 +284,7 @@ ztr_decolonization.4 = {
 		ai_chance = {
 			base = 90
 		}
-		change_infamy = -10
+		change_infamy = -5
 		ztr_define_morocco = yes
 		create_bidirectional_truce = { country = c:MOR months = 120 }
 		c:MOR = {
@@ -276,10 +301,11 @@ ztr_decolonization.4 = {
 		ai_chance = {
 			base = 10
 		}
-		change_infamy = 10
+		change_infamy = 5
 	}
 }
 
+#Libya
 ztr_decolonization.5 = {
 	dlc = dlc_tech_res
 	type = country_event
@@ -300,6 +326,7 @@ ztr_decolonization.5 = {
 	
 	trigger = {
 		has_global_variable = ztr_decolonization_age_var
+		cu:maghrebi = { wants_to_be_decolonized = yes }
 		NOT = { is_subject = yes }
 		any_scope_state = {
 			NOT = { is_homeland_of_country_cultures = root }
@@ -342,6 +369,7 @@ ztr_decolonization.5 = {
 	}
 }
 
+#Egypt
 ztr_decolonization.6 = {
 	dlc = dlc_tech_res
 	type = country_event
@@ -362,6 +390,7 @@ ztr_decolonization.6 = {
 	
 	trigger = {
 		has_global_variable = ztr_decolonization_age_var
+		cu:misri = { wants_to_be_decolonized = yes }
 		NOT = { is_subject = yes }
 		any_scope_state = {
 			NOT = { is_homeland_of_country_cultures = root }
@@ -386,7 +415,7 @@ ztr_decolonization.6 = {
 		ai_chance = {
 			base = 90
 		}
-		change_infamy = -15
+		change_infamy = -5
 		ztr_define_egypt = yes
 		create_bidirectional_truce = { country = c:EGY months = 120 }
 		c:EGY = {
@@ -403,10 +432,11 @@ ztr_decolonization.6 = {
 		ai_chance = {
 			base = 10
 		}
-		change_infamy = 10
+		change_infamy = 5
 	}
 }
 
+#Sudan
 ztr_decolonization.7 = {
 	dlc = dlc_tech_res
 	type = country_event
@@ -427,6 +457,7 @@ ztr_decolonization.7 = {
 	
 	trigger = {
 		has_global_variable = ztr_decolonization_age_var
+		cu:sudanese = { wants_to_be_decolonized = yes }
 		NOT = { is_subject = yes }
 		any_scope_state = {
 			NOT = { is_homeland_of_country_cultures = root }
@@ -450,7 +481,7 @@ ztr_decolonization.7 = {
 		ai_chance = {
 			base = 90
 		}
-		change_infamy = -10
+		change_infamy = -5
 		ztr_define_sudan = yes
 		create_bidirectional_truce = { country = c:SUD months = 120 }
 		c:SUD = {
@@ -467,10 +498,11 @@ ztr_decolonization.7 = {
 		ai_chance = {
 			base = 10
 		}
-		change_infamy = 10
+		change_infamy = 5
 	}
 }
 
+#Arabia
 ztr_decolonization.8 = {
 	dlc = dlc_tech_res
 	type = country_event
@@ -491,6 +523,7 @@ ztr_decolonization.8 = {
 	
 	trigger = {
 		has_global_variable = ztr_decolonization_age_var
+		cu:bedouin = { wants_to_be_decolonized = yes }
 		NOT = { is_subject = yes }
 		any_scope_state = {
 			NOT = { is_homeland_of_country_cultures = root }
@@ -512,7 +545,7 @@ ztr_decolonization.8 = {
 		ai_chance = {
 			base = 90
 		}
-		change_infamy = -10
+		change_infamy = -5
 		ztr_define_arabia = yes
 		create_bidirectional_truce = { country = c:NEJ months = 120 }
 		c:NEJ = {
@@ -529,10 +562,11 @@ ztr_decolonization.8 = {
 		ai_chance = {
 			base = 10
 		}
-		change_infamy = 10
+		change_infamy = 5
 	}
 }
 
+#Oman
 ztr_decolonization.9 = {
 	dlc = dlc_tech_res
 	type = country_event
@@ -553,6 +587,7 @@ ztr_decolonization.9 = {
 	
 	trigger = {
 		has_global_variable = ztr_decolonization_age_var
+		cu:bedouin = { wants_to_be_decolonized = yes }
 		NOT = { is_subject = yes }
 		any_scope_state = {
 			NOT = { is_homeland_of_country_cultures = root }
@@ -593,6 +628,7 @@ ztr_decolonization.9 = {
 	}
 }
 
+#Yemen
 ztr_decolonization.10 = {
 	dlc = dlc_tech_res
 	type = country_event
@@ -613,6 +649,7 @@ ztr_decolonization.10 = {
 	
 	trigger = {
 		has_global_variable = ztr_decolonization_age_var
+		cu:bedouin = { wants_to_be_decolonized = yes }
 		NOT = { is_subject = yes }
 		any_scope_state = {
 			NOT = { is_homeland_of_country_cultures = root }
@@ -632,7 +669,7 @@ ztr_decolonization.10 = {
 		ai_chance = {
 			base = 90
 		}
-		change_infamy = -10
+		change_infamy = -5
 		ztr_define_yemen = yes
 		create_bidirectional_truce = { country = c:YEM months = 120 }
 		c:YEM = {
@@ -653,6 +690,7 @@ ztr_decolonization.10 = {
 	}
 }
 
+#United Arab Emirates
 ztr_decolonization.11 = {
 	dlc = dlc_tech_res
 	type = country_event
@@ -673,7 +711,7 @@ ztr_decolonization.11 = {
 	
 	trigger = {
 		has_game_rule = allow_ztr_decolonization_content
-		
+		cu:bedouin = { wants_to_be_decolonized = yes }
 		has_global_variable = ztr_decolonization_age_var
 		year > 1945
 		NOT = { is_subject = yes }
@@ -783,6 +821,7 @@ ztr_decolonization.11 = {
 	}
 }
 
+# Iran
 ztr_decolonization.12 = {
 	dlc = dlc_tech_res
 	type = country_event
@@ -803,11 +842,12 @@ ztr_decolonization.12 = {
 	
 	trigger = {
 		has_global_variable = ztr_decolonization_age_var
+		cu:persian = { wants_to_be_decolonized = yes }
 		NOT = { is_subject = yes }
 		any_scope_state = {
 			NOT = { is_homeland_of_country_cultures = root }
 			state_region = {
-				region = sr:region_persia
+				is_homeland = cu:persian
 			}
 			count > 0
 		}
@@ -822,7 +862,7 @@ ztr_decolonization.12 = {
 		ai_chance = {
 			base = 90
 		}
-		change_infamy = -15
+		change_infamy = -5
 		ztr_define_persia = yes
 		create_bidirectional_truce = { country = c:PER months = 120 }
 		c:PER = {
@@ -839,10 +879,11 @@ ztr_decolonization.12 = {
 		ai_chance = {
 			base = 10
 		}
-		change_infamy = 10
+		change_infamy = 5
 	}
 }
 
+# Burma
 ztr_decolonization.13 = {
 	dlc = dlc_tech_res
 	type = country_event
@@ -863,6 +904,7 @@ ztr_decolonization.13 = {
 	
 	trigger = {
 		has_global_variable = ztr_decolonization_age_var
+		cu:burmese = { wants_to_be_decolonized = yes }
 		NOT = { is_subject = yes }
 		any_scope_state = {
 			NOT = { is_homeland_of_country_cultures = root }
@@ -882,7 +924,7 @@ ztr_decolonization.13 = {
 		ai_chance = {
 			base = 90
 		}
-		change_infamy = -15
+		change_infamy = -5
 		ztr_define_birmania = yes
 		create_bidirectional_truce = { country = c:BUR months = 120 }
 		c:BUR = {
@@ -899,7 +941,7 @@ ztr_decolonization.13 = {
 		ai_chance = {
 			base = 10
 		}
-		change_infamy = 10
+		change_infamy = 5
 	}
 }
 
@@ -923,6 +965,7 @@ ztr_decolonization.14 = {
 	
 	trigger = {
 		has_global_variable = ztr_decolonization_age_var
+		cu:thai = { wants_to_be_decolonized = yes }
 		NOT = { is_subject = yes }
 		any_scope_state = {
 			NOT = { is_homeland_of_country_cultures = root }
@@ -942,7 +985,7 @@ ztr_decolonization.14 = {
 		ai_chance = {
 			base = 90
 		}
-		change_infamy = -15
+		change_infamy = -5
 		ztr_define_siam = yes
 		create_bidirectional_truce = { country = c:SIA months = 120 }
 		c:SIA = {
@@ -959,7 +1002,7 @@ ztr_decolonization.14 = {
 		ai_chance = {
 			base = 10
 		}
-		change_infamy = 10
+		change_infamy = 5
 	}
 }
 
@@ -983,6 +1026,7 @@ ztr_decolonization.15 = {
 	
 	trigger = {
 		has_global_variable = ztr_decolonization_age_var
+		cu:lao = { wants_to_be_decolonized = yes }
 		NOT = { is_subject = yes }
 		any_scope_state = {
 			NOT = { is_homeland_of_country_cultures = root }
@@ -1019,10 +1063,11 @@ ztr_decolonization.15 = {
 		ai_chance = {
 			base = 10
 		}
-		change_infamy = 10
+		change_infamy = 5
 	}
 }
 
+# Vietnam
 ztr_decolonization.16 = {
 	dlc = dlc_tech_res
 	type = country_event
@@ -1043,6 +1088,7 @@ ztr_decolonization.16 = {
 	
 	trigger = {
 		has_global_variable = ztr_decolonization_age_var
+		cu:vietnamese = { wants_to_be_decolonized = yes }
 		NOT = { is_subject = yes }
 		any_scope_state = {
 			NOT = { is_homeland_of_country_cultures = root }
@@ -1062,7 +1108,7 @@ ztr_decolonization.16 = {
 		ai_chance = {
 			base = 90
 		}
-		change_infamy = -15
+		change_infamy = -5
 		ztr_define_vietnam = yes
 		create_bidirectional_truce = { country = c:DAI months = 120 }
 		c:DAI = {
@@ -1079,7 +1125,7 @@ ztr_decolonization.16 = {
 		ai_chance = {
 			base = 10
 		}
-		change_infamy = 10
+		change_infamy = 5
 	}
 }
 
@@ -1103,6 +1149,7 @@ ztr_decolonization.17 = {
 	
 	trigger = {
 		has_global_variable = ztr_decolonization_age_var
+		cu:khmer = { wants_to_be_decolonized = yes }
 		NOT = { is_subject = yes }
 		any_scope_state = {
 			NOT = { is_homeland_of_country_cultures = root }
@@ -1139,7 +1186,7 @@ ztr_decolonization.17 = {
 		ai_chance = {
 			base = 10
 		}
-		change_infamy = 10
+		change_infamy = 5
 	}
 }
 
@@ -1198,7 +1245,7 @@ ztr_decolonization.18 = {
 		ai_chance = {
 			base = 90
 		}
-		change_infamy = -5
+		change_infamy = -10
 		every_scope_state = {
 			limit = {
 				state_is_in_india = yes
@@ -1246,6 +1293,7 @@ ztr_decolonization.19 = {
 	
 	trigger = {
 		has_global_variable = ztr_decolonization_age_var
+		cu:korean = { wants_to_be_decolonized = yes }
 		NOT = { is_subject = yes }
 		any_scope_state = {
 			NOT = { is_homeland_of_country_cultures = root }
@@ -1271,7 +1319,7 @@ ztr_decolonization.19 = {
 		ai_chance = {
 			base = 90
 		}
-		change_infamy = -15
+		change_infamy = -5
 		ztr_define_korea = yes
 		create_bidirectional_truce = { country = c:KOR months = 120 }
 		c:KOR = {
@@ -1288,7 +1336,7 @@ ztr_decolonization.19 = {
 		ai_chance = {
 			base = 10
 		}
-		change_infamy = 10
+		change_infamy = 5
 	}
 }
 
@@ -1314,6 +1362,7 @@ ztr_decolonization.20 = {
 	
 	trigger = {
 		has_global_variable = ztr_decolonization_age_var
+		cu:japanese = { wants_to_be_decolonized = yes }
 		NOT = { is_subject = yes }
 		any_scope_state = {
 			NOT = { is_homeland_of_country_cultures = root }
@@ -1333,7 +1382,7 @@ ztr_decolonization.20 = {
 		ai_chance = {
 			base = 90
 		}
-		change_infamy = -15
+		change_infamy = -5
 		ztr_define_japan = yes
 		create_bidirectional_truce = { country = c:JAP months = 120 }
 		c:JAP = {
@@ -1350,7 +1399,7 @@ ztr_decolonization.20 = {
 		ai_chance = {
 			base = 10
 		}
-		change_infamy = 10
+		change_infamy = 5
 	}
 }
 
@@ -1376,6 +1425,7 @@ ztr_decolonization.21 = {
 	
 	trigger = {
 		has_game_rule = allow_ztr_decolonization_content
+		cu:han = { wants_to_be_decolonized = yes }
 		has_global_variable = ztr_decolonization_age_var
 		year > 1945
 		NOT = { is_subject = yes }
@@ -1401,7 +1451,7 @@ ztr_decolonization.21 = {
 		ai_chance = {
 			base = 90
 		}
-		change_infamy = -15
+		change_infamy = -10
 		every_scope_state = {
 			limit = {
 				OR = {
@@ -1429,152 +1479,2459 @@ ztr_decolonization.21 = {
 		ai_chance = {
 			base = 10
 		}
-		change_infamy = 10
+		change_infamy = 5
 	}
 }
 
-# ztr_decolonization.20 = {
-# 	dlc = dlc_tech_res
-# 	type = country_event
-# 	placement = ROOT
-# 	event_image = {
-# 		video = "southamerica_war_civilians"
-# 	}
+# Afghanistan decolonization
+ztr_decolonization.22 = {
+	dlc = dlc_tech_res
+	type = country_event
+	placement = ROOT
+	event_image = {
+		video = "southamerica_war_civilians"
+	}
 
-# 	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
 
-# 	icon = "gfx/interface/icons/event_icons/event_default.dds"
+	icon = "gfx/interface/icons/event_icons/event_default.dds"
 
-# 	title = ztr_decolonization.20.t
-# 	desc = ztr_decolonization.20.d
+	title = ztr_decolonization.22.t
+	desc = ztr_decolonization.22.d
 
 
-# 	duration = 3
+	duration = 3
 	
-# 	trigger = {
-# 		has_game_rule = allow_ztr_decolonization_content
-		
-# 		has_global_variable = ztr_decolonization_age_var
-# 		year > 1945
-#		NOT = { is_subject = yes }
-# 		NOT = {
-# 			OR = {
-# 				c:DAI ?= root
-# 			}
-# 		}
-# 		NOT = {
-# 			country_has_primary_culture = cu:vietnamese
-# 		}
-# 		OR = {
-# 			s:STATE_MEKONG = {
-# 			any_scope_state = {
-# 					owner = ROOT
-# 				}
-# 			}
-# 			s:STATE_ANNAM = {
-# 			any_scope_state = {
-# 					owner = ROOT
-# 				}
-# 			}
-# 			s:STATE_TONKIN = {
-# 			any_scope_state = {
-# 					owner = ROOT
-# 				}
-# 			}
-# 		}
-# 	}
+	trigger = {
+		has_global_variable = ztr_decolonization_age_var
+		cu:pashtun = { wants_to_be_decolonized = yes }
+		NOT = { is_subject = yes }
+		any_scope_state = {
+			NOT = { is_homeland_of_country_cultures = root }
+			OR = {
+				state_region = s:STATE_HERAT
+				state_region = s:STATE_KABUL
+				state_region = s:STATE_NORTHERN_BALUCHISTAN
+				state_region = s:STATE_KANDAHAR
+				state_region = s:STATE_BALKH
+				state_region = s:STATE_CENTRAL_HIGHLANDS
+				# Durrand Line has divided Pashtun from Indian subcontinent
+				AND = {
+					NOT = { has_global_variable = durand_line }
+					state_region = s:STATE_PASHTUNISTAN
+					state_region = s:STATE_QUETTA
+					state_region = s:STATE_BALUCHISTAN
+				}
+			}
+			count > 0
+		}
+		NOT = { c:PER ?= root } #Persia can own Afghanistan
+		has_game_rule = allow_ztr_decolonization_content
+	}
 
-# 	immediate = {
-# 	}
+	immediate = {
+	}
 
-# 	option = {
-# 		name = ztr_decolonization.20.a
-# 		ai_chance = {
-# 			base = 90
-# 		}
-# 		change_infamy = -15
-# 		if = {
-# 			limit = {
-# 				NOT = {
-# 				exists = c:DAI
-# 			}
-# 			}
-# 			create_country = {
-# 			tag = DAI
-# 			origin = this
-# 			province = p:xF0E531
-# 			on_created = {
-# 				set_country_type = recognized
-# 				activate_law = law_type:law_presidential_republic
-# 			}
-# 			}
-# 		}
-# 		if = {
-# 			limit = {
-# 				s:STATE_MEKONG = {
-# 				any_scope_state = {
-# 						owner = ROOT
-# 					}
-# 				}
-# 			}
-# 			s:STATE_MEKONG = {
-# 				random_scope_state = {
-# 					limit = {
-# 						owner = root
-# 					}
-# 					set_state_owner = c:DAI
-# 				}
-# 			}
-# 		}
-# 		if = {
-# 			limit = {
-# 				s:STATE_TONKIN = {
-# 				any_scope_state = {
-# 						owner = ROOT
-# 					}
-# 				}
-# 			}
-# 			s:STATE_TONKIN = {
-# 				random_scope_state = {
-# 					limit = {
-# 						owner = root
-# 					}
-# 					set_state_owner = c:DAI
-# 				}
-# 			}
-# 		}
-# 		if = {
-# 			limit = {
-# 				s:STATE_ANNAM = {
-# 				any_scope_state = {
-# 						owner = ROOT
-# 					}
-# 				}
-# 			}
-# 			s:STATE_ANNAM = {
-# 				random_scope_state = {
-# 					limit = {
-# 						owner = root
-# 					}
-# 					set_state_owner = c:DAI
-# 				}
-# 			}
-# 		}
-# 		create_bidirectional_truce = { country = c:DAI months = 120 }
-# 		c:DAI = {
-# 			change_relations = {
-# 				country = root
-# 				value = 50
-# 			}
-# 		}
-# 	}
+	option = {
+		name = ztr_decolonization.22.a
+		ai_chance = {
+			base = 90
+		}
+		change_infamy = -5
+		ztr_define_afghanistan = yes
+		create_bidirectional_truce = { country = c:AFG months = 120 }
+		c:AFG = {
+			change_relations = {
+				country = root
+				value = 50
+			}
+		}
+	}
 
-# 	option = {
-# 		name = ztr_decolonization.16.b
-# 		default_option = yes
-# 		ai_chance = {
-# 			base = 10
-# 		}
-# 		change_infamy = 10
-# 	}
-# }
+	option = {
+		name = ztr_decolonization.22.b
+		default_option = yes
+		ai_chance = {
+			base = 10
+		}
+		change_infamy = 5
+	}
+}
+
+# Malaysia
+ztr_decolonization.23 = {
+	dlc = dlc_tech_res
+	type = country_event
+	placement = ROOT
+	event_image = {
+		video = "southamerica_war_civilians"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	icon = "gfx/interface/icons/event_icons/event_default.dds"
+
+	title = ztr_decolonization.23.t
+	desc = ztr_decolonization.23.d
+
+
+	duration = 3
+	
+	trigger = {
+		has_global_variable = ztr_decolonization_age_var
+		cu:malay = { wants_to_be_decolonized = yes }
+		NOT = { is_subject = yes }
+		any_scope_state = {
+			NOT = { is_homeland_of_country_cultures = root }
+			state_region = {
+				is_homeland = cu:malay
+			}
+			count > 0
+		}
+		has_game_rule = allow_ztr_decolonization_content
+	}
+
+	immediate = {
+	}
+
+	option = {
+		name = ztr_decolonization.23.a
+		ai_chance = {
+			base = 90
+		}
+		change_infamy = -5
+		ztr_define_malaysia = yes
+		create_bidirectional_truce = { country = c:JOH months = 120 }
+		c:JOH = {
+			change_relations = {
+				country = root
+				value = 50
+			}
+		}
+	}
+
+	option = {
+		name = ztr_decolonization.23.b
+		default_option = yes
+		ai_chance = {
+			base = 10
+		}
+		change_infamy = 5
+	}
+}
+
+# Nepal
+ztr_decolonization.24 = {
+	dlc = dlc_tech_res
+	type = country_event
+	placement = ROOT
+	event_image = {
+		video = "southamerica_war_civilians"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	icon = "gfx/interface/icons/event_icons/event_default.dds"
+
+	title = ztr_decolonization.24.t
+	desc = ztr_decolonization.24.d
+
+
+	duration = 3
+	
+	trigger = {
+		has_global_variable = ztr_decolonization_age_var
+		cu:nepali = { wants_to_be_decolonized = yes }
+		NOT = { is_subject = yes }
+		any_scope_state = {
+			NOT = { is_homeland_of_country_cultures = root }
+			state_region = {
+				is_homeland = cu:nepali
+			}
+			count > 0
+		}
+		NOT = { c:BHT ?= root } #India can own Nepal in the timeline
+		has_game_rule = allow_ztr_decolonization_content
+	}
+
+	immediate = {
+	}
+
+	option = {
+		name = ztr_decolonization.24.a
+		ai_chance = {
+			base = 90
+		}
+		change_infamy = -5
+		ztr_define_nepal = yes
+		create_bidirectional_truce = { country = c:NEP months = 120 }
+		c:NEP = {
+			change_relations = {
+				country = root
+				value = 50
+			}
+		}
+	}
+
+	option = {
+		name = ztr_decolonization.24.b
+		default_option = yes
+		ai_chance = {
+			base = 10
+		}
+		change_infamy = 5
+	}
+}
+
+#Bhutan
+ztr_decolonization.25 = {
+	dlc = dlc_tech_res
+	type = country_event
+	placement = ROOT
+	event_image = {
+		video = "southamerica_war_civilians"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	icon = "gfx/interface/icons/event_icons/event_default.dds"
+
+	title = ztr_decolonization.25.t
+	desc = ztr_decolonization.25.d
+
+
+	duration = 3
+	
+	trigger = {
+		has_global_variable = ztr_decolonization_age_var
+		cu:bhutanese = { wants_to_be_decolonized = yes }
+		NOT = { is_subject = yes }
+		any_scope_state = {
+			NOT = { is_homeland_of_country_cultures = root }
+			state_region = s:STATE_EASTERN_HIMALAYAS
+			count > 0
+		}
+		NOT = { c:BHT ?= root } #India can own Bhutan in the timeline
+		has_game_rule = allow_ztr_decolonization_content
+	}
+
+	immediate = {
+	}
+
+	option = {
+		name = ztr_decolonization.25.a
+		ai_chance = {
+			base = 90
+		}
+		change_infamy = -5
+		ztr_define_bhutan = yes
+		create_bidirectional_truce = { country = c:BHU months = 120 }
+		c:BHU = {
+			change_relations = {
+				country = root
+				value = 50
+			}
+		}
+	}
+
+	option = {
+		name = ztr_decolonization.25.b
+		default_option = yes
+		ai_chance = {
+			base = 10
+		}
+		change_infamy = 5
+	}
+}
+
+#Tibet
+ztr_decolonization.26 = {
+	dlc = dlc_tech_res
+	type = country_event
+	placement = ROOT
+	event_image = {
+		video = "southamerica_war_civilians"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	icon = "gfx/interface/icons/event_icons/event_default.dds"
+
+	title = ztr_decolonization.26.t
+	desc = ztr_decolonization.26.d
+
+
+	duration = 3
+	
+	trigger = {
+		has_global_variable = ztr_decolonization_age_var
+		cu:tibetan = { wants_to_be_decolonized = yes }
+		NOT = { is_subject = yes }
+		any_scope_state = {
+			NOT = { is_homeland_of_country_cultures = root }
+			state_region = {
+				is_homeland = cu:tibetan
+			}
+			count > 0
+		}
+		NOT = { c:CHI ?= root } #China can own Tibet in the timeline
+		has_game_rule = allow_ztr_decolonization_content
+	}
+
+	immediate = {
+	}
+
+	option = {
+		name = ztr_decolonization.26.a
+		ai_chance = {
+			base = 90
+		}
+		change_infamy = -5
+		ztr_define_tibet = yes
+		create_bidirectional_truce = { country = c:TIB months = 120 }
+		c:TIB = {
+			change_relations = {
+				country = root
+				value = 50
+			}
+		}
+	}
+
+	option = {
+		name = ztr_decolonization.26.b
+		default_option = yes
+		ai_chance = {
+			base = 10
+		}
+		change_infamy = 5
+	}
+}
+
+#New Zealand
+ztr_decolonization.27 = {
+	dlc = dlc_tech_res
+	type = country_event
+	placement = ROOT
+	event_image = {
+		video = "southamerica_war_civilians"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	icon = "gfx/interface/icons/event_icons/event_default.dds"
+
+	title = ztr_decolonization.27.t
+	desc = ztr_decolonization.27.d
+
+
+	duration = 3
+	
+	trigger = {
+		has_global_variable = ztr_decolonization_age_var
+		cu:maori = { wants_to_be_decolonized = yes }
+		any_scope_state = {
+			OR = {
+				state_region = s:STATE_NORTH_ISLAND
+				state_region = s:STATE_SOUTH_ISLAND
+			}
+			count > 0
+		}
+		NOT = { c:AST ?= root } #Australia has its own event
+		NOT = { c:NZL ?= root } #New Zealand can not own itself
+		has_game_rule = allow_ztr_historical_content
+	}
+
+	immediate = {
+	}
+
+	option = {
+		name = ztr_decolonization.27.a
+		ai_chance = {
+			base = 90
+		}
+		change_infamy = -5
+		ztr_define_new_zealand = yes
+		create_bidirectional_truce = { country = c:NZL months = 120 }
+		c:NZL = {
+			change_relations = {
+				country = root
+				value = 50
+			}
+		}
+	}
+
+	option = {
+		name = ztr_decolonization.27.b
+		default_option = yes
+		ai_chance = {
+			base = 10
+		}
+		change_infamy = 5
+	}
+}
+
+# Iraq decolonization
+ztr_decolonization.28 = {
+	dlc = dlc_tech_res
+	type = country_event
+	placement = ROOT
+	event_image = {
+		video = "southamerica_war_civilians"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	icon = "gfx/interface/icons/event_icons/event_default.dds"
+
+	title = ztr_decolonization.28.t
+	desc = ztr_decolonization.28.d
+
+	duration = 3
+
+	trigger = {
+		has_global_variable = ztr_decolonization_age_var
+		cu:mashriqi = { wants_to_be_decolonized = yes }
+		NOT = { is_subject = yes }
+		any_scope_state = {
+			NOT = { is_homeland_of_country_cultures = root }
+			OR = {
+				state_region = s:STATE_BAGHDAD
+				state_region = s:STATE_BASRA
+				state_region = s:STATE_MOSUL
+				state_region = s:STATE_MOSUL
+			}
+			count > 0
+		}
+		NOT = { c:PER ?= root }
+		has_game_rule = allow_ztr_decolonization_content
+	}
+
+	immediate = { }
+
+	option = {
+		name = ztr_decolonization.28.a
+		ai_chance = { base = 90 }
+		change_infamy = -5
+		ztr_define_iraq = yes
+		create_bidirectional_truce = { country = c:IRQ months = 120 }
+		c:IRQ = { add_journal_entry = { type = je_demographic_0_to_1 } }
+		c:IRQ = {
+			change_relations = {
+				country = root
+				value = 50
+			}
+		}
+	}
+
+	option = {
+		name = ztr_decolonization.28.b
+		default_option = yes
+		ai_chance = { base = 10 }
+		change_infamy = 5
+	}
+}
+
+# Syria decolonization
+ztr_decolonization.29 = {
+	dlc = dlc_tech_res
+	type = country_event
+	placement = ROOT
+	event_image = {
+		video = "southamerica_war_civilians"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	icon = "gfx/interface/icons/event_icons/event_default.dds"
+
+	title = ztr_decolonization.29.t
+	desc = ztr_decolonization.29.d
+
+	duration = 3
+
+	trigger = {
+		has_global_variable = ztr_decolonization_age_var
+		cu:mashriqi = { wants_to_be_decolonized = yes }
+		NOT = { is_subject = yes }
+		any_scope_state = {
+			NOT = { is_homeland_of_country_cultures = root }
+			OR = {
+				state_region = s:STATE_ALEPPO
+				state_region = s:STATE_SYRIA
+				state_region = s:STATE_DEIR_EZ_ZOR
+				state_region = s:STATE_ADANA
+				AND = {
+					NOT = { c:TUR ?= root }
+					state_region = s:STATE_ADANA
+				}
+			}
+			count > 0
+		}
+		has_game_rule = allow_ztr_decolonization_content
+	}
+
+	immediate = { }
+
+	option = {
+		name = ztr_decolonization.29.a
+		ai_chance = { base = 90 }
+		change_infamy = -5
+		ztr_define_syria = yes
+		create_bidirectional_truce = { country = c:SYR months = 120 }
+		c:SYR = { add_journal_entry = { type = je_demographic_0_to_1 } }
+		c:SYR = {
+			change_relations = {
+				country = root
+				value = 50
+			}
+		}
+	}
+
+	option = {
+		name = ztr_decolonization.29.b
+		default_option = yes
+		ai_chance = { base = 10 }
+		change_infamy = 5
+	}
+}
+
+# Lebanon decolonization
+ztr_decolonization.30 = {
+	dlc = dlc_tech_res
+	type = country_event
+	placement = ROOT
+	event_image = {
+		video = "southamerica_war_civilians"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	icon = "gfx/interface/icons/event_icons/event_default.dds"
+
+	title = ztr_decolonization.30.t
+	desc = ztr_decolonization.30.d
+
+	duration = 3
+
+	trigger = {
+		has_global_variable = ztr_decolonization_age_var
+		cu:mashriqi = { wants_to_be_decolonized = yes }
+		NOT = { is_subject = yes }
+		any_scope_state = {
+			NOT = { is_homeland_of_country_cultures = root }
+			state_region = s:STATE_LEBANON
+			count > 0
+		}
+		has_game_rule = allow_ztr_decolonization_content
+	}
+
+	immediate = { }
+
+	option = {
+		name = ztr_decolonization.30.a
+		ai_chance = { base = 90 }
+		change_infamy = -5
+		ztr_define_lebanon = yes
+		create_bidirectional_truce = { country = c:LEB months = 120 }
+		c:LEB = { add_journal_entry = { type = je_demographic_0_to_1 } }
+		c:LEB = {
+			change_relations = {
+				country = root
+				value = 50
+			}
+		}
+	}
+
+	option = {
+		name = ztr_decolonization.30.b
+		default_option = yes
+		ai_chance = { base = 10 }
+		change_infamy = 5
+	}
+}
+
+# Transjordan decolonization
+ztr_decolonization.31 = {
+	dlc = dlc_tech_res
+	type = country_event
+	placement = ROOT
+	event_image = {
+		video = "southamerica_war_civilians"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	icon = "gfx/interface/icons/event_icons/event_default.dds"
+
+	title = ztr_decolonization.31.t
+	desc = ztr_decolonization.31.d
+
+	duration = 3
+
+	trigger = {
+		has_global_variable = ztr_decolonization_age_var
+		cu:mashriqi = { wants_to_be_decolonized = yes }
+		NOT = { is_subject = yes }
+		any_scope_state = {
+			NOT = { is_homeland_of_country_cultures = root }
+			state_region = s:STATE_TRANSJORDAN
+			count > 0
+		}
+		has_game_rule = allow_ztr_decolonization_content
+	}
+
+	immediate = { }
+
+	option = {
+		name = ztr_decolonization.31.a
+		ai_chance = { base = 90 }
+		change_infamy = -5
+		ztr_define_transjordan = yes
+		create_bidirectional_truce = { country = c:EOT months = 120 }
+		c:EOT = { add_journal_entry = { type = je_demographic_0_to_1 } }
+		c:EOT = {
+			change_relations = {
+				country = root
+				value = 50
+			}
+		}
+	}
+
+	option = {
+		name = ztr_decolonization.31.b
+		default_option = yes
+		ai_chance = { base = 10 }
+		change_infamy = 5
+	}
+}
+
+# Palestine decolonization
+ztr_decolonization.32 = {
+	dlc = dlc_tech_res
+	type = country_event
+	placement = ROOT
+	event_image = {
+		video = "southamerica_war_civilians"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	icon = "gfx/interface/icons/event_icons/event_default.dds"
+
+	title = ztr_decolonization.32.t
+	desc = ztr_decolonization.32.d
+
+	duration = 3
+
+	trigger = {
+		has_global_variable = ztr_decolonization_age_var
+		cu:mashriqi = { wants_to_be_decolonized = yes }
+		NOT = { is_subject = yes }
+		any_scope_state = {
+			NOT = { is_homeland_of_country_cultures = root }
+			state_region = s:STATE_PALESTINE
+			count > 0
+		}
+		has_game_rule = allow_ztr_decolonization_content
+	}
+
+	immediate = { }
+
+	option = {
+		name = ztr_decolonization.32.a
+		ai_chance = { base = 90 }
+		change_infamy = -5
+		ztr_define_palestine = yes
+		create_bidirectional_truce = { country = c:PAL months = 120 }
+		c:PAL = { add_journal_entry = { type = je_demographic_0_to_1 } }
+		c:PAL = {
+			change_relations = {
+				country = root
+				value = 50
+			}
+		}
+	}
+
+	option = {
+		name = ztr_decolonization.32.b
+		default_option = yes
+		ai_chance = { base = 10 }
+		change_infamy = 5
+	}
+}
+
+# Kurdish decolonization
+ztr_decolonization.33 = {
+	dlc = dlc_tech_res
+	type = country_event
+	placement = ROOT
+	event_image = {
+		video = "southamerica_war_civilians"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	icon = "gfx/interface/icons/event_icons/event_default.dds"
+
+	title = ztr_decolonization.33.t
+	desc = ztr_decolonization.33.d
+
+	duration = 3
+
+	trigger = {
+		has_global_variable = ztr_decolonization_age_var
+		cu:kurdish = { wants_to_be_decolonized = yes }
+		NOT = { is_subject = yes }
+		any_scope_state = {
+			NOT = { is_homeland_of_country_cultures = root }
+			state_region = {
+				is_homeland = cu:kurdish
+			}
+			count > 0
+		}
+		NOT = { c:TUR ?= root }
+		has_game_rule = allow_ztr_decolonization_content
+	}
+
+	immediate = { }
+
+	option = {
+		name = ztr_decolonization.33.a
+		ai_chance = { base = 90 }
+		change_infamy = -5
+		ztr_define_kurdistan = yes
+		create_bidirectional_truce = { country = c:KUR months = 120 }
+		c:KUR = { add_journal_entry = { type = je_demographic_0_to_1 } }
+		c:KUR = {
+			change_relations = {
+				country = root
+				value = 50
+			}
+		}
+	}
+
+	option = {
+		name = ztr_decolonization.33.b
+		default_option = yes
+		ai_chance = { base = 10 }
+		change_infamy = 5
+	}
+}
+
+# Kenyan decolonization
+ztr_decolonization.34 = {
+	dlc = dlc_tech_res
+	type = country_event
+	placement = ROOT
+	event_image = { video = "southamerica_war_civilians" }
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	icon = "gfx/interface/icons/event_icons/event_default.dds"
+
+	title = ztr_decolonization.34.t
+	desc  = ztr_decolonization.34.d
+
+	duration = 3
+
+	trigger = {
+		has_global_variable = ztr_decolonization_age_var
+		cu:kikuyu = { wants_to_be_decolonized = yes }
+		NOT = { is_subject = yes }
+		any_scope_state = {
+			NOT = { is_homeland_of_country_cultures = root }
+			state_region = {
+				OR = {
+					region = sr:region_zanj
+					region = sr:region_ethiopia
+				}
+				is_homeland = cu:kikuyu
+			}
+			count > 0
+		}
+		OR = {
+			has_state_in_state_region = STATE_KENYA
+			has_state_in_state_region = STATE_RIFT_VALLEY
+		}
+		has_game_rule = allow_ztr_decolonization_content
+	}
+
+	immediate = { }
+
+	option = {
+		name = ztr_decolonization.34.a
+		ai_chance = { base = 90 }
+		change_infamy = -5
+		ztr_define_kenya = yes
+		create_bidirectional_truce = { country = c:ZKN months = 120 }
+		c:ZKN = { add_journal_entry = { type = je_demographic_0_to_1 } }
+		c:ZKN = { change_relations = { country = root value = 50 } }
+	}
+
+	option = {
+		name = ztr_decolonization.34.b
+		default_option = yes
+		ai_chance = { base = 10 }
+		change_infamy = 5
+	}
+}
+
+# Namibian decolonization
+ztr_decolonization.35 = {
+	dlc = dlc_tech_res
+	type = country_event
+	placement = ROOT
+	event_image = { video = "southamerica_war_civilians" }
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	icon = "gfx/interface/icons/event_icons/event_default.dds"
+
+	title = ztr_decolonization.35.t
+	desc  = ztr_decolonization.35.d
+
+	duration = 3
+
+	trigger = {
+		has_global_variable = ztr_decolonization_age_var
+		cu:khoisan = { wants_to_be_decolonized = yes }
+		NOT = { is_subject = yes }
+		any_scope_state = {
+			NOT = { is_homeland_of_country_cultures = root }
+			state_region = { OR = { region = sr:region_southern_africa } is_homeland = cu:khoisan }
+			count > 0
+		}
+		OR = {
+			has_state_in_state_region = STATE_NAMAQUALAND
+			has_state_in_state_region = STATE_HEREROLAND
+		}
+		has_game_rule = allow_ztr_decolonization_content
+	}
+
+	immediate = { }
+
+	option = {
+		name = ztr_decolonization.35.a
+		ai_chance = { base = 90 }
+		change_infamy = -5
+		ztr_define_namibia = yes
+		create_bidirectional_truce = { country = c:ZNB months = 120 }
+		c:ZNB = { add_journal_entry = { type = je_demographic_0_to_1 } }
+		c:ZNB = { change_relations = { country = root value = 50 } }
+	}
+
+	option = {
+		name = ztr_decolonization.35.b
+		default_option = yes
+		ai_chance = { base = 10 }
+		change_infamy = 5
+	}
+}
+
+# Somalian decolonization
+ztr_decolonization.36 = {
+	dlc = dlc_tech_res
+	type = country_event
+	placement = ROOT
+	event_image = { video = "southamerica_war_civilians" }
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	icon = "gfx/interface/icons/event_icons/event_default.dds"
+
+	title = ztr_decolonization.36.t
+	desc  = ztr_decolonization.36.d
+
+	duration = 3
+
+	trigger = {
+		has_global_variable = ztr_decolonization_age_var
+		cu:somali = { wants_to_be_decolonized = yes }
+		NOT = { is_subject = yes }
+		any_scope_state = {
+			NOT = { is_homeland_of_country_cultures = root }
+			state_region = { OR = { region = sr:region_ethiopia } is_homeland = cu:somali }
+			count > 0
+		}
+		OR = { has_state_in_state_region = STATE_SOMALILAND }
+		has_game_rule = allow_ztr_decolonization_content
+	}
+
+	immediate = { }
+
+	option = {
+		name = ztr_decolonization.36.a
+		ai_chance = { base = 90 }
+		change_infamy = -5
+		ztr_define_somalia = yes
+		create_bidirectional_truce = { country = c:ZSO months = 120 }
+		c:ZSO = { add_journal_entry = { type = je_demographic_0_to_1 } }
+		c:ZSO = { change_relations = { country = root value = 50 } }
+	}
+
+	option = {
+		name = ztr_decolonization.36.b
+		default_option = yes
+		ai_chance = { base = 10 }
+		change_infamy = 5
+	}
+}
+
+# Eritrean decolonization
+ztr_decolonization.37 = {
+	dlc = dlc_tech_res
+	type = country_event
+	placement = ROOT
+	event_image = { video = "southamerica_war_civilians" }
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	icon = "gfx/interface/icons/event_icons/event_default.dds"
+
+	title = ztr_decolonization.37.t
+	desc  = ztr_decolonization.37.d
+
+	duration = 3
+
+	trigger = {
+		has_global_variable = ztr_decolonization_age_var
+		cu:tigray = { wants_to_be_decolonized = yes }
+		NOT = { is_subject = yes }
+		any_scope_state = {
+			NOT = { is_homeland_of_country_cultures = root }
+			state_region = { OR = { region = sr:region_ethiopia } is_homeland = cu:tigray }
+			count > 0
+		}
+		OR = { has_state_in_state_region = STATE_ERITREA }
+		has_game_rule = allow_ztr_decolonization_content
+	}
+
+	immediate = { }
+
+	option = {
+		name = ztr_decolonization.37.a
+		ai_chance = { base = 90 }
+		change_infamy = -5
+		ztr_define_eritrea = yes
+		create_bidirectional_truce = { country = c:ZER months = 120 }
+		c:ZER = { add_journal_entry = { type = je_demographic_0_to_1 } }
+		c:ZER = { change_relations = { country = root value = 50 } }
+	}
+
+	option = {
+		name = ztr_decolonization.37.b
+		default_option = yes
+		ai_chance = { base = 10 }
+		change_infamy = 5
+	}
+}
+
+# Chadian decolonization
+ztr_decolonization.38 = {
+	dlc = dlc_tech_res
+	type = country_event
+	placement = ROOT
+	event_image = { video = "southamerica_war_civilians" }
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	icon = "gfx/interface/icons/event_icons/event_default.dds"
+
+	title = ztr_decolonization.38.t
+	desc  = ztr_decolonization.38.d
+
+	duration = 3
+
+	trigger = {
+		has_global_variable = ztr_decolonization_age_var
+		cu:fur = { wants_to_be_decolonized = yes }
+		NOT = { is_subject = yes }
+		any_scope_state = {
+			NOT = { is_homeland_of_country_cultures = root }
+			state_region = { OR = { region = sr:region_niger } is_homeland = cu:fur }
+			count > 0
+		}
+		OR = {
+			has_state_in_state_region = STATE_CHAD
+			has_state_in_state_region = STATE_WADDAI
+		}
+		has_game_rule = allow_ztr_decolonization_content
+	}
+
+	immediate = { }
+
+	option = {
+		name = ztr_decolonization.38.a
+		ai_chance = { base = 90 }
+		change_infamy = -5
+		ztr_define_chad = yes
+		create_bidirectional_truce = { country = c:ZCH months = 120 }
+		c:ZCH = { add_journal_entry = { type = je_demographic_0_to_1 } }
+		c:ZCH = { change_relations = { country = root value = 50 } }
+	}
+
+	option = {
+		name = ztr_decolonization.38.b
+		default_option = yes
+		ai_chance = { base = 10 }
+		change_infamy = 5
+	}
+}
+
+# Nigerien decolonization
+ztr_decolonization.39 = {
+	dlc = dlc_tech_res
+	type = country_event
+	placement = ROOT
+	event_image = { video = "southamerica_war_civilians" }
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	icon = "gfx/interface/icons/event_icons/event_default.dds"
+
+	title = ztr_decolonization.39.t
+	desc  = ztr_decolonization.39.d
+
+	duration = 3
+
+	trigger = {
+		has_global_variable = ztr_decolonization_age_var
+		cu:equatorial_bantu = { wants_to_be_decolonized = yes }
+		NOT = { is_subject = yes }
+		any_scope_state = {
+			NOT = { is_homeland_of_country_cultures = root }
+			state_region = { OR = { region = sr:region_niger } is_homeland = cu:equatorial_bantu }
+			count > 0
+		}
+		OR = {
+			has_state_in_state_region = STATE_NIGER
+			has_state_in_state_region = STATE_OUTER_HAUSALAND
+		}
+		has_game_rule = allow_ztr_decolonization_content
+	}
+
+	immediate = { }
+
+	option = {
+		name = ztr_decolonization.39.a
+		ai_chance = { base = 90 }
+		change_infamy = -5
+		ztr_define_niger = yes
+		if = { limit = { has_state_in_state_region = STATE_NIGER } s:STATE_NIGER = { random_scope_state = { limit = { owner = root } set_state_owner = c:ZNI } } }
+		create_bidirectional_truce = { country = c:ZNI months = 120 }
+		c:ZNI = { add_journal_entry = { type = je_demographic_0_to_1 } }
+		c:ZNI = { change_relations = { country = root value = 50 } }
+	}
+
+	option = {
+		name = ztr_decolonization.39.b
+		default_option = yes
+		ai_chance = { base = 10 }
+		change_infamy = 5
+	}
+}
+
+# Mauritanian decolonization
+ztr_decolonization.40 = {
+	dlc = dlc_tech_res
+	type = country_event
+	placement = ROOT
+	event_image = { video = "southamerica_war_civilians" }
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	icon = "gfx/interface/icons/event_icons/event_default.dds"
+
+	title = ztr_decolonization.40.t
+	desc  = ztr_decolonization.40.d
+
+	duration = 3
+
+	trigger = {
+		has_global_variable = ztr_decolonization_age_var
+		cu:bidan = { wants_to_be_decolonized = yes }
+		NOT = { is_subject = yes }
+		any_scope_state = {
+			NOT = { is_homeland_of_country_cultures = root }
+			state_region = { OR = { region = sr:region_senegal } is_homeland = cu:bidan }
+			count > 0
+		}
+		OR = {
+			has_state_in_state_region = STATE_MAURITANIA
+			has_state_in_state_region = STATE_INNER_MAURITANIA
+		}
+		has_game_rule = allow_ztr_decolonization_content
+	}
+
+	immediate = { }
+
+	option = {
+		name = ztr_decolonization.40.a
+		ai_chance = { base = 90 }
+		change_infamy = -5
+		ztr_define_mauritania = yes
+		create_bidirectional_truce = { country = c:ZMU months = 120 }
+		c:ZMU = { add_journal_entry = { type = je_demographic_0_to_1 } }
+		c:ZMU = { change_relations = { country = root value = 50 } }
+	}
+
+	option = {
+		name = ztr_decolonization.40.b
+		default_option = yes
+		ai_chance = { base = 10 }
+		change_infamy = 5
+	}
+}
+
+# Senegalese decolonization
+ztr_decolonization.41 = {
+	dlc = dlc_tech_res
+	type = country_event
+	placement = ROOT
+	event_image = { video = "southamerica_war_civilians" }
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	icon = "gfx/interface/icons/event_icons/event_default.dds"
+
+	title = ztr_decolonization.41.t
+	desc  = ztr_decolonization.41.d
+
+	duration = 3
+
+	trigger = {
+		has_global_variable = ztr_decolonization_age_var
+		cu:wolof = { wants_to_be_decolonized = yes }
+		NOT = { is_subject = yes }
+		any_scope_state = {
+			NOT = { is_homeland_of_country_cultures = root }
+			state_region = { OR = { region = sr:region_senegal } is_homeland = cu:wolof }
+			count > 0
+		}
+		OR = {
+			has_state_in_state_region = STATE_SENEGAL
+			has_state_in_state_region = STATE_GAMBIA
+		}
+		has_game_rule = allow_ztr_decolonization_content
+	}
+
+	immediate = { }
+
+	option = {
+		name = ztr_decolonization.41.a
+		ai_chance = { base = 90 }
+		change_infamy = -5
+		ztr_define_senegal = yes
+		create_bidirectional_truce = { country = c:ZSE months = 120 }
+		c:ZSE = { add_journal_entry = { type = je_demographic_0_to_1 } }
+		c:ZSE = { change_relations = { country = root value = 50 } }
+	}
+
+	option = {
+		name = ztr_decolonization.41.b
+		default_option = yes
+		ai_chance = { base = 10 }
+		change_infamy = 5
+	}
+}
+
+# Guinean decolonization
+ztr_decolonization.42 = {
+	dlc = dlc_tech_res
+	type = country_event
+	placement = ROOT
+	event_image = { video = "southamerica_war_civilians" }
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	icon = "gfx/interface/icons/event_icons/event_default.dds"
+
+	title = ztr_decolonization.42.t
+	desc  = ztr_decolonization.42.d
+
+	duration = 3
+
+	trigger = {
+		has_global_variable = ztr_decolonization_age_var
+		cu:mandinka = { wants_to_be_decolonized = yes }
+		NOT = { is_subject = yes }
+		any_scope_state = {
+			NOT = { is_homeland_of_country_cultures = root }
+			state_region = { OR = { region = sr:region_senegal } is_homeland = cu:fulbe }
+			count > 0
+		}
+		OR = { has_state_in_state_region = STATE_GUINEA }
+		has_game_rule = allow_ztr_decolonization_content
+	}
+
+	immediate = { }
+
+	option = {
+		name = ztr_decolonization.42.a
+		ai_chance = { base = 90 }
+		change_infamy = -5
+		ztr_define_guinea = yes
+		create_bidirectional_truce = { country = c:ZGU months = 120 }
+		c:ZGU = { add_journal_entry = { type = je_demographic_0_to_1 } }
+		c:ZGU = { change_relations = { country = root value = 50 } }
+	}
+
+	option = {
+		name = ztr_decolonization.42.b
+		default_option = yes
+		ai_chance = { base = 10 }
+		change_infamy = 5
+	}
+}
+
+# Ivorian decolonization
+ztr_decolonization.43 = {
+	dlc = dlc_tech_res
+	type = country_event
+	placement = ROOT
+	event_image = { video = "southamerica_war_civilians" }
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	icon = "gfx/interface/icons/event_icons/event_default.dds"
+
+	title = ztr_decolonization.43.t
+	desc  = ztr_decolonization.43.d
+
+	duration = 3
+
+	trigger = {
+		has_global_variable = ztr_decolonization_age_var
+		cu:baoule = { wants_to_be_decolonized = yes }
+		NOT = { is_subject = yes }
+		any_scope_state = {
+			NOT = { is_homeland_of_country_cultures = root }
+			state_region = { OR = { region = sr:region_senegal } is_homeland = cu:akan }
+			count > 0
+		}
+		OR = {
+			has_state_in_state_region = STATE_IVORY_COAST
+			has_state_in_state_region = STATE_WINDWARD_COAST
+		}
+		has_game_rule = allow_ztr_decolonization_content
+	}
+
+	immediate = { }
+
+	option = {
+		name = ztr_decolonization.43.a
+		ai_chance = { base = 90 }
+		change_infamy = -5
+		ztr_define_ivory_coast = yes
+		create_bidirectional_truce = { country = c:ZIC months = 120 }
+		c:ZIC = { add_journal_entry = { type = je_demographic_0_to_1 } }
+		c:ZIC = { change_relations = { country = root value = 50 } }
+	}
+
+	option = {
+		name = ztr_decolonization.43.b
+		default_option = yes
+		ai_chance = { base = 10 }
+		change_infamy = 5
+	}
+}
+
+# Ghanaian decolonization
+ztr_decolonization.44 = {
+	dlc = dlc_tech_res
+	type = country_event
+	placement = ROOT
+	event_image = { video = "southamerica_war_civilians" }
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	icon = "gfx/interface/icons/event_icons/event_default.dds"
+
+	title = ztr_decolonization.44.t
+	desc  = ztr_decolonization.44.d
+
+	duration = 3
+
+	trigger = {
+		has_global_variable = ztr_decolonization_age_var
+		cu:akan = { wants_to_be_decolonized = yes }
+		NOT = { is_subject = yes }
+		any_scope_state = {
+			NOT = { is_homeland_of_country_cultures = root }
+			state_region = { OR = { region = sr:region_senegal } is_homeland = cu:akan }
+			count > 0
+		}
+		OR = { has_state_in_state_region = STATE_GHANA }
+		has_game_rule = allow_ztr_decolonization_content
+	}
+
+	immediate = { }
+
+	option = {
+		name = ztr_decolonization.44.a
+		ai_chance = { base = 90 }
+		change_infamy = -5
+		ztr_define_ghana = yes
+		create_bidirectional_truce = { country = c:ZGH months = 120 }
+		c:ZGH = { add_journal_entry = { type = je_demographic_0_to_1 } }
+		c:ZGH = { change_relations = { country = root value = 50 } }
+	}
+
+	option = {
+		name = ztr_decolonization.44.b
+		default_option = yes
+		ai_chance = { base = 10 }
+		change_infamy = 5
+	}
+}
+
+# Togolese decolonization
+ztr_decolonization.45 = {
+	dlc = dlc_tech_res
+	type = country_event
+	placement = ROOT
+	event_image = { video = "southamerica_war_civilians" }
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	icon = "gfx/interface/icons/event_icons/event_default.dds"
+
+	title = ztr_decolonization.45.t
+	desc  = ztr_decolonization.45.d
+
+	duration = 3
+
+	trigger = {
+		has_global_variable = ztr_decolonization_age_var
+		cu:ewe = { wants_to_be_decolonized = yes }
+		NOT = { is_subject = yes }
+		any_scope_state = {
+			NOT = { is_homeland_of_country_cultures = root }
+			state_region = { OR = { region = sr:region_niger } is_homeland = cu:ewe }
+			count > 0
+		}
+		OR = { has_state_in_state_region = STATE_TOGO }
+		has_game_rule = allow_ztr_decolonization_content
+	}
+
+	immediate = { }
+
+	option = {
+		name = ztr_decolonization.45.a
+		ai_chance = { base = 90 }
+		change_infamy = -5
+		ztr_define_togo = yes
+		create_bidirectional_truce = { country = c:ZTG months = 120 }
+		c:ZTG = { add_journal_entry = { type = je_demographic_0_to_1 } }
+		c:ZTG = { change_relations = { country = root value = 50 } }
+	}
+
+	option = {
+		name = ztr_decolonization.45.b
+		default_option = yes
+		ai_chance = { base = 10 }
+		change_infamy = 5
+	}
+}
+
+# Beninese decolonization
+ztr_decolonization.46 = {
+	dlc = dlc_tech_res
+	type = country_event
+	placement = ROOT
+	event_image = { video = "southamerica_war_civilians" }
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	icon = "gfx/interface/icons/event_icons/event_default.dds"
+
+	title = ztr_decolonization.46.t
+	desc  = ztr_decolonization.46.d
+
+	duration = 3
+
+	trigger = {
+		has_global_variable = ztr_decolonization_age_var
+		cu:fon = { wants_to_be_decolonized = yes }
+		NOT = { is_subject = yes }
+		any_scope_state = {
+			NOT = { is_homeland_of_country_cultures = root }
+			state_region = { OR = { region = sr:region_niger } is_homeland = cu:fon }
+			count > 0
+		}
+		OR = { has_state_in_state_region = STATE_DAHOMEY }
+		has_game_rule = allow_ztr_decolonization_content
+	}
+
+	immediate = { }
+
+	option = {
+		name = ztr_decolonization.46.a
+		ai_chance = { base = 90 }
+		change_infamy = -5
+		ztr_define_benin = yes
+		create_bidirectional_truce = { country = c:ZBN months = 120 }
+		c:ZBN = { add_journal_entry = { type = je_demographic_0_to_1 } }
+		c:ZBN = { change_relations = { country = root value = 50 } }
+	}
+
+	option = {
+		name = ztr_decolonization.46.b
+		default_option = yes
+		ai_chance = { base = 10 }
+		change_infamy = 5
+	}
+}
+
+# Burkinabé decolonization
+ztr_decolonization.47 = {
+	dlc = dlc_tech_res
+	type = country_event
+	placement = ROOT
+	event_image = { video = "southamerica_war_civilians" }
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	icon = "gfx/interface/icons/event_icons/event_default.dds"
+
+	title = ztr_decolonization.47.t
+	desc  = ztr_decolonization.47.d
+
+	duration = 3
+
+	trigger = {
+		has_global_variable = ztr_decolonization_age_var
+		cu:mossi = { wants_to_be_decolonized = yes }
+		NOT = { is_subject = yes }
+		any_scope_state = {
+			NOT = { is_homeland_of_country_cultures = root }
+			state_region = { OR = { region = sr:region_senegal } is_homeland = cu:mossi }
+			count > 0
+		}
+		OR = { has_state_in_state_region = STATE_VOLTA }
+		has_game_rule = allow_ztr_decolonization_content
+	}
+
+	immediate = { }
+
+	option = {
+		name = ztr_decolonization.47.a
+		ai_chance = { base = 90 }
+		change_infamy = -5
+		ztr_define_burkina_faso = yes
+		create_bidirectional_truce = { country = c:ZBF months = 120 }
+		c:ZBF = { add_journal_entry = { type = je_demographic_0_to_1 } }
+		c:ZBF = { change_relations = { country = root value = 50 } }
+	}
+
+	option = {
+		name = ztr_decolonization.47.b
+		default_option = yes
+		ai_chance = { base = 10 }
+		change_infamy = 5
+	}
+}
+
+# Nigerian decolonization
+ztr_decolonization.48 = {
+	dlc = dlc_tech_res
+	type = country_event
+	placement = ROOT
+	event_image = { video = "southamerica_war_civilians" }
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	icon = "gfx/interface/icons/event_icons/event_default.dds"
+
+	title = ztr_decolonization.48.t
+	desc  = ztr_decolonization.48.d
+
+	duration = 3
+
+	trigger = {
+		has_global_variable = ztr_decolonization_age_var
+		cu:yoruba = { wants_to_be_decolonized = yes }
+		NOT = { is_subject = yes }
+		any_scope_state = {
+			NOT = { is_homeland_of_country_cultures = root }
+			state_region = { OR = { region = sr:region_niger } is_homeland = cu:yoruba }
+			count > 0
+		}
+		OR = {
+			has_state_in_state_region = STATE_NIGERIA
+			has_state_in_state_region = STATE_YORUBA_STATES
+			has_state_in_state_region = STATE_NIGER_DELTA
+			has_state_in_state_region = STATE_HAUSALAND
+			has_state_in_state_region = STATE_EAST_HAUSALAND
+			has_state_in_state_region = STATE_BENIN
+			has_state_in_state_region = STATE_BORNU
+		}
+		has_game_rule = allow_ztr_decolonization_content
+	}
+
+	immediate = { }
+
+	option = {
+		name = ztr_decolonization.48.a
+		ai_chance = { base = 90 }
+		change_infamy = -5
+		ztr_define_nigeria = yes
+		if = { limit = { has_state_in_state_region = STATE_NIGERIA }        s:STATE_NIGERIA        = { random_scope_state = { limit = { owner = root } set_state_owner = c:ZNG } } }
+		if = { limit = { has_state_in_state_region = STATE_YORUBA_STATES }  s:STATE_YORUBA_STATES  = { random_scope_state = { limit = { owner = root } set_state_owner = c:ZNG } } }
+		if = { limit = { has_state_in_state_region = STATE_NIGER_DELTA }    s:STATE_NIGER_DELTA    = { random_scope_state = { limit = { owner = root } set_state_owner = c:ZNG } } }
+		if = { limit = { has_state_in_state_region = STATE_BORNU }          s:STATE_BORNU          = { random_scope_state = { limit = { owner = root } set_state_owner = c:ZNG } } }
+		create_bidirectional_truce = { country = c:ZNG months = 120 }
+		c:ZNG = { add_journal_entry = { type = je_demographic_0_to_1 } }
+		c:ZNG = { change_relations = { country = root value = 50 } }
+	}
+
+	option = {
+		name = ztr_decolonization.48.b
+		default_option = yes
+		ai_chance = { base = 10 }
+		change_infamy = 5
+	}
+}
+
+# Cameroonian decolonization
+ztr_decolonization.49 = {
+	dlc = dlc_tech_res
+	type = country_event
+	placement = ROOT
+	event_image = { video = "southamerica_war_civilians" }
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	icon = "gfx/interface/icons/event_icons/event_default.dds"
+
+	title = ztr_decolonization.49.t
+	desc  = ztr_decolonization.49.d
+
+	duration = 3
+
+	trigger = {
+		has_global_variable = ztr_decolonization_age_var
+		cu:fulbe = { wants_to_be_decolonized = yes }
+		NOT = { is_subject = yes }
+		any_scope_state = {
+			NOT = { is_homeland_of_country_cultures = root }
+			OR = {
+				state_region = s:STATE_NORTH_CAMEROON
+				state_region = s:STATE_SOUTH_CAMEROON
+			}
+			count > 0
+		}
+		OR = {
+			has_state_in_state_region = STATE_NORTH_CAMEROON
+			has_state_in_state_region = STATE_SOUTH_CAMEROON
+		}
+		has_game_rule = allow_ztr_decolonization_content
+	}
+
+	immediate = { }
+
+	option = {
+		name = ztr_decolonization.49.a
+		ai_chance = { base = 90 }
+		change_infamy = -5
+		ztr_define_camerun = yes
+		if = { limit = { has_state_in_state_region = STATE_SOUTH_CAMEROON } s:STATE_SOUTH_CAMEROON = { random_scope_state = { limit = { owner = root } set_state_owner = c:ZCM } } }
+		create_bidirectional_truce = { country = c:ZCM months = 120 }
+		c:ZCM = { add_journal_entry = { type = je_demographic_0_to_1 } }
+		c:ZCM = { change_relations = { country = root value = 50 } }
+	}
+
+	option = {
+		name = ztr_decolonization.49.b
+		default_option = yes
+		ai_chance = { base = 10 }
+		change_infamy = 5
+	}
+}
+
+# Central African decolonization
+ztr_decolonization.50 = {
+	dlc = dlc_tech_res
+	type = country_event
+	placement = ROOT
+	event_image = { video = "southamerica_war_civilians" }
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	icon = "gfx/interface/icons/event_icons/event_default.dds"
+
+	title = ztr_decolonization.50.t
+	desc  = ztr_decolonization.50.d
+
+	duration = 3
+
+	trigger = {
+		has_global_variable = ztr_decolonization_age_var
+		cu:azande = { wants_to_be_decolonized = yes }
+		NOT = { is_subject = yes }
+		any_scope_state = {
+			NOT = { is_homeland_of_country_cultures = root }
+			state_region = { OR = { region = sr:region_congo } is_homeland = cu:azande }
+			count > 0
+		}
+		OR = { has_state_in_state_region = STATE_UBANGI_SHARI }
+		has_game_rule = allow_ztr_decolonization_content
+	}
+
+	immediate = { }
+
+	option = {
+		name = ztr_decolonization.50.a
+		ai_chance = { base = 90 }
+		change_infamy = -5
+		ztr_define_central_african_republic = yes
+		create_bidirectional_truce = { country = c:ZCA months = 120 }
+		c:ZCA = { add_journal_entry = { type = je_demographic_0_to_1 } }
+		c:ZCA = { change_relations = { country = root value = 50 } }
+	}
+
+	option = {
+		name = ztr_decolonization.50.b
+		default_option = yes
+		ai_chance = { base = 10 }
+		change_infamy = 5
+	}
+}
+
+# Gabonese decolonization
+ztr_decolonization.51 = {
+	dlc = dlc_tech_res
+	type = country_event
+	placement = ROOT
+	event_image = { video = "southamerica_war_civilians" }
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	icon = "gfx/interface/icons/event_icons/event_default.dds"
+
+	title = ztr_decolonization.51.t
+	desc  = ztr_decolonization.51.d
+
+	duration = 3
+
+	trigger = {
+		has_global_variable = ztr_decolonization_age_var
+		cu:fang = { wants_to_be_decolonized = yes }
+		NOT = { is_subject = yes }
+		any_scope_state = {
+			NOT = { is_homeland_of_country_cultures = root }
+			state_region = { OR = { region = sr:region_congo } is_homeland = cu:fang }
+			count > 0
+		}
+		OR = { has_state_in_state_region = STATE_GABON }
+		has_game_rule = allow_ztr_decolonization_content
+	}
+
+	immediate = { }
+
+	option = {
+		name = ztr_decolonization.51.a
+		ai_chance = { base = 90 }
+		change_infamy = -5
+		ztr_define_gabon = yes
+		create_bidirectional_truce = { country = c:ZGB months = 120 }
+		c:ZGB = { add_journal_entry = { type = je_demographic_0_to_1 } }
+		c:ZGB = { change_relations = { country = root value = 50 } }
+	}
+
+	option = {
+		name = ztr_decolonization.51.b
+		default_option = yes
+		ai_chance = { base = 10 }
+		change_infamy = 5
+	}
+}
+
+# Republic of the Congo decolonization
+ztr_decolonization.52 = {
+	dlc = dlc_tech_res
+	type = country_event
+	placement = ROOT
+	event_image = { video = "southamerica_war_civilians" }
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	icon = "gfx/interface/icons/event_icons/event_default.dds"
+
+	title = ztr_decolonization.52.t
+	desc  = ztr_decolonization.52.d
+
+	duration = 3
+
+	trigger = {
+		has_global_variable = ztr_decolonization_age_var
+		cu:bakongo = { wants_to_be_decolonized = yes }
+		NOT = { is_subject = yes }
+		any_scope_state = {
+			NOT = { is_homeland_of_country_cultures = root }
+			state_region = { OR = { region = sr:region_congo } is_homeland = cu:bakongo }
+			count > 0
+		}
+		OR = { has_state_in_state_region = STATE_CONGO }
+		has_game_rule = allow_ztr_decolonization_content
+	}
+
+	immediate = { }
+
+	option = {
+		name = ztr_decolonization.52.a
+		ai_chance = { base = 90 }
+		change_infamy = -5
+		ztr_define_republic_of_the_congo = yes
+		create_bidirectional_truce = { country = c:ZCG months = 120 }
+		c:ZCG = { add_journal_entry = { type = je_demographic_0_to_1 } }
+		c:ZCG = { change_relations = { country = root value = 50 } }
+	}
+
+	option = {
+		name = ztr_decolonization.52.b
+		default_option = yes
+		ai_chance = { base = 10 }
+		change_infamy = 5
+	}
+}
+
+# DR Congo decolonization
+ztr_decolonization.53 = {
+	dlc = dlc_tech_res
+	type = country_event
+	placement = ROOT
+	event_image = { video = "southamerica_war_civilians" }
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	icon = "gfx/interface/icons/event_icons/event_default.dds"
+
+	title = ztr_decolonization.53.t
+	desc  = ztr_decolonization.53.d
+
+	duration = 3
+
+	trigger = {
+		has_global_variable = ztr_decolonization_age_var
+		cu:fluvian_bantu = { wants_to_be_decolonized = yes }
+		NOT = { is_subject = yes }
+		any_scope_state = {
+			NOT = { is_homeland_of_country_cultures = root }
+			state_region = { OR = { region = sr:region_congo } is_homeland = cu:fluvian_bantu }
+			count > 0
+		}
+		OR = {
+			has_state_in_state_region = STATE_BAS_CONGO
+			has_state_in_state_region = STATE_KASAI
+			has_state_in_state_region = STATE_EQUATEUR
+			has_state_in_state_region = STATE_CONGO_ORIENTALE
+			has_state_in_state_region = STATE_KATANGA
+		}
+		has_game_rule = allow_ztr_decolonization_content
+	}
+
+	immediate = { }
+
+	option = {
+		name = ztr_decolonization.53.a
+		ai_chance = { base = 90 }
+		change_infamy = -5
+		ztr_define_democratic_republic_of_the_congo = yes
+		create_bidirectional_truce = { country = c:ZDC months = 120 }
+		c:ZDC = { add_journal_entry = { type = je_demographic_0_to_1 } }
+		c:ZDC = { change_relations = { country = root value = 50 } }
+	}
+
+	option = {
+		name = ztr_decolonization.53.b
+		default_option = yes
+		ai_chance = { base = 10 }
+		change_infamy = 5
+	}
+}
+
+# Ugandan decolonization
+ztr_decolonization.54 = {
+	dlc = dlc_tech_res
+	type = country_event
+	placement = ROOT
+	event_image = { video = "southamerica_war_civilians" }
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	icon = "gfx/interface/icons/event_icons/event_default.dds"
+
+	title = ztr_decolonization.54.t
+	desc  = ztr_decolonization.54.d
+
+	duration = 3
+
+	trigger = {
+		has_global_variable = ztr_decolonization_age_var
+		cu:baganda = { wants_to_be_decolonized = yes }
+		NOT = { is_subject = yes }
+		any_scope_state = {
+			NOT = { is_homeland_of_country_cultures = root }
+			state_region = { OR = { region = sr:region_zanj } is_homeland = cu:baganda }
+			count > 0
+		}
+		OR = { has_state_in_state_region = STATE_UGANDA }
+		has_game_rule = allow_ztr_decolonization_content
+	}
+
+	immediate = { }
+
+	option = {
+		name = ztr_decolonization.54.a
+		ai_chance = { base = 90 }
+		change_infamy = -5
+		ztr_define_uganda = yes
+		create_bidirectional_truce = { country = c:ZUG months = 120 }
+		c:ZUG = { add_journal_entry = { type = je_demographic_0_to_1 } }
+		c:ZUG = { change_relations = { country = root value = 50 } }
+	}
+
+	option = {
+		name = ztr_decolonization.54.b
+		default_option = yes
+		ai_chance = { base = 10 }
+		change_infamy = 5
+	}
+}
+
+# Rwandan decolonization
+ztr_decolonization.55 = {
+	dlc = dlc_tech_res
+	type = country_event
+	placement = ROOT
+	event_image = { video = "southamerica_war_civilians" }
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	icon = "gfx/interface/icons/event_icons/event_default.dds"
+
+	title = ztr_decolonization.55.t
+	desc  = ztr_decolonization.55.d
+
+	duration = 3
+
+	trigger = {
+		has_global_variable = ztr_decolonization_age_var
+		cu:ruanda = { wants_to_be_decolonized = yes }
+		NOT = { is_subject = yes }
+		any_scope_state = {
+			NOT = { is_homeland_of_country_cultures = root }
+			state_region = { OR = { region = sr:region_zanj } is_homeland = cu:ruanda }
+			count > 0
+		}
+		OR = { has_state_in_state_region = STATE_TANGANYIKA }
+		has_game_rule = allow_ztr_decolonization_content
+	}
+
+	immediate = { }
+
+	option = {
+		name = ztr_decolonization.55.a
+		ai_chance = { base = 90 }
+		change_infamy = -5
+		ztr_define_rwanda = yes
+		create_bidirectional_truce = { country = c:ZRW months = 120 }
+		c:ZRW = { add_journal_entry = { type = je_demographic_0_to_1 } }
+		c:ZRW = { change_relations = { country = root value = 50 } }
+	}
+
+	option = {
+		name = ztr_decolonization.55.b
+		default_option = yes
+		ai_chance = { base = 10 }
+		change_infamy = 5
+	}
+}
+
+# Tanzanian decolonization
+ztr_decolonization.56 = {
+	dlc = dlc_tech_res
+	type = country_event
+	placement = ROOT
+	event_image = { video = "southamerica_war_civilians" }
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	icon = "gfx/interface/icons/event_icons/event_default.dds"
+
+	title = ztr_decolonization.56.t
+	desc  = ztr_decolonization.56.d
+
+	duration = 3
+
+	trigger = {
+		has_global_variable = ztr_decolonization_age_var
+		cu:lacustrine_bantu = { wants_to_be_decolonized = yes }
+		NOT = { is_subject = yes }
+		any_scope_state = {
+			NOT = { is_homeland_of_country_cultures = root }
+			state_region = { OR = { region = sr:region_zanj } is_homeland = cu:lacustrine_bantu }
+			count > 0
+		}
+		OR = {
+			has_state_in_state_region = STATE_TANGANYIKA
+			has_state_in_state_region = STATE_LINDI
+			has_state_in_state_region = STATE_ZANZIBAR
+		}
+		has_game_rule = allow_ztr_decolonization_content
+	}
+
+	immediate = { }
+
+	option = {
+		name = ztr_decolonization.56.a
+		ai_chance = { base = 90 }
+		change_infamy = -5
+		ztr_define_tanzania = yes
+		create_bidirectional_truce = { country = c:ZTZ months = 120 }
+		c:ZTZ = { add_journal_entry = { type = je_demographic_0_to_1 } }
+		c:ZTZ = { change_relations = { country = root value = 50 } }
+	}
+
+	option = {
+		name = ztr_decolonization.56.b
+		default_option = yes
+		ai_chance = { base = 10 }
+		change_infamy = 5
+	}
+}
+
+# Angolan decolonization
+ztr_decolonization.57 = {
+	dlc = dlc_tech_res
+	type = country_event
+	placement = ROOT
+	event_image = { video = "southamerica_war_civilians" }
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	icon = "gfx/interface/icons/event_icons/event_default.dds"
+
+	title = ztr_decolonization.57.t
+	desc  = ztr_decolonization.57.d
+
+	duration = 3
+
+	trigger = {
+		has_global_variable = ztr_decolonization_age_var
+		cu:kavango_bantu = { wants_to_be_decolonized = yes }
+		NOT = { is_subject = yes }
+		any_scope_state = {
+			NOT = { is_homeland_of_country_cultures = root }
+			state_region = { OR = { region = sr:region_congo } is_homeland = cu:kavango_bantu }
+			count > 0
+		}
+		OR = {
+			has_state_in_state_region = STATE_NORTH_ANGOLA
+			has_state_in_state_region = STATE_SOUTH_ANGOLA
+		}
+		has_game_rule = allow_ztr_decolonization_content
+	}
+
+	immediate = { }
+
+	option = {
+		name = ztr_decolonization.57.a
+		ai_chance = { base = 90 }
+		change_infamy = -5
+		ztr_define_angola = yes
+		create_bidirectional_truce = { country = c:ZAG months = 120 }
+		c:ZAG = { add_journal_entry = { type = je_demographic_0_to_1 } }
+		c:ZAG = { change_relations = { country = root value = 50 } }
+	}
+
+	option = {
+		name = ztr_decolonization.57.b
+		default_option = yes
+		ai_chance = { base = 10 }
+		change_infamy = 5
+	}
+}
+
+# Zambian decolonization
+ztr_decolonization.58 = {
+	dlc = dlc_tech_res
+	type = country_event
+	placement = ROOT
+	event_image = { video = "southamerica_war_civilians" }
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	icon = "gfx/interface/icons/event_icons/event_default.dds"
+
+	title = ztr_decolonization.58.t
+	desc  = ztr_decolonization.58.d
+
+	duration = 3
+
+	trigger = {
+		has_global_variable = ztr_decolonization_age_var
+		cu:lunda = { wants_to_be_decolonized = yes }
+		NOT = { is_subject = yes }
+		any_scope_state = {
+			NOT = { is_homeland_of_country_cultures = root }
+			state_region = {
+				OR = {
+					region = sr:region_congo
+					region = sr:region_zanj
+				}
+				is_homeland = cu:lunda
+			}
+			count > 0
+		}
+		OR = {
+			has_state_in_state_region = STATE_ZAMBIA
+			has_state_in_state_region = STATE_KAZEMBE
+		}
+		has_game_rule = allow_ztr_decolonization_content
+	}
+
+	immediate = { }
+
+	option = {
+		name = ztr_decolonization.58.a
+		ai_chance = { base = 90 }
+		change_infamy = -5
+		ztr_define_zambia = yes
+		create_bidirectional_truce = { country = c:ZZM months = 120 }
+		c:ZZM = { add_journal_entry = { type = je_demographic_0_to_1 } }
+		c:ZZM = { change_relations = { country = root value = 50 } }
+	}
+
+	option = {
+		name = ztr_decolonization.58.b
+		default_option = yes
+		ai_chance = { base = 10 }
+		change_infamy = 5
+	}
+}
+
+# Mozambican decolonization
+ztr_decolonization.59 = {
+	dlc = dlc_tech_res
+	type = country_event
+	placement = ROOT
+	event_image = { video = "southamerica_war_civilians" }
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	icon = "gfx/interface/icons/event_icons/event_default.dds"
+
+	title = ztr_decolonization.59.t
+	desc  = ztr_decolonization.59.d
+
+	duration = 3
+
+	trigger = {
+		has_global_variable = ztr_decolonization_age_var
+		cu:sena = { wants_to_be_decolonized = yes }
+		NOT = { is_subject = yes }
+		any_scope_state = {
+			NOT = { is_homeland_of_country_cultures = root }
+			state_region = {
+				OR = {
+					region = sr:region_zanj
+					region = sr:region_southern_africa
+				}
+				is_homeland = cu:sena
+			}
+			count > 0
+		}
+		OR = {
+			has_state_in_state_region = STATE_MOCAMBIQUE
+			has_state_in_state_region = STATE_ZAMBEZIA
+			has_state_in_state_region = STATE_LOURENCO_MARQUES
+		}
+		has_game_rule = allow_ztr_decolonization_content
+	}
+
+	immediate = { }
+
+	option = {
+		name = ztr_decolonization.59.a
+		ai_chance = { base = 90 }
+		change_infamy = -5
+		ztr_define_mozambico = yes
+		if = { limit = { has_state_in_state_region = STATE_LOURENCO_MARQUES } s:STATE_LOURENCO_MARQUES = { random_scope_state = { limit = { owner = root } set_state_owner = c:ZMZ } } }
+		create_bidirectional_truce = { country = c:ZMZ months = 120 }
+		c:ZMZ = { add_journal_entry = { type = je_demographic_0_to_1 } }
+		c:ZMZ = { change_relations = { country = root value = 50 } }
+	}
+
+	option = {
+		name = ztr_decolonization.59.b
+		default_option = yes
+		ai_chance = { base = 10 }
+		change_infamy = 5
+	}
+}
+
+# Malawian decolonization
+ztr_decolonization.60 = {
+	dlc = dlc_tech_res
+	type = country_event
+	placement = ROOT
+	event_image = { video = "southamerica_war_civilians" }
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	icon = "gfx/interface/icons/event_icons/event_default.dds"
+
+	title = ztr_decolonization.60.t
+	desc  = ztr_decolonization.60.d
+
+	duration = 3
+
+	trigger = {
+		has_global_variable = ztr_decolonization_age_var
+		cu:chewa = { wants_to_be_decolonized = yes }
+		NOT = { is_subject = yes }
+		any_scope_state = {
+			NOT = { is_homeland_of_country_cultures = root }
+			state_region = { OR = { region = sr:region_zanj } is_homeland = cu:chewa }
+			count > 0
+		}
+		OR = { has_state_in_state_region = STATE_KAZEMBE }
+		has_game_rule = allow_ztr_decolonization_content
+	}
+
+	immediate = { }
+
+	option = {
+		name = ztr_decolonization.60.a
+		ai_chance = { base = 90 }
+		change_infamy = -5
+		ztr_define_malawi = yes
+		create_bidirectional_truce = { country = c:ZMW months = 120 }
+		c:ZMW = { add_journal_entry = { type = je_demographic_0_to_1 } }
+		c:ZMW = { change_relations = { country = root value = 50 } }
+	}
+
+	option = {
+		name = ztr_decolonization.60.b
+		default_option = yes
+		ai_chance = { base = 10 }
+		change_infamy = 5
+	}
+}
+
+# Eswatini decolonization
+ztr_decolonization.61 = {
+	dlc = dlc_tech_res
+	type = country_event
+	placement = ROOT
+	event_image = { video = "southamerica_war_civilians" }
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	icon = "gfx/interface/icons/event_icons/event_default.dds"
+
+	title = ztr_decolonization.61.t
+	desc  = ztr_decolonization.61.d
+
+	duration = 3
+
+	trigger = {
+		has_global_variable = ztr_decolonization_age_var
+		cu:zulu = { wants_to_be_decolonized = yes }
+		NOT = { is_subject = yes }
+		any_scope_state = {
+			NOT = { is_homeland_of_country_cultures = root }
+			state_region = { OR = { region = sr:region_southern_africa } is_homeland = cu:zulu }
+			count > 0
+		}
+		NOT = { c:SAF = this }
+		OR = { has_state_in_state_region = STATE_ZULULAND }
+		has_game_rule = allow_ztr_decolonization_content
+	}
+
+	immediate = { }
+
+	option = {
+		name = ztr_decolonization.61.a
+		ai_chance = { base = 90 }
+		change_infamy = -5
+		ztr_define_eswatini = yes
+		create_bidirectional_truce = { country = c:ZSW months = 120 }
+		c:ZSW = { add_journal_entry = { type = je_demographic_0_to_1 } }
+		c:ZSW = { change_relations = { country = root value = 50 } }
+	}
+
+	option = {
+		name = ztr_decolonization.61.b
+		default_option = yes
+		ai_chance = { base = 10 }
+		change_infamy = 5
+	}
+}
+
+# Lesotho decolonization
+ztr_decolonization.62 = {
+	dlc = dlc_tech_res
+	type = country_event
+	placement = ROOT
+	event_image = { video = "southamerica_war_civilians" }
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	icon = "gfx/interface/icons/event_icons/event_default.dds"
+
+	title = ztr_decolonization.62.t
+	desc  = ztr_decolonization.62.d
+
+	duration = 3
+
+	trigger = {
+		has_global_variable = ztr_decolonization_age_var
+		cu:sotho = { wants_to_be_decolonized = yes }
+		NOT = { is_subject = yes }
+		any_scope_state = {
+			NOT = { is_homeland_of_country_cultures = root }
+			state_region = { OR = { region = sr:region_southern_africa } is_homeland = cu:sotho }
+			count > 0
+		}
+		NOT = { c:SAF = this }
+		OR = { has_state_in_state_region = STATE_VRYSTAAT }
+		has_game_rule = allow_ztr_decolonization_content
+	}
+
+	immediate = { }
+
+	option = {
+		name = ztr_decolonization.62.a
+		ai_chance = { base = 90 }
+		change_infamy = -5
+		ztr_define_lesotho = yes
+		create_bidirectional_truce = { country = c:ZUL months = 120 }
+		c:ZUL = { add_journal_entry = { type = je_demographic_0_to_1 } }
+		c:ZUL = { change_relations = { country = root value = 50 } }
+	}
+
+	option = {
+		name = ztr_decolonization.62.b
+		default_option = yes
+		ai_chance = { base = 10 }
+		change_infamy = 5
+	}
+}
+
+# Malian decolonization
+ztr_decolonization.63 = {
+	dlc = dlc_tech_res
+	type = country_event
+	placement = ROOT
+	event_image = { video = "southamerica_war_civilians" }
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	icon = "gfx/interface/icons/event_icons/event_default.dds"
+
+	title = ztr_decolonization.63.t
+	desc  = ztr_decolonization.63.d
+
+	duration = 3
+
+	trigger = {
+		has_global_variable = ztr_decolonization_age_var
+		cu:bambara = { wants_to_be_decolonized = yes }
+		NOT = { is_subject = yes }
+		any_scope_state = {
+			NOT = { is_homeland_of_country_cultures = root }
+			state_region = { OR = { region = sr:region_senegal } is_homeland = cu:bambara }
+			count > 0
+		}
+		OR = {
+			has_state_in_state_region = STATE_WESTERN_MALI
+			has_state_in_state_region = STATE_EASTERN_MALI
+			has_state_in_state_region = STATE_TIMBUKTU
+		}
+		has_game_rule = allow_ztr_decolonization_content
+	}
+
+	immediate = { }
+
+	option = {
+		name = ztr_decolonization.63.a
+		ai_chance = { base = 90 }
+		change_infamy = -5
+		ztr_define_mali = yes
+		if = { limit = { has_state_in_state_region = STATE_TIMBUKTU } s:STATE_TIMBUKTU = { random_scope_state = { limit = { owner = root } set_state_owner = c:MAL } } }
+		create_bidirectional_truce = { country = c:MAL months = 120 }
+		c:MAL = { add_journal_entry = { type = je_demographic_0_to_1 } }
+		c:MAL = { change_relations = { country = root value = 50 } }
+	}
+
+	option = {
+		name = ztr_decolonization.63.b
+		default_option = yes
+		ai_chance = { base = 10 }
+		change_infamy = 5
+	}
+}
+
+# Botswanan decolonization
+ztr_decolonization.64 = {
+	dlc = dlc_tech_res
+	type = country_event
+	placement = ROOT
+	event_image = { video = "southamerica_war_civilians" }
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	icon = "gfx/interface/icons/event_icons/event_default.dds"
+
+	title = ztr_decolonization.64.t
+	desc  = ztr_decolonization.64.d
+
+	duration = 3
+
+	trigger = {
+		has_global_variable = ztr_decolonization_age_var
+		cu:tswana = { wants_to_be_decolonized = yes }
+		NOT = { is_subject = yes }
+		NOT = { OR = { c:ZBT ?= root } }
+		NOR = {
+			country_has_primary_culture = cu:herero
+			country_has_primary_culture = cu:khoisan
+		}
+		OR = { s:STATE_BOTSWANA = { any_scope_state = { owner = ROOT } } }
+		has_game_rule = allow_ztr_decolonization_content
+	}
+
+	immediate = { }
+
+	option = {
+		name = ztr_decolonization.64.a
+		ai_chance = { base = 90 }
+		change_infamy = -5
+		if = {
+			limit = { NOT = { exists = c:ZBT } }
+			create_country = {
+				tag = ZBT
+				origin = this
+				province = p:x958940
+				on_created = {
+					set_country_type = recognized
+					activate_law = law_type:law_parliamentary_republic
+					activate_law = law_type:law_census_voting
+					activate_law = law_type:law_no_schools
+				}
+			}
+		}
+		if = { limit = { has_state_in_state_region = STATE_BOTSWANA } s:STATE_BOTSWANA = { random_scope_state = { limit = { owner = root } set_state_owner = c:ZBT } } }
+		create_bidirectional_truce = { country = c:ZBT months = 120 }
+		c:ZBT = { add_journal_entry = { type = je_demographic_0_to_1 } }
+		c:ZBT = { change_relations = { country = root value = 50 } }
+	}
+
+	option = {
+		name = ztr_decolonization.64.b
+		default_option = yes
+		ai_chance = { base = 10 }
+		change_infamy = 5
+	}
+}
+
+# Zimbabwean decolonization
+ztr_decolonization.65 = {
+	dlc = dlc_tech_res
+	type = country_event
+	placement = ROOT
+	event_image = { video = "southamerica_war_civilians" }
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	icon = "gfx/interface/icons/event_icons/event_default.dds"
+
+	title = ztr_decolonization.65.t
+	desc  = ztr_decolonization.65.d
+
+	duration = 3
+
+	trigger = {
+		has_global_variable = ztr_decolonization_age_var
+		cu:lunda = { wants_to_be_decolonized = yes }
+		NOT = { is_subject = yes }
+		NOT = { OR = { c:ZIM ?= root } }
+		NOR = {
+			country_has_primary_culture = cu:nguni
+			country_has_primary_culture = cu:shona
+		}
+		OR = { has_state_in_state_region = STATE_ZAMBEZI }
+		has_game_rule = allow_ztr_decolonization_content
+	}
+
+	immediate = { }
+
+	option = {
+		name = ztr_decolonization.65.a
+		ai_chance = { base = 90 }
+		change_infamy = -5
+		if = {
+			limit = { NOT = { exists = c:ZIM } }
+			create_country = {
+				tag = ZIM
+				origin = this
+				province = p:x2121F7
+				on_created = {
+					set_country_type = recognized
+					activate_law = law_type:law_parliamentary_republic
+					activate_law = law_type:law_census_voting
+					activate_law = law_type:law_no_schools
+				}
+			}
+		}
+		if = { limit = { has_state_in_state_region = STATE_ZAMBEZI } s:STATE_ZAMBEZI = { random_scope_state = { limit = { owner = root } set_state_owner = c:ZIM } } }
+		create_bidirectional_truce = { country = c:ZIM months = 120 }
+		c:ZIM = { add_journal_entry = { type = je_demographic_0_to_1 } }
+		c:ZIM = { change_relations = { country = root value = 50 } }
+	}
+
+	option = {
+		name = ztr_decolonization.65.b
+		default_option = yes
+		ai_chance = { base = 10 }
+		change_infamy = 5
+	}
+}
+
+# Madagascan decolonization
+ztr_decolonization.66 = {
+	dlc = dlc_tech_res
+	type = country_event
+	placement = ROOT
+	event_image = { video = "southamerica_war_civilians" }
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	icon = "gfx/interface/icons/event_icons/event_default.dds"
+
+	title = ztr_decolonization.66.t
+	desc  = ztr_decolonization.66.d
+
+	duration = 3
+
+	trigger = {
+		has_global_variable = ztr_decolonization_age_var
+		cu:malagasy = { wants_to_be_decolonized = yes }
+		NOT = { is_subject = yes }
+		any_scope_state = {
+			NOT = { is_homeland_of_country_cultures = root }
+			state_region = { OR = { region = sr:region_zanj } is_homeland = cu:malagasy }
+			count > 0
+		}
+		has_game_rule = allow_ztr_decolonization_content
+	}
+
+	immediate = { }
+
+	option = {
+		name = ztr_decolonization.66.a
+		ai_chance = { base = 90 }
+		change_infamy = -5
+		ztr_define_madagascar = yes
+		create_bidirectional_truce = { country = c:MAD months = 120 }
+		c:MAD = { add_journal_entry = { type = je_demographic_0_to_1 } }
+		c:MAD = { change_relations = { country = root value = 50 } }
+	}
+
+	option = {
+		name = ztr_decolonization.66.b
+		default_option = yes
+		ai_chance = { base = 10 }
+		change_infamy = 5
+	}
+}
+
+# Ethiopian decolonization
+ztr_decolonization.67 = {
+	dlc = dlc_tech_res
+	type = country_event
+	placement = ROOT
+	event_image = { video = "southamerica_war_civilians" }
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	icon = "gfx/interface/icons/event_icons/event_default.dds"
+
+	title = ztr_decolonization.67.t
+	desc  = ztr_decolonization.67.d
+
+	duration = 3
+
+	trigger = {
+		has_global_variable = ztr_decolonization_age_var
+		cu:amhara = { wants_to_be_decolonized = yes }
+		NOT = { is_subject = yes }
+		any_scope_state = {
+			NOT = { is_homeland_of_country_cultures = root }
+			state_region = { OR = { region = sr:region_ethiopia } is_homeland = cu:amhara }
+			count > 0
+		}
+		OR = {
+			has_state_in_state_region = STATE_GONDER
+			has_state_in_state_region = STATE_AMHARA
+			has_state_in_state_region = STATE_OROMIA
+			has_state_in_state_region = STATE_ERITREA
+		}
+		has_game_rule = allow_ztr_decolonization_content
+	}
+
+	immediate = { }
+
+	option = {
+		name = ztr_decolonization.67.a
+		ai_chance = { base = 90 }
+		change_infamy = -5
+		ztr_define_ethiopia = yes
+		if = { limit = { has_state_in_state_region = STATE_ERITREA } s:STATE_ERITREA = { random_scope_state = { limit = { owner = root } set_state_owner = c:ETH } } }
+		create_bidirectional_truce = { country = c:ETH months = 120 }
+		c:ETH = { add_journal_entry = { type = je_demographic_0_to_1 } }
+		c:ETH = { change_relations = { country = root value = 50 } }
+	}
+
+	option = {
+		name = ztr_decolonization.67.b
+		default_option = yes
+		ai_chance = { base = 10 }
+		change_infamy = 5
+	}
+}

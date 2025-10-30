@@ -13,10 +13,10 @@ pmg_base_building_power_plant = {
 	}
 }
 
-pmg_automation_building_power_plant = {
+pmg_refining_building_power_plant = {
 	texture = "gfx/interface/icons/generic_icons/mixed_icon_refining.dds"
 	production_methods = {
-		no_automation_power_plant
+		no_refining_power_plant
 		pm_automation_HFO_fuel
 		#pm_smart_grid_hydroelectric_plant
 		#pm_nuclear_first_generation
@@ -72,10 +72,41 @@ pmg_base_building_renewable_energy_power_plant = {
 }
 
 pmg_automation_building_renewable_energy_power_plant = {
-	texture = "gfx/interface/icons/generic_icons/mixed_icon_base.dds"
+	texture = "gfx/interface/icons/generic_icons/mixed_icon_automation.dds"
 	production_methods = {
 		pm_basic_electric_control_building_renewable_energy_power_plant
 		pm_advanced_electric_control_building_renewable_energy_power_plant
 		pm_smart_grid_energy_management
+	}
+}
+
+# Hydro Electric Power Plant
+
+pmg_base_building_hydroelectric_power_plant = {
+	texture = "gfx/interface/icons/generic_icons/mixed_icon_base.dds"
+    production_methods = {
+        pm_run_of_river_plants
+        pm_reservoir_dams
+        pm_advanced_turbine_generators
+    }
+}
+
+# Gruppo PM per l'automazione e la manutenzione
+pmg_automation_building_hydroelectric_power_plant = {
+	texture = "gfx/interface/icons/generic_icons/mixed_icon_automation.dds"
+    production_methods = {
+        pm_manual_hydro_operation
+        pm_pressurized_hydro_systems
+        pm_automated_hydro_control_systems
+	    pm_smart_grid_hydro
+    }
+}
+
+pmg_automation_building_power_plant = {
+	texture = "gfx/interface/icons/generic_icons/mixed_icon_automation.dds"
+	production_methods = {
+		pm_automation_disabled_power_plant
+		pm_pressurized_systems_power_plant
+		pm_smart_grid_energy_management_power_plant
 	}
 }

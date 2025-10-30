@@ -965,6 +965,31 @@ ai_strategy_default = {
 			}
 			add = 50
 		}
+
+		#T&R
+
+		# Enemy has atomic capability, root country does not
+		if = {
+			limit = {
+				any_enemy_in_diplo_play = {
+					has_modifier = nuclear_capability
+					count > 0
+				}
+				NOT = { has_modifier = nuclear_capability }
+			}
+			add = -15
+		}
+		# Enemy hasn't atomic capability, root country does
+		else_if = {
+			limit = {
+				any_enemy_in_diplo_play = {
+					has_modifier = nuclear_capability
+					count = 0
+				}
+				has_modifier = nuclear_capability
+			}
+			add = 15
+		}
 	}
 
 	# How many maneuvers are we OK with using up in the initial phase to add more wargoals
@@ -2975,6 +3000,23 @@ ai_strategy_default = {
 				divide = 20
 			}
 		}
+
+		#T&R
+
+		if = {
+			limit = {
+				# Nuclear Powers are stronger than what they appear
+				has_modifier = nuclear_capability
+			}
+			add = 0.5
+		}
+		else_if = {
+			limit = {
+				# Non-Nuclear Powers are weaker than what they appear
+				NOT = { has_modifier = nuclear_capability }
+			}
+			add = -0.25
+		}
 	}
 
 	# How likely is the AI to start a diplomatic play against another country if their attitude allows for it
@@ -3877,6 +3919,44 @@ ai_strategy_default = {
 			}
 			multiply = 0.0
 		}
+
+		#T&R
+
+		# Moderation if in the ONU
+		if = {
+			limit = {
+				has_modifier = ztr_onu_member
+			}
+			multiply = 0.8
+		}
+
+		# Nuclear deterrence makes countries more cautious
+		if = {
+			limit = {
+				has_modifier = nuclear_capability
+				scope:target_country = {
+					has_modifier = nuclear_capability
+				}
+			}
+			multiply = 0.3
+		}
+
+		# Full democracies, old or advanced societies are more cautious
+		if = {
+			limit = {
+				OR = {
+					# Full democracy
+					is_full_democracy = yes
+					# Counterculture movements
+					has_technology_researched = counterculture
+					# Old society
+					has_modifier = demography_stage_8
+					has_modifier = demography_stage_7
+					has_modifier = demography_stage_6
+				}
+			}
+			multiply = 0.3
+		}
 	}
 
 	# How much construction output should the AI aim for
@@ -3949,7 +4029,24 @@ ai_strategy_default = {
 					divide = 60
 				}
 			}
-			add = 0.4
+			add = 0.1
+		}
+
+		if = {
+			limit = {
+				has_journal_entry = je_grunderzeit
+			}
+			if = {
+				limit = {
+					NOT = {
+						has_variable = grunderzeit_participant_low_var
+					}
+				}
+				add = 0.3
+			}
+			else = {
+				add = 0.15
+			}
 		}
 	}
 
@@ -4063,45 +4160,57 @@ ai_strategy_default = {
 
 		if = {
 			limit = { has_technology_researched = mechanized_infantry }
-			multiply = 0.8 #+25% in country_military_wages_mult
+			multiply = 0.9 #+25% in country_military_wages_mult
 		}
 
 		if = {
 			limit = { has_technology_researched = main_battle_tank }
-			multiply = 0.8 #+25% in country_military_wages_mult
+			multiply = 0.9 #+25% in country_military_wages_mult
 		}
 
 		if = {
 			limit = { has_technology_researched = composite_armor }
-			multiply = 0.8 #+25% in country_military_wages_mult
+			multiply = 0.9 #+25% in country_military_wages_mult
 		}
 
 		if = {
 			limit = { has_technology_researched = radar }
-			multiply = 0.8 #+25% in country_military_wages_mult
+			multiply = 0.9 #+25% in country_military_wages_mult
 		}
 
 		if = {
 			limit = { has_technology_researched = precision_ammunition }
-			multiply = 0.8 #+25% in country_military_wages_mult
+			multiply = 0.9 #+25% in country_military_wages_mult
 		}
 
 		if = {
 			limit = { has_technology_researched = laser_guided_weapons }
-			multiply = 0.8 #+25% in country_military_wages_mult
+			multiply = 0.9 #+25% in country_military_wages_mult
 		}
 
 		if = {
 			limit = { has_technology_researched = high_performance_apparel }
-			multiply = 0.8 #+25% in country_military_wages_mult
+			multiply = 0.9 #+25% in country_military_wages_mult
 		}
 
 		if = {
 			limit = { has_technology_researched = cannon_launched_guided_projectiles }
-			multiply = 0.8 #+25% in country_military_wages_mult
+			multiply = 0.9 #+25% in country_military_wages_mult
 		}
 
 		# Factor in strategies
+
+		#T&R
+		if = {
+			limit = {
+				OR = {
+					has_strategy = ai_strategy_superpower_command_hegemony
+					has_strategy = ai_strategy_superpower_liberal_hegemony
+				}
+			}
+			multiply = 2
+		}
+
 		if = {
 			limit = {
 				OR = {
@@ -4238,24 +4347,19 @@ ai_strategy_default = {
 			multiply = 0.75
 		}
 
-		#T&R
-
-		if = {
-			limit = { has_technology_researched = modular_shipbuilding }
-			multiply = 0.9
-		}
-
-		if = {
-			limit = { has_technology_researched = radar }
-			multiply = 0.9
-		}
-
-		if = {
-			limit = { has_technology_researched = modern_naval_doctrine }
-			multiply = 0.9
-		}
-
 		# Factor in strategies
+
+		#T&R
+		if = {
+			limit = {
+				OR = {
+					has_strategy = ai_strategy_superpower_command_hegemony
+					has_strategy = ai_strategy_superpower_liberal_hegemony
+				}
+			}
+			multiply = 2
+		}
+		
 		if = {
 			limit = {
 				OR = {
