@@ -1,0 +1,1780 @@
+namespace = ztr_russian_revolution
+
+# Statuq Quo Path Wins
+
+ztr_russian_revolution.1 = {
+	dlc = dlc_tech_res
+	type = country_event
+	placement = root
+
+	duration = 1
+
+	title = ztr_russia_status_quo_path_wins.t
+	desc = {
+		first_valid = {
+			triggered_desc = {
+				trigger = {
+					NOT = { has_variable = russia_liberalist_path_var }
+				}
+				desc = ztr_russia_status_quo_path_wins.d
+			}
+			triggered_desc = {
+				trigger = {
+					has_variable = russia_liberalist_path_var
+				}
+				desc = ztr_russia_status_quo_path_wins_liberals.d
+			}
+		}
+	}
+	flavor = ztr_russia_status_quo_path_wins.f
+
+	event_image = {
+		video = "ztr_duma_congress"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	icon = "gfx/interface/icons/event_icons/russia_group_flag.dds"
+
+	trigger = {
+		# JE
+	}
+
+	immediate = {
+		ig:ig_industrialists = {
+			save_scope_as = russia_liberals_scope
+		}
+		c:RUS = {
+			ruler = {
+				save_scope_as = russia_tsar_scope
+			}
+		}
+	}
+
+	option = {
+		name = ztr_russian_status_quo_path_wins.option
+		default_option = yes
+		custom_tooltip = russian_monarchy_can_survive_tt
+		trigger = {
+			NOT = { has_variable = russia_liberalist_path_var }
+		}
+		remove_modifier = ztr_russian_proletariat_modifier
+		add_modifier = {
+			name = ztr_russia_bright_future
+			years = 25
+		}
+		ai_chance = {
+			base = 10
+		}
+	}
+
+	option = {
+		name = ztr_russian_status_quo_path_wins_liberals.option
+		custom_tooltip = russian_modernization_keep_going_tt
+		trigger = {
+			has_variable = russia_liberalist_path_var
+		}
+		remove_modifier = ztr_russian_proletariat_modifier
+		add_modifier = {
+			name = ztr_russia_bright_future
+			years = 25
+		}
+	}
+}
+
+# Liberal Revolution Concessions
+ztr_russian_revolution.2 = {
+	dlc = dlc_tech_res
+	type = country_event
+	placement = root
+
+	duration = 1
+
+	title = ztr_russian_revolution_liberals_wins.t
+	desc = ztr_russian_revolution_liberals_wins.d
+	flavor = ztr_russian_revolution_liberals_wins.f
+
+	event_image = {
+		video = "europenorthamerica_springtime_of_nations"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	icon = "gfx/interface/icons/event_icons/individualist_index.dds"
+
+	trigger = {
+		#JE
+	}
+
+	immediate = {
+		ig:ig_industrialists = {
+			save_scope_as = russia_liberals_scope
+		}
+		c:RUS = {
+			ruler = {
+				save_scope_as = russia_tsar_scope
+			}
+		}
+	}
+
+	# Accept the abdication
+	option = {
+		name = ztr_russian_revolution_liberals_wins_abdication.option
+		default_option = yes
+		add_loyalists = {
+			value = 0.75
+			pop_type = peasants
+		}
+		add_loyalists = {
+			value = 0.5
+			pop_type = laborers
+		}
+		add_loyalists = {
+			value = 0.75
+			pop_type = machinists
+		}
+		add_loyalists = {
+			value = 0.9
+			pop_type = capitalists
+		}
+		add_loyalists = {
+			value = 0.9
+			pop_type = academics
+		}
+		add_loyalists = {
+			value = 0.9
+			pop_type = engineers
+		}
+		add_loyalists = {
+			value = 0.9
+			pop_type = clerks
+		}
+		add_loyalists = {
+			value = 0.9
+			pop_type = shopkeepers
+		}
+		ztr_russia_law_changes_liberals = yes
+		ig:ig_industrialists = {
+			leader = {
+				set_character_as_ruler = yes
+			}
+		}
+		call_election = {
+			months = 1
+		}
+		remove_modifier = ztr_russian_proletariat_modifier
+		ai_chance = {
+			base = 10
+		}
+	}
+
+	# Refuse the abdication
+	option = {
+		name = ztr_russian_revolution_liberals_wins_abdication_refused.option
+		create_political_movement = { type = movement_liberal }
+		remove_modifier = ztr_russian_proletariat_modifier
+		add_modifier = {
+			name = ztr_russian_liberal_revolution
+			years = 15
+		}
+		add_radicals = {
+			value = 0.75
+			pop_type = peasants
+		}
+		add_radicals = {
+			value = 0.5
+			pop_type = laborers
+		}
+		add_radicals = {
+			value = 0.75
+			pop_type = machinists
+		}
+		add_radicals = {
+			value = 0.9
+			pop_type = capitalists
+		}
+		add_radicals = {
+			value = 0.9
+			pop_type = academics
+		}
+		add_radicals = {
+			value = 0.9
+			pop_type = engineers
+		}
+		add_radicals = {
+			value = 0.9
+			pop_type = clerks
+		}
+		add_radicals = {
+			value = 0.9
+			pop_type = shopkeepers
+		}
+		ai_chance = {
+			base = 0 # AI will never do this since this will destroy Russia if not a player
+		}
+	}
+}
+
+# Communist Revolution Concessions
+ztr_russian_revolution.3 = {
+	dlc = dlc_tech_res
+	type = country_event
+	placement = root
+
+	duration = 1
+
+	title = ztr_russian_revolution_communists_wins.t
+	desc = {
+		first_valid = {
+			triggered_desc = {
+				trigger = {
+					has_variable = ztr_menshevik_ideology_var
+				}
+				desc = ztr_russian_revolution_menshivik_wins.d
+			}
+			triggered_desc = {
+				trigger = {
+					has_variable = ztr_agro_socialist_ideology_var
+				}
+				desc = ztr_russian_revolution_agro_socialist_wins.d
+			}
+			triggered_desc = {
+				desc = ztr_russian_revolution_bolshevik_wins.d
+			}
+		}
+	}
+	flavor = ztr_russian_revolution_communists_wins.f
+
+	event_image = {
+		video = "ztr_soviet_congress"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	icon = "gfx/interface/icons/event_icons/equality_index.dds"
+
+	trigger = {
+		#JE
+	}
+
+	immediate = {
+		ig:ig_trade_unions = {
+			save_scope_as = russia_liberals_scope
+			leader = {
+				save_scope_as = russia_communists_leader_scope
+			}
+		}
+		c:RUS = {
+			ruler = {
+				save_scope_as = russia_tsar_scope
+			}
+		}
+	}
+
+	# Accept the abdication
+	option = {
+		name = ztr_russian_revolution_communists_wins_abdication.option
+		default_option = yes
+		add_loyalists = {
+			value = 0.5
+			pop_type = shopkeepers
+		}
+		add_loyalists = {
+			value = 0.5
+			pop_type = engineers
+		}
+		add_loyalists = {
+			value = 0.75
+			pop_type = academics
+		}
+		add_loyalists = {
+			value = 0.75
+			pop_type = clerks
+		}
+		add_loyalists = {
+			value = 0.9
+			pop_type = machinists
+		}
+		add_loyalists = {
+			value = 0.9
+			pop_type = laborers
+		}
+		add_loyalists = {
+			value = 0.9
+			pop_type = farmers
+		}
+		add_loyalists = {
+			value = 0.9
+			pop_type = peasants
+		}
+		every_active_party = {
+			disband_party = yes
+		}
+		if = {
+			limit = {
+				has_variable = ztr_menshevik_ideology_var
+			}
+			ztr_russia_law_changes_menshevik = yes
+		}
+		else_if = {
+			limit = {
+				has_variable = ztr_agro_socialist_ideology_var
+			}
+			ztr_russia_law_changes_agro_socialist = yes
+		}
+		else = {
+			if = {
+				limit = {
+					NOT = { has_variable = ztr_bolshevik_ideology_var }
+				}
+				set_variable = ztr_bolshevik_ideology_var
+			}
+			ztr_russia_law_changes_bolshevik = yes
+		}
+		call_election = {
+			months = 1
+		}
+		ai_chance = {
+			base = 10
+		}
+	}
+
+	# Refuse the abdication
+	option = {
+		name = ztr_russian_revolution_liberals_wins_abdication_refused.option
+		add_modifier = {
+			name = ztr_russian_communist_revolution
+			years = 15
+		}
+		add_radicals = {
+			value = 0.5
+			pop_type = shopkeepers
+		}
+		add_radicals = {
+			value = 0.5
+			pop_type = engineers
+		}
+		add_radicals = {
+			value = 0.75
+			pop_type = academics
+		}
+		add_radicals = {
+			value = 0.75
+			pop_type = clerks
+		}
+		add_radicals = {
+			value = 0.9
+			pop_type = machinists
+		}
+		add_radicals = {
+			value = 0.9
+			pop_type = laborers
+		}
+		add_radicals = {
+			value = 0.9
+			pop_type = farmers
+		}
+		add_radicals = {
+			value = 0.9
+			pop_type = peasants
+		}
+		ai_chance = {
+			base = 0 # AI will never do this since this will destroy Russia if not a player
+		}
+	}
+}
+
+# Polish Unrest
+ztr_russian_revolution.4 = {
+	dlc = dlc_tech_res
+	type = country_event
+	placement = root
+
+	duration = 1
+
+	title = ztr_russian_revolution_polish_unrest.t
+	desc = ztr_russian_revolution_polish_unrest.d
+	flavor = ztr_russian_revolution_polish_unrest.f
+
+	event_image = {
+		video = "europenorthamerica_springtime_of_nations"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	icon = "gfx/interface/icons/event_icons/russia_group_flag.dds"
+
+	trigger = {
+		any_scope_state = {
+			NOT = { is_homeland_of_country_cultures = root }
+			state_region = {
+				is_homeland = cu:polish
+			}
+			count > 0
+		}
+		cu:polish = { wants_to_be_decolonized = yes }
+		has_variable = ztr_russia_minorities_unrest_var
+		var:ztr_russia_minorities_unrest_var = 1
+	}
+
+	immediate = {
+		change_variable = {
+			name = ztr_russia_minorities_unrest_var
+			add = 1
+		}
+	}
+
+	# Suppress the unrest
+	option = {
+		name = ztr_russian_revolution_polish_unrest_suppressed.option
+		default_option = yes
+		custom_tooltip = {
+			text = ztr_russian_revolution_order_positive_tt
+			change_variable = {
+				name = russia_order_var
+				add = 3
+			}
+		}
+		every_scope_state = {
+			limit = {
+				NOT = { is_homeland_of_country_cultures = root }
+				state_region = {
+					is_homeland = cu:polish
+				}
+			}
+			add_modifier = {
+				name = ztr_collapse_revolt_crushed
+				months = 12
+			}
+		}
+		ai_chance = {
+			base = 10
+			modifier = {
+				trigger = {
+					has_law = law_type:law_autocracy
+				}
+			add = 10
+			}
+		}
+	}
+
+	# Appease the unrest
+	option = {
+		name = ztr_russian_revolution_polish_unrest_appeased.option
+		every_scope_state = {
+			limit = {
+				NOT = { is_homeland_of_country_cultures = root }
+				state_region = {
+					is_homeland = cu:polish
+				}
+			}
+			add_modifier = {
+				name = ztr_collapse_revolt_appeased
+				months = 12
+			}
+		}
+		ai_chance = {
+			base = 10
+		}
+	}
+}
+
+# Polish Ultimatum
+
+ztr_russian_revolution.5 = {
+	dlc = dlc_tech_res
+	type = country_event
+	placement = root
+
+	duration = 1
+
+	title = ztr_russian_revolution_polish_ultimatum.t
+	desc = ztr_russian_revolution_polish_ultimatum.d
+	flavor = ztr_russian_revolution_polish_ultimatum.f
+
+	event_image = {
+		video = "europenorthamerica_springtime_of_nations"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	icon = "gfx/interface/icons/event_icons/russia_group_flag.dds"
+
+	trigger = {
+		var:ztr_russia_minorities_unrest_var = 2
+		cu:polish = { wants_to_be_decolonized = yes }
+		NOT = { exists = c:POL}
+	}
+
+	immediate = {
+		change_variable = {
+			name = ztr_russia_minorities_unrest_var
+			add = 1
+		}
+	}
+
+	# Reject the ultimatum
+	option = {
+		name = ztr_russian_revolution_polish_ultimatum_reject.option
+		default_option = yes
+		custom_tooltip = {
+			text = ztr_russian_revolution_poland_is_created_tt
+			ztr_define_poland = yes
+		}
+		custom_tooltip = {
+			text = ztr_russian_revolution_order_negative_tt
+			change_variable = {
+				name = russia_order_var
+				subtract = 3
+			}
+		}
+		create_diplomatic_play = {
+			target_country = c:POL
+			type = dp_annex_war
+		}
+		ai_chance = {
+			base = 10
+			modifier = {
+				trigger = {
+					has_law = law_type:law_autocracy
+				}
+			add = 10
+			}
+		}
+	}
+
+	# Accept the ultimatum of more autonomy
+	option = {
+		name = ztr_russian_revolution_polish_ultimatum_accept.option
+		custom_tooltip = {
+			text = ztr_russian_revolution_poland_is_created_tt
+			ztr_define_poland = yes
+		}
+		custom_tooltip = {
+			text = ztr_russian_revolution_order_positive_tt
+			change_variable = {
+				name = russia_order_var
+				add = 3
+			}
+		}
+		c:POL = {
+			create_diplomatic_pact = {
+				country = root
+				type = puppet
+			}
+			change_relations = {
+				country = root
+				value = 75
+			}
+		}
+		change_relations = {
+			country = c:POL
+			value = 75
+		}
+		change_infamy = 5
+		ai_chance = {
+			base = 10
+		}
+	}
+
+	# Give full independence to Poland
+	option = {
+		name = ztr_russian_revolution_polish_ultimatum_independence.option
+		custom_tooltip = {
+			text = ztr_russian_revolution_poland_is_created_tt
+			ztr_define_poland = yes
+		}
+		custom_tooltip = {
+			text = ztr_russian_revolution_order_positive_tt
+			change_variable = {
+				name = russia_order_var
+				add = 3
+			}
+		}
+		c:POL = {
+			change_relations = {
+				country = root
+				value = 200
+			}
+			set_owes_obligation_to = {
+				country = c:RUS
+				setting = no
+			}
+		}
+		change_relations = {
+			country = c:POL
+			value = 200
+		}
+		change_infamy = -15
+		ai_chance = {
+			base = 5
+		}
+	}
+}
+
+# Minorities Unrest
+ztr_russian_revolution.6 = {
+	dlc = dlc_tech_res
+	type = country_event
+	placement = root
+
+	duration = 1
+
+	title = ztr_russian_revolution_minorities_unrest.t
+	desc = ztr_russian_revolution_minorities_unrest.d
+	flavor = ztr_russian_revolution_minorities_unrest.f
+
+	event_image = {
+		video = "europenorthamerica_springtime_of_nations"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	icon = "gfx/interface/icons/event_icons/russia_group_flag.dds"
+
+	trigger = {
+		any_scope_state = {
+			NOT = { is_homeland_of_country_cultures = root }
+			count > 0
+		}
+		NOT = { has_variable = ztr_russia_minorities_unrest_var }
+		NOR = {
+			has_law_or_variant = law_type:law_multicultural
+			has_law_or_variant = law_type:law_cultural_exclusion
+		}
+	}
+
+	immediate = {
+		set_variable = {
+			name = ztr_russia_minorities_unrest_var
+			value = 1
+		}
+	}
+
+	# Calm the unrest
+	option = {
+		name = ztr_russian_revolution_minorities_unrest.option
+		default_option = yes
+		custom_tooltip = {
+			text = ztr_russian_revolution_order_negative_tt
+			change_variable = {
+				name = russia_order_var
+				subtract = 3
+			}
+		}
+		ai_chance = {
+			base = 5
+		}
+	}
+}
+
+# Peasant Unrest
+ztr_russian_revolution.7 = {
+	dlc = dlc_tech_res
+	type = country_event
+	placement = root
+
+	duration = 1
+
+	title = ztr_russian_revolution_peasant_unrest.t
+	desc = ztr_russian_revolution_peasant_unrest.d
+	flavor = ztr_russian_revolution_peasant_unrest.f
+
+	event_image = {
+		video = "europenorthamerica_russian_serfs"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	icon = "gfx/interface/icons/event_icons/russia_group_flag.dds"
+
+	trigger = {
+		has_law = law_type:law_serfdom
+		NOT = { has_variable = ztr_russia_serfdom_active_var }
+	}
+
+	immediate = {
+		ig:ig_rural_folk = {
+			save_scope_as = russia_peasants_scope
+		}
+		law_type:law_serfdom = {
+			save_scope_as = russia_serfdom_law_scope
+		}
+		set_variable = ztr_russia_serfdom_active_var
+	}
+
+	# Address their concerns
+	option = {
+		name = ztr_russian_revolution_peasant_unrest.option
+		default_option = yes
+		custom_tooltip = {
+			text = ztr_russian_revolution_order_negative_tt
+			change_variable = {
+				name = russia_order_var
+				subtract = 3
+			}
+		}
+		ai_chance = {
+			base = 5
+		}
+	}
+}
+
+# Serfdom Outlawed
+ztr_russian_revolution.8 = {
+	dlc = dlc_tech_res
+	type = country_event
+	placement = root
+
+	duration = 1
+
+	title = ztr_russian_revolution_serfdom_outlawed.t
+	desc = ztr_russian_revolution_serfdom_outlawed.d
+	flavor = ztr_russian_revolution_serfdom_outlawed.f
+
+	event_image = {
+		video = "europenorthamerica_russian_serfs"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	icon = "gfx/interface/icons/event_icons/russia_group_flag.dds"
+
+	trigger = {
+		NOT = { has_law = law_type:law_serfdom }
+		NOT = { has_variable = ztr_russia_serfdom_deactive_var }
+	}
+
+	immediate = {
+		ig:ig_rural_folk = {
+			save_scope_as = russia_peasants_scope
+		}
+		law_type:law_serfdom = {
+			save_scope_as = russia_serfdom_law_scope
+		}
+		if = {
+			limit = {
+				has_variable = ztr_russia_serfdom_active_var
+			}
+			remove_variable = ztr_russia_serfdom_active_var
+		}
+		set_variable = ztr_russia_serfdom_deactive_var
+	}
+
+	# Celebrate the freedom
+	option = {
+		name = ztr_russian_revolution_serfdom_outlawed.option
+		default_option = yes
+		custom_tooltip = {
+			text = ztr_russian_revolution_order_positive_tt
+			change_variable = {
+				name = russia_order_var
+				add = 3
+			}
+		}
+		ai_chance = {
+			base = 5
+		}
+	}
+}
+
+# Liberals Not With Us
+ztr_russian_revolution.9 = {
+	dlc = dlc_tech_res
+	type = country_event
+	placement = root
+
+	duration = 1
+
+	title = ztr_russian_revolution_liberals_not_with_us.t
+	desc = ztr_russian_revolution_liberals_not_with_us.d
+	flavor = ztr_russian_revolution_liberals_not_with_us.f
+
+	event_image = {
+		video = "europenorthamerica_capitalists_meeting"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	icon = "gfx/interface/icons/event_icons/russia_group_flag.dds"
+
+	trigger = {
+		has_variable = russia_liberalist_path_var
+		NOT = { has_variable = ztr_liberals_contrary_to_us_var }
+	}
+
+	immediate = {
+		ig:ig_industrialists = {
+            save_scope_as = russia_liberals_scope
+		}
+		set_variable = ztr_liberals_contrary_to_us_var
+	}
+
+	option = {
+		name = ztr_russian_revolution_liberals_not_with_us.option
+		default_option = yes
+		ig:ig_industrialists = {
+			add_ideology = ideology_liberal
+			leader = {
+				set_ideology = ideology:ideology_market_liberal
+			}
+		}
+		ai_chance = {
+			base = 5
+		}
+	}
+}
+
+# The Strange Russian Proletariat
+ztr_russian_revolution.10 = {
+	dlc = dlc_tech_res
+	type = country_event
+	placement = root
+
+	duration = 1
+
+	title = ztr_russian_revolution_strange_proletariat.t
+	desc = ztr_russian_revolution_strange_proletariat.d
+	flavor = ztr_russian_revolution_strange_proletariat.f
+
+	event_image = {
+		video = "ztr_strike"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	icon = "gfx/interface/icons/event_icons/equality_index.dds"
+
+	trigger = {
+		has_variable = russia_sovietic_path_var
+		NOT = { has_modifier = ztr_russian_proletariat_modifier }
+	}
+
+	immediate = {
+		ig:ig_trade_unions = {
+            save_scope_as = russia_bolsheviks_scope
+		}
+		movement_type:movement_communist = {
+			save_scope_as = russia_communists_scope
+		}
+		movement_type:movement_socialist = {
+			save_scope_as = russia_socialists_scope
+		}
+	}
+
+	option = {
+		name = ztr_russian_revolution_strange_proletariat.option
+		default_option = yes
+		if = {
+			limit = {
+				NOT = {
+					any_political_movement = {
+						is_political_movement_type = movement_communist
+					}
+				}
+			}
+			create_political_movement = { type = movement_communist }
+		}
+		if = {
+			limit = {
+				NOT = {
+					any_political_movement = {
+						is_political_movement_type = movement_socialist
+					}
+				}
+			}
+			create_political_movement = { type = movement_socialist }
+		}
+		add_modifier = {
+			name = ztr_russian_proletariat_modifier
+			years = 80
+			is_decaying = yes
+		}
+		ai_chance = {
+			base = 5
+		}
+	}
+}
+
+# Intelligentsia Ambiguity
+ztr_russian_revolution.11 = {
+	dlc = dlc_tech_res
+	type = country_event
+	placement = root
+
+	duration = 1
+
+	title = ztr_russian_revolution_intelligentsia_ambiguity.t
+	desc = ztr_russian_revolution_intelligentsia_ambiguity.d
+	flavor = ztr_russian_revolution_intelligentsia_ambiguity.f
+
+	event_image = {
+		video = "europenorthamerica_art_gallery"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	icon = "gfx/interface/icons/event_icons/russia_group_flag.dds"
+
+	trigger = {
+		NOR = {
+			has_variable = ztr_russia_refused_intel_requests_var
+			has_variable = ztr_russia_accepted_intel_requests_var
+		}
+	}
+
+	immediate = {
+		ig:ig_intelligentsia = {
+			save_scope_as = russia_intelligentsia_scope
+		}
+	}
+
+	# Accept their requests
+	option = {
+		name = ztr_russian_revolution_intelligentsia_ambiguity.option
+		default_option = yes
+		custom_tooltip = {
+			text = ztr_russian_revolution_order_positive_tt
+			change_variable = {
+				name = russia_order_var
+				add = 3
+			}
+		}
+		ig:ig_intelligentsia = {
+			add_ideology = ideology_liberal
+			leader = {
+				set_ideology = ideology:ideology_egalitarian
+			}
+		}
+		add_modifier = {
+			name = ztr_desperate_research_funds_modifier
+			years = 5
+		}
+		set_variable = ztr_russia_accepted_intel_requests_var
+		ai_chance = {
+			base = 10
+		}
+	}
+
+	# Refuse their requests
+	option = {
+		name = ztr_russian_revolution_intelligentsia_ambiguity_refuse.option
+		set_variable = ztr_russia_refused_intel_requests_var
+		custom_tooltip = {
+			text = ztr_russian_revolution_order_negative_tt
+			change_variable = {
+				name = russia_order_var
+				subtract = 3
+			}
+		}
+		ig:ig_intelligentsia = {
+			add_ideology = ideology_vanguardist
+			leader = {
+				set_ideology = ideology:ideology_radical
+			}
+		}
+		ai_chance = {
+			base = 0
+			modifier = {
+				trigger = {
+					has_law = law_type:law_autocracy
+				}
+			add = 100
+			}
+		}
+	}
+}
+
+# Treaty with Liberals
+ztr_russian_revolution.12 = {
+	dlc = dlc_tech_res
+	type = country_event
+	placement = root
+
+	duration = 1
+
+	title = ztr_russian_revolution_treaty_liberals.t
+	desc = ztr_russian_revolution_treaty_liberals.d
+	flavor = ztr_russian_revolution_treaty_liberals.f
+
+	event_image = {
+		video = "unspecific_signed_contract"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	icon = "gfx/interface/icons/event_icons/russia_group_flag.dds"
+
+	trigger = {
+		#Scripted Button
+	}
+
+	immediate = {
+		ig:ig_industrialists = {
+            save_scope_as = russia_liberals_scope
+		}
+	}
+
+	# Accept the treaty
+	option = {
+		name = ztr_russian_revolution_treaty_liberals_accept.option
+		default_option = yes
+		custom_tooltip = ztr_russian_revolution_liberals_will_defend_status_quo_tt
+		add_modifier = {
+			name = ztr_russian_modernization
+			years = 8
+		}
+		remove_variable = russia_liberalist_path_var
+		ai_chance = {
+			base = 90
+		}
+	}
+
+	# Refuse the treaty
+	option = {
+		name = ztr_russian_revolution_treaty_liberals_refuse.option
+		custom_tooltip = ztr_russian_revolution_liberals_will_refuse_forever_status_quo_tt
+		ig:ig_industrialists = {
+			add_modifier = {
+				name = ztr_industrialists_unhappy_modifier
+				years = 1
+			}
+		}
+		ai_chance = {
+			base = 10
+		}
+	}
+}
+
+# Liberals Petition Event
+ztr_russian_revolution.13 = {
+	dlc = dlc_tech_res
+	type = country_event
+	placement = root
+
+	duration = 1
+
+	title = ztr_russian_revolution_petition.t
+	desc = ztr_russian_revolution_petition.d
+	flavor = ztr_russian_revolution_petition.f
+
+	event_image = {
+		video = "europenorthamerica_capitalists_meeting"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	icon = "gfx/interface/icons/event_icons/russia_group_flag.dds"
+
+	trigger = {
+		#Scripted Button
+	}
+
+	immediate = {
+		ig:ig_industrialists = {
+            save_scope_as = government_petition_ig
+            ordered_preferred_law = {
+                limit = {
+					law_is_valid_for_ig_petition = yes
+                }
+                min = 0
+                max = 2
+                check_range_bounds = no
+                save_scope_as = government_petition_law
+            }
+			ordered_preferred_law = {
+                limit = {
+					law_is_valid_for_ig_petition = yes
+					NOT = {
+						scope:government_petition_law ?= THIS
+					}
+                }
+                min = 1
+                max = 3
+                check_range_bounds = no
+                save_scope_as = government_petition_law_2
+            }
+			set_variable = { name = petitioning_ig days = 100 }
+        }
+	}
+
+	cancellation_trigger = {
+		NOR = {
+			exists = scope:government_petition_ig
+			exists = scope:government_petition_law
+		}
+	}
+
+	option = {
+		name = government_petition_events.1.a
+		default_option = yes
+        if = {
+            limit = {
+                exists = scope:government_petition_law
+            }
+            set_variable = { name = desired_law_var value = scope:government_petition_law }
+        }
+		custom_tooltip = government_petition_tt
+		add_journal_entry = {
+			type = ztr_je_russian_absolutism_government_petition
+		}
+		ai_chance = {
+			base = 10
+		}
+	}
+
+	option = {
+		name = government_petition_events.1.b
+		trigger = {
+			exists = scope:government_petition_law_2
+		}
+        if = {
+            limit = {
+                exists = scope:government_petition_law_2
+            }
+            set_variable = { name = desired_law_var value = scope:government_petition_law_2 }
+        }
+		custom_tooltip = government_petition_2_tt
+		add_journal_entry = {
+			type = je_government_petition
+		}
+		ai_chance = {
+			base = 10
+		}
+	}
+}
+
+# The Duma's Role
+ztr_russian_revolution.14 = {
+	dlc = dlc_tech_res
+	type = country_event
+	placement = root
+
+	duration = 1
+
+	title = ztr_russian_revolution_duma_role.t
+	desc = ztr_russian_revolution_duma_role.d
+
+	event_image = {
+		video = "ztr_duma_congress"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	icon = "gfx/interface/icons/event_icons/russia_group_flag.dds"
+
+	trigger = {
+		has_modifier = ztr_russian_modernization
+		NOT = { has_variable = ztr_russia_duma_role_requested_var }
+		OR = {
+			has_law = law_type:law_autocracy
+			has_law = law_type:law_oligarchy
+		}
+	}
+
+	immediate = {
+		set_variable = ztr_russia_duma_role_requested_var
+	}
+
+	# Accept the Duma's role
+	option = {
+		name = ztr_russian_revolution_duma_role.option
+		default_option = yes
+		activate_law = law_type:law_wealth_voting
+		set_variable = ztr_russia_duma_role_var
+		custom_tooltip = {
+			text = ztr_russian_revolution_order_positive_tt
+			change_variable = {
+				name = russia_order_var
+				add = 3
+			}
+		}
+		ig:ig_industrialists = {
+			add_modifier = {
+				name = ztr_industrialists_happy_modifier
+				days = normal_modifier_time
+			}
+		}
+		ai_chance = {
+			base = 10
+		}
+	}
+
+	# Reject the Duma's role
+	option = {
+		name = ztr_russian_revolution_duma_role_reject.option
+		custom_tooltip = {
+			text = ztr_russian_revolution_liberals_will_be_displeased_tt
+			change_variable = {
+				name = russia_liberalist_path_var_semi
+				subtract = 5
+			}
+		}
+		ig:ig_industrialists = {
+			add_modifier = {
+				name = ztr_industrialists_unhappy_modifier
+				days = normal_modifier_time
+			}
+		}
+		ai_chance = {
+			base = 0
+			modifier = {
+				trigger = {
+					has_law = law_type:law_autocracy
+				}
+			add = 10
+			}
+		}
+	}
+}
+
+# Duma: Lower strata question
+ztr_russian_revolution.15 = {
+	dlc = dlc_tech_res
+	type = country_event
+	placement = root
+
+	duration = 1
+
+	title = ztr_duma_low_strata_question.t
+	desc = ztr_duma_low_strata_question.d
+
+	event_image = {
+		video = "ztr_duma_congress"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	icon = "gfx/interface/icons/event_icons/russia_group_flag.dds"
+
+	trigger = {
+		OR = {
+            get_country_gdp_per < 2.5
+            average_sol < 12
+        }
+		NOT = { has_variable = ztr_duma_low_strata_question_var }
+	}
+
+	immediate = {
+		set_variable = ztr_duma_low_strata_question_var
+		ig:ig_industrialists = {
+			save_scope_as = russia_liberals_scope
+		}
+		ig:ig_trade_unions = {
+			save_scope_as = russia_bolsheviks_scope
+		}
+	}
+
+	# Refuse to help the lower strata following Liberals ideas
+	option = {
+		name = ztr_duma_low_strata_question_refuse.option
+		default_option = yes
+		custom_tooltip = {
+			text = ztr_russian_revolution_order_negative_tt
+			change_variable = {
+				name = russia_order_var
+				subtract = 3
+			}
+		}
+		ig:ig_industrialists = {
+			add_modifier = {
+				name = ztr_industrialists_appeased_modifier
+				days = normal_modifier_time
+			}
+		}
+		ai_chance = {
+			base = 40
+		}
+	}
+
+	# Accept to help the lower strata following Sovietic ideas
+	option = {
+		name = ztr_duma_low_strata_question_accept.option
+		custom_tooltip = {
+			text = ztr_russian_revolution_order_positive_tt
+			change_variable = {
+				name = russia_order_var
+				add = 3
+			}
+		}
+		ig:ig_industrialists = {
+			add_modifier = {
+				name = ztr_industrialists_unpleased_modifier
+				days = normal_modifier_time
+			}
+		}
+		add_modifier = {
+			name = russian_revolution_lower_strata_aid_modifier
+			years = 2
+		}
+		ai_chance = {
+			base = 10
+		}
+	}
+}
+
+# Duma: Workers' rights question
+ztr_russian_revolution.16 = {
+	dlc = dlc_tech_res
+	type = country_event
+	placement = root
+
+	duration = 1
+
+	title = ztr_duma_workers_rights_question.t
+	desc = ztr_duma_workers_rights_question.d
+
+	event_image = {
+		video = "ztr_duma_congress"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	icon = "gfx/interface/icons/event_icons/russia_group_flag.dds"
+
+	trigger = {
+		OR = {
+            get_country_gdp_per < 2.5
+            average_sol < 12
+        }
+		NOT = { has_variable = ztr_duma_workers_rights_question_var }
+		has_law = law_type:law_no_workers_rights
+	}
+
+	immediate = {
+		set_variable = ztr_duma_workers_rights_question_var
+		ig:ig_industrialists = {
+			save_scope_as = russia_liberals_scope
+		}
+		ig:ig_trade_unions = {
+			save_scope_as = russia_bolsheviks_scope
+		}
+		law_type:law_no_workers_rights = {
+			save_scope_as = russia_no_workers_rights_law_scope
+		}
+	}
+
+	# Refuse to improve workers' rights
+	option = {
+		name = ztr_duma_workers_rights_question_refuse.option
+		default_option = yes
+		custom_tooltip = {
+			text = ztr_russian_revolution_order_negative_tt
+			change_variable = {
+				name = russia_order_var
+				subtract = 3
+			}
+		}
+		change_variable = {
+			name = russia_liberalist_path_var_semi
+			add = 2
+		}
+		ig:ig_industrialists = {
+			add_modifier = {
+				name = ztr_industrialists_happy_modifier
+				days = normal_modifier_time
+			}
+		}
+		ai_chance = {
+			base = 40
+		}
+	}
+
+	# Accept to improve workers' rights enacting regulatory bodies
+	option = {
+		name = ztr_duma_workers_rights_question_accept.option
+		custom_tooltip = {
+			text = ztr_russian_revolution_order_positive_tt
+			change_variable = {
+				name = russia_order_var
+				add = 3
+			}
+		}
+		activate_law = law_type:law_regulatory_bodies
+		change_variable = {
+			name = russia_sovietic_path_var_semi
+			subtract = 2
+		}
+		ig:ig_industrialists = {
+			add_modifier = {
+				name = ztr_industrialists_unhappy_modifier
+				days = normal_modifier_time
+			}
+		}
+		ai_chance = {
+			base = 10
+		}
+	}
+}
+
+# The Liberals stop supporting us
+ztr_russian_revolution.17 = {
+	dlc = dlc_tech_res
+	type = country_event
+	placement = root
+
+	duration = 1
+
+	title = ztr_russian_revolution_liberals_stop_supporting_us.t
+	desc = ztr_russian_revolution_liberals_stop_supporting_us.d
+	event_image = {
+		video = "ztr_duma_congress"
+	}
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	icon = "gfx/interface/icons/event_icons/russia_group_flag.dds"
+	trigger = {
+		has_modifier = ztr_russian_modernization
+		ig:ig_industrialists = {
+			ig_approval < 0
+		}
+	}
+	immediate = {
+		ig:ig_industrialists = {
+			save_scope_as = russia_liberals_scope
+		}
+	}
+	# They withdraw their support
+	option = {
+		name = ztr_russian_revolution_liberals_stop_supporting_us.option
+		default_option = yes
+		remove_modifier = ztr_russian_modernization
+		set_variable = russia_liberalist_path_var
+		ai_chance = {
+			base = 10
+		}
+	}
+}
+
+# A Leader for the Soviet (Aka Lenin return if he exists)
+ztr_russian_revolution.18 = {
+	dlc = dlc_tech_res
+	type = country_event
+	placement = root
+
+	duration = 1
+
+	title = ztr_russian_revolution_leader_for_soviet.t
+	desc = ztr_russian_revolution_leader_for_soviet.d
+
+	gui_window = event_window_1char_tabloid
+
+	left_icon = scope:soviet_leader_character_scope
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	on_opened_soundeffect = "event:/SFX/Events/misc/1Character_Banner"
+
+	icon = "gfx/interface/icons/event_icons/equality_index.dds"
+
+	trigger = {
+		has_variable = russia_sovietic_path_var
+		var:russia_sovietic_path_var > 10
+		NOT = { has_variable = ztr_soviet_ideology_var }
+	}
+
+	immediate = {
+		set_variable = ztr_soviet_ideology_var
+		if = {
+			limit = { NOT = { has_global_variable = lenin_spawn } }
+			create_character = {
+				template = rus_lenin_character_template
+				on_created = {
+					set_variable = lenin_var
+				}
+			}
+			set_global_variable = lenin_spawn
+		}
+		random_character = {
+			limit = {
+				has_variable = lenin_var
+				NOT = { has_modifier = modifier_lenin_in_exile } # Lenin is not in exile
+			}
+			save_scope_as = soviet_leader_character_scope
+		}
+		if = {
+			limit = {
+				NOT = { exists = scope:soviet_leader_character_scope }
+			}
+			ig:ig_trade_unions = {
+				save_scope_as = russia_bolsheviks_scope
+				leader = {
+					save_scope_as = soviet_leader_character_scope
+				}
+			}
+		}
+	}
+
+	# If Lenin exists, make him the temporary leader of the Soviets before Soviet Congress
+	option = {
+		name = ztr_russian_revolution_leader_for_soviet_lenin.option
+		default_option = yes
+		trigger = {
+			scope:soviet_leader_character_scope = {
+				has_variable = lenin_var
+			}
+		}
+		scope:soviet_leader_character_scope = {
+			place_character_in_void = 100
+			free_character_from_void = yes
+			transfer_character = c:RUS
+			set_as_interest_group_leader = yes
+		}
+		ig:ig_trade_unions = {
+			add_modifier = {
+				name = ztr_bolsheviks_prepare_the_soviet_congress_modifier
+				years = 1
+			}
+		}
+		ai_chance = {
+			base = 10
+		}
+	}
+
+	option = {
+		name = ztr_russian_revolution_leader_for_soviet.option
+		default_option = yes
+		trigger = {
+			scope:soviet_leader_character_scope = {
+				NOT = { has_variable = lenin_var }
+			}
+		}
+		ig:ig_trade_unions = {
+			add_modifier = {
+				name = ztr_bolsheviks_prepare_the_soviet_congress_modifier
+				years = 1
+			}
+		}
+		ai_chance = {
+			base = 10
+		}
+	}
+}
+
+# First Soviet Congress (complete)
+ztr_russian_revolution.19 = {
+	dlc = dlc_tech_res
+	type = country_event
+	placement = root
+
+	duration = 1
+
+	title = ztr_russian_revolution_first_soviet_congress.t
+	desc  = ztr_russian_revolution_first_soviet_congress.d
+	flavor = ztr_russian_revolution_first_soviet_congress.f
+
+	event_image = {
+		video = "ztr_soviet_congress"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	icon = "gfx/interface/icons/event_icons/equality_index.dds"
+
+	trigger = {
+		# Il Congresso si tiene dopo che è stato designato un leader (o equivalente)
+		has_variable = ztr_soviet_ideology_var
+		NOR = {
+			has_variable = ztr_bolshevik_ideology_var
+			has_variable = ztr_menshevik_ideology_var
+			has_variable = ztr_agro_socialist_ideology_var
+		}
+		
+		# 1 is Bolsheviks, 2 is Mensheviks, 3 is Agro-Socialista
+		var:russia_sovietic_path_var > 25
+
+		# E dopo la fase preparatoria dei sindacati/bolscevichi
+		ig:ig_trade_unions = {
+			NOT = { has_modifier = ztr_bolsheviks_prepare_the_soviet_congress_modifier }
+		}
+
+		# Siamo nel percorso sovietico (non per forza vittorioso, ma attivo)
+		has_variable = russia_sovietic_path_var
+	}
+
+	immediate = {
+		ig:ig_intelligentsia = { save_scope_as = russia_intelligentsia_scope }
+		ig:ig_rural_folk = { save_scope_as = russia_peasants_scope }
+		ig:ig_industrialists = { save_scope_as = russia_liberals_scope }
+		ig:ig_landowners = { save_scope_as = russia_landowners_scope }
+
+		remove_variable = ztr_soviet_ideology_var
+
+		ig:ig_trade_unions = {
+			save_scope_as = russia_bolsheviks_scope
+			leader = {
+				save_scope_as = soviet_leader_character_scope
+			}
+		}
+	}
+
+	# Percorso 1 — Linea Bolscevica (Consigli + Comando dell'Economia, JE Rivoluzione permanente = Counter di 5 anni che necessita di guerra di diffusione)
+	option = {
+		name = ztr_first_soviet_congress_bolshevik.option
+		default_option = yes
+		ig:ig_trade_unions = {
+			if = {
+				limit = { NOT = { has_ideology = ideology:ideology_socialist } }
+				add_ideology = ideology_socialist
+			}
+			leader = {
+				set_ideology = ideology:ideology_vanguardist
+			}			
+		}
+		ig:ig_armed_forces ?= {
+			add_ideology = ideology_patriotic
+			leader = {
+				set_ideology = ideology:ideology_vanguardist
+			}
+		}
+
+		every_scope_pop = {
+			limit = {
+				is_pop_type = laborers
+			}
+			add_movement_enthusiasm_modifier = yes
+		}
+
+		custom_tooltip = {
+			text = ztr_russian_communist_bolshevik_ideology_potential_tt
+			# This will enable some aspects only for Bolshevik ideology
+			# Hook futuro: svolta "rivoluzione mondiale" o "socialismo in un paese"
+			set_variable = ztr_bolshevik_ideology_var
+		}
+
+		ai_chance = {
+			base = 10
+			modifier = {
+				trigger = {
+					OR = {
+						NOT = { has_variable = russia_liberalist_path_var }
+						# If Lenin is leading, Bolshevik path is preferred
+						scope:soviet_leader_character_scope = {
+							has_variable = lenin_var
+						}
+					}
+				}
+			add = 1000
+			}
+		}
+	}
+
+	# Percorso 2 — Linea Menscevica/Socialdemocratica (Repubblica parlamentare, tutele del lavoro)
+	option = {
+		name = ztr_first_soviet_congress_menshevik.option
+		ig:ig_trade_unions = {
+			if = {
+				limit = { NOT = { has_ideology = ideology:ideology_socialist } }
+				add_ideology = ideology_socialist
+			}
+			leader = {
+				set_ideology = ideology:ideology_social_democrat
+			}			
+		}
+		ig:ig_intelligentsia ?= {
+			add_ideology = ideology_egalitarian_modern
+			leader = {
+				set_ideology = ideology:ideology_reformer
+			}
+		}
+
+		custom_tooltip = {
+			text = ztr_russian_socialdemocrat_menshevik_ideology_potential_tt
+			# This will enable some aspects only for Menshevik ideology
+			# Hook futuro: svolta "repubblica parlamentare" o "democrazia sovietica"
+			set_variable = ztr_menshevik_ideology_var
+		}
+
+		ai_chance = {
+			base = 10
+			modifier = {
+				trigger = {
+					has_variable = russia_liberalist_path_var
+					NOT = { has_law = law_type:law_serfdom }
+					# Lenin is not leading
+					scope:soviet_leader_character_scope = {
+						NOT = { has_variable = lenin_var }
+					}
+				}
+			add = 1000
+			}
+		}
+	}
+
+	# Percorso 3 — Linea SR di Sinistra / Agro-Socialista (Potere ai Soviet rurali, ridistribuzione agraria)
+	option = {
+		name = ztr_first_soviet_congress_left_sr.option
+		ig:ig_trade_unions = {
+			if = {
+				limit = { NOT = { has_ideology = ideology:ideology_socialist } }
+				add_ideology = ideology_socialist
+				
+			}
+			leader = {
+				set_ideology = ideology:ideology_communist
+			}			
+		}
+		ig:ig_rural_folk = {
+			if = {
+				limit = { NOT = { has_ideology = ideology:ideology_socialist } }
+				add_ideology = ideology_socialist
+				add_ideology = ideology_agrarian
+			}
+			leader = { set_ideology = ideology:ideology_communist }
+		}
+
+		custom_tooltip = {
+			text = ztr_russian_agro_socialist_ideology_potential_tt
+			# This will enable some aspects only for Agrarian-Socialist ideology
+			# Hook futuro: svolta "soviet rurali" o "comuni agricole"
+			set_variable = ztr_agro_socialist_ideology_var
+		}
+		ai_chance = {
+			base = 10
+			modifier = {
+				trigger = {
+					# Deve esistere la legge della servitù della gleba per avere linea agraria forte
+					has_variable = russia_liberalist_path_var
+					has_law = law_type:law_serfdom
+					# Lenin is not leading
+					scope:soviet_leader_character_scope = {
+						NOT = { has_variable = lenin_var }
+					}
+				}
+			add = 1000
+			}
+		}
+	}
+}
+
+
+ztr_russian_revolution.1000 = {
+	dlc = dlc_tech_res
+	type = country_event
+	placement = root
+
+	duration = 1
+
+	title = ztr_russian_revolution_minorities_unrest.t
+	desc = ztr_russian_revolution_minorities_unrest.d
+
+	event_image = {
+		video = "europenorthamerica_capitalists_meeting"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	icon = "gfx/interface/icons/event_icons/russia_group_flag.dds"
+
+	trigger = {
+	}
+
+	immediate = {
+		
+	}
+
+	# Calm the unrest
+	option = {
+		name = ztr_russian_revolution_minorities_unrest.option
+		default_option = yes
+		add_journal_entry = { type = ztr_je_russian_absolutism }
+	}
+}

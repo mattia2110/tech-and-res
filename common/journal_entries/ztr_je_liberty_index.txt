@@ -30,7 +30,13 @@ je_liberty_index = {
 	on_yearly_pulse = {
 		effect = {
 			# Calculate Liberty and Equality Index
-			calculate_liberty_equality_index = yes
+			if = {
+				limit = { BPM_is_active_trigger = yes}
+				calculate_liberty_equality_index_bpm = yes
+			}
+			else = {
+				calculate_liberty_equality_index = yes
+			}
 			calculate_max_liberty_index = yes
 
 			scope:journal_entry = {

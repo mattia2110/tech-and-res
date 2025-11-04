@@ -77,23 +77,23 @@
 					NOT = { has_variable = signed_nuclear_non_proliferation_treaty }
 					country_rank = rank_value:great_power
 				}
-				is_dictatorship = yes
+				ztr_is_totalitarian = yes
 			}
 			# An autocracy would use them if it is not signed the NPT, target is a dictatorship or is simply a superpower
 			AND = {
 				OR = {
 					NOT = { has_variable = signed_nuclear_non_proliferation_treaty }
-					scope:target_country = { is_dictatorship = yes }
+					scope:target_country = { ztr_is_totalitarian = yes }
 					has_modifier = ztr_superpower
 				}
-				is_autocracy = yes
+				ztr_is_authoritarian = yes
 			}
 			# A democracy would use them if atomic bomb was never used in the world, and either it not signed the NPT or is a great power or is a superpower
 			AND = {
 				OR = {
 					AND = {
 						NOT = { has_global_variable = ztr_atomic_bomb_first_use_var }
-						scope:target_country = { is_dictatorship = yes }
+						scope:target_country = { ztr_is_totalitarian = yes }
 					}
 					AND = {
 						NOT = { has_variable = signed_nuclear_non_proliferation_treaty }
@@ -101,7 +101,7 @@
 					}
 					has_modifier = ztr_superpower
 				}
-				is_democracy = yes
+				ztr_is_democratic = yes
 			}
 		}
 	}

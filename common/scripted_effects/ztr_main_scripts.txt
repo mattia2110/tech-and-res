@@ -652,4 +652,786 @@ calculate_max_liberty_index = {
 		remove_variable = liberty_index_var
 		set_variable = { name = liberty_index_var value = 65 }		
 	}
+
+	if = {
+		limit = {
+			var:liberty_index_var > 100
+		}
+		remove_variable = liberty_index_var
+		set_variable = { name = liberty_index_var value = 100 }		
+	}
+	else_if = {
+		limit = {
+			var:liberty_index_var < 0
+		}
+		remove_variable = liberty_index_var
+		set_variable = { name = liberty_index_var value = 0 }
+	}
+}
+
+calculate_liberty_equality_index_bpm = {
+	# Here we give cake only if the law gives more liberty than worst case, which will always value 0
+	set_variable = { name = liberty_index_var value = 0 }
+	set_variable = { name = equality_index_var value = 0 }
+
+	# Governance Principles
+	if = {
+		limit = { has_law_or_variant = law_type:law_parliamentary_republic}
+		change_variable = { name = liberty_index_var add = 5 }
+		change_variable = { name = equality_index_var add = 1 }
+	}
+	else_if = {
+		limit = {
+			OR = {	
+				has_law_or_variant = law_type:law_monarchy
+				has_law_or_variant = law_type:law_presidential_republic
+			}
+		}
+		change_variable = { name = liberty_index_var add = 3 }
+	}
+	else_if = {
+		limit = { has_law_or_variant = law_type:law_council_republic }
+		change_variable = { name = liberty_index_var add = 1 }
+		change_variable = { name = equality_index_var add = 2 }
+	}
+
+	# Distribution of Power
+	if = {
+		limit = { has_law_or_variant = law_type:law_universal_suffrage }
+		change_variable = { name = liberty_index_var add = 12 }
+		change_variable = { name = equality_index_var add = 5 }
+	}
+	else_if = {
+		limit = { has_law_or_variant = law_type:law_organic_democracy }
+		change_variable = { name = liberty_index_var add = 10 }
+		change_variable = { name = equality_index_var add = 4 }
+	}
+	else_if = {
+		limit = { has_law_or_variant = law_type:law_census_voting }
+		change_variable = { name = liberty_index_var add = 8 }
+		change_variable = { name = equality_index_var add = 3 }
+	}
+	else_if = {
+		limit = { has_law_or_variant = law_type:law_wealth_voting }
+		change_variable = { name = liberty_index_var add = 6 }
+		change_variable = { name = equality_index_var add = 2 }
+	}
+	else_if = {
+		limit = { has_law_or_variant = law_type:law_landed_voting }
+		change_variable = { name = liberty_index_var add = 4 }
+		change_variable = { name = equality_index_var add = 1 }
+	}
+	else_if = {
+		limit = { has_law_or_variant = law_type:law_anarchy }
+		change_variable = { name = liberty_index_var add = 1 }
+		change_variable = { name = equality_index_var add = 1 }
+	}
+	else_if = {
+		limit = { has_law_or_variant = law_type:law_technocracy }
+		change_variable = { name = liberty_index_var add = 1 }
+	}
+	else_if = {
+		limit = { has_law_or_variant = law_type:law_elder_council }
+		change_variable = { name = liberty_index_var add = 1 }
+	}
+	else_if = {
+		limit = { has_law_or_variant = law_type:law_oligarchy }
+		change_variable = { name = liberty_index_var add = 1 }
+	}
+	else_if = {
+		limit = { has_law_or_variant = law_type:law_organic_regulation }
+		change_variable = { name = liberty_index_var add = 3 }
+		change_variable = { name = equality_index_var add = 1 }
+	}
+	else_if = {
+		limit = { has_law_or_variant = law_type:law_neo_absolutism }
+		change_variable = { name = liberty_index_var add = 2 }
+	}
+	else_if = {
+		limit = { has_law_or_variant = law_type:law_autocracy }
+		change_variable = { name = liberty_index_var add = 1 }
+	}
+	else_if = {
+		limit = { has_law_or_variant = law_type:law_military_junta }
+		change_variable = { name = liberty_index_var add = 1 }
+	}
+	else_if = {
+		limit = { has_law_or_variant = law_type:law_single_party_state }
+		change_variable = { name = liberty_index_var add = 1 }
+	}
+	else_if = {
+		limit = { has_law_or_variant = law_type:law_colonial_admin }
+		# very low representation
+		change_variable = { name = liberty_index_var add = 0 }
+	}
+	else = {
+		change_variable = {
+			name = liberty_index_var
+			add = -2
+		}
+	}
+
+	# Religion
+	if = {
+		limit = { has_law_or_variant = law_type:law_total_separation }
+		change_variable = { name = liberty_index_var add = 4 }
+		change_variable = { name = equality_index_var add = 2 }
+	}
+	else_if = {
+		limit = { has_law_or_variant = law_type:law_freedom_of_conscience }
+		change_variable = { name = liberty_index_var add = 3 }
+		change_variable = { name = equality_index_var add = 1 }
+	}
+	else_if = {
+		limit = { has_law_or_variant = law_type:law_state_atheism }
+		change_variable = { name = liberty_index_var add = 2 }
+		change_variable = { name = equality_index_var add = 1 }
+	}
+
+	# Bureaucracy
+	if = {
+		limit = { has_law_or_variant = law_type:law_elected_bureaucrats }
+		change_variable = { name = liberty_index_var add = 3 }
+		change_variable = { name = equality_index_var add = 1 }
+	}
+	else_if = {
+		limit = { has_law_or_variant = law_type:law_appointed_bureaucrats }
+		change_variable = { name = liberty_index_var add = 2 }
+		change_variable = { name = equality_index_var add = 1 }
+	}
+
+	# Internal Security
+	if = {
+		limit = { has_law_or_variant = law_type:law_guaranteed_liberties }
+		change_variable = { name = liberty_index_var add = 5 }
+	}
+	else_if = {
+		limit = { has_law_or_variant = law_type:law_no_home_affairs }
+		change_variable = { name = liberty_index_var add = 3 }
+	}
+	else_if = {
+		limit = { has_law_or_variant = law_type:law_secret_police }
+		change_variable = { name = liberty_index_var add = 2 }
+	}
+
+	# Economic System
+	if = {
+		limit = { 
+			has_law_or_variant = law_type:law_laissez_faire
+		}
+		change_variable = { name = liberty_index_var add = 3 }
+		change_variable = { name = equality_index_var add = 2 }
+	}
+	else_if = {
+		limit = { 
+			has_law_or_variant = law_type:law_interventionism
+		}
+		change_variable = { name = liberty_index_var add = 2 }
+		change_variable = { name = equality_index_var add = 7 }
+	}
+	else_if = {
+		limit = { 
+			OR = {
+				has_law_or_variant = law_type:law_cooperative_ownership
+				has_law_or_variant = law_type:law_agrarianism
+			}
+		}
+		change_variable = { name = liberty_index_var add = 1 }
+		change_variable = { name = equality_index_var add = 5 }
+	}
+	else_if = {
+		limit = { 
+			has_law_or_variant = law_type:law_command_economy
+		}
+		change_variable = { name = equality_index_var add = 11 }
+	}
+
+	# Trade Policy
+	if = {
+		limit = { 
+			has_law_or_variant = law_type:law_free_trade
+		}
+		change_variable = { name = liberty_index_var add = 5 }
+		change_variable = { name = equality_index_var add = 2 }
+	}
+	else_if = {
+		limit = { 
+			has_law_or_variant = law_type:law_protectionism
+		}
+		change_variable = { name = liberty_index_var add = 3 }
+		change_variable = { name = equality_index_var add = 2 }
+	}
+	else_if = {
+		limit = { 
+			has_law_or_variant = law_type:law_mercantilism
+		}
+		change_variable = { name = liberty_index_var add = 1 }
+		change_variable = { name = equality_index_var add = 1 }
+	}
+
+	# Taxation
+	if = {
+		limit = { 
+			has_law_or_variant = law_type:law_graduated_taxation
+		}
+		change_variable = { name = equality_index_var add = 9 }
+		change_variable = { name = liberty_index_var add = 3 }
+	}
+	else_if = {
+		limit = { 
+			has_law_or_variant = law_type:law_proportional_taxation
+		}
+		change_variable = { name = equality_index_var add = 5 }
+		change_variable = { name = liberty_index_var add = 3 }
+	}
+	else_if = {
+		limit = { 
+			has_law_or_variant = law_type:law_per_capita_based_taxation
+		}
+		change_variable = { name = equality_index_var add = 3 }
+		change_variable = { name = liberty_index_var add = 2 }
+	}
+	else_if = {
+		limit = { 
+			has_law_or_variant = law_type:law_land_based_taxation
+		}
+		change_variable = { name = equality_index_var add = 6 }
+	}
+
+	# Farming Policy
+	if = {
+		limit = { 
+			has_law_or_variant = law_type:law_homesteading
+		}
+		change_variable = { name = liberty_index_var add = 4 }
+		change_variable = { name = equality_index_var add = 3 }
+	}
+	else_if = {
+		limit = { 
+			has_law_or_variant = law_type:law_commercialized_agriculture
+		}
+		change_variable = { name = liberty_index_var add = 3 }
+		change_variable = { name = equality_index_var add = 2 }
+	}
+	else_if = {
+		limit = { 
+			has_law_or_variant = law_type:law_tenant_farmers
+		}
+		change_variable = { name = liberty_index_var add = 2 }
+	}
+	else_if = {
+		limit = { 
+			has_law_or_variant = law_type:law_collectivized_agriculture
+		}
+		change_variable = { name = liberty_index_var add = 1 }
+		change_variable = { name = equality_index_var add = 3 }
+	}
+
+	# Cultural Policies
+
+	# Data Rights (Cultura)
+	if = {
+		limit = {
+			has_law_or_variant = law_type:law_multicultural
+		}
+		change_variable = { name = liberty_index_var add = 5 }
+		change_variable = { name = equality_index_var add = 4 }
+	}
+	else_if = {
+		limit = {
+			has_law_or_variant = law_type:law_multicultural_upgraded
+		}
+		change_variable = { name = liberty_index_var add = 6 }
+		change_variable = { name = equality_index_var add = 5 }
+	}
+	else_if = {
+		limit = {
+			has_law_or_variant = law_type:law_cultural_exclusion
+		}
+		change_variable = { name = liberty_index_var add = 3 }
+		change_variable = { name = equality_index_var add = 2 }
+	}
+	else_if = {
+		limit = {
+			has_law_or_variant = law_type:law_racial_segregation
+		}
+		change_variable = { name = liberty_index_var add = 1 }
+	}
+
+	# Police
+	if = {
+		limit = { 
+			has_law_or_variant = law_type:law_no_police
+		}
+		change_variable = { name = liberty_index_var add = 5 }
+	}
+	else_if = {
+		limit = { 
+			has_law_or_variant = law_type:law_elected_police
+		}
+		change_variable = { name = equality_index_var add = 2 }
+		change_variable = { name = liberty_index_var add = 5 }
+	}
+	else_if = {
+		limit = { 
+			has_law_or_variant = law_type:law_local_police
+		}
+		change_variable = { name = equality_index_var add = 1 }
+		change_variable = { name = liberty_index_var add = 4 }
+	}
+	else_if = {
+		limit = { 
+			has_law_or_variant = law_type:law_dedicated_police
+		}
+		change_variable = { name = equality_index_var add = 2 }
+		change_variable = { name = liberty_index_var add = 3 }
+	}
+	else_if = {
+		limit = { 
+			has_law_or_variant = law_type:law_militarized_police
+		}
+		change_variable = { name = equality_index_var add = 1 }
+		change_variable = { name = liberty_index_var add = 2 }
+	}
+
+	# Education System
+	if = {
+		limit = {
+			has_law_or_variant = law_type:law_public_schools
+		}
+		change_variable = { name = equality_index_var add = 4 }
+		change_variable = { name = liberty_index_var add = 2 }
+	}
+	else_if = {
+		limit = { 
+			has_law_or_variant = law_type:law_private_schools
+		}
+		change_variable = { name = equality_index_var add = 3 }
+		change_variable = { name = liberty_index_var add = 2 }
+	}
+	else_if = {
+		limit = { 
+			has_law_or_variant = law_type:law_religious_schools
+		}
+		change_variable = { name = equality_index_var add = 1 }
+	}
+
+	# Advanced Education System - Child Rights
+	if = {
+		limit = { 
+			has_law_or_variant = law_type:law_public_universities
+		}
+		change_variable = { name = liberty_index_var add = 2 }
+		change_variable = { name = equality_index_var add = 4 }
+	}
+	else_if = {
+		limit = {
+			has_law_or_variant = law_type:law_compulsory_secondary_school
+		}
+		change_variable = { name = liberty_index_var add = 2 }
+		change_variable = { name = equality_index_var add = 3 }
+	}
+	else_if = {
+		limit = {
+			has_law_or_variant = law_type:law_compulsory_primary_school
+		}
+		change_variable = { name = liberty_index_var add = 1 }
+		change_variable = { name = equality_index_var add = 2 }
+	}
+	else_if = {
+		limit = {
+			has_law_or_variant = law_type:law_restricted_child_labor
+		}
+		change_variable = { name = liberty_index_var add = 1 }
+		change_variable = { name = equality_index_var add = 1 }
+	}
+
+	# Health System
+	if = {
+		limit = { 
+			OR = {
+				has_law_or_variant = law_type:law_private_health_insurance
+				has_law_or_variant = law_type:law_charitable_health_system
+			}
+		}
+		change_variable = { name = equality_index_var add = 3 }
+		change_variable = { name = liberty_index_var add = 2 }
+	}
+	else_if = {
+		limit = {
+			has_law_or_variant = law_type:law_public_health_insurance
+		}
+		change_variable = { name = equality_index_var add = 6 }
+		change_variable = { name = liberty_index_var add = 2 }
+	}
+
+	# Free Speech
+	if = {
+		limit = { 
+			has_law_or_variant = law_type:law_protected_speech
+		}
+		change_variable = { name = liberty_index_var add = 8 }
+	}
+	else_if = {
+		limit = {
+			has_law_or_variant = law_type:law_right_of_assembly
+		}
+		change_variable = { name = liberty_index_var add = 6 }
+	}
+	else_if = {
+		limit = {
+			has_law_or_variant = law_type:law_censorship
+		}
+		change_variable = { name = liberty_index_var add = 3 }
+	}
+
+	# Labor Rights
+	if = {
+		limit = { 
+			has_law_or_variant = law_type:law_worker_protections
+		}
+		change_variable = { name = equality_index_var add = 6 }
+	}
+	else_if = {
+		limit = {
+			has_law_or_variant = law_type:law_regulatory_bodies
+		}
+		change_variable = { name = equality_index_var add = 3 }
+	}
+
+	# Welfare
+	if = {
+		limit = { 
+			has_law_or_variant = law_type:law_old_age_pension
+		}
+		change_variable = { name = equality_index_var add = 6 }
+		change_variable = { name = liberty_index_var add = 1 }
+	}
+	else_if = {
+		limit = {
+			has_law_or_variant = law_type:law_wage_subsidies
+		}
+		change_variable = { name = equality_index_var add = 4 }
+		change_variable = { name = liberty_index_var add = 1 }
+	}
+	else_if = {
+		limit = {
+			has_law_or_variant = law_type:law_poor_laws
+		}
+		change_variable = { name = equality_index_var add = 3 }
+		change_variable = { name = liberty_index_var add = 1 }
+	}
+
+	# Labor Associations
+	if = {
+		limit = { 
+			has_law_or_variant = law_type:law_right_to_associate
+		}
+		change_variable = { name = equality_index_var add = 6 }
+		change_variable = { name = liberty_index_var add = 3 }
+	}
+	else_if = {
+		limit = {
+			has_law_or_variant = law_type:law_corporatized_unions
+		}
+		change_variable = { name = equality_index_var add = 4 }
+		change_variable = { name = liberty_index_var add = 2 }
+	}
+	else_if = {
+		limit = {
+			has_law_or_variant = law_type:law_guild_system
+		}
+		change_variable = { name = equality_index_var add = 3 }
+		change_variable = { name = liberty_index_var add = 2 }
+	}
+	else_if = {
+		limit = {
+			has_law_or_variant = law_type:law_anti_strike_laws
+		}
+		change_variable = { name = equality_index_var add = 2 }
+		change_variable = { name = liberty_index_var add = 1 }
+	}
+	else_if = {
+		limit = {
+			has_law_or_variant = law_type:law_combination_acts
+		}
+		change_variable = { name = equality_index_var add = 1 }
+		change_variable = { name = liberty_index_var add = 1 }
+	}
+	else_if = {
+		limit = {
+			has_law_or_variant = law_type:law_syndicalism
+		}
+		change_variable = { name = equality_index_var add = 7 }
+		change_variable = { name = liberty_index_var add = 3 }
+	}
+	else_if = {
+		limit = {
+			has_law_or_variant = law_type:law_socialist_labor_unions
+		}
+		change_variable = { name = equality_index_var add = 6 }
+		change_variable = { name = liberty_index_var add = 3 }
+	}
+
+	# Women's Rights - LGBTQ+ Rights
+	if = {
+		limit = {
+			OR = {
+				has_law_or_variant = law_type:lgbtq_full_gender_equality
+				has_law_or_variant = law_type:lgbtq_civil_unions
+			}
+		}
+		change_variable = { name = liberty_index_var add = 5 }
+		change_variable = { name = equality_index_var add = 4 }
+	}
+	else_if = {
+		limit = { 
+			has_law_or_variant = law_type:lgbtq_sex_equality
+		}
+		change_variable = { name = liberty_index_var add = 5 }
+		change_variable = { name = equality_index_var add = 3 }
+	}
+	else_if = {
+		limit = { 
+			has_law_or_variant = law_type:law_womens_suffrage_upgraded
+		}
+		change_variable = { name = liberty_index_var add = 4 }
+		change_variable = { name = equality_index_var add = 4 }
+	}
+	else_if = {
+		limit = { 
+			has_law_or_variant = law_type:law_womens_suffrage
+		}
+		change_variable = { name = liberty_index_var add = 4 }
+		change_variable = { name = equality_index_var add = 3 }
+	}
+	else_if = {
+		limit = {
+			has_law_or_variant = law_type:law_women_in_the_workplace
+		}
+		change_variable = { name = liberty_index_var add = 2 }
+		change_variable = { name = equality_index_var add = 2 }
+	}
+	else_if = {
+		limit = {
+			has_law_or_variant = law_type:law_women_own_property
+		}
+		change_variable = { name = liberty_index_var add = 1 }
+		change_variable = { name = equality_index_var add = 1 }
+	}
+
+	# Life Rights
+	if = {
+		limit = {
+			has_law_or_variant = law_type:law_abortion
+		}
+		change_variable = { name = liberty_index_var add = 3 }
+	}
+	else_if = {
+		limit = {
+			has_law_or_variant = law_type:law_euthanasia
+		}
+		change_variable = { name = liberty_index_var add = 3 }
+	}
+	else_if = {
+		limit = {
+			has_law_or_variant = law_type:law_regulated_adoption
+		}
+		change_variable = { name = liberty_index_var add = 2 }
+	}
+
+	# Data Rights (Dati & Privacy)
+	if = {
+		limit = {
+			has_law_or_variant = law_type:law_data_biometric_ban
+		}
+		change_variable = { name = liberty_index_var add = 3 }
+		change_variable = { name = equality_index_var add = 2 }
+	}
+	else_if = {
+		limit = {
+			has_law_or_variant = law_type:law_data_privacy_basic
+		}
+		change_variable = { name = liberty_index_var add = 2 }
+		change_variable = { name = equality_index_var add = 1 }
+	}
+
+	# Work Time Regulations
+	if = {
+		limit = {
+			has_law_or_variant = law_type:law_protected_leisure
+		}
+		change_variable = { name = equality_index_var add = 6 }
+		change_variable = { name = liberty_index_var add = 1 }
+	}
+	else_if = {
+		limit = {
+			has_law_or_variant = law_type:law_limited_work_hours
+		}
+		change_variable = { name = equality_index_var add = 4 }
+		change_variable = { name = liberty_index_var add = 1 }
+	}
+	else_if = {
+		limit = {
+			has_law_or_variant = law_type:law_token_time_regulations
+		}
+		change_variable = { name = equality_index_var add = 1 }
+	}
+	else_if = {
+		limit = {
+			has_law_or_variant = law_type:law_unregulated_work_time
+		}
+		change_variable = { name = liberty_index_var add = 2 }
+	}
+
+	# Officers
+	if = {
+		limit = { has_law_or_variant = law_type:law_elected_officers }
+		change_variable = { name = liberty_index_var add = 3 }
+		change_variable = { name = equality_index_var add = 1 }
+	}
+	else_if = {
+		limit = { has_law_or_variant = law_type:law_professional_officers }
+		change_variable = { name = liberty_index_var add = 1 }
+	}
+	else_if = {
+		limit = { has_law_or_variant = law_type:law_political_officers }
+		change_variable = { name = liberty_index_var add = 0 }
+	}
+	else_if = {
+		limit = { has_law_or_variant = law_type:law_purchased_officers }
+		change_variable = { name = liberty_index_var add = 0 }
+	}
+	else_if = {
+		limit = { has_law_or_variant = law_type:law_noble_officers }
+		change_variable = { name = liberty_index_var add = 0 }
+	}
+
+	# Legislative Principles
+	if = {
+		limit = { has_law_or_variant = law_type:law_separated_powers }
+		change_variable = { name = liberty_index_var add = 4 }
+		change_variable = { name = equality_index_var add = 1 }
+	}
+	else_if = {
+		limit = { has_law_or_variant = law_type:law_supreme_legislature }
+		change_variable = { name = liberty_index_var add = 3 }
+		change_variable = { name = equality_index_var add = 1 }
+	}
+	else_if = {
+		limit = { has_law_or_variant = law_type:law_advisory_body }
+		change_variable = { name = liberty_index_var add = 1 }
+	}
+
+	# Executive Principles
+	if = {
+		limit = { has_law_or_variant = law_type:law_answers_to_legislature }
+		change_variable = { name = liberty_index_var add = 4 }
+		change_variable = { name = equality_index_var add = 1 }
+	}
+	else_if = {
+		limit = { has_law_or_variant = law_type:law_no_separate_hog }
+		change_variable = { name = liberty_index_var add = 3 }
+		change_variable = { name = equality_index_var add = 1 }
+	}
+	else_if = {
+		limit = { has_law_or_variant = law_type:law_appointed_on_advice }
+		change_variable = { name = liberty_index_var add = 2 }
+	}
+
+	# Party Laws
+	if = {
+		limit = { has_law_or_variant = law_type:law_no_party_bans }
+		change_variable = { name = liberty_index_var add = 4 }
+		change_variable = { name = equality_index_var add = 2 }
+	}
+	else_if = {
+		limit = { has_law_or_variant = law_type:law_party_liberal_only }
+		change_variable = { name = liberty_index_var add = 2 }
+		change_variable = { name = equality_index_var add = 1 }
+	}
+	else_if = {
+		limit = { has_law_or_variant = law_type:law_party_socialist_only }
+		change_variable = { name = liberty_index_var add = 1 }
+		change_variable = { name = equality_index_var add = 3 }
+	}
+	else_if = {
+		limit = { has_law_or_variant = law_type:law_party_reactionary_only }
+		change_variable = { name = liberty_index_var add = 1 }
+	}
+	else_if = {
+		limit = { has_law_or_variant = law_type:law_party_anti_liberal }
+		change_variable = { name = liberty_index_var add = 2 }
+		change_variable = { name = equality_index_var add = 1 }
+	}
+	else_if = {
+		limit = { has_law_or_variant = law_type:law_party_anti_socialist }
+		change_variable = { name = liberty_index_var add = 2 }
+		change_variable = { name = equality_index_var add = 1 }
+	}
+	else_if = {
+		limit = { has_law_or_variant = law_type:law_party_anti_reactionary }
+		change_variable = { name = liberty_index_var add = 2 }
+		change_variable = { name = equality_index_var add = 1 }
+	}
+	else_if = {
+		limit = { has_law_or_variant = law_type:law_party_single }
+		change_variable = { name = liberty_index_var add = 1 }
+	}
+
+	# Foreign Policy
+	if = {
+		limit = { has_law_or_variant = law_type:law_disarmed_nation }
+		change_variable = { name = equality_index_var add = 3 }
+		change_variable = { name = liberty_index_var add = 1 }
+	}
+	else_if = {
+		limit = { has_law_or_variant = law_type:law_dove_politics }
+		change_variable = { name = liberty_index_var add = 3 }
+		change_variable = { name = equality_index_var add = 1 }
+	}
+	else_if = {
+		limit = { has_law_or_variant = law_type:law_armed_neutrality }
+		change_variable = { name = liberty_index_var add = 2 }
+		change_variable = { name = equality_index_var add = 1 }
+	}
+	else_if = {
+		limit = { has_law_or_variant = law_type:law_justum_bellum }
+		change_variable = { name = liberty_index_var add = 2 }
+		change_variable = { name = equality_index_var add = 1 }
+	}
+	else_if = {
+		limit = { has_law_or_variant = law_type:law_flexible_foreign_policy }
+		change_variable = { name = liberty_index_var add = 2 }
+	}
+	else_if = {
+		limit = { has_law_or_variant = law_type:law_jingoism }
+		change_variable = { name = liberty_index_var add = 1 }
+	}
+
+	# Centralization
+	if = {
+		limit = { has_law_or_variant = law_type:law_devolved }
+		change_variable = { name = liberty_index_var add = 3 }
+		change_variable = { name = equality_index_var add = 2 }
+	}
+	else_if = {
+		limit = { has_law_or_variant = law_type:law_federated }
+		change_variable = { name = liberty_index_var add = 2 }
+		change_variable = { name = equality_index_var add = 2 }
+	}
+	else_if = {
+		limit = { has_law_or_variant = law_type:law_confederated }
+		change_variable = { name = liberty_index_var add = 1 }
+		change_variable = { name = equality_index_var add = 1 }
+	}
+	else_if = {
+		limit = { has_law_or_variant = law_type:law_unitary }
+		change_variable = { name = liberty_index_var add = 1 }
+		change_variable = { name = equality_index_var add = 2 }
+	}
+	else_if = {
+		limit = { has_law_or_variant = law_type:law_ad_hoc_centralization }
+		change_variable = { name = liberty_index_var add = 1 }
+	}
 }

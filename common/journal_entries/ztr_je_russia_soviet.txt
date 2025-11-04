@@ -1,0 +1,396 @@
+ztr_je_russian_absolutism = {
+    icon = "gfx/interface/icons/event_icons/russia_group_flag.dds"
+    group = je_group_russian_revolution
+
+    is_shown_when_inactive = {
+        has_game_rule = allow_ztr_historical_content
+        year > 1910
+        c:RUS ?= this
+        OR = {
+            average_sol < 12
+            NOT = { country_rank = rank_value:great_power }
+            ig:ig_industrialists = {
+                ig_approval < 0
+            }
+        }
+
+        # This will not trigger if Russia is already Soviet Union
+        NOT = { has_law = law_type:law_council_republic }
+
+        # Russia must be a monarchy to trigger this journal entry
+        has_law = law_type:law_monarchy
+        has_law = law_type:law_autocracy
+    }
+
+    possible = {
+        OR = {
+            ztr_is_not_democratic = yes # This will trigger Liberal Path
+            ztr_is_individualist = yes # This will trigger Sovietic Path
+        }
+    }
+
+    immediate = {
+        # This is Order Progress Bar and Revolution Progress Bar Variables
+        set_variable = {
+            name = russia_order_var
+            value = 0
+        }
+        set_variable = {
+            name = russia_revolution_var
+            value = 0
+        }
+
+        # This are hidden variables to track which path is taken
+        if = {
+            limit = {
+                ztr_is_not_democratic = yes
+            }
+            set_variable = {
+                name = russia_liberalist_path_var
+                value = 0
+            }
+            set_variable = {
+                name = russia_liberalist_path_var_total
+                value = 0
+            }
+        }
+        if = {
+            limit = {
+                OR = {
+                    ztr_is_individualist = yes
+                    NOT = { has_variable = russia_liberalist_path_var }
+                }
+            }
+            set_variable = {
+                name = russia_sovietic_path_var
+                value = 0
+            }
+        }
+    }
+
+    scripted_progress_bar = ztr_russia_order_progress_bar
+    scripted_progress_bar = ztr_russia_revolution_progress_bar
+
+    # This will help liberal revolution path
+    scripted_button = ztr_ask_a_government_liberal_petition #(This can be used to increase order)
+    scripted_button = ztr_treaty_with_liberals #(This can be used to move liberal from revolution to order bar, only if industrialist are very happy)
+    scripted_button = ztr_help_liberal_consensus #(This can be used to increase order)
+    scripted_button = ztr_repress_soviet_movements #(This can be used to slow revolution but increase turmoil and radicalization)
+
+    on_monthly_pulse = {
+
+        effect = {
+            ztr_russia_initialize_variables = yes
+
+            # Updates
+            ztr_russia_update_order_bar = yes           
+            ztr_russia_update_liberal_order_bar = yes 
+            ztr_russia_update_liberal_revolution_bar = yes
+            ztr_russia_update_communist_revolution_bar = yes
+            ztr_russia_update_other_effects = yes
+
+            ztr_russia_final_update = yes
+        }
+
+        # Random Events
+        random_events = {
+            # This effects are about Russian Empire Periphery discontent that can fuel revolution
+            100 = 0
+            # Culture Events
+            1 = ztr_russian_revolution.4 # Polish Question
+            1 = ztr_russian_revolution.5 # Polish Ultimatum
+            5 = ztr_russian_revolution.6 # Minorities Unrest
+            # Internal Events
+            2 = ztr_russian_revolution.7 # Peasant Unrest
+            2 = ztr_russian_revolution.8 # Serfdom Outlawed
+            # Fundamental Events
+            100 = ztr_russian_revolution.9 # Liberals aren't with us
+            100 = ztr_russian_revolution.10 # The Strange Russian Proletariat
+            5 = ztr_russian_revolution.11 # Intelligentsia Ambiguity
+            # Liberals Events
+            100 = ztr_russian_revolution.14 # The Role of the Duma (If Russia is still an autocracy and we have a treaty with liberals Autocracy -> Wealthy Oligarchy)
+            2 = ztr_russian_revolution.15 # Duma: Low strata question
+            2 = ztr_russian_revolution.16 # Duma: Working hours question
+            5 = ztr_russian_revolution.17 # The Liberals stop supporting us
+            # Soviet Events
+            5 = ztr_russian_revolution.18 # Leader of the Soviet's (If Lenin was exiled, in the other case it becomes the leader of trade unions)
+            100 = ztr_russian_revolution.19 # First Soviet Congress (Here will be decided the type of communism that Soviet Union will have)
+        }
+    }
+
+    complete = {
+        custom_tooltip = {
+            text = ztr_tooltip_russian_order_wins
+            var:russia_order_var >= 100
+        }
+    }
+
+    on_complete = {
+        trigger_event = ztr_russian_revolution.1 # Status Quo path
+        hidden_effect = {
+            remove_russian_revolution_variables = yes
+        }
+    }
+    
+    invalid = {
+        # Journal Entry will be invalid if both conditions are met
+        OR = {
+            AND = {
+                ztr_is_democratic = yes
+                ztr_is_socialist = yes
+            }
+            has_law = law_type:law_council_republic
+        }
+    }
+
+    on_invalid = {
+        # This is like a resolution but will trigger an event with description based on what is the problem
+        hidden_effect = {
+            remove_russian_revolution_variables = yes
+            remove_modifier = ztr_russian_proletariat_modifier
+        }
+    }
+
+    fail = {
+		custom_tooltip = {
+            text = ztr_tooltip_russian_revolution_wins
+            var:russia_revolution_var >= 100
+        }
+    }
+
+    on_fail = {
+        # Russian perifery will break away, such as Finland, Poland, Baltics, Ukraine, Belarus, Caucasus and Central Asia
+        custom_tooltip = {
+            text = ztr_tooltip_russia_loses_european_periphery
+            russian_collapse_effect = yes
+         }
+
+        # Political Changes
+        
+        if = {
+            limit = {
+                var:russia_liberalist_path_var_total > var:russia_sovietic_path_var
+            }
+            ig:ig_industrialists ?= {
+                if = {
+                    limit = { NOT = { has_ideology = ideology:ideology_liberal } }
+                    add_ideology = ideology_liberal
+                }
+                leader = {
+                    set_ideology = ideology:ideology_liberal_leader
+                }
+            }
+            trigger_event = ztr_russian_revolution.2 # Liberal Path -> It will accept Russian Collapse?
+        }
+        else = {
+            if = {
+                limit = {
+                    has_variable = ztr_menshevik_ideology_var
+                }
+                hidden_effect = {
+                    ig:ig_trade_unions = {
+                        if = {
+                            limit = { NOT = { has_ideology = ideology:ideology_socialist } }
+                            add_ideology = ideology_socialist
+                        }
+                        leader = {
+                            set_ideology = ideology:ideology_social_democrat
+                        }			
+                    }
+                }
+                ig:ig_intelligentsia ?= {
+                    if = {
+                        limit = { NOT = { has_ideology = ideology:ideology_egalitarian_modern } }
+                        add_ideology = ideology_egalitarian_modern
+                    }
+                    leader = {
+                        set_ideology = ideology:ideology_reformer
+                    }
+                }
+                # This one will lead in the renaming of the Russian military to Red Army
+                ig:ig_armed_forces ?= {
+                    if = {
+                        limit = { NOT = { has_ideology = ideology:ideology_patriotic } }
+                        add_ideology = ideology_patriotic
+                    }
+                    leader = {
+                        set_ideology = ideology:ideology_vanguardist
+                    }
+                }
+            }
+            else_if = {
+                limit = {
+                    has_variable = ztr_agro_socialist_ideology_var
+                }
+                hidden_effect = {
+                    # Allineamento ideologico: contadini al centro, socialismo agrario decentrato
+                    ig:ig_trade_unions = {
+                        if = {
+                            limit = { NOT = { has_ideology = ideology:ideology_socialist } }
+                            add_ideology = ideology_socialist
+                            
+                        }
+                        leader = {
+                            set_ideology = ideology:ideology_communist
+                        }			
+                    }
+                }
+                ig:ig_rural_folk = {
+                    if = {
+                        limit = { NOT = { has_ideology = ideology:ideology_socialist } }
+                        add_ideology = ideology_socialist
+                    }
+                    if = {
+                        limit = { NOT = { has_ideology = ideology:ideology_agrarian } }
+                        add_ideology = ideology_agrarian
+                    }
+                    leader = { set_ideology = ideology:ideology_communist }
+                }
+                ig:ig_trade_unions ?= {
+                    # Alleanza tattica ma non vanguardista
+                    if = {
+                        limit = { NOT = { has_ideology = ideology:ideology_socialist } }
+                        add_ideology = ideology_socialist
+                    }
+                    leader = { set_ideology = ideology:ideology_anarchist }  # o social_democrat se preferisci più moderazione
+                }
+                ig:ig_intelligentsia ?= {
+                    if = {
+                        limit = { NOT = { has_ideology = ideology:ideology_egalitarian } }
+                        add_ideology = ideology_egalitarian
+                    }
+                    leader = { set_ideology = ideology:ideology_anarchist }
+                }
+            }
+            else = {
+                hidden_effect = {
+                    ig:ig_trade_unions = {
+                        if = {
+                            limit = { NOT = { has_ideology = ideology:ideology_socialist } }
+                            add_ideology = ideology_socialist
+                        }
+                        leader = {
+                            set_ideology = ideology:ideology_vanguardist
+                        }			
+                    }
+                }
+                ig:ig_intelligentsia ?= {
+                    if = {
+                        limit = { NOT = { has_ideology = ideology:ideology_egalitarian } }
+                        add_ideology = ideology_egalitarian
+                    }
+                    leader = {
+                        set_ideology = ideology:ideology_nihilist
+                    }
+                }
+                # This one will lead in the renaming of the Russian military to Red Army
+                ig:ig_armed_forces ?= {
+                    if = {
+                        limit = { NOT = { has_ideology = ideology:ideology_patriotic } }
+                        add_ideology = ideology_patriotic
+                    }
+                    leader = {
+                        set_ideology = ideology:ideology_vanguardist
+                    }
+                }
+            }
+            trigger_event = ztr_russian_revolution.3 # Sovietic Path -> It will start a World Revolution to reconquer Russia?
+            # Here Russian Proletariat modifier will not be removed as Soviet Union will keep it
+        }
+        hidden_effect = {
+            remove_russian_revolution_variables = yes
+        }
+    }
+
+    transferable = yes
+
+    modifiers_while_active = {
+        ztr_revolutions_blocked
+    }
+
+    weight = 20
+    should_be_pinned_by_default = yes
+}
+
+ztr_je_russian_absolutism_government_petition = {
+    icon = "gfx/interface/icons/event_icons/event_scales.dds"
+
+	group = je_group_russian_revolution
+
+    immediate = {
+        ROOT = {
+            var:desired_law_var = {
+                save_scope_as = government_petition_law
+            }
+        }
+        random_interest_group = {
+            limit = {
+                has_variable = petitioning_ig
+            }
+            save_scope_as = government_petition_ig
+        }
+    }
+
+    status_desc = {
+		first_valid = {
+			triggered_desc = {
+				desc = je_government_petition_status
+			}
+		}
+	}
+
+    complete = {
+        exists = scope:government_petition_law
+        has_law = scope:government_petition_law.type
+    }
+
+    on_complete = {
+        add_loyalists = {
+            value = medium_radicals
+            interest_group = scope:government_petition_ig
+        }
+        ig:ig_industrialists = {
+            add_modifier = {
+                name = ztr_liberal_petition_success_modifier
+                years = 1
+            }
+        }
+        remove_variable = desired_law_var
+    }
+
+    invalid = {
+        OR = {
+            scope:government_petition_ig ?= {
+                law_enactment_stance = {
+                    law = scope:government_petition_law.type
+                    value < approve
+                }
+            }
+            NOT = { exists = scope:government_petition_law }
+            NOT = { has_variable = russia_liberalist_path_var }
+        }
+    }
+
+    on_timeout = {
+        remove_variable = desired_law_var
+        remove_variable = government_petition_variant
+        custom_tooltip = {
+			text = ztr_russian_revolution_order_negative_tt
+			change_variable = {
+				name = russia_order_var
+				subtract = 3
+			}
+		}
+    }
+
+    on_invalid = {
+        remove_variable = desired_law_var
+        remove_variable = government_petition_variant
+    }
+
+    timeout = 1825
+
+    weight = 1000
+
+    should_be_pinned_by_default = yes
+}

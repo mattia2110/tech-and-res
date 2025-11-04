@@ -1,0 +1,922 @@
+remove_russian_revolution_variables = {
+	remove_variable = russia_order_var
+    remove_variable = russia_revolution_var
+    remove_variable = russia_liberalist_path_var
+	remove_variable = russia_liberalist_path_var_total
+    remove_variable = russia_sovietic_path_var
+    remove_variable = ztr_russia_refused_intel_requests_var
+	remove_variable = ztr_russia_accepted_intel_requests_var
+	remove_variable = ztr_russia_serfdom_active_var
+	remove_variable = ztr_russia_serfdom_deactive_var
+	remove_variable = ztr_russia_minorities_unrest_var
+	remove_variable = ztr_liberals_contrary_to_us_var
+	remove_variable = ztr_duma_low_strata_question_var
+	remove_variable = russia_liberalist_path_var_semi
+	remove_modifier = ztr_liberal_consensus_helped_modifier
+	remove_modifier = ztr_repressed_soviet_movements_modifier
+}
+
+# This can be automatized based on Russian type of government
+urss_rename_leningrad = {
+	s:STATE_INGRIA = {
+		random_scope_state = {
+	        set_hub_name = {
+	            type = city
+	            name = HUB_NAME_STATE_INGRIA_city_meiji
+	        }
+        }
+	}
+}
+
+ztr_russia_initialize_variables = {
+	set_variable = {
+		name = russia_status_quo_var
+		value = 0
+	}
+	set_variable = {
+		name = russia_liberal_order_var
+		value = 0
+	}
+	set_variable = {
+		name = russia_liberal_revolution_var
+		value = 0
+	}
+	set_variable = {
+		name = russia_communist_revolution_var
+		value = 0
+	}
+}
+
+ztr_russia_update_order_bar = {
+	if = {
+		limit = { ztr_is_democratic = yes }
+		change_variable = {
+			name = russia_status_quo_var
+			add = 0.5
+		}
+	}
+	if = {
+		limit = { ztr_is_socialist = yes }
+		change_variable = {
+			name = russia_status_quo_var
+			add = 0.5
+		}
+	}
+	if = {
+		limit = {
+			OR = {
+				ig:ig_landowners = {
+					is_powerful = yes
+				}
+				ig:ig_devout = {
+					is_powerful = yes
+				}
+				ig:ig_armed_forces = {
+					is_powerful = yes
+				}
+			}
+		}
+		change_variable = {
+			name = russia_status_quo_var
+			add = 0.5
+		}
+	}
+	if = {
+		limit = {
+			# Russian doesn't own any polish region state
+			NOT = {
+				any_scope_state = {
+					region = sr:region_poland
+				}
+			}
+		}
+		change_variable = {
+			name = russia_status_quo_var
+			add = 0.5
+		}
+	}
+}
+
+ztr_russia_update_liberal_order_bar = {
+	if = {
+		limit = {
+			NOT = { has_variable = russia_liberalist_path_var }
+		}
+		if = {
+			limit = { ztr_is_democratic = yes }
+			change_variable = {
+				name = russia_liberal_order_var
+				add = 1
+			}
+		}
+		if = {
+			limit = { ztr_is_authoritarian = yes }
+			change_variable = {
+				name = russia_liberal_order_var
+				add = 0.5
+			}
+		}
+		if = {
+			limit = {
+				ig:ig_industrialists = {
+					is_powerful = yes
+				}
+			}
+			change_variable = {
+				name = russia_liberal_order_var
+				add = 0.5
+			}
+		}
+		else_if = {
+			limit = {
+				ig:ig_industrialists = {
+					is_marginal = no
+				}
+			}
+			change_variable = {
+				name = russia_liberal_order_var
+				add = 0.2
+			}
+		}
+	}
+}
+
+ztr_russia_update_liberal_revolution_bar = {
+	if = {
+		limit = {
+			has_variable = russia_liberalist_path_var
+		}
+		if = {
+			limit = { ztr_is_socialist = yes }
+			change_variable = {
+				name = russia_liberal_revolution_var
+				add = 0.75
+			}
+		}
+		if = {
+			limit = { ztr_is_totalitarian = yes }
+			change_variable = {
+				name = russia_liberal_revolution_var
+				add = 1.5
+			}
+		}
+		if = {
+			limit = { ztr_is_authoritarian = yes }
+			change_variable = {
+				name = russia_liberal_revolution_var
+				add = 0.75
+			}
+		}
+		if = {
+			limit = {
+				ig:ig_industrialists = {
+					OR = {
+						is_powerful = yes
+						is_in_government = yes
+					}
+				}
+			}
+			change_variable = {
+				name = russia_liberal_revolution_var
+				add = 1
+			}
+		}
+		else_if = {
+			limit = {
+				ig:ig_industrialists = {
+					is_marginal = no
+				}
+			}
+			change_variable = {
+				name = russia_liberal_revolution_var
+				add = 0.5
+			}
+		}
+	}
+}
+
+ztr_russia_update_communist_revolution_bar = {
+	if = {
+		limit = { ztr_is_totalitarian = yes }
+		change_variable = {
+			name = russia_communist_revolution_var
+			add = 0.5
+		}
+	}
+	if = {
+		limit = { ztr_is_authoritarian = yes }
+		change_variable = {
+			name = russia_communist_revolution_var
+			add = 0.25
+		}
+	}
+	if = {
+		limit = { ztr_is_individualist = yes }
+		change_variable = {
+			name = russia_status_quo_var
+			add = 0.25
+		}
+	}
+	if = {
+		limit = {
+			ig:ig_trade_unions = {
+				is_powerful = yes
+			}
+		}
+		change_variable = {
+			name = russia_communist_revolution_var
+			add = 0.5
+		}
+	}
+	else_if = {
+		limit = {
+			ig:ig_trade_unions = {
+				is_marginal = no
+			}
+		}
+		change_variable = {
+			name = russia_communist_revolution_var
+			add = 0.25
+		}
+	}
+	# Soviet will take revolution main role after treaty with liberals
+	if = {
+		limit = {
+			NOT = { has_variable = russia_liberalist_path_var }
+			# Check if the lower strata is dissatisfied, so revolution is more likely to happen
+			any_scope_pop = {
+				strata = lower
+				standard_of_living < 12
+			}
+		}
+		change_variable = {
+			name = russia_communist_revolution_var
+			multiply = 2
+		}
+	}
+	# Other effects
+	if = {
+		limit = { has_law = law_type:law_subjecthood }
+		change_variable = {
+			name = russia_communist_revolution_var
+			add = 0.5
+		}
+	}
+	if = {
+		limit = { has_law = law_type:law_serfdom }
+		change_variable = {
+			name = russia_communist_revolution_var
+			add = 0.5
+		}
+	}
+	# After Soviet Congress choices, so communists are organized better
+	if = {
+		limit = {
+			OR = {
+				has_variable = ztr_bolshevik_ideology_var
+				has_variable = ztr_menshevik_ideology_var
+				has_variable = ztr_agro_socialist_ideology_var
+			}
+		}
+		change_variable = {
+			name = russia_communist_revolution_var
+			add = 0.5
+		}
+	}
+	if = {
+		limit = { has_modifier = ztr_repressed_soviet_movements_modifier }
+		change_variable = {
+			name = russia_communist_revolution_var
+			multiply = 0.5
+		}
+	}
+}
+
+ztr_russia_update_other_effects = {
+	# Wars will destabilize Russia more
+	# Slight instability if being at war against a major power
+	if = {
+		limit = {
+			is_at_war = yes
+			any_scope_war = {
+				any_enemy_in_war = {
+					country_rank >= rank_value:major_power
+				}
+			}
+		}
+		change_variable = {
+			name = russia_communist_revolution_var
+			add = 0.5
+		}
+	}
+	# Slight instability if being occupied
+	if = {
+		limit = {
+			enemy_occupation > 0.01
+		}
+		change_variable = {
+			name = russia_communist_revolution_var
+			add = 1
+		}
+	}
+	# Enormous instability if being occupied by an enemy or low war support
+	if = {
+		limit = {
+			OR = {
+				enemy_occupation > 0.15
+				any_scope_war = {
+					has_war_support = { target = root value <= 0 }
+				}
+			}
+		}
+		change_variable = {
+			name = russia_communist_revolution_var
+			add = 5
+		}
+	}
+	# Intelligentia Position
+	if = {
+		limit = {
+			has_variable = ztr_russia_refused_intel_requests_var
+		}
+		change_variable = {
+			name = russia_communist_revolution_var
+			multiply = 1.5
+		}
+	}
+	# Before Ideas of a Communist Country
+	if = {
+		limit = {
+			NOT = { has_modifier = ztr_russian_proletariat_modifier }
+		}
+		change_variable = {
+			name = russia_communist_revolution_var
+			multiply = 0
+		}
+	}
+}
+
+ztr_russia_final_update = {
+	if = {
+		limit = {
+			has_variable = russia_liberalist_path_var
+		}
+		change_variable = {
+			name = russia_liberalist_path_var_total
+			add = var:russia_liberal_revolution_var
+		}
+	}
+
+	# Sovietic Path
+	if = {
+		limit = {
+			has_variable = russia_sovietic_path_var
+		}
+		change_variable = {
+			name = russia_sovietic_path_var
+			add = var:russia_communist_revolution_var
+		}
+	}
+
+	change_variable = {
+		name = russia_order_var
+		add = var:russia_status_quo_var
+	}
+	change_variable = {
+		name = russia_order_var
+		add = var:russia_liberal_order_var
+	}
+	change_variable = {
+		name = russia_revolution_var
+		add = var:russia_liberal_revolution_var
+	}
+	change_variable = {
+		name = russia_revolution_var
+		add = var:russia_communist_revolution_var
+	}
+	scope:journal_entry = {
+		set_bar_progress = {
+			value = root.var:russia_order_var
+			name = ztr_russia_order_progress_bar
+		}
+		set_bar_progress = {
+			value = root.var:russia_revolution_var
+			name = ztr_russia_revolution_progress_bar
+		}
+	}
+	remove_variable = russia_status_quo_var
+    remove_variable = russia_liberal_order_var
+    remove_variable = russia_liberal_revolution_var
+    remove_variable = russia_communist_revolution_var
+}
+
+russian_collapse_effect = {
+
+# Every subject gains independence
+	every_subject_or_below = {
+		c:RUS = {
+			remove_diplomatic_pact = {
+				country = prev
+				type = vassal
+			}
+			remove_diplomatic_pact = {
+				country = prev
+				type = dominion
+			}
+			remove_diplomatic_pact = {
+				country = prev
+				type = colony
+			}
+			remove_diplomatic_pact = {
+				country = prev
+				type = puppet
+			}
+			remove_diplomatic_pact = {
+				country = prev
+				type = protectorate
+			}
+		}
+	}
+
+	every_scope_war = {
+		end_play = yes
+	}
+
+	# Poland gain liberty
+	if = {
+		limit = {
+			any_scope_state = {
+				NOT = { is_homeland_of_country_cultures = root }
+				state_region = {
+					is_homeland = cu:polish
+				}
+				count > 0
+			}
+		}
+		ztr_define_poland = yes
+	}
+
+	# Bessarabia gain liberty
+	if = {
+		limit = {
+			root = {
+				has_state_in_state_region = STATE_BESSARABIA
+			}
+			exists = c:MOL
+			c:MOL = { is_subject = no }
+		}
+		s:STATE_BESSARABIA = { random_scope_state = { limit = { owner = root } set_state_owner = c:MOL	}}
+	}
+	else_if = {
+		limit = {
+			root = {
+				has_state_in_state_region = STATE_BESSARABIA
+			}
+			exists = c:ROM
+			c:ROM = { is_subject = no }
+		}
+		s:STATE_BESSARABIA = { random_scope_state = { limit = { owner = root } set_state_owner = c:ROM	}}
+	}
+
+	# Finland gain liberty
+	if = {
+		limit = {
+			any_scope_state = {
+				NOT = { is_homeland_of_country_cultures = root }
+				state_region = {
+					is_homeland = cu:finnish
+				}
+				count > 0
+			}
+		}
+		ztr_define_finland = yes
+	}
+
+	# Persia gain liberty
+	if = {
+		limit = {
+			any_scope_state = {
+				NOT = { is_homeland_of_country_cultures = root }
+				state_region = {
+					is_homeland = cu:persian
+				}
+				count > 0
+			}
+		}
+		ztr_define_persia = yes
+	}
+
+	# Bulgaria
+	if = {
+		limit = {
+			any_scope_state = {
+				NOT = { is_homeland_of_country_cultures = root }
+				state_region = {
+					is_homeland = cu:bulgarian
+				}
+				count > 0
+			}
+		}
+		ztr_define_bulgaria = yes
+	}
+
+	# Baltics gain liberty
+	if = {
+		limit = {
+			any_scope_state = {
+				NOT = { is_homeland_of_country_cultures = root }
+				state_region = {
+					is_homeland = cu:estonian
+				}
+				count > 0
+			}
+		}
+		ztr_define_estonia = yes
+	}
+
+	if = {
+		limit = {
+			any_scope_state = {
+				NOT = { is_homeland_of_country_cultures = root }
+				state_region = {
+						is_homeland = cu:latvian
+				}
+				count > 0
+			}
+		}
+		ztr_define_latvia = yes
+	}
+
+	if = {
+		limit = {
+			any_scope_state = {
+				NOT = { is_homeland_of_country_cultures = root }
+				state_region = {
+					is_homeland = cu:lithuanian
+				}
+				count > 0
+			}
+		}
+		ztr_define_lithuania = yes
+	}
+
+	if = {
+        limit = {
+            OR = {
+				has_variable = ztr_russia_minorities_unrest_var
+				exists = c:BYE
+			}
+        }
+		# Belarus gain liberty
+		if = {
+			limit = {
+				any_scope_state = {
+					NOT = { is_homeland_of_country_cultures = root }
+					state_region = {
+						is_homeland = cu:byelorussian
+					}
+					count > 0
+				}
+			}
+			ztr_define_belarus = yes
+			s:STATE_MINSK = { random_scope_state = { limit = { owner = root } set_state_owner = c:BYE}}
+			s:STATE_MOGILEV = { random_scope_state = { limit = { owner = root } set_state_owner = c:BYE}}
+		}
+	}
+
+	if = {
+        limit = {
+            OR = {
+				has_variable = ztr_russia_minorities_unrest_var
+				exists = c:UKR
+			}
+        }
+		# Ukraine gain liberty
+		if = {
+			limit = {
+				any_scope_state = {
+					NOT = { is_homeland_of_country_cultures = root }
+					state_region = {
+						is_homeland = cu:ukrainian
+					}
+					count > 0
+				}
+			}
+			ztr_define_ukraine = yes
+			s:STATE_KHARKOV = { random_scope_state = { limit = { owner = root } set_state_owner = c:UKR	}}
+			s:STATE_TAURIDA = { random_scope_state = { limit = { owner = root } set_state_owner = c:UKR	}}
+			s:STATE_CRIMEA = { random_scope_state = { limit = { owner = root } set_state_owner = c:UKR	}}
+			s:STATE_CHERNIHIV = { random_scope_state = { limit = { owner = root } set_state_owner = c:UKR }}
+		}
+	}
+
+	if = {
+        limit = {
+            OR = {
+				has_variable = ztr_russia_minorities_unrest_var
+				exists = c:GEO
+			}
+        }
+		# Georgia gain liberty
+		if = {
+			limit = {
+				any_scope_state = {
+					NOT = { is_homeland_of_country_cultures = root }
+					state_region = {
+						is_homeland = cu:georgian
+					}
+					count > 0
+				}
+			}
+			ztr_define_georgia = yes
+		}
+	}
+
+	if = {
+        limit = {
+            OR = {
+				has_variable = ztr_russia_minorities_unrest_var
+				exists = c:ARM
+			}
+        }
+
+		# Armenia gain liberty (remove Azerbaijani homeland first in order to create azerbaijan properly)
+		s:STATE_AZERBAIJAN = { remove_homeland = cu:armenian }
+		s:STATE_ELIZAVETPOL = { remove_homeland = cu:armenian }
+
+		if = {
+			limit = {
+				any_scope_state = {
+					NOT = { is_homeland_of_country_cultures = root }
+					state_region = {
+						is_homeland = cu:armenian
+					}
+					count > 0
+				}
+			}
+			ztr_define_armenia = yes
+		}
+	}
+
+	if = {
+        limit = {
+            OR = {
+				has_variable = ztr_russia_minorities_unrest_var
+				exists = c:ARM
+			}
+        }
+
+		# Armenia gain liberty (remove Azerbaijani homeland first in order to create azerbaijan properly)
+		s:STATE_AZERBAIJAN = { remove_homeland = cu:armenian }
+		s:STATE_ELIZAVETPOL = { remove_homeland = cu:armenian }
+		if = {
+			limit = {
+				any_scope_state = {
+					NOT = { is_homeland_of_country_cultures = root }
+					state_region = {
+						is_homeland = cu:armenian
+					}
+					count > 0
+				}
+			}
+			ztr_define_armenia = yes
+		}
+		s:STATE_AZERBAIJAN = { add_homeland = cu:armenian }
+		s:STATE_ELIZAVETPOL = { add_homeland = cu:armenian }
+	}
+
+	if = {
+        limit = {
+            OR = {
+				has_variable = ztr_russia_minorities_unrest_var
+				exists = c:AZB
+			}
+        }
+
+		# Armenia gain liberty (remove Azerbaijani homeland first in order to create azerbaijan properly)
+		s:STATE_ARMENIA = { remove_homeland = cu:azerbaijani }
+		# Azerbaijan gain liberty
+		if = {
+			limit = {
+				any_scope_state = {
+					NOT = { is_homeland_of_country_cultures = root }
+					state_region = {
+						is_homeland = cu:azerbaijani
+					}
+					count > 0
+				}
+			}
+			ztr_define_azerbaijan = yes
+		}
+		s:STATE_ARMENIA = { add_homeland = cu:azerbaijani }
+	}	
+}
+
+# Liberal Revolution Path (Led by Industrialists and Intelligentsia)
+ztr_russia_law_changes_liberals = {
+	hidden_effect = {
+		ig:ig_industrialists = {
+			add_ideology = ideology_liberal
+			leader = {
+				set_ideology = ideology:ideology_market_liberal
+			}
+		}
+	}
+	ig:ig_intelligentsia = {
+		add_ideology = ideology_liberal
+		leader = {
+			set_ideology = ideology:ideology_egalitarian
+		}
+	}
+	if = {
+		limit = {
+			NOT = { has_law = law_type:law_presidential_republic }
+		}
+		activate_law = law_type:law_presidential_republic
+	}
+	if = {
+		limit = {
+			OR = {
+				has_law = law_type:law_autocracy
+				has_law = law_type:law_oligarchy
+			}
+		}
+		activate_law = law_type:law_wealth_voting
+	}
+	# Economy
+	if = {
+		limit = {
+			NOT = { has_law = law_type:law_free_trade }
+		}
+		activate_law = law_type:law_free_trade
+	}
+	# Public -> Private
+	if = {
+		limit = {
+			has_law = law_type:law_public_health_insurance
+		}
+		activate_law = law_type:law_private_health_insurance
+	}
+	if = {
+		limit = {
+			has_law = law_type:law_public_schools
+		}
+		activate_law = law_type:law_private_schools
+	}
+
+	# Russia must be a monarchy to trigger this scripted effect
+	if = {
+		limit = { NOT = { has_modifier = ztr_russian_modernization } }
+		add_modifier = {
+			name = ztr_russian_modernization
+			years = 5
+		}
+	}
+}
+
+# Sovietic Bolshevik Revolution Path (Led by Trade Unions and Armed Forces)
+ztr_russia_law_changes_bolshevik = {
+	every_interest_group = {
+		limit = {
+			is_in_government = yes
+		}
+		remove_ruling_interest_group = yes
+	}
+	ig:ig_armed_forces ?= {
+		add_ruling_interest_group = yes
+	}
+	ig:ig_trade_unions ?= {
+		add_ruling_interest_group = yes
+	}
+	ig:ig_trade_unions = {
+		leader = {
+			set_character_as_ruler = yes
+		}
+	}
+	# Communist Council Republic
+	if = {
+		limit = {
+			NOT = { has_law_or_variant = law_type:law_council_republic_soviet }
+		}
+		activate_law = law_type:law_council_republic_soviet # SPECIAL
+	}
+	#activate_law = law_type:law_council_republic
+	# Bolshevik Monoparty State
+	activate_law = law_type:law_single_party_state
+	# Economy
+	activate_law = law_type:law_command_economy
+	# Religion
+	activate_law = law_type:law_state_atheism
+	# Agriculture Collectivization
+	activate_law = law_type:law_collectivized_agriculture
+	# Public -> Private
+	if = {
+		limit = { has_law = law_type:law_private_health_insurance }
+		activate_law = law_type:law_public_health_insurance
+	}
+	if = {
+		limit = { has_law = law_type:law_private_schools }
+		activate_law = law_type:law_public_schools
+	}
+
+	# Russian Journal entry of the world revolution
+	#add_journal_entry = { type = je_world_revolution }
+}
+
+# Sovietic Menshevik Revolution Path (Led by Trade Unions and Armed Forces)
+ztr_russia_law_changes_menshevik = {
+	every_interest_group = {
+		limit = {
+			is_in_government = yes
+		}
+		remove_ruling_interest_group = yes
+	}
+	ig:ig_trade_unions ?= {
+		add_ruling_interest_group = yes
+	}
+	ig:ig_intelligentsia ?= {
+		add_ruling_interest_group = yes
+	}
+	ig:ig_trade_unions = {
+		leader = {
+			set_character_as_ruler = yes
+		}
+	}
+	# Communist Council Republic
+	if = {
+		limit = {
+			NOT = { has_law_or_variant = law_type:law_council_republic }
+		}
+		activate_law = law_type:law_council_republic
+	}
+	# Bolshevik Monoparty State
+	activate_law = law_type:law_single_party_state
+	# Economy
+	activate_law = law_type:law_command_economy_menshevik # SPECIAL
+	#activate_law = law_type:law_command_economy
+	# Religion
+	activate_law = law_type:law_total_separation
+	# Agriculture Collectivization
+	activate_law = law_type:law_collectivized_agriculture
+	# Public -> Private
+	if = {
+		limit = { has_law = law_type:law_private_health_insurance }
+		activate_law = law_type:law_public_health_insurance
+	}
+	if = {
+		limit = { has_law = law_type:law_private_schools }
+		activate_law = law_type:law_public_schools
+	}
+}
+
+# Sovietic Agro-Socialist Revolution Path (Led by Peasantry and Rural Strata)
+ztr_russia_law_changes_agro_socialist = {
+	every_interest_group = {
+		limit = {
+			is_in_government = yes
+		}
+		remove_ruling_interest_group = yes
+	}
+	ig:ig_trade_unions ?= {
+		add_ruling_interest_group = yes
+	}
+	ig:ig_rural_folk ?= {
+		add_ruling_interest_group = yes
+	}
+	ig:ig_trade_unions = {
+		leader = {
+			set_character_as_ruler = yes
+		}
+	}
+	# Communist Council Republic
+	if = {
+		limit = {
+			NOT = { has_law_or_variant = law_type:law_council_republic }
+		}
+		activate_law = law_type:law_council_republic
+	}
+	# Anarchy
+	activate_law = law_type:law_anarchy
+	# Economy
+	activate_law = law_type:law_command_economy
+	# Religions
+	activate_law = law_type:law_freedom_of_conscience
+	# Agriculture Collectivization
+	activate_law = law_type:law_collectivized_agriculture_agro_socialist #SPECIAL
+	#activate_law = law_type:law_collectivized_agriculture
+
+	# Politiche sociali: mutualismo pubblico di base
+	if = {
+		limit = { has_law = law_type:law_private_health_insurance }
+		activate_law = law_type:law_public_health_insurance
+	}
+	if = {
+		limit = { has_law = law_type:law_private_schools }
+		activate_law = law_type:law_public_schools
+	}
+	# Policing e amministrazione: locale
+	if = {
+		limit = { NOT = { has_law_or_variant = law_type:law_local_police } }
+		activate_law = law_type:law_local_police
+	}
+}

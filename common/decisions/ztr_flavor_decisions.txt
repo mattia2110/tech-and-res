@@ -125,7 +125,7 @@ ztr_anschluss_decision = {
 		c:AUS = { has_variable = ztr_austria_has_collapsed_var } # Austrian Empire has collapsed
 		has_game_rule = allow_ztr_historical_content
 		OR = {
-			is_dictatorship = yes # Germany is a dictatorship
+			ztr_is_totalitarian = yes # Germany is a dictatorship
 			has_state_in_state_region = STATE_AUSTRIA # Germany controls Austria, so Anschluss is obvious
 		}
 	}
@@ -141,5 +141,55 @@ ztr_anschluss_decision = {
 
 	ai_chance = {
 		value = 1000
+	}
+}
+
+ztr_us_wants_to_buy_west_coast = {
+	is_shown = {
+		c:USA ?= root
+		year > 1880
+		NOT = { has_global_variable = ztr_west_coast_question }
+		has_technology_researched = civilizing_mission
+		has_game_rule = allow_ztr_historical_content
+		c:MEX = { is_subject = no } # Mexico is independent
+		has_strategic_land_adjacency = c:MEX # US borders Mexico
+	}
+
+	possible = {
+		# Landowners are powerful or in government or it's not a democracy
+		OR = {
+			ig:ig_landowners = { is_powerful = yes }
+			ig:ig_industrialists = { is_powerful = yes }
+			ig:ig_landowners = { is_in_government = yes}
+			ig:ig_industrialists = { is_in_government = yes }
+			ztr_is_not_democratic = yes
+			# A bit of 'help' if Mexico is player and USA is AI
+			AND = {
+				c:MEX = { is_player = yes }
+				c:USA = { is_ai = yes }
+			}
+		}
+		scaled_debt < 0.25 # Not too much debt, this
+		gdp > 50000000
+		OR = {
+			NOT = { has_state_in_state_region = STATE_CALIFORNIA }
+			NOT = { has_state_in_state_region = STATE_NEVADA }
+			NOT = { has_state_in_state_region = STATE_UTAH }
+			NOT = { has_state_in_state_region = STATE_COLORADO }
+			NOT = { has_state_in_state_region = STATE_ARIZONA }
+			NOT = { has_state_in_state_region = STATE_NEW_MEXICO }
+			NOT = { has_state_in_state_region = STATE_TEXAS }
+			NOT = { has_state_in_state_region = STATE_KANSAS }
+			NOT = { has_state_in_state_region = STATE_OKLAHOMA }
+		}
+	}
+
+	when_taken = {
+		set_global_variable = ztr_west_coast_question
+		c:MEX = { trigger_event = usa_economy.2 }
+	}
+
+	ai_chance = {
+		value = 50
 	}
 }
