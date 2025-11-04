@@ -559,6 +559,7 @@ radar = {
 		unit_combat_unit_type_submarine_offense_mult = 0.1
 		unit_combat_unit_type_nuclear_submarine_offense_mult = 0.1
 		country_military_wages_mult = 0.25
+		increase_nuclear_strike_defence_bool_tt = yes
 	}
 	
 	unlocking_technologies = {	
@@ -581,12 +582,12 @@ electronic_countermeasures = {
 	texture = "gfx/interface/icons/invention_icons/electronic_countermeasures.dds"
 	category = military
 
-	unlocking_technologies = {	
-		radar
+	modifier = {
+		increase_nuclear_strike_defence_bool_tt = yes
 	}
 
-	modifier = {
-		
+	unlocking_technologies = {	
+		radar
 	}
 	
 	ai_weight = {
@@ -653,6 +654,11 @@ guided_missiles = {
 	unlocking_technologies = {	
 		rocket_artillery
 	}
+
+	modifier = {
+		increase_nuclear_strike_power_bool_tt = yes
+		increase_nuclear_strike_defence_bool_tt = yes
+	}
 	
 	ai_weight = {
 		value = 1
@@ -670,6 +676,10 @@ satellites = {
 	era = era_7
 	texture = "gfx/interface/icons/invention_icons/satellites.dds"
 	category = military
+
+	modifier = {
+		increase_nuclear_strike_defence_bool_tt = yes
+	}
 	
 	unlocking_technologies = {	
 		radar
@@ -745,6 +755,7 @@ anti_satellite_weapons = {
 	modifier = {
 		unit_army_offense_mult = 0.1
 		military_formation_organization_gain_mult = 0.1
+		increase_nuclear_strike_power_bool_tt = yes
 	}
 	
 	unlocking_technologies = {	
@@ -767,6 +778,10 @@ electronic_warfare = {
 	era = era_8
 	texture = "gfx/interface/icons/invention_icons/electronic_warfare.dds"
 	category = military
+
+	modifier = {
+		increase_nuclear_strike_power_bool_tt = yes
+	}
 	
 	unlocking_technologies = {	
 		anti_satellite_weapons
@@ -831,6 +846,7 @@ laser_guided_weapons = {
 	modifier = {
 		country_military_wages_mult = 0.25
 		unit_army_offense_mult = 0.35
+		increase_nuclear_strike_defence_bool_tt = yes
 	}
 	
 	unlocking_technologies = {	
@@ -941,9 +957,6 @@ icbms = {
 		guided_missiles
 	}
 
-	modifier = {
-	}
-
 	ai_weight = {
 		value = 1
 		if = {
@@ -964,6 +977,7 @@ stealth_technology = {
 		unit_convoy_raiding_mult = 0.1
 		unit_morale_damage_mult = 0.1
 		unit_convoy_raiding_interception_mult = 0.25
+		increase_nuclear_strike_power_bool_tt = yes
 	}
 	
 	unlocking_technologies = {	
@@ -1002,6 +1016,7 @@ cyber_warfare = {
 		unit_navy_offense_mult = 0.1
 		unit_navy_defense_mult = 0.15
 		country_military_wages_mult = 0.25
+		increase_nuclear_strike_power_bool_tt = yes
 	}
 
 	ai_weight = {
@@ -1079,12 +1094,14 @@ network_centric_warfare = {
 	texture = "gfx/interface/icons/invention_icons/network_centric_warfare.dds"
 	category = military
 
+	modifier = {
+		increase_nuclear_strike_power_bool_tt = yes
+		increase_nuclear_strike_defence_bool_tt = yes
+	}
+
 	unlocking_technologies = {	
 		stealth_technology
 		integrated_naval_air_tactics
-	}
-
-	modifier = {
 	}
 
 	ai_weight = {
@@ -1123,6 +1140,8 @@ directed_energy_weapons = {
 		country_prestige_mult = 0.1
 		unit_army_offense_mult = 0.1
 		building_aircraft_industry_throughput_add = 0.05
+		increase_nuclear_strike_power_bool_tt = yes
+		increase_nuclear_strike_defence_bool_tt = yes
 	}
 	
 	unlocking_technologies = {	
@@ -1163,6 +1182,8 @@ ai_warfare = {
 	category = military
 
 	modifier = {
+		increase_nuclear_strike_power_bool_tt = yes
+		increase_nuclear_strike_defence_bool_tt = yes
 	}
 	
 	unlocking_technologies = {	
