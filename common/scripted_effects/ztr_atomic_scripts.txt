@@ -11,33 +11,33 @@ effect_compute_nuclear_capability_points_attacker = {
 	#Nuclear weapons type
 	every_scope_state = {
 		limit = { has_building = building_nuclear_weapons_silo any_scope_building = { has_active_production_method = pm_atomic_bomb } }
-		owner = { change_global_variable = { name = nuclear_strike_power_global add = 1 } }
+		owner = { change_global_variable = { name = nuclear_strike_power_global add = 3 } }
 	}
 	every_scope_state = {
 		limit = { has_building = building_nuclear_weapons_silo any_scope_building = { has_active_production_method = pm_hydrogen_bomb } }
-		owner = { change_global_variable = { name = nuclear_strike_power_global add = 4 } }
+		owner = { change_global_variable = { name = nuclear_strike_power_global add = 12 } }
 	}
 	
 	#Stockpile
 	every_scope_state = {
 		limit = { has_building = building_nuclear_weapons_silo any_scope_building = { has_active_production_method = pm_nuclear_stockpile_2 } }
-		owner = { change_global_variable = { name = nuclear_strike_power_global add = 1 } }
+		owner = { change_global_variable = { name = nuclear_strike_power_global add = 2 } }
 	}
 	every_scope_state = {
 		limit = { has_building = building_nuclear_weapons_silo any_scope_building = { has_active_production_method = pm_nuclear_stockpile_3 } }
-		owner = { change_global_variable = { name = nuclear_strike_power_global add = 2 } }
+		owner = { change_global_variable = { name = nuclear_strike_power_global add = 4 } }
 	}
 	
 	#Nuclear bomber
 	every_scope_state = {
 		limit = { has_building = building_nuclear_weapons_silo any_scope_building = { has_active_production_method = pm_nuclear_bomber } }
-		owner = { change_global_variable = { name = nuclear_strike_power_global add = 1 } }
+		owner = { change_global_variable = { name = nuclear_strike_power_global add = 5 } }
 	}
 	
 	#Nuclear rocket
 	every_scope_state = {
 		limit = { has_building = building_nuclear_weapons_silo any_scope_building = { has_active_production_method = pm_icbms } }
-		owner = { change_global_variable = { name = nuclear_strike_power_global add = 3 } }
+		owner = { change_global_variable = { name = nuclear_strike_power_global add = 15 } }
 	}
 
 	#Nuclear submarine
@@ -45,7 +45,7 @@ effect_compute_nuclear_capability_points_attacker = {
 		limit = { has_building = building_nuclear_weapons_silo
 			# Country must have nuclear submarines
 			owner = { country_navy_unit_type_fraction = { target = unit_type:combat_unit_type_nuclear_submarine value > 0 } } }
-		owner = { change_global_variable = { name = nuclear_strike_power_global add = 3 } }
+		owner = { change_global_variable = { name = nuclear_strike_power_global add = 10 } }
 	}
 
 	# Having guided missiles will increase nuclear defence by 5 points (Obsiously, this are true for countries with nuclear capability)
@@ -227,6 +227,8 @@ effect_compute_nuclear_capability_points_defense = {
 			owner = { change_global_variable = { name = nuclear_strike_defence_global multiply = 1.5 } }
 		}
 	}
+
+	owner = { change_global_variable = { name = nuclear_strike_defence_global multiply = 0.25 } }
 
 	# Would be cool to add a Dome Shield later to further reduce nuclear strike impact
 	# Would be cool to add the value of this defense in acceptance of a Nuclear Strike Treaty later
@@ -1607,33 +1609,33 @@ calculate_nuclear_strength_info = {
 	#Nuclear weapons type
 	every_scope_state = {
 		limit = { has_building = building_nuclear_weapons_silo any_scope_building = { has_active_production_method = pm_atomic_bomb } }
-		owner = { change_variable = { name = nuclear_strike_power_display add = 1 } }
+		owner = { change_variable = { name = nuclear_strike_power_display add = 3 } }
 	}
 	every_scope_state = {
 		limit = { has_building = building_nuclear_weapons_silo any_scope_building = { has_active_production_method = pm_hydrogen_bomb } }
-		owner = { change_variable = { name = nuclear_strike_power_display add = 4 } }
+		owner = { change_variable = { name = nuclear_strike_power_display add = 12 } }
 	}
 	
 	#Stockpile
 	every_scope_state = {
 		limit = { has_building = building_nuclear_weapons_silo any_scope_building = { has_active_production_method = pm_nuclear_stockpile_2 } }
-		owner = { change_variable = { name = nuclear_strike_power_display add = 1 } }
+		owner = { change_variable = { name = nuclear_strike_power_display add = 2 } }
 	}
 	every_scope_state = {
 		limit = { has_building = building_nuclear_weapons_silo any_scope_building = { has_active_production_method = pm_nuclear_stockpile_3 } }
-		owner = { change_variable = { name = nuclear_strike_power_display add = 2 } }
+		owner = { change_variable = { name = nuclear_strike_power_display add = 4 } }
 	}
 	
 	#Nuclear bomber
 	every_scope_state = {
 		limit = { has_building = building_nuclear_weapons_silo any_scope_building = { has_active_production_method = pm_nuclear_bomber } }
-		owner = { change_variable = { name = nuclear_strike_power_display add = 1 } }
+		owner = { change_variable = { name = nuclear_strike_power_display add = 5 } }
 	}
 	
 	#Nuclear rocket
 	every_scope_state = {
 		limit = { has_building = building_nuclear_weapons_silo any_scope_building = { has_active_production_method = pm_icbms } }
-		owner = { change_variable = { name = nuclear_strike_power_display add = 3 } }
+		owner = { change_variable = { name = nuclear_strike_power_display add = 15 } }
 	}
 
 	#Nuclear submarine
@@ -1641,7 +1643,7 @@ calculate_nuclear_strength_info = {
 		limit = { has_building = building_nuclear_weapons_silo
 			# Country must have nuclear submarines
 			owner = { country_navy_unit_type_fraction = { target = unit_type:combat_unit_type_nuclear_submarine value > 0 } } }
-		owner = { change_variable = { name = nuclear_strike_power_display add = 3 } }
+		owner = { change_variable = { name = nuclear_strike_power_display add = 10 } }
 	}
 
 	# Having guided missiles will increase nuclear defence by 5 points (Obsiously, this are true for countries with nuclear capability)
@@ -1834,6 +1836,8 @@ calculate_nuclear_defence_info = {
 			owner = { change_variable = { name = nuclear_strike_defence_display multiply = 1.5 } }
 		}
 	}
+
+	owner = { change_variable = { name = nuclear_strike_defence_display multiply = 0.25 } }
 
 	# Would be cool to add a Dome Shield later to further reduce nuclear strike impact
 	# Would be cool to add the value of this defense in acceptance of a Nuclear Strike Treaty later

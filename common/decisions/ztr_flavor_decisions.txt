@@ -193,3 +193,37 @@ ztr_us_wants_to_buy_west_coast = {
 		value = 50
 	}
 }
+
+ztr_give_newfoundland_to_canada = {
+	is_shown = {
+		year > 1945
+		exists = c:CAN
+		NOT = { country_is_in_north_america = yes }
+		has_game_rule = allow_ztr_historical_content
+		any_scope_state = {
+			state_region = {
+				region = sr:region_canada
+			}
+		}
+		OR = {
+			ztr_is_democratic = yes
+			country_has_primary_culture = cu:british
+		}
+	}
+
+	when_taken = {
+		add_treasury = 100000000 # Is very much but bro, it's 1945 or later!
+		every_scope_state = {
+			limit = {
+				state_region = {
+					region = sr:region_canada
+				}
+			}
+			set_state_owner = c:CAN
+		}
+	}
+
+	ai_chance = {
+		value = 100
+	}
+}

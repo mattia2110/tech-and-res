@@ -18,10 +18,14 @@
 		
 		#TARGET
 		scope:target_country = { 
-			#Must be a sovereign state
+			#Must be a sovereign state or root is overlord of TARGET
 			OR = { 
 				is_subject = no
 				is_subject_of = root
+				AND = {
+					root = { is_power_bloc_leader = yes }
+					is_in_same_power_bloc = root
+				}
 			}
 			
 			#THIS is not in the midst of a revolution
@@ -46,7 +50,7 @@
 			any_scope_treaty = { binds = scope:target_country any_scope_article = { has_type = alliance } }
 			any_scope_treaty = { binds = scope:target_country any_scope_article = { has_type = defensive_pact } }
 			is_in_same_power_bloc = scope:target_country # This checks if both countries are in the same power bloc
-			is_subject_of = root
+			scope:target_country = { is_subject_of = root }
 		}
 	}
 	
@@ -120,6 +124,10 @@
 					OR = { 
 						is_subject = no
 						is_subject_of = root
+						AND = {
+							root = { is_power_bloc_leader = yes }
+							is_in_same_power_bloc = root
+						}
 					}
 					
 					#THIS is not in the midst of a revolution
@@ -134,8 +142,9 @@
 				#TARGET has an alliance of somekind with THIS OR is overlord of TARGET
 				OR = {
 					any_scope_treaty = { binds = scope:target_country any_scope_article = { has_type = alliance } }
-					any_scope_treaty = { binds = scope:target_country any_scope_article = { has_type = defensive_pact } } 
-					is_subject_of = root
+					any_scope_treaty = { binds = scope:target_country any_scope_article = { has_type = defensive_pact } }
+					is_in_same_power_bloc = scope:target_country # This checks if both countries are in the same power bloc
+					scope:target_country = { is_subject_of = root }
 				}
 				
 				#THIS is willing to station weapons abroad
@@ -187,7 +196,7 @@
 			
 			add = {
 				desc = "DIPLOMATIC_ACCEPTANCE_BASE"
-				value = -100
+				value = -200
 			}
 
 			if = {
@@ -250,7 +259,7 @@
 							attitude = protective
 						}	
 					}
-					value = 75
+					value = 80
 				}
 				if = {
 					limit = {
@@ -269,7 +278,7 @@
 							}						
 						}
 					}
-					value = 50
+					value = 55
 				}
 				if = {
 					limit = {

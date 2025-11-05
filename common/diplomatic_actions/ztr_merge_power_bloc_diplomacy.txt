@@ -1,44 +1,85 @@
-﻿# The idea beyond this is to solve the problems about creating power blocs through script inside a game.
-# During Cold War, Ideologies takes a big part in forming power blocs, controlled by superpowers.
-#vanilla
-invite_to_power_bloc = {
+﻿ztr_merge_power_bloc_diplomacy = {
+	groups= {
+		general
+	}
 	requires_approval = yes
-	can_use_obligations = yes
 	uses_random_approval = yes
+	can_use_obligations = yes
 	should_notify_third_parties = yes
 	confirmation_sound = "event:/SFX/UI/MapInteraction/SubjectInteractions/power_bloc_invite_request"
-
-	groups = { general }
-
+	
+	unlocking_technologies = {
+		neoimperialism
+	}
+	
 	selectable = {
 		NOT = { is_country_type = decentralized }
 		is_revolutionary = no
+		is_secessionist = no
 		is_in_power_bloc = yes
-
-		# Note that most of the script below has been written under the assumption that root is the power bloc leader.
-		is_power_bloc_leader = yes      # if you change this line, remember to change power_bloc_invite_available
+		is_power_bloc_leader = yes
 	}
-
+	
 	potential = {
-		scope:target_country ?= {
-			NOT = { is_country_type = decentralized }
+		# We only want democratic nations and communist nations that are council republics to be able to invite others to merge
+		scope:target_country = {
+			is_in_power_bloc = yes
+			is_power_bloc_leader = yes
+		}
+
+		OR = {
+			has_modifier = ztr_superpower
+			AND = {
+				has_modifier = ztr_eu_member
+				scope:target_country = {
+					has_modifier = ztr_eu_member
+				}
+			}
+			AND = {
+				has_modifier = ztr_eec_member
+				scope:target_country = {
+					has_modifier = ztr_eec_member
+				}
+			}
+			AND = {
+				ztr_is_communist = yes
+				scope:target_country = {
+					ztr_is_communist = yes
+				}
+			}
 		}
 	}
-
+	
 	possible = {
-		# Must not be able to immediately start a power struggle
+
 		custom_tooltip = {
-			text = "NO_POWER_STRUGGLE_BLOC_JOIN"
+			text = ztr_similar_type_of_government_tt
 			OR = {
-				prestige > scope:target_country.prestige
-				country_rank > scope:target_country.country_rank
+				AND = {
+					ztr_is_democratic = yes
+					scope:target_country = {
+						ztr_is_democratic = yes
+					}
+				}
+				AND = {
+					ztr_is_authoritarian = yes
+					scope:target_country = {
+						ztr_is_authoritarian = yes
+					}
+				}
+				AND = {
+					ztr_is_communist = yes
+					scope:target_country = {
+						ztr_is_communist = yes
+					}
+				}
 			}
 		}
 
 		power_bloc = {
 			leverage_advantage = {
 				target = scope:target_country
-				value >= leverage_threshold_to_invite
+				value >= -1000
 			}
 
 			NOT = {
@@ -47,36 +88,21 @@ invite_to_power_bloc = {
 				}
 			}
 		}
-		scope:target_country = {
-			is_revolutionary = no
-		}
-		custom_tooltip = {
-			# This effectively sets a 2 year cooldown on invites. This length needs to be updated both in loc and in the catalyst definition
-			text = invite_to_power_bloc_recently_declined
-			NOT = {
-				any_diplomatic_catalyst = {
-					is_diplomatic_catalyst_type = catalyst_declined_bloc_invite
-					target = scope:target_country
-				}
-			}
-		}
 	}
-
+	
 	accept_effect = {
 		scope:target_country = {
+			hidden_effect = {
+				power_bloc ?= {
+					every_power_bloc_member = {
+						join_power_bloc = root
+					}
+				}				
+			}
 			join_power_bloc = root
 		}
 	}
-
-	decline_effect = {
-		change_relations = { country = scope:target_country value = -50 }
-		hidden_effect = {
-			create_diplomatic_catalyst = {
-				type = catalyst_declined_bloc_invite
-				target = scope:target_country
-			}
-		}
-	}
+	
 
 	ai = {
 		evaluation_chance = {
@@ -92,142 +118,7 @@ invite_to_power_bloc = {
 
 			add = {
 				desc = "DIPLOMATIC_ACCEPTANCE_BASE"
-				value = -100
-			}
-
-			if = {
-				#Only if has ideology themself
-				limit = {
-					scope:actor = {
-						has_technology_researched = international_organizations
-					}
-					scope:target_country = {
-						has_technology_researched = international_organizations
-					}
-					add = {
-						desc = "MODERN_DIPLOMATIC_ACCEPTANCE_BASE"
-						value = -150
-					}
-				}
-
-				if = {
-					limit = {
-						OR = {
-							AND = {
-								scope:actor = {
-									ztr_is_full_democratic = yes
-									ztr_is_communist = no
-								}
-								scope:target_country = {
-									ztr_is_full_democratic = yes
-									ztr_is_communist = no
-								}
-							}
-							AND = {
-								scope:actor = {
-									ztr_is_totalitarian = yes
-									ztr_is_communist = no
-								}
-								scope:target_country = {
-									ztr_is_totalitarian = yes
-									ztr_is_communist = no
-								}
-							}
-						}
-					}
-					add = {
-						desc = "ZTR_VERY_SIMILAR_LIBERTY_INDEX"
-						value = 350
-					}
-				}				
-				else_if = {
-					limit = {
-						OR = {
-							AND = {
-								scope:actor = {
-									ztr_is_democratic = yes
-								}
-								scope:target_country = {
-									ztr_is_democratic = yes
-								}
-							}
-							AND = {
-								scope:actor = {
-									ztr_is_not_democratic = yes
-								}
-								scope:target_country = {
-									ztr_is_not_democratic = yes
-								}
-							}
-							AND = {
-								scope:actor = {
-									ztr_is_communist = yes
-								}
-								scope:target_country = {
-									ztr_is_communist = yes
-								}
-							}
-						}
-					}
-					add = {
-						desc = "ZTR_SIMILAR_LIBERTY_INDEX"
-						value = 250
-					}
-				}
-
-				if = {
-					limit = {
-						OR = {
-							AND = {
-								scope:actor = {
-									ztr_is_flawed_democratic = yes
-								}
-								scope:target_country = {
-									ztr_is_authoritarian = yes
-								}
-							}
-							AND = {
-								scope:actor = {
-									ztr_is_authoritarian = yes
-								}
-								scope:target_country = {
-									ztr_is_flawed_democratic = yes
-								}
-							}
-						}
-					}
-					add = {
-						desc = "ZTR_NEUTRAL_LIBERTY_INDEX"
-						value = 125
-					}
-				}
-
-				if = {
-					limit = {
-						OR = {
-							AND = {
-								scope:actor = {
-									ztr_is_socialist = yes
-								}
-								scope:target_country = {
-									ztr_is_socialist = yes
-								}
-							}
-							AND = {
-								scope:actor = {
-									ztr_is_individualist = yes
-								}
-								scope:target_country = {
-									ztr_is_individualist = yes
-								}
-							}
-						}
-					}
-					add = {
-						desc = "ZTR_SIMILAR_EQUALITY_INDEX"
-						value = 100
-					}
-				}
+				value = -50
 			}
 
 			### Leverage
@@ -246,6 +137,124 @@ invite_to_power_bloc = {
 				}
 
 				max = 200
+			}
+
+			#T&R
+			if = {
+				limit = {
+					OR = {
+						AND = {
+							scope:actor = {
+								ztr_is_full_democratic = yes
+								ztr_is_communist = no
+							}
+							scope:target_country = {
+								ztr_is_full_democratic = yes
+								ztr_is_communist = no
+							}
+						}
+						AND = {
+							scope:actor = {
+								ztr_is_totalitarian = yes
+								ztr_is_communist = no
+							}
+							scope:target_country = {
+								ztr_is_totalitarian = yes
+								ztr_is_communist = no
+							}
+						}
+					}
+				}
+				add = {
+					desc = "ZTR_VERY_SIMILAR_LIBERTY_INDEX"
+					value = 100
+				}
+			}				
+			else_if = {
+				limit = {
+					OR = {
+						AND = {
+							scope:actor = {
+								ztr_is_democratic = yes
+							}
+							scope:target_country = {
+								ztr_is_democratic = yes
+							}
+						}
+						AND = {
+							scope:actor = {
+								ztr_is_not_democratic = yes
+							}
+							scope:target_country = {
+								ztr_is_not_democratic = yes
+							}
+						}
+						AND = {
+							scope:actor = {
+								ztr_is_communist = yes
+							}
+							scope:target_country = {
+								ztr_is_communist = yes
+							}
+						}
+					}
+				}
+				add = {
+					desc = "ZTR_SIMILAR_LIBERTY_INDEX"
+					value = 75
+				}
+			}
+			if = {
+				limit = {
+					OR = {
+						AND = {
+							scope:actor = {
+								ztr_is_flawed_democratic = yes
+							}
+							scope:target_country = {
+								ztr_is_authoritarian = yes
+							}
+						}
+						AND = {
+							scope:actor = {
+								ztr_is_authoritarian = yes
+							}
+							scope:target_country = {
+								ztr_is_flawed_democratic = yes
+							}
+						}
+					}
+				}
+				add = {
+					desc = "ZTR_NEUTRAL_LIBERTY_INDEX"
+					value = 25
+				}
+			}
+			if = {
+				limit = {
+					OR = {
+						AND = {
+							scope:actor = {
+								ztr_is_socialist = yes
+							}
+							scope:target_country = {
+								ztr_is_socialist = yes
+							}
+						}
+						AND = {
+							scope:actor = {
+								ztr_is_individualist = yes
+							}
+							scope:target_country = {
+								ztr_is_individualist = yes
+							}
+						}
+					}
+				}
+				add = {
+					desc = "ZTR_SIMILAR_EQUALITY_INDEX"
+					value = 25
+				}
 			}
 
 			if = {
@@ -303,9 +312,15 @@ invite_to_power_bloc = {
 					scope:actor.power_bloc = {
 						if = {
 							limit = {
+								scope:target_country = { has_modifier = ztr_superpower }
+							}
+							add = -40
+						}
+						else_if = {
+							limit = {
 								scope:target_country.country_rank = rank_value:great_power
 							}
-							add = modifier:power_bloc_invite_acceptance_great_power_add
+							add = modifier:power_bloc_invite_acceptance_great_power_add #-20
 						}
 						else_if = {
 							limit = {
@@ -348,22 +363,6 @@ invite_to_power_bloc = {
 			### Similar to identities but considers selected principles
 			add = ai_power_bloc_principle_score
 
-			# Ideological opinion is always a factor, but much weaker for non ideological unions
-			# Score for ideological unions is handled in ai_power_bloc_identity_score script value
-			if = {
-				limit = {
-					power_bloc ?= {
-						NOT = { has_identity = identity:identity_ideological_union }
-					}
-				}
-				add = {
-					desc = "DIPLOMATIC_ACCEPTANCE_IDEOLOGICAL_OPINION"
-					value = "scope:actor.ai_ideological_opinion(root)"
-					multiply = 0.25
-					max = 25
-					min = -25
-				}
-			}
 
 			### Powerful Protectors is always a factor, but less so if not being invited to a sovereign empire
 			if = {
@@ -388,21 +387,6 @@ invite_to_power_bloc = {
 				subtract = 2
 				subtract = country_rank
 				multiply = 10
-			}
-
-			if = {
-				limit = {
-					gdp >= 2000000
-				}
-
-				subtract = {
-					desc = "DIPLOMATIC_ACCEPTANCE_HIGH_GDP"
-					value = gdp
-					subtract = 1000000
-					divide = 1000000
-					min = 1
-					max = 100
-				}
 			}
 
 			add = {
@@ -552,7 +536,7 @@ invite_to_power_bloc = {
 		will_propose = {
 			would_accept_diplomatic_action = {
 				actor = scope:target_country
-				type = join_power_bloc
+				type = ut_international_diplomatic_power_bloc_merge
 			}
 		}
 
@@ -577,21 +561,5 @@ invite_to_power_bloc = {
 				add = 50
 			}
 		}
-
-		will_propose_even_if_not_accepted = {
-			OR = {
-				has_attitude = {
-					who = scope:target_country
-					attitude = domineering
-				}
-				power_bloc ?= {
-					leverage_advantage = {
-						target = scope:target_country
-						value >= 500
-					}
-				}
-			}
-		}
 	}
 }
-

@@ -3290,33 +3290,33 @@ ai_strategy_rules_based_security = {
 	wargoal_maneuvers_fraction = { value = -0.25 }   # Tendenza a pacchetti compatti (casus belli limitati)
 
 	diplomatic_play_neutrality = {
-		value = 50
+		value = 150
 		
 		# As major powers, a moderate increase
 		if = {
 			limit = {
 				country_rank = rank_value:major_power
 			}
-			add = 25
+			add = 50
 		}
 		else_if = {
 			limit = {
 				country_rank <= rank_value:minor_power
 			}
-			add = 50
+			add = 150
 		}
 
 		if = {
 			limit = {
 				has_technology_researched = counterculture
 			}
-			add = 25
+			add = 100
 		}
 		if = {
 			limit = {
-				has_technology_researched = transnational_activism
+				ztr_is_full_democratic = yes
 			}
-			add = 25
+			add = 100
 		}
 	}
 
@@ -3485,20 +3485,20 @@ ai_strategy_security_state_revisionism = {
 
 	diplomatic_play_neutrality = {
 		# Dictatorial regimes less concerned with neutrality but smaller ones are in order to secure their survival
-		value = 15
+		value = 100
 
 		# As major powers, a moderate increase
 		if = {
 			limit = {
 				country_rank = rank_value:major_power
 			}
-			add = 35
+			add = 50
 		}
 		else_if = {
 			limit = {
 				country_rank <= rank_value:minor_power
 			}
-			add = 55
+			add = 200
 		}
 	}
 
@@ -3641,19 +3641,19 @@ ai_strategy_superpower_liberal_hegemony = {
 	wargoal_maneuvers_fraction = { value = 0.05 }
 
 	diplomatic_play_neutrality = {
-		value = -25
+		value = 100
 
 		if = {
 			limit = {
 				has_technology_researched = counterculture
 			}
-			add = 25
+			add = 100
 		}
 		if = {
 			limit = {
 				has_technology_researched = transnational_activism
 			}
-			add = 25
+			add = 50
 		}
 
 		if = {
@@ -3779,7 +3779,7 @@ ai_strategy_superpower_command_hegemony = {
 
 	wargoal_maneuvers_fraction = { value = 0.15 }  # Ampio toolkit coercitivo
 	
-	diplomatic_play_neutrality = { value = 0 }
+	diplomatic_play_neutrality = { value = 150 }
 	diplomatic_play_boldness = { value = 30 }
 	recklessness = { value = 0.2 }
 
