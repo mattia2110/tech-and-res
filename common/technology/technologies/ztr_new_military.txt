@@ -27,6 +27,12 @@ modern_warplanes = {
 	
 	ai_weight = {
 		value = 1
+		if = {
+			limit = {
+				has_variable = ztr_bolshevik_ideology_var
+			}
+			add = 1
+		}
 	}
 }
 
@@ -52,6 +58,12 @@ military_encryption = {
 	
 	ai_weight = {
 		value = 1
+		if = {
+			limit = {
+				has_variable = ztr_bolshevik_ideology_var
+			}
+			add = 1
+		}
 	}
 }
 
@@ -71,6 +83,12 @@ mechanized_infantry = {
 	}
 	ai_weight = { 
 		value = 1 
+		if = {
+			limit = {
+				has_variable = ztr_bolshevik_ideology_var
+			}
+			add = 1
+		}
 	}
 }
 
@@ -105,6 +123,12 @@ blitzkrieg = {
 					c:RUS ?= ROOT
 					c:GBR ?= ROOT
 				}
+			}
+			add = 1
+		}
+		if = {
+			limit = {
+				has_variable = ztr_bolshevik_ideology_var
 			}
 			add = 1
 		}
@@ -150,6 +174,12 @@ air_support = {
 	
 	ai_weight = {
 		value = 1
+		if = {
+			limit = {
+				has_variable = ztr_bolshevik_ideology_var
+			}
+			add = 1
+		}
 	}
 }
 
@@ -170,6 +200,12 @@ rocketery = {
 	
 	ai_weight = {
 		value = 1
+		if = {
+			limit = {
+				has_variable = ztr_bolshevik_ideology_var
+			}
+			add = 1
+		}
 	}
 }
 
@@ -211,6 +247,12 @@ bombing = {
 	
 	ai_weight = {
 		value = 1
+		if = {
+			limit = {
+				has_variable = ztr_bolshevik_ideology_var
+			}
+			add = 1
+		}
 	}
 }
 
@@ -269,6 +311,13 @@ atomic_bomb = {
 	
 	ai_weight = {
 		value = 1 # AI will not use this
+		if = {
+			limit = {
+				has_variable = ztr_bolshevik_ideology_var
+				has_journal_entry = je_develop_nuclear_weapons
+			}
+			add = 1
+		}
 	}
 }
 
@@ -288,6 +337,12 @@ semi_automatic_rifle = {
 
 	ai_weight = {
 		value = 1
+		if = {
+			limit = {
+				has_variable = ztr_bolshevik_ideology_var
+			}
+			add = 1
+		}
 	}
 }
 
@@ -310,6 +365,12 @@ rocket_artillery = {
 	
 	ai_weight = {
 		value = 1
+		if = {
+			limit = {
+				has_variable = ztr_bolshevik_ideology_var
+			}
+			add = 1
+		}
 	}
 }
 
@@ -320,6 +381,10 @@ hydrogen_bomb = {
 	era = era_7
 	texture = "gfx/interface/icons/invention_icons/hydrogen_bomb.dds"
 	category = military
+
+	modifier = {
+		increase_nuclear_strike_power_bool_tt = yes
+	}
 	
 	# Only through JE
 	can_research = no
@@ -338,6 +403,12 @@ jet_aviation = {
 	
 	ai_weight = {
 		value = 1
+		if = {
+			limit = {
+				has_variable = ztr_bolshevik_ideology_var
+			}
+			add = 1
+		}
 	}
 }
 
@@ -359,6 +430,12 @@ space_rocketery = {
 	
 	ai_weight = {
 		value = 1
+		if = {
+			limit = {
+				has_variable = ztr_bolshevik_ideology_var
+			}
+			add = 1
+		}
 	}
 }
 
@@ -374,6 +451,12 @@ advanced_harbor_facilities = { #Cargo Ship to add
 	}
 	ai_weight = {
 		value = 1
+		if = {
+			limit = {
+				has_variable = ztr_bolshevik_ideology_var
+			}
+			add = 1
+		}
 	}
 }
 
@@ -390,6 +473,12 @@ assault_rifles = {
 
 	ai_weight = {
 		value = 1
+		if = {
+			limit = {
+				has_variable = ztr_bolshevik_ideology_var
+			}
+			add = 1
+		}
 	}
 }
 
@@ -426,6 +515,12 @@ main_battle_tank = {
 	
 	ai_weight = {
 		value = 1
+		if = {
+			limit = {
+				has_variable = ztr_bolshevik_ideology_var
+			}
+			add = 1
+		}
 	}
 }
 
@@ -446,6 +541,12 @@ helicopters = {
 	
 	ai_weight = {
 		value = 1
+		if = {
+			limit = {
+				has_variable = ztr_bolshevik_ideology_var
+			}
+			add = 1
+		}
 	}
 }
 
@@ -462,6 +563,7 @@ radar = {
 		unit_combat_unit_type_submarine_offense_mult = 0.1
 		unit_combat_unit_type_nuclear_submarine_offense_mult = 0.1
 		country_military_wages_mult = 0.25
+		increase_nuclear_strike_defence_bool_tt = yes
 	}
 	
 	unlocking_technologies = {	
@@ -470,6 +572,12 @@ radar = {
 	
 	ai_weight = {
 		value = 1
+		if = {
+			limit = {
+				has_variable = ztr_bolshevik_ideology_var
+			}
+			add = 1
+		}
 	}
 }
 
@@ -478,12 +586,12 @@ electronic_countermeasures = {
 	texture = "gfx/interface/icons/invention_icons/electronic_countermeasures.dds"
 	category = military
 
-	unlocking_technologies = {	
-		radar
+	modifier = {
+		increase_nuclear_strike_defence_bool_tt = yes
 	}
 
-	modifier = {
-		
+	unlocking_technologies = {	
+		radar
 	}
 	
 	ai_weight = {
@@ -496,6 +604,10 @@ nuclear_submarine = {
 	era = era_7
 	texture = "gfx/interface/icons/invention_icons/nuclear_submarine.dds"
 	category = military
+
+	modifier = {
+		increase_nuclear_strike_power_bool_tt = yes
+	}
 	
 	unlocking_technologies = {	
 		guided_missiles
@@ -504,6 +616,12 @@ nuclear_submarine = {
 	
 	ai_weight = {
 		value = 1
+		if = {
+			limit = {
+				has_variable = ztr_bolshevik_ideology_var
+			}
+			add = 1
+		}
 	}
 }
 
@@ -526,6 +644,12 @@ precision_ammunition = {
 	
 	ai_weight = {
 		value = 1
+		if = {
+			limit = {
+				has_variable = ztr_bolshevik_ideology_var
+			}
+			add = 1
+		}
 	}
 }
 
@@ -538,9 +662,20 @@ guided_missiles = {
 	unlocking_technologies = {	
 		rocket_artillery
 	}
+
+	modifier = {
+		increase_nuclear_strike_power_bool_tt = yes
+		increase_nuclear_strike_defence_bool_tt = yes
+	}
 	
 	ai_weight = {
 		value = 1
+		if = {
+			limit = {
+				has_variable = ztr_bolshevik_ideology_var
+			}
+			add = 1
+		}
 	}
 }
 
@@ -549,6 +684,10 @@ satellites = {
 	era = era_7
 	texture = "gfx/interface/icons/invention_icons/satellites.dds"
 	category = military
+
+	modifier = {
+		increase_nuclear_strike_defence_bool_tt = yes
+	}
 	
 	unlocking_technologies = {	
 		radar
@@ -557,6 +696,12 @@ satellites = {
 	
 	ai_weight = {
 		value = 1
+		if = {
+			limit = {
+				has_variable = ztr_bolshevik_ideology_var
+			}
+			add = 1
+		}
 	}
 }
 
@@ -582,6 +727,12 @@ modern_naval_doctrine = {
 	
 	ai_weight = {
 		value = 1
+		if = {
+			limit = {
+				has_variable = ztr_bolshevik_ideology_var
+			}
+			add = 1
+		}
 	}
 }
 
@@ -612,6 +763,7 @@ anti_satellite_weapons = {
 	modifier = {
 		unit_army_offense_mult = 0.1
 		military_formation_organization_gain_mult = 0.1
+		increase_nuclear_strike_power_bool_tt = yes
 	}
 	
 	unlocking_technologies = {	
@@ -621,6 +773,12 @@ anti_satellite_weapons = {
 	
 	ai_weight = {
 		value = 1
+		if = {
+			limit = {
+				has_variable = ztr_bolshevik_ideology_var
+			}
+			add = 1
+		}
 	}
 }
 
@@ -628,6 +786,10 @@ electronic_warfare = {
 	era = era_8
 	texture = "gfx/interface/icons/invention_icons/electronic_warfare.dds"
 	category = military
+
+	modifier = {
+		increase_nuclear_strike_power_bool_tt = yes
+	}
 	
 	unlocking_technologies = {	
 		anti_satellite_weapons
@@ -674,6 +836,12 @@ composite_armor = {
 	
 	ai_weight = {
 		value = 1
+		if = {
+			limit = {
+				has_variable = ztr_bolshevik_ideology_var
+			}
+			add = 1
+		}
 	}
 }
 
@@ -686,6 +854,7 @@ laser_guided_weapons = {
 	modifier = {
 		country_military_wages_mult = 0.25
 		unit_army_offense_mult = 0.35
+		increase_nuclear_strike_defence_bool_tt = yes
 	}
 	
 	unlocking_technologies = {	
@@ -695,6 +864,12 @@ laser_guided_weapons = {
 	
 	ai_weight = {
 		value = 1
+		if = {
+			limit = {
+				has_variable = ztr_bolshevik_ideology_var
+			}
+			add = 1
+		}
 	}
 }
 
@@ -753,6 +928,12 @@ astronautics = {
 	
 	ai_weight = {
 		value = 1
+		if = {
+			limit = {
+				has_variable = ztr_bolshevik_ideology_var
+			}
+			add = 1
+		}
 	}
 }
 
@@ -784,11 +965,14 @@ icbms = {
 		guided_missiles
 	}
 
-	modifier = {
-	}
-
 	ai_weight = {
 		value = 1
+		if = {
+			limit = {
+				has_variable = ztr_bolshevik_ideology_var
+			}
+			add = 1
+		}
 	}
 }
 
@@ -801,6 +985,7 @@ stealth_technology = {
 		unit_convoy_raiding_mult = 0.1
 		unit_morale_damage_mult = 0.1
 		unit_convoy_raiding_interception_mult = 0.25
+		increase_nuclear_strike_power_bool_tt = yes
 	}
 	
 	unlocking_technologies = {	
@@ -811,6 +996,12 @@ stealth_technology = {
 	
 	ai_weight = {
 		value = 1
+		if = {
+			limit = {
+				has_variable = ztr_bolshevik_ideology_var
+			}
+			add = 1
+		}
 	}
 }
 
@@ -833,10 +1024,17 @@ cyber_warfare = {
 		unit_navy_offense_mult = 0.1
 		unit_navy_defense_mult = 0.15
 		country_military_wages_mult = 0.25
+		increase_nuclear_strike_power_bool_tt = yes
 	}
 
 	ai_weight = {
 		value = 1
+		if = {
+			limit = {
+				has_variable = ztr_bolshevik_ideology_var
+			}
+			add = 1
+		}
 	}
 }
 
@@ -904,12 +1102,14 @@ network_centric_warfare = {
 	texture = "gfx/interface/icons/invention_icons/network_centric_warfare.dds"
 	category = military
 
+	modifier = {
+		increase_nuclear_strike_power_bool_tt = yes
+		increase_nuclear_strike_defence_bool_tt = yes
+	}
+
 	unlocking_technologies = {	
 		stealth_technology
 		integrated_naval_air_tactics
-	}
-
-	modifier = {
 	}
 
 	ai_weight = {
@@ -948,6 +1148,8 @@ directed_energy_weapons = {
 		country_prestige_mult = 0.1
 		unit_army_offense_mult = 0.1
 		building_aircraft_industry_throughput_add = 0.05
+		increase_nuclear_strike_power_bool_tt = yes
+		increase_nuclear_strike_defence_bool_tt = yes
 	}
 	
 	unlocking_technologies = {	
@@ -988,6 +1190,8 @@ ai_warfare = {
 	category = military
 
 	modifier = {
+		increase_nuclear_strike_power_bool_tt = yes
+		increase_nuclear_strike_defence_bool_tt = yes
 	}
 	
 	unlocking_technologies = {	

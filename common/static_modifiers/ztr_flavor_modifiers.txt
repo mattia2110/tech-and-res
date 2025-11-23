@@ -53,7 +53,7 @@ magyar_linguistic_freedom = {
 	state_radicalism_increases_open_prejudice_mult = -0.05
 }
 
-austrian_collapse_revolt_crushed = {
+ztr_collapse_revolt_crushed = {
 	icon = gfx/interface/icons/timed_modifier_icons/modifier_fist_negative.dds
 	state_radicalism_increases_violent_hostility_mult = 0.1
 	state_radicalism_increases_cultural_erasure_mult = 0.1
@@ -61,11 +61,12 @@ austrian_collapse_revolt_crushed = {
 	state_mortality_mult = 0.05
 }
 
-austrian_collapse_revolt_appeased = {
+ztr_collapse_revolt_appeased = {
 	icon = gfx/interface/icons/timed_modifier_icons/modifier_fist_positive.dds
 	state_radicalism_increases_violent_hostility_mult = -0.05
 	state_radicalism_increases_cultural_erasure_mult = -0.05
 	state_radicalism_increases_open_prejudice_mult = -0.05
+	country_tax_income_add = -100000
 }
 
 hungarian_rights_granted = {
@@ -203,7 +204,109 @@ rise_of_extremism_modifier = {
 }
 
 rise_of_left_modifier = {
-	icon = gfx/interface/icons/timed_modifier_icons/modifier_protest_negative.dds
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_socialism_negative.dds
 	state_pop_support_movement_socialist_mult = 0.25
 	state_pop_support_movement_communist_mult = 0.1
+}
+
+# Russia modifiers
+
+ztr_russian_proletariat_modifier = {
+	icon = gfx/interface/icons/timed_modifier_icons/soviet_proletariat.dds
+	state_pop_support_movement_communist_mult = 2
+	interest_group_ig_trade_unions_pop_attraction_mult = 3
+	interest_group_ig_trade_unions_pol_str_mult = 1
+	country_laborers_pol_str_mult = 1
+	state_education_access_add = 0.05
+}
+
+ztr_russian_liberal_revolution = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_capitalist_negative.dds
+	state_pop_support_movement_anarchist_mult = 1
+	state_pop_support_movement_liberal_mult = 1
+	interest_group_ig_landowners_pol_str_mult = -1
+	interest_group_ig_devout_pol_str_mult = -1
+}
+
+ztr_russian_communist_revolution = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_socialism_negative.dds
+	interest_group_ig_landowners_pol_str_mult = -1
+	interest_group_ig_industrialists_pol_str_mult = -1
+	interest_group_ig_devout_pol_str_mult = -1
+}
+
+ztr_liberal_petition_success_modifier = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_capitalist_positive.dds
+	interest_group_ig_industrialists_approval_add = 5
+}
+
+ztr_liberal_consensus_helped_modifier = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_capitalist_positive.dds
+	interest_group_ig_industrialists_approval_add = 2
+	country_capitalists_pol_str_mult = 0.5
+	interest_group_ig_industrialists_pop_attraction_mult = 0.25
+	country_tax_income_add = -100000
+}
+
+ztr_industrialists_happy_modifier = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_capitalist_positive.dds
+	interest_group_ig_industrialists_approval_add = 2
+}
+
+ztr_industrialists_unhappy_modifier = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_capitalist_negative.dds
+	interest_group_ig_industrialists_approval_add = -5
+}
+
+ztr_industrialists_appeased_modifier = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_capitalist_positive.dds
+	interest_group_ig_industrialists_approval_add = 2
+}
+
+ztr_industrialists_unpleased_modifier = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_capitalist_negative.dds
+	interest_group_ig_industrialists_approval_add = -5
+}
+
+ztr_repressed_soviet_movements_modifier = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_socialism_negative.dds
+	interest_group_ig_trade_unions_approval_add = -20
+	state_turmoil_effects_mult = 0.5
+	country_tax_income_add = -100000
+}
+
+ztr_russian_modernization = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_industry_positive.dds
+	country_construction_goods_cost_mult = 0.25
+	state_tax_waste_add = 0.25
+	state_construction_mult = 0.25
+	state_education_access_add = 0.1
+}
+
+ztr_desperate_research_funds_modifier = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_academic_positive.dds
+	country_tech_spread_mult = 0.15
+	country_tax_income_add = -1000000
+}
+
+russian_revolution_lower_strata_aid_modifier = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_socialism_positive.dds
+	state_lower_strata_standard_of_living_add = 2
+	country_tax_income_add = -250000
+}
+
+ztr_bolsheviks_prepare_the_soviet_congress_modifier = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_socialism_negative.dds
+	state_pop_support_movement_socialist_mult = 0.5
+	state_pop_support_movement_communist_mult = 1
+}
+
+ztr_russia_bright_future = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_academic_positive.dds
+	country_prestige_add = 1000
+}
+
+ztr_revolutions_blocked = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_protest_negative.dds
+	country_revolution_progress_mult = -1
 }

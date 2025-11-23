@@ -162,7 +162,7 @@ ai_strategy_industrial_expansion = {
 		building_railway = wants_to_have
 		building_port = must_have
 		#T&R
-		building_telecommunications_industry = must_have
+		building_telecommunications_industry = wants_to_have
 	}
 
 	goods_stances = {
@@ -429,7 +429,7 @@ ai_strategy_industrial_expansion = {
 				c:RUS ?= this
 			}
 			add = -250
-		} # Actually Russia never industrialize like the west
+		} # Actually Russia never industrialize like the west, but during the revolution it might try to catch up
 
 		if = {
 			limit = {
@@ -454,6 +454,7 @@ ai_strategy_industrial_expansion = {
 				OR = {
 					has_modifier = shogun_ig_forced_to_open_market
 					has_journal_entry = je_meiji_main
+					has_law_or_variant = law_type:law_council_republic # Communists are normally autarkish so they need everything
 				}
 			}
 			add = 1000

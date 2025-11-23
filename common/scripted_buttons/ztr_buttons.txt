@@ -1,0 +1,163 @@
+# Ideologies Rankings
+show_liberty_index_rankings_button = {
+	name = "show_liberty_index_rankings_button"
+	desc = "show_liberty_index_rankings_button_desc"
+
+	visible = {
+		is_ai = no
+		has_journal_entry = je_liberty_index
+	}
+
+	possible = {
+		hidden_trigger = {
+			NOT = { has_variable = liberty_index_opened_var }
+		}
+	}
+
+	effect = {
+		hidden_effect = {
+			set_variable = liberty_index_opened_var
+			trigger_event = ztr_economic_update.100
+		}
+	}
+}
+
+show_equality_index_rankings_button = {
+	name = "show_equality_index_rankings_button"
+	desc = "show_equality_index_rankings_button_desc"
+
+	visible = {
+		# This are only for the player
+		is_ai = no
+		has_journal_entry = je_liberty_index
+	}
+
+	possible = {
+		hidden_trigger = {
+			NOT = { has_variable = equality_index_opened_var }
+		}
+	}
+
+	effect = {
+		hidden_effect = {
+			set_variable = equality_index_opened_var
+			trigger_event = ztr_economic_update.101
+		}
+	}
+}
+
+# Russian Revolution
+
+ztr_repress_soviet_movements = {
+	name = "ztr_repress_soviet_movements"
+	desc = "ztr_repress_soviet_movements_desc"
+
+	visible = {
+		# This are only for the player
+		is_ai = no
+		root = { has_modifier = ztr_russian_proletariat_modifier }
+	}
+
+	possible = {
+		hidden_trigger = {
+			NOT = { has_variable = equality_index_opened_var }
+			NOT = { has_modifier = ztr_repressed_soviet_movements_modifier }
+		}
+	}
+
+	effect = {
+		add_modifier = {
+			name = ztr_repressed_soviet_movements_modifier
+			years = 2
+		}	
+	}
+}
+
+ztr_help_liberal_consensus = {
+	name = "ztr_help_liberal_consensus"
+	desc = "ztr_help_liberal_consensus_desc"
+
+	visible = {
+		# This are only for the player
+		is_ai = no
+		NOT = { has_variable = russia_liberalist_path_var }
+	}
+
+	possible = {
+		hidden_trigger = {
+			NOT = { has_variable = equality_index_opened_var }
+			NOT = { has_modifier = ztr_liberal_consensus_helped_modifier }
+		}
+	}
+
+	effect = {
+		add_modifier = {
+			name = ztr_liberal_consensus_helped_modifier
+			years = 2
+		}	
+	}
+}
+
+ztr_treaty_with_liberals = {
+	name = "ztr_treaty_with_liberals"
+	desc = "ztr_treaty_with_liberals_desc"
+
+	visible = {
+		has_variable = russia_liberalist_path_var
+		has_variable = ztr_liberals_contrary_to_us_var
+	}
+
+	possible = {
+		# This would be possible if industrialists have at least 6 approval and Russia is now democratic
+		OR = {
+			ig:ig_industrialists = {
+				ig_approval > 5
+			}
+			ztr_is_democratic = yes
+		}
+		NOT = { has_variable = ztr_russia_treaty_asked }
+	}
+
+	effect = {
+		trigger_event = ztr_russian_revolution.12 # Treaty with Liberals
+		set_variable = {
+			name = ztr_russia_treaty_asked
+			years = 1 # You can ask it once per year
+		}
+	}
+
+	# Instantly if this is possible
+	ai_chance = {
+		value = 1000
+	}
+}
+
+ztr_ask_a_government_liberal_petition = {
+	name = "ztr_ask_a_government_liberal_petition"
+	desc = "ztr_ask_a_government_liberal_petition_desc"
+
+	visible = {
+		is_ai = no # This are only for the player
+		has_variable = russia_liberalist_path_var
+		has_variable = ztr_liberals_contrary_to_us_var
+	}
+
+	possible = {
+		# Industrialists should have at least one valid law to petition for
+		ig:ig_industrialists = {
+			any_preferred_law = {
+                law_is_valid_for_ig_petition = yes
+				count > 0
+            }
+		}
+		NOT = { has_variable = ztr_russia_liberals_ask_petition_var }
+	}
+
+	effect = {
+		set_variable = {
+			name = ztr_russia_liberals_ask_petition_var
+			days = 1926 # 1825 of JE + 100 of Event + 1 day buffer
+		}
+		trigger_event = ztr_russian_revolution.13 # Treaty with Liberals
+	}
+}

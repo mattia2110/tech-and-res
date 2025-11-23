@@ -11,52 +11,118 @@ effect_compute_nuclear_capability_points_attacker = {
 	#Nuclear weapons type
 	every_scope_state = {
 		limit = { has_building = building_nuclear_weapons_silo any_scope_building = { has_active_production_method = pm_atomic_bomb } }
-		owner = { change_global_variable = { name = nuclear_strike_power_global add = 1 } }
+		owner = { change_global_variable = { name = nuclear_strike_power_global add = 3 } }
 	}
 	every_scope_state = {
 		limit = { has_building = building_nuclear_weapons_silo any_scope_building = { has_active_production_method = pm_hydrogen_bomb } }
-		owner = { change_global_variable = { name = nuclear_strike_power_global add = 4 } }
+		owner = { change_global_variable = { name = nuclear_strike_power_global add = 12 } }
 	}
 	
 	#Stockpile
 	every_scope_state = {
 		limit = { has_building = building_nuclear_weapons_silo any_scope_building = { has_active_production_method = pm_nuclear_stockpile_2 } }
-		owner = { change_global_variable = { name = nuclear_strike_power_global add = 1 } }
-	}
-	every_scope_state = {
-		limit = { has_building = building_nuclear_weapons_silo any_scope_building = { has_active_production_method = pm_nuclear_stockpile_3 } }
 		owner = { change_global_variable = { name = nuclear_strike_power_global add = 2 } }
 	}
 	every_scope_state = {
-		limit = { has_building = building_nuclear_weapons_silo any_scope_building = { has_active_production_method = pm_nuclear_stockpile_4 } }
-		owner = { change_global_variable = { name = nuclear_strike_power_global add = 3 } }
-	}
-	every_scope_state = {
-		limit = { has_building = building_nuclear_weapons_silo any_scope_building = { has_active_production_method = pm_nuclear_stockpile_5 } }
+		limit = { has_building = building_nuclear_weapons_silo any_scope_building = { has_active_production_method = pm_nuclear_stockpile_3 } }
 		owner = { change_global_variable = { name = nuclear_strike_power_global add = 4 } }
 	}
 	
 	#Nuclear bomber
 	every_scope_state = {
 		limit = { has_building = building_nuclear_weapons_silo any_scope_building = { has_active_production_method = pm_nuclear_bomber } }
-		owner = { change_global_variable = { name = nuclear_strike_power_global add = 1 } }
+		owner = { change_global_variable = { name = nuclear_strike_power_global add = 5 } }
 	}
 	
 	#Nuclear rocket
 	every_scope_state = {
 		limit = { has_building = building_nuclear_weapons_silo any_scope_building = { has_active_production_method = pm_icbms } }
-		owner = { change_global_variable = { name = nuclear_strike_power_global add = 3 } }
+		owner = { change_global_variable = { name = nuclear_strike_power_global add = 15 } }
 	}
 
 	#Nuclear submarine
+	every_scope_state = {
+		limit = { has_building = building_nuclear_weapons_silo
+			# Country must have nuclear submarines
+			owner = { country_navy_unit_type_fraction = { target = unit_type:combat_unit_type_nuclear_submarine value > 0 } } }
+		owner = { change_global_variable = { name = nuclear_strike_power_global add = 10 } }
+	}
 
-	
-	#Reduce nuclear power due to nuclear disarmament treaty
+	# Having guided missiles will increase nuclear defence by 5 points (Obsiously, this are true for countries with nuclear capability)
+	# Some technologies requires strong economies, other rich economies to develop them
+	if = {
+		limit = { has_technology_researched = guided_missiles gdp > 250000000 }
+		owner = { change_global_variable = { name = nuclear_strike_power_global multiply = 1.6 } }
+	}
 
+	if = {
+		limit = { has_technology_researched = anti_satellite_weapons gdp > 500000000 }
+		owner = { change_global_variable = { name = nuclear_strike_power_global multiply = 1.5 } }
+	}
 
+	if = {
+		limit = { has_technology_researched = directed_energy_weapons gdp > 1000000000 }
+		owner = { change_global_variable = { name = nuclear_strike_power_global multiply = 1.4 } }
+	}
+
+	if = {
+		limit = { has_technology_researched = electronic_warfare get_country_gdp_per > 10 }
+		owner = { change_global_variable = { name = nuclear_strike_power_global add = 5 } }
+	}
+
+	if = {
+		limit = { has_technology_researched = network_centric_warfare get_country_gdp_per > 20 }
+		owner = { change_global_variable = { name = nuclear_strike_power_global add = 8 } }
+	}
+
+	if = {
+		limit = { has_technology_researched = cyber_warfare get_country_gdp_per > 15 }
+		owner = { change_global_variable = { name = nuclear_strike_power_global add = 10 } }
+	}
+
+	if = {
+		limit = { has_technology_researched = stealth_technology gdp > 2000000000 }
+		owner = { change_global_variable = { name = nuclear_strike_power_global add = 10 } }
+	}
+
+	if = {
+		limit = { has_technology_researched = ai_warfare gdp > 3000000000 }
+		owner = { change_global_variable = { name = nuclear_strike_power_global multiply = 1.25 } }
+	}
+
+	# This are only for AI since Player could micromanage everything like cheating
+	if = {
+		limit = {
+			is_ai = yes
+		}
+		if = {
+			limit = { has_modifier = ztr_superpower }
+			owner = { change_global_variable = { name = nuclear_strike_power_global multiply = 1.25 } }
+		}
+
+		if = {
+			limit = { military_wage_level = very_low }
+			owner = { change_global_variable = { name = nuclear_strike_power_global multiply = 0.5 } }
+		}
+
+		if = {
+			limit = { military_wage_level = low }
+			owner = { change_global_variable = { name = nuclear_strike_power_global multiply = 0.75 } }
+		}
+
+		if = {
+			limit = { military_wage_level = high }
+			owner = { change_global_variable = { name = nuclear_strike_power_global multiply = 1.25 } }
+		}
+
+		if = {
+			limit = { military_wage_level = very_high }
+			owner = { change_global_variable = { name = nuclear_strike_power_global multiply = 1.5 } }
+		}
+	}
 }
 
-effect_compute_nuclear_capability_points_states = {
+effect_compute_nuclear_capability_points_defense = {
 
 	#Always first reset to 0
 	set_global_variable = { 
@@ -64,14 +130,108 @@ effect_compute_nuclear_capability_points_states = {
 		value = 0
 	}
 
-
+	# Without any nuclear defense technology, country size is the only way to reduce impact of nuclear strike
+	# Some technologies requires strong economies, other rich economies to develop them
 	#Calculate total number of states
 	every_scope_state = { 
-		owner = { 
-			change_global_variable = { name = nuclear_strike_defence_global add = 1 }
+		owner = { change_global_variable = { name = nuclear_strike_defence_global add = 0.5 }}
+	}
 
+	# Here we reduce a bit and gradually the impact of nuclear strike based on country size
+	if = {
+		limit = { has_technology_researched = radar get_country_gdp_per > 8 }
+		owner = { change_global_variable = { name = nuclear_strike_defence_global multiply = 0.9 } }
+	}
+
+	if = {
+		limit = { has_technology_researched = satellites gdp > 250000000 }
+		owner = { change_global_variable = { name = nuclear_strike_defence_global multiply = 0.9 } }
+	}
+
+	# Having guided missiles will increase nuclear defence by 5 points
+	if = {
+		limit = { has_technology_researched = guided_missiles gdp > 250000000 }
+		owner = { change_global_variable = { name = nuclear_strike_defence_global add = 5 } }
+	}
+
+	# Rocket Artillery can slightly improve nuclear defence
+	every_scope_state = {
+		limit = { has_building = building_nuclear_weapons_silo
+			# Country must have rocket artillery
+			country_army_unit_type_fraction = { target = unit_type:combat_unit_type_rocket_artillery value > 0 } }
+		owner = { change_global_variable = { name = nuclear_strike_defence_global add = 2 } }
+	}
+
+	if = {
+		limit = { has_technology_researched = radar get_country_gdp_per > 8 }
+		owner = { change_global_variable = { name = nuclear_strike_defence_global add = 5 } }
+	}
+
+	if = {
+		limit = { has_technology_researched = satellites gdp > 250000000}
+		owner = { change_global_variable = { name = nuclear_strike_defence_global add = 7 } }
+	}
+
+	if = {
+		limit = { has_technology_researched = laser_guided_weapons gdp > 500000000  }
+		owner = { change_global_variable = { name = nuclear_strike_defence_global add = 10 } }
+	}
+
+	if = {
+		limit = { has_technology_researched = directed_energy_weapons gdp > 1000000000 }
+		owner = { change_global_variable = { name = nuclear_strike_defence_global add = 15 } }
+	}
+
+	if = {
+		limit = { has_technology_researched = electronic_countermeasures get_country_gdp_per > 10 }
+		owner = { change_global_variable = { name = nuclear_strike_defence_global add = 8 } }
+	}
+
+	if = {
+		limit = { has_technology_researched = network_centric_warfare get_country_gdp_per > 20 }
+		owner = { change_global_variable = { name = nuclear_strike_defence_global add = 15 } }
+	}
+
+	if = {
+		limit = { has_technology_researched = ai_warfare gdp > 3000000000 }
+		owner = { change_global_variable = { name = nuclear_strike_power_global multiply = 1.25 } }
+	}
+
+	# This are only for AI since Player could micromanage everything like cheating
+	if = {
+		limit = {
+			is_ai = yes
+		}
+		if = {
+			limit = { has_modifier = ztr_superpower }
+			owner = { change_global_variable = { name = nuclear_strike_defence_global multiply = 1.25 } }
+		}
+
+		if = {
+			limit = { military_wage_level = very_low }
+			owner = { change_global_variable = { name = nuclear_strike_defence_global multiply = 0.5 } }
+		}
+
+		if = {
+			limit = { military_wage_level = low }
+			owner = { change_global_variable = { name = nuclear_strike_defence_global multiply = 0.75 } }
+		}
+
+		if = {
+			limit = { military_wage_level = high }
+			owner = { change_global_variable = { name = nuclear_strike_defence_global multiply = 1.25 } }
+		}
+
+		if = {
+			limit = { military_wage_level = very_high }
+			owner = { change_global_variable = { name = nuclear_strike_defence_global multiply = 1.5 } }
 		}
 	}
+
+	owner = { change_global_variable = { name = nuclear_strike_defence_global multiply = 0.25 } }
+
+	# Would be cool to add a Dome Shield later to further reduce nuclear strike impact
+	# Would be cool to add the value of this defense in acceptance of a Nuclear Strike Treaty later
 }
 
 effect_compute_nuclear_capability_points_stationed_nukes_actor = {
@@ -723,7 +883,7 @@ effect_launch_nuclear_weapons_to_target = {
 	
 	#Defender's inherent defence
 	scope:target_country = {
-		effect_compute_nuclear_capability_points_states = yes
+		effect_compute_nuclear_capability_points_defense = yes
 		effect_compute_nuclear_capability_points_stationed_nukes_actor = yes
 	}
 	#Aggregate score (Total attack points / Total states of defender)
@@ -838,7 +998,7 @@ effect_launch_nuclear_weapons_to_target = {
 		}
 		
 		#Defender's inherent defence
-		effect_compute_nuclear_capability_points_states = yes
+		effect_compute_nuclear_capability_points_defense = yes
 		effect_compute_nuclear_capability_points_stationed_nukes_target_country = yes
 		
 		#Aggregate score (Total attack points / Total states of defender)
@@ -965,7 +1125,7 @@ effect_launch_nuclear_weapons_to_all_enemy_countries = {
 		
 		#Defender's inherent defence
 		this = {
-			effect_compute_nuclear_capability_points_states = yes
+			effect_compute_nuclear_capability_points_defense = yes
 			effect_compute_nuclear_capability_points_stationed_nukes_actor = yes
 		}
 		#Aggregate score (Total attack points / Total states of defender)
@@ -1056,7 +1216,7 @@ effect_launch_nuclear_weapons_to_all_enemy_countries = {
 			}
 			
 			#Defender's inherent defence
-			effect_compute_nuclear_capability_points_states = yes
+			effect_compute_nuclear_capability_points_defense = yes
 			effect_compute_nuclear_capability_points_stationed_nukes_target_country = yes
 			
 			#Aggregate score (Total attack points / Total states of defender)
@@ -1192,7 +1352,7 @@ effect_launch_nuclear_weapons_to_all_allied_countries = {
 			
 			#Defender's inherent defence
 			this = {
-				effect_compute_nuclear_capability_points_states = yes
+				effect_compute_nuclear_capability_points_defense = yes
 				effect_compute_nuclear_capability_points_stationed_nukes_actor = yes
 			}
 			#Aggregate score (Total attack points / Total states of defender)
@@ -1283,7 +1443,7 @@ effect_launch_nuclear_weapons_to_all_allied_countries = {
 				}
 				
 				#Defender's inherent defence
-				effect_compute_nuclear_capability_points_states = yes
+				effect_compute_nuclear_capability_points_defense = yes
 				effect_compute_nuclear_capability_points_stationed_nukes_target_country = yes
 				
 				#Aggregate score (Total attack points / Total states of defender)
@@ -1437,7 +1597,7 @@ effect_cleanup_nuclear_damage = {
 ### Nuclear Weapon Info Panel ###
 
 calculate_nuclear_strength_info = {
-	
+
 	#Always first reset to 0
 	set_variable = { 
 		name = nuclear_strike_power_display
@@ -1449,48 +1609,115 @@ calculate_nuclear_strength_info = {
 	#Nuclear weapons type
 	every_scope_state = {
 		limit = { has_building = building_nuclear_weapons_silo any_scope_building = { has_active_production_method = pm_atomic_bomb } }
-		owner = { change_variable = { name = nuclear_strike_power_display add = 1 } }
+		owner = { change_variable = { name = nuclear_strike_power_display add = 3 } }
 	}
 	every_scope_state = {
 		limit = { has_building = building_nuclear_weapons_silo any_scope_building = { has_active_production_method = pm_hydrogen_bomb } }
-		owner = { change_variable = { name = nuclear_strike_power_display add = 4 } }
+		owner = { change_variable = { name = nuclear_strike_power_display add = 12 } }
 	}
 	
 	#Stockpile
 	every_scope_state = {
 		limit = { has_building = building_nuclear_weapons_silo any_scope_building = { has_active_production_method = pm_nuclear_stockpile_2 } }
-		owner = { change_variable = { name = nuclear_strike_power_display add = 1 } }
-	}
-	every_scope_state = {
-		limit = { has_building = building_nuclear_weapons_silo any_scope_building = { has_active_production_method = pm_nuclear_stockpile_3 } }
 		owner = { change_variable = { name = nuclear_strike_power_display add = 2 } }
 	}
 	every_scope_state = {
-		limit = { has_building = building_nuclear_weapons_silo any_scope_building = { has_active_production_method = pm_nuclear_stockpile_4 } }
-		owner = { change_variable = { name = nuclear_strike_power_display add = 3 } }
-	}
-	every_scope_state = {
-		limit = { has_building = building_nuclear_weapons_silo any_scope_building = { has_active_production_method = pm_nuclear_stockpile_5 } }
+		limit = { has_building = building_nuclear_weapons_silo any_scope_building = { has_active_production_method = pm_nuclear_stockpile_3 } }
 		owner = { change_variable = { name = nuclear_strike_power_display add = 4 } }
 	}
 	
 	#Nuclear bomber
 	every_scope_state = {
 		limit = { has_building = building_nuclear_weapons_silo any_scope_building = { has_active_production_method = pm_nuclear_bomber } }
-		owner = { change_variable = { name = nuclear_strike_power_display add = 1 } }
+		owner = { change_variable = { name = nuclear_strike_power_display add = 5 } }
 	}
 	
 	#Nuclear rocket
 	every_scope_state = {
 		limit = { has_building = building_nuclear_weapons_silo any_scope_building = { has_active_production_method = pm_icbms } }
-		owner = { change_variable = { name = nuclear_strike_power_display add = 3 } }
+		owner = { change_variable = { name = nuclear_strike_power_display add = 15 } }
 	}
 
 	#Nuclear submarine
-	# every_scope_state = {
-	# 	limit = { has_building = building_nuclear_naval_base any_scope_building = { has_active_production_method = pm_nuclear_submarine_1 } }
-	# 	owner = { change_variable = { name = nuclear_strike_power_display add = 1 } }
-	# }
+	every_scope_state = {
+		limit = { has_building = building_nuclear_weapons_silo
+			# Country must have nuclear submarines
+			owner = { country_navy_unit_type_fraction = { target = unit_type:combat_unit_type_nuclear_submarine value > 0 } } }
+		owner = { change_variable = { name = nuclear_strike_power_display add = 10 } }
+	}
+
+	# Having guided missiles will increase nuclear defence by 5 points (Obsiously, this are true for countries with nuclear capability)
+	# Some technologies requires strong economies, other rich economies to develop them
+	if = {
+		limit = { has_technology_researched = guided_missiles gdp > 250000000 }
+		owner = { change_variable = { name = nuclear_strike_power_display multiply = 1.6 } }
+	}
+
+	if = {
+		limit = { has_technology_researched = anti_satellite_weapons gdp > 500000000 }
+		owner = { change_variable = { name = nuclear_strike_power_display multiply = 1.5 } }
+	}
+
+	if = {
+		limit = { has_technology_researched = directed_energy_weapons gdp > 1000000000 }
+		owner = { change_variable = { name = nuclear_strike_power_display multiply = 1.4 } }
+	}
+
+	if = {
+		limit = { has_technology_researched = electronic_warfare get_country_gdp_per > 10 }
+		owner = { change_variable = { name = nuclear_strike_power_display add = 5 } }
+	}
+
+	if = {
+		limit = { has_technology_researched = network_centric_warfare get_country_gdp_per > 20 }
+		owner = { change_variable = { name = nuclear_strike_power_display add = 8 } }
+	}
+
+	if = {
+		limit = { has_technology_researched = cyber_warfare get_country_gdp_per > 15 }
+		owner = { change_variable = { name = nuclear_strike_power_display add = 10 } }
+	}
+
+	if = {
+		limit = { has_technology_researched = stealth_technology gdp > 2000000000 }
+		owner = { change_variable = { name = nuclear_strike_power_display add = 10 } }
+	}
+
+	if = {
+		limit = { has_technology_researched = ai_warfare gdp > 3000000000 }
+		owner = { change_variable = { name = nuclear_strike_power_display multiply = 1.25 } }
+	}
+
+	# This are only for AI since Player could micromanage everything like cheating
+	if = {
+		limit = {
+			is_ai = yes
+		}
+		if = {
+			limit = { has_modifier = ztr_superpower }
+			owner = { change_variable = { name = nuclear_strike_power_display multiply = 1.25 } }
+		}
+
+		if = {
+			limit = { military_wage_level = very_low }
+			owner = { change_variable = { name = nuclear_strike_power_display multiply = 0.5 } }
+		}
+
+		if = {
+			limit = { military_wage_level = low }
+			owner = { change_variable = { name = nuclear_strike_power_display multiply = 0.75 } }
+		}
+
+		if = {
+			limit = { military_wage_level = high }
+			owner = { change_variable = { name = nuclear_strike_power_display multiply = 1.25 } }
+		}
+
+		if = {
+			limit = { military_wage_level = very_high }
+			owner = { change_variable = { name = nuclear_strike_power_display multiply = 1.5 } }
+		}
+	}
 	
 	#Reduce nuclear power due to nuclear disarmament treaty
 	if = {
@@ -1512,10 +1739,108 @@ calculate_nuclear_defence_info = {
 		value = 0
 	}
 
+	# Without any nuclear defense technology, country size is the only way to reduce impact of nuclear strike
+	# Some technologies requires strong economies, other rich economies to develop them
 	#Calculate total number of states
 	every_scope_state = { 
-		owner = { change_variable = { name = nuclear_strike_defence_display add = 1 } }
+		owner = { change_variable = { name = nuclear_strike_defence_display add = 0.5 }}
 	}
+
+	# Here we reduce a bit and gradually the impact of nuclear strike based on country size
+	if = {
+		limit = { has_technology_researched = radar get_country_gdp_per > 8 }
+		owner = { change_variable = { name = nuclear_strike_defence_display multiply = 0.9 } }
+	}
+
+	if = {
+		limit = { has_technology_researched = satellites gdp > 250000000 }
+		owner = { change_variable = { name = nuclear_strike_defence_display multiply = 0.9 } }
+	}
+
+	# Having guided missiles will increase nuclear defence by 5 points
+	if = {
+		limit = { has_technology_researched = guided_missiles gdp > 250000000 }
+		owner = { change_variable = { name = nuclear_strike_defence_display add = 5 } }
+	}
+
+	# Rocket Artillery can slightly improve nuclear defence
+	every_scope_state = {
+		limit = { has_building = building_nuclear_weapons_silo
+			# Country must have rocket artillery
+			country_army_unit_type_fraction = { target = unit_type:combat_unit_type_rocket_artillery value > 0 } }
+		owner = { change_variable = { name = nuclear_strike_defence_display add = 2 } }
+	}
+
+	if = {
+		limit = { has_technology_researched = radar get_country_gdp_per > 8 }
+		owner = { change_variable = { name = nuclear_strike_defence_display add = 5 } }
+	}
+
+	if = {
+		limit = { has_technology_researched = satellites gdp > 250000000}
+		owner = { change_variable = { name = nuclear_strike_defence_display add = 7 } }
+	}
+
+	if = {
+		limit = { has_technology_researched = laser_guided_weapons gdp > 500000000  }
+		owner = { change_variable = { name = nuclear_strike_defence_display add = 10 } }
+	}
+
+	if = {
+		limit = { has_technology_researched = directed_energy_weapons gdp > 1000000000 }
+		owner = { change_variable = { name = nuclear_strike_defence_display add = 15 } }
+	}
+
+	if = {
+		limit = { has_technology_researched = electronic_countermeasures get_country_gdp_per > 10 }
+		owner = { change_variable = { name = nuclear_strike_defence_display add = 8 } }
+	}
+
+	if = {
+		limit = { has_technology_researched = network_centric_warfare get_country_gdp_per > 20 }
+		owner = { change_variable = { name = nuclear_strike_defence_display add = 15 } }
+	}
+
+	if = {
+		limit = { has_technology_researched = ai_warfare gdp > 3000000000 }
+		owner = { change_variable = { name = nuclear_strike_defence_display multiply = 1.25 } }
+	}
+
+	# This are only for AI since Player could micromanage everything like cheating
+	if = {
+		limit = {
+			is_ai = yes
+		}
+		if = {
+			limit = { has_modifier = ztr_superpower }
+			owner = { change_variable = { name = nuclear_strike_defence_display multiply = 1.25 } }
+		}
+
+		if = {
+			limit = { military_wage_level = very_low }
+			owner = { change_variable = { name = nuclear_strike_defence_display multiply = 0.5 } }
+		}
+
+		if = {
+			limit = { military_wage_level = low }
+			owner = { change_variable = { name = nuclear_strike_defence_display multiply = 0.75 } }
+		}
+
+		if = {
+			limit = { military_wage_level = high }
+			owner = { change_variable = { name = nuclear_strike_defence_display multiply = 1.25 } }
+		}
+
+		if = {
+			limit = { military_wage_level = very_high }
+			owner = { change_variable = { name = nuclear_strike_defence_display multiply = 1.5 } }
+		}
+	}
+
+	owner = { change_variable = { name = nuclear_strike_defence_display multiply = 0.25 } }
+
+	# Would be cool to add a Dome Shield later to further reduce nuclear strike impact
+	# Would be cool to add the value of this defense in acceptance of a Nuclear Strike Treaty later
 }
 
 calculate_enemy_nuclear_strength_info = {

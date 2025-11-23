@@ -3,12 +3,14 @@ ztr_geneva_convention ={
 		country_prestige_mult = 0.1
 		country_infamy_generation_mult = 0.1
 		country_infamy_decay_mult = 0.05
+		country_weekly_innovation_add = 10
 }
 
 ztr_society_of_nations = {
 	icon = gfx/interface/icons/timed_modifier_icons/ztr_son.dds
 		country_prestige_mult = 0.25
 		country_infamy_generation_mult = 0.25
+		country_weekly_innovation_add = 25
 }
 
 ztr_onu_member = {
@@ -16,20 +18,22 @@ ztr_onu_member = {
 		country_prestige_mult = 0.5
 		country_infamy_generation_mult = 0.5
 		country_infamy_decay_mult = -0.05
-		country_prestige_from_army_power_projection_mult = -0.75
-		country_prestige_from_navy_power_projection_mult = -0.75
-		country_tech_spread_mult = 1 # This is trying to represent International Organizations that help spread education and technology, such as the UN and WHO.
-		country_loan_interest_rate_add = -0.02 # This is trying to represent International Orgs that help with economic stability and loans, such as the IMF and World Bank.
+		country_prestige_from_army_power_projection_mult = -0.5
+		country_prestige_from_navy_power_projection_mult = -0.5
+		country_weekly_innovation_add = 100 # This is trying to represent International Organizations that help spread education and technology, such as the UN and WHO.
+		# This weekly innovation is better than tech spread because tech spread scales with the same max innovation produced
+		country_loan_interest_rate_add = -0.05 # This is trying to represent International Orgs that help with economic stability and loans, such as the IMF and World Bank.
 }
 
 ztr_onu_permanent_member = {
 	icon = gfx/interface/icons/timed_modifier_icons/ztr_onu_permanent_member.dds
-		country_prestige_mult = 0.75
+		country_prestige_mult = 0.5
 		country_infamy_generation_mult = 0.35
-		country_prestige_from_army_power_projection_mult = -0.75
-		country_prestige_from_navy_power_projection_mult = -0.75
-		country_tech_spread_mult = 1 # This is trying to represent International Organiations that help spread education and technology, such as the UN and WHO.
-		country_loan_interest_rate_add = -0.02 # This is trying to represent International Orgs that help with economic stability and loans, such as the IMF and World Bank.
+		country_prestige_from_army_power_projection_mult = -0.5
+		country_prestige_from_navy_power_projection_mult = -0.5
+		country_weekly_innovation_add = 100 # This is trying to represent International Organizations that help spread education and technology, such as the UN and WHO.
+		# This weekly innovation is better than tech spread because tech spread scales with the same max innovation produced
+		# This is trying to represent International Orgs that help with economic stability and loans, such as the IMF and World Bank.
 }
 
 ztr_un_resolution_refused_modifier = {
@@ -53,10 +57,10 @@ ztr_un_resolution_used_veto_modifier = {
 ztr_superpower = {
 	icon = gfx/interface/icons/timed_modifier_icons/superpower.dds
 		country_leverage_generation_mult = 5
-		country_influence_mult = 2
-		country_max_declared_interests_add = 15
-		country_free_charters_add = 1
+		country_influence_mult = 1
+		country_max_declared_interests_add = 25
 		country_max_companies_add = 1
+		country_minting_mult = 0.25 # Superpowers can better afford to mint money to pay off debts
 }
 
 ztr_eec_member = {
@@ -75,6 +79,5 @@ ztr_eu_member = {
 		country_tech_spread_mult = 0.1
 		#country_leverage_resistance_mult = 1
 		interest_group_ig_intelligentsia_pol_str_mult = 0.5
-		country_loan_interest_rate_add = -0.01 # This will be moved to eurozone modifier when that is added
-		country_minting_mult = -0.05 # This will be moved to eurozone modifier when that is added
+		country_minting_mult = 0.05 # This will be moved to eurozone modifier when that is added
 }
