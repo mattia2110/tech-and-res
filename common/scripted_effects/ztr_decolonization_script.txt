@@ -41,3 +41,25 @@ give_claims_on_india = {
 		state_region = { add_claim = ROOT }
 	}
 }
+
+calculate_infamy_decolonization_subject_event = {
+	scope:subject_scope = {
+		every_scope_state = { 
+			root = { change_variable = { name = decolonization_subject_event_var add = 1 }}
+		}
+	}
+	change_variable = {
+		name = decolonization_subject_event_var
+		multiply = 2
+	}
+	if = {
+		limit = {
+			var:decolonization_subject_event_var > 15
+		}
+		remove_variable = decolonization_subject_event_var
+		set_variable = {
+			name = decolonization_subject_event_var
+			value = 15
+		}
+	}
+}

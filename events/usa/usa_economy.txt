@@ -24,7 +24,7 @@ usa_economy.1 = {
 		NOT = { has_modifier = usa_gilded_age }
 		NOT = { has_modifier = usa_gilded_age_player }
 		OR = {
-			is_democracy = yes
+			ztr_is_democratic = yes
 			ig:ig_landowners = { is_powerful = no }
 			ig:ig_industrialists = { is_powerful = yes }
 		}
@@ -53,6 +53,163 @@ usa_economy.1 = {
 				months = 480 # 40 years
 			}
 			#add_treasury = 50000000
+		}
+	}
+}
+
+usa_economy.2 = {
+	dlc = dlc_tech_res
+	type = country_event
+	placement = root
+
+	duration = 1
+
+	title = usa_west_coast_purchase.t
+	desc = usa_west_coast_purchase.d
+	flavor = usa_west_coast_purchase.f
+
+	event_image = {
+		video = "ztr_grand_canyon"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	icon = "gfx/interface/icons/event_icons/event_default.dds"
+
+	trigger = {
+		# Decision
+	}
+
+	immediate = {
+		ordered_scope_state = {
+			limit = {
+				OR = {
+					state_region = s:STATE_CALIFORNIA
+					state_region = s:STATE_NEVADA
+					state_region = s:STATE_UTAH
+					state_region = s:STATE_COLORADO
+					state_region = s:STATE_ARIZONA
+					state_region = s:STATE_NEW_MEXICO
+					state_region = s:STATE_TEXAS
+					state_region = s:STATE_KANSAS
+					state_region = s:STATE_OKLAHOMA
+				}
+			}
+			order_by = gdp
+			max = 1
+			save_scope_as = ztr_usa_most_wanted_state
+		}
+		c:USA = {
+			save_scope_as = usa_scope
+		}
+	}
+
+	# Accept US offer
+	option = {
+		name = usa_west_coast_purchase_accept.option
+		default_option = yes
+		c:USA = {
+			add_treasury = -10000000
+		}
+		add_treasury = 10000000
+		every_scope_state = {
+			limit = {
+				OR = {
+					state_region = s:STATE_CALIFORNIA
+					state_region = s:STATE_NEVADA
+					state_region = s:STATE_UTAH
+					state_region = s:STATE_COLORADO
+					state_region = s:STATE_ARIZONA
+					state_region = s:STATE_NEW_MEXICO
+					state_region = s:STATE_TEXAS
+					state_region = s:STATE_KANSAS
+					state_region = s:STATE_OKLAHOMA
+				}
+			}
+			set_state_owner = c:USA
+		}
+		ai_chance = {
+			base = 15
+			modifier = {
+				trigger = {
+					"relations(scope:usa_scope)" >= relations_threshold:cordial
+				}
+			add = 75 # Better relations, more likely to accept
+			}
+			modifier = {
+				trigger = {
+					scaled_debt > 0 # Mexico is in debt, more likely to accept
+				}
+			add = 35
+			}
+		}
+	}
+
+	# Refuse US offer
+	option = {
+		name = usa_west_coast_purchase_refuse.option
+		c:USA = {
+			create_diplomatic_play = {
+				type = dp_conquer_state
+				target_state = scope:ztr_usa_most_wanted_state
+				add_war_goal = {
+					holder = c:USA
+					type = conquer_state #That's not a return state, US must pay a ton of infamy for this
+					target_state = scope:ztr_usa_most_wanted_state
+				}
+			}
+		}
+		every_scope_state = {
+			limit = {
+				OR = {
+					state_region = s:STATE_CALIFORNIA
+					state_region = s:STATE_NEVADA
+					state_region = s:STATE_UTAH
+					state_region = s:STATE_COLORADO
+					state_region = s:STATE_ARIZONA
+					state_region = s:STATE_NEW_MEXICO
+					state_region = s:STATE_TEXAS
+					state_region = s:STATE_KANSAS
+					state_region = s:STATE_OKLAHOMA
+				}
+				NOT = { state_region = scope:ztr_usa_most_wanted_state }
+			}
+			random_diplomatic_play = {
+				limit = {
+					initiator = c:USA
+					target = c:MEX
+				}
+				add_war_goal = {
+					holder = c:USA
+					type = conquer_state #That's not a return state, US must pay a ton of infamy for this
+					target_state = prev
+				}
+			}
+		}
+		ai_chance = {
+			base = 25
+			# If they have oil in the west coast states, Mexico is more likely to refuse
+			modifier = {
+				trigger = {
+					any_scope_state = {
+						OR = {
+							state_region = s:STATE_CALIFORNIA
+							state_region = s:STATE_NEVADA
+							state_region = s:STATE_UTAH
+							state_region = s:STATE_COLORADO
+							state_region = s:STATE_ARIZONA
+							state_region = s:STATE_NEW_MEXICO
+							state_region = s:STATE_TEXAS
+							state_region = s:STATE_KANSAS
+							state_region = s:STATE_OKLAHOMA
+						}
+						any_scope_building = {
+							is_building_type = building_oil_rig
+						}
+					}
+				}
+			add = 50
+			}
 		}
 	}
 }

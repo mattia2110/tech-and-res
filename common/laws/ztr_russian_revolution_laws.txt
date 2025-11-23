@@ -1,0 +1,318 @@
+# Bolshevik
+law_council_republic_soviet = {
+	group = lawgroup_governance_principles
+	parent = law_council_republic # Inherits ideological stances from parent
+
+	icon = "gfx/interface/icons/law_icons/soviet_council_republic.dds"
+
+	progressiveness = 200
+
+	unlocking_technologies = {
+		socialism
+	}
+
+	is_visible = {
+		has_variable = ztr_bolshevik_ideology_var
+	}
+
+	can_enact = {
+		NOT = { has_government_type = gov_chartered_company }
+	}
+
+	on_activate = {
+		custom_tooltip = {
+			text = enact_law_radical_leftist_government_warning_desc
+		}
+		if = {
+			limit = {
+				any_interest_group = {
+					has_ideology = ideology:ideology_constitutionalist
+				}
+			}
+			every_interest_group = {
+				limit = {
+					has_ideology = ideology:ideology_constitutionalist
+				}
+				remove_ideology = ideology_constitutionalist
+				add_ideology = ideology_republican
+			}
+		}
+		if = {
+			limit = {
+				has_global_variable = lenin_spawn
+				country_has_primary_culture = cu:russian
+				any_scope_state = {
+					state_region = s:STATE_INGRIA
+				}
+			}
+			random_scope_state = {
+				limit = {
+					state_region = s:STATE_INGRIA
+				}
+				if = {
+					limit = {
+						has_global_variable = lenin_spawn
+
+						owner = {
+							country_has_primary_culture = cu:russian
+							has_law_or_variant = law_type:law_council_republic
+						}
+					}
+
+			        set_hub_name = {
+			            type = city
+			            name = HUB_NAME_STATE_INGRIA_city_russian_sov # St. Petersburg only becomes Leningrad if Lenin has been around to be a namesake
+			        }
+				}
+			}
+		}
+		crown_land_republic_effect = yes
+		if = {
+			limit = {
+				has_law = law_type:law_neo_absolutism
+			}
+			deactivate_law = law_type:law_neo_absolutism
+			activate_law = law_type:law_autocracy
+		}
+	}
+
+	can_impose = {
+		OR = {
+			AND = {
+				is_in_same_power_bloc = scope:target_country
+				AND = {
+					modifier:country_can_impose_same_lawgroup_governance_principles_in_power_bloc_bool = yes
+					has_law = scope:law
+				}
+			}
+			can_impose_law_default = yes
+		}
+	}
+
+	modifier = {
+		country_legitimacy_govt_total_votes_add = 10
+		country_legitimacy_govt_size_add = 1
+		country_legitimacy_ideological_incoherence_mult = -0.1
+		interest_group_ig_trade_unions_pol_str_mult = 0.25
+		# New modifiers
+		country_military_tech_research_speed_mult = 0.25
+		country_authority_mult = 0.25
+		interest_group_ig_armed_forces_pol_str_mult = 0.25
+		country_prestige_mult = 0.5
+	}
+
+	ai_will_do = {
+		exists = ruler
+		ruler = {
+			has_socialist_ideology = yes
+		}
+	}
+
+	ai_enact_weight_modifier = { #Petitions
+		value = 0
+
+		if = {
+			limit = { ai_has_enact_weight_modifier_journal_entries = yes }
+			add = 750
+		}
+	}
+
+	ai_impose_chance = {
+		value = 0
+
+		if = {
+			limit = {
+				has_law = law_type:law_council_republic
+				has_strategy = ai_strategy_egalitarian_agenda
+			}
+
+			add = base_impose_law_weight
+			multiply = 5.0
+		}
+
+		if = {
+			limit = {
+				scope:target_country = {
+					c:BIC ?= this
+					OR = {
+						has_journal_entry = je_british_dictate_plantations
+						has_journal_entry = je_british_dictate_military
+						has_journal_entry = je_british_dictate_universities
+					}
+				}
+			}
+			multiply = 0
+		}
+	}
+}
+
+# Menshevik
+law_command_economy_menshevik = {
+	group = lawgroup_economic_system
+	parent = law_command_economy
+
+	icon = "gfx/interface/icons/law_icons/soviet_command_economy.dds"
+
+	progressiveness = 100
+
+	disallowing_laws = {
+		law_serfdom
+		law_anarchy
+		law_women_in_the_fields
+	}
+
+	is_visible = {
+		has_variable = ztr_menshevik_ideology_var
+	}
+
+	unlocking_technologies = {
+		central_planning
+	}
+
+	unlocking_laws = {
+		law_autocracy
+		law_neo_absolutism
+		law_oligarchy
+		law_organic_regulation
+		law_single_party_state
+		law_technocracy
+	}
+
+	on_activate = {
+		seize_investment_pool = yes
+		custom_tooltip = {
+			text = enact_law_radical_leftist_economy_warning_desc
+		}
+	}
+
+	modifier = {
+		country_disable_investment_pool_bool = yes
+
+		state_bureaucrats_investment_pool_efficiency_mult = 0.25
+		#country_authority_mult = 0.25
+		country_bureaucrats_pol_str_mult = 0.25
+		building_nationalization_cost_mult = -0.5
+		building_nationalization_radicals_mult = -0.75
+		country_government_dividends_efficiency_add = 0.4
+		country_private_construction_allocation_mult = 0.1
+		building_company_government_dividends_add = 0.75
+		country_free_charters_add = 1
+
+		country_leverage_resistance_mult = 0.25
+
+		country_disable_non_company_privatization_bool = yes
+		# New
+		state_construction_mult = 0.1
+		interest_group_ig_intelligentsia_pol_str_mult = 0.25
+	}
+
+	ai_will_do = {
+		OR = {
+			has_law_or_variant = law_type:law_technocracy
+			AND = {
+				has_law_or_variant = law_type:law_council_republic
+				ruler ?= {
+					has_ideology = ideology:ideology_vanguardist
+					has_ideology = ideology:ideology_communist
+				}
+			}
+		}
+	}
+
+	ai_enact_weight_modifier = { #Petitions
+		value = 0
+
+		if = {
+			limit = { ai_has_enact_weight_modifier_journal_entries = yes }
+			add = 750
+		}
+
+		if = {
+			limit = {
+				has_law_or_variant = law_type:law_council_republic
+			}
+			add = 250
+		}
+
+		if = {
+			limit = {
+				has_law_or_variant = law_type:law_technocracy
+			}
+			add = 100
+		}
+	}
+
+	ai_impose_chance = {
+		value = 0
+
+		if = {
+			limit = {
+				has_law = law_type:law_command_economy
+			}
+
+			add = base_impose_law_weight
+			multiply = 10.0
+		}
+	}
+}
+
+# Agro-Socialist
+law_collectivized_agriculture_agro_socialist = {
+	group = lawgroup_land_reform
+	parent = law_collectivized_agriculture
+
+	icon = "gfx/interface/icons/law_icons/soviet_collectivized_agriculture.dds"
+
+	progressiveness = 50
+
+	is_visible = {
+		has_variable = ztr_agro_socialist_ideology_var
+	}
+
+	modifier = {
+		building_group_bg_agriculture_allowed_collectivization_add = 1.0
+		building_group_bg_ranching_allowed_collectivization_add = 1.0
+		building_group_bg_plantations_allowed_collectivization_add = 1.0
+		building_group_bg_agriculture_throughput_add = 0.1
+		country_tech_spread_mult = -0.5
+		interest_group_ig_rural_folk_pol_str_mult = 0.25
+		interest_group_ig_landowners_pol_str_mult = -0.5
+	}
+
+	on_enact = {
+		custom_tooltip = rural_laborers_tu_ig_shift_effect_tt
+		if = {
+			limit = {
+				OR = {
+					has_law_or_variant = law_type:law_commercialized_agriculture
+					has_law_or_variant = law_type:law_homesteading
+				}
+			}
+			custom_tooltip = farmers_pb_ig_shift_effect_negative_tt
+		}
+		if = {
+			limit = {
+				has_journal_entry = je_pedro_brazil
+				NOT = { has_variable = landreform_pedropoint }
+			}
+			set_variable = landreform_pedropoint
+			remove_pedropoint_effect = yes
+		}
+	}
+
+	unlocking_laws = {
+		law_command_economy
+		law_cooperative_ownership
+	}
+
+	unlocking_technologies = { socialism }
+
+	ai_enact_weight_modifier = { #Petitions
+		value = 0
+
+		if = {
+			limit = { ai_has_enact_weight_modifier_journal_entries = yes }
+			add = 750
+		}
+	}
+}

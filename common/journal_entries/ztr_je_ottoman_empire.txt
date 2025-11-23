@@ -11,7 +11,7 @@ je_ottoman_empire_collapse = {
 
     possible = {
 		NOT = { country_rank = rank_value:great_power }
-        is_not_democracy = yes
+        ztr_is_not_democratic = yes
     }
 
     immediate = {
@@ -358,11 +358,14 @@ je_ottoman_empire_collapse = {
         s:STATE_LEBANON.region_state:TUR = { set_state_owner = c:LEB }
 
         #trigger_event = { id = ottoman_empire_collapse.1 days = 3 }
+
+        # Ottoman Empire becomes Turkey
+        activate_law = law_type:law_presidential_republic
     }
 
     fail = {
 		OR = {
-			is_democracy = yes
+			ztr_is_democratic = yes
         	get_country_gdp_per > 3.5
 			country_rank = rank_value:great_power
             year > 1945

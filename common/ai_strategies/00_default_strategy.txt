@@ -3946,7 +3946,7 @@ ai_strategy_default = {
 			limit = {
 				OR = {
 					# Full democracy
-					is_full_democracy = yes
+					ztr_is_full_democratic = yes
 					# Counterculture movements
 					has_technology_researched = counterculture
 					# Old society
@@ -4272,6 +4272,14 @@ ai_strategy_default = {
 			}
 		}
 
+		# Modern Armies (Superpowers are beastly strong)
+
+		if = {
+			limit = {
+				has_modifier = ztr_superpower
+			}
+			multiply = 1.5
+		}
 	}
 
 	# How many levels of naval base should the AI have
@@ -4380,6 +4388,22 @@ ai_strategy_default = {
 				has_journal_entry = je_hawaii
 			}
 			min = 25
+		}
+
+		# Modern Navies (Superpowers are beastly strong)
+
+		if = {
+			limit = {
+				country_rank = rank_value:great_power
+			}
+			add = 100
+		}
+
+		if = {
+			limit = {
+				has_modifier = ztr_superpower
+			}
+			multiply = 5
 		}
 	}
 
@@ -4510,19 +4534,6 @@ ai_strategy_default = {
 				has_technology_researched = war_propaganda
 			}
 			multiply = 1.25
-		}
-		#T&R
-		if = {
-			limit = {
-				has_technology_researched = socialdemocracy
-			}
-			multiply = 0.75
-		}
-		if = {
-			limit = {
-				has_technology_researched = counterculture
-			}
-			multiply = 0.5
 		}
 	}
 

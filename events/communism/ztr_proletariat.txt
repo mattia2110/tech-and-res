@@ -206,13 +206,13 @@ ztr_proletariat.1 = {
 			# Dittatura/Autocrazia scoraggia l’accettazione
 			modifier = {
 				trigger = {
-					is_autocracy = yes
+					ztr_is_authoritarian = yes
 				}
 				add = -5
 			}
 			modifier = {
 				trigger = {
-					is_dictatorship = yes
+					ztr_is_totalitarian = yes
 				}
 				add = -10
 			}
@@ -269,7 +269,7 @@ ztr_proletariat.1 = {
 			# Democrazia + Unioni in salute → concedere per chiudere la crisi
 			modifier = {
 				trigger = {
-					is_democracy = yes
+					ztr_is_democratic = yes
 					ig:ig_trade_unions = { is_powerful = yes }
 				}
 				add = 8
@@ -294,13 +294,13 @@ ztr_proletariat.1 = {
 			# Regimi autoritari preferiscono altre vie
 			modifier = {
 				trigger = {
-					is_autocracy = yes
+					ztr_is_authoritarian = yes
 				}
 				add = -4
 			}
 			modifier = {
 				trigger = {
-					is_dictatorship = yes
+					ztr_is_totalitarian = yes
 				}
 				add = -6
 			}
@@ -360,7 +360,7 @@ ztr_proletariat.1 = {
 			# Democrazia con Unioni potenti: preferisce evitare il sangue
 			modifier = {
 				trigger = {
-					is_democracy = yes
+					ztr_is_democratic = yes
 					ig:ig_trade_unions = { is_powerful = yes }
 				}
 				add = 5
@@ -398,7 +398,7 @@ ztr_proletariat.1 = {
 			OR = {
 				has_law_or_variant = law_type:law_national_guard
 				has_law_or_variant = law_type:law_militarized_police
-				is_dictatorship = yes
+				ztr_is_totalitarian = yes
 			}
 		}
 		# Effects
@@ -441,7 +441,7 @@ ztr_proletariat.1 = {
 			}
 			# Dittatura → scelta naturale
 			modifier = {
-				trigger = { is_dictatorship = yes }
+				trigger = { ztr_is_totalitarian = yes }
 				add = 10
 			}
 			# Autocrazia o IG reazionari al governo → più probabile
@@ -450,7 +450,7 @@ ztr_proletariat.1 = {
 					OR = {
 						ig:ig_armed_forces ?= { is_in_government = yes }
 						ig:ig_landowners ?= { is_in_government = yes }
-						is_autocracy = yes
+						ztr_is_authoritarian = yes
 					}
 				}
 				add = 6
@@ -540,7 +540,7 @@ ztr_proletariat.1 = {
 			}
 			# Dittatura → più probabile
 			modifier = {
-				trigger = { is_dictatorship = yes }
+				trigger = { ztr_is_totalitarian = yes }
 				add = 8
 			}
 			# IG reazionari al governo o Autocrazia → più probabile
@@ -549,7 +549,7 @@ ztr_proletariat.1 = {
 					OR = {
 						ig:ig_armed_forces ?= { is_in_government = yes }
 						ig:ig_landowners ?= { is_in_government = yes }
-						is_autocracy = yes
+						ztr_is_authoritarian = yes
 					}
 				}
 				add = 6
@@ -643,7 +643,7 @@ ztr_proletariat.1 = {
 			# Dittatura + Unioni potenti → “colpo di mano”
 			modifier = {
 				trigger = {
-					is_dictatorship = yes
+					ztr_is_totalitarian = yes
 					ig:ig_trade_unions = {
 						is_powerful = yes
 						is_in_government = no
@@ -657,7 +657,7 @@ ztr_proletariat.1 = {
 					OR = {
 						ig:ig_armed_forces ?= { is_in_government = yes }
 						ig:ig_landowners ?= { is_in_government = yes }
-						is_autocracy = yes
+						ztr_is_authoritarian = yes
 					}
 				}
 				add = 5

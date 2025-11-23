@@ -119,6 +119,26 @@ electrical_generation = {
 	}
 }
 
+reinforced_concrete = {
+	# +15% construction throughput
+	era = era_3
+	texture = "gfx/interface/icons/invention_icons/reinforced_concrete.dds"
+	category = production
+
+	modifier = {
+		building_construction_sector_throughput_add = 0.15
+		state_building_hydroelectric_power_plant_max_level_add = 2
+	}
+
+	unlocking_technologies = {
+		bessemer_process
+	}
+
+	ai_weight = {
+		value = 1
+	}
+}
+
 # Era 4
 
 conveyors = {
@@ -221,6 +241,10 @@ steam_turbine = {
 	era = era_4
 	texture = "gfx/interface/icons/invention_icons/steam_turbines.dds"
 	category = production
+
+	modifier = {
+		state_building_hydroelectric_power_plant_max_level_add = 2
+	}
 	
 	unlocking_technologies = {	
 		electrical_generation
