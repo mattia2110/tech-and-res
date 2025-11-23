@@ -2444,7 +2444,12 @@ ztr_define_vietnam = {
 		save_scope_as = ztr_state_finder
 	}
 	if = {
-		limit = { NOT = { exists = c:VIE } }
+		limit = {
+			NOT = {
+				exists = c:DAI
+				exists = c:VIE
+			}
+		}
 		create_country = {
 			tag    = VIE
 			origin = this
@@ -2457,14 +2462,30 @@ ztr_define_vietnam = {
 			}
 		}
 	}
-	every_scope_state = {
-		limit = {
-			NOT = { is_homeland_of_country_cultures = root }
-			state_region = {
-				is_homeland = cu:vietnamese
+
+	if = {
+		limit = { exists = C:DAI }
+		every_scope_state = {
+			limit = {
+				NOT = { is_homeland_of_country_cultures = root }
+				state_region = {
+					is_homeland = cu:vietnamese
+				}
 			}
+			set_state_owner = c:DAI
 		}
-		set_state_owner = c:VIE
+	}
+	else_if = {
+		limit = { exists = C:VIE }
+		every_scope_state = {
+			limit = {
+				NOT = { is_homeland_of_country_cultures = root }
+				state_region = {
+					is_homeland = cu:vietnamese
+				}
+			}
+			set_state_owner = c:VIE
+		}
 	}
 }
 

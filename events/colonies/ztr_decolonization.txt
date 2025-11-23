@@ -1265,11 +1265,24 @@ ztr_decolonization.17 = {
 		}
 		change_infamy = -5
 		ztr_define_vietnam = yes
-		create_bidirectional_truce = { country = c:DAI months = 120 }
-		c:DAI = {
-			change_relations = {
-				country = root
-				value = 50
+		if = {
+			limit = { exists = c:DAI }
+			create_bidirectional_truce = { country = c:DAI months = 120 }
+			c:DAI = {
+				change_relations = {
+					country = root
+					value = 50
+				}
+			}
+		}
+		else_if = {
+			limit = { exists = c:VIE }
+			create_bidirectional_truce = { country = c:VIE months = 120 }
+			c:VIE = {
+				change_relations = {
+					country = root
+					value = 50
+				}
 			}
 		}
 	}
