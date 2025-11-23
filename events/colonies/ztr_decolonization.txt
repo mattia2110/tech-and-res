@@ -1098,6 +1098,7 @@ ztr_decolonization.14 = {
 	}
 }
 
+# Lao
 ztr_decolonization.15 = {
 	dlc = dlc_tech_res
 	type = country_event
@@ -1159,7 +1160,7 @@ ztr_decolonization.15 = {
 	}
 }
 
-# Vietnam
+# Cambodia
 ztr_decolonization.16 = {
 	dlc = dlc_tech_res
 	type = country_event
@@ -1174,67 +1175,6 @@ ztr_decolonization.16 = {
 
 	title = ztr_decolonization.16.t
 	desc = ztr_decolonization.16.d
-
-
-	duration = 3
-	
-	trigger = {
-		has_global_variable = ztr_decolonization_age_var
-		cu:vietnamese = { wants_to_be_decolonized = yes }
-		NOT = { is_subject = yes }
-		any_scope_state = {
-			NOT = { is_homeland_of_country_cultures = root }
-			state_region = {
-				is_homeland = cu:vietnamese
-			}
-			count > 0
-		}
-		has_game_rule = allow_ztr_decolonization_content
-	}
-
-	immediate = {
-	}
-
-	option = {
-		name = ztr_decolonization.16.a
-		ai_chance = {
-			base = 90
-		}
-		change_infamy = -5
-		ztr_define_vietnam = yes
-		create_bidirectional_truce = { country = c:DAI months = 120 }
-		c:DAI = {
-			change_relations = {
-				country = root
-				value = 50
-			}
-		}
-	}
-
-	option = {
-		name = ztr_decolonization.16.b
-		default_option = yes
-		ai_chance = {
-			base = 10
-		}
-		change_infamy = 5
-	}
-}
-
-ztr_decolonization.17 = {
-	dlc = dlc_tech_res
-	type = country_event
-	placement = ROOT
-	event_image = {
-		video = "southamerica_war_civilians"
-	}
-
-	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
-
-	icon = "gfx/interface/icons/event_icons/decolonization_event.dds"
-
-	title = ztr_decolonization.17.t
-	desc = ztr_decolonization.17.d
 
 
 	duration = 3
@@ -1257,7 +1197,7 @@ ztr_decolonization.17 = {
 	}
 
 	option = {
-		name = ztr_decolonization.17.a
+		name = ztr_decolonization.16.a
 		ai_chance = {
 			base = 90
 		}
@@ -1265,6 +1205,68 @@ ztr_decolonization.17 = {
 		ztr_define_cambodia = yes
 		create_bidirectional_truce = { country = c:CAM months = 120 }
 		c:CAM = {
+			change_relations = {
+				country = root
+				value = 50
+			}
+		}
+	}
+
+	option = {
+		name = ztr_decolonization.16.b
+		default_option = yes
+		ai_chance = {
+			base = 10
+		}
+		change_infamy = 5
+	}
+}
+
+# Vietnam
+ztr_decolonization.17 = {
+	dlc = dlc_tech_res
+	type = country_event
+	placement = ROOT
+	event_image = {
+		video = "southamerica_war_civilians"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	icon = "gfx/interface/icons/event_icons/decolonization_event.dds"
+
+	title = ztr_decolonization.17.t
+	desc = ztr_decolonization.17.d
+
+
+	duration = 3
+	
+	trigger = {
+		has_global_variable = ztr_decolonization_age_var
+		cu:vietnamese = { wants_to_be_decolonized = yes }
+		NOT = { is_subject = yes }
+		any_scope_state = {
+			NOT = { is_homeland_of_country_cultures = root }
+			state_region = {
+				is_homeland = cu:vietnamese
+			}
+			count > 0
+		}
+		has_game_rule = allow_ztr_decolonization_content
+	}
+
+	immediate = {
+	}
+
+	option = {
+		name = ztr_decolonization.17.a
+		ai_chance = {
+			base = 90
+		}
+		change_infamy = -5
+		ztr_define_vietnam = yes
+		create_bidirectional_truce = { country = c:DAI months = 120 }
+		c:DAI = {
 			change_relations = {
 				country = root
 				value = 50
