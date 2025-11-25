@@ -153,6 +153,17 @@ ztr_us_wants_to_buy_west_coast = {
 		has_game_rule = allow_ztr_historical_content
 		c:MEX = { is_subject = no } # Mexico is independent
 		has_strategic_land_adjacency = c:MEX # US borders Mexico
+		OR = {
+			NOT = { has_state_in_state_region = STATE_CALIFORNIA }
+			NOT = { has_state_in_state_region = STATE_NEVADA }
+			NOT = { has_state_in_state_region = STATE_UTAH }
+			NOT = { has_state_in_state_region = STATE_COLORADO }
+			NOT = { has_state_in_state_region = STATE_ARIZONA }
+			NOT = { has_state_in_state_region = STATE_NEW_MEXICO }
+			NOT = { has_state_in_state_region = STATE_TEXAS }
+			NOT = { has_state_in_state_region = STATE_KANSAS }
+			NOT = { has_state_in_state_region = STATE_OKLAHOMA }
+		}
 	}
 
 	possible = {
@@ -171,17 +182,6 @@ ztr_us_wants_to_buy_west_coast = {
 		}
 		scaled_debt < 0.25 # Not too much debt, this
 		gdp > 50000000
-		OR = {
-			NOT = { has_state_in_state_region = STATE_CALIFORNIA }
-			NOT = { has_state_in_state_region = STATE_NEVADA }
-			NOT = { has_state_in_state_region = STATE_UTAH }
-			NOT = { has_state_in_state_region = STATE_COLORADO }
-			NOT = { has_state_in_state_region = STATE_ARIZONA }
-			NOT = { has_state_in_state_region = STATE_NEW_MEXICO }
-			NOT = { has_state_in_state_region = STATE_TEXAS }
-			NOT = { has_state_in_state_region = STATE_KANSAS }
-			NOT = { has_state_in_state_region = STATE_OKLAHOMA }
-		}
 	}
 
 	when_taken = {
@@ -205,6 +205,9 @@ ztr_give_newfoundland_to_canada = {
 				region = sr:region_canada
 			}
 		}
+	}
+
+	possible = {
 		OR = {
 			ztr_is_democratic = yes
 			country_has_primary_culture = cu:british

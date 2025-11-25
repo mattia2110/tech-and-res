@@ -3278,7 +3278,8 @@ ai_strategy_rules_based_security = {
 	type = diplomatic
 
 	will_form_power_bloc = {
-		has_variable = ztr_eu_founder
+		country_rank >= rank_value:major_power
+		is_in_power_bloc = no
 	}
 
 	undesirable_infamy_level = { value = 20 }       # Democrazie più sensibili a infamia
@@ -3473,7 +3474,8 @@ ai_strategy_security_state_revisionism = {
 	type = diplomatic
 
 	will_form_power_bloc = {
-		country_rank >= rank_value:great_power
+		country_rank >= rank_value:major_power
+		is_in_power_bloc = no
 	}
 
 	undesirable_infamy_level = { value = 40 }
@@ -3647,12 +3649,6 @@ ai_strategy_superpower_liberal_hegemony = {
 			limit = {
 				has_technology_researched = counterculture
 			}
-			add = 100
-		}
-		if = {
-			limit = {
-				has_technology_researched = transnational_activism
-			}
 			add = 50
 		}
 
@@ -3779,7 +3775,7 @@ ai_strategy_superpower_command_hegemony = {
 
 	wargoal_maneuvers_fraction = { value = 0.15 }  # Ampio toolkit coercitivo
 	
-	diplomatic_play_neutrality = { value = 150 }
+	diplomatic_play_neutrality = { value = 100 }
 	diplomatic_play_boldness = { value = 30 }
 	recklessness = { value = 0.2 }
 

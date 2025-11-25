@@ -2444,9 +2444,9 @@ ztr_define_vietnam = {
 		save_scope_as = ztr_state_finder
 	}
 	if = {
-		limit = { NOT = { exists = c:VIE } }
+		limit = { NOT = { exists = c:DAI } }
 		create_country = {
-			tag    = VIE
+			tag    = DAI
 			origin = this
 			state  = SCOPE:ztr_state_finder
 			on_created = {
@@ -2464,7 +2464,7 @@ ztr_define_vietnam = {
 				is_homeland = cu:vietnamese
 			}
 		}
-		set_state_owner = c:VIE
+		set_state_owner = c:DAI
 	}
 }
 
@@ -3290,7 +3290,11 @@ ztr_define_israel = {
 		}
 	}
 	c:ISR = {
-		add_modifier = ztr_israel_land_settling_modifier
+		add_modifier = {
+			name = ztr_israel_land_settling_modifier
+			is_decaying = yes
+			years = 50
+		}
 	}
 	every_country = {
 		limit = {

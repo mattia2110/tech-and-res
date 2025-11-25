@@ -98,7 +98,7 @@ ztr_decolonization.1 = {
 			#No decolonization events for west indies vassals, as they are too much and very annoying
 			NOT = { is_subject_of = c:DEI}
 			NOT = {	is_diplomatic_play_enemy_of = root }
-			NOT = {	has_truce_with = root }
+			NOT = {	has_variable = ztr_decolonization_timer_var }
 			liberty_desire > 90
 		}
 	}
@@ -120,7 +120,7 @@ ztr_decolonization.1 = {
 				#No decolonization events for west indies vassals, as they are too much and very annoying
 				NOT = { is_subject_of = c:DEI}
 				NOT = {	is_diplomatic_play_enemy_of = root }
-				NOT = {	has_truce_with = root }
+				NOT = {	has_variable = ztr_decolonization_timer_var }
 				liberty_desire > 90
 			}
 			save_scope_as = subject_scope
@@ -180,6 +180,10 @@ ztr_decolonization.1 = {
 		remove_variable = decolonization_subject_event_var
 		remove_variable = decolonization_subject_event_var_neg
 		scope:subject_scope = {
+			set_variable = {
+				name = ztr_decolonization_timer_var
+				years = 5
+			}
 			change_relations = {
 				country = root
 				value = -100

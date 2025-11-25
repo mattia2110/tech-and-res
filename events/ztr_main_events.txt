@@ -116,6 +116,14 @@ ztr_economic_update.1 = {
 		# Ideologies Update (In order to take nations that avoids JEs)
 		if = {
 			limit = {
+				NOT = { has_journal_entry = je_liberty_index }
+			}
+			add_journal_entry = {
+				type = je_liberty_index
+			}
+		}
+		if = {
+			limit = {
 				NOT = { has_variable = has_progressist_ideology }
 				NOT = { has_journal_entry = je_old_progressive_ideologies }
 			}
