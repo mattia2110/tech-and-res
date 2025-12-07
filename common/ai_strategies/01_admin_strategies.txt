@@ -249,6 +249,7 @@ ai_strategy_industrial_expansion = {
 			}
 		}
 		# Vital goods
+		sugar = { stance = wants_high_supply }
 		telecommunications = {
 			stance = wants_high_supply
 			trigger = {
@@ -260,12 +261,6 @@ ai_strategy_industrial_expansion = {
 			stance = wants_high_supply
 			trigger = {
 				has_technology_researched = bauxite_processing
-			}
-		}
-		rubber = {
-			stance = wants_high_supply
-			trigger = {
-				has_technology_researched = vulcanization
 			}
 		}
 		plastics = {
@@ -399,6 +394,7 @@ ai_strategy_industrial_expansion = {
 			}
 			add = 250
 		}
+		
 		if = {
 			limit = {
 				year < 1870
@@ -410,6 +406,7 @@ ai_strategy_industrial_expansion = {
 			}
 			add = -150
 		}
+
 		if = {
 			limit = {
 				year < 1900
@@ -417,6 +414,7 @@ ai_strategy_industrial_expansion = {
 			}
 			add = -150
 		}
+
 		if = {
 			limit = {
 				year < 1920
@@ -424,9 +422,11 @@ ai_strategy_industrial_expansion = {
 			}
 			add = -250
 		}
+
 		if = {
 			limit = {
 				c:RUS ?= this
+				NOT = { has_law_or_variant = law_type:law_council_republic }
 			}
 			add = -250
 		} # Actually Russia never industrialize like the west, but during the revolution it might try to catch up

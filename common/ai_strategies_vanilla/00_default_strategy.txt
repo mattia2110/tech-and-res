@@ -634,7 +634,7 @@ ai_strategy_default = {
 			limit = {
 				has_journal_entry = je_reunify_china
 				scope:country = {
-						has_journal_entry = je_reunify_china
+					has_journal_entry = je_reunify_china
 				}
 				scope:enemy_country = {
 					has_journal_entry = je_reunify_china
@@ -646,7 +646,7 @@ ai_strategy_default = {
 				desc = "alignment_politics"
 			}
 		}
-	
+
 		if = { # Russia shouldn't join secession plays, since then it couldn't add wargoals of its own
 			limit = {
 				exists = scope:is_initiator
@@ -954,7 +954,7 @@ ai_strategy_default = {
 			}
 			add = 50
 		}
-		
+
 		if = { # War of the Confederation participants
 			limit = {
 				OR = {
@@ -964,31 +964,6 @@ ai_strategy_default = {
 				is_diplomatic_play_enemy_of = c:BOL
 			}
 			add = 50
-		}
-
-		#T&R
-
-		# Enemy has atomic capability, root country does not
-		if = {
-			limit = {
-				any_enemy_in_diplo_play = {
-					has_modifier = nuclear_capability
-					count > 0
-				}
-				NOT = { has_modifier = nuclear_capability }
-			}
-			add = -15
-		}
-		# Enemy hasn't atomic capability, root country does
-		else_if = {
-			limit = {
-				any_enemy_in_diplo_play = {
-					has_modifier = nuclear_capability
-					count = 0
-				}
-				has_modifier = nuclear_capability
-			}
-			add = 15
 		}
 	}
 
@@ -3000,23 +2975,6 @@ ai_strategy_default = {
 				divide = 20
 			}
 		}
-
-		#T&R
-
-		if = {
-			limit = {
-				# Nuclear Powers are stronger than what they appear
-				has_modifier = nuclear_capability
-			}
-			add = 0.5
-		}
-		else_if = {
-			limit = {
-				# Non-Nuclear Powers are weaker than what they appear
-				NOT = { has_modifier = nuclear_capability }
-			}
-			add = -0.25
-		}
 	}
 
 	# How likely is the AI to start a diplomatic play against another country if their attitude allows for it
@@ -3073,7 +3031,7 @@ ai_strategy_default = {
 			}
 			add = 100
 		}
-		
+
 		if = { #TUR should want to invade MON
 			limit = {
 				has_journal_entry = je_tur_raided
@@ -3808,7 +3766,7 @@ ai_strategy_default = {
 			}
 			add = 35
 		}
-		
+
 		# Countries with high-fervour primary cultures are more aggressive against rivals or countries with homelands
 		if = {
 			limit = {
@@ -3919,99 +3877,96 @@ ai_strategy_default = {
 			}
 			multiply = 0.0
 		}
-
-		#T&R
-
-		# Moderation if in the ONU
-		if = {
-			limit = {
-				has_modifier = ztr_onu_member
-			}
-			multiply = 0.8
-		}
-
-		# Nuclear deterrence makes countries more cautious
-		if = {
-			limit = {
-				has_modifier = nuclear_capability
-				scope:target_country = {
-					has_modifier = nuclear_capability
-				}
-			}
-			multiply = 0.3
-		}
-
-		# Full democracies, old or advanced societies are more cautious
-		if = {
-			limit = {
-				OR = {
-					# Full democracy
-					ztr_is_full_democratic = yes
-					# Counterculture movements
-					has_technology_researched = counterculture
-					# Old society
-					has_modifier = demography_stage_8
-					has_modifier = demography_stage_7
-					has_modifier = demography_stage_6
-				}
-			}
-			multiply = 0.3
-		}
 	}
 
 	# How much construction output should the AI aim for
 	# Using this value in other strategies will function additively
 	wanted_construction_output = {
-		value = 0
+		value = 10 # Accounts for the 10 free construction from base modifiers
 
 		add = {
 			value = investment_pool_income
-			subtract = 5000 # So small nations don't overshoot early on
-			divide = 500 # 1 construction output per this much into the investment pool
+			subtract = 7500 # So small nations don't overshoot early on
+			divide = 750 # 1 construction output per this much into the investment pool
 			min = 0
 		}
 
 		add = {
-			value = weekly_net_fixed_income
-			divide = 500 # 1 construction output per this much income
+			value = income
 
-			min = {
-				value = kai_country_income
-				divide = 3000 # 1 construction output per this much income
-			}
+			divide = 5000 # 1 construction output per this much income
 
 			min = 0
-			max = 600
+			max = 200 # Above a certain point more government income isn't going to lead to more AI government construction
 		}
 
-		# Improved technology enables cheaper construction
-		# Cost per wood construction 2000/2 = 1000
-		# Cost per iron construction 3600/5 = 720
-		# Cost per steel construction 5400/10 = 540
+		add = {
+			value = total_population
+
+			divide = 2000000 # 1 construction output per this much population
+			max = 100
+		}
+
+		# Kickstart private investors If above this population value
 		if = {
-			limit = { NOT = { has_technology_researched = urban_planning } }
-			multiply = 0.72
+			limit = {
+				total_population >= 2000000
+			}
+			add = 10
+		}
+
+		# Add a baseline for high rank
+		if = {
+			limit = { country_rank >= rank_value:great_power }
+			add = 75
+		}
+		else_if = {
+			limit = {
+				OR = {
+					country_rank >= rank_value:major_power
+					country_rank >= rank_value:unrecognized_major_power
+				}
+			}
+			add = 50
+		}
+
+		# If trying to industrialize
+		if = {
+			limit = {
+				OR = {
+					has_strategy = ai_strategy_resource_expansion
+					has_strategy = ai_strategy_industrial_expansion
+				}
+			}
+			multiply = 1.25
+		}
+
+		# If has Grunderzeit
+		if = {
+			limit = {
+				has_journal_entry = je_grunderzeit
+			}
+			multiply = 1.5
 		}
 
 		if = {
-			limit = { NOT = { has_technology_researched = steel_frame_buildings } }
-			multiply = 0.75
+			limit = {
+				OR = {
+					has_journal_entry = je_meiji_restoration
+					has_journal_entry = je_meiji_main
+				}
+			}
+			multiply = 1.5
 		}
 
-		# KAI: Scale the wanted construction capacity with gold reserve
-		multiply = {
-			value = gold_reserves
-			divide = gold_reserves_limit
-			multiply = 1.33
-			min = 1
-			max = 1.33
+		if = {
+			limit = { has_strategy = ai_strategy_maintain_mandate_of_heaven }
+			multiply = 0.1
 		}
-
-		add = 10 # Accounts for the 10 free construction from base modifiers
 
 		min = 10
 	}
-		
+	
 	# How much does the AI want to prioritize economic construction vs government spending?
 	# Having a value above 0 here makes the AI less willing to spend on government expenses and more willing to take on debt to build production buildings
 	# Values below 0 have the opposite effect and thus also increase AI government spending
@@ -4020,18 +3975,6 @@ ai_strategy_default = {
 	# Using this value in other strategies will function additively
 	economic_vs_government_spending_balance = {
 		value = 0.0
-		if = {
-			limit = {
-				is_at_war = no
-				kai_interest_rate < {
-					value = kai_income_efficiency
-					# It costs 300k to create jobs for 5k pops
-					divide = 60
-				}
-			}
-			add = 0.1
-		}
-
 		if = {
 			limit = {
 				has_journal_entry = je_grunderzeit
@@ -4106,22 +4049,16 @@ ai_strategy_default = {
 			}
 		}
 
-		multiply = {
-			value = kai_income_efficiency
-			divide = 0.7
-			min = 0.33
-			max = 1.0
-		}
-
 		max = 200 # No more than 200 from population & rank
 
 		if = {
 			limit = {
 				cached_ai_incorporated_population > 0
+				cached_ai_incorporated_coastal_population > 0
 			}
 
 			add = {
-				value = kai_country_income_normalized
+				value = income
 				multiply = {
 					value = 1
 					subtract = { # Coastal population reduces spending on army as that spending is needed for navy too
@@ -4131,7 +4068,6 @@ ai_strategy_default = {
 					}
 				}
 				divide = 2500 # 1 level of barracks per 2.5k income
-				multiply = 1.4 # KAI: To compensate for the difference from excluding investment pool
 			}
 		}
 
@@ -4233,7 +4169,7 @@ ai_strategy_default = {
 			limit = { has_law_or_variant = law_type:law_national_militia }
 			multiply = 0.33
 		}
-		
+
 		if = {
 			limit = { has_law_or_variant = law_type:law_peasant_levies }
 			multiply = 0.66
@@ -4247,6 +4183,20 @@ ai_strategy_default = {
 				}
 			}
 			multiply = 2.5
+		}
+
+
+		if = {
+			limit = {
+				capital = {
+					OR = {
+						region = sr:region_england
+						region = sr:region_north_sea_coast
+					}
+				}
+			}
+
+			multiply = 0.75
 		}
 
 		min = {
@@ -4271,6 +4221,7 @@ ai_strategy_default = {
 				multiply = 35
 			}
 		}
+
 	}
 
 	# How many levels of naval base should the AI have
@@ -4278,50 +4229,55 @@ ai_strategy_default = {
 	wanted_navy_size = {
 		value = 0
 
-		# KAI: These numbers are halved compared to vanilla in order to match up with the numbers in army size
-		# 1 level of naval base per 1 million coastal incorporated population
+		# 1 level of naval base per 500k coastal incorporated population
 		add = {
 			value = cached_ai_incorporated_coastal_population
-			divide = 1000000
+			divide = 500000
 		}
 
-		# 1 level of naval base per 4 million coastal unincorporated population
+		# 1 level of naval base per 2 million coastal unincorporated population
 		add = {
 			value = cached_ai_unincorporated_coastal_population
-			divide = 4000000
+			divide = 2000000
 		}
 
-		# 1 level of naval base per 20 million population in direct overseas subjects
+		# 1 level of naval base per 10 million population in direct overseas subjects
 		add = {
 			value = cached_ai_overseas_subject_population
-			divide = 20000000
+			divide = 10000000
 		}
 
-		multiply = {
-			value = kai_income_efficiency
-			divide = 0.7
-			min = 0.33
-			max = 1.0
-		}
-		
-		max = 50 # No more than 50 from population
+		max = 100 # No more than 100 from population
 
 		# 1 level of naval base per 5k income, multiplied by relative incorporated coastal population to total incorporated population
 		if = {
 			limit = {
 				cached_ai_incorporated_population > 0
+				cached_ai_incorporated_coastal_population > 0
 			}
 
 			add = {
-				value = kai_country_income_normalized
+				value = income
 				divide = cached_ai_incorporated_population
 				multiply = cached_ai_incorporated_coastal_population
 				divide = 5000
-				multiply = 1.4 # KAI: To compensate for the difference from excluding investment pool
 			}
 		}
 
-		if = { # GPs and MPs should want to maintain a bit of a navy
+		# Special logic for british isles - this should be reworked to be less specific later
+		if = {
+			limit = {
+				capital = {
+					OR = {
+						region = sr:region_england
+						region = sr:region_north_sea_coast
+					}
+				}
+			}
+
+			add = 50
+		}
+		else_if = { # GPs and MPs should want to maintain a bit of a navy
 			limit = { country_rank = rank_value:great_power }
 			add = 25
 		}
@@ -4358,7 +4314,7 @@ ai_strategy_default = {
 			}
 			multiply = 2
 		}
-		
+
 		if = {
 			limit = {
 				OR = {
@@ -4370,8 +4326,23 @@ ai_strategy_default = {
 		}
 
 		if = {
-			limit = { has_law_or_variant = law_type:law_isolationism }
+			limit = { has_strategy = ai_strategy_armed_isolationism }
+			multiply = 0.75
+		}
+
+		if = {
+			limit = { country_rank < rank_value:major_power }
 			multiply = 0.5
+		}
+
+		if = {
+			limit = { is_country_type = unrecognized }
+			multiply = 0.5
+		}
+
+		if = {
+			limit = { has_strategy = ai_strategy_maintain_mandate_of_heaven }
+			multiply = 0.25
 		}
 
 		if = {
@@ -4379,22 +4350,6 @@ ai_strategy_default = {
 				has_journal_entry = je_hawaii
 			}
 			min = 25
-		}
-
-		# Modern Navies (Superpowers are beastly strong)
-
-		if = {
-			limit = {
-				country_rank = rank_value:great_power
-			}
-			add = 100
-		}
-
-		if = {
-			limit = {
-				has_modifier = ztr_superpower
-			}
-			multiply = 5
 		}
 	}
 
@@ -4462,7 +4417,15 @@ ai_strategy_default = {
 			value = 100
 		}
 		combat_unit_group_capital_ship = {
-			value = 30
+			value = 0
+			if = {
+				limit = { country_rank = rank_value:great_power }
+				add = 30
+			}
+			if = {
+				limit = { country_rank = rank_value:major_power }
+				add = 10
+			}
 		}
 		combat_unit_group_support_ship = {
 			value = 0
@@ -4485,7 +4448,7 @@ ai_strategy_default = {
 		value = 0.5
 		if = {
 			limit = { has_law_or_variant = law_type:law_national_militia }
-			add = 4.5
+			add = 2.5
 		}
 		else_if = {
 			limit = { has_law_or_variant = law_type:law_peasant_levies }
@@ -4546,13 +4509,15 @@ ai_strategy_default = {
 
 	# Add a multiplier to the score AI assigns to particular building groups (default 1)
 	# Using this value in other strategies will result in several multiplications
-	building_group_weights = {}
+	building_group_weights = {
+		bg_agriculture = 1.25
+	}
 
 	# Which buildings should the AI subsidize
 	# Using a different value in a strategy will override this value
 	subsidies = {
-		building_power_plant = wants_to_have
-		building_railway = wants_to_have
+		building_power_plant = must_have
+		building_railway = must_have
 		building_port = must_have
 	}
 
@@ -4599,7 +4564,8 @@ ai_strategy_default = {
 			stance = wants_high_supply
 			trigger = {
 				has_technology_researched = navigation
-				NOT = {
+				NAND = {
+					has_technology_researched = ironclad_tech
 					has_technology_researched = gantry_cranes
 				}
 				has_port = yes
@@ -4610,8 +4576,9 @@ ai_strategy_default = {
 			stance = wants_high_supply
 			trigger = {
 				has_technology_researched = admiralty
-				NOT = {
+				NAND = {
 					has_technology_researched = ironclad_tech
+					has_technology_researched = gantry_cranes
 				}
 				has_port = yes
 				country_rank >= rank_value:major_power
@@ -4620,6 +4587,7 @@ ai_strategy_default = {
 		steamers = {
 			stance = wants_high_supply
 			trigger = {
+				has_technology_researched = ironclad_tech
 				has_technology_researched = gantry_cranes
 				has_port = yes
 				country_rank >= rank_value:major_power
@@ -4629,6 +4597,7 @@ ai_strategy_default = {
 			stance = wants_high_supply
 			trigger = {
 				has_technology_researched = ironclad_tech
+				has_technology_researched = gantry_cranes
 				has_port = yes
 				country_rank >= rank_value:major_power
 			}
@@ -4644,6 +4613,18 @@ ai_strategy_default = {
 			stance = wants_high_supply
 			trigger = {
 				has_technology_researched = electrical_generation
+			}
+		}
+		coal = {
+			stance = wants_high_supply
+			trigger = {
+				has_technology_researched = railways
+			}
+		}
+		engines = {
+			stance = wants_high_supply
+			trigger = {
+				has_technology_researched = railways
 			}
 		}
 		dye = {
@@ -4673,7 +4654,7 @@ ai_strategy_default = {
 				has_famine = yes
 			}
 		}
-		# Construction goods (Helps early game)
+		# T&R Vanilla (Helps early game and oil revolution after 1945)
 		wood = {
 			stance = wants_high_supply
 			trigger = {
@@ -4694,75 +4675,65 @@ ai_strategy_default = {
 			}
 		}
 		oil = {
-			stance = wants_export
+			stance = wants_high_supply
 			trigger = {
 				has_technology_researched = combustion_engine
-				kai_has_high_supply = { GOODS = oil }
 			}
 		}
-		#T&R
+		#T&R (After 1945 nations should be much quicker)
 		water = { stance = wants_high_supply }
 		gas = {
-			stance = wants_export
+			stance = wants_high_supply
 			trigger = {
 				has_technology_researched = gas_turbine
-				kai_has_high_supply = { GOODS = gas }
 			}
 		}
 		good_uranium = {
-			stance = wants_export
+			stance = wants_high_supply
 			trigger = {
 				has_technology_researched = verrier_nuclear_physics_tech
-				kai_has_high_supply = { GOODS = good_uranium }
 			}
 		}
 		lead = {
-			stance = wants_export
+			stance = wants_high_supply
 			trigger = {
 				has_technology_researched = thermal_cracking
-				kai_has_high_supply = { GOODS = lead }
 			}
 		}
 		sulfur = {
-			stance = wants_export
+			stance = wants_high_supply
 			trigger = {
 				has_technology_researched = thermal_cracking
-				kai_has_high_supply = { GOODS = sulfur }
 			}
 		}
 		bauxite = {
-			stance = wants_export
+			stance = wants_high_supply
 			trigger = {
 				has_technology_researched = bayer_process
-				kai_has_high_supply = { GOODS = bauxite }
 			}
 		}
 		copper = {
-			stance = wants_export
+			stance = wants_high_supply
 			trigger = {
 				has_technology_researched = thermal_cracking
-				kai_has_high_supply = { GOODS = copper }
 			}
 		}
 		commonores = {
-			stance = wants_export
+			stance = wants_high_supply
 			trigger = {
 				has_technology_researched = thermal_cracking
-				kai_has_high_supply = { GOODS = commonores }
 			}
 		}
 		advancedores = {
-			stance = wants_export
+			stance = wants_high_supply
 			trigger = {
 				has_technology_researched = semiconductor
-				kai_has_high_supply = { GOODS = advancedores }
 			}
 		}
 		rare_earths = {
-			stance = wants_export
+			stance = wants_high_supply
 			trigger = {
 				has_technology_researched = rare_earths
-				kai_has_high_supply = { GOODS = rare_earths }
 			}
 		}
 	}
@@ -5368,23 +5339,23 @@ ai_strategy_default = {
 					}				
 				}				
 			}
-
+		
 			score = {
 				value = 200
 
 				if = {
-						limit = {
-							has_journal_entry = je_the_grand_collapse
-							any_subject_or_below = {
-								count >= 1
-							}
-							scope:target_country = {
-								relations:root <= relations_threshold:cordial
-								is_subject_of = root
-							}
+					limit = {
+						has_journal_entry = je_the_grand_collapse
+						any_subject_or_below = {
+							count >= 1
 						}
-						add = 500
+						scope:target_country = {
+							relations:root <= relations_threshold:cordial
+							is_subject_of = root
+						}
 					}
+					add = 500
+				}
 
 				if = {
 					limit = {
@@ -6573,7 +6544,7 @@ ai_strategy_default = {
 				}
 			}
 		}
-		
+
 		dominate = {
 			trigger = {
 				OR = {
@@ -7049,16 +7020,8 @@ ai_strategy_default = {
 			if = {
 				limit = {
 					wants_to_solve_schleswig_holstein = yes
-					OR = {
-						AND = {
-							exists = c:HOL
-							scope:target_country = { this = c:HOL }
-						}
-						AND = {
-							exists = c:SCH
-							scope:target_country = { this = c:SCH }
-						}
-					}
+					exists = c:HOL
+					scope:target_country = { this = c:HOL }
 					can_reach_target_country = yes
 				}
 				add = 100
@@ -7252,7 +7215,13 @@ ai_strategy_default = {
 			if = {
 				limit = {
 					country_rank >= rank_value:major_power
-					"ai_ideological_opinion(scope:target_country)" <= -25
+					OR = {
+						has_diplomatic_pact = {
+							who = scope:target_country.top_overlord
+							type = rivalry
+						}
+						"ai_ideological_opinion(scope:target_country)" <= -25
+					}
 				}
 				add = 10
 			}
@@ -7462,17 +7431,17 @@ ai_strategy_default = {
 						max = 100
 					}
 				}
-				if = {
-					limit = {
-						scope:target_country = {
-							num_states > 1
-						}
-					}
-					add = {
-						value = scope:target_country.num_states
-						multiply = 10
+			if = {
+				limit = {
+					scope:target_country = {
+						num_states > 1
 					}
 				}
+				add = {
+					value = scope:target_country.num_states
+					multiply = 10
+				}
+			}
 			}
 
 			if = {
@@ -7633,16 +7602,8 @@ ai_strategy_default = {
 			if = {
 				limit = {
 					wants_to_solve_schleswig_holstein = yes
-					OR = {
-						AND = {
-							exists = c:HOL
-							scope:target_country = { this = c:HOL }
-						}
-						AND = {
-							exists = c:SCH
-							scope:target_country = { this = c:SCH }
-						}
-					}
+					exists = c:HOL
+					scope:target_country = { this = c:HOL }
 					can_reach_target_country = yes
 				}
 				add = 150
