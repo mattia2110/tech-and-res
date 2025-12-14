@@ -1,81 +1,3 @@
-# Power Plant
-
-building_power_plant = {
-	building_group = bg_power
-	icon = "gfx/interface/icons/building_icons/power_plant.dds"
-	levels_per_mesh = 50
-
-	city_type = city
-	
-	unlocking_technologies = { 
-		electrical_generation 
-	}
-
-	production_method_groups = {
-		pmg_base_building_power_plant
-		pmg_automation_building_power_plant
-		pmg_refining_building_power_plant
-		pmg_data_optimization_light_industry
-	}
-	
-	required_construction = construction_cost_medium # Medium as it is in vanilla
-
-	ai_value = {
-		value = 2000
-
-		# Need 1 level of Power Plants everywhere as its a local good and a prerequisite to enabling electricity PMs to begin with
-		if = {
-			limit = {
-				NOR = {
-					has_building = building_power_plant
-					any_scope_building = {
-						is_building_type = building_power_plant
-						is_under_construction = yes
-					}
-				}
-			}
-			add = 3000
-		}
-
-		if = {
-			limit = {
-				owner = {
-					# Leader Producers of Oil and Gas, or rich oil middle east countries will still use traditional power plants more
-					NOR = {
-						leading_producer_of = g:oil
-						leading_producer_of = g:gas
-						# Some countries also
-						country_is_in_middle_east = yes
-						c:VNZ ?= this
-						c:RUS ?= this
-					}
-					OR = {
-						AND = {
-							has_technology_researched = wind_turbines
-							NOT = { has_law = law_type:law_no_protection }
-						}
-						has_technology_researched = urban_sustainability
-					}
-				}
-			}
-			add = -1000
-		}
-	}
-
-	possible = {
-		owner = {
-			NOR = {
-				has_law = law_type:law_industry_banned
-				has_law = law_type:law_active_restoration
-			} 
-		}
-	}
-	
-	ownership_type = self
-
-	background = "gfx/interface/icons/building_icons/backgrounds/building_panel_bg_monuments.dds"
-}
-
 #Hydro Electric Power Plant
 
 building_hydroelectric_power_plant = {
@@ -169,7 +91,7 @@ building_renewable_energy_power_plant = {
 						leading_producer_of = g:oil
 						leading_producer_of = g:gas
 						# Some countries also
-						country_is_in_middle_east = yes
+						is_in_geographic_region = geographic_region_middle_east
 						c:VNZ ?= this
 						c:RUS ?= this
 					}
@@ -194,7 +116,7 @@ building_renewable_energy_power_plant = {
 						leading_producer_of = g:oil
 						leading_producer_of = g:gas
 						# Some countries also
-						country_is_in_middle_east = yes
+						is_in_geographic_region = geographic_region_middle_east
 						c:VNZ ?= this
 						c:RUS ?= this
 					}

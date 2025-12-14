@@ -79,13 +79,13 @@ ai_strategy_plantation_economy = {
 	possible = {
 		OR = {
 			capital.region = sr:region_dixie
-			country_is_in_south_america = yes
-			country_is_in_central_america = yes
-			country_is_in_india = yes
-			country_is_in_southeast_asia = yes
-			country_is_in_africa = yes
-			country_is_in_east_asia = yes
-			country_is_in_middle_east = yes
+			is_in_geographic_region = geographic_region_south_america
+			is_in_geographic_region = geographic_region_central_america
+			is_in_geographic_region = geographic_region_india
+			is_in_geographic_region = geographic_region_southeast_asia
+			is_in_geographic_region = geographic_region_africa
+			is_in_geographic_region = geographic_region_east_asia
+			is_in_geographic_region = geographic_region_middle_east
 		}
 		modifier:country_disallow_trade_bool = no
 	}
@@ -389,7 +389,7 @@ ai_strategy_industrial_expansion = {
 		if = {
 			limit = { 
 				year > 1850
-				country_is_in_europe = yes
+				is_in_geographic_region = geographic_region_europe
 				NOT = { c:TUR = this }
 			}
 			add = 250
@@ -434,7 +434,7 @@ ai_strategy_industrial_expansion = {
 		if = {
 			limit = {
 				year > 1945
-				country_is_in_east_asia = yes
+				is_in_geographic_region = geographic_region_east_asia
 			}
 			add = 1000
 		} # This is for East Asia industrialization
@@ -442,7 +442,7 @@ ai_strategy_industrial_expansion = {
 		if = {
 			limit = { 
 				year > 1960
-				country_is_in_southeast_asia = yes
+				is_in_geographic_region = geographic_region_southeast_asia
 			}
 			add = 250
 		} # This is for Asiatic Tiger economies

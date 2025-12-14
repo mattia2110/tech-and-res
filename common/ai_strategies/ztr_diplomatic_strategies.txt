@@ -1,0 +1,728 @@
+# Generic
+INJECT:ai_strategy_territorial_expansion = {
+	weight = {
+		value = 10
+
+		if = {
+			limit = {
+				exists = c:FRA
+				c:FRA = this
+				ruler = {
+					has_variable = house_bonaparte
+				}
+			}
+			add = 5
+		}
+
+		# AI implications for Power Blocs: 'Territorial Expansion' strategy is more likely for Blocs with Aggressive Coordination
+		if = {
+			limit = {
+				power_bloc ?= {
+					has_principle_group = principle_group:principle_group_aggressive_coordination
+				}
+			}
+			add = 5
+		}
+
+		# High-fervour AI is inclined to take its homelands
+		if = {
+			limit = {
+				country_fervor_primary_culture > 10
+			}
+			add = {
+				value = country_fervor_primary_culture
+				divide = 2
+			}
+		}
+
+		if = {
+			limit = { ig:ig_armed_forces ?= { is_powerful = yes } }
+			multiply = 1.5
+		}
+
+		if = {
+			limit = { is_in_geographic_region = geographic_region_europe }
+			multiply = 0.25
+		}
+
+		if = {
+			limit = { has_radical_leftist_government = yes }
+			multiply = 0.5
+		}
+
+		#T&R: After 1945 territorial expansion is less available with UN
+		if = {
+			limit = {
+				OR = {
+					has_technology_researched = international_organizations
+					has_modifier = ztr_onu_permanent_member
+					has_modifier = ztr_onu_member
+				}
+			}
+			multiply = 0.5
+		}
+	}
+}
+
+INJECT:ai_strategy_colonial_expansion = {
+	weight = {
+		value = 10
+
+		if = {
+			limit = {
+				exists = c:FRA
+				c:FRA = this
+				ruler = {
+					has_variable = house_bonaparte
+				}
+			}
+			add = 10
+		}
+
+		if = {
+			limit = {
+				has_journal_entry = je_scramble_for_africa
+			}
+			add = 20
+		}
+
+		if = {
+			limit = { country_rank = rank_value:major_power }
+			add = 5
+		}
+
+		if = {
+			limit = { country_rank = rank_value:great_power }
+			add = 5
+		}
+
+		# AI implications for Power Blocs: 'Colonial Expansion' strategy is more likely for Blocs with Colonial Offices
+		if = {
+			limit = {
+				power_bloc ?= {
+					has_principle_group = principle_group:principle_group_colonial_offices
+				}
+			}
+			add = 5
+		}
+
+		if = {
+			limit = { navy_size < 50 }
+			multiply = 0.5
+		}
+
+		if = {
+			limit = { navy_size >= 75 }
+			multiply = 1.5
+		}
+
+		if = {
+			limit = { has_technology_researched = civilizing_mission }
+			multiply = 1.5
+		}
+
+		if = {
+			limit = {
+				power_bloc ?= { has_principle_group = principle_group:principle_group_colonial_offices }
+			}
+			multiply = 1.5
+		}
+
+		if = {
+			limit = {
+				has_journal_entry = je_hispanoamerica
+			}
+			multiply = 0.5
+		}
+
+		if = {
+			limit = { has_radical_leftist_government = yes }
+			multiply = 0.01
+		}
+		
+		#T&R: After this colonial expansion is not possible
+		if = {
+			limit = {
+				OR = {
+					has_technology_researched = international_organizations
+					has_modifier = ztr_onu_permanent_member
+					has_modifier = ztr_onu_member
+				}
+			}
+			multiply = 0
+		}
+	}
+}
+
+#T&R New Diplomatic AI Strategies
+
+ai_strategy_rules_based_security = {
+	icon = "gfx/interface/icons/ai_strategy_icons/ai_strategy_rules_based_security.dds"
+	
+	type = diplomatic
+
+	will_form_power_bloc = {
+		country_rank >= rank_value:major_power
+		is_in_power_bloc = no
+	}
+
+	undesirable_infamy_level = { value = 20 }       # Democrazie più sensibili a infamia
+	
+	unacceptable_infamy_level = { value = 35 }
+
+	ideological_opinion_effect_mult = { value = 1.5 }  # Valore ideologico forte (diritti civili, rule of law)
+
+	wargoal_maneuvers_fraction = { value = -0.25 }   # Tendenza a pacchetti compatti (casus belli limitati)
+
+	diplomatic_play_neutrality = {
+		value = 150
+		
+		# As major powers, a moderate increase
+		if = {
+			limit = {
+				country_rank = rank_value:major_power
+			}
+			add = 50
+		}
+		else_if = {
+			limit = {
+				country_rank <= rank_value:minor_power
+			}
+			add = 150
+		}
+
+		if = {
+			limit = {
+				has_technology_researched = counterculture
+			}
+			add = 100
+		}
+		if = {
+			limit = {
+				ztr_is_full_democratic = yes
+			}
+			add = 100
+		}
+	}
+
+	diplomatic_play_boldness = {
+		value = -50
+		
+		# Enemy is non-democratic (Spostare o aumentare forse a AI superpotenza)
+		if = {
+			limit = {
+				any_enemy_in_diplo_play = {
+					ztr_is_not_democratic = yes
+					count = all
+				}
+			}
+			add = 25
+		}
+		else_if = {
+			limit = {
+				any_enemy_in_diplo_play = {
+					ztr_is_democratic = yes
+					count = all
+				}
+			}
+			add = -50
+		}
+		# else_if = {
+		# 	limit = {
+		# 		any_enemy_in_diplo_play = {
+		# 			is_diplomatic_play_enemy_of = { 
+		# 				random_country = {
+		# 					has_strategy = ai_strategy_superpower_liberal_hegemony
+		# 				}
+		# 			}
+		# 		}
+		# 	}
+		# 	add = 100
+		# }
+	}
+
+	recklessness = {
+		value = -0.25
+	}
+
+	aggression = {
+		value = 0.05
+
+		# Less aggressive against countries we're just antagonistic against, rather than belligerent/domineering
+		if = {
+			limit = {
+				has_attitude = {
+					who = scope:target_country
+					attitude = antagonistic
+				}
+			}
+			multiply = 0.1
+		}
+
+		# As major powers, a moderate decrease
+		if = {
+			limit = {
+				country_rank = rank_value:major_power
+			}
+			multiply = 0.8
+		}
+		else_if = {
+			limit = {
+				country_rank <= rank_value:minor_power
+			}
+			multiply = 0.7
+		}
+
+		if = {
+			limit = {
+				has_technology_researched = counterculture
+			}
+			multiply = 0.5
+		}
+
+		# More aggressive against ideological enemies, a bit less aggressive against ideological allies
+		multiply = {
+			value = "ai_ideological_opinion(scope:target_country)"
+			multiply = -0.1
+			add = 1
+			max = 2.0
+			min = 0.5
+		}
+	}
+
+	building_group_weights = {
+		bg_technology = 1.25
+	}
+
+	secret_goal_weights = {
+		protect = 1.25   # Difesa alleati
+		reconcile = 2   # High reconciliation preference since economy is more important than military conquest
+		dominate = 0.5  # Solo in ambito normativo/mercati
+	}
+
+	wargoal_weights = {
+		open_market = 0.75  # Preferenza per obiettivi economici
+		conquer_state = 0.25 # Democrazie meno propense alla conquista territoriale
+		return_state = 0.75
+		force_nationalization = 0.25
+		humiliation = 0.0 # Democracies less likely to pursue humiliation
+		take_treaty_port = 0.25
+		reduce_autonomy = 0.0
+		make_protectorate = 0.0
+		make_dominion = 0.0
+		make_tributary = 0.0
+	}
+
+	possible = {
+		is_subject = no
+		ztr_is_not_totalitarian = yes
+		year >= 1945
+	}
+
+	weight = {
+		value = 75
+		if = {
+			limit = {
+				OR = {
+					ztr_is_full_democratic = yes
+					has_modifier = ztr_eu_member
+					has_modifier = ztr_eec_member
+				}
+			}
+			add = 50
+		}
+		if = {
+			limit = {
+				ztr_is_democratic = yes
+			}
+			add = 50
+		}
+		if = {
+			limit = {
+				has_technology_researched = counterculture
+			}
+			multiply = 1.25
+		}
+		if = {
+			limit = {
+				has_technology_researched = globalization
+			}
+			multiply = 1.25
+		}
+	}
+}
+
+# This is for dictatorial countries that prioritize regime survival and security through military strength
+ai_strategy_security_state_revisionism = {
+	icon = "gfx/interface/icons/ai_strategy_icons/ai_strategy_security_state_revisionism.dds"
+	type = diplomatic
+
+	will_form_power_bloc = {
+		country_rank >= rank_value:major_power
+		is_in_power_bloc = no
+	}
+
+	undesirable_infamy_level = { value = 40 }
+	unacceptable_infamy_level = { value = 80 }
+
+	ideological_opinion_effect_mult = { value = 0.6 }  # Ideology is less important
+
+	wargoal_maneuvers_fraction = { value = 0.15 }
+
+	diplomatic_play_neutrality = {
+		# Dictatorial regimes less concerned with neutrality but smaller ones are in order to secure their survival
+		value = 100
+
+		# As major powers, a moderate increase
+		if = {
+			limit = {
+				country_rank = rank_value:major_power
+			}
+			add = 50
+		}
+		else_if = {
+			limit = {
+				country_rank <= rank_value:minor_power
+			}
+			add = 200
+		}
+	}
+
+	diplomatic_play_boldness = {
+		value = 20
+	}
+
+	recklessness = {
+		value = 0.35
+	}
+
+	aggression = {
+		value = 0.25
+
+		# Less aggressive against countries we're just antagonistic against, rather than belligerent/domineering
+		if = {
+			limit = {
+				has_attitude = {
+					who = scope:target_country
+					attitude = antagonistic
+				}
+			}
+			multiply = 0.3
+		}
+
+		# More aggressive against ideological enemies, a bit less aggressive against ideological allies
+		multiply = {
+			value = "ai_ideological_opinion(scope:target_country)"
+			multiply = -0.1
+			add = 1
+			max = 2.0
+			min = 0.5
+		}
+
+		# They can be very aggressive against democracies of the same culture
+		if = {
+			limit = {
+				any_primary_culture = {
+					is_primary_culture_of = scope:target_country
+				}
+				scope:target_country = { ztr_is_democratic = yes }
+			}
+			multiply = 1.5
+		}
+
+		# As major powers, a moderate decrease
+		if = {
+			limit = {
+				country_rank = rank_value:major_power
+			}
+			multiply = 0.9
+		}
+		else_if = {
+			limit = {
+				country_rank <= rank_value:minor_power
+			}
+			multiply = 0.8
+		}
+
+		# Colpisce vicini vulnerabili o isolati
+		if = {
+			limit = {
+				has_strategic_adjacency = scope:target_country
+				scope:target_country.country_rank <= root.country_rank
+				NOT = { scope:target_country = { is_in_power_bloc_with = root } }
+			}
+			add = 0.5
+		}
+		
+		# Se possiede cyber/PMC, preferenza per “grey-zone”
+		if = {
+			limit = { has_technology_researched = cyber_warfare }
+			add = 0.25
+		}
+	}
+
+	building_group_weights = {
+		bg_army = 1.5
+	}
+
+	secret_goal_weights = {
+		protect = 0.5
+		conquer = 1.5
+	}
+
+	wargoal_weights = {
+		conquer_state = 1.25
+		return_state = 1.25
+		humiliation = 1.25
+	}
+
+	secret_goal_scores = {
+		conquer = {
+			trigger = {
+				has_strategic_adjacency = scope:target_country
+				scope:target_country = { NOT = { is_subject_of = root } }
+			}
+			score = {
+				if = { limit = { scope:target_country = { has_modifier = ztr_nuclear_weapons } } add = -200 }
+				if = { limit = { scope:target_country.country_rank < rank_value:major_power } add = 25 }
+			}
+		}
+	}
+
+	possible = {
+		is_subject = no
+		ztr_is_not_democratic = yes
+		year >= 1945
+	}
+
+	weight = {
+		value = 125
+		if = {
+			limit = {
+				ztr_is_totalitarian = yes
+			}
+			add = 75
+		}
+	}
+}
+
+# SUPERPOWER AIs
+
+# Diplomatic AI Strategy for Superpower Democracies
+# Here the difference is about democracy and full democracy status
+# USA, EU, etc.
+ai_strategy_superpower_liberal_hegemony = {
+	icon = "gfx/interface/icons/ai_strategy_icons/ai_strategy_superpower_liberal_hegemony.dds"
+	type = diplomatic
+
+	will_form_power_bloc = {
+		always = yes
+	}
+
+	undesirable_infamy_level = { value = 25 }
+	unacceptable_infamy_level = { value = 80 }
+
+	ideological_opinion_effect_mult = { value = 1.5 }
+
+	wargoal_maneuvers_fraction = { value = 0.05 }
+
+	diplomatic_play_neutrality = {
+		value = 100
+
+		if = {
+			limit = {
+				has_technology_researched = counterculture
+			}
+			add = 50
+		}
+
+		if = {
+			limit = {
+				ztr_is_full_democratic = yes
+			}
+			add = 50
+		}
+	}
+
+	diplomatic_play_boldness = {
+		value = 0
+		
+		# Enemy is non-democratic (Spostare o aumentare forse a AI superpotenza)
+		if = {
+			limit = {
+				any_enemy_in_diplo_play = {
+					ztr_is_not_democratic = yes
+					count = all
+				}
+			}
+			add = 50
+		}
+		else_if = {
+			limit = {
+				any_enemy_in_diplo_play = {
+					ztr_is_democratic = yes
+					count = all
+				}
+			}
+			add = -1000
+		}
+	}
+
+	recklessness = {
+		value = -0.1
+	}
+
+	aggression = {
+		value = 0.25
+
+		# More aggressive against ideological enemies, a bit less aggressive against ideological allies
+		multiply = {
+			value = "ai_ideological_opinion(scope:target_country)"
+			multiply = -0.1
+			add = 1
+			max = 2.0
+			min = 0.5
+		}
+		
+		if = {
+			limit = {
+				OR = {
+					has_technology_researched = counterculture
+					ztr_is_full_democratic = yes
+				}
+			}
+			add = -0.25
+		}		
+	}
+
+	building_group_weights = {
+		bg_technology = 1.25
+	}
+
+	secret_goal_weights = {
+		protect = 2   # Difesa alleati
+		reconcile = 1.5   # High reconciliation preference since economy is more important than military conquest
+		dominate = 1.25  # Solo in ambito normativo/mercati
+	}
+
+	secret_goal_scores = {
+		conquer = {
+			trigger = {
+				scope:target_country = {
+					has_modifier = ztr_superpower
+					NOT = { ztr_is_democratic = yes }
+				}
+			}
+			score = {
+				add = 200
+				if = { limit = { scope:target_country = { has_modifier = ztr_nuclear_weapons } } add = 150 }
+				if = { limit = { has_strategic_adjacency = scope:target_country } add = 50 }
+			}
+		}
+	}
+
+	wargoal_weights = {
+		conquer_state = 0.25 # Democrazie meno propense alla conquista territoriale
+		open_market = 1.75 # "Transfer Democracy" excuse
+		regime_change = 1.75 # Democracies tend to favor regime change in undemocratic countries
+		liberate_country = 1.5
+		liberate_subject = 1.5
+		make_protectorate = 0.5
+		make_dominion = 0.0
+		make_tributary = 0.0
+	}
+
+	possible = {
+		ztr_is_democratic = yes
+		has_modifier = ztr_superpower
+	}
+
+	weight = {
+		value = 10000
+	}
+}
+
+# Diplomatic strategy for autocratic superpowers
+# URSS, China, etc.
+ai_strategy_superpower_command_hegemony = {
+	icon = "gfx/interface/icons/ai_strategy_icons/ai_strategy_superpower_command_hegemony.dds"
+	type = diplomatic
+
+	will_form_power_bloc = {
+		always = yes
+	}
+
+	undesirable_infamy_level = { value = 35 }
+	unacceptable_infamy_level = { value = 100 }
+
+	ideological_opinion_effect_mult = { value = 0.8 } # Pragmatismo autoritario
+
+	wargoal_maneuvers_fraction = { value = 0.15 }  # Ampio toolkit coercitivo
+	
+	diplomatic_play_neutrality = { value = 100 }
+	diplomatic_play_boldness = { value = 30 }
+	recklessness = { value = 0.2 }
+
+	aggression = {
+		value = 0.25
+
+		# More aggressive against ideological enemies, a bit less aggressive against ideological allies
+		multiply = {
+			value = "ai_ideological_opinion(scope:target_country)"
+			multiply = -0.1
+			add = 1
+			max = 2.0
+			min = 0.5
+		}
+		
+		if = {
+			limit = {
+				has_technology_researched = counterculture
+				ztr_is_totalitarian = yes
+			}
+			add = 0.25
+		}
+	}
+
+	secret_goal_weights = {
+		protect = 1.75
+		reconcile = 0.75
+		dominate = 1.5
+	}
+
+	secret_goal_scores = {
+		conquer = {
+			trigger = {
+				scope:target_country = {
+					has_modifier = ztr_superpower
+				}
+			}
+			score = {
+				add = 200
+				if = { limit = { scope:target_country = { has_modifier = ztr_nuclear_weapons } } add = 150 }
+				if = { limit = { has_strategic_adjacency = scope:target_country } add = 50 }
+			}
+		}
+	}
+
+	wargoal_weights = {
+		conquer_state = 0.75 # Democrazie meno propense alla conquista territoriale
+		return_state = 1
+		regime_change = 1.25 # Democracies tend to favor regime change in undemocratic countries
+		liberate_country = 1.25
+		liberate_subject = 1.25
+		take_treaty_port = 0.75
+		make_protectorate = 0.5
+		make_dominion = 0.0
+		make_tributary = 0.0
+	}
+
+	possible = {
+		ztr_is_democratic = no
+		has_modifier = ztr_superpower
+	}
+
+	weight = {
+		value = 10000
+	}
+}

@@ -1,4 +1,4 @@
-pm_basic_port = {
+REPLACE:pm_basic_port = {
 	texture = "gfx/interface/icons/production_method_icons/basic_port.dds"
 	
 	building_modifiers = {
@@ -26,7 +26,7 @@ pm_basic_port = {
 	}
 }		
 
-pm_industrial_port = {
+REPLACE:pm_industrial_port = {
 	texture = "gfx/interface/icons/production_method_icons/industrial_port.dds"
 
 	unlocking_technologies = {
@@ -60,7 +60,7 @@ pm_industrial_port = {
 	}	
 }
 
-pm_modern_port = {
+REPLACE:pm_modern_port = {
 	texture = "gfx/interface/icons/production_method_icons/modern_port.dds"
 	unlocking_technologies = {
 		concrete_dockyards
@@ -92,44 +92,9 @@ pm_modern_port = {
 			state_infrastructure_add = 7
 		}
 	}
-}
-
-pm_advanced_port = {
-	texture = "gfx/interface/icons/production_method_icons/modern_port.dds"
-	unlocking_technologies = {
-		advanced_harbor_facilities
-	}
-	
-	building_modifiers = {
-		workforce_scaled = {	
-			goods_input_steamers_add = 5 #New Cargo Ship
-			goods_input_robotics_add = 1
-			goods_input_heavy_fuel_add = 4
-			goods_output_merchant_marine_add = 45 # 1500
-			#goods_output_organized_data_add = 5
-		}
-		level_scaled = {
-			building_employment_laborers_add = 250
-			building_employment_machinists_add = 250
-			building_employment_engineers_add = 50
-			building_employment_clerks_add = 150
-			building_employment_bureaucrats_add = 100
-		}
-	}
-
-	country_modifiers = {
-		workforce_scaled = {
-			country_convoys_capacity_add = 250
-		}
-	}
-	state_modifiers = {
-		workforce_scaled = {
-			state_infrastructure_add = 10
-		}
-	}
 }	
 
-pm_scholastic_education = {
+REPLACE:pm_scholastic_education = {
 	texture = "gfx/interface/icons/production_method_icons/scholastic_education.dds"
 	
 	country_modifiers = {
@@ -158,7 +123,10 @@ pm_scholastic_education = {
 	}
 }
 
-pm_philosophy_department = {
+#NOTE From 1.5 university PM country_weekly_innovation_add was increased everywhere by a 0.25 in order to balance the necessity of much more buildings than vanilla
+# Obviously, this increase is not free, since it needs a +2 paper in input and +1 manzoni prints in input too.
+
+REPLACE:pm_philosophy_department = {
 	texture = "gfx/interface/icons/production_method_icons/philosophy_dept.dds"
 	
 	unlocking_technologies = {
@@ -167,14 +135,14 @@ pm_philosophy_department = {
 	
 	country_modifiers = {
 		workforce_scaled = { 
-			country_weekly_innovation_add = 1.5
+			country_weekly_innovation_add = 1.75 #1.5
 		}
 	}
 	
 	building_modifiers = {
 		workforce_scaled = {
-			goods_input_paper_add = 5 #150
-			goods_input_manzoni_prints_add = 3 #180
+			goods_input_paper_add = 6 #5 #150
+			goods_input_manzoni_prints_add = 4 #3 #180
 			goods_output_business_data_add = 2 #-60 #270
 		}	
 	
@@ -191,7 +159,7 @@ pm_philosophy_department = {
 	}
 }
 
-pm_analytical_philosophy_department = {
+REPLACE:pm_analytical_philosophy_department = {
 	texture = "gfx/interface/icons/production_method_icons/analytical_philosophy_department.dds"
 	
 	unlocking_technologies = {
@@ -200,14 +168,14 @@ pm_analytical_philosophy_department = {
 	
 	country_modifiers = {
 		workforce_scaled = { 
-			country_weekly_innovation_add = 2
+			country_weekly_innovation_add = 2.25 #2
 		}
 	}
 	
 	building_modifiers = {
 		workforce_scaled = {
-			goods_input_paper_add = 8 #240
-			goods_input_manzoni_prints_add = 4 #240
+			goods_input_paper_add = 10 #8 #240
+			goods_input_manzoni_prints_add = 5 #4 #240
 			goods_output_business_data_add = 3 #-90 #390
 		}	
 
@@ -225,7 +193,7 @@ pm_analytical_philosophy_department = {
 	}
 }			
 
-pm_skyscraper_bureaucratic_nexus = {
+REPLACE:pm_skyscraper_bureaucratic_nexus = {
 	texture = "gfx/interface/icons/production_method_icons/skyscraper_bureaucratic_nexus.dds"
 
 	state_modifiers = {
@@ -247,7 +215,7 @@ pm_skyscraper_bureaucratic_nexus = {
 	}
 }
 
-pm_skyscraper_trade_nexus = {
+REPLACE:pm_skyscraper_trade_nexus = {
 	texture = "gfx/interface/icons/production_method_icons/skyscraper_trade_nexus.dds"
 
 	country_modifiers = {
@@ -272,7 +240,7 @@ pm_skyscraper_trade_nexus = {
 
 #Street Energy
 
-pm_arcades = {
+REPLACE:pm_arcades = {
 	texture = "gfx/interface/icons/production_method_icons/arcades.dds"
 	unlocking_technologies = {
 		elevator
@@ -297,13 +265,13 @@ pm_arcades = {
 	required_input_goods = electricity
 }
 
-pm_no_street_lighting = {
+REPLACE:pm_no_street_lighting = {
 	texture = "gfx/interface/icons/production_method_icons/no_street_lighting.dds"
 
 	city_lights_color_index = 0	# Needs to match city_graphics_data.settings color array
 }
 
-pm_gas_streetlights = {
+REPLACE:pm_gas_streetlights = {
 	texture = "gfx/interface/icons/production_method_icons/gas_streetlights.dds"
 
 	city_lights_color_index = 1	# Needs to match city_graphics_data.settings color array
@@ -331,7 +299,7 @@ pm_gas_streetlights = {
 	}
 }
 
-pm_electric_streetlights = {
+REPLACE:pm_electric_streetlights = {
 	texture = "gfx/interface/icons/production_method_icons/electric_streetlights.dds"
 
 	city_lights_color_index = 2	# Needs to match city_graphics_data.settings color array
@@ -365,7 +333,7 @@ pm_electric_streetlights = {
 
 # Automobile
 
-pm_automobile_production = {
+REPLACE:pm_automobile_production = {
 	texture = "gfx/interface/icons/production_method_icons/automobiles.dds"
 	state_modifiers = {
 		workforce_scaled = {
@@ -399,7 +367,7 @@ pm_automobile_production = {
 	}
 }
 
-pm_mass_automobile_production = {
+REPLACE:pm_mass_automobile_production = {
 	texture = "gfx/interface/icons/production_method_icons/standardized_automobiles.dds"
 	state_modifiers = {
 		workforce_scaled = {
@@ -441,7 +409,7 @@ pm_mass_automobile_production = {
 
 # Electric industries
 
-pm_radios = {
+REPLACE:pm_radios = {
 	texture = "gfx/interface/icons/production_method_icons/radios.dds"
 	unlocking_technologies = {
 		radio
@@ -467,7 +435,7 @@ pm_radios = {
 
 # Glassworks
 
-pm_houseware_plastics = {
+REPLACE:pm_houseware_plastics = {
 	texture = "gfx/interface/icons/production_method_icons/houseware_plastics.dds"
 	
 	unlocking_technologies = {
@@ -502,7 +470,7 @@ pm_houseware_plastics = {
 
 # Synthetic Fabric
 
-pm_electric_sewing_machines = {
+REPLACE:pm_electric_sewing_machines = {
 	texture = "gfx/interface/icons/production_method_icons/electric_sewing_machines.dds"
 	
 	unlocking_technologies = {
@@ -533,7 +501,7 @@ pm_electric_sewing_machines = {
 	required_input_goods = electricity
 }
 
-pm_elastics = {
+REPLACE:pm_elastics = {
 	texture = "gfx/interface/icons/production_method_icons/elastics.dds"
 
 	unlocking_technologies = {
@@ -568,7 +536,7 @@ pm_elastics = {
 
 # Furniture Industry
 
-pm_lathe = {
+REPLACE:pm_lathe = {
 	texture = "gfx/interface/icons/production_method_icons/lathes.dds"
 	
 	unlocking_technologies = {
@@ -597,7 +565,7 @@ pm_lathe = {
 	}
 }
 
-pm_mechanized_workshops = {
+REPLACE:pm_mechanized_workshops = {
 	texture = "gfx/interface/icons/production_method_icons/mechanized_workshops.dds"
 	
 	unlocking_technologies = {
@@ -631,7 +599,7 @@ pm_mechanized_workshops = {
 	}
 }
 
-pm_precision_tools = {
+REPLACE:pm_precision_tools = {
 	texture = "gfx/interface/icons/production_method_icons/precision_tools.dds"
 		
 	unlocking_technologies = {
@@ -664,7 +632,7 @@ pm_precision_tools = {
 	}
 }
 
-pm_automatic_power_looms = {
+REPLACE:pm_automatic_power_looms = {
 	texture = "gfx/interface/icons/production_method_icons/automatic_power_looms.dds"
 	
 	unlocking_technologies = {
@@ -694,7 +662,7 @@ pm_automatic_power_looms = {
 
 #Industry Dynamite
 
-pm_brine_electrolysis = {
+REPLACE:pm_brine_electrolysis = {
 	texture = "gfx/interface/icons/production_method_icons/vaccum_brine_electrolysis.dds"
 	state_modifiers = {
 		workforce_scaled = {
@@ -733,7 +701,7 @@ pm_brine_electrolysis = {
 
 #Steel
 
-pm_electric_arc_process = {
+REPLACE:pm_electric_arc_process = {
 	texture = "gfx/interface/icons/production_method_icons/electric_arc_process.dds"
 	
 	state_modifiers = {
@@ -772,7 +740,7 @@ pm_electric_arc_process = {
 
 # Engine
 
-pm_electric_engines = {
+REPLACE:pm_electric_engines = {
 	texture = "gfx/interface/icons/production_method_icons/electric_engines.dds"
 	
 	state_modifiers = {
@@ -809,7 +777,7 @@ pm_electric_engines = {
 	required_input_goods = electricity
 }
 
-pm_diesel_engines = {
+REPLACE:pm_diesel_engines = {
 	texture = "gfx/interface/icons/production_method_icons/diesel_engines.dds"
 	
 	state_modifiers = {
@@ -848,7 +816,7 @@ pm_diesel_engines = {
 
 #Toolsworkshop
 
-pm_pig_iron = {
+REPLACE:pm_pig_iron = {
 	texture = "gfx/interface/icons/production_method_icons/pig_iron_tools.dds"
 	
 	unlocking_technologies = {
@@ -874,7 +842,7 @@ pm_pig_iron = {
 	}
 }
 
-pm_steel = {
+REPLACE:pm_steel = {
 	texture = "gfx/interface/icons/production_method_icons/bessemer_process.dds"
 	unlocking_technologies = {
 		mechanical_tools
@@ -899,7 +867,7 @@ pm_steel = {
 	}
 }
 
-pm_rubber_grips = {
+REPLACE:pm_rubber_grips = {
 	texture = "gfx/interface/icons/production_method_icons/steel_tools.dds"
 	unlocking_technologies = {
 		vulcanization
@@ -927,7 +895,7 @@ pm_rubber_grips = {
 
 ###FERTILIZER INDUSTRY###
 
-pm_artificial_fertilizers = {
+REPLACE:pm_artificial_fertilizers = {
 	texture = "gfx/interface/icons/production_method_icons/chemical_fertilizers.dds"
 	state_modifiers = {
 		workforce_scaled = {
@@ -956,7 +924,7 @@ pm_artificial_fertilizers = {
 	}
 }
 
-pm_improved_fertilizer = {
+REPLACE:pm_improved_fertilizer = {
 	texture = "gfx/interface/icons/production_method_icons/improved_fertilizer.dds"
 	state_modifiers = {
 		workforce_scaled = {
@@ -989,7 +957,7 @@ pm_improved_fertilizer = {
 	}
 }
 
-pm_nitrogen_fixation = {
+REPLACE:pm_nitrogen_fixation = {
 	texture = "gfx/interface/icons/production_method_icons/nitrogen_fixation.dds"
 	state_modifiers = {
 		workforce_scaled = {
@@ -1026,7 +994,7 @@ pm_nitrogen_fixation = {
 
 ###CIVIL SHIPBUILDING###
 
-pm_complex_shipbuilding = {
+REPLACE:pm_complex_shipbuilding = {
 	texture = "gfx/interface/icons/production_method_icons/reinforced_wooden_ships.dds"
 	unlocking_technologies = {
 		screw_frigate
@@ -1055,7 +1023,7 @@ pm_complex_shipbuilding = {
 	}
 }
 
-pm_metal_shipbuilding = {
+REPLACE:pm_metal_shipbuilding = {
 	texture = "gfx/interface/icons/production_method_icons/reinforced_steam_ships.dds"
 	
 	state_modifiers = {
@@ -1090,7 +1058,7 @@ pm_metal_shipbuilding = {
 	}
 }
 
-pm_arc_welding_shipbuilding = {
+REPLACE:pm_arc_welding_shipbuilding = {
 	texture = "gfx/interface/icons/production_method_icons/arc_welded_steam_ships.dds"
 	
 	unlocking_technologies = {
@@ -1128,48 +1096,9 @@ pm_arc_welding_shipbuilding = {
 	required_input_goods = electricity
 }
 
-pm_modular_shipbuilding = {
-	texture = "gfx/interface/icons/production_method_icons/pm_modular_shipbuilding.dds"
-	
-	unlocking_technologies = {
-		modular_shipbuilding
-	}
-
-	state_modifiers = {
-		workforce_scaled = {
-			state_pollution_generation_add = 15
-		}
-	}
-	
-	building_modifiers = {
-		workforce_scaled = {
-			# input goods
-			goods_input_steel_add = 15
-			goods_input_electricity_add = 20
-			goods_input_engines_add = 10
-			goods_input_aluminium_add = 15
-			goods_input_processors_add = 5
-			goods_input_robotics_add = 10
-			
-			# output goods
-			goods_output_steamers_add = 105
-		}
-
-		level_scaled = {
-			# employment
-			building_employment_shopkeepers_add = 500
-			building_employment_laborers_add = 500
-			building_employment_machinists_add = 1000
-			building_employment_engineers_add = 1000
-		}
-	}
-
-	required_input_goods = electricity
-}
-
 ###MILITARY SHIP###
 
-pm_military_shipbuilding_wooden_2 = {
+REPLACE:pm_military_shipbuilding_wooden_2 = {
 	texture = "gfx/interface/icons/production_method_icons/military_shipbuilding_wooden_2.dds"
 
 	unlocking_technologies = {
@@ -1198,7 +1127,7 @@ pm_military_shipbuilding_wooden_2 = {
 	}
 }			
 
-pm_military_shipbuilding_steam_2 = {
+REPLACE:pm_military_shipbuilding_steam_2 = {
 	texture = "gfx/interface/icons/production_method_icons/military_shipbuilding_steam_2.dds"
 	
 	unlocking_technologies = {
@@ -1229,41 +1158,9 @@ pm_military_shipbuilding_steam_2 = {
 	required_input_goods = electricity
 }
 
-pm_modular_military_shipbuilding = {
-	texture = "gfx/interface/icons/production_method_icons/pm_modular_military_shipbuilding.dds"
-	
-	unlocking_technologies = {
-		modular_shipbuilding
-	}
-	
-	building_modifiers = {
-		workforce_scaled = {
-			#input
-			goods_input_steel_add = 40
-			goods_input_electricity_add = 20
-			goods_input_engines_add = 20
-			goods_input_artillery_add = 10
-			goods_input_processors_add = 5
-			goods_input_robotics_add = 10
-
-			# output goods
-			goods_output_ironclads_add = 95
-		}
-		level_scaled = {
-			# employment
-			building_employment_shopkeepers_add = 500
-			building_employment_laborers_add = 500
-			building_employment_machinists_add = 1000
-			building_employment_engineers_add = 1000
-		}
-	}
-
-	required_input_goods = electricity
-}
-
 ###RIFLES###
 
-pm_rifles = {
+REPLACE:pm_rifles = {
 	texture = "gfx/interface/icons/production_method_icons/rifles.dds"
 	
 	unlocking_technologies = {
@@ -1291,7 +1188,7 @@ pm_rifles = {
 	}
 }
 
-pm_repeaters = {
+REPLACE:pm_repeaters = {
 	texture = "gfx/interface/icons/production_method_icons/repeaters.dds"
 	
 	unlocking_technologies = {
@@ -1320,7 +1217,7 @@ pm_repeaters = {
 	}
 }
 
-pm_bolt_action_rifles = {
+REPLACE:pm_bolt_action_rifles = {
 	texture = "gfx/interface/icons/production_method_icons/bolt_action_rifles.dds"
 	
 	unlocking_technologies = {
@@ -1349,70 +1246,9 @@ pm_bolt_action_rifles = {
 	}
 }
 
-pm_selective_automatic_rifles = {
-	texture = "gfx/interface/icons/production_method_icons/pm_selective_automatic_rifles.dds"
-	
-	unlocking_technologies = {
-		semi_automatic_rifle
-	}
-	
-	building_modifiers = {
-		workforce_scaled = {
-			# input goods
-			goods_input_steel_add = 20
-			goods_input_tools_add = 15
-			goods_input_aluminium_add = 10 #500
-			goods_input_lubricant_add = 5 #210
-			goods_input_alloys_add = 10
-			
-			# output goods
-			goods_output_small_arms_add = 120 #1200
-		}
-
-		level_scaled = {
-			# employment
-			building_employment_shopkeepers_add = 500
-			building_employment_laborers_add = 2500
-			building_employment_machinists_add = 1250
-			building_employment_engineers_add = 750
-		}
-	}
-}
-
-pm_assault_rifles = {
-	texture = "gfx/interface/icons/production_method_icons/pm_assault_rifles.dds"
-
-	unlocking_technologies = {
-		assault_rifles
-	}
-
-	building_modifiers = {
-		workforce_scaled = {
-			# input goods
-			goods_input_steel_add = 20
-			goods_input_tools_add = 10 #-200
-			goods_input_aluminium_add = 10
-			goods_input_electroniccomponents_add = 2 #160
-			goods_input_lubricant_add = 10 #700
-			goods_input_alloys_add = 10
-			
-			# output goods
-			goods_output_small_arms_add = 140 #1200
-		}
-
-		level_scaled = {
-			# employment
-			building_employment_shopkeepers_add = 500
-			building_employment_laborers_add = 2500
-			building_employment_machinists_add = 1250
-			building_employment_engineers_add = 750
-		}
-	}
-}
-
 # Artillery
 
-pm_cannons = {
+REPLACE:pm_cannons = {
 	texture = "gfx/interface/icons/production_method_icons/artillery_production.dds"
 	
 	unlocking_technologies = {
@@ -1438,7 +1274,7 @@ pm_cannons = {
 	}
 }
 
-pm_smoothbores = {
+REPLACE:pm_smoothbores = {
 	texture = "gfx/interface/icons/production_method_icons/smoothbores.dds"
 	
 	unlocking_technologies = {
@@ -1465,7 +1301,7 @@ pm_smoothbores = {
 	}
 }
 
-pm_breech_loaders = {
+REPLACE:pm_breech_loaders = {
 	texture = "gfx/interface/icons/production_method_icons/breech_loading_artillery_production.dds"
 	
 	unlocking_technologies = {
@@ -1493,7 +1329,7 @@ pm_breech_loaders = {
 	}
 }
 
-pm_recoiled_barrels = {
+REPLACE:pm_recoiled_barrels = {
 	texture = "gfx/interface/icons/production_method_icons/recoil_mechanism_artillery_production.dds"
 	
 	unlocking_technologies = {
@@ -1523,7 +1359,7 @@ pm_recoiled_barrels = {
 
 #Train
 
-pm_steam_trains = {
+REPLACE:pm_steam_trains = {
 	texture = "gfx/interface/icons/production_method_icons/trains_steam.dds"
 	replacement_if_valid = pm_steam_trains_principle_transport_3
 
@@ -1553,7 +1389,7 @@ pm_steam_trains = {
 	}
 }
 
-pm_steam_trains_principle_transport_3 = {
+REPLACE:pm_steam_trains_principle_transport_3 = {
 	texture = "gfx/interface/icons/production_method_icons/trains_steam.dds"
 	is_hidden_when_unavailable = yes
 
@@ -1587,7 +1423,7 @@ pm_steam_trains_principle_transport_3 = {
 	}
 }
 
-pm_electric_trains = {
+REPLACE:pm_electric_trains = {
 	texture = "gfx/interface/icons/production_method_icons/trains_electric.dds"
 	replacement_if_valid = pm_electric_trains_principle_transport_3
 	
@@ -1619,7 +1455,7 @@ pm_electric_trains = {
 	required_input_goods = electricity
 }
 
-pm_electric_trains_principle_transport_3 = {
+REPLACE:pm_electric_trains_principle_transport_3 = {
 	texture = "gfx/interface/icons/production_method_icons/trains_electric.dds"
 	is_hidden_when_unavailable = yes
 
@@ -1655,7 +1491,7 @@ pm_electric_trains_principle_transport_3 = {
 	required_input_goods = electricity
 }
 
-pm_diesel_trains = {
+REPLACE:pm_diesel_trains = {
 	texture = "gfx/interface/icons/production_method_icons/trains_diesel.dds"	
 	replacement_if_valid = pm_diesel_trains_principle_transport_3
 
@@ -1686,7 +1522,7 @@ pm_diesel_trains = {
 	}
 }
 
-pm_diesel_trains_principle_transport_3 = {
+REPLACE:pm_diesel_trains_principle_transport_3 = {
 	texture = "gfx/interface/icons/production_method_icons/trains_diesel.dds"	
 	is_hidden_when_unavailable = yes
 
@@ -1723,7 +1559,7 @@ pm_diesel_trains_principle_transport_3 = {
 
 # Military
 
-pm_mobile_warfare_tactics = {
+REPLACE:pm_mobile_warfare_tactics = {
 	texture = "gfx/interface/icons/production_method_icons/motorised_logistics.dds"
 	profession_ratio = {
 		soldiers = 75
@@ -1743,7 +1579,7 @@ pm_mobile_warfare_tactics = {
 	}
 }
 
-pm_mobile_warfare_tactics_conscription = {
+REPLACE:pm_mobile_warfare_tactics_conscription = {
 	texture = "gfx/interface/icons/production_method_icons/motorised_logistics.dds"
 	profession_ratio = {
 		soldiers = 75
@@ -1765,7 +1601,7 @@ pm_mobile_warfare_tactics_conscription = {
 
 # Diesel Pump Mining
 
-pm_diesel_pump_building_coal_mine = {
+REPLACE:pm_diesel_pump_building_coal_mine = {
 	texture = "gfx/interface/icons/production_method_icons/diesel_pump.dds"
 
 	unlocking_technologies = {
@@ -1797,7 +1633,7 @@ pm_diesel_pump_building_coal_mine = {
 	}
 }
 
-pm_diesel_pump_building_iron_mine = {
+REPLACE:pm_diesel_pump_building_iron_mine = {
 	texture = "gfx/interface/icons/production_method_icons/diesel_pump.dds"
 
 	unlocking_technologies = {
@@ -1829,7 +1665,7 @@ pm_diesel_pump_building_iron_mine = {
 	}
 }
 
-pm_diesel_pump_building_lead_mine = {
+REPLACE:pm_diesel_pump_building_lead_mine = {
 	texture = "gfx/interface/icons/production_method_icons/diesel_pump.dds"
 	state_modifiers = {
 		workforce_scaled = {
@@ -1860,7 +1696,7 @@ pm_diesel_pump_building_lead_mine = {
 	}
 }
 
-pm_diesel_pump_building_sulfur_mine = {
+REPLACE:pm_diesel_pump_building_sulfur_mine = {
 	texture = "gfx/interface/icons/production_method_icons/diesel_pump.dds"
 	state_modifiers = {
 		workforce_scaled = {
@@ -1891,7 +1727,7 @@ pm_diesel_pump_building_sulfur_mine = {
 	}
 }
 
-pm_diesel_pump_building_gold_mine = {
+REPLACE:pm_diesel_pump_building_gold_mine = {
 	texture = "gfx/interface/icons/production_method_icons/diesel_pump.dds"
 	state_modifiers = {
 		workforce_scaled = {
@@ -1930,7 +1766,7 @@ pm_diesel_pump_building_gold_mine = {
 
 # Glasswork
 
-pm_bone_china = {
+REPLACE:pm_bone_china = {
 	texture = "gfx/interface/icons/production_method_icons/bone_china.dds"
 	
 	unlocking_technologies = {
@@ -1962,7 +1798,7 @@ pm_bone_china = {
 
 # Oil
 
-pm_combustion_derricks = {
+REPLACE:pm_combustion_derricks = {
 	texture = "gfx/interface/icons/production_method_icons/combustion_derricks.dds"
 	
 	state_modifiers = {
@@ -1995,7 +1831,7 @@ pm_combustion_derricks = {
 	}
 }
 
-pm_rail_transport_building_oil_rig = {
+REPLACE:pm_rail_transport_building_oil_rig = {
 	texture = "gfx/interface/icons/production_method_icons/rail_transport.dds"
 
 	state_modifiers = {
@@ -2019,7 +1855,7 @@ pm_rail_transport_building_oil_rig = {
 	}
 }
 
-pm_tanker_cars = {
+REPLACE:pm_tanker_cars = {
 	texture = "gfx/interface/icons/production_method_icons/tanker_cars.dds"
 
 	state_modifiers = {
@@ -2045,7 +1881,7 @@ pm_tanker_cars = {
 
 # Livestock
 
-pm_intensive_grazing_ranch = {
+REPLACE:pm_intensive_grazing_ranch = {
 	texture = "gfx/interface/icons/production_method_icons/large_sheep_ranch.dds"
 
 	unlocking_technologies = {
@@ -2070,7 +1906,7 @@ pm_intensive_grazing_ranch = {
 
 #Assembly Lines
 
-pm_assembly_lines_building_furniture_manufacturies = {
+REPLACE:pm_assembly_lines_building_furniture_manufactory = {
 	texture = "gfx/interface/icons/production_method_icons/assembly_lines.dds"
 	
 	unlocking_technologies = {
@@ -2103,7 +1939,7 @@ pm_assembly_lines_building_furniture_manufacturies = {
 	required_input_goods = electricity
 }
 
-pm_assembly_lines_building_motor_industry = {
+REPLACE:pm_assembly_lines_building_motor_industry = {
 	texture = "gfx/interface/icons/production_method_icons/assembly_lines.dds"
 	state_modifiers = {
 		workforce_scaled = {
@@ -2132,7 +1968,7 @@ pm_assembly_lines_building_motor_industry = {
 	required_input_goods = electricity
 }
 
-pm_assembly_lines_building_automotive_industry = {
+REPLACE:pm_assembly_lines_building_automotive_industry = {
 	texture = "gfx/interface/icons/production_method_icons/assembly_lines.dds"
 	state_modifiers = {
 		workforce_scaled = {
@@ -2159,63 +1995,11 @@ pm_assembly_lines_building_automotive_industry = {
 	}
 
 	required_input_goods = electricity
-}
-
-pm_assembly_lines_building_electrics_industry = {
-	texture = "gfx/interface/icons/production_method_icons/assembly_lines.dds"
-	state_modifiers = {
-		workforce_scaled = {
-			state_pollution_generation_add = 10
-		}
-	}
-
-	unlocking_technologies = {
-		conveyors
-	}
-
-	building_modifiers = {
-		workforce_scaled = {
-			# input goods
-			goods_input_tools_add = 5
-			goods_input_lubricant_add = 3
-			goods_input_electricity_add = 5
-		}
-
-		level_scaled = {
-			building_employment_laborers_add = -1500
-			building_employment_machinists_add = -500
-		}
-	}
-
-	required_input_goods = electricity
-}
-
-# Trade Center
-
-pm_trade_center_trade_quantity_ultra = {
-	texture = "gfx/interface/icons/production_method_icons/trade_quantity_5.dds"
-
-	unlocking_technologies = { naval_logistic_automation }
-
-	building_modifiers = {
-		workforce_scaled = {
-			goods_input_merchant_marine_add = 8
-		}
-	}
-	state_modifiers = {
-		unscaled = {
-			state_trade_quantity_mult = 1.5
-		}
-	}
 }
 
 # Synthetic Plants
 
-pm_no_dye_production = {
-	texture = "gfx/interface/icons/production_method_icons/no_synthetic_dyes.dds"
-}
-
-pm_dye_production = {
+REPLACE:pm_dye_production = {
 	texture = "gfx/interface/icons/production_method_icons/synthetic_dyes_purple.dds"
 
 	state_modifiers = {
@@ -2238,7 +2022,7 @@ pm_dye_production = {
 	}
 }
 
-pm_rayon = {
+REPLACE:pm_rayon = {
 	texture = "gfx/interface/icons/production_method_icons/rayon.dds"
 
 	unlocking_technologies = {
@@ -2269,7 +2053,7 @@ pm_rayon = {
 
 # Whaling
 
-pm_steam_whaling_ships = {
+REPLACE:pm_steam_whaling_ships = {
 	texture = "gfx/interface/icons/production_method_icons/steam_whaling_ships.dds"
 
 	state_modifiers = {
@@ -2302,97 +2086,149 @@ pm_steam_whaling_ships = {
 	}
 }
 
+# Military
+
+REPLACE:pm_assembly_lines_building_tooling_workshop = {
+	texture = "gfx/interface/icons/production_method_icons/assembly_lines.dds"
+	
+	state_modifiers = {
+		workforce_scaled = {
+			state_pollution_generation_add = 10
+		}
+	}
+	
+	unlocking_technologies = {
+		conveyors
+	}
+
+	disallowing_laws = {
+		law_industry_banned
+	}
+	
+	building_modifiers = {
+		workforce_scaled = {
+			goods_input_lubricant_add = 6
+			goods_input_electricity_add = 5
+		}
+
+		level_scaled = {
+			building_employment_laborers_add = -3000
+		}
+	}
+
+	required_input_goods = electricity
+}
+
+REPLACE:pm_assembly_lines_building_arms_industry = {
+	texture = "gfx/interface/icons/production_method_icons/assembly_lines.dds"
+	
+	state_modifiers = {
+		workforce_scaled = {
+			state_pollution_generation_add = 10
+		}
+	}
+
+	unlocking_technologies = {
+		conveyors
+	}
+	
+	building_modifiers = {
+		workforce_scaled = {
+			goods_input_lubricant_add = 6
+			goods_input_electricity_add = 5
+		}
+
+		level_scaled = {
+			building_employment_laborers_add = -2500
+		}
+	}
+
+	required_input_goods = electricity
+}
+
+REPLACE:pm_assembly_lines_building_munition_plant = {
+	texture = "gfx/interface/icons/production_method_icons/assembly_lines.dds"
+	
+	state_modifiers = {
+		workforce_scaled = {
+			state_pollution_generation_add = 10
+		}
+	}
+
+	unlocking_technologies = {
+		conveyors
+	}
+	
+	building_modifiers = {
+		workforce_scaled = {
+			goods_input_lubricant_add = 6
+			goods_input_electricity_add = 5
+		}
+
+		level_scaled = {
+			building_employment_laborers_add = -2500
+		}
+	}
+
+	required_input_goods = electricity
+}
+
 # Subsistence PMs
-
-default_building_subsistence_farms = {
-	texture = "gfx/interface/icons/production_method_icons/subsistence_farming.dds"
-	
+INJECT:default_building_subsistence_farm = {
 	building_modifiers = {
 		workforce_scaled = { # 55
-			goods_output_grain_add = 1.0 # 20
-			goods_output_fabric_add = 0.5 # 10
-			goods_output_wood_add = 0.5 # 10
-			goods_output_services_add = 0.5 # 15
 			goods_output_water_add = 0.1
-		}
-
-		level_scaled = {
-			building_employment_peasants_add = 5000
 		}
 	}
 }
 
-default_building_subsistence_orchards = {
-	texture = "gfx/interface/icons/production_method_icons/subsistence_farming.dds"
-	
+INJECT:default_building_subsistence_orchard = {
 	building_modifiers = {
 		workforce_scaled = { # 55
-			goods_output_grain_add = 0.25 # 5 
-			goods_output_fruit_add = 0.5 # 15
-			goods_output_fabric_add = 0.5 # 10
-			goods_output_wood_add = 0.5 # 10
-			goods_output_services_add = 0.5 # 15
 			goods_output_water_add = 0.1
-		}
-
-		level_scaled = {
-			building_employment_peasants_add = 5000
 		}
 	}
 }
 
-default_building_subsistence_pastures = {
-	texture = "gfx/interface/icons/production_method_icons/subsistence_farming.dds"
-	
+INJECT:default_building_subsistence_pasture = {	
 	building_modifiers = {
 		workforce_scaled = { # 55
-			goods_output_grain_add = 0.25 # 5
-			goods_output_meat_add = 0.5 # 15
-			goods_output_fabric_add = 0.75 # 15
-			goods_output_wood_add = 0.25 # 5
-			goods_output_services_add = 0.5 # 15
 			goods_output_water_add = 0.1
-		}
-
-		level_scaled = {
-			building_employment_peasants_add = 5000
 		}
 	}
 }
 
-default_building_subsistence_fishing_villages = {
-	texture = "gfx/interface/icons/production_method_icons/subsistence_farming.dds"
-	
+INJECT:default_building_subsistence_fishing_village = {	
 	building_modifiers = {
 		workforce_scaled = { # 55
-			goods_output_grain_add = 0.5 # 10
-			goods_output_fish_add = 1.0 # 20
-			goods_output_fabric_add = 0.25 # 5
-			goods_output_wood_add = 0.25 # 5
-			goods_output_services_add = 0.5 # 15
 			goods_output_water_add = 0.1
-		}
-
-		level_scaled = {
-			building_employment_peasants_add = 5000
 		}
 	}
 }
 
-default_building_subsistence_rice_paddies = {
-	texture = "gfx/interface/icons/production_method_icons/subsistence_farming.dds"
-	
+INJECT:default_building_subsistence_rice_farm = {	
 	building_modifiers = {
 		workforce_scaled = { # 100
-			goods_output_grain_add = 2 # 40
-			goods_output_fabric_add = 0.75 # 15
-			goods_output_wood_add = 0.75 # 15
-			goods_output_services_add = 1 # 30
 			goods_output_water_add = 0.1
+		}
+	}
+}
+
+REPLACE:pm_electric_fencing = {
+	texture = "gfx/interface/icons/production_method_icons/electric_fencing.dds"
+	unlocking_technologies = {
+		electrical_generation
+	}
+	building_modifiers = {
+		workforce_scaled = {
+			goods_input_copperwires_add = 1
+			goods_input_electricity_add = 0.5
 		}
 
 		level_scaled = {
-			building_employment_peasants_add = 10000
+			building_employment_laborers_add = -1000
 		}
 	}
+
+	required_input_goods = electricity
 }

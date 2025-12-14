@@ -1,0 +1,232 @@
+﻿#Opera House
+
+REPLACE_OR_CREATE:building_elgar_opera = {
+	building_group = bg_opera
+	icon = "gfx/interface/icons/building_icons/building_elgar_opera.dds"
+
+	unlocking_technologies = {
+		elgar_classicism_tech
+	}
+
+	production_method_groups = {
+		pmg_entertainment_type
+		pmg_elgar_orchestra #Morge
+		pmg_elgar_ballet_school #Morge
+		pmg_data_optimization_light_industry
+	}
+
+	can_build_government = {
+		OR = {
+			any_scope_building = {
+				is_building_type = building_elgar_opera
+			}
+			any_scope_building = {
+				is_building_type = building_urban_center
+				level >= 5
+			}
+		}
+	}
+
+	can_build_private = {
+		OR = {
+			any_scope_building = {
+				is_building_type = building_elgar_opera
+			}
+			any_scope_building = {
+				is_building_type = building_urban_center
+				level >= 5
+			}
+		}
+	}	
+
+	required_construction = construction_cost_high
+
+	ownership_type = self
+
+	background = "gfx/interface/icons/building_icons/backgrounds/building_panel_bg_monuments.dds"
+}
+
+# Publishing Industry
+REPLACE_OR_CREATE:building_manzoni_publishing_industry = {
+	building_group = bg_light_industry
+	icon = "gfx/interface/icons/building_icons/building_manzoni_publishing_industry.dds"
+
+	unlocking_technologies = {
+		mass_communication
+	}
+
+	production_method_groups = {
+		manzoni_pmg_communication #Type of communication MORGENRÖTE
+		manzoni_pmg_building_publishing_industry_automation #Publishing Industry MORGENRÖTE
+		pmg_broadcast_media_industry #Broadcast Industry
+		pmg_digital_media_industry #Digital Media Industry
+		pmg_data_optimization_heavy_industry
+	}
+	
+	can_build_government = {
+		has_building = building_urban_center				
+	}
+
+	can_build_private = {
+		has_building = building_urban_center				
+	}
+
+	required_construction = construction_cost_very_high
+
+	ownership_type = self
+
+	background = "gfx/interface/icons/building_icons/backgrounds/building_panel_bg_light_industry.dds"
+}
+
+#Instrument Workshops
+
+REPLACE_OR_CREATE:building_instrument_workshops = {
+	building_group = bg_light_industry
+	icon = "gfx/interface/icons/building_icons/building_elgar_instrument_workshop.dds"
+	
+	unlocking_technologies = {
+		elgar_classicism_tech
+	}
+
+	production_method_groups = {
+		pmg_elgar_instruments
+		pmg_data_optimization_light_industry
+	}
+
+	required_construction = construction_cost_high
+
+	ownership_type = self
+
+	background = "gfx/interface/icons/building_icons/backgrounds/building_panel_bg_light_industry.dds"
+}
+
+# Mendelejev Rubber & Oil (In Tech & Res these are respectively Refinery Industry and Petrochemical Industry)
+
+#Hydrogenation Plants (Oil Refinery Industry)
+REPLACE_OR_CREATE:building_mendelejew_hydrogenation_plants = {
+	building_group = bg_heavy_industry
+	icon = "gfx/interface/icons/building_icons/building_mendelejew_hydrogenation_plants.dds"
+	levels_per_mesh = 5
+
+	unlocking_technologies = {
+		oil_distillation
+	}
+
+	production_method_groups = {
+		pmg_fuel_production
+		#pmg_gasification_building_mendelejew_hydrogenation_plants
+		pmg_automation_building_general
+		pmg_transport_automation_building_general
+		pmg_data_optimization_light_industry
+	}
+
+	required_construction = construction_cost_very_high
+
+	ownership_type = self
+
+	background = "gfx/interface/icons/building_icons/backgrounds/building_panel_bg_heavy_industry.dds"
+}
+
+#Synthetic Rubber Factory (Petrochemical Industry)
+REPLACE_OR_CREATE:building_mendelejew_synthetic_rubber_factory = {
+	building_group = bg_heavy_industry
+	icon = "gfx/interface/icons/building_icons/building_mendelejew_synthetic_rubber_factory.dds"
+	levels_per_mesh = 5
+
+	unlocking_technologies = {
+		plastics
+	}
+
+	production_method_groups = {
+		pmg_plastics_production
+		pmg_mendelejew_isoprene
+		pmg_automation_building_general
+		pmg_transport_automation_building_general
+		pmg_data_optimization_light_industry
+	}
+
+	required_construction = construction_cost_very_high
+
+	ownership_type = self
+
+	background = "gfx/interface/icons/building_icons/backgrounds/building_panel_bg_heavy_industry.dds"
+}
+
+# Airport
+
+REPLACE_OR_CREATE:building_airport = {
+	building_group = bg_private_infrastructure	
+	icon = "gfx/interface/icons/building_icons/airport.dds"
+	
+	unlocking_technologies = {
+		zeppelins
+	}
+
+	production_method_groups = {
+		pmg_base_building_airport
+		pmg_cargo_airport
+		#pmg_tourism_airport (WIP)
+		pmg_fuel_airport
+		pmg_data_optimization_light_industry
+	}
+
+	can_build_government = {
+		custom_tooltip = {
+			text = mr_airport_can_construct_tt
+			NOT = {
+				b:building_airport ?= {
+					level_after_queued_constructions >= {
+						value = 1							# Ensures always 1 level is buildable
+						add = {
+							state.b:building_urban_center ?= {
+								add = level
+							}
+							divide = 10						# 1 additional level per 10 urban centres
+							floor = yes						# Otherwise this rounds UP for all decimals
+							# Whatever curtiss flight route variable you would like:
+							# add = var:curtiss_local_aviation_enthusiasm
+						}
+					}
+				}
+			}
+		}
+	}
+	
+	can_build_private = {
+		custom_tooltip = {
+			text = mr_airport_can_construct_tt
+			NOT = {
+				b:building_airport ?= {
+					level_after_queued_constructions >= {
+						value = 1							# Ensures always 1 level is buildable
+						add = {
+							state.b:building_urban_center ?= {
+								add = level
+							}
+							divide = 10						# 1 additional level per 10 urban centres
+							floor = yes						# Otherwise this rounds UP for all decimals
+							# Whatever curtiss flight route variable you would like:
+							# add = var:curtiss_local_aviation_enthusiasm
+						}
+					}
+				}
+			}
+		}
+	}
+	
+	should_auto_expand = {
+		OR = {
+			cash_reserves_ratio >= 0.5
+			is_subsidized = yes
+		}
+		state.market_access > 1.1
+	}
+	
+	required_construction = construction_cost_very_high
+	
+	ownership_type = self
+	
+	ai_value = 1000 # Airports are less important than railroads
+
+	background = "gfx/interface/icons/building_icons/backgrounds/building_panel_bg_railways.dds"
+}

@@ -1,6 +1,6 @@
 # Era 1
 
-agassiz_geology_tech = {
+REPLACE_OR_CREATE:agassiz_geology_tech = {
 	era = era_1
 	texture = "gfx/interface/icons/invention_icons/agassiz_geology_tech.dds"
 	category = production
@@ -29,9 +29,74 @@ agassiz_geology_tech = {
 
 # Era 4
 
+REPLACE_OR_CREATE:verrier_modern_physics_tech = {
+	# Unlocks Uranium Mine
+	# Unlocks Einstein Events
+	era = era_4
+	texture = "gfx/interface/icons/invention_icons/verrier_modern_physics_tech.dds"
+	category = production
+
+	unlocking_technologies = {
+		verrier_electromagnetism_tech
+	}
+
+	modifier = {
+		country_tech_research_speed_mult = 0.1
+		country_allow_everywhere_uranium_mining_bool = yes
+	}
+
+	ai_weight = {
+		value = 2 
+
+		if = {
+			limit = { 
+				OR = {
+					c:SWI ?= ROOT
+					c:GER ?= ROOT
+					c:PRU ?= ROOT
+					c:NGF ?= ROOT 
+				}
+				
+			}
+			add = 3 #German Physics Bohr-Planck-Einstein
+		}
+	}
+}
+
 # Era 5
 
-mendelejew_synthetic_fuel_tech = {
+REPLACE_OR_CREATE:verrier_nuclear_physics_tech = {
+	# Unlocks Einstein Events
+	era = era_5
+	texture = "gfx/interface/icons/invention_icons/verrier_nuclear_physics_tech.dds"
+	category = production
+
+	unlocking_technologies = {
+		verrier_modern_physics_tech
+	}
+
+	modifier = {
+		building_group_bg_power_throughput_add = 0.05
+	}
+
+	ai_weight = {
+		value = 2 
+
+		if = {
+			limit = { 
+				OR = {
+					c:ITA ?= ROOT
+					c:USA ?= ROOT
+				}
+				
+			}
+			add = 2 #Fermi-Szilard-etc
+		}		
+	}
+	
+}
+
+REPLACE_OR_CREATE:mendelejew_synthetic_fuel_tech = {
 	# Unlocks Synthetic Fuel Factory
 	era = era_6
 	texture = "gfx/interface/icons/invention_icons/mendelejew_synthetic_fuel_tech.dds"
@@ -50,7 +115,7 @@ mendelejew_synthetic_fuel_tech = {
 	}
 }
 
-mendelejew_synthetic_rubber_tech = {
+REPLACE_OR_CREATE:mendelejew_synthetic_rubber_tech = {
 	# Unlocks Synthetic Rubber Factory
 	era = era_5
 	texture = "gfx/interface/icons/invention_icons/mendelejew_synthetic_rubber_tech.dds"
@@ -80,7 +145,7 @@ mendelejew_synthetic_rubber_tech = {
 
 # Era 6
 
-vikelas_streamliners_tech = {
+REPLACE_OR_CREATE:vikelas_streamliners_tech = {
     # Modern Tools
     era = era_6
     texture = "gfx/interface/icons/invention_icons/pm_streamlined_railway.dds"
@@ -99,7 +164,7 @@ vikelas_streamliners_tech = {
 	}
 }
 
-verrier_astro_physics_tech = {
+REPLACE_OR_CREATE:verrier_astro_physics_tech = {
 	# Unlocks Lemaître and the Great Debate
 	# Unlocks Astrolab
 	# Gives additional astronomical objects per year

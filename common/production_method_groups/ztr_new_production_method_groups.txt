@@ -548,13 +548,13 @@ pmg_chemical_plant_automation = {
 	}
 }
 
-pmg_synthetic_dyes = {
+REPLACE:pmg_synthetic_dyes = {
 	texture = "gfx/interface/icons/generic_icons/mixed_icon_refining.dds"
 	production_methods = {
 		pm_no_dye_production
 		pm_dye_production
 	}
-} # Moved from synthetics plant
+}
 
 # Explosives
 
@@ -650,18 +650,16 @@ pmg_automation_building_battery_plant = {
 	}
 }
 
-pmg_automation_building_synthetics_plants = {
+pmg_automation_building_synthetics_plant = {
 	texture = "gfx/interface/icons/generic_icons/mixed_icon_automation.dds"
 	production_methods = {
 		pm_automation_disabled
-		pm_basic_electric_control_building_synthetics_plants
-		pm_advanced_electric_control_building_synthetics_plants
+		pm_basic_electric_control_building_synthetics_plant
+		pm_advanced_electric_control_building_synthetics_plant
 	}
 }
 
 # Synthetics Plants
-
-
 
 pmg_cosmetics = {
 	texture = "gfx/interface/icons/generic_icons/mixed_icon_base.dds"
@@ -675,7 +673,63 @@ pmg_cosmetics = {
 	}
 }
 
+# Selective Mineral Extraction
 
+pmg_selective_mineral_extraction_coal_mine = {
+	texture = "gfx/interface/icons/generic_icons/mixed_icon_base.dds"
+	production_methods = {
+		pm_no_selective_mineral_extraction
+		selective_mineral_extraction_coal_mine
+	}
+}
+
+pmg_selective_mineral_extraction_iron_mine = {
+	texture = "gfx/interface/icons/generic_icons/mixed_icon_base.dds"
+	production_methods = {
+		pm_no_selective_mineral_extraction
+		selective_mineral_extraction_iron_mine
+	}
+}
+
+pmg_selective_mineral_extraction_lead_mine = {
+	texture = "gfx/interface/icons/generic_icons/mixed_icon_base.dds"
+	production_methods = {
+		pm_no_selective_mineral_extraction
+		selective_mineral_extraction_lead_mine
+	}
+}
+
+pmg_selective_mineral_extraction_sulfur_mine = {
+	texture = "gfx/interface/icons/generic_icons/mixed_icon_base.dds"
+	production_methods = {
+		pm_no_selective_mineral_extraction
+		selective_mineral_extraction_sulfur_mine
+	}
+}
+
+# Electrics Industry
+
+pmg_automation_building_electrics_industry = {
+	texture = "gfx/interface/icons/generic_icons/mixed_icon_automation.dds"
+	production_methods = {
+		pm_automation_disabled
+		pm_assembly_lines_building_electrics_industry
+		pm_advanced_assembly_lines_building_electrics_industry
+		pm_robotic_building_electrics_industry
+		pm_iot_building_electrics_industry
+	}
+}
+
+pmg_automation_building_aircraft_industry = {
+	texture = "gfx/interface/icons/generic_icons/mixed_icon_automation.dds"
+	production_methods = {
+		pm_automation_disabled
+		pm_assembly_lines_building_aircraft_industry
+		pm_advanced_assembly_lines_building_aircraft_industry
+		pm_robotic_building_aircraft_industry
+		pm_iot_building_aircraft_industry
+	}
+}
 
 # Delivery and Food Industry
 
@@ -794,28 +848,100 @@ pmg_steam_automation_building_rare_earths_mine = {
 # 	}
 # }
 
-# Muntions
+# Livestock
 
-pmg_base_building_munition_plants = {
-	texture = "gfx/interface/icons/generic_icons/mixed_icon_base.dds"
-	ai_selection = most_productive
-
+pmg_breeding_livestock_ranch = {
+	texture = "gfx/interface/icons/generic_icons/mixed_icon_refining.dds"
 	production_methods = {
-		pm_percussion_caps
-		pm_explosive_shells
-		pm_precised_shells
-		pm_launched_guided_projectiles
+		pm_no_selective_breeding
+		pm_hormonal_feedlots
+		pm_genetic_analysis_breeding
 	}
 }
 
-pmg_automation_building_munition_plants = {
-	texture = "gfx/interface/icons/generic_icons/mixed_icon_base.dds"
-	ai_selection = most_productive
+# Civil Planes
 
+pmg_civil_space_aircraft = {
+	texture = "gfx/interface/icons/generic_icons/mixed_icon_base.dds"
 	production_methods = {
-		pm_automation_disabled
-		pm_rotary_valve_engine_building_munition_plants
-		pm_assembly_lines_building_munition_plants
-		pm_advanced_assembly_lines_building_munition_plants
+		pm_zeppelins_production
+		pm_civil_planes_production
+		pm_rocket_probes
+		pm_rocket_satellites
+		pm_rocket_spacecraft
 	}
 }
+
+# Helicopter
+
+# pmg_helicopters = {
+# 	texture = "gfx/interface/icons/generic_icons/mixed_icon_refining.dds"
+# 	production_methods = {
+# 		pm_no_helicopter_production
+# 		pm_helicopter_production
+# 	}
+# }
+
+# Airport
+
+pmg_fuel_airport = {
+	texture = "gfx/interface/icons/generic_icons/mixed_icon_refining.dds"
+	production_methods = {
+		pm_airport_oil
+		pm_airport_kerosene
+	}
+}
+
+# Munitions
+
+pmg_missiles_building_munition_plant = {
+	texture = "gfx/interface/icons/generic_icons/mixed_icon_refining.dds"
+	production_methods = {
+		pm_no_missiles_building_munition_plant
+		pm_rocket_building_munition_plant
+		pm_guided_missiles_building_munition_plant
+	}
+}
+
+# Nuclear Weapons Production Method Groups
+
+#Nuclear Type
+pmg_nuclear_type_military = {
+	texture = "gfx/interface/icons/generic_icons/mixed_icon_military.dds"
+	ai_selection = most_productive
+	production_methods = {
+		pm_atomic_bomb
+		pm_hydrogen_bomb
+	}
+}
+
+#Nuclear Stockpile size
+pmg_nuclear_stockpile_military = {
+	texture = "gfx/interface/icons/generic_icons/mixed_icon_military.dds"
+	ai_selection = most_productive
+	production_methods = {
+		#pm_nuclear_stockpile_0
+		pm_nuclear_stockpile_1
+		pm_nuclear_stockpile_2
+		pm_nuclear_stockpile_3
+	}
+}
+
+#nuclear_bomber
+pmg_nuclear_bomber_military = {
+	texture = "gfx/interface/icons/generic_icons/mixed_icon_military.dds"
+	ai_selection = most_productive
+	production_methods = {
+		pm_nuclear_bomber
+		pm_icbms
+	}
+}
+
+# pmg_nuclear_submarine_military = {
+# 	texture = "gfx/interface/icons/generic_icons/mixed_icon_military.dds"
+# 	ai_selection = most_productive
+# 	production_methods = {
+# 		pm_no_naval_nuclear
+# 		pm_nuclear_submarine
+# 	}
+# }

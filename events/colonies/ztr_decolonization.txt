@@ -8,7 +8,7 @@ ztr_decolonization.1 = {
 
 	event_image = {
 		trigger = {
-			scope:subject_scope = { country_is_in_europe = yes }
+			scope:subject_scope = { is_in_geographic_region = geographic_region_europe }
 		}
 		video = "europenorthamerica_springtime_of_nations"
 
@@ -16,7 +16,7 @@ ztr_decolonization.1 = {
 	}
 	event_image = {
 		trigger = {
-			scope:subject_scope = { country_is_in_north_africa = yes }
+			scope:subject_scope = { is_in_geographic_region = geographic_region_north_africa }
 		}
 		video = "africa_leader_arguing"
 
@@ -24,7 +24,7 @@ ztr_decolonization.1 = {
 	}
 	event_image = {
 		trigger = {
-			scope:subject_scope = { country_is_in_middle_east = yes }
+			scope:subject_scope = { is_in_geographic_region = geographic_region_middle_east }
 		}
 		video = "middleeast_courtroom_upheaval"
 
@@ -32,7 +32,7 @@ ztr_decolonization.1 = {
 	}
 	event_image = {
 		trigger = {
-			scope:subject_scope = { country_is_in_subsaharan_africa = yes }
+			scope:subject_scope = { is_in_geographic_region = geographic_region_subsaharan_africa }
 		}
 		video = "africa_public_protest"
 
@@ -40,7 +40,7 @@ ztr_decolonization.1 = {
 	}
 	event_image = {
 		trigger = {
-			scope:subject_scope = { country_is_in_india = yes }
+			scope:subject_scope = { is_in_geographic_region = geographic_region_india }
 		}
 		video = "ip2_india_protest"
 
@@ -48,7 +48,7 @@ ztr_decolonization.1 = {
 	}
 	event_image = {
 		trigger = {
-			scope:subject_scope = { country_is_in_east_asia = yes }
+			scope:subject_scope = { is_in_geographic_region = geographic_region_east_asia }
 		}
 		video = "ep1_donghak_rebellion"
 
@@ -56,7 +56,7 @@ ztr_decolonization.1 = {
 	}
 	event_image = {
 		trigger = {
-			scope:subject_scope = { country_is_in_southeast_asia = yes }
+			scope:subject_scope = { is_in_geographic_region = geographic_region_southeast_asia }
 		}
 		video = "asia_buddhism"
 
@@ -66,13 +66,13 @@ ztr_decolonization.1 = {
 		trigger = {
 			scope:subject_scope = {
 				NOR = {
-					country_is_in_europe = yes
-					country_is_in_north_africa = yes
-					country_is_in_middle_east = yes
-					country_is_in_subsaharan_africa = yes
-					country_is_in_india = yes
-					country_is_in_east_asia = yes
-					country_is_in_southeast_asia = yes
+					is_in_geographic_region = geographic_region_europe
+					is_in_geographic_region = geographic_region_north_africa
+					is_in_geographic_region = geographic_region_middle_east
+					is_in_geographic_region = geographic_region_subsaharan_africa
+					is_in_geographic_region = geographic_region_india
+					is_in_geographic_region = geographic_region_east_asia
+					is_in_geographic_region = geographic_region_southeast_asia
 				}
 			}
 		}
@@ -1313,10 +1313,10 @@ ztr_decolonization.18 = {
 		year > 1945
 		NOT = { is_subject = yes }
 		any_scope_state = {
-			state_is_in_india = yes
+			is_in_geographic_region = geographic_region_india
 			NOT = { state_region = s:STATE_CEYLON }
 		}
-		NOT = { country_is_in_india = yes }
+		NOT = { is_in_geographic_region = geographic_region_india }
 	}
 
 	immediate = {
@@ -1344,14 +1344,14 @@ ztr_decolonization.18 = {
 		change_infamy = -10
 		every_scope_state = {
 			limit = {
-				state_is_in_india = yes
+				is_in_geographic_region = geographic_region_india
 				NOT = { state_region = s:STATE_CEYLON }
 			}
 			set_state_owner = scope:ztr_indian_unifier_scope
 		}
 		if = {
 			limit = {
-				country_is_in_europe = yes 
+				is_in_geographic_region = geographic_region_europe 
 			}
 			create_bidirectional_truce = { country = scope:ztr_indian_unifier_scope months = 120 }
 		}
@@ -1525,7 +1525,7 @@ ztr_decolonization.21 = {
 		has_global_variable = ztr_decolonization_age_var
 		year > 1945
 		NOT = { is_subject = yes }
-		NOT = {	country_is_in_china = yes } # Better than using chinese/han culture
+		NOT = {	is_in_geographic_region = geographic_region_china } # Better than using chinese/han culture
 		any_scope_state = {
 			OR = {
 				region = sr:region_north_china
@@ -2690,7 +2690,6 @@ ztr_decolonization.41 = {
 		}
 		OR = {
 			has_state_in_state_region = STATE_SENEGAL
-			has_state_in_state_region = STATE_GAMBIA
 		}
 		has_game_rule = allow_ztr_decolonization_content
 	}
@@ -2835,7 +2834,7 @@ ztr_decolonization.44 = {
 			state_region = { OR = { region = sr:region_senegal } is_homeland = cu:akan }
 			count > 0
 		}
-		OR = { has_state_in_state_region = STATE_GHANA }
+		OR = { has_state_in_state_region = STATE_GOLD_COAST }
 		has_game_rule = allow_ztr_decolonization_content
 	}
 

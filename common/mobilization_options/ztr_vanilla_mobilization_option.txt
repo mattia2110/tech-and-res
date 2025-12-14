@@ -1,6 +1,6 @@
 ﻿#VANILLA
 
-mobilization_option_basic_supplies = {
+REPLACE:mobilization_option_basic_supplies = {
 	texture = "gfx/interface/icons/mobilization_options/basic_supplies.dds"
 	can_be_turned_off = {
 		custom_tooltip = {
@@ -12,12 +12,12 @@ mobilization_option_basic_supplies = {
 		goods_input_grain_add = 0.75
 	}
 	upkeep_modifier_unscaled = {
-        goods_input_small_arms_mult = 0.25
-        goods_input_artillery_mult = 0.25
-		goods_input_ammunition_mult = 0.25
-        goods_input_oil_mult = 0.25
-        goods_input_radios_mult = 0.25
-        goods_input_tanks_mult = 0.25
+        goods_input_small_arms_mult = 0.3
+        goods_input_artillery_mult = 0.3
+		goods_input_ammunition_mult = 0.3
+        goods_input_oil_mult = 0.3
+        goods_input_radios_mult = 0.3
+        goods_input_tanks_mult = 0.3
 	}
 
 	unit_modifier = {
@@ -30,7 +30,7 @@ mobilization_option_basic_supplies = {
 	group = supplies
 }
 
-mobilization_option_extra_supplies = {
+REPLACE:mobilization_option_extra_supplies = {
 	texture = "gfx/interface/icons/mobilization_options/extra_supplies.dds"
 
 	possible = {
@@ -61,12 +61,12 @@ mobilization_option_extra_supplies = {
 		goods_input_groceries_add = 1.5
 	}
 	upkeep_modifier_unscaled = {
-        goods_input_small_arms_mult = 0.15
-        goods_input_artillery_mult = 0.15
-		goods_input_ammunition_mult = 0.15
-        goods_input_oil_mult = 0.15
-        goods_input_radios_mult = 0.15
-        goods_input_tanks_mult = 0.15
+        goods_input_small_arms_mult = 0.2
+        goods_input_artillery_mult = 0.2
+		goods_input_ammunition_mult = 0.2
+        goods_input_oil_mult = 0.2
+        goods_input_radios_mult = 0.2
+        goods_input_tanks_mult = 0.2
 	}
 
 	unit_modifier = {
@@ -76,12 +76,34 @@ mobilization_option_extra_supplies = {
 	}
 	ai_weight = {
 		value = 1
+
+		if = {
+			limit = {
+				c:SPC ?= this
+				scope:military_formation ?= {
+					any_combat_unit = {
+						building = {
+							state = {
+								state_region = {
+									OR = {
+										this = s:STATE_ARAGON
+										this = s:STATE_CATALONIA
+									}
+								}
+							}
+						}
+						percent >= 0.2
+					}
+				}
+			}
+			add = -1000000
+		}
 	}
 
 	group = supplies
 }
 
-mobilization_option_luxurious_supplies = {
+REPLACE:mobilization_option_luxurious_supplies = {
 	texture = "gfx/interface/icons/mobilization_options/luxurious_supplies.dds"
 
 	possible = {
@@ -117,12 +139,12 @@ mobilization_option_luxurious_supplies = {
 		goods_input_wine_add = 1.5
 	}
 	upkeep_modifier_unscaled = {
-        goods_input_small_arms_mult = 0.15
-        goods_input_artillery_mult = 0.15
-		goods_input_ammunition_mult = 0.15
-        goods_input_oil_mult = 0.15
-        goods_input_radios_mult = 0.15
-        goods_input_tanks_mult = 0.15
+        goods_input_small_arms_mult = 0.2
+        goods_input_artillery_mult = 0.2
+		goods_input_ammunition_mult = 0.2
+        goods_input_oil_mult = 0.2
+        goods_input_radios_mult = 0.2
+        goods_input_tanks_mult = 0.2
 	}
 
 	unit_modifier = {
@@ -137,7 +159,7 @@ mobilization_option_luxurious_supplies = {
 	group = supplies
 }
 
-mobilization_option_aerial_recon = {
+REPLACE:mobilization_option_aerial_recon = {
 	texture = "gfx/interface/icons/mobilization_options/aerial_reconaissance.dds"
 
 	possible = {
@@ -190,7 +212,7 @@ mobilization_option_aerial_recon = {
 	group = reconnaissance
 }
 
-mobilization_option_flamethrowers = {
+REPLACE:mobilization_option_flamethrowers = {
 	texture = "gfx/interface/icons/mobilization_options/flamethrowers.dds"
 
 	possible = {
@@ -225,7 +247,7 @@ mobilization_option_flamethrowers = {
 		flamethrowers
 	}
 	upkeep_modifier = {
-		goods_input_light_fuel_add = 0.5
+		goods_input_light_fuel_add = 1
 	}
 	unit_modifier = {
 		unit_offense_add = 15
@@ -239,7 +261,7 @@ mobilization_option_flamethrowers = {
     group = special_weapons
 }
 
-mobilization_option_motorized_recon = {
+REPLACE:mobilization_option_motorized_recon = {
 	texture = "gfx/interface/icons/mobilization_options/motorized_reconaissance.dds"
 
 	possible = {
@@ -294,7 +316,7 @@ mobilization_option_motorized_recon = {
 
 # Medical Support
 
-mobilization_option_first_aid = {
+REPLACE:mobilization_option_first_aid = {
 
 	unlocking_technologies = {
 		triage
@@ -361,7 +383,7 @@ mobilization_option_first_aid = {
 	group = medic_support
 }
 
-mobilization_option_field_hospitals = {
+REPLACE:mobilization_option_field_hospitals = {
 	texture = "gfx/interface/icons/mobilization_options/field_hospitals.dds"
 
 	unlocking_technologies = {

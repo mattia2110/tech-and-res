@@ -75,23 +75,10 @@
     }
 
     # root = article
-    # root = article
     can_ratify = {
         scope:source_country = {
-            market.owner ?= scope:source_country
-        }
-        scope:target_country = {
-            market.owner ?= scope:target_country
-        }
-
-        "scope:article.input_market_goods(scope:source_country)" = {
-  		    market_goods_production > 1
-            market_goods_pricier < 0.70
-		}
-
-        scope:source_country = {
             OR = {
-                supply_network_strength >= 0.5
+                supply_network_strength >= 0.75
                 is_adjacent_to_country = scope:target_country
             }
         }
@@ -144,14 +131,15 @@
 	}
 
     goods_valid_trigger = {
-        root.market = {
-            scope:market_goods = {
-                market_goods_delta >= 10
-            }
-        }
         scope:input = {
             is_tradeable = yes
         }
+		scope:market_goods ?= {
+			treaty_exports < market_export_cap
+		}
+		scope:other_market_goods ?= {
+			treaty_imports < market_import_cap
+		}
     }
 
     quantity_min_value = {
@@ -240,7 +228,7 @@
             request
         }
 
-		combined_acceptance_cap_max = 50
+		combined_acceptance_cap_max = 25
 		combined_acceptance_cap_min = -500
 
 		inherent_accept_score = {
@@ -257,12 +245,6 @@
                     "scope:article.input_market_goods(root)" ?= {
                         ai_treaty_export_value:root > 0
                     }
-                    scope:article.input_quantity <= {
-                        "scope:article.input_market_goods(root)" ?= {
-                            add = market_goods_delta
-                            add = 10
-                        }
-                    }
                 }
 
                 add = {
@@ -271,13 +253,14 @@
                     max = {
                         "scope:article.input_market_goods(root)" ?= {
                             add = market_goods_delta
+                            multiply = 0.3
                             add = 10
                         }
                     }
                     multiply = {
                         "scope:article.input_market_goods(root)" ?= {
                             value = ai_treaty_export_value:root
-                            divide = 4 # Have to pay for convoys etc
+                            divide = 6 # Have to pay for convoys etc
                         }
                     }
                     divide = {
@@ -289,9 +272,9 @@
                     max = {
                         "scope:article.input_market_goods(root)" ?= {
                             value = ai_treaty_export_value:root
-                            divide = 4 # Have to pay for convoys etc
+                            divide = 6 # Have to pay for convoys etc
                         }
-                        max = 50
+                        max = 10
                     }
                 }
 
@@ -426,20 +409,22 @@
                         scope:article.input_quantity >= {
                             "scope:article.input_market_goods(root)" ?= {
                                 add = market_goods_delta
+                                multiply = 0.3
                                 add = 10
                             }
                         }
                     }
                     subtract = {
-                        desc = "DIPLOMATIC_ACCEPTANCE_INPUT_QUANTITY_GOODS"
+                        desc = "DIPLOMATIC_ACCEPTANCE_INPUT_QUANTITY_GOODS_TOO_MUCH"
                         value = scope:article.input_quantity
                         subtract = {
                             "scope:article.input_market_goods(root)" ?= {
                                 add = market_goods_delta
+                                multiply = 0.3
                                 add = 10
                             }
                         }
-                        multiply = 0.5
+                        multiply = 0.25
 
                         if = {
                             limit = {
@@ -506,7 +491,7 @@
                             value = ai_treaty_import_value:root
 							divide = 2
                         }
-						max = 50
+						max = 10
 					}
                 }
 
@@ -615,7 +600,7 @@
                         }
                     }
                     subtract = {
-                        desc = "DIPLOMATIC_ACCEPTANCE_INPUT_QUANTITY_GOODS"
+                        desc = "DIPLOMATIC_ACCEPTANCE_INPUT_QUANTITY_GOODS_TOO_MUCH"
                         value = scope:article.input_quantity
                         subtract = {
                             "scope:article.input_market_goods(root)" ?= {
@@ -624,7 +609,7 @@
                                 add = 10
                             }
                         }
-                        multiply = 0.5
+                        multiply = 0.3
 
                         max = 1000
                     }

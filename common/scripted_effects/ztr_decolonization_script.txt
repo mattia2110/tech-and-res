@@ -9,7 +9,7 @@ british_raj_consolidation_effect = {
 		root = {
 			every_scope_state = {
 				limit = {
-					state_is_in_india = yes
+					is_in_geographic_region = geographic_region_india
 				}
 				set_state_owner = c:BIC
 			}
@@ -19,11 +19,11 @@ british_raj_consolidation_effect = {
 	c:BIC = {
 		every_subject_or_below = {
 			limit = {
-				country_is_in_india = yes
+				is_in_geographic_region = geographic_region_india
 			}
 			every_scope_state = {
 				limit = {
-					state_is_in_india = yes
+					is_in_geographic_region = geographic_region_india
 				}
 				set_state_owner = c:BIC
 			}
@@ -35,7 +35,7 @@ give_claims_on_india = {
 	every_state = {
 		limit = {
 			NOT = { owner = ROOT }
-			state_is_in_india = yes
+			is_in_geographic_region = geographic_region_india
 			NOT = { state_region = s:STATE_CEYLON }
 		}
 		state_region = { add_claim = ROOT }

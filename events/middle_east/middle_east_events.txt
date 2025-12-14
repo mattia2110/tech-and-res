@@ -24,8 +24,8 @@ ztr_middle_east.1 = {
 		has_game_rule = allow_ztr_decolonization_content
 		NOT = { is_subject = yes }
 		OR = {
-			country_is_in_africa = yes
-			country_is_in_middle_east = yes
+			is_in_geographic_region = geographic_region_africa
+			is_in_geographic_region = geographic_region_middle_east
 		}
 		OR = {
 			has_state_in_state_region = STATE_LOWER_EGYPT
@@ -45,7 +45,7 @@ ztr_middle_east.1 = {
 		every_country = {
 			limit = {
 				has_state_in_state_region = STATE_SINAI
-				country_is_in_europe = yes
+				is_in_geographic_region = geographic_region_europe
 			}
 			save_scope_as = ztr_european_colonial_power_scope
 		}
@@ -263,8 +263,8 @@ ztr_middle_east.3 = {
 		has_global_variable = un_founded_var # The UN exists
 		has_modifier = ztr_onu_permanent_member
 		OR = {
-			country_is_in_europe = yes # Some European superpower
-			country_is_in_north_america = yes # Basicaly USA
+			is_in_geographic_region = geographic_region_europe # Some European superpower
+			is_in_geographic_region = geographic_region_north_america # Basicaly USA
 		}
 		NOT = { c:RUS ?= this } # Russia can't create Israel
 
@@ -283,8 +283,8 @@ ztr_middle_east.3 = {
 		# scope:ztr_palestine_controller_scope = {
 		# 	OR = {
 		# 		# Western country or root -> to offer
-		# 		country_is_in_europe = yes
-		# 		country_is_in_north_america = yes
+		# 		is_in_geographic_region = geographic_region_europe
+		# 		is_in_geographic_region = geographic_region_north_america
 
 		# 		# Non-western minor country -> they will surely accept
 		# 		country_rank < rank_value:major_power
@@ -311,8 +311,8 @@ ztr_middle_east.3 = {
 		# 			is_subject = yes
 		# 			overlord = {
 		# 				OR = {
-		# 					country_is_in_europe = yes
-		# 					country_is_in_north_america = yes
+		# 					is_in_geographic_region = geographic_region_europe
+		# 					is_in_geographic_region = geographic_region_north_america
 		# 				}
 		# 			}
 		# 		}
@@ -362,8 +362,8 @@ ztr_middle_east.3 = {
 				scope:ztr_palestine_controller_scope = {
 					is_subject = no
 					country_rank < rank_value:minor_power
-					country_is_in_europe = no
-					country_is_in_north_america = no
+					NOT = { is_in_geographic_region = geographic_region_europe }
+					NOT = { is_in_geographic_region = geographic_region_north_america }
 				}
 			}
 		}
@@ -386,7 +386,7 @@ ztr_middle_east.3 = {
 		every_country = {
 			limit = {
 				root = no
-				country_is_in_europe = yes
+				is_in_geographic_region = geographic_region_europe
 			}
 			change_relations = {
 				country = root
@@ -406,8 +406,8 @@ ztr_middle_east.3 = {
 			NOT = { scope:ztr_palestine_controller_scope = root }
 			scope:ztr_palestine_controller_scope = {
 				OR = {
-					country_is_in_europe = yes
-					country_is_in_north_america = yes
+					is_in_geographic_region = geographic_region_europe
+					is_in_geographic_region = geographic_region_north_america
 				}
 			}
 		}
@@ -427,8 +427,8 @@ ztr_middle_east.3 = {
 			NOT = { scope:ztr_palestine_controller_scope = root }
 			scope:ztr_palestine_controller_scope = {
 				AND = {
-					country_is_in_europe = no
-					country_is_in_north_america = no
+					NOT = { is_in_geographic_region = geographic_region_europe }
+					NOT = { is_in_geographic_region = geographic_region_north_america }
 					country_rank >= rank_value:minor_power
 				}
 			}
@@ -451,8 +451,8 @@ ztr_middle_east.3 = {
 					is_subject = yes
 					overlord = {
 						OR = {
-							country_is_in_europe = yes
-							country_is_in_north_america = yes
+							is_in_geographic_region = geographic_region_europe
+							is_in_geographic_region = geographic_region_north_america
 						}
 					}
 				}
@@ -477,8 +477,8 @@ ztr_middle_east.3 = {
 					is_subject = yes
 					overlord = {
 						AND = {
-							country_is_in_europe = no
-							country_is_in_north_america = no
+							NOT = { is_in_geographic_region = geographic_region_europe }
+							NOT = { is_in_geographic_region = geographic_region_north_america }
 							country_rank >= rank_value:minor_power
 						}
 					}
@@ -542,7 +542,7 @@ ztr_middle_east.4 = {
 		every_country = {
 			limit = {
 				NOT = { root = this }
-				country_is_in_europe = yes
+				is_in_geographic_region = geographic_region_europe
 			}
 			change_relations = {
 				country = root
@@ -604,7 +604,7 @@ ztr_middle_east.5 = {
 		every_country = {
 			limit = {
 				NOT = { root = this }
-				country_is_in_europe = yes
+				is_in_geographic_region = geographic_region_europe
 			}
 			change_relations = {
 				country = root
@@ -645,7 +645,7 @@ ztr_middle_east.6 = {
 	trigger = {
 		has_game_rule = allow_ztr_historical_content
 		exists = c:ISR
-		country_is_in_europe = yes
+		is_in_geographic_region = geographic_region_europe
 		culture_percent_country = {
 			target = cu:ashkenazi
 			value > 0 #This should work if there are Jewish pops in the country

@@ -302,7 +302,7 @@ ai_strategy_territorial_expansion = {
 		}
 
 		if = {
-			limit = { country_is_in_europe = yes }
+			limit = { is_in_geographic_region = geographic_region_europe }
 			multiply = 0.25
 		}
 
@@ -415,7 +415,7 @@ ai_strategy_colonial_expansion = {
 					limit = {
 						has_journal_entry = je_scramble_for_africa
 						scope:target_country = {
-							country_is_in_africa = yes
+							is_in_geographic_region = geographic_region_africa
 						}
 					}
 					add = 10
@@ -519,7 +519,7 @@ ai_strategy_colonial_expansion = {
 						limit = {
 							has_journal_entry = je_scramble_for_africa
 							scope:target_country = {
-								country_is_in_africa = yes
+								is_in_geographic_region = geographic_region_africa
 							}
 						}
 						add = 600
@@ -560,7 +560,7 @@ ai_strategy_colonial_expansion = {
 						limit = {
 							has_journal_entry = je_scramble_for_africa
 							scope:target_country = {
-								country_is_in_africa = yes
+								is_in_geographic_region = geographic_region_africa
 							}
 						}
 						add = 600
@@ -2939,7 +2939,7 @@ ai_strategy_restore_natural_borders = {
 				is_country_type = unrecognized
 				OR = {
 					country_rank >= rank_value:unrecognized_regional_power
-					country_is_in_africa = yes
+					is_in_geographic_region = geographic_region_africa
 				}
 			}
 			add = 25

@@ -120,7 +120,7 @@ decolonization_india_raj_takes_uk_states = {
 
 	possible = {
 		any_scope_state = {
-			state_is_in_india = yes
+			is_in_geographic_region = geographic_region_india
 		}
 	}
 
@@ -128,7 +128,7 @@ decolonization_india_raj_takes_uk_states = {
 		change_infamy = -10
 		every_scope_state = {
 			limit = {
-				state_is_in_india = yes
+				is_in_geographic_region = geographic_region_india
 			}
 			set_state_owner = c:BIC
 		}
@@ -424,16 +424,16 @@ decolonization_india_decision = {
 		OR = {
 			AND = {
 				has_technology_researched = pan-nationalism
-				country_is_in_india = yes
+				is_in_geographic_region = geographic_region_india
 			}
 			AND = {
 				has_global_variable = ztr_indian_unifier_global_var
-				NOT = { country_is_in_india = yes }
+				NOT = { is_in_geographic_region = geographic_region_india }
 			}
 		}
 		NOT = { is_subject = yes }
 		any_scope_state = {
-			state_is_in_india = yes
+			is_in_geographic_region = geographic_region_india
 			NOT = { state_region = s:STATE_CEYLON }
 		}
 	}
@@ -450,7 +450,7 @@ decolonization_india_decision = {
 			}
 			every_scope_state = {
 				limit = {
-					state_is_in_india = yes
+					is_in_geographic_region = geographic_region_india
 					NOT = { state_region = s:STATE_CEYLON }
 				}
 				set_state_owner = c:BHT
@@ -458,7 +458,7 @@ decolonization_india_decision = {
 		}
 		if = {
 			limit = {
-				country_is_in_europe = yes 
+				is_in_geographic_region = geographic_region_europe 
 			}
 			create_bidirectional_truce = { country = scope:ztr_indian_unifier_scope months = 120 }
 		}
@@ -478,7 +478,7 @@ decolonization_china_decision = {
 		has_global_variable = ztr_decolonization_age_var
 		cu:han = { wants_to_be_decolonized = yes }
 		NOT = { is_subject = yes }
-		NOT = {	country_is_in_china = yes } # Better than using chinese/han culture
+		NOT = {	is_in_geographic_region = geographic_region_china } # Better than using chinese/han culture
 		any_scope_state = {
 			OR = {
 				region = sr:region_north_china
@@ -809,8 +809,7 @@ decolonization_senegal_decision = {
 			count > 0
 		}
 		OR = {
-			has_state_in_state_region = STATE_SENEGAL
-			has_state_in_state_region = STATE_GAMBIA #Guinea Bissau/Gambia TODO
+			has_state_in_state_region = STATE_SENEGAL #Guinea Bissau/Gambia TODO
 		}
 		has_game_rule = allow_ztr_decolonization_content
 	}
@@ -919,7 +918,7 @@ decolonization_ghana_decision = {
 			count > 0
 		}
 		OR = {
-			has_state_in_state_region = STATE_GHANA
+			has_state_in_state_region = STATE_GOLD_COAST
 		}
 		has_game_rule = allow_ztr_decolonization_content
 	}
