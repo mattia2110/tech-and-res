@@ -153,7 +153,10 @@ ztr_economic_update.1 = {
 		if = {
 			limit = {
 				average_sol < 11
-				NOT = { is_in_geographic_region = geographic_region_europe }
+				OR = {
+					NOT = { is_in_geographic_region = geographic_region_europe }
+					c:RUS ?= this
+				}
 				NOT = { c:USA = this }
 				NOR = {
 					has_journal_entry = je_demographic_0_to_1

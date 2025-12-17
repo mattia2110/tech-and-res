@@ -30,12 +30,13 @@ REPLACE_OR_CREATE:dubois_theory_of_evolution_tech = {
 	}
 }
 
-REPLACE_OR_CREATE:camera = {
+#(Morgenrote moves camera and film to production techs, we move again to society here)
+REPLACE:camera = {
 	# Unlocks Photographic Art, Improved Propaganda Centers PMs in Art Academy
 	era = era_3
 	texture = "gfx/interface/icons/invention_icons/camera.dds"
 	category = society
-	
+
 	unlocking_technologies = {
 		realism
 	}
@@ -47,10 +48,24 @@ REPLACE_OR_CREATE:camera = {
 
 # Era 4
 
-REPLACE_OR_CREATE:organized_sports = {
-	era = era_4 #Morgenröte: changed from Era 2
-	texture = "gfx/interface/icons/invention_icons/organized_sports.dds"
+REPLACE:film = {
+	# Unlocks Film Propaganda Center PM in Arts Academies
+	era = era_4
+	texture = "gfx/interface/icons/invention_icons/film.dds"
 	category = society
+
+	unlocking_technologies = {
+		camera
+	}
+
+	ai_weight = {
+		value = 1
+	}
+}
+
+#(Morgenröte moves organized sports to era 3, we move to era 4)
+REPLACE:organized_sports = {
+	era = era_4 #Morgenröte: changed from Era 2
 	
 	modifier = {
 		country_prestige_mult = 0.05
@@ -134,26 +149,9 @@ REPLACE_OR_CREATE:panum_antitoxins_tech = {
 	}
 }
 
-REPLACE_OR_CREATE:film = {
-	# Unlocks Film Propaganda Center PM in Arts Academies
-	era = era_4
-	texture = "gfx/interface/icons/invention_icons/film.dds"
-	category = society
-	
-	unlocking_technologies = {
-		camera
-	}
-
-	#Morgenröte: Removed Prestige Modifier
-
-	ai_weight = {
-		value = 1
-	}
-}
-
 # Era 5
 
-REPLACE_OR_CREATE:mass_propaganda = {
+REPLACE:mass_propaganda = {
 	# Unlocks Better Radios PM in Electrics Industries
 	# New leaders may spawn with the Fascist Ideology
 	era = era_5
@@ -162,8 +160,10 @@ REPLACE_OR_CREATE:mass_propaganda = {
 	
 	modifier = {
 		country_authority_mult = 0.1
+		country_voting_power_mult = 0.1
 		state_expected_sol_from_literacy = 1
 		country_agitator_slots_add = 1
+		country_support_separatism_strength_mult = 0.25
 	}
 	
 	unlocking_technologies = {
@@ -171,25 +171,6 @@ REPLACE_OR_CREATE:mass_propaganda = {
 		elgar_mass_culture_tech #Morgenröte: changed from film
 	}
 
-	ai_weight = {
-		value = 1
-	}
-}
-
-REPLACE_OR_CREATE:penicillin = {
-	#Morgenröte: Needs Antitoxins
-	era = era_5
-	texture = "gfx/interface/icons/invention_icons/penicillin.dds"
-	category = society
-	
-	modifier = {
-		country_institution_health_system_max_investment_add = 1
-	}
-	
-	unlocking_technologies = {
-		panum_antitoxins_tech
-	}
-	
 	ai_weight = {
 		value = 1
 	}
