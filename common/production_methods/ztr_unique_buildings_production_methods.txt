@@ -226,17 +226,6 @@ pm_research_center_education = {
 			interest_group_ig_intelligentsia_approval_add = 2
 		}
 	}
-	
-	ai_weight = {
-		value = 200 # Important tech for modern economies
-		
-		if = {
-			limit = {
-				ztr_is_democratic = yes
-			}
-			add = 1000
-		}
-	}
 }
 
 pm_research_military_modernization = {
@@ -257,30 +246,6 @@ pm_research_military_modernization = {
 			interest_group_ig_armed_forces_approval_add = 2
 		}
 	}
-
-	ai_weight = {
-		value = 200 # Important tech for modern economies
-		
-		if = {
-			limit = {
-				OR = {
-					is_at_war = yes
-					ztr_is_totalitarian = yes
-					# World Wars Period
-				}
-			}
-			add = 10000
-		}
-		if = {
-			limit = {
-				AND = {
-					year > 1915
-					year < 1945
-				}
-			}
-			add = 1000
-		}
-	}
 }
 
 pm_research_center_tech_spread = {
@@ -297,23 +262,6 @@ pm_research_center_tech_spread = {
 		}
 		unscaled = {
 			interest_group_ig_industrialists_approval_add = 2
-		}
-	}
-
-	ai_weight = {
-		value = 0 # Important tech for modern economies
-		
-		if = {
-			limit = {
-				NOR = {
-					has_modifier = dev_5_country
-					has_modifier = dev_6_country
-					has_modifier = dev_7_country
-					has_modifier = dev_8_country
-				} 
-				has_strategy = ai_strategy_industrial_expansion
-			}
-			add = 2500
 		}
 	}
 }

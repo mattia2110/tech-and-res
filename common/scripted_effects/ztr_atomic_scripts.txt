@@ -127,7 +127,7 @@ effect_compute_nuclear_capability_points_defense = {
 	#Always first reset to 0
 	set_global_variable = { 
 		name = nuclear_strike_defence_global
-		value = 0
+		value = 5
 	}
 
 	# Without any nuclear defense technology, country size is the only way to reduce impact of nuclear strike
@@ -151,7 +151,7 @@ effect_compute_nuclear_capability_points_defense = {
 	# Having guided missiles will increase nuclear defence by 5 points
 	if = {
 		limit = { has_technology_researched = guided_missiles gdp > 250000000 }
-		owner = { change_global_variable = { name = nuclear_strike_defence_global add = 5 } }
+		owner = { change_global_variable = { name = nuclear_strike_defence_global add = 4 } }
 	}
 
 	# Rocket Artillery can slightly improve nuclear defence
@@ -164,12 +164,12 @@ effect_compute_nuclear_capability_points_defense = {
 
 	if = {
 		limit = { has_technology_researched = radar get_country_gdp_per > 8 }
-		owner = { change_global_variable = { name = nuclear_strike_defence_global add = 5 } }
+		owner = { change_global_variable = { name = nuclear_strike_defence_global add = 4 } }
 	}
 
 	if = {
 		limit = { has_technology_researched = satellites gdp > 250000000}
-		owner = { change_global_variable = { name = nuclear_strike_defence_global add = 7 } }
+		owner = { change_global_variable = { name = nuclear_strike_defence_global add = 6 } }
 	}
 
 	if = {
@@ -179,7 +179,7 @@ effect_compute_nuclear_capability_points_defense = {
 
 	if = {
 		limit = { has_technology_researched = directed_energy_weapons gdp > 1000000000 }
-		owner = { change_global_variable = { name = nuclear_strike_defence_global add = 15 } }
+		owner = { change_global_variable = { name = nuclear_strike_defence_global add = 14 } }
 	}
 
 	if = {
@@ -189,7 +189,7 @@ effect_compute_nuclear_capability_points_defense = {
 
 	if = {
 		limit = { has_technology_researched = network_centric_warfare get_country_gdp_per > 20 }
-		owner = { change_global_variable = { name = nuclear_strike_defence_global add = 15 } }
+		owner = { change_global_variable = { name = nuclear_strike_defence_global add = 14 } }
 	}
 
 	if = {
@@ -262,11 +262,15 @@ effect_compute_nuclear_capability_points_stationed_nukes_target_country = {
 
 effect_tiny_nuclear_damage = {
 
+	add_war_exhaustion = {
+		target = THIS
+		value = 15
+	}
+
 	capital = {
-		
-		#Give benefits from civil defence (Protects people)
+		#Give benefits from civil defence (Protects people)		
 		random_list = {
-		15= {		
+		15 = {
 			add_modifier = {
 				name = nuclear_damage_1
 				years = 25
@@ -332,19 +336,21 @@ effect_tiny_nuclear_damage = {
 		effect_nuclear_war_destroy_city_buildings = yes
 
 		save_scope_as = nuclear_striked_state_target
-	}
-	
+		}
 	trigger_event = { id = nuclear_warfare_system.4 }
-	
 }
 
 effect_very_low_nuclear_damage = {
+
+	add_war_exhaustion = {
+		target = THIS
+		value = 25
+	}
 
 	every_scope_state = {
 		limit = {
     		OR = {
         		is_capital = yes
-       	 		is_market_capital = yes
         		state_population > 3000000
    		 	}
 		}
@@ -425,15 +431,19 @@ effect_very_low_nuclear_damage = {
 
 effect_low_nuclear_damage = {
 
+	add_war_exhaustion = {
+		target = THIS
+		value = 35
+	}
+
 	every_scope_state = {
-		random_list = {
 		limit = {
     		OR = {
         		is_capital = yes
-       	 		is_market_capital = yes
-        		state_population > 1000000
+        		state_population > 2000000
    		 	}
 		}
+		random_list = {
 		#Give benefits from civil defence (Protects people)
 		15 = {
 			add_modifier = {
@@ -510,12 +520,16 @@ effect_low_nuclear_damage = {
 
 effect_medium_nuclear_damage = {
 
+	add_war_exhaustion = {
+		target = THIS
+		value = 45
+	}
+
 	every_scope_state = {
 		limit = {
     		OR = {
         		is_capital = yes
-       	 		is_market_capital = yes
-        		state_population > 300000
+        		state_population > 2000000
    		 	}
 		}
 		random_list = {
@@ -596,12 +610,16 @@ effect_medium_nuclear_damage = {
 
 effect_high_nuclear_damage = {
 
+	add_war_exhaustion = {
+		target = THIS
+		value = 50
+	}
+
 	every_scope_state = {
 		limit = {
     		OR = {
         		is_capital = yes
-       	 		is_market_capital = yes
-        		state_population > 100000
+        		state_population > 1500000
    		 	}
 		}
 		random_list = {
@@ -678,91 +696,6 @@ effect_high_nuclear_damage = {
 	}
 	trigger_event = { id = nuclear_warfare_system.4 }
 
-}
-
-# Disabled for now, too much devastation
-effect_very_high_nuclear_damage = {
-
-	every_scope_state = {
-		random_list = {
-		#Give benefits from civil defence (Protects people)
-		15 = {
-			add_modifier = {
-				name = nuclear_damage_5
-				years = 50
-				is_decaying = yes
-			}
-			kill_population_percent_in_state = { percent = 0.55 }
-			state_region = { add_devastation = 70 }
-		}
-		25 = {
-			add_modifier = {
-				name = nuclear_damage_5
-				years = 50
-				is_decaying = yes
-			}
-			kill_population_percent_in_state = { percent = 0.50 }
-			state_region = { add_devastation = 65 }
-		}
-		25 = {
-			add_modifier = {
-				name = nuclear_damage_5
-				years = 50
-				is_decaying = yes
-			}
-			kill_population_percent_in_state = { percent = 0.45 }
-			state_region = { add_devastation = 60 }
-		}
-		15 = {
-			add_modifier = {
-				name = nuclear_damage_5
-				years = 50
-				is_decaying = yes
-			}
-			kill_population_percent_in_state = { percent = 0.40 }
-			state_region = { add_devastation = 55 }
-		}
-		10 = {
-			add_modifier = {
-				name = nuclear_damage_5
-				years = 50
-				is_decaying = yes
-			}
-			kill_population_percent_in_state = { percent = 0.30 }
-			state_region = { add_devastation = 50 }
-		}
-		
-		#If there was no civil defence (Max radiation, deaths and devastation)
-		10 = {
-			add_modifier = {
-				name = nuclear_damage_5
-				years = 75
-				is_decaying = yes
-			}
-			kill_population_percent_in_state = { percent = 0.60 }
-			state_region = { add_devastation = 100 }
-		}
-		}
-		set_variable = {
-			name = nuclear_strike_entity
-			days = 14
-		}
-		#Destroy buildings
-		effect_nuclear_war_destroy_infrastructure_buildings = yes
-		effect_nuclear_war_destroy_city_buildings = yes
-		effect_nuclear_war_destroy_industrial_buildings = yes
-		effect_nuclear_war_destroy_rural_buildings = yes
-
-	}
-	
-	trigger_event = { id = nuclear_warfare_system.99 }
-	activate_law = law_type:law_chiefdom
-	activate_law = law_type:law_anarchy
-	set_variable = postapocalypse
-	#set_country_type = decentralized
-	#ruler = {
-    #	kill_character = yes
-	#}
 }
 
 effect_nuclear_war_destroy_rural_buildings = {
