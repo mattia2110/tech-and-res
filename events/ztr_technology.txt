@@ -147,12 +147,13 @@ ztr_technology.2 = {
 	}
 }
 
-# research_center complete
+# research_center removed
 ztr_technology.3 = {
 	type = country_event
 
 	title = research_center.3.t
 	desc = research_center.3.d
+	hidden = yes
 
 	placement = root
 
@@ -181,6 +182,212 @@ ztr_technology.3 = {
 				has_building = building_research_center
 			}
 			remove_building = building_research_center
+		}
+	}
+}
+
+# Fusion Reactor - Site identified
+ztr_technology.10 = {
+	type = country_event
+
+	title = fusion_reactor.1.t
+	desc = fusion_reactor.1.d
+	flavor = fusion_reactor.1.f
+
+	placement = scope:fusion_reactor_site
+
+	event_image = {
+		video = "quantum_physics"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	icon = "gfx/interface/icons/event_icons/innovation.dds"
+
+	duration = 3
+
+	trigger = {
+		# triggered by je_fusion_reactor_site
+	}
+
+	immediate = {
+		# Always in capital
+		capital = {
+			save_scope_as = fusion_reactor_site
+		}
+	}
+
+	option = {
+		name = fusion_reactor.1.a
+        default_option = yes
+        scope:fusion_reactor_site = {
+        	add_modifier = {
+        		name = fusion_reactor_site
+        	}
+        }
+        add_journal_entry = {
+        	type = je_fusion_reactor_construction
+        	target = scope:fusion_reactor_site
+        }
+		ai_chance = {
+			base = 1
+		}
+	}
+}
+
+# Fusion Reactor - Construction complete
+ztr_technology.11 = {
+	type = country_event
+
+	title = fusion_reactor.2.t
+
+	desc = {
+		first_valid = {
+			triggered_desc = {
+				trigger = {
+					NOT = { has_global_variable = ztr_fusion_reactor_first_var }
+				}
+				desc = fusion_reactor.2.d_first
+			}
+			triggered_desc = {
+				trigger = {
+					has_global_variable = ztr_fusion_reactor_first_var
+				}
+				desc = fusion_reactor.2.d
+			}
+		}
+	}
+
+	placement = scope:fusion_reactor_state
+
+	event_image = {
+		video = "quantum_physics"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	icon = "gfx/interface/icons/event_icons/innovation.dds"
+
+	duration = 3
+
+	trigger = {
+		# triggered by je_fusion_reactor_construction
+	}
+
+	immediate = {
+		save_scope_as = fusion_builder_country
+		random_scope_state = {
+			limit = {
+				has_building = building_fusion_power_plant
+			}
+			save_scope_as = fusion_reactor_state
+			random_scope_building = {
+				limit = {
+					is_building_type = building_fusion_power_plant
+				}
+				save_scope_as = fusion_reactor_building_scope
+			}
+		}
+	}
+
+	option = {
+		name = fusion_reactor.2.a_first
+		trigger = {
+			NOT = { has_global_variable = ztr_fusion_reactor_first_var }
+		}
+		default_option = yes
+		# Mark this as the first fusion reactor ever built
+		set_global_variable = ztr_fusion_reactor_first_var
+		# Prestige bonus for being the pioneer
+		add_modifier = fusion_energy_pioneer
+		# Notify all other countries
+		every_country = {
+			limit = { NOT = { this = root } }
+			trigger_event = { id = ztr_technology.13 }
+		}
+	}
+
+	option = {
+		name = fusion_reactor.2.a
+		trigger = {
+			has_global_variable = ztr_fusion_reactor_first_var
+		}
+		default_option = yes
+	}
+}
+
+# Global event: World's first fusion reactor has been built
+ztr_technology.13 = {
+	type = country_event
+
+	title = fusion_reactor.global.t
+
+	desc = fusion_reactor.global.d
+
+	event_image = {
+		video = "quantum_physics"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	icon = "gfx/interface/icons/event_icons/innovation.dds"
+
+	duration = 3
+
+	trigger = {
+	}
+
+	immediate = {
+	}
+
+	option = {
+		name = fusion_reactor.global.a
+		default_option = yes
+		# Gain some technology awareness
+		if = {
+			limit = {
+				has_technology_researched = third_nuclear_reactor
+			}
+			add_technology_progress = { progress = 5000 technology = nuclear_fusion_reactor }
+		}
+	}
+}
+
+# Fusion Reactor - removal from non-capital states
+ztr_technology.12 = {
+	type = country_event
+
+	title = fusion_reactor.3.t
+	desc = fusion_reactor.3.d
+	hidden = yes
+
+	placement = root
+
+	event_image = {
+		video = "quantum_physics"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	icon = "gfx/interface/icons/event_icons/innovation.dds"
+
+	duration = 3
+
+	trigger = {
+		any_scope_state = {
+			is_capital = no
+			has_building = building_fusion_power_plant
+			count > 0
+		}
+	}
+
+	immediate = {
+		every_scope_state = {
+			limit = {
+				is_capital = no
+				has_building = building_fusion_power_plant
+			}
+			remove_building = building_fusion_power_plant
 		}
 	}
 }

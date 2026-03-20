@@ -140,3 +140,138 @@ je_research_center_construction = {
 
 	should_be_pinned_by_default = yes
 }
+
+# Fusion Reactor Journal Entries
+
+je_fusion_reactor_site = {
+	icon = "gfx/interface/icons/event_icons/innovation.dds"
+
+	group = je_group_technology
+
+	on_monthly_pulse = {
+		effect = {
+			# Progress depends on nation's development indicators
+			# Base progress: 1 per month
+			change_variable = {
+				name = fusion_reactor_var
+				add = 0.25
+			}
+
+			# GDP per capita bonus: wealthy nations progress faster
+			if = {
+				limit = { gdp > 1000000000 }
+				change_variable = {
+					name = fusion_reactor_var
+					add = 0.25
+				}
+			}
+			if = {
+				limit = { gdp > 5000000000 }
+				change_variable = {
+					name = fusion_reactor_var
+					add = 0.5
+				}
+			}
+
+			# Literacy bonus: highly educated populace accelerates R&D
+			if = {
+				limit = { literacy_rate > 0.95 }
+				change_variable = {
+					name = fusion_reactor_var
+					add = 0.25
+				}
+			}
+
+			# Major population bonus: large labor pool of scientists
+			if = {
+				limit = { total_population > 50000000 }
+				change_variable = {
+					name = fusion_reactor_var
+					add = 0.25
+				}
+			}
+			if = {
+				limit = { total_population > 500000000 }
+				change_variable = {
+					name = fusion_reactor_var
+					add = 0.25
+				}
+			}
+		}
+	}
+
+	complete = {
+		scope:journal_entry = { is_goal_complete = yes }
+		# Must have a research center built
+		has_research_center = yes
+	}
+
+	on_complete = {
+		trigger_event = { id = ztr_technology.10 } # fusion reactor site found
+	}
+
+	invalid = {
+		OR = {
+			NOT = {
+				has_technology_researched = smart_energy_grid
+			}
+			NOT = {
+				has_technology_researched = third_nuclear_reactor
+			}
+			NOT = {
+				has_research_center = yes
+			}
+		}
+	}
+
+	on_invalid = {
+		remove_modifier = fusion_reactor_survey
+		remove_variable = fusion_reactor_var
+	}
+
+	current_value = {
+		value = root.var:fusion_reactor_var
+	}
+
+	goal_add_value = {
+		value = 100
+	}
+
+	progressbar = yes
+
+	weight = 10
+
+	should_be_pinned_by_default = yes
+}
+
+je_fusion_reactor_construction = {
+	icon = "gfx/interface/icons/event_icons/academia.dds"
+
+	group = je_group_technology
+
+	complete = {
+		scope:target = { has_fusion_reactor_target = yes }
+	}
+
+	fail = {
+		NOT = {
+			any_scope_state = {
+				has_modifier = fusion_reactor_site
+			}
+		}
+	}
+
+	on_fail = {
+		remove_variable = fusion_reactor_var
+	}
+
+	on_complete = {
+		trigger_event = { id = ztr_technology.11 }
+		remove_variable = fusion_reactor_var
+		scope:target = {
+			remove_modifier = fusion_reactor_site
+		}
+	}
+
+	should_be_pinned_by_default = yes
+}

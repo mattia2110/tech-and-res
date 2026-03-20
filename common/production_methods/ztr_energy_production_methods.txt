@@ -633,3 +633,68 @@ pm_smart_grid_energy_management = {
 		}
 	}
 }
+
+# Fusion Power Plants
+# Realistic fusion reactor: D-T tokamak inspired by ITER
+# Heavy on coolant (water), superconductor materials (alloys, rare earths, copper wires),
+# plasma control electronics, and remote maintenance robotics.
+# No direct uranium fuel — fusion uses deuterium from water and bred tritium.
+
+pm_fusion_reactor = {
+	texture = "gfx/interface/icons/production_method_icons/pm_nuclear_reactor.dds"
+
+	unlocking_technologies = {
+		nuclear_fusion_reactor
+	}
+
+	building_modifiers = {
+		workforce_scaled = {
+			# Coolant loop and tritium breeding blanket
+			goods_input_water_add = 40
+			# Plasma diagnostics, control systems, sensor arrays
+			goods_input_electroniccomponents_add = 20
+
+			# Superconducting magnets, vacuum vessel, first wall (tungsten/vanadium alloys)
+			goods_input_alloys_add = 15
+
+			# Superconducting magnet materials (Nb3Sn, neodymium)
+			goods_input_rare_earths_add = 10
+
+			# Superconducting coils and power distribution
+			goods_input_copperwires_add = 15
+
+			# Remote handling systems for irradiated components
+			goods_input_robotics_add = 5
+
+			# Real-time plasma equilibrium computing
+			goods_input_processors_add = 5
+
+			# Virtually limitless clean energy output
+			goods_output_electricity_add = 500
+		}
+		level_scaled = {
+			# Highly skilled scientific/engineering workforce
+			building_employment_academics_add = 5000
+			building_employment_engineers_add = 5000
+		}
+	}
+}
+
+pm_fusion_plasma_control = {
+	texture = "gfx/interface/icons/production_method_icons/pm_smart_grid_energy_management.dds"
+
+	unlocking_technologies = {
+		artificial_intelligence
+	}
+
+	building_modifiers = {
+		workforce_scaled = {
+			# AI-driven plasma confinement, diagnostics, and grid optimization
+			goods_input_ai_systems_add = 10
+			goods_input_robotics_add = 10
+			goods_input_telecommunications_add = 5
+			goods_input_computer_add = 10
+			goods_input_softwares_add = 5
+		}
+	}
+}

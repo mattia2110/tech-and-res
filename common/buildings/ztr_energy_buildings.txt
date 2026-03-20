@@ -214,3 +214,47 @@ building_geothermal_power_plant = {
 
 	ai_value = 1600	# Geothermal Power Plant is important
 }
+
+# Fusion Power Plant
+
+building_fusion_power_plant = {
+
+	building_group = bg_power
+	icon = "gfx/interface/icons/building_icons/building_fusion_power_plant.dds"
+	levels_per_mesh = 5
+	city_type = city
+	ignore_stateregion_max_level = yes
+	expandable = no
+
+	required_construction = construction_cost_monument
+
+	unlocking_technologies = {
+		nuclear_fusion_reactor
+	}
+
+	production_method_groups = {
+		pmg_fusion_reactor
+		pmg_fusion_plasma_monitoring
+	}
+
+	can_build_government = {
+		custom_tooltip = {
+			text = fusion_reactor_can_construct_tt
+			has_modifier = fusion_reactor_site
+		}
+	}
+
+	possible = {
+		owner = {
+			NOT = { has_law = law_type:law_industry_banned } 
+		}
+	}
+
+	can_build_private = {
+		always = no
+	}
+
+	background = "gfx/interface/icons/building_icons/backgrounds/building_panel_bg_heavy_industry.dds"
+
+	ai_value = 5000 # AI will rush building this
+}

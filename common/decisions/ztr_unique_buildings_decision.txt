@@ -79,3 +79,166 @@ research_center_decision = {
 		}
 	}
 }
+
+fusion_reactor_decision = {
+	is_shown = {
+		has_technology_researched = third_nuclear_reactor
+		has_research_center = yes
+		NOT = {
+			any_scope_state = {
+				any_scope_building = {
+					is_building_type = building_fusion_power_plant
+				}
+			}
+		}
+		NOT = {
+			any_scope_state = {
+				has_modifier = fusion_reactor_survey
+			}
+		}
+		NOT = {
+			has_variable = fusion_reactor_var
+		}
+	}
+
+	possible = {
+		produced_bureaucracy > 2500
+		literacy_rate > 0.9
+		has_technology_researched = smart_energy_grid
+	}
+
+	when_taken = {
+		set_variable = {
+			name = fusion_reactor_var
+			value = 0
+		}
+		if = {
+			limit = {
+				NOT = {
+					has_modifier = fusion_reactor_survey
+				}
+			}
+			add_modifier = {
+				name = fusion_reactor_survey
+				months = 36
+			}
+		}
+		add_journal_entry = {
+			type = je_fusion_reactor_site
+		}
+	}
+
+	ai_chance = {
+		value = 0
+		if = {
+			limit = { produced_bureaucracy > 5000 }
+			add = 500
+		}
+		if = {
+			limit = {
+				has_strategy = ai_strategy_industrial_expansion
+			}
+			add = 500
+		}
+		if = {
+			limit = {
+				OR = {
+					is_diplomatic_play_committed_participant = yes
+					is_at_war = yes
+				}
+			}
+			multiply = 0
+		}
+	}
+}
+
+# Purchase fusion reactor technology from a major power
+# Available only to countries with the modern universities linkage modifier (minor powers)
+# This represents buying proven fusion technology rather than developing it from scratch
+fusion_reactor_purchase_decision = {
+	is_shown = {
+		has_modifier = ztr_modern_universities_linkage
+		has_technology_researched = smart_energy_grid
+		has_technology_researched = third_nuclear_reactor
+		NOT = { has_research_center = yes }
+		NOT = {
+			any_scope_state = {
+				any_scope_building = {
+					is_building_type = building_fusion_power_plant
+				}
+			}
+		}
+		NOT = {
+			any_scope_state = {
+				has_modifier = fusion_reactor_site
+			}
+		}
+	}
+
+	possible = {
+		produced_bureaucracy > 3000
+		literacy_rate > 0.9
+		# Must have good relations or diplomatic ties with a fusion-owning greatpower
+		custom_tooltip = {
+			text = fusion_reactor_purchase_relations_tt
+			any_country = {
+				NOT = { this = root }
+				scope:rank = rank_value:great_power
+				any_scope_state = {
+					any_scope_building = {
+						is_building_type = building_fusion_power_plant
+					}
+				}
+				# Diplomatic prerequisite: cordial relations, subject status, or same power bloc
+				OR = {
+					relations:root >= relations_threshold:cordial
+					root = { is_subject_of = PREV }
+					is_in_same_power_bloc = root
+				}
+			}
+		}
+	}
+
+	when_taken = {
+		# Massive cost representing technology licensing and infrastructure import
+		add_modifier = {
+			name = fusion_reactor_purchase_cost
+			months = 24
+		}
+		# Apply site modifier directly to capital (proven technology, no survey needed)
+		capital = {
+			add_modifier = {
+				name = fusion_reactor_site
+			}
+			save_scope_as = fusion_purchase_site
+		}
+		# Start construction JE directly
+		add_journal_entry = {
+			type = je_fusion_reactor_construction
+			target = scope:fusion_purchase_site
+		}
+	}
+
+	ai_chance = {
+		value = 0
+		if = {
+			limit = { produced_bureaucracy > 5000 }
+			add = 500
+		}
+		if = {
+			limit = {
+				has_strategy = ai_strategy_industrial_expansion
+			}
+			add = 5000
+		}
+		if = {
+			limit = {
+				OR = {
+					is_diplomatic_play_committed_participant = yes
+					is_at_war = yes
+				}
+			}
+			multiply = 0
+		}
+	}
+}
