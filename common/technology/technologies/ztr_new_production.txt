@@ -401,13 +401,6 @@ alkaline_battery = {
 
     ai_weight = {
 		value = 1 # Important tech for modern economies
-		
-		if = {
-			limit = { 
-				has_strategy = ai_strategy_industrial_expansion
-			}
-			add = 1
-		}
 	}
 }
 
@@ -464,13 +457,6 @@ modern_tools = {
     # Peso AI
     ai_weight = {
 		value = 1 # Important tech for modern economies
-		
-		if = {
-			limit = { 
-				has_strategy = ai_strategy_industrial_expansion
-			}
-			add = 1
-		}
 	}
 }
 
@@ -487,16 +473,6 @@ hydroponic_farming = {
 
 	ai_weight = {
 		value = 1
-		
-		if = {
-			limit = { 
-				OR = {
-					has_strategy = ai_strategy_agricultural_expansion
-					has_strategy = ai_strategy_plantation_economy
-				}
-			}
-			add = 1
-		}	
 	}
 }
 
@@ -561,13 +537,6 @@ nuclear_reactor = {
 	}
 	ai_weight = {
 		value = 1 # Important tech for modern economies
-		
-		if = {
-			limit = { 
-				has_strategy = ai_strategy_industrial_expansion
-			}
-			add = 1
-		}
 	}
 }
 
@@ -583,13 +552,6 @@ thermal_cracking = {
 
 	ai_weight = {
 		value = 1 # Important tech for modern economies
-		
-		if = {
-			limit = { 
-				has_strategy = ai_strategy_industrial_expansion
-			}
-			add = 1
-		}
 	}
 }
 
@@ -686,13 +648,6 @@ enhanced_cracking_distillation = {
 
 	ai_weight = {
 		value = 1 # Important tech for modern economies
-		
-		if = {
-			limit = { 
-				has_strategy = ai_strategy_industrial_expansion
-			}
-			add = 1
-		}
 	}
 }
 
@@ -723,18 +678,35 @@ mechanical_arms = {
 	}
 
 	ai_weight = {
-		value = 3 # Important tech for modern economies
-		
-		if = {
-			limit = { 
-				OR = {
-					has_strategy = ai_strategy_industrial_expansion
-				}
-			}
-			add = 1
-		}
+		value = 2 # Important tech for modern economies
 	}
 }
+
+# stainless_steel = {
+# 	# Unlocks better steel production method
+# 	era = era_6
+# 	texture = "gfx/interface/icons/invention_icons/stainless_steel.dds"
+# 	category = production
+	
+# 	unlocking_technologies = {
+# 		direct_reduced_iron
+# 	}
+
+# 	modifier = {
+# 		goods_output_steel_mult = 0.1
+# 	}
+
+# 	ai_weight = {
+# 		value = 1 # Important tech for modern economies
+		
+# 		if = {
+# 			limit = { 
+# 				has_strategy = ai_strategy_industrial_expansion
+# 			}
+# 			add = 1
+# 		}
+# 	}
+# }
 
 #ERA 7
 
@@ -1361,6 +1333,7 @@ user_interface = {
 	category = production
 
 	modifier = {
+		goods_output_computer_mult = 0.05
 	}
 
 	unlocking_technologies = {
@@ -1535,8 +1508,6 @@ high_pressure_grinding_rolls = {
 	ai_weight = {
         value = 1
     }
-
-	#Aggiungere pm_autonomous_and_remote_ops_building_mine
 }
 
 # ERA 9
@@ -1951,6 +1922,31 @@ advanced_personal_computer = {
 	}
 }
 
+euv_photolithography = {
+	era = era_10
+	texture = "gfx/interface/icons/invention_icons/euv_photolithography.dds"
+	category = production
+
+	unlocking_technologies = {
+		advanced_personal_computer
+	}
+
+	modifier = {
+		goods_input_advancedores_mult = -0.05
+	}
+
+	ai_weight = {
+		value = 1 # Important tech for modern economies
+		
+		if = {
+			limit = { 
+				has_strategy = ai_strategy_industrial_expansion
+			}
+			add = 1
+		}
+	}
+}
+
 smart_appliances = {
 	era = era_10
 	# Unlocks PM HD television in electronic industry
@@ -2033,10 +2029,76 @@ precision_agriculture = {
     category = production
 
     unlocking_technologies = {
-        cobots
+        autonomous_and_remote_ops_mining
     }
 
     ai_weight = {
         value = 1
     }
 }
+
+additive_manufacturing = {
+	era = era_11
+	texture = "gfx/interface/icons/invention_icons/additive_manufacturing.dds"
+	category = production
+
+	unlocking_technologies = {
+		iot_driven_manufacturing
+	}
+
+	modifier = {
+		goods_input_plastics_mult = -0.05
+		building_motor_industry_throughput_add = 0.05
+		building_pharmaceuticals_industry_throughput_add = 0.05
+	}
+
+	ai_weight = {
+		value = 1
+		if = {
+			limit = { has_strategy = ai_strategy_industrial_expansion }
+			add = 1
+		}
+	}
+}
+
+autonomous_road_vehicles = {
+	era = era_11
+	texture = "gfx/interface/icons/invention_icons/autonomous_road_vehicles.dds"
+	category = production
+
+	unlocking_technologies = {
+		electric_vehicles
+		iot_driven_manufacturing
+	}
+
+	ai_weight = {
+		value = 1 # Important tech for modern economies
+		
+		if = {
+			limit = { 
+				has_strategy = ai_strategy_industrial_expansion
+			}
+			add = 1
+		}
+	}
+}
+
+nuclear_fusion_reactor = {
+	era = era_11
+	texture = "gfx/interface/icons/invention_icons/nuclear_fusion_reactor.dds"
+	category = production
+
+	unlocking_technologies = {
+		smart_energy_grid
+	}
+
+
+	ai_weight = {
+		value = 1
+		if = {
+			limit = { has_strategy = ai_strategy_industrial_expansion }
+			add = 1
+		}
+	}
+}
+

@@ -1,6 +1,7 @@
 effect_compute_nuclear_capability_points_attacker = {
 
 	#Always first reset to 0
+	remove_global_variable = nuclear_strike_power_global
 	set_global_variable = { 
 		name = nuclear_strike_power_global
 		value = 0
@@ -125,6 +126,7 @@ effect_compute_nuclear_capability_points_attacker = {
 effect_compute_nuclear_capability_points_defense = {
 
 	#Always first reset to 0
+	remove_global_variable = nuclear_strike_defence_global
 	set_global_variable = { 
 		name = nuclear_strike_defence_global
 		value = 5
@@ -268,7 +270,6 @@ effect_tiny_nuclear_damage = {
 	}
 
 	capital = {
-		#Give benefits from civil defence (Protects people)		
 		random_list = {
 		15 = {
 			add_modifier = {
@@ -781,6 +782,7 @@ effect_nuclear_war_destroy_industrial_buildings = {
 	remove_building = building_electronics_industry
 	remove_building = building_battery_plant
 	remove_building = building_processors_foundry
+	remove_building = building_computer_assembly_plant
 	remove_building = building_robotics_industry
 	remove_building = building_pharmaceuticals_industry
 	remove_building = building_consumer_electronics_industry
@@ -811,6 +813,7 @@ effect_launch_nuclear_weapons_to_target = {
 	#set_global_variable = nuclear_weapons_used_somewhere
 	
 	### Calculate strike capability ###
+
 	#Attacker's gross attack ability
 	effect_compute_nuclear_capability_points_attacker = yes
 	
@@ -1042,11 +1045,9 @@ effect_launch_nuclear_weapons_to_all_enemy_countries = {
 		}
 		
 		### Calculate strike capability ###
-		ROOT = {
-		
+		scope:actor = {
 			#Attacker's gross attack ability
 			effect_compute_nuclear_capability_points_attacker = yes
-		
 		}
 		
 		#Notice
@@ -1656,7 +1657,7 @@ calculate_nuclear_strength_info = {
 	if = {
 		limit = { 
 			OR = { 
-				any_scope_treaty = { binds = THIS any_scope_article = { has_type = nuclear_de_escalation_treaty } }
+				any_scope_treaty = { binds = root any_scope_article = { has_type = nuclear_de_escalation_treaty } }
 				has_modifier = recently_reduced_nukes
 			}
 		}

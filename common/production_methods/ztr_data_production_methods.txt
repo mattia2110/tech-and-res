@@ -18,13 +18,12 @@ pm_big_science_and_humanities_department = {
 			goods_input_paper_add = 8 #6 #180
 			goods_input_manzoni_prints_add = 4 #3 #180
 			goods_input_electroniccomponents_add = 2 #160
-			goods_output_business_data_add = 4 #-120 400
+			goods_output_business_data_add = 2 #-120 400
 		}
 
 		level_scaled = {
-			building_employment_clerks_add = 200
-			building_employment_laborers_add = 100
-			building_employment_academics_add = 200
+			building_employment_clerks_add = 250
+			building_employment_academics_add = 250
 		}
 	}
 
@@ -39,7 +38,7 @@ pm_computerized_research_center = {
 	texture = "gfx/interface/icons/production_method_icons/pm_computerized_research_center.dds"
 
 	unlocking_technologies = {
-		data_processing
+		machine_learning
 	}
 
 	country_modifiers = {
@@ -50,16 +49,16 @@ pm_computerized_research_center = {
 
 	building_modifiers = {
 		workforce_scaled = {
-			goods_input_paper_add = 5 #3 #90
+			goods_input_paper_add = 4 #3 #90
 			goods_input_manzoni_prints_add = 4 #3 #180
 			goods_input_electroniccomponents_add = 1 #80
 			goods_input_computer_add = 2 #280
-			goods_output_business_data_add = 6 #-180 450
+			goods_input_ai_systems_add = 2
+			goods_output_business_data_add = 4 #-180 450
 		}
 
 		level_scaled = {
-			building_employment_clerks_add = 150
-			building_employment_laborers_add = 50
+			building_employment_clerks_add = 200
 			building_employment_academics_add = 300
 		}
 	}
@@ -83,18 +82,17 @@ pm_coding_by_hand_building_software_industry = {
 	building_modifiers = {
 		workforce_scaled = {
 			# input goods
-			goods_input_electricity_add = 3
-			goods_input_telephones_add = 3
+			goods_input_electricity_add = 2
+			goods_input_telephones_add = 2
 			goods_input_telecommunications_add = 2
-			goods_input_paper_add = 5
-			goods_input_computer_add = 5
+			goods_input_paper_add = 12
+			goods_input_electroniccomponents_add = 8
 
 			goods_output_softwares_add = 50		
 		}
 		level_scaled = {
 			building_employment_clerks_add = 1500
-			building_employment_laborers_add = 1000
-			building_employment_engineers_add = 750
+			building_employment_engineers_add = 1750
 			building_employment_academics_add = 500
 		}
 	}
@@ -121,8 +119,7 @@ pm_integrated_development_environment_building_software_industry = {
 		}
 		level_scaled = {
 			building_employment_clerks_add = 1250
-			building_employment_laborers_add = 1000
-			building_employment_engineers_add = 750
+			building_employment_engineers_add = 1750
 			building_employment_academics_add = 500
 		}
 	}
@@ -137,8 +134,9 @@ pm_version_control_collaboration_building_software_industry = {
 	}
 
 	unlocking_production_methods = {
-		pm_internet_data_reporting_heavy_industry_software
-		pm_internet_data_optimization_heavy_industry_software
+		pm_local_network_building_office
+		pm_internet_building_office
+		pm_smartworking_building_office
 	}
 
 	building_modifiers = {
@@ -153,9 +151,8 @@ pm_version_control_collaboration_building_software_industry = {
 		}
 		level_scaled = {
 			building_employment_clerks_add = 1000
-			building_employment_laborers_add = 1000
-			building_employment_engineers_add = 750
-			building_employment_academics_add = 500
+			building_employment_engineers_add = 1500
+			building_employment_academics_add = 750
 		}
 	}
 	required_input_goods = electricity
@@ -169,8 +166,8 @@ pm_cloud_based_devops_building_software_industry = {
 	}
 
 	unlocking_production_methods = {
-		pm_internet_data_reporting_heavy_industry_software
-		pm_internet_data_optimization_heavy_industry_software
+		pm_internet_building_office
+		pm_smartworking_building_office
 	}
 
 	building_modifiers = {
@@ -185,9 +182,40 @@ pm_cloud_based_devops_building_software_industry = {
 		}
 		level_scaled = {
 			building_employment_clerks_add = 750
-			building_employment_laborers_add = 1000
-			building_employment_engineers_add = 750
-			building_employment_academics_add = 500
+			building_employment_engineers_add = 1250
+			building_employment_academics_add = 750
+		}
+	}
+	required_input_goods = electricity 
+}
+
+pm_vibe_coding_building_software_industry = {
+	texture = "gfx/interface/icons/production_method_icons/pm_vibe_coding_building_software_industry.dds"
+
+	unlocking_technologies = {
+		artificial_general_intelligence
+	}
+
+	unlocking_production_methods = {
+		pm_internet_building_office
+		pm_smartworking_building_office
+	}
+
+	building_modifiers = {
+		workforce_scaled = {
+			# input goods
+			goods_input_electricity_add = 7
+			goods_input_telephones_add = 3
+			goods_input_telecommunications_add = 25
+			goods_input_computer_add = 20
+			goods_input_ai_systems_add = 20
+
+			goods_output_softwares_add = 150
+		}
+		level_scaled = {
+			building_employment_clerks_add = 750
+			building_employment_engineers_add = 1000
+			building_employment_academics_add = 750
 		}
 	}
 	required_input_goods = electricity
@@ -204,17 +232,22 @@ pm_web_based_building_software_industry = {
 		internet
 	}
 
+	unlocking_production_methods = {
+		pm_internet_building_office
+		pm_smartworking_building_office
+	}
+
 	building_modifiers = {
 		workforce_scaled = {
 			# input goods
-			goods_input_telecommunications_add = 10
-			goods_input_computer_add = -5
+			goods_input_telecommunications_add = 10 #300
+			goods_input_computer_add = -5 #-700
+			goods_output_softwares_add = -10 #600
 
-			goods_output_softwares_add = -40
-			goods_output_services_add = 90	
+			goods_output_services_add = 20 #600
 		}
 		level_scaled = {
-			building_employment_shopkeepers_add = 250
+			building_employment_clerks_add = 100
 		}
 	}
 }
@@ -226,17 +259,22 @@ pm_mobile_based_building_software_industry = {
 		app_economy
 	}
 
+	unlocking_production_methods = {
+		pm_internet_building_office
+		pm_smartworking_building_office
+	}
+
 	building_modifiers = {
 		workforce_scaled = {
 			# input goods
-			goods_input_telephones_add = 10
-			goods_input_computer_add = -10
+			goods_input_telephones_add = 10 #700
+			goods_input_computer_add = -5 #-700
+			goods_output_softwares_add = -15 #900
 
-			goods_output_softwares_add = -40
-			goods_output_interactive_entertainment_add = 30
+			goods_output_interactive_entertainment_add = 15 #1200
 		}
 		level_scaled = {
-			building_employment_shopkeepers_add = 250
+			building_employment_engineers_add = 50
 		}
 	}
 }
@@ -262,8 +300,7 @@ pm_pixel_based_building_interactive_media_industry = {
 		}
 		level_scaled = {
 			building_employment_clerks_add = 1500
-			building_employment_laborers_add = 1000
-			building_employment_engineers_add = 750
+			building_employment_engineers_add = 1750
 			building_employment_academics_add = 500
 		}
 	}
@@ -289,9 +326,8 @@ pm_3d_engine_building_interactive_media_industry = {
 		}
 		level_scaled = {
 			building_employment_clerks_add = 1000
-			building_employment_laborers_add = 1000
-			building_employment_engineers_add = 750
-			building_employment_academics_add = 500
+			building_employment_engineers_add = 1500
+			building_employment_academics_add = 750
 		}
 	}
 	required_input_goods = electricity
@@ -305,8 +341,8 @@ pm_cross_platform_building_interactive_media_industry = {
 	}
 
 	unlocking_production_methods = {
-		pm_internet_data_reporting_heavy_industry
-		pm_internet_data_optimization_heavy_industry
+		pm_internet_building_office
+		pm_smartworking_building_office
 	}
 
 	building_modifiers = {
@@ -321,9 +357,8 @@ pm_cross_platform_building_interactive_media_industry = {
 		}
 		level_scaled = {
 			building_employment_clerks_add = 750
-			building_employment_laborers_add = 1000
-			building_employment_engineers_add = 750
-			building_employment_academics_add = 500
+			building_employment_engineers_add = 1250
+			building_employment_academics_add = 750
 		}
 	}
 	required_input_goods = electricity
@@ -341,19 +376,18 @@ pm_manual_market_studies = {
 	building_modifiers = {
 		workforce_scaled = {
 			# input goods
-			goods_input_organized_data_add = 25
+			goods_input_organized_data_add = 40
 			goods_input_paper_add = 5
 			goods_input_telephones_add = 5
 			goods_input_electricity_add = 2
 			
 			# output goods
-			goods_output_business_data_add = 60
+			goods_output_business_data_add = 65
 		}
 		level_scaled = {
 			building_employment_clerks_add = 1000
-			building_employment_laborers_add = 500
-			building_employment_engineers_add = 500
-			building_employment_academics_add = 250
+			building_employment_engineers_add = 750
+			building_employment_academics_add = 500
 		}
 	}
 	required_input_goods = electricity
@@ -369,19 +403,18 @@ pm_basic_data_analysis = {
 	building_modifiers = {
 		workforce_scaled = {
 			# input goods
-			goods_input_organized_data_add = 25
+			goods_input_organized_data_add = 55
 			goods_input_paper_add = 3
 			goods_input_computer_add = 2
 			goods_input_electricity_add = 4
 			goods_input_softwares_add = 1
 			
 			# output goods
-			goods_output_business_data_add = 80
+			goods_output_business_data_add = 90
 		}
 		level_scaled = {
-			building_employment_clerks_add = 750
-			building_employment_laborers_add = 500
-			building_employment_engineers_add = 500
+			building_employment_clerks_add = 500
+			building_employment_engineers_add = 750
 			building_employment_academics_add = 500
 		}
 	}
@@ -397,22 +430,23 @@ pm_cloud_databased_data_analysis = {
 
 	unlocking_production_methods = {
 		pm_internet_building_office
+		pm_smartworking_building_office
 	}
 
 	building_modifiers = {
 		workforce_scaled = {
 			# input goods
-			goods_input_organized_data_add = 25
+			goods_input_organized_data_add = 70
 			goods_input_computer_add = 4
-			goods_input_electricity_add = 5
+			goods_input_electricity_add = 4
 			goods_input_softwares_add = 4
+			goods_input_ai_systems_add = 2
 			
 			# output goods
-			goods_output_business_data_add = 105
+			goods_output_business_data_add = 120
 		}
 		level_scaled = {
 			building_employment_clerks_add = 250
-			building_employment_laborers_add = 500
 			building_employment_engineers_add = 500
 			building_employment_academics_add = 500
 		}
@@ -430,16 +464,15 @@ pm_consulting_firm_services = {
 	building_modifiers = {
 		workforce_scaled = {
 			# input goods
-			goods_input_organized_data_add = 25
+			goods_input_organized_data_add = 40
 			goods_input_paper_add = 5
 			goods_input_telephones_add = 5
 			
 			# output goods
-			goods_output_business_data_add = 50
+			goods_output_business_data_add = 55
 		}
 		level_scaled = {
-			building_employment_clerks_add = 750
-			building_employment_laborers_add = 500
+			building_employment_clerks_add = 1250
 			building_employment_academics_add = 250
 		}
 	}
@@ -455,16 +488,15 @@ pm_multinational_corporate_services = {
 	building_modifiers = {
 		workforce_scaled = {
 			# input goods
-			goods_input_organized_data_add = 25
+			goods_input_organized_data_add = 55
 			goods_input_paper_add = 5
 			goods_input_telephones_add = 8
 			
 			# output goods
-			goods_output_business_data_add = 65
+			goods_output_business_data_add = 75
 		}
 		level_scaled = {
-			building_employment_clerks_add = 500
-			building_employment_laborers_add = 500
+			building_employment_clerks_add = 1000
 			building_employment_academics_add = 250
 		}
 	}
@@ -479,22 +511,22 @@ pm_global_outsourcing_hub = {
 
 	unlocking_production_methods = {
 		pm_internet_building_office
+		pm_smartworking_building_office
 	}
 
 	building_modifiers = {
 		workforce_scaled = {
 			# input goods
-			goods_input_organized_data_add = 25
+			goods_input_organized_data_add = 70
 			goods_input_computer_add = 1
 			goods_input_telephones_add = 8
 			goods_input_softwares_add = 2
 			
 			# output goods
-			goods_output_business_data_add = 80
+			goods_output_business_data_add = 95
 		}
 		level_scaled = {
-			building_employment_clerks_add = 500
-			building_employment_laborers_add = 500
+			building_employment_clerks_add = 750
 			building_employment_academics_add = 250
 		}
 	}
@@ -531,7 +563,7 @@ pm_teleprinter_network_building_office = {
 			goods_input_telecommunications_add = 2
 		}
 		level_scaled = {
-			building_employment_laborers_add = -500
+			building_employment_clerks_add = -200
 		}
 	}
 
@@ -551,7 +583,7 @@ pm_local_network_building_office = {
 			goods_input_telecommunications_add = 3
 		}
 		level_scaled = {
-			building_employment_laborers_add = -1000
+			building_employment_clerks_add = -400
 		}
 	}
 
@@ -571,11 +603,30 @@ pm_internet_building_office = {
 			goods_input_telecommunications_add = 5
 		}
 		level_scaled = {
-			building_employment_laborers_add = -1000
+			building_employment_clerks_add = -500
 			building_employment_engineers_add = -250
 		}
 	}
 
+}
+
+pm_smartworking_building_office = {
+	texture = "gfx/interface/icons/production_method_icons/pm_smartworking_building_office.dds"
+
+	unlocking_technologies = {
+		urban_sustainability
+	}
+
+	building_modifiers = {
+		workforce_scaled = {
+			# input goods
+			goods_input_telecommunications_add = 7
+		}
+		level_scaled = {
+			building_employment_clerks_add = -650
+			building_employment_engineers_add = -250
+		}
+	}
 }
 
 # Data Center
@@ -590,18 +641,15 @@ pm_local_data_storage_building_datacenter = {
 	building_modifiers = {
 		workforce_scaled = {
 			# input goods
-			goods_input_raw_data_add = 200
-			goods_input_electricity_add = 5
-			goods_input_telecommunications_add = 10
-			goods_input_water_add = 1
+			goods_input_raw_data_add = 300 #1000
+			goods_input_electricity_add = 5 #150
+			goods_input_water_add = 5 #250
 			
 			# output goods
-			goods_output_organized_data_add = 250
+			goods_output_organized_data_add = 300 #2500 - 1400 1100
 		}
 		level_scaled = {
-			building_employment_clerks_add = 250
-			building_employment_laborers_add = 750
-			building_employment_engineers_add = 500
+			building_employment_engineers_add = 1000
 		}
 	}
 
@@ -611,31 +659,116 @@ pm_cloud_storage_building_datacenter = {
 	texture = "gfx/interface/icons/production_method_icons/pm_cloud_storage_building_datacenter.dds"
 
 	unlocking_technologies = {
-		cloud_computing #cloud_computing?
+		cloud_computing
 	}
 
 	building_modifiers = {
 		workforce_scaled = {
 			# input goods
-			goods_input_raw_data_add = 300
-			goods_input_electricity_add = 5
-			goods_input_telecommunications_add = 10
-			goods_input_water_add = 2
+			goods_input_raw_data_add = 450 #1500
+			goods_input_electricity_add = 5 #150
+			goods_input_water_add = 10 #500
 			
 			# output goods
-			goods_output_organized_data_add = 350
+			goods_output_organized_data_add = 450 #3500 - 2390 = 1110
 		}
 		level_scaled = {
-			building_employment_clerks_add = 250
-			building_employment_laborers_add = 750
-			building_employment_engineers_add = 500
+			building_employment_engineers_add = 750
 		}
 	}
 
+	unlocking_production_methods = {
+		pm_internet_building_datacenter
+	}
+}
+
+pm_no_model_training = {
+	texture = "gfx/interface/icons/production_method_icons/no_model_training.dds"
+
+}
+
+pm_neural_model_training = {
+	texture = "gfx/interface/icons/production_method_icons/pm_neural_model_training.dds"
+
+	unlocking_technologies = {
+		machine_learning
+	}
+
+	building_modifiers = {
+		workforce_scaled = {
+			# input goods
+			goods_output_organized_data_add = -50 # 500
+			goods_input_electricity_add = 5 #150
+			goods_input_water_add = 5 #250
+			
+			# output goods
+			goods_output_ai_systems_add = 25 #1000 - 900 = 100
+		}
+		level_scaled = {
+			building_employment_academics_add = 125
+			building_employment_engineers_add = -125
+		}
+	}
+}
+
+pm_generative_ai_models = {
+	texture = "gfx/interface/icons/production_method_icons/pm_generative_ai_models.dds"
+
+	unlocking_technologies = {
+		artificial_intelligence
+	}
+
+	building_modifiers = {
+		workforce_scaled = {
+			# input goods
+			goods_output_organized_data_add = -90 # -900
+			goods_input_electricity_add = 10 #300
+			goods_input_water_add = 20 #1000
+			
+			# output goods
+			goods_output_ai_systems_add = 80 #2400 - 2200 = 200
+		}
+		level_scaled = {
+			building_employment_academics_add = 125
+			building_employment_engineers_add = -125
+		}
+	}
+
+	unlocking_production_methods = {
+		pm_late_computer_server_building_datacenter
+	}
+}
+
+pm_artificial_general_intelligence = {
+	texture = "gfx/interface/icons/production_method_icons/pm_artificial_general_intelligence.dds"
+
+	unlocking_technologies = {
+		artificial_general_intelligence
+	}
+
+	building_modifiers = {
+		workforce_scaled = {
+			# input goods
+			goods_output_organized_data_add = -250 # -3000
+			goods_input_electricity_add = 15 #450
+			goods_input_water_add = 40 #2000
+			
+			# output goods
+			goods_output_ai_systems_add = 170 #5100 - 4700 = 400
+		}
+		level_scaled = {
+			building_employment_academics_add = 125
+			building_employment_engineers_add = -125
+		}
+	}
+
+	unlocking_production_methods = {
+		pm_late_computer_server_building_datacenter
+	}
 }
 
 pm_early_computer_server_building_datacenter = {
-	texture = "gfx/interface/icons/production_method_icons/pm_computer_teleprinters_green.dds"
+	texture = "gfx/interface/icons/production_method_icons/pm_early_computer_server.dds"
 
 	unlocking_technologies = {
 		data_infrastructures
@@ -644,28 +777,29 @@ pm_early_computer_server_building_datacenter = {
 	building_modifiers = {
 		workforce_scaled = {
 			# input goods
-			goods_input_computer_add = 2
+			goods_input_processors_add = 3 #390
 		}
 	}
 }
 
-pm_mid_computer_server_building_datacenter = {
-	texture = "gfx/interface/icons/production_method_icons/pm_personal_computers_green.dds"
+pm_late_computer_server_building_datacenter = {
+	texture = "gfx/interface/icons/production_method_icons/pm_late_computer_server.dds"
 
 	unlocking_technologies = {
-		user_interface
+		parallel_computing_architecture
 	}
 
 	building_modifiers = {
 		workforce_scaled = {
 			# input goods
-			goods_input_raw_data_add = -50
-			goods_input_computer_add = 5
+			goods_input_raw_data_add = -60 #-300
+			goods_input_processors_add = 6 #780 - 300 = 480
 		}
 		level_scaled = {
-			building_employment_laborers_add = -250
+			building_employment_engineers_add = -250
 		}
 	}
+
 }
 
 pm_local_network_building_datacenter = {
@@ -682,14 +816,38 @@ pm_internet_building_datacenter = {
 	building_modifiers = {
 		workforce_scaled = {
 			# input goods
-			goods_input_raw_data_add = -50
-			goods_input_processors_add = 0.5
-			goods_input_telecommunications_add = 2
+			goods_input_raw_data_add = -20 #-100
+			goods_input_telecommunications_add = 10 #60
+			goods_input_processors_add = 0.5 #65
 		}
 		level_scaled = {
-			building_employment_laborers_add = -500
+			building_employment_engineers_add = -125
 		}
 	}
+}
+
+# Telecommunications
+
+pm_manual_operators_network_building_telecommunications = {
+    texture = "gfx/interface/icons/production_method_icons/telephone_switchboards_purple.dds"
+
+    unlocking_technologies = {
+        telephone
+    }
+
+    building_modifiers = {
+        workforce_scaled = {
+            # infrastruttura fisica (rame, componenti elettronici, energia)
+            goods_input_copperwires_add = 15
+
+			goods_output_telecommunications_add = 65
+        }
+        level_scaled = {
+            building_employment_laborers_add = 2000
+			building_employment_machinists_add = 1000
+            building_employment_engineers_add = 500
+        }
+    }
 }
 
 pm_national_radio_network_building_telecommunications = {
@@ -702,7 +860,7 @@ pm_national_radio_network_building_telecommunications = {
     building_modifiers = {
         workforce_scaled = {
             # reti di antenna, trasmettitori
-            goods_input_copperwires_add = 10
+            goods_input_copperwires_add = 20
             goods_input_electroniccomponents_add = 3
 
 			goods_output_telecommunications_add = 85
@@ -716,44 +874,43 @@ pm_national_radio_network_building_telecommunications = {
 }
 
 pm_satellite_communications_network_building_telecommunications = {
-    texture = "gfx/interface/icons/production_method_icons/satellites_blue.dds"
+    texture = "gfx/interface/icons/production_method_icons/satellites_purple.dds"
     unlocking_technologies = {
         telecommunications
     }
     building_modifiers = {
         workforce_scaled = {
             # reti di antenna, trasmettitori
-            goods_input_copperwires_add = 15
+            goods_input_copperwires_add = 25
 			goods_input_space_assets_add = 3
 			goods_input_electroniccomponents_add = 5
 
 			goods_output_telecommunications_add = 130
         }
         level_scaled = {
-            building_employment_laborers_add = 250
-			building_employment_machinists_add = 750
+			building_employment_machinists_add = 1000
             building_employment_engineers_add = 500
         }
     }
 }
 
 pm_internet_global_network_building_telecommunications = {
-    texture = "gfx/interface/icons/production_method_icons/pm_internet_building_office_modern.dds"
+    texture = "gfx/interface/icons/production_method_icons/pm_internet_building_telecom.dds"
     unlocking_technologies = {
         wireless_broadband_networks
     }
     building_modifiers = {
         workforce_scaled = {
             # reti di antenna, trasmettitori
-            goods_input_copperwires_add = 20 # 250
-			goods_input_electroniccomponents_add = 5 #-160
-			goods_input_space_assets_add = 4 #200
+            goods_input_copperwires_add = 30 # 1000
+			goods_input_electroniccomponents_add = 5 #400
+			goods_input_space_assets_add = 5 #800
 
-			goods_output_telecommunications_add = 145
+			goods_output_telecommunications_add = 150 # 145*30= 4350
         }
         level_scaled = {
 			building_employment_machinists_add = 500
-            building_employment_engineers_add = 500
+            building_employment_engineers_add = 250
         }
     }
 }
@@ -801,9 +958,9 @@ pm_4g_lte_network = {
 	}
     building_modifiers = {
         workforce_scaled = {
-            goods_input_electricity_add = 10 #150
+            goods_input_electricity_add = 10 #300
 			goods_input_softwares_add = 2 #120
-			goods_input_processors_add = 1 #130
+			goods_input_processors_add = 1 #130 550
 
 			goods_output_telecommunications_add = 30 #600
         }
@@ -822,8 +979,8 @@ pm_5g_advanced_network = {
         workforce_scaled = {
             goods_input_electricity_add = 15 #150
 			goods_input_softwares_add = 4 #120
-			goods_input_space_assets_add = 1 #200
-			goods_input_processors_add = 2 #130
+			goods_input_space_assets_add = 2 #400
+			goods_input_processors_add = 2 #130 800
 
 			goods_output_telecommunications_add = 65 #900
         }
@@ -851,8 +1008,7 @@ pm_local_courier_network = {
         }
         level_scaled = {
             building_employment_clerks_add = 500
-            building_employment_laborers_add = 1000
-            building_employment_machinists_add = 1000
+            building_employment_machinists_add = 2000
             building_employment_engineers_add = 500
         }
     }
@@ -881,8 +1037,7 @@ pm_platform_gig_delivery = {
         }
         level_scaled = {
             building_employment_clerks_add = 500
-            building_employment_laborers_add = 1000
-            building_employment_machinists_add = 1000
+            building_employment_machinists_add = 2000
             building_employment_engineers_add = 500
         }
     }
@@ -912,8 +1067,7 @@ pm_integrated_retail_ecommerce = {
         }
         level_scaled = {
             building_employment_clerks_add = 500
-            building_employment_laborers_add = 1000
-            building_employment_machinists_add = 1000
+            building_employment_machinists_add = 2000
             building_employment_engineers_add = 500
         }
     }
@@ -944,7 +1098,8 @@ pm_heavy_centralized_fulfilment = {
 			goods_input_telephones_add = 4
         }
 		level_scaled = {
-            building_employment_laborers_add = -250
+			building_employment_clerks_add = -100
+            building_employment_machinists_add = -150
         }
     }
 
@@ -973,7 +1128,8 @@ pm_mixed_robotic_microfulfilment = {
 			goods_input_telephones_add = 3
         }
 		level_scaled = {
-            building_employment_laborers_add = -650
+			building_employment_clerks_add = -250
+            building_employment_machinists_add = -400
         }
     }
 
@@ -1010,8 +1166,7 @@ pm_drone_last_mile = {
             goods_input_transportation_add = 15
         }
 		level_scaled = {
-            building_employment_laborers_add = -350
-            building_employment_machinists_add = -250
+            building_employment_machinists_add = -500
         }
     }
 
@@ -1021,7 +1176,7 @@ pm_drone_last_mile = {
 }
 
 pm_truck_van_transportation = {
-    texture = "gfx/interface/icons/production_method_icons/pm_multiway_transport_building.dds"
+    texture = "gfx/interface/icons/production_method_icons/pm_truck_van_transportation.dds"
 
     state_modifiers = {
         workforce_scaled = {
@@ -1038,6 +1193,25 @@ pm_truck_van_transportation = {
             building_employment_machinists_add = -250
         }
     }
+}
+
+pm_autonomous_truck_van_transportation = {
+	texture = "gfx/interface/icons/production_method_icons/pm_autonomous_truck_transportation.dds"
+	unlocking_technologies = {
+		autonomous_road_vehicles
+	}
+
+	building_modifiers = {
+		workforce_scaled = {
+			goods_input_automobiles_add = 3
+			goods_input_ai_systems_add = 3
+			goods_input_telecommunications_add = 4
+			goods_input_transportation_add = 12
+		}
+		level_scaled = {
+			building_employment_machinists_add = -500
+		}
+	}
 }
 
 # pm_automatized_truck_van_transportation = {
@@ -1163,10 +1337,64 @@ pm_internet_data_reporting_primary_sector = {
 		unscaled = {
 			building_throughput_add = 0.65 #4
 		}
+		level_scaled = {
+			building_employment_shopkeepers_add = -250
+		}
 	}
 }
 
 pm_internet_data_optimization_primary_sector = {
+	texture = "gfx/interface/icons/production_method_icons/pm_internet_data_optimization.dds"
+
+	unlocking_technologies = {
+		big_data_analytics
+	}
+
+	building_modifiers = {
+		workforce_scaled = {
+			# input goods
+			#goods_input_computer_add = 1
+			goods_input_softwares_add = 4
+			goods_input_telecommunications_add = 5
+			goods_input_business_data_add = 6
+			
+			# output goods
+			goods_output_raw_data_add = 8
+		}
+		unscaled = {
+			building_throughput_add = 0.95 #4
+		}
+		level_scaled = {
+			building_employment_shopkeepers_add = -100
+		}
+	}
+}
+
+pm_internet_data_reporting_primary_sector_no_shopkeepers = {
+	texture = "gfx/interface/icons/production_method_icons/pm_internet_data_reporting.dds"
+
+	unlocking_technologies = {
+		internet
+	}
+
+	building_modifiers = {
+		workforce_scaled = {
+			# input goods
+			#goods_input_computer_add = 0.7
+			goods_input_softwares_add = 3
+			goods_input_telecommunications_add = 1
+			goods_input_business_data_add = 4
+			
+			# output goods
+			goods_output_raw_data_add = 8
+		}
+		unscaled = {
+			building_throughput_add = 0.65 #4
+		}
+	}
+}
+
+pm_internet_data_optimization_primary_sector_no_shopkeepers = {
 	texture = "gfx/interface/icons/production_method_icons/pm_internet_data_optimization.dds"
 
 	unlocking_technologies = {
@@ -1320,10 +1548,13 @@ pm_internet_data_reporting_light_industry = {
 			goods_input_business_data_add = 4
 			
 			# output goods
-			goods_output_raw_data_add = 12
+			goods_output_raw_data_add = 10
 		}
 		unscaled = {
 			building_throughput_add = 0.85 #4
+		}
+		level_scaled = {
+			building_employment_shopkeepers_add = -50
 		}
 	}
 }
@@ -1339,6 +1570,7 @@ pm_internet_data_optimization_light_industry = {
 		workforce_scaled = {
 			# input goods
 			#goods_input_computer_add = 1
+			goods_input_ai_systems_add = 2
 			goods_input_softwares_add = 4
 			goods_input_telecommunications_add = 5
 			goods_input_business_data_add = 6
@@ -1347,7 +1579,59 @@ pm_internet_data_optimization_light_industry = {
 			goods_output_raw_data_add = 12
 		}
 		unscaled = {
-			building_throughput_add = 1.25
+			building_throughput_add = 1.5
+		}
+		level_scaled = {
+			building_employment_shopkeepers_add = -100
+		}
+	}
+}
+
+pm_internet_data_reporting_light_industry_no_shopkeepers = {
+	texture = "gfx/interface/icons/production_method_icons/pm_internet_data_reporting.dds"
+
+	unlocking_technologies = {
+		internet
+	}
+
+	building_modifiers = {
+		workforce_scaled = {
+			# input goods
+			#goods_input_computer_add = 0.7
+			goods_input_softwares_add = 3
+			goods_input_telecommunications_add = 2
+			goods_input_business_data_add = 4
+			
+			# output goods
+			goods_output_raw_data_add = 10
+		}
+		unscaled = {
+			building_throughput_add = 0.85 #4
+		}
+	}
+}
+
+pm_internet_data_optimization_light_industry_no_shopkeepers = {
+	texture = "gfx/interface/icons/production_method_icons/pm_internet_data_optimization.dds"
+
+	unlocking_technologies = {
+		big_data_analytics
+	}
+
+	building_modifiers = {
+		workforce_scaled = {
+			# input goods
+			#goods_input_computer_add = 1
+			goods_input_ai_systems_add = 2
+			goods_input_softwares_add = 4
+			goods_input_telecommunications_add = 5
+			goods_input_business_data_add = 6
+			
+			# output goods
+			goods_output_raw_data_add = 12
+		}
+		unscaled = {
+			building_throughput_add = 1.5
 		}
 	}
 }
@@ -1433,6 +1717,52 @@ pm_digital_data_on_premises_heavy_industry = {
 	}
 }
 
+pm_digital_data_optimization_heavy_industry_computer = {
+	texture = "gfx/interface/icons/production_method_icons/pm_digital_data_optimization.dds"
+
+	unlocking_technologies = {
+		computer
+	}
+
+	building_modifiers = {
+		workforce_scaled = {
+			# input goods
+			goods_output_computer_add = -0.3
+			goods_input_softwares_add = 0.5
+			goods_input_business_data_add = 3
+			
+			# output goods
+			goods_output_organized_data_add = 3
+		}
+		unscaled = {
+			building_throughput_add = 0.25 #2
+		}
+	}
+}
+
+pm_digital_data_on_premises_heavy_industry_computer = {
+	texture = "gfx/interface/icons/production_method_icons/pm_digital_data_on_premises.dds"
+
+	unlocking_technologies = {
+		data_infrastructures
+	}
+
+	building_modifiers = {
+		workforce_scaled = {
+			# input goods
+			goods_output_computer_add = -0.5
+			goods_input_softwares_add = 1
+			goods_input_business_data_add = 3
+			
+			# output goods
+			goods_output_raw_data_add = 10
+		}
+		unscaled = {
+			building_throughput_add = 0.65 #3
+		}
+	}
+}
+
 pm_internet_data_reporting_heavy_industry = {
 	texture = "gfx/interface/icons/production_method_icons/pm_internet_data_reporting.dds"
 
@@ -1449,10 +1779,13 @@ pm_internet_data_reporting_heavy_industry = {
 			goods_input_business_data_add = 4
 			
 			# output goods
-			goods_output_raw_data_add = 16
+			goods_output_raw_data_add = 13
 		}
 		unscaled = {
 			building_throughput_add = 1.2 #4
+		}
+		level_scaled = {
+			building_employment_shopkeepers_add = -50
 		}
 	}
 }
@@ -1468,6 +1801,59 @@ pm_internet_data_optimization_heavy_industry = {
 		workforce_scaled = {
 			# input goods
 			#goods_input_computer_add = 1
+			goods_input_ai_systems_add = 2
+			goods_input_softwares_add = 4
+			goods_input_telecommunications_add = 5
+			goods_input_business_data_add = 6
+			
+			# output goods
+			goods_output_raw_data_add = 16
+		}
+		unscaled = {
+			building_throughput_add = 1.8 #4
+		}
+		level_scaled = {
+			building_employment_shopkeepers_add = -100
+		}
+	}
+}
+
+pm_internet_data_reporting_heavy_industry_no_shopkeepers = {
+	texture = "gfx/interface/icons/production_method_icons/pm_internet_data_reporting.dds"
+
+	unlocking_technologies = {
+		internet
+	}
+
+	building_modifiers = {
+		workforce_scaled = {
+			# input goods
+			#goods_input_computer_add = 0.7
+			goods_input_softwares_add = 3
+			goods_input_telecommunications_add = 2
+			goods_input_business_data_add = 4
+			
+			# output goods
+			goods_output_raw_data_add = 13
+		}
+		unscaled = {
+			building_throughput_add = 1.2 #4
+		}
+	}
+}
+
+pm_internet_data_optimization_heavy_industry_no_shopkeepers = {
+	texture = "gfx/interface/icons/production_method_icons/pm_internet_data_optimization.dds"
+
+	unlocking_technologies = {
+		big_data_analytics
+	}
+
+	building_modifiers = {
+		workforce_scaled = {
+			# input goods
+			#goods_input_computer_add = 1
+			goods_input_ai_systems_add = 2
 			goods_input_softwares_add = 4
 			goods_input_telecommunications_add = 5
 			goods_input_business_data_add = 6
@@ -1483,7 +1869,7 @@ pm_internet_data_optimization_heavy_industry = {
 
 # This is the internet_data_optimization for buildings where internet optimization requires algorithms
 pm_internet_data_algorithmic_dispatch_heavy_industry = {
-	texture = "gfx/interface/icons/production_method_icons/pm_internet_data_optimization.dds"
+	texture = "gfx/interface/icons/production_method_icons/pm_neural_model_training_i_o.dds"
 
 	unlocking_technologies = {
 		algorithmic_dispatch
@@ -1492,10 +1878,37 @@ pm_internet_data_algorithmic_dispatch_heavy_industry = {
 	building_modifiers = {
 		workforce_scaled = {
 			# input goods
-			#goods_input_computer_add = 1
-			goods_input_softwares_add = 4
-			goods_input_telecommunications_add = 5
-			goods_input_business_data_add = 6
+			goods_input_ai_systems_add = 6
+			goods_input_softwares_add = 2
+			goods_input_telecommunications_add = 4
+			goods_input_business_data_add = 4
+			
+			# output goods
+			goods_output_raw_data_add = 16
+		}
+		unscaled = {
+			building_throughput_add = 1.8 #4
+		}
+		level_scaled = {
+			building_employment_shopkeepers_add = -100
+		}
+	}
+}
+
+pm_internet_data_algorithmic_dispatch_heavy_industry_no_shopkeepers = {
+	texture = "gfx/interface/icons/production_method_icons/pm_neural_model_training_i_o.dds"
+
+	unlocking_technologies = {
+		algorithmic_dispatch
+	}
+
+	building_modifiers = {
+		workforce_scaled = {
+			# input goods
+			goods_input_ai_systems_add = 6
+			goods_input_softwares_add = 2
+			goods_input_telecommunications_add = 4
+			goods_input_business_data_add = 4
 			
 			# output goods
 			goods_output_raw_data_add = 16
@@ -1524,7 +1937,7 @@ pm_internet_data_reporting_heavy_industry_telecommunications = {
 			goods_input_business_data_add = 4
 			
 			# output goods
-			goods_output_raw_data_add = 16
+			goods_output_raw_data_add = 13
 		}
 		unscaled = {
 			building_throughput_add = 1.2 #4
@@ -1532,18 +1945,19 @@ pm_internet_data_reporting_heavy_industry_telecommunications = {
 	}
 }
 
-pm_internet_data_algorithmic_dispatch_heavy_industry_telecommunications = {
+pm_internet_data_optimization_heavy_industry_telecommunications = {
 	texture = "gfx/interface/icons/production_method_icons/pm_internet_data_optimization.dds"
 
 	unlocking_technologies = {
-		algorithmic_dispatch
+		big_data_analytics
 	}
 
 	building_modifiers = {
 		workforce_scaled = {
 			# input goods
 			#goods_input_computer_add = 1
-			goods_input_softwares_add = 4 #2.5
+			goods_input_ai_systems_add = 2
+			goods_input_softwares_add = 4
 			goods_output_telecommunications_add = -5
 			goods_input_business_data_add = 6
 			
@@ -1568,8 +1982,7 @@ pm_digital_data_optimization_heavy_industry_software = {
 	building_modifiers = {
 		workforce_scaled = {
 			# input goods
-			goods_input_computer_add = 0.3
-			goods_output_softwares_add = -0.5
+			goods_input_computer_add = 0.5
 			goods_input_business_data_add = 3
 			
 			# output goods
@@ -1591,8 +2004,7 @@ pm_digital_data_on_premises_heavy_industry_software = {
 	building_modifiers = {
 		workforce_scaled = {
 			# input goods
-			goods_input_computer_add = 0.5
-			goods_output_softwares_add = -1
+			goods_input_computer_add = 1
 			goods_input_business_data_add = 3
 			
 			# output goods
@@ -1614,16 +2026,18 @@ pm_internet_data_reporting_heavy_industry_software = {
 	building_modifiers = {
 		workforce_scaled = {
 			# input goods
-			#goods_input_computer_add = 0.7
-			goods_output_softwares_add = -3
+			goods_input_computer_add = 1.5
 			goods_input_telecommunications_add = 2
 			goods_input_business_data_add = 4
 			
 			# output goods
-			goods_output_raw_data_add = 16
+			goods_output_raw_data_add = 13
 		}
 		unscaled = {
 			building_throughput_add = 1.2 #4
+		}
+		level_scaled = {
+			building_employment_shopkeepers_add = -50
 		}
 	}
 }
@@ -1638,8 +2052,8 @@ pm_internet_data_optimization_heavy_industry_software = {
 	building_modifiers = {
 		workforce_scaled = {
 			# input goods
-			#goods_input_computer_add = 1
-			goods_output_softwares_add = -4
+			goods_input_ai_systems_add = 2
+			goods_input_computer_add = 2
 			goods_input_telecommunications_add = 5
 			goods_input_business_data_add = 6
 			
@@ -1649,75 +2063,8 @@ pm_internet_data_optimization_heavy_industry_software = {
 		unscaled = {
 			building_throughput_add = 1.8 #4
 		}
-	}
-}
-
-# Processors
-
-pm_digital_data_optimization_heavy_industry_processors = {
-	texture = "gfx/interface/icons/production_method_icons/pm_digital_data_optimization.dds"
-
-	unlocking_technologies = {
-		computer
-	}
-
-	building_modifiers = {
-		workforce_scaled = {
-			# input goods
-			goods_input_softwares_add = 1
-			goods_input_business_data_add = 3
-			
-			# output goods
-			goods_output_organized_data_add = 3
-		}
-		unscaled = {
-			building_throughput_add = 0.25 #2
+		level_scaled = {
+			building_employment_shopkeepers_add = -100
 		}
 	}
-}
-
-pm_digital_data_on_premises_heavy_industry_processors = {
-	texture = "gfx/interface/icons/production_method_icons/pm_digital_data_on_premises.dds"
-
-	unlocking_technologies = {
-		data_infrastructures
-	}
-
-	building_modifiers = {
-		workforce_scaled = {
-			# input goods
-			goods_input_softwares_add = 1.5
-			goods_input_business_data_add = 3
-			
-			# output goods
-			goods_output_raw_data_add = 10
-		}
-		unscaled = {
-			building_throughput_add = 0.65 #3
-		}
-	}
-}
-
-# Telecommunications
-
-pm_manual_operators_network_building_telecommunications = {
-    texture = "gfx/interface/icons/production_method_icons/telephone_switchboards_purple.dds"
-
-    unlocking_technologies = {
-        telephone
-    }
-
-    building_modifiers = {
-        workforce_scaled = {
-            # infrastruttura fisica (rame, componenti elettronici, energia)
-            goods_input_copperwires_add = 10
-
-			goods_output_telecommunications_add = 65
-        }
-        level_scaled = {
-            building_employment_laborers_add = 2000
-			building_employment_machinists_add = 1000
-            building_employment_engineers_add = 500
-        }
-    }
 }

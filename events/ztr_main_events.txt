@@ -153,10 +153,8 @@ ztr_economic_update.1 = {
 		if = {
 			limit = {
 				average_sol < 11
-				OR = {
-					NOT = { is_in_geographic_region = geographic_region_europe }
-					c:RUS ?= this
-				}
+				year < 1920
+				NOT = { is_in_geographic_region = geographic_region_europe }
 				NOT = { c:USA = this }
 				NOR = {
 					has_journal_entry = je_demographic_0_to_1
@@ -176,6 +174,7 @@ ztr_economic_update.1 = {
 		else_if = {
 			limit = {
 				average_sol < 14
+				year < 1960
 				NOT = { c:FRA = this }
 				NOT = { c:SPA = this }
 				NOT = { c:GBR = this }
@@ -1615,6 +1614,13 @@ ztr_economic_update.27 = {
 		# ig:ig_trade_unions = {
 		# 	remove_ideology = ideology_extreme_progressist
 		# }
+		every_interest_group = {
+			limit = {
+				has_ideology = ideology:ideology_laissez_faire
+			}
+			remove_ideology = ideology_laissez_faire
+			add_ideology = ideology_neoliberism
+		}
 	}
 }
 

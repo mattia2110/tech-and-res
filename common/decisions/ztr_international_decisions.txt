@@ -153,28 +153,29 @@ un_foundation = {
 	}
 }
 
-# imf_foundation = {
+imf_foundation = {
 
-# 	is_shown = {
-# 		NOT = { has_global_variable = imf_founded_var }
-# 		has_technology_researched = international_organizations
-# 		global_country_ranking = 1
-# 	}
+	is_shown = {
+		NOT = { has_global_variable = imf_founded_var }
+		ztr_is_democratic = yes
+		global_country_ranking = 1
+	}
 
-# 	possible = {
-# 		has_global_variable = un_founded_var
-# 		year > 1945
-# 	}
+	possible = {
+		year > 1945
+		has_global_variable = un_founded_var
+		has_technology_researched = secure_market_transactions
+	}
 
-# 	when_taken = {
-# 		set_global_variable = imf_founded_var
-# 		root = { trigger_event = ztr_imf_event.1 }
-# 	}
+	when_taken = {
+		set_global_variable = imf_founded_var
+		root = { trigger_event = ztr_imf_event.1 }
+	}
 
-# 	ai_chance = {
-# 		value = 100
-# 	}
-# }
+	ai_chance = {
+		value = 100
+	}
+}
 
 become_member_united_nations = {
 
@@ -379,7 +380,7 @@ firm_ztr_treaty_of_rome = {
 create_eu_decision = {
 	is_shown = {
 		has_technology_researched = globalization
-		year > 1962
+		year > 1992
 		has_modifier = ztr_eec_member
 		country_rank = rank_value:great_power
 		OR = {
@@ -452,6 +453,22 @@ join_european_union = {
 		NOT = { has_modifier = ztr_eu_member }
 		has_global_variable = ztr_eu_created
 		is_subject = no
+		OR = {
+			capital.region = sr:region_rhine
+			capital.region = sr:region_italy
+			capital.region = sr:region_north_germany
+			capital.region = sr:region_south_germany
+			capital.region = sr:region_france
+			capital.region = sr:region_england
+			capital.region = sr:region_north_sea_coast
+			capital.region = sr:region_iberia
+			capital.region = sr:region_poland
+			capital.region = sr:region_baltic
+			capital.region = sr:region_danubia
+			capital.region = sr:region_balkans
+			capital.region = sr:region_finland
+			capital.region = sr:region_baltic_states
+		}
 	}
 
 	possible = {

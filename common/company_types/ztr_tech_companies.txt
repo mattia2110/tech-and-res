@@ -30,6 +30,7 @@ generic_company_basic_tech = {
 	}
 
 	extension_building_types = {
+		building_computer_assembly_plant
 		building_software_industry
 		building_processors_foundry
 	}
@@ -70,12 +71,13 @@ company_apple = {
 	preferred_headquarters = { STATE_CALIFORNIA }
 
 	building_types = {
-		building_processors_foundry
 		building_electrics_industry #Iphone
+		building_computer_assembly_plant
 	}
 
 	extension_building_types = {
 		building_software_industry
+		building_processors_foundry
 	}
 
 	possible_prestige_goods = {
@@ -222,7 +224,7 @@ company_olivetti = {
 
 	building_types = {
 		building_electronics_industry
-		building_processors_foundry # Olivetti teleprinters
+		building_computer_assembly_plant # Olivetti teleprinters
 	}
 
 	extension_building_types = {
@@ -298,7 +300,6 @@ company_intel = {
 
 	possible_prestige_goods = {
 		prestige_good_intel_processors
-		prestige_good_wafers
 	}
 
 	potential = { has_interest_marker_in_region = region_pacific_coast }
@@ -322,7 +323,7 @@ company_intel = {
 	}
 
 	prosperity_modifier = {
-		building_processors_foundry_throughput_add = 0.1
+		building_computer_assembly_plant_throughput_add = 0.1
 		building_datacenter_industry_throughput_add = 0.05
 		building_software_industry_throughput_add = 0.1
 	}
@@ -355,6 +356,10 @@ company_asml = {
 
 	building_types = {
 		building_robotics_industry
+	}
+
+	extension_building_types = {
+		building_processors_foundry
 	}
 
 	possible_prestige_goods = {
@@ -414,16 +419,16 @@ company_tsmc = {
 	preferred_headquarters = { STATE_FORMOSA }
 
 	building_types = {
-		building_electronics_industry
+		building_processors_foundry
 		building_advancedores_mine
 	}
 
 	extension_building_types = {
-		building_processors_foundry
+		building_electronics_industry
 	}
 
 	possible_prestige_goods = {
-		prestige_good_wafers
+		prestige_good_tsmc_wafers
 	}
 
 	potential = { has_interest_marker_in_region = region_south_china }
@@ -432,7 +437,6 @@ company_tsmc = {
 		hidden_trigger = {
 			any_scope_state = { state_region = s:STATE_FORMOSA }
 		}
-		NOT = { c:CHI = THIS } # Not available for China
 	}
 
 	possible = {
@@ -448,7 +452,8 @@ company_tsmc = {
 	}
 
 	prosperity_modifier = {
-		building_processors_foundry_throughput_add = 0.15
+		building_electronics_industry_throughput_add = 0.05
+		building_electrics_industry_throughput_add = 0.1
 		country_prestige_mult = 0.05
 		interest_group_ig_industrialists_pol_str_mult = 0.05
 	}

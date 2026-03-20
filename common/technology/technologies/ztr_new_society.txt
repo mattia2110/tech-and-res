@@ -55,7 +55,7 @@ keynesian_economics = {
 	texture = "gfx/interface/icons/invention_icons/keynesian_economics.dds"
 	category = society
 	modifier = {
-		state_capitalists_investment_pool_efficiency_mult = -0.05
+		state_capitalists_investment_pool_efficiency_mult = -0.1
 		country_max_weekly_construction_progress_add = 40
 		country_authority_mult = 0.1
 		state_market_access_price_impact = 0.05
@@ -542,7 +542,7 @@ math_finance = {
 neoliberism = {
 	# To be against keynesian economics bonus or malus
 	era = era_7
-	texture = "gfx/interface/icons/invention_icons/financial_deregulation.dds"
+	texture = "gfx/interface/icons/invention_icons/neoliberism.dds"
 	category = society
 	modifier = {
 		country_free_charters_add = 1
@@ -798,13 +798,17 @@ advanced_medical_imaging = {
 
 machine_learning = {
 	# Introduce AI per l'automazione e l'ottimizzazione dei processi
-	era = era_8
+	era = era_9
 	texture = "gfx/interface/icons/invention_icons/machine_learning.dds"
 	category = society
 
+	modifier = {
+		country_tech_research_speed_mult = 0.05
+	}
+
 	unlocking_technologies = {
 		neuroscience
-		data_infrastructures
+		data_processing
 		software_development_paradigms
 	}
 
@@ -817,7 +821,6 @@ data_processing = {
 	category = society
 	modifier = {
 		country_authority_mult = 0.1
-		building_throughput_add = 0.05
 	}
 	unlocking_technologies = {
 		data_infrastructures
@@ -847,6 +850,10 @@ operating_systems = {
 	era = era_8
 	texture = "gfx/interface/icons/invention_icons/operating_systems.dds"
 	category = society
+
+	modifier = {
+		building_throughput_add = 0.05
+	}
 
 	unlocking_technologies = {
 		software_development_paradigms
@@ -1008,6 +1015,25 @@ ambientalism = {
 
 # Era 9
 
+genomic_sequencing = {
+	era = era_9
+	texture = "gfx/interface/icons/invention_icons/genomic_sequencing.dds"
+	category = society
+
+	unlocking_technologies = {
+		mri_development
+	}
+
+	modifier = {
+		state_mortality_mult = -0.015
+		country_society_tech_research_speed_mult = 0.05
+	}
+
+	ai_weight = {
+		value = 1
+	}
+}
+
 freight_village = {
     era = era_9
     texture = "gfx/interface/icons/invention_icons/freight_village.dds"
@@ -1115,15 +1141,20 @@ cloud_computing = {
 	}
 }
 
-neural_networks = {
-	era = era_9
-	texture = "gfx/interface/icons/invention_icons/neural_networks.dds"
+# Era 10
+
+targeted_immunotherapy = {
+	era = era_10
+	texture = "gfx/interface/icons/invention_icons/targeted_immunotherapy.dds"
 	category = society
-	modifier = {
-	}
+
 	unlocking_technologies = {
+		genomic_sequencing
 		machine_learning
-		data_processing
+	}
+
+	modifier = {
+		state_mortality_mult = -0.01
 	}
 
 	ai_weight = {
@@ -1131,29 +1162,45 @@ neural_networks = {
 	}
 }
 
-# Era 10
+crispr_gene_editing = {
+	era = era_10
+	texture = "gfx/interface/icons/invention_icons/crispr_gene_editing.dds"
+	category = society
+
+	unlocking_technologies = {
+		targeted_immunotherapy
+	}
+
+	modifier = {
+		state_mortality_mult = -0.01
+		state_dependent_wage_mult = 0.1
+	}
+
+	ai_weight = { value = 1 }
+}
 
 artificial_intelligence = {
 	# Introduce AI per l'automazione e l'ottimizzazione dei processi
 	era = era_10
-	texture = "gfx/interface/icons/invention_icons/artificial_intelligence.dds"
+	texture = "gfx/interface/icons/invention_icons/neural_networks.dds"
 	category = society
 
 	unlocking_technologies = {
-		neural_networks
+		data_processing
+		machine_learning
 		big_data_analytics
 	}
 
 	modifier = {
 		state_tax_capacity_add = 25
-		building_datacenter_industry_throughput_add = 0.1
+		building_throughput_add = 0.05
 	}
 
 	ai_weight = { value = 1 }
 }
 
 e_commerce = {
-	era = era_10
+	era = era_9
 	texture = "gfx/interface/icons/invention_icons/e_commerce.dds"
 	category = society
 
@@ -1179,6 +1226,7 @@ algorithmic_dispatch = {
 	unlocking_technologies = {
 		social_media
 		e_commerce
+		big_data_analytics
 	}
 
 	modifier = {
@@ -1234,22 +1282,21 @@ app_economy = {
 		country_max_companies_add = 1
 	}
 	unlocking_technologies = {
+		social_media
 		interactive_media
-		internet
 	}
 
 	ai_weight = { value = 1 }
 }
 
 social_media = {
-	era = era_10
+	era = era_9
 	texture = "gfx/interface/icons/invention_icons/social_media.dds"
 	category = society
 	modifier = {
 		country_influence_mult = 0.15
 	}
 	unlocking_technologies = {
-		interactive_media
 		internet
 	}
 		
@@ -1276,3 +1323,55 @@ urban_sustainability = {
         value = 1
     }
 }
+
+# Era 11
+
+virtual_reality = {
+	era = era_11
+	texture = "gfx/interface/icons/invention_icons/virtual_reality.dds"
+	category = society
+
+	unlocking_technologies = {
+		app_economy
+		algorithmic_dispatch
+	}
+
+	modifier = {
+		country_influence_mult = 0.1
+	}
+
+	ai_weight = { value = 1 }
+}
+
+artificial_general_intelligence = {
+	# Introduce AGI per l'automazione avanzata e la risoluzione di problemi complessi
+	era = era_11
+	texture = "gfx/interface/icons/invention_icons/artificial_general_intelligence.dds"
+	category = society
+
+	unlocking_technologies = {
+		artificial_intelligence
+		algorithmic_dispatch
+	}
+
+	modifier = {
+		building_throughput_add = 0.05
+	}
+
+	ai_weight = { value = 1 }
+}
+
+# neural_interfaces = {
+# 	era = era_11
+# 	texture = "gfx/interface/icons/invention_icons/neural_interfaces.dds"
+# 	category = society
+
+# 	unlocking_technologies = {
+# 		virtual_reality
+# 	}
+
+# 	modifier = {
+# 	}
+
+# 	ai_weight = { value = 1 }
+# }

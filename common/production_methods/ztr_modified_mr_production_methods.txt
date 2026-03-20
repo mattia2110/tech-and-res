@@ -209,10 +209,33 @@ pm_elgar_rock_band = {
 	building_modifiers = {		
 	
 		workforce_scaled = { #270
-			goods_input_elgar_instruments_add = 45
-			goods_input_electricity_add = 5
-			goods_output_elgar_music_add = 25
-			goods_output_fine_art_add = 3
+			goods_input_elgar_instruments_add = 45 #1800
+			goods_input_electricity_add = 5 #150 #1950
+			goods_output_elgar_music_add = 25 #2080
+			goods_output_fine_art_add = 3 #600 #2680 - 1950 = 730
+		}
+	}
+}
+
+pm_elgar_digital_orchestra = {
+	texture = "gfx/interface/icons/production_method_icons/pm_elgar_digital_orchestra.dds"
+
+	unlocking_technologies = {
+		interactive_media
+	}
+
+	building_modifiers = {		
+	
+		workforce_scaled = { #270
+			goods_input_elgar_instruments_add = 15 #600
+			goods_input_softwares_add = 5 #300
+			goods_input_electricity_add = 5 #150
+			goods_input_interactive_entertainment_add = 5 #400
+			goods_input_computer_add = 2 #280 1730
+			goods_output_elgar_music_add = 30 #2400 - 1730 = 670
+		}
+		level_scaled = {
+			building_employment_clerks_add = -50
 		}
 	}
 }
@@ -248,10 +271,6 @@ REPLACE_OR_CREATE:pm_elgar_expressionistic_ballet = {
 		unscaled = {
 			building_throughput_add = 0.1
 		}
-
-		level_scaled = {
-			building_employment_academics_add = 30
-		}
 	}
 }
 
@@ -270,10 +289,6 @@ REPLACE_OR_CREATE:pm_elgar_swing_ballet = {
 		unscaled = {
 			building_throughput_add = 0.12
 		}
-
-		level_scaled = {
-			building_employment_academics_add = 50
-		}
 	}
 }
 
@@ -291,10 +306,6 @@ pm_elgar_modern_ballet = {
 	building_modifiers = {
 		unscaled = {
 			building_throughput_add = 0.15
-		}
-
-		level_scaled = {
-			building_employment_academics_add = 50
 		}
 	}
 }
@@ -318,7 +329,7 @@ REPLACE_OR_CREATE:pm_elgar_artisan_instruments = {
 		}
 
 		level_scaled = {
-			building_employment_laborers_add = 1000
+			building_employment_machinists_add = 1000
 		}
 	}
 }
@@ -342,8 +353,7 @@ pm_elgar_artisan_brass_instruments = {
 		}
 
 		level_scaled = {
-			building_employment_laborers_add = 500
-			building_employment_machinists_add = 250
+			building_employment_machinists_add = 750
 		}
 	}
 }
@@ -367,8 +377,7 @@ REPLACE_OR_CREATE:pm_elgar_industrial_instruments = {
 		}
 
 		level_scaled = {
-			building_employment_laborers_add = 250
-			building_employment_machinists_add = 500		
+			building_employment_machinists_add = 750		
 		}
 	}
 }
@@ -419,8 +428,7 @@ pm_elgar_digital_instruments = {
 		}
 
 		level_scaled = {
-			building_employment_machinists_add = 250
-			building_employment_engineers_add = 250	
+			building_employment_engineers_add = 500
 		}
 	}
 }
@@ -560,8 +568,7 @@ REPLACE_OR_CREATE:pm_domestic_routes = {
 		level_scaled = {
 			building_employment_laborers_add = 750
 			building_employment_machinists_add = 750
-			building_employment_clerks_add = 700
-			building_employment_engineers_add = 50
+			building_employment_clerks_add = 750
 		}
 	}
 
@@ -595,8 +602,7 @@ REPLACE_OR_CREATE:pm_international_routes = {
 		level_scaled = {
 			building_employment_laborers_add = 750
 			building_employment_machinists_add = 500
-			building_employment_engineers_add = 100
-			building_employment_clerks_add = 700
+			building_employment_clerks_add = 800
 		}
 	}
 
@@ -876,8 +882,7 @@ REPLACE_OR_CREATE:manzoni_pm_radio = {
 		level_scaled = {
 			building_employment_clerks_add = 1000
 			building_employment_machinists_add = 500
-			building_employment_engineers_add = 250
-			building_employment_academics_add = 250
+			building_employment_academics_add = 500
 		}
 	}
 	required_input_goods = electricity
@@ -899,6 +904,7 @@ REPLACE_OR_CREATE:pm_curie_picks_and_shovels_building_uranium_mine = {
 
 		level_scaled = {
 			building_employment_laborers_add = 4500
+			building_employment_shopkeepers_add = 500
 		}
 
 		unscaled = {
@@ -932,8 +938,10 @@ REPLACE_OR_CREATE:pm_curie_atmospheric_engine_pump_building_uranium_mine = {
 		}
 
 		level_scaled = {
-			building_employment_laborers_add = 4000
+			building_employment_engineers_add = 250
+			building_employment_laborers_add = 3750
 			building_employment_machinists_add = 500
+			building_employment_shopkeepers_add = 500
 		}
 
 		unscaled = {
@@ -968,7 +976,8 @@ REPLACE_OR_CREATE:pm_curie_condensing_engine_pump_building_uranium_mine = {
 		level_scaled = {
 			building_employment_laborers_add = 3000
 			building_employment_machinists_add = 1000
-			building_employment_engineers_add = 250
+			building_employment_engineers_add = 500
+			building_employment_shopkeepers_add = 500
 		}
 
 		unscaled = {
@@ -1000,9 +1009,10 @@ REPLACE_OR_CREATE:pm_curie_diesel_pump_building_uranium_mine = {
 		}
 
 		level_scaled = {
+			building_employment_shopkeepers_add = 500
 			building_employment_laborers_add = 2250
 			building_employment_machinists_add = 1500
-			building_employment_engineers_add = 500
+			building_employment_engineers_add = 750
 		}
 
 		unscaled = {

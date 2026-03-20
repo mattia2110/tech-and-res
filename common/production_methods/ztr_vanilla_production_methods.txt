@@ -74,9 +74,8 @@ REPLACE:pm_modern_port = {
 			#goods_output_organized_data_add = 2
 		}
 		level_scaled = {
-			building_employment_laborers_add = 350
-			building_employment_machinists_add = 250
-			building_employment_engineers_add = 50
+			building_employment_laborers_add = 200
+			building_employment_machinists_add = 450
 			building_employment_clerks_add = 200
 			building_employment_bureaucrats_add = 100
 		}
@@ -107,7 +106,7 @@ REPLACE:pm_scholastic_education = {
 		workforce_scaled = {
 			goods_input_paper_add = 4 #60
 			goods_input_manzoni_prints_add = 1 #120
-			goods_output_business_data_add = 1 #-30
+			goods_output_business_data_add = 0.5 #-30
 		}	
 	
 		level_scaled = {
@@ -143,7 +142,7 @@ REPLACE:pm_philosophy_department = {
 		workforce_scaled = {
 			goods_input_paper_add = 6 #5 #150
 			goods_input_manzoni_prints_add = 4 #3 #180
-			goods_output_business_data_add = 2 #-60 #270
+			goods_output_business_data_add = 1 #-60 #270
 		}	
 	
 		level_scaled = {
@@ -176,7 +175,7 @@ REPLACE:pm_analytical_philosophy_department = {
 		workforce_scaled = {
 			goods_input_paper_add = 10 #8 #240
 			goods_input_manzoni_prints_add = 5 #4 #240
-			goods_output_business_data_add = 3 #-90 #390
+			goods_output_business_data_add = 1.5 #-90 #390
 		}	
 
 		level_scaled = {
@@ -1350,9 +1349,9 @@ REPLACE:pm_recoiled_barrels = {
 
 		level_scaled = {
 			building_employment_shopkeepers_add = 500
-			building_employment_laborers_add = 2000
+			building_employment_laborers_add = 2500
 			building_employment_machinists_add = 1500
-			building_employment_engineers_add = 1000
+			building_employment_engineers_add = 750
 		}
 	}
 }
@@ -2053,35 +2052,11 @@ REPLACE:pm_rayon = {
 
 # Whaling
 
-REPLACE:pm_steam_whaling_ships = {
-	texture = "gfx/interface/icons/production_method_icons/steam_whaling_ships.dds"
-
-	state_modifiers = {
-		workforce_scaled = {
-			state_pollution_generation_add = 10
-		}
-	}
-
-	unlocking_technologies = {
-		gantry_cranes
-	}
+INJECT:pm_steam_whaling_ships = {
 	building_modifiers = {
 		workforce_scaled = {
-			# input
-			goods_input_steamers_add = 5
-			goods_input_coal_add = 20
-
-			goods_output_meat_add = 20
-			goods_output_oil_add = 20
+			goods_output_oil_add = -20
 			goods_output_lubricant_add = 10
-		}
-
-		level_scaled = {
-			# employment
-			building_employment_shopkeepers_add = 500
-			building_employment_laborers_add = 3000
-			building_employment_machinists_add = 1000
-			building_employment_engineers_add = 500
 		}
 	}
 }
@@ -2177,7 +2152,7 @@ REPLACE:pm_assembly_lines_building_munition_plant = {
 INJECT:default_building_subsistence_farm = {
 	building_modifiers = {
 		workforce_scaled = { # 55
-			goods_output_water_add = 0.1
+			goods_output_water_add = 0.2
 		}
 	}
 }
@@ -2185,7 +2160,7 @@ INJECT:default_building_subsistence_farm = {
 INJECT:default_building_subsistence_orchard = {
 	building_modifiers = {
 		workforce_scaled = { # 55
-			goods_output_water_add = 0.1
+			goods_output_water_add = 0.2
 		}
 	}
 }
@@ -2193,7 +2168,7 @@ INJECT:default_building_subsistence_orchard = {
 INJECT:default_building_subsistence_pasture = {	
 	building_modifiers = {
 		workforce_scaled = { # 55
-			goods_output_water_add = 0.1
+			goods_output_water_add = 0.2
 		}
 	}
 }
@@ -2201,7 +2176,7 @@ INJECT:default_building_subsistence_pasture = {
 INJECT:default_building_subsistence_fishing_village = {	
 	building_modifiers = {
 		workforce_scaled = { # 55
-			goods_output_water_add = 0.1
+			goods_output_water_add = 0.2
 		}
 	}
 }
@@ -2209,7 +2184,7 @@ INJECT:default_building_subsistence_fishing_village = {
 INJECT:default_building_subsistence_rice_farm = {	
 	building_modifiers = {
 		workforce_scaled = { # 100
-			goods_output_water_add = 0.1
+			goods_output_water_add = 0.2
 		}
 	}
 }
@@ -2231,4 +2206,31 @@ REPLACE:pm_electric_fencing = {
 	}
 
 	required_input_goods = electricity
+}
+
+# Tractors, Agricolture
+
+REPLACE:pm_compression_ignition_tractors = {
+	texture = "gfx/interface/icons/production_method_icons/compression_ignition_tractors.dds"
+
+	state_modifiers = {
+		workforce_scaled = {
+			state_pollution_generation_add = 20
+		}
+	}
+
+	unlocking_technologies = {
+		compression_ignition
+	}
+	building_modifiers = {
+		workforce_scaled = {
+			# input goods								
+			goods_input_light_fuel_add = 1
+			goods_input_engines_add = 1
+		}
+
+		level_scaled = {
+			building_employment_laborers_add = -2500
+		}
+	}
 }

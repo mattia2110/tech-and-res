@@ -169,7 +169,7 @@ pm_second_gen_tank_production = {
 		
 		level_scaled = {
 			# employment
-			building_employment_engineers_add = 500
+			building_employment_engineers_add = 350
 		}
 	}
 }
@@ -196,7 +196,7 @@ pm_third_gen_tank_production = {
 		
 		level_scaled = {
 			# employment
-			building_employment_engineers_add = 500
+			building_employment_engineers_add = 250
 		}
 	}
 }
@@ -278,10 +278,10 @@ REPLACE:pm_aeroplane_production = {
 			goods_input_hardwood_add = 10 #800
 			goods_input_light_fuel_add = 5 #700
 			goods_input_small_arms_add = 10 #300
-			goods_output_civil_planes_add = -25 #1800 #3900
+			goods_output_civil_planes_add = -30 #1800 #3900
 
 			# output goods
-			goods_output_aeroplanes_add = 40 #4000
+			goods_output_aeroplanes_add = 45 #4000
 		}
 
 		level_scaled = {
@@ -308,10 +308,10 @@ pm_modern_warplanes_production = {
 			goods_input_artillery_add = 5 #500
 			goods_input_light_fuel_add = 5 #1050
 			goods_input_small_arms_add = 15 #600
-			goods_output_civil_planes_add = -25 #3150 #5300
+			goods_output_civil_planes_add = -35 #3150 #5300
 
 			# output goods
-			goods_output_aeroplanes_add = 45 #5500
+			goods_output_aeroplanes_add = 55 #5500
 		}
 
 		level_scaled = {
@@ -335,14 +335,14 @@ pm_supersonic_warplanes_production = {
 	building_modifiers = {
 		workforce_scaled = {
 			# input goods
-			goods_input_processors_add = 5 #650
+			goods_input_computer_add = 5 #650
 			goods_input_light_fuel_add = 5 #1050
 			goods_input_artillery_add = 10 #700
 			goods_input_small_arms_add = 20 #600
-			goods_output_civil_planes_add = -25 #3150 5850
+			goods_output_civil_planes_add = -40 #3150 5850
 
 			# output goods
-			goods_output_aeroplanes_add = 60 #6500
+			goods_output_aeroplanes_add = 75 #6500
 		}
 
 		level_scaled = {
@@ -411,6 +411,13 @@ pm_modern_naval_doctrine = {
 	unlocking_technologies = {
 		modern_naval_doctrine
 	}
+
+	state_modifiers = {
+		level_scaled = {
+			state_blockade_resistance_add = 35
+		}
+	}
+	
 	building_modifiers = {
 		level_scaled = {
 			building_training_rate_add = 8
@@ -439,15 +446,15 @@ pm_atomic_bomb = {
 	building_modifiers = {
 		workforce_scaled = {
 			#goods_input_good_uranium_add = 10 # Vecchio input
-			goods_input_good_uranium_add = 20 #800
-			goods_input_steel_add = 10 #500
-			goods_input_explosives_add = 10 #500
-			goods_input_electroniccomponents_add = 5 #400
-			goods_input_water_add = 10 #500
+			goods_input_good_uranium_add = 40 #800
+			goods_input_steel_add = 20 #500
+			goods_input_explosives_add = 20 #500
+			goods_input_electroniccomponents_add = 10 #400
+			goods_input_water_add = 20 #500
 		}
 		level_scaled = {
-			building_employment_academics_add = 1000
-			building_employment_soldiers_add = 100
+			building_employment_academics_add = 7500
+			building_employment_officers_add = 2500
 		}
 	}
 
@@ -470,15 +477,15 @@ pm_hydrogen_bomb = {
 	building_modifiers = {
 		workforce_scaled = {
 			#goods_input_nuclear_fuel_add = 20 # Vecchio input (presumibilmente un errore)
-			goods_input_advancedores_add = 10 #800
-			goods_input_alloys_add = 10 #500			
-			goods_input_robotics_add = 5 #500
-			goods_input_processors_add = 5 #650
-			goods_input_water_add = 20 #1000
+			goods_input_advancedores_add = 20 #800
+			goods_input_alloys_add = 20 #500			
+			goods_input_robotics_add = 10 #500
+			goods_input_processors_add = 10 #650
+			goods_input_water_add = 40 #1000
 		}
 		level_scaled = {
-			building_employment_academics_add = 1500
-			building_employment_soldiers_add = 150
+			building_employment_academics_add = 7500
+			building_employment_officers_add = 2500
 		}
 	}
 	
@@ -501,7 +508,7 @@ pm_nuclear_stockpile_1 = {
 	
 	building_modifiers = {
 		workforce_scaled = {
-			goods_input_good_uranium_add = 50
+			goods_input_good_uranium_add = 100
 		}
 	}
 	
@@ -522,7 +529,7 @@ pm_nuclear_stockpile_2 = {
 	
 	building_modifiers = {
 		workforce_scaled = {
-			goods_input_good_uranium_add = 100
+			goods_input_good_uranium_add = 200
 		}
 	}
 	
@@ -543,7 +550,7 @@ pm_nuclear_stockpile_3 = {
 	
 	building_modifiers = {
 		workforce_scaled = {
-			goods_input_good_uranium_add = 150
+			goods_input_good_uranium_add = 300
 		}
 	}
 	
@@ -566,13 +573,9 @@ pm_nuclear_bomber = {
 	
 	building_modifiers = {
 		workforce_scaled = {
-			goods_input_aeroplanes_add = 10
-			goods_input_ammunition_add = 20
-			goods_input_light_fuel_add = 50
-		}
-
-		level_scaled = {
-			building_employment_officers_add = 200
+			goods_input_aeroplanes_add = 20
+			goods_input_ammunition_add = 40
+			goods_input_light_fuel_add = 100
 		}
 	}
 	
@@ -591,13 +594,12 @@ pm_icbms = {
 	
 	building_modifiers = {
 		workforce_scaled = {
-			goods_input_aeroplanes_add = 10
-			goods_input_ammunition_add = 50
-			goods_input_light_fuel_add = 100
+			goods_input_aeroplanes_add = 20
+			goods_input_ammunition_add = 100
+			goods_input_light_fuel_add = 200
 		}
-
 		level_scaled = {
-			building_employment_officers_add = 300
+			building_employment_officers_add = -1000
 		}
 	}
 	

@@ -292,8 +292,8 @@ pmg_base_building_electroniccomponents = {
 		pm_no_electroniccomponents_production
 		pm_vacuum_tube
 		pm_transistor
-		pm_integrated_transistor
-		pm_nano_transistor
+		pm_printed_circuit_board
+		pm_embedded_control_circuit
 	}
 }
 
@@ -332,7 +332,6 @@ pmg_base_building_processors = {
 pmg_base_building_computers = {
 	texture = "gfx/interface/icons/generic_icons/mixed_icon_base.dds"
 	production_methods = {
-		pm_no_computer_production
 		pm_computer_teleprinters
 		pm_personal_computers
 		pm_laptops
@@ -364,7 +363,7 @@ pmg_base_building_robotics = {
 #Consumer Electronics
 
 pmg_base_building_homeappliances = {
-	texture = "gfx/interface/icons/generic_icons/mixed_icon_refining.dds"
+	texture = "gfx/interface/icons/generic_icons/mixed_icon_base.dds"
 	production_methods = {
 		#pm_no_homeappliances
 		pm_rudimental_homeappliances
@@ -374,7 +373,7 @@ pmg_base_building_homeappliances = {
 }
 
 pmg_television_category = {
-	texture = "gfx/interface/icons/generic_icons/mixed_icon_base.dds"
+	texture = "gfx/interface/icons/generic_icons/mixed_icon_refining.dds"
 	production_methods = {
 		pm_no_televisions
 		pm_cathode_tube_televisions
@@ -423,7 +422,6 @@ pmg_base_building_water_desalination = {
 
 pmg_base_building_hydroponic_type = {
 	texture = "gfx/interface/icons/generic_icons/mixed_icon_base.dds"
-	ai_selection = most_productive
 
 	production_methods = {
 		pm_hydroponic_gericke_system
@@ -434,7 +432,7 @@ pmg_base_building_hydroponic_type = {
 
 pmg_hydroponic_plantation_type = {
 	texture = "gfx/interface/icons/generic_icons/mixed_icon_base.dds"
-	ai_selection = most_productive
+	ai_selection = most_profitable
 
 	production_methods = {
 		pm_hydroponic_cotton
@@ -447,7 +445,6 @@ pmg_hydroponic_plantation_type = {
 
 pmg_hydroponic_automation_drone = {
 	texture = "gfx/interface/icons/generic_icons/mixed_icon_refining.dds"
-	ai_selection = most_productive
 
 	production_methods = {
 		pm_hydroponic_conventional_farming
@@ -464,6 +461,15 @@ pmg_base_building_pharmaceuticals = {
 		pm_rudimental_chemical_pharmaceuticals
 		pm_antibiotics_pharmaceuticals
 		pm_synthetic_pharmaceuticals
+	}
+}
+
+pmg_opioid_refinement = {
+	texture = "gfx/interface/icons/generic_icons/mixed_icon_refining.dds"
+	production_methods = {
+		pm_no_opioid_refinement
+		pm_morphine_extraction
+		pm_synthetic_opioids
 	}
 }
 
@@ -597,7 +603,7 @@ pmg_automation_building_chip_foundry = {
 	production_methods = {
 		pm_photomask_projection
 		pm_deep_uv_photolithography
-		#pm_euv_lithography
+		pm_euv_photolithography
 	}
 }
 
@@ -607,6 +613,15 @@ pmg_automation_building_ecommerce_logistics = {
 		pm_advanced_assembly_lines_building_ecommerce_logistics
 		pm_robotic_building_ecommerce_logistics
 		pm_iot_building_ecommerce_logistics
+	}
+}
+
+pmg_automation_building_computer_assembly = {
+	texture = "gfx/interface/icons/generic_icons/mixed_icon_automation.dds"
+	production_methods = {
+		pm_advanced_assembly_lines_building_computer_assembly
+		pm_robotic_building_computer_assembly
+		pm_iot_building_computer_assembly
 	}
 }
 
@@ -634,7 +649,7 @@ pmg_automation_building_electronics_plant = {
 		pm_watertube_boiler_building_electronics_plant
 		pm_rotary_valve_engine_building_electronics_plant
 		pm_assembly_lines_building_electronics_plant
-		pm_automatic_printed_circuit_board_building_electronics_plant
+		pm_surface_mount_technology_building_electronics_plant
 	}
 }
 
@@ -663,7 +678,6 @@ pmg_automation_building_synthetics_plant = {
 
 pmg_cosmetics = {
 	texture = "gfx/interface/icons/generic_icons/mixed_icon_base.dds"
-	ai_selection = most_productive
 
 	production_methods = {
 		pm_traditional_perfumes_cosmetics
@@ -717,6 +731,16 @@ pmg_automation_building_electrics_industry = {
 		pm_advanced_assembly_lines_building_electrics_industry
 		pm_robotic_building_electrics_industry
 		pm_iot_building_electrics_industry
+	}
+}
+
+pmg_automation_building_consumer_electronics_industry = {
+	texture = "gfx/interface/icons/generic_icons/mixed_icon_automation.dds"
+	production_methods = {
+		pm_assembly_lines_building_consumer_electronics_industry
+		pm_advanced_assembly_lines_building_consumer_electronics_industry
+		pm_robotic_building_consumer_electronics_industry
+		pm_iot_building_consumer_electronics_industry
 	}
 }
 
@@ -777,6 +801,7 @@ pmg_entertainment_type = {
 		silent_films
 		celluloide_films
 		blockbuster_films
+		streaming_services
 	}
 	ai_selection = most_productive
 }
@@ -817,15 +842,15 @@ pmg_steam_automation_building_advancedores_mine = {
 	production_methods = {
 		pm_no_steam_automation
 		pm_steam_donkey_mine
-		pm_purification_mine
-		pm_hpgr_comminution
+		pm_purification_mine_advancedores_mine
+		pm_hpgr_comminution_advancedores_mine
 	}
 }
 
 pmg_steam_automation_building_rare_earths_mine = {
 	texture = "gfx/interface/icons/generic_icons/mixed_icon_automation.dds"
 	production_methods = {
-		pm_no_steam_automation
+		pm_basic_purification_rare_earths_mine
 		pm_advanced_purification_mine
 	}
 }
@@ -908,7 +933,6 @@ pmg_missiles_building_munition_plant = {
 #Nuclear Type
 pmg_nuclear_type_military = {
 	texture = "gfx/interface/icons/generic_icons/mixed_icon_military.dds"
-	ai_selection = most_productive
 	production_methods = {
 		pm_atomic_bomb
 		pm_hydrogen_bomb
@@ -918,7 +942,6 @@ pmg_nuclear_type_military = {
 #Nuclear Stockpile size
 pmg_nuclear_stockpile_military = {
 	texture = "gfx/interface/icons/generic_icons/mixed_icon_military.dds"
-	ai_selection = most_productive
 	production_methods = {
 		#pm_nuclear_stockpile_0
 		pm_nuclear_stockpile_1
@@ -930,7 +953,6 @@ pmg_nuclear_stockpile_military = {
 #nuclear_bomber
 pmg_nuclear_bomber_military = {
 	texture = "gfx/interface/icons/generic_icons/mixed_icon_military.dds"
-	ai_selection = most_productive
 	production_methods = {
 		pm_nuclear_bomber
 		pm_icbms

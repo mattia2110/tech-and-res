@@ -78,7 +78,7 @@ je_demographic_0_to_1 = {
 				}
 				change_variable = {
 					name = demographic_stage_var
-					subtract = 0.2
+					subtract = 0.1
 				}
 			}
 		}
@@ -210,7 +210,7 @@ je_demographic_1_to_2 = {
 				}
 				change_variable = {
 					name = demographic_stage_var
-					subtract = 0.2
+					subtract = 0.1
 				}
 			}
 			if = {
@@ -219,7 +219,7 @@ je_demographic_1_to_2 = {
 				}
 				change_variable = {
 					name = demographic_stage_var
-					subtract = 0.4
+					subtract = 0.5
 				}
 			}
 		}
@@ -368,7 +368,7 @@ je_demographic_2_to_3 = {
 				}
 				change_variable = {
 					name = demographic_stage_var
-					subtract = 0.2
+					subtract = 0.1
 				}
 			}
 			if = {
@@ -377,7 +377,7 @@ je_demographic_2_to_3 = {
 				}
 				change_variable = {
 					name = demographic_stage_var
-					subtract = 0.5
+					subtract = 0.6
 				}
 			}
 		}
@@ -527,7 +527,7 @@ je_demographic_3_to_4 = {
 				}
 				change_variable = {
 					name = demographic_stage_var
-					subtract = 0.2
+					subtract = 0.1
 				}
 			}
 			if = {
@@ -536,7 +536,7 @@ je_demographic_3_to_4 = {
 				}
 				change_variable = {
 					name = demographic_stage_var
-					subtract = 0.5
+					subtract = 0.6
 				}
 			}
 		}
@@ -658,7 +658,7 @@ je_demographic_4_to_5 = {
 				}
 				change_variable = {
 					name = demographic_stage_var
-					subtract = 0.3
+					subtract = 0.4
 				}
 			}
 			if = {
@@ -680,7 +680,7 @@ je_demographic_4_to_5 = {
 				}
 				change_variable = {
 					name = demographic_stage_var
-					subtract = 0.5
+					subtract = 0.6
 				}
 			}
 		}
@@ -802,7 +802,7 @@ je_demographic_5_to_6 = {
 				}
 				change_variable = {
 					name = demographic_stage_var
-					subtract = 0.5
+					subtract = 0.6
 				}
 			}
 			if = {
@@ -824,7 +824,7 @@ je_demographic_5_to_6 = {
 				}
 				change_variable = {
 					name = demographic_stage_var
-					subtract = 0.5
+					subtract = 0.6
 				}
 			}
 		}
@@ -920,6 +920,7 @@ je_demographic_6_to_7 = {
 			}
 			if = {
 				limit = {
+					ztr_gdp_per_capita > 20 # Must be a rich country to have this bonus, since otherwise they would have a lot
 					OR = {
 						has_law = law_type:law_multicultural
 						has_law = law_type:law_no_migration_controls
@@ -931,7 +932,7 @@ je_demographic_6_to_7 = {
 				}
 				change_variable = {
 					name = demographic_stage_var
-					subtract = 0.5
+					subtract = 0.8
 				}
 			}
 			# Flavor conditions Flavor conditions (Sunni in advanced demographic stage do not have this bonus)
@@ -1035,8 +1036,20 @@ je_demographic_7_to_8 = {
 					subtract = 0.2
 				}
 			}
+			# Flavor conditions Flavor conditions (Sunni in advanced demographic stage do not have this bonus)
 			if = {
 				limit = {
+					is_in_geographic_region = geographic_region_north_america
+				}
+				change_variable = {
+					name = demographic_stage_var
+					subtract = 0.4
+				}
+			}
+			# Immigration 
+			if = {
+				limit = {
+					ztr_gdp_per_capita > 25 # Must be a rich country to have this bonus, since otherwise they would have a lot
 					OR = {
 						has_law = law_type:law_multicultural
 						has_law = law_type:law_no_migration_controls
@@ -1048,17 +1061,7 @@ je_demographic_7_to_8 = {
 				}
 				change_variable = {
 					name = demographic_stage_var
-					subtract = 0.5
-				}
-			}
-			# Flavor conditions Flavor conditions (Sunni in advanced demographic stage do not have this bonus)
-			if = {
-				limit = {
-					is_in_geographic_region = geographic_region_north_america
-				}
-				change_variable = {
-					name = demographic_stage_var
-					subtract = 0.5
+					multiply = 0
 				}
 			}
 		}
