@@ -17,7 +17,6 @@ research_center_decision = {
 			has_variable = research_center_var
 		}
 	}
-
 	possible = {
 		produced_bureaucracy > 1000
 		literacy_rate > 0.6
@@ -34,7 +33,6 @@ research_center_decision = {
 			}
 		}
 	}
-
 	when_taken = {
 		set_variable = {
 			name = research_center_var
@@ -55,11 +53,12 @@ research_center_decision = {
 			type = je_research_center_site
 		}
 	}
-
 	ai_chance = {
 		value = 0
 		if = {
-			limit = { produced_bureaucracy > 2500 }
+			limit = {
+				produced_bureaucracy > 2500
+			}
 			add = 5
 		}
 		if = {
@@ -92,46 +91,28 @@ fusion_reactor_decision = {
 			}
 		}
 		NOT = {
-			any_scope_state = {
-				has_modifier = fusion_reactor_survey
-			}
-		}
-		NOT = {
 			has_variable = fusion_reactor_var
 		}
 	}
-
 	possible = {
 		produced_bureaucracy > 2500
-		literacy_rate > 0.9
 		has_technology_researched = smart_energy_grid
 	}
-
 	when_taken = {
 		set_variable = {
 			name = fusion_reactor_var
 			value = 0
 		}
-		if = {
-			limit = {
-				NOT = {
-					has_modifier = fusion_reactor_survey
-				}
-			}
-			add_modifier = {
-				name = fusion_reactor_survey
-				months = 36
-			}
-		}
 		add_journal_entry = {
-			type = je_fusion_reactor_site
+			type = je_fusion_reactor_research
 		}
 	}
-
 	ai_chance = {
 		value = 0
 		if = {
-			limit = { produced_bureaucracy > 5000 }
+			limit = {
+				produced_bureaucracy > 5000
+			}
 			add = 500
 		}
 		if = {
@@ -158,9 +139,10 @@ fusion_reactor_decision = {
 fusion_reactor_purchase_decision = {
 	is_shown = {
 		has_modifier = ztr_modern_universities_linkage
-		has_technology_researched = smart_energy_grid
 		has_technology_researched = third_nuclear_reactor
-		NOT = { has_research_center = yes }
+		NOT = {
+			has_research_center = yes
+		}
 		NOT = {
 			any_scope_state = {
 				any_scope_building = {
@@ -173,17 +155,22 @@ fusion_reactor_purchase_decision = {
 				has_modifier = fusion_reactor_site
 			}
 		}
+		NOT = {
+			has_variable = fusion_reactor_purchase_cooldown
+		}
 	}
-
 	possible = {
-		produced_bureaucracy > 3000
-		literacy_rate > 0.9
+		produced_bureaucracy > 1000
+		has_technology_researched = smart_energy_grid
+		literacy_rate > 0.75
 		# Must have good relations or diplomatic ties with a fusion-owning greatpower
 		custom_tooltip = {
 			text = fusion_reactor_purchase_relations_tt
 			any_country = {
-				NOT = { this = root }
-				scope:rank = rank_value:great_power
+				NOT = {
+					this = root
+				}
+				country_rank = rank_value:great_power
 				any_scope_state = {
 					any_scope_building = {
 						is_building_type = building_fusion_power_plant
@@ -192,37 +179,53 @@ fusion_reactor_purchase_decision = {
 				# Diplomatic prerequisite: cordial relations, subject status, or same power bloc
 				OR = {
 					relations:root >= relations_threshold:cordial
-					root = { is_subject_of = PREV }
+					root = {
+						is_subject_of = PREV
+					}
 					is_in_same_power_bloc = root
 				}
 			}
 		}
 	}
-
 	when_taken = {
-		# Massive cost representing technology licensing and infrastructure import
-		add_modifier = {
-			name = fusion_reactor_purchase_cost
-			months = 24
+		# Set 3-year cooldown
+		set_variable = {
+			name = fusion_reactor_purchase_cooldown
+			years = 3
 		}
-		# Apply site modifier directly to capital (proven technology, no survey needed)
-		capital = {
-			add_modifier = {
-				name = fusion_reactor_site
+		save_scope_as = fusion_technology_requester
+		random_country = {
+			limit = {
+				NOT = {
+					this = root
+				}
+				country_rank = rank_value:great_power
+				any_scope_state = {
+					any_scope_building = {
+						is_building_type = building_fusion_power_plant
+					}
+				}
+				OR = {
+					relations:root >= relations_threshold:cordial
+					root = {
+						is_subject_of = PREV
+					}
+					is_in_same_power_bloc = root
+				}
 			}
-			save_scope_as = fusion_purchase_site
-		}
-		# Start construction JE directly
-		add_journal_entry = {
-			type = je_fusion_reactor_construction
-			target = scope:fusion_purchase_site
+			save_scope_as = fusion_technology_seller
+			trigger_event = {
+				id = ztr_technology.14
+				popup = yes
+			}
 		}
 	}
-
 	ai_chance = {
 		value = 0
 		if = {
-			limit = { produced_bureaucracy > 5000 }
+			limit = {
+				produced_bureaucracy > 5000
+			}
 			add = 500
 		}
 		if = {

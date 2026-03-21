@@ -1,29 +1,20 @@
 namespace = ztr_technology
-
 # Site identified
 ztr_technology.1 = {
 	type = country_event
-
 	title = research_center.1.t
 	desc = research_center.1.d
 	flavor = research_center.1.f
-
 	placement = scope:research_center_site
-
 	event_image = {
 		video = "generic_university"
 	}
-
 	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
-
 	icon = "gfx/interface/icons/event_icons/innovation.dds"
-
 	duration = 3
-
 	trigger = {
 		# triggered by je_research_center_site
 	}
-
 	immediate = {
 		# if = {
 		# 	limit = {
@@ -65,27 +56,25 @@ ztr_technology.1 = {
 			save_scope_as = research_center_site
 		}
 	}
-
 	option = {
 		name = research_center.1.major_power
-        default_option = yes
-        scope:research_center_site = {
-        	add_modifier = {
-        		name = research_center_site
-        	}
-        }
-        # show_as_tooltip = {
-        # 	remove_modifier = research_center_survey
-        # }
-        add_journal_entry = {
-        	type = je_research_center_construction
-        	target = scope:research_center_site
-        }
+		default_option = yes
+		scope:research_center_site = {
+			add_modifier = {
+				name = research_center_site
+			}
+		}
+		# show_as_tooltip = {
+		# 	remove_modifier = research_center_survey
+		# }
+		add_journal_entry = {
+			type = je_research_center_construction
+			target = scope:research_center_site
+		}
 		ai_chance = {
 			base = 1
 		}
 	}
-
 	option = {
 		name = research_center.1.minor_power
 		add_modifier = ztr_modern_universities_linkage
@@ -101,26 +90,18 @@ ztr_technology.1 = {
 # research_center complete
 ztr_technology.2 = {
 	type = country_event
-
 	title = research_center.2.t
 	desc = research_center.2.d
-
 	placement = scope:research_center_state
-
 	event_image = {
 		video = "quantum_physics"
 	}
-
 	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
-
 	icon = "gfx/interface/icons/event_icons/innovation.dds"
-
 	duration = 3
-
 	trigger = {
 		# triggered by je_research_center_construction
 	}
-
 	immediate = {
 		random_scope_state = {
 			limit = {
@@ -135,38 +116,30 @@ ztr_technology.2 = {
 			}
 		}
 	}
-
 	option = {
 		name = research_center.2.a
-        default_option = yes
-        # add_modifier = {
-        # 	name = research_center_modifier
+		default_option = yes
+		# add_modifier = {
+		# 	name = research_center_modifier
 		# 	years = 5
-        # 	is_decaying = yes
-        # }
+		# 	is_decaying = yes
+		# }
 	}
 }
 
 # research_center removed
 ztr_technology.3 = {
 	type = country_event
-
 	title = research_center.3.t
 	desc = research_center.3.d
 	hidden = yes
-
 	placement = root
-
 	event_image = {
 		video = "quantum_physics"
 	}
-
 	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
-
 	icon = "gfx/interface/icons/event_icons/innovation.dds"
-
 	duration = 3
-
 	trigger = {
 		any_scope_state = {
 			is_capital = no
@@ -174,7 +147,6 @@ ztr_technology.3 = {
 			count > 0
 		}
 	}
-
 	immediate = {
 		every_scope_state = {
 			limit = {
@@ -186,49 +158,41 @@ ztr_technology.3 = {
 	}
 }
 
-# Fusion Reactor - Site identified
+# Fusion Reactor - First breakthrough
 ztr_technology.10 = {
 	type = country_event
-
 	title = fusion_reactor.1.t
 	desc = fusion_reactor.1.d
 	flavor = fusion_reactor.1.f
-
 	placement = scope:fusion_reactor_site
-
 	event_image = {
 		video = "quantum_physics"
 	}
-
 	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
-
 	icon = "gfx/interface/icons/event_icons/innovation.dds"
-
 	duration = 3
-
 	trigger = {
 		# triggered by je_fusion_reactor_site
 	}
-
 	immediate = {
 		# Always in capital
 		capital = {
 			save_scope_as = fusion_reactor_site
 		}
+		add_technology_researched = nuclear_fusion_reactor
 	}
-
 	option = {
 		name = fusion_reactor.1.a
-        default_option = yes
-        scope:fusion_reactor_site = {
-        	add_modifier = {
-        		name = fusion_reactor_site
-        	}
-        }
-        add_journal_entry = {
-        	type = je_fusion_reactor_construction
-        	target = scope:fusion_reactor_site
-        }
+		default_option = yes
+		scope:fusion_reactor_site = {
+			add_modifier = {
+				name = fusion_reactor_site
+			}
+		}
+		add_journal_entry = {
+			type = je_fusion_reactor_construction
+			target = scope:fusion_reactor_site
+		}
 		ai_chance = {
 			base = 1
 		}
@@ -238,14 +202,14 @@ ztr_technology.10 = {
 # Fusion Reactor - Construction complete
 ztr_technology.11 = {
 	type = country_event
-
 	title = fusion_reactor.2.t
-
 	desc = {
 		first_valid = {
 			triggered_desc = {
 				trigger = {
-					NOT = { has_global_variable = ztr_fusion_reactor_first_var }
+					NOT = {
+						has_global_variable = ztr_fusion_reactor_first_var
+					}
 				}
 				desc = fusion_reactor.2.d_first
 			}
@@ -257,23 +221,16 @@ ztr_technology.11 = {
 			}
 		}
 	}
-
 	placement = scope:fusion_reactor_state
-
 	event_image = {
 		video = "quantum_physics"
 	}
-
 	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
-
-	icon = "gfx/interface/icons/event_icons/innovation.dds"
-
+	icon = "gfx/interface/icons/event_icons/nuclear_fusion_reactor.dds"
 	duration = 3
-
 	trigger = {
 		# triggered by je_fusion_reactor_construction
 	}
-
 	immediate = {
 		save_scope_as = fusion_builder_country
 		random_scope_state = {
@@ -289,11 +246,12 @@ ztr_technology.11 = {
 			}
 		}
 	}
-
 	option = {
-		name = fusion_reactor.2.a_first
+		name = fusion_reactor.2.a
 		trigger = {
-			NOT = { has_global_variable = ztr_fusion_reactor_first_var }
+			NOT = {
+				has_global_variable = ztr_fusion_reactor_first_var
+			}
 		}
 		default_option = yes
 		# Mark this as the first fusion reactor ever built
@@ -302,11 +260,16 @@ ztr_technology.11 = {
 		add_modifier = fusion_energy_pioneer
 		# Notify all other countries
 		every_country = {
-			limit = { NOT = { this = root } }
-			trigger_event = { id = ztr_technology.13 }
+			limit = {
+				NOT = {
+					this = root
+				}
+			}
+			trigger_event = {
+				id = ztr_technology.13
+			}
 		}
 	}
-
 	option = {
 		name = fusion_reactor.2.a
 		trigger = {
@@ -316,39 +279,39 @@ ztr_technology.11 = {
 	}
 }
 
-# Global event: World's first fusion reactor has been built
+# Global event: World's first fusion reactor has been built by scope:fusion_builder_country
 ztr_technology.13 = {
 	type = country_event
-
-	title = fusion_reactor.global.t
-
-	desc = fusion_reactor.global.d
-
+	title = fusion_reactor_global.t
+	desc = fusion_reactor_global.d
 	event_image = {
 		video = "quantum_physics"
 	}
-
 	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
-
-	icon = "gfx/interface/icons/event_icons/innovation.dds"
-
+	icon = "gfx/interface/icons/event_icons/nuclear_fusion_reactor.dds"
 	duration = 3
-
 	trigger = {
 	}
-
 	immediate = {
 	}
-
 	option = {
-		name = fusion_reactor.global.a
+		name = fusion_reactor_global.a
 		default_option = yes
 		# Gain some technology awareness
 		if = {
 			limit = {
 				has_technology_researched = third_nuclear_reactor
 			}
-			add_technology_progress = { progress = 5000 technology = nuclear_fusion_reactor }
+			add_technology_progress = {
+				progress = 10000
+				technology = smart_energy_grid
+			}
+		}
+		else = {
+			add_technology_progress = {
+				progress = 10000
+				technology = third_nuclear_reactor
+			}
 		}
 	}
 }
@@ -356,23 +319,14 @@ ztr_technology.13 = {
 # Fusion Reactor - removal from non-capital states
 ztr_technology.12 = {
 	type = country_event
-
-	title = fusion_reactor.3.t
-	desc = fusion_reactor.3.d
 	hidden = yes
-
 	placement = root
-
 	event_image = {
 		video = "quantum_physics"
 	}
-
 	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
-
 	icon = "gfx/interface/icons/event_icons/innovation.dds"
-
 	duration = 3
-
 	trigger = {
 		any_scope_state = {
 			is_capital = no
@@ -380,7 +334,6 @@ ztr_technology.12 = {
 			count > 0
 		}
 	}
-
 	immediate = {
 		every_scope_state = {
 			limit = {
@@ -389,5 +342,127 @@ ztr_technology.12 = {
 			}
 			remove_building = building_fusion_power_plant
 		}
+	}
+}
+
+# Fusion Reactor - Purchase request from another country
+ztr_technology.14 = {
+	type = country_event
+	title = fusion_reactor_purchase.1.t
+	desc = fusion_reactor_purchase.1.d
+	event_image = {
+		video = "quantum_physics"
+	}
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	icon = "gfx/interface/icons/event_icons/nuclear_fusion_reactor.dds"
+	
+	option = {
+		name = fusion_reactor_purchase.1.a
+		default_option = yes
+		# Accept request
+		scope:fusion_technology_requester = {
+			trigger_event = {
+				id = ztr_technology.15
+				popup = yes
+			}
+		}
+		ai_chance = {
+			base = 100
+			modifier = {
+				trigger = {
+					relations:scope:fusion_technology_requester >= relations_threshold:amicable
+				}
+				add = 100
+			}
+			# Command Hegemony see this as a threat
+			modifier = {
+				trigger = {
+					has_strategy = ai_strategy_superpower_command_hegemony
+				}
+				add = -100
+			}
+			# Requester Great Powers are less likely to receive accepted requests if they are not friendly
+			modifier = {
+				trigger = {
+					scope:fusion_technology_requester = {
+						country_rank = rank_value:great_power
+					}
+					relations:scope:fusion_technology_requester < relations_threshold:friendly
+				}
+				add = -50
+			}
+		}
+	}
+
+	option = {
+		name = fusion_reactor_purchase.1.b
+		# Reject request
+		scope:fusion_technology_requester = {
+			trigger_event = {
+				id = ztr_technology.16
+				popup = yes
+			}
+		}
+		ai_chance = {
+			base = 100
+		}
+	}
+}
+
+# Fusion Reactor - Purchase request accepted
+ztr_technology.15 = {
+	type = country_event
+	title = fusion_reactor_purchase.2.t
+	desc = fusion_reactor_purchase.2.d
+	event_image = {
+		video = "quantum_physics"
+	}
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	icon = "gfx/interface/icons/event_icons/nuclear_fusion_reactor.dds"
+	duration = 3
+	immediate = {
+		# Massive cost representing technology licensing and infrastructure import
+		add_modifier = {
+			name = fusion_reactor_purchase_cost
+			months = 60
+		}
+		# We add 30 million pounds to the seller
+		scope:fusion_technology_seller = {
+			add_treasury = 30000000
+		}
+		# Apply site modifier directly to capital (proven technology, no survey needed)
+		capital = {
+			add_modifier = {
+				name = fusion_reactor_site
+			}
+			save_scope_as = fusion_purchase_site
+		}
+		add_technology_researched = nuclear_fusion_reactor
+		# Start construction JE directly
+		add_journal_entry = {
+			type = je_fusion_reactor_construction
+			target = scope:fusion_purchase_site
+		}
+	}
+	option = {
+		name = fusion_reactor_purchase.2.a
+		default_option = yes
+	}
+}
+
+# Fusion Reactor - Purchase request rejected
+ztr_technology.16 = {
+	type = country_event
+	title = fusion_reactor_purchase.3.t
+	desc = fusion_reactor_purchase.3.d
+	event_image = {
+		video = "quantum_physics"
+	}
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	icon = "gfx/interface/icons/event_icons/nuclear_fusion_reactor.dds"
+	duration = 3
+	option = {
+		name = fusion_reactor_purchase.3.a
+		default_option = yes
 	}
 }

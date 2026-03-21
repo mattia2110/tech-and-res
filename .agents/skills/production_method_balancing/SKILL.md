@@ -48,6 +48,10 @@ To evaluate if a PM is balanced, use the unlocking tech's Era and aim for the fo
 | Era 6 | 1.80 | ~ -1.200 |
 | Era 7 | 2.45 | ~ -1.633 |
 | Era 8 | 3.20 | ~ -2.133 |
+| Era 9 | 4.05 | ~ -2.700 |
+| Era 10 | 5.00 | ~ -3.333 |
+| Era 11 | 6.05 | ~ -4.033 |
+
 
 ## How to Apply This Workflow
 
@@ -95,5 +99,5 @@ Here is a quick reference table of goods prices in Victoria 3.
 | `explosives` | 50 | `music` | 80 | `water` | 50 |
 | `fabric` | 20 | `oil` | 40 | `wine` | 50 |
 | `fertilizer` | 30 | `on_demand_goods` | 70 | `wood` | 20 |
-| `fine_art` | 200 | `opium` | 50 | | |
-| `fish` | 20 | `organized_data` | 10 | | |
+| `fine_art` | 200 | `opium` | 50 |
+| `fish` | 20 | `organized_data` | 10 |

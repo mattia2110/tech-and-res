@@ -31,12 +31,10 @@ law_basic_protection = {
 	}
 
 	modifier = {
-		state_pollution_reduction_health_mult = -0.25
 		building_group_bg_mining_throughput_add = -0.05
-		building_group_bg_extraction_throughput_add = -0.03
+		building_group_bg_extraction_throughput_add = -0.05
 		building_group_bg_heavy_industry_throughput_add = -0.01
 		building_group_bg_light_industry_throughput_add = -0.01
-		state_turmoil_effects_mult = -0.05
 	}
 
 	ai_enact_weight_modifier = { #Petitions
@@ -46,6 +44,12 @@ law_basic_protection = {
 			limit = { ai_has_enact_weight_modifier_journal_entries = yes }
 			add = 750
 		}
+	}
+
+	institution = institution_environmental_policy
+	institution_modifier = {
+		state_pollution_reduction_health_mult = -0.05
+		state_turmoil_effects_mult = -0.01
 	}
 
 	on_activate = {
@@ -65,12 +69,10 @@ law_active_restoration = {
 	}
 
 	modifier = {
-		state_pollution_reduction_health_mult = -0.5
 		building_group_bg_mining_throughput_add = -0.1
-		building_group_bg_extraction_throughput_add = -0.05
+		building_group_bg_extraction_throughput_add = -0.1
 		building_group_bg_heavy_industry_throughput_add = -0.02
 		building_group_bg_light_industry_throughput_add = -0.02
-		state_turmoil_effects_mult = -0.1
 	}
 
 	ai_enact_weight_modifier = { #Petitions
@@ -80,6 +82,14 @@ law_active_restoration = {
 			limit = { ai_has_enact_weight_modifier_journal_entries = yes }
 			add = 750
 		}
+	}
+
+	institution = institution_environmental_policy
+	institution_modifier = {
+		state_pollution_reduction_health_mult = -0.1
+		state_mortality_mult = -0.005
+		state_turmoil_effects_mult = -0.02
+		interest_group_ig_industrialists_pol_str_mult = -0.1
 	}
 
 	on_activate = {

@@ -6878,7 +6878,7 @@ pm_smart_city_infrastructure = {
 	state_modifiers = {
 		unscaled = {
 			state_mortality_mult = -0.02
-			state_pollution_reduction_health_mult = -0.1
+			state_pollution_reduction_health_mult = -0.05
 		}
 		workforce_scaled = {
 			state_infrastructure_add = 3
@@ -9109,6 +9109,36 @@ pm_no_recycling = {
 
 	disallowing_laws = {
 		law_basic_protection
+		law_active_restoration
+	}
+}
+
+pm_waste_incinerator = {
+	texture = "gfx/interface/icons/production_method_icons/waste_incinerator.dds"
+
+	state_modifiers = {
+		workforce_scaled = {
+			state_pollution_generation_add = 3
+		}
+	}
+
+	unlocking_production_methods = {
+		pm_electric_streetlights
+		pm_modern_urban_utilities
+		pm_smart_city_infrastructure
+	}
+
+	unlocking_technologies = {
+		oil_turbine
+	}
+
+	building_modifiers = {
+		workforce_scaled = {
+			goods_input_electricity_add = -2
+		}
+	}
+
+	disallowing_laws = {
 		law_active_restoration
 	}
 }

@@ -143,7 +143,7 @@ je_research_center_construction = {
 
 # Fusion Reactor Journal Entries
 
-je_fusion_reactor_site = {
+je_fusion_reactor_research = {
 	icon = "gfx/interface/icons/event_icons/innovation.dds"
 
 	group = je_group_technology
@@ -151,7 +151,6 @@ je_fusion_reactor_site = {
 	on_monthly_pulse = {
 		effect = {
 			# Progress depends on nation's development indicators
-			# Base progress: 1 per month
 			change_variable = {
 				name = fusion_reactor_var
 				add = 0.25
@@ -202,12 +201,10 @@ je_fusion_reactor_site = {
 
 	complete = {
 		scope:journal_entry = { is_goal_complete = yes }
-		# Must have a research center built
-		has_research_center = yes
 	}
 
 	on_complete = {
-		trigger_event = { id = ztr_technology.10 } # fusion reactor site found
+		trigger_event = { id = ztr_technology.10 } # fusion reactor first breakthrough
 	}
 
 	invalid = {
@@ -225,7 +222,6 @@ je_fusion_reactor_site = {
 	}
 
 	on_invalid = {
-		remove_modifier = fusion_reactor_survey
 		remove_variable = fusion_reactor_var
 	}
 
@@ -242,6 +238,10 @@ je_fusion_reactor_site = {
 	weight = 10
 
 	should_be_pinned_by_default = yes
+
+	modifiers_while_active = {
+		fusion_reactor_research
+	}
 }
 
 je_fusion_reactor_construction = {
