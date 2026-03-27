@@ -663,3 +663,78 @@ ztr_communist_china.4 = {
 	}
 }
 
+ztr_communist_china.5 = {
+	type = country_event
+	placement = ROOT
+	duration = 1
+	title = ztr_communist_china.5.t
+	desc = ztr_communist_china.5.d
+	flavor = ztr_communist_china.5.f
+	event_image = {
+		video = "chinese_city"
+	}
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	icon = "gfx/interface/icons/event_icons/event_newspaper.dds"
+
+	immediate = {
+		c:ZFC = {
+			save_scope_as = ztr_ccp_nationalist_china
+		}
+		c:CHI = {
+			save_scope_as = ztr_ccp_communist_china
+		}
+	}
+
+	option = {
+		name = ztr_communist_china.5.a
+		default_option = yes
+		#Bad Relations with ZFC
+		change_relations = {
+			country = c:ZFC
+			value = -100
+		}
+		ai_chance = {
+			base = 50
+		}
+	}
+
+	option = {
+		name = ztr_communist_china.5.b
+		trigger = {
+			NOT = {
+				is_subject = yes
+			}
+		}
+		if = {
+			limit = {
+				is_player = yes
+			}
+			custom_tooltip = {
+				text = ztr_tooltip_can_become_nationalist_chi_via_je
+				annex = c:ZFC
+				change_tag = ZFC
+				ztr_nationalist_china_adopt_laws = yes
+			}
+		}
+		else = {
+			c:ZFC = {
+				annex = root
+			}
+		}
+		ai_chance = {
+			base = 0
+			modifier = {
+				trigger = {
+					ztr_country_is_in_coastal_rich_china = yes
+				}
+				add = 20
+			}
+			modifier = {
+				trigger = {
+					c:BEI = this
+				}
+				add = 100
+			}
+		}
+	}
+}

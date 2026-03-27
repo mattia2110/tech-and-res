@@ -228,11 +228,27 @@ ztr_je_chinese_communist_front = {
 		remove_global_variable = ztr_ccp_overall_progress
 		#remove_global_variable = china_shatters
 		#This will trigger some days later an event with the creation of a nationalist china against the communist one
-		every_scope_je_involved = {
+		every_country = {
 			limit = {
 				NOT = {
 					c:CHI = this
 				}
+				is_coastal = yes
+				country_has_primary_culture = cu:han
+			}
+			set_variable = ztr_ccp_nationalist_candidate
+		}
+		ztr_communist_china_create_nationalist_front = yes
+		every_country = {
+			limit = {
+				NOT = {
+					c:CHI = this
+				}
+				NOT = {
+					c:ZFC = this
+				}
+				exists = c:ZFC
+				country_has_primary_culture = cu:han
 			}
 			trigger_event = {
 				id = ztr_communist_china.5
