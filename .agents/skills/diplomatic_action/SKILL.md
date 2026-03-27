@@ -1,143 +1,280 @@
-# Scopes:
+---
+description: Guide for Victoria 3 diplomatic action definitions. Use when creating, editing, or reviewing files in common/diplomatic_actions, especially when adding proposal logic, pact behavior, AI acceptance, or overrides of vanilla diplomatic actions.
+name: Diplomatic Action
+---
 
-		root = action initiator
-		scope:target = action target
+# Diplomatic Actions
 
-# Syntax:
-		diplomatic_action = {
-			groups = { # diplomatic action groups. Example: subject means a subject is taking an action.
-				general # Currently available: general, subject, overlord and power_bloc; for sorting these in different datamodels, general break actions supersede all other categories, while subject supersedes overlord supersedes power_bloc actions
-			}
+Use this skill for Victoria 3 files in `common/diplomatic_actions/*.txt`.
 
-			requires_approval = bool # Whether this action requires the approval of the target, default no
-			uses_random_approval = bool # If this is true, then positive acceptance becomes a % chance to accept rather than always being accepted (+50 acceptance = 50% chance etc)
-	
-			state_selection = setting # If set, this allows or requires one or two states to be selected for this action, see below for all settings
-			# first_required - Must select a state for initiator
-			# first_optional - May select a state for initiator
-			# second_required - Must select a state for target
-			# second_optional - May select a state for target
-			# both_required - Must select a state for initiator AND target
-			# both_optional - May select a state for initiator OR target OR both
-			# any_required - Must select a state for initiator OR target OR both
+Do not use it for:
+- `common/diplomatic_plays/*.txt`
+- `common/diplomatic_catalysts/*.txt`
+- `common/treaty_articles/*.txt`
+- general diplomacy effects outside a diplomatic action definition
 
-			first_state_list = setting # Defaults to all
-			# first_country - If there is a first_state_trigger, then evaluate it for each state in first_country (aka scope:country).
-			# second_country - If there is a first_state_trigger, then evaluate it for each state in second_country (aka scope:target_country).
-			# all - If there is a first_state_trigger, then evaluate it for each state in the world. This is performance intensive and should be avoided.
+## File Location
 
-			second_state_list = setting # Defaults to all
-			# first_country - If there is a second_state_trigger, then evaluate it for each state in first_country (aka scope:country in first/second_state_trigger)
-			# second_country - If there is a second_state_trigger, then evaluate it for each state in second_country (aka scope:target_country in first/second_state_trigger)
-			# all - If there is a second_state_trigger, then evaluate it for each state in the world. This is performance intensive and should be avoided.
+Write modded diplomatic actions in:
+`common/diplomatic_actions/*.txt`
 
-			show_confirmation_box = bool # Whether player should be prompted with a confirmation box when taking this action, default yes
-	
-			selectable = {} # Trigger for whether action is visible/selectable with *any* target country, only evaluates proposing country, default evaluates to true
-	
-			potential = {} # Trigger for whether action is potential, default evaluates to true. NOTE this also requires all requirement_to_maintain to be true
-	
-			possible = {} # Trigger for whether action is possible, default evaluates to true. NOTE this also requires all requirement_to_maintain to be true
-	
-			first_state_trigger = {} # Trigger for whether a state is selectable for initiator. scope:country is the initiator, scope:target_country is the target
-			second_state_trigger = {} # Trigger for whether a state is selectable for target. scope:country is the initiator, scope:target_country is the target
+Inspect the mod's existing examples first:
+- `common/diplomatic_actions/ztr_invite_to_power_bloc.txt`
+- `common/diplomatic_actions/ztr_merge_power_bloc_diplomacy.txt`
+- `common/diplomatic_actions/ztr_station_nuclear_weapons.txt`
+- `common/diplomatic_actions/ztr_nuclear_ultimatum.txt`
+- `common/diplomatic_actions/ztr_unprovoked_nuclear_strike.txt`
+- `common/diplomatic_actions/ztr_war_nuclear_strike.txt`
 
-			effect = {} # Effect of action on execution
+If overriding a vanilla action, compare against the base game file in Victoria 3's `game/common/diplomatic_actions/`.
 
-			is_hostile = bool # is this a hostile action, default no
-	
-			confirmation_sound = "event:/SFX/UI/Global/alternate_confirmation"	# If set, overrides the sound path set in defines/00_audio.txt for this particular action
-			request_sound = "event:/SFX/UI/MapInteraction/alternate_request"	# If set, overrides the sound path set in defines/00_audio.txt for this particular action
-			hostile_sound = "event:/SFX/UI/MapInteraction/alternate_hostile"	# If set, overrides the sound path set in defines/00_audio.txt for this particular action
-			benign_sound = "event:/SFX/UI/MapInteraction/alternate_benign"		# If set, overrides the sound path set in defines/00_audio.txt for this particular action
+Related files often live in:
+- `localization/english/*.yml`
+- `common/scripted_effects/*.txt`
+- `common/script_values/*.txt`
+- `common/scripted_modifiers/*.txt`
+- `common/modifier_types/*.txt`
+- `common/diplomatic_plays/*.txt`
+- `common/diplomatic_catalysts/*.txt`
 
-			pact = { # If no pact block is defined, the action will not create a diplomatic pact on execution
-				cost = x # Cost in diplo capital to maintain the pact
-				counts_for_tech_spread = x # Whether or not tech spreads through this pact
-				forced_duration = x # How many months after being established is it not possible to break this pact, overriden by OBLIGATION_FORCED_PACT_MONTHS if obligation is used, cannot be lower than PACT_REQUIRES_APPROVAL_MIN_FORCED_MONTHS for pacts that require approval
-	
-				second_country_gets_income_transfer = yes/no # If yes, actor pays money to recipient, if no recipient pays to actor
-				income_transfer_based_on_second_country = yes/no # If yes, the amount of money transferred to the other part is based on a fraction of recipient's tax income, if no it's based on a fraction of actor's income.
-				income_transfer_to_pops = { # If defined, the transfered income will go to appro pops of the target country instead of the treasury
-					allow_discriminated = yes/no # Do discriminated pops also get a share of the transfered money?
-		
-					# Script values for fraction of the money that will go to different strata pops in target
-					# Values are relative to each other, so if upper_strata_pops evaluates to 100 and the total value is 1000, upper strata pops will get 10% of the money
-					upper_strata_pops = {
-						value = x  
-					}
-					middle_strata_pops = {
-						value = x
-					}
-					lower_strata_pops = {
-						value = x
-					}
-				}
-				income_transfer = x # The base income transfer amount (as a fraction of income)
-				max_paying_country_income_to_transfer = x # Income transfer cannot exceed this fraction of the sender's income, for pacts with income transfer based on second country
-					
-				propose_string = string # Loc string used when proposing pact, default PROPOSE
-				break_string = string # Loc string used when breaking pact, default BREAK
-				ask_to_end_string = string # Loc string used when proposing to break a pact, default ASK_TO_END
-	
-				military_access = yes/no # Whether this pact provides military access between both parties, i.e. formations can travel on the other country territory
-				actor_requires_approval_to_break = bool # Whether this pact requires the approval of the other part for original initiator to break it off, default no
-				target_requires_approval_to_break = bool # Whether this pact requires the approval of the other part for original target to break it off, default no
+## Workflow
 
-				is_breaking_hostile = yes/no # is breaking this pact by actor considered hostile, default no
-				is_target_breaking_hostile = yes/no # is breaking this pact by target considered hostile, default no
-	
-				actor_can_break = {} # Trigger for whether the original initiator of a pact can break it off, default evaluates to true
-				target_can_break = {} # Trigger for whether the original target of a pact can break it off, default evaluates to true
-		
-				requirement_to_maintain = { # Any number of these triggers can be added to a pact to set up the requirements to propose and maintain it
-					trigger = {} # If this evaluates to false, the pact will automatically break the next tick UNLESS it is a forced duration pact, and also will not be able to be proposed (so you don't need to also check the condition in possible)
-			
-					show_about_to_break_warning = {} # If this evaluates to true, the player will get an alert that this specific requirement to maintain is in danger of failing
-				}
-	
-				daily_effect = {} # Effect of pact each day while active
-				weekly_effect = {} # Effect of pact each week while active
-				monthly_effect = {} # Effect of pact each month while active
-	
-				manual_break_effect = {} # Effect of pact on being manually broken by either part
-				auto_break_effect = {} # Effect of pact on being automatically broken due to requirement invalidating
-		
-				subject_relation = { # If a subject relation block is defined, this pact acts as a overlord/subject relationship
-					annex_on_country_formation = bool # If yes, appropriate-culture subjects of this type will be annexed when overlord forms a new country, default no
-				}
-		
-				# pact forces the initator to automatically join the targets side in diplomatic plays of specified type'
-				# this is a list, so you can have multiple entries
-				auto_support_type = dp_example_play
-			}
-	
-			# IMPORTANT: In the AI block, the AI country is always root and the other country always scope:target, regardless of who proposed the diplomatic action
-			ai = {
-				# The chance (0 - 100%) that the AI is going to evaluate this action against other countries each update
-				# Unlike the other AI values, this *only* looks at the proposing AI country and has no data about targets
-				evaluation_chance = {}
+1. Find whether the action already exists in the mod with `rg "<action_key>\\s*=\\s*\\{" common/diplomatic_actions`.
+2. Read the closest existing action in `common/diplomatic_actions/` before writing a new one.
+3. If the action is a vanilla override, inspect the original definition in Victoria 3 `game/common/diplomatic_actions/` and preserve engine-required fields.
+4. Check whether the action also needs supporting scripted effects, script values, modifiers, catalyst logic, pact maintenance rules, or localization.
+5. Keep `potential`, `possible`, and `ai` aligned. If players can propose it, AI acceptance and break logic should usually exist too.
+6. Re-read related diplomatic actions in the same feature area so naming, balance, and trigger style stay consistent.
 
-				# Selection triggers that exist only to pre-filter which state combinations the AI looks at
-				# This is done for performance reasons - the more open ended these triggers are, the more it will impact performance in actions where both sides can select states
-				# These only contain the state as root in the scope and no other data
-				will_select_as_first_state = {}		
-				will_select_as_second_state = {}
-		
-				will_propose_with_states = {} # Checked before will_propose = {} to further cut down on state combinations the AI will do a full evaluation for
-	
-				will_propose = {} # Trigger for if AI will consider proposing this action (their acceptance if asked still has to be positive if action requires acceptance), default evaluates to true
-				will_break = {} # Trigger for if AI will consider breaking off an existing pact of this action (their acceptance as if asked still has to be significantly negative if action requires acceptance), default evaluates to true
-		
-				will_propose_even_if_not_accepted = {} # Trigger for if AI will propose an action even if they think it's going to be declined, checked after will_propose
-		
-				accept_score = {} # If this value evaluates to above zero, AI will accept this action if proposed
-				accept_break_score = {} # If this value evaluates to above zero, AI will accept breaking this pact if proposed
+## Common Structure
 
-				propose_score = {} # This determines how much the AI will prioritize proposing this particular deal
-				propose_break_score = {} # This determines how much the AI will prioritize proposing breaking this particular pact
-		
-				use_favor_chance = {} # The chance (0 - 100%) that AI is willing to call in a favor to force this through
-				owe_favor_chance = {} # The chance (0 - 100%) that AI is willing to owe a favor to get this accepted	
+```pdx
+example_action = {
+	groups = { general }
+	requires_approval = yes
+	can_use_obligations = yes
+	uses_random_approval = yes
+	should_notify_third_parties = yes
+
+	unlocking_technologies = {
+		example_technology
+	}
+
+	selectable = { }
+	potential = { }
+	possible = { }
+
+	accept_effect = { }
+	decline_effect = { }
+
+	pact = {
+		cost = 25
+
+		requirement_to_maintain = {
+			trigger = { }
+		}
+
+		manual_break_effect = { }
+		auto_break_effect = { }
+	}
+
+	ai = {
+		evaluation_chance = { value = 0.25 }
+		accept_score = { value = 0 }
+		propose_score = { value = 10 }
+		will_propose = { always = yes }
+	}
+}
+```
+
+Not every action needs every block. In this mod:
+- hostile one-shot actions often use `accept_effect` without `pact`
+- long-running relationships use a `pact` block with `requirement_to_maintain`
+- actions requiring consent usually define `accept_score`
+- player-facing hostile actions may set `should_notify_third_parties = yes`
+
+## Scope Guidance
+
+Follow the scopes used by the actual diplomatic action scripts in `common/diplomatic_actions/`:
+- `root`: the country currently evaluating the trigger or effect block
+- `scope:actor`: the proposing country
+- `scope:target_country`: the target country
+
+Do not assume older shorthand such as `scope:target` is the convention here. The mod's actual actions consistently use `scope:target_country`.
+
+Inside nested scopes, re-check who `root` points to before copying logic. Many bugs in diplomatic actions come from mixing up `root`, `scope:actor`, and `scope:target_country`.
+
+## Core Blocks
+
+### `groups`
+
+Use the correct group for UI sorting and behavior. Existing comments in prior references mention `general`, `subject`, `overlord`, and `power_bloc`. In this mod, current actions use `general`.
+
+### `selectable`
+
+Use for high-level visibility checks on the initiating side. Keep this cheap and broad.
+
+Typical uses:
+- hide actions from decentralized countries
+- require bloc leadership
+- gate actions away from revolutionary or secessionist countries
+
+### `potential`
+
+Use for structural validity: whether this actor-target pair can ever use the action.
+
+Typical uses from this mod:
+- target must be sovereign, allied, in a bloc, or otherwise structurally eligible
+- actor or target must not be revolutionary
+- actor must have a required capability such as `nuclear_capability`
+
+### `possible`
+
+Use for current executable conditions: timing, relations, cooldowns, adjacency, truce checks, and similar live state.
+
+Typical uses from this mod:
+- `has_diplomatic_relevance = scope:target_country`
+- relation thresholds
+- adjacency or delivery-range checks
+- `NOT = { has_modifier = nuclear_attack_cooldown }`
+- `NOT = { has_truce_with = scope:target_country }`
+
+Keep `possible` readable. If the same logic also governs a long-running pact, consider sharing it through scripted triggers or mirrored `requirement_to_maintain`.
+
+### `accept_effect` and `decline_effect`
+
+Use these for the immediate result of the diplomatic proposal.
+
+Common patterns in this mod:
+- `change_relations`
+- `create_incident`
+- `join_power_bloc`
+- lobby appeasement effects
+- `custom_tooltip` wrapping impactful scripted effects
+- hidden setup for wars, events, or catalyst creation
+
+If the action is destructive or surprising, prefer clear tooltips and keep hidden effects narrow.
+
+### `pact`
+
+Use a `pact` block when the action creates an ongoing diplomatic relationship.
+
+Common pact fields seen in this mod:
+- `cost`
+- `can_be_used_in_sway_offers`
+- income transfer fields
+- `requirement_to_maintain`
+- `manual_break_effect`
+- `auto_break_effect`
+
+If a pact has maintenance conditions, make sure proposal logic and maintenance logic do not drift apart unless the difference is intentional.
+
+## AI Block
+
+The `ai` block is not optional in practice if the action should behave sensibly in AI hands.
+
+Common fields used by this mod:
+- `evaluation_chance`
+- `accept_score`
+- `propose_score`
+- `propose_break_score`
+- `will_propose`
+- `will_propose_even_if_not_accepted`
+- `use_obligation_chance`
+- `owe_obligation_chance`
+- `check_acceptance_for_will_propose`
+- `check_acceptance_for_will_break`
+
+Guidance:
+- Start `accept_score` at `value = 0` and add or subtract clear reasons.
+- Use `desc = "..."` labels for acceptance contributors when the engine supports breakdown display.
+- Keep `will_propose` stricter than `possible` if the action is expensive, niche, or dangerous.
+- For player-only or intentionally inactive AI actions, make that explicit with `will_propose = { always = no }` or `propose_score = { value = 0 }`.
+
+## Mod Patterns To Reuse
+
+### Power Bloc Actions
+
+Use `ztr_invite_to_power_bloc.txt` and `ztr_merge_power_bloc_diplomacy.txt` as references for:
+- vanilla action replacement style such as `REPLACE:invite_to_power_bloc`
+- bloc leadership gating
+- leverage-based AI acceptance
+- cohesion and ideological scoring
+
+### Nuclear Actions
+
+Use `ztr_station_nuclear_weapons.txt`, `ztr_nuclear_ultimatum.txt`, `ztr_unprovoked_nuclear_strike.txt`, and `ztr_war_nuclear_strike.txt` as references for:
+- high-impact hostile actions
+- adjacency and delivery-capability gating
+- cooldown modifiers
+- `custom_tooltip` around large scripted effects
+- pact maintenance for stationed weapons
+
+## Editing Checklist
+
+- Confirm the action key is unique, or intentionally use `REPLACE:<vanilla_key>`.
+- Keep scope usage consistent: `root`, `scope:actor`, `scope:target_country`.
+- Check whether the action needs localization for name, description, tooltips, or acceptance reasons.
+- Check whether scripted effects or script values should be reused instead of inlining large logic blocks.
+- If using a pact, verify `requirement_to_maintain` and break effects.
+- If using obligations, make sure AI obligation chances exist and make sense.
+- If targeting wars, blocs, or treaties, inspect the related `common/` files before finalizing the action.
+
+## Template
+
+```pdx
+my_diplomatic_action = {
+	groups = { general }
+	requires_approval = yes
+	can_use_obligations = yes
+
+	potential = {
+		scope:target_country = {
+			always = yes
+		}
+	}
+
+	possible = {
+		has_diplomatic_relevance = scope:target_country
+	}
+
+	accept_effect = {
+		change_relations = {
+			country = scope:target_country
+			value = 10
+		}
+	}
+
+	decline_effect = {
+		change_relations = {
+			country = scope:target_country
+			value = -10
+		}
+	}
+
+	ai = {
+		evaluation_chance = {
+			value = 0.25
+		}
+
+		accept_score = {
+			value = 0
+		}
+
+		propose_score = {
+			value = 10
+		}
+
+		will_propose = {
+			would_accept_diplomatic_action = {
+				actor = scope:target_country
+				type = my_diplomatic_action
 			}
 		}
+	}
+}
+```
+
+## Practical Rule
+
+Do not treat diplomatic actions as isolated files. Always inspect the relevant `common/` neighbors first, especially existing `common/diplomatic_actions/` files in the same feature area and any supporting scripted content they call.

@@ -1,0 +1,979 @@
+namespace = the_future_of_china
+#To develop this alternate history from 1945 to 2025, while maintaining the premise of a China that has not experienced the collapse of the Warlord era but remains anchored to its structural paralysis, we must draw on the demographic, economic, and institutional dynamics that emerged in the nineteenth century.
+#In this scenario, the country continues to suffer from the massive demographic pressure and competition for resources that have historically threatened the stability of the state. However, the system of bureaucratic federalism (fengjian applied to the provincial system) and military decentralization prevent a violent fracture. Foreign powers, however transformed by their own historical developments, continue to maintain commercial interests in China, forcing Beijing to perpetuate its balancing diplomacy.
+#Here are three possible evolutionary paths this China could pursue between 1945 and 2025:
+#Branch 1: Corporate Confederation (The Economic Evolution of "Guandu Shangban")
+# This branch explores the definitive fusion between provincial administration and commercial capital, taking the guandu shangban (government supervision and mercantile management) business model to its extreme.
+# 1945-1980: With the progressive loosening of direct imperial control (or a nominally republican but weak central government), provincial governors and the comprador class of coastal ports forge an iron-clad alliance. The compradors, originally acting as intermediaries for foreign powers, use their immense capital to finance regional industrial conglomerates. The governors provide military protection and legal monopoly in exchange for profit shares. The internal tax system, based on the fragmentation of the likin tax, is modernized into actual inter-provincial customs barriers.
+# 1980-2025: China transforms into a decentralized corporate oligarchy. A unified national bourgeoisie does not emerge, but rather a series of "provincial mega-corporations" competing with each other on the global market. Coastal cities become hyper-capitalist technological and financial hubs, governed by boardrooms where foreign powers still hold minority but influential stakes.
+# Branch 2: The "United Provinces" (The Political Evolution of Federalism)
+# This branch focuses on the peaceful institutionalization of decentralized reformist thought inspired by the philosopher Gu Yanwu, who theorized a centralized state system but with autonomous local governance.
+# 1945-1990: Faced with growing social tensions and the threat of peasant revolts, provincial elites realize that the only way to avoid systemic collapse is to formalize their autonomy. The regional armies, which emerged in the nineteenth century to quell revolts, crystallize into provincial self-defense forces. To avoid mutual destruction, the provinces enter into a constitutional pact based on the ancient ideal of local self-government (difang zizhi), effectively creating the "United States of China."
+# 1990-2025: A long period of internal "Cold War" begins. The coastal provinces, richer and more connected, and the inland provinces, more populous and agricultural, constantly balance each other. The Central Government manages foreign policy exclusively, applying the doctrine of "using barbarians against barbarians" to prevent external interference in inter-provincial conflicts. The ancient frontiers (Manchuria, Xinjiang) are definitively saturated by population flows controlled by the center to act as shields against the outside world.
+# Branch 3: Stagnant Utopia and Techno-Confucianism (Socio-Cultural Evolution)
+# This branch explores the triumph of the Zhongti Xiyong philosophy (Chinese knowledge as foundation, Western knowledge as practical application) combined with the utopian and cyclical visions of late-nineteenth-century Chinese proto-science fiction.
+# 1945-2000: The Central Government and the rural gentry (Shenshi) conclude that mass industrialization and Western-style urbanization would inevitably lead to the destruction of Confucian values ​​and the collapse of civilization under the weight of class struggle. The state therefore decides to deliberately limit the industrial development of civil society. The adoption of foreign technology is limited exclusively to the development of social control infrastructures and the passive maintenance of borders.
+# 2000-2025: The ancient institution of "Always Normal Granaries" (changpingcang), used to stabilize prices and prevent famine, is updated with advanced logistics and information networks imported from abroad. However, the population is kept in a state of pre-modern rural stasis. Literate officials are transformed into techno-bureaucrats who use technology to calculate agricultural cycles, prevent ecological disasters, and nip dissent in the bud, ensuring a minimal but universal subsistence.
+the_future_of_china.201 = {
+	type = country_event
+	title = the_future_of_china.201.t
+	desc = the_future_of_china.201.d
+	flavor = the_future_of_china.201.f
+	event_image = {
+		video = "chinese_city"
+	}
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	icon = "gfx/interface/icons/event_icons/event_newspaper.dds"
+	immediate = {
+		# Triggered from je_warlord_china completion when year > 1940
+	}
+	option = {
+		name = the_future_of_china.201.a
+		default_option = yes
+		set_variable = the_future_of_china_active
+		add_journal_entry = {
+			type = ztr_je_the_future_of_china
+		}
+	}
+}
+
+# Branch 1: Corporate Confederation
+the_future_of_china.1 = {
+	type = country_event
+	title = the_future_of_china.1.t
+	desc = the_future_of_china.1.d
+	flavor = the_future_of_china.1.f
+	event_image = {
+		video = "shanghai_harbor"
+	}
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	icon = "gfx/interface/icons/event_icons/event_trade.dds"
+	option = {
+		name = the_future_of_china.1.a
+		custom_tooltip = {
+			text = ztr_corporate_appleased_tt
+			change_variable = {
+				name = ztr_china_corporate_var
+				add = 10
+			}
+		}
+		ig:ig_industrialists ?= {
+			add_modifier = {
+				name = ztr_corporate_empowered_modifier
+				years = 5
+			}
+		}
+		ig:ig_landowners ?= {
+			add_modifier = {
+				name = ztr_corporate_empowered_modifier
+				years = 5
+			}
+		}
+		every_scope_state = {
+			limit = {
+				OR = {
+					state_region = s:STATE_GUANGDONG
+					state_region = s:STATE_JIANGSU
+				}
+			}
+			create_building = {
+				building = building_port
+				level = 5
+			}
+			create_building = {
+				building = building_motor_industry
+				level = 5
+			}
+		}
+		create_political_movement = {
+			type = movement_liberal
+		}
+	}
+	option = {
+		name = the_future_of_china.1.b
+		custom_tooltip = {
+			text = ztr_nationalist_appleased_tt
+			change_variable = {
+				name = ztr_china_federation_var
+				add = 5
+			}
+		}
+	}
+	option = {
+		name = the_future_of_china.1.c
+		custom_tooltip = {
+			text = ztr_technoconfucian_appleased_tt
+			change_variable = {
+				name = ztr_china_technoconfucian_var
+				add = 5
+			}
+		}
+		custom_tooltip = {
+			text = ztr_corporate_displeased_tt
+			change_variable = {
+				name = ztr_china_corporate_var
+				subtract = 5
+			}
+		}
+	}
+}
+
+# The Guandu Shangban
+the_future_of_china.2 = {
+	type = country_event
+	title = the_future_of_china.2.t
+	desc = the_future_of_china.2.d
+	flavor = the_future_of_china.2.f
+	event_image = {
+		video = "asia_factory_accident"
+	}
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	icon = "gfx/interface/icons/event_icons/event_industry.dds"
+	option = {
+		name = the_future_of_china.2.a
+		custom_tooltip = {
+			text = ztr_corporate_appleased_tt
+			change_variable = {
+				name = ztr_china_corporate_var
+				add = 5
+			}
+		}
+		add_treasury = -1000000
+		add_modifier = {
+			name = ztr_corporate_mining_subsides_modifier
+			years = 10
+			is_decaying = yes
+		}
+		every_scope_state = {
+			limit = {
+				OR = {
+					state_region = s:STATE_ZHEJIANG
+					state_region = s:STATE_FUJIAN
+				}
+			}
+			create_building = {
+				building = building_electrics_industry
+				level = 5
+			}
+			create_building = {
+				building = building_telecommunications_industry
+				level = 5
+			}
+		}
+	}
+	# This will make the provinces more unstable and more in favor of corporation
+	option = {
+		name = the_future_of_china.2.b
+		custom_tooltip = {
+			text = ztr_nationalist_appleased_tt
+			change_variable = {
+				name = ztr_china_federation_var
+				add = 5
+			}
+		}
+		custom_tooltip = {
+			text = ztr_technoconfucian_appleased_tt
+			change_variable = {
+				name = ztr_china_technoconfucian_var
+				add = 5
+			}
+		}
+		ig:ig_industrialists ?= {
+			add_modifier = {
+				name = ztr_corporate_disempowered_modifier
+				years = 2
+			}
+		}
+	}
+}
+
+# Branch 2: The United Provinces	
+the_future_of_china.3 = {
+	type = country_event
+	title = the_future_of_china.3.t
+	desc = the_future_of_china.3.d
+	flavor = the_future_of_china.3.f
+	event_image = {
+		video = "unspecific_signed_contract"
+	}
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	icon = "gfx/interface/icons/event_icons/event_newspaper.dds"
+	option = {
+		name = the_future_of_china.3.a
+		custom_tooltip = {
+			text = ztr_nationalist_appleased_tt
+			change_variable = {
+				name = ztr_china_federation_var
+				add = 5
+			}
+		}
+		ig:ig_intelligentsia ?= {
+			add_modifier = {
+				name = ztr_federation_empowered_modifier
+				years = 2
+			}
+		}
+		ig:ig_armed_forces ?= {
+			add_modifier = {
+				name = ztr_federation_empowered_modifier
+				years = 2
+			}
+		}
+		create_political_movement = {
+			type = movement_radical
+		}
+		every_scope_state = {
+			limit = {
+				OR = {
+					state_region = s:STATE_SICHUAN
+					state_region = s:STATE_WESTERN_HUBEI
+					state_region = s:STATE_EASTERN_HUBEI
+				}
+			}
+			create_building = {
+				building = building_government_administration
+				level = 5
+			}
+			create_building = {
+				building = building_university
+				level = 5
+			}
+		}
+	}
+	option = {
+		name = the_future_of_china.3.b
+		custom_tooltip = {
+			text = ztr_corporate_appleased_tt
+			change_variable = {
+				name = ztr_china_corporate_var
+				add = 5
+			}
+		}
+		custom_tooltip = {
+			text = ztr_nationalist_displeased_tt
+			change_variable = {
+				name = ztr_china_federation_var
+				subtract = 5
+			}
+		}
+	}
+}
+
+the_future_of_china.4 = {
+	type = country_event
+	title = the_future_of_china.4.t
+	desc = the_future_of_china.4.d
+	flavor = the_future_of_china.4.f
+	event_image = {
+		video = "unspecific_armored_train"
+	}
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	icon = "gfx/interface/icons/event_icons/event_military.dds"
+	trigger = {
+		AND = {
+			has_law = law_type:law_professional_army
+			has_law = law_type:law_local_police
+		}
+	}
+	option = {
+		name = the_future_of_china.4.a
+		custom_tooltip = {
+			text = ztr_nationalist_appleased_tt
+			change_variable = {
+				name = ztr_china_federation_var
+				add = 10
+			}
+		}
+		ig:ig_armed_forces ?= {
+			add_modifier = {
+				name = ztr_federation_empowered_modifier
+				years = 5
+			}
+		}
+		ig:ig_landowners ?= {
+			add_modifier = {
+				name = ztr_corporate_disempowered_modifier
+				years = 5
+			}
+		}
+		activate_law = law_type:law_national_militia
+		activate_law = law_type:law_local_police
+	}
+	option = {
+		name = the_future_of_china.4.b
+		custom_tooltip = {
+			text = ztr_corporate_appleased_tt
+			change_variable = {
+				name = ztr_china_corporate_var
+				add = 5
+			}
+		}
+		ig:ig_landowners ?= {
+			add_modifier = {
+				name = ztr_corporate_empowered_modifier
+				years = 5
+			}
+		}
+	}
+}
+
+# Branch 3: The Zhongti Xiyong
+the_future_of_china.5 = {
+	type = country_event
+	title = the_future_of_china.5.t
+	desc = the_future_of_china.5.d
+	flavor = the_future_of_china.5.f
+	event_image = {
+		video = "asia_union_leader"
+	}
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	icon = "gfx/interface/icons/event_icons/event_religion.dds"
+	option = {
+		name = the_future_of_china.5.a
+		custom_tooltip = {
+			text = ztr_technoconfucian_appleased_tt
+			change_variable = {
+				name = ztr_china_technoconfucian_var
+				add = 5
+			}
+		}
+		ig:ig_devout ?= {
+			add_modifier = {
+				name = ztr_technoconfucian_empowered_modifier
+				years = 5
+			}
+		}
+		ig:ig_petty_bourgeoisie ?= {
+			add_modifier = {
+				name = ztr_technoconfucian_empowered_modifier
+				years = 5
+			}
+		}
+		ig:ig_rural_folk ?= {
+			add_modifier = {
+				name = ztr_technoconfucian_empowered_modifier
+				years = 5
+			}
+		}
+	}
+	option = {
+		name = the_future_of_china.5.b
+		custom_tooltip = {
+			text = ztr_technoconfucian_displeased_tt
+			change_variable = {
+				name = ztr_china_technoconfucian_var
+				subtract = 5
+			}
+		}
+	}
+}
+
+# The Changpingcang Restoration
+the_future_of_china.6 = {
+	type = country_event
+	title = the_future_of_china.6.t
+	desc = the_future_of_china.6.d
+	flavor = the_future_of_china.6.f
+	event_image = {
+		video = "asia_farmers_market"
+	}
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	icon = "gfx/interface/icons/event_icons/event_agriculture.dds"
+	trigger = {
+		NOT = {
+			has_law = law_type:law_collectivized_agriculture
+		}
+	}
+	option = {
+		name = the_future_of_china.6.a
+		custom_tooltip = {
+			text = ztr_technoconfucian_appleased_tt
+			change_variable = {
+				name = ztr_china_technoconfucian_var
+				add = 10
+			}
+		}
+		ig:ig_rural_folk ?= {
+			add_modifier = {
+				name = ztr_technoconfucian_empowered_modifier
+				years = 5
+			}
+		}
+		add_treasury = -500000
+		add_modifier = {
+			name = ztr_technoconfucian_rural_subsides_modifier
+			years = 10
+			is_decaying = yes
+		}
+		activate_law = law_type:law_collectivized_agriculture
+		capital = {
+			create_building = {
+				building = building_chemical_plant
+				level = 5
+			}
+			create_building = {
+				building = building_motor_industry
+				level = 5
+			}
+		}
+	}
+	option = {
+		name = the_future_of_china.6.b
+		add_treasury = -500000
+		every_scope_state = {
+			limit = {
+				is_coastal = yes
+			}
+			create_building = {
+				building = building_railway
+				level = 5
+			}
+		}
+		capital = {
+			create_building = {
+				building = building_steel_mill
+				level = 5
+			}
+			create_building = {
+				building = building_alloys_plant
+				level = 5
+			}
+		}
+		custom_tooltip = {
+			text = ztr_corporate_appleased_tt
+			change_variable = {
+				name = ztr_china_corporate_var
+				add = 5
+			}
+		}
+	}
+	option = {
+		name = the_future_of_china.6.c
+	}
+}
+
+# Event 7: Foreign Commercial Interests
+the_future_of_china.7 = {
+	type = country_event
+	title = the_future_of_china.7.t
+	desc = the_future_of_china.7.d
+	flavor = the_future_of_china.7.f
+	event_image = {
+		video = "asia_westerners_arriving"
+	}
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	icon = "gfx/interface/icons/event_icons/event_default.dds"
+	trigger = {
+		var:ztr_china_corporate_var > 60
+		any_country = {
+			country_rank >= rank_value:great_power
+			ztr_is_individualist = yes
+		}
+	}
+	immediate = {
+		if = {
+			limit = {
+				exists = c:USA
+				c:USA = {
+					country_rank >= rank_value:great_power
+					ztr_is_individualist = yes
+				}
+			}
+			c:USA = {
+				save_scope_as = foreign_investor
+			}
+		}
+		else = {
+			random_country = {
+				limit = {
+					country_rank >= rank_value:great_power
+					ztr_is_individualist = yes
+				}
+				save_scope_as = foreign_investor
+			}
+		}
+	}
+	option = {
+		name = the_future_of_china.7.a
+		change_relations = {
+			country = scope:foreign_investor
+			value = 50
+		}
+		create_treaty = {
+			first_country = root
+			second_country = scope:foreign_investor
+			is_draft = no
+			binding_period = {
+				years = 10
+			}
+			articles_to_create = {
+				{
+					article = foreign_investment_rights
+					source_country = root
+					target_country = scope:foreign_investor
+				}
+			}
+		}
+		add_modifier = {
+			name = ztr_corporate_foreign_tech_bonus_modifier
+			years = 20
+		}
+		custom_tooltip = {
+			text = ztr_technoconfucian_displeased_tt
+			change_variable = {
+				name = ztr_china_technoconfucian_var
+				subtract = 10
+			}
+		}
+	}
+	option = {
+		name = the_future_of_china.7.b
+		custom_tooltip = {
+			text = ztr_corporate_displeased_tt
+			change_variable = {
+				name = ztr_china_corporate_var
+				subtract = 5
+			}
+		}
+	}
+}
+
+the_future_of_china.8 = {
+	type = country_event
+	title = the_future_of_china.8.t
+	desc = the_future_of_china.8.d
+	flavor = the_future_of_china.8.f
+	event_image = {
+		video = "asia_dead_cattle_poor_harvest"
+	}
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	icon = "gfx/interface/icons/event_icons/event_fire.dds"
+	option = {
+		name = the_future_of_china.8.a
+		trigger = {
+			var:ztr_china_corporate_var >= var:ztr_china_federation_var
+		}
+		custom_tooltip = {
+			text = ztr_corporate_displeased_tt
+			change_variable = {
+				name = ztr_china_corporate_var
+				subtract = 10
+			}
+		}
+		every_scope_state = {
+			limit = {
+				is_coastal = no
+			}
+			add_devastation = 20
+		}
+	}
+	option = {
+		name = the_future_of_china.8.b
+		trigger = {
+			var:ztr_china_corporate_var < var:ztr_china_federation_var
+		}
+		custom_tooltip = {
+			text = ztr_nationalist_displeased_tt
+			change_variable = {
+				name = ztr_china_federation_var
+				subtract = 5
+			}
+		}
+		custom_tooltip = {
+			text = ztr_technoconfucian_appleased_tt
+			change_variable = {
+				name = ztr_china_technoconfucian_var
+				add = 5
+			}
+		}
+		every_scope_state = {
+			limit = {
+				is_coastal = no
+			}
+			add_devastation = 10
+		}
+	}
+}
+
+the_future_of_china.100 = {
+	type = country_event
+	title = the_future_of_china.100.t
+	desc = the_future_of_china.100.d
+	flavor = the_future_of_china.100.f
+	event_image = {
+		trigger = {
+			var:china_winner = 1
+			var:ztr_civil_war_value = 0
+		}
+		video = "modernising_china"
+	}
+	event_image = {
+		trigger = {
+			var:china_winner = 2
+			var:ztr_civil_war_value = 0
+		}
+		video = "chinese_city"
+	}
+	event_image = {
+		trigger = {
+			var:china_winner = 3
+			var:ztr_civil_war_value = 0
+		}
+		video = "asia_buddhism"
+	}
+	event_image = {
+		trigger = {
+			var:ztr_civil_war_value = 1
+		}
+		video = "unspecific_devastation"
+	}
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	icon = "gfx/interface/icons/event_icons/event_newspaper.dds"
+	trigger = {
+		has_variable = the_future_of_china_active
+	}
+	immediate = {
+		# Calculate X over Y
+		set_variable = {
+			name = ztr_civil_war_value
+			value = 0
+		}
+		# 0 means no civil war, 1 means civil war
+		# --- CASE: CORPORATE IS X ---
+		if = {
+			limit = {
+				var:ztr_china_corporate_var >= var:ztr_china_federation_var
+				var:ztr_china_corporate_var >= var:ztr_china_technoconfucian_var
+			}
+			set_variable = {
+				name = china_winner
+				value = 1
+			}
+			# 1 = Corporate
+			every_scope_state = {
+				limit = {
+					is_coastal = yes
+				}
+				add_modifier = {
+					name = ztr_coastal_construction_bonus_modifier
+					years = 10
+				}
+			}
+			if = {
+				limit = {
+					var:ztr_china_federation_var >= var:ztr_china_technoconfucian_var
+				}
+				set_variable = {
+					name = china_second
+					value = 2
+				}
+				# 2 = Federation
+				set_variable = {
+					name = diff
+					value = var:ztr_china_corporate_var
+				}
+				change_variable = {
+					name = diff
+					subtract = var:ztr_china_federation_var
+				}
+			}
+			else = {
+				set_variable = {
+					name = china_second
+					value = 3
+				}
+				# 3 = Techno
+				set_variable = {
+					name = diff
+					value = var:ztr_china_corporate_var
+				}
+				change_variable = {
+					name = diff
+					subtract = var:ztr_china_technoconfucian_var
+				}
+			}
+			if = {
+				limit = {
+					var:diff <= 20
+				}
+				set_variable = {
+					name = ztr_civil_war_value
+					value = 1
+				}
+			}
+		}
+		# --- CASE: FEDERATION IS X ---
+		else_if = {
+			limit = {
+				var:ztr_china_federation_var >= var:ztr_china_corporate_var
+				var:ztr_china_federation_var >= var:ztr_china_technoconfucian_var
+			}
+			set_variable = {
+				name = china_winner
+				value = 2
+			}
+			# 2 = Federation
+			if = {
+				limit = {
+					var:ztr_china_corporate_var >= var:ztr_china_technoconfucian_var
+				}
+				set_variable = {
+					name = china_second
+					value = 1
+				}
+				# 1 = Corporate
+				set_variable = {
+					name = diff
+					value = var:ztr_china_federation_var
+				}
+				change_variable = {
+					name = diff
+					subtract = var:ztr_china_corporate_var
+				}
+				if = {
+					limit = {
+						var:diff <= 20
+					}
+					set_variable = {
+						name = ztr_civil_war_value
+						value = 1
+					}
+				}
+			}
+			else = {
+				set_variable = {
+					name = china_second
+					value = 3
+				}
+				# 3 = Techno
+				# X=Fed, Y=Techno -> No civil war
+			}
+		}
+		# --- CASE: TECHNO IS X ---
+		else = {
+			set_variable = {
+				name = china_winner
+				value = 3
+			}
+			# 3 = Techno
+			if = {
+				limit = {
+					var:ztr_china_corporate_var >= var:ztr_china_federation_var
+				}
+				set_variable = {
+					name = china_second
+					value = 1
+				}
+				# 1 = Corporate
+				set_variable = {
+					name = diff
+					value = var:ztr_china_technoconfucian_var
+				}
+				change_variable = {
+					name = diff
+					subtract = var:ztr_china_corporate_var
+				}
+				if = {
+					limit = {
+						var:diff <= 20
+					}
+					set_variable = {
+						name = ztr_civil_war_value
+						value = 1
+					}
+				}
+			}
+			else = {
+				set_variable = {
+					name = china_second
+					value = 2
+				}
+				# 2 = Federation
+				# X=Techno, Y=Fed -> No civil war
+			}
+		}
+	}
+	# --- PEACEFUL OUTCOMES ---
+	option = {
+		name = the_future_of_china.100.a		# Corporate peaceful
+		trigger = {
+			var:china_winner = 1
+			var:ztr_civil_war_value = 0
+		}
+		add_modifier = {
+			name = the_future_of_china_corporate_outcome_modifier
+		}
+		adopt_china_corporate_laws = yes
+		custom_tooltip = the_future_of_china_corporate_outcome_tt
+		ztr_china_remove_renaissance_vars = yes
+	}
+	option = {
+		name = the_future_of_china.100.b		# Federation peaceful
+		trigger = {
+			var:china_winner = 2
+			var:ztr_civil_war_value = 0
+		}
+		add_modifier = {
+			name = the_future_of_china_federation_outcome_modifier
+		}
+		adopt_china_federation_laws = yes
+		custom_tooltip = the_future_of_china_federation_outcome_tt
+		ztr_china_remove_renaissance_vars = yes
+	}
+	option = {
+		name = the_future_of_china.100.c		# Techno Confucian peaceful
+		trigger = {
+			var:china_winner = 3
+			var:ztr_civil_war_value = 0
+		}
+		add_modifier = {
+			name = the_future_of_china_technoconfucian_outcome_modifier
+		}
+		adopt_china_technoconfucian_laws = yes
+		custom_tooltip = the_future_of_china_technoconfucian_outcome_tt
+		ztr_china_remove_renaissance_vars = yes
+	}
+	# --- CIVIL WAR OUTCOMES ---
+	# Option CW1: Corporate wins, Hinterland (Federation or Techno) rebels!
+	option = {
+		name = the_future_of_china.100.cw1
+		trigger = {
+			var:china_winner = 1
+			var:ztr_civil_war_value = 1
+		}
+		add_modifier = {
+			name = the_future_of_china_corporate_outcome_modifier
+		}
+		adopt_china_corporate_laws = yes
+		custom_tooltip = the_future_of_china_corporate_outcome_tt
+		random_scope_state = {
+			limit = {
+				is_coastal = no
+			}
+			save_scope_as = origin_state
+		}
+		if = {
+			limit = {
+				var:china_second = 2
+			}
+			create_country = {
+				tag = ZFC
+				origin = root
+				state = scope:origin_state
+			}
+			c:ZFC = {
+				save_scope_as = rebellion_tag
+				adopt_china_federation_laws = yes
+				add_journal_entry = {
+					type = je_demographic_1_to_2
+				}
+			}
+		}
+		else = {
+			create_country = {
+				tag = ZTC
+				origin = root
+				state = scope:origin_state
+			}
+			c:ZTC = {
+				save_scope_as = rebellion_tag
+				adopt_china_technoconfucian_laws = yes
+				add_journal_entry = {
+					type = je_demographic_1_to_2
+				}
+			}
+		}
+		# Give Hinterland states
+		ztr_china_assign_hinterland_states_to_rebellion = yes
+		scope:rebellion_tag = {
+			create_diplomatic_play = {
+				name = dp_secession
+				target_country = root
+				type = dp_secession
+			}
+		}
+		ztr_china_remove_renaissance_vars = yes
+	}
+	# Option CW2: Federation wins, Corporate (coastal) rebels!
+	option = {
+		name = the_future_of_china.100.cw2
+		trigger = {
+			var:china_winner = 2
+			var:ztr_civil_war_value = 1
+		}
+		add_modifier = {
+			name = the_future_of_china_federation_outcome_modifier
+		}
+		adopt_china_federation_laws = yes
+		custom_tooltip = the_future_of_china_federation_outcome_tt
+		random_scope_state = {
+			limit = {
+				is_coastal = yes
+			}
+			save_scope_as = origin_state
+		}
+		create_country = {
+			tag = ZCC
+			origin = root
+			state = scope:origin_state
+		}
+		c:ZCC = {
+			save_scope_as = rebellion_tag
+			adopt_china_corporate_laws = yes
+			add_journal_entry = {
+				type = je_demographic_1_to_2
+			}
+		}
+		# Give Coastal states
+		ztr_china_assign_hinterland_states_to_rebellion = yes
+		scope:rebellion_tag = {
+			create_diplomatic_play = {
+				name = dp_secession
+				target_country = root
+				type = dp_secession
+			}
+		}
+		ztr_china_remove_renaissance_vars = yes
+	}
+	# Option CW3: Techno wins, Corporate (coastal) rebels!
+	option = {
+		name = the_future_of_china.100.cw3
+		trigger = {
+			var:china_winner = 3
+			var:ztr_civil_war_value = 1
+		}
+		add_modifier = {
+			name = the_future_of_china_technoconfucian_outcome_modifier
+		}
+		adopt_china_technoconfucian_laws = yes
+		custom_tooltip = the_future_of_china_technoconfucian_outcome_tt
+		random_scope_state = {
+			limit = {
+				is_coastal = yes
+			}
+			save_scope_as = origin_state
+		}
+		create_country = {
+			tag = ZCC
+			origin = root
+			state = scope:origin_state
+		}
+		c:ZCC = {
+			save_scope_as = rebellion_tag
+			adopt_china_corporate_laws = yes
+			add_journal_entry = {
+				type = je_demographic_1_to_2
+			}
+		}
+		# Give Coastal states
+		ztr_china_assign_hinterland_states_to_rebellion = yes
+		scope:rebellion_tag = {
+			create_diplomatic_play = {
+				name = dp_secession
+				target_country = root
+				type = dp_secession
+			}
+		}
+		ztr_china_remove_renaissance_vars = yes
+	}
+}

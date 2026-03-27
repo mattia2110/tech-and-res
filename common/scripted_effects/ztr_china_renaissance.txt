@@ -1,0 +1,526 @@
+ztr_china_init_renaissance_vars = {
+	set_variable = {
+		name = ztr_china_corporate_var
+		value = 0
+	}
+	set_variable = {
+		name = ztr_china_federation_var
+		value = 0
+	}
+	set_variable = {
+		name = ztr_china_technoconfucian_var
+		value = 0
+	}
+	set_variable = {
+		name = ztr_china_corporate_component_var
+		value = 0
+	}
+	set_variable = {
+		name = ztr_china_federation_component_var
+		value = 0
+	}
+	set_variable = {
+		name = ztr_china_technoconfucian_component_var
+		value = 0
+	}
+}
+
+ztr_china_remove_renaissance_vars = {
+	remove_variable = ztr_china_corporate_var
+	remove_variable = ztr_china_federation_var
+	remove_variable = ztr_china_technoconfucian_var
+	remove_variable = ztr_china_corporate_component_var
+	remove_variable = ztr_china_federation_component_var
+	remove_variable = ztr_china_technoconfucian_component_var
+	remove_variable = the_future_of_china_active
+}
+
+ztr_china_update_corporate_bar = {
+	if = {
+		limit = {
+			ig:ig_industrialists = {
+				is_powerful = yes
+			}
+		}
+		change_variable = {
+			name = ztr_china_corporate_component_var
+			add = 1
+		}
+	}
+	if = {
+		limit = {
+			ig:ig_industrialists = {
+				is_in_government = yes
+			}
+		}
+		change_variable = {
+			name = ztr_china_corporate_component_var
+			add = 0.5
+		}
+	}
+	if = {
+		limit = {
+			has_law = law_type:law_free_trade
+		}
+		change_variable = {
+			name = ztr_china_corporate_component_var
+			add = 0.5
+		}
+	}
+	if = {
+		limit = {
+			has_law = law_type:law_laissez_faire
+		}
+		change_variable = {
+			name = ztr_china_corporate_component_var
+			add = 0.5
+		}
+	}
+	if = {
+		limit = {
+			ztr_gdp_per_capita >= 2
+		}
+		change_variable = {
+			name = ztr_china_corporate_component_var
+			add = 0.5
+		}
+	}
+	if = {
+		limit = {
+			ztr_gdp_per_capita >= 4
+		}
+		change_variable = {
+			name = ztr_china_corporate_component_var
+			add = 0.5
+		}
+	}
+	if = {
+		limit = {
+			has_technology_researched = stock_exchange
+		}
+		change_variable = {
+			name = ztr_china_corporate_component_var
+			add = 0.5
+		}
+	}
+	if = {
+		limit = {
+			ig:ig_landowners = {
+				is_powerful = yes
+			}
+		}
+		change_variable = {
+			name = ztr_china_corporate_component_var
+			subtract = 0.5
+		}
+	}
+	if = {
+		limit = {
+			OR = {
+				has_law = law_type:law_isolationism
+				has_law = law_type:law_canton_system
+			}
+		}
+		change_variable = {
+			name = ztr_china_corporate_component_var
+			subtract = 0.5
+		}
+	}
+	if = {
+		limit = {
+			any_scope_state = {
+				turmoil > 0.25
+			}
+		}
+		change_variable = {
+			name = ztr_china_corporate_component_var
+			subtract = 0.5
+		}
+	}
+}
+
+ztr_china_update_federation_bar = {
+	if = {
+		limit = {
+			ztr_is_democratic = yes
+		}
+		change_variable = {
+			name = ztr_china_federation_component_var
+			add = 1
+		}
+	}
+	if = {
+		limit = {
+			OR = {
+				has_law = law_type:law_census_voting
+				has_law = law_type:law_universal_suffrage
+			}
+		}
+		change_variable = {
+			name = ztr_china_federation_component_var
+			add = 0.5
+		}
+	}
+	if = {
+		limit = {
+			ig:ig_armed_forces = {
+				NOT = {
+					is_powerful = yes
+				}
+				NOT = {
+					is_marginal = yes
+				}
+			}
+		}
+		change_variable = {
+			name = ztr_china_federation_component_var
+			add = 0.5
+		}
+	}
+	if = {
+		limit = {
+			ig:ig_intelligentsia = {
+				is_powerful = yes
+			}
+		}
+		change_variable = {
+			name = ztr_china_federation_component_var
+			add = 0.5
+		}
+	}
+	if = {
+		limit = {
+			has_law = law_type:law_serfdom
+		}
+		change_variable = {
+			name = ztr_china_federation_component_var
+			add = 1
+		}
+	}
+	if = {
+		limit = {
+			OR = {
+				has_law = law_type:law_national_militia
+				has_law = law_type:law_professional_army
+			}
+		}
+		change_variable = {
+			name = ztr_china_federation_component_var
+			add = 0.5
+		}
+	}
+	if = {
+		limit = {
+			OR = {
+				country_rank = rank_value:great_power
+				has_modifier = ztr_superpower
+			}
+		}
+		change_variable = {
+			name = ztr_china_federation_component_var
+			add = 0.5
+		}
+	}
+	if = {
+		limit = {
+			NOT = {
+				any_interest_group = {
+					ig_clout >= 0.3
+				}
+			}
+		}
+		change_variable = {
+			name = ztr_china_federation_component_var
+			add = 0.5
+		}
+	}
+	if = {
+		limit = {
+			has_law = law_type:law_autocracy
+		}
+		change_variable = {
+			name = ztr_china_federation_component_var
+			subtract = 1
+		}
+	}
+	if = {
+		limit = {
+			is_at_war = yes
+		}
+		change_variable = {
+			name = ztr_china_federation_component_var
+			subtract = 0.5
+		}
+	}
+}
+
+ztr_china_update_technoconfucian_bar = {
+	if = {
+		limit = {
+			ig:ig_landowners = {
+				is_powerful = yes
+			}
+		}
+		change_variable = {
+			name = ztr_china_technoconfucian_component_var
+			add = 1
+		}
+	}
+	if = {
+		limit = {
+			ig:ig_devout = {
+				is_powerful = yes
+			}
+		}
+		change_variable = {
+			name = ztr_china_technoconfucian_component_var
+			add = 0.5
+		}
+	}
+	if = {
+		limit = {
+			OR = {
+				has_law = law_type:law_isolationism
+				has_law = law_type:law_canton_system
+			}
+		}
+		change_variable = {
+			name = ztr_china_technoconfucian_component_var
+			add = 1
+		}
+	}
+	if = {
+		limit = {
+			OR = {
+				has_law = law_type:law_serfdom
+				has_law = law_type:law_debt_slavery
+			}
+		}
+		change_variable = {
+			name = ztr_china_technoconfucian_component_var
+			add = 0.5
+		}
+	}
+	if = {
+		limit = {
+			has_law = law_type:law_autocracy
+		}
+		change_variable = {
+			name = ztr_china_technoconfucian_component_var
+			add = 0.5
+		}
+	}
+	if = {
+		limit = {
+			literacy_rate < 0.3
+		}
+		change_variable = {
+			name = ztr_china_technoconfucian_component_var
+			add = 0.5
+		}
+	}
+	if = {
+		limit = {
+			NOT = {
+				has_technology_researched = political_agitation
+			}
+		}
+		change_variable = {
+			name = ztr_china_technoconfucian_component_var
+			add = 0.5
+		}
+	}
+	if = {
+		limit = {
+			ig:ig_industrialists = {
+				is_powerful = yes
+			}
+		}
+		change_variable = {
+			name = ztr_china_technoconfucian_component_var
+			subtract = 1
+		}
+	}
+	if = {
+		limit = {
+			ztr_is_democratic = yes
+		}
+		change_variable = {
+			name = ztr_china_technoconfucian_component_var
+			subtract = 0.5
+		}
+	}
+	if = {
+		limit = {
+			ztr_gdp_per_capita >= 4
+		}
+		change_variable = {
+			name = ztr_china_technoconfucian_component_var
+			subtract = 0.5
+		}
+	}
+}
+
+ztr_china_final_renaissance_update = {
+	# Aggregate components into variables
+	change_variable = {
+		name = ztr_china_corporate_var
+		add = var:ztr_china_corporate_component_var
+	}
+	change_variable = {
+		name = ztr_china_federation_var
+		add = var:ztr_china_federation_component_var
+	}
+	change_variable = {
+		name = ztr_china_technoconfucian_var
+		add = var:ztr_china_technoconfucian_component_var
+	}
+	# Keep variables at minimum 0
+	if = {
+		limit = {
+			var:ztr_china_corporate_var < 0
+		}
+		set_variable = {
+			name = ztr_china_corporate_var
+			value = 0
+		}
+	}
+	if = {
+		limit = {
+			var:ztr_china_federation_var < 0
+		}
+		set_variable = {
+			name = ztr_china_federation_var
+			value = 0
+		}
+	}
+	if = {
+		limit = {
+			var:ztr_china_technoconfucian_var < 0
+		}
+		set_variable = {
+			name = ztr_china_technoconfucian_var
+			value = 0
+		}
+	}
+	# Update UI bars
+	scope:journal_entry = {
+		set_bar_progress = {
+			value = root.var:ztr_china_corporate_var
+			name = ztr_china_corporate_progress_bar
+		}
+		set_bar_progress = {
+			value = root.var:ztr_china_federation_var
+			name = ztr_china_federation_progress_bar
+		}
+		set_bar_progress = {
+			value = root.var:ztr_china_technoconfucian_var
+			name = ztr_china_technoconfucian_progress_bar
+		}
+	}
+	# Clear temporary component variables
+	set_variable = {
+		name = ztr_china_corporate_component_var
+		value = 0
+	}
+	set_variable = {
+		name = ztr_china_federation_component_var
+		value = 0
+	}
+	set_variable = {
+		name = ztr_china_technoconfucian_component_var
+		value = 0
+	}
+}
+
+ztr_china_assign_coastal_states_to_rebellion = {
+	every_scope_state = {
+		limit = {
+			OR = {
+				# state_region = s:STATE_CHONGQING
+				# state_region = s:STATE_HENAN
+				# state_region = s:STATE_JIANGXI
+				# state_region = s:STATE_WESTERN_HUBEI
+				# state_region = s:STATE_EASTERN_HUBEI
+				# state_region = s:STATE_HUNAN
+				# state_region = s:STATE_SHANXI
+				# state_region = s:STATE_NINGXIA
+				# state_region = s:STATE_GANSU
+				# state_region = s:STATE_XIAN
+				# state_region = s:STATE_SICHUAN
+				# state_region = s:STATE_YUNNAN
+				# state_region = s:STATE_GUIZHOU
+				state_region = s:STATE_GUANGDONG
+				state_region = s:STATE_FUJIAN
+				state_region = s:STATE_ZHEJIANG
+				state_region = s:STATE_SHANDONG
+				state_region = s:STATE_JIANGSU
+				state_region = s:STATE_NANJING
+				state_region = s:STATE_ZHILI
+				state_region = s:STATE_GUANGXI
+				state_region = s:STATE_SOUTHERN_ANHUI
+				state_region = s:STATE_NORTHERN_ANHUI
+				state_region = s:STATE_SUZHOU
+				state_region = s:STATE_SHAOZHOU
+				state_region = s:STATE_FORMOSA
+			}
+		}
+		set_state_owner = scope:rebellion_tag
+	}
+}
+
+ztr_china_assign_hinterland_states_to_rebellion = {
+	every_scope_state = {
+		limit = {
+			OR = {
+				state_region = s:STATE_CHONGQING
+				state_region = s:STATE_HENAN
+				state_region = s:STATE_WESTERN_HUBEI
+				state_region = s:STATE_EASTERN_HUBEI
+				state_region = s:STATE_SHANXI
+				state_region = s:STATE_NINGXIA
+				state_region = s:STATE_GANSU
+				state_region = s:STATE_XIAN
+				state_region = s:STATE_SICHUAN
+				state_region = s:STATE_YUNNAN
+				state_region = s:STATE_GUIZHOU
+				# state_region = s:STATE_GUANGDONG
+				# state_region = s:STATE_FUJIAN
+				# state_region = s:STATE_ZHEJIANG
+				# state_region = s:STATE_SHANDONG
+				# state_region = s:STATE_JIANGSU				
+				# state_region = s:STATE_NANJING
+				# state_region = s:STATE_ZHILI
+				# state_region = s:STATE_GUANGXI
+				# state_region = s:STATE_SOUTHERN_ANHUI
+				# state_region = s:STATE_NORTHERN_ANHUI
+				# state_region = s:STATE_SUZHOU
+				# state_region = s:STATE_SHAOZHOU
+				# state_region = s:STATE_FORMOSA
+			}
+		}
+		set_state_owner = scope:rebellion_tag
+	}
+}
+
+adopt_china_corporate_laws = {
+	activate_law = law_type:law_presidential_republic
+	activate_law = law_type:law_wealth_voting
+	activate_law = law_type:law_laissez_faire
+	activate_law = law_type:law_free_trade
+	activate_law = law_type:law_commercialized_agriculture
+}
+
+adopt_china_federation_laws = {
+	activate_law = law_type:law_parliamentary_republic
+	activate_law = law_type:law_census_voting
+	activate_law = law_type:law_elected_bureaucrats
+	activate_law = law_type:law_national_militia
+}
+
+adopt_china_technoconfucian_laws = {
+	activate_law = law_type:law_technocracy
+	activate_law = law_type:law_appointed_bureaucrats
+	activate_law = law_type:law_agrarianism
+	activate_law = law_type:law_secret_police
+}

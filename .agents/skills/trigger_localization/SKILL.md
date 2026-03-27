@@ -1,149 +1,121 @@
-﻿# Structure
+---
+name: Trigger Localization
+description: Guide for Victoria 3 trigger localization definitions. Use when creating, editing, or reviewing files in common/trigger_localization, especially when adding or overriding human-readable text for triggers, scripted triggers, scope comparisons, comparator specializations, and any/all/count trigger tooltips.
+---
 
-	my_trigger = {
-		# One or more of these rules:
-		global = <localization_key>	# no pronoun ("Is an adult", used for example inside any triggers)
-		first = <localization_key>	# first person ("I am an adult")
-		third = <localization_key>	# third person ("[CHARACTER.GetName] is an adult")
-		# If the requested entry is not available, the system will fall back to the _last_ available one.
+# Trigger Localization
 
-		# <localization_key> requires a positive version ("<localization_key>") and a negative version ("NOT_<localization_key>", used inside NOT triggers).
-		# Optionally, the negative version key can be overridden using
-		# <rule>_not = <localization_key>	# e.g. global_not = TRIGGER_OR
-	}
+Use this skill for Victoria 3 files in `common/trigger_localization/*.txt`.
 
-# Examples
+Do not use it for:
+- `common/scripted_triggers/*.txt` logic changes by themselves
+- normal localization `.yml` editing with no trigger-localization definition change
+- tooltip text embedded directly in events, journal entries, or scripted buttons
 
-# is_betrothed = yes
+Pair it with:
+- `Scripted Triggers` when the trigger key itself is being added or changed
+- `Localization Formatting` when you also need to add or correct the referenced localization strings
 
-	is_betrothed = {
-		global = IS_BETROTHED_TRIGGER
-		first = I_AM_BETROTHED_TRIGGER
-		third = THEY_ARE_BETROTHED_TRIGGER
+## File Location
 
-		# expected localization keys: IS_BETROTHED_TRIGGER, NOT_IS_BETROTHED_TRIGGER, I_AM_BETROTHED_TRIGGER, NOT_I_AM_BETROTHED_TRIGGER, THEY_ARE_BETROTHED_TRIGGER, NOT_THEY_ARE_BETROTHED_TRIGGER
-	}
+Write modded trigger-localization definitions in:
+- `common/trigger_localization/*.txt`
 
+Inspect the local mod first:
+- `common/scripted_triggers/*.txt`
+- the exact consumer that shows the tooltip
+- `localization/english/*.yml`
 
-	is_betrothed = {
-		global = IS_BETROTHED_TRIGGER
-		third = THEY_ARE_BETROTHED_TRIGGER
+Then compare against vanilla references:
+- `C:\Program Files (x86)\Steam\steamapps\common\Victoria 3\game\common\trigger_localization\00_trigger_localization.txt`
+- `C:\Program Files (x86)\Steam\steamapps\common\Victoria 3\game\common\trigger_localization\01_scripted_triggers_localization.txt`
+- `C:\Program Files (x86)\Steam\steamapps\common\Victoria 3\game\common\trigger_localization\02_geographic_regions_localization.txt`
+- `C:\Program Files (x86)\Steam\steamapps\common\Victoria 3\game\common\trigger_localization\trigger_localization.md`
 
-		# expected localization keys: IS_BETROTHED_TRIGGER, NOT_IS_BETROTHED_TRIGGER
-		# If a first person localization is requested, it will deliver the third person instead (since it is last in the list).
-	}
+In this repo there is currently no local `common/trigger_localization/` folder, so most work here will also require adding the referenced text keys in normal localization files.
 
-	and = {
-		global = TRIGGER_AND
-		global_not = TRIGGER_OR
+## What These Definitions Do
 
-		# expected localization keys: TRIGGER_AND, TRIGGER_OR
-	}
+Trigger localization maps a trigger key to readable tooltip text. It does not change gameplay logic. It decides:
+- which text is shown in global, first-person, third-person, or none-scope contexts
+- which negative text is used for `NOT`
+- how comparator variants such as `_greater_or_equal` are phrased
+- how `any_*`, `*_all`, `*_count`, and `*_percent` trigger families read in tooltips
+- how scope comparison keys describe subject and object relationships
 
-	only_negative_form_used = {
-		first_not = I_AM_NOT_A_CHILD
+These files sit between scripted logic and UI presentation:
+- the trigger or scripted trigger provides the boolean check
+- `common/trigger_localization/` tells the game how to explain that check to the player
+- `localization/english/*.yml` provides the actual text keys referenced here
 
-		# expected localization keys: I_AM_NOT_A_CHILD
-	}
+## Workflow
 
-# Value Comparison Triggers
+1. Inspect the exact trigger key and tooltip context before writing localization for it.
+2. Search vanilla for the key and any related suffix families before creating a new entry.
+3. Define only the forms that are actually needed: `global`, `first`, `third`, `none`, and their `_not` variants.
+4. For comparator triggers, check whether the generic key is enough or whether you need `_equal`, `_greater_than`, `_greater_or_equal`, `_less_than`, `_less_or_equal`, or `_not_equal`.
+5. For `any_*` families, verify whether you need regular, `_all`, `_count`, or `_percent` forms.
+6. Add or update the referenced localization keys in `.yml` files and verify the tooltip reads naturally in context.
 
-Example trigger usage: dread >= 50
+## Common Structure
 
-You can use a basic version that covers all cases, as well as specialize the localization depending on comparison
-operator.
-Either way you have access to $COMPARATOR$ ("greater than", "equal to", ...) and $NUM$ (the value).
+```pdx
+example_trigger = {
+	global = EXAMPLE_TRIGGER_GLOBAL
+	global_not = EXAMPLE_TRIGGER_GLOBAL_NOT
+	first = EXAMPLE_TRIGGER_FIRST
+	first_not = EXAMPLE_TRIGGER_FIRST_NOT
+	third = EXAMPLE_TRIGGER_THIRD
+	third_not = EXAMPLE_TRIGGER_THIRD_NOT
+}
 
-	dread = {
-		third = THEIR_DREAD_TRIGGER		# "[CHARACTER.GetFirstNamePossessiveOrMy] Dread is $COMPARATOR$ $NUM$"
-	}
-	gold_greater_or_equal = {
-		third = THEY_HAVE_GOLD_TRIGGER	# "[CHARACTER.GetTitledFirstName] has $NUM$ Gold"
-	}
+example_trigger_greater_or_equal = {
+	global = EXAMPLE_TRIGGER_GREATER_OR_EQUAL
+	third = EXAMPLE_TRIGGER_GREATER_OR_EQUAL_THIRD
+}
 
-Available comparator specializations:
-= checks <trigger>_equal
-> checks <trigger>_greater_than
-> = checks <trigger>_greater_or_equal
-<    checks <trigger>_less_than
-<= checks <trigger>_less_or_equal
-> If a specialization is not available, it falls back to the generic version ("<trigger>")
+any_example_scope = {
+	global = ANY_EXAMPLE_SCOPE
+	first = ANY_EXAMPLE_SCOPE_FIRST
+}
+any_example_scope_count = {
+	global = ANY_EXAMPLE_SCOPE_COUNT
+	first = ANY_EXAMPLE_SCOPE_COUNT_FIRST
+	third = ANY_EXAMPLE_SCOPE_COUNT_THIRD
+}
+```
 
-# Scope Comparison Triggers
+## Field Guidance
 
-Example trigger usage: scope:actor.mother.betrothed = scope:recipient.liege
+- Top-level key: Usually the trigger key itself or a specialized suffix form.
+- `global`, `first`, `third`, `none`: Context-specific localization mapping.
+- `global_not`, `first_not`, `third_not`, `none_not`: Optional explicit negative override keys.
+- Comparator specialization keys such as `<trigger>_greater_or_equal`: Use when one phrasing does not fit every operator.
+- `any_*`, `*_all`, `*_count`, `*_percent`: Separate trigger-localization entries for each tooltip family.
 
-The left-hand-side expression is split into two parts:
+## Important Caution
 
-1) Everything before the last . will become the "subject" of the localization (scope:actor.mother in the example).
-2) Everything after the last . will determine the localization entry used (<key>_equal, betrothed_equal in the example).
-   The right-hand-side expression is the "object" of the localization (scope:recipient.liege in the example).
+Trigger localization has a few easy-to-miss rules:
+- missing forms fall back to the last available form, which can produce awkward person or scope wording
+- negative `any_*` checks are not always simple `NOT_` versions; the engine can invert the any/all/count logic
+- scope comparison text must read clearly even when the raw script expression is complex
+- these files only point at localization keys; they do not replace the `.yml` text itself
 
-   betrothed_equal = {
-   third = BETROTHED_EQUAL_THIRD # "[CHARACTER.GetShortUIName|U] is betrothed to [TARGET_CHARACTER.GetShortUIName]"
-   # "<scope:actor.mother> is betrothed to <scope:recipient.liege>"
-   }
+Always test the tooltip wording from the player's perspective, not just the script author's perspective.
 
-While the example above is a bit more complex than the usual comparison, it could still happen that the expression on
-the left or right side are too complex for the player to understand what is going on. ("Why betrothed to Harold? He's
-not in the interaction?")
-In that case you should resort to custom descriptions.
+## Editing Guidance
 
-# "Any" Triggers
+- Copy the closest vanilla key family instead of inventing a new naming scheme.
+- Keep positive and negative wording semantically aligned with the real boolean test.
+- Prefer the smallest complete set of forms needed by the consuming UI.
+- If a trigger is used in multiple scopes, verify each rendered sentence still makes sense when `ROOT`, `TARGET_*`, or saved scopes differ.
+- Treat count and comparator trigger families as their own mini-APIs. Missing one specialized entry can make the fallback text misleading.
 
-There are several different kinds of "Any" triggers.
-The negative checks are a bit different, see 'Negative "Any" Triggers' below.
+## Review Checklist
 
-# Regular "Any" Trigger
-
-The regular any trigger uses the localization key from its name:
-
-	# any_child = { <triggers> }
-	any_child = {
-		third = ANY_CHILD_THIRD		# "Any of [CHARACTER.GetShortUINamePossessive] Children:"
-	}
-
-# Special "Any" Trigger: With "count" or "percent"
-
-Append "_count" or "_percent" to the localization key.
-
-	# any_child = { count >= 5	<triggers> }
-	any_child_count = {
-		third = COUNT_GT_EQ_CHILDREN_THIRD		# "$PARAMETERS$ of [CHARACTER.GetShortUINamePossessive] children"
-												# $PARAMETERS$ is available when a percentage is checked.
-	}
-
-$PARAMETERS$ is built based on the operator suffixes, the same ones mentioned in 'Value Comparison Triggers' above,
-automatically.
-There is one additional operator suffix, "_not_equal", which is used when a "count = X" is in a negative any trigger
-check. See also 'Negative "Any" Triggers' below.
-
-# Special "Any" Trigger: "All"
-
-Append "_all" to the localization key:
-
-	# any_child = { count = all	<triggers> }
-	any_child_all = {
-		third = ALL_CHILDREN_THIRD		# "All of [CHARACTER.GetShortUINamePossessive] Children:"
-	}
-
-# Negative "Any" Triggers
-
-There are no "not" versions for these localization strings. Instead the any trigger gets inverted if the check is
-negative.
-
-not regular any -> all, children are inverted
-not all -> regular any, children are inverted
-not count/percent -> count/percent, operator is inverted
-
-	NOT = { any_child = {					  is_married = yes is_adult = yes } }
-	->	  any_child = { count = all NAND = { is_married = yes is_adult = yes } }
-	☑ All of my Children:
-	  • At least one of these:
-		• Is not married
-		• Is not an adult
-
-	NOT = { any_child = { count >= 3	is_married = yes } }
-	->	  any_child = { count <  3	is_married = yes }
-	☑ Less than 3 of my Children:
-	  • Is married
+- The definition lives in `common/trigger_localization/`.
+- The top-level key matches a real trigger or specialized trigger-localization family.
+- Required `global`, `first`, `third`, `none`, and `_not` mappings are present where needed.
+- Any comparator or `any_*` suffix family is complete enough for the intended usage.
+- Every referenced localization key exists in `.yml`.
+- The wording still reads correctly in the actual tooltip context.

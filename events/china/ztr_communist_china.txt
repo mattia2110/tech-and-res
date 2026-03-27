@@ -1,0 +1,665 @@
+namespace = ztr_communist_china
+ztr_communist_china.1 = {
+	type = country_event
+	placement = scope:ztr_ccp_target_state
+	duration = 1
+	title = ztr_communist_china.1.t
+	desc = {
+		first_valid = {
+			triggered_desc = {
+				trigger = {
+					has_variable = ztr_ccp_has_inspiration
+				}
+				desc = ztr_communist_china.1.inspired.d
+			}
+			desc = ztr_communist_china.1.d
+		}
+	}
+	flavor = ztr_communist_china.1.f
+	event_image = {
+		video = "ztr_strike"
+	}
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	icon = "gfx/interface/icons/event_icons/event_protest.dds"
+	immediate = {
+		set_variable = ztr_ccp_front_active
+		set_variable = {
+			name = ztr_ccp_front_progress
+			value = 0
+		}
+		capital = {
+			save_scope_as = ztr_ccp_target_state
+		}
+		# Set 2-year cooldown
+		set_variable = {
+			name = ztr_ccp_yearly_event_cooldown
+			years = 2
+		}
+	}
+	option = {
+		name = ztr_communist_china.1.a
+		default_option = yes
+		change_variable = {
+			name = ztr_ccp_front_progress
+			add = 5
+		}
+		if = {
+			limit = {
+				has_modifier = ztr_ccp_united_front_campaign
+			}
+			remove_modifier = ztr_ccp_united_front_campaign
+		}
+		if = {
+			limit = {
+				has_modifier = ztr_ccp_mass_line_campaign
+			}
+			remove_modifier = ztr_ccp_mass_line_campaign
+		}
+		if = {
+			limit = {
+				NOT = {
+					has_modifier = ztr_ccp_repression_campaign
+				}
+			}
+			add_modifier = {
+				name = ztr_ccp_repression_campaign
+				years = 4
+			}
+		}
+		scope:ztr_ccp_target_state = {
+			add_radicals_in_state = {
+				value = large_radicals
+			}
+		}
+		if = {
+			limit = {
+				has_variable = ztr_ccp_has_inspiration
+			}
+			change_relations = {
+				country = scope:ztr_ccp_inspiration_country
+				value = -20
+			}
+		}
+		ztr_communist_china_recalculate_overall_progress = yes
+		ai_chance = {
+			base = 10
+			modifier = {
+				trigger = {
+					ztr_country_is_in_coastal_rich_china = yes
+				}
+				add = 40
+			}
+			modifier = {
+				trigger = {
+					get_country_gdp_per > 1.5
+				}
+				multiply = 0.2
+			}
+		}
+	}
+	option = {
+		name = ztr_communist_china.1.b
+		change_variable = {
+			name = ztr_ccp_front_progress
+			add = 10
+		}
+		if = {
+			limit = {
+				has_modifier = ztr_ccp_repression_campaign
+			}
+			remove_modifier = ztr_ccp_repression_campaign
+		}
+		if = {
+			limit = {
+				NOT = {
+					has_modifier = ztr_ccp_mass_line_campaign
+				}
+			}
+			add_modifier = {
+				name = ztr_ccp_mass_line_campaign
+				years = 2
+			}
+		}
+		if = {
+			limit = {
+				NOT = {
+					any_political_movement = {
+						is_political_movement_type = movement_communist
+					}
+				}
+			}
+			create_political_movement = {
+				type = movement_communist
+			}
+		}
+		if = {
+			limit = {
+				has_variable = ztr_ccp_has_inspiration
+			}
+			change_relations = {
+				country = scope:ztr_ccp_inspiration_country
+				value = 10
+			}
+		}
+		ztr_communist_china_recalculate_overall_progress = yes
+		ai_chance = {
+			base = 20
+		}
+	}
+	option = {
+		name = ztr_communist_china.1.c
+		change_variable = {
+			name = ztr_ccp_front_progress
+			add = 20
+		}
+		if = {
+			limit = {
+				has_modifier = ztr_ccp_repression_campaign
+			}
+			remove_modifier = ztr_ccp_repression_campaign
+		}
+		if = {
+			limit = {
+				NOT = {
+					has_modifier = ztr_ccp_mass_line_campaign
+				}
+			}
+			add_modifier = {
+				name = ztr_ccp_mass_line_campaign
+				years = 5
+			}
+		}
+		if = {
+			limit = {
+				NOT = {
+					any_political_movement = {
+						is_political_movement_type = movement_communist
+					}
+				}
+			}
+			create_political_movement = {
+				type = movement_communist
+			}
+		}
+		scope:ztr_ccp_target_state = {
+			add_radicals_in_state = {
+				value = large_radicals
+			}
+		}
+		if = {
+			limit = {
+				has_variable = ztr_ccp_has_inspiration
+			}
+			change_relations = {
+				country = scope:ztr_ccp_inspiration_country
+				value = 50
+			}
+		}
+		ztr_communist_china_recalculate_overall_progress = yes
+		ai_chance = {
+			base = 10
+			modifier = {
+				trigger = {
+					NOT = {
+						ztr_country_is_in_coastal_rich_china = yes
+					}
+				}
+				add = 40
+			}
+		}
+	}
+}
+
+ztr_communist_china.2 = {
+	type = country_event
+	placement = scope:ztr_ccp_target_state
+	duration = 1
+	title = ztr_communist_china.2.t
+	desc = {
+		first_valid = {
+			triggered_desc = {
+				trigger = {
+					has_variable = ztr_ccp_has_inspiration
+				}
+				desc = ztr_communist_china.2.inspired.d
+			}
+			desc = ztr_communist_china.2.d
+		}
+	}
+	flavor = ztr_communist_china.2.f
+	event_image = {
+		video = "ztr_strike"
+	}
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	icon = "gfx/interface/icons/event_icons/event_protest.dds"
+	immediate = {
+		# Set 2-year cooldown
+		set_variable = {
+			name = ztr_ccp_yearly_event_cooldown
+			years = 2
+		}
+		capital = {
+			save_scope_as = ztr_ccp_target_state
+		}
+	}
+	option = {
+		name = ztr_communist_china.2.a
+		default_option = yes
+		change_variable = {
+			name = ztr_ccp_front_progress
+			subtract = 10
+		}
+		if = {
+			limit = {
+				has_modifier = ztr_ccp_mass_line_campaign
+			}
+			remove_modifier = ztr_ccp_mass_line_campaign
+		}
+		if = {
+			limit = {
+				has_modifier = ztr_ccp_united_front_campaign
+			}
+			remove_modifier = ztr_ccp_united_front_campaign
+		}
+		if = {
+			limit = {
+				NOT = {
+					has_modifier = ztr_ccp_repression_campaign
+				}
+			}
+			add_modifier = {
+				name = ztr_ccp_repression_campaign
+				years = 5
+			}
+		}
+		scope:ztr_ccp_target_state = {
+			add_radicals_in_state = {
+				value = large_radicals
+			}
+			add_devastation = 10
+		}
+		if = {
+			limit = {
+				var:ztr_ccp_front_progress <= 0
+			}
+			ztr_communist_china_cleanup = yes
+		}
+		ztr_communist_china_recalculate_overall_progress = yes
+		ai_chance = {
+			base = 10
+			modifier = {
+				trigger = {
+					ztr_country_is_in_coastal_rich_china = yes
+				}
+				add = 20
+			}
+			modifier = {
+				trigger = {
+					var:ztr_ccp_front_progress > 20
+				}
+				multiply = 0.25
+			}
+		}
+	}
+	option = {
+		name = ztr_communist_china.2.b
+		change_variable = {
+			name = ztr_ccp_front_progress
+			add = 10
+		}
+		set_variable = ztr_ccp_united_front
+		if = {
+			limit = {
+				has_modifier = ztr_ccp_repression_campaign
+			}
+			remove_modifier = ztr_ccp_repression_campaign
+		}
+		if = {
+			limit = {
+				NOT = {
+					has_modifier = ztr_ccp_united_front_campaign
+				}
+			}
+			add_modifier = {
+				name = ztr_ccp_united_front_campaign
+				years = 5
+			}
+		}
+		add_treasury = -250000
+		if = {
+			limit = {
+				has_variable = ztr_ccp_has_inspiration
+			}
+			change_relations = {
+				country = scope:ztr_ccp_inspiration_country
+				value = 10
+			}
+		}
+		ztr_communist_china_recalculate_overall_progress = yes
+		ai_chance = {
+			base = 20
+		}
+	}
+	option = {
+		name = ztr_communist_china.2.c
+		change_variable = {
+			name = ztr_ccp_front_progress
+			add = 20
+		}
+		set_variable = ztr_ccp_united_front
+		if = {
+			limit = {
+				has_modifier = ztr_ccp_repression_campaign
+			}
+			remove_modifier = ztr_ccp_repression_campaign
+		}
+		if = {
+			limit = {
+				NOT = {
+					has_modifier = ztr_ccp_mass_line_campaign
+				}
+			}
+			add_modifier = {
+				name = ztr_ccp_mass_line_campaign
+				years = 5
+			}
+		}
+		if = {
+			limit = {
+				NOT = {
+					any_political_movement = {
+						is_political_movement_type = movement_communist
+					}
+				}
+			}
+			create_political_movement = {
+				type = movement_communist
+			}
+		}
+		add_treasury = -1000000
+		scope:ztr_ccp_target_state = {
+			add_radicals_in_state = {
+				value = large_radicals
+			}
+		}
+		ztr_communist_china_recalculate_overall_progress = yes
+		ai_chance = {
+			base = 10
+			modifier = {
+				trigger = {
+					NOT = {
+						ztr_country_is_in_coastal_rich_china = yes
+					}
+				}
+				add = 40
+			}
+		}
+	}
+}
+
+ztr_communist_china.3 = {
+	type = country_event
+	placement = scope:ztr_ccp_target_state
+	duration = 1
+	title = ztr_communist_china.3.t
+	desc = {
+		first_valid = {
+			triggered_desc = {
+				trigger = {
+					has_variable = ztr_ccp_has_inspiration
+				}
+				desc = ztr_communist_china.3.inspired.d
+			}
+			desc = ztr_communist_china.3.d
+		}
+	}
+	flavor = ztr_communist_china.3.f
+	event_image = {
+		video = "chinese_city"
+	}
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	icon = "gfx/interface/icons/event_icons/event_protest.dds"
+	immediate = {
+		# Set 2-year cooldown
+		set_variable = {
+			name = ztr_ccp_yearly_event_cooldown
+			years = 2
+		}
+		capital = {
+			save_scope_as = ztr_ccp_target_state
+		}
+	}
+	option = {
+		name = ztr_communist_china.3.a
+		default_option = yes
+		change_variable = {
+			name = ztr_ccp_front_progress
+			subtract = 15
+		}
+		if = {
+			limit = {
+				NOT = {
+					has_modifier = ztr_ccp_repression_campaign
+				}
+			}
+			add_modifier = {
+				name = ztr_ccp_repression_campaign
+				years = 5
+			}
+		}
+		every_scope_state = {
+			add_radicals_in_state = {
+				value = large_radicals
+			}
+		}
+		if = {
+			limit = {
+				var:ztr_ccp_front_progress <= 0
+			}
+			ztr_communist_china_cleanup = yes
+		}
+		ztr_communist_china_recalculate_overall_progress = yes
+		ai_chance = {
+			base = 10
+			modifier = {
+				trigger = {
+					ztr_country_is_in_coastal_rich_china = yes
+				}
+				add = 20
+			}
+			modifier = {
+				trigger = {
+					var:ztr_ccp_front_progress > 40
+				}
+				multiply = 0.25
+			}
+		}
+	}
+	option = {
+		name = ztr_communist_china.3.b
+		change_variable = {
+			name = ztr_ccp_front_progress
+			add = 15
+		}
+		set_variable = ztr_ccp_united_front
+		if = {
+			limit = {
+				has_modifier = ztr_ccp_repression_campaign
+			}
+			remove_modifier = ztr_ccp_repression_campaign
+		}
+		if = {
+			limit = {
+				NOT = {
+					has_modifier = ztr_corporate_disempowered_modifier
+				}
+			}
+			add_modifier = {
+				name = ztr_corporate_disempowered_modifier
+				years = 5
+			}
+		}
+		if = {
+			limit = {
+				NOT = {
+					has_modifier = ztr_ccp_united_front_campaign
+				}
+			}
+			add_modifier = {
+				name = ztr_ccp_united_front_campaign
+				years = 3
+			}
+		}
+		ztr_communist_china_recalculate_overall_progress = yes
+		ai_chance = {
+			base = 10
+		}
+	}
+	option = {
+		name = ztr_communist_china.3.c
+		change_variable = {
+			name = ztr_ccp_front_progress
+			add = 25
+		}
+		set_variable = ztr_ccp_united_front
+		set_variable = ztr_ccp_armed_front
+		if = {
+			limit = {
+				has_modifier = ztr_ccp_repression_campaign
+			}
+			remove_modifier = ztr_ccp_repression_campaign
+		}
+		if = {
+			limit = {
+				NOT = {
+					has_modifier = ztr_corporate_disempowered_modifier
+				}
+			}
+			add_modifier = {
+				name = ztr_corporate_disempowered_modifier
+				years = 5
+			}
+		}
+		every_scope_state = {
+			add_radicals_in_state = {
+				value = medium_radicals
+			}
+		}
+		if = {
+			limit = {
+				NOT = {
+					has_modifier = ztr_ccp_united_front_campaign
+				}
+			}
+			add_modifier = {
+				name = ztr_ccp_united_front_campaign
+				years = 8
+			}
+		}
+		ztr_communist_china_recalculate_overall_progress = yes
+		ai_chance = {
+			base = 10
+			modifier = {
+				trigger = {
+					NOT = {
+						ztr_country_is_in_coastal_rich_china = yes
+					}
+				}
+				add = 40
+			}
+		}
+	}
+}
+
+ztr_communist_china.4 = {
+	type = country_event
+	placement = scope:ztr_ccp_target_state
+	duration = 1
+	title = ztr_communist_china.4.t
+	desc = {
+		first_valid = {
+			triggered_desc = {
+				trigger = {
+					has_variable = ztr_ccp_has_inspiration
+				}
+				desc = ztr_communist_china.4.inspired.d
+			}
+			desc = ztr_communist_china.4.d
+		}
+	}
+	flavor = ztr_communist_china.4.f
+	event_image = {
+		video = "chinese_city"
+	}
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	icon = "gfx/interface/icons/event_icons/event_protest.dds"
+	immediate = {
+		capital = {
+			save_scope_as = ztr_ccp_target_state
+		}
+	}
+	# China Communist will be formed, otherwise root will be annexed by CHI or player will become communist CHI
+	option = {
+		name = ztr_communist_china.4.a
+		ztr_communist_china_create_front = yes
+		ai_chance = {
+			base = 10
+			modifier = {
+				trigger = {
+					NOT = {
+						ztr_country_is_in_coastal_rich_china = yes
+					}
+				}
+				add = 40
+			}
+		}
+	}
+	# Suppress strongly the front
+	option = {
+		name = ztr_communist_china.4.b
+		default_option = yes
+		change_variable = {
+			name = ztr_ccp_front_progress
+			subtract = 25
+		}
+		if = {
+			limit = {
+				NOT = {
+					has_modifier = ztr_ccp_repression_campaign
+				}
+			}
+			add_modifier = {
+				name = ztr_ccp_repression_campaign
+				years = 6
+			}
+		}
+		scope:ztr_ccp_target_state = {
+			add_radicals_in_state = {
+				value = 0.25
+			}
+		}
+		if = {
+			limit = {
+				var:ztr_ccp_front_progress <= 0
+			}
+			ztr_communist_china_cleanup = yes
+		}
+		ztr_communist_china_recalculate_overall_progress = yes
+		ai_chance = {
+			base = 10
+			modifier = {
+				trigger = {
+					ztr_country_is_in_coastal_rich_china = yes
+				}
+				add = 20
+			}
+			modifier = {
+				trigger = {
+					get_country_gdp_per > 1.5
+				}
+				multiply = 0.2
+			}
+		}
+	}
+}
+

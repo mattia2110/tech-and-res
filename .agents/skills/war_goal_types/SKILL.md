@@ -1,53 +1,118 @@
-﻿# Notes
+---
+description: Guide for Victoria 3 war goal type definitions. Use when creating, editing, or reviewing files in common/war_goal_types, especially when adding a new war demand, overriding vanilla validation, or tracing how a war goal interacts with plays, treaty articles, and AI strategy.
+name: War Goal Types
+---
 
-## Kind, type, settings?
-A war goal type is a war goal as defined in script (e.g. the contents of 00_annex_country.txt). The Kind of the war goal defines the code-side predefined package of behavior that war goal will have, primarily defining what effect the war goal has when executed. Settings further customize how the war goal is treated in different checks. A war goal can only have one kind, but multiple settings.
+# War Goal Types
 
-# Reference
+Use this skill for Victoria 3 files in `common/war_goal_types/*.txt`.
 
-```
-some_war_goal = {
-	icon = "gfx/interface/icons/war_goals/icon.dds"
+Do not use it for:
+- `common/diplomatic_plays/*.txt` edits with no war-goal type changes
+- `common/diplomatic_actions/*.txt` war creation logic with no new or changed war-goal definition
+- treaty article work where the real change belongs in `common/treaty_articles/*.txt`
 
-	kind = war_goal_kind
+Pair it with:
+- `Diplomatic Plays` when the play grants or constrains the war goal
+- `Diplomatic Action` when an action creates the play or manually adds the goal
+- `Treaty Articles` when the war goal enforces or converts into treaty article content
+
+## File Location
+
+Write modded war goal definitions in:
+- `common/war_goal_types/*.txt`
+
+Use vanilla as the schema and pattern source:
+- `C:\Program Files (x86)\Steam\steamapps\common\Victoria 3\game\common\war_goal_types\war_goal_types.md`
+- `C:\Program Files (x86)\Steam\steamapps\common\Victoria 3\game\common\war_goal_types\*.txt`
+
+This repo does not currently contain a local `common/war_goal_types/` folder, so if you add or override a war goal here you will usually also need to inspect the surrounding local consumers first:
+- `common/diplomatic_plays/*.txt`
+- `common/diplomatic_actions/*.txt`
+- `common/ai_strategies/*.txt`
+- `common/ai_strategies_vanilla/*.txt`
+- `common/treaty_articles/*.txt`
+- `common/script_values/*.txt`
+- `common/scripted_triggers/*.txt`
+- `common/scripted_effects/*.txt`
+- `localization/english/*.yml`
+
+In this repo, current local files already depend on vanilla war goal keys such as:
+- `contain_threat`
+- `humiliation`
+- `take_treaty_port`
+- `enforce_treaty_article`
+
+## What These Definitions Do
+
+A war goal type is the scripted definition of a war demand. In practice it decides:
+- which hardcoded `kind` supplies the base engine behavior
+- which `settings` control validation, conflict handling, targeting, and availability
+- what `target_type` the diplomatic-play UI loops over
+- how the goal is listed, validated, costed, and enforced
+- whether AI treats it as significant
+
+War goal types are tightly coupled to other `common/` content:
+- `common/diplomatic_plays/` chooses which goal starts a play
+- `common/diplomatic_actions/` may create plays or add goals directly
+- `common/treaty_articles/` can be created or enforced by specific war-goal kinds
+- `common/ai_strategies*` often scores attitudes toward specific war-goal keys
+
+## Practical Rule
+
+Do not treat a war goal type as a one-file feature.
+
+Before editing one, check:
+1. Which diplomatic play grants or expects it?
+2. Whether a diplomatic action manually adds it with `add_war_goal`.
+3. Whether AI strategy files mention the goal by key.
+4. Whether the `kind` creates or depends on treaty articles.
+5. Whether the requested change really belongs in the war goal, or instead in the play, action, treaty article, or AI file around it.
+
+In this repo that matters immediately:
+- `common/diplomatic_plays/ztr_diplomatic_plays_nuclear.txt` starts from `contain_threat`
+- `common/diplomatic_actions/ztr_unprovoked_nuclear_strike.txt` manually adds `humiliation`
+- `common/ai_strategies_vanilla/ztr_default_strategy.txt` reacts to `take_treaty_port` and `enforce_treaty_article`
+
+## Workflow
+
+1. Search the mod for the war-goal key and all direct references before changing anything.
+2. Inspect the nearest vanilla war goal of the same `kind` and `target_type`.
+3. Check the linked diplomatic play and any `add_war_goal` call sites.
+4. Decide whether the behavior needs a new war-goal type or just different play or action scripting.
+5. Write or override the war goal in `common/war_goal_types/*.txt`.
+6. Re-check AI strategy files, treaty article links, and localization.
+7. If the goal changes enforcement behavior, verify its execution order and conflict settings against related goals.
+
+## Common Structure
+
+```pdx
+example_war_goal = {
+	icon = "gfx/interface/icons/war_goals/example.dds"
+
+	kind = custom
 
 	settings = {
-        setting_1
-        setting_2
+		require_target_be_part_of_war
+		validate_conflicts_war_goals_all
 	}
 
 	execution_priority = 80
+	contestion_type = control_target_country_capital
+	target_type = country
 
-	contestion_type = control_type
-
-	target_type = target_type
-
-	possible = {
-		# trigger to determine if a goal with its target data is listed when selecting a war goal in the diplo play panel
-		# scopes: root = holder, creator_country, diplomatic_play, target_country, target_state, stakeholder, target_region, article_options
-	}
-
-	valid = {
-		# trigger in addition to some basic validation code-side
-		# scopes: root = holder, creator_country, diplomatic_play, target_country, target_state, stakeholder, target_region, article_options
-	}
+	possible = { }
+	valid = { }
 
 	maneuvers = {
-		# script value
-		# scopes: root = holder, creator_country, diplomatic_play, target_country, target_state, stakeholder, target_region, article_options
 		value = 10
 	}
-	
+
 	infamy = {
-		# script value
-		# scopes: root = holder, creator_country, diplomatic_play, target_country, target_state, stakeholder, target_region, article_options
 		value = 15
 	}
 
-	on_enforced = {
-		# script effect on top of the predefined code effect
-		# scopes: root = holder, creator_country, diplomatic_play, target_country, target_state, stakeholder, target_region, article_options
-	}
+	on_enforced = { }
 
 	ai = {
 		is_significant_demand = yes
@@ -55,190 +120,91 @@ some_war_goal = {
 }
 ```
 
-# Instructions
+## Scope Guidance
 
-## Icon
-The path to the icon the war goal should use. Typically something from `gfx/interface/icons/war_goals/`
+The common scopes for `possible`, `valid`, `maneuvers`, `infamy`, and `on_enforced` are:
+- `root` for the holder country
+- `creator_country`
+- `diplomatic_play`
+- `target_country`
+- `target_state`
+- `stakeholder`
+- `target_region`
+- `article_options`
 
-## Kind
-The primary predefined package of behavior code will associate with this war goal. Primarily this defines the execution effects of the war goal, but it also implies some other checks in different parts of code required for the functioning of the effects.
+Do not assume all of those scopes are populated meaningfully for every `target_type`. For example, `article_options` mainly matters for treaty-article enforcement flows.
 
-### List of Kinds
-- annex_country
-- ban_slavery
-	Converted to law commitment treaty article for slavery banned
-- colonization_rights
-- conquer_state
-- contain_threat
-- enforce_treaty_article
-- force_nationalization
-- foreign_investment_rights
-	Converted to investment rights article
-- humiliation
-- increase_autonomy
-- independence
-- join_power_bloc
-- leave_power_bloc
-- liberate_country
-- liberate_subject
-- make_dominion
-- make_protectorate
-- make_tributary
-- open_market
-- reduce_autonomy
-- regime_change
-- return_state
-- revoke_all_claims
-- revoke_claim
-- secession
-- take_treaty_port
-	Converted to treaty port treaty article
-- transfer_subject
-- unification
-- unification_leadership
-- custom
-	No predefined effect. In case you only want to execute the on_enforced effect, but nothing else.
+## Field Guidance
 
-## Settings
-Settings define smaller behaviors or checks that a war goal might want to have. Some settings are safe to remove (e.g. for modding) from certain war goal kinds, but some are required for them to function properly.
+- `icon`: Usually something in `gfx/interface/icons/war_goals/`.
+- `kind`: Required engine behavior package. Many war goals only work because their kind and settings match.
+- `settings`: Hardcoded validation and conflict switches. Common important patterns include target participation checks, subject validation, and conflict-marking settings.
+- `execution_priority`: Peace-deal execution order. Higher values execute earlier.
+- `contestion_type`: What must be controlled for enforcement.
+- `target_type`: Usually `country`, `state`, or `treaty_article` in script terms. This heavily affects how the game generates possible target options.
+- `possible`: Whether the goal appears for selection.
+- `valid`: Extra script validation on top of code-side checks.
+- `maneuvers`: Cost to add the goal.
+- `infamy`: Infamy cost to claim the goal.
+- `on_enforced`: Extra script effect in addition to the predefined `kind` payload.
+- `ai.is_significant_demand`: High-level AI importance flag.
 
-### List of settings
-- require_target_be_part_of_war
-	Target country has to be in the war, can't target neutral countries
-- can_add_for_other_country
-	Allows adding the goal for other participating countries
-- annexes_entire_state
-	Flag for if the goal is expected to always annex the entire target state. This is used to calculate conflicts with other goals
-- annexes_entire_country
-	Flag for if the goal is expected to always annex the entire target state. This is used to calculate conflicts with other goals
-- country_creation
-	Flag for if the goal creates a new country
-- overlord_is_stakeholder
-	Flag for if the stakeholder of the war goal should be the overlord rather than the target country itself
-- can_target_decentralized
-	If the war goal can target decentralized countries
-- has_other_stakeholder
-	If the war goal has a different stakeholder than the target itself
-- turns_into_subject
-	If the war goal turns the target country into a subject. For conflict resolution purposes
-- skip_build_list
-	If the war goal should be available to be picked in the diplomatic play or not
-- targets_enemy_subject
-	If the war goal should target an enemy subject specifically rather than all enemies in the war goal
-- targets_enemy_claims
-	If the war goal should target the claims of a country, rather than the country itself
-- requires_interest
-	If the war goal requires you to have an interest in the relevant strategic zone
-- debug
-	No effect, used for code debug purposes.
-- validate_subject_relation
-	Validation behavior that checks if the resulting subject relation of this war goal is valid
-- validate_formation_candidate_self
-	Validation check to make sure the goal holder is a formation candidate
-- validate_formation_candidate_target
-	Validation check to make sure the goal target is a formation candidate
-- validate_sole_formation_candidate
-	Validation check to make sure the goal holder is the only formation candidate
-- validate_target_not_treaty_port
-	Validation check to make sure the target state is not a treaty port
-- validate_join_power_bloc
-	Special validation for join power bloc war goal kind
-- validate_colonization_rights
-	Special validation for colonization rights war goal kind
-- validate_force_nationalization
-	Special validation for force nationalization war goal kind
-- validate_foreign_investment_rights
-	Special validation for investment rights war goal kind
-- validate_regime_change
-	Special validation for regime change war goal kind
-- validate_contain_threat
-	Special validation for contain threat war goal kind
-- validate_revoke_claims
-	Special validation for revoke claims war goal kind
-- validate_increase_autonomy
-	Special validation for increase autonomy war goal kind
-- validate_take_treaty_port
-	Special validation for take treaty port war goal kind
-- validate_independence
-	Special validation for independence war goal kind
-- validate_conflicts_war_goals_holder
-	Validate conflicts with war goals of the same type from holder
-- validate_conflicts_war_goals_all
-	Validate conflicts with war goals of the same type from all participating countries
-- validate_conflicts_conquer_state
-	Validate conflicts with war goals that conquer states (i.e. that have the conflicts_with_annex_state)
-- validate_conflicts_annex_country
-	Validate conflicts with war goals that annex countries (i.e. that have the conflicts_with_annex_country)
-- validate_conflicts_make_subject
-	Validate conflicts with war goals that make new subjects (i.e. that have the conflicts_with_make_subject)
-- validate_conflicts_existing_subject
-	Validate conflicts with war goals that make new subjects (i.e. that have the conflicts_with_make_subject)
-- conflicts_with_make_subject
-	Marks the war goal as potentially conflicting with make subject war goals
-- conflicts_with_country_creation
-	Marks the war goal as potentially conflicting with country creation war goals
-- conflicts_with_annex_country
-	Marks the war goal as potentially conflicting with annex country war goals
-- conflicts_with_annex_state
-	Marks the war goal as potentially conflicting with annex state war goals
-- conflicts_with_existing_subject
-	Marks the war goal as potentially conflicting with existing subject war goals
+## Kind Guidance
 
-## Execution Priority
-Determines in what order war goals are executed in a peace deal. Higher value gets executed first. Changing this can make certain war goals not execute properly.
+The `kind` is not cosmetic. It is the engine contract for the war goal.
 
-## Contestion Type
-Determines what the war goal holder needs to do for the war goal to be considered controlled.
+Common current vanilla kinds include:
+- conquest and annexation kinds such as `annex_country` and `conquer_state`
+- subject and autonomy kinds such as `make_dominion`, `reduce_autonomy`, and `independence`
+- treaty-conversion kinds such as `enforce_treaty_article`, `foreign_investment_rights`, `take_treaty_port`, and `ban_slavery`
+- `custom` when only `on_enforced` should do the real work
 
-### List of Contestion Types
-- control_target_state
-- control_target_country_capital
-- control_any_target_country_state
-- control_any_target_incorporated_state
-- control_own_state
-- control_own_capital
-- control_all_own_states
-- control_all_target_country_claims
-- control_any_releasable_state
+If a kind converts into treaty content, inspect the target treaty article too. Do not change one side and ignore the other.
 
-## Target Type
-What kind of entity the war goal primarily "targets". This primarily defines how the game generates potential alternatives for each war goal type when selecting one from the diplomatic play panel. Most war goal kinds will require a specific target type to work well and can't be changed (i.e. Conquer State can't have a Treaty Article target type). This field primarily allows you to have custom war goals target different entities.
+## Settings Guidance
 
-### List of Target Types
-- Country
-	Loops over enemy countries to generate war goal alternatives
-- State
-	Loops over states belonging to enemy countries
-- Treaty Article
-	Loops over article types and then enemy countries
+Do not memorize a static list of settings and assume they are always safe to mix freely. Use the nearest vanilla file as the model.
 
-## Triggers and Effect
+Common settings categories:
+- participation and targeting: `require_target_be_part_of_war`, `can_add_for_other_country`, `requires_interest`
+- relationship validation: `validate_subject_relation`, specialized `validate_*` settings for specific kinds
+- conflict handling: `validate_conflicts_*` and `conflicts_with_*`
+- targeting shape: `targets_enemy_subject`, `targets_enemy_claims`, `has_other_stakeholder`
+- UI and availability: `skip_build_list`
 
-### Scope
-For all of the following the same scopes are available:
-- root (holder country)
-- creator_country
-- diplomatic_play
-- target_country
-- target_state
-- stakeholder
-- target_region
-- article_options
+If a war goal stops appearing, conflicts strangely, or enforces against the wrong thing, the problem is often in `settings`, not `possible`.
 
-### Possible trigger
-This determines if and when the war goal is listed when selecting war goals in a diplomatic play.
+## Treaty Article Link
 
-### Valid trigger
-This determines if the war goal is valid from a script perspective. Additional validation is done in code base on the war goal kind and settings.
+Some war goals are really diplomacy-to-treaty bridges.
 
-### Maneuvers
-How many maneuvers it costs to select this war goal
+Examples from vanilla:
+- `enforce_treaty_article` targets `treaty_article`
+- `foreign_investment_rights` converts into an investment-rights article
+- `take_treaty_port` converts into a treaty-port article
+- `ban_slavery` converts into a law-commitment article
 
-### Infamy
-How much infamy it costs to claim this war goal
+For those, always inspect:
+- the article definition in `common/treaty_articles/`
+- whether the article is actually enforceable or valid for the intended target
+- any AI strategy logic that reacts to the war-goal key or resulting treaty condition
 
-### On enforced
-Additional script effects that you might want the war goal to execute. Do note that validation will not automatically take this into account and you will need to add validation settings as appropriate to avoid conflicts with other war goals.
+## Mod-Aware Guidance
 
-## AI / Is Significant Demand
-AI flag that determines how important AI considers this war goal to be.
+Although this repo lacks a local `common/war_goal_types/` folder today, war goals already matter across local `common\` files:
+- the nuclear diplomatic play uses vanilla `contain_threat`
+- the unprovoked nuclear strike action adds `humiliation`
+- local AI strategy overrides check for war goals such as `take_treaty_port` and `enforce_treaty_article`
+
+That means any new local war-goal override here should be reviewed together with local plays, actions, and AI strategy files before finalizing it.
+
+## Review Checklist
+
+- The definition lives in `common/war_goal_types/`.
+- `kind`, `target_type`, and `settings` match the intended gameplay.
+- `possible` and `valid` are not fighting the hardcoded kind requirements.
+- `execution_priority` still makes sense relative to related war goals.
+- `contestion_type` matches the demand fantasy and target shape.
+- Maneuvers and infamy scales are coherent with similar vanilla goals.
+- Every linked play, action, treaty article, AI strategy reference, and localization key still makes sense after the change.
+- If the goal bridges into treaty content, the article side was checked too.

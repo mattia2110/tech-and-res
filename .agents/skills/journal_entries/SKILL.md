@@ -1,3 +1,8 @@
+---
+description: Guide and template structure for Journal Entries in Victoria 3.
+name: Journal Entries
+---
+
 ﻿    journal_entry_key = {
         # root = context-based scope. either owning country, a specific country, or no scope
         # scope:journal_entry = this Journal Entry (journalentry scope)

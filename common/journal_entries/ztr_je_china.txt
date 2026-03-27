@@ -1,0 +1,284 @@
+ztr_je_the_future_of_china = {
+	icon = "gfx/interface/icons/event_icons/event_newspaper.dds"
+	group = je_group_the_future_of_china
+	is_shown_when_inactive = {
+		has_variable = the_future_of_china_active
+	}
+	possible = {
+		has_variable = the_future_of_china_active
+	}
+	immediate = {
+		ztr_china_init_renaissance_vars = yes
+	}
+	on_monthly_pulse = {
+		effect = {
+			ztr_china_update_corporate_bar = yes
+			ztr_china_update_federation_bar = yes
+			ztr_china_update_technoconfucian_bar = yes
+			ztr_china_final_renaissance_update = yes
+		}
+		random_events = {
+			10 = 0
+			1 = the_future_of_china.1
+			1 = the_future_of_china.2
+			1 = the_future_of_china.3
+			1 = the_future_of_china.4
+			1 = the_future_of_china.5
+			1 = the_future_of_china.6
+			1 = the_future_of_china.7
+			1 = the_future_of_china.8
+		}
+	}
+	complete = {
+		OR = {
+			var:ztr_china_corporate_var >= 100
+			var:ztr_china_federation_var >= 100
+			var:ztr_china_technoconfucian_var >= 100
+		}
+	}
+	on_complete = {
+		trigger_event = {
+			id = the_future_of_china.100
+		}
+	}
+	invalid = {
+		OR = {
+			NOT = {
+				exists = c:CHI
+			}
+			c:CHI = {
+				is_subject = yes
+			}
+		}
+		NOT = {
+			has_law = law_type:law_monarchy
+		}
+	}
+	scripted_progress_bar = ztr_china_corporate_progress_bar
+	scripted_progress_bar = ztr_china_federation_progress_bar
+	scripted_progress_bar = ztr_china_technoconfucian_progress_bar
+	on_invalid = {
+		ztr_china_remove_renaissance_vars = yes
+	}
+	weight = 1000
+	should_be_pinned_by_default = yes
+}
+
+ztr_je_chinese_communist_front = {
+	icon = "gfx/interface/icons/event_icons/event_protest.dds"
+	group = je_group_chinese_communist_front
+	is_shown_when_inactive = {
+		has_global_variable = china_shatters
+		NOT = {
+			exists = c:CHI
+		}
+		any_country = {
+			ztr_can_receive_communist_china_event = yes
+		}
+		year > 1935
+	}
+	should_be_involved = {
+		ztr_can_receive_communist_china_event = yes
+	}
+	should_show_when_not_involved = {
+		always = yes
+	}
+	possible = {
+		has_global_variable = china_shatters
+		NOT = {
+			exists = c:CHI
+		}
+		any_country = {
+			ztr_can_receive_communist_china_event = yes
+		}
+	}
+	immediate = {
+		ztr_communist_china_recalculate_overall_progress = yes
+		scope:journal_entry = {
+			set_bar_progress = {
+				value = global_var:ztr_ccp_overall_progress
+				name = ztr_ccp_global_progress_bar
+			}
+		}
+	}
+	on_yearly_pulse = {
+		effect = {
+			scope:journal_entry = {
+				every_scope_je_involved = {
+					ztr_communist_china_yearly_drift = yes
+					if = {
+						limit = {
+							has_variable = ztr_ccp_front_active
+							var:ztr_ccp_front_progress <= 0
+						}
+						ztr_communist_china_cleanup = yes
+					}
+				}
+			}
+			ztr_communist_china_recalculate_overall_progress = yes
+			scope:journal_entry = {
+				set_bar_progress = {
+					value = global_var:ztr_ccp_overall_progress
+					name = ztr_ccp_global_progress_bar
+				}
+			}
+		}
+	}
+	on_monthly_pulse = {
+		effect = {
+			# China will not trigger the event
+			# Player have priority, then active front, then other warlords
+			if = {
+				limit = {
+					scope:journal_entry = {
+						any_scope_je_involved = {
+							is_player = yes
+							NOT = {
+								c:CHI = this
+							}
+							NOT = {
+								has_variable = ztr_ccp_yearly_event_cooldown
+							}
+						}
+					}
+				}
+				scope:journal_entry = {
+					random_scope_je_involved = {
+						limit = {
+							is_player = yes
+							NOT = {
+								c:CHI = this
+							}
+							NOT = {
+								has_variable = ztr_ccp_yearly_event_cooldown
+							}
+						}
+						ztr_communist_china_fire_yearly_event = yes
+					}
+				}
+			}
+			else_if = {
+				limit = {
+					scope:journal_entry = {
+						any_scope_je_involved = {
+							NOT = {
+								is_player = yes
+							}
+							has_variable = ztr_ccp_front_active
+							NOT = {
+								c:CHI = this
+							}
+							NOT = {
+								has_variable = ztr_ccp_yearly_event_cooldown
+							}
+						}
+					}
+				}
+				scope:journal_entry = {
+					random_scope_je_involved = {
+						limit = {
+							NOT = {
+								is_player = yes
+							}
+							has_variable = ztr_ccp_front_active
+							NOT = {
+								c:CHI = this
+							}
+							NOT = {
+								has_variable = ztr_ccp_yearly_event_cooldown
+							}
+						}
+						ztr_communist_china_fire_yearly_event = yes
+					}
+				}
+			}
+			else = {
+				scope:journal_entry = {
+					random_scope_je_involved = {
+						limit = {
+							NOT = {
+								is_player = yes
+							}
+							NOT = {
+								has_variable = ztr_ccp_front_active
+							}
+							NOT = {
+								c:CHI = this
+							}
+							NOT = {
+								has_variable = ztr_ccp_yearly_event_cooldown
+							}
+						}
+						ztr_communist_china_fire_yearly_event = yes
+					}
+				}
+			}
+		}
+	}
+	complete = {
+		exists = c:CHI
+		# It will end 10 years after Communist China is created or non Communist China is created
+		c:CHI = {
+			NOT = {
+				has_modifier = ztr_ccp_long_march_legacy
+			}
+		}
+	}
+	on_complete = {
+		remove_global_variable = ztr_ccp_overall_progress
+		#remove_global_variable = china_shatters
+		#This will trigger some days later an event with the creation of a nationalist china against the communist one
+		every_scope_je_involved = {
+			limit = {
+				NOT = {
+					c:CHI = this
+				}
+			}
+			trigger_event = {
+				id = ztr_communist_china.5
+				days = 30
+			}
+		}
+	}
+	on_complete_all_involved = {
+		ztr_communist_china_cleanup = yes
+	}
+	invalid = {
+		exists = c:CHI
+		NOT = {
+			has_global_variable = ztr_communist_china_created
+		}
+	}
+	on_invalid = {
+		remove_global_variable = ztr_ccp_overall_progress
+	}
+	on_invalid_all_involved = {
+		ztr_communist_china_cleanup = yes
+	}
+	scripted_progress_bar = ztr_ccp_global_progress_bar
+	status_desc = {
+		first_valid = {
+			triggered_desc = {
+				desc = ztr_je_prc_created
+				trigger = {
+					has_global_variable = ztr_communist_china_created
+				}
+			}
+			triggered_desc = {
+				desc = ztr_je_chinese_communist_front_status_armed
+				trigger = {
+					global_var:ztr_ccp_overall_progress >= 50
+				}
+			}
+			triggered_desc = {
+				desc = ztr_je_chinese_communist_front_status_united
+				trigger = {
+					global_var:ztr_ccp_overall_progress >= 20
+				}
+			}
+			desc = ztr_je_chinese_communist_front_status
+		}
+	}
+	weight = 1000
+	should_be_pinned_by_default = yes
+}
