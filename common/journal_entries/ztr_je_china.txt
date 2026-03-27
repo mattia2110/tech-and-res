@@ -1,3 +1,5 @@
+# Chinese Ucronia
+
 ztr_je_the_future_of_china = {
 	icon = "gfx/interface/icons/event_icons/event_newspaper.dds"
 	group = je_group_the_future_of_china
@@ -63,6 +65,8 @@ ztr_je_the_future_of_china = {
 	weight = 1000
 	should_be_pinned_by_default = yes
 }
+
+# Chinese Civil War
 
 ztr_je_chinese_communist_front = {
 	icon = "gfx/interface/icons/event_icons/event_protest.dds"
@@ -296,5 +300,69 @@ ztr_je_chinese_communist_front = {
 		}
 	}
 	weight = 1000
+	should_be_pinned_by_default = yes
+}
+
+ztr_je_two_chinas_accord = {
+	icon = "gfx/interface/icons/event_icons/event_newspaper.dds"
+	group = je_group_chinese_communist_front
+	is_shown_when_inactive = {
+		ztr_two_chinas_joint_offensive_possible = yes
+	}
+	should_be_involved = {
+		OR = {
+			c:CHI = this
+			c:ZFC = this
+		}
+	}
+	possible = {
+		ztr_two_chinas_joint_offensive_possible = yes
+	}
+	on_monthly_pulse = {
+		effect = {
+			if = {
+				limit = {
+					scope:journal_entry = {
+						any_scope_je_involved = {
+							is_player = yes
+						}
+					}
+				}
+				scope:journal_entry = {
+					random_scope_je_involved = {
+						limit = {
+							is_player = yes
+						}
+						trigger_event = {
+							id = ztr_communist_china.6
+							popup = yes
+						}
+					}
+				}
+			}
+			else = {
+				scope:journal_entry = {
+					random_scope_je_involved = {
+						trigger_event = {
+							id = ztr_communist_china.6
+							popup = yes
+						}
+					}
+				}
+			}
+		}
+	}
+	invalid = {
+		OR = {
+			NOT = {
+				exists = c:CHI
+			}
+			NOT = {
+				exists = c:ZFC
+			}
+		}
+	}
+	weight = 900
+	can_deactivate = yes
 	should_be_pinned_by_default = yes
 }

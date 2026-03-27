@@ -675,7 +675,6 @@ ztr_communist_china.5 = {
 	}
 	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
 	icon = "gfx/interface/icons/event_icons/event_newspaper.dds"
-
 	immediate = {
 		c:ZFC = {
 			save_scope_as = ztr_ccp_nationalist_china
@@ -684,7 +683,6 @@ ztr_communist_china.5 = {
 			save_scope_as = ztr_ccp_communist_china
 		}
 	}
-
 	option = {
 		name = ztr_communist_china.5.a
 		default_option = yes
@@ -697,7 +695,6 @@ ztr_communist_china.5 = {
 			base = 50
 		}
 	}
-
 	option = {
 		name = ztr_communist_china.5.b
 		trigger = {
@@ -713,7 +710,7 @@ ztr_communist_china.5 = {
 				text = ztr_tooltip_can_become_nationalist_chi_via_je
 				annex = c:ZFC
 				change_tag = ZFC
-				ztr_nationalist_china_adopt_laws = yes
+				ztr_nationalist_china_adopt_laws_and_loyalist = yes
 			}
 		}
 		else = {
@@ -735,6 +732,60 @@ ztr_communist_china.5 = {
 				}
 				add = 100
 			}
+		}
+	}
+}
+
+ztr_communist_china.6 = {
+	type = country_event
+	placement = ROOT
+	duration = 1
+	title = ztr_communist_china.6.t
+	desc = ztr_communist_china.6.d
+	flavor = ztr_communist_china.6.f
+	event_image = {
+		video = "chinese_city"
+	}
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	icon = "gfx/interface/icons/event_icons/event_newspaper.dds"
+	trigger = {
+		ztr_two_chinas_joint_offensive_possible = yes
+	}
+	immediate = {
+		ztr_two_chinas_prepare_joint_targets = yes
+	}
+	option = {
+		name = ztr_communist_china.6.a
+		default_option = yes
+		ztr_two_chinas_launch_joint_offensive = yes
+		ai_chance = {
+			base = 60
+		}
+	}
+	option = {
+		name = ztr_communist_china.6.b
+		c:CHI ?= {
+			set_variable = {
+				name = ztr_two_chinas_accord_cooldown
+				years = 1
+			}
+			change_relations = {
+				country = c:ZFC
+				value = -10
+			}
+		}
+		c:ZFC ?= {
+			set_variable = {
+				name = ztr_two_chinas_accord_cooldown
+				years = 1
+			}
+			change_relations = {
+				country = c:CHI
+				value = -10
+			}
+		}
+		ai_chance = {
+			base = 40
 		}
 	}
 }

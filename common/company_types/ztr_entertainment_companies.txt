@@ -5,33 +5,26 @@
 # Société Pathé Frères
 # Warner Bros. Records
 # Universal Records (Decca Records)
-
 #Generic Instruments
 REPLACE_OR_CREATE:elgar_company_basic_instruments = {
 	icon = "gfx/interface/icons/company_icons/elgar_instruments_generic.dds"
 	background = "gfx/interface/icons/company_icons/company_backgrounds/comp_illu_manufacturing_light.dds"
-
 	uses_dynamic_naming = yes
-
 	dynamic_company_type_names = {
 		"dynamic_company_type_company"
 		"dynamic_company_type_syndicate"
 		"dynamic_company_type_corporation"
 	}
-
 	building_types = {
 		building_instrument_workshops
 	}
-
-	extension_building_types = {  
+	extension_building_types = {
 		building_tooling_workshop
 		building_logging_camp
 	}
-
 	possible_prestige_goods = {
 		prestige_good_generic_instruments
 	}
-
 	possible = {
 		any_scope_state = {
 			is_incorporated = yes
@@ -43,12 +36,10 @@ REPLACE_OR_CREATE:elgar_company_basic_instruments = {
 			}
 		}
 	}
-
 	prosperity_modifier = {
 		goods_output_elgar_instruments_mult = 0.05
 		goods_output_elgar_music_mult = 0.05
 	}
-
 	ai_will_do = {
 		any_scope_state = {
 			is_incorporated = yes
@@ -65,33 +56,30 @@ REPLACE_OR_CREATE:elgar_company_steinway = {
 	# The logo of Steinway (without the frame) is a trademark owned by Steinway & Sons
 	icon = "gfx/interface/icons/company_icons/historical_company_icons/elgar_instruments_steinway.dds"
 	background = "gfx/interface/icons/company_icons/company_backgrounds/comp_illu_manufacturing_light.dds"
-
 	flavored_company = yes
-
-	preferred_headquarters = { STATE_NEW_YORK STATE_ELBE }
-
-	building_types = {  
+	preferred_headquarters = {
+		STATE_NEW_YORK
+		STATE_ELBE
+	}
+	building_types = {
 		building_instrument_workshops
 	}
-
-	extension_building_types = {  
+	extension_building_types = {
 		#building_tooling_workshop
 		building_logging_camp
 	}
-
 	possible_prestige_goods = {
 		prestige_good_generic_instruments
 	}
-
 	potential = {
 		OR = {
 			has_interest_marker_in_region = region_new_england
 			has_interest_marker_in_region = region_north_germany
 		}
 	}
-
 	attainable = {
-		hidden_trigger = { # Hide attainable if it's always fulfilled by possible
+		hidden_trigger = {
+			# Hide attainable if it's always fulfilled by possible
 			any_scope_state = {
 				OR = {
 					state_region = s:STATE_NEW_YORK
@@ -100,7 +88,6 @@ REPLACE_OR_CREATE:elgar_company_steinway = {
 			}
 		}
 	}
-
 	possible = {
 		any_scope_state = {
 			OR = {
@@ -114,12 +101,10 @@ REPLACE_OR_CREATE:elgar_company_steinway = {
 			}
 		}
 	}
-
 	prosperity_modifier = {
 		goods_output_elgar_instruments_mult = 0.1
 		state_upper_strata_standard_of_living_add = 0.5
-	}	
-
+	}
 	ai_will_do = {
 		any_scope_state = {
 			OR = {
@@ -129,7 +114,6 @@ REPLACE_OR_CREATE:elgar_company_steinway = {
 			is_incorporated = yes
 		}
 	}
-
 	ai_construction_targets = {
 		building_instrument_workshops = {
 			level = 5
@@ -141,9 +125,8 @@ REPLACE_OR_CREATE:elgar_company_steinway = {
 			}
 		}
 	}
-
 	ai_weight = {
-		value = 3 # Higher base value for flavored companies
+		value = 3		# Higher base value for flavored companies
 	}
 }
 
@@ -151,45 +134,39 @@ REPLACE_OR_CREATE:elgar_company_steinway = {
 REPLACE_OR_CREATE:company_yamaha = {
 	icon = "gfx/interface/icons/company_icons/historical_company_icons/yamaha.dds"
 	background = "gfx/interface/icons/company_icons/company_backgrounds/comp_illu_manufacturing_light.dds"
-	
 	flavored_company = yes
-	
-	preferred_headquarters = { STATE_CHUBU }
-	
-	building_types = {  
+	preferred_headquarters = {
+		STATE_CHUBU
+	}
+	building_types = {
 		building_instrument_workshops
 		building_art_academy
 	}
-
-	extension_building_types = {  
+	extension_building_types = {
 		building_tooling_workshop
-		building_automotive_industry # Motorcycles
+		building_automotive_industry		# Motorcycles
 	}
-
 	possible_prestige_goods = {
 		prestige_good_generic_instruments
 	}
-
 	prestige_goods_trigger = {
 		custom_tooltip = {
-			text = je_prestige_good_generic_instruments_complete_tt
+			text = je_ztr_prestige_good_generic_instruments_complete_tt
 			has_variable = ztr_prestige_good_generic_instruments_var
 		}
 	}
-	
 	potential = {
 		has_interest_marker_in_region = region_japan
 	}
-	
 	attainable = {
-		hidden_trigger = { # Hide attainable if it's always fulfilled by possible
+		hidden_trigger = {
+			# Hide attainable if it's always fulfilled by possible
 			any_scope_state = {
 				state_region = s:STATE_CHUBU
 			}
 		}
-	}		
-	
-	possible = { 
+	}
+	possible = {
 		any_scope_state = {
 			state_region = s:STATE_CHUBU
 			is_incorporated = yes
@@ -200,13 +177,10 @@ REPLACE_OR_CREATE:company_yamaha = {
 		}
 		has_technology_researched = rubber_mastication
 	}
-	
 	prosperity_modifier = {
-		state_education_access_wealth_add = 0.005 #14
+		state_education_access_wealth_add = 0.005		#14
 		goods_output_elgar_instruments_mult = 0.1
-	}	
-	
-
+	}
 	ai_will_do = {
 		has_technology_researched = rubber_mastication
 		any_scope_state = {
@@ -214,7 +188,6 @@ REPLACE_OR_CREATE:company_yamaha = {
 			is_incorporated = yes
 		}
 	}
-
 	ai_construction_targets = {
 		building_instrument_workshops = {
 			level = 5
@@ -223,46 +196,38 @@ REPLACE_OR_CREATE:company_yamaha = {
 			}
 		}
 	}
-	
 	ai_weight = {
-		value = 4 # Higher base value for flavored companies
+		value = 4		# Higher base value for flavored companies
 	}
 }
 
 #Generic Records
 REPLACE_OR_CREATE:company_basic_records_and_films = {
-	icon = "gfx/interface/icons/company_icons/records_and_films_generic.dds" #####
+	icon = "gfx/interface/icons/company_icons/records_and_films_generic.dds"	#####
 	background = "gfx/interface/icons/company_icons/company_backgrounds/comp_illu_music.dds"
-
 	uses_dynamic_naming = yes
-
 	dynamic_company_type_names = {
 		"dynamic_company_type_company"
 		"dynamic_company_type_syndicate"
 		"dynamic_company_type_corporation"
 	}
-
 	building_types = {
 		building_manzoni_publishing_industry
 	}
-
-	extension_building_types = { 
+	extension_building_types = {
 		building_elgar_opera
 		building_instrument_workshops
 		building_art_academy
 	}
-
 	possible_prestige_goods = {
 		prestige_good_generic_records_and_films
 	}
-
 	prestige_goods_trigger = {
 		custom_tooltip = {
-			text = je_prestige_good_generic_records_and_films_complete_tt
+			text = je_ztr_prestige_good_generic_records_and_films_complete_tt
 			has_variable = ztr_prestige_good_generic_records_and_films_var
 		}
 	}
-
 	possible = {
 		any_scope_state = {
 			is_incorporated = yes
@@ -273,12 +238,10 @@ REPLACE_OR_CREATE:company_basic_records_and_films = {
 		}
 		has_technology_researched = elgar_mass_culture_tech
 	}
-
 	prosperity_modifier = {
 		country_prestige_mult = 0.05
 		state_loyalists_from_political_movements_mult = 0.025
 	}
-
 	ai_will_do = {
 		any_scope_state = {
 			is_incorporated = yes
@@ -292,46 +255,41 @@ REPLACE_OR_CREATE:company_basic_records_and_films = {
 
 #Columbia Records
 REPLACE_OR_CREATE:company_columbia_records = {
-	icon = "gfx/interface/icons/company_icons/historical_company_icons/columbia_records.dds" #####
+	icon = "gfx/interface/icons/company_icons/historical_company_icons/columbia_records.dds"	#####
 	background = "gfx/interface/icons/company_icons/company_backgrounds/comp_illu_music.dds"
-
 	flavored_company = yes
-	
-	preferred_headquarters = { STATE_DISTRICT_OF_COLUMBIA STATE_MARYLAND }
-
+	preferred_headquarters = {
+		STATE_DISTRICT_OF_COLUMBIA
+		STATE_MARYLAND
+	}
 	building_types = {
 		building_manzoni_publishing_industry
 	}
-
-	extension_building_types = {  
+	extension_building_types = {
 		building_instrument_workshops
 		building_art_academy
 		building_elgar_opera
 	}
-
 	possible_prestige_goods = {
 		prestige_good_generic_records_and_films
 	}
-
 	prestige_goods_trigger = {
 		custom_tooltip = {
-			text = je_prestige_good_generic_records_and_films_complete_tt
+			text = je_ztr_prestige_good_generic_records_and_films_complete_tt
 			has_variable = ztr_prestige_good_generic_records_and_films_var
 		}
 	}
-
 	potential = {
 		has_interest_marker_in_region = region_dixie
 	}
-
 	attainable = {
-		hidden_trigger = { # Hide attainable if it's always fulfilled by possible
+		hidden_trigger = {
+			# Hide attainable if it's always fulfilled by possible
 			any_scope_state = {
 				state_region = s:STATE_DISTRICT_OF_COLUMBIA
 			}
 		}
-	}	
-
+	}
 	possible = {
 		has_technology_researched = elgar_modern_art_tech
 		any_scope_state = {
@@ -346,13 +304,11 @@ REPLACE_OR_CREATE:company_columbia_records = {
 			}
 		}
 	}
-
 	prosperity_modifier = {
 		country_prestige_mult = 0.1
 		#goods_output_elgar_music_mult = 0.05
 		state_loyalists_from_political_movements_mult = 0.05
 	}
-
 	ai_will_do = {
 		has_technology_researched = elgar_modern_art_tech
 		any_scope_state = {
@@ -363,7 +319,6 @@ REPLACE_OR_CREATE:company_columbia_records = {
 			is_incorporated = yes
 		}
 	}
-	
 	ai_construction_targets = {
 		building_manzoni_publishing_industry = {
 			level = 5
@@ -375,54 +330,47 @@ REPLACE_OR_CREATE:company_columbia_records = {
 			}
 		}
 	}
-	
 	ai_weight = {
-		value = 3 # Higher base value for flavored companies
+		value = 3		# Higher base value for flavored companies
 	}
 }
 
 #Société Pathé Frères
 REPLACE_OR_CREATE:company_societe_pathe_freres = {
-	icon = "gfx/interface/icons/company_icons/historical_company_icons/societe_pathe_freres.dds" 
+	icon = "gfx/interface/icons/company_icons/historical_company_icons/societe_pathe_freres.dds"
 	background = "gfx/interface/icons/company_icons/company_backgrounds/comp_illu_cinema.dds"
-
 	flavored_company = yes
-	
-	preferred_headquarters = { STATE_ILE_DE_FRANCE }
-
+	preferred_headquarters = {
+		STATE_ILE_DE_FRANCE
+	}
 	building_types = {
 		building_manzoni_publishing_industry
 	}
-
-	extension_building_types = {  
+	extension_building_types = {
 		#building_instrument_workshops
 		building_elgar_opera
 		building_art_academy
 	}
-
 	possible_prestige_goods = {
 		prestige_good_generic_records_and_films
 	}
-
 	prestige_goods_trigger = {
 		custom_tooltip = {
-			text = je_prestige_good_generic_records_and_films_complete_tt
+			text = je_ztr_prestige_good_generic_records_and_films_complete_tt
 			has_variable = ztr_prestige_good_generic_records_and_films_var
 		}
 	}
-
 	potential = {
 		has_interest_marker_in_region = region_france
 	}
-
 	attainable = {
-		hidden_trigger = { # Hide attainable if it's always fulfilled by possible
+		hidden_trigger = {
+			# Hide attainable if it's always fulfilled by possible
 			any_scope_state = {
 				state_region = s:STATE_ILE_DE_FRANCE
 			}
 		}
 	}
-
 	possible = {
 		has_technology_researched = elgar_mass_culture_tech
 		any_scope_state = {
@@ -434,12 +382,10 @@ REPLACE_OR_CREATE:company_societe_pathe_freres = {
 			}
 		}
 	}
-
 	prosperity_modifier = {
 		country_prestige_mult = 0.1
 		state_loyalists_from_political_movements_mult = 0.05
 	}
-
 	ai_will_do = {
 		has_technology_researched = elgar_mass_culture_tech
 		any_scope_state = {
@@ -447,7 +393,6 @@ REPLACE_OR_CREATE:company_societe_pathe_freres = {
 			is_incorporated = yes
 		}
 	}
-	
 	ai_construction_targets = {
 		building_manzoni_publishing_industry = {
 			level = 5
@@ -456,45 +401,40 @@ REPLACE_OR_CREATE:company_societe_pathe_freres = {
 			}
 		}
 	}
-	
 	ai_weight = {
-		value = 3 # Higher base value for flavored companies
+		value = 3		# Higher base value for flavored companies
 	}
 }
 
 # Warner Bros. Records
 REPLACE_OR_CREATE:company_warner_bros_records = {
-	icon = "gfx/interface/icons/company_icons/historical_company_icons/warner_bros_records.dds" 
+	icon = "gfx/interface/icons/company_icons/historical_company_icons/warner_bros_records.dds"
 	background = "gfx/interface/icons/company_icons/company_backgrounds/comp_illu_cinema.dds"
-
 	flavored_company = yes
-	
-	preferred_headquarters = { STATE_CALIFORNIA }
+	preferred_headquarters = {
+		STATE_CALIFORNIA
+	}
 	building_types = {
 		building_elgar_opera
 		building_manzoni_publishing_industry
 	}
-
 	# extension_building_types = {  
 	# 	building_art_academy
 	# }
-
 	possible_prestige_goods = {
 		prestige_good_generic_records_and_films
 	}
-
 	potential = {
 		has_interest_marker_in_region = region_pacific_coast
 	}
-
 	attainable = {
-		hidden_trigger = { # Hide attainable if it's always fulfilled by possible
+		hidden_trigger = {
+			# Hide attainable if it's always fulfilled by possible
 			any_scope_state = {
 				state_region = s:STATE_CALIFORNIA
 			}
 		}
 	}
-
 	possible = {
 		any_scope_state = {
 			is_incorporated = yes
@@ -506,13 +446,11 @@ REPLACE_OR_CREATE:company_warner_bros_records = {
 		}
 		has_technology_researched = elgar_mass_culture_tech
 	}
-
 	prosperity_modifier = {
 		country_prestige_mult = 0.05
 		#goods_output_elgar_music_mult = 0.05
 		state_loyalists_from_political_movements_mult = 0.05
 	}
-
 	ai_will_do = {
 		has_technology_researched = elgar_mass_culture_tech
 		any_scope_state = {
@@ -524,7 +462,6 @@ REPLACE_OR_CREATE:company_warner_bros_records = {
 			}
 		}
 	}
-	
 	ai_construction_targets = {
 		building_manzoni_publishing_industry = {
 			level = 5
@@ -533,34 +470,31 @@ REPLACE_OR_CREATE:company_warner_bros_records = {
 			}
 		}
 	}
-	
 	ai_weight = {
-		value = 3 # Higher base value for flavored companies
+		value = 3		# Higher base value for flavored companies
 	}
 }
 
- # Decca Records (Universal)
+# Decca Records (Universal)
 REPLACE_OR_CREATE:company_universal_records = {
-	icon = "gfx/interface/icons/company_icons/historical_company_icons/universal_records.dds" 
+	icon = "gfx/interface/icons/company_icons/historical_company_icons/universal_records.dds"
 	background = "gfx/interface/icons/company_icons/company_backgrounds/comp_illu_music.dds"
-
 	flavored_company = yes
-	
-	preferred_headquarters = { STATE_HOME_COUNTIES STATE_CALIFORNIA STATE_HOLLAND }
-
+	preferred_headquarters = {
+		STATE_HOME_COUNTIES
+		STATE_CALIFORNIA
+		STATE_HOLLAND
+	}
 	building_types = {
 		building_elgar_opera
 		building_manzoni_publishing_industry
 	}
-
-	extension_building_types = {  
+	extension_building_types = {
 		building_art_academy
 	}
-
 	possible_prestige_goods = {
 		prestige_good_generic_records_and_films
 	}
-
 	potential = {
 		OR = {
 			has_interest_marker_in_region = region_pacific_coast
@@ -568,9 +502,9 @@ REPLACE_OR_CREATE:company_universal_records = {
 			has_interest_marker_in_region = region_rhine
 		}
 	}
-
 	attainable = {
-		hidden_trigger = { # Hide attainable if it's always fulfilled by possible
+		hidden_trigger = {
+			# Hide attainable if it's always fulfilled by possible
 			any_scope_state = {
 				OR = {
 					state_region = s:STATE_HOME_COUNTIES
@@ -580,7 +514,6 @@ REPLACE_OR_CREATE:company_universal_records = {
 			}
 		}
 	}
-
 	possible = {
 		any_scope_state = {
 			OR = {
@@ -596,12 +529,10 @@ REPLACE_OR_CREATE:company_universal_records = {
 		}
 		has_technology_researched = elgar_mass_culture_tech
 	}
-
 	prosperity_modifier = {
 		country_prestige_mult = 0.05
 		state_loyalists_from_political_movements_mult = 0.1
 	}
-
 	ai_will_do = {
 		any_scope_state = {
 			OR = {
@@ -612,7 +543,6 @@ REPLACE_OR_CREATE:company_universal_records = {
 			is_incorporated = yes
 		}
 	}
-	
 	ai_construction_targets = {
 		building_manzoni_publishing_industry = {
 			level = 5
@@ -625,8 +555,7 @@ REPLACE_OR_CREATE:company_universal_records = {
 			}
 		}
 	}
-
 	ai_weight = {
-		value = 3 # Higher base value for flavored companies
+		value = 3		# Higher base value for flavored companies
 	}
 }
