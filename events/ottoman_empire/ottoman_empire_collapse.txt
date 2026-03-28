@@ -31,7 +31,7 @@ ztr_ottoman_collapse.1 = {
 
         change_variable = {
             name = ottoman_empire_collapse_var
-            subtract = 2
+            add = 1
         }
         add_loyalists = {
             value = 0.10
@@ -733,7 +733,7 @@ ztr_ottoman_collapse.6 = {
         scope:ztr_ottoman_collapse_requesting_power = {
             trigger_event = {
                 id = ztr_ottoman_collapse.112
-                days = 0
+                days = 10
                 popup = yes
             }
         }
@@ -779,7 +779,7 @@ ztr_ottoman_collapse.6 = {
         scope:ztr_ottoman_collapse_requesting_power = {
             trigger_event = {
                 id = ztr_ottoman_collapse.113
-                days = 0
+                days = 10
                 popup = yes
             }
         }
@@ -878,7 +878,7 @@ ztr_ottoman_collapse.7 = {
         scope:ztr_ottoman_collapse_requesting_power = {
             trigger_event = {
                 id = ztr_ottoman_collapse.114
-                days = 0
+                days = 10
                 popup = yes
             }
         }
@@ -923,7 +923,7 @@ ztr_ottoman_collapse.7 = {
         scope:ztr_ottoman_collapse_requesting_power = {
             trigger_event = {
                 id = ztr_ottoman_collapse.115
-                days = 0
+                days = 10
                 popup = yes
             }
         }
@@ -1013,7 +1013,7 @@ ztr_ottoman_collapse.8 = {
         scope:ztr_ottoman_collapse_requesting_power = {
             trigger_event = {
                 id = ztr_ottoman_collapse.116
-                days = 0
+                days = 10
                 popup = yes
             }
         }
@@ -1056,7 +1056,7 @@ ztr_ottoman_collapse.8 = {
         scope:ztr_ottoman_collapse_requesting_power = {
             trigger_event = {
                 id = ztr_ottoman_collapse.117
-                days = 0
+                days = 10
                 popup = yes
             }
         }
@@ -1129,7 +1129,7 @@ ztr_ottoman_collapse.100 = {
     type = country_event
     placement = root
 
-    duration = 2
+    duration = 3
 
     title = ztr_ottoman_collapse.100.t
     desc = ztr_ottoman_collapse.100.d
@@ -1143,25 +1143,9 @@ ztr_ottoman_collapse.100 = {
 
     icon = "gfx/interface/icons/event_icons/event_default.dds"
 
-    trigger = {
-        NOT = { c:TUR ?= this }
-        c:TUR = {
-            has_journal_entry = je_ottoman_empire_collapse
-        }
-        country_rank >= rank_value:major_power
-        navy_size >= 60
-        OR = {
-            c:RUS ?= this
-            is_in_geographic_region = geographic_region_europe
-        }
-    }
-
     option = {
         name = ztr_ottoman_collapse.100.a
         default_option = yes
-        scope:journal_entry = {
-            add_involved_country = ROOT
-        }
         change_infamy = 5
 
         ai_chance = {
@@ -1182,12 +1166,23 @@ ztr_ottoman_collapse.100 = {
                 }
                 add = 4
             }
+            modifier = {
+                trigger = {
+                    NOR = {
+                        is_in_geographic_region = geographic_region_europe
+                        is_in_geographic_region = geographic_region_middle_east
+                    }
+                }
+                multiply = 0
+            }
         }
     }
 
     option = {
         name = ztr_ottoman_collapse.100.b
-
+        je:je_ottoman_empire_collapse = {
+            remove_involved_country = root
+        }
         ai_chance = {
             base = 4
             modifier = {

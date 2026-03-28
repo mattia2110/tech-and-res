@@ -3,30 +3,49 @@ name: Localization Formatting
 description: Guide for formatting localization files in Victoria 3.
 ---
 
-# Textformatting
+# Text Formatting and Icons
 
-To be used to change the color of text in localization files using the following code: #{format.name}text#!
+## 1. Text Properties and Colors
 
-format = {
-	name = N
-	format = "red;bold;shadow"
-}
-format = {
-	name = P
-	format = "green;bold;shadow"
-}
-format = {
-	name = Z
-	format = "white;bold;shadow"
-}
-format = {
-	name = blue_value
-	format = "blue;bold;shadow"
-}
-format = {
-	name = gold_value
-		format = "gold;bold;shadow"
-}
+To change the color or style of text in localization files, wrap the text with the following code format: `#<format_name> <text>#!`
+For example: `#header Important Notice#!` or `#N Penalty#!`.
+
+Common formatting tags found in `gui/textformatting.gui` include:
+* **Headers and Titles**: `#h1 text#!`, `#header text#!`, `#title text#!`
+* **Values and Statuses**:
+  * `#P text#!` or `#positive_value text#!` (Green, Bold, Shadow) - Positive outcomes
+  * `#N text#!` or `#negative_value text#!` (Red, Bold, Shadow) - Negative outcomes
+  * `#Z text#!` or `#zero_value text#!` (White, Bold, Shadow) - Neutral outcomes
+  * `#v text#!` or `#variable text#!` (White, Bold, Shadow) - Variable highlights
+* **Special Colors**:
+  * `#gold_value text#!` (Gold/Orange, Bold, Shadow)
+  * `#blue_value text#!` (Blue, Bold, Shadow)
+  * `#I text#!` or `#instruction text#!` (Light Green, Bold, Italic) - Instructions or tips
+* **Typography**:
+  * `#b text#!` (Bold, Shadow)
+  * `#lore text#!` (Grey, Shadow)
+  * `#todo text#!` (Pink, Italic)
+
+*(Note: You can verify existing definitions or add new ones in `.gui` files containing `textformatting = { ... }` blocks).*
+
+## 2. Text Icons
+
+You can insert inline icons directly into your text using the syntax `@<texticon_name>!`.
+The game replaces this with an image defined in the GUI files (such as `gui/texticons.gui` or custom mod files like `gui/ztr_texticons.gui`).
+
+* **Syntax**: `@icon_name!`
+* **Example**: `"Produces more @automobiles! #b Automobiles#!."`
+
+Commonly used texticons in the game and mod:
+* **Goods Icons**: `@coal!`, `@lead!`, `@furniture!`, `@automobiles!`, `@telephones!`, `@telecommunications!`, `@robotics!`
+* **Indices (Tech&Res Mod)**: `@liberty_index!`, `@equality_index!`, `@individualist_index!`, `@autocracy_index!`
+* **Warning / Alert**: `@warning!`
+* **Top Bar / Resources**: `@money!`, `@prestige!`, `@inf!`, `@bur!`, `@aut!`
+
+## 3. Line Breaks (Newlines)
+
+To split text into multiple lines in UI (often used for event descriptions or journal entries), use the standard `\n` sequence.
+* **Example**: `"This is a paragraph.\n\nThis is a new paragraph."`
 
 # Localization Dynamic Coding
 

@@ -1,5 +1,4 @@
 # Chinese Ucronia
-
 ztr_je_the_future_of_china = {
 	icon = "gfx/interface/icons/event_icons/event_newspaper.dds"
 	group = je_group_the_future_of_china
@@ -69,10 +68,16 @@ ztr_je_the_future_of_china = {
 }
 
 # Chinese Civil War
-
 ztr_je_chinese_communist_front = {
 	icon = "gfx/interface/icons/event_icons/event_protest.dds"
-	group = je_group_chinese_communist_front
+	group = je_group_chinese_civil_war
+	should_show_when_not_involved = {
+		OR = {
+			country_rank >= rank_value:great_power
+			is_in_geographic_region = geographic_region_china
+			is_in_geographic_region = geographic_region_east_asia
+		}
+	}
 	is_shown_when_inactive = {
 		has_game_rule = allow_ztr_historical_content
 		has_global_variable = china_shatters
@@ -86,9 +91,6 @@ ztr_je_chinese_communist_front = {
 	}
 	should_be_involved = {
 		ztr_can_receive_communist_china_event = yes
-	}
-	should_show_when_not_involved = {
-		always = yes
 	}
 	possible = {
 		has_game_rule = allow_ztr_historical_content
@@ -309,9 +311,12 @@ ztr_je_chinese_communist_front = {
 
 ztr_je_two_chinas_accord = {
 	icon = "gfx/interface/icons/event_icons/event_newspaper.dds"
-	group = je_group_chinese_communist_front
+	group = je_group_chinese_civil_war
 	is_shown_when_inactive = {
 		ztr_two_chinas_joint_offensive_possible = yes
+	}
+	should_show_when_not_involved = {
+		always = no
 	}
 	should_be_involved = {
 		OR = {

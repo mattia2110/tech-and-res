@@ -162,6 +162,8 @@ ztr_ask_a_government_liberal_petition = {
 	}
 }
 
+# Ottoman Empire Collapse
+
 ztr_ottoman_collapse_request_egypt = {
 	name = "ztr_ottoman_collapse_request_egypt"
 	desc = "ztr_ottoman_collapse_request_egypt_desc"
@@ -169,16 +171,15 @@ ztr_ottoman_collapse_request_egypt = {
 	visible = {
 		is_involved_in_journal_entry = je_ottoman_empire_collapse
 		NOT = { c:TUR ?= this }
-		OR = {
-			c:RUS ?= this
-			is_in_geographic_region = geographic_region_europe
-		}
 	}
 
 	possible = {
-		NOT = { has_variable = ztr_ottoman_collapse_diplomatic_request_cooldown }
-		NOT = { has_variable = ztr_ottoman_collapse_request_egypt_cooldown }
-		NOT = { has_variable = ztr_ottoman_collapse_egypt_aid_patron }
+		custom_tooltip = {
+			text = "ztr_diplomatic_cooldown_tt"
+			NOT = { has_variable = ztr_ottoman_collapse_diplomatic_request_cooldown }
+			NOT = { has_variable = ztr_ottoman_collapse_request_egypt_cooldown }
+			NOT = { has_variable = ztr_ottoman_collapse_egypt_aid_patron }
+		}
 		c:TUR = {
 			has_journal_entry = je_ottoman_empire_collapse
 			NOT = { has_variable = ztr_ottoman_collapse_egypt_aid_taken }
@@ -200,6 +201,10 @@ ztr_ottoman_collapse_request_egypt = {
 					}
 				}
 			}
+		}
+		custom_tooltip = {
+			text = "ztr_ottoman_situation_not_dramatic_tt"
+			scope:ztr_ottoman_collapse_target_country.var:ottoman_empire_collapse_var >= 30
 		}
 	}
 
@@ -257,16 +262,15 @@ ztr_ottoman_collapse_request_levant = {
 	visible = {
 		is_involved_in_journal_entry = je_ottoman_empire_collapse
 		NOT = { c:TUR ?= this }
-		OR = {
-			c:RUS ?= this
-			is_in_geographic_region = geographic_region_europe
-		}
 	}
 
 	possible = {
-		NOT = { has_variable = ztr_ottoman_collapse_diplomatic_request_cooldown }
-		NOT = { has_variable = ztr_ottoman_collapse_request_levant_cooldown }
-		NOT = { has_variable = ztr_ottoman_collapse_syria_aid_patron }
+		custom_tooltip = {
+			text = "ztr_diplomatic_cooldown_tt"
+			NOT = { has_variable = ztr_ottoman_collapse_diplomatic_request_cooldown }
+			NOT = { has_variable = ztr_ottoman_collapse_request_levant_cooldown }
+			NOT = { has_variable = ztr_ottoman_collapse_syria_aid_patron }
+		}
 		c:TUR = {
 			has_journal_entry = je_ottoman_empire_collapse
 			NOT = { has_variable = ztr_ottoman_collapse_syria_aid_taken }
@@ -277,6 +281,7 @@ ztr_ottoman_collapse_request_levant = {
 				has_state_in_state_region = STATE_TRANSJORDAN
 			}
 		}
+		scope:ztr_ottoman_collapse_target_country.var:ottoman_empire_collapse_var >= 30
 	}
 
 	effect = {
@@ -333,16 +338,15 @@ ztr_ottoman_collapse_request_iraq = {
 	visible = {
 		is_involved_in_journal_entry = je_ottoman_empire_collapse
 		NOT = { c:TUR ?= this }
-		OR = {
-			c:RUS ?= this
-			is_in_geographic_region = geographic_region_europe
-		}
 	}
 
 	possible = {
-		NOT = { has_variable = ztr_ottoman_collapse_diplomatic_request_cooldown }
-		NOT = { has_variable = ztr_ottoman_collapse_request_iraq_cooldown }
-		NOT = { has_variable = ztr_ottoman_collapse_iraq_aid_patron }
+		custom_tooltip = {
+			text = "ztr_diplomatic_cooldown_tt"
+			NOT = { has_variable = ztr_ottoman_collapse_diplomatic_request_cooldown }
+			NOT = { has_variable = ztr_ottoman_collapse_request_iraq_cooldown }
+			NOT = { has_variable = ztr_ottoman_collapse_iraq_aid_patron }
+		}
 		c:TUR = {
 			has_journal_entry = je_ottoman_empire_collapse
 			NOT = { has_variable = ztr_ottoman_collapse_iraq_aid_taken }
@@ -352,6 +356,7 @@ ztr_ottoman_collapse_request_iraq = {
 				has_state_in_state_region = STATE_MOSUL
 			}
 		}
+		scope:ztr_ottoman_collapse_target_country.var:ottoman_empire_collapse_var >= 30
 	}
 
 	effect = {
