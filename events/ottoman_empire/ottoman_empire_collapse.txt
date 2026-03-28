@@ -1,5 +1,9 @@
 namespace = ztr_ottoman_collapse
 
+################################################################################
+### OTTOMAN EMPIRE EVENTS
+################################################################################
+
 ztr_ottoman_collapse.1 = {
     dlc = dlc_tech_res
     type = country_event
@@ -560,8 +564,9 @@ ztr_ottoman_collapse.6 = {
 
         scope:ztr_ottoman_collapse_requesting_power = {
             set_variable = ztr_ottoman_collapse_egypt_aid_patron
-            add_treasury = -15000000
+            add_treasury = -1500000
         }
+        add_treasury = 1500000
         set_variable = ztr_ottoman_collapse_egypt_aid_taken
         change_variable = {
             name = ottoman_empire_collapse_var
@@ -757,6 +762,33 @@ ztr_ottoman_collapse.6 = {
                 }
                 add = 2
             }
+            modifier = {
+                trigger = {
+                    relations:scope:ztr_ottoman_collapse_requesting_power >= relations_threshold:amicable
+                }
+                add = 2
+            }
+            modifier = {
+                trigger = {
+                    relations:scope:ztr_ottoman_collapse_requesting_power >= relations_threshold:friendly
+                }
+                add = 2
+            }
+            modifier = {
+                trigger = {
+                    has_diplomatic_pact = {
+                        who = scope:ztr_ottoman_collapse_requesting_power
+                        type = alliance
+                    }
+                }
+                add = 5
+            }
+            modifier = {
+                trigger = {
+                    relations:scope:ztr_ottoman_collapse_requesting_power <= relations_threshold:poor
+                }
+                add = -5
+            }
         }
     }
 
@@ -785,7 +817,7 @@ ztr_ottoman_collapse.6 = {
         }
 
         ai_chance = {
-            base = 5
+            base = 10
         }
     }
 }
@@ -823,6 +855,7 @@ ztr_ottoman_collapse.7 = {
             set_variable = ztr_ottoman_collapse_syria_aid_patron
             add_treasury = -1000000
         }
+        add_treasury = 1000000
         set_variable = ztr_ottoman_collapse_syria_aid_taken
         change_variable = {
             name = ottoman_empire_collapse_var
@@ -897,6 +930,33 @@ ztr_ottoman_collapse.7 = {
                 }
                 add = 2
             }
+            modifier = {
+                trigger = {
+                    relations:scope:ztr_ottoman_collapse_requesting_power >= relations_threshold:amicable
+                }
+                add = 2
+            }
+            modifier = {
+                trigger = {
+                    relations:scope:ztr_ottoman_collapse_requesting_power >= relations_threshold:friendly
+                }
+                add = 2
+            }
+            modifier = {
+                trigger = {
+                    has_diplomatic_pact = {
+                        who = scope:ztr_ottoman_collapse_requesting_power
+                        type = alliance
+                    }
+                }
+                add = 5
+            }
+            modifier = {
+                trigger = {
+                    relations:scope:ztr_ottoman_collapse_requesting_power <= relations_threshold:poor
+                }
+                add = -5
+            }
         }
     }
 
@@ -929,7 +989,7 @@ ztr_ottoman_collapse.7 = {
         }
 
         ai_chance = {
-            base = 5
+            base = 10
         }
     }
 }
@@ -967,6 +1027,7 @@ ztr_ottoman_collapse.8 = {
             set_variable = ztr_ottoman_collapse_iraq_aid_patron
             add_treasury = -1000000
         }
+        add_treasury = 1000000
         set_variable = ztr_ottoman_collapse_iraq_aid_taken
         change_variable = {
             name = ottoman_empire_collapse_var
@@ -1034,6 +1095,33 @@ ztr_ottoman_collapse.8 = {
                 }
                 add = 2
             }
+            modifier = {
+                trigger = {
+                    relations:scope:ztr_ottoman_collapse_requesting_power >= relations_threshold:amicable
+                }
+                add = 2
+            }
+            modifier = {
+                trigger = {
+                    relations:scope:ztr_ottoman_collapse_requesting_power >= relations_threshold:friendly
+                }
+                add = 2
+            }
+            modifier = {
+                trigger = {
+                    has_diplomatic_pact = {
+                        who = scope:ztr_ottoman_collapse_requesting_power
+                        type = alliance
+                    }
+                }
+                add = 5
+            }
+            modifier = {
+                trigger = {
+                    relations:scope:ztr_ottoman_collapse_requesting_power <= relations_threshold:poor
+                }
+                add = -5
+            }
         }
     }
 
@@ -1062,7 +1150,7 @@ ztr_ottoman_collapse.8 = {
         }
 
         ai_chance = {
-            base = 5
+            base = 10
         }
     }
 }
@@ -1123,6 +1211,9 @@ ztr_ottoman_collapse.91 = {
     }
 }
 
+################################################################################
+### OTHER INVOLVED COUNTRIES EVENTS
+################################################################################
 # We can only accept or refuse the invitation once
 ztr_ottoman_collapse.100 = {
     dlc = dlc_tech_res
@@ -1249,6 +1340,9 @@ ztr_ottoman_collapse.113 = {
     option = {
         name = ztr_ottoman_collapse.113.a
         default_option = yes
+        je:je_ottoman_empire_collapse = {
+            remove_involved_country = root
+        }
     }
 }
 
@@ -1303,6 +1397,9 @@ ztr_ottoman_collapse.115 = {
     option = {
         name = ztr_ottoman_collapse.115.a
         default_option = yes
+        je:je_ottoman_empire_collapse = {
+            remove_involved_country = root
+        }
     }
 }
 
@@ -1357,5 +1454,8 @@ ztr_ottoman_collapse.117 = {
     option = {
         name = ztr_ottoman_collapse.117.a
         default_option = yes
+        je:je_ottoman_empire_collapse = {
+            remove_involved_country = root
+        }
     }
 }

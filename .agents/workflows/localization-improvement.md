@@ -49,4 +49,4 @@ This workflow provides a comprehensive, step-by-step guide to reviewing, formatt
 
 ## Phase 5: Final Validation
 13. **Proofread Strings**: Read the modified text from the perspective of a player seeing the rendered tooltips. Ensure noun/adjective agreements and "person" wording make sense across different contexts.
-14. **Save and Validate**: Save the file (reinforcing UTF-8-BOM) and check for any syntax errors like missing brackets or unclosed formatting tags `#!`.
+14. **Save and Validate**: Save the file without change .yml UTF used and check for any syntax errors like missing brackets or unclosed formatting tags `#!`.

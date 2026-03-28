@@ -181,8 +181,10 @@ ztr_ottoman_collapse_request_egypt = {
 			NOT = { has_variable = ztr_ottoman_collapse_egypt_aid_patron }
 		}
 		c:TUR = {
-			has_journal_entry = je_ottoman_empire_collapse
-			NOT = { has_variable = ztr_ottoman_collapse_egypt_aid_taken }
+			custom_tooltip = {
+				text = "ztr_ottoman_already_accepted_help_tt"
+				NOT = { has_variable = ztr_ottoman_collapse_egypt_aid_taken }
+			}
 			OR = {
 				has_state_in_state_region = STATE_LOWER_EGYPT
 				has_state_in_state_region = STATE_MIDDLE_EGYPT
@@ -272,8 +274,10 @@ ztr_ottoman_collapse_request_levant = {
 			NOT = { has_variable = ztr_ottoman_collapse_syria_aid_patron }
 		}
 		c:TUR = {
-			has_journal_entry = je_ottoman_empire_collapse
-			NOT = { has_variable = ztr_ottoman_collapse_syria_aid_taken }
+			custom_tooltip = {
+				text = "ztr_ottoman_already_accepted_help_tt"
+				NOT = { has_variable = ztr_ottoman_collapse_syria_aid_taken }
+			}
 			OR = {
 				has_state_in_state_region = STATE_SYRIA
 				has_state_in_state_region = STATE_LEBANON
@@ -281,7 +285,10 @@ ztr_ottoman_collapse_request_levant = {
 				has_state_in_state_region = STATE_TRANSJORDAN
 			}
 		}
-		scope:ztr_ottoman_collapse_target_country.var:ottoman_empire_collapse_var >= 30
+		custom_tooltip = {
+			text = "ztr_ottoman_situation_not_dramatic_tt"
+			scope:ztr_ottoman_collapse_target_country.var:ottoman_empire_collapse_var >= 30
+		}
 	}
 
 	effect = {
@@ -348,15 +355,20 @@ ztr_ottoman_collapse_request_iraq = {
 			NOT = { has_variable = ztr_ottoman_collapse_iraq_aid_patron }
 		}
 		c:TUR = {
-			has_journal_entry = je_ottoman_empire_collapse
-			NOT = { has_variable = ztr_ottoman_collapse_iraq_aid_taken }
+			custom_tooltip = {
+				text = "ztr_ottoman_already_accepted_help_tt"
+				NOT = { has_variable = ztr_ottoman_collapse_iraq_aid_taken }
+			}
 			OR = {
 				has_state_in_state_region = STATE_BAGHDAD
 				has_state_in_state_region = STATE_BASRA
 				has_state_in_state_region = STATE_MOSUL
 			}
 		}
-		scope:ztr_ottoman_collapse_target_country.var:ottoman_empire_collapse_var >= 30
+		custom_tooltip = {
+			text = "ztr_ottoman_situation_not_dramatic_tt"
+			scope:ztr_ottoman_collapse_target_country.var:ottoman_empire_collapse_var >= 30
+		}
 	}
 
 	effect = {

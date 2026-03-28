@@ -87,7 +87,7 @@ ztr_je_chinese_communist_front = {
 		any_country = {
 			ztr_can_receive_communist_china_event = yes
 		}
-		year > 1935
+		#year > 1935
 	}
 	should_be_involved = {
 		ztr_can_receive_communist_china_event = yes
@@ -131,6 +131,13 @@ ztr_je_chinese_communist_front = {
 					value = global_var:ztr_ccp_overall_progress
 					name = ztr_ccp_global_progress_bar
 				}
+			}
+			every_country = {
+				limit = {
+					ztr_can_receive_communist_china_event = yes
+					NOT = { is_involved_in_journal_entry = ztr_je_chinese_communist_front }
+				}
+				add_involved_country = this
 			}
 		}
 	}
