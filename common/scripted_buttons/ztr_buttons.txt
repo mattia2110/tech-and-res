@@ -161,3 +161,242 @@ ztr_ask_a_government_liberal_petition = {
 		trigger_event = ztr_russian_revolution.13 # Treaty with Liberals
 	}
 }
+
+ztr_ottoman_collapse_request_egypt = {
+	name = "ztr_ottoman_collapse_request_egypt"
+	desc = "ztr_ottoman_collapse_request_egypt_desc"
+
+	visible = {
+		is_involved_in_journal_entry = je_ottoman_empire_collapse
+		NOT = { c:TUR ?= this }
+		OR = {
+			c:RUS ?= this
+			is_in_geographic_region = geographic_region_europe
+		}
+	}
+
+	possible = {
+		NOT = { has_variable = ztr_ottoman_collapse_diplomatic_request_cooldown }
+		NOT = { has_variable = ztr_ottoman_collapse_request_egypt_cooldown }
+		NOT = { has_variable = ztr_ottoman_collapse_egypt_aid_patron }
+		c:TUR = {
+			has_journal_entry = je_ottoman_empire_collapse
+			NOT = { has_variable = ztr_ottoman_collapse_egypt_aid_taken }
+			OR = {
+				has_state_in_state_region = STATE_LOWER_EGYPT
+				has_state_in_state_region = STATE_MIDDLE_EGYPT
+				has_state_in_state_region = STATE_UPPER_EGYPT
+				has_state_in_state_region = STATE_SINAI
+				AND = {
+					exists = c:EGY
+					c:EGY = {
+						is_subject_of = c:TUR
+						OR = {
+							has_state_in_state_region = STATE_LOWER_EGYPT
+							has_state_in_state_region = STATE_MIDDLE_EGYPT
+							has_state_in_state_region = STATE_UPPER_EGYPT
+							has_state_in_state_region = STATE_SINAI
+						}
+					}
+				}
+			}
+		}
+	}
+
+	effect = {
+		set_variable = {
+			name = ztr_ottoman_collapse_diplomatic_request_cooldown
+			years = 3
+		}
+		set_variable = {
+			name = ztr_ottoman_collapse_request_egypt_cooldown
+			years = 10
+		}
+		save_scope_as = ztr_ottoman_collapse_requesting_power
+		custom_tooltip = ztr_ottoman_collapse_request_egypt_cost_tt
+		c:TUR ?= {
+			save_scope_as = ztr_ottoman_collapse_requested_target
+			trigger_event = {
+				id = ztr_ottoman_collapse.6
+				days = 0
+				popup = yes
+			}
+		}
+	}
+
+	ai_chance = {
+		value = 2
+		if = {
+			limit = {
+				OR = {
+					c:GBR ?= THIS
+					c:FRA ?= THIS
+				}
+			}
+			add = 10
+		}
+		if = {
+			limit = {
+				has_strategy = ai_strategy_colonial_expansion
+			}
+			add = 8
+		}
+		if = {
+			limit = {
+				navy_size >= 100
+			}
+			add = 2
+		}
+	}
+}
+
+ztr_ottoman_collapse_request_levant = {
+	name = "ztr_ottoman_collapse_request_levant"
+	desc = "ztr_ottoman_collapse_request_levant_desc"
+
+	visible = {
+		is_involved_in_journal_entry = je_ottoman_empire_collapse
+		NOT = { c:TUR ?= this }
+		OR = {
+			c:RUS ?= this
+			is_in_geographic_region = geographic_region_europe
+		}
+	}
+
+	possible = {
+		NOT = { has_variable = ztr_ottoman_collapse_diplomatic_request_cooldown }
+		NOT = { has_variable = ztr_ottoman_collapse_request_levant_cooldown }
+		NOT = { has_variable = ztr_ottoman_collapse_syria_aid_patron }
+		c:TUR = {
+			has_journal_entry = je_ottoman_empire_collapse
+			NOT = { has_variable = ztr_ottoman_collapse_syria_aid_taken }
+			OR = {
+				has_state_in_state_region = STATE_SYRIA
+				has_state_in_state_region = STATE_LEBANON
+				has_state_in_state_region = STATE_PALESTINE
+				has_state_in_state_region = STATE_TRANSJORDAN
+			}
+		}
+	}
+
+	effect = {
+		set_variable = {
+			name = ztr_ottoman_collapse_diplomatic_request_cooldown
+			years = 3
+		}
+		set_variable = {
+			name = ztr_ottoman_collapse_request_levant_cooldown
+			years = 10
+		}
+		save_scope_as = ztr_ottoman_collapse_requesting_power
+		custom_tooltip = ztr_ottoman_collapse_request_levant_cost_tt
+		c:TUR ?= {
+			save_scope_as = ztr_ottoman_collapse_requested_target
+			trigger_event = {
+				id = ztr_ottoman_collapse.7
+				days = 0
+				popup = yes
+			}
+		}
+	}
+
+	ai_chance = {
+		value = 2
+		if = {
+			limit = {
+				OR = {
+					c:FRA ?= THIS
+					c:GBR ?= THIS
+				}
+			}
+			add = 10
+		}
+		if = {
+			limit = {
+				has_strategy = ai_strategy_colonial_expansion
+			}
+			add = 8
+		}
+		if = {
+			limit = {
+				navy_size >= 100
+			}
+			add = 2
+		}
+	}
+}
+
+ztr_ottoman_collapse_request_iraq = {
+	name = "ztr_ottoman_collapse_request_iraq"
+	desc = "ztr_ottoman_collapse_request_iraq_desc"
+
+	visible = {
+		is_involved_in_journal_entry = je_ottoman_empire_collapse
+		NOT = { c:TUR ?= this }
+		OR = {
+			c:RUS ?= this
+			is_in_geographic_region = geographic_region_europe
+		}
+	}
+
+	possible = {
+		NOT = { has_variable = ztr_ottoman_collapse_diplomatic_request_cooldown }
+		NOT = { has_variable = ztr_ottoman_collapse_request_iraq_cooldown }
+		NOT = { has_variable = ztr_ottoman_collapse_iraq_aid_patron }
+		c:TUR = {
+			has_journal_entry = je_ottoman_empire_collapse
+			NOT = { has_variable = ztr_ottoman_collapse_iraq_aid_taken }
+			OR = {
+				has_state_in_state_region = STATE_BAGHDAD
+				has_state_in_state_region = STATE_BASRA
+				has_state_in_state_region = STATE_MOSUL
+			}
+		}
+	}
+
+	effect = {
+		set_variable = {
+			name = ztr_ottoman_collapse_diplomatic_request_cooldown
+			years = 3
+		}
+		set_variable = {
+			name = ztr_ottoman_collapse_request_iraq_cooldown
+			years = 10
+		}
+		save_scope_as = ztr_ottoman_collapse_requesting_power
+		custom_tooltip = ztr_ottoman_collapse_request_iraq_cost_tt
+		c:TUR ?= {
+			save_scope_as = ztr_ottoman_collapse_requested_target
+			trigger_event = {
+				id = ztr_ottoman_collapse.8
+				days = 0
+				popup = yes
+			}
+		}
+	}
+
+	ai_chance = {
+		value = 2
+		if = {
+			limit = {
+				OR = {
+					c:GBR ?= THIS
+					c:RUS ?= THIS
+				}
+			}
+			add = 10
+		}
+		if = {
+			limit = {
+				has_strategy = ai_strategy_colonial_expansion
+			}
+			add = 8
+		}
+		if = {
+			limit = {
+				navy_size >= 100
+			}
+			add = 2
+		}
+	}
+}

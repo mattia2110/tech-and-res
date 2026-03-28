@@ -1,167 +1,1366 @@
-# namespace = ottoman_empire_collapse
+namespace = ztr_ottoman_collapse
 
-# ottoman_empire_collapse.1 = {
-# 	dlc = dlc_tech_res
-# 	type = country_event
-# 	placement = root
+ztr_ottoman_collapse.1 = {
+    dlc = dlc_tech_res
+    type = country_event
+    placement = root
 
-# 	duration = 1
+    duration = 2
 
-# 	event_image = {
-# 		video = "unspecific_devastation"
-# 	}
+    title = ztr_ottoman_collapse.1.t
+    desc = ztr_ottoman_collapse.1.d
+    flavor = ztr_ottoman_collapse.1.f
 
-# 	title = ottoman_empire_collapse.1.t
-# 	desc = ottoman_empire_collapse.1.d
+    event_image = {
+        video = "middleeast_middleclass_cafe"
+    }
 
-# 	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
-# 	on_opened_soundeffect = "event:/SFX/Events/middleeast/middleclass_cafe"
+    on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
 
-# 	icon = "gfx/interface/icons/event_icons/waving_flag_austria.dds"
+    icon = "gfx/interface/icons/event_icons/waving_flag_ottoman.dds"
 
-# 	trigger = {
-# 		# JE
-# 	}
+    trigger = {
+    }
 
-# 	immediate = {
-# 		if = {
-# 			limit = { exists = c:HUN }
-# 			c:HUN = { save_scope_as = collapse_hungary_scope }
-# 		}
-# 		if = {
-# 			limit = { exists = c:CZH }
-# 			c:CZH = { save_scope_as = collapse_czech_scope }
-# 		}
-# 	}
+    immediate = {
+        
+    }
 
-# 	# Austria declares annexation war only on Hungary
-# 	option = {
-# 		name = ottoman_empire_collapse.1.a
-# 		default_option = yes
-# 		trigger = {
-# 			exists = c:HUN
-# 			NOT = { exists = c:CZH }
-# 		}
-# 		create_diplomatic_play = {
-# 		target_country = c:HUN
-# 		type = dp_annex_war
-# 		}
-# 		hidden_effect = {
-# 			change_infamy = -2000
-# 		}
-# 		ai_chance = {
-# 			base = 4
-# 		}
-# 	}
+    option = {
+        name = ztr_ottoman_collapse.1.a
 
-# 	# Austria declares annexation war only on Czechoslovakia
-# 	option = {
-# 		name = ottoman_empire_collapse.1.b
-# 		trigger = {
-# 			exists = c:CZH
-# 			NOT = { exists = c:HUN }
-# 		}
-# 		change_infamy = -20
-# 		create_diplomatic_play = {
-# 		target_country = c:CZH
-# 		type = dp_annex_war
-# 		}
-# 		hidden_effect = {
-# 			change_infamy = -2000
-# 		}
-# 		ai_chance = {
-# 			base = 4
-# 		}
-# 	}
+        change_variable = {
+            name = ottoman_empire_collapse_var
+            subtract = 2
+        }
+        add_loyalists = {
+            value = 0.10
+            pop_type = bureaucrats
+        }
+        add_loyalists = {
+            value = 0.05
+            pop_type = officers
+        }
 
-# 	# Austria declares annexation war only on Hungary and Czechoslovakia
-# 	option = {
-# 		name = ottoman_empire_collapse.1.c
-# 		trigger = {
-# 			exists = c:HUN
-# 			exists = c:CZH
-# 		}
-# 		change_infamy = -10
-# 		create_diplomatic_play = {
-# 		target_country = c:HUN
-# 		type = dp_annex_war
-# 		}
-# 		create_diplomatic_play = {
-# 		target_country = c:CZH
-# 		type = dp_annex_war
-# 		}
-# 		hidden_effect = {
-# 			change_infamy = -2000
-# 		}
-# 		ai_chance = {
-# 			base = 4
-# 		}
-# 	}
+        ai_chance = {
+            base = 2
+            modifier = {
+                trigger = {
+                    OR = {
+                        has_law = law_type:law_census_voting
+                        has_law = law_type:law_universal_suffrage
+                        has_law = law_type:law_cultural_exclusion
+                        has_law = law_type:law_multicultural
+                    }
+                }
+                add = 4
+            }
+        }
+    }
 
-# 	# Austria declares annexation against everyone
-# 	option = {
-# 		name = ottoman_empire_collapse.1.e
-# 		if = {
-# 			limit = {
-# 				exists = c:HUN
-# 			}
-# 			create_diplomatic_play = {
-# 			target_country = c:HUN
-# 			type = dp_annex_war
-# 			}
-# 		}
-# 		if = {
-# 			limit = {
-# 				exists = c:CZH
-# 			}
-# 			create_diplomatic_play = {
-# 			target_country = c:CZH
-# 			type = dp_annex_war
-# 			}
-# 		}
-# 		if = {
-# 			limit = {
-# 				exists = c:SER
-# 			}
-# 			create_diplomatic_play = {
-# 			target_country = c:SER
-# 			type = dp_annex_war
-# 			}
-# 		}
-# 		if = {
-# 			limit = {
-# 				exists = c:ITA
-# 			}
-# 			create_diplomatic_play = {
-# 			target_country = c:ITA
-# 			type = dp_return_state
-# 			target_state = s:STATE_VENETIA.region_state:ITA
-# 			}
-# 		}
-# 		if = {
-# 			limit = {
-# 				exists = c:VEN
-# 			}
-# 			create_diplomatic_play = {
-# 			target_country = c:VEN
-# 			type = dp_return_state
-# 			target_state = s:STATE_VENETIA.region_state:VEN
-# 			}
-# 		}
-# 		hidden_effect = {
-# 			change_infamy = -2000
-# 		}
-# 		ai_chance = {
-# 			base = 0
-# 		}
-# 	}
+    option = {
+        name = ztr_ottoman_collapse.1.b
+        default_option = yes
 
-# 	# Austria accepts its fate
-# 	option = {
-# 		name = ottoman_empire_collapse.1.f
-# 		change_infamy = -30
-# 		ai_chance = {
-# 			base = 4
-# 		}
-# 	}
-# }
+        change_variable = {
+            name = ottoman_empire_collapse_var
+            add = 1
+        }
+        change_variable = {
+            name = ottoman_empire_collapse_army_var
+            add = 1
+        }
+        add_loyalists = {
+            value = 0.10
+            pop_type = officers
+        }
+
+        ai_chance = {
+            base = 7
+        }
+    }
+
+    option = {
+        name = ztr_ottoman_collapse.1.c
+
+        change_variable = {
+            name = ottoman_empire_collapse_var
+            add = 1
+        }
+        change_variable = {
+            name = ottoman_empire_collapse_foreign_var
+            add = 2
+        }
+        every_country = {
+            limit = {
+                is_involved_in_journal_entry = je_ottoman_empire_collapse
+                NOT = { c:TUR ?= this }
+            }
+            change_relations = {
+                country = ROOT
+                value = 15
+            }
+        }
+        add_loyalists = {
+            value = 0.05
+            pop_type = capitalists
+        }
+
+        ai_chance = {
+            base = 4
+            modifier = {
+                trigger = {
+                    scaled_debt > 0
+                }
+                add = 4
+            }
+        }
+    }
+}
+
+ztr_ottoman_collapse.2 = {
+    dlc = dlc_tech_res
+    type = country_event
+    placement = root
+
+    duration = 2
+
+    title = ztr_ottoman_collapse.2.t
+    desc = ztr_ottoman_collapse.2.d
+    flavor = ztr_ottoman_collapse.2.f
+
+    event_image = {
+        video = "unspecific_politicians_arguing"
+    }
+
+    on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+    icon = "gfx/interface/icons/event_icons/event_newspaper.dds"
+
+    trigger = {
+        NOT = { has_variable = ottoman_collapse_arab_congress_var }
+        OR = {
+            has_state_in_state_region = STATE_ALEPPO
+            has_state_in_state_region = STATE_SYRIA
+            has_state_in_state_region = STATE_LEBANON
+            has_state_in_state_region = STATE_PALESTINE
+            has_state_in_state_region = STATE_TRANSJORDAN
+            has_state_in_state_region = STATE_BAGHDAD
+            has_state_in_state_region = STATE_BASRA
+            has_state_in_state_region = STATE_MOSUL
+        }
+    }
+
+    immediate = {
+        set_variable = {
+            name = ottoman_collapse_arab_congress_var
+            value = 0
+        }
+        # Here we take scope STATE_SYRIA, otherwise Middle East STATE
+        if = {
+            limit = { has_state_in_state_region = STATE_SYRIA }
+            s:STATE_SYRIA = { save_scope_as = arab_congress_state }
+        }
+        else_if = {
+            limit = {
+                any_scope_state = {
+                    region = sr:region_arabic
+                }
+            }
+            random_scope_state = {
+                limit = {
+                    region = sr:region_arabic
+                }
+                save_scope_as = arab_congress_state
+            }
+        }
+        capital = { save_scope_as = ztr_ottoman_capital_scope }
+    }
+
+    option = {
+        name = ztr_ottoman_collapse.2.a
+
+        change_variable = {
+            name = ottoman_empire_collapse_var
+            subtract = 2
+        }
+        if = {
+            limit = { var:ottoman_empire_collapse_arab_var > 0 }
+            change_variable = {
+                name = ottoman_empire_collapse_arab_var
+                subtract = 1
+            }
+        }
+        add_treasury = -1000000
+        add_loyalists = {
+            value = 0.05
+            pop_type = bureaucrats
+        }
+
+        ai_chance = {
+            base = 3
+            modifier = {
+                trigger = {
+                    OR = {
+                        has_law = law_type:law_cultural_exclusion
+                        has_law = law_type:law_multicultural
+                    }
+                }
+                add = 4
+            }
+        }
+    }
+
+    option = {
+        name = ztr_ottoman_collapse.2.b
+        default_option = yes
+
+        change_variable = {
+            name = ottoman_empire_collapse_var
+            add = 3
+        }
+        change_variable = {
+            name = ottoman_empire_collapse_arab_var
+            add = 2
+        }
+        change_variable = {
+            name = ottoman_empire_collapse_army_var
+            add = 1
+        }
+        add_radicals = {
+            value = 0.05
+            pop_type = farmers
+        }
+        add_radicals = {
+            value = 0.05
+            pop_type = academics
+        }
+        add_radicals = {
+            value = 0.05
+            pop_type = bureaucrats
+        }
+
+        ai_chance = {
+            base = 7
+        }
+    }
+
+    option = {
+        name = ztr_ottoman_collapse.2.c
+
+        change_variable = {
+            name = ottoman_empire_collapse_var
+            add = 1
+        }
+        if = {
+            limit = { var:ottoman_empire_collapse_arab_var > 0 }
+            change_variable = {
+                name = ottoman_empire_collapse_arab_var
+                subtract = 1
+            }
+        }
+        change_variable = {
+            name = ottoman_empire_collapse_foreign_var
+            add = 1
+        }
+        add_modifier = {
+            name = modifier_landowners_hegemony_retained
+            years = 2
+        }
+        add_loyalists = {
+            value = 0.05
+            pop_type = aristocrats
+        }
+
+        ai_chance = {
+            base = 2
+        }
+    }
+}
+
+ztr_ottoman_collapse.3 = {
+    dlc = dlc_tech_res
+    type = country_event
+    placement = root
+
+    duration = 2
+
+    title = ztr_ottoman_collapse.3.t
+    desc = ztr_ottoman_collapse.3.d
+    flavor = ztr_ottoman_collapse.3.f
+
+    event_image = {
+        video = "middleeast_upperclass_party"
+    }
+
+    on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+    icon = "gfx/interface/icons/event_icons/event_default.dds"
+
+    trigger = {
+        NOT = { has_variable = ottoman_collapse_debt_var }
+    }
+
+    immediate = {
+        set_variable = {
+            name = ottoman_collapse_debt_var
+            value = 0
+        }
+    }
+
+    option = {
+        name = ztr_ottoman_collapse.3.a
+        default_option = yes
+
+        change_variable = {
+            name = ottoman_empire_collapse_var
+            subtract = 1
+        }
+        change_variable = {
+            name = ottoman_empire_collapse_foreign_var
+            add = 3
+        }
+        every_country = {
+            limit = {
+                is_involved_in_journal_entry = je_ottoman_empire_collapse
+                NOT = { c:TUR ?= this }
+            }
+            change_relations = {
+                country = ROOT
+                value = 20
+            }
+        }
+        add_treasury = 1000000
+        add_loyalists = {
+            value = 0.05
+            pop_type = capitalists
+        }
+
+        ai_chance = {
+            base = 6
+            modifier = {
+                trigger = {
+                    scaled_debt > 0
+                }
+                add = 4
+            }
+        }
+    }
+
+    option = {
+        name = ztr_ottoman_collapse.3.b
+
+        change_variable = {
+            name = ottoman_empire_collapse_var
+            add = 1
+        }
+        change_variable = {
+            name = ottoman_empire_collapse_arab_var
+            add = 1
+        }
+        add_radicals = {
+            value = 0.05
+            pop_type = farmers
+        }
+
+        ai_chance = {
+            base = 3
+        }
+    }
+
+    option = {
+        name = ztr_ottoman_collapse.3.c
+
+        change_variable = {
+            name = ottoman_empire_collapse_var
+            add = 3
+        }
+        change_variable = {
+            name = ottoman_empire_collapse_foreign_var
+            add = 2
+        }
+        every_country = {
+            limit = {
+                is_involved_in_journal_entry = je_ottoman_empire_collapse
+                NOT = { c:TUR ?= this }
+            }
+            change_relations = {
+                country = ROOT
+                value = -40
+            }
+        }
+        add_radicals = {
+            value = 0.05
+            pop_type = capitalists
+        }
+
+        ai_chance = {
+            base = 1
+        }
+    }
+}
+
+ztr_ottoman_collapse.4 = {
+    dlc = dlc_tech_res
+    type = country_event
+    placement = root
+
+    duration = 2
+
+    title = ztr_ottoman_collapse.4.t
+    desc = ztr_ottoman_collapse.4.d
+    flavor = ztr_ottoman_collapse.4.f
+
+    event_image = {
+        video = "unspecific_military_parade"
+    }
+
+    on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+    icon = "gfx/interface/icons/event_icons/event_military.dds"
+
+    trigger = {
+        NOT = { has_variable = ottoman_collapse_officer_var }
+    }
+
+    immediate = {
+        set_variable = {
+            name = ottoman_collapse_officer_var
+            value = 0
+        }
+        random_scope_character = {
+            limit = {
+                has_role = general
+                has_role = admiral
+            }
+            save_scope_as = ottoman_officer_scope
+        }
+    }
+
+    option = {
+        name = ztr_ottoman_collapse.4.a
+        default_option = yes
+
+        change_variable = {
+            name = ottoman_empire_collapse_var
+            subtract = 1
+        }
+        if = {
+            limit = { var:ottoman_empire_collapse_army_var > 0 }
+            change_variable = {
+                name = ottoman_empire_collapse_army_var
+                subtract = 1
+            }
+        }
+        add_treasury = -2000000
+        add_loyalists = {
+            value = 0.10
+            pop_type = officers
+        }
+        add_loyalists = {
+            value = 0.05
+            pop_type = soldiers
+        }
+
+        ai_chance = {
+            base = 6
+        }
+    }
+
+    option = {
+        name = ztr_ottoman_collapse.4.b
+
+        change_variable = {
+            name = ottoman_empire_collapse_var
+            add = 2
+        }
+        change_variable = {
+            name = ottoman_empire_collapse_army_var
+            add = 2
+        }
+        scope:ottoman_officer_scope = {
+            kill_character = yes
+        }
+        add_radicals = {
+            value = 0.05
+            pop_type = officers
+        }
+        ai_chance = {
+            base = 3
+        }
+    }
+
+    option = {
+        name = ztr_ottoman_collapse.4.c
+
+        change_variable = {
+            name = ottoman_empire_collapse_var
+            subtract = 2
+        }
+        if = {
+            limit = { var:ottoman_empire_collapse_army_var > 0 }
+            change_variable = {
+                name = ottoman_empire_collapse_army_var
+                subtract = 1
+            }
+        }
+        change_variable = {
+            name = ottoman_empire_collapse_foreign_var
+            add = 1
+        }
+        add_radicals = {
+            value = 0.15
+            pop_type = officers
+        }
+        add_modifier = {
+            name = purged_police_modifier
+            years = 5
+        }
+
+        ai_chance = {
+            base = 1
+            modifier = {
+                trigger = {
+                    has_technology_researched = general_staff
+                }
+                add = 4
+            }
+        }
+    }
+}
+
+ztr_ottoman_collapse.6 = {
+    dlc = dlc_tech_res
+    type = country_event
+    placement = root
+
+    duration = 2
+
+    title = ztr_ottoman_collapse.6.t
+    desc = ztr_ottoman_collapse.6.d
+    flavor = ztr_ottoman_collapse.6.f
+
+    event_image = {
+        video = "africa_construction_colony"
+    }
+
+    on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+    icon = "gfx/interface/icons/event_icons/event_default.dds"
+
+    trigger = {
+        exists = scope:ztr_ottoman_collapse_requesting_power
+    }
+
+    option = {
+        name = ztr_ottoman_collapse.6.a
+        trigger = {
+            NOT = { has_variable = ztr_ottoman_collapse_egypt_aid_taken }
+        }
+
+        scope:ztr_ottoman_collapse_requesting_power = {
+            set_variable = ztr_ottoman_collapse_egypt_aid_patron
+            add_treasury = -15000000
+        }
+        set_variable = ztr_ottoman_collapse_egypt_aid_taken
+        change_variable = {
+            name = ottoman_empire_collapse_var
+            subtract = 2
+        }
+        if = {
+            limit = { var:ottoman_empire_collapse_arab_var > 5 }
+            change_variable = {
+                name = ottoman_empire_collapse_arab_var
+                subtract = 1
+            }
+        }
+        change_relations = {
+            country = scope:ztr_ottoman_collapse_requesting_power
+            value = 20
+        }
+        if = {
+            limit = {
+                OR = {
+                    has_state_in_state_region = STATE_LOWER_EGYPT
+                    AND = {
+                        exists = c:EGY
+                        c:EGY = {
+                            is_subject_of = c:TUR
+                            has_state_in_state_region = STATE_LOWER_EGYPT
+                        }
+                    }
+                }
+            }
+            if = {
+                limit = { has_state_in_state_region = STATE_LOWER_EGYPT }
+                s:STATE_LOWER_EGYPT.region_state:TUR = {
+                    add_modifier = {
+                        name = ztr_ottoman_egypt_foreign_aid_modifier
+                        years = 10
+                    }
+                }
+            }
+            if = {
+                limit = {
+                    exists = c:EGY
+                    c:EGY = {
+                        is_subject_of = c:TUR
+                        has_state_in_state_region = STATE_LOWER_EGYPT
+                    }
+                }
+                s:STATE_LOWER_EGYPT.region_state:EGY = {
+                    add_modifier = {
+                        name = ztr_ottoman_egypt_foreign_aid_modifier
+                        years = 10
+                    }
+                }
+            }
+        }
+        if = {
+            limit = {
+                OR = {
+                    has_state_in_state_region = STATE_MIDDLE_EGYPT
+                    AND = {
+                        exists = c:EGY
+                        c:EGY = {
+                            is_subject_of = c:TUR
+                            has_state_in_state_region = STATE_MIDDLE_EGYPT
+                        }
+                    }
+                }
+            }
+            if = {
+                limit = { has_state_in_state_region = STATE_MIDDLE_EGYPT }
+                s:STATE_MIDDLE_EGYPT.region_state:TUR = {
+                    add_modifier = {
+                        name = ztr_ottoman_egypt_foreign_aid_modifier
+                        years = 10
+                    }
+                }
+            }
+            if = {
+                limit = {
+                    exists = c:EGY
+                    c:EGY = {
+                        is_subject_of = c:TUR
+                        has_state_in_state_region = STATE_MIDDLE_EGYPT
+                    }
+                }
+                s:STATE_MIDDLE_EGYPT.region_state:EGY = {
+                    add_modifier = {
+                        name = ztr_ottoman_egypt_foreign_aid_modifier
+                        years = 10
+                    }
+                }
+            }
+        }
+        if = {
+            limit = {
+                OR = {
+                    has_state_in_state_region = STATE_UPPER_EGYPT
+                    AND = {
+                        exists = c:EGY
+                        c:EGY = {
+                            is_subject_of = c:TUR
+                            has_state_in_state_region = STATE_UPPER_EGYPT
+                        }
+                    }
+                }
+            }
+            if = {
+                limit = { has_state_in_state_region = STATE_UPPER_EGYPT }
+                s:STATE_UPPER_EGYPT.region_state:TUR = {
+                    add_modifier = {
+                        name = ztr_ottoman_egypt_foreign_aid_modifier
+                        years = 10
+                    }
+                }
+            }
+            if = {
+                limit = {
+                    exists = c:EGY
+                    c:EGY = {
+                        is_subject_of = c:TUR
+                        has_state_in_state_region = STATE_UPPER_EGYPT
+                    }
+                }
+                s:STATE_UPPER_EGYPT.region_state:EGY = {
+                    add_modifier = {
+                        name = ztr_ottoman_egypt_foreign_aid_modifier
+                        years = 10
+                    }
+                }
+            }
+        }
+        if = {
+            limit = {
+                OR = {
+                    has_state_in_state_region = STATE_SINAI
+                    AND = {
+                        exists = c:EGY
+                        c:EGY = {
+                            is_subject_of = c:TUR
+                            has_state_in_state_region = STATE_SINAI
+                        }
+                    }
+                }
+            }
+            if = {
+                limit = { has_state_in_state_region = STATE_SINAI }
+                s:STATE_SINAI.region_state:TUR = {
+                    add_modifier = {
+                        name = ztr_ottoman_egypt_foreign_aid_modifier
+                        years = 10
+                    }
+                }
+            }
+            if = {
+                limit = {
+                    exists = c:EGY
+                    c:EGY = {
+                        is_subject_of = c:TUR
+                        has_state_in_state_region = STATE_SINAI
+                    }
+                }
+                s:STATE_SINAI.region_state:EGY = {
+                    add_modifier = {
+                        name = ztr_ottoman_egypt_foreign_aid_modifier
+                        years = 10
+                    }
+                }
+            }
+        }
+        scope:ztr_ottoman_collapse_requesting_power = {
+            trigger_event = {
+                id = ztr_ottoman_collapse.112
+                days = 0
+                popup = yes
+            }
+        }
+
+        ai_chance = {
+            base = 3
+            modifier = {
+                trigger = {
+                    scaled_debt > 0
+                }
+                add = 4
+            }
+            modifier = {
+                trigger = {
+                    scope:ztr_ottoman_collapse_requesting_power = {
+                        OR = {
+                            c:GBR ?= this
+                            c:FRA ?= this
+                        }
+                    }
+                }
+                add = 2
+            }
+        }
+    }
+
+    option = {
+        name = ztr_ottoman_collapse.6.b
+        default_option = yes
+
+        change_variable = {
+            name = ottoman_empire_collapse_var
+            add = 2
+        }
+        change_variable = {
+            name = ottoman_empire_collapse_arab_var
+            add = 1
+        }
+        change_relations = {
+            country = scope:ztr_ottoman_collapse_requesting_power
+            value = -40
+        }
+        scope:ztr_ottoman_collapse_requesting_power = {
+            trigger_event = {
+                id = ztr_ottoman_collapse.113
+                days = 0
+                popup = yes
+            }
+        }
+
+        ai_chance = {
+            base = 5
+        }
+    }
+}
+
+ztr_ottoman_collapse.7 = {
+    dlc = dlc_tech_res
+    type = country_event
+    placement = root
+
+    duration = 2
+
+    title = ztr_ottoman_collapse.7.t
+    desc = ztr_ottoman_collapse.7.d
+    flavor = ztr_ottoman_collapse.7.f
+
+    event_image = {
+        video = "asia_politician_parliament_motion"
+    }
+
+    on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+    icon = "gfx/interface/icons/event_icons/event_scales.dds"
+
+    trigger = {
+        exists = scope:ztr_ottoman_collapse_requesting_power
+    }
+
+    option = {
+        name = ztr_ottoman_collapse.7.a
+        trigger = {
+            NOT = { has_variable = ztr_ottoman_collapse_syria_aid_taken }
+        }
+
+        scope:ztr_ottoman_collapse_requesting_power = {
+            set_variable = ztr_ottoman_collapse_syria_aid_patron
+            add_treasury = -1000000
+        }
+        set_variable = ztr_ottoman_collapse_syria_aid_taken
+        change_variable = {
+            name = ottoman_empire_collapse_var
+            subtract = 2
+        }
+        if = {
+            limit = { var:ottoman_empire_collapse_arab_var > 5 }
+            change_variable = {
+                name = ottoman_empire_collapse_arab_var
+                subtract = 1
+            }
+        }
+        change_relations = {
+            country = scope:ztr_ottoman_collapse_requesting_power
+            value = 20
+        }
+        if = {
+            limit = { has_state_in_state_region = STATE_SYRIA }
+            s:STATE_SYRIA.region_state:TUR = {
+                add_modifier = {
+                    name = ztr_ottoman_syria_foreign_aid_modifier
+                    years = 10
+                }
+            }
+        }
+        if = {
+            limit = { has_state_in_state_region = STATE_PALESTINE }
+            s:STATE_PALESTINE.region_state:TUR = {
+                add_modifier = {
+                    name = ztr_ottoman_syria_foreign_aid_modifier
+                    years = 10
+                }
+            }
+        }
+        if = {
+            limit = { has_state_in_state_region = STATE_TRANSJORDAN }
+            s:STATE_TRANSJORDAN.region_state:TUR = {
+                add_modifier = {
+                    name = ztr_ottoman_syria_foreign_aid_modifier
+                    years = 10
+                }
+            }
+        }
+        if = {
+            limit = { has_state_in_state_region = STATE_LEBANON }
+            s:STATE_LEBANON.region_state:TUR = {
+                add_modifier = {
+                    name = ztr_ottoman_syria_foreign_aid_modifier
+                    years = 10
+                }
+            }
+        }
+        scope:ztr_ottoman_collapse_requesting_power = {
+            trigger_event = {
+                id = ztr_ottoman_collapse.114
+                days = 0
+                popup = yes
+            }
+        }
+
+        ai_chance = {
+            base = 3
+            modifier = {
+                trigger = {
+                    scaled_debt > 0
+                }
+                add = 3
+            }
+            modifier = {
+                trigger = {
+                    var:ottoman_empire_collapse_foreign_var >= 3
+                }
+                add = 2
+            }
+        }
+    }
+
+    option = {
+        name = ztr_ottoman_collapse.7.b
+        default_option = yes
+
+        change_variable = {
+            name = ottoman_empire_collapse_var
+            add = 2
+        }
+        change_variable = {
+            name = ottoman_empire_collapse_foreign_var
+            add = 2
+        }
+        change_variable = {
+            name = ottoman_empire_collapse_arab_var
+            add = 1
+        }
+        change_relations = {
+            country = scope:ztr_ottoman_collapse_requesting_power
+            value = -45
+        }
+        scope:ztr_ottoman_collapse_requesting_power = {
+            trigger_event = {
+                id = ztr_ottoman_collapse.115
+                days = 0
+                popup = yes
+            }
+        }
+
+        ai_chance = {
+            base = 5
+        }
+    }
+}
+
+ztr_ottoman_collapse.8 = {
+    dlc = dlc_tech_res
+    type = country_event
+    placement = root
+
+    duration = 2
+
+    title = ztr_ottoman_collapse.8.t
+    desc = ztr_ottoman_collapse.8.d
+    flavor = ztr_ottoman_collapse.8.f
+
+    event_image = {
+        video = "unspecific_signed_contract"
+    }
+
+    on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+    icon = "gfx/interface/icons/event_icons/event_default.dds"
+
+    trigger = {
+        exists = scope:ztr_ottoman_collapse_requesting_power
+    }
+
+    option = {
+        name = ztr_ottoman_collapse.8.a
+        trigger = {
+            NOT = { has_variable = ztr_ottoman_collapse_iraq_aid_taken }
+        }
+
+        scope:ztr_ottoman_collapse_requesting_power = {
+            set_variable = ztr_ottoman_collapse_iraq_aid_patron
+            add_treasury = -1000000
+        }
+        set_variable = ztr_ottoman_collapse_iraq_aid_taken
+        change_variable = {
+            name = ottoman_empire_collapse_var
+            subtract = 2
+        }
+        if = {
+            limit = { var:ottoman_empire_collapse_arab_var > 5 }
+            change_variable = {
+                name = ottoman_empire_collapse_arab_var
+                subtract = 1
+            }
+        }
+        change_relations = {
+            country = scope:ztr_ottoman_collapse_requesting_power
+            value = 20
+        }
+        if = {
+            limit = { has_state_in_state_region = STATE_BAGHDAD }
+            s:STATE_BAGHDAD.region_state:TUR = {
+                add_modifier = {
+                    name = ztr_ottoman_iraq_foreign_aid_modifier
+                    years = 10
+                }
+            }
+        }
+        if = {
+            limit = { has_state_in_state_region = STATE_BASRA }
+            s:STATE_BASRA.region_state:TUR = {
+                add_modifier = {
+                    name = ztr_ottoman_iraq_foreign_aid_modifier
+                    years = 10
+                }
+            }
+        }
+        if = {
+            limit = { has_state_in_state_region = STATE_MOSUL }
+            s:STATE_MOSUL.region_state:TUR = {
+                add_modifier = {
+                    name = ztr_ottoman_iraq_foreign_aid_modifier
+                    years = 10
+                }
+            }
+        }
+        scope:ztr_ottoman_collapse_requesting_power = {
+            trigger_event = {
+                id = ztr_ottoman_collapse.116
+                days = 0
+                popup = yes
+            }
+        }
+
+        ai_chance = {
+            base = 3
+            modifier = {
+                trigger = {
+                    scaled_debt > 0
+                }
+                add = 4
+            }
+            modifier = {
+                trigger = {
+                    scope:ztr_ottoman_collapse_requesting_power = {
+                        c:GBR ?= this
+                    }
+                }
+                add = 2
+            }
+        }
+    }
+
+    option = {
+        name = ztr_ottoman_collapse.8.b
+        default_option = yes
+
+        change_variable = {
+            name = ottoman_empire_collapse_var
+            add = 2
+        }
+        change_variable = {
+            name = ottoman_empire_collapse_foreign_var
+            add = 2
+        }
+        change_relations = {
+            country = scope:ztr_ottoman_collapse_requesting_power
+            value = -40
+        }
+        scope:ztr_ottoman_collapse_requesting_power = {
+            trigger_event = {
+                id = ztr_ottoman_collapse.117
+                days = 0
+                popup = yes
+            }
+        }
+
+        ai_chance = {
+            base = 5
+        }
+    }
+}
+
+ztr_ottoman_collapse.90 = {
+    dlc = dlc_tech_res
+    type = country_event
+    placement = root
+
+    duration = 2
+
+    title = ztr_ottoman_collapse.90.t
+    desc = ztr_ottoman_collapse.90.d
+    flavor = ztr_ottoman_collapse.90.f
+
+    event_image = {
+        video = "unspecific_devastation"
+    }
+
+    on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+    icon = "gfx/interface/icons/event_icons/waving_flag_ottoman.dds"
+
+    trigger = {
+    }
+
+    option = {
+        name = ztr_ottoman_collapse.90.a
+        default_option = yes
+    }
+}
+
+ztr_ottoman_collapse.91 = {
+    dlc = dlc_tech_res
+    type = country_event
+    placement = root
+
+    duration = 2
+
+    title = ztr_ottoman_collapse.91.t
+    desc = ztr_ottoman_collapse.91.d
+    flavor = ztr_ottoman_collapse.91.f
+
+    event_image = {
+        video = "unspecific_military_parade"
+    }
+
+    on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+    icon = "gfx/interface/icons/event_icons/waving_flag_ottoman.dds"
+
+    trigger = {
+    }
+
+    option = {
+        name = ztr_ottoman_collapse.91.a
+        default_option = yes
+    }
+}
+
+# We can only accept or refuse the invitation once
+ztr_ottoman_collapse.100 = {
+    dlc = dlc_tech_res
+    type = country_event
+    placement = root
+
+    duration = 2
+
+    title = ztr_ottoman_collapse.100.t
+    desc = ztr_ottoman_collapse.100.d
+    flavor = ztr_ottoman_collapse.100.f
+
+    event_image = {
+        video = "unspecific_politicians_arguing"
+    }
+
+    on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+    icon = "gfx/interface/icons/event_icons/event_default.dds"
+
+    trigger = {
+        NOT = { c:TUR ?= this }
+        c:TUR = {
+            has_journal_entry = je_ottoman_empire_collapse
+        }
+        country_rank >= rank_value:major_power
+        navy_size >= 60
+        OR = {
+            c:RUS ?= this
+            is_in_geographic_region = geographic_region_europe
+        }
+    }
+
+    option = {
+        name = ztr_ottoman_collapse.100.a
+        default_option = yes
+        scope:journal_entry = {
+            add_involved_country = ROOT
+        }
+        change_infamy = 5
+
+        ai_chance = {
+            base = 4
+            modifier = {
+                trigger = {
+                    OR = {
+                        c:GBR ?= this
+                        c:FRA ?= this
+                        has_strategy = ai_strategy_colonial_expansion
+                    }
+                }
+                add = 8
+            }
+            modifier = {
+                trigger = {
+                    navy_size >= 100
+                }
+                add = 4
+            }
+        }
+    }
+
+    option = {
+        name = ztr_ottoman_collapse.100.b
+
+        ai_chance = {
+            base = 4
+            modifier = {
+                trigger = {
+                    OR = {
+                        is_at_war = yes
+                        infamy > 30
+                    }
+                }
+                add = 6
+            }
+        }
+    }
+}
+
+ztr_ottoman_collapse.112 = {
+    dlc = dlc_tech_res
+    type = country_event
+    placement = root
+
+    duration = 1
+
+    title = ztr_ottoman_collapse.112.t
+    desc = ztr_ottoman_collapse.112.d
+
+    event_image = {
+        video = "africa_construction_colony"
+    }
+
+    on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+    icon = "gfx/interface/icons/event_icons/event_default.dds"
+
+    trigger = {
+    }
+
+    option = {
+        name = ztr_ottoman_collapse.112.a
+        default_option = yes
+    }
+}
+
+ztr_ottoman_collapse.113 = {
+    dlc = dlc_tech_res
+    type = country_event
+    placement = root
+
+    duration = 1
+
+    title = ztr_ottoman_collapse.113.t
+    desc = ztr_ottoman_collapse.113.d
+
+    event_image = {
+        video = "unspecific_politicians_arguing"
+    }
+
+    on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+    icon = "gfx/interface/icons/event_icons/event_scales.dds"
+
+    trigger = {
+    }
+
+    option = {
+        name = ztr_ottoman_collapse.113.a
+        default_option = yes
+    }
+}
+
+ztr_ottoman_collapse.114 = {
+    dlc = dlc_tech_res
+    type = country_event
+    placement = root
+
+    duration = 1
+
+    title = ztr_ottoman_collapse.114.t
+    desc = ztr_ottoman_collapse.114.d
+
+    event_image = {
+        video = "asia_politician_parliament_motion"
+    }
+
+    on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+    icon = "gfx/interface/icons/event_icons/event_scales.dds"
+
+    trigger = {
+    }
+
+    option = {
+        name = ztr_ottoman_collapse.114.a
+        default_option = yes
+    }
+}
+
+ztr_ottoman_collapse.115 = {
+    dlc = dlc_tech_res
+    type = country_event
+    placement = root
+
+    duration = 1
+
+    title = ztr_ottoman_collapse.115.t
+    desc = ztr_ottoman_collapse.115.d
+
+    event_image = {
+        video = "unspecific_politicians_arguing"
+    }
+
+    on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+    icon = "gfx/interface/icons/event_icons/event_scales.dds"
+
+    trigger = {
+    }
+
+    option = {
+        name = ztr_ottoman_collapse.115.a
+        default_option = yes
+    }
+}
+
+ztr_ottoman_collapse.116 = {
+    dlc = dlc_tech_res
+    type = country_event
+    placement = root
+
+    duration = 1
+
+    title = ztr_ottoman_collapse.116.t
+    desc = ztr_ottoman_collapse.116.d
+
+    event_image = {
+        video = "unspecific_signed_contract"
+    }
+
+    on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+    icon = "gfx/interface/icons/event_icons/event_default.dds"
+
+    trigger = {
+    }
+
+    option = {
+        name = ztr_ottoman_collapse.116.a
+        default_option = yes
+    }
+}
+
+ztr_ottoman_collapse.117 = {
+    dlc = dlc_tech_res
+    type = country_event
+    placement = root
+
+    duration = 1
+
+    title = ztr_ottoman_collapse.117.t
+    desc = ztr_ottoman_collapse.117.d
+
+    event_image = {
+        video = "middleeast_upperclass_party"
+    }
+
+    on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+    icon = "gfx/interface/icons/event_icons/event_default.dds"
+
+    trigger = {
+    }
+
+    option = {
+        name = ztr_ottoman_collapse.117.a
+        default_option = yes
+    }
+}
