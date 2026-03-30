@@ -275,3 +275,44 @@ je_fusion_reactor_construction = {
 
 	should_be_pinned_by_default = yes
 }
+
+# IMF Modernization Journal Entry
+
+je_imf_modernization = {
+	icon = "gfx/interface/icons/event_icons/academia.dds"
+
+	group = je_group_technology
+
+	complete = {
+		custom_tooltip = {
+			text = je_imf_modernization_literacy_tt
+			literacy_rate >= 0.70
+		}
+		custom_tooltip = {
+			text = je_imf_modernization_sol_tt
+			average_sol >= 18
+		}
+		custom_tooltip = {
+			text = je_imf_modernization_developed_tt
+			OR = {
+				has_modifier = dev_5_country
+				has_modifier = dev_6_country
+				has_modifier = dev_7_country
+				has_modifier = dev_8_country
+				get_country_gdp_per > 7
+			}
+		}
+	}
+
+	on_complete = {
+		set_variable = {
+			name = imf_modernization_completed
+			value = 1
+		}
+		trigger_event = ztr_imf_event.5
+	}
+
+	weight = 25
+
+	should_be_pinned_by_default = yes
+}

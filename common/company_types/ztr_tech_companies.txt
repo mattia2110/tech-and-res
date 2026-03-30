@@ -7,61 +7,16 @@
 # Intel
 # ASML
 # TSMC
+# Foxconn
 # SAP
+# Nvidia
+# Alphabet
+# Mistral AI
+# Baidu
+# Cohere
 # Xiaomi
 # Huawei
 # Sony
-
-#Generic Tech
-generic_company_basic_tech = {
-	icon = "gfx/interface/icons/company_icons/tech_generic_icon.dds"
-	background = "gfx/interface/icons/company_icons/company_backgrounds/comp_illu_tech.dds"
-	
-	uses_dynamic_naming = yes
-	
-	dynamic_company_type_names = {
-		"dynamic_company_type_company"
-		"dynamic_company_type_corporation"
-	}
-	
-	building_types = {
-		building_electronics_industry
-		building_telecommunications_industry
-	}
-
-	extension_building_types = {
-		building_computer_assembly_plant
-		building_software_industry
-		building_processors_foundry
-	}
-
-	possible = {
-		has_technology_researched = telephone
-		any_scope_state = {
-			is_incorporated = yes
-			any_scope_building = {
-				is_building_type = building_electronics_industry
-				level >= 3
-			}
-		}
-	}
-	
-	prosperity_modifier = {
-		country_production_tech_research_speed_mult = 0.05
-		building_electrics_industry_throughput_add = 0.05
-	}
-
-	ai_will_do = {
-		has_technology_researched = telephone
-		any_scope_state = {
-			is_incorporated = yes
-			any_scope_building = {
-				is_building_type = building_electronics_industry
-				level = 5
-			}
-		}
-	}
-}
 
 company_apple = {
 	icon = "gfx/interface/icons/company_icons/historical_company_icons/american_apple.dds"
@@ -483,6 +438,65 @@ company_tsmc = {
 	ai_weight = { value = 4 }
 }
 
+# Foxconn
+company_foxconn = {
+	icon = "gfx/interface/icons/company_icons/historical_company_icons/taiwanese_foxconn.dds"
+	background = "gfx/interface/icons/company_icons/company_backgrounds/comp_illu_tech.dds"
+
+	flavored_company = yes
+	preferred_headquarters = { STATE_FORMOSA }
+
+	building_types = {
+		building_computer_assembly_plant
+	}
+
+	extension_building_types = {
+		building_electronics_industry
+	}
+
+	potential = { has_interest_marker_in_region = region_south_china }
+
+	attainable = {
+		hidden_trigger = {
+			any_scope_state = { state_region = s:STATE_FORMOSA }
+		}
+	}
+
+	possible = {
+		has_technology_researched = personal_computer
+		any_scope_state = {
+			state_region = s:STATE_FORMOSA
+			is_incorporated = yes
+			any_scope_building = {
+				is_building_type = building_computer_assembly_plant
+				level >= 5
+			}
+		}
+	}
+
+	prosperity_modifier = {
+		building_electronics_industry_throughput_add = 0.05
+		building_processors_foundry_throughput_add = 0.05
+	}
+
+	ai_will_do = {
+		has_technology_researched = personal_computer
+		any_scope_state = {
+			state_region = s:STATE_FORMOSA
+			is_incorporated = yes
+		}
+	}
+
+	ai_construction_targets = {
+		building_computer_assembly_plant = {
+			level = 5
+			state_trigger = { state_region = s:STATE_FORMOSA }
+		}
+	}
+
+	ai_weight = { value = 4 }
+}
+
 # Microsoft
 
 company_microsoft = {
@@ -784,4 +798,309 @@ company_tokyo_tsushin_kogyo_sony = {
 	ai_weight = {
 		value = 3 # Higher base value for flavored companies
 	}
+}
+
+# AI Companies
+
+# Nvidia
+company_nvidia = {
+	icon = "gfx/interface/icons/company_icons/historical_company_icons/american_nvidia.dds"
+	background = "gfx/interface/icons/company_icons/company_backgrounds/comp_illu_tech.dds"
+
+	flavored_company = yes
+	preferred_headquarters = { STATE_CALIFORNIA }
+
+	building_types = {
+		building_processors_foundry
+		building_datacenter_industry
+	}
+
+	extension_building_types = {
+		building_software_industry
+	}
+
+	possible_prestige_goods = {
+		prestige_good_gpu
+	}
+
+	potential = { has_interest_marker_in_region = region_pacific_coast }
+
+	attainable = {
+		hidden_trigger = {
+			any_scope_state = { state_region = s:STATE_CALIFORNIA }
+		}
+	}
+
+	possible = {
+		has_technology_researched = parallel_computing_architecture
+		any_scope_state = {
+			state_region = s:STATE_CALIFORNIA
+			is_incorporated = yes
+			any_scope_building = {
+				OR = {
+					is_building_type = building_processors_foundry
+					is_building_type = building_datacenter_industry
+				}
+				level >= 5
+			}
+		}
+	}
+
+	prosperity_modifier = {
+		building_computer_assembly_plant_throughput_add = 0.05
+		goods_output_ai_systems_mult = 0.05
+		country_prestige_mult = 0.05
+	}
+
+	ai_will_do = {
+		has_technology_researched = parallel_computing_architecture
+		any_scope_state = {
+			state_region = s:STATE_CALIFORNIA
+			is_incorporated = yes
+		}
+	}
+
+	ai_construction_targets = {
+		building_processors_foundry = {
+			level = 5
+			state_trigger = { state_region = s:STATE_CALIFORNIA }
+		}
+	}
+
+	ai_weight = { value = 4 }
+}
+
+# Alphabet
+company_alphabet = {
+	icon = "gfx/interface/icons/company_icons/historical_company_icons/american_alphabet.dds"
+	background = "gfx/interface/icons/company_icons/company_backgrounds/comp_illu_tech.dds"
+
+	flavored_company = yes
+	preferred_headquarters = { STATE_CALIFORNIA }
+
+	building_types = {
+		building_software_industry
+		building_datacenter_industry
+		building_telecommunications_industry
+	}
+
+	potential = { has_interest_marker_in_region = region_pacific_coast }
+
+	attainable = {
+		hidden_trigger = {
+			any_scope_state = { state_region = s:STATE_CALIFORNIA }
+		}
+	}
+
+	possible = {
+		has_technology_researched = internet
+		any_scope_state = {
+			state_region = s:STATE_CALIFORNIA
+			is_incorporated = yes
+			any_scope_building = {
+				OR = {
+					is_building_type = building_software_industry
+					is_building_type = building_datacenter_industry
+				}
+				level >= 5
+			}
+		}
+	}
+
+	prosperity_modifier = {
+		building_throughput_add = 0.01
+		country_tech_research_speed_mult = 0.02
+	}
+
+	ai_will_do = {
+		has_technology_researched = internet
+		any_scope_state = {
+			state_region = s:STATE_CALIFORNIA
+			is_incorporated = yes
+		}
+	}
+
+	ai_construction_targets = {
+		building_software_industry = {
+			level = 5
+			state_trigger = { state_region = s:STATE_CALIFORNIA }
+		}
+	}
+
+	ai_weight = { value = 4 }
+}
+
+# Mistral AI
+company_mistral_ai = {
+	icon = "gfx/interface/icons/company_icons/historical_company_icons/french_mistral_ai.dds"
+	background = "gfx/interface/icons/company_icons/company_backgrounds/comp_illu_tech.dds"
+
+	flavored_company = yes
+	preferred_headquarters = { STATE_ILE_DE_FRANCE }
+
+	building_types = {
+		building_software_industry
+		building_datacenter_industry
+	}
+
+	potential = { has_interest_marker_in_region = region_france }
+
+	attainable = {
+		hidden_trigger = {
+			any_scope_state = { state_region = s:STATE_ILE_DE_FRANCE }
+		}
+	}
+
+	possible = {
+		has_technology_researched = artificial_intelligence
+		any_scope_state = {
+			state_region = s:STATE_ILE_DE_FRANCE
+			is_incorporated = yes
+			any_scope_building = {
+				is_building_type = building_software_industry
+				level >= 5
+			}
+		}
+	}
+
+	prosperity_modifier = {
+		building_software_industry_throughput_add = 0.05
+		country_tech_research_speed_mult = 0.05
+	}
+
+	ai_will_do = {
+		has_technology_researched = artificial_intelligence
+		any_scope_state = {
+			state_region = s:STATE_ILE_DE_FRANCE
+			is_incorporated = yes
+		}
+	}
+
+	ai_construction_targets = {
+		building_software_industry = {
+			level = 5
+			state_trigger = { state_region = s:STATE_ILE_DE_FRANCE }
+		}
+	}
+
+	ai_weight = { value = 4 }
+}
+
+# Baidu
+company_baidu = {
+	icon = "gfx/interface/icons/company_icons/historical_company_icons/chinese_baidu.dds"
+	background = "gfx/interface/icons/company_icons/company_backgrounds/comp_illu_tech.dds"
+
+	flavored_company = yes
+	preferred_headquarters = { STATE_BEIJING }
+
+	building_types = {
+		building_software_industry
+		building_telecommunications_industry
+		building_datacenter_industry
+	}
+
+	potential = { has_interest_marker_in_region = region_north_china }
+
+	attainable = {
+		hidden_trigger = {
+			any_scope_state = { state_region = s:STATE_BEIJING }
+		}
+	}
+
+	possible = {
+		has_technology_researched = artificial_intelligence
+		any_scope_state = {
+			state_region = s:STATE_BEIJING
+			is_incorporated = yes
+			any_scope_building = {
+				OR = {
+					is_building_type = building_software_industry
+					is_building_type = building_datacenter_industry
+				}
+				level >= 5
+			}
+		}
+	}
+
+	prosperity_modifier = {
+		building_datacenter_industry_throughput_add = 0.1
+		state_turmoil_effects_mult = -0.05
+	}
+
+	ai_will_do = {
+		has_technology_researched = artificial_intelligence
+		any_scope_state = {
+			state_region = s:STATE_BEIJING
+			is_incorporated = yes
+		}
+	}
+
+	ai_construction_targets = {
+		building_software_industry = {
+			level = 5
+			state_trigger = { state_region = s:STATE_BEIJING }
+		}
+	}
+
+	ai_weight = { value = 4 }
+}
+
+# Cohere
+company_cohere = {
+	icon = "gfx/interface/icons/company_icons/historical_company_icons/canadian_cohere.dds"
+	background = "gfx/interface/icons/company_icons/company_backgrounds/comp_illu_tech.dds"
+
+	flavored_company = yes
+	preferred_headquarters = { STATE_ONTARIO }
+
+	building_types = {
+		building_software_industry
+		building_datacenter_industry
+	}
+
+	potential = { has_interest_marker_in_region = region_canada }
+
+	attainable = {
+		hidden_trigger = {
+			any_scope_state = { state_region = s:STATE_ONTARIO }
+		}
+	}
+
+	possible = {
+		has_technology_researched = artificial_intelligence
+		any_scope_state = {
+			state_region = s:STATE_ONTARIO
+			is_incorporated = yes
+			any_scope_building = {
+				OR = {
+					is_building_type = building_software_industry
+					is_building_type = building_datacenter_industry
+				}
+				level >= 5
+			}
+		}
+	}
+
+	prosperity_modifier = {
+		building_computer_assembly_plant_throughput_add = 0.05
+		country_tech_research_speed_mult = 0.05
+	}
+
+	ai_will_do = {
+		has_technology_researched = artificial_intelligence
+		any_scope_state = {
+			state_region = s:STATE_ONTARIO
+			is_incorporated = yes
+		}
+	}
+
+	ai_construction_targets = {
+		building_software_industry = {
+			level = 5
+			state_trigger = { state_region = s:STATE_ONTARIO }
+		}
+	}
+
+	ai_weight = { value = 4 }
 }

@@ -196,3 +196,85 @@ ztr_imf_event.3 = {
 		}
 	}
 }
+
+# IMF modernization journal entry activation
+ztr_imf_event.4 = {
+	dlc = dlc_tech_res
+	type = country_event
+	placement = root
+
+	duration = 1
+
+	title = ztr_imf_event.4.t
+	desc = ztr_imf_event.4.d
+
+	event_image = {
+		video = "unspecific_world_fair"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	icon = "gfx/interface/icons/event_icons/ztr_onu_permanent_member.dds"
+
+	trigger = {
+		has_global_variable = imf_founded_var
+		country_rank >= rank_value:minor_power
+		is_subject = no
+		NOT = { has_variable = imf_modernization_completed }
+		NOT = { has_journal_entry = je_imf_modernization }
+		OR = {
+			has_modifier = dev_0_country
+			has_modifier = dev_1_country
+			has_modifier = dev_2_country
+			has_modifier = dev_3_country
+			has_modifier = dev_4_country
+		}
+		literacy_rate < 0.65
+		average_sol < 17
+	}
+
+	option = {
+		name = ztr_imf_event.4.a
+		default_option = yes
+		add_journal_entry = {
+			type = je_imf_modernization
+		}
+		ai_chance = {
+			base = 100
+		}
+	}
+}
+
+# IMF modernization journal entry completion reward
+ztr_imf_event.5 = {
+	dlc = dlc_tech_res
+	type = country_event
+	placement = root
+
+	duration = 1
+
+	title = ztr_imf_event.5.t
+	desc = ztr_imf_event.5.d
+
+	event_image = {
+		video = "unspecific_world_fair"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	icon = "gfx/interface/icons/event_icons/innovation.dds"
+
+	option = {
+		name = ztr_imf_event.5.a
+		default_option = yes
+		if = {
+			limit = {
+				NOT = { has_modifier = imf_modernization_research_bonus_modifier }
+			}
+			add_modifier = imf_modernization_research_bonus_modifier
+		}
+		ai_chance = {
+			base = 100
+		}
+	}
+}

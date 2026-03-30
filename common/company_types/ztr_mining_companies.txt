@@ -6,68 +6,6 @@
 # Kazatomprom
 # Rosatom
 
-# Generic Uranium & AdvancedOre Mine
-company_uranium_advancedores_mining = {
-	icon = "gfx/interface/icons/company_icons/uranium_advancedores_mining.dds"
-	background = "gfx/interface/icons/company_icons/company_backgrounds/comp_illu_mining.dds"
-
-	flavored_company = no
-
-	uses_dynamic_naming = yes
-
-	dynamic_company_type_names = {
-		"dynamic_company_type_company"
-		"dynamic_company_type_consortium"
-		"dynamic_company_type_corporation"
-		"dynamic_company_type_conglomerate"
-		"dynamic_company_type_syndicate"
-		"dynamic_company_type_combine"
-		"dynamic_company_type_guild"
-	}
-
-	building_types = {
-		building_uranium_mine
-		building_advancedores_mine
-	}
-
-	extension_building_types = {
-		building_rare_earths_mine
-		building_power_plant
-		#building_nuclear_power_plant
-	}
-
-	possible = {
-		any_scope_state = {
-			any_scope_building = {
-				OR = {
-					is_building_type = building_uranium_mine
-					is_building_type = building_advancedores_mine
-				}
-				level >= 5
-			}
-		}
-		has_technology_researched = verrier_modern_physics_tech
-	}
-
-	prosperity_modifier = {
-		goods_input_good_uranium_mult = -0.1
-		building_battery_plant_throughput_add = 0.1
-	}
-
-	ai_will_do = {
-		has_technology_researched = verrier_modern_physics_tech
-		any_scope_state = {
-			any_scope_building = {
-				OR = {
-					is_building_type = building_uranium_mine
-					is_building_type = building_advancedores_mine
-				}
-				level = 5
-			}
-		}
-	}
-}
-
 # Broken Hill Propretary Company
 company_bhp = {
 	icon = "gfx/interface/icons/company_icons/historical_company_icons/bhp.dds"

@@ -10023,14 +10023,21 @@ pm_pop_art = {
 	building_modifiers = {
 		workforce_scaled = {
 			# Input di beni
-			goods_input_tools_add = 10
-			goods_input_manzoni_prints_add = 8
-			goods_input_paper_add = 8
-			goods_input_electricity_add = 5
+			goods_input_tools_add = 10 #400
+			goods_input_manzoni_prints_add = 8 #480
+			goods_input_paper_add = 10 #300
+			goods_input_electricity_add = 5 #150
 
-			goods_output_fine_art_add = 12
+			goods_output_fine_art_add = 12 #2400
+		}
+		level_scaled = {
+			# Occupazione
+			building_employment_laborers_add = -500
+			building_employment_clerks_add = -500
 		}
 	}
+
+	required_input_goods = electricity
 }
 
 pm_digital_art = {
@@ -10043,18 +10050,49 @@ pm_digital_art = {
 	building_modifiers = {
 		workforce_scaled = {
 			# Input di beni
-			goods_input_manzoni_prints_add = 8
-			goods_input_computer_add = 1
-			goods_input_softwares_add = 5
-			goods_input_electricity_add = 5
+			goods_input_manzoni_prints_add = 8 #480
+			goods_input_computer_add = 3 #420
+			goods_input_softwares_add = 10 #600
+			goods_input_electricity_add = 5 #150
 
-			goods_output_fine_art_add = 12
+			goods_output_fine_art_add = 16 #3200
 		}
 
 		level_scaled = {
-			building_employment_laborers_add = -1000 # Why laborers if art is digital?
+			building_employment_laborers_add = -1000
+			building_employment_clerk_add = -1000
 		}
 	}
+
+	required_input_goods = electricity
+}
+
+pm_ai_assisted_art = {
+	texture = "gfx/interface/icons/production_method_icons/pm_ai_assisted_art.dds"
+
+	unlocking_technologies = {
+		artificial_intelligence
+	}
+
+	building_modifiers = {
+		workforce_scaled = {
+			# Input di beni
+			goods_input_ai_systems_add = 5 #300
+			goods_input_computer_add = 3 #420
+			goods_input_softwares_add = 5 #300
+			goods_input_electricity_add = 10 #300
+
+			goods_output_fine_art_add = 14 #2800
+		}
+
+		level_scaled = {
+			building_employment_laborers_add = -1000
+			building_employment_clerk_add = -2000
+			building_employment_academics_add = -500
+		}
+	}
+
+	required_input_goods = electricity
 }
 
 # Harbor

@@ -112,28 +112,7 @@ REPLACE:invite_to_power_bloc = {
 
 				if = {
 					limit = {
-						OR = {
-							AND = {
-								scope:actor = {
-									ztr_is_full_democratic = yes
-									ztr_is_communist = no
-								}
-								scope:target_country = {
-									ztr_is_full_democratic = yes
-									ztr_is_communist = no
-								}
-							}
-							AND = {
-								scope:actor = {
-									ztr_is_totalitarian = yes
-									ztr_is_communist = no
-								}
-								scope:target_country = {
-									ztr_is_totalitarian = yes
-									ztr_is_communist = no
-								}
-							}
-						}
+						ztr_is_very_similar_liberty_index = yes
 					}
 					add = {
 						desc = "ZTR_VERY_SIMILAR_LIBERTY_INDEX"
@@ -142,32 +121,7 @@ REPLACE:invite_to_power_bloc = {
 				}				
 				else_if = {
 					limit = {
-						OR = {
-							AND = {
-								scope:actor = {
-									ztr_is_democratic = yes
-								}
-								scope:target_country = {
-									ztr_is_democratic = yes
-								}
-							}
-							AND = {
-								scope:actor = {
-									ztr_is_not_democratic = yes
-								}
-								scope:target_country = {
-									ztr_is_not_democratic = yes
-								}
-							}
-							AND = {
-								scope:actor = {
-									ztr_is_communist = yes
-								}
-								scope:target_country = {
-									ztr_is_communist = yes
-								}
-							}
-						}
+						ztr_similar_liberty_index = yes
 					}
 					add = {
 						desc = "ZTR_SIMILAR_LIBERTY_INDEX"
@@ -177,24 +131,7 @@ REPLACE:invite_to_power_bloc = {
 
 				if = {
 					limit = {
-						OR = {
-							AND = {
-								scope:actor = {
-									ztr_is_flawed_democratic = yes
-								}
-								scope:target_country = {
-									ztr_is_authoritarian = yes
-								}
-							}
-							AND = {
-								scope:actor = {
-									ztr_is_authoritarian = yes
-								}
-								scope:target_country = {
-									ztr_is_flawed_democratic = yes
-								}
-							}
-						}
+						ztr_neutral_liberty_index = yes
 					}
 					add = {
 						desc = "ZTR_NEUTRAL_LIBERTY_INDEX"
@@ -204,24 +141,7 @@ REPLACE:invite_to_power_bloc = {
 
 				if = {
 					limit = {
-						OR = {
-							AND = {
-								scope:actor = {
-									ztr_is_socialist = yes
-								}
-								scope:target_country = {
-									ztr_is_socialist = yes
-								}
-							}
-							AND = {
-								scope:actor = {
-									ztr_is_individualist = yes
-								}
-								scope:target_country = {
-									ztr_is_individualist = yes
-								}
-							}
-						}
+						ztr_similar_equality_index = yes
 					}
 					add = {
 						desc = "ZTR_SIMILAR_EQUALITY_INDEX"

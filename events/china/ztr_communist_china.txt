@@ -757,7 +757,6 @@ ztr_communist_china.6 = {
 	}
 	option = {
 		name = ztr_communist_china.6.a
-		default_option = yes
 		ztr_two_chinas_launch_joint_offensive = yes
 		ai_chance = {
 			base = 60
@@ -765,14 +764,15 @@ ztr_communist_china.6 = {
 	}
 	option = {
 		name = ztr_communist_china.6.c
-		default_option = yes
-		ztr_two_chinas_launch_joint_offensive_second_option = yes
-		ai_chance = {
-			base = 60
+		trigger = {
+			# This permits player to choose a second target
+			exists = scope:ztr_two_chinas_second_target
 		}
+		ztr_two_chinas_launch_joint_offensive_bis = yes
 	}
 	option = {
 		name = ztr_communist_china.6.b
+		default_option = yes
 		c:CHI ?= {
 			set_variable = {
 				name = ztr_two_chinas_accord_cooldown

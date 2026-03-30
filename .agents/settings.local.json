@@ -1,0 +1,26 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(ls:*)",
+      "Bash(cd:*)",
+      "Bash(find:*)",
+      "Bash(powershell*)",
+      "Bash(git -C \"/c/Users/User/Documents/Paradox Interactive/Victoria 3/mod/Tech&Res\" ls-files .agents/)",
+      "Bash(git -C \"/c/Users/User/Documents/Paradox Interactive/Victoria 3/mod/Tech&Res\" status .agents/ --short)",
+      "Bash(echo \"exit:$?\")"
+    ]
+  },
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Write|Edit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "powershell -ExecutionPolicy Bypass -File \".claude/sync-agents.ps1\""
+          }
+        ]
+      }
+    ]
+  }
+}

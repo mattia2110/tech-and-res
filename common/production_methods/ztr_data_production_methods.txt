@@ -193,7 +193,7 @@ pm_vibe_coding_building_software_industry = {
 	texture = "gfx/interface/icons/production_method_icons/pm_vibe_coding_building_software_industry.dds"
 
 	unlocking_technologies = {
-		artificial_general_intelligence
+		agentic_ai
 	}
 
 	unlocking_production_methods = {
@@ -697,12 +697,13 @@ pm_neural_model_training = {
 	building_modifiers = {
 		workforce_scaled = {
 			# input goods
-			goods_output_organized_data_add = -50 # 500
+			goods_output_organized_data_add = -60 # 600
 			goods_input_electricity_add = 5 #150
 			goods_input_water_add = 5 #250
 			
 			# output goods
-			goods_output_ai_systems_add = 25 #1000 - 900 = 100
+			goods_output_ai_systems_add = 15 #900 - 1000 = 0
+			#A potential +25% in ai_system output will make it 1125 - 1000 = 125
 		}
 		level_scaled = {
 			building_employment_academics_add = 125
@@ -721,12 +722,13 @@ pm_generative_ai_models = {
 	building_modifiers = {
 		workforce_scaled = {
 			# input goods
-			goods_output_organized_data_add = -90 # -900
+			goods_output_organized_data_add = -90 # 900
 			goods_input_electricity_add = 10 #300
 			goods_input_water_add = 20 #1000
 			
 			# output goods
-			goods_output_ai_systems_add = 80 #2400 - 2200 = 200
+			goods_output_ai_systems_add = 35 #2100 - 2200 = -100 #80
+			#A potential +25% in ai_system output will make it 2625 - 2200 = 425
 		}
 		level_scaled = {
 			building_employment_academics_add = 125
@@ -749,12 +751,13 @@ pm_artificial_general_intelligence = {
 	building_modifiers = {
 		workforce_scaled = {
 			# input goods
-			goods_output_organized_data_add = -250 # -3000
+			goods_output_organized_data_add = -250 # -2500
 			goods_input_electricity_add = 15 #450
 			goods_input_water_add = 40 #2000
 			
 			# output goods
-			goods_output_ai_systems_add = 170 #5100 - 4700 = 400
+			goods_output_ai_systems_add = 80 #4800 - 4950 = -150
+			#A potential +25% in ai_system output will make it 6000 - 4950 = 1050
 		}
 		level_scaled = {
 			building_employment_academics_add = 125
@@ -1064,6 +1067,38 @@ pm_integrated_retail_ecommerce = {
 			goods_input_softwares_add = 5
 
             goods_output_on_demand_goods_add = 105
+        }
+        level_scaled = {
+            building_employment_clerks_add = 500
+            building_employment_machinists_add = 2000
+            building_employment_engineers_add = 500
+        }
+    }
+}
+
+pm_predictive_fulfilment_network = {
+    texture = "gfx/interface/icons/production_method_icons/pm_predictive_fulfilment_network.dds"
+
+	unlocking_technologies = {
+        algorithmic_dispatch
+    }
+
+    state_modifiers = {
+        workforce_scaled = {
+            state_pollution_generation_add = 4
+        }
+    }
+
+    building_modifiers = {
+        workforce_scaled = {
+            goods_input_robotics_add = 10 #+200
+            goods_input_telephones_add = 5
+            goods_input_computer_add = 5 #+140
+			goods_input_softwares_add = 10 #+300
+			goods_input_telecommunications_add = 10 #+300
+			goods_input_ai_systems_add = 10 #+600
+
+            goods_output_on_demand_goods_add = 135 #+2100
         }
         level_scaled = {
             building_employment_clerks_add = 500

@@ -928,6 +928,66 @@ ztr_two_chinas_prepare_joint_targets = {
 		}
 		save_scope_as = ztr_two_chinas_chi_target
 	}
+	if = {
+		limit = {
+			c:CHI = {
+				is_player = yes
+			}
+			any_country = {
+				ztr_is_chinese_warlord = yes
+				is_adjacent_to_country = c:CHI
+				NOT = {
+					this = scope:ztr_two_chinas_zfc_target
+				}
+				NOT = {
+					this = scope:ztr_two_chinas_chi_target
+				}
+			}
+		}
+			random_country = {
+				limit = {
+					ztr_is_chinese_warlord = yes
+					is_adjacent_to_country = c:CHI
+				NOT = {
+					this = scope:ztr_two_chinas_zfc_target
+				}
+				NOT = {
+					this = scope:ztr_two_chinas_chi_target
+				}
+			}
+			save_scope_as = ztr_two_chinas_second_target
+		}
+	}
+	else_if = {
+		limit = {
+			c:ZFC = {
+				is_player = yes
+			}
+			any_country = {
+				ztr_is_chinese_warlord = yes
+				is_adjacent_to_country = c:ZFC
+				NOT = {
+					this = scope:ztr_two_chinas_zfc_target
+				}
+				NOT = {
+					this = scope:ztr_two_chinas_chi_target
+				}
+			}
+		}
+		random_country = {
+			limit = {
+				ztr_is_chinese_warlord = yes
+				is_adjacent_to_country = c:ZFC
+				NOT = {
+					this = scope:ztr_two_chinas_zfc_target
+				}
+				NOT = {
+					this = scope:ztr_two_chinas_chi_target
+				}
+			}
+			save_scope_as = ztr_two_chinas_second_target
+		}
+	}
 }
 
 ztr_two_chinas_launch_joint_offensive = {
@@ -976,6 +1036,133 @@ ztr_two_chinas_launch_joint_offensive = {
 			}
 			add_initiator_backers = {
 				c:CHI
+			}
+		}
+		c:CHI = {
+			set_variable = {
+				name = ztr_two_chinas_accord_cooldown
+				years = 2
+			}
+			change_relations = {
+				country = c:ZFC
+				value = 20
+			}
+		}
+		c:ZFC = {
+			set_variable = {
+				name = ztr_two_chinas_accord_cooldown
+				years = 2
+			}
+			change_relations = {
+				country = c:CHI
+				value = 20
+			}
+		}
+	}
+}
+
+ztr_two_chinas_launch_joint_offensive_bis = {
+	if = {
+		limit = {
+			exists = scope:ztr_two_chinas_chi_target
+			exists = scope:ztr_two_chinas_zfc_target
+		}
+		if = {
+			limit = {
+				c:CHI = {
+					is_player = yes
+				}
+			}
+			c:CHI = {
+				create_diplomatic_play = {
+					type = dp_annex_war
+					target_country = scope:ztr_two_chinas_second_target
+					add_war_goal = {
+						holder = c:CHI
+						target_country = scope:ztr_two_chinas_second_target
+						type = annex_country
+					}
+				}
+			}
+			random_diplomatic_play = {
+				limit = {
+					is_diplomatic_play_type = dp_annex_war
+					initiator = c:CHI
+					target = scope:ztr_two_chinas_second_target
+				}
+				add_initiator_backers = {
+					c:ZFC
+				}
+			}
+			c:ZFC = {
+				create_diplomatic_play = {
+					type = dp_annex_war
+					target_country = scope:ztr_two_chinas_zfc_target
+					add_war_goal = {
+						holder = c:ZFC
+						target_country = scope:ztr_two_chinas_zfc_target
+						type = annex_country
+					}
+				}
+			}
+			random_diplomatic_play = {
+				limit = {
+					is_diplomatic_play_type = dp_annex_war
+					initiator = c:ZFC
+					target = scope:ztr_two_chinas_zfc_target
+				}
+				add_initiator_backers = {
+					c:CHI
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				c:ZFC = {
+					is_player = yes
+				}
+			}
+			c:CHI = {
+				create_diplomatic_play = {
+					type = dp_annex_war
+					target_country = scope:ztr_two_chinas_chi_target
+					add_war_goal = {
+						holder = c:CHI
+						target_country = scope:ztr_two_chinas_chi_target
+						type = annex_country
+					}
+				}
+			}
+			random_diplomatic_play = {
+				limit = {
+					is_diplomatic_play_type = dp_annex_war
+					initiator = c:CHI
+					target = scope:ztr_two_chinas_chi_target
+				}
+				add_initiator_backers = {
+					c:ZFC
+				}
+			}
+			c:ZFC = {
+				create_diplomatic_play = {
+					type = dp_annex_war
+					target_country = scope:ztr_two_chinas_second_target
+					add_war_goal = {
+						holder = c:ZFC
+						target_country = scope:ztr_two_chinas_second_target
+						type = annex_country
+					}
+				}
+			}
+			random_diplomatic_play = {
+				limit = {
+					is_diplomatic_play_type = dp_annex_war
+					initiator = c:ZFC
+					target = scope:ztr_two_chinas_second_target
+				}
+				add_initiator_backers = {
+					c:CHI
+				}
 			}
 		}
 		c:CHI = {

@@ -3,7 +3,7 @@ description: Guide and template structure for  On Actions in Victoria 3.
 name:  On Actions
 ---
 
-﻿### PULSES ###
+### PULSES ###
 # on_actions are effects that are called from code, most of them trigger as a result of an in-game action but some of them are triggered automatically at specific intervals these include:
 
 ## No Root Scope:
