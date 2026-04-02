@@ -1,0 +1,182 @@
+# Flavor Triggers
+
+# Trigger is altered by liberty index and not multiculturalism laws since they already modify culture acceptance score values.
+wants_to_be_decolonized = {
+		root = {
+			hidden_trigger = { has_variable = liberty_index_var }
+			OR = {
+				AND = {
+					ztr_is_full_democratic = yes
+					cultural_acceptance_base = {
+						target = prev
+						value < acceptance_status_4
+					}
+				}
+				AND = {
+					ztr_is_flawed_democratic = yes
+					cultural_acceptance_base = {
+						target = prev
+						value <= acceptance_status_4
+					}
+				}
+				AND = {
+					ztr_is_not_democratic = yes
+					cultural_acceptance_base = {
+						target = prev
+						value <= acceptance_status_5
+					}
+				}
+			}
+		}
+}
+
+hungary_is_subject_or_personal_union_austria = {
+	c:AUS ?= this
+	exists = c:HUN
+	c:HUN = {
+		OR = {
+			overlord = root
+			has_diplomatic_pact = {
+				who = root
+				type = personal_union
+				is_initiator = no
+			}
+		}
+		has_state_in_state_region = STATE_TRANSDANUBIA
+	}
+}
+
+# China Triggers
+
+ztr_can_receive_communist_china_event = {
+	has_global_variable = china_shatters
+	NOT = {
+		has_global_variable = ztr_communist_china_created
+	}
+	NOT = {
+		exists = c:CHI
+	}
+	OR = {
+		country_has_primary_culture = cu:han
+		country_has_primary_culture = cu:manchu
+	}
+}
+
+ztr_can_become_communist_chi_via_je = {
+	custom_tooltip = {
+		text = ztr_tooltip_can_become_communist_chi_via_je
+		NOT = {
+			is_subject = yes
+		}
+		ztr_is_not_democratic = yes
+		has_variable = ztr_ccp_front_progress
+		var:ztr_ccp_front_progress >= 60
+		OR = {
+			has_variable = ztr_ccp_united_front
+			has_variable = ztr_ccp_armed_front
+			any_political_movement = {
+				is_political_movement_type = movement_communist
+			}
+			ig:ig_trade_unions ?= {
+				is_powerful = yes
+			}
+			ig:ig_rural_folk ?= {
+				is_powerful = yes
+			}
+			any_scope_state = {
+				turmoil > 0.2
+			}
+		}
+		NOT = {
+			AND = {
+				ztr_country_is_in_coastal_rich_china = yes
+				NOT = {
+					has_variable = ztr_ccp_armed_front
+				}
+				NOT = {
+					any_political_movement = {
+						is_political_movement_type = movement_communist
+					}
+				}
+			}
+		}
+	}
+}
+
+ztr_country_is_in_coastal_rich_china = {
+	any_scope_state = {
+		OR = {
+			state_region = s:STATE_JIANGXI
+			state_region = s:STATE_EASTERN_HUBEI
+			state_region = s:STATE_HUNAN
+			state_region = s:STATE_GUANGDONG
+			state_region = s:STATE_FUJIAN
+			state_region = s:STATE_ZHEJIANG
+			state_region = s:STATE_SHANDONG
+			state_region = s:STATE_JIANGSU
+			state_region = s:STATE_NANJING
+			state_region = s:STATE_ZHILI
+			state_region = s:STATE_GUANGXI
+			state_region = s:STATE_SOUTHERN_ANHUI
+			state_region = s:STATE_NORTHERN_ANHUI
+			state_region = s:STATE_SUZHOU
+			state_region = s:STATE_SHAOZHOU
+			state_region = s:STATE_FORMOSA
+		}
+		is_capital = yes
+	}
+}
+
+ztr_is_chinese_warlord = {
+	OR = {
+		country_has_primary_culture = cu:han
+		country_has_primary_culture = cu:manchu
+	}
+	NOT = {
+		c:CHI = this
+	}
+	NOT = {
+		c:ZFC = this
+	}
+}
+
+ztr_is_available_chinese_warlord_target = {
+	ztr_is_chinese_warlord = yes
+}
+
+ztr_two_chinas_joint_offensive_possible = {
+	exists = c:CHI
+	exists = c:ZFC
+	c:CHI = {
+		NOR = {
+			is_at_war = yes
+			has_diplomatic_play = yes
+			has_variable = ztr_two_chinas_accord_cooldown
+		}
+		aggressive_diplomatic_plays_permitted = yes
+	}
+	c:ZFC = {
+		NOR = {
+			is_at_war = yes
+			has_diplomatic_play = yes
+			has_variable = ztr_two_chinas_accord_cooldown
+		}
+		aggressive_diplomatic_plays_permitted = yes
+	}
+	any_country = {
+		ztr_is_chinese_warlord = yes
+		is_adjacent_to_country = c:CHI
+	}
+	any_country = {
+		ztr_is_chinese_warlord = yes
+		is_adjacent_to_country = c:ZFC
+	}
+	any_country = {
+		count > 1
+		ztr_is_chinese_warlord = yes
+		OR = {
+			is_adjacent_to_country = c:CHI
+			is_adjacent_to_country = c:ZFC
+		}
+	}
+}

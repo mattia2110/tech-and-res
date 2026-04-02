@@ -1,0 +1,299 @@
+#Water Plant
+building_water_plant = {
+	building_group = bg_water_farms
+
+	icon = "gfx/interface/icons/building_icons/building_water_plant.dds"
+	levels_per_mesh = 50
+	required_construction = construction_cost_very_high
+	has_max_level = yes
+
+	unlocking_technologies = {
+		enclosure
+	}
+
+	production_method_groups = {
+		pmg_base_building_water
+		pmg_automation_building_water_plant
+		pmg_data_optimization_primary_sector_no_shopkeepers
+	}
+
+	possible = {
+        modifier:state_building_water_plant_max_level_add > 0
+    }
+
+    potential = {
+        modifier:state_building_water_plant_max_level_add > 0
+    }
+	
+	ownership_type = self
+	
+	background = "gfx/interface/icons/building_icons/backgrounds/building_panel_bg_light_industry.dds"
+}
+
+# Bauxite Mine
+building_bauxite_mine = {
+	building_group = bg_bauxite_mining
+	icon = "gfx/interface/icons/building_icons/building_bauxite_mine.dds"
+	city_type = mine
+	levels_per_mesh = 50
+	required_construction = construction_cost_high
+	terrain_manipulator = mining
+	has_max_level = yes
+
+	unlocking_technologies = {
+		bauxite_processing
+	}
+
+	possible = {
+        modifier:state_building_bauxite_mine_max_level_add > 0
+		owner = {
+			NOT = {
+				OR = {
+					has_law = law_type:law_mining_strategic
+					has_law = law_type:law_polluting_mining_banned
+				}
+			}
+		}
+    }
+
+    potential = {
+        modifier:state_building_bauxite_mine_max_level_add > 0
+    }
+	
+	production_method_groups = {
+		pmg_mining_equipment_building_bauxite_mine
+		pmg_explosives_building_bauxite_mine
+		pmg_steam_automation_building_bauxite_mine
+		pmg_train_automation_building_bauxite_mine
+		pmg_data_optimization_primary_sector
+	}
+	
+	ownership_type = self
+	
+	background = "gfx/interface/icons/building_icons/backgrounds/building_panel_bg_mining.dds"
+}
+
+# Copper Mine
+building_copper_mine = {
+	building_group = bg_copper_mining
+	icon = "gfx/interface/icons/building_icons/building_copper_mine.dds"
+	city_type = mine
+	levels_per_mesh = 50
+	required_construction = construction_cost_medium
+	terrain_manipulator = mining
+	has_max_level = yes
+
+	unlocking_technologies = {
+		shaft_mining
+	}
+
+	possible = {
+        modifier:state_building_copper_mine_max_level_add > 0
+		owner = {
+			NOT = {
+				has_law = law_type:law_polluting_mining_banned
+			}
+		}
+    }
+
+    potential = {
+        modifier:state_building_copper_mine_max_level_add > 0
+    }
+	
+	production_method_groups = {
+		pmg_mining_equipment_building_copper_mine
+		pmg_explosives_building_copper_mine
+		pmg_steam_automation_building_copper_mine
+		pmg_train_automation_building_copper_mine
+		pmg_data_optimization_primary_sector
+	}
+	
+	ownership_type = self
+	
+	background = "gfx/interface/icons/building_icons/backgrounds/building_panel_bg_mining.dds"
+
+}
+
+# Common Ores Mine
+building_commonores_mine = {
+	building_group = bg_commonores_mining
+	icon = "gfx/interface/icons/building_icons/building_commonores_mine.dds"
+	city_type = mine
+	levels_per_mesh = 50
+	required_construction = construction_cost_medium
+	terrain_manipulator = mining
+	has_max_level = yes
+
+	unlocking_technologies = {
+		shaft_mining
+	}
+
+	possible = {
+        modifier:state_building_commonores_mine_max_level_add > 0
+		owner = {
+			NOT = {
+				has_law = law_type:law_polluting_mining_banned
+			}
+		}
+    }
+
+    potential = {
+        modifier:state_building_commonores_mine_max_level_add > 0
+    }
+	
+	production_method_groups = {
+		pmg_mining_equipment_building_commonores_mine
+		pmg_explosives_building_commonores_mine
+		pmg_steam_automation_building_commonores_mine
+		pmg_train_automation_building_commonores_mine
+		pmg_selective_mineral_extraction_commonores_mine
+		pmg_data_optimization_primary_sector
+	}
+	
+	ownership_type = self
+	
+	background = "gfx/interface/icons/building_icons/backgrounds/building_panel_bg_mining.dds"
+
+}
+
+# Advanced Ores Mine
+building_advancedores_mine = {
+	building_group = bg_advancedores_mining
+	icon = "gfx/interface/icons/building_icons/building_advancedores_mine.dds"
+	city_type = mine
+	levels_per_mesh = 50
+	required_construction = construction_cost_very_high
+	terrain_manipulator = mining
+	has_max_level = yes
+
+	unlocking_technologies = {
+		quartz_glass
+	}
+
+	possible = {
+        modifier:state_building_advancedores_mine_max_level_add > 0
+		owner = {
+			NOT = {
+				has_law = law_type:law_polluting_mining_banned
+			}
+		}
+    }
+
+    potential = {
+        modifier:state_building_advancedores_mine_max_level_add > 0
+    }
+	
+	production_method_groups = {
+		pmg_mining_equipment_building_advancedores_mine
+		pmg_explosives_building_advancedores_mine
+		pmg_steam_automation_building_advancedores_mine
+		pmg_train_automation_building_advancedores_mine
+		pmg_data_optimization_primary_sector
+	}
+	
+	ownership_type = self
+	
+	background = "gfx/interface/icons/building_icons/backgrounds/building_panel_bg_mining.dds"
+}
+
+# Natural Gas Extraction
+building_natural_gas_rig = {
+	building_group = bg_natural_gas_extraction
+	icon = "gfx/interface/icons/building_icons/building_natural_gas_rig.dds"
+	city_type = mine
+	levels_per_mesh = 50
+	required_construction = construction_cost_high
+	has_max_level = yes
+
+	unlocking_technologies = {
+		natural_gas_extraction
+	}
+
+	possible = {
+        modifier:state_building_natural_gas_rig_max_level_add > 0
+		owner = {
+			NOT = {
+				has_law = law_type:law_polluting_mining_banned
+			}
+		}
+    }
+
+    potential = {
+        modifier:state_building_natural_gas_rig_max_level_add > 0
+    }
+	
+	production_method_groups = {
+		pmg_base_building_natural_gas_rig
+		pmg_transportation_building_natural_gas_rig
+		pmg_data_optimization_primary_sector
+	}
+	ownership_type = self
+
+	background = "gfx/interface/icons/building_icons/backgrounds/building_panel_bg_oil.dds"
+}
+
+# Rare Earths Mine
+building_rare_earths_mine = {
+	building_group = bg_rare_earths_mining
+	icon = "gfx/interface/icons/building_icons/building_rare_earths_mine.dds"
+	city_type = mine
+	levels_per_mesh = 50
+	required_construction = construction_cost_very_high
+	terrain_manipulator = mining
+	has_max_level = yes
+
+	unlocking_technologies = {
+		rare_earths
+	}
+
+	possible = {
+        modifier:state_building_rare_earths_mine_max_level_add > 0
+		owner = {
+			NOT = {
+				has_law = law_type:law_polluting_mining_banned
+			}
+		}
+    }
+
+    potential = {
+        modifier:state_building_rare_earths_mine_max_level_add > 0
+    }
+	
+	production_method_groups = {
+		pmg_mining_equipment_building_rare_earths_mine
+		pmg_steam_automation_building_rare_earths_mine
+		pmg_train_automation_building_rare_earths_mine
+		pmg_data_optimization_primary_sector
+	}
+	
+	ownership_type = self
+	
+	background = "gfx/interface/icons/building_icons/backgrounds/building_panel_bg_mining.dds"
+
+}
+
+#Hydroponic Farms
+building_hydroponic = {
+	building_group = bg_hydroponic_farms
+	icon = "gfx/interface/icons/building_icons/hydroponic.dds"
+	city_type = city
+	levels_per_mesh = 50
+	
+	unlocking_technologies = {
+		hydroponic_farming
+	}
+
+	production_method_groups = {
+		pmg_base_building_hydroponic_type
+		pmg_hydroponic_plantation_type
+		pmg_hydroponic_automation_drone
+		pmg_data_optimization_primary_sector_no_shopkeepers
+	}
+	
+	required_construction = construction_cost_very_high
+	ownership_type = self
+
+	ai_value = 1800 # Hydroponic are very important
+
+	background = "gfx/interface/icons/building_icons/backgrounds/building_panel_bg_light_industry.dds"
+}

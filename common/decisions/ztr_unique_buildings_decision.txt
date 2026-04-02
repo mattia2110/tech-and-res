@@ -17,7 +17,6 @@ research_center_decision = {
 			has_variable = research_center_var
 		}
 	}
-
 	possible = {
 		produced_bureaucracy > 1000
 		literacy_rate > 0.6
@@ -34,7 +33,6 @@ research_center_decision = {
 			}
 		}
 	}
-
 	when_taken = {
 		set_variable = {
 			name = research_center_var
@@ -55,11 +53,12 @@ research_center_decision = {
 			type = je_research_center_site
 		}
 	}
-
 	ai_chance = {
 		value = 0
 		if = {
-			limit = { produced_bureaucracy > 2500 }
+			limit = {
+				produced_bureaucracy > 2500
+			}
 			add = 5
 		}
 		if = {
@@ -67,6 +66,173 @@ research_center_decision = {
 				has_strategy = ai_strategy_industrial_expansion
 			}
 			add = 1000
+		}
+		if = {
+			limit = {
+				OR = {
+					is_diplomatic_play_committed_participant = yes
+					is_at_war = yes
+				}
+			}
+			multiply = 0
+		}
+	}
+}
+
+fusion_reactor_decision = {
+	is_shown = {
+		has_technology_researched = third_nuclear_reactor
+		has_research_center = yes
+		NOT = {
+			any_scope_state = {
+				any_scope_building = {
+					is_building_type = building_fusion_power_plant
+				}
+			}
+		}
+		NOT = {
+			has_variable = fusion_reactor_var
+		}
+	}
+	possible = {
+		produced_bureaucracy > 2500
+		has_technology_researched = smart_energy_grid
+	}
+	when_taken = {
+		set_variable = {
+			name = fusion_reactor_var
+			value = 0
+		}
+		add_journal_entry = {
+			type = je_fusion_reactor_research
+		}
+	}
+	ai_chance = {
+		value = 0
+		if = {
+			limit = {
+				produced_bureaucracy > 5000
+			}
+			add = 500
+		}
+		if = {
+			limit = {
+				has_strategy = ai_strategy_industrial_expansion
+			}
+			add = 500
+		}
+		if = {
+			limit = {
+				OR = {
+					is_diplomatic_play_committed_participant = yes
+					is_at_war = yes
+				}
+			}
+			multiply = 0
+		}
+	}
+}
+
+# Purchase fusion reactor technology from a major power
+# Available only to countries with the modern universities linkage modifier (minor powers)
+# This represents buying proven fusion technology rather than developing it from scratch
+fusion_reactor_purchase_decision = {
+	is_shown = {
+		has_modifier = ztr_modern_universities_linkage
+		has_technology_researched = third_nuclear_reactor
+		NOT = {
+			has_research_center = yes
+		}
+		NOT = {
+			any_scope_state = {
+				any_scope_building = {
+					is_building_type = building_fusion_power_plant
+				}
+			}
+		}
+		NOT = {
+			any_scope_state = {
+				has_modifier = fusion_reactor_site
+			}
+		}
+		NOT = {
+			has_variable = fusion_reactor_purchase_cooldown
+		}
+	}
+	possible = {
+		produced_bureaucracy > 1000
+		has_technology_researched = smart_energy_grid
+		literacy_rate > 0.75
+		# Must have good relations or diplomatic ties with a fusion-owning greatpower
+		custom_tooltip = {
+			text = fusion_reactor_purchase_relations_tt
+			any_country = {
+				NOT = {
+					this = root
+				}
+				country_rank = rank_value:great_power
+				any_scope_state = {
+					any_scope_building = {
+						is_building_type = building_fusion_power_plant
+					}
+				}
+				# Diplomatic prerequisite: cordial relations, subject status, or same power bloc
+				OR = {
+					relations:root >= relations_threshold:cordial
+					root = {
+						is_subject_of = PREV
+					}
+					is_in_same_power_bloc = root
+				}
+			}
+		}
+	}
+	when_taken = {
+		# Set 3-year cooldown
+		set_variable = {
+			name = fusion_reactor_purchase_cooldown
+			years = 3
+		}
+		save_scope_as = fusion_technology_requester
+		random_country = {
+			limit = {
+				NOT = {
+					this = root
+				}
+				country_rank = rank_value:great_power
+				any_scope_state = {
+					any_scope_building = {
+						is_building_type = building_fusion_power_plant
+					}
+				}
+				OR = {
+					relations:root >= relations_threshold:cordial
+					root = {
+						is_subject_of = PREV
+					}
+					is_in_same_power_bloc = root
+				}
+			}
+			save_scope_as = fusion_technology_seller
+			trigger_event = {
+				id = ztr_technology.14
+				popup = yes
+			}
+		}
+	}
+	ai_chance = {
+		value = 0
+		if = {
+			limit = {
+				produced_bureaucracy > 5000
+			}
+			add = 500
+		}
+		if = {
+			limit = {
+				has_strategy = ai_strategy_industrial_expansion
+			}
+			add = 5000
 		}
 		if = {
 			limit = {

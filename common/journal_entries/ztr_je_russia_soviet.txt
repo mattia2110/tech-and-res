@@ -5,7 +5,7 @@ ztr_je_russian_absolutism = {
     is_shown_when_inactive = {
         has_game_rule = allow_ztr_historical_content
         year > 1910
-        c:RUS ?= this
+        c:RUS ?= root
         OR = {
             average_sol < 12
             NOT = { country_rank = rank_value:great_power }
@@ -17,7 +17,7 @@ ztr_je_russian_absolutism = {
         # This will not trigger if Russia is already Soviet Union
         NOT = { has_law = law_type:law_council_republic }
 
-        # Russia must be a monarchy to trigger this journal entry
+        # Russia must be an absolute monarchy to trigger this journal entry
         has_law = law_type:law_monarchy
         has_law = law_type:law_autocracy
     }

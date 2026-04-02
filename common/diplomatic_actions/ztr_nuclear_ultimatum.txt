@@ -10,9 +10,6 @@
 	}
 
 	potential = {
-		#THIS has nuclear weapons
-		has_modifier = nuclear_capability
-		
 		#THIS is at war OR a country that THIS has stationed nuclear weapons in is at war
 		OR = { 
 			is_at_war = yes
@@ -44,7 +41,7 @@
 					has_diplomatic_pact = { who = scope:actor type = station_nuclear_weapons is_initiator = no }
 					has_war_with = scope:target_country
 					any_scope_war = {
-						is_warleader = this
+						is_warleader = prev
 						is_warleader = scope:target_country
 					}
 					is_diplomatic_play_enemy_of = scope:target_country
@@ -58,6 +55,22 @@
 	}
 
 	possible = {
+
+		#THIS has nuclear weapons or an allied country has nuclear weapons
+		OR = {
+			has_modifier = nuclear_capability
+			AND = {
+				NOT = { has_modifier = nuclear_capability }
+				any_country = {
+					is_at_war = yes
+					any_scope_war = {
+						is_warleader = root
+					}
+					has_modifier = nuclear_capability
+				}
+			}
+		}
+
 		# If ICBM technology is not researched and nuclear weapon silo doesn't have ICBM production method, nuclear strike can be lauched only on neighboring countries
 		OR = {
 			AND = {
@@ -185,7 +198,7 @@
 								has_diplomatic_pact = { who = scope:actor type = station_nuclear_weapons is_initiator = no }
 								has_war_with = scope:target_country
 								any_scope_war = {
-									is_warleader = root
+									is_warleader = prev
 									is_warleader = scope:target_country
 								}
 								is_diplomatic_play_enemy_of = scope:target_country
@@ -417,7 +430,7 @@
 				}
 				add = {
 					desc = "COUNTRY_THINKS_IT_CAN_WIN"
-					value = -50
+					value = -75 #50
 				}
 			}
 			# add = {

@@ -16,17 +16,20 @@ modern_medicine_1 = {
 modern_medicine_2 = {
 	icon = gfx/interface/icons/timed_modifier_icons/modifier_pharma_positive.dds
 	state_mortality_mult = 0.5
+	state_education_access_add = -0.05
 }
 
 #Global Malus from 1940
 modern_medicine_3 = {
 	icon = gfx/interface/icons/timed_modifier_icons/modifier_pharma_positive.dds
 	state_mortality_mult = 0.25
+	state_education_access_add = -0.15
 }
 
 #Global Malus from 1960
 modern_medicine_4 = {
 	icon = gfx/interface/icons/timed_modifier_icons/modifier_pharma_positive.dds
+	state_education_access_add = -0.25
 }
 
 # Demographic Stage
@@ -36,13 +39,15 @@ modern_medicine_4 = {
 demographic_stage_0 = {
 	icon = gfx/interface/icons/timed_modifier_icons/demographic_stage_0.dds
 	state_birth_rate_mult = 0.4
-	state_working_adult_ratio_add = -0.02
+	state_working_adult_ratio_add = -0.04
+	state_education_access_add = -0.1
 }
 # Stage 1: Birth rate is very high, mortality is medium, population growth is high. SoL expected stage: 11.
 demographic_stage_1 = {
 	icon = gfx/interface/icons/timed_modifier_icons/demographic_stage_1.dds
 	state_birth_rate_mult = 0.45
 	state_working_adult_ratio_add = -0.02
+	state_education_access_add = -0.05
 }
 # Stage 2: Birth rate is high, mortality is low, population growth is high. SoL expected stage: 14.
 demographic_stage_2 = {
@@ -78,14 +83,14 @@ demographic_stage_6 = {
 demographic_stage_7 = {
 	icon = gfx/interface/icons/timed_modifier_icons/demographic_stage_7.dds
 	state_birth_rate_mult = -0.5 #Qui nell'update ho messo 20
-	state_working_adult_ratio_add = 0.1
+	state_working_adult_ratio_add = 0.12
 }
 
 # Stage 8: Birth rate is non-existent, mortality is minimal, population growth is negative. SoL expected stage: 25.
 demographic_stage_8 = {
 	icon = gfx/interface/icons/timed_modifier_icons/demographic_stage_8.dds
-	state_birth_rate_mult = -0.75 #Qui nell'update ho messo 30
-	state_working_adult_ratio_add = 0.1
+	state_birth_rate_mult = -0.65 #Qui nell'update ho messo 30
+	state_working_adult_ratio_add = 0.12
 }
 
 # A stage is reached when one of these conditions is met:
@@ -161,4 +166,11 @@ colonial_agricultural_shift_player = {
 	icon = gfx/interface/icons/timed_modifier_icons/modifier_colonization_positive.dds
 	state_birth_rate_mult = 0.1
 	state_education_access_add = -0.1
+}
+
+land_reclamation_struggle_modifier = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_colonization_negative.dds
+	state_turmoil_effects_mult = -0.25
+	state_standard_of_living_add = -1
+	state_tax_waste_add = 0.1
 }

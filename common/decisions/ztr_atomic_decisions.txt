@@ -7,15 +7,12 @@ start_nuclear_weapons_program_decision = {
 		NOT = { has_modifier = nuclear_capability }
 		NOT = { has_variable = nuclear_program_started }
 		NOT = { has_variable = signed_nuclear_non_proliferation_treaty }
+		has_game_rule = allow_ztr_atom_bomb_content
 
 		#THIS is a major power or dictatorship
 		OR = {
-			AND = {
-				# Flawed democracy and autocracy only if it is a great power
-				country_rank >= rank_value:great_power
-				# Not a full democracy
-				ztr_is_not_full_democratic = yes
-			}
+			# Flawed democracy and autocracy only if it is a great power
+			country_rank >= rank_value:great_power
 			# A dictatorship will always want nukes
 			ztr_is_totalitarian = yes
 		}
@@ -190,6 +187,7 @@ join_nuclear_non_proliferation_treaty_decision = {
 	is_shown = {
 		#THIS has not already signed the NPT
 		NOT = { has_variable = signed_nuclear_non_proliferation_treaty }
+		has_global_variable = ztr_atomic_bomb_first_use_var
 		OR = {
 			has_modifier = ztr_onu_member
 			has_modifier = ztr_onu_permanent_member
@@ -327,7 +325,7 @@ leave_nuclear_non_proliferation_treaty_decision = {
 		if = {
 		
 			limit = {
-			
+				has_modifier = ztr_superpower
 				#Country is faced with a nuclear threat from somewhere or is a Distopia (e.g. North Korea)
 				OR = {
 					any_rival_country = { 
@@ -348,5 +346,44 @@ leave_nuclear_non_proliferation_treaty_decision = {
 			}
 			add = 100
 		}
+	}
+}
+
+# This decision is to give nuclear capability to countries if revolutionary side wins and country had already nuclear capability
+
+take_control_of_nuclear_arsenal_decision = {
+
+	is_shown = {
+		#THIS doesn't have nuclear weapons
+		NOT = { has_modifier = nuclear_capability }
+		any_scope_state = {
+			has_building = building_nuclear_weapons_silo
+		}
+		NOT = { has_journal_entry = je_develop_nuclear_weapons }
+	}
+
+	possible = {
+		#THIS is a superpower or great power
+		country_rank >= rank_value:great_power
+		custom_tooltip = {
+			text = signed_NPT_2_tt
+			NOT = { has_variable = nuclear_non_proliferation_treaty_timer }
+		}
+	}
+	
+	when_taken = {
+		add_modifier = nuclear_capability
+		activate_law = law_type:law_uranium_full_usage
+		random_scope_state = {
+			limit = {
+				has_building = building_nuclear_weapons_silo
+				NOT = { has_modifier = nuclear_weapon_site }
+			}
+			add_modifier = nuclear_weapon_site
+		}
+	}
+
+	ai_chance = {
+		value = 1000	
 	}
 }

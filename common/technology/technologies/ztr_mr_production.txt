@@ -1,6 +1,6 @@
 	# Era 1
 
-verrier_physics_tech = {
+REPLACE_OR_CREATE:verrier_physics_tech = {
 	# Unlocks production method Basic Observatory
 	# Unlocks decision: Astronomic observation
 
@@ -22,7 +22,7 @@ verrier_physics_tech = {
 
 # Era 2
 
-verrier_chemistry_tech = {
+REPLACE_OR_CREATE:verrier_chemistry_tech = {
 	#Unlocks sulphite pulping
 
 	era = era_2
@@ -43,7 +43,7 @@ verrier_chemistry_tech = {
 	}
 }
 
-manzoni_rotary_press_tech = {
+REPLACE_OR_CREATE:manzoni_rotary_press_tech = {
 	era = era_2
 	texture = "gfx/interface/icons/invention_icons/manzoni_rotary_press_tech.dds"
 	category = production
@@ -68,7 +68,7 @@ manzoni_rotary_press_tech = {
 	}
 }
 
-verrier_astronomy_tech = {
+REPLACE_OR_CREATE:verrier_astronomy_tech = {
 	# Unlocks Advanced Observatory
 	# Unlocks Journal Entries and Decisions
 
@@ -108,7 +108,7 @@ verrier_astronomy_tech = {
 
 # Era 3
 
-manzoni_linotype_tech = {
+REPLACE_OR_CREATE:manzoni_linotype_tech = {
 	era = era_3
 	texture = "gfx/interface/icons/invention_icons/manzoni_linotype_tech.dds"
 	category = production
@@ -133,7 +133,7 @@ manzoni_linotype_tech = {
 	}
 }
 
-verrier_electromagnetism_tech = {
+REPLACE_OR_CREATE:verrier_electromagnetism_tech = {
 	# No effect at the moment
 
 	era = era_3
@@ -151,72 +151,7 @@ verrier_electromagnetism_tech = {
 
 # Era 4
 
-verrier_modern_physics_tech = {
-	# Unlocks Uranium Mine
-	# Unlocks Einstein Events
-	era = era_4
-	texture = "gfx/interface/icons/invention_icons/verrier_modern_physics_tech.dds"
-	category = production
-
-	unlocking_technologies = {
-		verrier_electromagnetism_tech
-	}
-
-	modifier = {
-		country_tech_research_speed_mult = 0.1
-		country_allow_everywhere_uranium_mining_bool = yes
-	}
-
-	ai_weight = {
-		value = 2 
-
-		if = {
-			limit = { 
-				OR = {
-					c:SWI ?= ROOT
-					c:GER ?= ROOT
-					c:PRU ?= ROOT
-					c:NGF ?= ROOT 
-				}
-				
-			}
-			add = 3 #German Physics Bohr-Planck-Einstein
-		}
-	}
-}
-
 # Era 5
-
-verrier_nuclear_physics_tech = {
-	# Unlocks Einstein Events
-	era = era_5
-	texture = "gfx/interface/icons/invention_icons/verrier_nuclear_physics_tech.dds"
-	category = production
-
-	unlocking_technologies = {
-		verrier_modern_physics_tech
-	}
-
-	modifier = {
-		building_group_bg_power_throughput_add = 0.05
-	}
-
-	ai_weight = {
-		value = 2 
-
-		if = {
-			limit = { 
-				OR = {
-					c:ITA ?= ROOT
-					c:USA ?= ROOT
-				}
-				
-			}
-			add = 2 #Fermi-Szilard-etc
-		}		
-	}
-	
-}
 
 # Era 6
 

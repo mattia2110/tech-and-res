@@ -1,12 +1,12 @@
-﻿je_strike = {
+﻿REPLACE:je_strike = {
 	icon = "gfx/interface/icons/event_icons/event_protest.dds"
-
 	group = je_group_crises
-
 	is_shown_when_inactive = {
 		has_technology_researched = political_agitation
 		has_technology_researched = human_rights
-		NOT = { has_law_or_variant = law_type:law_council_republic }
+		NOT = {
+			has_law_or_variant = law_type:law_council_republic
+		}
 		ig:ig_trade_unions ?= {
 			is_marginal = no
 			ig_clout >= 0.1
@@ -15,7 +15,6 @@
 			is_marginal = no
 		}
 	}
-
 	possible = {
 		ig:ig_trade_unions ?= {
 			is_in_government = no
@@ -50,8 +49,7 @@
 					is_pop_type = machinists
 				}
 				OR = {
-					#standard_of_living < 15
-					standard_of_living < average_expected_sol #T&R
+					standard_of_living < 15
 				}
 				pop_acceptance >= acceptance_status_4
 				OR = {
@@ -62,19 +60,18 @@
 			}
 		}
 	}
-
 	immediate = {
-		trigger_event = { id = strike.1 }
+		trigger_event = {
+			id = strike.1
+		}
 		set_variable = {
 			name = strike_timer_var
 			value = 0
 		}
 	}
-
 	complete = {
 		strike_goal_complete_trigger = yes
 	}
-
 	on_complete = {
 		custom_tooltip = je_end_strike_tt
 		if = {
@@ -82,7 +79,7 @@
 				has_variable = strike_negotiator
 			}
 			trigger_event = {
-				id = strike.8 # strikers appeased
+				id = strike.8				# strikers appeased
 			}
 		}
 		else_if = {
@@ -90,11 +87,10 @@
 				has_variable = strike_breaker
 			}
 			trigger_event = {
-				id = strike.9 # strikers crushed
+				id = strike.9				# strikers crushed
 			}
 		}
 	}
-
 	#T&R
 	fail = {
 		custom_tooltip = {
@@ -103,11 +99,9 @@
 			has_variable = liberty_index_var
 		}
 	}
-
 	on_fail = {
 		trigger_event = ztr_proletariat.1
 	}
-
 	on_monthly_pulse = {
 		effect = {
 			change_variable = {
@@ -125,17 +119,13 @@
 			1 = strike.7
 		}
 	}
-
 	current_value = {
 		value = root.var:strike_timer_var
 	}
-
 	goal_add_value = {
 		value = 60
 	}
-
 	progressbar = yes
-
 	status_desc = {
 		first_valid = {
 			triggered_desc = {
@@ -156,18 +146,148 @@
 			}
 		}
 	}
-
 	invalid = {
 		has_law_or_variant = law_type:law_council_republic
 	}
-
 	on_invalid = {
 		custom_tooltip = {
 			text = end_strike_tt
 			strike_end_effect = yes
 		}
 	}
-
 	weight = 100
+	should_be_pinned_by_default = yes
+}
+
+REPLACE:je_warlord_china = {
+	icon = "gfx/interface/icons/event_icons/event_fire.dds"
+	group = je_group_qing
+	is_shown_in_lobby = {
+		OR = {
+			country_has_primary_culture = cu:han
+			country_has_primary_culture = cu:manchu
+		}
+	}
+	immediate = {
+		random_law = {
+			limit = {
+				type = law_type:law_monarchy
+			}
+			save_scope_as = monarchy_scope
+		}
+	}
+	complete = {
+		OR = {
+			AND = {
+				custom_tooltip = {
+					text = won_boxer_tt
+					has_variable = won_boxer_rebellion
+				}
+				custom_tooltip = {
+					text = china_recognized_tt
+					has_variable = china_warlord_explosion_recognized
+				}
+				custom_tooltip = {
+					text = china_abolished_monarchy_tt
+					has_variable = china_warlord_abolished_monarchy
+				}
+			}
+			year > 1940
+		}
+	}
+	fail = {
+		custom_tooltip = {
+			text = je_china_failure_tt
+			var:china_warlord_explosion <= 0
+		}
+	}
+	on_fail = {
+		trigger_event = {
+			id = warlord_china_events.100
+		}
+	}
+	on_complete = {
+		if = {
+			limit = {
+				year <= 1940
+			}
+			trigger_event = {
+				id = warlord_china_events.200
+			}
+		}
+		else = {
+			trigger_event = {
+				id = the_future_of_china.201
+			}
+		}
+	}
+	current_value = {
+		value = var:china_warlord_explosion
+	}
+	goal_add_value = {
+		add = 5
+	}
+	progressbar = yes
+	on_weekly_pulse = {
+		effect = {
+			if = {
+				limit = {
+					NOT = {
+						has_variable = china_warlord_explosion_subject
+					}
+					is_subject = yes
+				}
+				chi_remove_1_fragile_unity = yes
+				set_variable = china_warlord_explosion_subject
+			}
+			if = {
+				limit = {
+					NOT = {
+						has_variable = china_warlord_explosion_loans
+					}
+					taking_loans = yes
+				}
+				chi_remove_1_fragile_unity = yes
+				set_variable = china_warlord_explosion_loans
+			}
+			if = {
+				limit = {
+					NOT = {
+						has_variable = china_warlord_explosion_recognized
+					}
+					country_rank != rank_value:unrecognized_power
+					country_rank != rank_value:unrecognized_major_power
+					country_rank != rank_value:unrecognized_regional_power
+				}
+				set_variable = china_warlord_explosion_recognized
+				chi_add_1_fragile_unity = yes
+			}
+			if = {
+				limit = {
+					NOT = {
+						has_variable = china_abolished_monarchy
+					}
+					NOT = {
+						has_law = law_type:law_monarchy
+					}
+				}
+				set_variable = china_abolished_monarchy
+				chi_remove_1_fragile_unity = yes
+				if = {
+					limit = {
+						NOT = {
+							has_variable = china_han_empire
+						}
+					}
+					trigger_event = {
+						id = boxer_rebellion_events.4
+						days = 0
+						popup = yes
+					}
+				}
+			}
+		}
+	}
+	weight = 10000
 	should_be_pinned_by_default = yes
 }

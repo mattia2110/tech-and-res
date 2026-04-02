@@ -1,4 +1,4 @@
-﻿# Era 4
+# Era 4
 
 silent_cinema = {
 	# Unlocks Cinema in Art Accademies and Entertainment Area
@@ -22,7 +22,6 @@ international_organizations = {
 	texture = "gfx/interface/icons/invention_icons/onu.dds"
 	category = society
 	modifier = {
-		country_influence_mult = 0.1
 		country_infamy_generation_against_unrecognized_mult = 0.1 #Second Italian-Ethiopian War 1936
 		country_infamy_generation_mult = 0.1 #Second World War
 		country_liberty_desire_of_subjects_add = 0.25
@@ -56,7 +55,7 @@ keynesian_economics = {
 	texture = "gfx/interface/icons/invention_icons/keynesian_economics.dds"
 	category = society
 	modifier = {
-		state_capitalists_investment_pool_efficiency_mult = -0.05
+		state_capitalists_investment_pool_efficiency_mult = -0.1
 		country_max_weekly_construction_progress_add = 40
 		country_authority_mult = 0.1
 		state_market_access_price_impact = 0.05
@@ -84,8 +83,9 @@ modern_urban_planning = {
 	}
 
 	modifier = {
-		state_infrastructure_from_automobiles_consumption_add = 0.25
+		country_disable_greener_grass_campaign_bool_tt = yes
 		state_building_construction_sector_max_level_add = 10
+		state_pollution_reduction_health_mult = 0.05
 		state_trade_capacity_mult = 0.05
 		state_decree_cost_mult = -0.1
 	}
@@ -109,6 +109,24 @@ molecular_biology = {
 		dubois_genetics_tech
 	}
 
+	ai_weight = {
+		value = 1
+	}
+}
+
+penicillin = {
+	era = era_5
+	texture = "gfx/interface/icons/invention_icons/penicillin.dds"
+	category = society
+	
+	modifier = {
+		country_institution_health_system_max_investment_add = 1
+	}
+	
+	unlocking_technologies = {
+		panum_antitoxins_tech
+	}
+	
 	ai_weight = {
 		value = 1
 	}
@@ -146,6 +164,7 @@ highway_systems = {
 	modifier = {
 		unit_advancement_speed_mult = 0.1
 		state_market_access_price_impact = 0.05
+		state_pollution_reduction_health_mult = 0.1
 		country_max_weekly_construction_progress_add = 50
 		state_building_construction_sector_max_level_add = 10
 	}
@@ -282,8 +301,7 @@ vikelas_international_sports_tech = {
 	}
 
 	modifier = {
-		country_prestige_mult = 0.1
-		country_influence_mult = 0.1
+		country_influence_mult = 0.05
 		country_improve_relations_speed_mult = 0.05
 		country_infamy_decay_mult = 0.05
 	}
@@ -376,7 +394,7 @@ neoimperialism = {
 	texture = "gfx/interface/icons/invention_icons/neoimperialism.dds"
 	category = society
 	modifier = {
-		country_influence_mult = 0.25 # Neo-colonialism, a different form of influence
+		country_influence_mult = 0.1 # Neo-colonialism, a different form of influence
 		country_institution_cost_institution_police_mult = -0.1
 		country_allow_superpower_mechanics_bool = yes
 	}
@@ -401,7 +419,7 @@ prefabricated_concrete_buildings = {
 
 	modifier = {
 		country_max_weekly_construction_progress_add = 70
-		state_building_construction_sector_max_level_add = 10
+		state_building_construction_sector_max_level_add = 15
 		state_building_hydroelectric_power_plant_max_level_add = 2
 	}
 
@@ -425,7 +443,7 @@ cognitive_sciences = {
 	}
 
 	modifier = {
-		country_influence_mult = 0.1
+		country_influence_mult = 0.05
 		building_university_throughput_add = 0.1
 	}
 
@@ -474,7 +492,6 @@ multinational_corporations = {
 	modifier = {
 		country_max_companies_add = 1
 		country_free_charters_add = 1
-		country_influence_mult = 0.1
 		state_urbanization_per_level_mult = -0.1
 	}
 	unlocking_technologies = {
@@ -527,7 +544,7 @@ math_finance = {
 neoliberism = {
 	# To be against keynesian economics bonus or malus
 	era = era_7
-	texture = "gfx/interface/icons/invention_icons/financial_deregulation.dds"
+	texture = "gfx/interface/icons/invention_icons/neoliberism.dds"
 	category = society
 	modifier = {
 		country_free_charters_add = 1
@@ -568,7 +585,7 @@ telecommunications = {
 	texture = "gfx/interface/icons/invention_icons/telecommunications.dds"
 	category = society
 	modifier = {
-		country_influence_mult = 0.2
+		country_influence_mult = 0.05
 		state_working_adult_ratio_add = 0.05
 	}
 	unlocking_technologies = {
@@ -587,6 +604,7 @@ counterculture = {
 	category = society
 
 	modifier = {
+		country_institution_environmental_policy_max_investment_add = 1
 		country_infamy_generation_mult = 0.2
 		country_infamy_generation_against_unrecognized_mult = 0.2
 		interest_group_ig_devout_pol_str_mult = -1
@@ -783,13 +801,17 @@ advanced_medical_imaging = {
 
 machine_learning = {
 	# Introduce AI per l'automazione e l'ottimizzazione dei processi
-	era = era_8
+	era = era_9
 	texture = "gfx/interface/icons/invention_icons/machine_learning.dds"
 	category = society
 
+	modifier = {
+		country_tech_research_speed_mult = 0.05
+	}
+
 	unlocking_technologies = {
 		neuroscience
-		data_infrastructures
+		data_processing
 		software_development_paradigms
 	}
 
@@ -802,7 +824,6 @@ data_processing = {
 	category = society
 	modifier = {
 		country_authority_mult = 0.1
-		building_throughput_add = 0.05
 	}
 	unlocking_technologies = {
 		data_infrastructures
@@ -832,6 +853,10 @@ operating_systems = {
 	era = era_8
 	texture = "gfx/interface/icons/invention_icons/operating_systems.dds"
 	category = society
+
+	modifier = {
+		building_throughput_add = 0.05
+	}
 
 	unlocking_technologies = {
 		software_development_paradigms
@@ -866,7 +891,6 @@ transnational_activism = {
 	category = society
 	modifier = {
 		interest_group_ig_intelligentsia_pol_str_mult = 1
-		country_infamy_generation_mult = 0.2
 		country_infamy_generation_against_unrecognized_mult = 0.2
 		country_liberty_desire_of_subjects_add = 0.75
 	}
@@ -943,11 +967,10 @@ globalization = {
 	category = society
 
 	modifier = {
-		country_influence_mult = 0.1
 		country_max_companies_add = 1
 		state_expected_sol_from_literacy = 1
 		state_working_adult_ratio_add = 0.05
-		state_pollution_reduction_health_mult = 0.05
+		state_pollution_reduction_health_mult = 0.1
 	}
 
 	unlocking_technologies = {
@@ -966,7 +989,7 @@ videogames = {
 	texture = "gfx/interface/icons/invention_icons/videogames.dds"
 	category = society
 	modifier = {
-		country_influence_mult = 0.1
+		country_influence_mult = 0.05
 	}
 	unlocking_technologies = {
 		mass_entertainment
@@ -983,7 +1006,7 @@ ambientalism = {
 	texture = "gfx/interface/icons/invention_icons/ambientalism.dds"
 	category = society
 	modifier = {
-
+		country_institution_environmental_policy_max_investment_add = 1
 	}
 	unlocking_technologies = {
 		transnational_activism
@@ -994,6 +1017,25 @@ ambientalism = {
 }
 
 # Era 9
+
+genomic_sequencing = {
+	era = era_9
+	texture = "gfx/interface/icons/invention_icons/genomic_sequencing.dds"
+	category = society
+
+	unlocking_technologies = {
+		mri_development
+	}
+
+	modifier = {
+		state_mortality_mult = -0.015
+		country_society_tech_research_speed_mult = 0.05
+	}
+
+	ai_weight = {
+		value = 1
+	}
+}
 
 freight_village = {
     era = era_9
@@ -1007,7 +1049,7 @@ freight_village = {
     modifier = {
         building_port_throughput_add = 0.05
 		state_market_access_price_impact = 0.05
-		state_building_construction_sector_max_level_add = 10
+		state_building_construction_sector_max_level_add = 15
 		military_formation_mobilization_speed_mult = 0.1
     }
 
@@ -1040,7 +1082,7 @@ circular_economy = {
 	texture = "gfx/interface/icons/invention_icons/circular_economy.dds"
 	category = society
 	modifier = {
-		state_pollution_reduction_health_mult = 0.1 #This is made in order to create the problem of pollution in the game
+		country_institution_environmental_policy_max_investment_add = 1
 		country_free_charters_add = 1
 	}
 	unlocking_technologies = {
@@ -1102,15 +1144,20 @@ cloud_computing = {
 	}
 }
 
-neural_networks = {
-	era = era_9
-	texture = "gfx/interface/icons/invention_icons/neural_networks.dds"
+# Era 10
+
+targeted_immunotherapy = {
+	era = era_10
+	texture = "gfx/interface/icons/invention_icons/targeted_immunotherapy.dds"
 	category = society
-	modifier = {
-	}
+
 	unlocking_technologies = {
+		genomic_sequencing
 		machine_learning
-		data_processing
+	}
+
+	modifier = {
+		state_mortality_mult = -0.01
 	}
 
 	ai_weight = {
@@ -1118,29 +1165,45 @@ neural_networks = {
 	}
 }
 
-# Era 10
+crispr_gene_editing = {
+	era = era_10
+	texture = "gfx/interface/icons/invention_icons/crispr_gene_editing.dds"
+	category = society
+
+	unlocking_technologies = {
+		targeted_immunotherapy
+	}
+
+	modifier = {
+		state_mortality_mult = -0.01
+		state_dependent_wage_mult = 0.1
+	}
+
+	ai_weight = { value = 1 }
+}
 
 artificial_intelligence = {
 	# Introduce AI per l'automazione e l'ottimizzazione dei processi
 	era = era_10
-	texture = "gfx/interface/icons/invention_icons/artificial_intelligence.dds"
+	texture = "gfx/interface/icons/invention_icons/neural_networks.dds"
 	category = society
 
 	unlocking_technologies = {
-		neural_networks
+		data_processing
+		machine_learning
 		big_data_analytics
 	}
 
 	modifier = {
 		state_tax_capacity_add = 25
-		building_datacenter_industry_throughput_add = 0.1
+		building_throughput_add = 0.05
 	}
 
 	ai_weight = { value = 1 }
 }
 
 e_commerce = {
-	era = era_10
+	era = era_9
 	texture = "gfx/interface/icons/invention_icons/e_commerce.dds"
 	category = society
 
@@ -1166,6 +1229,7 @@ algorithmic_dispatch = {
 	unlocking_technologies = {
 		social_media
 		e_commerce
+		big_data_analytics
 	}
 
 	modifier = {
@@ -1221,22 +1285,21 @@ app_economy = {
 		country_max_companies_add = 1
 	}
 	unlocking_technologies = {
+		social_media
 		interactive_media
-		internet
 	}
 
 	ai_weight = { value = 1 }
 }
 
 social_media = {
-	era = era_10
+	era = era_9
 	texture = "gfx/interface/icons/invention_icons/social_media.dds"
 	category = society
 	modifier = {
-		country_influence_mult = 0.25
+		country_influence_mult = 0.1
 	}
 	unlocking_technologies = {
-		interactive_media
 		internet
 	}
 		
@@ -1257,9 +1320,81 @@ urban_sustainability = {
 
     modifier = {
         state_expected_sol_from_literacy = 1
+		country_institution_environmental_policy_max_investment_add = 1
     }
 
     ai_weight = {
         value = 1
     }
 }
+
+# Era 11
+
+virtual_reality = {
+	era = era_11
+	texture = "gfx/interface/icons/invention_icons/virtual_reality.dds"
+	category = society
+
+	unlocking_technologies = {
+		app_economy
+		algorithmic_dispatch
+	}
+
+	modifier = {
+		country_influence_mult = 0.05
+	}
+
+	ai_weight = { value = 1 }
+}
+
+agentic_ai = {
+	era = era_11
+	texture = "gfx/interface/icons/invention_icons/agentic_ai.dds"
+	category = society
+
+	unlocking_technologies = {
+		artificial_intelligence
+		algorithmic_dispatch
+	}
+
+	modifier = {
+		goods_output_ai_systems_mult = 0.05
+		building_software_industry_throughput_add = 0.05
+		building_ecommerce_logistics_throughput_add = 0.05
+		building_office_throughput_add = 0.05
+	}
+
+	ai_weight = { value = 1 }
+}
+
+artificial_general_intelligence = {
+	# Introduce AGI per l'automazione avanzata e la risoluzione di problemi complessi
+	era = era_11
+	texture = "gfx/interface/icons/invention_icons/artificial_general_intelligence.dds"
+	category = society
+
+	unlocking_technologies = {
+		agentic_ai
+	}
+
+	modifier = {
+		building_throughput_add = 0.05
+	}
+
+	ai_weight = { value = 1 }
+}
+
+# neural_interfaces = {
+# 	era = era_11
+# 	texture = "gfx/interface/icons/invention_icons/neural_interfaces.dds"
+# 	category = society
+
+# 	unlocking_technologies = {
+# 		virtual_reality
+# 	}
+
+# 	modifier = {
+# 	}
+
+# 	ai_weight = { value = 1 }
+# }

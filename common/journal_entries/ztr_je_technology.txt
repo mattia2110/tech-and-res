@@ -140,3 +140,179 @@ je_research_center_construction = {
 
 	should_be_pinned_by_default = yes
 }
+
+# Fusion Reactor Journal Entries
+
+je_fusion_reactor_research = {
+	icon = "gfx/interface/icons/event_icons/innovation.dds"
+
+	group = je_group_technology
+
+	on_monthly_pulse = {
+		effect = {
+			# Progress depends on nation's development indicators
+			change_variable = {
+				name = fusion_reactor_var
+				add = 0.25
+			}
+
+			# GDP per capita bonus: wealthy nations progress faster
+			if = {
+				limit = { gdp > 1000000000 }
+				change_variable = {
+					name = fusion_reactor_var
+					add = 0.25
+				}
+			}
+			if = {
+				limit = { gdp > 5000000000 }
+				change_variable = {
+					name = fusion_reactor_var
+					add = 0.5
+				}
+			}
+
+			# Literacy bonus: highly educated populace accelerates R&D
+			if = {
+				limit = { literacy_rate > 0.95 }
+				change_variable = {
+					name = fusion_reactor_var
+					add = 0.25
+				}
+			}
+
+			# Major population bonus: large labor pool of scientists
+			if = {
+				limit = { total_population > 50000000 }
+				change_variable = {
+					name = fusion_reactor_var
+					add = 0.25
+				}
+			}
+			if = {
+				limit = { total_population > 500000000 }
+				change_variable = {
+					name = fusion_reactor_var
+					add = 0.25
+				}
+			}
+		}
+	}
+
+	complete = {
+		scope:journal_entry = { is_goal_complete = yes }
+	}
+
+	on_complete = {
+		trigger_event = { id = ztr_technology.10 } # fusion reactor first breakthrough
+	}
+
+	invalid = {
+		OR = {
+			NOT = {
+				has_technology_researched = smart_energy_grid
+			}
+			NOT = {
+				has_technology_researched = third_nuclear_reactor
+			}
+			NOT = {
+				has_research_center = yes
+			}
+		}
+	}
+
+	on_invalid = {
+		remove_variable = fusion_reactor_var
+	}
+
+	current_value = {
+		value = root.var:fusion_reactor_var
+	}
+
+	goal_add_value = {
+		value = 100
+	}
+
+	progressbar = yes
+
+	weight = 10
+
+	should_be_pinned_by_default = yes
+
+	modifiers_while_active = {
+		fusion_reactor_research
+	}
+}
+
+je_fusion_reactor_construction = {
+	icon = "gfx/interface/icons/event_icons/academia.dds"
+
+	group = je_group_technology
+
+	complete = {
+		scope:target = { has_fusion_reactor_target = yes }
+	}
+
+	fail = {
+		NOT = {
+			any_scope_state = {
+				has_modifier = fusion_reactor_site
+			}
+		}
+	}
+
+	on_fail = {
+		remove_variable = fusion_reactor_var
+	}
+
+	on_complete = {
+		trigger_event = { id = ztr_technology.11 }
+		remove_variable = fusion_reactor_var
+		scope:target = {
+			remove_modifier = fusion_reactor_site
+		}
+	}
+
+	should_be_pinned_by_default = yes
+}
+
+# IMF Modernization Journal Entry
+
+je_imf_modernization = {
+	icon = "gfx/interface/icons/event_icons/academia.dds"
+
+	group = je_group_technology
+
+	complete = {
+		custom_tooltip = {
+			text = je_imf_modernization_literacy_tt
+			literacy_rate >= 0.70
+		}
+		custom_tooltip = {
+			text = je_imf_modernization_sol_tt
+			average_sol >= 18
+		}
+		custom_tooltip = {
+			text = je_imf_modernization_developed_tt
+			OR = {
+				has_modifier = dev_5_country
+				has_modifier = dev_6_country
+				has_modifier = dev_7_country
+				has_modifier = dev_8_country
+				get_country_gdp_per > 7
+			}
+		}
+	}
+
+	on_complete = {
+		set_variable = {
+			name = imf_modernization_completed
+			value = 1
+		}
+		trigger_event = ztr_imf_event.5
+	}
+
+	weight = 25
+
+	should_be_pinned_by_default = yes
+}

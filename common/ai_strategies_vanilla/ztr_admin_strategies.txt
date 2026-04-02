@@ -1,0 +1,679 @@
+﻿REPLACE:ai_strategy_plantation_economy = {
+	icon = "gfx/interface/icons/ai_strategy_icons/agricultural_expansion.dds"
+
+	type = administrative
+
+	goods_stances = {
+		fruit = { stance = wants_export }
+		fabric = { stance = wants_export }
+		sugar = { stance = wants_export }
+		coffee = { stance = wants_export }
+		tea = { stance = wants_export }
+		opium = { stance = wants_export }
+		tobacco = { stance = wants_export }
+		dye = { stance = wants_export }
+		silk = { stance = wants_export }
+		#T&R
+		rubber = { stance = wants_export }
+	}
+
+	building_group_weights = {
+		bg_plantations = 2.0
+		bg_manufacturing = 0.5
+	}
+
+	possible = {
+		OR = {
+			capital.region = sr:region_dixie
+			is_in_geographic_region = geographic_region_south_america
+			is_in_geographic_region = geographic_region_central_america
+			is_in_geographic_region = geographic_region_india
+			is_in_geographic_region = geographic_region_south_east_asia
+			is_in_geographic_region = geographic_region_africa
+			is_in_geographic_region = geographic_region_east_asia
+			is_in_geographic_region = geographic_region_middle_east
+		}
+	}
+
+	weight = {
+		value = 10
+
+		if = {
+			limit = {
+				OR = {
+					is_in_geographic_region = geographic_region_south_america
+					is_in_geographic_region = geographic_region_central_america
+					is_in_geographic_region = geographic_region_india
+					is_in_geographic_region = geographic_region_south_east_asia
+					capital.region = sr:region_dixie
+				}
+			}
+			add = 20
+		}
+
+		if = {
+			limit = { is_country_type = unrecognized }
+			multiply = 0.5
+		}
+
+		if = {
+			limit = {
+				exists = ig:ig_landowners
+				ig:ig_landowners ?= { is_powerful = yes }
+			}
+			multiply = 1.5
+		}
+
+		if = {
+			limit = {
+				is_princely_state = yes
+			}
+			add = 20
+		}
+
+		if = {
+			limit = {
+				has_journal_entry = je_agricultural_development
+			}
+			add = 45
+		}
+	}
+}
+
+REPLACE:ai_strategy_resource_expansion = {
+	icon = "gfx/interface/icons/ai_strategy_icons/resource_expansion.dds"
+
+	type = administrative
+
+	building_group_weights = {
+		bg_rubber = 1.5
+		bg_oil_extraction = 1.5
+		bg_mining = 1.5
+		bg_logging = 1.5
+	}
+
+	subsidies = {
+		building_tooling_workshop = nice_to_have
+		building_explosives_factory = nice_to_have
+	}
+
+	goods_stances = {
+		explosives = {
+			stance = wants_high_supply
+			trigger = {
+				has_technology_researched = nitroglycerin
+			}
+		}
+		tools = { stance = wants_high_supply }
+		coal = { stance = wants_export }
+		iron = { stance = wants_export }
+		oil = { stance = wants_export }
+		lead = { stance = wants_export }
+		wood = { stance = wants_export }
+		hardwood = { stance = wants_export }
+		sulfur = { stance = wants_export }
+	#T&R
+		good_uranium = { stance = wants_export }
+		bauxite = { stance = wants_export }
+		copper = { stance = wants_export }
+		commonores = { stance = wants_export }
+		advancedores = { stance = wants_export }
+		rare_earths = { stance = wants_export }
+		gas = { stance = wants_export }
+	}
+
+
+	possible = {
+		always = yes
+	}
+
+	weight = {
+		value = 10
+
+		if = {
+			limit = {
+				OR = {
+					is_in_geographic_region = geographic_region_europe
+					is_in_geographic_region = geographic_region_north_america
+				}
+			}
+			add = 20
+		}
+
+		if = {
+			limit = {
+				has_radical_leftist_government = yes
+				NOT = {
+					ig:ig_rural_folk ?= {
+						is_powerful = yes
+						is_in_government = yes
+					}
+				}
+			}
+			add = 25
+		}
+
+		if = {
+			limit = { is_country_type = unrecognized }
+			multiply = 0.5
+		}
+
+		if = {
+			limit = {
+				exists = ig:ig_industrialists
+				ig:ig_industrialists ?= { is_powerful = yes }
+			}
+			multiply = 1.5
+		}
+
+		if = {
+			limit = {
+				has_technology_researched = railways
+			}
+			multiply = 2.0
+		}
+
+		if = {
+			limit = {
+				exists = overlord
+				overlord = {
+					OR = {
+						AND = {
+							is_ai = no
+							NOT = { has_law_or_variant = law_type:law_traditionalism }
+						}
+						has_strategy = ai_strategy_resource_expansion
+						has_strategy = ai_strategy_industrial_expansion
+					}
+				}
+			}
+			multiply = 2.0
+		}
+	}
+}
+
+REPLACE:ai_strategy_industrial_expansion = {
+	icon = "gfx/interface/icons/ai_strategy_icons/industrial_expansion.dds"
+
+	type = administrative
+
+	subsidies = {
+		building_coal_mine = nice_to_have
+		building_iron_mine = nice_to_have
+		building_lead_mine = nice_to_have
+		building_sulfur_mine = nice_to_have
+		#T&R
+		building_bauxite_mine = nice_to_have
+		building_copper_mine = nice_to_have
+		building_commonores_mine = nice_to_have
+		building_advancedores_mine = nice_to_have
+		building_rare_earths_mine = nice_to_have
+		building_uranium_mine = nice_to_have
+		building_telecommunications_industry = wants_to_have
+		building_fusion_power_plant = wants_to_have
+	}
+
+	goods_stances = {
+		rubber = {
+			stance = wants_high_supply
+			trigger = {
+				has_technology_researched = rubber_mastication
+			}
+		}
+		oil = {
+			stance = wants_high_supply
+			trigger = {
+				has_technology_researched = pumpjacks
+			}
+		}
+		tools = { stance = wants_high_supply }
+		coal = { stance = wants_high_supply }
+		iron = { stance = wants_high_supply }
+		steel = { stance = wants_high_supply }
+		lead = { stance = wants_high_supply }
+		sulfur = { stance = wants_high_supply }
+		explosives = { stance = wants_export }
+		fertilizer = { stance = wants_export }
+		engines = {
+			stance = wants_export
+			trigger = {
+				has_technology_researched = atmospheric_engine
+			}
+		}
+		automobiles = {
+			stance = wants_export
+			trigger = {
+				has_technology_researched = combustion_engine
+			}
+		}
+		telephones = {
+			stance = wants_export
+			trigger = {
+				has_technology_researched = telephone
+			}
+		}
+		radios = {
+			stance = wants_export
+			trigger = {
+				has_technology_researched = radio
+			}
+		}
+		#T&R
+		# Advanced goods
+		civil_planes = {
+			stance = wants_export
+			trigger = {
+				has_technology_researched = zeppelins
+			}
+		}
+		homeappliances = {
+			stance = wants_export
+			trigger = {
+				has_technology_researched = rudimental_home_appliances
+			}
+		}
+		robotics = {
+			stance = wants_export
+			trigger = {
+				has_technology_researched = mechanical_arms
+			}
+		}
+		androids = {
+			stance = wants_export
+			trigger = {
+				has_technology_researched = androids
+			}
+		}
+		computer = {
+			stance = wants_export
+			trigger = {
+				has_technology_researched = computer
+			}
+		}
+		interactive_entertainment = {
+			stance = wants_export
+			trigger = {
+				has_technology_researched = videogames
+			}
+		}
+		# Vital goods
+		copper = { stance = wants_high_supply }
+		commonores = { stance = wants_high_supply }
+		bauxite = { stance = wants_high_supply }
+		advancedores = { stance = wants_high_supply }
+		rare_earths = { stance = wants_high_supply }
+		good_uranium = { stance = wants_high_supply }
+		sugar = { stance = wants_high_supply }
+		telecommunications = {
+			stance = wants_high_supply
+			trigger = {
+				has_technology_researched = telephone
+			}
+		}
+		alloys = { stance = wants_high_supply }
+		aluminium = {
+			stance = wants_high_supply
+			trigger = {
+				has_technology_researched = bauxite_processing
+			}
+		}
+		gas = {
+			stance = wants_high_supply
+			trigger = {
+				has_technology_researched = natural_gas_extraction
+			}
+		}
+		plastics = {
+			stance = wants_high_supply
+			trigger = {
+				has_technology_researched = plastics
+			}
+		}
+		light_fuel = {
+			stance = wants_high_supply
+			trigger = {
+				has_technology_researched = oil_distillation
+			}
+		}
+		lubricant = {
+			stance = wants_high_supply
+			trigger = {
+				has_technology_researched = conveyors
+			}
+		}
+		heavy_fuel = {
+			stance = wants_high_supply
+			trigger = {
+				has_technology_researched = steam_turbine
+			}
+		}
+		copperwires = {
+			stance = wants_high_supply
+			trigger = {
+				has_technology_researched = verrier_electromagnetism_tech
+			}
+		}
+		batteries = {
+			stance = wants_high_supply
+			trigger = {
+				has_technology_researched = verrier_electromagnetism_tech
+			}
+		}
+		electroniccomponents = {
+			stance = wants_high_supply
+			trigger = {
+				has_technology_researched = electrical_generation
+			}
+		}
+		processors = {
+			stance = wants_high_supply
+			trigger = {
+				has_technology_researched = integrated_circuits
+			}
+		}
+		computer = {
+			stance = wants_high_supply
+			trigger = {
+				has_technology_researched = computer
+			}
+		}
+		on_demand_goods = {
+			stance = wants_high_supply
+			trigger = {
+				has_technology_researched = on_demand_delivery
+			}
+		}
+		space_assets = {
+			stance = wants_high_supply
+			trigger = {
+				has_technology_researched = space_rocketery
+				country_rank = rank_value:great_power
+			}
+		}
+		#Data
+		# Universities
+		business_data = {
+			stance = wants_high_supply
+			trigger = {
+				has_technology_researched = corporate_management
+			}
+		}
+		# Offices
+		organized_data = {
+			stance = wants_high_supply
+			trigger = {
+				has_technology_researched = market_studies
+			}
+		}
+		# Data Centers
+		raw_data = {
+			stance = wants_high_supply
+			trigger = {
+				has_technology_researched = data_infrastructures
+			}
+		}
+	}
+
+	building_group_weights = {
+		bg_manufacturing = 1.25
+		bg_rubber = 1.25
+		bg_oil_extraction = 1.25
+		bg_mining = 1.25
+		bg_logging = 1.25
+	}
+
+	economic_vs_government_spending_balance = { # Refer to 00_default_strategy for how this works
+		if = { # Slightly more inclined to spend on economic buildings when not at war
+			limit = {
+				is_at_war = no
+			}
+			add = 0.05
+		}
+	}
+
+	weight = {
+		value = -50
+
+		if = {
+			limit = {
+				OR = {
+					c:GBR ?= this
+					c:USA ?= this
+					c:FRA ?= this
+					c:BEL ?= this
+					c:NET ?= this
+					c:SWE ?= this
+					c:NOR ?= this
+					c:DEN ?= this
+					c:CAN ?= this
+					c:AST ?= this
+
+				}
+			}
+			add = 150
+		}
+
+		# This is for Germany, Switzerland, France and North Italy
+		if = {
+			limit = { 
+				year > 1850
+				is_in_geographic_region = geographic_region_europe
+				NOT = { c:TUR = this }
+			}
+			add = 250
+		}
+		
+		if = {
+			limit = {
+				year < 1870
+				OR = {
+					c:AUS ?= this
+					c:HUN ?= this
+					c:ITA ?= this
+				}
+			}
+			add = -150
+		}
+
+		if = {
+			limit = {
+				year < 1900
+				c:SIC ?= this
+			}
+			add = -150
+		}
+
+		if = {
+			limit = {
+				year < 1920
+				c:SPA ?= this
+			}
+			add = -250
+		}
+
+		if = {
+			limit = {
+				c:RUS ?= this
+				NOT = { has_law_or_variant = law_type:law_council_republic }
+			}
+			add = -250
+		} # Actually Russia never industrialize like the west, but during the revolution it might try to catch up
+
+		if = {
+			limit = {
+				year > 1945
+				is_in_geographic_region = geographic_region_east_asia
+			}
+			add = 1000
+		} # This is for East Asia industrialization
+
+		if = {
+			limit = { 
+				year > 1960
+				is_in_geographic_region = geographic_region_south_east_asia
+			}
+			add = 250
+		} # This is for Asian tiger economies
+
+		if = {
+			limit = {
+				OR = {
+					has_modifier = shogun_ig_forced_to_open_market
+					has_journal_entry = je_meiji_main
+				}
+			}
+			add = 1000
+		}
+
+		if = {
+			limit = {
+				exists = c:FRA
+				c:FRA = this
+				ruler = {
+					OR = {
+						has_variable = house_orleans
+						has_variable = house_bonaparte
+					}
+				}
+			}
+			add = 20
+		}
+
+		if = { # Grunderzeit
+			limit = {
+				has_journal_entry = je_grunderzeit
+			}
+			add = 100
+		}
+
+		if = {
+			limit = {
+				has_radical_leftist_government = yes
+				NOT = {
+					ig:ig_rural_folk ?= {
+						is_powerful = yes
+						is_in_government = yes
+					}
+				}
+			}
+			add = 50
+		}
+
+		# Metternich agenda of 1844 - inclined to industrialise
+		if = {
+			limit = {
+				c:AUS ?= this
+				has_journal_entry = je_metternich
+			}
+           add = 10
+		}
+
+		if = {
+			limit = {
+				has_law_or_variant = law_type:law_command_economy
+			}
+			multiply = 2
+		}
+
+		if = {
+			limit = { is_country_type = unrecognized }
+			multiply = 0.25
+		}
+
+		if = {
+			limit = {
+				exists = ig:ig_industrialists
+				ig:ig_industrialists = { is_powerful = yes }
+			}
+			multiply = 2.0
+		}
+
+		if = {
+			limit = { literacy_rate < 0.20 }
+			multiply = 0.5
+		}
+
+		if = {
+			limit = { literacy_rate < 0.40 }
+			multiply = 0.5
+		}
+
+		if = {
+			limit = { literacy_rate >= 0.60 }
+			multiply = 1.5
+		}
+
+		if = {
+			limit = { literacy_rate >= 0.80 }
+			multiply = 1.5
+		}
+
+		if = {
+			limit = {
+				has_technology_researched = railways
+			}
+			multiply = 1.5
+		}
+	}
+}
+
+REPLACE:ai_strategy_colonial_extraction = {
+    icon = "gfx/interface/icons/ai_strategy_icons/resource_expansion.dds"
+
+    type = administrative
+    building_group_weights = {
+        bg_rubber = 1.5
+        bg_oil_extraction = 1.5
+        bg_mining = 1.5
+        bg_logging = 1.5
+        bg_plantations = 1.5
+    }
+
+    subsidies = {
+        building_tooling_workshop = wants_to_have
+    }
+
+    goods_stances = {
+        explosives = {
+            stance = wants_high_supply
+            trigger = {
+                has_technology_researched = nitroglycerin
+            }
+        }
+        tools = { stance = wants_high_supply }
+        coal = { stance = wants_export }
+        iron = { stance = wants_export }
+        oil = { stance = wants_export }
+        lead = { stance = wants_export }
+        wood = { stance = wants_export }
+        hardwood = { stance = wants_export }
+        sulfur = { stance = wants_export }
+        fruit = { stance = wants_export }
+        fabric = { stance = wants_export }
+        sugar = { stance = wants_export }
+        coffee = { stance = wants_export }
+        tea = { stance = wants_export }
+        opium = { stance = wants_export }
+        tobacco = { stance = wants_export }
+        dye = { stance = wants_export }
+        silk = { stance = wants_export }
+		#T&R
+		rubber = { stance = wants_export }
+		oil = { stance = wants_export }
+		good_uranium = { stance = wants_export }
+		bauxite = { stance = wants_export }
+		copper = { stance = wants_export }
+		commonores = { stance = wants_export }
+		advancedores = { stance = wants_export }
+		rare_earths = { stance = wants_export }
+		gas = { stance = wants_export }
+    }
+    possible = {
+    	is_subject = yes
+		country_is_colonial_or_company = yes
+    }
+
+    weight = {
+        value = 100
+    }
+}

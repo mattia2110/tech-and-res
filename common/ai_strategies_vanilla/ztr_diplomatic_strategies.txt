@@ -1,0 +1,157 @@
+# Generic
+INJECT:ai_strategy_territorial_expansion = {
+	weight = {
+		value = 10
+
+		if = {
+			limit = {
+				exists = c:FRA
+				c:FRA = this
+				ruler = {
+					has_variable = house_bonaparte
+				}
+			}
+			add = 5
+		}
+
+		# AI implications for Power Blocs: 'Territorial Expansion' strategy is more likely for Blocs with Aggressive Coordination
+		if = {
+			limit = {
+				power_bloc ?= {
+					has_principle_group = principle_group:principle_group_aggressive_coordination
+				}
+			}
+			add = 5
+		}
+
+		# High-fervour AI is inclined to take its homelands
+		if = {
+			limit = {
+				country_fervor_primary_culture > 10
+			}
+			add = {
+				value = country_fervor_primary_culture
+				divide = 2
+			}
+		}
+
+		if = {
+			limit = { ig:ig_armed_forces ?= { is_powerful = yes } }
+			multiply = 1.5
+		}
+
+		if = {
+			limit = { is_in_geographic_region = geographic_region_europe }
+			multiply = 0.25
+		}
+
+		if = {
+			limit = { has_radical_leftist_government = yes }
+			multiply = 0.5
+		}
+
+		#T&R: After 1945 territorial expansion is less available with UN
+		if = {
+			limit = {
+				OR = {
+					has_technology_researched = international_organizations
+					has_modifier = ztr_onu_permanent_member
+					has_modifier = ztr_onu_member
+				}
+			}
+			multiply = 0.5
+		}
+	}
+}
+
+INJECT:ai_strategy_colonial_expansion = {
+	weight = {
+		value = 10
+
+		if = {
+			limit = {
+				exists = c:FRA
+				c:FRA = this
+				ruler = {
+					has_variable = house_bonaparte
+				}
+			}
+			add = 10
+		}
+
+		if = {
+			limit = {
+				has_journal_entry = je_scramble_for_africa
+			}
+			add = 20
+		}
+
+		if = {
+			limit = { country_rank = rank_value:major_power }
+			add = 5
+		}
+
+		if = {
+			limit = { country_rank = rank_value:great_power }
+			add = 5
+		}
+
+		# AI implications for Power Blocs: 'Colonial Expansion' strategy is more likely for Blocs with Colonial Offices
+		if = {
+			limit = {
+				power_bloc ?= {
+					has_principle_group = principle_group:principle_group_colonial_offices
+				}
+			}
+			add = 5
+		}
+
+		if = {
+			limit = { navy_size < 50 }
+			multiply = 0.5
+		}
+
+		if = {
+			limit = { navy_size >= 75 }
+			multiply = 1.5
+		}
+
+		if = {
+			limit = { has_technology_researched = civilizing_mission }
+			multiply = 1.5
+		}
+
+		if = {
+			limit = {
+				power_bloc ?= { has_principle_group = principle_group:principle_group_colonial_offices }
+			}
+			multiply = 1.5
+		}
+
+		if = {
+			limit = {
+				has_journal_entry = je_hispanoamerica
+			}
+			multiply = 0.5
+		}
+
+		if = {
+			limit = { has_radical_leftist_government = yes }
+			multiply = 0.01
+		}
+		
+		#T&R: After this colonial expansion is not possible
+		if = {
+			limit = {
+				OR = {
+					has_technology_researched = international_organizations
+					has_modifier = ztr_onu_permanent_member
+					has_modifier = ztr_onu_member
+				}
+			}
+			multiply = 0
+		}
+	}
+}
+
+

@@ -1,396 +1,783 @@
+
 je_ottoman_empire_collapse = {
-    icon = "gfx/interface/icons/event_icons/waving_flag_ottoman.dds"
-    group = je_group_historical_content
+	icon = "gfx/interface/icons/event_icons/waving_flag_ottoman.dds"
+	group = je_group_global_historical_content
+	should_show_when_not_involved = {
+		OR = {
+			is_in_geographic_region = geographic_region_middle_east
+			country_rank = rank_value:great_power
+		}
+	}
+	is_shown_when_inactive = {
+		has_game_rule = allow_ztr_historical_content
+		year > 1900
+		exists = c:TUR
+	}
+	should_be_involved = {
+		OR = {
+			c:TUR ?= this
+			AND = {
+				country_rank = rank_value:great_power
+				navy_size >= 100 #Naval Power
+			}
+		}
+	}
+	is_shown_in_lobby = {
+		c:TUR ?= this
+		is_involved_in_journal_entry = je_ottoman_empire_collapse
+	}
 
-    is_shown_when_inactive = {
-        has_game_rule = allow_ztr_historical_content
-        year > 1900
-        c:TUR ?= this
-        #always = no # Temporarily disabled as vanilla has added Ottoman Decline Flavor
-    }
-
-    possible = {
-		NOT = { country_rank = rank_value:great_power }
-        ztr_is_not_democratic = yes
-    }
-
-    immediate = {
-        set_variable = {
-            name = ottoman_empire_collapse_var
-            value = 0
-        }
-    }
-
-    on_yearly_pulse = {
-        effect = {
-            change_variable = {
-                name = ottoman_empire_collapse_var
-                add = 2
-            }
-            # Liberal reforms lessen centrifugal forces
-            if = {
-                limit = { has_law = law_type:law_universal_suffrage }
-                change_variable = {
-                    name = ottoman_empire_collapse_var
-                    add = -1
-                }
-            }
-            # Discriminatory laws harden nationalist sentiment
-            if = {
-                limit = { has_law = law_type:law_cultural_exclusion }
-                change_variable = {
-                    name = ottoman_empire_collapse_var
-                    add = -1
-                }
-            }
+	scripted_button = ztr_ottoman_collapse_request_egypt
+	scripted_button = ztr_ottoman_collapse_request_levant
+	scripted_button = ztr_ottoman_collapse_request_iraq
+	possible = {
+		has_game_rule = allow_ztr_historical_content
+		exists = c:TUR
+		c:TUR = {
+			# Power Humiliation
+			NOT = {
+				country_rank = rank_value:great_power
+			}
+			# Autocratic and Low SOL
+			ztr_is_not_democratic = yes
+			average_sol < 14
+		}
+	}
+	immediate = {
+		c:TUR = {
+			save_scope_as = ztr_ottoman_collapse_target_country
+			set_variable = {
+				name = ottoman_empire_collapse_var
+				value = 0
+			}
+			set_variable = {
+				name = ottoman_empire_collapse_arab_var
+				value = 0
+			}
+			set_variable = {
+				name = ottoman_empire_collapse_army_var
+				value = 0
+			}
+			set_variable = {
+				name = ottoman_empire_collapse_foreign_var
+				value = 0
+			}
+		}
+	}
+	on_monthly_pulse = {
+		effect = {
 			if = {
-                limit = { has_law = law_type:law_multicultural }
-                change_variable = {
-                    name = ottoman_empire_collapse_var
-                    add = -1
-                }
-            }
-            # Economic problems
-            if = {
-                limit = { get_country_gdp_per < 2.5 }
-                change_variable = {
-                    name = ottoman_empire_collapse_var
-                    add = 1
-                }
-            }
-            # Russia's ambitions for "hot waters"
-            if = {
-                limit = {
-                    c:RUS = {
-						exists = yes
-						country_rank = rank_value:great_power
-					}
-                }
-                change_variable = {
-                    name = ottoman_empire_collapse_var
-                    add = 1
-                }
-            }
-            # Slipping down the prestige ladder
-            if = {
 				limit = {
-					country_rank < rank_value:major_power
+					NOT = {
+						has_global_variable = ztr_ottoman_collapse_happened
+					}
 				}
+				set_global_variable = ztr_ottoman_collapse_happened
+				# We can only accept or refuse the invitation once
+				scope:journal_entry = {
+					every_scope_je_involved = {
+						limit = {
+							NOT = {
+								c:TUR ?= this
+							}
+						}
+						trigger_event = {
+							id = ztr_ottoman_collapse.100
+							days = 5
+							popup = yes
+						}
+					}
+				}
+				c:TUR = {
+					trigger_event = {
+						id = ztr_ottoman_collapse.1
+						days = 30
+						popup = yes
+					}
+				}
+			}
+		}
+	}
+	on_yearly_pulse = {
+		effect = {
+			scope:ztr_ottoman_collapse_target_country = {
 				change_variable = {
 					name = ottoman_empire_collapse_var
 					add = 2
 				}
-			}
-            #TODO -2 for Ottoman concession to the British (Egypt, Sudan, Palestine, Iraq)
-            #TODO -2 for Ottoman concession to the French (Syria, Lebanon)
-            #TODO -1 for Ottoman concession to the Italians (Libya)
-            #TODO -1 for Ottoman concession to the Balkans (Some states to Serbia and Greece)
-        }
-        # Random flavour events (grant ± modifiers to the JE variable)
-        # random_events = {
-        #     20 = 0
-        #     # 5 = ottoman_empire_collapse.4  # Concession to the British
-        #     # 5 = ottoman_empire_collapse.5  # Concession to the French
-        #     # 5 = ottoman_empire_collapse.6  # Concession to the Italians
-        #     # 5 = ottoman_empire_collapse.7  # Balkans Revolts
-        #     # 5 = ottoman_empire_collapse.8  # Armenian Russophiles
-        #     # 5 = ottoman_empire_collapse.10 # The Sick Man of Europe headline
-        # }
-    }
-
-    complete = {
-        OR = {
-            scope:journal_entry = { is_goal_complete = yes }
-        }
-    }
-
-    on_complete = {
-
-        add_loyalists = {
-			value   = 0.9
-		}
-		
-		# Greece
-        if = {
-            limit = {
-                any_scope_state = {
-                    NOT = { is_homeland_of_country_cultures = root }
-                    state_region = {
-                        is_homeland = cu:greek 
-                    }
-                    count > 0
-                }
-            }
-            ztr_define_greece = yes
-        }
-        if = {
-            limit = { exists = c:GRE}
-            s:STATE_CRETE.region_state:TUR = {
-                set_state_owner = c:GRE
-            }
-            s:STATE_CYPRUS.region_state:TUR = {
-                set_state_owner = c:GRE
-            }
-            s:STATE_EAST_AEGEAN_ISLANDS.region_state:TUR = {
-                set_state_owner = c:GRE
-            }
-            s:STATE_MACEDONIA.region_state:TUR = {
-                set_state_owner = c:GRE
-            }
-            s:STATE_WESTERN_THRACE.region_state:TUR = {
-                set_state_owner = c:GRE
-            }
-        }
-		
-
-        # Bulgaria
-        if = {
-            limit = {
-                NOT = { exists = c:BUL }
-                has_state_in_state_region = STATE_BULGARIA
-            }
-            create_country = {
-                tag    = BUL
-                origin = this
-                state  = s:STATE_BULGARIA.region_state:TUR
-                on_created = {
-                    set_country_type = recognized
-                    activate_law     = law_type:law_parliamentary_republic
-                    activate_law     = law_type:law_census_voting
-                }
-            }
-        }
-		s:STATE_NORTHERN_THRACE.region_state:TUR = {
-			set_state_owner = c:BUL
-		}
-		s:STATE_DOBRUDJA.region_state:TUR = {
-			set_state_owner = c:BUL
-		}
-        s:STATE_SKOPIA.region_state:TUR = {
-			set_state_owner = c:BUL
-		}
-
-        # Romania
-        if = {
-            limit = {
-                any_scope_state = {
-                    NOT = { is_homeland_of_country_cultures = root }
-                    state_region = {
-                        is_homeland = cu:romanian 
-                    }
-                    count > 0
-                }
-            }
-            ztr_define_romania = yes
-        }
-
-        # Albania
-        if = {
-            limit = {
-                any_scope_state = {
-                    NOT = { is_homeland_of_country_cultures = root }
-                    state_region = {
-                        is_homeland = cu:albanian 
-                    }
-                    count > 0
-                }
-            }
-            ztr_define_albania = yes
-        }
-
-        # Serbia
-        if = {
-            limit = {
-                any_scope_state = {
-                    NOT = { is_homeland_of_country_cultures = root }
-                    state_region = {
-                        is_homeland = cu:serb
-                    }
-                    count > 0
-                }
-            }
-            ztr_define_serbia = yes
-        }
-        #c:SER = { trigger_event = { id = ztr_serbia.1 } } This will create a war for Kosovo and North Macedonia
-
-        #Sudan
-        if = {
-            limit = {
-                any_scope_state = {
-                    NOT = { is_homeland_of_country_cultures = root }
-                    state_region = {
-                        is_homeland = cu:sudanese 
-                    }
-                    count > 0
-                }
-            }
-            ztr_define_sudan = yes
-        }
-
-		# Egypt
-        if = {
-            limit = {
-                any_scope_state = {
-                    NOT = { is_homeland_of_country_cultures = root }
-                    state_region = {
-                        is_homeland = cu:misri 
-                    }
-                    count > 0
-                }
-            }
-            ztr_define_egypt = yes
-        }
-
-        # We can create some events about western powers taking advantage of the situation to seize Ottoman territories in Middle East for Oil interests
-
-        # Armenia
-        if = {
-            limit = {
-                NOT = { exists = c:ARM }
-                s:STATE_ERZURUM = { any_scope_state = { owner = ROOT } }
-            }
-            create_country = {
-                tag    = ARM
-                origin = this
-                state  = s:STATE_ERZURUM.region_state:TUR
-                on_created = {
-                    set_country_type = recognized
-                    activate_law     = law_type:law_parliamentary_republic
-                    activate_law     = law_type:law_universal_suffrage
-                }
-            }
-            s:STATE_ERZURUM.region_state:TUR = { set_state_owner = c:ARM }
-			s:STATE_KARS.region_state:TUR = { set_state_owner = c:ARM }
-			s:STATE_ARMENIA.region_state:TUR = { set_state_owner = c:ARM }
-        }
-
-		# Iraq
-        if = {
-            limit = {
-                NOT = { exists = c:IRQ }
-                s:STATE_BAGHDAD = { any_scope_state = { owner = ROOT } }
-            }
-            create_country = {
-                tag    = IRQ
-                origin = this
-                state  = s:STATE_BAGHDAD.region_state:TUR
-                on_created = {
-                    set_country_type = recognized
-                    activate_law     = law_type:law_monarchy
-                }
-            }
-        }
-        s:STATE_BAGHDAD.region_state:TUR = { set_state_owner = c:IRQ }
-		s:STATE_BASRA.region_state:TUR = { set_state_owner = c:IRQ }
-		s:STATE_MOSUL.region_state:TUR = { set_state_owner = c:IRQ }
-
-		# Syria
-        if = {
-            limit = {
-                NOT = { exists = c:SYR }
-                s:STATE_ALEPPO = { any_scope_state = { owner = ROOT } }
-            }
-            create_country = {
-                tag    = SYR
-                origin = this
-                state  = s:STATE_BAGHDAD.region_state:TUR
-                on_created = {
-                    set_country_type = recognized
-                    activate_law     = law_type:law_monarchy
-                }
-            }
-        }
-		s:STATE_SYRIA.region_state:TUR = { set_state_owner = c:SYR }
-		s:STATE_DEIR_EZ_ZOR.region_state:TUR = { set_state_owner = c:SYR }
-
-		# Palestine
-        if = {
-            limit = {
-                NOT = { exists = c:PAL }
-                s:STATE_PALESTINE = { any_scope_state = { owner = ROOT } }
-            }
-            create_country = {
-                tag    = PAL
-                origin = this
-                state  = s:STATE_PALESTINE.region_state:TUR
-                on_created = {
-                    set_country_type = recognized
-                    activate_law     = law_type:law_monarchy
-                }
-            }
-        }
-        s:STATE_PALESTINE.region_state:TUR = { set_state_owner = c:PAL }
-
-		# Giordania
-		if = {
-			limit = {
-				NOT = { exists = c:EOT }
-				s:STATE_TRANSJORDAN = { any_scope_state = { owner = ROOT } }
-			}
-			create_country = {
-				tag = EOT
-				origin = this
-				state  = s:STATE_TRANSJORDAN.region_state:TUR
-				on_created = {
-					set_country_type = recognized
-					activate_law     = law_type:law_monarchy
+				# Liberal reforms lessen centrifugal forces
+				if = {
+					limit = {
+						has_law = law_type:law_universal_suffrage
+					}
+					change_variable = {
+						name = ottoman_empire_collapse_var
+						subtract = 1
+					}
+				}
+				# More inclusive citizenship reduces provincial separatism
+				if = {
+					limit = {
+						has_law = law_type:law_cultural_exclusion
+					}
+					change_variable = {
+						name = ottoman_empire_collapse_var
+						subtract = 1
+					}
+				}
+				if = {
+					limit = {
+						has_law = law_type:law_multicultural
+					}
+					change_variable = {
+						name = ottoman_empire_collapse_var
+						subtract = 2
+					}
+				}
+				# Economic weakness fuels decline
+				if = {
+					limit = {
+						get_country_gdp_per < 2.5
+					}
+					change_variable = {
+						name = ottoman_empire_collapse_var
+						add = 1
+					}
+				}
+				# Russia's ambitions for the straits and eastern Anatolia
+				if = {
+					limit = {
+						c:RUS = {
+							exists = yes
+							country_rank = rank_value:great_power
+						}
+					}
+					change_variable = {
+						name = ottoman_empire_collapse_var
+						add = 1
+					}
+				}
+				# Slipping down the prestige ladder accelerates disintegration
+				if = {
+					limit = {
+						country_rank < rank_value:major_power
+					}
+					change_variable = {
+						name = ottoman_empire_collapse_var
+						add = 2
+					}
+				}
+				# Crisis fronts that have been mishandled for several years now feed the main collapse meter
+				if = {
+					limit = {
+						var:ottoman_empire_collapse_arab_var >= 4
+					}
+					change_variable = {
+						name = ottoman_empire_collapse_var
+						add = 1
+					}
+				}
+				if = {
+					limit = {
+						var:ottoman_empire_collapse_army_var >= 4
+					}
+					change_variable = {
+						name = ottoman_empire_collapse_var
+						add = 1
+					}
+				}
+				if = {
+					limit = {
+						var:ottoman_empire_collapse_foreign_var >= 4
+					}
+					change_variable = {
+						name = ottoman_empire_collapse_var
+						add = 1
+					}
+				}
+				random_list = {
+					20 = {
+					}
+					5 = {
+						trigger_event = {
+							id = ztr_ottoman_collapse.2
+							days = 20
+						}
+					}
+					5 = {
+						trigger_event = {
+							id = ztr_ottoman_collapse.3
+							days = 50
+						}
+					}
+					5 = {
+						trigger_event = {
+							id = ztr_ottoman_collapse.4
+							days = 90
+						}
+					}
 				}
 			}
 		}
-        s:STATE_TRANSJORDAN.region_state:TUR = { set_state_owner = c:EOT }
-
-		# Lebanon
+	}
+	complete = {
+		scope:journal_entry = {
+			is_goal_complete = yes
+		}
+	}
+	on_complete = {
+		scope:ztr_ottoman_collapse_target_country = {
+			custom_tooltip = {
+				text = ztr_ottoman_collapse_complete_tt
+				add_loyalists = {
+					value = 0.9
+				}
+				# Greece
+				if = {
+					limit = {
+						any_scope_state = {
+							NOT = {
+								is_homeland_of_country_cultures = root
+							}
+							state_region = {
+								is_homeland = cu:greek
+							}
+							count > 0
+						}
+					}
+					ztr_define_greece = yes
+				}
+				if = {
+					limit = {
+						exists = c:GRE
+					}
+					s:STATE_CRETE.region_state:TUR = {
+						set_state_owner = c:GRE
+					}
+					s:STATE_CYPRUS.region_state:TUR = {
+						set_state_owner = c:GRE
+					}
+					s:STATE_EAST_AEGEAN_ISLANDS.region_state:TUR = {
+						set_state_owner = c:GRE
+					}
+					s:STATE_MACEDONIA.region_state:TUR = {
+						set_state_owner = c:GRE
+					}
+					s:STATE_WESTERN_THRACE.region_state:TUR = {
+						set_state_owner = c:GRE
+					}
+				}
+				# Bulgaria
+				if = {
+					limit = {
+						NOT = {
+							exists = c:BUL
+						}
+						has_state_in_state_region = STATE_BULGARIA
+					}
+					create_country = {
+						tag = BUL
+						origin = this
+						state = s:STATE_BULGARIA.region_state:TUR
+						on_created = {
+							set_country_type = recognized
+							activate_law = law_type:law_parliamentary_republic
+							activate_law = law_type:law_census_voting
+						}
+					}
+				}
+				if = {
+					limit = {
+						exists = c:BUL
+					}
+					s:STATE_NORTHERN_THRACE.region_state:TUR = {
+						set_state_owner = c:BUL
+					}
+					s:STATE_DOBRUDJA.region_state:TUR = {
+						set_state_owner = c:BUL
+					}
+					s:STATE_SKOPIA.region_state:TUR = {
+						set_state_owner = c:BUL
+					}
+				}
+				# Romania
+				if = {
+					limit = {
+						any_scope_state = {
+							NOT = {
+								is_homeland_of_country_cultures = root
+							}
+							state_region = {
+								is_homeland = cu:romanian
+							}
+							count > 0
+						}
+					}
+					ztr_define_romania = yes
+				}
+				# Albania
+				if = {
+					limit = {
+						any_scope_state = {
+							NOT = {
+								is_homeland_of_country_cultures = root
+							}
+							state_region = {
+								is_homeland = cu:albanian
+							}
+							count > 0
+						}
+					}
+					ztr_define_albania = yes
+				}
+				# Serbia
+				if = {
+					limit = {
+						any_scope_state = {
+							NOT = {
+								is_homeland_of_country_cultures = root
+							}
+							state_region = {
+								is_homeland = cu:serb
+							}
+							count > 0
+						}
+					}
+					ztr_define_serbia = yes
+				}
+				# Sudan
+				if = {
+					limit = {
+						any_scope_state = {
+							NOT = {
+								is_homeland_of_country_cultures = root
+							}
+							state_region = {
+								is_homeland = cu:sudanese
+							}
+							count > 0
+						}
+					}
+					ztr_define_sudan = yes
+				}
+				# Egypt
+				if = {
+					limit = {
+						any_scope_state = {
+							NOT = {
+								is_homeland_of_country_cultures = root
+							}
+							state_region = {
+								is_homeland = cu:misri
+							}
+							count > 0
+						}
+					}
+					ztr_define_egypt = yes
+				}
+				# Armenia
+				if = {
+					limit = {
+						NOT = {
+							exists = c:ARM
+						}
+						s:STATE_ERZURUM = {
+							any_scope_state = {
+								owner = ROOT
+							}
+						}
+					}
+					create_country = {
+						tag = ARM
+						origin = this
+						state = s:STATE_ERZURUM.region_state:TUR
+						on_created = {
+							set_country_type = recognized
+							activate_law = law_type:law_parliamentary_republic
+							activate_law = law_type:law_universal_suffrage
+						}
+					}
+				}
+				if = {
+					limit = {
+						exists = c:ARM
+					}
+					s:STATE_ERZURUM.region_state:TUR = {
+						set_state_owner = c:ARM
+					}
+					s:STATE_KARS.region_state:TUR = {
+						set_state_owner = c:ARM
+					}
+					s:STATE_ARMENIA.region_state:TUR = {
+						set_state_owner = c:ARM
+					}
+				}
+				# Iraq
+				if = {
+					limit = {
+						NOT = {
+							exists = c:IRQ
+						}
+						s:STATE_BAGHDAD = {
+							any_scope_state = {
+								owner = ROOT
+							}
+						}
+					}
+					create_country = {
+						tag = IRQ
+						origin = this
+						state = s:STATE_BAGHDAD.region_state:TUR
+						on_created = {
+							set_country_type = recognized
+							activate_law = law_type:law_monarchy
+						}
+					}
+				}
+				if = {
+					limit = {
+						exists = c:IRQ
+					}
+					s:STATE_BAGHDAD.region_state:TUR = {
+						set_state_owner = c:IRQ
+					}
+					s:STATE_BASRA.region_state:TUR = {
+						set_state_owner = c:IRQ
+					}
+					s:STATE_MOSUL.region_state:TUR = {
+						set_state_owner = c:IRQ
+					}
+				}
+				# Syria
+				if = {
+					limit = {
+						NOT = {
+							exists = c:SYR
+						}
+						s:STATE_ALEPPO = {
+							any_scope_state = {
+								owner = ROOT
+							}
+						}
+					}
+					create_country = {
+						tag = SYR
+						origin = this
+						state = s:STATE_ALEPPO.region_state:TUR
+						on_created = {
+							set_country_type = recognized
+							activate_law = law_type:law_monarchy
+						}
+					}
+				}
+				if = {
+					limit = {
+						exists = c:SYR
+					}
+					s:STATE_ALEPPO.region_state:TUR = {
+						set_state_owner = c:SYR
+					}
+					s:STATE_SYRIA.region_state:TUR = {
+						set_state_owner = c:SYR
+					}
+					s:STATE_DEIR_EZ_ZOR.region_state:TUR = {
+						set_state_owner = c:SYR
+					}
+				}
+				# Palestine
+				if = {
+					limit = {
+						NOT = {
+							exists = c:PAL
+						}
+						s:STATE_PALESTINE = {
+							any_scope_state = {
+								owner = ROOT
+							}
+						}
+					}
+					create_country = {
+						tag = PAL
+						origin = this
+						state = s:STATE_PALESTINE.region_state:TUR
+						on_created = {
+							set_country_type = recognized
+							activate_law = law_type:law_monarchy
+						}
+					}
+				}
+				if = {
+					limit = {
+						exists = c:PAL
+					}
+					s:STATE_PALESTINE.region_state:TUR = {
+						set_state_owner = c:PAL
+					}
+				}
+				# Jordan
+				if = {
+					limit = {
+						NOT = {
+							exists = c:EOT
+						}
+						s:STATE_TRANSJORDAN = {
+							any_scope_state = {
+								owner = ROOT
+							}
+						}
+					}
+					create_country = {
+						tag = EOT
+						origin = this
+						state = s:STATE_TRANSJORDAN.region_state:TUR
+						on_created = {
+							set_country_type = recognized
+							activate_law = law_type:law_monarchy
+						}
+					}
+				}
+				if = {
+					limit = {
+						exists = c:EOT
+					}
+					s:STATE_TRANSJORDAN.region_state:TUR = {
+						set_state_owner = c:EOT
+					}
+				}
+				# Lebanon
+				if = {
+					limit = {
+						NOT = {
+							exists = c:LEB
+						}
+						s:STATE_LEBANON = {
+							any_scope_state = {
+								owner = ROOT
+							}
+						}
+					}
+					create_country = {
+						tag = LEB
+						origin = this
+						state = s:STATE_LEBANON.region_state:TUR
+						on_created = {
+							set_country_type = recognized
+							activate_law = law_type:law_monarchy
+						}
+					}
+				}
+				if = {
+					limit = {
+						exists = c:LEB
+					}
+					s:STATE_LEBANON.region_state:TUR = {
+						set_state_owner = c:LEB
+					}
+				}
+			}
+			# Ottoman Empire becomes Turkey
+			activate_law = law_type:law_presidential_republic
+			trigger_event = {
+				id = ztr_ottoman_collapse.90
+				days = 5
+			}
+		}
+		every_country = {
+			limit = {
+				has_variable = ztr_ottoman_collapse_egypt_aid_patron
+			}
+			save_scope_as = ztr_ottoman_collapse_patron_power
+			s:STATE_LOWER_EGYPT = {
+				add_claim = scope:ztr_ottoman_collapse_patron_power
+			}
+			s:STATE_MIDDLE_EGYPT = {
+				add_claim = scope:ztr_ottoman_collapse_patron_power
+			}
+			s:STATE_UPPER_EGYPT = {
+				add_claim = scope:ztr_ottoman_collapse_patron_power
+			}
+			s:STATE_SINAI = {
+				add_claim = scope:ztr_ottoman_collapse_patron_power
+			}
+			s:STATE_MATRUH = {
+				add_claim = scope:ztr_ottoman_collapse_patron_power
+			}
+			s:STATE_EGYPTIAN_DESERT = {
+				add_claim = scope:ztr_ottoman_collapse_patron_power
+			}
+		}
+		every_country = {
+			limit = {
+				has_variable = ztr_ottoman_collapse_syria_aid_patron
+			}
+			save_scope_as = ztr_ottoman_collapse_patron_power
+			s:STATE_SYRIA = {
+				add_claim = scope:ztr_ottoman_collapse_patron_power
+			}
+			s:STATE_LEBANON = {
+				add_claim = scope:ztr_ottoman_collapse_patron_power
+			}
+			s:STATE_PALESTINE = {
+				add_claim = scope:ztr_ottoman_collapse_patron_power
+			}
+			s:STATE_TRANSJORDAN = {
+				add_claim = scope:ztr_ottoman_collapse_patron_power
+			}
+		}
+		every_country = {
+			limit = {
+				has_variable = ztr_ottoman_collapse_iraq_aid_patron
+			}
+			save_scope_as = ztr_ottoman_collapse_patron_power
+			s:STATE_BAGHDAD = {
+				add_claim = scope:ztr_ottoman_collapse_patron_power
+			}
+			s:STATE_BASRA = {
+				add_claim = scope:ztr_ottoman_collapse_patron_power
+			}
+			s:STATE_MOSUL = {
+				add_claim = scope:ztr_ottoman_collapse_patron_power
+			}
+		}
 		if = {
-            limit = {
-                NOT = { exists = c:LEB }
-                s:STATE_LEBANON = { any_scope_state = { owner = ROOT } }
-            }
-            create_country = {
-                tag    = LEB
-                origin = this
-                state  = s:STATE_LEBANON.region_state:TUR
-                on_created = {
-                    set_country_type = recognized
-                    activate_law     = law_type:law_monarchy
-                }
-            }
-        }
-        s:STATE_LEBANON.region_state:TUR = { set_state_owner = c:LEB }
-
-        #trigger_event = { id = ottoman_empire_collapse.1 days = 3 }
-
-        # Ottoman Empire becomes Turkey
-        activate_law = law_type:law_presidential_republic
-    }
-
-    fail = {
-		OR = {
-			ztr_is_democratic = yes
-        	get_country_gdp_per > 3.5
-			country_rank = rank_value:great_power
-            year > 1945
+			limit = {
+				exists = scope:ztr_ottoman_collapse_target_country
+			}
+			scope:ztr_ottoman_collapse_target_country = {
+				remove_variable = ztr_ottoman_collapse_egypt_aid_taken
+				remove_variable = ztr_ottoman_collapse_syria_aid_taken
+				remove_variable = ztr_ottoman_collapse_iraq_aid_taken
+			}
 		}
-    }
-
-    on_fail = {
-        add_loyalists = {
-			value   = 0.9
+		every_country = {
+			limit = {
+				OR = {
+					has_variable = ztr_ottoman_collapse_egypt_aid_patron
+					has_variable = ztr_ottoman_collapse_syria_aid_patron
+					has_variable = ztr_ottoman_collapse_iraq_aid_patron
+				}
+			}
+			remove_variable = ztr_ottoman_collapse_egypt_aid_patron
+			remove_variable = ztr_ottoman_collapse_syria_aid_patron
+			remove_variable = ztr_ottoman_collapse_iraq_aid_patron
 		}
-        #trigger_event = { id = ottoman_empire_collapse.2 }
-    }
-
-    transferable = yes
-
-    current_value = {
-        value = var:ottoman_empire_collapse_var
-    }
-
-    goal_add_value = {
-        value = 60
-    }
-
-    progressbar = yes
-
-    weight = 20
-    should_be_pinned_by_default = yes
+	}
+	status_desc = {
+		first_valid = {
+			triggered_desc = {
+				desc = je_ottoman_empire_collapse_status_terminal
+				trigger = {
+					scope:ztr_ottoman_collapse_target_country = {
+						var:ottoman_empire_collapse_var >= 45
+					}
+				}
+			}
+			triggered_desc = {
+				desc = je_ottoman_empire_collapse_status_foreign
+				trigger = {
+					scope:ztr_ottoman_collapse_target_country = {
+						var:ottoman_empire_collapse_foreign_var >= 4
+					}
+				}
+			}
+			triggered_desc = {
+				desc = je_ottoman_empire_collapse_status_army
+				trigger = {
+					scope:ztr_ottoman_collapse_target_country = {
+						var:ottoman_empire_collapse_army_var >= 4
+					}
+				}
+			}
+			triggered_desc = {
+				desc = je_ottoman_empire_collapse_status_arab
+				trigger = {
+					scope:ztr_ottoman_collapse_target_country = {
+						var:ottoman_empire_collapse_arab_var >= 4
+					}
+				}
+			}
+			desc = je_ottoman_empire_collapse_status
+		}
+	}
+	fail = {
+		scope:ztr_ottoman_collapse_target_country = {
+			OR = {
+				ztr_is_democratic = yes
+				get_country_gdp_per > 3.5
+				#country_rank = rank_value:great_power
+				year > 1945
+			}
+		}
+	}
+	on_fail = {
+		scope:ztr_ottoman_collapse_target_country = {
+			add_loyalists = {
+				value = 0.9
+			}
+			trigger_event = {
+				id = ztr_ottoman_collapse.91
+				days = 3
+			}
+		}
+		if = {
+			limit = {
+				exists = scope:ztr_ottoman_collapse_target_country
+			}
+			scope:ztr_ottoman_collapse_target_country = {
+				remove_variable = ztr_ottoman_collapse_egypt_aid_taken
+				remove_variable = ztr_ottoman_collapse_syria_aid_taken
+				remove_variable = ztr_ottoman_collapse_iraq_aid_taken
+			}
+		}
+		every_country = {
+			limit = {
+				OR = {
+					has_variable = ztr_ottoman_collapse_egypt_aid_patron
+					has_variable = ztr_ottoman_collapse_syria_aid_patron
+					has_variable = ztr_ottoman_collapse_iraq_aid_patron
+				}
+			}
+			remove_variable = ztr_ottoman_collapse_egypt_aid_patron
+			remove_variable = ztr_ottoman_collapse_syria_aid_patron
+			remove_variable = ztr_ottoman_collapse_iraq_aid_patron
+		}
+	}
+	invalid = {
+		NOT = {
+			exists = c:TUR
+		}
+	}
+	on_invalid = {
+		if = {
+			limit = {
+				exists = scope:ztr_ottoman_collapse_target_country
+			}
+			scope:ztr_ottoman_collapse_target_country = {
+				remove_variable = ztr_ottoman_collapse_egypt_aid_taken
+				remove_variable = ztr_ottoman_collapse_syria_aid_taken
+				remove_variable = ztr_ottoman_collapse_iraq_aid_taken
+			}
+		}
+		every_country = {
+			limit = {
+				OR = {
+					has_variable = ztr_ottoman_collapse_egypt_aid_patron
+					has_variable = ztr_ottoman_collapse_syria_aid_patron
+					has_variable = ztr_ottoman_collapse_iraq_aid_patron
+				}
+			}
+			remove_variable = ztr_ottoman_collapse_egypt_aid_patron
+			remove_variable = ztr_ottoman_collapse_syria_aid_patron
+			remove_variable = ztr_ottoman_collapse_iraq_aid_patron
+		}
+	}
+	current_value = {
+		value = scope:ztr_ottoman_collapse_target_country.var:ottoman_empire_collapse_var
+	}
+	goal_add_value = {
+		value = 60
+	}
+	progressbar = yes
+	weight = 20
+	should_be_pinned_by_default = yes
 }

@@ -136,10 +136,8 @@ pm_research_center_basic = {
 		}	
 	
 		level_scaled = {
-			building_employment_academics_add = 10000
-			building_employment_machinists_add = 10000
-			building_employment_engineers_add = 5000
-			building_employment_clerks_add = 5000
+			building_employment_academics_add = 15000
+			building_employment_clerks_add = 15000
 		}
 	}
 }
@@ -168,10 +166,8 @@ pm_research_center_medium = {
 		}	
 	
 		level_scaled = {
-			building_employment_academics_add = 14000
-			building_employment_machinists_add = 7000
-			building_employment_engineers_add = 4000
-			building_employment_clerks_add = 5000
+			building_employment_academics_add = 20000
+			building_employment_clerks_add = 12500
 		}
 	}
 }
@@ -180,7 +176,7 @@ pm_research_center_advanced = {
 	texture = "gfx/interface/icons/production_method_icons/pm_research_center_advanced.dds"
 
 	unlocking_technologies = {
-		data_processing
+		machine_learning
 	}
 
 	country_modifiers = {
@@ -195,16 +191,14 @@ pm_research_center_advanced = {
 			goods_input_raw_data_add = 800 #4000
 			goods_input_paper_add = 20 #600
 			goods_input_manzoni_prints_add = 10 #600
-			goods_input_processors_add = 40 #5200
-			goods_input_computer_add = 40 #5600
-			goods_input_robotics_add = 30 #3000 #19000
+			goods_input_computer_add = 50 #5600
+			goods_input_robotics_add = 40 #3000 #19000
+			goods_input_ai_systems_add = 100 #3000
 		}	
 	
 		level_scaled = {
-			building_employment_academics_add = 20000
-			building_employment_machinists_add = 3000
-			building_employment_engineers_add = 3000
-			building_employment_clerks_add = 4000
+			building_employment_academics_add = 25000
+			building_employment_clerks_add = 10000
 		}
 	}
 }
@@ -224,17 +218,6 @@ pm_research_center_education = {
 		}
 		unscaled = {
 			interest_group_ig_intelligentsia_approval_add = 2
-		}
-	}
-	
-	ai_weight = {
-		value = 200 # Important tech for modern economies
-		
-		if = {
-			limit = {
-				ztr_is_democratic = yes
-			}
-			add = 1000
 		}
 	}
 }
@@ -257,30 +240,6 @@ pm_research_military_modernization = {
 			interest_group_ig_armed_forces_approval_add = 2
 		}
 	}
-
-	ai_weight = {
-		value = 200 # Important tech for modern economies
-		
-		if = {
-			limit = {
-				OR = {
-					is_at_war = yes
-					ztr_is_totalitarian = yes
-					# World Wars Period
-				}
-			}
-			add = 10000
-		}
-		if = {
-			limit = {
-				AND = {
-					year > 1915
-					year < 1945
-				}
-			}
-			add = 1000
-		}
-	}
 }
 
 pm_research_center_tech_spread = {
@@ -297,23 +256,6 @@ pm_research_center_tech_spread = {
 		}
 		unscaled = {
 			interest_group_ig_industrialists_approval_add = 2
-		}
-	}
-
-	ai_weight = {
-		value = 0 # Important tech for modern economies
-		
-		if = {
-			limit = {
-				NOR = {
-					has_modifier = dev_5_country
-					has_modifier = dev_6_country
-					has_modifier = dev_7_country
-					has_modifier = dev_8_country
-				} 
-				has_strategy = ai_strategy_industrial_expansion
-			}
-			add = 2500
 		}
 	}
 }

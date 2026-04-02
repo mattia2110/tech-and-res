@@ -1,0 +1,129 @@
+REPLACE:gfx_experimental_locomotive_trigger = {
+
+	scope:state = {
+		NOR = {
+			any_scope_building = {
+				has_active_production_method = pm_steam_trains
+			}
+			any_scope_building = {
+				has_active_production_method = pm_steam_trains_principle_transport_3
+			}
+			any_scope_building = {
+				has_active_production_method = pm_electric_trains
+			}
+			any_scope_building = {
+				has_active_production_method = pm_electric_trains_principle_transport_3
+			}
+			any_scope_building = {
+				has_active_production_method = pm_diesel_trains
+			}
+			any_scope_building = {
+				has_active_production_method = pm_diesel_trains_principle_transport_3
+			}
+			any_scope_building = {
+				has_active_production_method = pm_advanced_express_trains
+			}
+			any_scope_building = {
+				has_active_production_method = pm_advanced_express_trains_principle_transport_3
+			}
+			any_scope_building = {
+				has_active_production_method = pm_high_speed_trains
+			}
+			any_scope_building = {
+				has_active_production_method = pm_high_speed_trains_principle_transport_3
+			}
+		}
+	}
+}
+
+REPLACE:gfx_electrical_locomotive_trigger = {
+
+	scope:state = {
+		any_scope_building = {
+			OR = {
+				has_active_production_method = pm_electric_trains
+				has_active_production_method = pm_electric_trains_principle_transport_3
+				has_active_production_method = pm_high_speed_trains
+				has_active_production_method = pm_high_speed_trains_principle_transport_3
+			}
+		}
+	}
+
+}
+
+REPLACE:gfx_diesel_locomotive_trigger = {
+
+	scope:state = {
+		any_scope_building = {
+			OR = {
+				has_active_production_method = pm_diesel_trains
+				has_active_production_method = pm_diesel_trains_principle_transport_3
+				has_active_production_method = pm_advanced_express_trains
+				has_active_production_method = pm_advanced_express_trains_principle_transport_3
+			}
+		}
+	}
+}
+
+REPLACE:gfx_mining_train_trigger = {
+
+	scope:state = {
+		OR = {
+			has_building = building_coal_mine
+			has_building = building_iron_mine
+			has_building = building_steel_mill
+			has_building = building_sulfur_mine
+			has_building = building_copper_mine
+			has_building = building_commonores_mine
+			has_building = building_bauxite_mine
+			has_building = building_advancedores_mine
+			has_building = building_uranium_mine
+			has_building = building_rare_earths_mine
+		}
+	}
+}
+
+#################################################################
+#################################################################
+#################################################################
+#####			MILITARY MOBILIZATION  TRIGGERS				#####
+#################################################################
+#################################################################
+#################################################################
+
+REPLACE:gfx_military_mobilization_is_mechanized = {
+
+	OR = {
+		country_army_unit_type_fraction = {
+			target = unit_type:combat_unit_type_mechanized_infantry
+			value >= 0.2
+		}
+		country_army_unit_type_fraction = {
+			target = unit_type:combat_unit_type_modern_mechanized_infantry
+			value >= 0.2
+		}
+		country_army_unit_type_fraction = {
+			target = unit_type:combat_unit_type_advanced_mechanized_infantry
+			value >= 0.2
+		}
+	}
+
+}
+
+#################################################################
+#####				MILITARY UNIT TYPE TIGGER				#####
+#################################################################
+
+REPLACE:gfx_military_unit_is_mechanized = {
+
+	scope:military_formation = {
+		any_combat_unit = {
+			OR = {
+				has_unit_type = unit_type:combat_unit_type_mechanized_infantry
+				has_unit_type = unit_type:combat_unit_type_modern_mechanized_infantry
+				has_unit_type = unit_type:combat_unit_type_advanced_mechanized_infantry
+			}
+		}
+	}
+
+}

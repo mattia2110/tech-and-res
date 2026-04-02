@@ -1,0 +1,3149 @@
+﻿INJECT:ai_strategy_default = {
+
+	aggression = {
+		value = 0.5
+
+		# More fighting between unrecognized powers
+		if = {
+			limit = {
+				is_country_type = unrecognized
+				scope:target_country = { is_country_type = unrecognized }
+			}
+
+			add = 0.5
+		}
+
+		# Higher aggression against subject/overlord if domineering or rebellious
+		if = {
+			limit = {
+				OR = {
+					is_subject_of = scope:target_country
+					scope:target_country = { is_subject_of = root }
+				}
+			}
+			add = 5
+		}
+
+		# Very high aggression against pariah countries by Great Powers
+		if = {
+			limit = {
+				country_rank = rank_value:great_power
+				scope:target_country = {
+					infamy >= infamy_threshold:pariah
+					NOT = {
+						any_diplomatic_play = {
+							is_diplomatic_play_type = dp_contain_threat
+							target_is = scope:target_country
+						}
+					}
+				}
+			}
+			add = 100
+		}
+
+		# Opium wars aggressor should be very, very aggressive against target if they're banning opium
+		if = {
+			limit = {
+				has_journal_entry = je_opium_wars
+				scope:target_country = {
+					has_variable = opium_wars_target
+					is_banning_goods = g:opium
+				}
+			}
+			add = 100
+		}
+
+		if = { #TUR should want to invade MON
+			limit = {
+				has_journal_entry = je_tur_raided
+				scope:target_country = {
+					has_journal_entry = je_montenegrin_raiding
+				}
+			}
+			add = {
+				add = 2
+				multiply = raiding_level
+			}
+		}
+
+		if = { #TUR should especially want to invade MON if it has no one protecting it.
+			limit = {
+				has_journal_entry = je_tur_raided
+				scope:target_country = {
+					has_journal_entry = je_montenegrin_raiding
+					NOT = {
+						any_scope_treaty = {
+							binds = scope:target_country
+							any_scope_article = {
+								has_type = guarantee_independence
+							}
+						}
+					}
+				}
+			}
+			add = {
+				add = 50
+				multiply = raiding_level
+			}
+		}
+
+		# Second Balkan War, pitting the balkan nations against each other
+		if = {
+			limit = {
+				has_journal_entry = je_spoils_of_war
+				scope:target_country = {
+					sr:region_balkans = {
+					any_scope_state = {
+						is_homeland_of_country_cultures = root
+						has_claim_by = root
+						}
+					}
+				}
+			}
+				add = 500
+		}
+
+		# Second Balkan War, pitting the balkan nations against each other (Wallachia)
+		if = {
+			limit = {
+				has_journal_entry = je_spoils_of_war
+				country_has_primary_culture = cu:romanian
+				scope:target_country = {
+					country_rank <= rank_value:minor_power
+					any_scope_state = {
+						is_homeland_of_country_cultures = root
+						has_claim_by = root
+					}
+				}
+			}
+				add = 500
+		}
+
+		# Greek Nationalism
+		if = {
+			limit = {
+				has_journal_entry = je_greek_nationalism
+				scope:target_country = {
+					any_scope_state = {
+						state_region = { is_homeland = cu:greek }
+						has_claim_by = root
+					}
+				}
+			}
+			add = 10
+		}
+
+		# Schleswig-Holstein question
+		if = {
+			limit = {
+				wants_to_solve_schleswig_holstein = yes
+				scope:target_country = {
+					is_oppressor_of_schleswig_holstein = yes
+				}
+			}
+			add = 5
+		}
+
+		if = { #Carving up China
+			limit = {
+				should_carve_up_china = yes
+				scope:target_country = {
+					is_country_type = unrecognized
+					any_scope_state = {
+						OR = {
+							region = sr:region_north_china
+							region = sr:region_south_china
+							region = sr:region_manchuria
+						}
+					}
+				}
+			}
+			add = 5
+		}
+
+		# Ottomans should be very aggressive against owners of Syria and Egypt when they have the relevant JE's
+		if = {
+			limit = {
+				OR = {
+					has_journal_entry = je_sick_man_syria
+					has_journal_entry = je_sick_man_egypt
+					has_journal_entry = je_veiled_protectorate
+				}
+				exists = c:EGY
+				scope:target_country = {
+					c:EGY ?= THIS
+				}
+			}
+			add = 100
+		}
+
+		#T&R
+		# European major powers should see a collapsing Ottoman Middle East as easy pickings.
+		if = {
+			limit = {
+				is_involved_in_journal_entry = je_ottoman_empire_collapse
+				scope:target_country = {
+					c:TUR ?= THIS
+					OR = {
+						has_state_in_state_region = STATE_LOWER_EGYPT
+						has_state_in_state_region = STATE_MIDDLE_EGYPT
+						has_state_in_state_region = STATE_UPPER_EGYPT
+						has_state_in_state_region = STATE_PALESTINE
+						has_state_in_state_region = STATE_LEBANON
+						has_state_in_state_region = STATE_SYRIA
+						has_state_in_state_region = STATE_TRANSJORDAN
+						has_state_in_state_region = STATE_BAGHDAD
+						has_state_in_state_region = STATE_BASRA
+						has_state_in_state_region = STATE_MOSUL
+					}
+				}
+			}
+			add = 15
+		}
+		# After the Ottoman collapse, European great powers should pursue their Egyptian claims aggressively.
+		if = {
+			limit = {
+				is_in_geographic_region = geographic_region_europe
+				country_rank >= rank_value:great_power
+				OR = {
+					NOT = { exists = c:TUR }
+					c:TUR = {
+						NOT = { has_journal_entry = je_ottoman_empire_collapse }
+					}
+				}
+				scope:target_country = {
+					any_scope_state = {
+						OR = {
+							state_region = s:STATE_LOWER_EGYPT
+							state_region = s:STATE_MIDDLE_EGYPT
+							state_region = s:STATE_UPPER_EGYPT
+							state_region = s:STATE_SINAI
+							state_region = s:STATE_MATRUH
+							state_region = s:STATE_EGYPTIAN_DESERT
+						}
+						has_claim_by = root
+					}
+				}
+			}
+			add = 25
+		}
+
+		# After the Ottoman collapse, European great powers should pursue their Syrian claims aggressively.
+		if = {
+			limit = {
+				is_in_geographic_region = geographic_region_europe
+				country_rank >= rank_value:great_power
+				OR = {
+					NOT = { exists = c:TUR }
+					c:TUR = {
+						NOT = { has_journal_entry = je_ottoman_empire_collapse }
+					}
+				}
+				scope:target_country = {
+					any_scope_state = {
+						OR = {
+							state_region = s:STATE_SYRIA
+							state_region = s:STATE_LEBANON
+							state_region = s:STATE_PALESTINE
+							state_region = s:STATE_TRANSJORDAN
+						}
+						has_claim_by = root
+					}
+				}
+			}
+			add = 25
+		}
+
+		# After the Ottoman collapse, European great powers should pursue their Iraqi claims aggressively.
+		if = {
+			limit = {
+				is_in_geographic_region = geographic_region_europe
+				country_rank >= rank_value:great_power
+				OR = {
+					NOT = { exists = c:TUR }
+					c:TUR = {
+						NOT = { has_journal_entry = je_ottoman_empire_collapse }
+					}
+				}
+				scope:target_country = {
+					any_scope_state = {
+						OR = {
+							state_region = s:STATE_BAGHDAD
+							state_region = s:STATE_BASRA
+							state_region = s:STATE_MOSUL
+						}
+						has_claim_by = root
+					}
+				}
+			}
+			add = 25
+		}
+
+		# USA should be extremely aggressive against owners of their Manifest Destiny states
+		if = {
+			limit = {
+				has_journal_entry = je_manifest_destiny_mexico
+				scope:target_country = {
+					any_scope_state = {
+						OR = {
+							state_region = s:STATE_CALIFORNIA
+							state_region = s:STATE_NEVADA
+							state_region = s:STATE_UTAH
+							state_region = s:STATE_COLORADO
+							state_region = s:STATE_ARIZONA
+							state_region = s:STATE_NEW_MEXICO
+							state_region = s:STATE_TEXAS
+							state_region = s:STATE_KANSAS
+							state_region = s:STATE_OKLAHOMA # if they somehow lose it
+						}
+					}
+				}
+			}
+			add = 5
+		}
+
+		# Extreme french aggression for Haiti renouncing debt payments
+		if = {
+			limit = {
+				has_variable = haiti_stops_paying_france_aggressor
+				scope:target_country = {
+					has_variable = haiti_stops_paying_france_target
+					any_scope_state = {
+						has_claim_by = root
+					}
+				}
+			}
+
+			if = {
+				limit = {
+					scope:target_country = { has_modifier = modifier_cancelled_haiti_debt_4 }
+				}
+				add = 1000
+			}
+			else_if = {
+				limit = {
+					scope:target_country = { has_modifier = modifier_cancelled_haiti_debt_3 }
+				}
+				add = 50
+			}
+			else_if = {
+				limit = {
+					scope:target_country = { has_modifier = modifier_cancelled_haiti_debt_2 }
+				}
+				add = 10
+			}
+			else = {
+				add = 5
+			}
+		}
+
+		# Extra aggression against Peru-Bolivia in general
+		if = {
+			limit = {
+				scope:target_country = {
+					is_involved_in_journal_entry = je_peru_bolivia
+					has_variable = pbc_member
+				}
+				OR = {
+					country_has_primary_culture = cu:south_andean
+					country_has_primary_culture = cu:north_andean
+					country_has_primary_culture = cu:platinean
+					country_has_primary_culture = cu:argentine
+					country_has_primary_culture = cu:chilean
+					country_has_primary_culture = cu:colombian
+					country_has_primary_culture = cu:ecuadorian
+				}
+			}
+			add = 5
+		}
+
+		# Even more aggression if you have the War of the Confederation JE
+		if = {
+			limit = {
+				has_variable = attack_bolivia
+				scope:target_country = {
+					is_involved_in_journal_entry = je_peru_bolivia
+					has_variable = pbc_member
+				}
+			}
+			add = 25
+		}
+
+		# East India Company vs its neighbors
+		if = {
+			limit = {
+				has_journal_entry = je_consolidate_colonial_rule
+				scope:target_country = {
+					is_country_type = unrecognized
+					target_is_our_or_fellow_subject = no
+					any_scope_state = {
+						OR = {
+							region = sr:region_madras
+							region = sr:region_bombay
+							region = sr:region_bengal
+							region = sr:region_central_india
+							region = sr:region_punjab
+							region = sr:region_himalayas
+							state_region = s:STATE_MANDALAY
+							state_region = s:STATE_KACHIN
+							state_region = s:STATE_SHAN_STATES
+							state_region = s:STATE_PEGU
+							state_region = s:STATE_PASHTUNISTAN
+							state_region = s:STATE_QUETTA
+						}
+					}
+				}
+			}
+			add = 3
+		}
+
+		# Britain consolidating South Asia
+		if = {
+			limit = {
+				c:GBR ?= this
+				has_variable = british_raj_var
+				exists = c:BIC
+				scope:target_country = {
+					NOT = { is_subject_of = ROOT }
+					any_scope_state = {
+						OR = {
+							region = sr:region_madras
+							region = sr:region_bombay
+							region = sr:region_bengal
+							region = sr:region_central_india
+							region = sr:region_punjab
+							region = sr:region_himalayas
+							state_region = s:STATE_MANDALAY
+							state_region = s:STATE_KACHIN
+							state_region = s:STATE_SHAN_STATES
+							state_region = s:STATE_PEGU
+							state_region = s:STATE_PASHTUNISTAN
+							state_region = s:STATE_QUETTA
+						}
+					}
+				}
+			}
+			add = 3
+		}
+
+		# Britain gets pissed off after Portugal refuses to back down about The Pink Map
+		if = {
+			limit = {
+				c:GBR ?= this
+				exists = c:POR
+				scope:target_country = {
+					has_journal_entry = je_the_pink_map
+					has_variable = por_ignored_gbr_var
+				}
+			}
+			add = 10
+		}
+
+
+		if = { #Russian Caucasus
+			limit = {
+	            has_journal_entry = je_caucasian_war
+				scope:target_country = {
+					any_scope_state = {
+						OR = {
+							state_region = s:STATE_KUBAN
+							state_region = s:STATE_DAGESTAN
+						}
+					}
+				}
+				can_reach_target_country = yes
+			}
+			add = 10
+		}
+
+		if = { #Russian Far East
+			limit = {
+				has_journal_entry = je_the_eastern_border
+				scope:target_country = {
+					any_scope_state = {
+						OR = {
+							state_region = s:STATE_OUTER_MANCHURIA
+							state_region = s:STATE_JETISY
+							state_region = s:STATE_TOMSK
+							state_region = s:STATE_KIRGHIZIA
+							state_region = s:STATE_AMUR
+						}
+					}
+				}
+				can_reach_target_country = yes
+			}
+			add = 10
+		}
+
+		if = { #Russian Central Asia
+			limit = {
+				has_journal_entry = je_conquest_of_central_asia
+				scope:target_country = {
+					any_scope_state = {
+						OR = {
+							state_region = s:STATE_UZBEKIA
+							state_region = s:STATE_KIRGHIZIA
+							state_region = s:STATE_KHIVA
+							state_region = s:STATE_TURKMENIA
+							state_region = s:STATE_TAJIKISTAN
+						}
+					}
+				}
+				can_reach_target_country = yes
+			}
+			add = 15
+		}
+
+		if = { #Russian Central Asia
+			limit = {
+				country_has_primary_culture = cu:russian
+				has_law = law_type:law_national_supremacy # TODO - Official Nationality
+				scope:target_country = {
+					any_scope_state = {
+						OR = {
+							state_region = s:STATE_URALSK
+							state_region = s:STATE_SEMIRECHE
+							state_region = s:STATE_AKMOLINSK
+						}
+					}
+				}
+			}
+			add = 15
+		}
+
+		if = { #Russia wants Korea
+			limit = {
+				country_has_primary_culture = cu:russian
+				any_scope_state = {
+					state_region = s:STATE_OUTER_MANCHURIA
+					is_incorporated = yes
+				}
+				scope:target_country = {
+					is_country_type = unrecognized
+					country_has_primary_culture = cu:korean
+				}
+			}
+			add = 5
+		}
+
+		if = { #Japan also wants Korea
+			limit = {
+				country_has_primary_culture = cu:japanese
+				NOT = {
+					has_law_or_variant = law_type:law_isolationism
+					has_law_or_variant = law_type:law_closed_borders
+				}
+				scope:target_country = {
+					is_country_type = unrecognized
+					country_has_primary_culture = cu:korean
+				}
+			}
+			add = 5
+		}
+
+		if = { # Britain consolidating South Africa
+			limit = {
+				country_has_primary_culture = cu:british
+				has_technology_researched = malaria_prevention
+				any_subject_or_below = {
+					capital.region = sr:region_southern_africa
+				}
+				scope:target_country = {
+					capital.region = sr:region_southern_africa
+				}
+			}
+			add = 25
+
+			if = {
+				limit = {
+					has_journal_entry = je_scramble_for_africa
+				}
+				add = 25
+			}
+		}
+
+		if = { # Dutch East Indies
+			limit = {
+				c:DEI ?= this
+				scope:target_country = {
+					capital.region = sr:region_indonesia
+					is_country_type = unrecognized
+				}
+			}
+			add = 25
+		}
+
+		if = { # Portugal wishes to eat Gaza
+			limit = {
+				country_has_primary_culture = cu:portuguese
+				has_technology_researched = civilizing_mission
+				OR = {
+					any_scope_state = {
+						OR = {
+							state_region = s:STATE_MOCAMBIQUE
+							state_region = s:STATE_ZAMBEZIA
+							state_region = s:STATE_LOURENCO_MARQUES
+						}
+					}
+					any_subject_or_below = {
+						capital = {
+							OR = {
+								state_region = s:STATE_MOCAMBIQUE
+								state_region = s:STATE_ZAMBEZIA
+								state_region = s:STATE_LOURENCO_MARQUES
+							}
+						}
+					}
+				}
+				scope:target_country = {
+					is_country_type = unrecognized
+					any_scope_state = {
+						state_region = s:STATE_MOCAMBIQUE
+						state_region = s:STATE_ZAMBEZIA
+						state_region = s:STATE_LOURENCO_MARQUES
+					}
+				}
+			}
+			add = 25
+
+			if = {
+				limit = {
+					has_journal_entry = je_scramble_for_africa
+				}
+				add = 25
+			}
+		}
+
+		if = { # Spain wants to take Al Rif
+			limit = {
+				has_journal_entry = je_conquest_of_tetouan
+				scope:target_country ?= {
+					is_country_type = unrecognized
+                    any_scope_state = {
+                        state_region = s:STATE_AL_RIF
+                    }
+				}
+			}
+			add = 10
+		}
+
+		# France will want to invade Spain if they enthrone a Hohenzollern
+		if = {
+			limit = {
+				c:FRA ?= this
+				scope:target_country = {
+					c:SPA ?= this
+					ruler = {
+						has_variable = house_hohenzollern
+					}
+				}
+			}
+			add = 15
+		}
+
+		# Aggression against radical leftists
+		if = {
+			limit = {
+				AND = {
+					has_radical_leftist_government = no
+					scope:target_country = {
+						has_radical_leftist_government = yes
+					}
+				}
+			}
+			add = 1
+		}
+
+		if = {
+			limit = {
+				has_radical_leftist_economy = no
+				scope:target_country = {
+					has_radical_leftist_economy = yes
+				}
+			}
+			add = 1
+		}
+
+		if = { #Indian suzerain will be aggressive against Russia
+			limit = {
+				AND = {
+					c:RUS ?= {
+						has_journal_entry = je_conquest_of_central_asia
+					}
+					ROOT = {
+						is_in_geographic_region = geographic_region_europe
+		        		OR = {
+		        			any_scope_state = {
+		        				OR = {
+									region = sr:region_madras
+									region = sr:region_bombay
+									region = sr:region_bengal
+									region = sr:region_central_india
+									region = sr:region_punjab
+		    					}
+								count >= 3
+		        			}
+		        			any_subject_or_below = {
+		        				any_scope_state = {
+		        					OR = {
+										region = sr:region_madras
+										region = sr:region_bombay
+										region = sr:region_bengal
+										region = sr:region_central_india
+										region = sr:region_punjab
+		        					}
+									count >= 3
+			        			}
+		        			}
+		        		}
+					}
+					scope:target_country = {
+						OR = {
+							has_state_in_state_region = STATE_KABUL
+							has_state_in_state_region = STATE_HERAT
+							has_state_in_state_region = STATE_KANDAHAR
+						}
+					}
+				}
+			}
+			add = 10
+		}
+
+        # France should very aggressively go for Algeria.
+		if = {
+			limit = {
+				has_journal_entry = je_conquest_of_algeria
+				scope:target_country = {
+					OR = {
+						has_state_in_state_region = STATE_ALGIERS
+						has_state_in_state_region = STATE_CONSTANTINE
+						has_state_in_state_region = STATE_ORAN
+						has_state_in_state_region = STATE_SAHARA
+						has_state_in_state_region = STATE_EAST_SAHARA
+					}
+				}
+			}
+			add = 5
+		}
+
+		# Russia should very aggressively go for the Caucasus if it's still a great power.
+		if = {
+			limit = {
+				exists = c:RUS
+                c:RUS ?= THIS
+                country_rank = rank_value:great_power
+                OR = {
+                	exists = c:CIR
+                	exists = c:CHC
+                }
+				scope:target_country = {
+					NOT = {
+						is_country_type = recognized
+					}
+					OR = {
+						has_state_in_state_region = STATE_KUBAN
+						has_state_in_state_region = STATE_DAGESTAN
+						has_state_in_state_region = STATE_NORTH_CAUCASUS
+					}
+				}
+				NOT = {
+					has_global_variable = caucasus_failure_var
+				}
+			}
+			add = 10
+		}
+
+		if = {
+			limit = {
+				has_journal_entry = je_the_krakow_uprising
+				country_rank >= rank_value:major_power
+				exists = c:KRA
+				scope:target_country = {
+					c:KRA ?= THIS
+					NOT = {
+						is_subject_of = root
+					}
+				}
+			}
+			add = 50
+		}
+
+		if = {
+			limit = {
+				has_journal_entry = je_maintain_afghan_protectorate
+				scope:target_country = {
+					capital = {
+						region = sr:region_persia
+					}
+					OR = {
+						country_has_primary_culture = cu:pashtun
+						country_has_primary_culture = cu:tajik
+					}
+				}
+			}
+			add = 5
+		}
+
+        # Paraguay should be highly aggressive while they have the war JE.
+        if = {
+            limit = {
+                has_journal_entry = je_expanding_paraguay
+                scope:target_country = {
+					OR = {
+						has_state_in_state_region = STATE_SANTA_FE
+						has_state_in_state_region = STATE_PARANA
+						has_state_in_state_region = STATE_RIO_GRANDE_DO_SUL
+					}
+                }
+            }
+            add = 25
+        }
+
+		# Acre claimant wants Acre
+		if = {
+			limit = {
+				has_journal_entry = je_acre_dispute
+				scope:target_country = {
+					has_state_in_state_region = STATE_ACRE
+				}
+			}
+			add = 25
+		}
+
+        # Great Powers with slavery banned should be more aggressive against an openly slave trading Brazil
+		if = {
+			limit = {
+				has_law_or_variant = law_type:law_slavery_banned
+				country_rank >= rank_value:great_power
+				scope:target_country = {
+					has_modifier = brazil_slaving_pariah_modifier
+					has_law_or_variant = law_type:law_slave_trade
+				}
+			}
+			add = 10
+		}
+
+		# Persia is very aggressive if not cowed
+		if = {
+			limit = {
+				has_journal_entry = je_eastern_frontier
+				scope:target_country = {
+					any_scope_state = {
+						OR = {
+							region = sr:region_persia
+							region = sr:region_central_asia
+							region = sr:region_bombay
+							region = sr:region_punjab
+						}
+						has_claim_by = ROOT
+					}
+				}
+			}
+			add = 10
+		}
+
+		#Aggression against non-aligned Afghanistan
+		if = {
+			limit = {
+				c:GBR ?= this
+				has_variable = committed_to_afghanistan_assistance
+				scope:target_country = {
+					has_variable = AFG_appealed_to_RUS
+				}
+			}
+			add = 5
+		}
+		else_if = {
+			limit = {
+				c:RUS ?= this
+				has_variable = committed_to_afghanistan_assistance
+				scope:target_country = {
+					has_variable = AFG_appealed_to_GBR
+				}
+			}
+			add = 5
+		}
+
+		if = {
+			limit = {
+				c:GBR ?= this
+				has_variable = committed_to_afghanistan_assistance
+				any_country = {
+					has_variable = AFG_appealed_to_GBR
+					is_diplomatic_play_enemy_of = scope:target_country
+				}
+				scope:target_country = {
+					OR = {
+						country_has_primary_culture = cu:pashtun
+						country_has_primary_culture = cu:tajik
+					}
+				}
+			}
+			add = 5
+		}
+		else_if = {
+			limit = {
+				c:RUS ?= this
+				has_variable = committed_to_afghanistan_assistance
+				any_country = {
+					has_variable = AFG_appealed_to_RUS
+					is_diplomatic_play_enemy_of = scope:target_country
+				}
+				scope:target_country = {
+					OR = {
+						country_has_primary_culture = cu:pashtun
+						country_has_primary_culture = cu:tajik
+					}
+				}
+			}
+			add = 5
+		}
+
+		# Japanese aggression against China for the Sino-Japanese War
+		if = {
+			limit = {
+				has_global_variable = sino_japanese_war
+				c:JAP ?= this
+				scope:target_country = {
+					country_has_primary_culture = cu:korean
+					overlord = {
+						OR = {
+							country_has_primary_culture = cu:han
+							country_has_primary_culture = cu:manchu
+						}
+					}
+				}
+			}
+			add = 25
+		}
+		if = {
+			limit = {
+				has_global_variable = sino_japanese_war
+				c:JAP ?= this
+				scope:target_country = {
+					OR = {
+						country_has_primary_culture = cu:han
+						country_has_primary_culture = cu:manchu
+					}
+					any_subject_or_below = {
+						country_has_primary_culture = cu:korean
+					}
+				}
+			}
+			add = 25
+		}
+
+		# Afghan Consolidation
+		if = {
+			limit = {
+				has_journal_entry = je_unify_afghanistan
+				scope:target_country = {
+					OR = {
+						has_journal_entry = je_unify_afghanistan
+						OR = {
+							has_state_in_state_region = STATE_KABUL
+							has_state_in_state_region = STATE_HERAT
+							has_state_in_state_region = STATE_KANDAHAR
+							has_state_in_state_region = STATE_CENTRAL_HIGHLANDS
+						}
+					}
+				}
+			}
+			add = 35
+		}
+
+		# Countries with high-fervour primary cultures are more aggressive against rivals or countries with homelands
+		if = {
+			limit = {
+				country_fervor_primary_culture > 10
+				scope:target_country = {
+					OR = {
+						has_diplomatic_pact = {
+							who = root
+							type = rivalry
+						}
+						any_scope_state = {
+							is_homeland_of_country_cultures = root
+						}
+						NOT = {
+							any_primary_culture = {
+								is_primary_culture_of = root
+							}
+						}
+					}
+				}
+			}
+			add = {
+				value = country_fervor_primary_culture
+				divide = 20
+			}
+		}
+
+		# Austria really, really wants to seize Bosnia
+		if = {
+			limit = {
+				has_journal_entry = je_eastern_question_austria
+				scope:target_country = {
+					owns_entire_state_region = STATE_BOSNIA
+				}
+			}
+			add = 50
+		}
+
+		# Russian aggression during the Eastern Question
+		if = {
+			limit = {
+				has_journal_entry = je_eastern_question_russia
+				scope:target_country = {
+					has_journal_entry = je_great_eastern_crisis
+				}
+			}
+			add = 50
+		}
+
+		# Balkan minors aggression during the Eastern Question
+		if = {
+			limit = {
+				is_involved_in_journal_entry = je_great_eastern_crisis
+				scope:target_country = {
+					c:TUR ?= this
+				}
+			}
+			add = 25
+		}
+
+		if = { # Spanish American reconquest of former colonies
+			limit = {
+				has_journal_entry = je_reconquista
+				scope:target_country = {
+					is_historical_spanish_american_colony = yes
+					NOT = { is_subject_of = root }
+				}
+			}
+			add = 2.5
+
+			if = {
+				limit = {
+					country_rank = rank_value:great_power
+				}
+				add = 2.5
+			}
+		}
+
+        # Neutral Switzerland
+        if = {
+            limit = {
+				exists = c:SWI
+				c:SWI ?= THIS
+            }
+            multiply = 0.1
+        }
+
+		# AI Metternich is not inclined to go off on military adventures
+		if = {
+			limit = {
+				c:AUS ?= this
+				has_journal_entry = je_metternich
+			}
+            multiply = 0.5
+		}
+
+        # Isolationist Paraguay under Francia should not go awol.
+        if = {
+            limit = {
+            	has_journal_entry = je_francocracia
+            }
+            multiply = 0.1
+        }
+        # Paraguay is less likely to be aggressive when modernizing.
+        if = {
+            limit = {
+            	has_journal_entry = je_modernizing_paraguay
+            }
+			multiply = 0.25
+        }
+
+		if = { # The EIC/Raj should never go against its suzerain, as doing so is suicide
+			limit = {
+				exists = c:BIC
+				c:BIC ?= THIS
+				is_subject_of = scope:target_country
+			}
+			multiply = 0.0
+		}
+
+		if = { # Likewise for the Dutch East Indies
+			limit = {
+				exists = c:DEI
+				c:DEI ?= THIS
+				is_subject_of = scope:target_country
+			}
+			multiply = 0.0
+		}
+
+		#T&R
+
+		# Moderation if in the ONU
+		if = {
+			limit = {
+				has_modifier = ztr_onu_member
+			}
+			multiply = 0.8
+		}
+
+		# Nuclear deterrence makes countries more cautious
+		if = {
+			limit = {
+				has_modifier = nuclear_capability
+				scope:target_country = {
+					has_modifier = nuclear_capability
+				}
+			}
+			multiply = 0.3
+		}
+
+		# Full democracies, old or advanced societies are more cautious
+		if = {
+			limit = {
+				OR = {
+					# Full democracy
+					ztr_is_full_democratic = yes
+					# Counterculture movements
+					has_technology_researched = counterculture
+					# Old society
+					has_modifier = demographic_stage_8
+					has_modifier = demographic_stage_7
+					has_modifier = demographic_stage_6
+				}
+			}
+			multiply = 0.3
+		}
+	}
+
+	secret_goal_scores = {
+		none = {
+			trigger = {
+				NOT = {
+					has_subject_relation_with = scope:target_country
+				}
+			}
+			score = {
+				value = 150
+
+				if = { # Monarchist Austria really does not want revolutions or secessions
+					limit = {
+						c:AUS ?= this
+						has_law = law_type:law_monarchy
+						scope:target_country = {
+							OR = {
+								is_revolutionary = yes
+								is_secessionist = yes
+							}
+						}
+					}
+					add = 500
+				}
+
+				# Minor german states shouldn't have far-reaching diplomatic ambitions
+				if = {
+					limit = {
+						country_rank < rank_value:major_power
+						OR = {
+							country_has_primary_culture = cu:north_german
+							country_has_primary_culture = cu:south_german
+						}
+						scope:target_country = {
+							NOR = {
+								country_has_primary_culture = cu:north_german
+								country_has_primary_culture = cu:south_german
+							}
+						}
+						NOT = { is_adjacent_to_country = scope:target_country }
+					}
+					add = 1000
+				}
+
+				# Large isolationist countries should ignore the world
+				if = {
+					limit = {
+						has_law_or_variant = law_type:law_isolationism
+						gdp >= 5000000
+					}
+					add = 10000
+				}
+
+				if = {
+					limit = {
+						country_rank = scope:target_country.country_rank
+					}
+					multiply = 0.5
+				}
+			}
+		}
+		befriend = {
+			trigger = {
+				# Don't befriend large isolationist powers
+				NOT = {
+					scope:target_country = {
+						has_law_or_variant = law_type:law_isolationism
+						gdp >= 5000000
+					}
+				}
+
+				# Monarchist Austria really does not want to help revolutions or secessions
+				NAND = {
+					c:AUS ?= this
+					has_law = law_type:law_monarchy
+					scope:target_country = {
+						OR = {
+							is_revolutionary = yes
+							is_secessionist = yes
+						}
+					}
+				}
+			}
+
+			score = {
+				value = 200
+				if = {
+					limit = {
+						has_journal_entry = je_the_grand_collapse
+						any_subject_or_below = {
+							count >= 1
+						}
+						scope:target_country = {
+							relations:root <= relations_threshold:cordial
+							is_subject_of = root
+						}
+					}
+					add = 500
+				}
+
+				if = {
+					limit = {
+						country_rank <= scope:target_country.country_rank
+					}
+					add = 100
+				}
+
+				if = {
+					limit = {
+						has_journal_entry = je_earn_recognition
+						scope:target_country = { country_rank >= rank_value:great_power }
+					}
+					add = 200
+				}
+
+				if = { # To make Britain want to befriend an Asian major power
+					limit = {
+						country_has_primary_culture = cu:british
+						exists = c:RUS
+						c:RUS ?= {
+							any_scope_state = {
+								region = sr:region_manchuria
+								OR = {
+									any_scope_building = {
+										is_building_type = building_port
+										level >= 5
+									}
+									any_scope_building = {
+										is_building_type = building_naval_base
+										level >= 15
+									}
+								}
+							}
+						}
+						scope:target_country = {
+							country_rank >= rank_value:unrecognized_major_power
+							OR = {
+								capital.region = sr:region_japan
+								capital.region = sr:region_manchuria
+								capital.region = sr:region_north_china
+								capital.region = sr:region_south_china
+								capital.region = sr:region_indonesia
+							}
+						}
+					}
+					add = 200
+				}
+
+				if = { # Try to be on good terms with GBR/USA to avoid intervention
+					limit = {
+						has_journal_entry = je_reconquista
+						scope:target_country = {
+							country_rank = rank_value:great_power
+							OR = {
+								c:GBR ?= this
+								AND = {
+									is_in_geographic_region = geographic_region_americas
+									is_historical_spanish_american_colony = no
+								}
+							}
+						}
+					}
+					add = 200
+				}
+				else_if = { # Reconcile with former Spanish Colonies
+					limit = {
+						has_journal_entry = je_hispanoamerica
+						scope:target_country = {
+							has_modifier = modifier_not_recognized_by_spain
+						}
+					}
+					add = 200
+				}
+
+				if = { # Billions must smile
+					limit = {
+						has_je_befriend_reason = { TARGET = scope:target_country }
+					}
+					add = 10000
+				}
+
+				multiply = {
+					value = "ai_ideological_opinion(scope:target_country)"
+					multiply = 0.05
+					add = 1
+					min = 0.5
+					max = 2.0
+				}
+
+				multiply = {
+					value = 1
+					add = {
+						value = "lobby_in_government_foreign_pro_clout(scope:target_country)"
+						multiply = 2
+					}
+					subtract = {
+						value = "lobby_in_government_foreign_anti_clout(scope:target_country)"
+						divide = 2
+					}
+				}
+
+				if = {
+					limit = {
+						AND = {
+							has_radical_leftist_government = yes
+							scope:target_country = {
+								has_radical_leftist_government = yes
+							}
+						}
+					}
+					multiply = 1.5
+				}
+
+				if = {
+					limit = {
+						AND = {
+							has_radical_leftist_economy = yes
+							scope:target_country = {
+								has_radical_leftist_economy = yes
+							}
+						}
+					}
+					multiply = 1.5
+				}
+
+				if = {
+					limit = {
+						AND = {
+							has_radical_leftist_government = no
+							scope:target_country = {
+								has_radical_leftist_government = yes
+							}
+						}
+
+					}
+					multiply = 0.5
+				}
+
+				if = {
+					limit = {
+						AND = {
+							has_radical_leftist_economy = no
+							scope:target_country = {
+								has_radical_leftist_economy = yes
+							}
+						}
+
+					}
+					multiply = 0.5
+				}
+
+				if = {
+					limit = {
+						lenient_ai_behavior_trigger = yes
+					}
+					multiply = 1.5
+				}
+
+				if = {
+					limit = {
+						exists = c:FRA
+						c:FRA = this
+						ruler = {
+							has_variable = legitimist_leader
+						}
+
+						exists = c:SPA
+						scope:target_country = {
+							c:SPA ?= this
+							has_law = law_type:law_monarchy
+						}
+					}
+					multiply = 1.5
+				}
+
+				if = {
+					limit = {
+						harsh_ai_behavior_trigger = yes
+					}
+					multiply = 0.75
+				}
+
+				if = {
+					limit = {
+						scope:target_country.infamy >= infamy_threshold:infamous
+					}
+					multiply = 0.9
+				}
+
+				if = {
+					limit = {
+						scope:target_country.infamy >= infamy_threshold:notorious
+					}
+					multiply = 0.9
+				}
+
+				if = {
+					limit = {
+						scope:target_country.infamy >= infamy_threshold:pariah
+					}
+					multiply = 0.5
+				}
+
+				if = {
+					limit = {
+						c:HAI ?= ROOT
+						scope:target_country = { has_variable = haiti_friend }
+					}
+					multiply = 3
+				}
+
+				# AI implications for Power Blocs: 'befriend' secret goal is more likely towards the Bloc members
+				if = {
+					limit = {
+						is_in_same_power_bloc = scope:target_country
+					}
+					multiply = 1.5
+				}
+
+				if = {
+					limit = {
+						OR = {
+							has_diplomatic_pact = {
+								who = scope:target_country
+								type = rivalry
+							}
+							scope:target_country = { relations:root <= relations_threshold:poor }
+						}
+					}
+					multiply = 0.0
+				}
+			}
+		}
+		reconcile = {
+			trigger = {
+				OR = {
+					has_diplomatic_pact = {
+						who = scope:target_country
+						type = rivalry
+					}
+					scope:target_country = { relations:root <= relations_threshold:poor }
+				}
+
+				# Don't reconcile with your oppressors while civil war is ongoing
+				is_insurrectionary = no
+
+				# Historical enemies shouldn't start as conciliatory unless we explicitly script this in history
+				game_date >= 1836.1.2
+			}
+			score = {
+				value = 100
+
+				if = {
+					limit = {
+						has_journal_entry = je_earn_recognition
+						scope:target_country = { country_rank >= rank_value:great_power }
+					}
+					add = 200
+				}
+
+				if = {
+					limit = {
+						has_je_befriend_reason = { TARGET = scope:target_country }
+					}
+					add = 10000
+				}
+
+				if = {
+					limit = {
+						scope:target_country = {
+							has_secret_goal = {
+								who = root
+								secret_goal = reconcile
+							}
+						}
+					}
+
+					add = 200
+				}
+
+				if = {
+					limit = {
+						scope:target_country = {
+							is_involved_in_journal_entry = je_peru_bolivia
+							has_variable = pbc_member
+						}
+						OR = {
+							country_has_primary_culture = cu:south_andean
+							country_has_primary_culture = cu:north_andean
+							country_has_primary_culture = cu:platinean
+							country_has_primary_culture = cu:argentine
+							country_has_primary_culture = cu:chilean
+							country_has_primary_culture = cu:colombian
+							country_has_primary_culture = cu:ecuadorian
+						}
+						NOT = { has_variable = befriend_bolivia }
+					}
+					add = -50
+
+					if = {
+						limit = {
+							has_variable = attack_bolivia
+						}
+						multiply = 5
+					}
+				}
+
+				if = { # Try to be on good terms with GBR/USA to avoid intervention
+					limit = {
+						has_journal_entry = je_reconquista
+						scope:target_country = {
+							country_rank = rank_value:great_power
+							OR = {
+								c:GBR ?= this
+								AND = {
+									is_in_geographic_region = geographic_region_americas
+									is_historical_spanish_american_colony = no
+								}
+							}
+						}
+					}
+					add = 200
+				}
+				else_if = { # Reconcile with former Spanish Colonies
+					limit = {
+						has_journal_entry = je_hispanoamerica
+						scope:target_country = {
+							has_modifier = modifier_not_recognized_by_spain
+						}
+					}
+					add = 200
+				}
+
+				multiply = {
+					value = "ai_ideological_opinion(scope:target_country)"
+					multiply = 0.05
+					add = 1
+					min = 0.5
+					max = 2.0
+				}
+
+				multiply = {
+					value = 1
+					add = {
+						value = "lobby_in_government_foreign_pro_clout(scope:target_country)"
+						multiply = 2
+					}
+					subtract = {
+						value = "lobby_in_government_foreign_anti_clout(scope:target_country)"
+						divide = 2
+					}
+				}
+
+				if = {
+					limit = {
+						AND = {
+							has_radical_leftist_government = yes
+							scope:target_country = {
+								has_radical_leftist_government = yes
+							}
+						}
+					}
+					multiply = 1.5
+				}
+
+				if = {
+					limit = {
+						AND = {
+							has_radical_leftist_economy = yes
+							scope:target_country = {
+								has_radical_leftist_economy = yes
+							}
+						}
+					}
+					multiply = 1.5
+				}
+
+				if = {
+					limit = {
+						AND = {
+							has_radical_leftist_government = no
+							scope:target_country = {
+								has_radical_leftist_government = yes
+							}
+						}
+
+					}
+					multiply = 0.5
+				}
+
+				if = {
+					limit = {
+						AND = {
+							has_radical_leftist_economy = no
+							scope:target_country = {
+								has_radical_leftist_economy = yes
+							}
+						}
+
+					}
+					multiply = 0.5
+				}
+
+				if = {
+					limit = {
+						lenient_ai_behavior_trigger = yes
+					}
+					multiply = 1.5
+				}
+
+				if = {
+					limit = {
+						harsh_ai_behavior_trigger = yes
+					}
+					multiply = 0.75
+				}
+
+				if = {
+					limit = {
+						scope:target_country.infamy >= infamy_threshold:infamous
+					}
+					multiply = 0.9
+				}
+
+				if = {
+					limit = {
+						scope:target_country.infamy >= infamy_threshold:notorious
+					}
+					multiply = 0.9
+				}
+
+				if = {
+					limit = {
+						scope:target_country.infamy >= infamy_threshold:pariah
+					}
+					multiply = 0.5
+				}
+
+				# AI implications for Power Blocs: 'reconcile' secret goal is more likely towards the Bloc members
+				if = {
+					limit = {
+						is_in_same_power_bloc = scope:target_country
+					}
+					multiply = 5
+				}
+			}
+		}
+		protect = {
+			trigger = {
+				OR = {
+					country_rank = rank_value:great_power
+					has_strategic_adjacency = scope:target_country
+					AND = {
+						country_rank >= rank_value:major_power
+						scope:target_country = { is_country_type = unrecognized }
+					}
+				}
+
+				# Don't protect your overlord
+				NOT = { is_subject_of = scope:target_country }
+
+				# Don't protect enemies
+				scope:target_country = { relations:root > relations_threshold:poor }
+				NOT = {
+					has_diplomatic_pact = {
+						who = scope:target_country
+						type = rivalry
+					}
+				}
+
+				# Don't protect large isolationist powers
+				NOT = {
+					scope:target_country = {
+						has_law_or_variant = law_type:law_isolationism
+						gdp >= 5000000
+					}
+				}
+
+				# Valid target for protection?
+					OR = {
+						country_rank > scope:target_country.country_rank
+						scope:target_country = { is_subject_of = root }
+					has_je_protect_reason = { TARGET = scope:target_country }
+				}
+
+				# Monarchist Austria really does not want to help revolutions or secessions
+				NAND = {
+					c:AUS ?= this
+					has_law = law_type:law_monarchy
+					scope:target_country = {
+						OR = {
+							is_revolutionary = yes
+							is_secessionist = yes
+						}
+					}
+				}
+			}
+			score = {
+				value = 200
+
+				if = {
+					limit = {
+						has_je_protect_reason = { TARGET = scope:target_country }
+					}
+					add = 10000
+				}
+
+				multiply = {
+					value = "ai_ideological_opinion(scope:target_country)"
+					multiply = 0.05
+					add = 1
+					min = 0.5
+					max = 2.0
+				}
+
+				multiply = {
+					value = 1
+					add = {
+						value = "lobby_in_government_foreign_pro_clout(scope:target_country)"
+						multiply = 2
+					}
+					subtract = {
+						value = "lobby_in_government_foreign_anti_clout(scope:target_country)"
+						divide = 2
+					}
+				}
+
+				if = {
+					limit = {
+						AND = {
+							has_radical_leftist_government = yes
+							scope:target_country = {
+								has_radical_leftist_government = yes
+							}
+						}
+					}
+					multiply = 1.5
+				}
+
+				if = {
+					limit = {
+						AND = {
+							has_radical_leftist_economy = yes
+							scope:target_country = {
+								has_radical_leftist_economy = yes
+							}
+						}
+					}
+					multiply = 1.5
+				}
+
+				if = {
+					limit = {
+						AND = {
+							has_radical_leftist_government = no
+							scope:target_country = {
+								has_radical_leftist_government = yes
+							}
+						}
+
+					}
+					multiply = 0.5
+				}
+
+				if = {
+					limit = {
+						AND = {
+							has_radical_leftist_economy = no
+							scope:target_country = {
+								has_radical_leftist_economy = yes
+							}
+						}
+
+					}
+					multiply = 0.5
+				}
+
+				if = {
+					limit = {
+						exists = c:FRA
+						c:FRA = this
+						ruler = {
+							OR = {
+								has_variable = legitimist_leader
+								has_variable = house_bonaparte
+							}
+						}
+
+						exists = c:PAP
+						scope:target_country = {
+							c:PAP = this
+							has_law_or_variant = law_type:law_theocracy
+						}
+					}
+					multiply = 1.5
+				}
+
+				if = {
+					limit = {
+						harsh_ai_behavior_trigger = yes
+					}
+					multiply = 0.75
+				}
+
+				if = {
+					limit = {
+						scope:target_country.infamy >= infamy_threshold:infamous
+					}
+					multiply = 0.9
+				}
+
+				if = {
+					limit = {
+						scope:target_country.infamy >= infamy_threshold:notorious
+					}
+					multiply = 0.9
+				}
+
+				if = {
+					limit = {
+						scope:target_country.infamy >= infamy_threshold:pariah
+					}
+					multiply = 0.5
+				}
+
+				# AI implications for Power Blocs: 'protect' secret goal is more likely towards the Bloc members
+				if = {
+					limit = {
+						is_in_same_power_bloc = scope:target_country
+					}
+					multiply = 2.5
+				}
+			}
+		}
+		antagonize = {
+			trigger = {
+				NOT = { scope:target_country = { is_subject_of = root } }
+
+				# Countries scripted to have a friendly pact or same power bloc shouldn't start with hostile goals
+				NAND = {
+					game_date < 1836.1.2
+					OR = {
+						is_in_same_power_bloc = scope:target_country
+						has_friendly_diplomatic_pact = { TARGET = scope:target_country }
+					}
+				}
+
+				# Be nice to tutorial players
+				scope:target_country = { is_still_learning = no }
+			}
+			score = {
+				value = 0
+
+				if = {
+					limit = {
+						countries_are_valid_rivals = yes
+					}
+					add = 50
+				}
+
+				if = {
+					limit = {
+						has_diplomatic_pact = {
+							who = scope:target_country
+							type = rivalry
+						}
+					}
+					add = 100
+				}
+
+				if = {
+					limit = {
+						can_reach_target_country = yes
+						NOT = { is_subject_of = scope:target_country }
+					}
+					add = 50
+				}
+
+				if = {
+					limit = {
+						scope:target_country = {
+							is_revolutionary = yes
+							scope:target_country.civil_war_origin_country = root
+						}
+					}
+					add = 500
+				}
+
+				if = {
+					limit = {
+						c:GBR ?= this
+						has_variable = committed_to_afghanistan_assistance
+						scope:target_country = {
+							has_variable = AFG_appealed_to_RUS
+						}
+					}
+					add = 100
+				}
+				else_if = {
+					limit = {
+						c:RUS ?= this
+						has_variable = committed_to_afghanistan_assistance
+						scope:target_country = {
+							has_variable = AFG_appealed_to_GBR
+						}
+					}
+					add = 100
+				}
+
+				if = {
+					limit = {
+						THIS = {
+							has_journal_entry = je_risorgimento
+						}
+						scope:target_country = {
+							any_scope_state = {
+								state_region = {
+									OR = {
+										is_homeland = cu:north_italian
+										is_homeland = cu:south_italian
+									}
+								}
+							}
+						}
+					}
+					add = 50
+				}
+
+				if = { # Spanish American reconquest of former colonies
+					limit = {
+						has_journal_entry = je_reconquista
+						scope:target_country = {
+							is_historical_spanish_american_colony = yes
+							NOT = { is_subject_of = root }
+						}
+					}
+					add = 100
+				}
+
+				multiply = {
+					value = "ai_ideological_opinion(scope:target_country)"
+					multiply = -0.05
+					add = 1
+					min = 0.5
+					max = 2.0
+				}
+
+				multiply = {
+					value = 1
+					add = {
+						value = "lobby_in_government_foreign_anti_clout(scope:target_country)"
+						multiply = 2
+					}
+					subtract = {
+						value = "lobby_in_government_foreign_pro_clout(scope:target_country)"
+						divide = 2
+					}
+				}
+
+				if = {
+					limit = {
+						lenient_ai_behavior_trigger = yes
+					}
+					multiply = 0.75
+				}
+
+				if = {
+					limit = {
+						harsh_ai_behavior_trigger = yes
+					}
+					multiply = 1.5
+				}
+
+				if = {
+					limit = {
+						has_game_rule = high_ai_aggression
+					}
+					multiply = 0.75 # Yes, this is actually intended to be a decrease - AI should want to conquer/dominate more instead
+				}
+
+				if = {
+					limit = {
+						has_game_rule = low_ai_aggression
+					}
+					multiply = 1.25 # Yes, this is actually intended to be an increase - it's to partially compensate for lowered conquer/dominate desires
+				}
+
+				if = {
+					limit = {
+						AND = {
+							has_radical_leftist_government = yes
+							scope:target_country = {
+								has_radical_leftist_government = yes
+							}
+						}
+					}
+					multiply = 0.5
+				}
+
+				if = {
+					limit = {
+						AND = {
+							has_radical_leftist_economy = yes
+							scope:target_country = {
+								has_radical_leftist_economy = yes
+							}
+						}
+					}
+					multiply = 0.5
+				}
+
+				if = {
+					limit = {
+						AND = {
+							has_radical_leftist_government = no
+							scope:target_country = {
+								has_radical_leftist_government = yes
+							}
+						}
+
+					}
+					multiply = 1.5
+				}
+
+				if = {
+					limit = {
+						AND = {
+							has_radical_leftist_economy = no
+							scope:target_country = {
+								has_radical_leftist_economy = yes
+							}
+						}
+
+					}
+					multiply = 1.5
+				}
+
+				# AI implications for Power Blocs: 'antagonize' secret goal is more likely towards the country from another Bloc
+				if = {
+					limit = {
+						country_is_in_different_power_bloc = { TARGET = scope:target_country }
+					}
+					multiply = 1.5
+				}
+				# AI implications for Power Blocs: 'antagonize' secret goal is more likely towards the rival of the power struggle
+				else_if = {
+					limit = {
+						country_is_power_struggle_rival = { TARGET = scope:target_country }
+					}
+					multiply = 2
+				}
+			}
+		}
+		conquer = {
+			trigger = {
+				can_reach_target_country = yes
+				NOT = { is_subject_of = scope:target_country }
+
+				# Be nice to tutorial players
+				scope:target_country = { is_still_learning = no }
+
+				# Countries scripted to have a friendly pact or same power bloc shouldn't start with hostile goals
+				NAND = {
+					game_date < 1836.1.2
+					OR = {
+						is_in_same_power_bloc = scope:target_country
+						has_friendly_diplomatic_pact = { TARGET = scope:target_country }
+					}
+				}
+			}
+			score = {
+				value = 0
+
+				if = {
+					limit = { has_je_conquest_reason = { TARGET = scope:target_country } }
+					add = 10000
+				}
+
+				if = {
+					limit = {
+						scope:target_country = {
+							is_involved_in_journal_entry = je_peru_bolivia
+							has_variable = pbc_member
+						}
+						OR = {
+							country_has_primary_culture = cu:south_andean
+							country_has_primary_culture = cu:north_andean
+							country_has_primary_culture = cu:platinean
+							country_has_primary_culture = cu:argentine
+							country_has_primary_culture = cu:chilean
+							country_has_primary_culture = cu:colombian
+							country_has_primary_culture = cu:ecuadorian
+						}
+						NOT = { has_variable = befriend_bolivia }
+					}
+					add = 300
+
+					if = {
+						limit = {
+							has_variable = attack_bolivia
+						}
+						add = 700
+					}
+				}
+
+				# encouraging Ethiopian unification
+				if = {
+					limit = {
+						OR = {
+							has_journal_entry = je_age_of_princes
+							c:ETH ?= this
+						}
+						scope:target_country = {
+							OR = {
+								country_has_primary_culture = cu:amhara
+								country_has_primary_culture = cu:oromo
+								country_has_primary_culture = cu:tigray
+								country_has_primary_culture = cu:sidama
+								c:AWS ?= this
+							}
+							any_scope_state = {
+								state_region = {
+									OR = {
+										s:STATE_GONDER = this
+										s:STATE_AMHARA = this
+										s:STATE_OROMIA = this
+										s:STATE_ERITREA = this # not necessary for unification but something an Ethiopian state has, historically, expressed a keen interest in
+									}
+								}
+							}
+						}
+					}
+					add = 100
+				}
+
+				if = {
+					limit = {
+						NOT = { is_country_type = unrecognized }
+						scope:target_country = { is_country_type = unrecognized }
+						scope:target_country = {
+							OR = {
+								is_subject = no
+								top_overlord ?= {
+									is_country_type = unrecognized
+								}
+							}
+						}
+						has_technology_researched = colonization
+						institution_investment_level = {
+							institution = institution_colonial_affairs
+							value >= 1
+						}
+					}
+					add = 50
+
+					if = {
+						limit = { has_technology_researched = quinine }
+						add = 50
+					}
+
+					if = {
+						limit = { has_technology_researched = civilizing_mission }
+						add = 200
+
+						if = {
+							limit = {
+								is_adjacent_to_country = scope:target_country
+								"relations(scope:target_country)" < relations_threshold:amicable
+							}
+							add = 1000
+						}
+					}
+
+					if = {
+						limit = {
+							power_bloc ?= { has_principle_group = principle_group:principle_group_colonial_offices }
+						}
+						add = 50
+					}
+
+					if = {
+						limit = {
+							has_journal_entry = je_scramble_for_africa
+							scope:target_country = {
+								is_in_geographic_region = geographic_region_africa
+							}
+						}
+						add = 500
+					}
+
+					if = { # Portugal wishes to eat Gaza
+						limit = {
+							country_has_primary_culture = cu:portuguese
+							has_technology_researched = civilizing_mission
+							OR = {
+								any_scope_state = {
+									OR = {
+										state_region = s:STATE_MOCAMBIQUE
+										state_region = s:STATE_ZAMBEZIA
+										state_region = s:STATE_LOURENCO_MARQUES
+									}
+								}
+								any_subject_or_below = {
+									capital = {
+										OR = {
+											state_region = s:STATE_MOCAMBIQUE
+											state_region = s:STATE_ZAMBEZIA
+											state_region = s:STATE_LOURENCO_MARQUES
+										}
+									}
+								}
+							}
+							scope:target_country = {
+								is_country_type = unrecognized
+								any_scope_state = {
+									state_region = s:STATE_MOCAMBIQUE
+									state_region = s:STATE_ZAMBEZIA
+									state_region = s:STATE_LOURENCO_MARQUES
+								}
+							}
+						}
+						add = 250
+
+						if = {
+							limit = {
+								has_technology_researched = malaria_prevention
+							}
+							add = 500
+						}
+					}
+
+					if = {
+						limit = {
+							c:DEI ?= this
+							scope:target_country = {
+								capital.region = sr:region_indonesia
+								is_country_type = unrecognized
+							}
+						}
+						add = 1000
+					}
+
+						if = {
+							limit = {
+								scope:target_country = {
+									is_subject = yes
+									is_country_type = unrecognized
+									top_overlord ?= {
+										NOT = { is_country_type = unrecognized }
+									}
+								}
+							}
+							multiply = 0.1
+						}
+					}
+
+				# Second Balkan War, pitting the balkan nations against each other
+				if = {
+					limit = {
+						has_journal_entry = je_spoils_of_war
+						scope:target_country = {
+							sr:region_balkans = {
+							any_scope_state = {
+								is_homeland_of_country_cultures = root
+								has_claim_by = root
+								}
+							}
+						}
+					}
+
+					add = 10000
+				}
+
+				# Second Balkan War, pitting the balkan nations against each other (Wallachia)
+				if = {
+					limit = {
+						has_journal_entry = je_spoils_of_war
+						country_has_primary_culture = cu:romanian
+						scope:target_country = {
+							country_rank <= rank_value:minor_power
+							any_scope_state = {
+								is_homeland_of_country_cultures = root
+								has_claim_by = root
+							}
+						}
+					}
+
+					add = 10000
+				}
+
+				if = { # Britain consolidating South Africa
+					limit = {
+						country_has_primary_culture = cu:british
+						has_technology_researched = malaria_prevention
+						any_subject_or_below = {
+							capital.region = sr:region_southern_africa
+						}
+						scope:target_country = {
+							capital.region = sr:region_southern_africa
+						}
+					}
+					add = 500
+				}
+
+				if = {
+					limit = {
+						scope:target_country = {
+							any_scope_state = {
+								root = { has_claim = prev }
+							}
+						}
+					}
+					add = 200
+				}
+
+				if = {
+					limit = {
+						country_has_primary_culture = cu:russian
+						has_law_or_variant = law_type:law_national_supremacy
+						has_technology_researched = nationalism
+						scope:target_country = {
+							OR = {
+								c:OZH ?= this
+								c:UZH ?= this
+								c:KZH ?= this
+								c:KAZ ?= this
+							}
+						}
+					}
+					add = 25
+				}
+
+				if = { # Spanish American reconquest of former colonies
+					limit = {
+						has_journal_entry = je_reconquista
+						scope:target_country = {
+							is_historical_spanish_american_colony = yes
+							NOT = { is_subject_of = root }
+						}
+					}
+					add = 200
+				}
+
+				multiply = {
+					value = "ai_ideological_opinion(scope:target_country)"
+					multiply = -0.05
+					add = 1
+					min = 0.5
+					max = 2.0
+				}
+
+				multiply = {
+					value = 1
+					add = {
+						value = "lobby_in_government_foreign_anti_clout(scope:target_country)"
+						multiply = 2
+					}
+					subtract = {
+						value = "lobby_in_government_foreign_pro_clout(scope:target_country)"
+						divide = 2
+					}
+				}
+
+				if = {
+					limit = { scope:target_country = { has_modifier = declared_bankruptcy } }
+					multiply = 2.0
+				}
+
+				if = {
+					limit = {
+						AND = {
+							has_radical_leftist_government = yes
+							scope:target_country = {
+								has_radical_leftist_government = yes
+							}
+						}
+					}
+					multiply = 0.5
+				}
+
+				if = {
+					limit = {
+						AND = {
+							has_radical_leftist_economy = yes
+							scope:target_country = {
+								has_radical_leftist_economy = yes
+							}
+						}
+					}
+					multiply = 0.5
+				}
+
+				if = {
+					limit = {
+						AND = {
+							has_radical_leftist_government = no
+							scope:target_country = {
+								has_radical_leftist_government = yes
+							}
+						}
+
+					}
+					multiply = 1.5
+				}
+
+				if = {
+					limit = {
+						AND = {
+							has_radical_leftist_economy = no
+							scope:target_country = {
+								has_radical_leftist_economy = yes
+							}
+						}
+
+					}
+					multiply = 1.5
+				}
+
+				if = {
+					limit = {
+						lenient_ai_behavior_trigger = yes
+					}
+					multiply = 0.25
+				}
+
+				if = {
+					limit = {
+						harsh_ai_behavior_trigger = yes
+					}
+					multiply = 1.25
+				}
+
+				if = {
+					limit = {
+						has_game_rule = high_ai_aggression
+					}
+					multiply = 1.25
+				}
+
+				if = {
+					limit = {
+						has_game_rule = low_ai_aggression
+					}
+					multiply = 0.75
+				}
+
+				# AI implications for Power Blocs: 'conquer' secret goal is more likely towards the country from another Bloc
+				if = {
+					limit = {
+						country_is_in_different_power_bloc = { TARGET = scope:target_country }
+					}
+					multiply = 1.5
+				}
+
+				# AI implications for Power Blocs: 'conquer' secret goal is much less likely towards the Bloc members
+				if = {
+					limit = {
+						is_in_same_power_bloc = scope:target_country
+					}
+					multiply = 0.25
+				}
+
+				#T&R
+				if = {
+					limit = {
+						country_rank >= rank_value:great_power
+						OR = {
+							c:RUS ?= this
+							is_in_geographic_region = geographic_region_europe
+						}
+						is_involved_in_journal_entry = je_ottoman_empire_collapse
+						c:TUR = {
+							has_journal_entry = je_ottoman_empire_collapse
+						}
+						scope:target_country = {
+							OR = {
+								AND = {
+									c:TUR ?= this
+									OR = {
+										has_state_in_state_region = STATE_LOWER_EGYPT
+										has_state_in_state_region = STATE_MIDDLE_EGYPT
+										has_state_in_state_region = STATE_UPPER_EGYPT
+										has_state_in_state_region = STATE_SINAI
+										has_state_in_state_region = STATE_MATRUH
+										has_state_in_state_region = STATE_EGYPTIAN_DESERT
+										has_state_in_state_region = STATE_SYRIA
+										has_state_in_state_region = STATE_LEBANON
+										has_state_in_state_region = STATE_PALESTINE
+										has_state_in_state_region = STATE_TRANSJORDAN
+										has_state_in_state_region = STATE_BAGHDAD
+										has_state_in_state_region = STATE_BASRA
+										has_state_in_state_region = STATE_MOSUL
+									}
+								}
+								AND = {
+									is_subject_of = c:TUR
+									OR = {
+										has_state_in_state_region = STATE_LOWER_EGYPT
+										has_state_in_state_region = STATE_MIDDLE_EGYPT
+										has_state_in_state_region = STATE_UPPER_EGYPT
+										has_state_in_state_region = STATE_SINAI
+										has_state_in_state_region = STATE_MATRUH
+										has_state_in_state_region = STATE_EGYPTIAN_DESERT
+									}
+								}
+							}
+						}
+					}
+					add = 150
+				}
+
+				if = {
+					limit = {
+						country_rank >= rank_value:great_power
+						OR = {
+							c:RUS ?= this
+							is_in_geographic_region = geographic_region_europe
+						}
+						OR = {
+							NOT = { exists = c:TUR }
+							c:TUR = {
+								NOT = { has_journal_entry = je_ottoman_empire_collapse }
+							}
+						}
+						scope:target_country = {
+							any_scope_state = {
+								has_claim_by = root
+								OR = {
+									state_region = s:STATE_LOWER_EGYPT
+									state_region = s:STATE_MIDDLE_EGYPT
+									state_region = s:STATE_UPPER_EGYPT
+									state_region = s:STATE_SINAI
+									state_region = s:STATE_MATRUH
+									state_region = s:STATE_EGYPTIAN_DESERT
+									state_region = s:STATE_SYRIA
+									state_region = s:STATE_LEBANON
+									state_region = s:STATE_PALESTINE
+									state_region = s:STATE_TRANSJORDAN
+									state_region = s:STATE_BAGHDAD
+									state_region = s:STATE_BASRA
+									state_region = s:STATE_MOSUL
+								}
+							}
+						}
+					}
+					add = 500
+				}
+			}
+		}
+		dominate = {
+			trigger = {
+				OR = {
+					country_rank = rank_value:great_power
+					has_strategic_adjacency = scope:target_country
+					AND = {
+						country_rank >= rank_value:major_power
+						scope:target_country = { is_country_type = unrecognized }
+					}
+				}
+				can_reach_target_country = yes
+				NOT = { is_subject_of = scope:target_country }
+
+				# AI shouldn't be aggressive against subjects of their subjects
+				NOT = {
+					scope:target_country = {
+						is_subject_of = root
+						NOT = { is_direct_subject_of = root }
+					}
+				}
+
+				# Be nice to tutorial players
+				scope:target_country = { is_still_learning = no }
+
+				# Countries scripted to have a friendly pact or same power bloc shouldn't start with hostile goals
+				NAND = {
+					game_date < 1836.1.2
+					OR = {
+						is_in_same_power_bloc = scope:target_country
+						has_friendly_diplomatic_pact = { TARGET = scope:target_country }
+					}
+				}
+			}
+			score = {
+				value = 0
+
+				if = {
+					limit = {
+						has_je_subjugation_reason = { TARGET = scope:target_country }
+						NOT = { is_subject_of = root }
+					}
+					add = 10000
+				}
+
+				if = {
+					limit = {
+						scope:target_country = {
+							is_direct_subject_of = root
+							relations:root < relations_threshold:cordial
+							scope:target_country.country_rank < rank_value:major_power
+						}
+					}
+					add = 50
+				}
+
+				if = {
+					limit = {
+						can_reach_target_country = yes
+						country_rank > scope:target_country.country_rank
+						NOT = { is_country_type = unrecognized }
+						scope:target_country = { is_country_type = unrecognized }
+						scope:target_country = { NOT = { is_subject_of = root }	}
+						scope:target_country = {
+							OR = {
+								is_subject = no
+								top_overlord ?= {
+									is_country_type = unrecognized
+								}
+							}
+						}
+						has_technology_researched = colonization
+						institution_investment_level = {
+							institution = institution_colonial_affairs
+							value >= 1
+						}
+					}
+					add = 25
+
+					if = {
+						limit = { has_technology_researched = quinine }
+						add = 25
+					}
+
+					if = {
+						limit = { has_technology_researched = civilizing_mission }
+						add = 100
+
+						if = {
+							limit = {
+								is_adjacent_to_country = scope:target_country
+								"relations(scope:target_country)" < relations_threshold:amicable
+							}
+							add = 1000
+						}
+					}
+
+					if = {
+						limit = {
+							power_bloc ?= { has_principle_group = principle_group:principle_group_colonial_offices }
+						}
+						add = 50
+					}
+
+					if = {
+						limit = {
+							has_journal_entry = je_scramble_for_africa
+							scope:target_country = {
+								is_in_geographic_region = geographic_region_africa
+							}
+						}
+						add = 250
+					}
+
+					if = {
+						limit = {
+							c:DEI ?= this
+							scope:target_country = {
+								capital.region = sr:region_indonesia
+								is_country_type = unrecognized
+							}
+						}
+						add = 500
+					}
+
+					if = {
+						limit = {
+							scope:target_country = {
+								is_subject = yes
+								is_country_type = unrecognized
+								top_overlord ?= {
+									NOT = { is_country_type = unrecognized }
+								}
+							}
+						}
+						multiply = 0.1
+					}
+				}
+				if = { # Britain consolidating South Africa
+					limit = {
+						country_has_primary_culture = cu:british
+						has_technology_researched = malaria_prevention
+						any_subject_or_below = {
+							capital.region = sr:region_southern_africa
+						}
+						scope:target_country = {
+							capital.region = sr:region_southern_africa
+						}
+					}
+					add = 250
+				}
+
+				if = { # Spanish American reconquest of former colonies
+					limit = {
+						has_journal_entry = je_reconquista
+						scope:target_country = {
+							is_historical_spanish_american_colony = yes
+							NOT = { is_subject_of = root }
+						}
+					}
+					add = 100
+				}
+
+				if = {
+					limit = {
+						can_reach_target_country = yes
+						country_rank > scope:target_country.country_rank
+						scope:target_country.country_rank < rank_value:major_power
+						scope:target_country = { NOT = { is_subject_of = root }	}
+					}
+					add = 25
+				}
+
+				multiply = {
+					value = "ai_ideological_opinion(scope:target_country)"
+					multiply = -0.05
+					add = 1
+					min = 0.5
+					max = 2.0
+				}
+
+				multiply = {
+					value = 1
+					add = {
+						value = "lobby_in_government_foreign_anti_clout(scope:target_country)"
+						multiply = 2
+					}
+					subtract = {
+						value = "lobby_in_government_foreign_pro_clout(scope:target_country)"
+						divide = 2
+					}
+				}
+
+				if = {
+					limit = {
+						AND = {
+							has_radical_leftist_government = yes
+							scope:target_country = {
+								has_radical_leftist_government = yes
+							}
+						}
+					}
+					multiply = 0.5
+				}
+
+				if = {
+					limit = {
+						AND = {
+							has_radical_leftist_economy = yes
+							scope:target_country = {
+								has_radical_leftist_economy = yes
+							}
+						}
+					}
+					multiply = 0.5
+				}
+
+				if = {
+					limit = {
+						AND = {
+							has_radical_leftist_government = no
+							scope:target_country = {
+								has_radical_leftist_government = yes
+							}
+						}
+
+					}
+					multiply = 1.5
+				}
+
+				if = {
+					limit = {
+						AND = {
+							has_radical_leftist_economy = no
+							scope:target_country = {
+								has_radical_leftist_economy = yes
+							}
+						}
+
+					}
+					multiply = 1.5
+				}
+
+				if = {
+					limit = {
+						country_has_primary_culture = cu:russian
+						has_law_or_variant = law_type:law_national_supremacy
+						has_technology_researched = nationalism
+						scope:target_country = {
+							OR = {
+								c:OZH ?= this
+								c:UZH ?= this
+								c:KZH ?= this
+								c:KAZ ?= this
+							}
+						}
+					}
+					add = 25
+				}
+
+				if = {
+					limit = {
+						lenient_ai_behavior_trigger = yes
+					}
+					multiply = 0.50
+				}
+
+				if = {
+					limit = { scope:target_country = { has_modifier = declared_bankruptcy } }
+					multiply = 2.0
+				}
+
+				if = {
+					limit = {
+						harsh_ai_behavior_trigger = yes
+					}
+					multiply = 1.5
+				}
+
+				if = {
+					limit = {
+						has_game_rule = high_ai_aggression
+					}
+					multiply = 1.25
+				}
+
+				if = {
+					limit = {
+						has_game_rule = low_ai_aggression
+					}
+					multiply = 0.75
+				}
+
+				# Shouldn't usually upset diplomatic pacts unless they're bankrupt or infamous
+				if = {
+					limit = {
+						scope:target_country = {
+							in_default = no
+							infamy < infamy_threshold:notorious
+						}
+					}
+
+					if = {
+						limit = {
+							any_scope_treaty = {
+								binds = scope:target_country
+								any_scope_article = {
+									has_type = defensive_pact
+								}
+							}
+						}
+						multiply = 0.5
+					}
+
+					if = {
+						limit = {
+							any_scope_treaty = {
+								binds = scope:target_country
+								any_scope_article = {
+									has_type = alliance
+								}
+							}
+						}
+						multiply = 0.25
+					}
+
+					if = {
+						limit = {
+							any_scope_treaty = {
+								binds = scope:target_country
+								any_scope_article = {
+									has_type = trade_privilege
+									source_country = scope:target_country
+								}
+							}
+						}
+						multiply = 0.5
+					}
+
+					if = {
+						limit = {
+							is_in_customs_union_with = scope:target_country
+						}
+						multiply = 0.25
+					}
+				}
+
+				# AI implications for Power Blocs: 'dominate' secret goal is more likely towards the country from another Bloc
+				if = {
+					limit = {
+						country_is_in_different_power_bloc = { TARGET = scope:target_country }
+					}
+					multiply = 1.5
+				}
+			}
+		}
+	}
+
+	# Add a multiplier to the score AI assigns to particular building groups (default 1)
+	# Using this value in other strategies will result in several multiplications
+	building_group_weights = {}
+
+	# Which buildings should the AI subsidize
+	# Using a different value in a strategy will override this value
+	subsidies = {
+		building_power_plant = wants_to_have
+		building_railway = wants_to_have
+		building_port = must_have
+		#T&R
+		building_telecommunications_industry = wants_to_have
+		building_fusion_power_plant = wants_to_have
+	}
+
+	# How should the AI plan for production and trade of specific goods
+	# Using a different value in a strategy will override this value
+	goods_stances = {
+		small_arms = {
+			stance = wants_high_supply
+			trigger = {
+				has_technology_researched = line_infantry
+			}
+		}
+		artillery = {
+			stance = wants_high_supply
+			trigger = {
+				has_technology_researched = artillery
+			}
+		}
+		ammunition = {
+			stance = wants_high_supply
+			trigger = {
+				has_technology_researched = general_staff
+			}
+		}
+		aeroplanes = {
+			stance = wants_high_supply
+			trigger = {
+				has_technology_researched = military_aviation
+				country_rank >= rank_value:major_power
+			}
+		}
+		tanks = {
+			stance = wants_high_supply
+			trigger = {
+				has_technology_researched = mobile_armor
+				country_rank >= rank_value:major_power
+			}
+		}
+		clippers = {
+			stance = wants_high_supply
+			trigger = {
+				has_technology_researched = navigation
+				NOT = {
+					has_technology_researched = gantry_cranes
+				}
+				has_port = yes
+				country_rank >= rank_value:major_power
+			}
+		}
+		manowars = {
+			stance = wants_high_supply
+			trigger = {
+				has_technology_researched = admiralty
+				NOT = {
+					has_technology_researched = ironclad_tech
+				}
+				has_port = yes
+				country_rank >= rank_value:major_power
+			}
+		}
+		steamers = {
+			stance = wants_high_supply
+			trigger = {
+				has_technology_researched = gantry_cranes
+				has_port = yes
+				country_rank >= rank_value:major_power
+			}
+		}
+		ironclads = {
+			stance = wants_high_supply
+			trigger = {
+				has_technology_researched = ironclad_tech
+				has_port = yes
+				country_rank >= rank_value:major_power
+			}
+		}
+		paper = {
+			stance = wants_high_supply
+			trigger = {
+				has_technology_researched = centralization
+				total_population >= 1000000
+			}
+		}
+		electricity = {
+			stance = wants_high_supply
+			trigger = {
+				has_technology_researched = electrical_generation
+			}
+		}
+		dye = {
+			stance = wants_high_supply
+			trigger = {
+				has_building = building_textile_mill
+				has_technology_researched = lathe
+			}
+		}
+		silk = {
+			stance = wants_high_supply
+			trigger = {
+				has_building = building_textile_mill
+				total_population >= 1000000
+			}
+		}
+		hardwood = {
+			stance = wants_high_supply
+			trigger = {
+				has_building = building_furniture_manufactory
+				total_population >= 1000000
+			}
+		}
+		grain = {
+			stance = wants_high_supply
+			trigger = {
+				has_famine = yes
+			}
+		}
+		# Construction goods (Helps early game)
+		wood = {
+			stance = wants_high_supply
+			trigger = {
+				has_technology_researched = urbanization
+			}
+		}
+		iron = {
+			stance = wants_high_supply
+			trigger = {
+				has_technology_researched = urban_planning
+				NOT = { has_technology_researched = steel_frame_buildings }
+			}
+		}
+		tools = {
+			stance = wants_high_supply
+			trigger = {
+				has_technology_researched = urban_planning
+			}
+		}
+		oil = {
+			stance = wants_export
+			trigger = {
+				has_technology_researched = combustion_engine
+				kai_has_high_supply = { GOODS = oil }
+			}
+		}
+		#T&R
+		water = { stance = wants_high_supply }
+		gas = {
+			stance = wants_export
+			trigger = {
+				has_technology_researched = gas_turbine
+				kai_has_high_supply = { GOODS = gas }
+			}
+		}
+		good_uranium = {
+			stance = wants_export
+			trigger = {
+				has_technology_researched = verrier_nuclear_physics_tech
+				kai_has_high_supply = { GOODS = good_uranium }
+			}
+		}
+		lead = {
+			stance = wants_export
+			trigger = {
+				has_technology_researched = thermal_cracking
+				kai_has_high_supply = { GOODS = lead }
+			}
+		}
+		sulfur = {
+			stance = wants_export
+			trigger = {
+				has_technology_researched = thermal_cracking
+				kai_has_high_supply = { GOODS = sulfur }
+			}
+		}
+		bauxite = {
+			stance = wants_export
+			trigger = {
+				has_technology_researched = bayer_process
+				kai_has_high_supply = { GOODS = bauxite }
+			}
+		}
+		copper = {
+			stance = wants_export
+			trigger = {
+				has_technology_researched = thermal_cracking
+				kai_has_high_supply = { GOODS = copper }
+			}
+		}
+		commonores = {
+			stance = wants_export
+			trigger = {
+				has_technology_researched = thermal_cracking
+				kai_has_high_supply = { GOODS = commonores }
+			}
+		}
+		advancedores = {
+			stance = wants_export
+			trigger = {
+				has_technology_researched = semiconductor
+				kai_has_high_supply = { GOODS = advancedores }
+			}
+		}
+		rare_earths = {
+			stance = wants_export
+			trigger = {
+				has_technology_researched = rare_earths
+				kai_has_high_supply = { GOODS = rare_earths }
+			}
+		}
+	}
+}

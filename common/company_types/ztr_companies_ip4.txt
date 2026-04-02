@@ -1,0 +1,173 @@
+﻿# Rodriguez, Argüelles y Cia.
+REPLACE:company_rodriguez_arguelles_y_cia = {
+	icon = "gfx/interface/icons/company_icons/historical_company_icons/company_romeo_y_julieta.dds"
+	background = "gfx/interface/icons/company_icons/company_backgrounds/comp_illu_plantation.dds" # TODO Art
+
+	category = aristocrat_owned
+
+	flavored_company = yes
+
+	building_types = {
+		building_tobacco_plantation
+	}
+
+	extension_building_types = {
+		building_logging_camp
+		building_rice_farm
+		#T&R
+		building_hydroponic
+	}
+
+	possible_prestige_goods = {
+		prestige_good_cigars
+	}
+
+	potential = {
+		has_interest_marker_in_region = region_caribbean
+		has_dlc_feature = ip4_content
+	}
+
+	attainable = {
+		hidden_trigger = { # Hide attainable if it's always fulfilled by possible
+			any_scope_state = {
+				OR = {
+					state_region = s:STATE_WESTERN_CUBA
+					state_region = s:STATE_CENTRAL_CUBA
+					state_region = s:STATE_EASTERN_CUBA
+				}
+			}
+		}
+	}
+
+	possible = {
+		any_scope_state = {
+			OR = {
+				state_region = s:STATE_WESTERN_CUBA
+				state_region = s:STATE_CENTRAL_CUBA
+				state_region = s:STATE_EASTERN_CUBA
+			}
+			any_scope_building = {
+				is_building_type = building_tobacco_plantation
+				level >= 5
+			}
+			count >= 2
+		}
+	}
+
+	prosperity_modifier = {
+		country_prestige_mult = 0.05
+		country_society_tech_spread_mult = 0.1
+		state_loyalists_from_political_movements_mult = 0.1
+	}
+
+	ai_weight = {
+		value = 3 # Higher base value for flavored companies
+	}
+}
+
+# Bacardí y Compañía
+REPLACE:company_bacardi = {
+	icon = "gfx/interface/icons/company_icons/historical_company_icons/company_bacardi.dds"
+	background = "gfx/interface/icons/company_icons/company_backgrounds/comp_illu_manufacturing_light.dds" # TODO Art
+
+	flavored_company = yes
+
+	building_types = {
+		building_food_industry
+		building_glassworks
+	}
+
+	extension_building_types = {
+		building_vineyard
+		#T&R
+		building_hydroponic
+	}
+
+	possible_prestige_goods = {
+		prestige_good_bacardi_rum
+	}
+
+	potential = {
+		has_interest_marker_in_region = region_caribbean
+		has_dlc_feature = ip4_content
+	}
+
+	attainable = {
+		hidden_trigger = { # Hide attainable if it's always fulfilled by possible
+			any_scope_state = {
+				state_region = s:STATE_EASTERN_CUBA
+			}
+		}
+	}
+
+	possible = {
+		any_scope_state = {
+			state_region = s:STATE_EASTERN_CUBA
+			any_scope_building = {
+				is_building_type = building_food_industry
+				level >= 5
+			}
+		}
+	}
+
+	prosperity_modifier = {
+		country_liberty_desire_add = 0.10
+		building_art_academy_throughput_add = 0.1
+	}
+
+	ai_weight = {
+		value = 3 # Higher base value for flavored companies
+	}
+}
+
+# La Hispano-Suiza, Fábrica de Automóviles, S. A.
+REPLACE:company_hispano_suiza = {
+	icon = "gfx/interface/icons/company_icons/company_la_hispano_suiza.dds"
+	background = "gfx/interface/icons/company_icons/company_backgrounds/comp_illu_manufacturing_heavy.dds"
+
+	flavored_company = yes
+
+	building_types = {
+		building_automotive_industry
+		building_motor_industry
+	}
+
+	extension_building_types = {
+		building_tooling_workshop
+		#T&R
+		building_aircraft_industry
+	}
+
+	potential = {
+		has_interest_marker_in_region = region_iberia
+		has_dlc_feature = ip4_content
+	}
+
+	attainable = {
+		hidden_trigger = { # Hide attainable if it's always fulfilled by possible
+			any_scope_state = {
+				state_region = s:STATE_CATALONIA
+			}
+		}
+	}
+
+	possible = {
+		any_scope_state = {
+			state_region = s:STATE_CATALONIA
+			any_scope_building = {
+				is_building_type = building_automotive_industry
+				level >= 5
+			}
+		}
+	}
+
+	prosperity_modifier = {
+		country_prestige_mult = 0.1
+		interest_group_ig_landowners_approval_add = 2
+		unit_supply_consumption_mult = -0.05
+	}
+
+	ai_weight = {
+		value = 3 # Higher base value for flavored companies
+	}
+}

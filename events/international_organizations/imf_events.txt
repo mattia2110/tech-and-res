@@ -1,0 +1,280 @@
+namespace = ztr_imf_event
+
+#IMF foundation
+ztr_imf_event.1 = {
+	dlc = dlc_tech_res
+	type = country_event
+	placement = root
+
+	duration = 1
+
+	title = {
+		first_valid = {
+			triggered_desc = {
+				desc = ztr_imf_conference.t1
+				trigger = {
+					has_state_in_state_region = STATE_NEW_HAMPSHIRE
+				}
+			}
+			triggered_desc = {
+				desc = ztr_imf_conference.t2
+				trigger = {
+					NOT = {
+						has_state_in_state_region = STATE_NEW_HAMPSHIRE
+					}
+				}
+			}
+		}
+	}
+	desc = ztr_imf_event.1.d
+
+	event_image = { 
+		#texture = "gfx/event_pictures/un_foundation.dds"
+		video = "un_foundation"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	icon = "gfx/interface/icons/event_icons/ztr_onu_permanent_member.dds"
+
+	trigger = {
+		#Decision
+	}
+
+	immediate = {
+		if = {
+			limit = {
+				has_state_in_state_region = STATE_NEW_HAMPSHIRE
+			}
+			random_state = {
+				limit = {
+					state_region = s:STATE_NEW_HAMPSHIRE
+				}
+				save_scope_as = imf_conference_state
+			}
+		}
+		else = {
+			random_scope_state = {
+				limit = {
+					is_incorporated = yes
+				}
+				save_scope_as = imf_conference_state
+			}
+		}
+		root = {
+			save_scope_as = imf_proposer
+		}
+	}
+
+	option = {
+		name = ztr_imf_event.1.a
+		default_option = yes
+		change_infamy = -5
+		every_country = {
+			limit = {
+				NOT = { this = root }
+				OR = {
+					has_modifier = ztr_onu_member
+					has_modifier = ztr_onu_permanent_member
+				}
+			}
+			trigger_event = ztr_imf_event.2
+		}
+		ai_chance = {
+			base = 100
+		}
+	}
+}
+
+#IMF foundation - other countries
+ztr_imf_event.2 = {
+	dlc = dlc_tech_res
+	type = country_event
+	placement = root
+
+	duration = 1
+
+	title = {
+		first_valid = {
+			triggered_desc = {
+				desc = ztr_imf_conference.t1
+				trigger = {
+					scope:imf_proposer = {
+						has_state_in_state_region = STATE_NEW_HAMPSHIRE
+					}
+				}
+			}
+			triggered_desc = {
+				desc = ztr_imf_conference.t2
+				trigger = {
+					scope:imf_proposer = {
+						NOT = { has_state_in_state_region = STATE_NEW_HAMPSHIRE }
+					}
+				}
+			}
+		}
+	}
+	desc = ztr_imf_event.1.d
+
+	event_image = { 
+		texture = "gfx/event_pictures/un_foundation.dds"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	icon = "gfx/interface/icons/event_icons/ztr_onu_permanent_member.dds"
+
+	trigger = {
+	}
+
+	immediate = {
+	}
+
+	# Standard member Option
+	option = {
+		name = ztr_imf_event.1.a
+		default_option = yes
+	}
+
+	option = {
+		name = ztr_imf_event.1.b
+		default_option = yes
+	}
+}
+
+#IMF poor countries management
+ztr_imf_event.3 = {
+	dlc = dlc_tech_res
+	type = country_event
+	placement = root
+	hidden = yes
+
+	trigger = {
+		has_global_variable = imf_founded_var
+		OR = {
+			has_modifier = ztr_onu_member
+			has_modifier = ztr_onu_permanent_member
+		}
+		OR = {
+			average_sol < 10
+			has_imf_modifier = yes
+		}
+	}
+
+	immediate = {
+		#Depending on SoL, the country receives help from the IMF.
+		remove_imf_modifier = yes
+		if = {
+			limit = {
+				average_sol < 6
+			}
+			add_modifier = extreme_imf_help_modifier
+		}
+		else_if = {
+			limit = {
+				average_sol < 7
+			}
+			add_modifier = big_imf_help_modifier
+		}
+		else_if = {
+			limit = {
+				average_sol < 8
+			}
+			add_modifier = medium_imf_help_modifier
+		}
+		else_if = {
+			limit = {
+				average_sol < 9
+			}
+			add_modifier = small_imf_help_modifier
+		}
+		else_if = {
+			limit = {
+				average_sol < 10
+			}
+			add_modifier = tiny_imf_help_modifier
+		}
+	}
+}
+
+# IMF modernization journal entry activation
+ztr_imf_event.4 = {
+	dlc = dlc_tech_res
+	type = country_event
+	placement = root
+
+	duration = 1
+
+	title = ztr_imf_event.4.t
+	desc = ztr_imf_event.4.d
+
+	event_image = {
+		video = "unspecific_world_fair"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	icon = "gfx/interface/icons/event_icons/ztr_onu_permanent_member.dds"
+
+	trigger = {
+		has_global_variable = imf_founded_var
+		country_rank >= rank_value:minor_power
+		is_subject = no
+		NOT = { has_variable = imf_modernization_completed }
+		NOT = { has_journal_entry = je_imf_modernization }
+		OR = {
+			has_modifier = dev_0_country
+			has_modifier = dev_1_country
+			has_modifier = dev_2_country
+			has_modifier = dev_3_country
+			has_modifier = dev_4_country
+		}
+		literacy_rate < 0.65
+		average_sol < 17
+	}
+
+	option = {
+		name = ztr_imf_event.4.a
+		default_option = yes
+		add_journal_entry = {
+			type = je_imf_modernization
+		}
+		ai_chance = {
+			base = 100
+		}
+	}
+}
+
+# IMF modernization journal entry completion reward
+ztr_imf_event.5 = {
+	dlc = dlc_tech_res
+	type = country_event
+	placement = root
+
+	duration = 1
+
+	title = ztr_imf_event.5.t
+	desc = ztr_imf_event.5.d
+
+	event_image = {
+		video = "unspecific_world_fair"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	icon = "gfx/interface/icons/event_icons/innovation.dds"
+
+	option = {
+		name = ztr_imf_event.5.a
+		default_option = yes
+		if = {
+			limit = {
+				NOT = { has_modifier = imf_modernization_research_bonus_modifier }
+			}
+			add_modifier = imf_modernization_research_bonus_modifier
+		}
+		ai_chance = {
+			base = 100
+		}
+	}
+}

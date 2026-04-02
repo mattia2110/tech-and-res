@@ -10,59 +10,6 @@
 # CSL
 # Novo Nordisk
 
-company_basic_pharmaceuticals = {
-	icon = "gfx/interface/icons/company_icons/pharma_generic_icon.dds"
-	background = "gfx/interface/icons/company_icons/company_backgrounds/curtiss_comp_illu_pharma.dds"
-
-	flavored_company = no
-
-	uses_dynamic_naming = yes
-
-	dynamic_company_type_names = {
-		"dynamic_company_type_company"
-		"dynamic_company_type_consortium"
-		"dynamic_company_type_corporation"
-		"dynamic_company_type_conglomerate"
-		"dynamic_company_type_syndicate"
-		"dynamic_company_type_combine"
-	}
-
-	building_types = {
-		building_pharmaceuticals_industry
-	}
-
-	extension_building_types = {
-		building_synthetics_plants
-	}
-
-	possible = {
-		has_technology_researched = panum_antitoxins_tech
-		any_scope_state = {
-			is_incorporated = yes
-			any_scope_building = {
-				is_building_type = building_pharmaceuticals_industry
-				level >= 5
-			}
-		}
-	}
-
-	prosperity_modifier = {
-		building_throughput_add = 0.01 # Generic pharma companies give a small bonus to all buildings since it improves people health
-		country_institution_cost_institution_health_system_mult = -0.25
-	}
-
-	ai_will_do = {
-		has_technology_researched = panum_antitoxins_tech
-		any_scope_state = {
-			is_incorporated = yes
-			any_scope_building = {
-				is_building_type = building_pharmaceuticals_industry
-				level >= 5
-			}
-		}
-	}
-}
-
 company_hoffmann_la_roche = {
 	icon = "gfx/interface/icons/company_icons/historical_company_icons/swiss_hoffmann_la_roche.dds"
 	background = "gfx/interface/icons/company_icons/company_backgrounds/curtiss_comp_illu_pharma.dds"
@@ -224,7 +171,7 @@ company_glaxosmithkline = {
 	}
 
 	prosperity_modifier = {
-		building_synthetics_plants_throughput_add = 0.05
+		building_synthetics_plant_throughput_add = 0.05
 		country_institution_cost_institution_health_system_mult = -0.25
 	}
 
@@ -262,7 +209,7 @@ company_johnson_and_johnson = {
 	}
 
 	extension_building_types = {
-		building_synthetics_plants
+		building_synthetics_plant
 	}
 
 	potential = {
@@ -290,8 +237,8 @@ company_johnson_and_johnson = {
 	}
 
 	prosperity_modifier = {
-		state_birth_rate_mult = 0.02
 		state_turmoil_effects_mult = -0.1
+		state_mortality_wealth_mult = -0.002
 	}
 
 	ai_will_do = {
@@ -312,7 +259,7 @@ company_johnson_and_johnson = {
 	}
 
 	ai_weight = {
-		value = 4
+		value = 3
 	}
 }
 
@@ -352,7 +299,7 @@ company_sanofi = {
 	}<
 
 	prosperity_modifier = {
-		building_synthetics_plants_throughput_add = 0.05
+		building_synthetics_plant_throughput_add = 0.05
 		building_mendelejew_synthetic_rubber_factory_throughput_add = 0.05
 		country_institution_cost_institution_health_system_mult = -0.25
 	}
@@ -420,7 +367,7 @@ company_bayer = {
 
 	prosperity_modifier = {
 		building_pharmaceuticals_industry_throughput_add = 0.05
-		building_synthetics_plants_throughput_add = 0.05
+		building_synthetics_plant_throughput_add = 0.05
 		country_institution_cost_institution_health_system_mult = -0.25
 	}
 
@@ -482,7 +429,7 @@ company_takeda_pharmaceutical = {
 	}
 
 	prosperity_modifier = {
-		building_chemical_plants_throughput_add = 0.05
+		building_chemical_plant_throughput_add = 0.05
 		country_institution_cost_institution_health_system_mult = -0.25
 		country_prestige_mult = 0.05
 	}
@@ -599,7 +546,7 @@ company_teva_pharmaceutical = {
 	}
 
 	extension_building_types = {
-		building_chemical_plants
+		building_chemical_plant
 	}
 
 	potential = {
@@ -729,7 +676,7 @@ company_novo_nordisk = {
 
 	building_types = {
 		building_pharmaceuticals_industry
-		building_chemical_plants
+		building_chemical_plant
 	}
 
 	potential = {

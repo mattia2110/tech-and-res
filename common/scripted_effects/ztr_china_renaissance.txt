@@ -1,0 +1,1241 @@
+ztr_china_init_renaissance_vars = {
+	set_variable = {
+		name = ztr_china_corporate_var
+		value = 0
+	}
+	set_variable = {
+		name = ztr_china_federation_var
+		value = 0
+	}
+	set_variable = {
+		name = ztr_china_technoconfucian_var
+		value = 0
+	}
+	set_variable = {
+		name = ztr_china_corporate_component_var
+		value = 0
+	}
+	set_variable = {
+		name = ztr_china_federation_component_var
+		value = 0
+	}
+	set_variable = {
+		name = ztr_china_technoconfucian_component_var
+		value = 0
+	}
+}
+
+ztr_china_remove_renaissance_vars = {
+	remove_variable = ztr_china_corporate_var
+	remove_variable = ztr_china_federation_var
+	remove_variable = ztr_china_technoconfucian_var
+	remove_variable = ztr_china_corporate_component_var
+	remove_variable = ztr_china_federation_component_var
+	remove_variable = ztr_china_technoconfucian_component_var
+	remove_variable = the_future_of_china_active
+}
+
+ztr_china_update_corporate_bar = {
+	if = {
+		limit = {
+			ig:ig_industrialists = {
+				is_powerful = yes
+			}
+		}
+		change_variable = {
+			name = ztr_china_corporate_component_var
+			add = 1
+		}
+	}
+	if = {
+		limit = {
+			ig:ig_industrialists = {
+				is_in_government = yes
+			}
+		}
+		change_variable = {
+			name = ztr_china_corporate_component_var
+			add = 0.5
+		}
+	}
+	if = {
+		limit = {
+			has_law = law_type:law_free_trade
+		}
+		change_variable = {
+			name = ztr_china_corporate_component_var
+			add = 0.5
+		}
+	}
+	if = {
+		limit = {
+			has_law = law_type:law_laissez_faire
+		}
+		change_variable = {
+			name = ztr_china_corporate_component_var
+			add = 0.5
+		}
+	}
+	if = {
+		limit = {
+			ztr_gdp_per_capita >= 2
+		}
+		change_variable = {
+			name = ztr_china_corporate_component_var
+			add = 0.5
+		}
+	}
+	if = {
+		limit = {
+			ztr_gdp_per_capita >= 4
+		}
+		change_variable = {
+			name = ztr_china_corporate_component_var
+			add = 0.5
+		}
+	}
+	if = {
+		limit = {
+			has_technology_researched = stock_exchange
+		}
+		change_variable = {
+			name = ztr_china_corporate_component_var
+			add = 0.5
+		}
+	}
+	if = {
+		limit = {
+			ig:ig_landowners = {
+				is_powerful = yes
+			}
+		}
+		change_variable = {
+			name = ztr_china_corporate_component_var
+			subtract = 0.5
+		}
+	}
+	if = {
+		limit = {
+			OR = {
+				has_law = law_type:law_isolationism
+				has_law = law_type:law_canton_system
+			}
+		}
+		change_variable = {
+			name = ztr_china_corporate_component_var
+			subtract = 0.5
+		}
+	}
+	if = {
+		limit = {
+			any_scope_state = {
+				turmoil > 0.25
+			}
+		}
+		change_variable = {
+			name = ztr_china_corporate_component_var
+			subtract = 0.5
+		}
+	}
+}
+
+ztr_china_update_federation_bar = {
+	if = {
+		limit = {
+			ztr_is_democratic = yes
+		}
+		change_variable = {
+			name = ztr_china_federation_component_var
+			add = 1
+		}
+	}
+	if = {
+		limit = {
+			OR = {
+				has_law = law_type:law_census_voting
+				has_law = law_type:law_universal_suffrage
+			}
+		}
+		change_variable = {
+			name = ztr_china_federation_component_var
+			add = 0.5
+		}
+	}
+	if = {
+		limit = {
+			ig:ig_armed_forces = {
+				NOT = {
+					is_powerful = yes
+				}
+				NOT = {
+					is_marginal = yes
+				}
+			}
+		}
+		change_variable = {
+			name = ztr_china_federation_component_var
+			add = 0.5
+		}
+	}
+	if = {
+		limit = {
+			ig:ig_intelligentsia = {
+				is_powerful = yes
+			}
+		}
+		change_variable = {
+			name = ztr_china_federation_component_var
+			add = 0.5
+		}
+	}
+	if = {
+		limit = {
+			has_law = law_type:law_serfdom
+		}
+		change_variable = {
+			name = ztr_china_federation_component_var
+			add = 1
+		}
+	}
+	if = {
+		limit = {
+			OR = {
+				has_law = law_type:law_national_militia
+				has_law = law_type:law_professional_army
+			}
+		}
+		change_variable = {
+			name = ztr_china_federation_component_var
+			add = 0.5
+		}
+	}
+	if = {
+		limit = {
+			OR = {
+				country_rank = rank_value:great_power
+				has_modifier = ztr_superpower
+			}
+		}
+		change_variable = {
+			name = ztr_china_federation_component_var
+			add = 0.5
+		}
+	}
+	if = {
+		limit = {
+			NOT = {
+				any_interest_group = {
+					ig_clout >= 0.3
+				}
+			}
+		}
+		change_variable = {
+			name = ztr_china_federation_component_var
+			add = 0.5
+		}
+	}
+	if = {
+		limit = {
+			has_law = law_type:law_autocracy
+		}
+		change_variable = {
+			name = ztr_china_federation_component_var
+			subtract = 1
+		}
+	}
+	if = {
+		limit = {
+			is_at_war = yes
+		}
+		change_variable = {
+			name = ztr_china_federation_component_var
+			subtract = 0.5
+		}
+	}
+}
+
+ztr_china_update_technoconfucian_bar = {
+	if = {
+		limit = {
+			ig:ig_landowners = {
+				is_powerful = yes
+			}
+		}
+		change_variable = {
+			name = ztr_china_technoconfucian_component_var
+			add = 1
+		}
+	}
+	if = {
+		limit = {
+			ig:ig_devout = {
+				is_powerful = yes
+			}
+		}
+		change_variable = {
+			name = ztr_china_technoconfucian_component_var
+			add = 0.5
+		}
+	}
+	if = {
+		limit = {
+			OR = {
+				has_law = law_type:law_isolationism
+				has_law = law_type:law_canton_system
+			}
+		}
+		change_variable = {
+			name = ztr_china_technoconfucian_component_var
+			add = 1
+		}
+	}
+	if = {
+		limit = {
+			OR = {
+				has_law = law_type:law_serfdom
+				has_law = law_type:law_debt_slavery
+			}
+		}
+		change_variable = {
+			name = ztr_china_technoconfucian_component_var
+			add = 0.5
+		}
+	}
+	if = {
+		limit = {
+			has_law = law_type:law_autocracy
+		}
+		change_variable = {
+			name = ztr_china_technoconfucian_component_var
+			add = 0.5
+		}
+	}
+	if = {
+		limit = {
+			literacy_rate < 0.3
+		}
+		change_variable = {
+			name = ztr_china_technoconfucian_component_var
+			add = 0.5
+		}
+	}
+	if = {
+		limit = {
+			NOT = {
+				has_technology_researched = political_agitation
+			}
+		}
+		change_variable = {
+			name = ztr_china_technoconfucian_component_var
+			add = 0.5
+		}
+	}
+	if = {
+		limit = {
+			ig:ig_industrialists = {
+				is_powerful = yes
+			}
+		}
+		change_variable = {
+			name = ztr_china_technoconfucian_component_var
+			subtract = 1
+		}
+	}
+	if = {
+		limit = {
+			ztr_is_democratic = yes
+		}
+		change_variable = {
+			name = ztr_china_technoconfucian_component_var
+			subtract = 0.5
+		}
+	}
+	if = {
+		limit = {
+			ztr_gdp_per_capita >= 4
+		}
+		change_variable = {
+			name = ztr_china_technoconfucian_component_var
+			subtract = 0.5
+		}
+	}
+}
+
+ztr_china_final_renaissance_update = {
+	# Aggregate components into variables
+	change_variable = {
+		name = ztr_china_corporate_var
+		add = var:ztr_china_corporate_component_var
+	}
+	change_variable = {
+		name = ztr_china_federation_var
+		add = var:ztr_china_federation_component_var
+	}
+	change_variable = {
+		name = ztr_china_technoconfucian_var
+		add = var:ztr_china_technoconfucian_component_var
+	}
+	# Keep variables at minimum 0
+	if = {
+		limit = {
+			var:ztr_china_corporate_var < 0
+		}
+		set_variable = {
+			name = ztr_china_corporate_var
+			value = 0
+		}
+	}
+	if = {
+		limit = {
+			var:ztr_china_federation_var < 0
+		}
+		set_variable = {
+			name = ztr_china_federation_var
+			value = 0
+		}
+	}
+	if = {
+		limit = {
+			var:ztr_china_technoconfucian_var < 0
+		}
+		set_variable = {
+			name = ztr_china_technoconfucian_var
+			value = 0
+		}
+	}
+	# Update UI bars
+	scope:journal_entry = {
+		set_bar_progress = {
+			value = root.var:ztr_china_corporate_var
+			name = ztr_china_corporate_progress_bar
+		}
+		set_bar_progress = {
+			value = root.var:ztr_china_federation_var
+			name = ztr_china_federation_progress_bar
+		}
+		set_bar_progress = {
+			value = root.var:ztr_china_technoconfucian_var
+			name = ztr_china_technoconfucian_progress_bar
+		}
+	}
+	# Clear temporary component variables
+	set_variable = {
+		name = ztr_china_corporate_component_var
+		value = 0
+	}
+	set_variable = {
+		name = ztr_china_federation_component_var
+		value = 0
+	}
+	set_variable = {
+		name = ztr_china_technoconfucian_component_var
+		value = 0
+	}
+}
+
+ztr_china_assign_coastal_states_to_rebellion = {
+	every_scope_state = {
+		limit = {
+			OR = {
+				# state_region = s:STATE_CHONGQING
+				# state_region = s:STATE_HENAN
+				# state_region = s:STATE_JIANGXI
+				# state_region = s:STATE_WESTERN_HUBEI
+				# state_region = s:STATE_EASTERN_HUBEI
+				# state_region = s:STATE_HUNAN
+				# state_region = s:STATE_SHANXI
+				# state_region = s:STATE_NINGXIA
+				# state_region = s:STATE_GANSU
+				# state_region = s:STATE_XIAN
+				# state_region = s:STATE_SICHUAN
+				# state_region = s:STATE_YUNNAN
+				# state_region = s:STATE_GUIZHOU
+				state_region = s:STATE_GUANGDONG
+				state_region = s:STATE_FUJIAN
+				state_region = s:STATE_ZHEJIANG
+				state_region = s:STATE_SHANDONG
+				state_region = s:STATE_JIANGSU
+				state_region = s:STATE_NANJING
+				state_region = s:STATE_ZHILI
+				state_region = s:STATE_GUANGXI
+				state_region = s:STATE_SOUTHERN_ANHUI
+				state_region = s:STATE_NORTHERN_ANHUI
+				state_region = s:STATE_SUZHOU
+				state_region = s:STATE_SHAOZHOU
+				state_region = s:STATE_FORMOSA
+			}
+		}
+		set_state_owner = scope:rebellion_tag
+	}
+}
+
+ztr_china_assign_hinterland_states_to_rebellion = {
+	every_scope_state = {
+		limit = {
+			OR = {
+				state_region = s:STATE_CHONGQING
+				state_region = s:STATE_HENAN
+				state_region = s:STATE_WESTERN_HUBEI
+				state_region = s:STATE_EASTERN_HUBEI
+				state_region = s:STATE_SHANXI
+				state_region = s:STATE_NINGXIA
+				state_region = s:STATE_GANSU
+				state_region = s:STATE_XIAN
+				state_region = s:STATE_SICHUAN
+				state_region = s:STATE_YUNNAN
+				state_region = s:STATE_GUIZHOU
+				# state_region = s:STATE_GUANGDONG
+				# state_region = s:STATE_FUJIAN
+				# state_region = s:STATE_ZHEJIANG
+				# state_region = s:STATE_SHANDONG
+				# state_region = s:STATE_JIANGSU				
+				# state_region = s:STATE_NANJING
+				# state_region = s:STATE_ZHILI
+				# state_region = s:STATE_GUANGXI
+				# state_region = s:STATE_SOUTHERN_ANHUI
+				# state_region = s:STATE_NORTHERN_ANHUI
+				# state_region = s:STATE_SUZHOU
+				# state_region = s:STATE_SHAOZHOU
+				# state_region = s:STATE_FORMOSA
+			}
+		}
+		set_state_owner = scope:rebellion_tag
+	}
+}
+
+adopt_china_corporate_laws = {
+	activate_law = law_type:law_presidential_republic
+	activate_law = law_type:law_wealth_voting
+	activate_law = law_type:law_laissez_faire
+	activate_law = law_type:law_free_trade
+	activate_law = law_type:law_commercialized_agriculture
+}
+
+adopt_china_federation_laws = {
+	activate_law = law_type:law_parliamentary_republic
+	activate_law = law_type:law_census_voting
+	activate_law = law_type:law_elected_bureaucrats
+	activate_law = law_type:law_national_militia
+}
+
+adopt_china_technoconfucian_laws = {
+	activate_law = law_type:law_technocracy
+	activate_law = law_type:law_appointed_bureaucrats
+	activate_law = law_type:law_agrarianism
+	activate_law = law_type:law_secret_police
+}
+
+ztr_communist_china_cleanup = {
+	remove_variable = ztr_ccp_has_inspiration
+	remove_variable = ztr_ccp_front_active
+	remove_variable = ztr_ccp_front_progress
+	remove_variable = ztr_ccp_progress_contribution
+	remove_variable = ztr_ccp_united_front
+	remove_variable = ztr_ccp_armed_front
+	if = {
+		limit = {
+			has_modifier = ztr_ccp_repression_campaign
+		}
+		remove_modifier = ztr_ccp_repression_campaign
+	}
+	if = {
+		limit = {
+			has_modifier = ztr_ccp_mass_line_campaign
+		}
+		remove_modifier = ztr_ccp_mass_line_campaign
+	}
+	if = {
+		limit = {
+			has_modifier = ztr_ccp_united_front_campaign
+		}
+		remove_modifier = ztr_ccp_united_front_campaign
+	}
+}
+
+ztr_communist_china_clamp_overall_progress = {
+	if = {
+		limit = {
+			global_var:ztr_ccp_overall_progress < 0
+		}
+		set_global_variable = {
+			name = ztr_ccp_overall_progress
+			value = 0
+		}
+	}
+	if = {
+		limit = {
+			global_var:ztr_ccp_overall_progress > 100
+		}
+		set_global_variable = {
+			name = ztr_ccp_overall_progress
+			value = 100
+		}
+	}
+}
+
+ztr_communist_china_recalculate_overall_progress = {
+	if = {
+		limit = {
+			has_global_variable = ztr_ccp_overall_progress
+		}
+		remove_global_variable = ztr_ccp_overall_progress
+	}
+	set_global_variable = {
+		name = ztr_ccp_overall_progress
+		value = 0
+	}
+	every_country = {
+		limit = {
+			has_variable = ztr_ccp_front_active
+		}
+		set_variable = {
+			name = ztr_ccp_progress_contribution
+			value = this.var:ztr_ccp_front_progress
+		}
+		change_variable = {
+			name = ztr_ccp_progress_contribution
+			divide = 5
+		}
+		change_global_variable = {
+			name = ztr_ccp_overall_progress
+			add = this.var:ztr_ccp_progress_contribution
+		}
+		remove_variable = ztr_ccp_progress_contribution
+	}
+	ztr_communist_china_clamp_overall_progress = yes
+}
+
+ztr_communist_china_prepare_scopes = {
+	remove_variable = ztr_ccp_has_inspiration
+	if = {
+		limit = {
+			any_country = {
+				NOT = {
+					this = root
+				}
+				country_rank >= rank_value:major_power
+				ztr_is_communist = yes
+			}
+		}
+		set_variable = ztr_ccp_has_inspiration
+		random_country = {
+			limit = {
+				NOT = {
+					this = root
+				}
+				country_rank >= rank_value:major_power
+				ztr_is_communist = yes
+			}
+			save_scope_as = ztr_ccp_inspiration_country
+		}
+	}
+}
+
+ztr_communist_china_yearly_drift = {
+	if = {
+		limit = {
+			has_variable = ztr_ccp_front_active
+		}
+		change_variable = {
+			name = ztr_ccp_front_progress
+			add = 4
+		}
+		if = {
+			limit = {
+				has_modifier = ztr_ccp_repression_campaign
+			}
+			change_variable = {
+				name = ztr_ccp_front_progress
+				subtract = 8
+			}
+		}
+		if = {
+			limit = {
+				has_modifier = ztr_ccp_mass_line_campaign
+			}
+			change_variable = {
+				name = ztr_ccp_front_progress
+				add = 10
+			}
+		}
+		if = {
+			limit = {
+				has_modifier = ztr_ccp_united_front_campaign
+			}
+			change_variable = {
+				name = ztr_ccp_front_progress
+				add = 8
+			}
+		}
+		if = {
+			limit = {
+				has_variable = ztr_ccp_united_front
+			}
+			change_variable = {
+				name = ztr_ccp_front_progress
+				add = 5
+			}
+		}
+		if = {
+			limit = {
+				has_variable = ztr_ccp_armed_front
+			}
+			change_variable = {
+				name = ztr_ccp_front_progress
+				add = 12
+			}
+		}
+		if = {
+			limit = {
+				ztr_is_communist = yes
+			}
+			change_variable = {
+				name = ztr_ccp_front_progress
+				add = 6
+			}
+		}
+		if = {
+			limit = {
+				is_subject = yes
+			}
+			change_variable = {
+				name = ztr_ccp_front_progress
+				add = 4
+			}
+		}
+		if = {
+			limit = {
+				var:ztr_ccp_front_progress < 0
+			}
+			set_variable = {
+				name = ztr_ccp_front_progress
+				value = 0
+			}
+		}
+		if = {
+			limit = {
+				var:ztr_ccp_front_progress > 100
+			}
+			set_variable = {
+				name = ztr_ccp_front_progress
+				value = 100
+			}
+		}
+	}
+}
+
+ztr_communist_china_fire_yearly_event = {
+	ztr_communist_china_prepare_scopes = yes
+	if = {
+		limit = {
+			NOT = {
+				has_variable = ztr_ccp_front_active
+			}
+		}
+		trigger_event = {
+			id = ztr_communist_china.1
+			popup = yes
+		}
+	}
+	#First country to obtain 60% progress in the front will trigger this event
+	else_if = {
+		limit = {
+			global_var:ztr_ccp_overall_progress >= 50
+			ztr_can_become_communist_chi_via_je = yes
+		}
+		trigger_event = {
+			id = ztr_communist_china.4
+			popup = yes
+		}
+	}
+	#If the front is active but progress is low
+	else_if = {
+		limit = {
+			OR = {
+				var:ztr_ccp_front_progress < 40
+				global_var:ztr_ccp_overall_progress < 20
+			}
+		}
+		trigger_event = {
+			id = ztr_communist_china.2
+			popup = yes
+		}
+	}
+	#If the front is active but progress is medium
+	else_if = {
+		limit = {
+			OR = {
+				var:ztr_ccp_front_progress < 60
+				global_var:ztr_ccp_overall_progress < 40
+			}
+		}
+		trigger_event = {
+			id = ztr_communist_china.3
+			popup = yes
+		}
+	}
+}
+
+ztr_communist_china_adopt_laws_and_loyalist = {
+	add_loyalists = {
+		value = 0.5
+	}
+	every_interest_group = {
+		limit = {
+			is_in_government = yes
+		}
+		remove_ruling_interest_group = yes
+	}
+	ig:ig_trade_unions ?= {
+		add_ruling_interest_group = yes
+	}
+	ig:ig_rural_folk ?= {
+		add_ruling_interest_group = yes
+	}
+	ig:ig_armed_forces ?= {
+		add_ruling_interest_group = yes
+	}
+	ig:ig_trade_unions ?= {
+		leader = {
+			set_character_as_ruler = yes
+		}
+	}
+	if = {
+		limit = {
+			NOT = {
+				has_law_or_variant = law_type:law_council_republic
+			}
+		}
+		activate_law = law_type:law_council_republic
+	}
+	activate_law = law_type:law_single_party_state
+	activate_law = law_type:law_command_economy
+	activate_law = law_type:law_collectivized_agriculture
+	activate_law = law_type:law_state_atheism
+	activate_law = law_type:law_appointed_bureaucrats
+	activate_law = law_type:law_national_militia
+	activate_law = law_type:law_secret_police
+	activate_law = law_type:law_public_health_insurance
+	activate_law = law_type:law_public_schools
+}
+
+ztr_nationalist_china_adopt_laws_and_loyalist = {
+	add_loyalists = {
+		value = 0.5
+	}
+	activate_law = law_type:law_presidential_republic
+	activate_law = law_type:law_census_voting
+	activate_law = law_type:law_professional_army
+}
+
+ztr_communist_china_create_nationalist_front = {
+	if = {
+		limit = {
+			NOT = {
+				exists = c:ZFC
+			}
+		}
+		if = {
+			limit = {
+				any_country = {
+					has_variable = ztr_ccp_nationalist_candidate
+					count > 0
+				}
+			}
+			ordered_country = {
+				limit = {
+					has_variable = ztr_ccp_nationalist_candidate
+				}
+				order_by = gdp
+				position = 0
+				check_range_bounds = no
+				save_scope_as = ztr_ccp_nationalist_founder
+			}
+			scope:ztr_ccp_nationalist_founder = {
+				change_tag = ZFC
+				ztr_nationalist_china_adopt_laws_and_loyalist = yes
+			}
+		}
+	}
+	every_country = {
+		limit = {
+			has_variable = ztr_ccp_nationalist_candidate
+		}
+		remove_variable = ztr_ccp_nationalist_candidate
+	}
+}
+
+ztr_two_chinas_prepare_joint_targets = {
+	c:CHI = {
+		save_scope_as = ztr_two_chinas_communist_china
+	}
+	c:ZFC = {
+		save_scope_as = ztr_two_chinas_nationalist_china
+	}
+	if = {
+		limit = {
+			c:CHI = root
+		}
+		c:ZFC = {
+			save_scope_as = ztr_two_chinas_partner
+		}
+	}
+	else_if = {
+		limit = {
+			c:ZFC = root
+		}
+		c:CHI = {
+			save_scope_as = ztr_two_chinas_partner
+		}
+	}
+	if = {
+		limit = {
+			any_country = {
+				ztr_is_chinese_warlord = yes
+				is_adjacent_to_country = c:ZFC
+				NOT = {
+					is_adjacent_to_country = c:CHI
+				}
+			}
+		}
+		random_country = {
+			limit = {
+				ztr_is_chinese_warlord = yes
+				is_adjacent_to_country = c:ZFC
+				NOT = {
+					is_adjacent_to_country = c:CHI
+				}
+			}
+			save_scope_as = ztr_two_chinas_zfc_target
+		}
+	}
+	else = {
+		random_country = {
+			limit = {
+				ztr_is_chinese_warlord = yes
+				is_adjacent_to_country = c:ZFC
+			}
+			save_scope_as = ztr_two_chinas_zfc_target
+		}
+	}
+	random_country = {
+		limit = {
+			ztr_is_chinese_warlord = yes
+			is_adjacent_to_country = c:CHI
+			NOT = {
+				this = scope:ztr_two_chinas_zfc_target
+			}
+		}
+		save_scope_as = ztr_two_chinas_chi_target
+	}
+	if = {
+		limit = {
+			c:CHI = {
+				is_player = yes
+			}
+			any_country = {
+				ztr_is_chinese_warlord = yes
+				is_adjacent_to_country = c:CHI
+				NOT = {
+					this = scope:ztr_two_chinas_zfc_target
+				}
+				NOT = {
+					this = scope:ztr_two_chinas_chi_target
+				}
+			}
+		}
+			random_country = {
+				limit = {
+					ztr_is_chinese_warlord = yes
+					is_adjacent_to_country = c:CHI
+				NOT = {
+					this = scope:ztr_two_chinas_zfc_target
+				}
+				NOT = {
+					this = scope:ztr_two_chinas_chi_target
+				}
+			}
+			save_scope_as = ztr_two_chinas_second_target
+		}
+	}
+	else_if = {
+		limit = {
+			c:ZFC = {
+				is_player = yes
+			}
+			any_country = {
+				ztr_is_chinese_warlord = yes
+				is_adjacent_to_country = c:ZFC
+				NOT = {
+					this = scope:ztr_two_chinas_zfc_target
+				}
+				NOT = {
+					this = scope:ztr_two_chinas_chi_target
+				}
+			}
+		}
+		random_country = {
+			limit = {
+				ztr_is_chinese_warlord = yes
+				is_adjacent_to_country = c:ZFC
+				NOT = {
+					this = scope:ztr_two_chinas_zfc_target
+				}
+				NOT = {
+					this = scope:ztr_two_chinas_chi_target
+				}
+			}
+			save_scope_as = ztr_two_chinas_second_target
+		}
+	}
+}
+
+ztr_two_chinas_launch_joint_offensive = {
+	if = {
+		limit = {
+			exists = scope:ztr_two_chinas_chi_target
+			exists = scope:ztr_two_chinas_zfc_target
+		}
+		c:CHI = {
+			create_diplomatic_play = {
+				type = dp_annex_war
+				target_country = scope:ztr_two_chinas_chi_target
+				add_war_goal = {
+					holder = c:CHI
+					target_country = scope:ztr_two_chinas_chi_target
+					type = annex_country
+				}
+			}
+		}
+		random_diplomatic_play = {
+			limit = {
+				is_diplomatic_play_type = dp_annex_war
+				initiator = c:CHI
+				target = scope:ztr_two_chinas_chi_target
+			}
+			add_initiator_backers = {
+				c:ZFC
+			}
+		}
+		c:ZFC = {
+			create_diplomatic_play = {
+				type = dp_annex_war
+				target_country = scope:ztr_two_chinas_zfc_target
+				add_war_goal = {
+					holder = c:ZFC
+					target_country = scope:ztr_two_chinas_zfc_target
+					type = annex_country
+				}
+			}
+		}
+		random_diplomatic_play = {
+			limit = {
+				is_diplomatic_play_type = dp_annex_war
+				initiator = c:ZFC
+				target = scope:ztr_two_chinas_zfc_target
+			}
+			add_initiator_backers = {
+				c:CHI
+			}
+		}
+		c:CHI = {
+			set_variable = {
+				name = ztr_two_chinas_accord_cooldown
+				years = 2
+			}
+			change_relations = {
+				country = c:ZFC
+				value = 20
+			}
+		}
+		c:ZFC = {
+			set_variable = {
+				name = ztr_two_chinas_accord_cooldown
+				years = 2
+			}
+			change_relations = {
+				country = c:CHI
+				value = 20
+			}
+		}
+	}
+}
+
+ztr_two_chinas_launch_joint_offensive_bis = {
+	if = {
+		limit = {
+			exists = scope:ztr_two_chinas_chi_target
+			exists = scope:ztr_two_chinas_zfc_target
+		}
+		if = {
+			limit = {
+				c:CHI = {
+					is_player = yes
+				}
+			}
+			c:CHI = {
+				create_diplomatic_play = {
+					type = dp_annex_war
+					target_country = scope:ztr_two_chinas_second_target
+					add_war_goal = {
+						holder = c:CHI
+						target_country = scope:ztr_two_chinas_second_target
+						type = annex_country
+					}
+				}
+			}
+			random_diplomatic_play = {
+				limit = {
+					is_diplomatic_play_type = dp_annex_war
+					initiator = c:CHI
+					target = scope:ztr_two_chinas_second_target
+				}
+				add_initiator_backers = {
+					c:ZFC
+				}
+			}
+			c:ZFC = {
+				create_diplomatic_play = {
+					type = dp_annex_war
+					target_country = scope:ztr_two_chinas_zfc_target
+					add_war_goal = {
+						holder = c:ZFC
+						target_country = scope:ztr_two_chinas_zfc_target
+						type = annex_country
+					}
+				}
+			}
+			random_diplomatic_play = {
+				limit = {
+					is_diplomatic_play_type = dp_annex_war
+					initiator = c:ZFC
+					target = scope:ztr_two_chinas_zfc_target
+				}
+				add_initiator_backers = {
+					c:CHI
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				c:ZFC = {
+					is_player = yes
+				}
+			}
+			c:CHI = {
+				create_diplomatic_play = {
+					type = dp_annex_war
+					target_country = scope:ztr_two_chinas_chi_target
+					add_war_goal = {
+						holder = c:CHI
+						target_country = scope:ztr_two_chinas_chi_target
+						type = annex_country
+					}
+				}
+			}
+			random_diplomatic_play = {
+				limit = {
+					is_diplomatic_play_type = dp_annex_war
+					initiator = c:CHI
+					target = scope:ztr_two_chinas_chi_target
+				}
+				add_initiator_backers = {
+					c:ZFC
+				}
+			}
+			c:ZFC = {
+				create_diplomatic_play = {
+					type = dp_annex_war
+					target_country = scope:ztr_two_chinas_second_target
+					add_war_goal = {
+						holder = c:ZFC
+						target_country = scope:ztr_two_chinas_second_target
+						type = annex_country
+					}
+				}
+			}
+			random_diplomatic_play = {
+				limit = {
+					is_diplomatic_play_type = dp_annex_war
+					initiator = c:ZFC
+					target = scope:ztr_two_chinas_second_target
+				}
+				add_initiator_backers = {
+					c:CHI
+				}
+			}
+		}
+		c:CHI = {
+			set_variable = {
+				name = ztr_two_chinas_accord_cooldown
+				years = 2
+			}
+			change_relations = {
+				country = c:ZFC
+				value = 20
+			}
+		}
+		c:ZFC = {
+			set_variable = {
+				name = ztr_two_chinas_accord_cooldown
+				years = 2
+			}
+			change_relations = {
+				country = c:CHI
+				value = 20
+			}
+		}
+	}
+}
+
+ztr_communist_china_create_front = {
+	if = {
+		limit = {
+			NOT = {
+				exists = c:CHI
+			}
+		}
+		if = {
+			limit = {
+				NOT = {
+					has_modifier = ztr_ccp_long_march_legacy
+				}
+			}
+			add_modifier = {
+				name = ztr_ccp_long_march_legacy
+				years = 5
+			}
+		}
+		change_tag = CHI
+		ztr_communist_china_adopt_laws_and_loyalist = yes
+		set_global_variable = ztr_communist_china_created
+		ztr_communist_china_cleanup = yes
+	}
+	else_if = {
+		limit = {
+			exists = c:CHI
+			NOT = {
+				is_player = yes
+			}
+		}
+		c:CHI = {
+			annex = root
+		}
+	}
+	# Player will become communist CHI
+	else_if = {
+		limit = {
+			is_player = yes
+			NOT = {
+				c:CHI = this
+			}
+		}
+		custom_tooltip = {
+			text = ztr_tooltip_can_become_communist_chi_via_je
+			annex = c:CHI
+			change_tag = CHI
+			ztr_communist_china_adopt_laws_and_loyalist = yes
+			ztr_communist_china_cleanup = yes
+		}
+	}
+}

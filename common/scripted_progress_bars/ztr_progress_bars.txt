@@ -1,21 +1,16 @@
 liberty_index_progress_bar = {
 	name = "liberty_index_progress_bar"
 	desc = "liberty_index_progress_bar_desc"
-
 	default = yes
-
 	start_value = 50
 	min_value = 0
 	max_value = 100
-
 }
 
 equality_index_progress_bar = {
 	name = "equality_index_progress_bar"
 	desc = "equality_index_progress_bar_desc"
-
 	default_bad = yes
-
 	start_value = 50
 	min_value = 0
 	max_value = 100
@@ -24,9 +19,7 @@ equality_index_progress_bar = {
 ztr_russia_order_progress_bar = {
 	name = "ztr_russia_order_progress_bar"
 	desc = "ztr_russia_order_progress_bar_desc"
-
 	default_green = yes
-
 	#TODO Spostare il calcolo qui
 	# monthly_progress = {
 	# 	add = {
@@ -38,7 +31,6 @@ ztr_russia_order_progress_bar = {
 	# 		value = root.var:russia_liberal_order_var
 	# 	}
 	# }
-
 	start_value = 0
 	min_value = 0
 	max_value = 100
@@ -47,9 +39,7 @@ ztr_russia_order_progress_bar = {
 ztr_russia_revolution_progress_bar = {
 	name = "ztr_russia_revolution_progress_bar"
 	desc = "ztr_russia_revolution_progress_bar_desc"
-
 	default_bad = yes
-
 	#TODO Spostare il calcolo qui
 	# monthly_progress = {
 	# 	add = {
@@ -61,8 +51,778 @@ ztr_russia_revolution_progress_bar = {
 	# 		value = root.var:russia_communist_revolution_var
 	# 	}
 	# }
-
 	start_value = 0
 	min_value = 0
 	max_value = 100
+}
+
+ztr_china_corporate_progress_bar = {
+	name = "ztr_china_corporate_progress_bar"
+	desc = "ztr_china_corporate_progress_bar_desc"
+	default = yes
+	start_value = 0
+	min_value = 0
+	max_value = 100
+}
+
+ztr_china_federation_progress_bar = {
+	name = "ztr_china_federation_progress_bar"
+	desc = "ztr_china_federation_progress_bar_desc"
+	default_green = yes
+	start_value = 0
+	min_value = 0
+	max_value = 100
+}
+
+ztr_china_technoconfucian_progress_bar = {
+	name = "ztr_china_technoconfucian_progress_bar"
+	desc = "ztr_china_technoconfucian_progress_bar_desc"
+	default_bad = yes
+	start_value = 0
+	min_value = 0
+	max_value = 100
+}
+
+ztr_ccp_global_progress_bar = {
+	name = "ztr_ccp_global_progress_bar"
+	desc = "ztr_ccp_global_progress_bar_desc"
+	default_bad = yes
+	start_value = 0
+	min_value = 0
+	max_value = 100
+}
+
+# Demographic Stages
+
+ztr_demographic_0_to_1_progress_bar = {
+	name = "ztr_demographic_0_to_1_progress_bar"
+	desc = "ztr_demographic_0_to_1_progress_bar_desc"
+	default_green = yes
+	yearly_progress = {
+		if = {
+			limit = {
+				OR = {
+					NOT = { has_modifier = dev_0_country }
+					year > 1900
+				}
+			}
+			add = {
+				desc = "ztr_demographic_0_to_1_development_tt"
+				value = 0.3
+			}
+		}
+		if = {
+			limit = {
+				average_sol > 10
+			}
+			add = {
+				desc = "ztr_demographic_0_to_1_sol_tt"
+				value = 0.4
+			}
+		}
+		if = {
+			limit = {
+				literacy_rate > 0.3
+			}
+			add = {
+				desc = "ztr_demographic_0_to_1_literacy_tt"
+				value = 0.4
+			}
+		}
+		if = {
+			limit = {
+				OR = {
+					has_law = law_type:law_private_health_insurance
+					has_law = law_type:law_public_health_insurance
+				}
+			}
+			add = {
+				desc = "ztr_demographic_healthcare_tt"
+				value = 0.2
+			}
+		}
+		if = {
+			limit = {
+				OR = {
+					country_has_state_religion = rel:sunni
+					country_has_state_religion = rel:shiite
+					AND = {
+						exists = c:DEI
+						c:DEI = this
+					}
+					AND = {
+						exists = c:BIC
+						c:BIC = this
+					}
+				}
+			}
+			subtract = {
+				desc = "ztr_demographic_traditional_values_tt"
+				value = 0.1
+			}
+		}
+	}
+	start_value = 0
+	min_value = 0
+	max_value = 30
+}
+
+ztr_demographic_1_to_2_progress_bar = {
+	name = "ztr_demographic_1_to_2_progress_bar"
+	desc = "ztr_demographic_1_to_2_progress_bar_desc"
+	default_green = yes
+	yearly_progress = {
+		add = {
+			desc = "ztr_demographic_base_drift_tt"
+			value = 1
+		}
+		if = {
+			limit = {
+				NOT = { has_modifier = dev_0_country }
+				NOT = { has_modifier = dev_1_country }
+			}
+			add = {
+				desc = "ztr_demographic_1_to_2_development_tt"
+				value = 0.25
+			}
+		}
+		if = {
+			limit = {
+				average_sol > 12
+				year > 1870
+			}
+			add = {
+				desc = "ztr_demographic_1_to_2_sol_tt"
+				value = 0.4
+			}
+		}
+		if = {
+			limit = {
+				literacy_rate > 0.4
+				year > 1870
+			}
+			add = {
+				desc = "ztr_demographic_1_to_2_literacy_tt"
+				value = 0.4
+			}
+		}
+		if = {
+			limit = {
+				NOT = { has_law = law_type:law_slavery_banned }
+			}
+			subtract = {
+				desc = "ztr_demographic_slavery_tt"
+				value = 0.3
+			}
+		}
+		if = {
+			limit = {
+				OR = {
+					has_law = law_type:law_private_health_insurance
+					has_law = law_type:law_public_health_insurance
+				}
+			}
+			add = {
+				desc = "ztr_demographic_healthcare_tt"
+				value = 0.2
+			}
+		}
+		if = {
+			limit = {
+				OR = {
+					country_has_state_religion = rel:sunni
+					country_has_state_religion = rel:shiite
+					AND = {
+						exists = c:DEI
+						c:DEI = this
+					}
+					AND = {
+						exists = c:BIC
+						c:BIC = this
+					}
+				}
+			}
+			subtract = {
+				desc = "ztr_demographic_traditional_values_tt"
+				value = 0.1
+			}
+		}
+		if = {
+			limit = {
+				is_in_geographic_region = geographic_region_north_america
+			}
+			subtract = {
+				desc = "ztr_demographic_north_america_tt"
+				value = 0.5
+			}
+		}
+	}
+	start_value = 0
+	min_value = 0
+	max_value = 30
+}
+
+ztr_demographic_2_to_3_progress_bar = {
+	name = "ztr_demographic_2_to_3_progress_bar"
+	desc = "ztr_demographic_2_to_3_progress_bar_desc"
+	default_green = yes
+	yearly_progress = {
+		add = {
+			desc = "ztr_demographic_base_drift_tt"
+			value = 1
+		}
+		if = {
+			limit = {
+				NOT = { has_modifier = dev_0_country }
+				NOT = { has_modifier = dev_1_country }
+				NOT = { has_modifier = dev_2_country }
+			}
+			add = {
+				desc = "ztr_demographic_2_to_3_development_tt"
+				value = 0.25
+			}
+		}
+		if = {
+			limit = {
+				average_sol > 14
+				year > 1900
+			}
+			add = {
+				desc = "ztr_demographic_2_to_3_sol_tt"
+				value = 0.4
+			}
+		}
+		if = {
+			limit = {
+				literacy_rate > 0.5
+				year > 1900
+			}
+			add = {
+				desc = "ztr_demographic_2_to_3_literacy_tt"
+				value = 0.4
+			}
+		}
+		if = {
+			limit = {
+				NOT = { has_law = law_type:law_slavery_banned }
+			}
+			subtract = {
+				desc = "ztr_demographic_slavery_tt"
+				value = 0.2
+			}
+		}
+		if = {
+			limit = {
+				OR = {
+					has_law = law_type:law_private_health_insurance
+					has_law = law_type:law_public_health_insurance
+				}
+			}
+			add = {
+				desc = "ztr_demographic_healthcare_tt"
+				value = 0.2
+			}
+		}
+		if = {
+			limit = {
+				OR = {
+					has_law = law_type:law_multicultural
+					has_law = law_type:law_no_migration_controls
+				}
+				OR = {
+					total_population < 200000000
+					is_in_geographic_region = geographic_region_americas
+				}
+			}
+			subtract = {
+				desc = "ztr_demographic_2_to_3_immigration_tt"
+				value = 0.1
+			}
+		}
+		if = {
+			limit = {
+				OR = {
+					country_has_state_religion = rel:sunni
+					country_has_state_religion = rel:shiite
+					AND = {
+						exists = c:DEI
+						c:DEI = this
+					}
+					AND = {
+						exists = c:BIC
+						c:BIC = this
+					}
+				}
+			}
+			subtract = {
+				desc = "ztr_demographic_traditional_values_tt"
+				value = 0.1
+			}
+		}
+		if = {
+			limit = {
+				is_in_geographic_region = geographic_region_north_america
+			}
+			subtract = {
+				desc = "ztr_demographic_north_america_tt"
+				value = 0.6
+			}
+		}
+	}
+	start_value = 0
+	min_value = 0
+	max_value = 30
+}
+
+ztr_demographic_3_to_4_progress_bar = {
+	name = "ztr_demographic_3_to_4_progress_bar"
+	desc = "ztr_demographic_3_to_4_progress_bar_desc"
+	default_green = yes
+	yearly_progress = {
+		add = {
+			desc = "ztr_demographic_base_drift_tt"
+			value = 1
+		}
+		if = {
+			limit = {
+				NOT = { has_modifier = dev_0_country }
+				NOT = { has_modifier = dev_1_country }
+				NOT = { has_modifier = dev_2_country }
+				NOT = { has_modifier = dev_3_country }
+			}
+			add = {
+				desc = "ztr_demographic_3_to_4_development_tt"
+				value = 0.3
+			}
+		}
+		if = {
+			limit = {
+				average_sol > 16
+				year > 1930
+			}
+			add = {
+				desc = "ztr_demographic_3_to_4_sol_tt"
+				value = 0.4
+			}
+		}
+		if = {
+			limit = {
+				literacy_rate > 0.6
+				year > 1930
+			}
+			add = {
+				desc = "ztr_demographic_3_to_4_literacy_tt"
+				value = 0.4
+			}
+		}
+		if = {
+			limit = {
+				NOT = { has_law = law_type:law_slavery_banned }
+			}
+			subtract = {
+				desc = "ztr_demographic_slavery_tt"
+				value = 0.2
+			}
+		}
+		if = {
+			limit = {
+				OR = {
+					has_law = law_type:law_multicultural
+					has_law = law_type:law_no_migration_controls
+				}
+				OR = {
+					total_population < 200000000
+					is_in_geographic_region = geographic_region_americas
+				}
+			}
+			subtract = {
+				desc = "ztr_demographic_3_to_4_immigration_tt"
+				value = 0.2
+			}
+		}
+		if = {
+			limit = {
+				OR = {
+					has_law = law_type:law_private_health_insurance
+					has_law = law_type:law_public_health_insurance
+				}
+			}
+			add = {
+				desc = "ztr_demographic_advanced_healthcare_tt"
+				value = 0.1
+			}
+		}
+		if = {
+			limit = {
+				OR = {
+					country_has_state_religion = rel:sunni
+					country_has_state_religion = rel:shiite
+					AND = {
+						exists = c:DEI
+						c:DEI = this
+					}
+					AND = {
+						exists = c:BIC
+						c:BIC = this
+					}
+				}
+			}
+			subtract = {
+				desc = "ztr_demographic_traditional_values_tt"
+				value = 0.1
+			}
+		}
+		if = {
+			limit = {
+				is_in_geographic_region = geographic_region_north_america
+			}
+			subtract = {
+				desc = "ztr_demographic_north_america_tt"
+				value = 0.6
+			}
+		}
+	}
+	start_value = 0
+	min_value = 0
+	max_value = 30
+}
+
+ztr_demographic_4_to_5_progress_bar = {
+	name = "ztr_demographic_4_to_5_progress_bar"
+	desc = "ztr_demographic_4_to_5_progress_bar_desc"
+	default_green = yes
+	yearly_progress = {
+		add = {
+			desc = "ztr_demographic_base_drift_tt"
+			value = 1
+		}
+		if = {
+			limit = {
+				NOT = { has_modifier = dev_0_country }
+				NOT = { has_modifier = dev_1_country }
+				NOT = { has_modifier = dev_2_country }
+				NOT = { has_modifier = dev_3_country }
+				NOT = { has_modifier = dev_4_country }
+			}
+			add = {
+				desc = "ztr_demographic_4_to_5_development_tt"
+				value = 0.25
+			}
+		}
+		if = {
+			limit = {
+				OR = {
+					average_sol > 17
+					year > 1950
+				}
+			}
+			add = {
+				desc = "ztr_demographic_4_to_5_sol_tt"
+				value = 0.4
+			}
+		}
+		if = {
+			limit = {
+				OR = {
+					literacy_rate > 0.65
+					year > 1950
+				}
+			}
+			add = {
+				desc = "ztr_demographic_4_to_5_literacy_tt"
+				value = 0.4
+			}
+		}
+		if = {
+			limit = {
+				NOT = { has_law = law_type:law_slavery_banned }
+			}
+			subtract = {
+				desc = "ztr_demographic_slavery_tt"
+				value = 0.2
+			}
+		}
+		if = {
+			limit = {
+				OR = {
+					has_law = law_type:law_multicultural
+					has_law = law_type:law_no_migration_controls
+				}
+				OR = {
+					total_population < 200000000
+					is_in_geographic_region = geographic_region_americas
+				}
+			}
+			subtract = {
+				desc = "ztr_demographic_4_to_5_immigration_tt"
+				value = 0.4
+			}
+		}
+		if = {
+			limit = {
+				OR = {
+					has_law = law_type:law_private_health_insurance
+					has_law = law_type:law_public_health_insurance
+				}
+			}
+			add = {
+				desc = "ztr_demographic_advanced_healthcare_tt"
+				value = 0.1
+			}
+		}
+		if = {
+			limit = {
+				is_in_geographic_region = geographic_region_north_america
+			}
+			subtract = {
+				desc = "ztr_demographic_north_america_tt"
+				value = 0.6
+			}
+		}
+	}
+	start_value = 0
+	min_value = 0
+	max_value = 30
+}
+
+ztr_demographic_5_to_6_progress_bar = {
+	name = "ztr_demographic_5_to_6_progress_bar"
+	desc = "ztr_demographic_5_to_6_progress_bar_desc"
+	default_green = yes
+	yearly_progress = {
+		add = {
+			desc = "ztr_demographic_base_drift_tt"
+			value = 1
+		}
+		if = {
+			limit = {
+				NOT = { has_modifier = dev_0_country }
+				NOT = { has_modifier = dev_1_country }
+				NOT = { has_modifier = dev_2_country }
+				NOT = { has_modifier = dev_3_country }
+				NOT = { has_modifier = dev_4_country }
+			}
+			add = {
+				desc = "ztr_demographic_5_to_6_development_tt"
+				value = 0.25
+			}
+		}
+		if = {
+			limit = {
+				OR = {
+					average_sol > 18
+					year > 1960
+				}
+			}
+			add = {
+				desc = "ztr_demographic_5_to_6_sol_tt"
+				value = 0.4
+			}
+		}
+		if = {
+			limit = {
+				OR = {
+					literacy_rate > 0.7
+					year > 1960
+				}
+			}
+			add = {
+				desc = "ztr_demographic_5_to_6_literacy_tt"
+				value = 0.4
+			}
+		}
+		if = {
+			limit = {
+				NOT = { has_law = law_type:law_slavery_banned }
+			}
+			subtract = {
+				desc = "ztr_demographic_slavery_tt"
+				value = 0.2
+			}
+		}
+		if = {
+			limit = {
+				OR = {
+					has_law = law_type:law_multicultural
+					has_law = law_type:law_no_migration_controls
+				}
+				OR = {
+					total_population < 200000000
+					is_in_geographic_region = geographic_region_americas
+				}
+			}
+			subtract = {
+				desc = "ztr_demographic_5_to_6_immigration_tt"
+				value = 0.6
+			}
+		}
+		if = {
+			limit = {
+				OR = {
+					has_law = law_type:law_private_health_insurance
+					has_law = law_type:law_public_health_insurance
+				}
+			}
+			add = {
+				desc = "ztr_demographic_advanced_healthcare_tt"
+				value = 0.1
+			}
+		}
+		if = {
+			limit = {
+				is_in_geographic_region = geographic_region_north_america
+			}
+			subtract = {
+				desc = "ztr_demographic_north_america_tt"
+				value = 0.6
+			}
+		}
+	}
+	start_value = 0
+	min_value = 0
+	max_value = 30
+}
+
+ztr_demographic_6_to_7_progress_bar = {
+	name = "ztr_demographic_6_to_7_progress_bar"
+	desc = "ztr_demographic_6_to_7_progress_bar_desc"
+	default_green = yes
+	yearly_progress = {
+		add = {
+			desc = "ztr_demographic_base_drift_tt"
+			value = 1
+		}
+		if = {
+			limit = {
+				NOT = { has_modifier = dev_0_country }
+				NOT = { has_modifier = dev_1_country }
+				NOT = { has_modifier = dev_2_country }
+				NOT = { has_modifier = dev_3_country }
+				NOT = { has_modifier = dev_4_country }
+			}
+			add = {
+				desc = "ztr_demographic_6_to_7_development_tt"
+				value = 0.2
+			}
+		}
+		if = {
+			limit = {
+				year > 1970
+			}
+			add = {
+				desc = "ztr_demographic_post_1970_tt"
+				value = 0.5
+			}
+		}
+		if = {
+			limit = {
+				NOT = { has_law = law_type:law_slavery_banned }
+			}
+			subtract = {
+				desc = "ztr_demographic_late_slavery_tt"
+				value = 0.1
+			}
+		}
+		if = {
+			limit = {
+				ztr_gdp_per_capita > 20
+				OR = {
+					has_law = law_type:law_multicultural
+					has_law = law_type:law_no_migration_controls
+				}
+				OR = {
+					total_population < 200000000
+					is_in_geographic_region = geographic_region_americas
+				}
+			}
+			subtract = {
+				desc = "ztr_demographic_6_to_7_immigration_tt"
+				value = 0.8
+			}
+		}
+		if = {
+			limit = {
+				is_in_geographic_region = geographic_region_north_america
+			}
+			subtract = {
+				desc = "ztr_demographic_6_to_7_north_america_tt"
+				value = 0.5
+			}
+		}
+	}
+	start_value = 0
+	min_value = 0
+	max_value = 30
+}
+
+ztr_demographic_7_to_8_progress_bar = {
+	name = "ztr_demographic_7_to_8_progress_bar"
+	desc = "ztr_demographic_7_to_8_progress_bar_desc"
+	default_green = yes
+	yearly_progress = {
+		add = {
+			desc = "ztr_demographic_base_drift_tt"
+			value = 1
+		}
+		if = {
+			limit = {
+				NOT = { has_modifier = dev_0_country }
+				NOT = { has_modifier = dev_1_country }
+				NOT = { has_modifier = dev_2_country }
+				NOT = { has_modifier = dev_3_country }
+				NOT = { has_modifier = dev_4_country }
+			}
+			add = {
+				desc = "ztr_demographic_7_to_8_development_tt"
+				value = 0.2
+			}
+		}
+		if = {
+			limit = {
+				year > 1970
+			}
+			add = {
+				desc = "ztr_demographic_post_1970_tt"
+				value = 0.5
+			}
+		}
+		if = {
+			limit = {
+				NOT = { has_law = law_type:law_slavery_banned }
+			}
+			subtract = {
+				desc = "ztr_demographic_slavery_tt"
+				value = 0.2
+			}
+		}
+		if = {
+			limit = {
+				is_in_geographic_region = geographic_region_north_america
+			}
+			subtract = {
+				desc = "ztr_demographic_7_to_8_north_america_tt"
+				value = 0.4
+			}
+		}
+		if = {
+			limit = {
+				ztr_gdp_per_capita > 25
+				OR = {
+					has_law = law_type:law_multicultural
+					has_law = law_type:law_no_migration_controls
+				}
+				OR = {
+					total_population < 200000000
+					is_in_geographic_region = geographic_region_americas
+				}
+			}
+			subtract = {
+				desc = "ztr_demographic_7_to_8_reset_tt"
+				value = 30
+			}
+		}
+	}
+	start_value = 0
+	min_value = 0
+	max_value = 30
 }

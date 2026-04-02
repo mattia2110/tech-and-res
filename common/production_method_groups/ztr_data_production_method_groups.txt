@@ -2,7 +2,6 @@
 
 pmg_data_section_building_office = {
 	texture = "gfx/interface/icons/generic_icons/mixed_icon_base.dds"
-	ai_selection = most_productive
 
 	production_methods = {
 		pm_manual_market_studies
@@ -13,7 +12,6 @@ pmg_data_section_building_office = {
 
 pmg_service_section_building_office = {
 	texture = "gfx/interface/icons/generic_icons/mixed_icon_refining.dds"
-	ai_selection = most_productive
 
 	production_methods = {
 		pm_consulting_firm_services
@@ -24,13 +22,13 @@ pmg_service_section_building_office = {
 
 pmg_data_transportation_building_office = {
 	texture = "gfx/interface/icons/generic_icons/mixed_icon_automation.dds"
-	ai_selection = most_productive
 
 	production_methods = {
 		pm_typewriter_documentation_building_office
 		pm_teleprinter_network_building_office
 		pm_local_network_building_office
 		pm_internet_building_office
+		pm_smartworking_building_office
 	}
 }
 
@@ -38,19 +36,18 @@ pmg_data_transportation_building_office = {
 
 pmg_software_building_software_industry = {
 	texture = "gfx/interface/icons/generic_icons/mixed_icon_base.dds"
-	ai_selection = most_productive
 
 	production_methods = {
 		pm_coding_by_hand_building_software_industry
 		pm_integrated_development_environment_building_software_industry
 		pm_version_control_collaboration_building_software_industry
 		pm_cloud_based_devops_building_software_industry
+		pm_vibe_coding_building_software_industry
 	}
 }
 
 pmg_software_type_building_software_industry = {
 	texture = "gfx/interface/icons/generic_icons/mixed_icon_refining.dds"
-	ai_selection = most_productive
 
 	production_methods = {
 		pm_traditional_software_building_software_industry
@@ -63,7 +60,6 @@ pmg_software_type_building_software_industry = {
 
 pmg_interactive_media_building_interactive_media_industry = {
 	texture = "gfx/interface/icons/generic_icons/mixed_icon_base.dds"
-	ai_selection = most_productive
 
 	production_methods = {
 		pm_pixel_based_building_interactive_media_industry
@@ -76,7 +72,6 @@ pmg_interactive_media_building_interactive_media_industry = {
 
 pmg_base_building_datacenter = {
 	texture = "gfx/interface/icons/generic_icons/mixed_icon_base.dds"
-	ai_selection = most_productive
 
 	production_methods = {
 		pm_local_data_storage_building_datacenter
@@ -84,19 +79,28 @@ pmg_base_building_datacenter = {
 	}
 }
 
+pmg_ai_systems_building_datacenter = {
+	texture = "gfx/interface/icons/generic_icons/mixed_icon_refining.dds"
+
+	production_methods = {
+		pm_no_model_training
+		pm_neural_model_training
+		pm_generative_ai_models
+		pm_artificial_general_intelligence
+	}
+}
+
 pmg_automation_building_datacenter = {
 	texture = "gfx/interface/icons/generic_icons/mixed_icon_automation.dds"
-	ai_selection = most_productive
 
 	production_methods = {
 		pm_early_computer_server_building_datacenter
-		pm_mid_computer_server_building_datacenter
+		pm_late_computer_server_building_datacenter
 	}
 }
 
 pmg_data_transportation_building_datacenter = {
 	texture = "gfx/interface/icons/generic_icons/mixed_icon_automation.dds"
-	ai_selection = most_productive
 
 	production_methods = {
 		pm_local_network_building_datacenter
@@ -106,10 +110,23 @@ pmg_data_transportation_building_datacenter = {
 
 # Data I/O
 
+pmg_data_optimization_primary_sector_no_shopkeepers = {
+	texture = "gfx/interface/icons/generic_icons/mixed_icon_i_o.dds"
+	ai_selection = most_productive
+
+	production_methods = {
+		pm_manual_data_reporting_primary_sector
+		pm_manual_data_optimization_primary_sector
+		pm_digital_data_optimization_primary_sector
+		pm_digital_data_on_premises_primary_sector
+		pm_internet_data_reporting_primary_sector_no_shopkeepers
+		#pm_internet_data_optimization_primary_sector (Cloud in primary sector is not possible)
+	}
+}
+
 pmg_data_optimization_primary_sector = {
 	texture = "gfx/interface/icons/generic_icons/mixed_icon_i_o.dds"
 	ai_selection = most_productive
-	# ONLY IMPLEMENTED IN MINES AND OIL/GAS RIGS
 
 	production_methods = {
 		pm_manual_data_reporting_primary_sector
@@ -118,6 +135,20 @@ pmg_data_optimization_primary_sector = {
 		pm_digital_data_on_premises_primary_sector
 		pm_internet_data_reporting_primary_sector
 		#pm_internet_data_optimization_primary_sector (Cloud in primary sector is not possible)
+	}
+}
+
+pmg_data_optimization_light_industry_no_shopkeepers = {
+	texture = "gfx/interface/icons/generic_icons/mixed_icon_i_o.dds"
+	ai_selection = most_productive
+
+	production_methods = {
+		pm_manual_data_reporting_light_industry
+		pm_manual_data_optimization_light_industry
+		pm_digital_data_optimization_light_industry
+		pm_digital_data_on_premises_light_industry
+		pm_internet_data_reporting_light_industry_no_shopkeepers
+		pm_internet_data_optimization_light_industry_no_shopkeepers
 	}
 }
 
@@ -163,6 +194,20 @@ pmg_data_optimization_light_industry_paper = {
 	}
 }
 
+pmg_data_optimization_heavy_industry_no_shopkeepers = {
+	texture = "gfx/interface/icons/generic_icons/mixed_icon_i_o.dds"
+	ai_selection = most_productive
+
+	production_methods = {
+		pm_manual_data_reporting_heavy_industry
+		pm_manual_data_optimization_heavy_industry
+		pm_digital_data_optimization_heavy_industry
+		pm_digital_data_on_premises_heavy_industry
+		pm_internet_data_reporting_heavy_industry_no_shopkeepers
+		pm_internet_data_optimization_heavy_industry_no_shopkeepers
+	}
+}
+
 pmg_data_optimization_heavy_industry = {
 	texture = "gfx/interface/icons/generic_icons/mixed_icon_i_o.dds"
 	ai_selection = most_productive
@@ -177,15 +222,43 @@ pmg_data_optimization_heavy_industry = {
 	}
 }
 
-pmg_data_optimization_heavy_industry_processors = {
+pmg_data_optimization_heavy_industry_algorithmic_dispatch_no_shopkeepers = {
 	texture = "gfx/interface/icons/generic_icons/mixed_icon_i_o.dds"
 	ai_selection = most_productive
 
 	production_methods = {
 		pm_manual_data_reporting_heavy_industry
 		pm_manual_data_optimization_heavy_industry
-		pm_digital_data_optimization_heavy_industry_processors
-		pm_digital_data_on_premises_heavy_industry_processors
+		pm_digital_data_optimization_heavy_industry
+		pm_digital_data_on_premises_heavy_industry
+		pm_internet_data_reporting_heavy_industry_no_shopkeepers
+		pm_internet_data_algorithmic_dispatch_heavy_industry_no_shopkeepers
+	}
+}
+
+pmg_data_optimization_heavy_industry_algorithmic_dispatch = {
+	texture = "gfx/interface/icons/generic_icons/mixed_icon_i_o.dds"
+	ai_selection = most_productive
+
+	production_methods = {
+		pm_manual_data_reporting_heavy_industry
+		pm_manual_data_optimization_heavy_industry
+		pm_digital_data_optimization_heavy_industry
+		pm_digital_data_on_premises_heavy_industry
+		pm_internet_data_reporting_heavy_industry
+		pm_internet_data_algorithmic_dispatch_heavy_industry
+	}
+}
+
+pmg_data_optimization_heavy_industry_computer = {
+	texture = "gfx/interface/icons/generic_icons/mixed_icon_i_o.dds"
+	ai_selection = most_productive
+
+	production_methods = {
+		pm_manual_data_reporting_heavy_industry
+		pm_manual_data_optimization_heavy_industry
+		pm_digital_data_optimization_heavy_industry_computer
+		pm_digital_data_on_premises_heavy_industry_computer
 		pm_internet_data_reporting_heavy_industry
 		pm_internet_data_optimization_heavy_industry
 	}
@@ -201,7 +274,7 @@ pmg_data_optimization_heavy_industry_telecommunications = {
 		pm_digital_data_optimization_heavy_industry
 		pm_digital_data_on_premises_heavy_industry
 		pm_internet_data_reporting_heavy_industry_telecommunications
-		pm_internet_data_algorithmic_dispatch_heavy_industry_telecommunications
+		pm_internet_data_optimization_heavy_industry_telecommunications
 	}
 }
 
@@ -223,7 +296,6 @@ pmg_data_optimization_heavy_industry_software = {
 
 pmg_base_building_telecommunications = {
 	texture = "gfx/interface/icons/generic_icons/mixed_icon_refining.dds"
-	ai_selection = most_productive
 
 	production_methods = {
 		pm_manual_operators_network_building_telecommunications
@@ -235,7 +307,6 @@ pmg_base_building_telecommunications = {
 
 pmg_mobile_network_building_telecommunications = {
     texture = "gfx/interface/icons/generic_icons/mixed_icon_wireless.dds"
-    ai_selection = most_productive
 
     production_methods = {
         pm_no_mobile_network
@@ -253,6 +324,7 @@ pmg_delivery_mode_building_ecommerce_logistics = {
 		pm_local_courier_network         # reti locali (telefono/pager) (Qui pochissima robotica, normali telefoni e pochi componenti elettronici)
 		pm_platform_gig_delivery             # piattaforme on-demand (Qui poca robotica, pochi telefoni, pochi computer)
 		pm_integrated_retail_ecommerce       # integrazione completo retail+online (Qui tanta robotica, normali telefoni e computer)
+		pm_predictive_fulfilment_network
 	}
 }
 
@@ -269,18 +341,6 @@ pmg_fulfilment_model_building_ecommerce_logistics = {
 	}
 }
 
-# Dispatch & ottimizzazione (software/organizzazione)
-pmg_data_optimization_building_ecommerce_logistics = {
-	texture = "gfx/interface/icons/generic_icons/mixed_icon_i_o.dds"
-	production_methods = {
-		pm_manual_data_reporting_heavy_industry
-		pm_manual_data_optimization_heavy_industry
-		pm_digital_data_optimization_heavy_industry
-		pm_internet_data_reporting_heavy_industry
-		pm_internet_data_algorithmic_dispatch_heavy_industry             # matching algoritmico dinamico pm_internet_data_optimization_heavy_industry_software
-	}
-}
-
 # Powertrain e mezzi per l'ultimo miglio
 pmg_transport_building_ecommerce_logistics = {
 	texture = "gfx/interface/icons/generic_icons/mixed_icon_automation.dds"
@@ -288,6 +348,6 @@ pmg_transport_building_ecommerce_logistics = {
 		pm_bike_scooter_transportation           # bike/scooter ICE (carburanti) richiede pm_light_store_pickup
 		pm_drone_last_mile         # droni per tratte leggere richiede pm_light_store_pickup
 		pm_truck_van_transportation         # furgoni/camion ICE (carburanti)
-		#pm_automatized_truck_van_transportation # automatizzati
+		pm_autonomous_truck_van_transportation # automatizzati
 	}
 }

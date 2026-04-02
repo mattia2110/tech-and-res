@@ -1,0 +1,53 @@
+﻿# Witkowitzer Bergbau- und Hüttengewerkschaft
+REPLACE:company_witkowitzer_bergbau_und_huttengewerkschaft = {
+	icon = "gfx/interface/icons/company_icons/historical_company_icons/company_witkowitzer_bergbau_und_huttengewerkschaft.dds"
+	background = "gfx/interface/icons/company_icons/company_backgrounds/comp_illu_mining.dds"
+
+	flavored_company = yes
+
+	building_types = {
+		building_coal_mine
+		building_iron_mine
+	}
+
+	extension_building_types = {
+		building_lead_mine
+		building_sulfur_mine
+		building_copper_mine
+		building_commonores_mine
+	}
+
+	potential = {
+		has_interest_marker_in_region = region_south_germany
+		has_dlc_feature = ip3_content
+	}
+
+	attainable = {
+	}
+
+	possible = {
+		any_scope_state = {
+			OR = {
+				state_region = s:STATE_MORAVIA
+				state_region = s:STATE_UPPER_SILESIA
+			}
+			is_incorporated = yes
+			any_scope_building = {
+				OR = {
+					is_building_type = building_coal_mine
+					is_building_type = building_iron_mine
+				}
+				level >= 5
+			}
+		}
+	}
+
+	prosperity_modifier = {
+		building_construction_sector_throughput_add = 0.05
+		building_power_plant_throughput_add = 0.1
+	}
+
+	ai_weight = {
+		value = 3 # Higher base value for flavored companies
+	}
+}

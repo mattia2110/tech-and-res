@@ -1,0 +1,185 @@
+namespace = ztr_arable_land
+
+# This event represent a land reclamation driven by rampant unemployment.
+# The first reason for this is to help Asian countries with overpopulation and unemployment adter 1936
+# but it can also happen in other countries with high unemployment and low GDP per capita to make it a general event.
+
+ztr_arable_land.1 = {
+	dlc = dlc_tech_res
+	type = country_event
+	placement = ROOT
+	event_image = {
+		video = "europenorthamerica_russian_serfs"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	icon = "gfx/interface/icons/event_icons/nitrogen_fixation.dds"
+
+	title = ztr_arable_land.1.t
+	desc = ztr_arable_land.1.d
+
+
+	duration = 1
+
+	trigger = {
+		has_technology_researched = improved_fertilizer
+		get_country_gdp_per < 7 # Developing couuntry
+		country_rank >= rank_value:minor_power # We don't want dwarf failed states to abuse this
+
+		# Young ignorant unemployed population, so more likely to be productive and to believe erroneously in the possibility of improving their life through hard work
+		OR = {
+			AND = {
+				has_modifier = demographic_stage_0
+				literacy_rate < 0.6
+			}
+			AND = {
+				has_modifier = demographic_stage_1
+				literacy_rate < 0.5
+			}
+			AND = {
+				has_modifier = demographic_stage_2
+				literacy_rate < 0.3
+			}
+		}
+		any_scope_state = {
+			state_region = {
+				OR = {
+					NOT = { has_variable = ztr_received_arable_land_boost }
+					var:ztr_received_arable_land_boost < 16 # No more than 15 boosts and one each year, which is like + 80 % of arable land max
+				}
+			}
+			state_population > 500000 # It should not be a state with very small population, otherwise the boost would be too big
+			state_unemployment_rate > 0.07 # 20% of unemploynment is almost 7% of the total population
+			count > 0
+		}
+	}
+
+	# All of this is in immediate to avoid duplicate events in state regions divided by two countries
+	immediate = {
+		every_scope_state = {
+			limit = {
+				state_region = {
+					OR = {
+						NOT = { has_variable = ztr_received_arable_land_boost }
+						var:ztr_received_arable_land_boost < 16 # No more than 15 boosts and one each year, which is like + 80 % of arable land max
+					}
+				}
+				state_population > 500000
+				state_unemployment_rate > 0.07 # 20% of unemployment is almost 7% of the total population
+			}
+			state_region = {
+				add_arable_land = ztr_arable_land_to_four_percent
+				if = {
+					limit = {
+						has_variable = ztr_received_arable_land_boost
+					}
+					change_variable = {
+						name = ztr_received_arable_land_boost
+						add = 1
+					}
+				}
+				else = {
+					set_variable = {
+						name = ztr_received_arable_land_boost
+						value = 1
+					}
+				}
+			}
+			add_modifier = {
+				name = land_reclamation_struggle_modifier
+				months = 8
+			}
+		}
+	}
+
+	option = {
+		name = ztr_arable_land.1.a
+		default_option = yes
+		custom_tooltip = ztr_arable_land_tt
+	}
+}
+
+# This one instead represent a land reclamation driven by the recent innovations in agriculture, which make it possible to cultivate previously uncultivable land.
+# This will happen only with green revolution tech.
+
+ztr_arable_land.2 = {
+	dlc = dlc_tech_res
+	type = country_event
+	placement = ROOT
+	event_image = {
+		video = "africa_prosperous_farm"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	icon = "gfx/interface/icons/event_icons/nitrogen_fixation.dds"
+
+	title = ztr_arable_land.2.t
+	desc = ztr_arable_land.2.d
+
+
+	duration = 1
+
+	trigger = {
+		has_technology_researched = green_revolution
+		any_scope_state = {
+			is_incorporated = yes
+			state_region = {
+				NOT = { has_variable = ztr_received_arable_land_boost_from_green_revolution }
+			}
+			count > 0
+		}
+		get_country_gdp_per > 2 # Not a poor country
+	}
+
+	# All of this is in immediate to avoid duplicate events in state regions divided by two countries
+	immediate = {
+		every_scope_state = {
+			limit = {
+				is_incorporated = yes
+				state_region = {
+					NOT = { has_variable = ztr_received_arable_land_boost_from_green_revolution }
+				}
+			}
+			# Here we give higher advantage to African, Latin American, Oceanian and South East Asian states since are tropical or less human made
+			state_region = {
+				if = {
+					limit = {
+						OR = {
+							is_in_geographic_region = geographic_region_central_america
+							is_in_geographic_region = geographic_region_south_america
+							is_in_geographic_region = geographic_region_oceania
+							is_in_geographic_region = geographic_region_africa
+							is_in_geographic_region = geographic_region_south_east_asia
+						}
+					}
+					add_arable_land = ztr_arable_land_to_add_thirtythree_percent # Some of this will be moved to tropical deforestation events			
+				}
+				# Here we give a small boost to North America, India, East Asia, and the Middle East since they are more developed or have more human made land, but they also have too much population or wide empty areas that can be cultivated
+				else_if = {
+					limit = {
+						OR = {
+							is_in_geographic_region = geographic_region_north_america
+							is_in_geographic_region = geographic_region_india
+							is_in_geographic_region = geographic_region_east_asia
+							is_in_geographic_region = geographic_region_middle_east
+						}
+					}
+					add_arable_land = ztr_arable_land_to_add_twenty_percent
+				}
+				# This is for other regions not specified above
+				else = {
+					add_arable_land = ztr_arable_land_to_add_ten_percent
+				}
+				set_variable = ztr_received_arable_land_boost_from_green_revolution				
+			}
+		}
+	}
+
+	option = {
+		name = ztr_arable_land.2.a
+		default_option = yes
+		custom_tooltip = ztr_arable_land_tt
+	}
+}

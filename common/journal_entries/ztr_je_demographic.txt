@@ -1,6 +1,7 @@
 je_demographic_0_to_1 = {
 	icon = "gfx/interface/icons/event_icons/medical_degrees.dds"
 	group = je_group_technology
+	should_be_pinned_by_default = yes
 
 	is_shown_when_inactive = {
 	}
@@ -8,90 +9,20 @@ je_demographic_0_to_1 = {
 	possible = {
 	}
 
-	immediate = {
-		set_variable = {
-			name = demographic_stage_var
-			value = 0
-		}
-	}
-
-	on_yearly_pulse = {
-		effect = {
-			# Country parameters conditions
-			if = {
-				limit = {
-					OR = {
-						NOT = { has_modifier = dev_0_country }
-						year > 1900
-					}
-				}
-				change_variable = {
-					name = demographic_stage_var
-					add = 0.4
-				}
-			}
-			if = {
-				limit = {
-					average_sol > 10
-				}
-				change_variable = {
-					name = demographic_stage_var
-					add = 0.4
-				}
-			}
-			if = {
-				limit = {
-					literacy_rate > 0.3
-				}
-				change_variable = {
-					name = demographic_stage_var
-					add = 0.4
-				}
-			}
-			if = {
-				limit = {
-					OR = {
-						has_law = law_type:law_private_health_insurance
-						has_law = law_type:law_public_health_insurance
-					}
-				}
-				change_variable = {
-					name = demographic_stage_var
-					add = 0.2
-				}
-			}
-			# Flavor conditions
-			if = {
-				limit = {
-					OR = {
-						country_has_state_religion = rel:sunni
-						country_has_state_religion = rel:shiite
-						AND = {
-							exists = c:DEI
-							c:DEI = this #Since Dutch East Indies is prostestant, but actually Indonesia is muslim
-						}
-						AND = {
-							exists = c:BIC
-							c:BIC = this #Since British Indian Ocean Territory is protestant, but actually Pakistan and Bangladesh are muslim
-						}
-					}
-				}
-				change_variable = {
-					name = demographic_stage_var
-					subtract = 0.2
-				}
-			}
-		}
-	}
+	scripted_progress_bar = ztr_demographic_0_to_1_progress_bar
 
 	complete = {
-		scope:journal_entry = { is_goal_complete = yes }
+		custom_tooltip = {
+			text = ztr_demographic_stage_complete_tt
+			scope:journal_entry ?= {
+				"scripted_bar_progress(ztr_demographic_0_to_1_progress_bar)" >= 30
+			}
+		}
 	}
 
 	on_complete = {
 		remove_state_demographic_modifier = yes
 		add_modifier = demographic_stage_1
-		remove_variable = demographic_stage_var
 		add_journal_entry = {
 			type = je_demographic_1_to_2
 		}
@@ -99,26 +30,13 @@ je_demographic_0_to_1 = {
 
 	transferable = no
 
-	current_value = {
-		value = var:demographic_stage_var
-	}
-
-	goal_add_value = {
-		value = 30
-	}
-
-	# modifiers_while_active = {
-	# 	demographic_stage_0
-	# }
-
-	progressbar = yes
-
 	weight = 1
 }
 
 je_demographic_1_to_2 = {
 	icon = "gfx/interface/icons/event_icons/medical_degrees.dds"
 	group = je_group_technology
+	should_be_pinned_by_default = yes
 
 	is_shown_when_inactive = {
 	}
@@ -126,122 +44,20 @@ je_demographic_1_to_2 = {
 	possible = {
 	}
 
-	immediate = {
-		set_variable = {
-			name = demographic_stage_var
-			value = 0
-		}
-	}
-
-	on_yearly_pulse = {
-		effect = {
-			change_variable = {
-				name = demographic_stage_var
-				add = 1
-			}
-			if = {
-				limit = {
-					year > 1950
-				}
-				change_variable = {
-					name = demographic_stage_var
-					add = 0.5
-				}
-			}
-			# Country parameters condition
-			if = {
-				limit = {
-					NOT = { has_modifier = dev_0_country }
-					NOT = { has_modifier = dev_1_country }					
-				}
-				change_variable = {
-					name = demographic_stage_var
-					add = 0.25
-				}
-			}
-			if = {
-				limit = {
-					average_sol > 12
-					year > 1870
-				}
-				change_variable = {
-					name = demographic_stage_var
-					add = 0.4
-				}
-			}
-			if = {
-				limit = {
-					literacy_rate > 0.4
-					year > 1870
-				}
-				change_variable = {
-					name = demographic_stage_var
-					add = 0.4
-				}
-			}
-			# Laws conditions
-			if = {
-				limit = {
-					NOT = { has_law = law_type:law_slavery_banned }
-				}
-				change_variable = {
-					name = demographic_stage_var
-					subtract = 0.3
-				}
-			}
-			if = {
-				limit = {
-					OR = {
-						has_law = law_type:law_private_health_insurance
-						has_law = law_type:law_public_health_insurance
-					}
-				}
-				change_variable = {
-					name = demographic_stage_var
-					add = 0.2
-				}
-			}
-			# Flavor conditions
-			if = {
-				limit = {
-					OR = {
-						country_has_state_religion = rel:sunni
-						country_has_state_religion = rel:shiite
-						AND = {
-							exists = c:DEI
-							c:DEI = this #Since Dutch East Indies is prostestant, but actually Indonesia is muslim
-						}
-						AND = {
-							exists = c:BIC
-							c:BIC = this #Since British Indian Ocean Territory is protestant, but actually Pakistan and Bangladesh are Muslim
-						}
-					}
-				}
-				change_variable = {
-					name = demographic_stage_var
-					subtract = 0.2
-				}
-			}
-			if = {
-				limit = {
-					country_is_in_north_america = yes
-				}
-				change_variable = {
-					name = demographic_stage_var
-					subtract = 0.5
-				}
-			}
-		}
-	}
+	scripted_progress_bar = ztr_demographic_1_to_2_progress_bar
 
 	complete = {
-		scope:journal_entry = { is_goal_complete = yes }
+		custom_tooltip = {
+			text = ztr_demographic_stage_complete_tt
+			scope:journal_entry ?= {
+				"scripted_bar_progress(ztr_demographic_1_to_2_progress_bar)" >= 30
+			}
+		}
 	}
 
 	on_complete = {
 		remove_state_demographic_modifier = yes
 		add_modifier = demographic_stage_2
-		remove_variable = demographic_stage_var
 		add_journal_entry = {
 			type = je_demographic_2_to_3
 		}
@@ -249,26 +65,13 @@ je_demographic_1_to_2 = {
 
 	transferable = no
 
-	current_value = {
-		value = var:demographic_stage_var
-	}
-
-	goal_add_value = {
-		value = 30
-	}
-
-	# modifiers_while_active = {
-	# 	demographic_stage_1
-	# }
-
-	progressbar = yes
-
 	weight = 1
 }
 
 je_demographic_2_to_3 = {
 	icon = "gfx/interface/icons/event_icons/medical_degrees.dds"
 	group = je_group_technology
+	should_be_pinned_by_default = yes
 
 	is_shown_when_inactive = {
 	}
@@ -276,139 +79,20 @@ je_demographic_2_to_3 = {
 	possible = {
 	}
 
-	immediate = {
-		set_variable = {
-			name = demographic_stage_var
-			value = 0
-		}
-	}
-
-	on_yearly_pulse = {
-		effect = {
-			change_variable = {
-				name = demographic_stage_var
-				add = 1
-			}
-			if = {
-				limit = {
-					year > 1980
-				}
-				change_variable = {
-					name = demographic_stage_var
-					add = 0.5
-				}
-			}
-			# Country parameters conditions
-			if = {
-				limit = {
-					NOT = { has_modifier = dev_0_country }
-					NOT = { has_modifier = dev_1_country }
-					NOT = { has_modifier = dev_2_country }
-				}
-				change_variable = {
-					name = demographic_stage_var
-					add = 0.25
-				}
-			}
-			if = {
-				limit = {
-					average_sol > 14
-					year > 1900
-				}
-				change_variable = {
-					name = demographic_stage_var
-					add = 0.4
-				}
-			}
-			if = {
-				limit = {
-					literacy_rate > 0.5
-					year > 1900
-				}
-				change_variable = {
-					name = demographic_stage_var
-					add = 0.4
-				}
-			}
-			# Laws conditions
-			if = {
-				limit = {
-					NOT = { has_law = law_type:law_slavery_banned }
-				}
-				change_variable = {
-					name = demographic_stage_var
-					subtract = 0.2
-				}
-			}
-			if = {
-				limit = {
-					OR = {
-						has_law = law_type:law_private_health_insurance
-						has_law = law_type:law_public_health_insurance
-					}
-				}
-				change_variable = {
-					name = demographic_stage_var
-					add = 0.2
-				}
-			}
-			if = {
-				limit = {
-					OR = {
-						has_law = law_type:law_multicultural
-						has_law = law_type:law_no_migration_controls
-					}
-					OR = {
-						total_population < 200000000
-						country_is_in_americas = yes #Americas are a special case due to the fact that they are countries of immigrants, but they still have to have one of the two laws activated.
-					}
-				}
-				change_variable = {
-					name = demographic_stage_var
-					subtract = 0.1
-				}
-			}
-			# Flavor conditions
-			if = {
-				limit = {
-					OR = {
-						country_has_state_religion = rel:sunni
-						country_has_state_religion = rel:shiite
-						AND = {
-							exists = c:DEI
-							c:DEI = this #Since Dutch East Indies is prostestant, but actually Indonesia is muslim
-						}
-						AND = {
-							exists = c:BIC
-							c:BIC = this #Since British Indian Ocean Territory is protestant, but actually Pakistan and Bangladesh are Muslim
-						}
-					}
-				}
-				change_variable = {
-					name = demographic_stage_var
-					subtract = 0.2
-				}
-			}
-			if = {
-				limit = {
-					country_is_in_north_america = yes
-				}
-				change_variable = {
-					name = demographic_stage_var
-					subtract = 0.5
-				}
-			}
-		}
-	}
+	scripted_progress_bar = ztr_demographic_2_to_3_progress_bar
 
 	complete = {
-		scope:journal_entry = { is_goal_complete = yes }
+		custom_tooltip = {
+			text = ztr_demographic_stage_complete_tt
+			scope:journal_entry ?= {
+				"scripted_bar_progress(ztr_demographic_2_to_3_progress_bar)" >= 30
+			}
+		}
 	}
 
 	on_complete = {
 		remove_state_demographic_modifier = yes
 		add_modifier = demographic_stage_3
-		remove_variable = demographic_stage_var
 		add_journal_entry = {
 			type = je_demographic_3_to_4
 		}
@@ -416,26 +100,13 @@ je_demographic_2_to_3 = {
 
 	transferable = no
 
-	current_value = {
-		value = var:demographic_stage_var
-	}
-
-	goal_add_value = {
-		value = 30
-	}
-
-	# modifiers_while_active = {
-	# 	demographic_stage_2
-	# }
-
-	progressbar = yes
-
 	weight = 1
 }
 
 je_demographic_3_to_4 = {
 	icon = "gfx/interface/icons/event_icons/medical_degrees.dds"
 	group = je_group_technology
+	should_be_pinned_by_default = yes
 
 	is_shown_when_inactive = {
 	}
@@ -443,140 +114,20 @@ je_demographic_3_to_4 = {
 	possible = {
 	}
 
-	immediate = {
-		set_variable = {
-			name = demographic_stage_var
-			value = 0
-		}
-	}
-
-	on_yearly_pulse = {
-		effect = {
-			change_variable = {
-				name = demographic_stage_var
-				add = 1
-			}
-			if = {
-				limit = {
-					year > 2000
-				}
-				change_variable = {
-					name = demographic_stage_var
-					add = 0.5
-				}
-			}
-			# Country parameters conditions
-			if = {
-				limit = {
-					NOT = { has_modifier = dev_0_country }
-					NOT = { has_modifier = dev_1_country }
-					NOT = { has_modifier = dev_2_country }
-					NOT = { has_modifier = dev_3_country }
-				}
-				change_variable = {
-					name = demographic_stage_var
-					add = 0.3
-				}
-			}
-			if = {
-				limit = {
-					average_sol > 16
-					year > 1930
-				}
-				change_variable = {
-					name = demographic_stage_var
-					add = 0.4
-				}
-			}
-			if = {
-				limit = {
-					literacy_rate > 0.6
-					year > 1930
-				}
-				change_variable = {
-					name = demographic_stage_var
-					add = 0.4
-				}
-			}
-			# Laws conditions
-			if = {
-				limit = {
-					NOT = { has_law = law_type:law_slavery_banned }
-				}
-				change_variable = {
-					name = demographic_stage_var
-					subtract = 0.2
-				}
-			}
-			if = {
-				limit = {
-					OR = {
-						has_law = law_type:law_multicultural
-						has_law = law_type:law_no_migration_controls
-					}
-					OR = {
-						total_population < 200000000
-						country_is_in_americas = yes #Americas are a special case due to the fact that they are countries of immigrants, but they still have to have one of the two laws activated.
-					}
-				}
-				change_variable = {
-					name = demographic_stage_var
-					subtract = 0.2
-				}
-			}
-			if = {
-				limit = {
-					OR = {
-						has_law = law_type:law_private_health_insurance
-						has_law = law_type:law_public_health_insurance
-					}
-				}
-				change_variable = {
-					name = demographic_stage_var
-					add = 0.1
-				}
-			}
-			# Flavor conditions
-			if = {
-				limit = {
-					OR = {
-						country_has_state_religion = rel:sunni
-						country_has_state_religion = rel:shiite
-						AND = {
-							exists = c:DEI
-							c:DEI = this #Since Dutch East Indies is prostestant, but actually Indonesia is muslim
-						}
-						AND = {
-							exists = c:BIC
-							c:BIC = this #Since British Indian Ocean Territory is protestant, but actually Pakistan and Bangladesh are Muslim
-						}
-					}
-				}
-				change_variable = {
-					name = demographic_stage_var
-					subtract = 0.2
-				}
-			}
-			if = {
-				limit = {
-					country_is_in_north_america = yes
-				}
-				change_variable = {
-					name = demographic_stage_var
-					subtract = 0.5
-				}
-			}
-		}
-	}
+	scripted_progress_bar = ztr_demographic_3_to_4_progress_bar
 
 	complete = {
-		scope:journal_entry = { is_goal_complete = yes }
+		custom_tooltip = {
+			text = ztr_demographic_stage_complete_tt
+			scope:journal_entry ?= {
+				"scripted_bar_progress(ztr_demographic_3_to_4_progress_bar)" >= 30
+			}
+		}
 	}
 
 	on_complete = {
 		remove_state_demographic_modifier = yes
 		add_modifier = demographic_stage_4
-		remove_variable = demographic_stage_var
 		add_journal_entry = {
 			type = je_demographic_4_to_5
 		}
@@ -584,26 +135,13 @@ je_demographic_3_to_4 = {
 
 	transferable = no
 
-	current_value = {
-		value = var:demographic_stage_var
-	}
-
-	goal_add_value = {
-		value = 30
-	}
-
-	# modifiers_while_active = {
-	# 	demographic_stage_3
-	# }
-
-	progressbar = yes
-
 	weight = 1
 }
 
 je_demographic_4_to_5 = {
 	icon = "gfx/interface/icons/event_icons/medical_degrees.dds"
 	group = je_group_technology
+	should_be_pinned_by_default = yes
 
 	is_shown_when_inactive = {
 	}
@@ -611,116 +149,20 @@ je_demographic_4_to_5 = {
 	possible = {
 	}
 
-	immediate = {
-		set_variable = {
-			name = demographic_stage_var
-			value = 0
-		}
-	}
-
-	on_yearly_pulse = {
-		effect = {
-			change_variable = {
-				name = demographic_stage_var
-				add = 1
-			}
-			# Country parameters conditions
-			if = {
-				limit = {
-					NOT = { has_modifier = dev_0_country }
-					NOT = { has_modifier = dev_1_country }
-					NOT = { has_modifier = dev_2_country }
-					NOT = { has_modifier = dev_3_country }
-					NOT = { has_modifier = dev_4_country }
-				}
-				change_variable = {
-					name = demographic_stage_var
-					add = 0.25
-				}
-			}
-			if = {
-				limit = {
-					OR = {
-						average_sol > 17
-						year > 1950
-					}
-				}
-				change_variable = {
-					name = demographic_stage_var
-					add = 0.4
-				}
-			}
-			if = {
-				limit = {
-					OR = {
-						literacy_rate > 0.65
-						year > 1950
-					}
-				}
-				change_variable = {
-					name = demographic_stage_var
-					add = 0.4
-				}
-			}
-			# Laws conditions
-			if = {
-				limit = {
-					NOT = { has_law = law_type:law_slavery_banned }
-				}
-				change_variable = {
-					name = demographic_stage_var
-					subtract = 0.2
-				}
-			}
-			if = {
-				limit = {
-					OR = {
-						has_law = law_type:law_multicultural
-						has_law = law_type:law_no_migration_controls
-					}
-					OR = {
-						total_population < 200000000
-						country_is_in_americas = yes #Americas are a special case due to the fact that they are countries of immigrants, but they still have to have one of the two laws activated.
-					}
-				}
-				change_variable = {
-					name = demographic_stage_var
-					subtract = 0.3
-				}
-			}
-			if = {
-				limit = {
-					OR = {
-						has_law = law_type:law_private_health_insurance
-						has_law = law_type:law_public_health_insurance
-					}
-				}
-				change_variable = {
-					name = demographic_stage_var
-					add = 0.1
-				}
-			}
-			# Flavor conditions (Sunni in advanced demographic stage do not have this bonus)
-			if = {
-				limit = {
-					country_is_in_north_america = yes
-				}
-				change_variable = {
-					name = demographic_stage_var
-					subtract = 0.5
-				}
-			}
-		}
-	}
+	scripted_progress_bar = ztr_demographic_4_to_5_progress_bar
 
 	complete = {
-		scope:journal_entry = { is_goal_complete = yes }
+		custom_tooltip = {
+			text = ztr_demographic_stage_complete_tt
+			scope:journal_entry ?= {
+				"scripted_bar_progress(ztr_demographic_4_to_5_progress_bar)" >= 30
+			}
+		}
 	}
 
 	on_complete = {
 		remove_state_demographic_modifier = yes
 		add_modifier = demographic_stage_5
-		remove_variable = demographic_stage_var
 		add_journal_entry = {
 			type = je_demographic_5_to_6
 		}
@@ -728,26 +170,13 @@ je_demographic_4_to_5 = {
 
 	transferable = no
 
-	current_value = {
-		value = var:demographic_stage_var
-	}
-
-	goal_add_value = {
-		value = 30
-	}
-
-	# modifiers_while_active = {
-	# 	demographic_stage_4
-	# }
-
-	progressbar = yes
-
 	weight = 1
 }
 
 je_demographic_5_to_6 = {
 	icon = "gfx/interface/icons/event_icons/medical_degrees.dds"
 	group = je_group_technology
+	should_be_pinned_by_default = yes
 
 	is_shown_when_inactive = {
 	}
@@ -755,116 +184,20 @@ je_demographic_5_to_6 = {
 	possible = {
 	}
 
-	immediate = {
-		set_variable = {
-			name = demographic_stage_var
-			value = 0
-		}
-	}
-
-	on_yearly_pulse = {
-		effect = {
-			change_variable = {
-				name = demographic_stage_var
-				add = 1
-			}
-			# Country parameters conditions
-			if = {
-				limit = {
-					NOT = { has_modifier = dev_0_country }
-					NOT = { has_modifier = dev_1_country }
-					NOT = { has_modifier = dev_2_country }
-					NOT = { has_modifier = dev_3_country }
-					NOT = { has_modifier = dev_4_country }
-				}
-				change_variable = {
-					name = demographic_stage_var
-					add = 0.25
-				}
-			}
-			if = {
-				limit = {
-					OR = {
-						average_sol > 18
-						year > 1960
-					}
-				}
-				change_variable = {
-					name = demographic_stage_var
-					add = 0.4
-				}
-			}
-			if = {
-				limit = {
-					OR = {
-						literacy_rate > 0.7
-						year > 1960
-					}
-				}
-				change_variable = {
-					name = demographic_stage_var
-					add = 0.4
-				}
-			}
-			# Laws conditions
-			if = {
-				limit = {
-					NOT = { has_law = law_type:law_slavery_banned }
-				}
-				change_variable = {
-					name = demographic_stage_var
-					subtract = 0.2
-				}
-			}
-			if = {
-				limit = {
-					OR = {
-						has_law = law_type:law_multicultural
-						has_law = law_type:law_no_migration_controls
-					}
-					OR = {
-						total_population < 200000000
-						country_is_in_americas = yes #Americas are a special case due to the fact that they are countries of immigrants, but they still have to have one of the two laws activated.
-					}
-				}
-				change_variable = {
-					name = demographic_stage_var
-					subtract = 0.5
-				}
-			}
-			if = {
-				limit = {
-					OR = {
-						has_law = law_type:law_private_health_insurance
-						has_law = law_type:law_public_health_insurance
-					}
-				}
-				change_variable = {
-					name = demographic_stage_var
-					add = 0.1
-				}
-			}
-			# Flavor conditions Flavor conditions (Sunni in advanced demographic stage do not have this bonus)
-			if = {
-				limit = {
-					country_is_in_north_america = yes
-				}
-				change_variable = {
-					name = demographic_stage_var
-					subtract = 0.5
-				}
-			}
-		}
-	}
+	scripted_progress_bar = ztr_demographic_5_to_6_progress_bar
 
 	complete = {
-		scope:journal_entry = { is_goal_complete = yes }
+		custom_tooltip = {
+			text = ztr_demographic_stage_complete_tt
+			scope:journal_entry ?= {
+				"scripted_bar_progress(ztr_demographic_5_to_6_progress_bar)" >= 30
+			}
+		}
 	}
 
 	on_complete = {
 		remove_state_demographic_modifier = yes
 		add_modifier = demographic_stage_6
-		remove_variable = demographic_stage_var
 		add_journal_entry = {
 			type = je_demographic_6_to_7
 		}
@@ -872,26 +205,13 @@ je_demographic_5_to_6 = {
 
 	transferable = no
 
-	current_value = {
-		value = var:demographic_stage_var
-	}
-
-	goal_add_value = {
-		value = 30
-	}
-
-	# modifiers_while_active = {
-	# 	demographic_stage_5
-	# }
-
-	progressbar = yes
-
 	weight = 1
 }
 
 je_demographic_6_to_7 = {
 	icon = "gfx/interface/icons/event_icons/medical_degrees.dds"
 	group = je_group_technology
+	should_be_pinned_by_default = yes
 
 	is_shown_when_inactive = {
 	}
@@ -899,89 +219,20 @@ je_demographic_6_to_7 = {
 	possible = {
 	}
 
-	immediate = {
-		set_variable = {
-			name = demographic_stage_var
-			value = 0
-		}
-	}
-
-	on_yearly_pulse = {
-		effect = {
-			change_variable = {
-				name = demographic_stage_var
-				add = 1
-			}
-			# Country parameters conditions
-			if = {
-				limit = {
-					NOT = { has_modifier = dev_0_country }
-					NOT = { has_modifier = dev_1_country }
-					NOT = { has_modifier = dev_2_country }
-					NOT = { has_modifier = dev_3_country }
-					NOT = { has_modifier = dev_4_country }
-				}
-				change_variable = {
-					name = demographic_stage_var
-					add = 0.2
-				}
-			}
-			if = {
-				limit = {
-					year > 1970
-				}
-				change_variable = {
-					name = demographic_stage_var
-					add = 0.5
-				}
-			}
-			# Laws conditions
-			if = {
-				limit = {
-					NOT = { has_law = law_type:law_slavery_banned }
-				}
-				change_variable = {
-					name = demographic_stage_var
-					subtract = 0.1
-				}
-			}
-			if = {
-				limit = {
-					OR = {
-						has_law = law_type:law_multicultural
-						has_law = law_type:law_no_migration_controls
-					}
-					OR = {
-						total_population < 200000000
-						country_is_in_americas = yes #Americas are a special case due to the fact that they are countries of immigrants, but they still have to have one of the two laws activated.
-					}
-				}
-				change_variable = {
-					name = demographic_stage_var
-					subtract = 0.5
-				}
-			}
-			# Flavor conditions Flavor conditions (Sunni in advanced demographic stage do not have this bonus)
-			if = {
-				limit = {
-					country_is_in_north_america = yes
-				}
-				change_variable = {
-					name = demographic_stage_var
-					subtract = 0.5
-				}
-			}
-		}
-	}
+	scripted_progress_bar = ztr_demographic_6_to_7_progress_bar
 
 	complete = {
-		scope:journal_entry = { is_goal_complete = yes }
+		custom_tooltip = {
+			text = ztr_demographic_stage_complete_tt
+			scope:journal_entry ?= {
+				"scripted_bar_progress(ztr_demographic_6_to_7_progress_bar)" >= 30
+			}
+		}
 	}
 
 	on_complete = {
 		remove_state_demographic_modifier = yes
 		add_modifier = demographic_stage_7
-		remove_variable = demographic_stage_var
 		add_journal_entry = {
 			type = je_demographic_7_to_8
 		}
@@ -989,26 +240,13 @@ je_demographic_6_to_7 = {
 
 	transferable = no
 
-	current_value = {
-		value = var:demographic_stage_var
-	}
-
-	goal_add_value = {
-		value = 30
-	}
-
-	# modifiers_while_active = {
-	# 	demographic_stage_6
-	# }
-
-	progressbar = yes
-
 	weight = 1
 }
 
 je_demographic_7_to_8 = {
 	icon = "gfx/interface/icons/event_icons/medical_degrees.dds"
 	group = je_group_technology
+	should_be_pinned_by_default = yes
 
 	is_shown_when_inactive = {
 	}
@@ -1016,106 +254,23 @@ je_demographic_7_to_8 = {
 	possible = {
 	}
 
-	immediate = {
-		set_variable = {
-			name = demographic_stage_var
-			value = 0
-		}
-	}
-
-	on_yearly_pulse = {
-		effect = {
-			change_variable = {
-				name = demographic_stage_var
-				add = 1
-			}
-			# Country parameters conditions
-			if = {
-				limit = {
-					NOT = { has_modifier = dev_0_country }
-					NOT = { has_modifier = dev_1_country }
-					NOT = { has_modifier = dev_2_country }
-					NOT = { has_modifier = dev_3_country }
-					NOT = { has_modifier = dev_4_country }
-				}
-				change_variable = {
-					name = demographic_stage_var
-					add = 0.2
-				}
-			}
-			if = {
-				limit = {
-					year > 1970
-				}
-				change_variable = {
-					name = demographic_stage_var
-					add = 0.5
-				}
-			}
-			# Laws conditions
-			if = {
-				limit = {
-					NOT = { has_law = law_type:law_slavery_banned }
-				}
-				change_variable = {
-					name = demographic_stage_var
-					subtract = 0.2
-				}
-			}
-			if = {
-				limit = {
-					OR = {
-						has_law = law_type:law_multicultural
-						has_law = law_type:law_no_migration_controls
-					}
-					OR = {
-						total_population < 200000000
-						country_is_in_americas = yes #Americas are a special case due to the fact that they are countries of immigrants, but they still have to have one of the two laws activated.
-					}
-				}
-				change_variable = {
-					name = demographic_stage_var
-					subtract = 0.5
-				}
-			}
-			# Flavor conditions Flavor conditions (Sunni in advanced demographic stage do not have this bonus)
-			if = {
-				limit = {
-					country_is_in_north_america = yes
-				}
-				change_variable = {
-					name = demographic_stage_var
-					subtract = 0.5
-				}
-			}
-		}
-	}
+	scripted_progress_bar = ztr_demographic_7_to_8_progress_bar
 
 	complete = {
-		scope:journal_entry = { is_goal_complete = yes }
+		custom_tooltip = {
+			text = ztr_demographic_stage_complete_tt
+			scope:journal_entry ?= {
+				"scripted_bar_progress(ztr_demographic_7_to_8_progress_bar)" >= 30
+			}
+		}
 	}
 
 	on_complete = {
 		remove_state_demographic_modifier = yes
 		add_modifier = demographic_stage_8
-		remove_variable = demographic_stage_var
 	}
 
 	transferable = no
-
-	current_value = {
-		value = var:demographic_stage_var
-	}
-
-	goal_add_value = {
-		value = 30
-	}
-
-	# modifiers_while_active = {
-	# 	demographic_stage_7
-	# }
-
-	progressbar = yes
 
 	weight = 1
 }
