@@ -227,7 +227,7 @@ ztr_economic_update.5.d: "Having completed extensive industrialization and socia
 ztr_economic_update.5.a: "Behold, civilization now fully assembled."
 
 ztr_economic_update.6.t: "Economy Update"
-ztr_economic_update.6.d: "Our rapid advancements have propelled us into the ranks of the Developed nations, showcasing our economic prowess and innovation."
+ztr_economic_update.6.d: "Our rapid advancements have propelled us into @developed_country! [Concept('concept_developed_country','$concept_developed_country$')] status, showcasing our economic prowess and innovation."
 ztr_economic_update.6.a: "Finally, we can stop pretending to be 'something emerging' plus 'Developed'."
 
 ztr_economic_update.7.t: "Economy Update"
@@ -251,11 +251,11 @@ ztr_economic_update.11.d: "Our economy is facing challenges, causing us to fall 
 ztr_economic_update.11.a: "Time to regroup and strategize."
 
 ztr_economic_update.12.t: "Economy Update"
-ztr_economic_update.12.d: "Our economy is experiencing significant difficulties, leading us to a decline into the Developed category."
+ztr_economic_update.12.d: "Our economy is experiencing significant difficulties, leading us to a decline into the [Concept('concept_developed_country','$concept_developed_country$')] tier."
 ztr_economic_update.12.a: "A temporary setback, we will bounce back."
 
 ztr_economic_update.13.t: "Economy Update"
-ztr_economic_update.13.d: "After prolonged economic stagnation, we have slipped from Developed status, recalling middle-income countries struggling to adapt to technological change."
+ztr_economic_update.13.d: "After prolonged economic stagnation, we have slipped from [Concept('concept_developed_country','$concept_developed_country$')] status, recalling middle-income countries struggling to adapt to technological change."
 ztr_economic_update.13.a: "Are we in a middle-income trap?"
 
 ztr_economic_update.14.t: "Economy Update"
@@ -576,11 +576,63 @@ ztr_imf_event.1.d: "The world is gathering in [SCOPE.sState('imf_conference_stat
 ztr_imf_event.1.a: "#b IMF#! would help World Economy."
 ztr_imf_event.1.b: "It isn't that necessary for us."
 ztr_imf_event.4.t: "IMF Modernization Program"
-ztr_imf_event.4.d: "Representatives of the #blue_value International Monetary Fund#! have completed their latest review of [ROOT.GetCountry.GetName]. Their conclusion is blunt: if we are to be counted among the #v Developed Countries#!, we must modernize our educational system, raise the living conditions of our people, and strengthen the foundations of the economy."
-ztr_imf_event.4.a: "We will follow the IMF objectives for ourselves."
+ztr_imf_event.4.d: "Representatives of the #blue_value International Monetary Fund#! have completed their latest review of [ROOT.GetCountry.GetName].\n\nTheir conclusion is blunt: if we are to be counted among the @developed_country! [Concept('concept_developed_country','$concept_developed_countries$')], we must modernize our educational system, raise the living conditions of our people, and strengthen the foundations of the economy."
+ztr_imf_event.4.a: "We will follow the #blue_value IMF#! objectives for ourselves."
 ztr_imf_event.5.t: "IMF Modernization Achieved"
 ztr_imf_event.5.d: "After sustained reforms in education, living standards, and economic capacity, [ROOT.GetCountry.GetName] has fulfilled the modernization objectives laid out by the #blue_value International Monetary Fund#!. Our country now stands in a far stronger position to absorb knowledge, coordinate institutions, and accelerate scientific progress."
 ztr_imf_event.5.a: "Our modernization will now fuel innovation and progress."
+
+ # IMF Modernization Flavor Events
+
+ ztr_imf_modernization.10.t: "The Exodus of Minds"
+ ztr_imf_modernization.10.d: "Our brightest graduates, the doctors, engineers, and scientists whom we spent years educating, are leaving [ROOT.GetCountry.GetName] for better countries such as [SCOPE.sCountry('brain_drain_destination').GetName] and other wealthy nations.\n\nThe salary gap is immense: what our jobs pay in a year, foreign employers offer in a month. Without intervention, this hemorrhage of talent will hollow out the very institutions we need to modernize."
+ ztr_imf_modernization.10.f: "It is a bitter irony that the first fruit of any education system is the emigration of those who could make it better."
+ ztr_imf_modernization.10.a: "Fund domestic university scholarships and startups to retain graduates."
+ ztr_imf_modernization.10.b: "Impose emigration controls and exit permits for graduates."
+ ztr_imf_modernization.10.c: "We cannot compete with foreign salaries. Let them go."
+
+ ztr_imf_modernization.11.t: "The IMF's Fiscal Demands"
+ ztr_imf_modernization.11.d: "The #blue_value International Monetary Fund#! has completed its review of [ROOT.GetCountry.GetName]'s fiscal position and the conclusion is stark: unless we implement severe austerity measures, further credit and institutional support will be withheld.\n\nThe proposed package includes cuts to public sector wages, elimination of consumer subsidies, and a restructuring of @money!#v Sovereign Debt#!. The population will suffer, but the alternative is fiscal isolation."
+ ztr_imf_modernization.11.f: "The signature on the agreement is always in ink; the cost is always paid in bread."
+ ztr_imf_modernization.11.a: "Accept the #blue_value IMF#! austerity package in full."
+ ztr_imf_modernization.11.b: "Reject the terms. We will manage on our own."
+ ztr_imf_modernization.11.c: "Negotiate partial compliance through less social spending."
+
+ ztr_imf_modernization.12.t: "A Wave of Foreign Capital"
+ ztr_imf_modernization.12.d: "[SCOPE.sCountry('imf_investor_country').GetAdjective] capitals have signaled their willingness to pour substantial capital into [ROOT.GetCountry.GetName]'s industry and infrastructure in form of #gold_value Capital Flow#!.\n\nTheir investment banks promise factories, railways, and port facilities, but their terms include full ownership rights, profit repatriation, and preferential access to raw materials. The economic boost would be immense, but so would the loss of control over our own productive base."
+ ztr_imf_modernization.12.f: "Capital knows neither patriotism nor patience; it goes where returns are highest and leaves when they are not."
+ ztr_imf_modernization.12.a: "Welcome [SCOPE.sCountry('imf_investor_country').GetAdjective] capital without restrictions."
+ ztr_imf_modernization.12.b: "Require #v Joint Ventures#! with domestic partnerships."
+ ztr_imf_modernization.12.c: "Accept and nationalize the opportunities. We will build our own future."
+
+ ztr_imf_modernization.13.t: "Bringing Light to the Countryside"
+ ztr_imf_modernization.13.d: "The [Concept('concept_literacy','$concept_literacy$')] gap between [ROOT.GetCountry.GetName]'s #blue_value Urban#! and #p Rural#! population remains enormous. While our cities are slowly modernizing, many poor and rural inhabitants cannot read a newspaper, sign a contract, or follow printed government instructions.
+\n\nThe #blue_value IMF#! has specifically flagged rural illiteracy as a structural barrier to modernization, recommending decisive action to expand educational access beyond the capital and provincial towns."
+ ztr_imf_modernization.13.f: "A nation that cannot read its own laws is governed by rumor and tradition."
+ ztr_imf_modernization.13.a: "Fund a massive campaign of rural school construction."
+ ztr_imf_modernization.13.b: "Launch a radio and print media literacy campaign."
+ ztr_imf_modernization.13.c: "Entrust education to religious institution networks already present in villages."
+
+ ztr_imf_modernization.14.t: "The Modernization Backlash"
+ ztr_imf_modernization.14.d: "The pace of reform has fractured [ROOT.GetCountry.GetName]'s political coalition. The [SCOPE.gsInterestGroup('imf_disgruntled_ig').GetName], once tolerant of the modernization agenda, have turned hostile as new reforms didn't meet their expectations.\n\nTheir grievances range from displacement of traditional industries to cultural anxiety about foreign influence. If left unaddressed, their opposition could paralyze the reform process entirely, or worse, provoke a crisis."
+ ztr_imf_modernization.14.f: "Every revolution, even a peaceful one, creates its own enemies."
+ ztr_imf_modernization.14.a: "Suppress the [SCOPE.gsInterestGroup('imf_disgruntled_ig').GetName] opposition by decree."
+ ztr_imf_modernization.14.b: "Coopts them into the reform coalition and address their concerns."
+ ztr_imf_modernization.14.c: "Hold public consultations and let the people decide."
+
+ ztr_imf_modernization.15.t: "The Development Summit"
+ ztr_imf_modernization.15.d: "[SCOPE.sCountry('superpower_law_requester').GetName], citing both humanitarian duty and strategic interest, has convened an international development conference with [ROOT.GetCountry.GetName] as its principal subject.\n\nThe conference will determine whether we receive a comprehensive aid package spanning infrastructure, education, and institutional capacity. But every delegate in the room understands the unspoken terms: aid of this magnitude comes with expectations of political alignment and economic access."
+ ztr_imf_modernization.15.f: "The benefactor's hand is always open, but it is never empty."
+ ztr_imf_modernization.15.a: "Accept the international aid package and its conditions."
+ ztr_imf_modernization.15.b: "Propose a South-South cooperation alternative."
+ ztr_imf_modernization.15.c: "Declare economic self-reliance. We will chart our own course without external interference."
+
+ ztr_imf_modernization.20.t: "The IMF Advisory Team Arrives"
+ ztr_imf_modernization.20.d: "A team of #blue_value IMF#! advisors has arrived in [ROOT.GetCountry.GetName], consisting of economists, institutional reform specialists, and education experts.\n\nOver the next decade, they will embed within our ministries, universities, and planning commissions, providing technical support and transferring organizational knowledge. Their presence signals to the world that [ROOT.GetCountry.GetName] is serious about modernization."
+ ztr_imf_modernization.20.f: "Progress borrowed from others is still progress, so long as you learn to make your own."
+ ztr_imf_modernization.20.a: "Welcome the advisory team and fund their operations."
+
+
 
 ztr_arable_land.1.t: "The Nitrogen Imperative"
 ztr_arable_land.1.d: "The breakthrough in nitrogen fixation technology has presented our country with a unique opportunity. Vast tracts of land, previously deemed too barren or exhausted for cultivation, can now be revitalized through synthetic fertilizers.\n\nWith unemployment rampant in our most populous regions, the government has authorized a massive land reclamation initiative. Thousands of desperate laborers are moving to these new frontiers, armed with chemicals and tools, hoping to wring life from the soil to feed the country and solve its challenges."

@@ -1,33 +1,24 @@
 namespace = ztr_un_event
-
 #UN foundation
 ztr_un_event.1 = {
 	dlc = dlc_tech_res
 	type = country_event
 	placement = root
-
 	duration = 1
-
 	title = ztr_un_event.1.t
 	desc = ztr_un_event.1.d
 	flavor = ztr_un_event.1.f
-
-	event_image = { 
+	event_image = {
 		#texture = "gfx/event_pictures/un_foundation.dds"
 		video = "un_foundation"
 	}
-
 	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
-
-	icon = "gfx/interface/icons/event_icons/ztr_onu_permanent_member.dds"
-
+	icon = "gfx/interface/icons/generic_icons/international_organizations.dds"
 	trigger = {
 		#Decision
 	}
-
 	immediate = {
 	}
-
 	option = {
 		name = ztr_un_event.1.a
 		default_option = yes
@@ -50,7 +41,9 @@ ztr_un_event.1 = {
 		join_un_law_changes = yes
 		every_country = {
 			limit = {
-				NOT = { this = root }
+				NOT = {
+					this = root
+				}
 				has_technology_researched = human_rights
 			}
 			trigger_event = ztr_un_event.2
@@ -66,27 +59,19 @@ ztr_un_event.2 = {
 	dlc = dlc_tech_res
 	type = country_event
 	placement = root
-
 	duration = 1
-
 	title = ztr_un_event.2.t
 	desc = ztr_un_event.2.d
 	flavor = ztr_un_event.1.f
-
-	event_image = { 
+	event_image = {
 		texture = "gfx/event_pictures/un_foundation.dds"
 	}
-
 	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
-
-	icon = "gfx/interface/icons/event_icons/ztr_onu_permanent_member.dds"
-
+	icon = "gfx/interface/icons/generic_icons/international_organizations.dds"
 	trigger = {
 	}
-
 	immediate = {
 	}
-
 	# Standard member Option
 	option = {
 		name = ztr_un_event.2.a
@@ -125,13 +110,14 @@ ztr_un_event.2 = {
 			}
 		}
 	}
-
 	# Permanent member Option
 	option = {
 		name = ztr_un_event.2.b
 		trigger = {
 			global_country_ranking <= 3
-			NOT = {	is_distopia = yes }
+			NOT = {
+				is_distopia = yes
+			}
 		}
 		change_infamy = -10
 		if = {
@@ -158,7 +144,6 @@ ztr_un_event.2 = {
 			}
 		}
 	}
-
 	# Refuse option
 	option = {
 		name = ztr_un_event.2.c
@@ -178,20 +163,14 @@ ztr_un_event.3 = {
 	dlc = dlc_tech_res
 	type = country_event
 	placement = root
-
 	duration = 1
-
 	title = ztr_un_event.3.t
 	desc = ztr_un_event.3.d
-
 	event_image = {
 		video = "unspecific_politicians_arguing"
 	}
-
 	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
-
 	icon = "gfx/interface/icons/event_icons/ztr_onu_member.dds"
-
 	trigger = {
 		OR = {
 			has_modifier = ztr_onu_member
@@ -201,23 +180,28 @@ ztr_un_event.3 = {
 		any_diplomatic_play = {
 			is_war = no
 			any_scope_play_involved = {
-					this = root
-				}
-			initiator = prev															
+				this = root
+			}
+			initiator = prev
 			OR = {
-				is_diplomatic_play_type = dp_conquer_state								
+				is_diplomatic_play_type = dp_conquer_state
 				is_diplomatic_play_type = dp_make_dominion
 				is_diplomatic_play_type = dp_make_tributary
 				is_diplomatic_play_type = dp_make_protectorate
 				is_diplomatic_play_type = dp_humiliation
 			}
 		}
-		NOT = { has_modifier = ztr_un_resolution_refused_modifier }
-		NOT = { has_modifier = ztr_un_resolution_veto_modifier }
-		NOT = { has_modifier = ztr_un_resolution_used_veto_modifier }
+		NOT = {
+			has_modifier = ztr_un_resolution_refused_modifier
+		}
+		NOT = {
+			has_modifier = ztr_un_resolution_veto_modifier
+		}
+		NOT = {
+			has_modifier = ztr_un_resolution_used_veto_modifier
+		}
 		country_rank >= rank_value:minor_power
 	}
-
 	immediate = {
 		root = {
 			random_diplomatic_play = {
@@ -244,7 +228,9 @@ ztr_un_event.3 = {
 		random_country = {
 			limit = {
 				has_modifier = ztr_onu_permanent_member
-				NOT = { has_modifier = ztr_un_resolution_used_veto_modifier }
+				NOT = {
+					has_modifier = ztr_un_resolution_used_veto_modifier
+				}
 				OR = {
 					relations:root >= relations_threshold:cordial
 					owes_obligation_to = root
@@ -253,7 +239,6 @@ ztr_un_event.3 = {
 			save_scope_as = un_leader_with_good_relations
 		}
 	}
-
 	#UN wants to resolve the war peacefully, the superpower is not interested, but we accept
 	option = {
 		name = ztr_un_event.3.a
@@ -270,17 +255,19 @@ ztr_un_event.3 = {
 		}
 		hidden_effect = {
 			scope:attacked_country = {
-				trigger_event = { id = ztr_un_event.4 }
+				trigger_event = {
+					id = ztr_un_event.4
+				}
 			}
 		}
 	}
-		
-
 	# UN wants to resolve the war peacefully, the superpower is not interested, but we refuse
 	option = {
 		name = ztr_un_event.3.b
 		trigger = {
-			NOT = { has_modifier = ztr_onu_permanent_member }
+			NOT = {
+				has_modifier = ztr_onu_permanent_member
+			}
 		}
 		add_modifier = {
 			name = ztr_un_resolution_refused_modifier
@@ -294,28 +281,33 @@ ztr_un_event.3 = {
 					country_rank > rank_value:great_power
 					ztr_is_not_full_democratic = yes
 				}
-			add = 5
+				add = 5
 			}
 		}
 		scope:attacked_country = {
 			hidden_effect = {
 				scope:attacked_country = {
-					trigger_event = { id = ztr_un_event.5 }
+					trigger_event = {
+						id = ztr_un_event.5
+					}
 				}
-			}		 
+			}
 		}
 	}
-
 	# UN closed an eye to the war, thanks to our good relationship with the superpower
 	option = {
 		name = ztr_un_event.3.c
 		trigger = {
-			NOT = { has_modifier = ztr_onu_permanent_member }
+			NOT = {
+				has_modifier = ztr_onu_permanent_member
+			}
 			scope:un_leader_with_good_relations = {
 				exists = yes
 			}
 			root = {
-				NOT = { owes_obligation_to = scope:un_leader_with_good_relations }		
+				NOT = {
+					owes_obligation_to = scope:un_leader_with_good_relations
+				}
 			}
 		}
 		add_modifier = {
@@ -332,14 +324,14 @@ ztr_un_event.3 = {
 				set_owes_obligation_to = {
 					country = root
 					setting = no
-				}	
+				}
 			}
 		}
 		else = {
 			set_owes_obligation_to = {
 				country = scope:un_leader_with_good_relations
 				setting = yes
-			}	
+			}
 		}
 		ai_chance = {
 			base = 2
@@ -352,11 +344,12 @@ ztr_un_event.3 = {
 		}
 		hidden_effect = {
 			scope:attacked_country = {
-				trigger_event = { id = ztr_un_event.5 }
+				trigger_event = {
+					id = ztr_un_event.5
+				}
 			}
-		}	
+		}
 	}
-
 	# Veto Power as permanent member of the UN
 	option = {
 		name = ztr_un_event.3.e
@@ -373,7 +366,9 @@ ztr_un_event.3 = {
 		}
 		hidden_effect = {
 			scope:attacked_country = {
-				trigger_event = { id = ztr_un_event.5 }
+				trigger_event = {
+					id = ztr_un_event.5
+				}
 			}
 		}
 	}
@@ -383,28 +378,19 @@ ztr_un_event.4 = {
 	dlc = dlc_tech_res
 	type = country_event
 	placement = root
-
 	duration = 1
-
 	title = ztr_un_event.4.t
 	desc = ztr_un_event.4.d
-
 	event_image = {
 		video = "unspecific_ruler_speaking_to_people"
 	}
-
 	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
-
 	icon = "gfx/interface/icons/event_icons/ztr_onu_member.dds"
-
 	trigger = {
 		#ztr_un_event.3
 	}
-
 	immediate = {
-		
 	}
-
 	option = {
 		name = ztr_un_event.4.a
 		default_option = yes
@@ -415,30 +401,67 @@ ztr_un_event.5 = {
 	dlc = dlc_tech_res
 	type = country_event
 	placement = root
-
 	duration = 1
-
 	title = ztr_un_event.5.t
 	desc = ztr_un_event.5.d
-
 	event_image = {
 		video = "unspecific_politicians_arguing"
 	}
-
 	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
-
 	icon = "gfx/interface/icons/event_icons/ztr_onu_member.dds"
-
 	trigger = {
 		#ztr_un_event.3
 	}
-
 	immediate = {
-		
 	}
-
 	option = {
 		name = ztr_un_event.5.a
 		default_option = yes
+	}
+}
+
+ztr_un_event.10 = {
+	dlc = dlc_tech_res
+	type = country_event
+	placement = root
+	duration = 1
+	title = ztr_un_event.10.t
+	desc = ztr_un_event.10.d
+	event_image = {
+		video = "unspecific_politicians_arguing"
+	}
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	icon = "gfx/interface/icons/event_icons/ztr_onu_member.dds"
+	immediate = {
+		if = {
+			limit = {
+				NOT = {
+					has_global_variable = ztr_un_vote_active
+				}
+			}
+			set_global_variable = ztr_un_vote_active
+		}
+	}
+	# AI will vote through the journal entry buttons
+	option = {
+		name = ztr_un_event.10.a
+		default_option = yes
+		set_variable = ztr_un_vote_choice_neutral
+	}
+	# Player can immediately accept
+	option = {
+		name = ztr_un_event.10.b
+		trigger = {
+			is_ai = no
+		}
+		set_variable = ztr_un_vote_choice_support
+	}
+	# Player can immediately refuse
+	option = {
+		name = ztr_un_event.10.c
+		trigger = {
+			is_ai = no
+		}
+		set_variable = ztr_un_vote_choice_against
 	}
 }

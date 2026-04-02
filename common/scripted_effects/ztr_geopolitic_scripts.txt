@@ -1,0 +1,138 @@
+# This chooses a law from the superpower that is giving aid to the country
+ztr_select_superpower_alignment_law = {
+	if = {
+		limit = {
+			scope:superpower_law_requester = {
+				active_law:lawgroup_governance_principles ?= {
+					law_is_available = yes
+					ROOT = {
+						NOT = {
+							has_law_or_variant = prev.type
+						}
+					}
+				}
+			}
+		}
+		scope:superpower_law_requester = {
+			active_law:lawgroup_governance_principles ?= {
+				save_scope_as = superpower_alignment_law
+			}
+		}
+	}
+	else_if = {
+		limit = {
+			scope:superpower_law_requester = {
+				active_law:lawgroup_distribution_of_power ?= {
+					law_is_available = yes
+					ROOT = {
+						NOT = {
+							has_law_or_variant = prev.type
+						}
+					}
+				}
+			}
+		}
+		scope:superpower_law_requester = {
+			active_law:lawgroup_distribution_of_power ?= {
+				save_scope_as = superpower_alignment_law
+			}
+		}
+	}
+	else_if = {
+		limit = {
+			scope:superpower_law_requester = {
+				active_law:lawgroup_citizenship ?= {
+					law_is_available = yes
+					ROOT = {
+						NOT = {
+							has_law_or_variant = prev.type
+						}
+					}
+				}
+			}
+		}
+		scope:superpower_law_requester = {
+			active_law:lawgroup_citizenship ?= {
+				save_scope_as = superpower_alignment_law
+			}
+		}
+	}
+	else_if = {
+		limit = {
+			scope:superpower_law_requester = {
+				active_law:lawgroup_church_and_state ?= {
+					law_is_available = yes
+					ROOT = {
+						NOT = {
+							has_law_or_variant = prev.type
+						}
+					}
+				}
+			}
+		}
+		scope:superpower_law_requester = {
+			active_law:lawgroup_church_and_state ?= {
+				save_scope_as = superpower_alignment_law
+			}
+		}
+	}
+	else_if = {
+		limit = {
+			scope:superpower_law_requester = {
+				active_law:lawgroup_internal_security ?= {
+					law_is_available = yes
+					ROOT = {
+						NOT = {
+							has_law_or_variant = prev.type
+						}
+					}
+				}
+			}
+		}
+		scope:superpower_law_requester = {
+			active_law:lawgroup_internal_security ?= {
+				save_scope_as = superpower_alignment_law
+			}
+		}
+	}
+	else_if = {
+		limit = {
+			scope:superpower_law_requester = {
+				active_law:lawgroup_bureaucracy ?= {
+					law_is_available = yes
+					ROOT = {
+						NOT = {
+							has_law_or_variant = prev.type
+						}
+					}
+				}
+			}
+		}
+		scope:superpower_law_requester = {
+			active_law:lawgroup_bureaucracy ?= {
+				save_scope_as = superpower_alignment_law
+			}
+		}
+	}
+	else_if = {
+		limit = {
+			scope:superpower_law_requester = {
+				active_law:lawgroup_army_model ?= {
+					law_is_available = yes
+					ROOT = {
+						NOT = {
+							has_law_or_variant = prev.type
+						}
+					}
+				}
+			}
+		}
+		scope:superpower_law_requester = {
+			active_law:lawgroup_army_model ?= {
+				save_scope_as = superpower_alignment_law
+			}
+		}
+	}
+}
+
+0

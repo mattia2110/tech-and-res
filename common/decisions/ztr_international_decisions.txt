@@ -1,7 +1,5 @@
 # International Organizations Decisions
-
 firm_ztr_geneva_convention = {
-
 	is_shown = {
 		has_technology_researched = human_rights
 		year > 1865
@@ -10,44 +8,37 @@ firm_ztr_geneva_convention = {
 			has_modifier = ztr_geneva_convention
 		}
 	}
-
 	possible = {
 		OR = {
 			ztr_is_flawed_democratic = yes
 			ztr_is_full_democratic = yes
 		}
 	}
-
 	when_taken = {
 		change_infamy = -5
 		add_modifier = {
 			name = ztr_geneva_convention
 		}
 	}
-
 	ai_chance = {
 		value = 5
 	}
 }
 
 withdraw_ztr_geneva_convention = {
-
 	is_shown = {
 		has_technology_researched = human_rights
 		year > 1865
 		year < 1920
 		has_modifier = ztr_geneva_convention
 	}
-
 	possible = {
 		has_modifier = ztr_geneva_convention
 	}
-
 	when_taken = {
 		change_infamy = 15
 		remove_modifier = ztr_geneva_convention
 	}
-
 	ai_chance = {
 		value = 0
 		modifier = {
@@ -63,7 +54,6 @@ withdraw_ztr_geneva_convention = {
 }
 
 enter_ztr_society_of_nations = {
-
 	is_shown = {
 		has_technology_researched = international_organizations
 		year > 1920
@@ -72,7 +62,6 @@ enter_ztr_society_of_nations = {
 			has_modifier = ztr_society_of_nations
 		}
 	}
-
 	possible = {
 		OR = {
 			ztr_is_authoritarian = yes
@@ -80,7 +69,6 @@ enter_ztr_society_of_nations = {
 			ztr_is_full_democratic = yes
 		}
 	}
-
 	when_taken = {
 		change_infamy = -5
 		if = {
@@ -93,30 +81,25 @@ enter_ztr_society_of_nations = {
 			name = ztr_society_of_nations
 		}
 	}
-
 	ai_chance = {
 		value = 5
 	}
 }
 
 withdraw_ztr_society_of_nations = {
-
 	is_shown = {
 		has_technology_researched = international_organizations
 		year > 1920
 		year < 1945
 		has_modifier = ztr_society_of_nations
 	}
-
 	possible = {
 		has_modifier = ztr_society_of_nations
 	}
-
 	when_taken = {
 		change_infamy = 20
 		remove_modifier = ztr_society_of_nations
 	}
-
 	ai_chance = {
 		value = 0
 		modifier = {
@@ -129,56 +112,55 @@ withdraw_ztr_society_of_nations = {
 }
 
 un_foundation = {
-
 	is_shown = {
-		NOT = { has_global_variable = un_founded_var }
+		NOT = {
+			has_global_variable = un_founded_var
+		}
 		has_technology_researched = international_organizations
 		global_country_ranking = 1
 	}
-
 	possible = {
 		year > 1944
 	}
-
 	when_taken = {
 		set_global_variable = {
 			name = un_founded_var
 			value = 1
 		}
-		root = { trigger_event = ztr_un_event.1 }
+		root = {
+			trigger_event = ztr_un_event.1
+		}
 	}
-
 	ai_chance = {
 		value = 100
 	}
 }
 
 imf_foundation = {
-
 	is_shown = {
-		NOT = { has_global_variable = imf_founded_var }
+		NOT = {
+			has_global_variable = imf_founded_var
+		}
 		ztr_is_democratic = yes
 		global_country_ranking = 1
 	}
-
 	possible = {
 		year > 1945
 		has_global_variable = un_founded_var
 		has_technology_researched = secure_market_transactions
 	}
-
 	when_taken = {
 		set_global_variable = imf_founded_var
-		root = { trigger_event = ztr_imf_event.1 }
+		root = {
+			trigger_event = ztr_imf_event.1
+		}
 	}
-
 	ai_chance = {
 		value = 100
 	}
 }
 
 become_member_united_nations = {
-
 	is_shown = {
 		has_technology_researched = human_rights
 		year > 1945
@@ -190,11 +172,9 @@ become_member_united_nations = {
 		}
 		has_global_variable = un_founded_var
 	}
-
 	possible = {
 		is_not_distopia = yes
 	}
-
 	when_taken = {
 		change_infamy = -5
 		if = {
@@ -220,38 +200,43 @@ become_member_united_nations = {
 		}
 		join_un_law_changes = yes
 	}
-
 	ai_chance = {
 		value = 5
 	}
 }
 
 withdraw_united_nations = {
-
 	is_shown = {
 		has_technology_researched = international_organizations
 		year > 1945
 		has_modifier = ztr_onu_member
 		has_global_variable = un_founded_var
 	}
-
 	possible = {
 		has_modifier = ztr_onu_member
+		custom_tooltip = {
+			text = "ztr_un_vote_session_clear_tt"
+			NOT = {
+				has_global_variable = ztr_un_vote_in_progress
+			}
+		}
 	}
-
 	when_taken = {
 		change_infamy = 25
 		remove_modifier = ztr_onu_member
 	}
-
 	ai_chance = {
 		value = 0
 		modifier = {
 			trigger = {
 				is_distopia = yes
 				# China and Russia cannot withdraw as they could use UN for their interests
-				NOT = { root = c:CHI }
-				NOT = { root = c:RUS }
+				NOT = {
+					root = c:CHI
+				}
+				NOT = {
+					root = c:RUS
+				}
 				country_rank < rank_value:great_power
 			}
 			add = 3
@@ -260,20 +245,25 @@ withdraw_united_nations = {
 }
 
 become_permanent_member_united_nations = {
-
 	is_shown = {
 		has_technology_researched = human_rights
 		year > 1945
 		has_modifier = ztr_onu_member
-		NOT = { has_modifier = ztr_onu_permanent_member }
+		NOT = {
+			has_modifier = ztr_onu_permanent_member
+		}
 		has_global_variable = un_founded_var
 		global_country_ranking <= 3
 	}
-
 	possible = {
 		is_not_distopia = yes
+		custom_tooltip = {
+			text = "ztr_un_vote_session_clear_tt"
+			NOT = {
+				has_global_variable = ztr_un_vote_in_progress
+			}
+		}
 	}
-
 	when_taken = {
 		change_infamy = -5
 		if = {
@@ -291,16 +281,13 @@ become_permanent_member_united_nations = {
 		}
 		join_un_law_changes = yes
 	}
-
 	ai_chance = {
 		value = 5
 	}
 }
 
 # EU
-
 firm_ztr_treaty_of_rome = {
-
 	is_shown = {
 		has_technology_researched = socialdemocracy
 		year > 1950
@@ -316,10 +303,13 @@ firm_ztr_treaty_of_rome = {
 			capital.region = sr:region_north_sea_coast
 			capital.region = sr:region_iberia
 		}
-		NOT = { has_modifier = ztr_eec_member }
-		NOT = { has_modifier = ztr_eu_member }
+		NOT = {
+			has_modifier = ztr_eec_member
+		}
+		NOT = {
+			has_modifier = ztr_eu_member
+		}
 	}
-
 	possible = {
 		OR = {
 			has_modifier = ztr_onu_member
@@ -327,7 +317,6 @@ firm_ztr_treaty_of_rome = {
 		}
 		ztr_is_democratic = yes
 	}
-
 	when_taken = {
 		change_infamy = -5
 		hidden_effect = {
@@ -371,7 +360,6 @@ firm_ztr_treaty_of_rome = {
 			}
 		}
 	}
-
 	ai_chance = {
 		value = 10
 	}
@@ -399,9 +387,10 @@ create_eu_decision = {
 			capital.region = sr:region_finland
 			capital.region = sr:region_baltic_states
 		}
-		NOT = { has_global_variable = ztr_eu_created }
+		NOT = {
+			has_global_variable = ztr_eu_created
+		}
 	}
-
 	possible = {
 		OR = {
 			has_modifier = ztr_onu_member
@@ -409,7 +398,6 @@ create_eu_decision = {
 		}
 		ztr_is_democratic = yes
 	}
-
 	when_taken = {
 		change_infamy = -5
 		set_global_variable = ztr_eu_created
@@ -422,8 +410,11 @@ create_eu_decision = {
 		set_country_type = recognized
 		create_power_bloc = {
 			name = EUROPEAN_UNION
-			map_color = { 0 51 153 } # Official EU blue
-
+			map_color = {
+				0
+				51
+				153
+			}			# Official EU blue
 			founding_date = 1936.1.1
 			identity = identity_trade_league
 			principle = principle_defensive_cooperation_1
@@ -440,7 +431,6 @@ create_eu_decision = {
 		}
 		trigger_event = ztr_eu_event.1
 	}
-
 	ai_chance = {
 		value = 50
 	}
@@ -450,7 +440,9 @@ join_european_union = {
 	is_shown = {
 		has_technology_researched = globalization
 		year > 1992
-		NOT = { has_modifier = ztr_eu_member }
+		NOT = {
+			has_modifier = ztr_eu_member
+		}
 		has_global_variable = ztr_eu_created
 		is_subject = no
 		OR = {
@@ -470,7 +462,6 @@ join_european_union = {
 			capital.region = sr:region_baltic_states
 		}
 	}
-
 	possible = {
 		OR = {
 			has_modifier = ztr_onu_member
@@ -478,7 +469,6 @@ join_european_union = {
 		}
 		ztr_is_democratic = yes
 	}
-
 	when_taken = {
 		change_infamy = -5
 		hidden_effect = {
@@ -522,7 +512,6 @@ join_european_union = {
 			}
 		}
 	}
-
 	ai_chance = {
 		value = 50
 	}
@@ -531,10 +520,9 @@ join_european_union = {
 withdraw_from_european_union = {
 	is_shown = {
 		has_modifier = ztr_eu_member
-		year > 2010 # A sort of Brexit
+		year > 2010		# A sort of Brexit
 		is_subject = no
 	}
-
 	possible = {
 		OR = {
 			#TODO, Brexit mechanics after right wing populism tech discovery
@@ -547,7 +535,6 @@ withdraw_from_european_union = {
 			ztr_is_not_democratic = yes
 		}
 	}
-
 	when_taken = {
 		change_infamy = 10
 		remove_modifier = ztr_eu_member
@@ -561,7 +548,6 @@ withdraw_from_european_union = {
 			}
 		}
 	}
-
 	ai_chance = {
 		value = 10
 	}

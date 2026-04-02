@@ -2,18 +2,17 @@
 show_liberty_index_rankings_button = {
 	name = "show_liberty_index_rankings_button"
 	desc = "show_liberty_index_rankings_button_desc"
-
 	visible = {
 		is_ai = no
 		has_journal_entry = je_liberty_index
 	}
-
 	possible = {
 		hidden_trigger = {
-			NOT = { has_variable = liberty_index_opened_var }
+			NOT = {
+				has_variable = liberty_index_opened_var
+			}
 		}
 	}
-
 	effect = {
 		hidden_effect = {
 			set_variable = liberty_index_opened_var
@@ -25,19 +24,18 @@ show_liberty_index_rankings_button = {
 show_equality_index_rankings_button = {
 	name = "show_equality_index_rankings_button"
 	desc = "show_equality_index_rankings_button_desc"
-
 	visible = {
 		# This are only for the player
 		is_ai = no
 		has_journal_entry = je_liberty_index
 	}
-
 	possible = {
 		hidden_trigger = {
-			NOT = { has_variable = equality_index_opened_var }
+			NOT = {
+				has_variable = equality_index_opened_var
+			}
 		}
 	}
-
 	effect = {
 		hidden_effect = {
 			set_variable = equality_index_opened_var
@@ -47,66 +45,69 @@ show_equality_index_rankings_button = {
 }
 
 # Russian Revolution
-
 ztr_repress_soviet_movements = {
 	name = "ztr_repress_soviet_movements"
 	desc = "ztr_repress_soviet_movements_desc"
-
 	visible = {
 		# This are only for the player
 		is_ai = no
-		root = { has_modifier = ztr_russian_proletariat_modifier }
-	}
-
-	possible = {
-		hidden_trigger = {
-			NOT = { has_variable = equality_index_opened_var }
-			NOT = { has_modifier = ztr_repressed_soviet_movements_modifier }
+		root = {
+			has_modifier = ztr_russian_proletariat_modifier
 		}
 	}
-
+	possible = {
+		hidden_trigger = {
+			NOT = {
+				has_variable = equality_index_opened_var
+			}
+			NOT = {
+				has_modifier = ztr_repressed_soviet_movements_modifier
+			}
+		}
+	}
 	effect = {
 		add_modifier = {
 			name = ztr_repressed_soviet_movements_modifier
 			years = 2
-		}	
+		}
 	}
 }
 
 ztr_help_liberal_consensus = {
 	name = "ztr_help_liberal_consensus"
 	desc = "ztr_help_liberal_consensus_desc"
-
 	visible = {
 		# This are only for the player
 		is_ai = no
-		NOT = { has_variable = russia_liberalist_path_var }
-	}
-
-	possible = {
-		hidden_trigger = {
-			NOT = { has_variable = equality_index_opened_var }
-			NOT = { has_modifier = ztr_liberal_consensus_helped_modifier }
+		NOT = {
+			has_variable = russia_liberalist_path_var
 		}
 	}
-
+	possible = {
+		hidden_trigger = {
+			NOT = {
+				has_variable = equality_index_opened_var
+			}
+			NOT = {
+				has_modifier = ztr_liberal_consensus_helped_modifier
+			}
+		}
+	}
 	effect = {
 		add_modifier = {
 			name = ztr_liberal_consensus_helped_modifier
 			years = 2
-		}	
+		}
 	}
 }
 
 ztr_treaty_with_liberals = {
 	name = "ztr_treaty_with_liberals"
 	desc = "ztr_treaty_with_liberals_desc"
-
 	visible = {
 		has_variable = russia_liberalist_path_var
 		has_variable = ztr_liberals_contrary_to_us_var
 	}
-
 	possible = {
 		# This would be possible if industrialists have at least 6 approval and Russia is now democratic
 		OR = {
@@ -115,17 +116,17 @@ ztr_treaty_with_liberals = {
 			}
 			ztr_is_democratic = yes
 		}
-		NOT = { has_variable = ztr_russia_treaty_asked }
-	}
-
-	effect = {
-		trigger_event = ztr_russian_revolution.12 # Treaty with Liberals
-		set_variable = {
-			name = ztr_russia_treaty_asked
-			years = 1 # You can ask it once per year
+		NOT = {
+			has_variable = ztr_russia_treaty_asked
 		}
 	}
-
+	effect = {
+		trigger_event = ztr_russian_revolution.12		# Treaty with Liberals
+		set_variable = {
+			name = ztr_russia_treaty_asked
+			years = 1			# You can ask it once per year
+		}
+	}
 	# Instantly if this is possible
 	ai_chance = {
 		value = 1000
@@ -135,55 +136,61 @@ ztr_treaty_with_liberals = {
 ztr_ask_a_government_liberal_petition = {
 	name = "ztr_ask_a_government_liberal_petition"
 	desc = "ztr_ask_a_government_liberal_petition_desc"
-
 	visible = {
-		is_ai = no # This are only for the player
+		is_ai = no		# This are only for the player
 		has_variable = russia_liberalist_path_var
 		has_variable = ztr_liberals_contrary_to_us_var
 	}
-
 	possible = {
 		# Industrialists should have at least one valid law to petition for
 		ig:ig_industrialists = {
 			any_preferred_law = {
-                law_is_valid_for_ig_petition = yes
+				law_is_valid_for_ig_petition = yes
 				count > 0
-            }
+			}
 		}
-		NOT = { has_variable = ztr_russia_liberals_ask_petition_var }
+		NOT = {
+			has_variable = ztr_russia_liberals_ask_petition_var
+		}
 	}
-
 	effect = {
 		set_variable = {
 			name = ztr_russia_liberals_ask_petition_var
-			days = 1926 # 1825 of JE + 100 of Event + 1 day buffer
+			days = 1926			# 1825 of JE + 100 of Event + 1 day buffer
 		}
-		trigger_event = ztr_russian_revolution.13 # Treaty with Liberals
+		trigger_event = ztr_russian_revolution.13		# Treaty with Liberals
 	}
 }
 
 # Ottoman Empire Collapse
-
 ztr_ottoman_collapse_request_egypt = {
 	name = "ztr_ottoman_collapse_request_egypt"
 	desc = "ztr_ottoman_collapse_request_egypt_desc"
-
 	visible = {
 		is_involved_in_journal_entry = je_ottoman_empire_collapse
-		NOT = { c:TUR ?= this }
+		NOT = {
+			c:TUR ?= this
+		}
 	}
-
 	possible = {
 		custom_tooltip = {
 			text = "ztr_diplomatic_cooldown_tt"
-			NOT = { has_variable = ztr_ottoman_collapse_diplomatic_request_cooldown }
-			NOT = { has_variable = ztr_ottoman_collapse_request_egypt_cooldown }
-			NOT = { has_variable = ztr_ottoman_collapse_egypt_aid_patron }
+			NOT = {
+				has_variable = ztr_ottoman_collapse_diplomatic_request_cooldown
+			}
+			NOT = {
+				has_variable = ztr_ottoman_collapse_request_egypt_cooldown
+			}
+			NOT = {
+				has_variable = ztr_ottoman_collapse_egypt_aid_patron
+			}
 		}
 		c:TUR = {
 			custom_tooltip = {
 				text = "ztr_ottoman_already_accepted_help_tt"
-				NOT = { has_variable = ztr_ottoman_collapse_egypt_aid_taken }
+				NOT = {
+					has_variable = ztr_ottoman_collapse_egypt_aid_taken
+				}
 			}
 			OR = {
 				has_state_in_state_region = STATE_LOWER_EGYPT
@@ -209,7 +216,6 @@ ztr_ottoman_collapse_request_egypt = {
 			scope:ztr_ottoman_collapse_target_country.var:ottoman_empire_collapse_var >= 30
 		}
 	}
-
 	effect = {
 		set_variable = {
 			name = ztr_ottoman_collapse_diplomatic_request_cooldown
@@ -230,7 +236,6 @@ ztr_ottoman_collapse_request_egypt = {
 			}
 		}
 	}
-
 	ai_chance = {
 		value = 2
 		if = {
@@ -260,23 +265,31 @@ ztr_ottoman_collapse_request_egypt = {
 ztr_ottoman_collapse_request_levant = {
 	name = "ztr_ottoman_collapse_request_levant"
 	desc = "ztr_ottoman_collapse_request_levant_desc"
-
 	visible = {
 		is_involved_in_journal_entry = je_ottoman_empire_collapse
-		NOT = { c:TUR ?= this }
+		NOT = {
+			c:TUR ?= this
+		}
 	}
-
 	possible = {
 		custom_tooltip = {
 			text = "ztr_diplomatic_cooldown_tt"
-			NOT = { has_variable = ztr_ottoman_collapse_diplomatic_request_cooldown }
-			NOT = { has_variable = ztr_ottoman_collapse_request_levant_cooldown }
-			NOT = { has_variable = ztr_ottoman_collapse_syria_aid_patron }
+			NOT = {
+				has_variable = ztr_ottoman_collapse_diplomatic_request_cooldown
+			}
+			NOT = {
+				has_variable = ztr_ottoman_collapse_request_levant_cooldown
+			}
+			NOT = {
+				has_variable = ztr_ottoman_collapse_syria_aid_patron
+			}
 		}
 		c:TUR = {
 			custom_tooltip = {
 				text = "ztr_ottoman_already_accepted_help_tt"
-				NOT = { has_variable = ztr_ottoman_collapse_syria_aid_taken }
+				NOT = {
+					has_variable = ztr_ottoman_collapse_syria_aid_taken
+				}
 			}
 			OR = {
 				has_state_in_state_region = STATE_SYRIA
@@ -290,7 +303,6 @@ ztr_ottoman_collapse_request_levant = {
 			scope:ztr_ottoman_collapse_target_country.var:ottoman_empire_collapse_var >= 30
 		}
 	}
-
 	effect = {
 		set_variable = {
 			name = ztr_ottoman_collapse_diplomatic_request_cooldown
@@ -311,7 +323,6 @@ ztr_ottoman_collapse_request_levant = {
 			}
 		}
 	}
-
 	ai_chance = {
 		value = 2
 		if = {
@@ -341,23 +352,31 @@ ztr_ottoman_collapse_request_levant = {
 ztr_ottoman_collapse_request_iraq = {
 	name = "ztr_ottoman_collapse_request_iraq"
 	desc = "ztr_ottoman_collapse_request_iraq_desc"
-
 	visible = {
 		is_involved_in_journal_entry = je_ottoman_empire_collapse
-		NOT = { c:TUR ?= this }
+		NOT = {
+			c:TUR ?= this
+		}
 	}
-
 	possible = {
 		custom_tooltip = {
 			text = "ztr_diplomatic_cooldown_tt"
-			NOT = { has_variable = ztr_ottoman_collapse_diplomatic_request_cooldown }
-			NOT = { has_variable = ztr_ottoman_collapse_request_iraq_cooldown }
-			NOT = { has_variable = ztr_ottoman_collapse_iraq_aid_patron }
+			NOT = {
+				has_variable = ztr_ottoman_collapse_diplomatic_request_cooldown
+			}
+			NOT = {
+				has_variable = ztr_ottoman_collapse_request_iraq_cooldown
+			}
+			NOT = {
+				has_variable = ztr_ottoman_collapse_iraq_aid_patron
+			}
 		}
 		c:TUR = {
 			custom_tooltip = {
 				text = "ztr_ottoman_already_accepted_help_tt"
-				NOT = { has_variable = ztr_ottoman_collapse_iraq_aid_taken }
+				NOT = {
+					has_variable = ztr_ottoman_collapse_iraq_aid_taken
+				}
 			}
 			OR = {
 				has_state_in_state_region = STATE_BAGHDAD
@@ -370,7 +389,6 @@ ztr_ottoman_collapse_request_iraq = {
 			scope:ztr_ottoman_collapse_target_country.var:ottoman_empire_collapse_var >= 30
 		}
 	}
-
 	effect = {
 		set_variable = {
 			name = ztr_ottoman_collapse_diplomatic_request_cooldown
@@ -391,7 +409,6 @@ ztr_ottoman_collapse_request_iraq = {
 			}
 		}
 	}
-
 	ai_chance = {
 		value = 2
 		if = {
@@ -414,6 +431,167 @@ ztr_ottoman_collapse_request_iraq = {
 				navy_size >= 100
 			}
 			add = 2
+		}
+	}
+}
+
+# IMF Modernization Buttons
+ztr_imf_request_technical_mission = {
+	name = "ztr_imf_request_technical_mission"
+	desc = "ztr_imf_request_technical_mission_desc"
+	visible = {
+		has_journal_entry = je_imf_modernization
+	}
+	possible = {
+		custom_tooltip = {
+			text = "ztr_imf_technical_mission_cooldown_tt"
+			NOT = {
+				has_variable = imf_technical_mission_cooldown
+			}
+		}
+	}
+	effect = {
+		set_variable = {
+			name = imf_technical_mission_cooldown
+			years = 10
+		}
+		custom_tooltip = ztr_imf_technical_mission_cost_tt
+		trigger_event = ztr_imf_modernization.20
+	}
+	ai_chance = {
+		value = 0
+		if = {
+			limit = {
+				literacy_rate < 0.55
+			}
+			add = 12
+		}
+		if = {
+			limit = {
+				get_country_gdp_per < 5
+			}
+			add = 8
+		}
+		if = {
+			limit = {
+				scaled_debt > 0.25
+			}
+			multiply = 0
+		}
+	}
+}
+
+ztr_imf_launch_development_plan = {
+	name = "ztr_imf_launch_development_plan"
+	desc = "ztr_imf_launch_development_plan_desc"
+	visible = {
+		has_journal_entry = je_imf_modernization
+		NOT = {
+			has_variable = imf_development_plan_launched
+		}
+	}
+	possible = {
+		hidden_trigger = {
+			NOT = {
+				has_variable = imf_development_plan_launched
+			}
+		}
+	}
+	effect = {
+		set_variable = imf_development_plan_launched
+		add_modifier = {
+			name = imf_development_plan_modifier
+			years = 20
+		}
+	}
+	ai_chance = {
+		value = 2
+		if = {
+			limit = {
+				average_sol >= 14
+			}
+			add = 18
+		}
+		if = {
+			limit = {
+				get_country_gdp_per < 7
+			}
+			add = 8
+		}
+		if = {
+			limit = {
+				ztr_is_not_democratic = yes
+			}
+			add = 8
+		}
+		if = {
+			limit = {
+				scaled_debt > 0.25
+			}
+			multiply = 0
+		}
+	}
+}
+
+ztr_imf_seek_scholarships = {
+	name = "ztr_imf_seek_scholarships"
+	desc = "ztr_imf_seek_scholarships_desc"
+	visible = {
+		has_journal_entry = je_imf_modernization
+	}
+	possible = {
+		custom_tooltip = {
+			text = "ztr_imf_scholarships_cooldown_tt"
+			NOT = {
+				has_variable = imf_scholarships_cooldown
+			}
+		}
+		custom_tooltip = {
+			text = "ztr_imf_scholarships_gp_relations_tt"
+			any_country = {
+				country_rank >= rank_value:great_power
+				NOT = {
+					this = root
+				}
+				relations:root >= relations_threshold:cordial
+			}
+		}
+	}
+	effect = {
+		set_variable = {
+			name = imf_scholarships_cooldown
+			years = 3
+		}
+		add_modifier = {
+			name = imf_foreign_scholarships_modifier
+			years = 5
+		}
+	}
+	ai_chance = {
+		value = 1
+		if = {
+			limit = {
+				literacy_rate < 0.6
+			}
+			add = 14
+		}
+		if = {
+			limit = {
+				get_country_gdp_per < 5
+			}
+			add = 8
+		}
+		if = {
+			limit = {
+				has_modifier = imf_technical_mission_modifier
+			}
+			add = 4
+		}
+		if = {
+			limit = {
+				scaled_debt > 0.25
+			}
+			multiply = 0
 		}
 	}
 }

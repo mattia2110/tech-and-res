@@ -1,1 +1,0 @@
-1. The directory of Victoria 3 is C:\Program Files (x86)\Steam\steamapps\common\Victoria 3\game\

@@ -1,62 +1,83 @@
 ---
 name: Victoria 3 Event Scripting
-description: Guide for creating, editing, and reviewing Victoria 3 event files. Use when working in the events/ folder, adding or debugging event chains, wiring events to common/on_actions, common/journal_entries, decisions, or scripted effects, or checking scopes, triggers, options, localization, and event UI fields.
+description: Guide for creating, editing, and reviewing Victoria 3 event files. Use when working in the `events/` folder, adding or debugging event chains, wiring events from `common/on_actions`, journal entries, decisions, scripted effects, or other events, or checking scopes, placement, cooldowns, UI windows, conditional localization, option behavior, and follow-up firing.
 ---
 
 # Victoria 3 Event Scripting
 
 Use this skill for event definitions stored in `events/`.
 
+## Check Vanilla First
+
+- Inspect base-game examples in `C:\Program Files (x86)\Steam\steamapps\common\Victoria 3\game\events\`.
+- Use `game/events/test_events.txt` for syntax edge cases and orphan/debug patterns.
+- Use `game/events/tech_events/rubber_events.txt` for `state_event`, `cooldown`, and hidden helper events.
+- Use `game/events/acceptance_events.txt` or `game/events/commander_events.txt` for `gui_window`, `left_icon`, `right_icon`, and `on_opened_soundeffect`.
+- Use `game/events/alaska_events.txt` or `game/events/american_civil_war/acw_je_events.txt` for conditional `title`, `desc`, and `flavor`.
+- Use `game/events/iberia_events/spanish_events.txt` for `show_as_unavailable` plus `highlighted_option`.
+- Use `game/events/bulgaria_events.txt` for rare `after = { ... }` usage.
+
 ## Target Files
 
 - Put event scripts in `events/`.
-- Follow the repo's existing foldering when possible, for example:
-  - `events/china/...`
-  - `events/india/...`
-  - `events/colonies/...`
-  - top-level `events/ztr_*.txt` for broad mod systems
-- Add matching localization in `localization/`, saved as UTF-8-BOM `.yml`.
-- Check related source folders when an event is triggered or maintained elsewhere:
-  - `common/on_actions/`
-  - `common/journal_entries/`
-  - `common/decisions/`
-  - `common/scripted_effects/`
-  - `common/scripted_triggers/`
-  - `common/diplomatic_actions/` or other `common/` definitions that may call the event
+- Follow existing foldering by topic, region, or feature.
+- Add matching localization in `localization/` as UTF-8-BOM `.yml`.
+- Check callers in `common/on_actions/`, `common/journal_entries/`, `common/decisions/`, `common/scripted_effects/`, `common/scripted_triggers/`, and neighboring content that fires the event.
 
-## File and Namespace Rules
+## Organize Files and Namespaces
 
-- Start each file with one `namespace = some_name`.
+- Start each file with exactly one `namespace = some_name`.
 - Keep one namespace per file.
-- Keep event ids under that namespace, for example `ztr_india.1`, `ztr_india.2`.
-- Prefer a namespace that matches the file's subject, event chain, or folder.
-- Do not reuse vanilla namespaces unless intentionally overriding vanilla content.
-- Keep related chains together; split unrelated systems into separate files.
+- Keep ids unique inside that namespace.
+- Match the namespace to the file subject or event chain.
+- Keep related chains together and split unrelated systems into separate files.
+- Avoid vanilla namespaces unless intentionally overriding vanilla content.
 
-Vanilla `game/events/` and the mod's own `events/` folder both organize content by topic, region, or feature. Follow that pattern instead of building one giant events file.
+## Choose the Right Root
 
-## Core Structure
+- Prefer `type = country_event` for country-rooted events. Vanilla overwhelmingly uses this.
+- Use `type = state_event` when `ROOT` must be a state. Vanilla uses this for resource, decree, epidemic, and production events.
+- Avoid inventing new event types. Verify unusual patterns in vanilla before using them.
+- Treat `ROOT` according to event type: country for `country_event`, state for `state_event`.
+- Reach country context from a `state_event` through `owner = { ... }` or saved scopes.
+
+## Place the Event Correctly
+
+- Use `placement = ROOT` or `placement = root` for normal country or state placement.
+- Use `placement = scope:some_saved_scope` when the popup should anchor to a state, capital, expedition location, or other saved scope.
+- Use direct scoped references like `placement = c:TAG.capital` when vanilla already does so.
+- Save any placement scope before the event is fired. Do not rely on `immediate` to create a scope that `placement` needs.
+
+## Start from a Vanilla-Shaped Skeleton
 
 ```victoria3
-namespace = my_namespace
+namespace = my_feature
 
-my_namespace.1 = {
+my_feature.1 = {
 	type = country_event
 	placement = ROOT
 
-	title = my_namespace.1.t
-	desc = my_namespace.1.d
+	title = my_feature.1.t
+	desc = my_feature.1.d
+	flavor = my_feature.1.f
+
+	event_image = { video = "unspecific_signed_contract" }
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	icon = "gfx/interface/icons/event_icons/event_newspaper.dds"
+
+	duration = 3
+	cooldown = { days = normal_modifier_time }
 
 	trigger = {
 		# can this event appear?
 	}
 
 	immediate = {
-		# save scopes, set variables, prep state
+		# save scopes and prepare state before options render
 	}
 
 	option = {
-		name = my_namespace.1.a
+		name = my_feature.1.a
 		default_option = yes
 
 		# effects
@@ -64,83 +85,91 @@ my_namespace.1 = {
 }
 ```
 
-## Common Fields
+## Use Event-Level Fields Deliberately
 
-### Required in practice
+### Core flow
 
-- `type = country_event` is the most common event type in both vanilla and this mod.
-- `title`, `desc`, and option `name` should normally use localization keys.
-- `option = { ... }` is required unless the event is intentionally hidden and handled through `immediate`.
+- Write `trigger = { ... }` on discovery conditions, not on UI polish.
+- Leave `trigger = {}` intentionally empty only when the caller fully controls firing and the empty block documents that.
+- Use `immediate = { ... }` to save scopes, roll targets, cache variables, or prepare loc before options render.
+- Use `cancellation_trigger = { ... }` when a timed or pending event should disappear if the world changes.
+- Use `cooldown = { days|months|years = ... }` on pulse-driven events to stop spam. Vanilla uses this constantly.
+- Use extra variables, flags, or modifiers when cooldown must live on a wider scope than `ROOT`.
+- Use rare `after = { ... }` only when you need post-event follow-up work. Copy a vanilla example and test it instead of guessing.
 
-### Frequently used
+### Visibility and routing
 
-- `placement = ROOT` for country events with normal popup placement
-- `trigger = { ... }`
-- `immediate = { ... }`
-- `duration = 1` or another short window for simple prompt events
-- `hidden = yes` for utility events that should not surface to the player
-- `event_image = { video = "..." }`
-- `icon = "gfx/interface/icons/event_icons/....dds"`
-- `on_created_soundeffect = "event:/SFX/..."`
-- `dlc = ...` when the event is gated by the mod or DLC setup
+- Use `hidden = yes` for maintenance or utility events.
+- Use `orphan = yes` only for debug, test, or direct-only helpers that are not meant to surface naturally.
+- Use `is_popup = yes` only for specialized presentation flows that need popup behavior beyond a normal event.
+- Use `dlc = ...` when the event must disappear without a specific DLC.
+- Permit hidden or orphan utility events to omit visible text only when they can never surface to the player.
 
-### Event Image
+### UI and presentation
 
-For `event_image` videos, look up valid media aliases in `gfx/media_aliases/`. Check both this mod's `gfx/media_aliases/` folder and the base Victoria 3 game directory's `gfx/media_aliases/`.
+- Set `title`, `desc`, and normally `flavor`.
+- Set `duration = 3` or another short window for visible prompt events. Hidden helper events often omit it.
+- Set `event_image = { video = "..." }` with a valid media alias from `gfx/media_aliases/`.
+- Set `icon = "gfx/interface/icons/event_icons/....dds"` for visible events.
+- Set `on_created_soundeffect` on visible events. Vanilla almost always does.
+- Add `gui_window`, `left_icon`, `right_icon`, and `on_opened_soundeffect` only when the event uses a character-focused window.
+- Match the window to the icon layout. Vanilla commonly uses `event_window_1char_tabloid`, `event_window_2char`, and `event_window_1char_propaganda`.
 
-### Situational
+## Use Conditional Localization When the Text Must Branch
 
-- `cancellation_trigger = { ... }` when a pending event should disappear if conditions change
-- `is_popup = yes` for popup-style helper/test events
-- `orphan = yes` for events not meant to be reached by normal discovery logic
-- `flavor = some_loc_key` when extra flavor text is needed
-- option-level `trigger = { ... }`
-- option-level `show_as_unavailable = { always = yes }`
-- `highlighted_option = yes`
+- Write plain loc keys when one text path is enough.
+- Use `first_valid` plus `triggered_desc` blocks when title, desc, or flavor change by country, scope, or chain state.
+- Reuse vanilla syntax exactly. `title = { ... }` still uses `triggered_desc` entries internally.
 
-## Event Types and Scope
+```victoria3
+title = {
+	first_valid = {
+		triggered_desc = {
+			trigger = { has_variable = my_branch_var }
+			desc = my_feature.1.t_alt
+		}
+		triggered_desc = {
+			trigger = { always = yes }
+			desc = my_feature.1.t
+		}
+	}
+}
+```
 
-Use the event type that matches the expected root scope.
+- Use repeated `name = { trigger = { ... } text = ... }` blocks when an option label changes by branch or tag.
 
-- `country_event`: default choice; most vanilla and mod events use this
-- `state_event`: use when the event should root on a state rather than a country
+```victoria3
+option = {
+	name = {
+		trigger = { c:SPA ?= this }
+		text = my_feature.1.a_spa
+	}
+	name = {
+		trigger = { c:SPC ?= this }
+		text = my_feature.1.a_spc
+	}
+	default_option = yes
+}
+```
 
-When in doubt, inspect nearby vanilla examples in `game/events/` first. Vanilla `test_events.txt` is especially useful for event syntax and saved-scope examples.
+## Build Options the Way Vanilla Does
 
-## Workflow
+- Use `default_option = yes` on the branch the UI should preselect.
+- Use option-level `trigger = { ... }` to gate whether a choice can actually be picked.
+- Use `show_as_unavailable = { always = yes }` with a `trigger` when the player should see a locked option instead of having it vanish.
+- Use `highlighted_option = yes` sparingly to call attention to a branch.
+- Use `ai_chance = { ... }` to tune AI picks. Do not treat `default_option` as AI logic.
+- Use `custom_tooltip` to explain non-obvious or bundled effects.
+- Use `show_as_tooltip = { ... }` to preview effects without executing them in the visible branch.
+- Use `hidden_effect = { ... }` to keep tooltip noise down while still performing follow-up work.
+- Use `trigger_event = { id = other_namespace.N days = 0 popup = yes }` or a delayed version to hand off to the next event in a chain.
 
-1. Decide where the event lives in `events/` based on feature, country, or chain.
-2. Choose a namespace and reserve a clean id range for that chain.
-3. Decide how the event is reached:
-   - on action
-   - journal entry
-   - decision
-   - scripted effect
-   - another event via `trigger_event`
-4. Write the narrowest valid `trigger`.
-5. Use `immediate` to save scopes or prepare data before options render.
-6. Keep option bodies focused on visible outcomes; move repeated logic into scripted effects.
-7. Add localization for title, desc, flavor, and options.
-8. Verify the caller and callee both use the same scopes and assumptions.
+## Save and Reuse Scopes Explicitly
 
-## Trigger Sources
-
-Events are often not self-starting. Check the caller.
-
-Common sources:
-- `common/on_actions/` for pulses, startup hooks, law changes, wars, etc.
-- `common/journal_entries/` for JE-driven chains
-- `common/decisions/` for player-fired events
-- `common/scripted_effects/` for reusable chain entry points
-- other event files using `trigger_event`
-
-If the event should fire repeatedly from a pulse, make the trigger idempotent. Hidden maintenance events in this mod often rely on flags, modifiers, variables, or state checks to avoid repeated unintended execution.
-
-## Scope and Saved Scope Guidance
-
-- Use `ROOT` according to event type.
-- Save random or derived scopes in `immediate` before referencing them in options or localization.
-- Prefer explicit saved scopes when an option needs to show or act on the same target the player sees.
+- Save random or derived targets in `immediate` before using them in options, loc, or chained events.
+- Prefer `save_scope_as = ...` over recomputing the same target in multiple places.
+- Keep option effects and localization aligned to the same saved scopes so the player sees the same target they act on.
+- Remember that visible events often depend on scopes prepared by the caller, especially for `placement = scope:...`.
 
 Example:
 
@@ -153,85 +182,51 @@ immediate = {
 }
 ```
 
-Then use `scope:target_state` in option effects, triggers, or localization.
+## Keep Callers and Callees Consistent
 
-## Organization Patterns
+- Decide how the event fires before writing it: on action, journal entry, decision, scripted effect, or another event.
+- Make the caller and callee agree on `ROOT`, saved scopes, variables, and follow-up ids.
+- Gate pulse-fired or JE-pulse events with cooldowns, flags, or persistent variables so they stay idempotent.
+- Move large repeated effect blocks into `common/scripted_effects/`.
+- Move repeated boolean logic into `common/scripted_triggers/`.
+
+## Copy Strong Vanilla Patterns
 
 ### Player-facing choice event
 
-- Use visible title, desc, and one or more localized options.
-- Use `default_option = yes` on a sensible fallback.
-- Use option-level triggers for gated choices.
+- Use visible loc, image, icon, sound, and a short `duration`.
+- Save targets in `immediate`.
+- Use `default_option`, optional AI weights, and disabled options when the choice set matters.
 
 ### Hidden maintenance event
 
 - Use `hidden = yes`.
-- Put state preparation and effect logic in `immediate`.
-- Gate it carefully so pulse hooks do not spam or repeat the same work.
+- Do work in `immediate`.
+- Keep trigger and cooldown logic tight so pulses do not spam it.
 
-### Chain event
+### Character-focused event
 
-- Keep ids sequential inside the same namespace.
-- Pass control with `trigger_event`.
-- Save scopes early if later events need stable targets.
+- Use `gui_window` plus `left_icon` or `right_icon`.
+- Use matching opened sound effects.
+- Save character scopes before the window opens.
 
-## Keep Events Lean
+### State-focused event
 
-- Put large repeated effect blocks in `common/scripted_effects/`.
-- Put repeated condition logic in `common/scripted_triggers/`.
-- Let journal entries, modifiers, and variables carry long-term state instead of duplicating checks in every event.
+- Use `state_event`.
+- Anchor with `placement = ROOT` or a saved state scope.
+- Reach country context through `owner`.
 
-This mod already uses that pattern heavily. Preserve it.
+## Review Against This Checklist
 
-## Template
-
-```victoria3
-namespace = my_feature
-
-my_feature.1 = {
-	type = country_event
-	placement = ROOT
-
-	title = my_feature.1.t
-	desc = my_feature.1.d
-	duration = 1
-
-	trigger = {
-		# root-scope conditions
-	}
-
-	immediate = {
-		# save scopes or prep variables
-	}
-
-	option = {
-		name = my_feature.1.a
-		default_option = yes
-
-		# primary effect
-	}
-
-	option = {
-		name = my_feature.1.b
-
-		trigger = {
-			# optional choice gating
-		}
-
-		show_as_unavailable = { always = yes }
-	}
-}
-```
-
-## Review Checklist
-
-- The file sits in a sensible place under `events/`.
-- The namespace is unique and matches the chain.
-- Event ids are unique inside that namespace.
-- The chosen event type matches the intended root scope.
-- The event has a real caller, or is intentionally hidden/orphaned.
-- `trigger` prevents accidental repeat firing.
-- Saved scopes are created before they are referenced.
-- Repeated logic is moved to scripted effects or scripted triggers.
-- All title, desc, flavor, and option keys exist in localization.
-- Player-facing events have a sane default option and UI fields.
+- Put the file in a sensible place under `events/`.
+- Use one namespace and unique ids.
+- Match `type` to the intended `ROOT` scope.
+- Make `placement` point to a scope that already exists when the event fires.
+- Give every visible event proper loc, image or icon choices, and sensible sound or UI fields.
+- Give every pulse or repeatable event an anti-spam plan: `cooldown`, flags, variables, or all three.
+- Save scopes before using them in loc, options, or follow-up events.
+- Use conditional loc blocks only when the text truly branches.
+- Make option gating, unavailable display, highlighting, and AI chance intentional.
+- Keep chain handoffs explicit with `trigger_event`.
+- Move repeated logic into scripted effects or scripted triggers.
+- Verify the caller, callee, and localization all agree on names, scopes, and behavior.

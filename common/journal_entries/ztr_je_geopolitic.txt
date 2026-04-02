@@ -1,0 +1,277 @@
+# Superpowr ask diplomatically to another country to change laws
+# Always use with:
+# - ztr_has_superpower_alignment_law_candidate scripted trigger
+je_superpower_request_law_enactment = {
+	icon = "gfx/interface/icons/event_icons/event_scales.dds"
+	group = je_group_technology
+	timeout = 1825
+	immediate = {
+		random_country = {
+			limit = {
+				has_variable = superpower_requester_flag
+			}
+			save_scope_as = superpower_law_requester
+		}
+		ztr_select_superpower_alignment_law = yes
+	}
+	on_yearly_pulse = {
+		effect = {
+			if = {
+				limit = {
+					is_ai = yes
+					exists = scope:superpower_alignment_law
+					NOT = {
+						has_law_or_variant = scope:superpower_alignment_law.type
+					}
+					enacting_any_law = no
+					scope:superpower_alignment_law = {
+						law_is_available = yes
+					}
+				}
+				scope:superpower_alignment_law = {
+					ROOT = {
+						start_enactment = prev.type
+					}
+				}
+			}
+		}
+	}
+	status_desc = {
+		first_valid = {
+			triggered_desc = {
+				desc = je_superpower_request_law_enactment_status_enacting
+				trigger = {
+					is_enacting_law = scope:superpower_alignment_law.type
+				}
+			}
+			triggered_desc = {
+				desc = je_superpower_request_law_enactment_status_pending
+				trigger = {
+					always = yes
+				}
+			}
+		}
+	}
+	complete = {
+		has_law_or_variant = scope:superpower_alignment_law.type
+	}
+	on_complete = {
+		if = {
+			limit = {
+				exists = scope:superpower_law_requester
+			}
+			change_relations = {
+				country = scope:superpower_law_requester
+				value = 50
+			}
+			custom_tooltip = {
+				text = je_superpower_aid_extended_tt
+				remove_modifier = superpower_aid_modifier
+				add_modifier = {
+					name = superpower_aid_modifier
+					years = 10
+				}
+			}
+		}
+	}
+	invalid = {
+		OR = {
+			NOT = {
+				exists = scope:superpower_law_requester
+			}
+			scope:superpower_law_requester ?= {
+				is_country_alive = no
+			}
+			NOT = {
+				exists = scope:superpower_alignment_law
+			}
+		}
+	}
+	on_timeout = {
+		if = {
+			limit = {
+				exists = scope:superpower_law_requester
+			}
+			remove_modifier = superpower_aid_modifier
+			change_relations = {
+				country = scope:superpower_law_requester
+				value = -150
+			}
+		}
+	}
+	event_outcome_completed_desc = {
+		first_valid = {
+			triggered_desc = {
+				desc = je_superpower_request_law_enactment_completed_desc
+			}
+		}
+	}
+	event_outcome_timeout_desc = {
+		first_valid = {
+			triggered_desc = {
+				desc = je_superpower_request_law_enactment_timeout_desc
+			}
+		}
+	}
+	weight = 25
+	should_be_pinned_by_default = yes
+}
+
+je_un_info_panel = {
+	icon = "gfx/interface/icons/event_icons/united_nations.dds"
+	group = je_group_foreign_affairs
+	is_shown_when_inactive = {
+		OR = {
+			has_modifier = ztr_onu_member
+			has_modifier = ztr_onu_permanent_member
+		}
+	}
+	possible = {
+		OR = {
+			has_modifier = ztr_onu_member
+			has_modifier = ztr_onu_permanent_member
+		}
+	}
+	immediate = {
+		ztr_un_permanent_member_ranking_variables = yes
+		ztr_un_permanent_member_ranking_effect = yes
+	}
+	on_yearly_pulse = {
+		effect = {
+			ztr_un_permanent_member_ranking_variables = yes
+			ztr_un_permanent_member_ranking_effect = yes
+		}
+	}
+	scripted_button = ztr_un_start_dummy_vote
+	status_desc = {
+		first_valid = {
+			triggered_desc = {
+				desc = je_un_info_panel_status_permanent
+				trigger = {
+					has_modifier = ztr_onu_permanent_member
+				}
+			}
+			triggered_desc = {
+				desc = je_un_info_panel_status_member
+				trigger = {
+					has_modifier = ztr_onu_member
+				}
+			}
+		}
+	}
+	invalid = {
+		NOR = {
+			has_modifier = ztr_onu_member
+			has_modifier = ztr_onu_permanent_member
+		}
+	}
+	on_invalid = {
+		ztr_un_permanent_member_ranking_variables = yes
+	}
+	weight = 100
+	can_deactivate = yes
+	transferable = no
+	progressbar = no
+}
+
+je_un_votations = {
+	icon = "gfx/interface/icons/event_icons/united_nations.dds"
+	group = je_group_global_un_content
+	is_shown_when_inactive = {
+		has_global_variable = ztr_un_vote_active
+	}
+	should_be_involved = {
+		has_variable = ztr_un_vote_eligible
+	}
+	should_show_when_not_involved = {
+		OR = {
+			has_modifier = ztr_onu_member
+			has_modifier = ztr_onu_permanent_member
+		}
+	}
+	is_shown_in_lobby = {
+		has_global_variable = ztr_un_vote_active
+		OR = {
+			has_modifier = ztr_onu_member
+			has_modifier = ztr_onu_permanent_member
+		}
+	}
+	possible = {
+		has_global_variable = ztr_un_vote_active
+	}
+	immediate = {
+		scope:journal_entry = {
+			ztr_un_vote_update_results = yes
+		}
+	}
+	on_monthly_pulse = {
+		effect = {
+			scope:journal_entry = {
+				ztr_un_vote_update_results = yes
+			}
+		}
+	}
+	status_desc = {
+		first_valid = {
+			triggered_desc = {
+				desc = je_un_votations_status_support
+				trigger = {
+					global_var:ztr_un_vote_support_count > global_var:ztr_un_vote_against_count
+				}
+			}
+			triggered_desc = {
+				desc = je_un_votations_status_against
+				trigger = {
+					global_var:ztr_un_vote_against_count > global_var:ztr_un_vote_support_count
+				}
+			}
+			triggered_desc = {
+				desc = je_un_votations_status_neutral
+				trigger = {
+					always = yes
+				}
+			}
+		}
+	}
+	invalid = {
+		NOT = {
+			any_country = {
+				OR = {
+					has_variable = ztr_un_vote_eligible
+					is_involved_in_journal_entry = je_un_votations
+				}
+			}
+		}
+	}
+	on_invalid = {
+		ztr_un_vote_cleanup_all_members = yes
+	}
+	scripted_progress_bar = ztr_un_vote_support_progress_bar
+	scripted_progress_bar = ztr_un_vote_neutral_progress_bar
+	scripted_progress_bar = ztr_un_vote_against_progress_bar
+	scripted_button = ztr_un_vote_for_statement
+	scripted_button = ztr_un_vote_neutral_statement
+	scripted_button = ztr_un_vote_against_statement
+	timeout = 365
+	on_timeout = {
+		scope:journal_entry = {
+			ztr_un_vote_update_results = yes
+		}
+		if = {
+			limit = {
+				global_var:ztr_un_vote_support_count > global_var:ztr_un_vote_against_count
+			}
+			# Here we trigger the new law (This can be managed also by a global event)
+			set_global_variable = {
+				name = ztr_un_dummy_statement_active
+				value = 1
+			}
+		}
+		ztr_un_vote_cleanup_all_members = yes
+	}
+	weight = 110
+	should_be_pinned_by_default = yes
+	can_deactivate = yes
+	transferable = no
+	progressbar = no
+}

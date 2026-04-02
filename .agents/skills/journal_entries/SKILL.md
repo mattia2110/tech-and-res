@@ -3,418 +3,433 @@ description: Guide and template structure for Journal Entries in Victoria 3.
 name: Journal Entries
 ---
 
-﻿    journal_entry_key = {
-        # root = context-based scope. either owning country, a specific country, or no scope
-        # scope:journal_entry = this Journal Entry (journalentry scope)
-        # scope:target = target value, with which this Journal Entry was added using `add_journal_entry` effect
-    
-        # optional journal entry group as specified in common/journal_entry_groups
-		# context is set in the group
-        group = journalentrygroup_mygroup
-    
-        # optional image that shows in the journal entry widget near the description, default = NDefines::GUI::JOURNAL_ENTRY_ICON_DEFAULT (set in /defines/00_interfaces.txt)
-        icon = "gfx/interface/icons/event_icons/event_industry.dds"
-    
-        # optional trigger which determines if a journal entry can be shown when not active, default = no
-        # is ignored when JE is added through `add_journal_entry` effect
-		# root = owning country or no scope
-        is_shown_when_inactive = {
-            c:GBR = root
-        }
-		
-		# whether a country should become involved when a contextless JE activates
-		# root = specific country
-		should_be_involved = {		
-		}
-		
-		# whether this JE should be visible to a country that is not involved in a contextles JE, also additionally determines who can see it when it's not active
-		# root = specific country
-		should_show_when_not_involved = {
-		}	
-    
-        # one or more scripted buttons. See common/scripted_buttons/scripted_buttons.md for more info
-        scripted_button = scripted_button_key
-    
-        # optional trigger - when both this and is_shown_when_inactive is true, the JE is Activated, default = yes
-        # is ignored when JE is added through `add_journal_entry` effect
-        # root = owning country or no scope
-        possible = {
-            c:USA ?= {
-                owns_entire_state_region = scope:target
-            }
-        }
-    
-        # effect which happens when a journal entry is activated by having its `is_shown_when_inactive` and `possible` triggers become true or when JE is added through `add_journal_entry` effect
-        # root = owning country or no scope
-        immediate = {
-            c:USA ?= {
-                # saved scopes can be used in any events triggered from the Journal Entry, as well as in the loc for the Journal Entry itself
-                # To use saved scopes in loc: JournalEntry.GetTopScope.sCountry('saved_scope_name') or SCOPE.sCountry('saved_scope_name')
-                save_scope_as = god_bless_america
-                set_variable = {
-                    name = freedom
-                    value = 1
-                }
-            }
-    
-            set_variable = test_variable
-    
-            # all events in these on_actions can refer to scope:god_bless_america
-            trigger_event = {
-                id = test_event.1
-                days = 0
-                popup = yes
-            }
-        }
-		
-		# as immediate, but fired individually for each involved country in a contextless JE
-		# root = specific country
-		immediate_all_involved = {
-		}
-    
-        # completion trigger, use is_goal_complete = yes in here if you're testing a tracked goal metric; if left blank, cannot be completed
-        # root = owning country or no scope
-        complete = {
-            scope:god_bless_america = {
-                NOT = { owns_entire_state_region = STATE_ALASKA }
-            }
-    
-            custom_tooltip = {
-                # Following loc functions can be used:
-                # [JournalEntry.GetTotalGoalValue] - goal absolute value (fixed point)
-                # [JournalEntry.CalcCurrentGoalValue] - current progress absolute value (fixed point)
-                # [JournalEntry.GetGoalAddValue] - goal relative value (fixed point)
-                # [JournalEntry.GetGoalProgressValue] - current progress relative value (fixed point)
-                # [JournalEntry.GetGoalProgressPercent] = GetGoalProgressValue / GetGoalAddValue (fixed point)
-                text = journal_entry_key_goal_text
-                scope:journal_entry = { is_goal_complete = yes }
-            }
-        }
-    
-        # effect which is executed when 'complete' trigger becomes true
-        # root = owning country or no scope
-        on_complete = {
-            trigger_event = {
-                id = test_event.10
-                days = 0
-            }
-        }
-		
-        # as on_complete, but fired individually for each involved country in a contextless JE
-		# root = specific country
-	    on_complete_all_involved = {
-        }		
-    
-        # failure trigger, should spawn event explaining what happens when triggered, framed as a failure; if left blank, cannot fail
-        # root = owning country or no scope
-        fail = {
-            NOT = { c:GBR = root }
-        }
-    
-        # effect which is executed when 'fail' trigger becomes true
-        # root = owning country or no scope
-        on_fail = {
-            remove_variable = test_variable
-            scope:god_bless_america = {
-                remove_variable = freedom
-            }
-        }
-    
-     	# as on_fail, but fired individually for each involved country in a contextless JE
-		# root = specific country
-		on_fail_all_involved = {
-        }	
-		
-        # optional invalidation trigger, should not notify player when it triggers, just clean up and silently disappear due to journal entry no longer being valid; if left blank, cannot be invalidated
-        # root = owning country or no scope
-        invalid = {
-    
-        }
-    
-        # effect which is executed when 'invalid' trigger becomes true
-        # root = owning country or no scope
-        on_invalid = {
-    
-        }
-		
-        # as on_complete, but fired individually for each involved country in a contextless JE
-		# root = specific country
-	    on_invalid_all_involved = {
-		}
-		
-		# fires when a country becomes involved after activation of a contextless JE, ie not as a result of the should_be_involved trigger
-		# root = specific country
-		on_become_involved_after_activation = {
-		}
+# Journal Entries
 
-		# fires when a country stops being involved in a contextless JE
-		# root = specific country
-		on_no_longer_involved = {
-		}			
-		
-        # dynamically updated text, which describes the current status of the Journal Entry
-        # To use in loc or UI: [JournalEntry.GetStatusDesc]
-        # If this is not specified, GetStatusDesc will instead return loc from key <journal_entry_key>_status
-        # root = owning country or no scope
-        status_desc = {
-            first_valid = {
-                triggered_desc = {
-                    desc = journal_entry_key_status_1
-                    trigger = {
-                        has_variable = mining_strike
-                    }
-                }
-                triggered_desc = {
-                    desc = journal_entry_key_status_2
-                    trigger = {
-                        has_variable = industrial_strike
-                    }
-                }
-                triggered_desc = {
-                    desc = journal_entry_key_status_2
-                    trigger = {
-                        has_variable = railway_strike
-                    }
-                }
-            }
-        }
-		
-		# dynamically updated text, which describes potential event outcomes when JE is activated
-		# multiple such entries can be added to a JE
-        # root = owning country or no scope
-        event_outcome_activated_desc = {
-			first_valid = {
-				triggered_desc = {
-					desc = holstein_is_annexed
-					trigger = {
-						exists = c:SCH
-					}
-				}
+Use this skill for Victoria 3 files in `common/journal_entries/*.txt`.
+
+Do not use it for:
+- `common/journal_entry_groups/*.txt` edits with no JE definition changes
+- event-only work in `events/` when the journal entry definitions are untouched
+- `common/scripted_progress_bars/*.txt` or `common/scripted_buttons/*.txt` edits when the JE attachment itself does not change
+
+Pair it with:
+- `Victoria 3 Event Scripting` when the JE starts, maintains, or resolves through events
+- `Scripted Progress Bars` when the JE uses `scripted_progress_bar`
+- `Scripted Buttons` when the JE exposes player actions
+- `Objective Subgoals` when the JE is started by the player-objective system
+- `Localization Formatting` when adding or updating JE localization
+
+## File Location
+
+Write local mod JEs in:
+- `common/journal_entries/*.txt`
+
+Inspect the local mod first:
+- `common/journal_entries/*.txt`
+- `common/journal_entry_groups/*.txt`
+- `common/scripted_buttons/*.txt`
+- `common/scripted_progress_bars/*.txt`
+- `common/scripted_effects/*.txt`
+- `common/scripted_triggers/*.txt`
+- `common/on_actions/*.txt`
+- `events/*.txt`
+- `localization/english/*.yml`
+
+Then compare against the main pattern sources:
+- `C:\Program Files (x86)\Steam\steamapps\common\Victoria 3\game\common\journal_entries\journal_entries.md`
+- `C:\Program Files (x86)\Steam\steamapps\common\Victoria 3\game\common\journal_entries\*.txt`
+- `C:\Program Files (x86)\Steam\steamapps\common\Victoria 3\game\common\journal_entry_groups\00_journal_entries.txt`
+- `C:\Program Files (x86)\Steam\steamapps\workshop\content\529340\3385002128\common\journal_entries\*.txt`
+
+## What These Definitions Do
+
+A journal entry is a player-facing state machine. In practice, a JE definition decides:
+- who can see it in the Journal UI and while inactive
+- when it activates and whether it can deactivate again
+- how it tracks progress, if any
+- which events, buttons, modifiers, and scripted effects fire on activation, completion, failure, invalidation, or timeout
+- whether it belongs to one country or to a contextless involved-country setup
+
+JEs rarely stand alone. They usually connect to:
+- `common/journal_entry_groups/` for scope context
+- `events/` for narrative and state transitions
+- `common/scripted_buttons/` for JE actions
+- `common/scripted_progress_bars/` for custom progress displays
+- `common/scripted_effects/` and `common/scripted_triggers/` for reusable logic
+- `common/objective_subgoals/` for tutorial or objective-driven JE starts
+- `common/static_modifiers/` and localization for visible rewards, penalties, and tooltips
+
+## Scope and Context
+
+Group context matters more than the raw field list.
+
+- `group = ...` is effectively required in practice. The group definition in `common/journal_entry_groups/00_journal_entries.txt` decides whether the JE context is `country` or `none`.
+- For country-context groups, `ROOT` is the owning country.
+- For contextless groups, the JE itself exists without a country root and you usually work through involved-country hooks such as `should_be_involved` and `*_all_involved`.
+- `scope:journal_entry` is the JE instance. Use it for JE variables, `is_goal_complete`, involved-country iteration, and scripted bar reads.
+- `scope:target` is whatever scope was passed through `add_journal_entry`. Target-scoped JEs are common in tutorial, objective, war, building, relation, and IG content.
+
+Important visibility distinction:
+- `is_shown_in_lobby` controls visibility in the Journal UI for many historical or always-relevant entries. Vanilla uses this heavily even when the JE is not purely inactive-gated.
+- `is_shown_when_inactive` controls whether a not-yet-active JE is visible before activation. This is commonly bypassed when the JE is added directly through `add_journal_entry`.
+- `possible` is the activation gate. If `can_deactivate = yes`, it can also return an active JE to the inactive state.
+
+## Workflow
+
+1. Identify the owning system before writing the JE: country flavor, tutorial, objective, diplomatic chain, global crisis, or utility state machine.
+2. Check the target group so you know whether the JE is country-scoped or contextless.
+3. Find the caller that activates the JE, especially if it uses `add_journal_entry` and passes a `scope:target`.
+4. Decide whether progress is built-in with `current_value` and `goal_add_value`, custom with `scripted_progress_bar`, or event-driven with no bar at all.
+5. Write `complete`, `fail`, `invalid`, and `timeout` as separate transitions with separate meanings.
+6. Keep repeated gameplay logic in scripted effects or events instead of building giant inline JE blocks.
+7. If the JE pulses weekly, monthly, or yearly, make the pulse idempotent with variables, flags, modifiers, or hidden triggers.
+8. Re-check the full chain: group, caller, events, buttons, progress bars, modifiers, and localization.
+
+## Common Archetypes
+
+### Country-scoped tracked goal JE
+
+Purpose:
+- Long-running country content with normal activation, completion, failure, and optional timeout.
+
+Typical fields:
+- `group`
+- `is_shown_in_lobby` or `is_shown_when_inactive`
+- `possible`
+- `complete`
+- `fail`
+- `timeout`
+- `on_complete`, `on_fail`, `on_timeout`
+- `event_outcome_*`
+
+Representative sources:
+- `C:\Program Files (x86)\Steam\steamapps\common\Victoria 3\game\common\journal_entries\00_opium_wars.txt`
+- `C:\Program Files (x86)\Steam\steamapps\common\Victoria 3\game\common\journal_entries\06_portugal_politics.txt`
+
+Use this pattern when the JE is the main player-facing container for a country feature rather than a thin event trigger.
+
+### Target-scoped tutorial or objective JE
+
+Purpose:
+- Track progress against a specific passed-in building, character, IG, law, or country.
+
+Typical fields:
+- `scope:target` checks in `complete`, `fail`, or `invalid`
+- `current_value` and `goal_add_value`
+- `is_progressing`
+- `should_update_on_player_command` when player-issued commands should refresh it immediately
+- `on_invalid` cleanup if the target disappears or changes owner
+
+Representative sources:
+- `C:\Program Files (x86)\Steam\steamapps\common\Victoria 3\game\common\journal_entries\00_tutorial.txt`
+- `C:\Program Files (x86)\Steam\steamapps\common\Victoria 3\game\common\journal_entries\00_player_objectives_economic_dominance.txt`
+- `C:\Program Files (x86)\Steam\steamapps\common\Victoria 3\game\common\journal_entries\00_ig_suppression.txt`
+
+If a JE depends on `scope:target`, always decide how it invalidates when that target no longer exists or is no longer valid.
+
+### Event-launcher or dummy choice-gateway JE
+
+Purpose:
+- Surface an event, preview the outcome of that event, and then hand off the real chain elsewhere.
+
+Typical fields:
+- `immediate`
+- `show_as_tooltip = { trigger_event = ... }`
+- `event_outcome_activated_effect_desc`
+- intentionally trivial `complete` or `fail`
+
+Representative source:
+- `C:\Program Files (x86)\Steam\steamapps\common\Victoria 3\game\common\journal_entries\06_spanish_new_world.txt`
+
+Use this for JE-backed gateways only when the Journal UI needs to frame the decision. Do not use it as a replacement for a normal event chain when a JE adds no real state.
+
+### Pulse-maintained event-chain JE
+
+Purpose:
+- Run a long-lived state machine through weekly, monthly, or yearly pulses that trigger events, grow timers, or refresh saved state.
+
+Typical fields:
+- `immediate`
+- `status_desc`
+- `on_weekly_pulse`, `on_monthly_pulse`, `on_yearly_pulse`
+- JE variables and saved scopes
+- `complete`, `fail`, `invalid`
+
+Representative sources:
+- `C:\Program Files (x86)\Steam\steamapps\common\Victoria 3\game\common\journal_entries\00_peoples_springtime_je.txt`
+- `C:\Program Files (x86)\Steam\steamapps\common\Victoria 3\game\common\journal_entries\00_ig_suppression.txt`
+
+Pulse JEs are where repeated-firing bugs happen. Guard rewards, event triggers, and timer changes carefully.
+
+### Numeric progress JE
+
+Purpose:
+- Show built-in JE progress through the engine goal system instead of a separate scripted progress bar.
+
+Typical fields:
+- `current_value`
+- `goal_add_value`
+- `progressbar = yes`
+- `display_progressbar_as_months = yes` for rare time-like displays
+- `is_progressing`
+- `progress_desc`
+
+Representative sources:
+- `C:\Program Files (x86)\Steam\steamapps\common\Victoria 3\game\common\journal_entries\00_tutorial.txt`
+- `C:\Program Files (x86)\Steam\steamapps\common\Victoria 3\game\common\journal_entries\00_opium_wars.txt`
+- `C:\Program Files (x86)\Steam\steamapps\common\Victoria 3\game\common\journal_entries\01_french_monarchism.txt`
+
+Vanilla uses both scalar and block forms here. `current_value = legitimacy` and `current_value = { value = gdp }` are both valid patterns. The same applies to `goal_add_value`.
+
+### Scripted-progress-bar and button-driven JE
+
+Purpose:
+- Drive active JE gameplay through custom progress bars and clickable JE actions.
+
+Typical fields:
+- repeated `scripted_button = ...`
+- repeated `scripted_progress_bar = ...`
+- `status_desc`
+- pulse hooks or events that update the bars
+
+Representative sources:
+- `C:\Program Files (x86)\Steam\steamapps\common\Victoria 3\game\common\journal_entries\06_the_carlist_wars.txt`
+- `C:\Program Files (x86)\Steam\steamapps\common\Victoria 3\game\common\journal_entries\00_peoples_springtime_je.txt`
+- `C:\Program Files (x86)\Steam\steamapps\workshop\content\529340\3385002128\common\journal_entries\com_progress_in_style.txt`
+
+Repeated `scripted_button` and `scripted_progress_bar` lines are normal. Treat them as lists even though the syntax is repeated fields.
+
+### Contextless or global multi-country JE
+
+Purpose:
+- Run one JE across many countries, with individual involved-country effects and visibility.
+
+Typical fields:
+- group with `context = none`
+- `should_be_involved`
+- `should_show_when_not_involved`
+- `immediate_all_involved`
+- `on_complete_all_involved`
+- `on_fail_all_involved`
+- `on_timeout_all_involved`
+- `on_become_involved_after_activation`
+- `on_no_longer_involved`
+
+Representative sources:
+- `C:\Program Files (x86)\Steam\steamapps\common\Victoria 3\game\common\journal_entries\00_peoples_springtime_je.txt`
+- `C:\Program Files (x86)\Steam\steamapps\common\Victoria 3\game\common\journal_entries\06_the_carlist_wars.txt`
+- `C:\Program Files (x86)\Steam\steamapps\workshop\content\529340\3385002128\common\journal_entries\com_rise_of_communism.txt`
+
+Contextless JEs need much stricter scope discipline. When a field says it runs per involved country, write it as such and do not assume country-root behavior from a normal JE.
+
+### Deactivating or invalidating master and child JE chains
+
+Purpose:
+- Maintain a master JE that can pause, vanish silently, or control a set of child JEs.
+
+Typical fields:
+- `can_deactivate`
+- `invalid`
+- `on_invalid`
+- child JE `fail` conditions tied to the master JE's continued existence
+- variables or modifiers that prevent duplicate rewards
+
+Representative source:
+- `C:\Program Files (x86)\Steam\steamapps\common\Victoria 3\game\common\journal_entries\06_economic_regeneration.txt`
+
+Use invalidation for silent cleanup. Use failure when the player should be told they failed.
+
+### Workshop-only advanced patterns
+
+Purpose:
+- Extend JE behavior into custom systems beyond normal vanilla JE flow.
+
+Representative sources:
+- `C:\Program Files (x86)\Steam\steamapps\workshop\content\529340\3385002128\common\journal_entries\com_rise_of_communism.txt`
+- `C:\Program Files (x86)\Steam\steamapps\workshop\content\529340\3385002128\common\journal_entries\com_progress_in_style.txt`
+
+These examples show:
+- custom situation setup from JE `immediate`
+- custom factions and button groups
+- JE-scoped progress bar styling and drift control
+
+Treat them as advanced references, not baseline JE structure. They rely on supporting scripted systems from that workshop mod.
+
+## Field Guidance
+
+### Visibility and activation
+
+- `group`: Determines the JE context through the referenced journal entry group.
+- `is_shown_in_lobby`: Common in historical and flavor JEs. Use when the player should see the JE in the Journal UI even outside the basic inactive-gated pattern.
+- `is_shown_when_inactive`: Controls visibility before activation for non-added JEs.
+- `possible`: Activation gate for inactive JEs.
+- `can_deactivate`: Rare. Use only when the JE should genuinely return to inactive if `possible` stops being true.
+- `invalid`: Silent removal when the JE is no longer relevant.
+- `on_invalid`: Cleanup for invalidation.
+
+### State transitions and pulses
+
+- `immediate`: Activation payload. Save scopes, set variables, add modifiers, or trigger entry events here.
+- `immediate_all_involved`: Contextless equivalent that runs once per involved country.
+- `complete` and `on_complete`: Success condition and success payload.
+- `fail` and `on_fail`: Failure condition and failure payload.
+- `timeout` and `on_timeout`: Forced transition after a set duration.
+- `on_weekly_pulse`, `on_monthly_pulse`, `on_yearly_pulse`: Maintenance hooks. Use them carefully and make them repeat-safe.
+
+### Progress and UI
+
+- `current_value` and `goal_add_value`: Support both scalar and block forms. Use the simplest form that matches the real calculation.
+- `progressbar = yes`: Enables the built-in goal bar.
+- `display_progressbar_as_months = yes`: Rare. Use only when the bar should read as elapsed or remaining months.
+- `scripted_progress_bar`: Attaches one or more custom bars from `common/scripted_progress_bars/`.
+- `is_progressing`: Lets the UI know whether the JE is actively making progress.
+- `status_desc`: Dynamic JE status text.
+- `progress_desc`: Rare dynamic text above the progress bar.
+- `scripted_button`: Attaches one or more JE actions. The buttons themselves live elsewhere.
+- `should_update_on_player_command`: Rare and mostly tutorial-facing. Use when the JE must refresh from direct player-issued commands rather than waiting on the usual pulse cadence.
+
+### Outcome previews
+
+- `event_outcome_activated_desc`
+- `event_outcome_activated_effect_desc`
+- `event_outcome_completed_desc`
+- `event_outcome_completed_effect_desc`
+- `event_outcome_failed_desc`
+- `event_outcome_failed_effect_desc`
+- `event_outcome_timeout_desc`
+- `event_outcome_timeout_effect_desc`
+
+These are preview helpers for the UI. The `*_effect_desc` blocks generate tooltips from effects but do not execute those effects by themselves.
+
+### Headers, inheritance, and tracking
+
+- `custom_completion_header`, `custom_failure_header`, `custom_on_completion_header`, `custom_on_failure_header`: Flavor headers for the JE UI.
+- `modifiers_while_active`: Applies modifiers while the JE is active.
+- `weight`: Goal-tracker priority.
+- `transferable`: Whether the JE follows the player on country switch or subject release.
+- `can_revolution_inherit`: Whether a victorious revolution can inherit the JE.
+- `should_be_pinned_by_default`: Default outliner behavior.
+- `how_tutorial` and `why_tutorial`: Tutorial-only guidance fields used heavily in `00_tutorial.txt`.
+
+## Important Caution
+
+Do not treat `journal_entries.md` as enough guidance by itself.
+
+The note file lists syntax, but the real behavior of a JE depends on:
+- group context
+- how the JE is added or activated
+- supporting events
+- buttons and progress bars
+- saved scopes and JE variables
+- localization and modifier payloads
+
+Always inspect the surrounding chain, not just the JE block.
+
+## Compact Template
+
+```victoria3
+my_journal_entry = {
+	group = je_group_internal_affairs
+	icon = "gfx/interface/icons/event_icons/event_portrait.dds"
+
+	# For directly shown historical JEs; optional
+	is_shown_in_lobby = {
+		c:TAG ?= this
+	}
+
+	# Used for naturally discovered JEs; ignored when added directly
+	is_shown_when_inactive = {
+		c:TAG ?= this
+	}
+
+	possible = {
+		has_technology_researched = nationalism
+	}
+
+	immediate = {
+		set_variable = my_journal_entry_started
+		# scope:target exists only if add_journal_entry passed a target
+	}
+
+	scripted_button = my_journal_entry_button
+	scripted_progress_bar = my_journal_entry_bar
+
+	# Scalar and block forms are both valid in real content
+	current_value = legitimacy
+	goal_add_value = {
+		value = 15
+	}
+
+	progressbar = yes
+	is_progressing = {
+		government_legitimacy >= 50
+	}
+
+	status_desc = {
+		desc = my_journal_entry_status
+	}
+
+	progress_desc = {
+		desc = my_journal_entry_progress
+	}
+
+	complete = {
+		scope:journal_entry = { is_goal_complete = yes }
+	}
+
+	on_complete = {
+		trigger_event = { id = my_events.1 popup = yes }
+	}
+
+	fail = {
+		in_default = yes
+	}
+
+	on_fail = {
+		add_modifier = {
+			name = my_failure_modifier
+			days = 365
+		}
+	}
+
+	invalid = {
+		NOT = { c:TAG ?= root }
+	}
+
+	on_invalid = {
+		remove_variable = my_journal_entry_started
+	}
+
+	timeout = 730
+
+	on_timeout = {
+		trigger_event = { id = my_events.2 popup = yes }
+	}
+
+	event_outcome_completed_effect_desc = {
+		header = my_events.1.a
+		effect = {
+			add_modifier = {
+				name = my_reward_modifier
+				days = 365
 			}
 		}
-		
-		# alternative to  event_outcome_activated_desc using the effect system to automatically generate tooltips
-		# note that the effects here are only used for description purposes and will not actually happen
-		# root = owning country or no scope
-        event_outcome_activated_effect_desc = {
-			header = option_gain_money
-			effect = {
-				add_treasury = 1000
-			}
-		}
-		
-		# dynamically updated text, which describes potential event outcomes when JE is invalidated
-		# multiple such entries can be added to a JE
-        # root = owning country or no scope
-        event_outcome_invalidated_desc = {
-			first_valid = {
-				triggered_desc = {
-					desc = holstein_is_annexed
-					trigger = {
-						exists = c:SCH
-					}
-				}
-			}
-		}
-		
-		# alternative to  event_outcome_invalidated_desc using the effect system to automatically generate tooltips
-		# note that the effects here are only used for description purposes and will not actually happen
-		# root = owning country or no scope
-        vent_outcome_invalidated_effect_desc = {
-			header = option_gain_money
-			effect = {
-				add_treasury = 1000
-			}
-		}	
-		
-		# dynamically updated text, which describes potential event outcomes when JE is completed
-		# multiple such entries can be added to a JE
-        # root = owning country or no scope
-        event_outcome_completed_desc = {
-			first_valid = {
-				triggered_desc = {
-					desc = holstein_is_annexed
-					trigger = {
-						exists = c:SCH
-					}
-				}
-			}
-		}
-		
-		# alternative to  event_outcome_completed_desc using the effect system to automatically generate tooltips
-		# note that the effects here are only used for description purposes and will not actually happen
-		# root = owning country or no scope
-        event_outcome_completed_effect_desc = {
-			header = option_gain_money
-			effect = {
-				add_treasury = 1000
-			}
-		}	
+	}
 
-		# dynamically updated text, which describes potential event outcomes when JE is failed
-		# multiple such entries can be added to a JE
-        # root = owning country or no scope
-        event_outcome_failed_desc = {
-			first_valid = {
-				triggered_desc = {
-					desc = holstein_is_annexed
-					trigger = {
-						exists = c:SCH
-					}
-				}
-			}
-		}	
+	weight = 200
+	transferable = no
+	can_revolution_inherit = yes
+	should_be_pinned_by_default = yes
+}
+```
 
-		# alternative to event_outcome_failed_desc using the effect system to automatically generate tooltips
-		# note that the effects here are only used for description purposes and will not actually happen
-		# root = owning country or no scope
-        event_outcome_failed_effect_desc = {
-			header = option_gain_money
-			effect = {
-				add_treasury = 1000
-			}
-		}			
-	
-		# dynamically updated text, which describes potential event outcomes when JE timeouts
-		# multiple such entries can be added to a JE
-        # root = owning country or no scope
-        event_outcome_timeout_desc = {
-			first_valid = {
-				triggered_desc = {
-					desc = holstein_is_annexed
-					trigger = {
-						exists = c:SCH
-					}
-				}
-			}
-		}		
-		
-		# alternative to  event_outcome_timeout_desc using the effect system to automatically generate tooltips
-		# note that the effects here are only used for description purposes and will not actually happen
-		# root = owning country or no scope
-        event_outcome_timeout_effect_desc = {
-			header = option_gain_money
-			effect = {
-				add_treasury = 1000
-			}
-		}			
+## Review Checklist
 
-        # [optional] loc key to use instead of JOURNAL_ENTRY_COMPLETION_HEADER, for flavor
-        custom_completion_header = <loc key>
-
-        # [optional] loc key to use instead of JOURNAL_ENTRY_FAILURE_HEADER, for flavor
-        custom_failure_header = <loc key>
-
-        # [optional] loc key to use instead of JOURNAL_ENTRY_ON_COMPLETION, for flavor
-        custom_on_completion_header = <loc key>
-
-        # [optional] loc key to use instewad of JOURNAL_ENTRY_ON_FAILURE, for flavor
-        custom_on_failure_header = <loc key>
-
-        # the number of days before this journal entry forcibly transitions, can be used to transition silently or into another event, framed either as success, failure, or neutral; if left blank or set to zero, will not time out
-        timeout = 720
-    
-        # effect which is executed when journal entry is timed out
-        # root = owning country or no scope
-        on_timeout = {
-    
-        }
-		
-     	# as on_timeout, but fired individually for each involved country in a contextless JE
-		# root = specific country
-		on_timeout_all_involved = {
-        }		
-        
-        # zero or more static modifiers that will be applied to the Journal Entry when it activates, where they will propagate to the country
-		# for contextless JEs, these propagate to all involved countries
-        modifiers_while_active = {
-        
-        }  
-    
-        # on_action which is triggered every first day of the week
-        # root = owning country or no scope
-        on_weekly_pulse = {
-            random_events = {
-                100 = 0
-                10 = test_event.2
-                10 = test_event.3
-                10 = test_event.4
-            }
-        }
-    
-        # on_action which is triggered every first day of the month
-        # root = owning country or no scope
-        on_monthly_pulse = {
-            events = {
-                test_event.5
-            }
-        }
-    
-        # on_action which is triggered every first day of the year
-        # root = owning country or no scope
-        on_yearly_pulse = {
-            effect = {
-                scope:god_bless_america = {
-                    change_variable = {
-                        name = freedom
-                        add = 1
-                    }
-                }
-            }
-        }
-    
-        # a script value computing the goal completion metric
-        # root = owning country or no scope
-        current_value = {
-            value = gdp
-        }
-    
-        # when the journal entry is activated current_value and goal_add_value are evaluated and added together to determine the goal value
-        # root = owning country or no scope
-        goal_add_value = {
-            value = gdp
-            multiply = 0.25
-        }
-    
-        # the highest weighted active journal entry appears in the goal tracker on the main screen
-        weight = 200
-    
-        # yes/no, determines if this journal entry should be transfered if the player switches country through a revolution or by releasing a subject. Note that external dependencies such as country variables etc are not automatically inherited
-        transferable = no
-        
-        # yes/no, determines if this journal entry is allowed to be inherited by a victorious revolution. Revolutions also get all variables from the defeated parent country, so most JEs *should* be inherited in this way
-        # NOTE: transferable = yes will always mean that revolution inheritance is blocked as these JEs should stay with the player at all times
-        can_revolution_inherit = yes
-    
-        # optional trigger, progress text is shown if this is defined and true
-        # root = owning country or no scope
-        is_progressing = {
-            exists = scope:target
-            scope:target = { is_under_construction = yes }
-        }
-    
-        # yes/no, if yes, a progress bar is shown
-        progressbar = yes
-    
-        # scripted progress bars the name and definition of the bar is placed under game/scripted_progress_bars
-        scripted_progress_bar = name_of_scripted_bar
-    
-        # yes/no, if yes, the Journal Entry can return to an inactive state if its possible trigger reverts to false
-        # if no or unspecified, an activated Journal Entry cannot return to being inactive even if it is no longer considered possible
-        can_deactivate = yes
-        
-        # dynamically updated text, which is shown over the progress bar of the Journal Entry
-        # value can be a localization key or first_valid + triggered_desc script
-        # To use in loc or UI: [JournalEntry.GetProgressDesc]
-        # If this is not specified, GetProgressDesc will instead return loc from key <journal_entry_key>_progress
-        progress_desc = journal_entry_goal_progress_integer
-        
-        # tutorial lesson explaining HOW to complete the Journal Entry
-        how_tutorial = how_tutorial_lesson_key
-        
-        # tutorial lesson explaining the WHY around the Journal Entry
-        why_tutorial = why_tutorial_lesson_key
-    
-        # whether a Journal Entry should be pinned in its outliner by default. Defaults to 'no'
-        should_be_pinned_by_default = yes
-    }
+- The JE lives in `common/journal_entries/` and uses a sensible key.
+- The chosen group matches the intended `country` or `none` context.
+- Visibility fields match the intended discovery model.
+- `scope:target` is only used when the caller can actually provide it.
+- `complete`, `fail`, `invalid`, and `timeout` are distinct and intentional.
+- Pulse hooks cannot repeatedly grant the same reward by accident.
+- Every referenced button, progress bar, event, modifier, scripted effect, scripted trigger, and localization key exists.
+- Rare UI fields such as `is_shown_in_lobby`, `should_update_on_player_command`, `display_progressbar_as_months`, and `progress_desc` are used deliberately rather than copied blindly.

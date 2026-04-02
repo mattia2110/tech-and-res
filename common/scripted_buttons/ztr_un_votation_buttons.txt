@@ -1,0 +1,143 @@
+# UN Voting Buttons
+ztr_un_start_dummy_vote = {
+	name = "ztr_un_start_dummy_vote"
+	desc = "ztr_un_start_dummy_vote_desc"
+	visible = {
+		has_journal_entry = je_un_info_panel
+	}
+	possible = {
+		custom_tooltip = {
+			text = "ztr_un_vote_session_clear_tt"
+			NOT = {
+				has_global_variable = ztr_un_vote_in_progress
+			}
+		}
+		has_modifier = ztr_onu_permanent_member
+	}
+	effect = {
+		set_global_variable = ztr_un_vote_in_progress
+		every_country = {
+			limit = {
+				has_variable = ztr_un_vote_eligible
+			}
+			remove_variable = ztr_un_vote_eligible
+			remove_variable = ztr_un_vote_choice_support
+			remove_variable = ztr_un_vote_choice_neutral
+			remove_variable = ztr_un_vote_choice_against
+		}
+		every_country = {
+			limit = {
+				is_country_alive = yes
+				OR = {
+					has_modifier = ztr_onu_member
+					has_modifier = ztr_onu_permanent_member
+				}
+			}
+			set_variable = ztr_un_vote_eligible
+			trigger_event = {
+				id = ztr_un_event.10
+				days = 30
+			}
+		}
+	}
+	ai_chance = {
+		value = 0
+	}
+}
+
+# UN Positive Neutral or Negative Vote
+ztr_un_vote_for_statement = {
+	name = "ztr_un_vote_for_statement"
+	desc = "ztr_un_vote_for_statement_desc"
+	visible = {
+		is_involved_in_journal_entry = je_un_votations
+	}
+	possible = {
+		NOT = {
+			has_variable = ztr_un_vote_choice_support
+		}
+	}
+	effect = {
+		if = {
+			limit = {
+				has_variable = ztr_un_vote_choice_neutral
+			}
+			remove_variable = ztr_un_vote_choice_neutral
+		}
+		if = {
+			limit = {
+				has_variable = ztr_un_vote_choice_against
+			}
+			remove_variable = ztr_un_vote_choice_against
+		}
+		set_variable = ztr_un_vote_choice_support
+		ztr_un_vote_update_results = yes
+	}
+	ai_chance = {
+		value = 0
+	}
+}
+
+ztr_un_vote_neutral_statement = {
+	name = "ztr_un_vote_neutral_statement"
+	desc = "ztr_un_vote_neutral_statement_desc"
+	visible = {
+		is_involved_in_journal_entry = je_un_votations
+	}
+	possible = {
+		NOT = {
+			has_variable = ztr_un_vote_choice_neutral
+		}
+	}
+	effect = {
+		if = {
+			limit = {
+				has_variable = ztr_un_vote_choice_support
+			}
+			remove_variable = ztr_un_vote_choice_support
+		}
+		if = {
+			limit = {
+				has_variable = ztr_un_vote_choice_against
+			}
+			remove_variable = ztr_un_vote_choice_against
+		}
+		set_variable = ztr_un_vote_choice_neutral
+		ztr_un_vote_update_results = yes
+	}
+	ai_chance = {
+		value = 0
+	}
+}
+
+ztr_un_vote_against_statement = {
+	name = "ztr_un_vote_against_statement"
+	desc = "ztr_un_vote_against_statement_desc"
+	visible = {
+		is_involved_in_journal_entry = je_un_votations
+	}
+	possible = {
+		NOT = {
+			has_variable = ztr_un_vote_choice_against
+		}
+	}
+	effect = {
+		if = {
+			limit = {
+				has_variable = ztr_un_vote_choice_support
+			}
+			remove_variable = ztr_un_vote_choice_support
+		}
+		if = {
+			limit = {
+				has_variable = ztr_un_vote_choice_neutral
+			}
+			remove_variable = ztr_un_vote_choice_neutral
+		}
+		set_variable = ztr_un_vote_choice_against
+		ztr_un_vote_update_results = yes
+	}
+	ai_chance = {
+		value = 0
+	}
+}

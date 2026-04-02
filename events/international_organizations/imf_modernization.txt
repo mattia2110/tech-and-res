@@ -1,0 +1,973 @@
+namespace = ztr_imf_modernization
+# Brain Drain Crisis (Domestic)
+ztr_imf_modernization.10 = {
+	dlc = dlc_tech_res
+	type = country_event
+	placement = root
+	duration = 1
+	title = ztr_imf_modernization.10.t
+	desc = ztr_imf_modernization.10.d
+	flavor = ztr_imf_modernization.10.f
+	event_image = {
+		video = "asia_poor_people_moving"
+	}
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	icon = "gfx/interface/icons/generic_icons/international_organizations.dds"
+	trigger = {
+		literacy_rate < 0.5
+		any_country = {
+			is_country_type = recognized
+			country_rank >= rank_value:great_power
+			NOT = {
+				this = root
+			}
+			average_sol > root.average_sol
+		}
+		NOT = {
+			has_variable = imf_brain_drain_cooldown
+		}
+	}
+	immediate = {
+		set_variable = {
+			name = imf_brain_drain_cooldown
+			years = 8
+		}
+		random_country = {
+			limit = {
+				is_country_type = recognized
+				country_rank >= rank_value:great_power
+				NOT = {
+					this = root
+				}
+				average_sol > root.average_sol
+			}
+			save_scope_as = brain_drain_destination
+		}
+	}
+	# Fund university scholarships
+	option = {
+		name = ztr_imf_modernization.10.a
+		default_option = yes
+		add_modifier = {
+			name = imf_scholarship_fund_modifier
+			years = 10
+		}
+		ordered_scope_state = {
+			order_by = gdp
+			max = 1
+			create_building = {
+				building = building_university
+				level = 1
+			}
+			if = {
+				limit = {
+					prev = {
+						has_technology_researched = telephone
+					}
+				}
+				create_building = {
+					building = building_electrics_industry
+					level = 1
+				}
+			}
+			else = {
+				create_building = {
+					building = building_electronics_industry
+					level = 1
+				}
+			}
+		}
+		ai_chance = {
+			base = 25
+			modifier = {
+				trigger = {
+					literacy_rate < 0.35
+				}
+				add = 20
+			}
+			modifier = {
+				trigger = {
+					average_sol >= 12
+				}
+				add = 10
+			}
+			modifier = {
+				trigger = {
+					scaled_debt < 0.25
+				}
+				add = 10
+			}
+		}
+	}
+	# Restrict emigration
+	option = {
+		name = ztr_imf_modernization.10.b
+		add_modifier = {
+			name = imf_emigration_restriction_modifier
+			years = 10
+		}
+		ai_chance = {
+			base = 15
+			modifier = {
+				trigger = {
+					ztr_is_not_democratic = yes
+				}
+				add = 20
+			}
+			modifier = {
+				trigger = {
+					scaled_debt > 0.25
+				}
+				add = 10
+			}
+			modifier = {
+				trigger = {
+					ig:ig_intelligentsia = {
+						is_powerful = no
+					}
+				}
+				add = 10
+			}
+		}
+	}
+	# Ignore the problem
+	option = {
+		name = ztr_imf_modernization.10.c
+		add_modifier = {
+			name = imf_brain_drain_modifier
+			years = 10
+		}
+		ai_chance = {
+			base = 5
+			modifier = {
+				trigger = {
+					get_country_gdp_per < 2.5
+				}
+				add = 10
+			}
+			modifier = {
+				trigger = {
+					scaled_debt > 0.5
+				}
+				add = 10
+			}
+			modifier = {
+				trigger = {
+					average_sol < 8
+				}
+				add = 5
+			}
+		}
+	}
+}
+
+# IMF demands fiscal discipline in exchange for aid
+ztr_imf_modernization.11 = {
+	dlc = dlc_tech_res
+	type = country_event
+	placement = root
+	duration = 1
+	title = ztr_imf_modernization.11.t
+	desc = ztr_imf_modernization.11.d
+	flavor = ztr_imf_modernization.11.f
+	event_image = {
+		video = "unspecific_signed_contract"
+	}
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	icon = "gfx/interface/icons/generic_icons/international_organizations.dds"
+	trigger = {
+		scaled_debt > 0.25
+		NOT = {
+			has_variable = imf_austerity_cooldown
+		}
+	}
+	immediate = {
+		set_variable = {
+			name = imf_austerity_cooldown
+			years = 10
+		}
+	}
+	# Accept austerity — GDP growth but temporary SoL hit
+	option = {
+		name = ztr_imf_modernization.11.a
+		default_option = yes
+		add_modifier = {
+			name = imf_austerity_accepted_modifier
+			years = 10
+		}
+		every_country = {
+			limit = {
+				country_rank = rank_value:great_power
+				NOT = {
+					this = root
+				}
+			}
+			change_relations = {
+				country = THIS
+				value = 25
+			}
+		}
+		ai_chance = {
+			base = 15
+			modifier = {
+				trigger = {
+					scaled_debt > 0.5
+				}
+				add = 25
+			}
+			modifier = {
+				trigger = {
+					average_sol >= 15
+				}
+				add = 10
+			}
+			modifier = {
+				trigger = {
+					ztr_is_not_democratic = yes
+				}
+				add = 10
+			}
+		}
+	}
+	# Reject austerity — keep welfare, lose IMF support
+	option = {
+		name = ztr_imf_modernization.11.b
+		every_country = {
+			limit = {
+				country_rank = rank_value:great_power
+				NOT = {
+					this = root
+				}
+			}
+			change_relations = {
+				country = THIS
+				value = -25
+			}
+		}
+		ai_chance = {
+			base = 10
+			modifier = {
+				trigger = {
+					ztr_is_not_democratic = yes
+				}
+				add = 15
+			}
+			modifier = {
+				trigger = {
+					scaled_debt < 0.35
+				}
+				add = 10
+			}
+			modifier = {
+				trigger = {
+					average_sol < 12
+				}
+				add = 10
+			}
+		}
+	}
+	# Negotiate partial terms — balanced outcome
+	option = {
+		name = ztr_imf_modernization.11.c
+		add_modifier = {
+			name = imf_partial_austerity_modifier
+			years = 5
+		}
+		every_country = {
+			limit = {
+				country_rank = rank_value:great_power
+				NOT = {
+					this = root
+				}
+			}
+			change_relations = {
+				country = THIS
+				value = 5
+			}
+		}
+		ai_chance = {
+			base = 25
+			modifier = {
+				trigger = {
+					average_sol < 15
+				}
+				add = 15
+			}
+			modifier = {
+				trigger = {
+					ztr_is_democratic = yes
+				}
+				add = 10
+			}
+			modifier = {
+				trigger = {
+					scaled_debt > 0.25
+					scaled_debt < 0.5
+				}
+				add = 10
+			}
+		}
+	}
+}
+
+# Foreign Investment Boom (Economic)
+# A great power offers industrial investment
+ztr_imf_modernization.12 = {
+	dlc = dlc_tech_res
+	type = country_event
+	placement = root
+	duration = 1
+	title = ztr_imf_modernization.12.t
+	desc = ztr_imf_modernization.12.d
+	flavor = ztr_imf_modernization.12.f
+	event_image = {
+		video = "europenorthamerica_capitalists_meeting"
+	}
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	icon = "gfx/interface/icons/generic_icons/international_organizations.dds"
+	trigger = {
+		get_country_gdp_per < 5
+		any_country = {
+			is_country_type = recognized
+			country_rank >= rank_value:great_power
+			NOT = {
+				this = root
+			}
+			NOT = {
+				any_political_lobby = {
+					is_political_lobby_type = lobby_anti_country
+					target = prev
+				}
+			}
+		}
+		NOT = {
+			has_variable = imf_foreign_investment_cooldown
+		}
+	}
+	immediate = {
+		set_variable = {
+			name = imf_foreign_investment_cooldown
+			years = 10
+		}
+		random_country = {
+			limit = {
+				is_country_type = recognized
+				country_rank >= rank_value:great_power
+				NOT = {
+					this = root
+				}
+				NOT = {
+					any_political_lobby = {
+						is_political_lobby_type = lobby_anti_country
+						target = prev
+					}
+				}
+			}
+			save_scope_as = imf_investor_country
+		}
+	}
+	# Welcome foreign capital — throughput boost, dependency
+	option = {
+		name = ztr_imf_modernization.12.a
+		default_option = yes
+		add_modifier = {
+			name = imf_foreign_investment_modifier
+			years = 15
+		}
+		if = {
+			limit = {
+				any_political_lobby = {
+					is_political_lobby_type = lobby_pro_country
+					target = scope:imf_investor_country
+					count > 0
+				}
+			}
+			every_political_lobby = {
+				limit = {
+					is_political_lobby_type = lobby_pro_country
+					target = scope:imf_investor_country
+				}
+				change_appeasement = {
+					amount = 2
+					factor = appeasement_special_events_positive
+				}
+			}
+		}
+		else = {
+			create_political_lobby = {
+				type = lobby_pro_country
+				target = scope:imf_investor_country
+				add_interest_group = ig:ig_industrialists
+			}
+		}
+		scope:imf_investor_country = {
+			change_relations = {
+				country = root
+				value = 25
+			}
+		}
+		ai_chance = {
+			base = 20
+			modifier = {
+				trigger = {
+					scaled_debt > 0
+				}
+				add = 20
+			}
+			modifier = {
+				trigger = {
+					ztr_is_democratic = yes
+				}
+				add = 15
+			}
+			modifier = {
+				trigger = {
+					get_country_gdp_per < 3.5
+				}
+				add = 10
+			}
+		}
+	}
+	# Restrict to joint ventures — moderate gains, sovereignty
+	option = {
+		name = ztr_imf_modernization.12.b
+		add_modifier = {
+			name = imf_joint_venture_modifier
+			years = 10
+		}
+		ai_chance = {
+			base = 25
+			modifier = {
+				trigger = {
+					ztr_is_not_democratic = yes
+				}
+				add = 15
+			}
+			modifier = {
+				trigger = {
+					get_country_gdp_per >= 3.5
+				}
+				add = 10
+			}
+			modifier = {
+				trigger = {
+					ig:ig_industrialists = {
+						is_powerful = yes
+					}
+				}
+				add = 10
+			}
+		}
+	}
+	# Nationalize opportunities — prestige, no foreign help
+	option = {
+		name = ztr_imf_modernization.12.c
+		add_modifier = {
+			name = imf_nationalization_modifier
+			years = 10
+		}
+		change_infamy = 3
+		scope:imf_investor_country = {
+			change_relations = {
+				country = root
+				value = -30
+			}
+		}
+		ai_chance = {
+			base = 10
+			modifier = {
+				trigger = {
+					ztr_is_not_democratic = yes
+				}
+				add = 15
+			}
+			modifier = {
+				trigger = {
+					ig:ig_industrialists = {
+						is_powerful = no
+					}
+				}
+				add = 10
+			}
+			modifier = {
+				trigger = {
+					infamy >= infamy_threshold:infamous
+				}
+				add = -10
+			}
+			modifier = {
+				trigger = {
+					scaled_debt > 0.25
+				}
+				add = -15
+			}
+		}
+	}
+}
+
+# Rural Education Campaign (Social)
+# Push literacy into the countryside
+ztr_imf_modernization.13 = {
+	dlc = dlc_tech_res
+	type = country_event
+	placement = root
+	duration = 1
+	title = ztr_imf_modernization.13.t
+	desc = ztr_imf_modernization.13.d
+	flavor = ztr_imf_modernization.13.f
+	event_image = {
+		video = "ip3_village_school"
+	}
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	icon = "gfx/interface/icons/event_icons/innovation.dds"
+	trigger = {
+		literacy_rate > 0.4
+		literacy_rate < 0.6
+		NOT = {
+			has_variable = imf_rural_education_cooldown
+		}
+	}
+	immediate = {
+		set_variable = {
+			name = imf_rural_education_cooldown
+			years = 12
+		}
+	}
+	# Mass rural schools — fast literacy, expensive
+	option = {
+		name = ztr_imf_modernization.13.a
+		default_option = yes
+		add_modifier = {
+			name = imf_rural_schools_modifier
+			years = 10
+		}
+		if = {
+			limit = {
+				NOT = {
+					any_political_movement = {
+						type = movement_type:movement_modernizer
+					}
+				}
+			}
+			create_political_movement = {
+				type = movement_modernizer
+			}
+		}
+		ai_chance = {
+			base = 20
+			modifier = {
+				trigger = {
+					literacy_rate < 0.5
+				}
+				add = 20
+			}
+			modifier = {
+				trigger = {
+					scaled_debt < 0.25
+				}
+				add = 10
+			}
+			modifier = {
+				trigger = {
+					OR = {
+						has_law = law_type:law_public_schools
+						has_law = law_type:law_private_schools
+					}
+				}
+				add = 10
+			}
+		}
+	}
+	# Radio & printing campaign — slow literacy, cheap
+	option = {
+		name = ztr_imf_modernization.13.b
+		add_modifier = {
+			name = imf_media_literacy_modifier
+			years = 5
+		}
+		if = {
+			limit = {
+				NOT = {
+					any_political_movement = {
+						type = movement_type:movement_modernizer
+					}
+				}
+			}
+			create_political_movement = {
+				type = movement_modernizer
+			}
+		}
+		ai_chance = {
+			base = 20
+			modifier = {
+				trigger = {
+					scaled_debt > 0.25
+				}
+				add = 15
+			}
+			modifier = {
+				trigger = {
+					literacy_rate >= 0.5
+				}
+				add = 10
+			}
+			modifier = {
+				trigger = {
+					has_technology_researched = radio
+				}
+				add = 10
+			}
+		}
+	}
+	# Leave it to religious institutions
+	option = {
+		name = ztr_imf_modernization.13.c
+		trigger = {
+			has_law = law_type:law_religious_schools
+		}
+		add_modifier = {
+			name = imf_religious_education_modifier
+			years = 10
+		}
+		ai_chance = {
+			base = 10
+			modifier = {
+				trigger = {
+					ztr_is_not_democratic = yes
+				}
+				add = 15
+			}
+			modifier = {
+				trigger = {
+					ig:ig_devout = {
+						is_powerful = yes
+					}
+				}
+				add = 10
+			}
+		}
+	}
+}
+
+# Political Instability Dilemma (Domestic)
+# Modernization tensions between IGs
+ztr_imf_modernization.14 = {
+	dlc = dlc_tech_res
+	type = country_event
+	placement = root
+	duration = 1
+	title = ztr_imf_modernization.14.t
+	desc = ztr_imf_modernization.14.d
+	flavor = ztr_imf_modernization.14.f
+	event_image = {
+		video = "unspecific_politicians_arguing"
+	}
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	icon = "gfx/interface/icons/generic_icons/international_organizations.dds"
+	trigger = {
+		# Country should have at least some level of democracy
+		ztr_is_not_totalitarian = yes
+		# Country can't be an autocracy or a single party state
+		NOR = {
+			has_law = law_type:law_single_party_state
+			has_law = law_type:law_autocracy
+		}
+		any_interest_group = {
+			ig_approval < -2
+			is_in_government = yes
+			count > 0
+		}
+		NOT = {
+			has_variable = imf_political_instability_cooldown
+		}
+	}
+	immediate = {
+		set_variable = {
+			name = imf_political_instability_cooldown
+			years = 8
+		}
+		random_interest_group = {
+			limit = {
+				ig_approval < -2
+				is_in_government = yes
+			}
+			save_scope_as = imf_disgruntled_ig
+		}
+	}
+	# Repress opposition — stability, freedom cost
+	option = {
+		name = ztr_imf_modernization.14.a
+		trigger = {
+			ztr_is_not_democratic = yes
+		}
+		add_modifier = {
+			name = imf_political_repression_modifier
+			years = 5
+		}
+		add_radicals = {
+			value = small_radicals
+		}
+		scope:imf_disgruntled_ig = {
+			add_modifier = {
+				name = imf_ig_repression_modifier
+				years = 5
+			}
+		}
+		ai_chance = {
+			base = 10
+			modifier = {
+				trigger = {
+					ztr_is_not_democratic = yes
+				}
+				add = 20
+			}
+			modifier = {
+				trigger = {
+					ig:ig_armed_forces = {
+						is_powerful = yes
+					}
+				}
+				add = 10
+			}
+			modifier = {
+				trigger = {
+					scope:imf_disgruntled_ig = {
+						is_powerful = yes
+					}
+				}
+				add = 10
+			}
+		}
+	}
+	# Coopts opposition into reform
+	option = {
+		name = ztr_imf_modernization.14.b
+		default_option = yes
+		add_modifier = {
+			name = imf_political_cooperation_modifier
+			years = 5
+		}
+		scope:imf_disgruntled_ig = {
+			add_modifier = {
+				name = imf_ig_cooperation_modifier
+				years = 5
+			}
+		}
+		ai_chance = {
+			base = 25
+			modifier = {
+				trigger = {
+					ztr_is_democratic = yes
+				}
+				add = 15
+			}
+			modifier = {
+				trigger = {
+					scope:imf_disgruntled_ig = {
+						is_powerful = yes
+					}
+				}
+				add = 20
+			}
+		}
+	}
+	# Public consultation — legitimacy boost, unpredictable
+	option = {
+		name = ztr_imf_modernization.14.c
+		add_modifier = {
+			name = imf_public_consultation_modifier
+			years = 5
+		}
+		add_loyalists = {
+			value = 0.02
+		}
+		# Create Populist movement if it doesn't exist
+		if = {
+			limit = {
+				NOT = {
+					any_political_movement = {
+						type = movement_type:movement_radical
+					}
+				}
+			}
+			create_political_movement = {
+				type = movement_radical
+			}
+		}
+		ai_chance = {
+			base = 10
+			modifier = {
+				trigger = {
+					ztr_is_democratic = yes
+				}
+				add = 20
+			}
+			modifier = {
+				trigger = {
+					scope:imf_disgruntled_ig = {
+						is_powerful = no
+					}
+				}
+				add = 10
+			}
+		}
+	}
+}
+
+# International Aid Conference (Foreign Policy)
+# A major power convenes a development conference
+ztr_imf_modernization.15 = {
+	dlc = dlc_tech_res
+	type = country_event
+	placement = root
+	duration = 1
+	title = ztr_imf_modernization.15.t
+	desc = ztr_imf_modernization.15.d
+	flavor = ztr_imf_modernization.15.f
+	event_image = {
+		video = "un_foundation"
+	}
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	icon = "gfx/interface/icons/generic_icons/international_organizations.dds"
+	trigger = {
+		get_country_gdp_per < 5
+		any_country = {
+			has_modifier = ztr_superpower
+			NOT = {
+				this = root
+			}
+			scope:relations:root > 0
+			ztr_has_superpower_alignment_law_candidate = yes
+			OR = {
+				ztr_is_very_similar_liberty_index = yes
+				ztr_similar_equality_index = yes
+				ztr_similar_liberty_index = yes
+			}
+		}
+		NOT = {
+			has_variable = imf_aid_conference_cooldown
+		}
+	}
+	immediate = {
+		set_variable = {
+			name = imf_aid_conference_cooldown
+			years = 25
+		}
+		random_country = {
+			limit = {
+				country_rank = rank_value:great_power
+				#TODO togliere il commentato
+				# has_modifier = ztr_superpower
+				# NOT = {
+				# 	this = root
+				# }
+				# scope:relations:root > 0
+				# ztr_has_superpower_alignment_law_candidate = yes
+				# OR = {
+				# 	ztr_is_very_similar_liberty_index = yes
+				# 	ztr_similar_equality_index = yes
+				# 	ztr_similar_liberty_index = yes
+				# }
+			}
+			save_scope_as = superpower_law_requester
+		}
+	}
+	# Accept aid with strings attached
+	option = {
+		name = ztr_imf_modernization.15.a
+		default_option = yes
+		scope:superpower_law_requester = {
+			set_variable = superpower_requester_flag
+		}
+		add_modifier = {
+			name = superpower_aid_modifier
+			years = 5
+		}
+		add_journal_entry = {
+			type = je_superpower_request_law_enactment
+		}
+		custom_tooltip = superpower_expects_alignment_law_enactment_tt
+		ai_chance = {
+			base = 30
+			modifier = {
+				trigger = {
+					scaled_debt > 0
+				}
+				add = 20
+			}
+			modifier = {
+				trigger = {
+					get_country_gdp_per < 3
+				}
+				add = 15
+			}
+			modifier = {
+				trigger = {
+					ztr_is_democratic = yes
+				}
+				add = 15
+			}
+		}
+	}
+	# Declare self-reliance
+	option = {
+		name = ztr_imf_modernization.15.c
+		change_relations = {
+			country = scope:superpower_law_requester
+			value = -10
+		}
+		ai_chance = {
+			base = 10
+			modifier = {
+				trigger = {
+					ztr_is_not_democratic = yes
+				}
+				add = 15
+			}
+			modifier = {
+				trigger = {
+					scaled_debt < 0.1
+				}
+				add = 10
+			}
+			modifier = {
+				trigger = {
+					infamy >= infamy_threshold:infamous
+				}
+				add = 10
+			}
+		}
+	}
+}
+
+# Technical Mission Arrival (from button)
+# IMF advisors arrive to help modernize
+ztr_imf_modernization.20 = {
+	dlc = dlc_tech_res
+	type = country_event
+	placement = root
+	duration = 1
+	title = ztr_imf_modernization.20.t
+	desc = ztr_imf_modernization.20.d
+	flavor = ztr_imf_modernization.20.f
+	event_image = {
+		video = "middleeast_engineer_blueprint"
+	}
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	icon = "gfx/interface/icons/event_icons/innovation.dds"
+	immediate = {
+		define_ztr_gdp_dependent_cost = yes
+	}
+	option = {
+		name = ztr_imf_modernization.20.a
+		default_option = yes
+		add_modifier = {
+			name = imf_technical_mission_modifier
+			years = 8
+		}
+		ztr_gdp_dependent_cost = yes
+		ai_chance = {
+			base = 100
+		}
+	}
+}

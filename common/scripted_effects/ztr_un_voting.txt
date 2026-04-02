@@ -1,0 +1,170 @@
+ztr_un_vote_clear_results = {
+	remove_global_variable = ztr_un_vote_support_count
+	remove_global_variable = ztr_un_vote_neutral_count
+	remove_global_variable = ztr_un_vote_against_count
+	remove_global_variable = ztr_un_vote_total_count
+	remove_global_variable = ztr_un_vote_support_percent
+	remove_global_variable = ztr_un_vote_neutral_percent
+	remove_global_variable = ztr_un_vote_against_percent
+}
+
+ztr_un_vote_recalculate_results = {
+	ztr_un_vote_clear_results = yes
+	set_global_variable = {
+		name = ztr_un_vote_support_count
+		value = 0
+	}
+	set_global_variable = {
+		name = ztr_un_vote_neutral_count
+		value = 0
+	}
+	set_global_variable = {
+		name = ztr_un_vote_against_count
+		value = 0
+	}
+	set_global_variable = {
+		name = ztr_un_vote_total_count
+		value = 0
+	}
+	every_scope_je_involved = {
+		change_global_variable = {
+			name = ztr_un_vote_total_count
+			add = 1
+		}
+		if = {
+			limit = {
+				has_variable = ztr_un_vote_choice_support
+			}
+			change_global_variable = {
+				name = ztr_un_vote_support_count
+				add = 1
+			}
+		}
+		else_if = {
+			limit = {
+				has_variable = ztr_un_vote_choice_against
+			}
+			change_global_variable = {
+				name = ztr_un_vote_against_count
+				add = 1
+			}
+		}
+		else = {
+			change_global_variable = {
+				name = ztr_un_vote_neutral_count
+				add = 1
+			}
+		}
+	}
+	set_global_variable = {
+		name = ztr_un_vote_support_percent
+		value = 0
+	}
+	set_global_variable = {
+		name = ztr_un_vote_neutral_percent
+		value = 0
+	}
+	set_global_variable = {
+		name = ztr_un_vote_against_percent
+		value = 0
+	}
+	if = {
+		limit = {
+			global_var:ztr_un_vote_total_count > 0
+		}
+		set_global_variable = {
+			name = ztr_un_vote_support_percent
+			value = global_var:ztr_un_vote_support_count
+		}
+		change_global_variable = {
+			name = ztr_un_vote_support_percent
+			divide = global_var:ztr_un_vote_total_count
+		}
+		change_global_variable = {
+			name = ztr_un_vote_support_percent
+			multiply = 100
+		}
+		set_global_variable = {
+			name = ztr_un_vote_neutral_percent
+			value = global_var:ztr_un_vote_neutral_count
+		}
+		change_global_variable = {
+			name = ztr_un_vote_neutral_percent
+			divide = global_var:ztr_un_vote_total_count
+		}
+		change_global_variable = {
+			name = ztr_un_vote_neutral_percent
+			multiply = 100
+		}
+		set_global_variable = {
+			name = ztr_un_vote_against_percent
+			value = global_var:ztr_un_vote_against_count
+		}
+		change_global_variable = {
+			name = ztr_un_vote_against_percent
+			divide = global_var:ztr_un_vote_total_count
+		}
+		change_global_variable = {
+			name = ztr_un_vote_against_percent
+			multiply = 100
+		}
+	}
+}
+
+ztr_un_vote_refresh_results = {
+	scope:journal_entry = {
+		set_bar_progress = {
+			value = global_var:ztr_un_vote_support_percent
+			name = ztr_un_vote_support_progress_bar
+		}
+		set_bar_progress = {
+			value = global_var:ztr_un_vote_neutral_percent
+			name = ztr_un_vote_neutral_progress_bar
+		}
+		set_bar_progress = {
+			value = global_var:ztr_un_vote_against_percent
+			name = ztr_un_vote_against_progress_bar
+		}
+	}
+}
+
+ztr_un_vote_update_results = {
+	ztr_un_vote_recalculate_results = yes
+	ztr_un_vote_refresh_results = yes
+}
+
+ztr_un_vote_cleanup_all_members = {
+	every_country = {
+		limit = {
+			OR = {
+				has_variable = ztr_un_vote_eligible
+				has_variable = ztr_un_vote_choice_support
+				has_variable = ztr_un_vote_choice_neutral
+				has_variable = ztr_un_vote_choice_against
+			}
+		}
+		remove_variable = ztr_un_vote_eligible
+		remove_variable = ztr_un_vote_choice_support
+		remove_variable = ztr_un_vote_choice_neutral
+		remove_variable = ztr_un_vote_choice_against
+	}
+	remove_global_variable = ztr_un_vote_support_count
+	remove_global_variable = ztr_un_vote_neutral_count
+	remove_global_variable = ztr_un_vote_against_count
+	remove_global_variable = ztr_un_vote_total_count
+	remove_global_variable = ztr_un_vote_support_percent
+	remove_global_variable = ztr_un_vote_neutral_percent
+	remove_global_variable = ztr_un_vote_against_percent
+	if = {
+		limit = {
+			has_global_variable = ztr_un_vote_in_progress
+		}
+		remove_global_variable = ztr_un_vote_in_progress
+	}
+	if = {
+		limit = {
+			has_global_variable = ztr_un_vote_active
+		}
+		remove_global_variable = ztr_un_vote_active
+	}
+}
