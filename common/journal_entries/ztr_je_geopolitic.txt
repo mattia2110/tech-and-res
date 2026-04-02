@@ -1,3 +1,56 @@
+# Liberty Index
+je_liberty_index = {
+	icon = "gfx/interface/icons/event_icons/ideologies.dds"
+	group = je_group_historical_content
+	is_shown_when_inactive = {
+		technres_is_active = yes
+	}
+	possible = {
+		#has_technology_researched = human_rights
+	}
+	immediate = {
+		set_variable = {
+			name = liberty_index_var
+			value = 0
+		}
+		set_variable = {
+			name = equality_index_var
+			value = 0
+		}
+	}
+	scripted_button = show_liberty_index_rankings_button
+	scripted_button = show_equality_index_rankings_button
+	scripted_progress_bar = liberty_index_progress_bar
+	scripted_progress_bar = equality_index_progress_bar
+	on_yearly_pulse = {
+		effect = {
+			# Calculate Liberty and Equality Index
+			if = {
+				limit = {
+					BPM_is_active_trigger = yes
+				}
+				calculate_liberty_equality_index_bpm = yes
+			}
+			else = {
+				calculate_liberty_equality_index = yes
+			}
+			calculate_max_liberty_index = yes
+			scope:journal_entry = {
+				set_bar_progress = {
+					value = root.var:liberty_index_var
+					name = liberty_index_progress_bar
+				}
+				set_bar_progress = {
+					value = root.var:equality_index_var
+					name = equality_index_progress_bar
+				}
+			}
+		}
+	}
+	transferable = no
+	weight = 1
+}
+
 # Superpowr ask diplomatically to another country to change laws
 # Always use with:
 # - ztr_has_superpower_alignment_law_candidate scripted trigger
@@ -135,6 +188,7 @@ je_un_info_panel = {
 	immediate = {
 		ztr_un_permanent_member_ranking_variables = yes
 		ztr_un_permanent_member_ranking_effect = yes
+		ztr_un_init_governance_laws = yes
 	}
 	on_yearly_pulse = {
 		effect = {
@@ -142,7 +196,7 @@ je_un_info_panel = {
 			ztr_un_permanent_member_ranking_effect = yes
 		}
 	}
-	scripted_button = ztr_un_start_dummy_vote
+	scripted_button = ztr_un_open_governance_menu
 	status_desc = {
 		first_valid = {
 			triggered_desc = {
@@ -209,6 +263,78 @@ je_un_votations = {
 			scope:journal_entry = {
 				ztr_un_vote_update_results = yes
 			}
+			# Countdown: decrement months remaining
+			if = {
+				limit = {
+					has_global_variable = ztr_un_vote_months_remaining
+					global_var:ztr_un_vote_months_remaining > 0
+				}
+				change_global_variable = {
+					name = ztr_un_vote_months_remaining
+					add = -1
+				}
+			}
+			# Vote session ended: resolve and deactivate
+			if = {
+				limit = {
+					has_global_variable = ztr_un_vote_months_remaining
+					global_var:ztr_un_vote_months_remaining <= 0
+				}
+				scope:journal_entry = {
+					ztr_un_vote_update_results = yes
+				}
+				# Check if vote passes: support > against AND no veto blocks it
+				if = {
+					limit = {
+						global_var:ztr_un_vote_support_count > global_var:ztr_un_vote_against_count
+						# Veto check: if veto enabled, no permanent member may have voted against
+						OR = {
+							NOT = {
+								global_var:ztr_un_law_veto_right = 1
+							}
+							NOT = {
+								any_country = {
+									has_modifier = ztr_onu_permanent_member
+									has_variable = ztr_un_vote_choice_against
+								}
+							}
+						}
+					}
+					# Vote passed - apply the governance change
+					ztr_un_apply_governance_vote = yes
+				}
+				else = {
+					# Vote failed (majority lost or vetoed) - clean up subject/proposal
+					if = {
+						limit = {
+							has_global_variable = ztr_un_vote_subject
+						}
+						remove_global_variable = ztr_un_vote_subject
+					}
+					if = {
+						limit = {
+							has_global_variable = ztr_un_vote_proposal
+						}
+						remove_global_variable = ztr_un_vote_proposal
+					}
+				}
+				# Cleanup removes ztr_un_vote_active, making possible = no, then JE deactivates
+				ztr_un_vote_cleanup_all_members = yes
+			}
+			# Edge case: no eligible countries left, then deactivate
+			else_if = {
+				limit = {
+					NOT = {
+						any_country = {
+							OR = {
+								has_variable = ztr_un_vote_eligible
+								is_involved_in_journal_entry = je_un_votations
+							}
+						}
+					}
+				}
+				ztr_un_vote_cleanup_all_members = yes
+			}
 		}
 	}
 	status_desc = {
@@ -233,42 +359,12 @@ je_un_votations = {
 			}
 		}
 	}
-	invalid = {
-		NOT = {
-			any_country = {
-				OR = {
-					has_variable = ztr_un_vote_eligible
-					is_involved_in_journal_entry = je_un_votations
-				}
-			}
-		}
-	}
-	on_invalid = {
-		ztr_un_vote_cleanup_all_members = yes
-	}
 	scripted_progress_bar = ztr_un_vote_support_progress_bar
 	scripted_progress_bar = ztr_un_vote_neutral_progress_bar
 	scripted_progress_bar = ztr_un_vote_against_progress_bar
 	scripted_button = ztr_un_vote_for_statement
 	scripted_button = ztr_un_vote_neutral_statement
 	scripted_button = ztr_un_vote_against_statement
-	timeout = 365
-	on_timeout = {
-		scope:journal_entry = {
-			ztr_un_vote_update_results = yes
-		}
-		if = {
-			limit = {
-				global_var:ztr_un_vote_support_count > global_var:ztr_un_vote_against_count
-			}
-			# Here we trigger the new law (This can be managed also by a global event)
-			set_global_variable = {
-				name = ztr_un_dummy_statement_active
-				value = 1
-			}
-		}
-		ztr_un_vote_cleanup_all_members = yes
-	}
 	weight = 110
 	should_be_pinned_by_default = yes
 	can_deactivate = yes

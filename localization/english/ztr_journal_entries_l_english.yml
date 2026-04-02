@@ -389,17 +389,21 @@ je_superpower_request_law_enactment_status_enacting:0 "[ROOT.GetCountry.GetName]
 je_superpower_request_law_enactment_completed_desc:0 "Passing [SCOPE.sLaw('superpower_alignment_law').GetName] satisfies [SCOPE.sCountry('superpower_law_requester').GetName]'s expectations and modestly improves relations."
 je_superpower_request_law_enactment_timeout_desc:0 "If we fail to pass [SCOPE.sLaw('superpower_alignment_law').GetName] in time, relations with [SCOPE.sCountry('superpower_law_requester').GetName] will worsen and the aid modifier will be withdrawn early."
 je_un_info_panel:0 "United Nations"
-je_un_info_panel_reason:0 "The [Concept('concept_united_nations','$concept_united_nations$')] has become the main forum for international diplomacy, mediation, and legitimacy with the aim to prevent war in favor of diplomatic solutions and human rights.\n\nAs long as [ROOT.GetCountry.GetName] remains inside the organization, this panel tracks the current permanent members of the #blue_value Security Council#! and the leading powers shaping its agenda.\n\n#v CURRENT SECURITY COUNCIL PERMANENT MEMBERS#!:\n[SCOPE.GetRootScope.GetCountry.GetCustom('ztr_un_permanent_member_display_rank_1_type')][SCOPE.GetRootScope.GetCountry.GetCustom('ztr_un_permanent_member_display_rank_2_type')][SCOPE.GetRootScope.GetCountry.GetCustom('ztr_un_permanent_member_display_rank_3_type')][SCOPE.GetRootScope.GetCountry.GetCustom('ztr_un_permanent_member_display_rank_4_type')][SCOPE.GetRootScope.GetCountry.GetCustom('ztr_un_permanent_member_display_rank_5_type')][SCOPE.GetRootScope.GetCountry.GetCustom('ztr_un_permanent_member_display_rank_6_type')][SCOPE.GetRootScope.GetCountry.GetCustom('ztr_un_permanent_member_display_rank_7_type')][SCOPE.GetRootScope.GetCountry.GetCustom('ztr_un_permanent_member_display_rank_8_type')][SCOPE.GetRootScope.GetCountry.GetCustom('ztr_un_permanent_member_display_rank_9_type')][SCOPE.GetRootScope.GetCountry.GetCustom('ztr_un_permanent_member_display_rank_10_type')]"
+je_un_info_panel_reason:0 "The [Concept('concept_united_nations','$concept_united_nations$')] has become the main forum for international diplomacy, mediation, and legitimacy with the aim to prevent war in favor of diplomatic solutions and human rights.\n\nAs long as [ROOT.GetCountry.GetName] remains inside the organization, this panel tracks the current permanent members of the #blue_value Security Council#! and the leading powers shaping its agenda.\n\n#v CURRENT UN GOVERNANCE#!:\nVoting Model: #v [SCOPE.GetRootScope.GetCountry.GetCustom('ztr_un_law_voting_model_name')]#!\nPMs Veto: #v [SCOPE.GetRootScope.GetCountry.GetCustom('ztr_un_law_veto_right_name')]#!\nPMs Selection: #v [SCOPE.GetRootScope.GetCountry.GetCustom('ztr_un_law_member_selection_name')]#!\n\n#v CURRENT SECURITY COUNCIL PERMANENT MEMBERS#!:\n[SCOPE.GetRootScope.GetCountry.GetCustom('ztr_un_permanent_member_display_rank_1_type')][SCOPE.GetRootScope.GetCountry.GetCustom('ztr_un_permanent_member_display_rank_2_type')][SCOPE.GetRootScope.GetCountry.GetCustom('ztr_un_permanent_member_display_rank_3_type')][SCOPE.GetRootScope.GetCountry.GetCustom('ztr_un_permanent_member_display_rank_4_type')][SCOPE.GetRootScope.GetCountry.GetCustom('ztr_un_permanent_member_display_rank_5_type')][SCOPE.GetRootScope.GetCountry.GetCustom('ztr_un_permanent_member_display_rank_6_type')][SCOPE.GetRootScope.GetCountry.GetCustom('ztr_un_permanent_member_display_rank_7_type')][SCOPE.GetRootScope.GetCountry.GetCustom('ztr_un_permanent_member_display_rank_8_type')][SCOPE.GetRootScope.GetCountry.GetCustom('ztr_un_permanent_member_display_rank_9_type')][SCOPE.GetRootScope.GetCountry.GetCustom('ztr_un_permanent_member_display_rank_10_type')]"
 je_un_info_panel_status_member:0 "#blue_value Status#!: Member State"
 je_un_info_panel_status_permanent:0 "#gold_value Status#!: Permanent Member of the Security Council"
 je_un_votations:0 "UN Vote Session"
-je_un_votations_reason:0 "The Security Council has opened a one-year vote on a #v Statement#! after a preliminary thirty-day discussion period. Every eligible UN member has one vote, and countries that do nothing remain neutral by default.\n\nIf support votes exceed opposition when the session closes, the statement will be activated.\n\n#v CURRENT TALLY#!:\nSupport: #v [GetPlayer.MakeScope.Var('ztr_un_vote_support_count').GetValue|0]#!\nNeutral: #v [GetPlayer.MakeScope.Var('ztr_un_vote_neutral_count').GetValue|0]#!\nAgainst: #v [GetPlayer.MakeScope.Var('ztr_un_vote_against_count').GetValue|0]#!\nTotal Votes Counted: #v [GetPlayer.MakeScope.Var('ztr_un_vote_total_count').GetValue|0]#!"
-je_un_votations_status_support:0 "#green_value Vote Trend#!: Support currently leads the session."
-je_un_votations_status_neutral:0 "#v Vote Trend#!: The session is currently tied."
-je_un_votations_status_against:0 "#red_value Vote Trend#!: Opposition currently leads the session."
+je_un_votations_reason:0 "The Security Council has opened a vote on a #v Governance Reform#! after a preliminary thirty-day discussion period.\n\n#bold Subject#!: #v [JournalEntry.GetCustom('ztr_un_vote_subject_name_je')]#!\n#bold Proposal#!: #p [JournalEntry.GetCustom('ztr_un_vote_proposal_name_je')]#!\n#bold Current Law#!: #n [JournalEntry.GetCustom('ztr_un_vote_current_law_name_je')]#!\n\nEvery eligible #blue_value UN Member#! can vote, and countries that do nothing remain neutral by default. If support votes exceed opposition when the session closes, the reform will be adopted."
 
-ztr_un_start_dummy_vote:0 "Open Vote On Dummy Statement"
-ztr_un_start_dummy_vote_desc:0 "As a permanent member of the Security Council, we can begin a formal discussion that will open a one-year UN vote on a dummy statement after #v 30 days#!."
+# Other Localization
+#\n\n#v CURRENT TALLY#!:\nSupport: #v [GetGlobalVariable('ztr_un_vote_support_count').GetValue|0]#!\nNeutral: #v [GetGlobalVariable('ztr_un_vote_neutral_count').GetValue|0]#!\nAgainst: #v [GetGlobalVariable('ztr_un_vote_against_count').GetValue|0]#!\nTotal Votes Counted: #v [GetGlobalVariable('ztr_un_vote_total_count').GetValue|0]#!
+
+je_un_votations_status_support:0 "#gold_value Vote Trend#!: #p Support#!\n#blue_value Months Remaining#!: #v [GetGlobalVariable('ztr_un_vote_months_remaining').GetValue|0]#!"
+je_un_votations_status_neutral:0 "#gold_value Vote Trend#!: #v Tie#!\n#blue_value Months Remaining#!: #v [GetGlobalVariable('ztr_un_vote_months_remaining').GetValue|0]#!"
+je_un_votations_status_against:0 "#gold_value Vote Trend#!: #n Opposition#!\n#blue_value Months Remaining#!: #v [GetGlobalVariable('ztr_un_vote_months_remaining').GetValue|0]#!"
+
+ztr_un_open_governance_menu:0 "Propose UN Governance Reform"
+ztr_un_open_governance_menu_desc:0 "As a permanent member of the Security Council, we can propose reforms to the governance structure of the United Nations. This will open a menu to choose which aspect of the UN charter to reform, and then put the proposal to a vote among all member states."
 ztr_un_vote_for_statement:0 "Vote In Favor"
 ztr_un_vote_for_statement_desc:0 "Declare that [ROOT.GetCountry.GetName] supports the statement."
 ztr_un_vote_neutral_statement:0 "Vote Neutral"
@@ -410,11 +414,31 @@ ztr_un_vote_against_statement_desc:0 "Declare that [ROOT.GetCountry.GetName] opp
 ztr_un_vote_session_clear_tt:0 "No UN vote is currently being discussed or voted upon."
 
 ztr_un_vote_support_progress_bar:0 "Support"
-ztr_un_vote_support_progress_bar_desc:0 "Support Votes: #v [GetPlayer.MakeScope.Var('ztr_un_vote_support_count').GetValue|0]#! of #v [GetPlayer.MakeScope.Var('ztr_un_vote_total_count').GetValue|0]#! ([JournalEntry.GetCurrentBarProgress(ScriptedProgressBar.Self)|%])."
+ztr_un_vote_support_progress_bar_desc:0 "Support Votes: #v [GetGlobalVariable('ztr_un_vote_support_count').GetValue|0]#! of #v [GetGlobalVariable('ztr_un_vote_total_count').GetValue|0]#! ([JournalEntry.GetCurrentBarProgress(ScriptedProgressBar.Self)|%])."
 ztr_un_vote_neutral_progress_bar:0 "Neutral"
-ztr_un_vote_neutral_progress_bar_desc:0 "Neutral Votes: #v [GetPlayer.MakeScope.Var('ztr_un_vote_neutral_count').GetValue|0]#! of #v [GetPlayer.MakeScope.Var('ztr_un_vote_total_count').GetValue|0]#! ([JournalEntry.GetCurrentBarProgress(ScriptedProgressBar.Self)|%])."
+ztr_un_vote_neutral_progress_bar_desc:0 "Neutral Votes: #v [GetGlobalVariable('ztr_un_vote_neutral_count').GetValue|0]#! of #v [GetGlobalVariable('ztr_un_vote_total_count').GetValue|0]#! ([JournalEntry.GetCurrentBarProgress(ScriptedProgressBar.Self)|%])."
 ztr_un_vote_against_progress_bar:0 "Against"
-ztr_un_vote_against_progress_bar_desc:0 "Opposition Votes: #v [GetPlayer.MakeScope.Var('ztr_un_vote_against_count').GetValue|0]#! of #v [GetPlayer.MakeScope.Var('ztr_un_vote_total_count').GetValue|0]#! ([JournalEntry.GetCurrentBarProgress(ScriptedProgressBar.Self)|%])."
+ztr_un_vote_against_progress_bar_desc:0 "Opposition Votes: #v [GetGlobalVariable('ztr_un_vote_against_count').GetValue|0]#! of #v [GetGlobalVariable('ztr_un_vote_total_count').GetValue|0]#! ([JournalEntry.GetCurrentBarProgress(ScriptedProgressBar.Self)|%])."
+
+# UN Governance Law Names
+ztr_un_law_voting_model_1:0 "One Country, One Vote"
+ztr_un_law_voting_model_2:0 "Weighted by Prestige"
+ztr_un_law_voting_model_3:0 "Security Council Only"
+ztr_un_law_voting_model_4:0 "Superpowers Only"
+ztr_un_law_veto_right_enabled:0 "Enabled"
+ztr_un_law_veto_right_disabled:0 "Abolished"
+ztr_un_law_veto_right_hold:0 "hold"
+ztr_un_law_veto_right_not_hold:0 "do not hold"
+ztr_un_law_member_selection_1:0 "By Prestige"
+ztr_un_law_member_selection_2:0 "Geographic Representation"
+ztr_un_law_member_selection_3:0 "By Military Power"
+ztr_un_law_member_selection_4:0 "Strongest Country"
+ztr_un_law_unknown:0 "Not Established"
+
+# UN Vote Subject/Proposal Names
+ztr_un_vote_subject_voting_model:0 "VOTING MODEL"
+ztr_un_vote_subject_veto_right:0 "VETO RIGHTS"
+ztr_un_vote_subject_member_selection:0 "PERMANENT MEMBER SELECTION"
 
 ztr_un_permanent_member_display_rank_1_loc: "1. [ROOT.Var('ztr_un_permanent_member_display_rank_1_var').GetCountry.GetName]: @prestige! [ROOT.Var('ztr_un_permanent_member_display_rank_1_var').GetCountry.GetPrestige|0] | @infamy! [ROOT.Var('ztr_un_permanent_member_display_rank_1_var').GetCountry.GetInfamyLabel|-] ([ROOT.Var('ztr_un_permanent_member_display_rank_1_var').GetCountry.GetInfamy|-1])"
 ztr_un_permanent_member_display_rank_2_loc: "\n2. [ROOT.Var('ztr_un_permanent_member_display_rank_2_var').GetCountry.GetName]: @prestige! [ROOT.Var('ztr_un_permanent_member_display_rank_2_var').GetCountry.GetPrestige|0] | @infamy! [ROOT.Var('ztr_un_permanent_member_display_rank_2_var').GetCountry.GetInfamyLabel|-] ([ROOT.Var('ztr_un_permanent_member_display_rank_2_var').GetCountry.GetInfamy|-1])"

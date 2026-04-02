@@ -26,32 +26,3 @@ ztr_decolonization_age.1 = {
 		set_global_variable = ztr_decolonization_age_var
 	}
 }
-
-# Event to counterbalance +0.5 liberty desire of subject of decolonization tech
-
-ztr_decolonization_age.2 = {
-	dlc = dlc_tech_res
-	type = country_event
-	placement = ROOT
-	hidden = yes
-	event_image = {
-		video = "southamerica_war_civilians"
-	}
-
-	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
-
-	icon = "gfx/interface/icons/event_icons/event_default.dds"
-
-	title = ztr_decolonization_age.2.t
-	desc = ztr_decolonization_age.2.d
-	
-	trigger = {
-		has_game_rule = no_ztr_decolonization_content
-		has_technology_researched = decolonization # This gives a +0.5 liberty desire
-		NOT = { has_modifier = decolonization_liberty_desire_counter_modifier }
-	}
-
-	immediate = {
-		add_modifier = decolonization_liberty_desire_counter_modifier
-	}
-}

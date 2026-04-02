@@ -823,6 +823,48 @@ REPLACE:liberty_desire_weekly_change = { #AKA liberty_desire_weekly_progress
 		desc = "LIBERTY_DESIRE_WEEKLY_CHANGE_DESC_ADDITIONAL_ADDS"
 	}
 
+	#T&R overlord-side liberty desire adds moved here so the rule can branch directly.
+	add = {
+		if = {
+			limit = {
+				has_game_rule = allow_ztr_decolonization_content
+			}
+			if = {
+				limit = {
+					root.first_country = {
+						has_technology_researched = international_organizations
+					}
+				}
+				add = {
+					value = 0.25
+					desc = "international_organizations"
+				}
+			}
+			if = {
+				limit = {
+					root.first_country = {
+						has_technology_researched = decolonization
+					}
+				}
+				add = {
+					value = 1
+					desc = "decolonization"
+				}
+			}
+			if = {
+				limit = {
+					root.first_country = {
+						has_technology_researched = transnational_activism
+					}
+				}
+				add = {
+					value = 0.5
+					desc = "transnational_activism"
+				}
+			}
+		}
+	}
+
 	#liberty desire modifiers on overlord
 	add = {
 		value = root.first_country.modifier:country_liberty_desire_of_subjects_add

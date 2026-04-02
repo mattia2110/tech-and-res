@@ -1,7 +1,7 @@
 # UN Voting Buttons
-ztr_un_start_dummy_vote = {
-	name = "ztr_un_start_dummy_vote"
-	desc = "ztr_un_start_dummy_vote_desc"
+ztr_un_open_governance_menu = {
+	name = "ztr_un_open_governance_menu"
+	desc = "ztr_un_open_governance_menu_desc"
 	visible = {
 		has_journal_entry = je_un_info_panel
 	}
@@ -13,31 +13,13 @@ ztr_un_start_dummy_vote = {
 			}
 		}
 		has_modifier = ztr_onu_permanent_member
+		NOT = { has_global_variable = ztr_un_button_opened }
 	}
 	effect = {
-		set_global_variable = ztr_un_vote_in_progress
-		every_country = {
-			limit = {
-				has_variable = ztr_un_vote_eligible
-			}
-			remove_variable = ztr_un_vote_eligible
-			remove_variable = ztr_un_vote_choice_support
-			remove_variable = ztr_un_vote_choice_neutral
-			remove_variable = ztr_un_vote_choice_against
-		}
-		every_country = {
-			limit = {
-				is_country_alive = yes
-				OR = {
-					has_modifier = ztr_onu_member
-					has_modifier = ztr_onu_permanent_member
-				}
-			}
-			set_variable = ztr_un_vote_eligible
-			trigger_event = {
-				id = ztr_un_event.10
-				days = 30
-			}
+		set_global_variable = ztr_un_button_opened
+		trigger_event = {
+			id = ztr_un_event.20
+			popup = yes
 		}
 	}
 	ai_chance = {

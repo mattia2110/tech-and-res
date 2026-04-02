@@ -73,7 +73,7 @@
  ztr_un_event.2.t: "United Nations Invitation"
  ztr_un_event.2.d: "Neither the Geneva Convention nor the League of Nations succeeded in preventing the outbreak of global conflicts. The United Nations represents a renewed effort to establish a worldwide organization dedicated to maintaining peace and fostering international cooperation. Built on the principles of equality, justice, and respect for human rights, the [Concept('concept_united_nations','$concept_united_nations$')] includes all nations, even authoritarian regimes. The world's 3 major powers have secured permanent seats on the Security Council, wielding veto power over its decisions. What stance will we take?"
  ztr_un_event.2.a: "We have to be part of this Organization."
- ztr_un_event.2.b: "We have the rights to be permanent members of the Security Council."
+ ztr_un_event.2.b: "We have the rights to be #blue_value Permanent Members#! of the Security Council."
  ztr_un_event.2.c: "We don't need this useless Organization."
 
  ztr_un_event.3.a: "We can only accept the [Concept('concept_united_nations','$concept_united_nations$')] intervention."
@@ -857,3 +857,45 @@ ztr_ottoman_collapse.116.a: "A profitable opening."
 ztr_ottoman_collapse.117.t: "The Porte Refuses Our Iraqi Aid Mission"
 ztr_ottoman_collapse.117.d: "[SCOPE.sCountry('ztr_ottoman_collapse_requested_target').GetName] has rejected our #v Iraqi#! proposal. The Mesopotamian question therefore remains unresolved and may yet invite harsher methods."
 ztr_ottoman_collapse.117.a: "We will remember this."
+
+# UN Voting Notification
+ ztr_un_event.10.t: "United Nations Vote Session"
+ ztr_un_event.10.d: "The Security Council has opened a formal vote on a governance reform. As a member of the [Concept('concept_united_nations','$concept_united_nations$')], we are called upon to cast our vote.\n\n#bold Subject#!: #v [SCOPE.GetRootScope.GetCountry.GetCustom('ztr_un_vote_subject_name')]#!\n#bold Proposal#!: #p [SCOPE.GetRootScope.GetCountry.GetCustom('ztr_un_vote_proposal_name')]#!\n#bold Current Law#!: #n [SCOPE.GetRootScope.GetCountry.GetCustom('ztr_un_vote_current_law_name')]#!\n\nWe have one year to deliberate and cast our vote through the UN Vote Session journal entry."
+ ztr_un_event.10.a: "We will consider the matter carefully."
+ ztr_un_event.10.b: "We support this proposal."
+ ztr_un_event.10.c: "We oppose this proposal."
+
+ # UN Governance Menu Events
+ ztr_un_event.20.t: "United Nations Governance"
+ ztr_un_event.20.d: "As a #blue_value Permanent Member#! of the Security Council, we have the authority to propose reforms to the governance structure of the [Concept('concept_united_nations','$concept_united_nations$')]. The current charter can be amended through a formal vote of the General Assembly.\n\n#bold Current UN Governance:#!\n#v Voting Model#!: [SCOPE.GetRootScope.GetCountry.GetCustom('ztr_un_law_voting_model_name')]\n#v Permanent Members Veto Right#!: [SCOPE.GetRootScope.GetCountry.GetCustom('ztr_un_law_veto_right_name')]\n#v Permanent Member Selection#!: [SCOPE.GetRootScope.GetCountry.GetCustom('ztr_un_law_member_selection_name')]\n\nWhich aspect of the UN charter would you like to reform?"
+ ztr_un_event.20.a: "Reform the #v Voting Model#!"
+ ztr_un_event.20.b: "Reform #v PMs Veto Rights#!"
+ ztr_un_event.20.c: "Reform #v PMs Selection#!"
+ ztr_un_event.20.e: "No reforms are needed at this time."
+
+ ztr_un_event.21.t: "Voting Model Reform"
+ ztr_un_event.21.d: "The current voting model of the [Concept('concept_united_nations','$concept_united_nations$')] is #v [SCOPE.GetRootScope.GetCountry.GetCustom('ztr_un_law_voting_model_name')]#!.\n\n#v One Country, One Vote#!: Every member state has exactly one vote, regardless of size, population, or power. The most egalitarian model.\n#v Weighted by Prestige#!: Votes are proportional to a nation's prestige. Great powers wield more influence in resolutions.\n#v Security Council Only#!: Only Permanent Members of the Security Council may vote on resolutions. An oligarchic model.\n#v Superpowers Only#!: Only the two highest-ranked global powers decide the fate of resolutions. The most restrictive model.\n\nWhich model shall we propose?"
+ ztr_un_event.21.a: "Propose: #v One Country, One Vote#!"
+ ztr_un_event.21.b: "Propose: #v Weighted by Prestige#!"
+ ztr_un_event.21.c: "Propose: #v Security Council Only#!"
+ ztr_un_event.21.e: "Propose: #v Superpowers Only#!"
+ ztr_un_event.21.f: "Nevermind, we will not propose a change."
+
+ ztr_un_event.22.t: "Veto Rights Reform"
+ ztr_un_event.22.d: "The Permanent Members of the Security Council currently [SCOPE.GetRootScope.GetCountry.GetCustom('ztr_un_law_veto_right_desc')] the power to unilaterally veto any resolution.\n\nThe veto is both a safeguard against rash resolutions and a tool for great powers to protect their interests at the expense of the majority.\n\nShall we propose a change?"
+ ztr_un_event.22.a: "Propose: #v Restore the Veto Right#!"
+ ztr_un_event.22.b: "Propose: #v Abolish the Veto Right#!"
+ ztr_un_event.22.c: "Nevermind, we will not propose a change."
+
+ ztr_un_event.23.t: "Permanent Member Selection Reform"
+ ztr_un_event.23.d: "The method by which Permanent Members of the Security Council are chosen is currently #v [SCOPE.GetRootScope.GetCountry.GetCustom('ztr_un_law_member_selection_name')]#!.\n\nIf the reform passes, #n all current permanent members will be stripped of their status#! and new ones will be selected under the new paradigm.\n\n#v By Prestige#!: The nations with the highest prestige are granted permanent seats. Rewards diplomatic and cultural achievement.\n#v Geographic Representation#!: Seats are allocated to ensure every major world region has representation. Promotes diversity and fairness.\n#v By Military Power#!: The nations with the strongest armed forces hold the seats. Reflects the reality of hard power.\n#v Strongest Country#!: The strongest nation holds the seats. Reflects overall national importance.\n\nWhich selection model shall we propose?"
+ ztr_un_event.23.a: "Propose: #v By Prestige#!"
+ ztr_un_event.23.b: "Propose: #v Geographic Representation#!"
+ ztr_un_event.23.c: "Propose: #v By Military Power#!"
+ ztr_un_event.23.e: "Propose: #v Strongest Country#!"
+ ztr_un_event.23.f: "Nevermind, we will not propose a change."
+
+ # UN Permanent Member Appointment
+ ztr_un_event.25.t: "Appointed to the Security Council"
+ ztr_un_event.25.d: "Following a reform of the United Nations permanent member selection process, [ROOT.GetCountry.GetName] has been appointed as a #gold_value Permanent Member#! of the Security Council.\n\nThis prestigious position grants us greater influence in international affairs, including the ability to shape resolutions and, if the veto right is in effect, to unilaterally block proposals we oppose."
+ ztr_un_event.25.a: "We shall bear this responsibility with honor."

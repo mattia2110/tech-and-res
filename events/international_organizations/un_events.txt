@@ -39,12 +39,13 @@ ztr_un_event.1 = {
 		}
 		add_modifier = ztr_onu_permanent_member
 		join_un_law_changes = yes
+		ztr_un_init_governance_laws = yes
 		every_country = {
 			limit = {
 				NOT = {
 					this = root
 				}
-				has_technology_researched = human_rights
+				#has_technology_researched = human_rights
 			}
 			trigger_event = ztr_un_event.2
 		}
@@ -420,6 +421,371 @@ ztr_un_event.5 = {
 	}
 }
 
+# ========================================
+# UN GOVERNANCE MENU EVENTS
+# ========================================
+# Event 20: Main governance menu - pick a subject to reform
+ztr_un_event.20 = {
+	dlc = dlc_tech_res
+	type = country_event
+	placement = root
+	duration = 1
+	title = ztr_un_event.20.t
+	desc = ztr_un_event.20.d
+	event_image = {
+		video = "unspecific_politicians_arguing"
+	}
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	icon = "gfx/interface/icons/event_icons/ztr_onu_member.dds"
+	trigger = {
+	}
+	immediate = {
+		ztr_un_init_governance_laws = yes
+	}
+	# Reform Voting Model
+	option = {
+		name = ztr_un_event.20.a
+		trigger_event = {
+			id = ztr_un_event.21
+			popup = yes
+		}
+		ai_chance = {
+			base = 0
+		}
+	}
+	# Reform Veto Rights
+	option = {
+		name = ztr_un_event.20.b
+		trigger_event = {
+			id = ztr_un_event.22
+			popup = yes
+		}
+		ai_chance = {
+			base = 0
+		}
+	}
+	# Reform Permanent Member Selection
+	option = {
+		name = ztr_un_event.20.c
+		trigger_event = {
+			id = ztr_un_event.23
+			popup = yes
+		}
+		ai_chance = {
+			base = 0
+		}
+	}
+	# Nevermind
+	option = {
+		name = ztr_un_event.20.e
+		default_option = yes
+		remove_global_variable = ztr_un_button_opened
+		ai_chance = {
+			base = 100
+		}
+	}
+}
+
+# Event 21: Voting Model Reform
+ztr_un_event.21 = {
+	dlc = dlc_tech_res
+	type = country_event
+	placement = root
+	duration = 1
+	title = ztr_un_event.21.t
+	desc = ztr_un_event.21.d
+	event_image = {
+		video = "unspecific_politicians_arguing"
+	}
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	icon = "gfx/interface/icons/event_icons/ztr_onu_member.dds"
+	trigger = {
+	}
+	immediate = {
+	}
+	# Propose: One Country, One Vote
+	option = {
+		name = ztr_un_event.21.a
+		trigger = {
+			NOT = {
+				global_var:ztr_un_law_voting_model = 1
+			}
+		}
+		set_global_variable = {
+			name = ztr_un_vote_subject
+			value = 1
+		}
+		set_global_variable = {
+			name = ztr_un_vote_proposal
+			value = 1
+		}
+		ztr_un_start_governance_vote = yes
+		remove_global_variable = ztr_un_button_opened
+		ai_chance = {
+			base = 0
+		}
+	}
+	# Propose: Weighted by Prestige
+	option = {
+		name = ztr_un_event.21.b
+		trigger = {
+			NOT = {
+				global_var:ztr_un_law_voting_model = 2
+			}
+		}
+		set_global_variable = {
+			name = ztr_un_vote_subject
+			value = 1
+		}
+		set_global_variable = {
+			name = ztr_un_vote_proposal
+			value = 2
+		}
+		ztr_un_start_governance_vote = yes
+		remove_global_variable = ztr_un_button_opened
+		ai_chance = {
+			base = 0
+		}
+	}
+	# Propose: Security Council Only
+	option = {
+		name = ztr_un_event.21.c
+		trigger = {
+			NOT = {
+				global_var:ztr_un_law_voting_model = 3
+			}
+		}
+		set_global_variable = {
+			name = ztr_un_vote_subject
+			value = 1
+		}
+		set_global_variable = {
+			name = ztr_un_vote_proposal
+			value = 3
+		}
+		ztr_un_start_governance_vote = yes
+		remove_global_variable = ztr_un_button_opened
+		ai_chance = {
+			base = 0
+		}
+	}
+	# Propose: Superpowers Only
+	option = {
+		name = ztr_un_event.21.e
+		trigger = {
+			NOT = {
+				global_var:ztr_un_law_voting_model = 4
+			}
+		}
+		set_global_variable = {
+			name = ztr_un_vote_subject
+			value = 1
+		}
+		set_global_variable = {
+			name = ztr_un_vote_proposal
+			value = 4
+		}
+		ztr_un_start_governance_vote = yes
+		remove_global_variable = ztr_un_button_opened
+		ai_chance = {
+			base = 0
+		}
+	}
+	# Nevermind
+	option = {
+		name = ztr_un_event.21.f
+		default_option = yes
+		remove_global_variable = ztr_un_button_opened
+		ai_chance = {
+			base = 100
+		}
+	}
+}
+
+# Event 22: Veto Rights Reform
+ztr_un_event.22 = {
+	dlc = dlc_tech_res
+	type = country_event
+	placement = root
+	duration = 1
+	title = ztr_un_event.22.t
+	desc = ztr_un_event.22.d
+	event_image = {
+		video = "unspecific_politicians_arguing"
+	}
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	icon = "gfx/interface/icons/event_icons/ztr_onu_member.dds"
+	trigger = {
+	}
+	immediate = {
+	}
+	# Propose: Enable Veto (if currently disabled)
+	option = {
+		name = ztr_un_event.22.a
+		trigger = {
+			global_var:ztr_un_law_veto_right = 0
+		}
+		set_global_variable = {
+			name = ztr_un_vote_subject
+			value = 2
+		}
+		set_global_variable = {
+			name = ztr_un_vote_proposal
+			value = 1
+		}
+		ztr_un_start_governance_vote = yes
+		remove_global_variable = ztr_un_button_opened
+		ai_chance = {
+			base = 0
+		}
+	}
+	# Propose: Abolish Veto (if currently enabled)
+	option = {
+		name = ztr_un_event.22.b
+		trigger = {
+			global_var:ztr_un_law_veto_right = 1
+		}
+		set_global_variable = {
+			name = ztr_un_vote_subject
+			value = 2
+		}
+		set_global_variable = {
+			name = ztr_un_vote_proposal
+			value = 0
+		}
+		ztr_un_start_governance_vote = yes
+		remove_global_variable = ztr_un_button_opened
+		ai_chance = {
+			base = 0
+		}
+	}
+	# Nevermind
+	option = {
+		name = ztr_un_event.22.c
+		default_option = yes
+		remove_global_variable = ztr_un_button_opened
+		ai_chance = {
+			base = 100
+		}
+	}
+}
+
+# Event 23: Permanent Member Selection Reform
+ztr_un_event.23 = {
+	dlc = dlc_tech_res
+	type = country_event
+	placement = root
+	duration = 1
+	title = ztr_un_event.23.t
+	desc = ztr_un_event.23.d
+	event_image = {
+		video = "unspecific_politicians_arguing"
+	}
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	icon = "gfx/interface/icons/event_icons/ztr_onu_member.dds"
+	trigger = {
+	}
+	immediate = {
+	}
+	# Propose: Selection by Prestige
+	option = {
+		name = ztr_un_event.23.a
+		trigger = {
+			NOT = {
+				global_var:ztr_un_law_member_selection = 1
+			}
+		}
+		set_global_variable = {
+			name = ztr_un_vote_subject
+			value = 3
+		}
+		set_global_variable = {
+			name = ztr_un_vote_proposal
+			value = 1
+		}
+		ztr_un_start_governance_vote = yes
+		remove_global_variable = ztr_un_button_opened
+		ai_chance = {
+			base = 0
+		}
+	}
+	# Propose: Geographic Representation
+	option = {
+		name = ztr_un_event.23.b
+		trigger = {
+			NOT = {
+				global_var:ztr_un_law_member_selection = 2
+			}
+		}
+		set_global_variable = {
+			name = ztr_un_vote_subject
+			value = 3
+		}
+		set_global_variable = {
+			name = ztr_un_vote_proposal
+			value = 2
+		}
+		ztr_un_start_governance_vote = yes
+		remove_global_variable = ztr_un_button_opened
+		ai_chance = {
+			base = 0
+		}
+	}
+	# Propose: Military Power
+	option = {
+		name = ztr_un_event.23.c
+		trigger = {
+			NOT = {
+				global_var:ztr_un_law_member_selection = 3
+			}
+		}
+		set_global_variable = {
+			name = ztr_un_vote_subject
+			value = 3
+		}
+		set_global_variable = {
+			name = ztr_un_vote_proposal
+			value = 3
+		}
+		ztr_un_start_governance_vote = yes
+		remove_global_variable = ztr_un_button_opened
+		ai_chance = {
+			base = 0
+		}
+	}
+	# Propose: Strongest Country (Prestige or GDP)
+	option = {
+		name = ztr_un_event.23.e
+		trigger = {
+			NOT = {
+				global_var:ztr_un_law_member_selection = 4
+			}
+		}
+		set_global_variable = {
+			name = ztr_un_vote_subject
+			value = 3
+		}
+		set_global_variable = {
+			name = ztr_un_vote_proposal
+			value = 4
+		}
+		ztr_un_start_governance_vote = yes
+		remove_global_variable = ztr_un_button_opened
+		ai_chance = {
+			base = 0
+		}
+	}
+	# Nevermind
+	option = {
+		name = ztr_un_event.23.f
+		default_option = yes
+		remove_global_variable = ztr_un_button_opened
+		ai_chance = {
+			base = 100
+		}
+	}
+}
+
 ztr_un_event.10 = {
 	dlc = dlc_tech_res
 	type = country_event
@@ -463,5 +829,31 @@ ztr_un_event.10 = {
 			is_ai = no
 		}
 		set_variable = ztr_un_vote_choice_against
+	}
+}
+
+# Event 25: Appointed as new Permanent Member after selection reform
+ztr_un_event.25 = {
+	dlc = dlc_tech_res
+	type = country_event
+	placement = root
+	duration = 1
+	title = ztr_un_event.25.t
+	desc = ztr_un_event.25.d
+	event_image = {
+		video = "unspecific_ruler_speaking_to_people"
+	}
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	icon = "gfx/interface/icons/event_icons/ztr_onu_member.dds"
+	trigger = {
+	}
+	immediate = {
+	}
+	option = {
+		name = ztr_un_event.25.a
+		default_option = yes
+		ai_chance = {
+			base = 100
+		}
 	}
 }
