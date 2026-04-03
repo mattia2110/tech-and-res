@@ -1,14 +1,18 @@
 start_nuclear_weapons_program_decision = {
-
 	is_shown = {
 		has_technology_researched = verrier_nuclear_physics_tech
 		# Nuclear Weapon without bombers doesn't make any sense (Missiles tech need bombers tech too)
 		has_technology_researched = bombing
-		NOT = { has_modifier = nuclear_capability }
-		NOT = { has_variable = nuclear_program_started }
-		NOT = { has_variable = signed_nuclear_non_proliferation_treaty }
+		NOT = {
+			has_modifier = nuclear_capability
+		}
+		NOT = {
+			has_variable = nuclear_program_started
+		}
+		NOT = {
+			has_variable = signed_nuclear_non_proliferation_treaty
+		}
 		has_game_rule = allow_ztr_atom_bomb_content
-
 		#THIS is a major power or dictatorship
 		OR = {
 			# Flawed democracy and autocracy only if it is a great power
@@ -16,15 +20,12 @@ start_nuclear_weapons_program_decision = {
 			# A dictatorship will always want nukes
 			ztr_is_totalitarian = yes
 		}
-		
 		#THIS must not be a revolutionary
 		is_revolutionary = no
 		is_secessionist = no
-
 		#TODO Israel
 		#c:ISR ?= this
 	}
-
 	possible = {
 		# Must have a research center
 		has_research_center = yes
@@ -35,27 +36,30 @@ start_nuclear_weapons_program_decision = {
 		# THIS is not in the midst of a revolution
 		has_revolution = no
 	}
-	
 	when_taken = {
 		#Mark country as having started a nuclear program
 		set_variable = nuclear_program_started
-
 		activate_law = law_type:law_uranium_full_usage
-		
 		#Add JE
-		add_journal_entry = { type = je_develop_nuclear_weapons }
-
+		add_journal_entry = {
+			type = je_develop_nuclear_weapons
+		}
 		# World will hate this only if nuclear bomb is actually used
 		if = {
-			limit = { has_global_variable = ztr_atomic_bomb_first_use_var }
+			limit = {
+				has_global_variable = ztr_atomic_bomb_first_use_var
+			}
 			#Hostile countries become more hostile
 			every_country = {
 				limit = {
 					OR = {
 						AND = {
 							country_rank > root.country_rank
-							OR = { has_modifier = nuclear_capability has_variable = nuclear_program_started}
-							OR = { 
+							OR = {
+								has_modifier = nuclear_capability
+								has_variable = nuclear_program_started
+							}
+							OR = {
 								has_attitude = {
 									who = ROOT
 									attitude <= antagonistic
@@ -64,11 +68,18 @@ start_nuclear_weapons_program_decision = {
 							}
 						}
 						AND = {
-							NOT = { is_subject = yes }
-							has_diplomatic_pact = { who = ROOT type = rivalry }
-							OR = { has_modifier = nuclear_capability has_variable = nuclear_program_started }
+							NOT = {
+								is_subject = yes
+							}
+							has_diplomatic_pact = {
+								who = ROOT
+								type = rivalry
+							}
+							OR = {
+								has_modifier = nuclear_capability
+								has_variable = nuclear_program_started
+							}
 						}
-						
 					}
 				}
 				change_relations = {
@@ -78,9 +89,8 @@ start_nuclear_weapons_program_decision = {
 			}
 			#International community does not like this
 			change_infamy = 30
-		}	
+		}
 	}
-
 	ai_chance = {
 		value = 0
 		if = {
@@ -93,55 +103,56 @@ start_nuclear_weapons_program_decision = {
 			}
 			add = 1000
 		}
-
 	}
 }
 
 develop_thermonuclear_weapons_decision = {
-
 	is_shown = {
 		has_modifier = nuclear_capability
-		NOT = { has_variable = thermonuclear_program_started }
-		NOT = { has_variable = signed_nuclear_non_proliferation_treaty }
+		NOT = {
+			has_variable = thermonuclear_program_started
+		}
+		NOT = {
+			has_variable = signed_nuclear_non_proliferation_treaty
+		}
 		has_law = law_type:law_uranium_full_usage
-
 		#THIS is a major power or dictatorship
 		OR = {
 			country_rank >= rank_value:great_power
 			ztr_is_not_full_democratic = yes
 			ztr_is_totalitarian = yes
 		}
-		
 		#THIS must not be a revolutionary
 		is_revolutionary = no
 		is_secessionist = no
 	}
-
 	possible = {
 		#Since it has nukes, it has already a research center
 		#Must be a sovereign state
-		is_subject = no		
+		is_subject = no
 		#THIS is not broke
-		in_default = no		
+		in_default = no
 		#THIS is not in the midst of a revolution
 		has_revolution = no
 	}
-	
 	when_taken = {
 		#Mark country as having started a nuclear program
 		set_variable = thermonuclear_program_started
-		
 		#Add JE
-		add_journal_entry = { type = je_develop_thermonuclear_weapons }
-
+		add_journal_entry = {
+			type = je_develop_thermonuclear_weapons
+		}
 		# Here world will already know about nukes
 		every_country = {
 			limit = {
 				OR = {
 					AND = {
 						country_rank > root.country_rank
-						OR = { has_modifier = nuclear_capability has_variable = nuclear_program_started}
-						OR = { 
+						OR = {
+							has_modifier = nuclear_capability
+							has_variable = nuclear_program_started
+						}
+						OR = {
 							has_attitude = {
 								who = ROOT
 								attitude <= antagonistic
@@ -150,10 +161,18 @@ develop_thermonuclear_weapons_decision = {
 						}
 					}
 					AND = {
-						NOT = { is_subject = yes }
-						has_diplomatic_pact = { who = ROOT type = rivalry }
-						OR = { has_modifier = nuclear_capability has_variable = nuclear_program_started }
-					}					
+						NOT = {
+							is_subject = yes
+						}
+						has_diplomatic_pact = {
+							who = ROOT
+							type = rivalry
+						}
+						OR = {
+							has_modifier = nuclear_capability
+							has_variable = nuclear_program_started
+						}
+					}
 				}
 			}
 			change_relations = {
@@ -163,12 +182,13 @@ develop_thermonuclear_weapons_decision = {
 		}
 		#International community doesn't like this, but if it is a superpower, less
 		if = {
-			limit = { has_modifier = ztr_superpower }
-			change_infamy = 25	
+			limit = {
+				has_modifier = ztr_superpower
+			}
+			change_infamy = 25
 		}
-		change_infamy = 50	
+		change_infamy = 50
 	}
-
 	ai_chance = {
 		value = 0
 		if = {
@@ -178,20 +198,17 @@ develop_thermonuclear_weapons_decision = {
 			}
 			add = 1000
 		}
-
 	}
 }
 
 join_nuclear_non_proliferation_treaty_decision = {
-
 	is_shown = {
 		#THIS has not already signed the NPT
-		NOT = { has_variable = signed_nuclear_non_proliferation_treaty }
-		has_global_variable = ztr_atomic_bomb_first_use_var
-		OR = {
-			has_modifier = ztr_onu_member
-			has_modifier = ztr_onu_permanent_member
+		NOT = {
+			has_variable = signed_nuclear_non_proliferation_treaty
 		}
+		has_global_variable = ztr_atomic_bomb_first_use_var
+		ztr_is_un_member = yes
 		any_country = {
 			has_technology_researched = neoimperialism
 			count > 0
@@ -199,7 +216,6 @@ join_nuclear_non_proliferation_treaty_decision = {
 		#Date of establishment
 		#year > 1965
 	}
-
 	possible = {
 		#Not currently developing WMD
 		#NOT = { has_journal_entry = je_develop_nuclear_weapons }
@@ -208,32 +224,32 @@ join_nuclear_non_proliferation_treaty_decision = {
 		#THIS is not currently at war
 		is_at_war = no
 	}
-	
 	when_taken = {
 		custom_tooltip = {
 			text = signed_NPT_1_tt
-			
 			#Mark THIS as having signed the NPT
 			set_variable = signed_nuclear_non_proliferation_treaty
-			
 			#No cheesing
 			set_variable = {
 				name = nuclear_non_proliferation_treaty_timer
 				years = 10
-			}	
+			}
 		}
-		
 		#Disable nuclear program & weapons
 		change_infamy = -10
 		every_country = {
-			limit = { OR = { has_strategic_adjacency = ROOT country_rank >= rank_value:great_power } }
+			limit = {
+				OR = {
+					has_strategic_adjacency = ROOT
+					country_rank >= rank_value:great_power
+				}
+			}
 			change_relations = {
 				country = ROOT
 				value = 10
 			}
-		}	
+		}
 	}
-
 	ai_chance = {
 		value = 0
 		if = {
@@ -242,15 +258,15 @@ join_nuclear_non_proliferation_treaty_decision = {
 					# Not a Superpower
 					has_modifier = ztr_superpower
 					# Not a rival nuclear power
-					any_rival_country = { 
-						OR = { 
+					any_rival_country = {
+						OR = {
 							has_modifier = nuclear_capability
 							has_variable = nuclear_program_started
 						}
 					}
 					any_country = {
 						relations:root < relations_threshold:poor
-						OR = { 
+						OR = {
 							has_modifier = nuclear_capability
 							has_variable = nuclear_program_started
 						}
@@ -269,7 +285,6 @@ join_nuclear_non_proliferation_treaty_decision = {
 			}
 			add = 100
 		}
-		
 		#Special
 		# if = {
 		# 	limit = {
@@ -282,66 +297,62 @@ join_nuclear_non_proliferation_treaty_decision = {
 }
 
 leave_nuclear_non_proliferation_treaty_decision = {
-
 	is_shown = {
 		#THIS has already signed the NPT
 		has_variable = signed_nuclear_non_proliferation_treaty
 	}
-
 	possible = {
-		
 		#THIS must have upheld the treaty for at least 10 years
 		custom_tooltip = {
 			text = signed_NPT_2_tt
-			NOT = { has_variable = nuclear_non_proliferation_treaty_timer }
+			NOT = {
+				has_variable = nuclear_non_proliferation_treaty_timer
+			}
 		}
-		
 		#THIS is sufficiently independent
 		is_subject = no
-		
 		#THIS is not currently at war
 		is_at_war = no
 	}
-	
 	when_taken = {
 		#Mark THIS as having signed the NPT
 		remove_variable = signed_nuclear_non_proliferation_treaty
-		
 		#Everyone is not happy with THIS
 		change_infamy = 20
 		every_country = {
-			limit = { OR = { has_strategic_adjacency = ROOT country_rank >= rank_value:great_power } }
+			limit = {
+				OR = {
+					has_strategic_adjacency = ROOT
+					country_rank >= rank_value:great_power
+				}
+			}
 			change_relations = {
 				country = ROOT
 				value = -25
 			}
 		}
-		
 	}
-
 	ai_chance = {
 		value = 0
-		
 		if = {
-		
 			limit = {
 				has_modifier = ztr_superpower
 				#Country is faced with a nuclear threat from somewhere or is a Distopia (e.g. North Korea)
 				OR = {
-					any_rival_country = { 
-						OR = { 
+					any_rival_country = {
+						OR = {
 							has_modifier = nuclear_capability
 							has_variable = nuclear_program_started
 						}
 					}
 					any_country = {
 						relations:root < relations_threshold:poor
-						OR = { 
+						OR = {
 							has_modifier = nuclear_capability
 							has_variable = nuclear_program_started
 						}
 					}
-					is_distopia = yes	
+					is_distopia = yes
 				}
 			}
 			add = 100
@@ -350,40 +361,43 @@ leave_nuclear_non_proliferation_treaty_decision = {
 }
 
 # This decision is to give nuclear capability to countries if revolutionary side wins and country had already nuclear capability
-
 take_control_of_nuclear_arsenal_decision = {
-
 	is_shown = {
 		#THIS doesn't have nuclear weapons
-		NOT = { has_modifier = nuclear_capability }
+		NOT = {
+			has_modifier = nuclear_capability
+		}
 		any_scope_state = {
 			has_building = building_nuclear_weapons_silo
 		}
-		NOT = { has_journal_entry = je_develop_nuclear_weapons }
+		NOT = {
+			has_journal_entry = je_develop_nuclear_weapons
+		}
 	}
-
 	possible = {
 		#THIS is a superpower or great power
 		country_rank >= rank_value:great_power
 		custom_tooltip = {
 			text = signed_NPT_2_tt
-			NOT = { has_variable = nuclear_non_proliferation_treaty_timer }
+			NOT = {
+				has_variable = nuclear_non_proliferation_treaty_timer
+			}
 		}
 	}
-	
 	when_taken = {
 		add_modifier = nuclear_capability
 		activate_law = law_type:law_uranium_full_usage
 		random_scope_state = {
 			limit = {
 				has_building = building_nuclear_weapons_silo
-				NOT = { has_modifier = nuclear_weapon_site }
+				NOT = {
+					has_modifier = nuclear_weapon_site
+				}
 			}
 			add_modifier = nuclear_weapon_site
 		}
 	}
-
 	ai_chance = {
-		value = 1000	
+		value = 1000
 	}
 }

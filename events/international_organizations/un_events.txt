@@ -173,10 +173,7 @@ ztr_un_event.3 = {
 	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
 	icon = "gfx/interface/icons/event_icons/ztr_onu_member.dds"
 	trigger = {
-		OR = {
-			has_modifier = ztr_onu_member
-			has_modifier = ztr_onu_permanent_member
-		}
+		ztr_is_un_member = yes
 		infamy > 30
 		any_diplomatic_play = {
 			is_war = no
@@ -778,6 +775,242 @@ ztr_un_event.23 = {
 	# Nevermind
 	option = {
 		name = ztr_un_event.23.f
+		default_option = yes
+		remove_global_variable = ztr_un_button_opened
+		ai_chance = {
+			base = 100
+		}
+	}
+}
+
+# ========================================
+# UN HUMAN RIGHTS STATEMENT EVENTS
+# ========================================
+# Event 30: Human Rights topic menu - pick a subject
+ztr_un_event.30 = {
+	dlc = dlc_tech_res
+	type = country_event
+	placement = root
+	duration = 1
+	title = ztr_un_event.30.t
+	desc = ztr_un_event.30.d
+	event_image = {
+		video = "unspecific_politicians_arguing"
+	}
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	icon = "gfx/interface/icons/event_icons/ztr_onu_member.dds"
+	trigger = {
+	}
+	immediate = {
+	}
+	# Propose Statement on Decolonization
+	option = {
+		name = ztr_un_event.30.a
+		trigger_event = {
+			id = ztr_un_event.31
+			popup = yes
+		}
+		ai_chance = {
+			base = 0
+		}
+	}
+	# Propose Statement on Slavery
+	option = {
+		name = ztr_un_event.30.b
+		trigger_event = {
+			id = ztr_un_event.32
+			popup = yes
+		}
+		ai_chance = {
+			base = 0
+		}
+	}
+	# Nevermind
+	option = {
+		name = ztr_un_event.30.e
+		default_option = yes
+		remove_global_variable = ztr_un_button_opened
+		ai_chance = {
+			base = 100
+		}
+	}
+}
+
+# Event 31: Decolonization Statement
+ztr_un_event.31 = {
+	dlc = dlc_tech_res
+	type = country_event
+	placement = root
+	duration = 1
+	title = ztr_un_event.31.t
+	desc = ztr_un_event.31.d
+	event_image = {
+		video = "unspecific_politicians_arguing"
+	}
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	icon = "gfx/interface/icons/event_icons/ztr_onu_member.dds"
+	trigger = {
+	}
+	immediate = {
+	}
+	# Propose: Encouraged - Push for Decolonization
+	option = {
+		name = ztr_un_event.31.a
+		trigger = {
+			OR = {
+				NOT = {
+					has_global_variable = ztr_un_hr_decolonization
+				}
+				NOT = {
+					global_var:ztr_un_hr_decolonization = 1
+				}
+			}
+		}
+		set_global_variable = {
+			name = ztr_un_vote_subject
+			value = 4
+		}
+		set_global_variable = {
+			name = ztr_un_vote_proposal
+			value = 1
+		}
+		ztr_un_start_governance_vote = yes
+		remove_global_variable = ztr_un_button_opened
+		ai_chance = {
+			base = 0
+		}
+	}
+	# Propose: Conservative - Permanently disabling colonial laws
+	option = {
+		name = ztr_un_event.31.b
+		trigger = {
+			OR = {
+				NOT = {
+					has_global_variable = ztr_un_hr_decolonization
+				}
+				NOT = {
+					global_var:ztr_un_hr_decolonization = 2
+				}
+			}
+		}
+		set_global_variable = {
+			name = ztr_un_vote_subject
+			value = 4
+		}
+		set_global_variable = {
+			name = ztr_un_vote_proposal
+			value = 2
+		}
+		ztr_un_start_governance_vote = yes
+		remove_global_variable = ztr_un_button_opened
+		ai_chance = {
+			base = 0
+		}
+	}
+	# Propose: Neutral - Repeal any existing decolonization statement
+	option = {
+		name = ztr_un_event.31.c
+		trigger = {
+			has_global_variable = ztr_un_hr_decolonization
+			NOT = {
+				global_var:ztr_un_hr_decolonization = 0
+			}
+		}
+		set_global_variable = {
+			name = ztr_un_vote_subject
+			value = 4
+		}
+		set_global_variable = {
+			name = ztr_un_vote_proposal
+			value = 0
+		}
+		ztr_un_start_governance_vote = yes
+		remove_global_variable = ztr_un_button_opened
+		ai_chance = {
+			base = 0
+		}
+	}
+	# Nevermind
+	option = {
+		name = ztr_un_event.31.e
+		default_option = yes
+		remove_global_variable = ztr_un_button_opened
+		ai_chance = {
+			base = 100
+		}
+	}
+}
+
+# Event 32: Slavery Statement
+ztr_un_event.32 = {
+	dlc = dlc_tech_res
+	type = country_event
+	placement = root
+	duration = 1
+	title = ztr_un_event.32.t
+	desc = ztr_un_event.32.d
+	event_image = {
+		video = "unspecific_politicians_arguing"
+	}
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	icon = "gfx/interface/icons/event_icons/ztr_onu_member.dds"
+	trigger = {
+	}
+	immediate = {
+	}
+	# Propose: Illegal - Permanently disabling laws permitting slavery
+	option = {
+		name = ztr_un_event.32.a
+		trigger = {
+			OR = {
+				NOT = {
+					has_global_variable = ztr_un_hr_slavery
+				}
+				NOT = {
+					global_var:ztr_un_hr_slavery = 1
+				}
+			}
+		}
+		set_global_variable = {
+			name = ztr_un_vote_subject
+			value = 5
+		}
+		set_global_variable = {
+			name = ztr_un_vote_proposal
+			value = 1
+		}
+		ztr_un_start_governance_vote = yes
+		remove_global_variable = ztr_un_button_opened
+		ai_chance = {
+			base = 0
+		}
+	}
+	# Propose: Neutral - Repeal any existing slavery statement
+	option = {
+		name = ztr_un_event.32.b
+		trigger = {
+			has_global_variable = ztr_un_hr_slavery
+			NOT = {
+				global_var:ztr_un_hr_slavery = 0
+			}
+		}
+		set_global_variable = {
+			name = ztr_un_vote_subject
+			value = 5
+		}
+		set_global_variable = {
+			name = ztr_un_vote_proposal
+			value = 0
+		}
+		ztr_un_start_governance_vote = yes
+		remove_global_variable = ztr_un_button_opened
+		ai_chance = {
+			base = 0
+		}
+	}
+	# Nevermind
+	option = {
+		name = ztr_un_event.32.e
 		default_option = yes
 		remove_global_variable = ztr_un_button_opened
 		ai_chance = {

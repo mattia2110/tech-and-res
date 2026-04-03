@@ -399,6 +399,94 @@ ztr_un_apply_governance_vote = {
 		# Select new permanent members based on the new model
 		ztr_un_select_new_permanent_members = yes
 	}
+	# Subject 4: Human Rights - Decolonization
+	if = {
+		limit = {
+			has_global_variable = ztr_un_vote_subject
+			global_var:ztr_un_vote_subject = 4
+		}
+		if = {
+			limit = {
+				has_global_variable = ztr_un_hr_decolonization
+			}
+			remove_global_variable = ztr_un_hr_decolonization
+		}
+		set_global_variable = {
+			name = ztr_un_hr_decolonization
+			value = global_var:ztr_un_vote_proposal
+		}
+		#Apply effects based on the stance
+		# Encouraged Decolonization
+		if = {
+			limit = {
+				global_var:ztr_un_vote_proposal = 2
+			}
+			#TODO Pensare se dover aggiungere altro
+			every_country = {
+				limit = {
+					ztr_is_un_member = yes
+					OR = {
+						has_law = law_type:law_colonial_resettlement
+						has_law = law_type:law_colonial_exploitation
+						has_law = law_type:law_frontier_colonization
+					}
+				}
+				activate_law = law_type:law_no_colonial_affairs
+			}
+		}
+		# Conservative Decolonization
+		else_if = {
+			limit = {
+				global_var:ztr_un_vote_proposal = 1
+			}
+			every_country = {
+				limit = {
+					ztr_is_un_member = yes
+					OR = {
+						has_law = law_type:law_colonial_resettlement
+						has_law = law_type:law_colonial_exploitation
+					}
+				}
+				activate_law = law_type:law_no_colonial_affairs
+			}
+		}
+	}
+	# Subject 5: Human Rights - Slavery
+	if = {
+		limit = {
+			has_global_variable = ztr_un_vote_subject
+			global_var:ztr_un_vote_subject = 5
+		}
+		if = {
+			limit = {
+				has_global_variable = ztr_un_hr_slavery
+			}
+			remove_global_variable = ztr_un_hr_slavery
+		}
+		set_global_variable = {
+			name = ztr_un_hr_slavery
+			value = global_var:ztr_un_vote_proposal
+		}
+		#Apply effects based on the stance
+		if = {
+			limit = {
+				global_var:ztr_un_vote_proposal = 1
+			}
+			# Illegal: add modifier to all UN members that disables slavery laws
+			every_country = {
+				limit = {
+					ztr_is_un_member = yes
+					OR = {
+						has_law = law_type:law_colonial_slavery
+						has_law = law_type:law_debt_slavery
+						has_law = law_type:law_slave_trade
+						has_law = law_type:law_legacy_slavery
+					}
+				}
+				activate_law = law_type:law_slavery_banned
+			}
+		}
+	}
 	# Clean up vote subject/proposal variables
 	remove_global_variable = ztr_un_vote_subject
 	remove_global_variable = ztr_un_vote_proposal
@@ -615,5 +703,11 @@ ztr_un_vote_cleanup_all_members = {
 			has_global_variable = ztr_un_vote_months_remaining
 		}
 		remove_global_variable = ztr_un_vote_months_remaining
+	}
+	if = {
+		limit = {
+			has_global_variable = ztr_un_button_opened
+		}
+		remove_global_variable = ztr_un_button_opened
 	}
 }

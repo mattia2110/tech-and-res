@@ -36,17 +36,6 @@ join_un_law_changes = {
 		}
 		activate_law = law_type:law_women_own_property
 	}
-	# The United Nations will abolish slavery if it is still present
-	if = {
-		limit = {
-			OR = {
-				has_law = law_type:law_slave_trade
-				has_law = law_type:law_legacy_slavery
-				has_law = law_type:law_debt_slavery
-			}
-		}
-		activate_law = law_type:law_slavery_banned
-	}
 	# The United Nations will abolish racist laws if they are still present
 	if = {
 		limit = {
@@ -56,6 +45,46 @@ join_un_law_changes = {
 			}
 		}
 		activate_law = law_type:law_racial_segregation
+	}
+	#TODO Modificare questa parte con la modifica forzata delle leggi attive per ogni membro dell'ONU
+	# Apply active UN Human Rights resolutions to new members
+	# Decolonization Stance
+	if = {
+		limit = {
+			has_global_variable = ztr_un_hr_decolonization
+			global_var:ztr_un_hr_decolonization = 2
+			OR = {
+				has_law = law_type:law_colonial_resettlement
+				has_law = law_type:law_colonial_exploitation
+				has_law = law_type:law_frontier_colonization
+			}
+		}
+		activate_law = law_type:law_no_colonial_affairs
+	}
+	else_if = {
+		limit = {
+			has_global_variable = ztr_un_hr_decolonization
+			global_var:ztr_un_hr_decolonization = 1
+			OR = {
+				has_law = law_type:law_colonial_resettlement
+				has_law = law_type:law_colonial_exploitation
+			}
+		}
+		activate_law = law_type:law_no_colonial_affairs
+	}
+	# Slavery Stance
+	if = {
+		limit = {
+			has_global_variable = ztr_un_hr_slavery
+			global_var:ztr_un_hr_slavery = 1
+			OR = {
+				has_law = law_type:law_colonial_slavery
+				has_law = law_type:law_debt_slavery
+				has_law = law_type:law_slave_trade
+				has_law = law_type:law_legacy_slavery
+			}
+		}
+		activate_law = law_type:law_slavery_banned
 	}
 }
 

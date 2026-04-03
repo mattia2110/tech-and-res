@@ -42,6 +42,211 @@ give_claims_on_india = {
 	}
 }
 
+# Calculates decolonization pressure on an overlord country
+# Additive yearly change to ztr_decolonization_pressure_var (0-100)
+# Root = overlord country
+ztr_calculate_decolonization_pressure = {
+	# Initialize if needed
+	if = {
+		limit = {
+			NOT = { has_variable = ztr_decolonization_pressure_var }
+		}
+		set_variable = {
+			name = ztr_decolonization_pressure_var
+			value = 0
+		}
+	}
+
+	# --- Increasing factors ---
+
+	# Base drift: the world order is shifting
+	change_variable = {
+		name = ztr_decolonization_pressure_var
+		add = 2
+	}
+
+	# Post-war momentum: the age of empires is ending
+	if = {
+		limit = { year > 1945 }
+		change_variable = {
+			name = ztr_decolonization_pressure_var
+			add = 2
+		}
+	}
+	if = {
+		limit = { year > 1955 }
+		change_variable = {
+			name = ztr_decolonization_pressure_var
+			add = 3
+		}
+	}
+	if = {
+		limit = { year > 1965 }
+		change_variable = {
+			name = ztr_decolonization_pressure_var
+			add = 3
+		}
+	}
+
+	# Technology-driven awareness
+	if = {
+		limit = { has_technology_researched = decolonization }
+		change_variable = {
+			name = ztr_decolonization_pressure_var
+			add = 3
+		}
+	}
+	if = {
+		limit = { has_technology_researched = transnational_activism }
+		change_variable = {
+			name = ztr_decolonization_pressure_var
+			add = 2
+		}
+	}
+
+	# Subject liberty desire - restless colonies
+	every_subject_or_below = {
+		limit = {
+			liberty_desire > 50
+		}
+		root = {
+			change_variable = {
+				name = ztr_decolonization_pressure_var
+				add = 1
+			}
+		}
+	}
+	every_subject_or_below = {
+		limit = {
+			liberty_desire > 75
+		}
+		root = {
+			change_variable = {
+				name = ztr_decolonization_pressure_var
+				add = 2
+			}
+		}
+	}
+
+	# Democratic governance: domestic public opinion against colonialism
+	if = {
+		limit = { ztr_is_full_democratic = yes }
+		change_variable = {
+			name = ztr_decolonization_pressure_var
+			add = 4
+		}
+	}
+	else_if = {
+		limit = { ztr_is_flawed_democratic = yes }
+		change_variable = {
+			name = ztr_decolonization_pressure_var
+			add = 2
+		}
+	}
+
+	# UN Resolutions on Decolonization
+	if = {
+		limit = {
+			has_global_variable = ztr_un_hr_decolonization
+			global_var:ztr_un_hr_decolonization = 1
+		}
+		# Encouraged: strong international push
+		change_variable = {
+			name = ztr_decolonization_pressure_var
+			add = 6
+		}
+	}
+	else_if = {
+		limit = {
+			has_global_variable = ztr_un_hr_decolonization
+			global_var:ztr_un_hr_decolonization = 2
+		}
+		# Conservative: diplomatic pressure against colonial laws
+		change_variable = {
+			name = ztr_decolonization_pressure_var
+			add = 3
+		}
+	}
+
+	# UN Resolution on Slavery
+	if = {
+		limit = {
+			has_global_variable = ztr_un_hr_slavery
+			global_var:ztr_un_hr_slavery = 1
+			NOT = { has_law = law_type:law_slavery_banned }
+		}
+		change_variable = {
+			name = ztr_decolonization_pressure_var
+			add = 4
+		}
+	}
+
+	# Overlord infamy: pariah states face harsher pressure
+	if = {
+		limit = { infamy >= infamy_threshold:pariah }
+		change_variable = {
+			name = ztr_decolonization_pressure_var
+			add = 5
+		}
+	}
+	else_if = {
+		limit = { infamy >= infamy_threshold:notorious }
+		change_variable = {
+			name = ztr_decolonization_pressure_var
+			add = 2
+		}
+	}
+
+	# --- Stabilizing factors ---
+
+	# Great power status slows pressure
+	if = {
+		limit = { country_rank >= rank_value:great_power }
+		change_variable = {
+			name = ztr_decolonization_pressure_var
+			add = -2
+		}
+	}
+
+	# Strong army projection: can maintain colonial order
+	if = {
+		limit = { army_power_projection > 200 }
+		change_variable = {
+			name = ztr_decolonization_pressure_var
+			add = -1
+		}
+	}
+
+	# Alliances with great powers: international backing
+	every_scope_ally = {
+		limit = {
+			country_rank >= rank_value:great_power
+		}
+		root = {
+			change_variable = {
+				name = ztr_decolonization_pressure_var
+				add = -1
+			}
+		}
+	}
+
+	# Clamp to 0-100
+	if = {
+		limit = { var:ztr_decolonization_pressure_var < 0 }
+		set_variable = {
+			name = ztr_decolonization_pressure_var
+			value = 0
+		}
+	}
+	if = {
+		limit = { var:ztr_decolonization_pressure_var > 100 }
+		set_variable = {
+			name = ztr_decolonization_pressure_var
+			value = 100
+		}
+	}
+}
+
 calculate_infamy_decolonization_subject_event = {
 	scope:subject_scope = {
 		every_scope_state = { 

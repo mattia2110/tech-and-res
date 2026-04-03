@@ -170,20 +170,193 @@ je_superpower_request_law_enactment = {
 	should_be_pinned_by_default = yes
 }
 
+# Decolonization: tracks the "Winds of Change" pressure on colonial powers
+je_decolonization = {
+	icon = "gfx/interface/icons/event_icons/decolonization_event.dds"
+	group = je_group_foreign_affairs
+	is_shown_when_inactive = {
+		has_game_rule = allow_ztr_decolonization_content
+		any_subject_or_below = {
+			NOT = {
+				has_government_type = gov_zhuz
+			}
+		}
+	}
+	possible = {
+		has_global_variable = ztr_decolonization_age_var
+		any_subject_or_below = {
+			NOT = {
+				has_government_type = gov_zhuz
+			}
+		}
+	}
+	immediate = {
+		set_variable = {
+			name = ztr_decolonization_pressure_var
+			value = 0
+		}
+	}
+	scripted_progress_bar = ztr_decolonization_pressure_bar
+	on_yearly_pulse = {
+		effect = {
+			# Calculate decolonization pressure
+			ztr_calculate_decolonization_pressure = yes
+			# Update progress bar
+			scope:journal_entry = {
+				set_bar_progress = {
+					value = root.var:ztr_decolonization_pressure_var
+					name = ztr_decolonization_pressure_bar
+				}
+			}
+		}
+		random_events = {
+			10 = ztr_decolonization.1			# Generic Decolonization
+			1 = ztr_decolonization.2			# Tunisia
+			1 = ztr_decolonization.3			# Algeria
+			1 = ztr_decolonization.4			# Morocco
+			1 = ztr_decolonization.5			# Libya
+			1 = ztr_decolonization.6			# Egypt
+			1 = ztr_decolonization.7			# Sudan
+			1 = ztr_decolonization.8			# Arabia
+			1 = ztr_decolonization.9			# Oman
+			1 = ztr_decolonization.10			# Yemen
+			1 = ztr_decolonization.11			# Trucial States
+			1 = ztr_decolonization.12			# Persia
+			1 = ztr_decolonization.13			# Burma
+			1 = ztr_decolonization.14			# Siam
+			1 = ztr_decolonization.15			# Laos
+			1 = ztr_decolonization.16			# Cambodia
+			1 = ztr_decolonization.17			# Vietnam
+			1 = ztr_decolonization.18			# India
+			1 = ztr_decolonization.19			# Korea
+			1 = ztr_decolonization.20			# Japan
+			1 = ztr_decolonization.21			# China
+			1 = ztr_decolonization.22			# Afghanistan
+			1 = ztr_decolonization.23			# Malaysia
+			1 = ztr_decolonization.24			# Nepal
+			1 = ztr_decolonization.25			# Bhutan
+			1 = ztr_decolonization.26			# Tibet
+			1 = ztr_decolonization.27			# New Zealand
+			1 = ztr_decolonization.28			# Iraq
+			1 = ztr_decolonization.29			# Syria
+			1 = ztr_decolonization.30			# Lebanon
+			1 = ztr_decolonization.31			# Jordan
+			1 = ztr_decolonization.32			# Palestine
+			1 = ztr_decolonization.33			# Kurds
+			1 = ztr_decolonization.34			# Kenya
+			1 = ztr_decolonization.35			# Namibia
+			1 = ztr_decolonization.36			# Somalia
+			1 = ztr_decolonization.37			# Eritrea
+			1 = ztr_decolonization.38			# Chad
+			1 = ztr_decolonization.39			# Niger
+			1 = ztr_decolonization.40			# Mauritania
+			1 = ztr_decolonization.41			# Senegal
+			1 = ztr_decolonization.42			# Guinea
+			1 = ztr_decolonization.43			# Ivory Coast
+			1 = ztr_decolonization.44			# Ghana
+			1 = ztr_decolonization.45			# Togo
+			1 = ztr_decolonization.46			# Benin
+			1 = ztr_decolonization.47			# Burkina Faso
+			1 = ztr_decolonization.48			# Nigeria
+			1 = ztr_decolonization.49			# Cameroon
+			1 = ztr_decolonization.50			# Central African Republic
+			1 = ztr_decolonization.51			# Gabon
+			1 = ztr_decolonization.52			# Congo-Brazz
+			1 = ztr_decolonization.53			# Congo-Kinshasa
+			1 = ztr_decolonization.54			# Uganda
+			1 = ztr_decolonization.55			# Rwanda
+			1 = ztr_decolonization.56			# Tanzania
+			1 = ztr_decolonization.57			# Angola
+			1 = ztr_decolonization.58			# Zambia
+			1 = ztr_decolonization.59			# Mozambique
+			1 = ztr_decolonization.60			# Malawi
+			1 = ztr_decolonization.61			# Eswatini
+			1 = ztr_decolonization.62			# Lesotho
+			1 = ztr_decolonization.63			# Mali
+			1 = ztr_decolonization.64			# Botswana
+			1 = ztr_decolonization.65			# Zimbabwe
+			1 = ztr_decolonization.66			# Madagascar
+			1 = ztr_decolonization.67			# Ethiopia
+		}
+	}
+	status_desc = {
+		first_valid = {
+			triggered_desc = {
+				desc = je_decolonization_status_critical
+				trigger = {
+					has_variable = ztr_decolonization_pressure_var
+					var:ztr_decolonization_pressure_var >= 75
+				}
+			}
+			triggered_desc = {
+				desc = je_decolonization_status_high
+				trigger = {
+					has_variable = ztr_decolonization_pressure_var
+					var:ztr_decolonization_pressure_var >= 50
+				}
+			}
+			triggered_desc = {
+				desc = je_decolonization_status_rising
+				trigger = {
+					has_variable = ztr_decolonization_pressure_var
+					var:ztr_decolonization_pressure_var >= 25
+				}
+			}
+			triggered_desc = {
+				desc = je_decolonization_status_low
+				trigger = {
+					always = yes
+				}
+			}
+		}
+	}
+	complete = {
+		custom_tooltip = {
+			text = je_decolonization_complete_tt
+			NOT = {
+				any_subject_or_below = {
+					NOT = {
+						has_government_type = gov_zhuz
+					}
+				}
+			}
+		}
+	}
+	on_complete = {
+		if = {
+			limit = {
+				has_variable = ztr_decolonization_pressure_var
+			}
+			remove_variable = ztr_decolonization_pressure_var
+		}
+	}
+	invalid = {
+		NOT = {
+			has_game_rule = allow_ztr_decolonization_content
+		}
+	}
+	on_invalid = {
+		if = {
+			limit = {
+				has_variable = ztr_decolonization_pressure_var
+			}
+			remove_variable = ztr_decolonization_pressure_var
+		}
+	}
+	weight = 100
+	should_be_pinned_by_default = yes
+	transferable = no
+	progressbar = no
+}
+
 je_un_info_panel = {
 	icon = "gfx/interface/icons/event_icons/united_nations.dds"
 	group = je_group_foreign_affairs
 	is_shown_when_inactive = {
-		OR = {
-			has_modifier = ztr_onu_member
-			has_modifier = ztr_onu_permanent_member
-		}
+		ztr_is_un_member = yes
 	}
 	possible = {
-		OR = {
-			has_modifier = ztr_onu_member
-			has_modifier = ztr_onu_permanent_member
-		}
+		ztr_is_un_member = yes
 	}
 	immediate = {
 		ztr_un_permanent_member_ranking_variables = yes
@@ -197,6 +370,7 @@ je_un_info_panel = {
 		}
 	}
 	scripted_button = ztr_un_open_governance_menu
+	scripted_button = ztr_un_open_human_rights_menu
 	status_desc = {
 		first_valid = {
 			triggered_desc = {
@@ -214,9 +388,8 @@ je_un_info_panel = {
 		}
 	}
 	invalid = {
-		NOR = {
-			has_modifier = ztr_onu_member
-			has_modifier = ztr_onu_permanent_member
+		NOT = {
+			ztr_is_un_member = yes
 		}
 	}
 	on_invalid = {
@@ -238,17 +411,11 @@ je_un_votations = {
 		has_variable = ztr_un_vote_eligible
 	}
 	should_show_when_not_involved = {
-		OR = {
-			has_modifier = ztr_onu_member
-			has_modifier = ztr_onu_permanent_member
-		}
+		ztr_is_un_member = yes
 	}
 	is_shown_in_lobby = {
 		has_global_variable = ztr_un_vote_active
-		OR = {
-			has_modifier = ztr_onu_member
-			has_modifier = ztr_onu_permanent_member
-		}
+		ztr_is_un_member = yes
 	}
 	possible = {
 		has_global_variable = ztr_un_vote_active

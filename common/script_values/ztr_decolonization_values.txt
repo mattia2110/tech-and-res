@@ -823,12 +823,80 @@ REPLACE:liberty_desire_weekly_change = { #AKA liberty_desire_weekly_progress
 		desc = "LIBERTY_DESIRE_WEEKLY_CHANGE_DESC_ADDITIONAL_ADDS"
 	}
 
-	#T&R overlord-side liberty desire adds moved here so the rule can branch directly.
+	#T&R Decolonization pressure: dynamic, replaces flat tech bonuses
+	# Post-decolonization age: shared overlord culture in colonies loses its dampening effect
+	# Colonies (crown_land, colony) have often overlord primary culture by design, which destroy culture fervor malus.
+	# When the decolonization age begins, this effect must be counterbalanced based on primary culture presence on colony.
+	if = {
+		limit = {
+			#This should be active from 1836 but we want to maintain vanilla experience at early/mid game
+			has_global_variable = ztr_decolonization_age_var
+			root.second_country = {
+				any_primary_culture = {
+					is_primary_culture_of = root.first_country
+				}
+			}
+		}
+		# Primary Culture is less than 25% of the subject's population
+		if = {
+			limit = {
+				root.second_country = {
+					any_scope_culture = {
+						culture_percent_country = {
+							target = this
+							value < 0.25
+						}
+					}
+				}
+			}
+			add = {
+				value = 0.25
+				desc = "LIBERTY_DESIRE_COLONIALIST_PRIMARY_CULTURE"
+			}
+		}
+		# Primary Culture is less than 50% of the subject's population
+		else_if = {
+			limit = {
+				root.second_country = {
+					any_scope_culture = {
+						culture_percent_country = {
+							target = this
+							value < 0.5
+						}
+					}
+				}
+			}
+			add = {
+				value = 0.15
+				desc = "LIBERTY_DESIRE_COLONIALIST_PRIMARY_CULTURE"
+			}
+		}
+		# Primary Culture is less than 75% of the subject's population
+		else_if = {
+			limit = {
+				root.second_country = {
+					any_scope_culture = {
+						culture_percent_country = {
+							target = this
+							value < 0.75
+						}
+					}
+				}
+			}
+			add = {
+				value = 0.05
+				desc = "LIBERTY_DESIRE_COLONIALIST_PRIMARY_CULTURE"
+			}
+		}
+	}
+	
+	#Scales with the overlord's decolonization_pressure_var (0-100) set by je_decolonization
 	add = {
 		if = {
 			limit = {
 				has_game_rule = allow_ztr_decolonization_content
 			}
+			# Base awareness from international organizations research
 			if = {
 				limit = {
 					root.first_country = {
@@ -836,30 +904,98 @@ REPLACE:liberty_desire_weekly_change = { #AKA liberty_desire_weekly_progress
 					}
 				}
 				add = {
-					value = 0.25
+					value = 0.15
 					desc = "international_organizations"
 				}
 			}
+			# Decolonization pressure from the JE (0-100 scaled to 0-1)
 			if = {
 				limit = {
 					root.first_country = {
-						has_technology_researched = decolonization
+						has_variable = ztr_decolonization_pressure_var
 					}
 				}
 				add = {
-					value = 1
-					desc = "decolonization"
+					value = root.first_country.var:ztr_decolonization_pressure_var
+					divide = 100
+					min = 0
+					max = 1
+					desc = "LIBERTY_DESIRE_DECOLONIZATION_PRESSURE"
 				}
 			}
+			# Post-1945: growing global norm of self-determination
+			# if = {
+			# 	limit = { year > 1945 }
+			# 	add = {
+			# 		value = 0.1
+			# 		desc = "LIBERTY_DESIRE_POST_WAR_SELF_DETERMINATION"
+			# 	}
+			# }
+			# if = {
+			# 	limit = { year > 1955 }
+			# 	add = {
+			# 		value = 0.1
+			# 		desc = "LIBERTY_DESIRE_POST_WAR_SELF_DETERMINATION"
+			# 	}
+			# }
+			# UN Resolution: Decolonization encouraged
+			if = {
+				limit = {
+					has_global_variable = ztr_un_hr_decolonization
+					global_var:ztr_un_hr_decolonization = 1
+				}
+				add = {
+					value = 0.25
+					desc = "LIBERTY_DESIRE_UN_DECOLONIZATION_ENCOURAGED"
+				}
+			}
+			# UN Resolution: Colonial laws condemned (conservative)
+			else_if = {
+				limit = {
+					has_global_variable = ztr_un_hr_decolonization
+					global_var:ztr_un_hr_decolonization = 2
+				}
+				add = {
+					value = 0.1
+					desc = "LIBERTY_DESIRE_UN_COLONIAL_LAWS_CONDEMNED"
+				}
+			}
+			# UN Resolution: Slavery illegal, and overlord still has slavery
+			if = {
+				limit = {
+					has_global_variable = ztr_un_hr_slavery
+					#TODO add this after event about locals in colonies still using slavery
+					#has_global_variable = ztr_colonial_locals_still_use_slavery
+					global_var:ztr_un_hr_slavery = 1
+				}
+				add = {
+					value = 0.15
+					desc = "LIBERTY_DESIRE_UN_SLAVERY_CONDEMNED"
+				}
+			}
+			# Demonstration effect: overlord already lost subjects (snowball)
 			if = {
 				limit = {
 					root.first_country = {
-						has_technology_researched = transnational_activism
+						has_variable = ztr_decolonization_pressure_var
+						var:ztr_decolonization_pressure_var >= 50
 					}
 				}
 				add = {
-					value = 0.5
-					desc = "transnational_activism"
+					value = 0.15
+					desc = "LIBERTY_DESIRE_DEMONSTRATION_EFFECT"
+				}
+			}
+			# Overlord democratic governance: domestic opposition to colonialism
+			if = {
+				limit = {
+					root.first_country = {
+						ztr_is_democratic = yes
+					}
+				}
+				add = {
+					value = 0.15
+					desc = "LIBERTY_DESIRE_OVERLORD_DEMOCRATIC"
 				}
 			}
 		}
