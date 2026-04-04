@@ -135,4 +135,79 @@ ztr_select_superpower_alignment_law = {
 	}
 }
 
-0
+join_eu_law_changes = {
+	# Universal suffrage
+	if = {
+		limit = {
+			NOT = { has_law = law_type:law_universal_suffrage }
+		}
+		activate_law = law_type:law_universal_suffrage
+	}
+	# Parliamentary republic
+	if = {
+		limit = {
+			OR = {
+				has_law = law_type:law_corporate_state
+				has_law = law_type:law_theocracy
+			}
+		}
+		activate_law = law_type:law_parliamentary_republic
+	}
+	# Cultural exclusion
+	if = {
+		limit = {
+			NOR = {
+				has_law = law_type:law_multicultural
+				has_law = law_type:law_cultural_exclusion
+			}
+		}
+		activate_law = law_type:law_cultural_exclusion
+	}
+	# Compulsory primary school
+	if = {
+		limit = {
+			NOT = {
+				has_law = law_type:law_compulsory_primary_school
+			}
+		}
+		activate_law = law_type:law_compulsory_primary_school
+	}
+	# Women's suffrage
+	if = {
+		limit = {
+			NOT = {
+				has_law = law_type:law_womens_suffrage
+			}
+		}
+		activate_law = law_type:law_womens_suffrage
+	}
+	# Interventionism
+	if = {
+		limit = {
+			NOR = {
+				has_law = law_type:law_interventionism
+				has_law = law_type:law_laissez_faire
+			}
+		}
+		activate_law = law_type:law_interventionism
+	}
+	# Protectionism
+	if = {
+		limit = {
+			NOR = {
+				has_law = law_type:law_mercantilism
+				has_law = law_type:law_isolationism
+			}
+		}
+		activate_law = law_type:law_protectionism
+	}
+	# Protected speech
+	if = {
+		limit = {
+			NOT = {
+				has_law = law_type:law_protected_speech
+			}
+		}
+		activate_law = law_type:law_protected_speech
+	}
+}

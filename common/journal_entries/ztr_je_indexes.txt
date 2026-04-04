@@ -1,0 +1,52 @@
+# Liberty Index
+je_liberty_index = {
+	icon = "gfx/interface/icons/event_icons/ideologies.dds"
+	group = je_group_historical_content
+	is_shown_when_inactive = {
+		technres_is_active = yes
+	}
+	possible = {
+		#has_technology_researched = human_rights
+	}
+	immediate = {
+		set_variable = {
+			name = liberty_index_var
+			value = 0
+		}
+		set_variable = {
+			name = equality_index_var
+			value = 0
+		}
+	}
+	scripted_button = show_liberty_index_rankings_button
+	scripted_button = show_equality_index_rankings_button
+	scripted_progress_bar = liberty_index_progress_bar
+	scripted_progress_bar = equality_index_progress_bar
+	on_yearly_pulse = {
+		effect = {
+			# Calculate Liberty and Equality Index
+			if = {
+				limit = {
+					BPM_is_active_trigger = yes
+				}
+				calculate_liberty_equality_index_bpm = yes
+			}
+			else = {
+				calculate_liberty_equality_index = yes
+			}
+			calculate_max_liberty_index = yes
+			scope:journal_entry = {
+				set_bar_progress = {
+					value = root.var:liberty_index_var
+					name = liberty_index_progress_bar
+				}
+				set_bar_progress = {
+					value = root.var:equality_index_var
+					name = equality_index_progress_bar
+				}
+			}
+		}
+	}
+	transferable = no
+	weight = 1
+}

@@ -1,0 +1,193 @@
+je_un_info_panel = {
+	icon = "gfx/interface/icons/event_icons/united_nations.dds"
+	group = je_group_foreign_affairs
+	is_shown_when_inactive = {
+		ztr_is_un_member = yes
+	}
+	possible = {
+		ztr_is_un_member = yes
+	}
+	immediate = {
+		ztr_un_permanent_member_ranking_variables = yes
+		ztr_un_permanent_member_ranking_effect = yes
+	}
+	on_yearly_pulse = {
+		effect = {
+			ztr_un_permanent_member_ranking_variables = yes
+			ztr_un_permanent_member_ranking_effect = yes
+		}
+	}
+	scripted_button = ztr_un_open_governance_menu
+	scripted_button = ztr_un_open_human_rights_menu
+	scripted_button = ztr_un_open_institutions_menu
+	status_desc = {
+		first_valid = {
+			triggered_desc = {
+				desc = je_un_info_panel_status_permanent
+				trigger = {
+					has_modifier = ztr_onu_permanent_member
+				}
+			}
+			triggered_desc = {
+				desc = je_un_info_panel_status_member
+				trigger = {
+					has_modifier = ztr_onu_member
+				}
+			}
+		}
+	}
+	invalid = {
+		NOT = {
+			ztr_is_un_member = yes
+		}
+	}
+	on_invalid = {
+		ztr_un_permanent_member_ranking_variables = yes
+	}
+	weight = 100
+	can_deactivate = yes
+	transferable = no
+	progressbar = no
+}
+
+je_un_votations = {
+	icon = "gfx/interface/icons/event_icons/united_nations.dds"
+	group = je_group_global_un_content
+	is_shown_when_inactive = {
+		has_global_variable = ztr_un_vote_active
+	}
+	should_be_involved = {
+		has_variable = ztr_un_vote_eligible
+	}
+	should_show_when_not_involved = {
+		ztr_is_un_member = yes
+	}
+	is_shown_in_lobby = {
+		has_global_variable = ztr_un_vote_active
+		ztr_is_un_member = yes
+	}
+	possible = {
+		has_global_variable = ztr_un_vote_active
+	}
+	immediate = {
+		scope:journal_entry = {
+			ztr_un_vote_update_results = yes
+		}
+	}
+	on_monthly_pulse = {
+		effect = {
+			scope:journal_entry = {
+				ztr_un_major_power_vote_display_variables = yes
+				ztr_un_major_power_support_vote_display_effect = yes
+				ztr_un_major_power_neutral_vote_display_effect = yes
+				ztr_un_major_power_against_vote_display_effect = yes
+				ztr_un_vote_update_results = yes
+			}
+			# Countdown: decrement months remaining
+			if = {
+				limit = {
+					has_global_variable = ztr_un_vote_months_remaining
+					global_var:ztr_un_vote_months_remaining > 0
+				}
+				change_global_variable = {
+					name = ztr_un_vote_months_remaining
+					add = -1
+				}
+			}
+			# Vote session ended: resolve and deactivate
+			if = {
+				limit = {
+					has_global_variable = ztr_un_vote_months_remaining
+					global_var:ztr_un_vote_months_remaining <= 0
+				}
+				scope:journal_entry = {
+					ztr_un_vote_update_results = yes
+				}
+				# Check if vote passes: support > against AND no veto blocks it
+				if = {
+					limit = {
+						global_var:ztr_un_vote_support_count > global_var:ztr_un_vote_against_count
+						# Veto check: if veto enabled, no permanent member may have voted against
+						OR = {
+							NOT = {
+								global_var:ztr_un_law_veto_right = 1
+							}
+							NOT = {
+								any_country = {
+									has_modifier = ztr_onu_permanent_member
+									has_variable = ztr_un_vote_choice_against
+								}
+							}
+						}
+					}
+					# Vote passed - apply the governance change
+					ztr_un_apply_governance_vote = yes
+				}
+				else = {
+					# Vote failed (majority lost or vetoed) - clean up subject/proposal
+					if = {
+						limit = {
+							has_global_variable = ztr_un_vote_subject
+						}
+						remove_global_variable = ztr_un_vote_subject
+					}
+					if = {
+						limit = {
+							has_global_variable = ztr_un_vote_proposal
+						}
+						remove_global_variable = ztr_un_vote_proposal
+					}
+				}
+				# Cleanup removes ztr_un_vote_active, making possible = no, then JE deactivates
+				ztr_un_vote_cleanup_all_members = yes
+			}
+			# Edge case: no eligible countries left, then deactivate
+			else_if = {
+				limit = {
+					NOT = {
+						any_country = {
+							OR = {
+								has_variable = ztr_un_vote_eligible
+								is_involved_in_journal_entry = je_un_votations
+							}
+						}
+					}
+				}
+				ztr_un_vote_cleanup_all_members = yes
+			}
+		}
+	}
+	status_desc = {
+		first_valid = {
+			triggered_desc = {
+				desc = je_un_votations_status_support
+				trigger = {
+					global_var:ztr_un_vote_support_count > global_var:ztr_un_vote_against_count
+				}
+			}
+			triggered_desc = {
+				desc = je_un_votations_status_against
+				trigger = {
+					global_var:ztr_un_vote_against_count > global_var:ztr_un_vote_support_count
+				}
+			}
+			triggered_desc = {
+				desc = je_un_votations_status_neutral
+				trigger = {
+					always = yes
+				}
+			}
+		}
+	}
+	scripted_progress_bar = ztr_un_vote_support_progress_bar
+	scripted_progress_bar = ztr_un_vote_neutral_progress_bar
+	scripted_progress_bar = ztr_un_vote_against_progress_bar
+	scripted_button = ztr_un_vote_for_statement
+	scripted_button = ztr_un_vote_neutral_statement
+	scripted_button = ztr_un_vote_against_statement
+	weight = 110
+	should_be_pinned_by_default = yes
+	can_deactivate = yes
+	transferable = no
+	progressbar = no
+}

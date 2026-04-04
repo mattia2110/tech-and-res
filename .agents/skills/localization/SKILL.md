@@ -100,3 +100,7 @@ You can display numeric variables stored on a scope directly in text:
 
 * **Syntax**: `[ROOT.GetCountry.MakeScope.Var('variable_name').GetValue[]`
 * **Formatting**: Use `|0`, `|1`, `|2` at the end to dictate the number of decimal points. Example: `[ROOT.GetCountry.MakeScope.Var('liberty_index_var').GetValue|0]` displays an integer without decimals.
+
+## 6. While writing Localization
+
+* Always append localization at the end of the file.

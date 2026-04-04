@@ -1,0 +1,78 @@
+# IMF Modernization Journal Entry
+je_imf_modernization = {
+	icon = "gfx/interface/icons/event_icons/academia.dds"
+	group = je_group_technology
+	scripted_button = ztr_imf_request_technical_mission
+	scripted_button = ztr_imf_launch_development_plan
+	scripted_button = ztr_imf_seek_scholarships
+	on_yearly_pulse = {
+		random_events = {
+			200 = 0
+			10 = ztr_imf_modernization.10			# Brain Drain Crisis
+			10 = ztr_imf_modernization.11			# IMF Austerity Conditions
+			10 = ztr_imf_modernization.12			# Foreign Investment Boom
+			10 = ztr_imf_modernization.13			# Rural Education Campaign
+			10 = ztr_imf_modernization.14			# Political Instability Dilemma
+			10 = ztr_imf_modernization.15			# International Aid Conference
+		}
+	}
+	status_desc = {
+		first_valid = {
+			triggered_desc = {
+				desc = je_imf_modernization_status_advanced
+				trigger = {
+					literacy_rate >= 0.6
+					average_sol >= 16
+					get_country_gdp_per > 5
+				}
+			}
+			triggered_desc = {
+				desc = je_imf_modernization_status_progressing
+				trigger = {
+					literacy_rate >= 0.45
+					average_sol >= 13
+					get_country_gdp_per > 3
+				}
+			}
+			triggered_desc = {
+				desc = je_imf_modernization_status_early
+				trigger = {
+					literacy_rate >= 0.3
+					average_sol >= 10
+				}
+			}
+			triggered_desc = {
+				desc = je_imf_modernization_status_initial
+				trigger = {
+					always = yes
+				}
+			}
+		}
+	}
+	complete = {
+		custom_tooltip = {
+			text = je_imf_modernization_literacy_tt
+			literacy_rate >= 0.7
+		}
+		custom_tooltip = {
+			text = je_imf_modernization_sol_tt
+			average_sol >= 18
+		}
+		custom_tooltip = {
+			text = je_imf_modernization_developed_tt
+			get_country_gdp_per > 7
+		}
+	}
+	on_complete = {
+		set_variable = {
+			name = imf_modernization_completed
+			value = 1
+		}
+		trigger_event = ztr_imf_event.5
+	}
+	modifiers_while_active = {
+		imf_modernization_commitment_modifier
+	}
+	weight = 25
+	should_be_pinned_by_default = yes
+}

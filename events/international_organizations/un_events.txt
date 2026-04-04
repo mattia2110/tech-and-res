@@ -38,8 +38,8 @@ ztr_un_event.1 = {
 			}
 		}
 		add_modifier = ztr_onu_permanent_member
-		join_un_law_changes = yes
 		ztr_un_init_governance_laws = yes
+		join_un_law_changes = yes
 		every_country = {
 			limit = {
 				NOT = {
@@ -436,9 +436,6 @@ ztr_un_event.20 = {
 	icon = "gfx/interface/icons/event_icons/ztr_onu_member.dds"
 	trigger = {
 	}
-	immediate = {
-		ztr_un_init_governance_laws = yes
-	}
 	# Reform Voting Model
 	option = {
 		name = ztr_un_event.20.a
@@ -825,6 +822,28 @@ ztr_un_event.30 = {
 			base = 0
 		}
 	}
+	# Propose Statement on Children's Rights
+	option = {
+		name = ztr_un_event.30.c
+		trigger_event = {
+			id = ztr_un_event.33
+			popup = yes
+		}
+		ai_chance = {
+			base = 0
+		}
+	}
+	# Propose Statement on Women's Rights
+	option = {
+		name = ztr_un_event.30.f
+		trigger_event = {
+			id = ztr_un_event.34
+			popup = yes
+		}
+		ai_chance = {
+			base = 0
+		}
+	}
 	# Nevermind
 	option = {
 		name = ztr_un_event.30.e
@@ -862,7 +881,7 @@ ztr_un_event.31 = {
 					has_global_variable = ztr_un_hr_decolonization
 				}
 				NOT = {
-					global_var:ztr_un_hr_decolonization = 1
+					global_var:ztr_un_hr_decolonization = 2
 				}
 			}
 		}
@@ -872,7 +891,7 @@ ztr_un_event.31 = {
 		}
 		set_global_variable = {
 			name = ztr_un_vote_proposal
-			value = 1
+			value = 2
 		}
 		ztr_un_start_governance_vote = yes
 		remove_global_variable = ztr_un_button_opened
@@ -889,7 +908,7 @@ ztr_un_event.31 = {
 					has_global_variable = ztr_un_hr_decolonization
 				}
 				NOT = {
-					global_var:ztr_un_hr_decolonization = 2
+					global_var:ztr_un_hr_decolonization = 1
 				}
 			}
 		}
@@ -899,7 +918,7 @@ ztr_un_event.31 = {
 		}
 		set_global_variable = {
 			name = ztr_un_vote_proposal
-			value = 2
+			value = 1
 		}
 		ztr_un_start_governance_vote = yes
 		remove_global_variable = ztr_un_button_opened
@@ -1015,6 +1034,496 @@ ztr_un_event.32 = {
 		remove_global_variable = ztr_un_button_opened
 		ai_chance = {
 			base = 100
+		}
+	}
+}
+
+# Event 33: Children's Rights Statement
+ztr_un_event.33 = {
+	dlc = dlc_tech_res
+	type = country_event
+	placement = root
+	duration = 1
+	title = ztr_un_event.33.t
+	desc = ztr_un_event.33.d
+	event_image = {
+		video = "unspecific_politicians_arguing"
+	}
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	icon = "gfx/interface/icons/event_icons/ztr_onu_member.dds"
+	trigger = {
+	}
+	immediate = {
+	}
+	# Propose: Restricted Child Labor
+	option = {
+		name = ztr_un_event.33.a
+		trigger = {
+			OR = {
+				NOT = {
+					has_global_variable = ztr_un_hr_children_rights
+				}
+				NOT = {
+					global_var:ztr_un_hr_children_rights = 1
+				}
+			}
+		}
+		set_global_variable = {
+			name = ztr_un_vote_subject
+			value = 6
+		}
+		set_global_variable = {
+			name = ztr_un_vote_proposal
+			value = 1
+		}
+		ztr_un_start_governance_vote = yes
+		remove_global_variable = ztr_un_button_opened
+		ai_chance = {
+			base = 0
+		}
+	}
+	# Propose: Compulsory Study
+	option = {
+		name = ztr_un_event.33.b
+		trigger = {
+			OR = {
+				NOT = {
+					has_global_variable = ztr_un_hr_children_rights
+				}
+				NOT = {
+					global_var:ztr_un_hr_children_rights = 2
+				}
+			}
+		}
+		set_global_variable = {
+			name = ztr_un_vote_subject
+			value = 6
+		}
+		set_global_variable = {
+			name = ztr_un_vote_proposal
+			value = 2
+		}
+		ztr_un_start_governance_vote = yes
+		remove_global_variable = ztr_un_button_opened
+		ai_chance = {
+			base = 0
+		}
+	}
+	# Propose: Negligible
+	option = {
+		name = ztr_un_event.33.c
+		trigger = {
+			has_global_variable = ztr_un_hr_children_rights
+			NOT = {
+				global_var:ztr_un_hr_children_rights = 0
+			}
+		}
+		set_global_variable = {
+			name = ztr_un_vote_subject
+			value = 6
+		}
+		set_global_variable = {
+			name = ztr_un_vote_proposal
+			value = 0
+		}
+		ztr_un_start_governance_vote = yes
+		remove_global_variable = ztr_un_button_opened
+		ai_chance = {
+			base = 0
+		}
+	}
+	# Nevermind
+	option = {
+		name = ztr_un_event.33.e
+		default_option = yes
+		remove_global_variable = ztr_un_button_opened
+		ai_chance = {
+			base = 100
+		}
+	}
+}
+
+# Event 34: Women's Rights Statement
+ztr_un_event.34 = {
+	dlc = dlc_tech_res
+	type = country_event
+	placement = root
+	duration = 1
+	title = ztr_un_event.34.t
+	desc = ztr_un_event.34.d
+	event_image = {
+		video = "unspecific_politicians_arguing"
+	}
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	icon = "gfx/interface/icons/event_icons/ztr_onu_member.dds"
+	trigger = {
+	}
+	immediate = {
+	}
+	# Propose: Gender Equality
+	option = {
+		name = ztr_un_event.34.a
+		trigger = {
+			OR = {
+				NOT = {
+					has_global_variable = ztr_un_hr_women_rights
+				}
+				NOT = {
+					global_var:ztr_un_hr_women_rights = 1
+				}
+			}
+		}
+		set_global_variable = {
+			name = ztr_un_vote_subject
+			value = 7
+		}
+		set_global_variable = {
+			name = ztr_un_vote_proposal
+			value = 1
+		}
+		ztr_un_start_governance_vote = yes
+		remove_global_variable = ztr_un_button_opened
+		ai_chance = {
+			base = 0
+		}
+	}
+	# Propose: Negligible
+	option = {
+		name = ztr_un_event.34.b
+		trigger = {
+			has_global_variable = ztr_un_hr_women_rights
+			NOT = {
+				global_var:ztr_un_hr_women_rights = 0
+			}
+		}
+		set_global_variable = {
+			name = ztr_un_vote_subject
+			value = 7
+		}
+		set_global_variable = {
+			name = ztr_un_vote_proposal
+			value = 0
+		}
+		ztr_un_start_governance_vote = yes
+		remove_global_variable = ztr_un_button_opened
+		ai_chance = {
+			base = 0
+		}
+	}
+	# Nevermind
+	option = {
+		name = ztr_un_event.34.e
+		default_option = yes
+		remove_global_variable = ztr_un_button_opened
+		ai_chance = {
+			base = 100
+		}
+	}
+}
+
+# Event 40: UN Institutions Menu
+ztr_un_event.40 = {
+	dlc = dlc_tech_res
+	type = country_event
+	placement = root
+	duration = 1
+	title = ztr_un_event.40.t
+	desc = ztr_un_event.40.d
+	event_image = {
+		video = "unspecific_signed_contract"
+	}
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	icon = "gfx/interface/icons/event_icons/ztr_onu_member.dds"
+	trigger = {
+	}
+	option = {
+		name = ztr_un_event.40.a
+		trigger = {
+			NOT = {
+				has_global_variable = ztr_un_institution_imf
+			}
+			has_technology_researched = secure_market_transactions
+		}
+		trigger_event = {
+			id = ztr_un_event.41
+			popup = yes
+		}
+		ai_chance = {
+			base = 0
+		}
+	}
+	option = {
+		name = ztr_un_event.40.b
+		trigger = {
+			NOT = {
+				has_global_variable = ztr_un_institution_wto
+			}
+			has_technology_researched = globalization
+		}
+		trigger_event = {
+			id = ztr_un_event.42
+			popup = yes
+		}
+		ai_chance = {
+			base = 0
+		}
+	}
+	option = {
+		name = ztr_un_event.40.c
+		trigger = {
+			NOT = {
+				has_global_variable = ztr_un_institution_icc
+			}
+			has_technology_researched = globalization
+		}
+		trigger_event = {
+			id = ztr_un_event.43
+			popup = yes
+		}
+		ai_chance = {
+			base = 0
+		}
+	}
+	option = {
+		name = ztr_un_event.40.e
+		trigger = {
+			NOT = {
+				has_global_variable = ztr_un_institution_unesco
+			}
+			has_technology_researched = international_organizations
+		}
+		trigger_event = {
+			id = ztr_un_event.44
+			popup = yes
+		}
+		ai_chance = {
+			base = 0
+		}
+	}
+	option = {
+		name = ztr_un_event.40.f
+		default_option = yes
+		remove_global_variable = ztr_un_button_opened
+		ai_chance = {
+			base = 100
+		}
+	}
+}
+
+# Event 41: IMF (+ World Bank)
+ztr_un_event.41 = {
+	dlc = dlc_tech_res
+	type = country_event
+	placement = root
+	duration = 1
+	title = ztr_un_event.41.t
+	desc = ztr_un_event.41.d
+	event_image = {
+		video = "unspecific_signed_contract"
+	}
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	icon = "gfx/interface/icons/event_icons/ztr_onu_member.dds"
+	trigger = {
+	}
+	immediate = {
+	}
+	option = {
+		name = ztr_un_event.41.a
+		trigger = {
+			has_global_variable = ztr_un_institution_imf
+			global_var:ztr_un_institution_imf = 0
+			year > 1945
+			has_technology_researched = secure_market_transactions
+		}
+		set_global_variable = {
+			name = ztr_un_vote_subject
+			value = 8
+		}
+		set_global_variable = {
+			name = ztr_un_vote_proposal
+			value = 1
+		}
+		ztr_un_start_governance_vote = yes
+		set_variable = ztr_un_vote_proposer
+		remove_global_variable = ztr_un_button_opened
+		ai_chance = {
+			base = 0
+		}
+	}
+	option = {
+		name = ztr_un_event.41.b
+		default_option = yes
+		remove_global_variable = ztr_un_button_opened
+		ai_chance = {
+			base = 100
+		}
+	}
+}
+
+# Event 42: World Trade Organization
+ztr_un_event.42 = {
+	dlc = dlc_tech_res
+	type = country_event
+	placement = root
+	duration = 1
+	title = ztr_un_event.42.t
+	desc = ztr_un_event.42.d
+	event_image = {
+		video = "unspecific_signed_contract"
+	}
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	icon = "gfx/interface/icons/event_icons/ztr_onu_member.dds"
+	trigger = {
+	}
+	immediate = {
+	}
+	option = {
+		name = ztr_un_event.42.a
+		trigger = {
+			has_global_variable = ztr_un_institution_wto
+			global_var:ztr_un_institution_wto = 0
+			has_technology_researched = globalization
+		}
+		set_global_variable = {
+			name = ztr_un_vote_subject
+			value = 9
+		}
+		set_global_variable = {
+			name = ztr_un_vote_proposal
+			value = 1
+		}
+		ztr_un_start_governance_vote = yes
+		set_variable = ztr_un_vote_proposer
+		remove_global_variable = ztr_un_button_opened
+		ai_chance = {
+			base = 0
+		}
+	}
+	option = {
+		name = ztr_un_event.42.b
+		default_option = yes
+		remove_global_variable = ztr_un_button_opened
+		ai_chance = {
+			base = 100
+		}
+	}
+}
+
+# Event 43: International Criminal Court
+ztr_un_event.43 = {
+	dlc = dlc_tech_res
+	type = country_event
+	placement = root
+	duration = 1
+	title = ztr_un_event.43.t
+	desc = ztr_un_event.43.d
+	event_image = {
+		video = "unspecific_signed_contract"
+	}
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	icon = "gfx/interface/icons/event_icons/ztr_onu_member.dds"
+	trigger = {
+	}
+	immediate = {
+	}
+	option = {
+		name = ztr_un_event.43.a
+		trigger = {
+			has_global_variable = ztr_un_institution_icc
+			global_var:ztr_un_institution_icc = 0
+			has_technology_researched = human_rights
+			has_technology_researched = globalization
+		}
+		set_global_variable = {
+			name = ztr_un_vote_subject
+			value = 10
+		}
+		set_global_variable = {
+			name = ztr_un_vote_proposal
+			value = 1
+		}
+		ztr_un_start_governance_vote = yes
+		set_variable = ztr_un_vote_proposer
+		remove_global_variable = ztr_un_button_opened
+		ai_chance = {
+			base = 0
+		}
+	}
+	option = {
+		name = ztr_un_event.43.b
+		default_option = yes
+		remove_global_variable = ztr_un_button_opened
+		ai_chance = {
+			base = 100
+		}
+	}
+}
+
+# Event 44: UNESCO
+ztr_un_event.44 = {
+	dlc = dlc_tech_res
+	type = country_event
+	placement = root
+	duration = 1
+	title = ztr_un_event.44.t
+	desc = ztr_un_event.44.d
+	event_image = {
+		video = "unspecific_signed_contract"
+	}
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	icon = "gfx/interface/icons/event_icons/ztr_onu_member.dds"
+	trigger = {
+	}
+	immediate = {
+	}
+	option = {
+		name = ztr_un_event.44.a
+		trigger = {
+			has_global_variable = ztr_un_institution_unesco
+			global_var:ztr_un_institution_unesco = 0
+			has_technology_researched = international_organizations
+		}
+		set_global_variable = {
+			name = ztr_un_vote_subject
+			value = 11
+		}
+		set_global_variable = {
+			name = ztr_un_vote_proposal
+			value = 1
+		}
+		ztr_un_start_governance_vote = yes
+		set_variable = ztr_un_vote_proposer
+		remove_global_variable = ztr_un_button_opened
+		ai_chance = {
+			base = 0
+		}
+	}
+	option = {
+		name = ztr_un_event.44.b
+		default_option = yes
+		remove_global_variable = ztr_un_button_opened
+		ai_chance = {
+			base = 100
+		}
+	}
+}
+
+# Event 45: ICC yearly review
+#TODO Si potrebbe rendere non hidden
+ztr_un_event.45 = {
+	dlc = dlc_tech_res
+	type = country_event
+	hidden = yes
+	trigger = {
+		has_global_variable = ztr_un_institution_icc
+		global_var:ztr_un_institution_icc = 1
+		ztr_is_un_member = yes
+		infamy >= 25
+	}
+	immediate = {
+		add_modifier = {
+			name = ztr_icc_investigation_modifier
+			days = 1095
 		}
 	}
 }

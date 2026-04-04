@@ -8,6 +8,109 @@ ztr_un_vote_clear_results = {
 	remove_global_variable = ztr_un_vote_against_percent
 }
 
+join_un_law_changes = {
+	if = {
+		limit = {
+			has_law_or_variant = law_type:law_no_health_system
+		}
+		activate_law = law_type:law_charitable_health_system
+	}
+	# The United Nations will abolish outlawed dissent
+	if = {
+		limit = {
+			OR = {
+				has_law_or_variant = law_type:law_outlawed_dissent
+			}
+		}
+		activate_law = law_type:law_censorship
+	}
+	# The United Nations will abolish racist laws if they are still present
+	if = {
+		limit = {
+			OR = {
+				has_law_or_variant = law_type:law_ethnostate
+				has_law_or_variant = law_type:law_national_supremacy
+			}
+		}
+		activate_law = law_type:law_racial_segregation
+	}
+	#TODO Modificare questa parte con la modifica forzata delle leggi attive per ogni membro dell'ONU
+	# Apply active UN Human Rights resolutions to new members
+	# Decolonization Stance
+	# Encouraged
+	if = {
+		limit = {
+			has_global_variable = ztr_un_hr_decolonization
+			global_var:ztr_un_hr_decolonization = 2
+			OR = {
+				has_law_or_variant = law_type:law_colonial_resettlement
+				has_law_or_variant = law_type:law_colonial_exploitation
+				has_law_or_variant = law_type:law_frontier_colonization
+			}
+		}
+		activate_law = law_type:law_no_colonial_affairs
+	}
+	# Conservative
+	else_if = {
+		limit = {
+			has_global_variable = ztr_un_hr_decolonization
+			global_var:ztr_un_hr_decolonization = 1
+			OR = {
+				has_law_or_variant = law_type:law_colonial_resettlement
+				has_law_or_variant = law_type:law_colonial_exploitation
+			}
+		}
+		activate_law = law_type:law_no_colonial_affairs
+	}
+	# Slavery Stance
+	if = {
+		limit = {
+			has_global_variable = ztr_un_hr_slavery
+			global_var:ztr_un_hr_slavery = 1
+			OR = {
+				has_law_or_variant = law_type:law_colonial_slavery
+				has_law_or_variant = law_type:law_debt_slavery
+				has_law_or_variant = law_type:law_slave_trade
+				has_law_or_variant = law_type:law_legacy_slavery
+			}
+		}
+		activate_law = law_type:law_slavery_banned
+	}
+	#Children's Rights
+	if = {
+		limit = {
+			has_global_variable = ztr_un_hr_children_rights
+			global_var:ztr_un_hr_children_rights = 1
+			has_law_or_variant = law_type:law_child_labor_allowed
+		}
+		activate_law = law_type:law_restricted_child_labor
+	}
+	else_if = {
+		limit = {
+			has_global_variable = ztr_un_hr_children_rights
+			global_var:ztr_un_hr_children_rights = 2
+			OR = {
+				has_law_or_variant = law_type:law_child_labor_allowed
+				has_law_or_variant = law_type:law_restricted_child_labor
+			}
+		}
+		activate_law = law_type:law_compulsory_primary_school
+	}
+	#Women's rights
+	if = {
+		limit = {
+			has_global_variable = ztr_un_hr_women_rights
+			global_var:ztr_un_hr_women_rights = 1
+			OR = {
+				has_law_or_variant = law_type:law_no_womens_rights
+				has_law_or_variant = law_type:law_women_own_property
+			}
+		}
+		activate_law = law_type:law_women_in_the_workplace
+	}
+	ztr_un_apply_member_institution_modifiers = yes
+}
+
 ztr_un_vote_recalculate_results = {
 	ztr_un_vote_clear_results = yes
 	set_global_variable = {
@@ -207,6 +310,102 @@ ztr_un_init_governance_laws = {
 			value = 1
 		}
 	}
+	# Decolonization: 1 = Conservative
+	if = {
+		limit = {
+			NOT = {
+				has_global_variable = ztr_un_hr_decolonization
+			}
+		}
+		set_global_variable = {
+			name = ztr_un_hr_decolonization
+			value = 1
+		}
+	}
+	# Slavery: 0 = Negligible
+	if = {
+		limit = {
+			NOT = {
+				has_global_variable = ztr_un_hr_slavery
+			}
+		}
+		set_global_variable = {
+			name = ztr_un_hr_slavery
+			value = 0
+		}
+	}
+	# Children's Rights: 0 = Negligible
+	if = {
+		limit = {
+			NOT = {
+				has_global_variable = ztr_un_hr_children_rights
+			}
+		}
+		set_global_variable = {
+			name = ztr_un_hr_children_rights
+			value = 1
+		}
+	}
+	# Women's Rights: 0 = Negligible
+	if = {
+		limit = {
+			NOT = {
+				has_global_variable = ztr_un_hr_women_rights
+			}
+		}
+		set_global_variable = {
+			name = ztr_un_hr_women_rights
+			value = 0
+		}
+	}
+	# IMF: 0 = Not Established
+	if = {
+		limit = {
+			NOT = {
+				has_global_variable = ztr_un_institution_imf
+			}
+		}
+		set_global_variable = {
+			name = ztr_un_institution_imf
+			value = 0
+		}
+	}
+	# WTO: 0 = Not Established
+	if = {
+		limit = {
+			NOT = {
+				has_global_variable = ztr_un_institution_wto
+			}
+		}
+		set_global_variable = {
+			name = ztr_un_institution_wto
+			value = 0
+		}
+	}
+	# ICC: 0 = Not Established
+	if = {
+		limit = {
+			NOT = {
+				has_global_variable = ztr_un_institution_icc
+			}
+		}
+		set_global_variable = {
+			name = ztr_un_institution_icc
+			value = 0
+		}
+	}
+	# UNESCO: 0 = Not Established
+	if = {
+		limit = {
+			NOT = {
+				has_global_variable = ztr_un_institution_unesco
+			}
+		}
+		set_global_variable = {
+			name = ztr_un_institution_unesco
+			value = 0
+		}
+	}
 }
 
 # Start a UN vote on a governance proposal
@@ -226,6 +425,7 @@ ztr_un_start_governance_vote = {
 		remove_variable = ztr_un_vote_choice_neutral
 		remove_variable = ztr_un_vote_choice_against
 		remove_variable = ztr_un_vote_weight
+		remove_variable = ztr_un_vote_proposer
 	}
 	# Model 1: One Country One Vote - all UN members
 	if = {
@@ -416,35 +616,36 @@ ztr_un_apply_governance_vote = {
 			value = global_var:ztr_un_vote_proposal
 		}
 		#Apply effects based on the stance
-		# Encouraged Decolonization
+		# Decolonization Stance
+		# Conservative Decolonization
 		if = {
 			limit = {
-				global_var:ztr_un_vote_proposal = 2
+				global_var:ztr_un_hr_decolonization = 1
+			}
+			every_country = {
+				limit = {
+					ztr_is_un_member = yes
+					OR = {
+						has_law_or_variant = law_type:law_colonial_resettlement
+						has_law_or_variant = law_type:law_colonial_exploitation
+					}
+				}
+				activate_law = law_type:law_no_colonial_affairs
+			}
+		}
+		# Encouraged Decolonization
+		else_if = {
+			limit = {
+				global_var:ztr_un_hr_decolonization = 2
 			}
 			#TODO Pensare se dover aggiungere altro
 			every_country = {
 				limit = {
 					ztr_is_un_member = yes
 					OR = {
-						has_law = law_type:law_colonial_resettlement
-						has_law = law_type:law_colonial_exploitation
-						has_law = law_type:law_frontier_colonization
-					}
-				}
-				activate_law = law_type:law_no_colonial_affairs
-			}
-		}
-		# Conservative Decolonization
-		else_if = {
-			limit = {
-				global_var:ztr_un_vote_proposal = 1
-			}
-			every_country = {
-				limit = {
-					ztr_is_un_member = yes
-					OR = {
-						has_law = law_type:law_colonial_resettlement
-						has_law = law_type:law_colonial_exploitation
+						has_law_or_variant = law_type:law_colonial_resettlement
+						has_law_or_variant = law_type:law_colonial_exploitation
+						has_law_or_variant = law_type:law_frontier_colonization
 					}
 				}
 				activate_law = law_type:law_no_colonial_affairs
@@ -468,23 +669,198 @@ ztr_un_apply_governance_vote = {
 			value = global_var:ztr_un_vote_proposal
 		}
 		#Apply effects based on the stance
+		# Illegal: add modifier to all UN members that disables slavery laws
 		if = {
 			limit = {
-				global_var:ztr_un_vote_proposal = 1
+				global_var:ztr_un_hr_slavery = 1
 			}
-			# Illegal: add modifier to all UN members that disables slavery laws
 			every_country = {
 				limit = {
 					ztr_is_un_member = yes
 					OR = {
-						has_law = law_type:law_colonial_slavery
-						has_law = law_type:law_debt_slavery
-						has_law = law_type:law_slave_trade
-						has_law = law_type:law_legacy_slavery
+						has_law_or_variant = law_type:law_colonial_slavery
+						has_law_or_variant = law_type:law_debt_slavery
+						has_law_or_variant = law_type:law_slave_trade
+						has_law_or_variant = law_type:law_legacy_slavery
 					}
 				}
 				activate_law = law_type:law_slavery_banned
 			}
+		}
+	}
+	# Subject 6: Human Rights - Children's Rights
+	if = {
+		limit = {
+			has_global_variable = ztr_un_vote_subject
+			global_var:ztr_un_vote_subject = 6
+		}
+		if = {
+			limit = {
+				has_global_variable = ztr_un_hr_children_rights
+			}
+			remove_global_variable = ztr_un_hr_children_rights
+		}
+		set_global_variable = {
+			name = ztr_un_hr_children_rights
+			value = global_var:ztr_un_vote_proposal
+		}
+		# Law enforcement is handled by the dedicated law scripts.
+		# Children's rights - restricted child labor
+		if = {
+			limit = {
+				global_var:ztr_un_hr_children_rights = 1
+			}
+			every_country = {
+				limit = {
+					ztr_is_un_member = yes
+					has_law_or_variant = law_type:law_child_labor_allowed
+				}
+				activate_law = law_type:law_restricted_child_labor
+			}
+		}
+		# Children's rights - compulsory primary education
+		else_if = {
+			limit = {
+				global_var:ztr_un_hr_children_rights = 2
+			}
+			every_country = {
+				limit = {
+					ztr_is_un_member = yes
+					OR = {
+						has_law_or_variant = law_type:law_child_labor_allowed
+						has_law_or_variant = law_type:law_restricted_child_labor
+					}
+				}
+				activate_law = law_type:law_compulsory_primary_school
+			}
+		}
+	}
+	# Subject 7: Human Rights - Women's Rights
+	if = {
+		limit = {
+			has_global_variable = ztr_un_vote_subject
+			global_var:ztr_un_vote_subject = 7
+		}
+		if = {
+			limit = {
+				has_global_variable = ztr_un_hr_women_rights
+			}
+			remove_global_variable = ztr_un_hr_women_rights
+		}
+		set_global_variable = {
+			name = ztr_un_hr_women_rights
+			value = global_var:ztr_un_vote_proposal
+		}
+		# Law enforcement is handled by the dedicated law scripts.
+		# Women's rights - gender equality
+		if = {
+			limit = {
+				global_var:ztr_un_hr_women_rights = 1
+			}
+			every_country = {
+				limit = {
+					ztr_is_un_member = yes
+					OR = {
+						has_law_or_variant = law_type:law_no_womens_rights
+						has_law_or_variant = law_type:law_women_own_property
+					}
+				}
+				activate_law = law_type:law_women_in_the_workplace
+			}
+		}
+	}
+	# Subject 8: IMF (+ World Bank)
+	if = {
+		limit = {
+			has_global_variable = ztr_un_vote_subject
+			global_var:ztr_un_vote_subject = 8
+		}
+		if = {
+			limit = {
+				has_global_variable = ztr_un_institution_imf
+			}
+			remove_global_variable = ztr_un_institution_imf
+		}
+		set_global_variable = {
+			name = ztr_un_institution_wto
+			value = global_var:ztr_un_vote_proposal
+		}
+		every_country = {
+			limit = {
+				has_variable = ztr_un_vote_proposer
+			}
+			#TODO: Tenere a mente per estendere evento finale di legge UN ad altre elezioni
+			trigger_event = ztr_imf_event.1
+			remove_variable = ztr_un_vote_proposer
+		}
+	}
+	# Subject 9: WTO
+	if = {
+		limit = {
+			has_global_variable = ztr_un_vote_subject
+			global_var:ztr_un_vote_subject = 9
+		}
+		if = {
+			limit = {
+				has_global_variable = ztr_un_institution_wto
+			}
+			remove_global_variable = ztr_un_institution_wto
+		}
+		set_global_variable = {
+			name = ztr_un_institution_wto
+			value = global_var:ztr_un_vote_proposal
+		}
+		every_country = {
+			limit = {
+				ztr_is_un_member = yes
+			}
+			ztr_un_apply_member_institution_modifiers = yes
+		}
+	}
+	# Subject 10: International Criminal Court
+	if = {
+		limit = {
+			has_global_variable = ztr_un_vote_subject
+			global_var:ztr_un_vote_subject = 10
+		}
+		if = {
+			limit = {
+				has_global_variable = ztr_un_institution_icc
+			}
+			remove_global_variable = ztr_un_institution_icc
+		}
+		set_global_variable = {
+			name = ztr_un_institution_icc
+			value = global_var:ztr_un_vote_proposal
+		}
+		every_country = {
+			limit = {
+				ztr_is_un_member = yes
+			}
+			ztr_un_apply_member_institution_modifiers = yes
+		}
+	}
+	# Subject 11: UNESCO
+	if = {
+		limit = {
+			has_global_variable = ztr_un_vote_subject
+			global_var:ztr_un_vote_subject = 11
+		}
+		if = {
+			limit = {
+				has_global_variable = ztr_un_institution_unesco
+			}
+			remove_global_variable = ztr_un_institution_unesco
+		}
+		set_global_variable = {
+			name = ztr_un_institution_unesco
+			value = global_var:ztr_un_vote_proposal
+		}
+		every_country = {
+			limit = {
+				ztr_is_un_member = yes
+			}
+			ztr_un_apply_member_institution_modifiers = yes
 		}
 	}
 	# Clean up vote subject/proposal variables
@@ -659,6 +1035,7 @@ ztr_un_vote_cleanup_all_members = {
 				has_variable = ztr_un_vote_choice_neutral
 				has_variable = ztr_un_vote_choice_against
 				has_variable = ztr_un_vote_weight
+				has_variable = ztr_un_vote_proposer
 			}
 		}
 		remove_variable = ztr_un_vote_eligible
@@ -666,6 +1043,7 @@ ztr_un_vote_cleanup_all_members = {
 		remove_variable = ztr_un_vote_choice_neutral
 		remove_variable = ztr_un_vote_choice_against
 		remove_variable = ztr_un_vote_weight
+		remove_variable = ztr_un_vote_proposer
 	}
 	remove_global_variable = ztr_un_vote_support_count
 	remove_global_variable = ztr_un_vote_neutral_count

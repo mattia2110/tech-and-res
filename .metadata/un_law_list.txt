@@ -1,0 +1,72 @@
+# United Nations buttons -> subjects -> laws (current code reference)
+# Sources: common/scripted_buttons/ztr_un_buttons.txt; events/international_organizations/un_events.txt; common/scripted_effects/ztr_un_scripts.txt; common/scripted_effects/ztr_un_institutions_scripts.txt
+
+Button: ztr_un_open_governance_menu
+menu_event = ztr_un_event.20
+subject_event = ztr_un_event.21 | subject_id = 1 | subject = Voting Model | variable = ztr_un_law_voting_model
+  1 = One Country One Vote
+  2 = Weighted by Prestige
+  3 = Security Council Only
+  4 = Superpowers Only
+  affected_laws = none (UN internal voting rule only)
+subject_event = ztr_un_event.22 | subject_id = 2 | subject = Veto Right | variable = ztr_un_law_veto_right
+  0 = Disabled
+  1 = Enabled
+  affected_laws = none (UN internal veto rule only)
+subject_event = ztr_un_event.23 | subject_id = 3 | subject = Member Selection | variable = ztr_un_law_member_selection
+  1 = By Prestige
+  2 = Geographic Representation
+  3 = By Military Power
+  4 = Strongest Country
+  affected_laws = none (UN permanent-member selection only)
+
+Button: ztr_un_open_human_rights_menu
+menu_event = ztr_un_event.30
+subject_event = ztr_un_event.31 | subject_id = 4 | subject = Decolonization | variable = ztr_un_hr_decolonization
+  0 = Neutral -> no forced law change
+  1 = Conservative Decolonization -> activate law_no_colonial_affairs from law_colonial_resettlement or law_colonial_exploitation
+  2 = Encouraged Decolonization -> activate law_no_colonial_affairs from law_frontier_colonization, law_colonial_resettlement, or law_colonial_exploitation
+subject_event = ztr_un_event.32 | subject_id = 5 | subject = Slavery | variable = ztr_un_hr_slavery
+  0 = Negligible / Neutral -> no forced law change
+  1 = Slavery Illegal -> activate law_slavery_banned from law_colonial_slavery, law_debt_slavery, law_slave_trade, or law_legacy_slavery
+subject_event = ztr_un_event.33 | subject_id = 6 | subject = Children's Rights | variable = ztr_un_hr_children_rights
+  0 = Negligible -> no forced law change
+  1 = Restricted Child Labor -> activate law_restricted_child_labor from law_child_labor_allowed
+  2 = Compulsory Primary School -> activate law_compulsory_primary_school from law_child_labor_allowed or law_restricted_child_labor
+  current_init_default = 1 (the nearby comment still says 0 = Negligible)
+subject_event = ztr_un_event.34 | subject_id = 7 | subject = Women's Rights | variable = ztr_un_hr_women_rights
+  0 = Negligible -> no forced law change
+  1 = Gender Equality -> activate law_women_in_the_workplace from law_no_womens_rights or law_women_own_property
+
+Button: ztr_un_open_institutions_menu
+menu_event = ztr_un_event.40
+subject_event = ztr_un_event.41 | subject_id = 8 | subject = IMF (+ World Bank) | variable = ztr_un_institution_imf
+  0 = Not Established
+  1 = Established
+  effects = trigger_event ztr_imf_event.1 from the vote proposer
+  current_code_note = ztr_un_apply_governance_vote removes ztr_un_institution_imf but then sets ztr_un_institution_wto = proposal before firing the IMF event
+subject_event = ztr_un_event.42 | subject_id = 9 | subject = WTO | variable = ztr_un_institution_wto
+  0 = Not Established
+  1 = Established
+  effects = apply ztr_wto_member_modifier to UN members
+subject_event = ztr_un_event.43 | subject_id = 10 | subject = International Criminal Court | variable = ztr_un_institution_icc
+  0 = Not Established
+  1 = Established
+  effects = apply ztr_icc_member_modifier to UN members
+subject_event = ztr_un_event.44 | subject_id = 11 | subject = UNESCO | variable = ztr_un_institution_unesco
+  0 = Not Established
+  1 = Established
+  effects = apply ztr_unesco_member_modifier to UN members
+
+Current defaults from ztr_un_init_governance_laws
+  ztr_un_law_voting_model = 1
+  ztr_un_law_veto_right = 1
+  ztr_un_law_member_selection = 1
+  ztr_un_hr_decolonization = 1
+  ztr_un_hr_slavery = 0
+  ztr_un_hr_children_rights = 1
+  ztr_un_hr_women_rights = 0
+  ztr_un_institution_imf = 0
+  ztr_un_institution_wto = 0
+  ztr_un_institution_icc = 0
+  ztr_un_institution_unesco = 0

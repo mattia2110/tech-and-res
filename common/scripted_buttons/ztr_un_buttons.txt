@@ -13,8 +13,10 @@ ztr_un_open_governance_menu = {
 			}
 		}
 		has_modifier = ztr_onu_permanent_member
-		NOT = {
-			has_global_variable = ztr_un_button_opened
+		hidden_trigger = {
+			NOT = {
+				has_global_variable = ztr_un_button_opened
+			}
 		}
 	}
 	effect = {
@@ -44,14 +46,49 @@ ztr_un_open_human_rights_menu = {
 			}
 		}
 		has_modifier = ztr_onu_permanent_member
-		NOT = {
-			has_global_variable = ztr_un_button_opened
+		hidden_trigger = {
+			NOT = {
+				has_global_variable = ztr_un_button_opened
+			}
 		}
 	}
 	effect = {
 		set_global_variable = ztr_un_button_opened
 		trigger_event = {
 			id = ztr_un_event.30
+			popup = yes
+		}
+	}
+	ai_chance = {
+		value = 0
+	}
+}
+
+# UN Institutions Menu
+ztr_un_open_institutions_menu = {
+	name = "ztr_un_open_institutions_menu"
+	desc = "ztr_un_open_institutions_menu_desc"
+	visible = {
+		has_journal_entry = je_un_info_panel
+	}
+	possible = {
+		custom_tooltip = {
+			text = "ztr_un_vote_session_clear_tt"
+			NOT = {
+				has_global_variable = ztr_un_vote_in_progress
+			}
+		}
+		has_modifier = ztr_onu_permanent_member
+		hidden_trigger = {
+			NOT = {
+				has_global_variable = ztr_un_button_opened
+			}
+		}
+	}
+	effect = {
+		set_global_variable = ztr_un_button_opened
+		trigger_event = {
+			id = ztr_un_event.40
 			popup = yes
 		}
 	}
