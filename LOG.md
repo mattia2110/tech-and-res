@@ -1,54 +1,24 @@
 ## TASKS LOG
 
-## 2026-04-03
-1. Created Log-md-summary skill
-- Completed: created the global `log-md-summary` skill to standardize how task summaries are appended to `LOG.md`.
-- Updated: `C:\Users\User\.codex\skills\log-md-summary\SKILL.md` and `C:\Users\User\.codex\skills\log-md-summary\agents\openai.yaml`.
-- Verified: ran `quick_validate.py` for `C:\Users\User\.codex\skills\log-md-summary` and it passed.
-2. Women's Rights and Children's Rights in UN
-- Completed: expanded the United Nations human-rights proposal flow with `Children's Rights` and `Women's Rights` subjects, including new UN statement events, vote-state variables, current-stance display, and JE panel text.
-- Updated: `events\international_organizations\un_events.txt`, `common\scripted_effects\ztr_un_voting.txt`, `common\customizable_localization\ztr_un_governance.txt`, `localization\english\ztr_journal_entries_l_english.yml`, and `localization\english\ztr_events_l_english.yml`.
-- Verified: confirmed balanced braces in the edited `.txt` files and checked that the new subject/proposal keys are referenced consistently across events, custom localization, and English localization.
-- Follow-up: left the actual law-enforcement scripts for the new UN rights stances untouched, as requested.
-3. UN Institutions menu and vote expansion
-- Completed: added a third `UN Institutions` button to the UN journal entry, plus IMF, WTO, ICC, and UNESCO proposal events wired into the existing UN vote system with one-way establishment votes.
-- Updated: `common\scripted_buttons\ztr_un_votation_buttons.txt`, `common\journal_entries\ztr_je_geopolitic.txt`, `events\international_organizations\un_events.txt`, `common\scripted_effects\ztr_un_voting.txt`, `common\scripted_effects\ztr_org_law_changes.txt`, `common\decisions\ztr_international_decisions.txt`, `common\on_actions\ztr_on_actions.txt`, `common\static_modifiers\ztr_organizations_modifiers.txt`, `common\customizable_localization\ztr_un_governance.txt`, `localization\english\ztr_journal_entries_l_english.yml`, `localization\english\ztr_events_l_english.yml`, and `localization\english\ztr_other_l_english.yml`.
-- Verified: checked balanced braces in the edited script files, confirmed the new institution subject IDs resolve through the duplicated UN custom-localization blocks, and verified the new event/button/modifier keys are present in English localization.
-- Follow-up: IMF establishment reuses the existing Bretton Woods event chain; WTO, ICC, and UNESCO still need in-game balance validation and live gameplay testing.
-4. Metadata refresh for companies, states, and UN law mapping
-- Completed: rebuilt the metadata references for Tech & Res companies and Victoria 3 state regions, and created a new UN subject/law reference file aligned with the currently active UN scripts.
-- Updated: `.metadata\companies_tech_and_res.txt`, `.metadata\states_list.txt`, and `.metadata\un_law_list.txt`.
-- Verified: regenerated `companies_tech_and_res.txt` from `common\company_types` with 192 company definitions, regenerated `states_list.txt` from vanilla `map_data\state_regions` with 830 state regions and ids, and checked `un_law_list.txt` against `common\scripted_buttons\ztr_un_buttons.txt`, `events\international_organizations\un_events.txt`, `common\scripted_effects\ztr_un_scripts.txt`, and `common\scripted_effects\ztr_un_institutions_scripts.txt`.
-- Follow-up: `un_law_list.txt` records the current IMF wiring quirk in `ztr_un_apply_governance_vote`, where subject 8 clears `ztr_un_institution_imf` but writes the proposal into `ztr_un_institution_wto` before firing the IMF event.
-5. UN texticons and law concepts
-- Completed: turned the UN law icon set into usable `texticon`s, created UN concept tooltips for governance models, human-rights stances, institution states, and the country laws directly referenced by UN resolutions, then rewired the main UN localization to show icon + concept instead of plain law names.
-- Updated: `gui\ztr_texticons.gui`, `localization\english\ztr_concepts_l_english.yml`, `common\customizable_localization\ztr_un_governance.txt`, `localization\english\ztr_journal_entries_l_english.yml`, and `localization\english\ztr_events_l_english.yml`.
-- Verified: checked that every `concept_un_*` reference used in the edited UN localization has a matching definition, checked that every `@un_*` texticon used in localization has a matching definition in `gui\ztr_texticons.gui`, and confirmed the duplicated institution custom-localization blocks now point to subject-specific `Established / Not Established` localization keys.
-- Follow-up: this pass covered the active UN journal entry and event localization; I did not run an in-game UI check, so icon sizing and tooltip appearance still need live verification.
-6. UN game concept registrations
-- Completed: registered every new `concept_un_*` key in `common\game_concepts\ztr_un_concepts.txt` so the UN subject, stance, institution, and law concepts now have actual game-concept definitions with their matching icon textures.
-- Updated: `common\game_concepts\ztr_un_concepts.txt`.
-- Verified: matched the number of non-`_desc` `concept_un_*` localization keys in `localization\english\ztr_concepts_l_english.yml` against the number of `concept_un_*` definitions in `common\game_concepts\ztr_un_concepts.txt`, and both counts are `54`.
-7. Game concepts skill
-- Completed: created a new local skill at `.agents\skills\game_conepts\SKILL.md` to document the Victoria 3 game concept workflow, with emphasis on defining both script-side concept entries and localization, reusing subject icons for related concepts, and validating concept-registration coverage.
-- Updated: `.agents\skills\game_conepts\SKILL.md`.
-- Verified: reviewed the skill against the existing repo conventions in `.agents\skills\localization\SKILL.md` and the current UN concept workflow in `common\game_concepts\ztr_un_concepts.txt`.
-
-## 2026-04-04
-1. UN human-rights menu summary
-- Completed: added a compact active-laws summary block to `ztr_un_event.30.d` so the human-rights menu now mirrors the governance and institutions menus by showing the current decolonization, slavery, children's-rights, and women's-rights stances before topic selection.
-- Updated: `localization\english\ztr_events_l_english.yml`.
-- Verified: confirmed the new summary uses the existing custom localization keys `ztr_un_law_human_rights_decolonization_name`, `ztr_un_law_human_rights_slavery_name`, `ztr_un_law_human_rights_children_name`, and `ztr_un_law_human_rights_women_name`.
-2. Removed redundant UN initializer calls
-- Completed: removed the redundant `ztr_un_init_governance_laws` calls from the governance and institutions menu events, since those menus are already opened from the UN journal entry which initializes the globals first.
-- Updated: `events\international_organizations\un_events.txt`.
-- Verified: confirmed the remaining uses are limited to the UN foundation flow and the UN journal entry, where the initializer still serves a real setup or save-compatibility purpose.
-3. UN vote JE major-power positions
-- Completed: added a dynamic major-power voter summary to the `je_un_votations` description, showing the current `For / Neutral / Against` position of vote-eligible countries with `major_power` rank.
-- Updated: `common\scripted_effects\ztr_ranking_ui_scripts.txt`, `common\customizable_localization\ztr_ordered_lists.txt`, `common\customizable_localization\ztr_un_governance.txt`, `common\journal_entries\ztr_je_un.txt`, and `localization\english\ztr_journal_entries_l_english.yml`.
-- Verified: checked that the new display-effect names, custom-localization keys, and JE refresh hooks all resolve consistently through ripgrep across the edited files.
-- Follow-up: this still needs an in-game UI check to confirm the journal-entry scope renders the nested custom loc block exactly as intended.
-4. Major-power neutral and against vote effects
-- Completed: added `ztr_un_major_power_neutral_vote_display_effect` and `ztr_un_major_power_against_vote_display_effect` beside the existing support effect, mirroring the same prestige-ordered rank-slot pattern for major-power vote displays.
-- Updated: `common\scripted_effects\ztr_ranking_ui_scripts.txt`.
-- Verified: confirmed the new effect names and their rank variables are present, and extended `ztr_un_major_power_vote_display_variables` to clear all support, neutral, and against display vars.
+## 2026-04-05
+1. Neutral-only monthly UN AI voting
+- Completed: added a neutral-only AI voting pass for `je_un_votations` so each month only still-neutral AI countries compare the current UN law `L0` against the proposal `L`, then switch to support if `V(L) - V(L0)` beats `2 * months_remaining + 8`, or against if the reverse gap beats the same threshold.
+- Updated: `common\journal_entries\ztr_je_un.txt`, `common\scripted_effects\ztr_un_scripts.txt`, and `common\scripted_effects\ztr_un_law_opinion_functions.txt`.
+- Verified: checked that the new JE hook runs before `ztr_un_vote_update_results` in both the JE immediate block and monthly pulse, and that the neutral-only iterator excludes already-committed support/against votes.
+2. Yearly AI UN proposal coordinator
+- Completed: added a yearly hidden UN AI proposer flow that runs from `on_yearly_pulse_country`, selects two AI permanent members as `ztr_un_potential_proposer_scope_1` and `ztr_un_potential_proposer_scope_2`, lets the first one roll a random proposal, and uses the second one as a fallback evaluator for the same extracted proposal if the first path does not start a vote.
+- Updated: `common\on_actions\ztr_on_actions.txt` and `events\international_organizations\un_events.txt`.
+- Verified: confirmed the yearly coordinator only fires from the top-ranked country context, remains hidden, and stops the fallback once `ztr_un_vote_in_progress` is set by a successful proposal.
+3. AI proposal evaluation/start helpers
+- Completed: added `ztr_un_set_possible_law_as_considered`, `ztr_un_set_current_law_as_considered`, `ztr_un_ai_try_start_possible_vote`, and `ztr_un_country_can_propose_possible_law` so AI permanent members can compare `V(L0)` against `V(L)` and only launch proposals that match the same subject-level availability rules as the player-facing UN menus.
+- Updated: `common\scripted_effects\ztr_un_law_opinion_functions.txt` and `common\scripted_triggers\ztr_un_law_opinion_triggers.txt`.
+- Verified: checked that the current-law mapping covers all eleven active UN subjects, that institution proposals still respect their tech gates, and that the start-vote helper sets `ztr_un_vote_subject`, `ztr_un_vote_proposal`, and `ztr_un_vote_proposer` through the existing UN vote pipeline.
+4. UN AI law valuation refactor
+- Completed: refactored `ztr_un_value_law` toward the consistent `V(L)` model by introducing `ztr_un_value_law_prepare_country_context`, normalizing liberty and equality into reusable `[-10, 10]` range variables, and switching the governance secret-role scoring to absolute considered-law value instead of a built-in `current -> proposed` delta.
+- Updated: `common\scripted_effects\ztr_un_law_opinion_functions.txt`.
+- Verified: confirmed the old `ztr_is_democratic`, `ztr_is_not_democratic`, `ztr_is_full_democratic`, `ztr_un_value_law_current_un_role`, and `ztr_un_value_law_un_role_delta` references are gone from the evaluator, while the new absolute-score comments for voting model, veto, and member selection resolve in the file.
+5. Expanded country-context heuristics for UN voting AI
+- Completed: added granular AI-style country context for liberty, equality, literacy, development stage, demographic stage, government structure, market orientation, interest-group blocs, and imperial stake from subjects or colonial laws, then reused those values across governance, decolonization, slavery, children’s rights, women’s rights, IMF, WTO, ICC, and UNESCO branches.
+- Updated: `common\scripted_effects\ztr_un_law_opinion_functions.txt`.
+- Verified: checked that the new context effect is called at the top of `ztr_un_value_law`, that temporary variables are cleaned up at the end of the function, and that script braces remain balanced (`1206` opening and `1206` closing braces).
+- Follow-up: no in-game AI vote simulation has been run yet, so the next useful check is whether countries now produce sensible `V(L0)` vs `V(L)` gaps across a few live UN proposals.

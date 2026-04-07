@@ -16,6 +16,9 @@ je_un_info_panel = {
 			ztr_un_permanent_member_ranking_variables = yes
 			ztr_un_permanent_member_ranking_effect = yes
 		}
+		events = {
+			ztr_un_event.100
+		}
 	}
 	scripted_button = ztr_un_open_governance_menu
 	scripted_button = ztr_un_open_human_rights_menu
@@ -71,12 +74,14 @@ je_un_votations = {
 	}
 	immediate = {
 		scope:journal_entry = {
+			ztr_un_vote_update_neutral_ai_positions = yes
 			ztr_un_vote_update_results = yes
 		}
 	}
 	on_monthly_pulse = {
 		effect = {
 			scope:journal_entry = {
+				ztr_un_vote_update_neutral_ai_positions = yes
 				ztr_un_major_power_vote_display_variables = yes
 				ztr_un_major_power_support_vote_display_effect = yes
 				ztr_un_major_power_neutral_vote_display_effect = yes
@@ -101,6 +106,7 @@ je_un_votations = {
 					global_var:ztr_un_vote_months_remaining <= 0
 				}
 				scope:journal_entry = {
+					ztr_un_vote_update_neutral_ai_positions = yes
 					ztr_un_vote_update_results = yes
 				}
 				# Check if vote passes: support > against AND no veto blocks it
@@ -183,7 +189,6 @@ je_un_votations = {
 	scripted_progress_bar = ztr_un_vote_neutral_progress_bar
 	scripted_progress_bar = ztr_un_vote_against_progress_bar
 	scripted_button = ztr_un_vote_for_statement
-	scripted_button = ztr_un_vote_neutral_statement
 	scripted_button = ztr_un_vote_against_statement
 	weight = 110
 	should_be_pinned_by_default = yes

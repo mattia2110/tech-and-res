@@ -14,6 +14,7 @@ ztr_un_open_governance_menu = {
 		}
 		has_modifier = ztr_onu_permanent_member
 		hidden_trigger = {
+			is_player = yes
 			NOT = {
 				has_global_variable = ztr_un_button_opened
 			}
@@ -47,6 +48,7 @@ ztr_un_open_human_rights_menu = {
 		}
 		has_modifier = ztr_onu_permanent_member
 		hidden_trigger = {
+			is_player = yes
 			NOT = {
 				has_global_variable = ztr_un_button_opened
 			}
@@ -80,6 +82,7 @@ ztr_un_open_institutions_menu = {
 		}
 		has_modifier = ztr_onu_permanent_member
 		hidden_trigger = {
+			is_player = yes
 			NOT = {
 				has_global_variable = ztr_un_button_opened
 			}
@@ -103,6 +106,7 @@ ztr_un_vote_for_statement = {
 	desc = "ztr_un_vote_for_statement_desc"
 	visible = {
 		is_involved_in_journal_entry = je_un_votations
+		global_var:ztr_un_vote_months_remaining > 0
 	}
 	possible = {
 		NOT = {
@@ -130,43 +134,45 @@ ztr_un_vote_for_statement = {
 	}
 }
 
-ztr_un_vote_neutral_statement = {
-	name = "ztr_un_vote_neutral_statement"
-	desc = "ztr_un_vote_neutral_statement_desc"
-	visible = {
-		is_involved_in_journal_entry = je_un_votations
-	}
-	possible = {
-		NOT = {
-			has_variable = ztr_un_vote_choice_neutral
-		}
-	}
-	effect = {
-		if = {
-			limit = {
-				has_variable = ztr_un_vote_choice_support
-			}
-			remove_variable = ztr_un_vote_choice_support
-		}
-		if = {
-			limit = {
-				has_variable = ztr_un_vote_choice_against
-			}
-			remove_variable = ztr_un_vote_choice_against
-		}
-		set_variable = ztr_un_vote_choice_neutral
-		ztr_un_vote_update_results = yes
-	}
-	ai_chance = {
-		value = 0
-	}
-}
+# ztr_un_vote_neutral_statement = {
+# 	name = "ztr_un_vote_neutral_statement"
+# 	desc = "ztr_un_vote_neutral_statement_desc"
+# 	visible = {
+# 		is_involved_in_journal_entry = je_un_votations
+# 		global_var:ztr_un_vote_months_remaining > 0
+# 	}
+# 	possible = {
+# 		NOT = {
+# 			has_variable = ztr_un_vote_choice_neutral
+# 		}
+# 	}
+# 	effect = {
+# 		if = {
+# 			limit = {
+# 				has_variable = ztr_un_vote_choice_support
+# 			}
+# 			remove_variable = ztr_un_vote_choice_support
+# 		}
+# 		if = {
+# 			limit = {
+# 				has_variable = ztr_un_vote_choice_against
+# 			}
+# 			remove_variable = ztr_un_vote_choice_against
+# 		}
+# 		set_variable = ztr_un_vote_choice_neutral
+# 		ztr_un_vote_update_results = yes
+# 	}
+# 	ai_chance = {
+# 		value = 0
+# 	}
+# }
 
 ztr_un_vote_against_statement = {
 	name = "ztr_un_vote_against_statement"
 	desc = "ztr_un_vote_against_statement_desc"
 	visible = {
 		is_involved_in_journal_entry = je_un_votations
+		global_var:ztr_un_vote_months_remaining > 0
 	}
 	possible = {
 		NOT = {

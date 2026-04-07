@@ -1,0 +1,4335 @@
+# Here we have all the functions needed for UN
+#1. ztr_un_random_subject_and_law_extraction -> Randomly selects a subject and a law for the UN to vote on
+#2. ztr_un_set_possible_law_as_considered -> Sets the possible law as considered
+#3. ztr_un_set_current_law_as_considered -> Sets the current law as considered
+#4. ztr_un_set_vote_proposal_as_considered -> Sets the active vote proposal as considered
+#5. ztr_un_set_current_vote_law_as_considered -> Sets the current law of the active vote subject as considered
+#6. ztr_un_ai_try_start_possible_vote -> Tries to start a possible vote
+#7. ztr_un_ai_take_neutral_vote_position -> Lets a neutral AI country pick support or against during a live vote
+#8. ztr_un_value_law_prepare_country_context -> Prepares the country context for the law
+#9. ztr_un_value_law -> Used by country to decide favor, neutral or against and by proposer if it wants to propose the law
+
+ztr_un_random_subject_and_law_extraction = {
+	# Make sure every UN subject has a current fallback value before we compare proposals.
+	# This should not happen if UN already exists, but it's a good failsafe.
+	ztr_un_init_governance_laws = yes
+	remove_global_variable = ztr_un_subject_possible_proposal
+	remove_global_variable = ztr_un_law_possible_proposal
+	# Subject weights match the number of valid proposal-values in each subject,
+	# so every law pair has the same final chance to be selected.
+	random_list = {
+		4 = {
+			set_global_variable = {
+				name = ztr_un_subject_possible_proposal
+				value = 1
+			}
+			random_list = {
+				1 = {
+					set_global_variable = {
+						name = ztr_un_law_possible_proposal
+						value = 1
+					}
+				}
+				1 = {
+					set_global_variable = {
+						name = ztr_un_law_possible_proposal
+						value = 2
+					}
+				}
+				1 = {
+					set_global_variable = {
+						name = ztr_un_law_possible_proposal
+						value = 3
+					}
+				}
+				1 = {
+					set_global_variable = {
+						name = ztr_un_law_possible_proposal
+						value = 4
+					}
+				}
+			}
+		}
+		2 = {
+			set_global_variable = {
+				name = ztr_un_subject_possible_proposal
+				value = 2
+			}
+			random_list = {
+				1 = {
+					set_global_variable = {
+						name = ztr_un_law_possible_proposal
+						value = 0
+					}
+				}
+				1 = {
+					set_global_variable = {
+						name = ztr_un_law_possible_proposal
+						value = 1
+					}
+				}
+			}
+		}
+		4 = {
+			set_global_variable = {
+				name = ztr_un_subject_possible_proposal
+				value = 3
+			}
+			random_list = {
+				1 = {
+					set_global_variable = {
+						name = ztr_un_law_possible_proposal
+						value = 1
+					}
+				}
+				1 = {
+					set_global_variable = {
+						name = ztr_un_law_possible_proposal
+						value = 2
+					}
+				}
+				1 = {
+					set_global_variable = {
+						name = ztr_un_law_possible_proposal
+						value = 3
+					}
+				}
+				1 = {
+					set_global_variable = {
+						name = ztr_un_law_possible_proposal
+						value = 4
+					}
+				}
+			}
+		}
+		3 = {
+			set_global_variable = {
+				name = ztr_un_subject_possible_proposal
+				value = 4
+			}
+			random_list = {
+				1 = {
+					set_global_variable = {
+						name = ztr_un_law_possible_proposal
+						value = 0
+					}
+				}
+				1 = {
+					set_global_variable = {
+						name = ztr_un_law_possible_proposal
+						value = 1
+					}
+				}
+				1 = {
+					set_global_variable = {
+						name = ztr_un_law_possible_proposal
+						value = 2
+					}
+				}
+			}
+		}
+		2 = {
+			set_global_variable = {
+				name = ztr_un_subject_possible_proposal
+				value = 5
+			}
+			random_list = {
+				1 = {
+					set_global_variable = {
+						name = ztr_un_law_possible_proposal
+						value = 0
+					}
+				}
+				1 = {
+					set_global_variable = {
+						name = ztr_un_law_possible_proposal
+						value = 1
+					}
+				}
+			}
+		}
+		3 = {
+			set_global_variable = {
+				name = ztr_un_subject_possible_proposal
+				value = 6
+			}
+			random_list = {
+				1 = {
+					set_global_variable = {
+						name = ztr_un_law_possible_proposal
+						value = 0
+					}
+				}
+				1 = {
+					set_global_variable = {
+						name = ztr_un_law_possible_proposal
+						value = 1
+					}
+				}
+				1 = {
+					set_global_variable = {
+						name = ztr_un_law_possible_proposal
+						value = 2
+					}
+				}
+			}
+		}
+		2 = {
+			set_global_variable = {
+				name = ztr_un_subject_possible_proposal
+				value = 7
+			}
+			random_list = {
+				1 = {
+					set_global_variable = {
+						name = ztr_un_law_possible_proposal
+						value = 0
+					}
+				}
+				1 = {
+					set_global_variable = {
+						name = ztr_un_law_possible_proposal
+						value = 1
+					}
+				}
+			}
+		}
+		1 = {
+			set_global_variable = {
+				name = ztr_un_subject_possible_proposal
+				value = 8
+			}
+			set_global_variable = {
+				name = ztr_un_law_possible_proposal
+				value = 1
+			}
+		}
+		1 = {
+			set_global_variable = {
+				name = ztr_un_subject_possible_proposal
+				value = 9
+			}
+			set_global_variable = {
+				name = ztr_un_law_possible_proposal
+				value = 1
+			}
+		}
+		1 = {
+			set_global_variable = {
+				name = ztr_un_subject_possible_proposal
+				value = 10
+			}
+			set_global_variable = {
+				name = ztr_un_law_possible_proposal
+				value = 1
+			}
+		}
+		1 = {
+			set_global_variable = {
+				name = ztr_un_subject_possible_proposal
+				value = 11
+			}
+			set_global_variable = {
+				name = ztr_un_law_possible_proposal
+				value = 1
+			}
+		}
+	}
+}
+
+ztr_un_set_possible_law_as_considered = {
+	remove_variable = ztr_un_subject_considered
+	remove_variable = ztr_un_law_considered
+	set_variable = {
+		name = ztr_un_subject_considered
+		value = global_var:ztr_un_subject_possible_proposal
+	}
+	set_variable = {
+		name = ztr_un_law_considered
+		value = global_var:ztr_un_law_possible_proposal
+	}
+}
+
+ztr_un_set_current_law_as_considered = {
+	remove_variable = ztr_un_subject_considered
+	remove_variable = ztr_un_law_considered
+	set_variable = {
+		name = ztr_un_subject_considered
+		value = global_var:ztr_un_subject_possible_proposal
+	}
+
+	if = {
+		limit = {
+			global_var:ztr_un_subject_possible_proposal = 1
+		}
+		set_variable = {
+			name = ztr_un_law_considered
+			value = global_var:ztr_un_law_voting_model
+		}
+	}
+	else_if = {
+		limit = {
+			global_var:ztr_un_subject_possible_proposal = 2
+		}
+		set_variable = {
+			name = ztr_un_law_considered
+			value = global_var:ztr_un_law_veto_right
+		}
+	}
+	else_if = {
+		limit = {
+			global_var:ztr_un_subject_possible_proposal = 3
+		}
+		set_variable = {
+			name = ztr_un_law_considered
+			value = global_var:ztr_un_law_member_selection
+		}
+	}
+	else_if = {
+		limit = {
+			global_var:ztr_un_subject_possible_proposal = 4
+		}
+		set_variable = {
+			name = ztr_un_law_considered
+			value = global_var:ztr_un_hr_decolonization
+		}
+	}
+	else_if = {
+		limit = {
+			global_var:ztr_un_subject_possible_proposal = 5
+		}
+		set_variable = {
+			name = ztr_un_law_considered
+			value = global_var:ztr_un_hr_slavery
+		}
+	}
+	else_if = {
+		limit = {
+			global_var:ztr_un_subject_possible_proposal = 6
+		}
+		set_variable = {
+			name = ztr_un_law_considered
+			value = global_var:ztr_un_hr_children_rights
+		}
+	}
+	else_if = {
+		limit = {
+			global_var:ztr_un_subject_possible_proposal = 7
+		}
+		set_variable = {
+			name = ztr_un_law_considered
+			value = global_var:ztr_un_hr_women_rights
+		}
+	}
+	else_if = {
+		limit = {
+			global_var:ztr_un_subject_possible_proposal = 8
+		}
+		set_variable = {
+			name = ztr_un_law_considered
+			value = global_var:ztr_un_institution_imf
+		}
+	}
+	else_if = {
+		limit = {
+			global_var:ztr_un_subject_possible_proposal = 9
+		}
+		set_variable = {
+			name = ztr_un_law_considered
+			value = global_var:ztr_un_institution_wto
+		}
+	}
+	else_if = {
+		limit = {
+			global_var:ztr_un_subject_possible_proposal = 10
+		}
+		set_variable = {
+			name = ztr_un_law_considered
+			value = global_var:ztr_un_institution_icc
+		}
+	}
+	else_if = {
+		limit = {
+			global_var:ztr_un_subject_possible_proposal = 11
+		}
+		set_variable = {
+			name = ztr_un_law_considered
+			value = global_var:ztr_un_institution_unesco
+		}
+	}
+}
+
+ztr_un_set_vote_proposal_as_considered = {
+	remove_variable = ztr_un_subject_considered
+	remove_variable = ztr_un_law_considered
+	set_variable = {
+		name = ztr_un_subject_considered
+		value = global_var:ztr_un_vote_subject
+	}
+	set_variable = {
+		name = ztr_un_law_considered
+		value = global_var:ztr_un_vote_proposal
+	}
+}
+
+ztr_un_set_current_vote_law_as_considered = {
+	remove_variable = ztr_un_subject_considered
+	remove_variable = ztr_un_law_considered
+	set_variable = {
+		name = ztr_un_subject_considered
+		value = global_var:ztr_un_vote_subject
+	}
+
+	if = {
+		limit = {
+			global_var:ztr_un_vote_subject = 1
+		}
+		set_variable = {
+			name = ztr_un_law_considered
+			value = global_var:ztr_un_law_voting_model
+		}
+	}
+	else_if = {
+		limit = {
+			global_var:ztr_un_vote_subject = 2
+		}
+		set_variable = {
+			name = ztr_un_law_considered
+			value = global_var:ztr_un_law_veto_right
+		}
+	}
+	else_if = {
+		limit = {
+			global_var:ztr_un_vote_subject = 3
+		}
+		set_variable = {
+			name = ztr_un_law_considered
+			value = global_var:ztr_un_law_member_selection
+		}
+	}
+	else_if = {
+		limit = {
+			global_var:ztr_un_vote_subject = 4
+		}
+		set_variable = {
+			name = ztr_un_law_considered
+			value = global_var:ztr_un_hr_decolonization
+		}
+	}
+	else_if = {
+		limit = {
+			global_var:ztr_un_vote_subject = 5
+		}
+		set_variable = {
+			name = ztr_un_law_considered
+			value = global_var:ztr_un_hr_slavery
+		}
+	}
+	else_if = {
+		limit = {
+			global_var:ztr_un_vote_subject = 6
+		}
+		set_variable = {
+			name = ztr_un_law_considered
+			value = global_var:ztr_un_hr_children_rights
+		}
+	}
+	else_if = {
+		limit = {
+			global_var:ztr_un_vote_subject = 7
+		}
+		set_variable = {
+			name = ztr_un_law_considered
+			value = global_var:ztr_un_hr_women_rights
+		}
+	}
+	else_if = {
+		limit = {
+			global_var:ztr_un_vote_subject = 8
+		}
+		set_variable = {
+			name = ztr_un_law_considered
+			value = global_var:ztr_un_institution_imf
+		}
+	}
+	else_if = {
+		limit = {
+			global_var:ztr_un_vote_subject = 9
+		}
+		set_variable = {
+			name = ztr_un_law_considered
+			value = global_var:ztr_un_institution_wto
+		}
+	}
+	else_if = {
+		limit = {
+			global_var:ztr_un_vote_subject = 10
+		}
+		set_variable = {
+			name = ztr_un_law_considered
+			value = global_var:ztr_un_institution_icc
+		}
+	}
+	else_if = {
+		limit = {
+			global_var:ztr_un_vote_subject = 11
+		}
+		set_variable = {
+			name = ztr_un_law_considered
+			value = global_var:ztr_un_institution_unesco
+		}
+	}
+}
+
+ztr_un_ai_try_start_possible_vote = {
+	# Fallback that after UN creation 100% doesn't do anything
+	ztr_un_init_governance_laws = yes
+
+	remove_variable = ztr_un_ai_current_law_value
+	remove_variable = ztr_un_ai_possible_law_value
+	remove_variable = ztr_un_subject_considered
+	remove_variable = ztr_un_law_considered
+
+	if = {
+		limit = {
+			ztr_un_country_can_propose_possible_law = yes
+			ztr_un_is_not_applied_law = yes
+		}
+
+		# Current Law Check
+		ztr_un_set_current_law_as_considered = yes
+		ztr_un_value_law = yes
+		set_variable = {
+			name = ztr_un_ai_current_law_value
+			value = var:ztr_un_law_value_total_considered
+		}
+
+		# Possible Law Check
+		ztr_un_set_possible_law_as_considered = yes
+		ztr_un_value_law = yes
+		set_variable = {
+			name = ztr_un_ai_possible_law_value
+			value = var:ztr_un_law_value_total_considered
+		}
+
+		if = {
+			limit = {
+				var:ztr_un_ai_possible_law_value > var:ztr_un_ai_current_law_value
+			}
+			set_global_variable = {
+				name = ztr_un_vote_subject
+				value = global_var:ztr_un_subject_possible_proposal
+			}
+			set_global_variable = {
+				name = ztr_un_vote_proposal
+				value = global_var:ztr_un_law_possible_proposal
+			}
+			ztr_un_start_governance_vote = yes
+			set_variable = ztr_un_vote_proposer
+		}
+	}
+
+	remove_variable = ztr_un_ai_current_law_value
+	remove_variable = ztr_un_ai_possible_law_value
+	remove_variable = ztr_un_subject_considered
+	remove_variable = ztr_un_law_considered
+}
+
+ztr_un_ai_take_neutral_vote_position = {
+	ztr_un_init_governance_laws = yes
+
+	remove_variable = ztr_un_ai_vote_current_law_value
+	remove_variable = ztr_un_ai_vote_proposed_law_value
+	remove_variable = ztr_un_ai_vote_support_margin
+	remove_variable = ztr_un_ai_vote_against_margin
+	remove_variable = ztr_un_ai_vote_threshold
+	remove_variable = ztr_un_subject_considered
+	remove_variable = ztr_un_law_considered
+
+	if = {
+		limit = {
+			has_variable = ztr_un_vote_eligible
+			NOT = {
+				has_variable = ztr_un_vote_choice_support
+			}
+			NOT = {
+				has_variable = ztr_un_vote_choice_against
+			}
+			has_global_variable = ztr_un_vote_subject
+			has_global_variable = ztr_un_vote_proposal
+			has_global_variable = ztr_un_vote_months_remaining
+		}
+		set_variable = {
+			name = ztr_un_ai_vote_threshold
+			value = global_var:ztr_un_vote_months_remaining
+		}
+		change_variable = {
+			name = ztr_un_ai_vote_threshold
+			multiply = 2
+		}
+		change_variable = {
+			name = ztr_un_ai_vote_threshold
+			add = 8
+		}
+
+		ztr_un_set_current_vote_law_as_considered = yes
+		ztr_un_value_law = yes
+		set_variable = {
+			name = ztr_un_ai_vote_current_law_value
+			value = var:ztr_un_law_value_total_considered
+		}
+
+		ztr_un_set_vote_proposal_as_considered = yes
+		ztr_un_value_law = yes
+		set_variable = {
+			name = ztr_un_ai_vote_proposed_law_value
+			value = var:ztr_un_law_value_total_considered
+		}
+
+		set_variable = {
+			name = ztr_un_ai_vote_support_margin
+			value = var:ztr_un_ai_vote_proposed_law_value
+		}
+		change_variable = {
+			name = ztr_un_ai_vote_support_margin
+			add = -var:ztr_un_ai_vote_current_law_value
+		}
+
+		set_variable = {
+			name = ztr_un_ai_vote_against_margin
+			value = var:ztr_un_ai_vote_current_law_value
+		}
+		change_variable = {
+			name = ztr_un_ai_vote_against_margin
+			add = -var:ztr_un_ai_vote_proposed_law_value
+		}
+
+		if = {
+			limit = {
+				var:ztr_un_ai_vote_support_margin > var:ztr_un_ai_vote_threshold
+			}
+			if = {
+				limit = {
+					has_variable = ztr_un_vote_choice_neutral
+				}
+				remove_variable = ztr_un_vote_choice_neutral
+			}
+			set_variable = ztr_un_vote_choice_support
+		}
+		else_if = {
+			limit = {
+				var:ztr_un_ai_vote_against_margin > var:ztr_un_ai_vote_threshold
+			}
+			if = {
+				limit = {
+					has_variable = ztr_un_vote_choice_neutral
+				}
+				remove_variable = ztr_un_vote_choice_neutral
+			}
+			set_variable = ztr_un_vote_choice_against
+		}
+	}
+
+	remove_variable = ztr_un_ai_vote_current_law_value
+	remove_variable = ztr_un_ai_vote_proposed_law_value
+	remove_variable = ztr_un_ai_vote_support_margin
+	remove_variable = ztr_un_ai_vote_against_margin
+	remove_variable = ztr_un_ai_vote_threshold
+	remove_variable = ztr_un_subject_considered
+	remove_variable = ztr_un_law_considered
+}
+
+ztr_un_value_law_prepare_country_context = {
+	calculate_liberty_equality_index = yes
+
+	remove_variable = ztr_un_value_law_liberty_balance
+	remove_variable = ztr_un_value_law_liberty_balance_small
+	remove_variable = ztr_un_value_law_liberty_inverse_balance
+	remove_variable = ztr_un_value_law_liberty_inverse_balance_small
+	remove_variable = ztr_un_value_law_equality_balance
+	remove_variable = ztr_un_value_law_equality_balance_small
+	remove_variable = ztr_un_value_law_equality_inverse_balance
+	remove_variable = ztr_un_value_law_equality_inverse_balance_small
+	remove_variable = ztr_un_value_law_literacy_balance
+	remove_variable = ztr_un_value_law_literacy_inverse_balance
+	remove_variable = ztr_un_value_law_development_balance
+	remove_variable = ztr_un_value_law_development_inverse_balance
+	remove_variable = ztr_un_value_law_demographic_balance
+	remove_variable = ztr_un_value_law_demographic_inverse_balance
+	remove_variable = ztr_un_value_law_government_progressive_balance
+	remove_variable = ztr_un_value_law_government_hierarchy_balance
+	remove_variable = ztr_un_value_law_market_balance
+	remove_variable = ztr_un_value_law_state_balance
+	remove_variable = ztr_un_value_law_rights_bloc_balance
+	remove_variable = ztr_un_value_law_rights_bloc_inverse_balance
+	remove_variable = ztr_un_value_law_imperial_stake
+
+	set_variable = {
+		name = ztr_un_value_law_liberty_balance
+		value = 0
+	}
+	set_variable = {
+		name = ztr_un_value_law_liberty_balance_small
+		value = 0
+	}
+	set_variable = {
+		name = ztr_un_value_law_liberty_inverse_balance
+		value = 0
+	}
+	set_variable = {
+		name = ztr_un_value_law_liberty_inverse_balance_small
+		value = 0
+	}
+	set_variable = {
+		name = ztr_un_value_law_equality_balance
+		value = 0
+	}
+	set_variable = {
+		name = ztr_un_value_law_equality_balance_small
+		value = 0
+	}
+	set_variable = {
+		name = ztr_un_value_law_equality_inverse_balance
+		value = 0
+	}
+	set_variable = {
+		name = ztr_un_value_law_equality_inverse_balance_small
+		value = 0
+	}
+	set_variable = {
+		name = ztr_un_value_law_literacy_balance
+		value = 0
+	}
+	set_variable = {
+		name = ztr_un_value_law_literacy_inverse_balance
+		value = 0
+	}
+	set_variable = {
+		name = ztr_un_value_law_development_balance
+		value = 0
+	}
+	set_variable = {
+		name = ztr_un_value_law_development_inverse_balance
+		value = 0
+	}
+	set_variable = {
+		name = ztr_un_value_law_demographic_balance
+		value = 0
+	}
+	set_variable = {
+		name = ztr_un_value_law_demographic_inverse_balance
+		value = 0
+	}
+	set_variable = {
+		name = ztr_un_value_law_government_progressive_balance
+		value = 0
+	}
+	set_variable = {
+		name = ztr_un_value_law_government_hierarchy_balance
+		value = 0
+	}
+	set_variable = {
+		name = ztr_un_value_law_market_balance
+		value = 0
+	}
+	set_variable = {
+		name = ztr_un_value_law_state_balance
+		value = 0
+	}
+	set_variable = {
+		name = ztr_un_value_law_rights_bloc_balance
+		value = 0
+	}
+	set_variable = {
+		name = ztr_un_value_law_rights_bloc_inverse_balance
+		value = 0
+	}
+	set_variable = {
+		name = ztr_un_value_law_imperial_stake
+		value = 0
+	}
+
+	if = {
+		limit = {
+			has_variable = liberty_index_var
+		}
+		set_variable = {
+			name = ztr_un_value_law_liberty_balance
+			value = var:liberty_index_var
+		}
+		change_variable = {
+			name = ztr_un_value_law_liberty_balance
+			divide = 5
+		}
+		change_variable = {
+			name = ztr_un_value_law_liberty_balance
+			add = -10
+		}
+		set_variable = {
+			name = ztr_un_value_law_liberty_balance_small
+			value = var:ztr_un_value_law_liberty_balance
+		}
+		change_variable = {
+			name = ztr_un_value_law_liberty_balance_small
+			divide = 2
+		}
+		set_variable = {
+			name = ztr_un_value_law_liberty_inverse_balance
+			value = var:ztr_un_value_law_liberty_balance
+		}
+		change_variable = {
+			name = ztr_un_value_law_liberty_inverse_balance
+			multiply = -1
+		}
+		set_variable = {
+			name = ztr_un_value_law_liberty_inverse_balance_small
+			value = var:ztr_un_value_law_liberty_inverse_balance
+		}
+		change_variable = {
+			name = ztr_un_value_law_liberty_inverse_balance_small
+			divide = 2
+		}
+	}
+	if = {
+		limit = {
+			has_variable = equality_index_var
+		}
+		set_variable = {
+			name = ztr_un_value_law_equality_balance
+			value = var:equality_index_var
+		}
+		change_variable = {
+			name = ztr_un_value_law_equality_balance
+			divide = 5
+		}
+		change_variable = {
+			name = ztr_un_value_law_equality_balance
+			add = -10
+		}
+		set_variable = {
+			name = ztr_un_value_law_equality_balance_small
+			value = var:ztr_un_value_law_equality_balance
+		}
+		change_variable = {
+			name = ztr_un_value_law_equality_balance_small
+			divide = 2
+		}
+		set_variable = {
+			name = ztr_un_value_law_equality_inverse_balance
+			value = var:ztr_un_value_law_equality_balance
+		}
+		change_variable = {
+			name = ztr_un_value_law_equality_inverse_balance
+			multiply = -1
+		}
+		set_variable = {
+			name = ztr_un_value_law_equality_inverse_balance_small
+			value = var:ztr_un_value_law_equality_inverse_balance
+		}
+		change_variable = {
+			name = ztr_un_value_law_equality_inverse_balance_small
+			divide = 2
+		}
+	}
+	set_variable = {
+		name = ztr_un_value_law_literacy_balance
+		value = literacy_rate
+	}
+	change_variable = {
+		name = ztr_un_value_law_literacy_balance
+		multiply = 20
+	}
+	change_variable = {
+		name = ztr_un_value_law_literacy_balance
+		add = -10
+	}
+	set_variable = {
+		name = ztr_un_value_law_literacy_inverse_balance
+		value = var:ztr_un_value_law_literacy_balance
+	}
+	change_variable = {
+		name = ztr_un_value_law_literacy_inverse_balance
+		multiply = -1
+	}
+	if = {
+		limit = {
+			has_modifier = dev_0_country
+		}
+		set_variable = {
+			name = ztr_un_value_law_development_balance
+			value = -10
+		}
+	}
+	else_if = {
+		limit = {
+			has_modifier = dev_1_country
+		}
+		set_variable = {
+			name = ztr_un_value_law_development_balance
+			value = -8
+		}
+	}
+	else_if = {
+		limit = {
+			has_modifier = dev_2_country
+		}
+		set_variable = {
+			name = ztr_un_value_law_development_balance
+			value = -5
+		}
+	}
+	else_if = {
+		limit = {
+			has_modifier = dev_3_country
+		}
+		set_variable = {
+			name = ztr_un_value_law_development_balance
+			value = -2
+		}
+	}
+	else_if = {
+		limit = {
+			has_modifier = dev_5_country
+		}
+		set_variable = {
+			name = ztr_un_value_law_development_balance
+			value = 3
+		}
+	}
+	else_if = {
+		limit = {
+			has_modifier = dev_6_country
+		}
+		set_variable = {
+			name = ztr_un_value_law_development_balance
+			value = 6
+		}
+	}
+	else_if = {
+		limit = {
+			has_modifier = dev_7_country
+		}
+		set_variable = {
+			name = ztr_un_value_law_development_balance
+			value = 8
+		}
+	}
+	else_if = {
+		limit = {
+			has_modifier = dev_8_country
+		}
+		set_variable = {
+			name = ztr_un_value_law_development_balance
+			value = 10
+		}
+	}
+	set_variable = {
+		name = ztr_un_value_law_development_inverse_balance
+		value = var:ztr_un_value_law_development_balance
+	}
+	change_variable = {
+		name = ztr_un_value_law_development_inverse_balance
+		multiply = -1
+	}
+	if = {
+		limit = {
+			has_modifier = demographic_stage_0
+		}
+		set_variable = {
+			name = ztr_un_value_law_demographic_balance
+			value = -10
+		}
+	}
+	else_if = {
+		limit = {
+			has_modifier = demographic_stage_1
+		}
+		set_variable = {
+			name = ztr_un_value_law_demographic_balance
+			value = -8
+		}
+	}
+	else_if = {
+		limit = {
+			has_modifier = demographic_stage_2
+		}
+		set_variable = {
+			name = ztr_un_value_law_demographic_balance
+			value = -6
+		}
+	}
+	else_if = {
+		limit = {
+			has_modifier = demographic_stage_3
+		}
+		set_variable = {
+			name = ztr_un_value_law_demographic_balance
+			value = -3
+		}
+	}
+	else_if = {
+		limit = {
+			has_modifier = demographic_stage_5
+		}
+		set_variable = {
+			name = ztr_un_value_law_demographic_balance
+			value = 3
+		}
+	}
+	else_if = {
+		limit = {
+			has_modifier = demographic_stage_6
+		}
+		set_variable = {
+			name = ztr_un_value_law_demographic_balance
+			value = 6
+		}
+	}
+	else_if = {
+		limit = {
+			has_modifier = demographic_stage_7
+		}
+		set_variable = {
+			name = ztr_un_value_law_demographic_balance
+			value = 8
+		}
+	}
+	else_if = {
+		limit = {
+			has_modifier = demographic_stage_8
+		}
+		set_variable = {
+			name = ztr_un_value_law_demographic_balance
+			value = 10
+		}
+	}
+	set_variable = {
+		name = ztr_un_value_law_demographic_inverse_balance
+		value = var:ztr_un_value_law_demographic_balance
+	}
+	change_variable = {
+		name = ztr_un_value_law_demographic_inverse_balance
+		multiply = -1
+	}
+	if = {
+		limit = {
+			has_law_or_variant = law_type:law_parliamentary_republic
+		}
+		change_variable = {
+			name = ztr_un_value_law_government_progressive_balance
+			add = 4
+		}
+	}
+	else_if = {
+		limit = {
+			has_law_or_variant = law_type:law_presidential_republic
+		}
+		change_variable = {
+			name = ztr_un_value_law_government_progressive_balance
+			add = 2
+		}
+	}
+	else_if = {
+		limit = {
+			has_law_or_variant = law_type:law_council_republic
+		}
+		change_variable = {
+			name = ztr_un_value_law_government_progressive_balance
+			add = 3
+		}
+	}
+	if = {
+		limit = {
+			has_law_or_variant = law_type:law_universal_suffrage
+		}
+		change_variable = {
+			name = ztr_un_value_law_government_progressive_balance
+			add = 4
+		}
+	}
+	else_if = {
+		limit = {
+			has_law_or_variant = law_type:law_census_voting
+		}
+		change_variable = {
+			name = ztr_un_value_law_government_progressive_balance
+			add = 2
+		}
+	}
+	else_if = {
+		limit = {
+			has_law_or_variant = law_type:law_wealth_voting
+		}
+		change_variable = {
+			name = ztr_un_value_law_government_progressive_balance
+			add = 1
+		}
+	}
+	else_if = {
+		limit = {
+			has_law_or_variant = law_type:law_landed_voting
+		}
+		change_variable = {
+			name = ztr_un_value_law_government_progressive_balance
+			add = -1
+		}
+	}
+	else_if = {
+		limit = {
+			has_law_or_variant = law_type:law_oligarchy
+		}
+		change_variable = {
+			name = ztr_un_value_law_government_progressive_balance
+			add = -2
+		}
+	}
+	else_if = {
+		limit = {
+			has_law_or_variant = law_type:law_technocracy
+		}
+		change_variable = {
+			name = ztr_un_value_law_government_progressive_balance
+			add = -2
+		}
+	}
+	else_if = {
+		limit = {
+			has_law_or_variant = law_type:law_autocracy
+		}
+		change_variable = {
+			name = ztr_un_value_law_government_progressive_balance
+			add = -4
+		}
+	}
+	else_if = {
+		limit = {
+			has_law_or_variant = law_type:law_single_party_state
+		}
+		change_variable = {
+			name = ztr_un_value_law_government_progressive_balance
+			add = -3
+		}
+	}
+	if = {
+		limit = {
+			has_law_or_variant = law_type:law_monarchy
+		}
+		change_variable = {
+			name = ztr_un_value_law_government_progressive_balance
+			add = -1
+		}
+	}
+	if = {
+		limit = {
+			has_law_or_variant = law_type:law_theocracy
+		}
+		change_variable = {
+			name = ztr_un_value_law_government_progressive_balance
+			add = -3
+		}
+	}
+	set_variable = {
+		name = ztr_un_value_law_government_hierarchy_balance
+		value = var:ztr_un_value_law_government_progressive_balance
+	}
+	change_variable = {
+		name = ztr_un_value_law_government_hierarchy_balance
+		multiply = -1
+	}
+	if = {
+		limit = {
+			exists = ruler
+			ruler = {
+				has_ideology = ideology:ideology_market_liberal
+			}
+		}
+		change_variable = {
+			name = ztr_un_value_law_market_balance
+			add = 3
+		}
+	}
+	if = {
+		limit = {
+			has_radical_leftist_government = yes
+		}
+		change_variable = {
+			name = ztr_un_value_law_market_balance
+			add = -4
+		}
+	}
+	if = {
+		limit = {
+			has_law_or_variant = law_type:law_free_trade
+		}
+		change_variable = {
+			name = ztr_un_value_law_market_balance
+			add = 3
+		}
+	}
+	if = {
+		limit = {
+			has_law_or_variant = law_type:law_laissez_faire
+		}
+		change_variable = {
+			name = ztr_un_value_law_market_balance
+			add = 4
+		}
+	}
+	if = {
+		limit = {
+			has_law_or_variant = law_type:law_interventionism
+		}
+		change_variable = {
+			name = ztr_un_value_law_market_balance
+			add = 2
+		}
+	}
+	if = {
+		limit = {
+			has_law_or_variant = law_type:law_mercantilism
+		}
+		change_variable = {
+			name = ztr_un_value_law_market_balance
+			add = -1
+		}
+	}
+	if = {
+		limit = {
+			has_law_or_variant = law_type:law_protectionism
+		}
+		change_variable = {
+			name = ztr_un_value_law_market_balance
+			add = -3
+		}
+	}
+	if = {
+		limit = {
+			has_law_or_variant = law_type:law_command_economy
+		}
+		change_variable = {
+			name = ztr_un_value_law_market_balance
+			add = -5
+		}
+	}
+	set_variable = {
+		name = ztr_un_value_law_state_balance
+		value = var:ztr_un_value_law_market_balance
+	}
+	change_variable = {
+		name = ztr_un_value_law_state_balance
+		multiply = -1
+	}
+	if = {
+		limit = {
+			exists = ig:ig_intelligentsia
+			ig:ig_intelligentsia = {
+				is_powerful = yes
+			}
+		}
+		change_variable = {
+			name = ztr_un_value_law_rights_bloc_balance
+			add = 3
+		}
+	}
+	if = {
+		limit = {
+			exists = ig:ig_trade_unions
+			ig:ig_trade_unions = {
+				is_powerful = yes
+			}
+		}
+		change_variable = {
+			name = ztr_un_value_law_rights_bloc_balance
+			add = 3
+		}
+	}
+	if = {
+		limit = {
+			exists = ig:ig_industrialists
+			ig:ig_industrialists = {
+				is_powerful = yes
+			}
+		}
+		change_variable = {
+			name = ztr_un_value_law_rights_bloc_balance
+			add = 1
+		}
+	}
+	if = {
+		limit = {
+			exists = ig:ig_devout
+			ig:ig_devout = {
+				is_powerful = yes
+			}
+		}
+		change_variable = {
+			name = ztr_un_value_law_rights_bloc_balance
+			add = -3
+		}
+	}
+	if = {
+		limit = {
+			exists = ig:ig_landowners
+			ig:ig_landowners = {
+				is_powerful = yes
+			}
+		}
+		change_variable = {
+			name = ztr_un_value_law_rights_bloc_balance
+			add = -3
+		}
+	}
+	set_variable = {
+		name = ztr_un_value_law_rights_bloc_inverse_balance
+		value = var:ztr_un_value_law_rights_bloc_balance
+	}
+	change_variable = {
+		name = ztr_un_value_law_rights_bloc_inverse_balance
+		multiply = -1
+	}
+	if = {
+		limit = {
+			any_subject_or_below = {
+				always = yes
+				count > 10
+			}
+		}
+		change_variable = {
+			name = ztr_un_value_law_imperial_stake
+			add = 10
+		}
+	}
+	else_if = {
+		limit = {
+			any_subject_or_below = {
+				always = yes
+				count > 5
+			}
+		}
+		change_variable = {
+			name = ztr_un_value_law_imperial_stake
+			add = 5
+		}
+	}
+	else_if = {
+		limit = {
+			any_subject_or_below = {
+				count > 0
+			}
+		}
+		change_variable = {
+			name = ztr_un_value_law_imperial_stake
+			add = 2
+		}
+	}
+	if = {
+		limit = {
+			OR = {
+				has_law_or_variant = law_type:law_frontier_colonization
+				has_law_or_variant = law_type:law_colonial_resettlement
+				has_law_or_variant = law_type:law_colonial_exploitation
+			}
+		}
+		change_variable = {
+			name = ztr_un_value_law_imperial_stake
+			add = 5
+		}
+	}
+}
+
+ztr_un_value_law = {
+	ztr_un_init_governance_laws = yes
+	remove_variable = ztr_un_law_value_objective_considered
+	remove_variable = ztr_un_law_value_secret_considered
+	remove_variable = ztr_un_law_value_total_considered
+	remove_variable = ztr_un_value_law_considered_un_role
+	set_variable = {
+		name = ztr_un_law_value_objective_considered
+		value = 0
+	}
+	set_variable = {
+		name = ztr_un_law_value_secret_considered
+		value = 0
+	}
+	set_variable = {
+		name = ztr_un_law_value_total_considered
+		value = 0
+	}
+	ztr_un_value_law_prepare_country_context = yes
+	if = {
+		limit = {
+			has_variable = ztr_un_subject_considered
+			has_variable = ztr_un_law_considered
+		}
+		# Objective layer
+		# Subject 1: Voting Model
+		# Considered law: Voting Model 1 = One Country One Vote
+		if = {
+			limit = {
+				var:ztr_un_subject_considered = 1
+				var:ztr_un_law_considered = 1
+			}
+			if = {
+				limit = {
+					ztr_is_un_member = yes
+					NOT = {
+						has_modifier = ztr_onu_permanent_member
+					}
+				}
+				change_variable = {
+					name = ztr_un_law_value_objective_considered
+					add = 20
+				}
+			}
+			if = {
+				limit = {
+					has_modifier = ztr_onu_permanent_member
+				}
+				change_variable = {
+					name = ztr_un_law_value_objective_considered
+					add = 10
+				}
+			}
+			if = {
+				limit = {
+					country_rank = rank_value:great_power
+				}
+				change_variable = {
+					name = ztr_un_law_value_objective_considered
+					add = -10
+				}
+			}
+			change_variable = {
+				name = ztr_un_law_value_objective_considered
+				add = var:ztr_un_value_law_liberty_balance
+			}
+			change_variable = {
+				name = ztr_un_law_value_objective_considered
+				add = var:ztr_un_value_law_government_progressive_balance
+			}
+			change_variable = {
+				name = ztr_un_law_value_objective_considered
+				add = var:ztr_un_value_law_rights_bloc_balance
+			}
+			if = {
+				limit = {
+					var:ztr_un_value_law_imperial_stake > 0
+				}
+				change_variable = {
+					name = ztr_un_law_value_objective_considered
+					add = -5
+				}
+			}
+		}
+		# Considered law: Voting Model 2 = Weighted by Prestige
+		if = {
+			limit = {
+				var:ztr_un_subject_considered = 1
+				var:ztr_un_law_considered = 2
+			}
+			if = {
+				limit = {
+					country_rank = rank_value:great_power
+				}
+				change_variable = {
+					name = ztr_un_law_value_objective_considered
+					add = 20
+				}
+			}
+			else_if = {
+				limit = {
+					country_rank = rank_value:major_power
+				}
+				change_variable = {
+					name = ztr_un_law_value_objective_considered
+					add = 10
+				}
+			}
+			else_if = {
+				limit = {
+					country_rank = rank_value:minor_power
+				}
+				change_variable = {
+					name = ztr_un_law_value_objective_considered
+					add = 5
+				}
+			}
+			if = {
+				limit = {
+					has_modifier = ztr_onu_permanent_member
+				}
+				change_variable = {
+					name = ztr_un_law_value_objective_considered
+					add = 10
+				}
+			}
+			change_variable = {
+				name = ztr_un_law_value_objective_considered
+				add = var:ztr_un_value_law_liberty_balance_small
+			}
+			change_variable = {
+				name = ztr_un_law_value_objective_considered
+				add = var:ztr_un_value_law_market_balance
+			}
+			if = {
+				limit = {
+					var:ztr_un_value_law_imperial_stake > 0
+				}
+				change_variable = {
+					name = ztr_un_law_value_objective_considered
+					add = 5
+				}
+			}
+		}
+		# Considered law: Voting Model 3 = Security Council Only
+		if = {
+			limit = {
+				var:ztr_un_subject_considered = 1
+				var:ztr_un_law_considered = 3
+			}
+			if = {
+				limit = {
+					has_modifier = ztr_onu_permanent_member
+				}
+				change_variable = {
+					name = ztr_un_law_value_objective_considered
+					add = 20
+				}
+			}
+			if = {
+				limit = {
+					ztr_is_un_member = yes
+					NOT = {
+						has_modifier = ztr_onu_permanent_member
+					}
+				}
+				change_variable = {
+					name = ztr_un_law_value_objective_considered
+					add = -20
+				}
+			}
+			change_variable = {
+				name = ztr_un_law_value_objective_considered
+				add = var:ztr_un_value_law_government_hierarchy_balance
+			}
+			change_variable = {
+				name = ztr_un_law_value_objective_considered
+				add = var:ztr_un_value_law_liberty_inverse_balance
+			}
+			if = {
+				limit = {
+					var:ztr_un_value_law_imperial_stake > 0
+				}
+				change_variable = {
+					name = ztr_un_law_value_objective_considered
+					add = 10
+				}
+			}
+			if = {
+				limit = {
+					exists = ig:ig_armed_forces
+					ig:ig_armed_forces = {
+						is_powerful = yes
+					}
+				}
+				change_variable = {
+					name = ztr_un_law_value_objective_considered
+					add = 5
+				}
+			}
+		}
+		# Considered law: Voting Model 4 = Superpowers Only
+		if = {
+			limit = {
+				var:ztr_un_subject_considered = 1
+				var:ztr_un_law_considered = 4
+			}
+			if = {
+				limit = {
+					global_country_ranking = 1
+				}
+				change_variable = {
+					name = ztr_un_law_value_objective_considered
+					add = 40
+				}
+			}
+			else_if = {
+				limit = {
+					global_country_ranking <= 2
+				}
+				change_variable = {
+					name = ztr_un_law_value_objective_considered
+					add = 20
+				}
+			}
+			else_if = {
+				limit = {
+					country_rank = rank_value:great_power
+				}
+				change_variable = {
+					name = ztr_un_law_value_objective_considered
+					add = 10
+				}
+			}
+			else_if = {
+				limit = {
+					ztr_is_un_member = yes
+				}
+				change_variable = {
+					name = ztr_un_law_value_objective_considered
+					add = -20
+				}
+			}
+			change_variable = {
+				name = ztr_un_law_value_objective_considered
+				add = var:ztr_un_value_law_government_hierarchy_balance
+			}
+			change_variable = {
+				name = ztr_un_law_value_objective_considered
+				add = var:ztr_un_value_law_market_balance
+			}
+			if = {
+				limit = {
+					var:ztr_un_value_law_imperial_stake > 0
+				}
+				change_variable = {
+					name = ztr_un_law_value_objective_considered
+					add = 10
+				}
+			}
+			if = {
+				limit = {
+					exists = ig:ig_armed_forces
+					ig:ig_armed_forces = {
+						is_powerful = yes
+					}
+				}
+				change_variable = {
+					name = ztr_un_law_value_objective_considered
+					add = 5
+				}
+			}
+		}
+		# Subject 2: Veto Right
+		# Considered law: Veto Right 0 = Disabled
+		if = {
+			limit = {
+				var:ztr_un_subject_considered = 2
+				var:ztr_un_law_considered = 0
+			}
+			if = {
+				limit = {
+					has_modifier = ztr_onu_permanent_member
+				}
+				change_variable = {
+					name = ztr_un_law_value_objective_considered
+					add = -20
+				}
+			}
+			if = {
+				limit = {
+					ztr_is_un_member = yes
+					NOT = {
+						has_modifier = ztr_onu_permanent_member
+					}
+				}
+				change_variable = {
+					name = ztr_un_law_value_objective_considered
+					add = 20
+				}
+			}
+			change_variable = {
+				name = ztr_un_law_value_objective_considered
+				add = var:ztr_un_value_law_liberty_balance
+			}
+			change_variable = {
+				name = ztr_un_law_value_objective_considered
+				add = var:ztr_un_value_law_government_progressive_balance
+			}
+			change_variable = {
+				name = ztr_un_law_value_objective_considered
+				add = var:ztr_un_value_law_rights_bloc_balance
+			}
+		}
+		# Considered law: Veto Right 1 = Enabled
+		if = {
+			limit = {
+				var:ztr_un_subject_considered = 2
+				var:ztr_un_law_considered = 1
+			}
+			if = {
+				limit = {
+					has_modifier = ztr_onu_permanent_member
+				}
+				change_variable = {
+					name = ztr_un_law_value_objective_considered
+					add = 25
+				}
+			}
+			if = {
+				limit = {
+					ztr_is_un_member = yes
+					NOT = {
+						has_modifier = ztr_onu_permanent_member
+					}
+				}
+				change_variable = {
+					name = ztr_un_law_value_objective_considered
+					add = -15
+				}
+			}
+			change_variable = {
+				name = ztr_un_law_value_objective_considered
+				add = var:ztr_un_value_law_government_hierarchy_balance
+			}
+			change_variable = {
+				name = ztr_un_law_value_objective_considered
+				add = var:ztr_un_value_law_liberty_inverse_balance
+			}
+			if = {
+				limit = {
+					exists = ig:ig_armed_forces
+					ig:ig_armed_forces = {
+						is_powerful = yes
+					}
+				}
+				change_variable = {
+					name = ztr_un_law_value_objective_considered
+					add = 5
+				}
+			}
+		}
+		# Subject 3: Member Selection
+		# Considered law: Member Selection 1 = By Prestige
+		if = {
+			limit = {
+				var:ztr_un_subject_considered = 3
+				var:ztr_un_law_considered = 1
+			}
+			if = {
+				limit = {
+					has_modifier = ztr_onu_permanent_member
+				}
+				change_variable = {
+					name = ztr_un_law_value_objective_considered
+					add = 15
+				}
+			}
+			if = {
+				limit = {
+					global_country_ranking <= 3
+				}
+				change_variable = {
+					name = ztr_un_law_value_objective_considered
+					add = 10
+				}
+			}
+			if = {
+				limit = {
+					country_rank = rank_value:great_power
+				}
+				change_variable = {
+					name = ztr_un_law_value_objective_considered
+					add = 20
+				}
+			}
+			else_if = {
+				limit = {
+					country_rank = rank_value:major_power
+				}
+				change_variable = {
+					name = ztr_un_law_value_objective_considered
+					add = 10
+				}
+			}
+			else_if = {
+				limit = {
+					country_rank = rank_value:minor_power
+				}
+				change_variable = {
+					name = ztr_un_law_value_objective_considered
+					add = 5
+				}
+			}
+		}
+		# Considered law: Member Selection 2 = Geographic Representation
+		if = {
+			limit = {
+				var:ztr_un_subject_considered = 3
+				var:ztr_un_law_considered = 2
+			}
+			if = {
+				limit = {
+					ztr_is_un_member = yes
+					NOT = {
+						has_modifier = ztr_onu_permanent_member
+					}
+				}
+				change_variable = {
+					name = ztr_un_law_value_objective_considered
+					add = 10
+				}
+			}
+			if = {
+				limit = {
+					OR = {
+						is_in_geographic_region = geographic_region_africa
+						is_in_geographic_region = geographic_region_middle_east
+						is_in_geographic_region = geographic_region_central_asia
+						is_in_geographic_region = geographic_region_india
+						is_in_geographic_region = geographic_region_south_east_asia
+						is_in_geographic_region = geographic_region_oceania
+						is_in_geographic_region = geographic_region_east_asia
+					}
+				}
+				change_variable = {
+					name = ztr_un_law_value_objective_considered
+					add = 10
+				}
+			}
+			else_if = {
+				limit = {
+					OR = {
+						is_in_geographic_region = geographic_region_europe
+						is_in_geographic_region = geographic_region_americas
+					}
+				}
+				change_variable = {
+					name = ztr_un_law_value_objective_considered
+					add = 5
+				}
+			}
+			if = {
+				limit = {
+					OR = {
+						country_rank = rank_value:great_power
+						country_rank = rank_value:major_power
+					}
+				}
+				change_variable = {
+					name = ztr_un_law_value_objective_considered
+					add = 10
+				}
+			}
+			if = {
+				limit = {
+					has_modifier = ztr_onu_permanent_member
+				}
+				change_variable = {
+					name = ztr_un_law_value_objective_considered
+					add = 5
+				}
+			}
+		}
+		# Considered law: Member Selection 3 = By Military Power
+		if = {
+			limit = {
+				var:ztr_un_subject_considered = 3
+				var:ztr_un_law_considered = 3
+			}
+			if = {
+				limit = {
+					has_modifier = ztr_onu_permanent_member
+				}
+				change_variable = {
+					name = ztr_un_law_value_objective_considered
+					add = 10
+				}
+			}
+			change_variable = {
+				name = ztr_un_law_value_objective_considered
+				add = var:ztr_un_value_law_government_hierarchy_balance
+			}
+			change_variable = {
+				name = ztr_un_law_value_objective_considered
+				add = var:ztr_un_value_law_liberty_inverse_balance
+			}
+			if = {
+				limit = {
+					exists = ig:ig_armed_forces
+					ig:ig_armed_forces = {
+						is_powerful = yes
+					}
+				}
+				change_variable = {
+					name = ztr_un_law_value_objective_considered
+					add = 10
+				}
+			}
+			if = {
+				limit = {
+					army_power_projection > 25000
+				}
+				change_variable = {
+					name = ztr_un_law_value_objective_considered
+					add = 15
+				}
+			}
+			else_if = {
+				limit = {
+					army_power_projection > 10000
+				}
+				change_variable = {
+					name = ztr_un_law_value_objective_considered
+					add = 5
+				}
+			}
+			else_if = {
+				limit = {
+					ztr_is_un_member = yes
+				}
+				change_variable = {
+					name = ztr_un_law_value_objective_considered
+					add = -10
+				}
+			}
+			if = {
+				limit = {
+					navy_size >= 500
+				}
+				change_variable = {
+					name = ztr_un_law_value_objective_considered
+					add = 5
+				}
+			}
+		}
+		# Considered law: Member Selection 4 = Strongest Country
+		if = {
+			limit = {
+				var:ztr_un_subject_considered = 3
+				var:ztr_un_law_considered = 4
+			}
+			if = {
+				limit = {
+					global_country_ranking = 1
+				}
+				change_variable = {
+					name = ztr_un_law_value_objective_considered
+					add = 40
+				}
+			}
+			else_if = {
+				limit = {
+					country_rank = rank_value:great_power
+				}
+				change_variable = {
+					name = ztr_un_law_value_objective_considered
+					add = 5
+				}
+			}
+			else_if = {
+				limit = {
+					ztr_is_un_member = yes
+				}
+				change_variable = {
+					name = ztr_un_law_value_objective_considered
+					add = -10
+				}
+			}
+			change_variable = {
+				name = ztr_un_law_value_objective_considered
+				add = var:ztr_un_value_law_government_hierarchy_balance
+			}
+			if = {
+				limit = {
+					var:ztr_un_value_law_imperial_stake > 0
+				}
+				change_variable = {
+					name = ztr_un_law_value_objective_considered
+					add = 5
+				}
+			}
+		}
+		# Subject 4: Decolonization
+		# Considered law: Decolonization 0 = Neutral
+		if = {
+			limit = {
+				var:ztr_un_subject_considered = 4
+				var:ztr_un_law_considered = 0
+			}
+			if = {
+				limit = {
+					OR = {
+						has_law_or_variant = law_type:law_frontier_colonization
+						has_law_or_variant = law_type:law_colonial_resettlement
+						has_law_or_variant = law_type:law_colonial_exploitation
+					}
+				}
+				change_variable = {
+					name = ztr_un_law_value_objective_considered
+					add = 20
+				}
+			}
+			change_variable = {
+				name = ztr_un_law_value_objective_considered
+				add = var:ztr_un_value_law_government_hierarchy_balance
+			}
+			change_variable = {
+				name = ztr_un_law_value_objective_considered
+				add = var:ztr_un_value_law_equality_inverse_balance_small
+			}
+			change_variable = {
+				name = ztr_un_law_value_objective_considered
+				add = var:ztr_un_value_law_development_inverse_balance
+			}
+			change_variable = {
+				name = ztr_un_law_value_objective_considered
+				add = var:ztr_un_value_law_demographic_inverse_balance
+			}
+			change_variable = {
+				name = ztr_un_law_value_objective_considered
+				add = var:ztr_un_value_law_imperial_stake
+			}
+			change_variable = {
+				name = ztr_un_law_value_objective_considered
+				add = var:ztr_un_value_law_rights_bloc_inverse_balance
+			}
+			if = {
+				limit = {
+					has_radical_leftist_government = yes
+				}
+				change_variable = {
+					name = ztr_un_law_value_objective_considered
+					add = -10
+				}
+			}
+		}
+		# Considered law: Decolonization 1 = Conservative Decolonization
+		if = {
+			limit = {
+				var:ztr_un_subject_considered = 4
+				var:ztr_un_law_considered = 1
+			}
+			if = {
+				limit = {
+					has_law_or_variant = law_type:law_frontier_colonization
+				}
+				change_variable = {
+					name = ztr_un_law_value_objective_considered
+					add = -30
+				}
+			}
+			if = {
+				limit = {
+					OR = {
+						has_law_or_variant = law_type:law_colonial_resettlement
+						has_law_or_variant = law_type:law_colonial_exploitation
+					}
+				}
+				change_variable = {
+					name = ztr_un_law_value_objective_considered
+					add = -20
+				}
+			}
+			if = {
+				limit = {
+					has_law_or_variant = law_type:law_no_colonial_affairs
+				}
+				change_variable = {
+					name = ztr_un_law_value_objective_considered
+					add = 10
+				}
+			}
+			change_variable = {
+				name = ztr_un_law_value_objective_considered
+				add = var:ztr_un_value_law_government_progressive_balance
+			}
+			change_variable = {
+				name = ztr_un_law_value_objective_considered
+				add = var:ztr_un_value_law_liberty_balance_small
+			}
+			change_variable = {
+				name = ztr_un_law_value_objective_considered
+				add = var:ztr_un_value_law_equality_balance_small
+			}
+			if = {
+				limit = {
+					var:ztr_un_value_law_imperial_stake > 0
+				}
+				change_variable = {
+					name = ztr_un_law_value_objective_considered
+					add = -10
+				}
+			}
+			change_variable = {
+				name = ztr_un_law_value_objective_considered
+				add = var:ztr_un_value_law_rights_bloc_balance
+			}
+			if = {
+				limit = {
+					has_radical_leftist_government = yes
+				}
+				change_variable = {
+					name = ztr_un_law_value_objective_considered
+					add = 10
+				}
+			}
+		}
+		# Considered law: Decolonization 2 = Encouraged Decolonization
+		if = {
+			limit = {
+				var:ztr_un_subject_considered = 4
+				var:ztr_un_law_considered = 2
+			}
+			if = {
+				limit = {
+					has_law_or_variant = law_type:law_frontier_colonization
+				}
+				change_variable = {
+					name = ztr_un_law_value_objective_considered
+					add = -40
+				}
+			}
+			if = {
+				limit = {
+					OR = {
+						has_law_or_variant = law_type:law_colonial_resettlement
+						has_law_or_variant = law_type:law_colonial_exploitation
+					}
+				}
+				change_variable = {
+					name = ztr_un_law_value_objective_considered
+					add = -30
+				}
+			}
+			if = {
+				limit = {
+					has_law_or_variant = law_type:law_no_colonial_affairs
+				}
+				change_variable = {
+					name = ztr_un_law_value_objective_considered
+					add = 15
+				}
+			}
+			change_variable = {
+				name = ztr_un_law_value_objective_considered
+				add = var:ztr_un_value_law_government_progressive_balance
+			}
+			change_variable = {
+				name = ztr_un_law_value_objective_considered
+				add = var:ztr_un_value_law_liberty_balance
+			}
+			change_variable = {
+				name = ztr_un_law_value_objective_considered
+				add = var:ztr_un_value_law_equality_balance
+			}
+			change_variable = {
+				name = ztr_un_law_value_objective_considered
+				add = var:ztr_un_value_law_development_balance
+			}
+			change_variable = {
+				name = ztr_un_law_value_objective_considered
+				add = var:ztr_un_value_law_demographic_balance
+			}
+			if = {
+				limit = {
+					var:ztr_un_value_law_imperial_stake > 0
+				}
+				change_variable = {
+					name = ztr_un_law_value_objective_considered
+					add = -15
+				}
+			}
+			change_variable = {
+				name = ztr_un_law_value_objective_considered
+				add = var:ztr_un_value_law_rights_bloc_balance
+			}
+			if = {
+				limit = {
+					has_radical_leftist_government = yes
+				}
+				change_variable = {
+					name = ztr_un_law_value_objective_considered
+					add = 15
+				}
+			}
+		}
+		# Subject 5: Slavery
+		# Considered law: Slavery 0 = Neutral
+		if = {
+			limit = {
+				var:ztr_un_subject_considered = 5
+				var:ztr_un_law_considered = 0
+			}
+			if = {
+				limit = {
+					OR = {
+						has_law_or_variant = law_type:law_colonial_slavery
+						has_law_or_variant = law_type:law_debt_slavery
+						has_law_or_variant = law_type:law_slave_trade
+						has_law_or_variant = law_type:law_legacy_slavery
+					}
+				}
+				change_variable = {
+					name = ztr_un_law_value_objective_considered
+					add = 20
+				}
+			}
+			if = {
+				limit = {
+					has_law_or_variant = law_type:law_slavery_banned
+				}
+				change_variable = {
+					name = ztr_un_law_value_objective_considered
+					add = -20
+				}
+			}
+			change_variable = {
+				name = ztr_un_law_value_objective_considered
+				add = var:ztr_un_value_law_liberty_inverse_balance
+			}
+			change_variable = {
+				name = ztr_un_law_value_objective_considered
+				add = var:ztr_un_value_law_equality_inverse_balance
+			}
+			change_variable = {
+				name = ztr_un_law_value_objective_considered
+				add = var:ztr_un_value_law_development_inverse_balance
+			}
+			change_variable = {
+				name = ztr_un_law_value_objective_considered
+				add = var:ztr_un_value_law_rights_bloc_inverse_balance
+			}
+			if = {
+				limit = {
+					var:ztr_un_value_law_imperial_stake > 0
+				}
+				change_variable = {
+					name = ztr_un_law_value_objective_considered
+					add = 10
+				}
+			}
+			if = {
+				limit = {
+					has_radical_leftist_government = yes
+				}
+				change_variable = {
+					name = ztr_un_law_value_objective_considered
+					add = -10
+				}
+			}
+		}
+		# Considered law: Slavery 1 = Illegal
+		if = {
+			limit = {
+				var:ztr_un_subject_considered = 5
+				var:ztr_un_law_considered = 1
+			}
+			if = {
+				limit = {
+					OR = {
+						has_law_or_variant = law_type:law_colonial_slavery
+						has_law_or_variant = law_type:law_debt_slavery
+						has_law_or_variant = law_type:law_slave_trade
+						has_law_or_variant = law_type:law_legacy_slavery
+					}
+				}
+				change_variable = {
+					name = ztr_un_law_value_objective_considered
+					add = -30
+				}
+			}
+			if = {
+				limit = {
+					has_law_or_variant = law_type:law_slavery_banned
+				}
+				change_variable = {
+					name = ztr_un_law_value_objective_considered
+					add = 20
+				}
+			}
+			change_variable = {
+				name = ztr_un_law_value_objective_considered
+				add = var:ztr_un_value_law_liberty_balance
+			}
+			change_variable = {
+				name = ztr_un_law_value_objective_considered
+				add = var:ztr_un_value_law_equality_balance
+			}
+			change_variable = {
+				name = ztr_un_law_value_objective_considered
+				add = var:ztr_un_value_law_development_balance
+			}
+			change_variable = {
+				name = ztr_un_law_value_objective_considered
+				add = var:ztr_un_value_law_rights_bloc_balance
+			}
+			if = {
+				limit = {
+					var:ztr_un_value_law_imperial_stake > 0
+				}
+				change_variable = {
+					name = ztr_un_law_value_objective_considered
+					add = -10
+				}
+			}
+			if = {
+				limit = {
+					has_radical_leftist_government = yes
+				}
+				change_variable = {
+					name = ztr_un_law_value_objective_considered
+					add = 10
+				}
+			}
+		}
+		# Subject 6: Children's Rights
+		# Considered law: Children's Rights 0 = Negligible
+		if = {
+			limit = {
+				var:ztr_un_subject_considered = 6
+				var:ztr_un_law_considered = 0
+			}
+			if = {
+				limit = {
+					has_law_or_variant = law_type:law_child_labor_allowed
+				}
+				change_variable = {
+					name = ztr_un_law_value_objective_considered
+					add = 20
+				}
+			}
+			if = {
+				limit = {
+					has_law_or_variant = law_type:law_restricted_child_labor
+				}
+				change_variable = {
+					name = ztr_un_law_value_objective_considered
+					add = 5
+				}
+			}
+			if = {
+				limit = {
+					has_law_or_variant = law_type:law_compulsory_primary_school
+				}
+				change_variable = {
+					name = ztr_un_law_value_objective_considered
+					add = -20
+				}
+			}
+			change_variable = {
+				name = ztr_un_law_value_objective_considered
+				add = var:ztr_un_value_law_government_hierarchy_balance
+			}
+			change_variable = {
+				name = ztr_un_law_value_objective_considered
+				add = var:ztr_un_value_law_equality_inverse_balance_small
+			}
+			change_variable = {
+				name = ztr_un_law_value_objective_considered
+				add = var:ztr_un_value_law_development_inverse_balance
+			}
+			change_variable = {
+				name = ztr_un_law_value_objective_considered
+				add = var:ztr_un_value_law_demographic_inverse_balance
+			}
+			change_variable = {
+				name = ztr_un_law_value_objective_considered
+				add = var:ztr_un_value_law_literacy_inverse_balance
+			}
+			change_variable = {
+				name = ztr_un_law_value_objective_considered
+				add = var:ztr_un_value_law_rights_bloc_inverse_balance
+			}
+			if = {
+				limit = {
+					exists = ruler
+					ruler = {
+						has_ideology = ideology:ideology_market_liberal
+					}
+				}
+				change_variable = {
+					name = ztr_un_law_value_objective_considered
+					add = 10
+				}
+			}
+		}
+		# Considered law: Children's Rights 1 = Restricted Child Labor
+		if = {
+			limit = {
+				var:ztr_un_subject_considered = 6
+				var:ztr_un_law_considered = 1
+			}
+			if = {
+				limit = {
+					has_law_or_variant = law_type:law_child_labor_allowed
+				}
+				change_variable = {
+					name = ztr_un_law_value_objective_considered
+					add = 10
+				}
+			}
+			if = {
+				limit = {
+					has_law_or_variant = law_type:law_restricted_child_labor
+				}
+				change_variable = {
+					name = ztr_un_law_value_objective_considered
+					add = 15
+				}
+			}
+			if = {
+				limit = {
+					has_law_or_variant = law_type:law_compulsory_primary_school
+				}
+				change_variable = {
+					name = ztr_un_law_value_objective_considered
+					add = 5
+				}
+			}
+			change_variable = {
+				name = ztr_un_law_value_objective_considered
+				add = var:ztr_un_value_law_government_progressive_balance
+			}
+			change_variable = {
+				name = ztr_un_law_value_objective_considered
+				add = var:ztr_un_value_law_equality_balance_small
+			}
+			change_variable = {
+				name = ztr_un_law_value_objective_considered
+				add = var:ztr_un_value_law_development_balance
+			}
+			change_variable = {
+				name = ztr_un_law_value_objective_considered
+				add = var:ztr_un_value_law_demographic_balance
+			}
+			change_variable = {
+				name = ztr_un_law_value_objective_considered
+				add = var:ztr_un_value_law_literacy_balance
+			}
+			change_variable = {
+				name = ztr_un_law_value_objective_considered
+				add = var:ztr_un_value_law_rights_bloc_balance
+			}
+			if = {
+				limit = {
+					exists = ruler
+					ruler = {
+						has_ideology = ideology:ideology_market_liberal
+					}
+				}
+				change_variable = {
+					name = ztr_un_law_value_objective_considered
+					add = 10
+				}
+			}
+		}
+		# Considered law: Children's Rights 2 = Compulsory Study
+		if = {
+			limit = {
+				var:ztr_un_subject_considered = 6
+				var:ztr_un_law_considered = 2
+			}
+			if = {
+				limit = {
+					has_law_or_variant = law_type:law_child_labor_allowed
+				}
+				change_variable = {
+					name = ztr_un_law_value_objective_considered
+					add = -20
+				}
+			}
+			if = {
+				limit = {
+					has_law_or_variant = law_type:law_restricted_child_labor
+				}
+				change_variable = {
+					name = ztr_un_law_value_objective_considered
+					add = 10
+				}
+			}
+			if = {
+				limit = {
+					has_law_or_variant = law_type:law_compulsory_primary_school
+				}
+				change_variable = {
+					name = ztr_un_law_value_objective_considered
+					add = 20
+				}
+			}
+			change_variable = {
+				name = ztr_un_law_value_objective_considered
+				add = var:ztr_un_value_law_government_progressive_balance
+			}
+			change_variable = {
+				name = ztr_un_law_value_objective_considered
+				add = var:ztr_un_value_law_equality_balance
+			}
+			change_variable = {
+				name = ztr_un_law_value_objective_considered
+				add = var:ztr_un_value_law_development_balance
+			}
+			change_variable = {
+				name = ztr_un_law_value_objective_considered
+				add = var:ztr_un_value_law_demographic_balance
+			}
+			change_variable = {
+				name = ztr_un_law_value_objective_considered
+				add = var:ztr_un_value_law_literacy_balance
+			}
+			change_variable = {
+				name = ztr_un_law_value_objective_considered
+				add = var:ztr_un_value_law_rights_bloc_balance
+			}
+			if = {
+				limit = {
+					exists = ruler
+					ruler = {
+						has_ideology = ideology:ideology_market_liberal
+					}
+				}
+				change_variable = {
+					name = ztr_un_law_value_objective_considered
+					add = -5
+				}
+			}
+			if = {
+				limit = {
+					has_radical_leftist_government = yes
+				}
+				change_variable = {
+					name = ztr_un_law_value_objective_considered
+					add = 5
+				}
+			}
+		}
+		# Subject 7: Women's Rights
+		# Considered law: Women's Rights 0 = Negligible
+		if = {
+			limit = {
+				var:ztr_un_subject_considered = 7
+				var:ztr_un_law_considered = 0
+			}
+			if = {
+				limit = {
+					OR = {
+						has_law_or_variant = law_type:law_no_womens_rights
+						has_law_or_variant = law_type:law_women_in_the_fields
+					}
+				}
+				change_variable = {
+					name = ztr_un_law_value_objective_considered
+					add = 20
+				}
+			}
+			if = {
+				limit = {
+					has_law_or_variant = law_type:law_women_own_property
+				}
+				change_variable = {
+					name = ztr_un_law_value_objective_considered
+					add = 10
+				}
+			}
+			if = {
+				limit = {
+					has_law_or_variant = law_type:law_women_in_the_workplace
+				}
+				change_variable = {
+					name = ztr_un_law_value_objective_considered
+					add = -20
+				}
+			}
+			if = {
+				limit = {
+					exists = ruler
+					ruler = {
+						has_ideology = ideology:ideology_traditionalist
+					}
+				}
+				change_variable = {
+					name = ztr_un_law_value_objective_considered
+					add = 20
+				}
+			}
+			change_variable = {
+				name = ztr_un_law_value_objective_considered
+				add = var:ztr_un_value_law_government_hierarchy_balance
+			}
+			change_variable = {
+				name = ztr_un_law_value_objective_considered
+				add = var:ztr_un_value_law_liberty_inverse_balance
+			}
+			change_variable = {
+				name = ztr_un_law_value_objective_considered
+				add = var:ztr_un_value_law_equality_inverse_balance
+			}
+			change_variable = {
+				name = ztr_un_law_value_objective_considered
+				add = var:ztr_un_value_law_development_inverse_balance
+			}
+			change_variable = {
+				name = ztr_un_law_value_objective_considered
+				add = var:ztr_un_value_law_demographic_inverse_balance
+			}
+			change_variable = {
+				name = ztr_un_law_value_objective_considered
+				add = var:ztr_un_value_law_literacy_inverse_balance
+			}
+			change_variable = {
+				name = ztr_un_law_value_objective_considered
+				add = var:ztr_un_value_law_rights_bloc_inverse_balance
+			}
+		}
+		# Considered law: Women's Rights 1 = Gender Equality
+		if = {
+			limit = {
+				var:ztr_un_subject_considered = 7
+				var:ztr_un_law_considered = 1
+			}
+			if = {
+				limit = {
+					OR = {
+						has_law_or_variant = law_type:law_no_womens_rights
+						has_law_or_variant = law_type:law_women_in_the_fields
+					}
+				}
+				change_variable = {
+					name = ztr_un_law_value_objective_considered
+					add = -20
+				}
+			}
+			if = {
+				limit = {
+					has_law_or_variant = law_type:law_women_own_property
+				}
+				change_variable = {
+					name = ztr_un_law_value_objective_considered
+					add = 5
+				}
+			}
+			if = {
+				limit = {
+					has_law_or_variant = law_type:law_women_in_the_workplace
+				}
+				change_variable = {
+					name = ztr_un_law_value_objective_considered
+					add = 20
+				}
+			}
+			if = {
+				limit = {
+					exists = ruler
+					ruler = {
+						has_ideology = ideology:ideology_traditionalist
+					}
+				}
+				change_variable = {
+					name = ztr_un_law_value_objective_considered
+					add = -20
+				}
+			}
+			change_variable = {
+				name = ztr_un_law_value_objective_considered
+				add = var:ztr_un_value_law_government_progressive_balance
+			}
+			change_variable = {
+				name = ztr_un_law_value_objective_considered
+				add = var:ztr_un_value_law_liberty_balance
+			}
+			change_variable = {
+				name = ztr_un_law_value_objective_considered
+				add = var:ztr_un_value_law_equality_balance
+			}
+			change_variable = {
+				name = ztr_un_law_value_objective_considered
+				add = var:ztr_un_value_law_development_balance
+			}
+			change_variable = {
+				name = ztr_un_law_value_objective_considered
+				add = var:ztr_un_value_law_demographic_balance
+			}
+			change_variable = {
+				name = ztr_un_law_value_objective_considered
+				add = var:ztr_un_value_law_literacy_balance
+			}
+			change_variable = {
+				name = ztr_un_law_value_objective_considered
+				add = var:ztr_un_value_law_rights_bloc_balance
+			}
+			if = {
+				limit = {
+					has_radical_leftist_government = yes
+				}
+				change_variable = {
+					name = ztr_un_law_value_objective_considered
+					add = 5
+				}
+			}
+		}
+		# Subject 8-11: Institutions
+		# Considered law: IMF 0 = Not Established
+		if = {
+			limit = {
+				var:ztr_un_subject_considered = 8
+				var:ztr_un_law_considered = 0
+			}
+			if = {
+				limit = {
+					has_radical_leftist_government = yes
+				}
+				change_variable = {
+					name = ztr_un_law_value_objective_considered
+					add = 20
+				}
+			}
+			if = {
+				limit = {
+					has_law_or_variant = law_type:law_command_economy
+				}
+				change_variable = {
+					name = ztr_un_law_value_objective_considered
+					add = 20
+				}
+			}
+			if = {
+				limit = {
+					exists = ruler
+					ruler = {
+						has_ideology = ideology:ideology_market_liberal
+					}
+				}
+				change_variable = {
+					name = ztr_un_law_value_objective_considered
+					add = -20
+				}
+			}
+			if = {
+				limit = {
+					has_technology_researched = secure_market_transactions
+				}
+				change_variable = {
+					name = ztr_un_law_value_objective_considered
+					add = -15
+				}
+			}
+			if = {
+				limit = {
+					has_law_or_variant = law_type:law_free_trade
+				}
+				change_variable = {
+					name = ztr_un_law_value_objective_considered
+					add = -10
+				}
+			}
+			change_variable = {
+				name = ztr_un_law_value_objective_considered
+				add = var:ztr_un_value_law_state_balance
+			}
+			change_variable = {
+				name = ztr_un_law_value_objective_considered
+				add = var:ztr_un_value_law_development_inverse_balance
+			}
+			change_variable = {
+				name = ztr_un_law_value_objective_considered
+				add = var:ztr_un_value_law_literacy_inverse_balance
+			}
+		}
+		# Considered law: IMF 1 = Established
+		if = {
+			limit = {
+				var:ztr_un_subject_considered = 8
+				var:ztr_un_law_considered = 1
+			}
+			if = {
+				limit = {
+					exists = ruler
+					ruler = {
+						has_ideology = ideology:ideology_market_liberal
+					}
+				}
+				change_variable = {
+					name = ztr_un_law_value_objective_considered
+					add = 20
+				}
+			}
+			if = {
+				limit = {
+					has_technology_researched = secure_market_transactions
+				}
+				change_variable = {
+					name = ztr_un_law_value_objective_considered
+					add = 20
+				}
+			}
+			if = {
+				limit = {
+					has_law_or_variant = law_type:law_free_trade
+				}
+				change_variable = {
+					name = ztr_un_law_value_objective_considered
+					add = 10
+				}
+			}
+			if = {
+				limit = {
+					has_law_or_variant = law_type:law_laissez_faire
+				}
+				change_variable = {
+					name = ztr_un_law_value_objective_considered
+					add = 10
+				}
+			}
+			if = {
+				limit = {
+					has_law_or_variant = law_type:law_interventionism
+				}
+				change_variable = {
+					name = ztr_un_law_value_objective_considered
+					add = 5
+				}
+			}
+			if = {
+				limit = {
+					has_law_or_variant = law_type:law_command_economy
+				}
+				change_variable = {
+					name = ztr_un_law_value_objective_considered
+					add = -20
+				}
+			}
+			if = {
+				limit = {
+					has_radical_leftist_government = yes
+				}
+				change_variable = {
+					name = ztr_un_law_value_objective_considered
+					add = -20
+				}
+			}
+			if = {
+				limit = {
+					OR = {
+						country_rank = rank_value:great_power
+						country_rank = rank_value:major_power
+					}
+				}
+				change_variable = {
+					name = ztr_un_law_value_objective_considered
+					add = 10
+				}
+			}
+			if = {
+				limit = {
+					has_imf_modifier = yes
+				}
+				change_variable = {
+					name = ztr_un_law_value_objective_considered
+					add = 10
+				}
+			}
+			change_variable = {
+				name = ztr_un_law_value_objective_considered
+				add = var:ztr_un_value_law_market_balance
+			}
+			change_variable = {
+				name = ztr_un_law_value_objective_considered
+				add = var:ztr_un_value_law_development_balance
+			}
+			change_variable = {
+				name = ztr_un_law_value_objective_considered
+				add = var:ztr_un_value_law_literacy_balance
+			}
+			if = {
+				limit = {
+					var:ztr_un_value_law_imperial_stake > 0
+				}
+				change_variable = {
+					name = ztr_un_law_value_objective_considered
+					add = 5
+				}
+			}
+		}
+		# Considered law: WTO 0 = Not Established
+		if = {
+			limit = {
+				var:ztr_un_subject_considered = 9
+				var:ztr_un_law_considered = 0
+			}
+			if = {
+				limit = {
+					has_radical_leftist_government = yes
+				}
+				change_variable = {
+					name = ztr_un_law_value_objective_considered
+					add = 15
+				}
+			}
+			if = {
+				limit = {
+					has_law_or_variant = law_type:law_protectionism
+				}
+				change_variable = {
+					name = ztr_un_law_value_objective_considered
+					add = 15
+				}
+			}
+			if = {
+				limit = {
+					has_law_or_variant = law_type:law_mercantilism
+				}
+				change_variable = {
+					name = ztr_un_law_value_objective_considered
+					add = 10
+				}
+			}
+			if = {
+				limit = {
+					has_technology_researched = globalization
+				}
+				change_variable = {
+					name = ztr_un_law_value_objective_considered
+					add = -20
+				}
+			}
+			if = {
+				limit = {
+					has_law_or_variant = law_type:law_free_trade
+				}
+				change_variable = {
+					name = ztr_un_law_value_objective_considered
+					add = -15
+				}
+			}
+			if = {
+				limit = {
+					exists = ruler
+					ruler = {
+						has_ideology = ideology:ideology_market_liberal
+					}
+				}
+				change_variable = {
+					name = ztr_un_law_value_objective_considered
+					add = -10
+				}
+			}
+			change_variable = {
+				name = ztr_un_law_value_objective_considered
+				add = var:ztr_un_value_law_state_balance
+			}
+			change_variable = {
+				name = ztr_un_law_value_objective_considered
+				add = var:ztr_un_value_law_development_inverse_balance
+			}
+			change_variable = {
+				name = ztr_un_law_value_objective_considered
+				add = var:ztr_un_value_law_literacy_inverse_balance
+			}
+		}
+		# Considered law: WTO 1 = Established
+		if = {
+			limit = {
+				var:ztr_un_subject_considered = 9
+				var:ztr_un_law_considered = 1
+			}
+			if = {
+				limit = {
+					has_technology_researched = globalization
+				}
+				change_variable = {
+					name = ztr_un_law_value_objective_considered
+					add = 20
+				}
+			}
+			if = {
+				limit = {
+					has_law_or_variant = law_type:law_free_trade
+				}
+				change_variable = {
+					name = ztr_un_law_value_objective_considered
+					add = 15
+				}
+			}
+			if = {
+				limit = {
+					has_law_or_variant = law_type:law_protectionism
+				}
+				change_variable = {
+					name = ztr_un_law_value_objective_considered
+					add = -15
+				}
+			}
+			if = {
+				limit = {
+					has_law_or_variant = law_type:law_mercantilism
+				}
+				change_variable = {
+					name = ztr_un_law_value_objective_considered
+					add = -10
+				}
+			}
+			if = {
+				limit = {
+					has_radical_leftist_government = yes
+				}
+				change_variable = {
+					name = ztr_un_law_value_objective_considered
+					add = -15
+				}
+			}
+			if = {
+				limit = {
+					exists = ruler
+					ruler = {
+						has_ideology = ideology:ideology_market_liberal
+					}
+				}
+				change_variable = {
+					name = ztr_un_law_value_objective_considered
+					add = 10
+				}
+			}
+			if = {
+				limit = {
+					OR = {
+						country_rank = rank_value:great_power
+						country_rank = rank_value:major_power
+					}
+				}
+				change_variable = {
+					name = ztr_un_law_value_objective_considered
+					add = 5
+				}
+			}
+			change_variable = {
+				name = ztr_un_law_value_objective_considered
+				add = var:ztr_un_value_law_market_balance
+			}
+			change_variable = {
+				name = ztr_un_law_value_objective_considered
+				add = var:ztr_un_value_law_development_balance
+			}
+			change_variable = {
+				name = ztr_un_law_value_objective_considered
+				add = var:ztr_un_value_law_literacy_balance
+			}
+			if = {
+				limit = {
+					exists = ig:ig_industrialists
+					ig:ig_industrialists = {
+						is_powerful = yes
+					}
+				}
+				change_variable = {
+					name = ztr_un_law_value_objective_considered
+					add = 5
+				}
+			}
+		}
+		# Considered law: ICC 0 = Not Established
+		if = {
+			limit = {
+				var:ztr_un_subject_considered = 10
+				var:ztr_un_law_considered = 0
+			}
+			if = {
+				limit = {
+					infamy >= 25
+				}
+				change_variable = {
+					name = ztr_un_law_value_objective_considered
+					add = 20
+				}
+			}
+			if = {
+				limit = {
+					OR = {
+						has_law_or_variant = law_type:law_frontier_colonization
+						has_law_or_variant = law_type:law_colonial_resettlement
+						has_law_or_variant = law_type:law_colonial_exploitation
+					}
+				}
+				change_variable = {
+					name = ztr_un_law_value_objective_considered
+					add = 10
+				}
+			}
+			if = {
+				limit = {
+					OR = {
+						has_law_or_variant = law_type:law_colonial_slavery
+						has_law_or_variant = law_type:law_debt_slavery
+						has_law_or_variant = law_type:law_slave_trade
+						has_law_or_variant = law_type:law_legacy_slavery
+					}
+				}
+				change_variable = {
+					name = ztr_un_law_value_objective_considered
+					add = 10
+				}
+			}
+			change_variable = {
+				name = ztr_un_law_value_objective_considered
+				add = var:ztr_un_value_law_government_hierarchy_balance
+			}
+			change_variable = {
+				name = ztr_un_law_value_objective_considered
+				add = var:ztr_un_value_law_liberty_inverse_balance
+			}
+			change_variable = {
+				name = ztr_un_law_value_objective_considered
+				add = var:ztr_un_value_law_rights_bloc_inverse_balance
+			}
+			if = {
+				limit = {
+					var:ztr_un_value_law_imperial_stake > 0
+				}
+				change_variable = {
+					name = ztr_un_law_value_objective_considered
+					add = 10
+				}
+			}
+		}
+		# Considered law: ICC 1 = Established
+		if = {
+			limit = {
+				var:ztr_un_subject_considered = 10
+				var:ztr_un_law_considered = 1
+			}
+			change_variable = {
+				name = ztr_un_law_value_objective_considered
+				add = var:ztr_un_value_law_government_progressive_balance
+			}
+			change_variable = {
+				name = ztr_un_law_value_objective_considered
+				add = var:ztr_un_value_law_liberty_balance
+			}
+			change_variable = {
+				name = ztr_un_law_value_objective_considered
+				add = var:ztr_un_value_law_equality_balance_small
+			}
+			change_variable = {
+				name = ztr_un_law_value_objective_considered
+				add = var:ztr_un_value_law_rights_bloc_balance
+			}
+			if = {
+				limit = {
+					var:ztr_un_value_law_imperial_stake > 0
+				}
+				change_variable = {
+					name = ztr_un_law_value_objective_considered
+					add = -10
+				}
+			}
+			if = {
+				limit = {
+					infamy >= 25
+				}
+				change_variable = {
+					name = ztr_un_law_value_objective_considered
+					add = -20
+				}
+			}
+			if = {
+				limit = {
+					OR = {
+						has_law_or_variant = law_type:law_frontier_colonization
+						has_law_or_variant = law_type:law_colonial_resettlement
+						has_law_or_variant = law_type:law_colonial_exploitation
+					}
+				}
+				change_variable = {
+					name = ztr_un_law_value_objective_considered
+					add = -10
+				}
+			}
+			if = {
+				limit = {
+					OR = {
+						has_law_or_variant = law_type:law_colonial_slavery
+						has_law_or_variant = law_type:law_debt_slavery
+						has_law_or_variant = law_type:law_slave_trade
+						has_law_or_variant = law_type:law_legacy_slavery
+					}
+				}
+				change_variable = {
+					name = ztr_un_law_value_objective_considered
+					add = -20
+				}
+			}
+			if = {
+				limit = {
+					exists = ruler
+					ruler = {
+						has_ideology = ideology:ideology_traditionalist
+					}
+				}
+				change_variable = {
+					name = ztr_un_law_value_objective_considered
+					add = -5
+				}
+			}
+		}
+		# Considered law: UNESCO 0 = Not Established
+		if = {
+			limit = {
+				var:ztr_un_subject_considered = 11
+				var:ztr_un_law_considered = 0
+			}
+			if = {
+				limit = {
+					exists = ruler
+					ruler = {
+						has_ideology = ideology:ideology_traditionalist
+					}
+				}
+				change_variable = {
+					name = ztr_un_law_value_objective_considered
+					add = 10
+				}
+			}
+			if = {
+				limit = {
+					has_research_center = yes
+				}
+				change_variable = {
+					name = ztr_un_law_value_objective_considered
+					add = -10
+				}
+			}
+			if = {
+				limit = {
+					has_technology_researched = international_organizations
+				}
+				change_variable = {
+					name = ztr_un_law_value_objective_considered
+					add = -10
+				}
+			}
+			change_variable = {
+				name = ztr_un_law_value_objective_considered
+				add = var:ztr_un_value_law_literacy_inverse_balance
+			}
+			change_variable = {
+				name = ztr_un_law_value_objective_considered
+				add = var:ztr_un_value_law_development_inverse_balance
+			}
+			change_variable = {
+				name = ztr_un_law_value_objective_considered
+				add = var:ztr_un_value_law_demographic_inverse_balance
+			}
+			change_variable = {
+				name = ztr_un_law_value_objective_considered
+				add = var:ztr_un_value_law_rights_bloc_inverse_balance
+			}
+		}
+		# Considered law: UNESCO 1 = Established
+		if = {
+			limit = {
+				var:ztr_un_subject_considered = 11
+				var:ztr_un_law_considered = 1
+			}
+			change_variable = {
+				name = ztr_un_law_value_objective_considered
+				add = var:ztr_un_value_law_literacy_balance
+			}
+			change_variable = {
+				name = ztr_un_law_value_objective_considered
+				add = var:ztr_un_value_law_development_balance
+			}
+			change_variable = {
+				name = ztr_un_law_value_objective_considered
+				add = var:ztr_un_value_law_demographic_balance
+			}
+			if = {
+				limit = {
+					has_research_center = yes
+				}
+				change_variable = {
+					name = ztr_un_law_value_objective_considered
+					add = 10
+				}
+			}
+			if = {
+				limit = {
+					has_technology_researched = international_organizations
+				}
+				change_variable = {
+					name = ztr_un_law_value_objective_considered
+					add = 10
+				}
+			}
+			change_variable = {
+				name = ztr_un_law_value_objective_considered
+				add = var:ztr_un_value_law_equality_balance_small
+			}
+			change_variable = {
+				name = ztr_un_law_value_objective_considered
+				add = var:ztr_un_value_law_rights_bloc_balance
+			}
+			if = {
+				limit = {
+					exists = ruler
+					ruler = {
+						has_ideology = ideology:ideology_traditionalist
+					}
+				}
+				change_variable = {
+					name = ztr_un_law_value_objective_considered
+					add = -5
+				}
+			}
+		}
+		
+		# Secret layer
+		# Considered law: any Voting Model proposal uses the considered UN role as an absolute score.
+		if = {
+			limit = {
+				var:ztr_un_subject_considered = 1
+			}
+			set_variable = {
+				name = ztr_un_value_law_considered_un_role
+				value = 0
+			}
+			# Considered law inside secret scoring: Voting Model 1 = One Country One Vote
+			if = {
+				limit = {
+					ztr_is_un_member = yes
+					var:ztr_un_law_considered = 1
+				}
+				set_variable = {
+					name = ztr_un_value_law_considered_un_role
+					value = 5 #10
+				}
+			}
+			# Considered law inside secret scoring: Voting Model 2 = Weighted by Prestige
+			else_if = {
+				limit = {
+					ztr_is_un_member = yes
+					var:ztr_un_law_considered = 2
+				}
+				if = {
+					limit = {
+						country_rank = rank_value:great_power
+					}
+					set_variable = {
+						name = ztr_un_value_law_considered_un_role
+						value = 20 #25
+					}
+				}
+				else_if = {
+					limit = {
+						country_rank = rank_value:major_power
+					}
+					set_variable = {
+						name = ztr_un_value_law_considered_un_role
+						value = 15
+					}
+				}
+				else_if = {
+					limit = {
+						country_rank = rank_value:minor_power
+					}
+					set_variable = {
+						name = ztr_un_value_law_considered_un_role
+						value = 10
+					}
+				}
+				else = {
+					set_variable = {
+						name = ztr_un_value_law_considered_un_role
+						value = 5
+					}
+				}
+			}
+			# Considered law inside secret scoring: Voting Model 3 = Security Council Only
+			else_if = {
+				limit = {
+					has_modifier = ztr_onu_permanent_member
+					var:ztr_un_law_considered = 3
+				}
+				set_variable = {
+					name = ztr_un_value_law_considered_un_role
+					value = 25 #30
+				}
+			}
+			# Considered law inside secret scoring: Voting Model 4 = Superpowers Only
+			else_if = {
+				limit = {
+					ztr_is_un_member = yes
+					var:ztr_un_law_considered = 4
+				}
+				if = {
+					limit = {
+						global_country_ranking = 1
+					}
+					set_variable = {
+						name = ztr_un_value_law_considered_un_role
+						value = 40
+					}
+				}
+				else_if = {
+					limit = {
+						global_country_ranking <= 2
+					}
+					set_variable = {
+						name = ztr_un_value_law_considered_un_role
+						value = 25 #30
+					}
+				}
+				else_if = {
+					limit = {
+						country_rank = rank_value:great_power
+					}
+					set_variable = {
+						name = ztr_un_value_law_considered_un_role
+						value = 5 #10
+					}
+				}
+			}
+			change_variable = {
+				name = ztr_un_law_value_secret_considered
+				add = var:ztr_un_value_law_considered_un_role
+			}
+			# Rival check for considered law: Voting Model 1 = One Country One Vote
+			if = {
+				limit = {
+					var:ztr_un_law_considered = 1
+					any_rival_country = {
+						OR = {
+							has_modifier = ztr_onu_permanent_member
+							country_rank >= rank_value:major_power
+						}
+					}
+				}
+				change_variable = {
+					name = ztr_un_law_value_secret_considered
+					add = 10
+				}
+			}
+			# Rival check for considered law: Voting Model 2 = Weighted by Prestige
+			if = {
+				limit = {
+					var:ztr_un_law_considered = 2
+					OR = {
+						AND = {
+							country_rank = rank_value:major_power
+							any_rival_country = {
+								country_rank >= rank_value:great_power
+							}
+						}
+						AND = {
+							country_rank = rank_value:minor_power
+							any_rival_country = {
+								country_rank >= rank_value:major_power
+							}
+						}
+					}
+				}
+				change_variable = {
+					name = ztr_un_law_value_secret_considered
+					add = -5
+				}
+			}
+			# Rival check for considered law: Voting Model 3 = Security Council Only
+			if = {
+				limit = {
+					var:ztr_un_law_considered = 3
+					any_rival_country = {
+						has_modifier = ztr_onu_permanent_member
+					}
+				}
+				change_variable = {
+					name = ztr_un_law_value_secret_considered
+					add = -10
+				}
+			}
+			# Rival check for considered law: Voting Model 4 = Superpowers Only
+			if = {
+				limit = {
+					var:ztr_un_law_considered = 4
+					any_rival_country = {
+						global_country_ranking <= 2
+					}
+				}
+				change_variable = {
+					name = ztr_un_law_value_secret_considered
+					add = -15
+				}
+			}
+		}
+		# Considered law: any Veto Right proposal uses the considered veto role as an absolute score.
+		if = {
+			limit = {
+				var:ztr_un_subject_considered = 2
+			}
+			set_variable = {
+				name = ztr_un_value_law_considered_un_role
+				value = 0
+			}
+			# Considered law inside secret scoring: Veto Right 1 = Enabled
+			if = {
+				limit = {
+					has_modifier = ztr_onu_permanent_member
+					var:ztr_un_law_considered = 1
+				}
+				set_variable = {
+					name = ztr_un_value_law_considered_un_role
+					value = 30
+				}
+			}
+			change_variable = {
+				name = ztr_un_law_value_secret_considered
+				add = var:ztr_un_value_law_considered_un_role
+			}
+			# Rival check for considered law: Veto Right 0 = Disabled
+			if = {
+				limit = {
+					var:ztr_un_law_considered = 0
+					any_rival_country = {
+						has_modifier = ztr_onu_permanent_member
+					}
+				}
+				change_variable = {
+					name = ztr_un_law_value_secret_considered
+					add = 10
+				}
+			}
+			# Rival check for considered law: Veto Right 1 = Enabled
+			if = {
+				limit = {
+					var:ztr_un_law_considered = 1
+					any_rival_country = {
+						has_modifier = ztr_onu_permanent_member
+					}
+				}
+				change_variable = {
+					name = ztr_un_law_value_secret_considered
+					add = -10
+				}
+			}
+		}
+		# Considered law: any Member Selection proposal uses the considered permanent-seat role as an absolute score.
+		if = {
+			limit = {
+				var:ztr_un_subject_considered = 3
+			}
+			set_variable = {
+				name = ztr_un_value_law_considered_un_role
+				value = 0
+			}
+			# Considered law inside secret scoring: Member Selection 1 = By Prestige
+			if = {
+				limit = {
+					var:ztr_un_law_considered = 1
+				}
+				if = {
+					limit = {
+						global_country_ranking <= 3
+					}
+					set_variable = {
+						name = ztr_un_value_law_considered_un_role
+						value = 20
+					}
+				}
+				else_if = {
+					limit = {
+						country_rank = rank_value:great_power
+					}
+					set_variable = {
+						name = ztr_un_value_law_considered_un_role
+						value = 15
+					}
+				}
+				else_if = {
+					limit = {
+						country_rank = rank_value:major_power
+					}
+					set_variable = {
+						name = ztr_un_value_law_considered_un_role
+						value = 10
+					}
+				}
+				else_if = {
+					limit = {
+						country_rank = rank_value:minor_power
+					}
+					set_variable = {
+						name = ztr_un_value_law_considered_un_role
+						value = 5
+					}
+				}
+				if = {
+					limit = {
+						has_modifier = ztr_onu_permanent_member
+					}
+					change_variable = {
+						name = ztr_un_value_law_considered_un_role
+						add = 5
+					}
+				}
+			}
+			# Considered law inside secret scoring: Member Selection 2 = Geographic Representation
+			if = {
+				limit = {
+					var:ztr_un_law_considered = 2
+				}
+				if = {
+					limit = {
+						country_rank = rank_value:great_power
+					}
+					set_variable = {
+						name = ztr_un_value_law_considered_un_role
+						value = 15
+					}
+				}
+				else_if = {
+					limit = {
+						country_rank = rank_value:major_power
+					}
+					set_variable = {
+						name = ztr_un_value_law_considered_un_role
+						value = 10
+					}
+				}
+				else_if = {
+					limit = {
+						country_rank = rank_value:minor_power
+					}
+					set_variable = {
+						name = ztr_un_value_law_considered_un_role
+						value = 5
+					}
+				}
+				if = {
+					limit = {
+						OR = {
+							is_in_geographic_region = geographic_region_africa
+							is_in_geographic_region = geographic_region_middle_east
+							is_in_geographic_region = geographic_region_central_asia
+							is_in_geographic_region = geographic_region_india
+							is_in_geographic_region = geographic_region_south_east_asia
+							is_in_geographic_region = geographic_region_oceania
+							is_in_geographic_region = geographic_region_east_asia
+						}
+					}
+					change_variable = {
+						name = ztr_un_value_law_considered_un_role
+						add = 5
+					}
+				}
+				if = {
+					limit = {
+						has_modifier = ztr_onu_permanent_member
+					}
+					change_variable = {
+						name = ztr_un_value_law_considered_un_role
+						add = 5
+					}
+				}
+			}
+			# Considered law inside secret scoring: Member Selection 3 = By Military Power
+			if = {
+				limit = {
+					var:ztr_un_law_considered = 3
+				}
+				if = {
+					limit = {
+						army_power_projection > 200
+					}
+					set_variable = {
+						name = ztr_un_value_law_considered_un_role
+						value = 20
+					}
+				}
+				else_if = {
+					limit = {
+						army_power_projection > 100
+					}
+					set_variable = {
+						name = ztr_un_value_law_considered_un_role
+						value = 15
+					}
+				}
+				else_if = {
+					limit = {
+						country_rank = rank_value:major_power
+					}
+					set_variable = {
+						name = ztr_un_value_law_considered_un_role
+						value = 10
+					}
+				}
+				else_if = {
+					limit = {
+						country_rank = rank_value:minor_power
+					}
+					set_variable = {
+						name = ztr_un_value_law_considered_un_role
+						value = 5
+					}
+				}
+				if = {
+					limit = {
+						navy_size >= 50
+					}
+					change_variable = {
+						name = ztr_un_value_law_considered_un_role
+						add = 5
+					}
+				}
+			}
+			# Considered law inside secret scoring: Member Selection 4 = Strongest Country
+			if = {
+				limit = {
+					var:ztr_un_law_considered = 4
+					global_country_ranking = 1
+				}
+				set_variable = {
+					name = ztr_un_value_law_considered_un_role
+					value = 40
+				}
+			}
+			else_if = {
+				limit = {
+					var:ztr_un_law_considered = 4
+					global_country_ranking <= 3
+				}
+				set_variable = {
+					name = ztr_un_value_law_considered_un_role
+					value = 10
+				}
+			}
+			change_variable = {
+				name = ztr_un_law_value_secret_considered
+				add = var:ztr_un_value_law_considered_un_role
+			}
+			# Rival check for considered law: Member Selection 1 = By Prestige
+			if = {
+				limit = {
+					var:ztr_un_law_considered = 1
+					any_rival_country = {
+						country_rank = rank_value:great_power
+					}
+				}
+				change_variable = {
+					name = ztr_un_law_value_secret_considered
+					add = -10
+				}
+			}
+			# Rival check for considered law: Member Selection 2 = Geographic Representation
+			if = {
+				limit = {
+					var:ztr_un_law_considered = 2
+					any_rival_country = {
+						OR = {
+							country_rank = rank_value:great_power
+							country_rank = rank_value:major_power
+						}
+					}
+				}
+				change_variable = {
+					name = ztr_un_law_value_secret_considered
+					add = -5
+				}
+			}
+			# Rival check for considered law: Member Selection 3 = By Military Power
+			if = {
+				limit = {
+					var:ztr_un_law_considered = 3
+					any_rival_country = {
+						army_power_projection > 200
+					}
+				}
+				change_variable = {
+					name = ztr_un_law_value_secret_considered
+					add = -10
+				}
+			}
+			# Rival check for considered law: Member Selection 4 = Strongest Country
+			if = {
+				limit = {
+					var:ztr_un_law_considered = 4
+					any_rival_country = {
+						global_country_ranking = 1
+					}
+				}
+				change_variable = {
+					name = ztr_un_law_value_secret_considered
+					add = -20
+				}
+			}
+		}
+		# Rival effects for rights and institutions
+		# Considered law: Decolonization 0 = Neutral
+		if = {
+			limit = {
+				var:ztr_un_subject_considered = 4
+				var:ztr_un_law_considered = 0
+			}
+			every_rival_country = {
+				limit = {
+					OR = {
+						has_law_or_variant = law_type:law_frontier_colonization
+						has_law_or_variant = law_type:law_colonial_resettlement
+						has_law_or_variant = law_type:law_colonial_exploitation
+					}
+				}
+				root = {
+					change_variable = {
+						name = ztr_un_law_value_secret_considered
+						add = -5
+					}
+				}
+			}
+		}
+		# Considered law: Decolonization 1 = Conservative Decolonization
+		if = {
+			limit = {
+				var:ztr_un_subject_considered = 4
+				var:ztr_un_law_considered = 1
+			}
+			every_rival_country = {
+				limit = {
+					OR = {
+						has_law_or_variant = law_type:law_frontier_colonization
+						has_law_or_variant = law_type:law_colonial_resettlement
+						has_law_or_variant = law_type:law_colonial_exploitation
+					}
+				}
+				root = {
+					change_variable = {
+						name = ztr_un_law_value_secret_considered
+						add = 5
+					}
+				}
+			}
+		}
+		# Considered law: Decolonization 2 = Encouraged Decolonization
+		if = {
+			limit = {
+				var:ztr_un_subject_considered = 4
+				var:ztr_un_law_considered = 2
+			}
+			every_rival_country = {
+				limit = {
+					OR = {
+						has_law_or_variant = law_type:law_frontier_colonization
+						has_law_or_variant = law_type:law_colonial_resettlement
+						has_law_or_variant = law_type:law_colonial_exploitation
+					}
+				}
+				root = {
+					change_variable = {
+						name = ztr_un_law_value_secret_considered
+						add = 10
+					}
+				}
+			}
+		}
+		# Considered law: Slavery 0 = Neutral
+		if = {
+			limit = {
+				var:ztr_un_subject_considered = 5
+				var:ztr_un_law_considered = 0
+			}
+			every_rival_country = {
+				limit = {
+					OR = {
+						has_law_or_variant = law_type:law_colonial_slavery
+						has_law_or_variant = law_type:law_debt_slavery
+						has_law_or_variant = law_type:law_slave_trade
+						has_law_or_variant = law_type:law_legacy_slavery
+					}
+				}
+				root = {
+					change_variable = {
+						name = ztr_un_law_value_secret_considered
+						add = -5
+					}
+				}
+			}
+		}
+		# Considered law: Slavery 1 = Illegal
+		if = {
+			limit = {
+				var:ztr_un_subject_considered = 5
+				var:ztr_un_law_considered = 1
+			}
+			every_rival_country = {
+				limit = {
+					OR = {
+						has_law_or_variant = law_type:law_colonial_slavery
+						has_law_or_variant = law_type:law_debt_slavery
+						has_law_or_variant = law_type:law_slave_trade
+						has_law_or_variant = law_type:law_legacy_slavery
+					}
+				}
+				root = {
+					change_variable = {
+						name = ztr_un_law_value_secret_considered
+						add = 10
+					}
+				}
+			}
+		}
+		# Considered law: Children's Rights 0 = Negligible
+		if = {
+			limit = {
+				var:ztr_un_subject_considered = 6
+				var:ztr_un_law_considered = 0
+			}
+			every_rival_country = {
+				limit = {
+					has_law_or_variant = law_type:law_child_labor_allowed
+				}
+				root = {
+					change_variable = {
+						name = ztr_un_law_value_secret_considered
+						add = -5
+					}
+				}
+			}
+		}
+		# Considered law: Children's Rights 1 = Restricted Child Labor
+		if = {
+			limit = {
+				var:ztr_un_subject_considered = 6
+				var:ztr_un_law_considered = 1
+			}
+			every_rival_country = {
+				limit = {
+					has_law_or_variant = law_type:law_child_labor_allowed
+				}
+				root = {
+					change_variable = {
+						name = ztr_un_law_value_secret_considered
+						add = 5
+					}
+				}
+			}
+		}
+		# Considered law: Children's Rights 2 = Compulsory Study
+		if = {
+			limit = {
+				var:ztr_un_subject_considered = 6
+				var:ztr_un_law_considered = 2
+			}
+			every_rival_country = {
+				limit = {
+					OR = {
+						has_law_or_variant = law_type:law_child_labor_allowed
+						has_law_or_variant = law_type:law_restricted_child_labor
+					}
+				}
+				root = {
+					change_variable = {
+						name = ztr_un_law_value_secret_considered
+						add = 10
+					}
+				}
+			}
+		}
+		# Considered law: Women's Rights 0 = Negligible
+		if = {
+			limit = {
+				var:ztr_un_subject_considered = 7
+				var:ztr_un_law_considered = 0
+			}
+			every_rival_country = {
+				limit = {
+					OR = {
+						has_law_or_variant = law_type:law_no_womens_rights
+						has_law_or_variant = law_type:law_women_in_the_fields
+						has_law_or_variant = law_type:law_women_own_property
+					}
+				}
+				root = {
+					change_variable = {
+						name = ztr_un_law_value_secret_considered
+						add = -5
+					}
+				}
+			}
+		}
+		# Considered law: Women's Rights 1 = Gender Equality
+		if = {
+			limit = {
+				var:ztr_un_subject_considered = 7
+				var:ztr_un_law_considered = 1
+			}
+			every_rival_country = {
+				limit = {
+					OR = {
+						has_law_or_variant = law_type:law_no_womens_rights
+						has_law_or_variant = law_type:law_women_in_the_fields
+						has_law_or_variant = law_type:law_women_own_property
+					}
+				}
+				root = {
+					change_variable = {
+						name = ztr_un_law_value_secret_considered
+						add = 10
+					}
+				}
+			}
+		}
+		# Considered law: IMF 0 = Not Established
+		if = {
+			limit = {
+				var:ztr_un_subject_considered = 8
+				var:ztr_un_law_considered = 0
+			}
+			every_rival_country = {
+				limit = {
+					OR = {
+						has_technology_researched = secure_market_transactions
+						has_law_or_variant = law_type:law_free_trade
+						has_law_or_variant = law_type:law_laissez_faire
+					}
+				}
+				root = {
+					change_variable = {
+						name = ztr_un_law_value_secret_considered
+						add = 5
+					}
+				}
+			}
+		}
+		# Considered law: IMF 1 = Established
+		if = {
+			limit = {
+				var:ztr_un_subject_considered = 8
+				var:ztr_un_law_considered = 1
+			}
+			every_rival_country = {
+				limit = {
+					OR = {
+						has_technology_researched = secure_market_transactions
+						has_law_or_variant = law_type:law_free_trade
+						has_law_or_variant = law_type:law_laissez_faire
+					}
+				}
+				root = {
+					change_variable = {
+						name = ztr_un_law_value_secret_considered
+						add = -5
+					}
+				}
+			}
+		}
+		# Considered law: WTO 0 = Not Established
+		if = {
+			limit = {
+				var:ztr_un_subject_considered = 9
+				var:ztr_un_law_considered = 0
+			}
+			every_rival_country = {
+				limit = {
+					OR = {
+						has_technology_researched = globalization
+						has_law_or_variant = law_type:law_free_trade
+					}
+				}
+				root = {
+					change_variable = {
+						name = ztr_un_law_value_secret_considered
+						add = 5
+					}
+				}
+			}
+		}
+		# Considered law: WTO 1 = Established
+		if = {
+			limit = {
+				var:ztr_un_subject_considered = 9
+				var:ztr_un_law_considered = 1
+			}
+			every_rival_country = {
+				limit = {
+					OR = {
+						has_technology_researched = globalization
+						has_law_or_variant = law_type:law_free_trade
+					}
+				}
+				root = {
+					change_variable = {
+						name = ztr_un_law_value_secret_considered
+						add = -5
+					}
+				}
+			}
+		}
+		# Considered law: ICC 0 = Not Established
+		if = {
+			limit = {
+				var:ztr_un_subject_considered = 10
+				var:ztr_un_law_considered = 0
+			}
+			every_rival_country = {
+				limit = {
+					OR = {
+						infamy >= 25
+						has_law_or_variant = law_type:law_frontier_colonization
+						has_law_or_variant = law_type:law_colonial_resettlement
+						has_law_or_variant = law_type:law_colonial_exploitation
+						has_law_or_variant = law_type:law_colonial_slavery
+						has_law_or_variant = law_type:law_debt_slavery
+						has_law_or_variant = law_type:law_slave_trade
+						has_law_or_variant = law_type:law_legacy_slavery
+					}
+				}
+				root = {
+					change_variable = {
+						name = ztr_un_law_value_secret_considered
+						add = -5
+					}
+				}
+			}
+		}
+		# Considered law: ICC 1 = Established
+		if = {
+			limit = {
+				var:ztr_un_subject_considered = 10
+				var:ztr_un_law_considered = 1
+			}
+			every_rival_country = {
+				limit = {
+					OR = {
+						infamy >= 25
+						has_law_or_variant = law_type:law_frontier_colonization
+						has_law_or_variant = law_type:law_colonial_resettlement
+						has_law_or_variant = law_type:law_colonial_exploitation
+						has_law_or_variant = law_type:law_colonial_slavery
+						has_law_or_variant = law_type:law_debt_slavery
+						has_law_or_variant = law_type:law_slave_trade
+						has_law_or_variant = law_type:law_legacy_slavery
+					}
+				}
+				root = {
+					change_variable = {
+						name = ztr_un_law_value_secret_considered
+						add = 10
+					}
+				}
+			}
+		}
+		# Considered law: UNESCO 0 = Not Established
+		if = {
+			limit = {
+				var:ztr_un_subject_considered = 11
+				var:ztr_un_law_considered = 0
+			}
+			every_rival_country = {
+				limit = {
+					OR = {
+						literacy_rate >= 0.5
+						has_research_center = yes
+						has_technology_researched = international_organizations
+					}
+				}
+				root = {
+					change_variable = {
+						name = ztr_un_law_value_secret_considered
+						add = 5
+					}
+				}
+			}
+		}
+		# Considered law: UNESCO 1 = Established
+		if = {
+			limit = {
+				var:ztr_un_subject_considered = 11
+				var:ztr_un_law_considered = 1
+			}
+			every_rival_country = {
+				limit = {
+					OR = {
+						literacy_rate >= 0.5
+						has_research_center = yes
+						has_technology_researched = international_organizations
+					}
+				}
+				root = {
+					change_variable = {
+						name = ztr_un_law_value_secret_considered
+						add = -5
+					}
+				}
+			}
+		}
+		# Considered law: if this exact subject/law pair is the active UN vote, proposer diplomacy adjusts the secret score.
+		if = {
+			limit = {
+				has_global_variable = ztr_un_vote_in_progress
+				has_global_variable = ztr_un_vote_subject
+				has_global_variable = ztr_un_vote_proposal
+				AND = {
+					var:ztr_un_subject_considered = global_var:ztr_un_vote_subject
+					var:ztr_un_law_considered = global_var:ztr_un_vote_proposal
+				}
+			}
+			every_country = {
+				limit = {
+					has_variable = ztr_un_vote_proposer
+				}
+				if = {
+					limit = {
+						root ?= this
+					}
+					root = {
+						change_variable = {
+							name = ztr_un_law_value_secret_considered
+							add = 15
+						}
+					}
+				}
+				if = {
+					limit = {
+						has_diplomatic_pact = {
+							who = root
+							type = rivalry
+						}
+					}
+					root = {
+						change_variable = {
+							name = ztr_un_law_value_secret_considered
+							add = -15
+						}
+					}
+				}
+				if = {
+					limit = {
+						relations:root <= relations_threshold:poor
+					}
+					root = {
+						change_variable = {
+							name = ztr_un_law_value_secret_considered
+							add = -10
+						}
+					}
+				}
+				else_if = {
+					limit = {
+						relations:root >= relations_threshold:friendly
+					}
+					root = {
+						change_variable = {
+							name = ztr_un_law_value_secret_considered
+							add = 10
+						}
+					}
+				}
+				else_if = {
+					limit = {
+						relations:root >= relations_threshold:cordial
+					}
+					root = {
+						change_variable = {
+							name = ztr_un_law_value_secret_considered
+							add = 5
+						}
+					}
+				}
+				if = {
+					limit = {
+						root = {
+							OR = {
+								has_attitude = {
+									who = prev
+									attitude = antagonistic
+								}
+								has_attitude = {
+									who = prev
+									attitude = domineering
+								}
+								has_attitude = {
+									who = prev
+									attitude = belligerent
+								}
+								has_attitude = {
+									who = prev
+									attitude = rebellious
+								}
+							}
+						}
+					}
+					root = {
+						change_variable = {
+							name = ztr_un_law_value_secret_considered
+							add = -10
+						}
+					}
+				}
+				if = {
+					limit = {
+						root = {
+							OR = {
+								has_attitude = {
+									who = prev
+									attitude = genial
+								}
+								has_attitude = {
+									who = prev
+									attitude = cooperative
+								}
+								has_attitude = {
+									who = prev
+									attitude = conciliatory
+								}
+								has_attitude = {
+									who = prev
+									attitude = protective
+								}
+							}
+						}
+					}
+					root = {
+						change_variable = {
+							name = ztr_un_law_value_secret_considered
+							add = 10
+						}
+					}
+				}
+			}
+		}
+	}
+	set_variable = {
+		name = ztr_un_law_value_total_considered
+		value = var:ztr_un_law_value_objective_considered
+	}
+	change_variable = {
+		name = ztr_un_law_value_total_considered
+		add = var:ztr_un_law_value_secret_considered
+	}
+	if = {
+		limit = {
+			var:ztr_un_law_value_total_considered > 100
+		}
+		set_variable = {
+			name = ztr_un_law_value_total_considered
+			value = 100
+		}
+	}
+	if = {
+		limit = {
+			var:ztr_un_law_value_total_considered < -100
+		}
+		set_variable = {
+			name = ztr_un_law_value_total_considered
+			value = -100
+		}
+	}
+	remove_variable = ztr_un_value_law_liberty_balance
+	remove_variable = ztr_un_value_law_liberty_balance_small
+	remove_variable = ztr_un_value_law_liberty_inverse_balance
+	remove_variable = ztr_un_value_law_liberty_inverse_balance_small
+	remove_variable = ztr_un_value_law_equality_balance
+	remove_variable = ztr_un_value_law_equality_balance_small
+	remove_variable = ztr_un_value_law_equality_inverse_balance
+	remove_variable = ztr_un_value_law_equality_inverse_balance_small
+	remove_variable = ztr_un_value_law_literacy_balance
+	remove_variable = ztr_un_value_law_literacy_inverse_balance
+	remove_variable = ztr_un_value_law_development_balance
+	remove_variable = ztr_un_value_law_development_inverse_balance
+	remove_variable = ztr_un_value_law_demographic_balance
+	remove_variable = ztr_un_value_law_demographic_inverse_balance
+	remove_variable = ztr_un_value_law_government_progressive_balance
+	remove_variable = ztr_un_value_law_government_hierarchy_balance
+	remove_variable = ztr_un_value_law_market_balance
+	remove_variable = ztr_un_value_law_state_balance
+	remove_variable = ztr_un_value_law_rights_bloc_balance
+	remove_variable = ztr_un_value_law_rights_bloc_inverse_balance
+	remove_variable = ztr_un_value_law_imperial_stake
+	remove_variable = ztr_un_value_law_considered_un_role
+}

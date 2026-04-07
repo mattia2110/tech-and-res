@@ -123,19 +123,11 @@ je_decolonization = {
 	group = je_group_foreign_affairs
 	is_shown_when_inactive = {
 		has_game_rule = allow_ztr_decolonization_content
-		any_subject_or_below = {
-			NOT = {
-				has_government_type = gov_zhuz
-			}
-		}
+		has_global_variable = ztr_decolonization_age_var
 	}
 	possible = {
+		has_game_rule = allow_ztr_decolonization_content
 		has_global_variable = ztr_decolonization_age_var
-		any_subject_or_below = {
-			NOT = {
-				has_government_type = gov_zhuz
-			}
-		}
 	}
 	immediate = {
 		set_variable = {
@@ -260,13 +252,6 @@ je_decolonization = {
 	complete = {
 		custom_tooltip = {
 			text = je_decolonization_complete_tt
-			NOT = {
-				any_subject_or_below = {
-					NOT = {
-						has_government_type = gov_zhuz
-					}
-				}
-			}
 		}
 	}
 	on_complete = {

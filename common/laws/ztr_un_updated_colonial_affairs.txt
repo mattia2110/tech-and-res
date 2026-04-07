@@ -23,10 +23,11 @@ REPLACE:law_frontier_colonization = {
 		}
 		custom_tooltip = {
 			text = ztr_un_hr_encouraged_decolonization_tt
-			ztr_is_un_member = yes
-			NOT = {
-				has_global_variable = ztr_un_hr_decolonization
-				global_var:ztr_un_hr_decolonization = 2
+			OR = {
+				NOT = { ztr_is_un_member = yes }
+				NOT = {
+					global_var:ztr_un_hr_decolonization = 2
+				}
 			}
 		}
 	}
@@ -59,10 +60,11 @@ REPLACE:law_frontier_colonization = {
 		}
 		custom_tooltip = {
 			text = ztr_un_hr_encouraged_decolonization_tt
-			ztr_is_un_member = yes
-			NOT = {
-				has_global_variable = ztr_un_hr_decolonization
-				global_var:ztr_un_hr_decolonization = 2
+			OR = {
+				NOT = { ztr_is_un_member = yes }
+				NOT = {
+					global_var:ztr_un_hr_decolonization = 2
+				}
 			}
 		}
 	}
@@ -134,13 +136,15 @@ REPLACE:law_colonial_resettlement = {
 	institution = institution_colonial_affairs
 
 	#T&R
+	#TODO Pensare se forse portare divieto queste leggi solo a decolonizzazione incoraggiata
 	can_enact = {
 		custom_tooltip = {
 			text = ztr_un_hr_conservative_decolonization_tt
-			ztr_is_un_member = yes
-			NOT = {
-				has_global_variable = ztr_un_hr_decolonization
-				global_var:ztr_un_hr_decolonization > 0
+			OR = {
+				NOT = { ztr_is_un_member = yes }
+				NOT = {
+					global_var:ztr_un_hr_decolonization > 0
+				}
 			}
 		}
 	}
@@ -159,10 +163,11 @@ REPLACE:law_colonial_resettlement = {
 		}
 		custom_tooltip = {
 			text = ztr_un_hr_conservative_decolonization_tt
-			ztr_is_un_member = yes
-			NOT = {
-				has_global_variable = ztr_un_hr_decolonization
-				global_var:ztr_un_hr_decolonization > 0
+			OR = {
+				NOT = { ztr_is_un_member = yes }
+				NOT = {
+					global_var:ztr_un_hr_decolonization > 0
+				}
 			}
 		}
 	}
@@ -244,10 +249,11 @@ REPLACE:law_colonial_exploitation = {
 	can_enact = {
 		custom_tooltip = {
 			text = ztr_un_hr_conservative_decolonization_tt
-			ztr_is_un_member = yes
-			NOT = {
-				has_global_variable = ztr_un_hr_decolonization
-				global_var:ztr_un_hr_decolonization > 0
+			OR = {
+				NOT = { ztr_is_un_member = yes }
+				NOT = {
+					global_var:ztr_un_hr_decolonization > 0
+				}
 			}
 		}
 	}
@@ -266,10 +272,11 @@ REPLACE:law_colonial_exploitation = {
 		}
 		custom_tooltip = {
 			text = ztr_un_hr_conservative_decolonization_tt
-			ztr_is_un_member = yes
-			NOT = {
-				has_global_variable = ztr_un_hr_decolonization
-				global_var:ztr_un_hr_decolonization > 0
+			OR = {
+				NOT = { ztr_is_un_member = yes }
+				NOT = {
+					global_var:ztr_un_hr_decolonization > 0
+				}
 			}
 		}
 	}

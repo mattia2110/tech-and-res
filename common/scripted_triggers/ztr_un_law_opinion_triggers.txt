@@ -1,0 +1,177 @@
+# Here we have all the triggers needed for UN
+
+#1. ztr_un_is_not_applied_law
+#2. ztr_un_country_can_propose_possible_law
+
+ztr_un_is_not_applied_law = {
+	has_global_variable = ztr_un_subject_possible_proposal
+	has_global_variable = ztr_un_law_possible_proposal
+
+	OR = {
+		AND = {
+			global_var:ztr_un_subject_possible_proposal = 1
+			has_global_variable = ztr_un_law_voting_model
+			NOT = {
+				global_var:ztr_un_law_voting_model = global_var:ztr_un_law_possible_proposal
+			}
+		}
+		AND = {
+			global_var:ztr_un_subject_possible_proposal = 2
+			has_global_variable = ztr_un_law_veto_right
+			NOT = {
+				global_var:ztr_un_law_veto_right = global_var:ztr_un_law_possible_proposal
+			}
+		}
+		AND = {
+			global_var:ztr_un_subject_possible_proposal = 3
+			has_global_variable = ztr_un_law_member_selection
+			NOT = {
+				global_var:ztr_un_law_member_selection = global_var:ztr_un_law_possible_proposal
+			}
+		}
+		AND = {
+			global_var:ztr_un_subject_possible_proposal = 4
+			has_global_variable = ztr_un_hr_decolonization
+			NOT = {
+				global_var:ztr_un_hr_decolonization = global_var:ztr_un_law_possible_proposal
+			}
+		}
+		AND = {
+			global_var:ztr_un_subject_possible_proposal = 5
+			has_global_variable = ztr_un_hr_slavery
+			NOT = {
+				global_var:ztr_un_hr_slavery = global_var:ztr_un_law_possible_proposal
+			}
+		}
+		AND = {
+			global_var:ztr_un_subject_possible_proposal = 6
+			has_global_variable = ztr_un_hr_children_rights
+			NOT = {
+				global_var:ztr_un_hr_children_rights = global_var:ztr_un_law_possible_proposal
+			}
+		}
+		AND = {
+			global_var:ztr_un_subject_possible_proposal = 7
+			has_global_variable = ztr_un_hr_women_rights
+			NOT = {
+				global_var:ztr_un_hr_women_rights = global_var:ztr_un_law_possible_proposal
+			}
+		}
+		AND = {
+			global_var:ztr_un_subject_possible_proposal = 8
+			has_global_variable = ztr_un_institution_imf
+			NOT = {
+				global_var:ztr_un_institution_imf = global_var:ztr_un_law_possible_proposal
+			}
+		}
+		AND = {
+			global_var:ztr_un_subject_possible_proposal = 9
+			has_global_variable = ztr_un_institution_wto
+			NOT = {
+				global_var:ztr_un_institution_wto = global_var:ztr_un_law_possible_proposal
+			}
+		}
+		AND = {
+			global_var:ztr_un_subject_possible_proposal = 10
+			has_global_variable = ztr_un_institution_icc
+			NOT = {
+				global_var:ztr_un_institution_icc = global_var:ztr_un_law_possible_proposal
+			}
+		}
+		AND = {
+			global_var:ztr_un_subject_possible_proposal = 11
+			has_global_variable = ztr_un_institution_unesco
+			NOT = {
+				global_var:ztr_un_institution_unesco = global_var:ztr_un_law_possible_proposal
+			}
+		}
+	}
+}
+
+ztr_un_country_can_propose_possible_law = {
+	has_modifier = ztr_onu_permanent_member
+	has_global_variable = ztr_un_subject_possible_proposal
+	has_global_variable = ztr_un_law_possible_proposal
+	NOT = {
+		has_global_variable = ztr_un_vote_in_progress
+	}
+
+	OR = {
+		AND = {
+			global_var:ztr_un_subject_possible_proposal = 1
+			OR = {
+				global_var:ztr_un_law_possible_proposal = 1
+				global_var:ztr_un_law_possible_proposal = 2
+				global_var:ztr_un_law_possible_proposal = 3
+				global_var:ztr_un_law_possible_proposal = 4
+			}
+		}
+		AND = {
+			global_var:ztr_un_subject_possible_proposal = 2
+			OR = {
+				global_var:ztr_un_law_possible_proposal = 0
+				global_var:ztr_un_law_possible_proposal = 1
+			}
+		}
+		AND = {
+			global_var:ztr_un_subject_possible_proposal = 3
+			OR = {
+				global_var:ztr_un_law_possible_proposal = 1
+				global_var:ztr_un_law_possible_proposal = 2
+				global_var:ztr_un_law_possible_proposal = 3
+				global_var:ztr_un_law_possible_proposal = 4
+			}
+		}
+		AND = {
+			global_var:ztr_un_subject_possible_proposal = 4
+			OR = {
+				global_var:ztr_un_law_possible_proposal = 0
+				global_var:ztr_un_law_possible_proposal = 1
+				global_var:ztr_un_law_possible_proposal = 2
+			}
+		}
+		AND = {
+			global_var:ztr_un_subject_possible_proposal = 5
+			OR = {
+				global_var:ztr_un_law_possible_proposal = 0
+				global_var:ztr_un_law_possible_proposal = 1
+			}
+		}
+		AND = {
+			global_var:ztr_un_subject_possible_proposal = 6
+			OR = {
+				global_var:ztr_un_law_possible_proposal = 0
+				global_var:ztr_un_law_possible_proposal = 1
+				global_var:ztr_un_law_possible_proposal = 2
+			}
+		}
+		AND = {
+			global_var:ztr_un_subject_possible_proposal = 7
+			OR = {
+				global_var:ztr_un_law_possible_proposal = 0
+				global_var:ztr_un_law_possible_proposal = 1
+			}
+		}
+		AND = {
+			global_var:ztr_un_subject_possible_proposal = 8
+			global_var:ztr_un_law_possible_proposal = 1
+			has_technology_researched = secure_market_transactions
+		}
+		AND = {
+			global_var:ztr_un_subject_possible_proposal = 9
+			global_var:ztr_un_law_possible_proposal = 1
+			has_technology_researched = globalization
+		}
+		AND = {
+			global_var:ztr_un_subject_possible_proposal = 10
+			global_var:ztr_un_law_possible_proposal = 1
+			has_technology_researched = human_rights
+			has_technology_researched = globalization
+		}
+		AND = {
+			global_var:ztr_un_subject_possible_proposal = 11
+			global_var:ztr_un_law_possible_proposal = 1
+			has_technology_researched = international_organizations
+		}
+	}
+}

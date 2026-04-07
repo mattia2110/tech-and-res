@@ -11,10 +11,11 @@ REPLACE:law_child_labor_allowed = {
 	can_enact = {
 		custom_tooltip = {
 			text = ztr_un_hr_restricted_labor_children_rights_tt
-			ztr_is_un_member = yes
-			NOT = {
-				has_global_variable = ztr_un_hr_children_rights
-				global_var:ztr_un_hr_children_rights > 0
+			OR = {
+				NOT = { ztr_is_un_member = yes }
+				NOT = {
+					global_var:ztr_un_hr_children_rights > 0
+				}
 			}
 		}
 	}
@@ -60,10 +61,11 @@ law_restricted_child_labor = {
 	can_enact = {
 		custom_tooltip = {
 			text = ztr_un_hr_compulsory_primary_school_children_rights_tt
-			ztr_is_un_member = yes
-			NOT = {
-				has_global_variable = ztr_un_hr_children_rights
-				global_var:ztr_un_hr_children_rights = 2
+			OR = {
+				NOT = { ztr_is_un_member = yes }
+				NOT = {
+					global_var:ztr_un_hr_children_rights = 2
+				}
 			}
 		}
 	}

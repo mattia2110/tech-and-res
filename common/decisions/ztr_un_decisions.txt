@@ -123,36 +123,9 @@ un_foundation = {
 		year > 1944
 	}
 	when_taken = {
-		set_global_variable = {
-			name = un_founded_var
-			value = 1
-		}
+		set_global_variable = un_founded_var
 		root = {
 			trigger_event = ztr_un_event.1
-		}
-	}
-	ai_chance = {
-		value = 100
-	}
-}
-
-imf_foundation = {
-	is_shown = {
-		NOT = {
-			has_global_variable = ztr_un_institution_imf
-		}
-		ztr_is_democratic = yes
-		global_country_ranking = 1
-	}
-	possible = {
-		year > 1945
-		has_global_variable = un_founded_var
-		has_technology_researched = secure_market_transactions
-	}
-	when_taken = {
-		set_global_variable = ztr_un_institution_imf
-		root = {
-			trigger_event = ztr_imf_event.1
 		}
 	}
 	ai_chance = {

@@ -267,6 +267,21 @@ ztr_un_vote_refresh_results = {
 	}
 }
 
+ztr_un_vote_update_neutral_ai_positions = {
+	every_scope_je_involved = {
+		limit = {
+			is_ai = yes
+			NOT = {
+				has_variable = ztr_un_vote_choice_support
+			}
+			NOT = {
+				has_variable = ztr_un_vote_choice_against
+			}
+		}
+		ztr_un_ai_take_neutral_vote_position = yes
+	}
+}
+
 ztr_un_vote_update_results = {
 	ztr_un_vote_recalculate_results = yes
 	ztr_un_vote_refresh_results = yes
@@ -334,7 +349,7 @@ ztr_un_init_governance_laws = {
 			value = 0
 		}
 	}
-	# Children's Rights: 0 = Negligible
+	# Children's Rights: 1 = Restricted Child Labor
 	if = {
 		limit = {
 			NOT = {
@@ -782,7 +797,7 @@ ztr_un_apply_governance_vote = {
 			remove_global_variable = ztr_un_institution_imf
 		}
 		set_global_variable = {
-			name = ztr_un_institution_wto
+			name = ztr_un_institution_imf
 			value = global_var:ztr_un_vote_proposal
 		}
 		every_country = {
