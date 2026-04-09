@@ -3617,21 +3617,58 @@ pm_catalytic_cracking = {
 	building_modifiers = {
 		workforce_scaled = {
 			# input goods
-			goods_input_electricity_add = 20 #300
-			goods_input_electroniccomponents_add = 10 #400
-			goods_input_engines_add = 25 #300
-			goods_input_advancedores_add = 1 #160
-			goods_input_oil_add = 90 #3600 #5000
+			goods_input_electricity_add = 20 #600
+			goods_input_electroniccomponents_add = 10 #800
+			goods_input_engines_add = 25 #1800
+			goods_input_advancedores_add = 1 #80
+			goods_input_oil_add = 90 #3600
 
 			# output goods
-			goods_output_light_fuel_add = 105 #9800
-			goods_output_lubricant_add = 30 #700
-			goods_output_sulfur_add = 5
+			goods_output_light_fuel_add = 105 #7350
+			goods_output_lubricant_add = 30 #2100
+			goods_output_sulfur_add = 5 #250
 		}
 
 		level_scaled = {
 			# employment
-			building_employment_laborers_add = 2000	#4900/3600=0.92
+			building_employment_laborers_add = 2000
+			building_employment_machinists_add = 1250
+			building_employment_engineers_add = 350
+		}
+	}
+	required_input_goods = electricity
+}
+
+pm_hydrotreated_biofuels = {
+	texture = "gfx/interface/icons/production_method_icons/pm_hydrotreated_biofuels.dds"
+	state_modifiers = {
+		workforce_scaled = {
+			state_pollution_generation_add = 5
+		}
+	}
+
+	unlocking_technologies = {
+		biorefining
+	}
+
+	building_modifiers = {
+		workforce_scaled = {
+			# input goods
+			goods_input_electricity_add = 20 #600
+			goods_input_electroniccomponents_add = 10 #800
+			goods_input_engines_add = 25 #1800
+			goods_input_fertilizer_add = 20 #600
+			goods_input_grain_add = 30 #600
+			goods_input_oil_add = 50 #2000
+
+			# output goods
+			goods_output_light_fuel_add = 105 # 7350
+			goods_output_heavy_fuel_add = 5 #350
+		}
+
+		level_scaled = {
+			# employment
+			building_employment_laborers_add = 2000
 			building_employment_machinists_add = 1250
 			building_employment_engineers_add = 350
 		}
@@ -9240,6 +9277,33 @@ pm_mixed_recycling = {
 		law_no_protection
 	}
 }
+
+# pm_enzymatic_upcycling = {
+# 	texture = "gfx/interface/icons/production_method_icons/mixed_recycling.dds"
+
+# 	unlocking_technologies = {
+# 		biorefining
+# 	}
+
+# 	state_modifiers = {
+# 		workforce_scaled = {
+# 			state_pollution_generation_add = -5
+# 		}
+# 	}
+
+# 	building_modifiers = {
+# 		workforce_scaled = {
+# 			goods_input_electricity_add = 2
+# 			goods_output_paper_add = 2
+# 			goods_output_plastics_add = 3
+# 			goods_output_fertilizer_add = 1
+# 		}
+# 	}
+
+# 	disallowing_laws = {
+# 		law_no_protection
+# 	}
+# }
 
 #Media/Publishing Industry
 
