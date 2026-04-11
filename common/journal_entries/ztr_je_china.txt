@@ -33,13 +33,21 @@ ztr_je_the_future_of_china = {
 		}
 	}
 	complete = {
-		OR = {
-			var:ztr_china_corporate_var >= 100
-			var:ztr_china_federation_var >= 100
-			var:ztr_china_technoconfucian_var >= 100
+		custom_tooltip = {
+			text = ztr_je_the_future_of_china_goal_tt
+			OR = {
+				var:ztr_china_corporate_var >= 100
+				var:ztr_china_federation_var >= 100
+				var:ztr_china_technoconfucian_var >= 100
+			}
 		}
 	}
 	on_complete = {
+		hidden_effect = {
+			add_loyalists = {
+				value = 0.75
+			}
+		}
 		trigger_event = {
 			id = the_future_of_china.100
 		}

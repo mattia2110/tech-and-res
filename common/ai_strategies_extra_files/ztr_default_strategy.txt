@@ -181,28 +181,6 @@
 		# European major powers should see a collapsing Ottoman Middle East as easy pickings.
 		if = {
 			limit = {
-				is_involved_in_journal_entry = je_ottoman_empire_collapse
-				scope:target_country = {
-					c:TUR ?= THIS
-					OR = {
-						has_state_in_state_region = STATE_LOWER_EGYPT
-						has_state_in_state_region = STATE_MIDDLE_EGYPT
-						has_state_in_state_region = STATE_UPPER_EGYPT
-						has_state_in_state_region = STATE_PALESTINE
-						has_state_in_state_region = STATE_LEBANON
-						has_state_in_state_region = STATE_SYRIA
-						has_state_in_state_region = STATE_TRANSJORDAN
-						has_state_in_state_region = STATE_BAGHDAD
-						has_state_in_state_region = STATE_BASRA
-						has_state_in_state_region = STATE_MOSUL
-					}
-				}
-			}
-			add = 15
-		}
-		# After the Ottoman collapse, European great powers should pursue their Egyptian claims aggressively.
-		if = {
-			limit = {
 				is_in_geographic_region = geographic_region_europe
 				country_rank >= rank_value:great_power
 				OR = {
@@ -1086,9 +1064,12 @@
 		# Moderation if in the ONU
 		if = {
 			limit = {
-				has_modifier = ztr_onu_member
+				ztr_is_un_member = yes
+				scope:target_country = {
+					ztr_is_un_member = yes
+				}
 			}
-			multiply = 0.8
+			multiply = 0.5
 		}
 
 		# Nuclear deterrence makes countries more cautious
@@ -1099,7 +1080,7 @@
 					has_modifier = nuclear_capability
 				}
 			}
-			multiply = 0.3
+			multiply = 0.5
 		}
 
 		# Full democracies, old or advanced societies are more cautious
@@ -1116,7 +1097,7 @@
 					has_modifier = demographic_stage_6
 				}
 			}
-			multiply = 0.3
+			multiply = 0.5
 		}
 	}
 
@@ -2489,54 +2470,6 @@
 							c:RUS ?= this
 							is_in_geographic_region = geographic_region_europe
 						}
-						is_involved_in_journal_entry = je_ottoman_empire_collapse
-						c:TUR = {
-							has_journal_entry = je_ottoman_empire_collapse
-						}
-						scope:target_country = {
-							OR = {
-								AND = {
-									c:TUR ?= this
-									OR = {
-										has_state_in_state_region = STATE_LOWER_EGYPT
-										has_state_in_state_region = STATE_MIDDLE_EGYPT
-										has_state_in_state_region = STATE_UPPER_EGYPT
-										has_state_in_state_region = STATE_SINAI
-										has_state_in_state_region = STATE_MATRUH
-										has_state_in_state_region = STATE_EGYPTIAN_DESERT
-										has_state_in_state_region = STATE_SYRIA
-										has_state_in_state_region = STATE_LEBANON
-										has_state_in_state_region = STATE_PALESTINE
-										has_state_in_state_region = STATE_TRANSJORDAN
-										has_state_in_state_region = STATE_BAGHDAD
-										has_state_in_state_region = STATE_BASRA
-										has_state_in_state_region = STATE_MOSUL
-									}
-								}
-								AND = {
-									is_subject_of = c:TUR
-									OR = {
-										has_state_in_state_region = STATE_LOWER_EGYPT
-										has_state_in_state_region = STATE_MIDDLE_EGYPT
-										has_state_in_state_region = STATE_UPPER_EGYPT
-										has_state_in_state_region = STATE_SINAI
-										has_state_in_state_region = STATE_MATRUH
-										has_state_in_state_region = STATE_EGYPTIAN_DESERT
-									}
-								}
-							}
-						}
-					}
-					add = 150
-				}
-
-				if = {
-					limit = {
-						country_rank >= rank_value:great_power
-						OR = {
-							c:RUS ?= this
-							is_in_geographic_region = geographic_region_europe
-						}
 						OR = {
 							NOT = { exists = c:TUR }
 							c:TUR = {
@@ -2927,13 +2860,15 @@
 
 	# Add a multiplier to the score AI assigns to particular building groups (default 1)
 	# Using this value in other strategies will result in several multiplications
-	building_group_weights = {}
+	building_group_weights = {
+		#bg_agriculture = 1.25 #With KAI uncomment this
+	}
 
 	# Which buildings should the AI subsidize
 	# Using a different value in a strategy will override this value
 	subsidies = {
-		building_power_plant = wants_to_have
-		building_railway = wants_to_have
+		building_power_plant = wants_to_have # Not KAI must_have
+		building_railway = wants_to_have #Not KAI must_have
 		building_port = must_have
 		#T&R
 		building_telecommunications_industry = wants_to_have
@@ -3080,7 +3015,8 @@
 				kai_has_high_supply = { GOODS = oil }
 			}
 		}
-		#T&R
+		# To obtain KAI just comment kai_has_high_supply lines
+		#T&R Here we generalize resource expansion with late tech to make AI stronger in late game
 		water = { stance = wants_high_supply }
 		gas = {
 			stance = wants_export

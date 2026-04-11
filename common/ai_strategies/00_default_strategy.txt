@@ -1,4 +1,6 @@
-REPLACE:ai_strategy_default = {
+﻿# Tech&Res AI With REPLACE
+
+ai_strategy_default = {
 	icon = "gfx/interface/icons/ai_strategy_icons/placate_population.dds" # Never shown
 
 	# If this trigger evaluates to true for any active strategy, the AI will try to form a power bloc
@@ -120,6 +122,8 @@ REPLACE:ai_strategy_default = {
 	# scope:diplomatic_play_type = the type of diplomatic play
 	# scope:is_initiator = bool, set to true if evaluating support for initiator, false if target
 	# NOTE: You need to include a description when adding values here so there are correct tooltips, this is different from most of ai strategy data!
+	
+	# KAI: Fix incorrect checks for scope:is_initiator
 	diplomatic_play_support = {
 		value = 0
 
@@ -149,7 +153,7 @@ REPLACE:ai_strategy_default = {
 							}
 						}
 						AND = {
-							NOT = { exists = scope:is_initiator }
+							scope:is_initiator = no
 							OR = {
 								any_scope_treaty = {
 									binds = scope:country
@@ -241,7 +245,7 @@ REPLACE:ai_strategy_default = {
 							}
 						}
 						AND = {
-							NOT = { exists = scope:is_initiator }
+							scope:is_initiator = no
 							OR = {
 								any_scope_treaty = {
 									binds = scope:country
@@ -316,16 +320,7 @@ REPLACE:ai_strategy_default = {
 			if = {
 				limit = {
 					has_variable = veiled_protectorate_support_ottomans
-					OR = {
-						AND = {
-							NOT = { exists = scope:is_initiator }
-							scope:enemy_country = { c:TUR ?= this }
-						}
-						AND = {
-							exists = scope:is_initiator
-							scope:country = { c:TUR ?= this }
-						}
-					}
+					scope:country = { c:TUR ?= this }
 				}
 
 				add = {
@@ -336,16 +331,7 @@ REPLACE:ai_strategy_default = {
 			else_if = {
 				limit = {
 					has_variable = veiled_protectorate_support_egypt
-					OR = {
-						AND = {
-							NOT = { exists = scope:is_initiator }
-							scope:enemy_country = { c:EGY ?= this }
-						}
-						AND = {
-							exists = scope:is_initiator
-							scope:country = { c:EGY ?= this }
-						}
-					}
+					scope:country = { c:EGY ?= this }
 				}
 
 				add = {
@@ -358,7 +344,7 @@ REPLACE:ai_strategy_default = {
 		### Risorgimento
 		if = {
 			limit = {
-				exists = scope:is_initiator
+				scope:is_initiator = yes
 				scope:diplomatic_play_type = play_type:dp_secession
 				root = {
 					has_variable = risorgimento_unifying_stance
@@ -672,7 +658,7 @@ REPLACE:ai_strategy_default = {
 		### Russia shouldn't join secession plays, since then it couldn't add wargoals of its own
 		if = {
 			limit = {
-				exists = scope:is_initiator
+				scope:is_initiator = yes
 				scope:diplomatic_play_type = play_type:dp_secession
 				root = {
 					c:RUS ?= this
@@ -704,7 +690,7 @@ REPLACE:ai_strategy_default = {
  		### Austria doesn't want anything except for Bosnia
 		if = {
 			limit = {
-				exists = scope:is_initiator
+				scope:is_initiator = yes
 				scope:diplomatic_play_type = play_type:dp_secession
 				root = {
 					c:AUS ?= this
@@ -745,7 +731,7 @@ REPLACE:ai_strategy_default = {
  		### War of the Confederation
 		if = {
 			limit = {
-				exists = scope:is_initiator
+				scope:is_initiator = yes
 				root = {
 					has_variable = attack_bolivia
 				}
@@ -784,6 +770,7 @@ REPLACE:ai_strategy_default = {
 		### The Anglo Fun Police
 		if = {
 			limit = {
+				scope:is_initiator = no
 				root = {
 					country_rank = rank_value:great_power
 					OR = {
@@ -793,7 +780,6 @@ REPLACE:ai_strategy_default = {
 				}
 				scope:enemy_country = {
 					has_journal_entry = je_reconquista
-					exists = scope:is_initiator
 				}
 				scope:country = {
 					is_historical_spanish_american_colony = yes
@@ -3257,6 +3243,86 @@ REPLACE:ai_strategy_default = {
 			add = 100
 		}
 
+		#T&R
+		# European major powers should see a collapsing Ottoman Middle East as easy pickings.
+		if = {
+			limit = {
+				is_in_geographic_region = geographic_region_europe
+				country_rank >= rank_value:great_power
+				OR = {
+					NOT = { exists = c:TUR }
+					c:TUR = {
+						NOT = { has_journal_entry = je_ottoman_empire_collapse }
+					}
+				}
+				scope:target_country = {
+					any_scope_state = {
+						OR = {
+							state_region = s:STATE_LOWER_EGYPT
+							state_region = s:STATE_MIDDLE_EGYPT
+							state_region = s:STATE_UPPER_EGYPT
+							state_region = s:STATE_SINAI
+							state_region = s:STATE_MATRUH
+							state_region = s:STATE_EGYPTIAN_DESERT
+						}
+						has_claim_by = root
+					}
+				}
+			}
+			add = 25
+		}
+
+		# After the Ottoman collapse, European great powers should pursue their Syrian claims aggressively.
+		if = {
+			limit = {
+				is_in_geographic_region = geographic_region_europe
+				country_rank >= rank_value:great_power
+				OR = {
+					NOT = { exists = c:TUR }
+					c:TUR = {
+						NOT = { has_journal_entry = je_ottoman_empire_collapse }
+					}
+				}
+				scope:target_country = {
+					any_scope_state = {
+						OR = {
+							state_region = s:STATE_SYRIA
+							state_region = s:STATE_LEBANON
+							state_region = s:STATE_PALESTINE
+							state_region = s:STATE_TRANSJORDAN
+						}
+						has_claim_by = root
+					}
+				}
+			}
+			add = 25
+		}
+
+		# After the Ottoman collapse, European great powers should pursue their Iraqi claims aggressively.
+		if = {
+			limit = {
+				is_in_geographic_region = geographic_region_europe
+				country_rank >= rank_value:great_power
+				OR = {
+					NOT = { exists = c:TUR }
+					c:TUR = {
+						NOT = { has_journal_entry = je_ottoman_empire_collapse }
+					}
+				}
+				scope:target_country = {
+					any_scope_state = {
+						OR = {
+							state_region = s:STATE_BAGHDAD
+							state_region = s:STATE_BASRA
+							state_region = s:STATE_MOSUL
+						}
+						has_claim_by = root
+					}
+				}
+			}
+			add = 25
+		}
+
 		# USA should be extremely aggressive against owners of their Manifest Destiny states
 		if = {
 			limit = {
@@ -4058,11 +4124,97 @@ REPLACE:ai_strategy_default = {
 			}
 			multiply = 0.0
 		}
+
+		#T&R
+
+		# Moderation if in the ONU
+		if = {
+			limit = {
+				ztr_is_un_member = yes
+				scope:target_country = {
+					ztr_is_un_member = yes
+				}
+			}
+			multiply = 0.5
+		}
+
+		# Nuclear deterrence makes countries more cautious
+		if = {
+			limit = {
+				has_modifier = nuclear_capability
+				scope:target_country = {
+					has_modifier = nuclear_capability
+				}
+			}
+			multiply = 0.5
+		}
+
+		# Full democracies, old or advanced societies are more cautious
+		if = {
+			limit = {
+				OR = {
+					# Full democracy
+					ztr_is_full_democratic = yes
+					# Counterculture movements
+					has_technology_researched = counterculture
+					# Old society
+					has_modifier = demographic_stage_8
+					has_modifier = demographic_stage_7
+					has_modifier = demographic_stage_6
+				}
+			}
+			multiply = 0.5
+		}
 	}
 
 	# How much construction output should the AI aim for
 	# Using this value in other strategies will function additively
 	wanted_construction_output = {
+		value = 0
+
+		add = {
+			value = investment_pool_income
+			subtract = 5000 # So small nations don't overshoot early on
+			divide = 500 # 1 construction output per this much into the investment pool
+			min = 0
+		}
+
+		add = {
+			value = net_fixed_income
+			divide = 500 # 1 construction output per this much income
+
+			min = {
+				value = fixed_income
+				divide = 3000 # 1 construction output per this much income
+			}
+
+			min = 0
+			max = 600
+		}
+
+		# Improved technology enables cheaper construction
+		# Cost per wood construction 2000/2 = 1000
+		# Cost per iron construction 3600/5 = 720
+		# Cost per steel construction 5400/10 = 540
+		if = {
+			limit = { NOT = { has_technology_researched = urban_planning } }
+			multiply = 0.72
+		}
+
+		if = {
+			limit = { NOT = { has_technology_researched = steel_frame_buildings } }
+			multiply = 0.75
+		}
+
+		# KAI: Scale the wanted construction capacity with gold reserve
+		multiply = {
+			value = gold_reserves
+			divide = gold_reserves_limit
+			multiply = 1.33
+			min = 1
+			max = 1.33
+		}
+
 		# Accounts for the 2-10 free construction from base modifiers
 		if = {
 			limit = {
@@ -4086,86 +4238,6 @@ REPLACE:ai_strategy_default = {
 				}
 				max = 10
 			}
-		}
-
-		add = {
-			value = investment_pool_income
-			subtract = 7500 # So small nations don't overshoot early on
-			divide = 750 # 1 construction output per this much into the investment pool
-			min = 0
-		}
-
-		add = {
-			value = fixed_income
-
-			divide = 5000 # 1 construction output per this much income
-
-			min = 0
-			max = 200 # Above a certain point more government income isn't going to lead to more AI government construction
-		}
-
-		add = {
-			value = total_population
-
-			divide = 2000000 # 1 construction output per this much population
-			max = 100
-		}
-
-		# Kickstart private investors If above this population value
-		if = {
-			limit = {
-				total_population >= 2000000
-			}
-			add = 10
-		}
-
-		# Add a baseline for high rank
-		if = {
-			limit = { country_rank >= rank_value:great_power }
-			add = 75
-		}
-		else_if = {
-			limit = {
-				OR = {
-					country_rank >= rank_value:major_power
-					country_rank >= rank_value:unrecognized_major_power
-				}
-			}
-			add = 50
-		}
-
-		# If trying to industrialize
-		if = {
-			limit = {
-				OR = {
-					has_strategy = ai_strategy_resource_expansion
-					has_strategy = ai_strategy_industrial_expansion
-				}
-			}
-			multiply = 1.25
-		}
-
-		# If has Grunderzeit
-		if = {
-			limit = {
-				has_journal_entry = je_grunderzeit
-			}
-			multiply = 1.5
-		}
-
-		if = {
-			limit = {
-				OR = {
-					has_journal_entry = je_meiji_restoration
-					has_journal_entry = je_meiji_main
-				}
-			}
-			multiply = 1.5
-		}
-
-		if = {
-			limit = { has_strategy = ai_strategy_maintain_mandate_of_heaven }
-			multiply = 0.1
 		}
 
 		min = 2
@@ -4281,15 +4353,7 @@ REPLACE:ai_strategy_default = {
 			value = 100
 		}
 		combat_unit_group_capital_ship = {
-			value = 0
-			if = {
-				limit = { country_rank = rank_value:great_power }
-				add = 30
-			}
-			if = {
-				limit = { country_rank = rank_value:major_power }
-				add = 10
-			}
+			value = 30
 		}
 		combat_unit_group_support_ship = {
 			value = 0
@@ -4312,7 +4376,7 @@ REPLACE:ai_strategy_default = {
 		value = 0.5
 		if = {
 			limit = { has_law_or_variant = law_type:law_national_militia }
-			add = 2.5
+			add = 4.5
 		}
 		else_if = {
 			limit = { has_law_or_variant = law_type:law_peasant_levies }
@@ -4373,16 +4437,17 @@ REPLACE:ai_strategy_default = {
 
 	# Add a multiplier to the score AI assigns to particular building groups (default 1)
 	# Using this value in other strategies will result in several multiplications
-	building_group_weights = {
-		bg_agriculture = 1.25
-	}
+	building_group_weights = {}
 
 	# Which buildings should the AI subsidize
 	# Using a different value in a strategy will override this value
 	subsidies = {
-		building_power_plant = must_have
-		building_railway = must_have
-		building_port = must_have
+		building_power_plant = wants_to_have
+		building_railway = wants_to_have
+		building_port = must_haveù
+		#T&R
+		building_telecommunications_industry = wants_to_have
+		building_fusion_power_plant = wants_to_have
 	}
 
 	# Specifying values here will override subsidy priorities while at war
@@ -4391,7 +4456,211 @@ REPLACE:ai_strategy_default = {
 
 	# How should the AI plan for production and trade of specific goods
 	# Using a different value in a strategy will override this value
-	
+	goods_stances = {
+		small_arms = {
+			stance = wants_high_supply
+			trigger = {
+				has_technology_researched = line_infantry
+			}
+		}
+		artillery = {
+			stance = wants_high_supply
+			trigger = {
+				has_technology_researched = artillery
+			}
+		}
+		ammunition = {
+			stance = wants_high_supply
+			trigger = {
+				has_technology_researched = general_staff
+			}
+		}
+		aeroplanes = {
+			stance = wants_high_supply
+			trigger = {
+				has_technology_researched = military_aviation
+				country_rank >= rank_value:major_power
+			}
+		}
+		tanks = {
+			stance = wants_high_supply
+			trigger = {
+				has_technology_researched = mobile_armor
+				country_rank >= rank_value:major_power
+			}
+		}
+		clippers = {
+			stance = wants_high_supply
+			trigger = {
+				has_technology_researched = navigation
+				NOT = {
+					has_technology_researched = gantry_cranes
+				}
+				has_port = yes
+				country_rank >= rank_value:major_power
+			}
+		}
+		manowars = {
+			stance = wants_high_supply
+			trigger = {
+				has_technology_researched = admiralty
+				NOT = {
+					has_technology_researched = ironclad_tech
+				}
+				has_port = yes
+				country_rank >= rank_value:major_power
+			}
+		}
+		steamers = {
+			stance = wants_high_supply
+			trigger = {
+				has_technology_researched = gantry_cranes
+				has_port = yes
+				country_rank >= rank_value:major_power
+			}
+		}
+		ironclads = {
+			stance = wants_high_supply
+			trigger = {
+				has_technology_researched = ironclad_tech
+				has_port = yes
+				country_rank >= rank_value:major_power
+			}
+		}
+		paper = {
+			stance = wants_high_supply
+			trigger = {
+				has_technology_researched = centralization
+				total_population >= 1000000
+			}
+		}
+		electricity = {
+			stance = wants_high_supply
+			trigger = {
+				has_technology_researched = electrical_generation
+			}
+		}
+		dye = {
+			stance = wants_high_supply
+			trigger = {
+				has_building = building_textile_mill
+				has_technology_researched = lathe
+			}
+		}
+		silk = {
+			stance = wants_high_supply
+			trigger = {
+				has_building = building_textile_mill
+				total_population >= 1000000
+			}
+		}
+		hardwood = {
+			stance = wants_high_supply
+			trigger = {
+				has_building = building_furniture_manufactory
+				total_population >= 1000000
+			}
+		}
+		grain = {
+			stance = wants_high_supply
+			trigger = {
+				has_famine = yes
+			}
+		}
+		# Construction goods (Helps early game)
+		wood = {
+			stance = wants_high_supply
+			trigger = {
+				has_technology_researched = urbanization
+			}
+		}
+		iron = {
+			stance = wants_high_supply
+			trigger = {
+				has_technology_researched = urban_planning
+				NOT = { has_technology_researched = steel_frame_buildings }
+			}
+		}
+		tools = {
+			stance = wants_high_supply
+			trigger = {
+				has_technology_researched = urban_planning
+			}
+		}
+		oil = {
+			stance = wants_export
+			trigger = {
+				has_technology_researched = combustion_engine
+				kai_has_high_supply = { GOODS = oil }
+			}
+		}
+		# To obtain KAI just comment kai_has_high_supply lines
+		#T&R Here we generalize resource expansion with late tech to make AI stronger in late game
+		water = { stance = wants_high_supply }
+		gas = {
+			stance = wants_export
+			trigger = {
+				has_technology_researched = gas_turbine
+				kai_has_high_supply = { GOODS = gas }
+			}
+		}
+		good_uranium = {
+			stance = wants_export
+			trigger = {
+				has_technology_researched = verrier_nuclear_physics_tech
+				kai_has_high_supply = { GOODS = good_uranium }
+			}
+		}
+		lead = {
+			stance = wants_export
+			trigger = {
+				has_technology_researched = thermal_cracking
+				kai_has_high_supply = { GOODS = lead }
+			}
+		}
+		sulfur = {
+			stance = wants_export
+			trigger = {
+				has_technology_researched = thermal_cracking
+				kai_has_high_supply = { GOODS = sulfur }
+			}
+		}
+		bauxite = {
+			stance = wants_export
+			trigger = {
+				has_technology_researched = bayer_process
+				kai_has_high_supply = { GOODS = bauxite }
+			}
+		}
+		copper = {
+			stance = wants_export
+			trigger = {
+				has_technology_researched = thermal_cracking
+				kai_has_high_supply = { GOODS = copper }
+			}
+		}
+		commonores = {
+			stance = wants_export
+			trigger = {
+				has_technology_researched = thermal_cracking
+				kai_has_high_supply = { GOODS = commonores }
+			}
+		}
+		advancedores = {
+			stance = wants_export
+			trigger = {
+				has_technology_researched = semiconductor
+				kai_has_high_supply = { GOODS = advancedores }
+			}
+		}
+		rare_earths = {
+			stance = wants_export
+			trigger = {
+				has_technology_researched = rare_earths
+				kai_has_high_supply = { GOODS = rare_earths }
+			}
+		}
+	}
 
 	# How many of its interests should the AI dedicate to regions with unrecognized and decentralized powers
 	# Using a different value in a strategy will override this value
@@ -6354,6 +6623,44 @@ REPLACE:ai_strategy_default = {
 					}
 					multiply = 0.25
 				}
+
+				#T&R
+				if = {
+					limit = {
+						country_rank >= rank_value:great_power
+						OR = {
+							c:RUS ?= this
+							is_in_geographic_region = geographic_region_europe
+						}
+						OR = {
+							NOT = { exists = c:TUR }
+							c:TUR = {
+								NOT = { has_journal_entry = je_ottoman_empire_collapse }
+							}
+						}
+						scope:target_country = {
+							any_scope_state = {
+								has_claim_by = root
+								OR = {
+									state_region = s:STATE_LOWER_EGYPT
+									state_region = s:STATE_MIDDLE_EGYPT
+									state_region = s:STATE_UPPER_EGYPT
+									state_region = s:STATE_SINAI
+									state_region = s:STATE_MATRUH
+									state_region = s:STATE_EGYPTIAN_DESERT
+									state_region = s:STATE_SYRIA
+									state_region = s:STATE_LEBANON
+									state_region = s:STATE_PALESTINE
+									state_region = s:STATE_TRANSJORDAN
+									state_region = s:STATE_BAGHDAD
+									state_region = s:STATE_BASRA
+									state_region = s:STATE_MOSUL
+								}
+							}
+						}
+					}
+					add = 500
+				}
 			}
 		}
 		dominate = {
@@ -6844,8 +7151,17 @@ REPLACE:ai_strategy_default = {
 			if = {
 				limit = {
 					wants_to_solve_schleswig_holstein = yes
-					exists = c:HOL
-					scope:target_country = { c:HOL ?= THIS }
+					# KAI: Add Schleswig
+					OR = {
+						AND = {
+							exists = c:HOL
+							scope:target_country = { this = c:HOL }
+						}
+						AND = {
+							exists = c:SCH
+							scope:target_country = { this = c:SCH }
+						}
+					}
 					can_reach_target_country = yes
 				}
 				add = 100
@@ -7040,10 +7356,11 @@ REPLACE:ai_strategy_default = {
 				limit = {
 					country_rank >= rank_value:major_power
 					OR = {
-						has_diplomatic_pact = {
-							who = scope:target_country.top_overlord
-							type = rivalry
-						}
+						# KAI: Enforcing regime change on a subject is pointless in my opinion.
+						# has_diplomatic_pact = {
+						# 	who = scope:target_country.top_overlord
+						# 	type = rivalry
+						# }
 						AND = {
 							is_power_bloc_leader = yes
 							is_in_same_power_bloc = scope:target_country
@@ -7447,8 +7764,16 @@ REPLACE:ai_strategy_default = {
 			if = {
 				limit = {
 					wants_to_solve_schleswig_holstein = yes
-					exists = c:HOL
-					scope:target_country = { c:HOL ?= THIS }
+					OR = {
+						AND = {
+							exists = c:HOL
+							scope:target_country = { this = c:HOL }
+						}
+						AND = {
+							exists = c:SCH
+							scope:target_country = { this = c:SCH }
+						}
+					}
 					can_reach_target_country = yes
 				}
 				add = 150

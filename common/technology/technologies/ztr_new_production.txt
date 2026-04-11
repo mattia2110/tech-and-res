@@ -363,6 +363,26 @@ gas_turbine = {
 	}
 }
 
+national_power_grid = {
+	# Unlocks Grid Transmission Station and Grid Distribution Station
+	# Enables national-level electricity distribution via global_electricity market good
+	era = era_6
+	texture = "gfx/interface/icons/invention_icons/energy.dds"
+	category = production
+	unlocking_technologies = {
+		cabled_wire
+	}
+	ai_weight = {
+		value = 2
+		if = {
+			limit = {
+				has_strategy = ai_strategy_industrial_expansion
+			}
+			add = 2
+		}
+	}
+}
+
 green_revolution = {
 	# Introduce tecniche avanzate per migliorare la produzione agricola tramite ibridi di sementi, fertilizzanti e pesticidi chimici.
 	era = era_6
@@ -608,6 +628,20 @@ mechanical_arms = {
 # 	}
 # }
 #ERA 7
+
+high_voltage_transmission = {
+	# Unlocks PM high voltage transmission in Grid Transmission Stations
+	era = era_7
+	texture = "gfx/interface/icons/invention_icons/high_voltage_transmission.dds"
+	category = production
+	unlocking_technologies = {
+		national_power_grid
+	}
+	ai_weight = {
+		value = 1
+	}
+}
+
 fast_modular_furniture = {
 	# Unlocks PM fast modular furniture in Glassworks
 	era = era_7
@@ -1737,9 +1771,6 @@ smart_energy_grid = {
 	category = production
 	unlocking_technologies = {
 		advanced_solar_panels
-	}
-	modifier = {
-		building_group_bg_power_throughput_add = 0.05
 	}
 	ai_weight = {
 		value = 1

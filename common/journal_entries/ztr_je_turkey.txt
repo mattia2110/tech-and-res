@@ -18,7 +18,7 @@ je_ottoman_empire_collapse = {
 			c:TUR ?= this
 			AND = {
 				country_rank = rank_value:great_power
-				navy_size >= 100 #Naval Power
+				navy_size >= 30 #Naval Power
 			}
 		}
 	}
@@ -40,7 +40,7 @@ je_ottoman_empire_collapse = {
 			}
 			# Autocratic and Low SOL
 			ztr_is_not_democratic = yes
-			average_sol < 14
+			average_sol < 12
 		}
 	}
 	immediate = {
@@ -237,7 +237,7 @@ je_ottoman_empire_collapse = {
 					limit = {
 						any_scope_state = {
 							NOT = {
-								is_homeland_of_country_cultures = root
+								is_homeland_of_country_cultures = scope:ztr_ottoman_collapse_target_country
 							}
 							state_region = {
 								is_homeland = cu:greek
@@ -266,6 +266,7 @@ je_ottoman_empire_collapse = {
 					s:STATE_WESTERN_THRACE.region_state:TUR = {
 						set_state_owner = c:GRE
 					}
+					#TODO Trigger an event in which Greece can choose to attack Turkey and try to retake Constantinople
 				}
 				# Bulgaria
 				if = {
@@ -305,7 +306,7 @@ je_ottoman_empire_collapse = {
 					limit = {
 						any_scope_state = {
 							NOT = {
-								is_homeland_of_country_cultures = root
+								is_homeland_of_country_cultures = scope:ztr_ottoman_collapse_target_country
 							}
 							state_region = {
 								is_homeland = cu:romanian
@@ -320,7 +321,7 @@ je_ottoman_empire_collapse = {
 					limit = {
 						any_scope_state = {
 							NOT = {
-								is_homeland_of_country_cultures = root
+								is_homeland_of_country_cultures = scope:ztr_ottoman_collapse_target_country
 							}
 							state_region = {
 								is_homeland = cu:albanian
@@ -335,7 +336,7 @@ je_ottoman_empire_collapse = {
 					limit = {
 						any_scope_state = {
 							NOT = {
-								is_homeland_of_country_cultures = root
+								is_homeland_of_country_cultures = scope:ztr_ottoman_collapse_target_country
 							}
 							state_region = {
 								is_homeland = cu:serb
@@ -350,7 +351,7 @@ je_ottoman_empire_collapse = {
 					limit = {
 						any_scope_state = {
 							NOT = {
-								is_homeland_of_country_cultures = root
+								is_homeland_of_country_cultures = scope:ztr_ottoman_collapse_target_country
 							}
 							state_region = {
 								is_homeland = cu:sudanese
@@ -365,7 +366,7 @@ je_ottoman_empire_collapse = {
 					limit = {
 						any_scope_state = {
 							NOT = {
-								is_homeland_of_country_cultures = root
+								is_homeland_of_country_cultures = scope:ztr_ottoman_collapse_target_country
 							}
 							state_region = {
 								is_homeland = cu:misri
@@ -383,7 +384,7 @@ je_ottoman_empire_collapse = {
 						}
 						s:STATE_ERZURUM = {
 							any_scope_state = {
-								owner = ROOT
+								owner = scope:ztr_ottoman_collapse_target_country
 							}
 						}
 					}
@@ -420,7 +421,7 @@ je_ottoman_empire_collapse = {
 						}
 						s:STATE_BAGHDAD = {
 							any_scope_state = {
-								owner = ROOT
+								owner = scope:ztr_ottoman_collapse_target_country
 							}
 						}
 					}
@@ -456,7 +457,7 @@ je_ottoman_empire_collapse = {
 						}
 						s:STATE_ALEPPO = {
 							any_scope_state = {
-								owner = ROOT
+								owner = scope:ztr_ottoman_collapse_target_country
 							}
 						}
 					}
@@ -492,7 +493,7 @@ je_ottoman_empire_collapse = {
 						}
 						s:STATE_PALESTINE = {
 							any_scope_state = {
-								owner = ROOT
+								owner = scope:ztr_ottoman_collapse_target_country
 							}
 						}
 					}
@@ -522,7 +523,7 @@ je_ottoman_empire_collapse = {
 						}
 						s:STATE_TRANSJORDAN = {
 							any_scope_state = {
-								owner = ROOT
+								owner = scope:ztr_ottoman_collapse_target_country
 							}
 						}
 					}
@@ -552,7 +553,7 @@ je_ottoman_empire_collapse = {
 						}
 						s:STATE_LEBANON = {
 							any_scope_state = {
-								owner = ROOT
+								owner = scope:ztr_ottoman_collapse_target_country
 							}
 						}
 					}

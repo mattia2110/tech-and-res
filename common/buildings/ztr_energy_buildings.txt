@@ -16,7 +16,7 @@ building_hydroelectric_power_plant = {
 	production_method_groups = {
 		pmg_base_building_hydroelectric_power_plant
 		pmg_automation_building_hydroelectric_power_plant
-		pmg_data_optimization_light_industry_no_shopkeepers
+		pmg_power_transmission_large
 	}
 
 	can_build_government = {
@@ -75,7 +75,6 @@ building_renewable_energy_power_plant = {
 	production_method_groups = {
 		pmg_base_building_renewable_energy_power_plant
 		pmg_automation_building_renewable_energy_power_plant
-		pmg_data_optimization_heavy_industry_no_shopkeepers
 	}
 	
 	required_construction = construction_cost_monument
@@ -195,6 +194,7 @@ building_geothermal_power_plant = {
 	production_method_groups = {
 		pmg_geothermal_reactor
 		pmg_automation_building_geothermal_power_plant
+		pmg_power_transmission_large
 	}
 
 	can_build_government = {
@@ -257,4 +257,98 @@ building_fusion_power_plant = {
 	background = "gfx/interface/icons/building_icons/backgrounds/building_panel_bg_heavy_industry.dds"
 
 	ai_value = 2500 # AI will rush building this
+}
+
+# ============================================================
+# National Electricity Grid
+# Converts between national AC into local DC
+# ============================================================
+
+building_power_grid_station = {
+	building_group = bg_power
+	icon = "gfx/interface/icons/building_icons/building_power_grid_station.dds"
+	levels_per_mesh = 50
+
+	city_type = city
+
+	unlocking_technologies = {
+		national_power_grid
+	}
+
+	production_method_groups = {
+		pmg_grid_download
+	}
+
+	required_construction = construction_cost_medium
+
+	can_build_government = {
+		NOT = { has_law_or_variant = law_type:law_industry_banned }
+	}
+
+	possible = {
+        owner = {
+            NOT = { has_law_or_variant = law_type:law_industry_banned }
+        }
+        OR = {
+			is_capital = yes
+			owner = {
+				is_ai = yes
+			}
+            any_neighbouring_state = {
+                owner ?= prev.owner
+				any_scope_building = {
+					OR = {
+						is_building_type = building_power_grid_station
+						is_building_type = building_power_plant
+						is_building_type = building_hydroelectric_power_plant
+						is_building_type = building_renewable_energy_power_plant
+						is_building_type = building_geothermal_power_plant
+					}
+				}
+            }
+        }
+    }
+
+	ownership_type = self
+
+	background = "gfx/interface/icons/building_icons/backgrounds/building_panel_bg_monuments.dds"
+
+	should_auto_expand = {
+        occupancy >= 0.8
+        OR = {
+            cash_reserves_ratio > 0.8
+            is_subsidized = yes
+        }
+		OR = {
+			state = {
+				sg:electricity = {
+					state_goods_pricier >= 0.10
+				}
+			}
+			state = {
+				sg:global_electricity = {
+					state_goods_pricier <= 0.10
+				}
+			}
+		}
+        NOT = { is_under_construction = yes }
+    }
+
+	ai_value = {
+		value = 2000
+
+		# More valuable in states with significant power generation (upload mode)
+		if = {
+            limit = {
+                NOR = {
+                    has_building = building_power_grid_station
+                    any_scope_building = {
+                        is_building_type = building_power_grid_station
+                        is_under_construction = yes
+                    }
+                }
+            }
+            add = 10000
+        }
+	}
 }

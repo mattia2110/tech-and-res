@@ -10,7 +10,8 @@ pm_run_of_river_plants = {
 			goods_input_engines_add = 10 # 600
 			goods_input_wood_add = 20 #400
 			goods_input_copperwires_add = 5 #250 #2150
-			goods_output_electricity_add = 160 # 54000
+			goods_output_electricity_add = 145 # 54000
+			goods_output_global_electricity_add = 160
 		}
 
 		level_scaled = {
@@ -34,7 +35,8 @@ pm_reservoir_dams = {
 			goods_input_batteries_add = 10 #300
 			goods_input_engines_add = 20 # 600
 			goods_input_copperwires_add = 10 #250 #2150
-			goods_output_electricity_add = 300 # 54000
+			goods_output_electricity_add = 275 # 54000
+			goods_output_global_electricity_add = 300
 		}
 
 		level_scaled = {
@@ -59,7 +61,8 @@ pm_advanced_turbine_generators = {
 			goods_input_engines_add = 30 # 600
 			goods_input_copperwires_add = 10 #250 #2150
 			goods_input_electroniccomponents_add = 10
-			goods_output_electricity_add = 450 # 54000
+			goods_output_electricity_add = 400 # 54000
+			goods_output_global_electricity_add = 450
 		}
 
 		level_scaled = {
@@ -88,7 +91,7 @@ pm_pressurized_hydro_systems = {
 		}
 
 		level_scaled = {
-			building_employment_machinists_add = -1500
+			building_employment_machinists_add = -1250
 		}
 	}
 }
@@ -110,7 +113,7 @@ pm_automated_hydro_control_systems = {
 		}
 
 		level_scaled = {
-			building_employment_machinists_add = -3000
+			building_employment_machinists_add = -2500
 		}
 	}
 
@@ -137,7 +140,7 @@ pm_smart_grid_hydro = {
 		}
 
 		level_scaled = {
-			building_employment_machinists_add = -4000
+			building_employment_machinists_add = -3000
 		}
 	}
 
@@ -147,7 +150,7 @@ pm_smart_grid_hydro = {
 	}
 }
 
-#Power Plantù
+#Power Plant
 
 pm_automation_disabled_power_plant = {
 	texture = "gfx/interface/icons/production_method_icons/elgar_no_ballet.dds"
@@ -169,7 +172,6 @@ pm_pressurized_systems_power_plant = {
 
 		level_scaled = {
 			building_employment_laborers_add = -200
-			building_employment_machinists_add = -50
 		}
 	}
 }
@@ -192,7 +194,7 @@ pm_smart_grid_energy_management_power_plant = {
 
 		level_scaled = {
 			building_employment_laborers_add = -200
-			building_employment_machinists_add = -200
+			building_employment_machinists_add = -100
 			building_employment_engineers_add = -50
 
 		}
@@ -210,16 +212,18 @@ REPLACE:pm_early_power_plant = {
 
 	building_modifiers = {
 		workforce_scaled = {
-			goods_input_batteries_add = 1
+			goods_input_batteries_add = 1 #60
 			goods_input_engines_add = 2 # 240
 			goods_input_coal_add = 4 # 150
 			goods_input_wood_add = 4 # 100
-			goods_input_copperwires_add = 1
-			goods_output_electricity_add = 30 #25 +5 for more buildings
+			goods_input_copperwires_add = 1 #50 #110 less cheap tha vanilla
+
+			goods_output_electricity_add = 25 
+			goods_output_global_electricity_add = 25
 		}
 
 		level_scaled = {
-			building_employment_laborers_add = 400
+			building_employment_laborers_add = 500
 			building_employment_machinists_add = 400
 			building_employment_engineers_add = 100
 		}
@@ -242,12 +246,14 @@ REPLACE:pm_coal-fired_plant = {
 	
 	building_modifiers = {
 		workforce_scaled = {
-			goods_input_batteries_add = 1
-			goods_input_engines_add = 3
-			goods_input_water_add = 2
-			goods_input_copperwires_add = 2
-			goods_input_coal_add = 15
-			goods_output_electricity_add = 60 #50 +10 for more buildings
+			goods_input_batteries_add = 1 #60
+			goods_input_engines_add = 3 #180
+			goods_input_water_add = 2 #100
+			goods_input_copperwires_add = 2 #100
+			goods_input_coal_add = 20 #600 #80 less cheap than vanilla
+
+			goods_output_electricity_add = 50 #1500
+			goods_output_global_electricity_add = 55
 		}
 
 		level_scaled = {
@@ -278,12 +284,14 @@ REPLACE:pm_oil-fired_plant = {
 
 	building_modifiers = {
 		workforce_scaled = {
-			goods_input_batteries_add = 2
-			goods_input_engines_add = 6
-			goods_input_water_add = 3
-			goods_input_copperwires_add = 3
-			goods_input_oil_add = 25
-			goods_output_electricity_add = 100 #85 +15 for more buildings
+			goods_input_batteries_add = 2 #120
+			goods_input_engines_add = 6 #360
+			goods_input_water_add = 3 #150
+			goods_input_copperwires_add = 2 #100
+			goods_input_oil_add = 25 #1000 # 130 less cheap than vanilla
+
+			goods_output_electricity_add = 80 #2400
+			goods_output_global_electricity_add = 90
 		}
 
 		level_scaled = {
@@ -312,12 +320,14 @@ pm_gas-fired_plant = {
 
 	building_modifiers = {
 		workforce_scaled = {
-			goods_input_batteries_add = 2
-			goods_input_engines_add = 6
-			goods_input_water_add = 3
-			goods_input_copperwires_add = 3
-			goods_input_gas_add = 25
-			goods_output_electricity_add = 95 #80 +15 for more buildings
+			goods_input_batteries_add = 2 #120
+			goods_input_engines_add = 6 #360
+			goods_input_water_add = 3 #150
+			goods_input_copperwires_add = 2 #100
+			goods_input_gas_add = 25 #750
+
+			goods_output_electricity_add = 80 #2400
+			goods_output_global_electricity_add = 90
 		}
 
 		level_scaled = {
@@ -345,13 +355,15 @@ pm_nuclear-fission_plant = {
 
 	building_modifiers = {
 		workforce_scaled = {
-			goods_input_batteries_add = 2
+			goods_input_batteries_add = 2 #120
+			goods_input_engines_add = 6 #360
+			goods_input_water_add = 10 #500
 			goods_input_copperwires_add = 2 #100
-			goods_input_electroniccomponents_add = 3 #160
-			goods_input_engines_add = 6 #540
-			goods_input_water_add = 10 #750
-			goods_input_good_uranium_add = 20 #400 #2010
-			goods_output_electricity_add = 120 #100 +20 for more buildings
+			goods_input_electroniccomponents_add = 3 #180
+			goods_input_good_uranium_add = 20 #800 #2010
+			goods_output_electricity_add = 100 #3000
+			goods_output_global_electricity_add = 115
+
 		}
 
 		level_scaled = {
@@ -382,7 +394,8 @@ pm_nuclear_second_generation = {
 			# input goods
 			goods_input_robotics_add = 2 #300
 			goods_input_processors_add = 2 #260
-			goods_output_electricity_add = 20 #600
+			goods_output_electricity_add = 15 #450
+			goods_output_global_electricity_add = 20 #600 +5 for more buildings
 		}
 	}
 }
@@ -401,10 +414,11 @@ pm_nuclear_third_generation = {
 	building_modifiers = {
 		workforce_scaled = {
 			# input goods
-			goods_input_robotics_add = 3 #400
-			goods_input_computer_add = 3 #420
-			goods_input_softwares_add = 1 #60
-			goods_output_electricity_add = 35 #1200
+			goods_input_robotics_add = 3 #300
+			goods_input_computer_add = 3 #390
+			goods_input_softwares_add = 1 # 60
+			goods_output_electricity_add = 25 # 750
+			goods_output_global_electricity_add = 30 #1000 +5 for more buildings
 		}
 	}
 }
@@ -441,9 +455,10 @@ pm_automation_HFO_fuel = {
 	building_modifiers = {
 		workforce_scaled = {
 			# input goods
-			goods_input_heavy_fuel_add = 15
-			goods_input_oil_add = -25
-			goods_output_electricity_add = 20 #10 +5 for more buildings
+			goods_input_heavy_fuel_add = 15 #15*70 = 1050
+			goods_input_oil_add = -25 # 25*40 = 1000
+			goods_output_electricity_add = 10 #300
+			goods_output_global_electricity_add = 10
 		}
 	}
 }
@@ -472,7 +487,8 @@ pm_geothermal_turbine = {
 			goods_input_water_add = 20
 
 			# output goods
-			goods_output_electricity_add = 400
+			goods_output_electricity_add = 375
+			goods_output_global_electricity_add = 400 #400 +50 for more buildings
 		}
 		level_scaled = {
 			building_employment_machinists_add = 7000
@@ -505,7 +521,7 @@ pm_automation_closed_loop_system = {
 
 # Renewable Energy
 
-pm_rudimental_photovoltaic_cells  = {
+pm_rudimental_photovoltaic_cells = {
 	texture = "gfx/interface/icons/production_method_icons/pm_rudimental_photovoltaic_cells.dds"
 
 	unlocking_technologies = {
@@ -517,7 +533,7 @@ pm_rudimental_photovoltaic_cells  = {
 			goods_input_plastics_add = 10
 			goods_input_batteries_add = 6
 
-			goods_output_electricity_add = 50
+			goods_output_global_electricity_add = 50
 		}
 
 		level_scaled = {
@@ -527,7 +543,7 @@ pm_rudimental_photovoltaic_cells  = {
 	}
 }
 
-pm_wind_turbines  = {
+pm_wind_turbines = {
 	texture = "gfx/interface/icons/production_method_icons/pm_wind_turbines.dds"
 
 	unlocking_technologies = {
@@ -541,7 +557,7 @@ pm_wind_turbines  = {
 			goods_input_alloys_add = 10
 			goods_input_rare_earths_add = 3
 
-			goods_output_electricity_add = 95
+			goods_output_global_electricity_add = 95
 		}
 
 		level_scaled = {
@@ -551,7 +567,7 @@ pm_wind_turbines  = {
 	}
 }
 
-pm_solar_panels  = {
+pm_solar_panels = {
 	texture = "gfx/interface/icons/production_method_icons/pm_solar_panels.dds"
 
 	unlocking_technologies = {
@@ -564,7 +580,7 @@ pm_solar_panels  = {
 			goods_input_batteries_add = 20
 			goods_input_plastics_add = 10
 
-			goods_output_electricity_add = 100
+			goods_output_global_electricity_add = 100
 		}
 
 		level_scaled = {
@@ -648,7 +664,7 @@ pm_fusion_reactor = {
 			goods_input_alloys_add = 100
 			goods_input_rare_earths_add = 75
 			goods_input_copperwires_add = 500
-			goods_output_electricity_add = 5000
+			goods_output_global_electricity_add = 5000
 		}
 		level_scaled = {
 			building_employment_academics_add = 5000
@@ -657,7 +673,7 @@ pm_fusion_reactor = {
 	}
 	country_modifiers = {
 		unscaled = {
-			goods_input_electricity_mult = -0.15
+			goods_input_electricity_mult = -0.1
 		}
 	}
 }
@@ -677,6 +693,164 @@ pm_fusion_plasma_control = {
 			goods_input_telecommunications_add = 50
 			goods_input_computer_add = 100
 			goods_input_softwares_add = 50
+		}
+	}
+}
+
+# ============================================================
+# National Electricity Grid — Power Grid Station
+# Single building that converts AC -> DC (local electricity)
+# ============================================================
+
+# Download: AC (global_electricity) -> DC (local electricity)
+
+pm_basic_grid_download = {
+	texture = "gfx/interface/icons/production_method_icons/lv_distribution.dds"
+
+	building_modifiers = {
+		workforce_scaled = {
+			goods_input_global_electricity_add = 50
+			goods_input_copperwires_add = 2
+			goods_input_steel_add = 4
+			goods_output_electricity_add = 50
+		}
+
+		level_scaled = {
+			building_employment_machinists_add = 500
+		}
+	}
+}
+
+pm_hv_grid_download = {
+	texture = "gfx/interface/icons/production_method_icons/hv_distribution.dds"
+
+	unlocking_technologies = {
+		high_voltage_transmission
+	}
+
+	building_modifiers = {
+		workforce_scaled = {
+			goods_input_global_electricity_add = 70
+			goods_input_copperwires_add = 6 #250
+			goods_input_steel_add = 4
+			goods_input_electroniccomponents_add = 2 #80
+			goods_output_electricity_add = 80
+		}
+
+		level_scaled = {
+			building_employment_machinists_add = 500
+		}
+	}
+}
+
+pm_uhv_grid_download = {
+	texture = "gfx/interface/icons/production_method_icons/uhv_distribution.dds"
+
+	unlocking_technologies = {
+		smart_energy_grid
+	}
+
+	building_modifiers = {
+		workforce_scaled = {
+			goods_input_global_electricity_add = 100
+			goods_input_copperwires_add = 10 #250
+			goods_input_steel_add = 4
+			goods_input_electroniccomponents_add = 4 #160
+			goods_output_electricity_add = 120
+		}
+
+		level_scaled = {
+			building_employment_engineers_add = 400
+		}
+	}
+}
+
+pm_direct_current = {
+	texture = "gfx/interface/icons/goods_icons/electricity.dds"
+
+	building_modifiers = {
+		unscaled = {
+			goods_output_global_electricity_mult = -0.9
+		}
+	}
+}
+
+pm_half_current = {
+	texture = "gfx/interface/icons/goods_icons/half_electrical_generation.dds"
+
+	unlocking_technologies = {
+		national_power_grid
+	}
+
+	building_modifiers = {
+		unscaled = {
+			goods_output_global_electricity_mult = -0.5
+			goods_output_electricity_mult = -0.5
+		}
+		level_scaled = {
+			building_employment_machinists_add = -75
+		}
+	}
+}
+
+pm_alternating_current = {
+	texture = "gfx/interface/icons/goods_icons/electrical_generation.dds"
+
+	unlocking_technologies = {
+		high_voltage_transmission
+	}
+
+	building_modifiers = {
+		unscaled = {
+			goods_output_electricity_mult = -1
+		}
+		level_scaled = {
+			building_employment_machinists_add = -100
+		}
+	}
+}
+
+pm_direct_current_large = {
+	texture = "gfx/interface/icons/goods_icons/electricity.dds"
+
+	building_modifiers = {
+		unscaled = {
+			goods_output_global_electricity_mult = -0.9
+		}
+	}
+}
+
+pm_half_current_large = {
+	texture = "gfx/interface/icons/goods_icons/half_electrical_generation.dds"
+
+	unlocking_technologies = {
+		national_power_grid
+	}
+
+	building_modifiers = {
+		unscaled = {
+			goods_output_global_electricity_mult = -0.5
+			goods_output_electricity_mult = -0.5
+		}
+		level_scaled = {
+			building_employment_machinists_add = -750
+		}
+	}
+}
+
+pm_alternating_current_large = {
+	texture = "gfx/interface/icons/goods_icons/electrical_generation.dds"
+
+	unlocking_technologies = {
+		high_voltage_transmission
+	}
+
+	building_modifiers = {
+		unscaled = {
+			goods_output_electricity_mult = -1
+		}
+		level_scaled = {
+			building_employment_machinists_add = -1000
 		}
 	}
 }

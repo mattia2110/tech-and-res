@@ -162,6 +162,7 @@ REPLACE:ai_strategy_industrial_expansion = {
 		building_advancedores_mine = nice_to_have
 		building_rare_earths_mine = nice_to_have
 		building_uranium_mine = nice_to_have
+		building_power_grid_station = must_have
 	}
 	goods_stances = {
 		rubber = {
@@ -275,12 +276,12 @@ REPLACE:ai_strategy_industrial_expansion = {
 				}
 			}
 		}
-		androids = {
-			stance = wants_export
-			trigger = {
-				has_technology_researched = androids
-			}
-		}
+		# androids = {
+		# 	stance = wants_export
+		# 	trigger = {
+		# 		has_technology_researched = androids
+		# 	}
+		# }
 		computer = {
 			stance = wants_export
 			trigger = {
@@ -398,6 +399,13 @@ REPLACE:ai_strategy_industrial_expansion = {
 				country_rank = rank_value:great_power
 			}
 		}
+		# Electricity Shift
+		global_electricity = {
+			stance = wants_high_supply
+			trigger = {
+				has_technology_researched = national_power_grid
+			}
+		}
 		#Data
 		# Universities
 		business_data = {
@@ -498,7 +506,7 @@ REPLACE:ai_strategy_industrial_expansion = {
 			}
 			add = -250
 		}
-		# Actually Russia never industrialize like the west before russian revolution, but during it Russia might try to catch up
+		# Actually Russia never industrialize like the west, but during the revolution it might try to catch up
 		if = {
 			limit = {
 				year > 1945
@@ -506,7 +514,7 @@ REPLACE:ai_strategy_industrial_expansion = {
 			}
 			add = 1000
 		}
-		# This is for east Asia industrialization
+		# This is for East Asia industrialization
 		if = {
 			limit = {
 				year > 1960

@@ -2,7 +2,6 @@
 
 INJECT:company_basic_silk_and_dye = {
 	extension_building_types = {
-		building_textile_mill
 		building_chemical_plant
 		building_hydroponic
 	}
@@ -10,19 +9,16 @@ INJECT:company_basic_silk_and_dye = {
 
 INJECT:company_basic_wine_and_fruit = {
 	extension_building_types = {
-		building_sugar_plantation
 		building_hydroponic
 	}
 }
 
 INJECT:company_basic_oil = {
 	building_types = {
-		building_oil_rig
 		building_natural_gas_rig
 	}
 
 	extension_building_types = {
-		#building_coal_mine
 		building_mendelejew_hydrogenation_plants
 		building_mendelejew_synthetic_rubber_factory
 	}
@@ -30,7 +26,6 @@ INJECT:company_basic_oil = {
 
 INJECT:company_basic_metal_mining = {
 	extension_building_types = {
-		building_coal_mine
 		building_copper_mine
 		building_commonores_mine
 	}
@@ -38,7 +33,6 @@ INJECT:company_basic_metal_mining = {
 
 INJECT:company_basic_mineral_mining = {
 	extension_building_types = {
-		building_iron_mine
 		building_bauxite_mine
 	}
 }
@@ -48,17 +42,33 @@ INJECT:company_basic_food = {
 		state_standard_of_living_add = 0.5
 		state_food_security_add = 0.1
 		state_turmoil_effects_mult = -0.1
+		state_birth_rate_mult = -0.05 #To delete
 	}
 }
 
 INJECT:company_basic_metalworks = {
 	extension_building_types = {
-		building_steel_mill
 		building_alloys_plant
 	}
 }
 
-INJECT:company_basic_chemicals = {
+REPLACE:company_basic_chemicals = {
+	icon = "gfx/interface/icons/company_icons/basic_chemicals.dds"
+	background = "gfx/interface/icons/company_icons/company_backgrounds/comp_illu_manufacturing_heavy.dds"
+
+	flavored_company = no
+
+	uses_dynamic_naming = yes
+
+	dynamic_company_type_names = {
+		"dynamic_company_type_company"
+		"dynamic_company_type_consortium"
+		"dynamic_company_type_corporation"
+		"dynamic_company_type_conglomerate"
+		"dynamic_company_type_syndicate"
+		"dynamic_company_type_combine"
+	}
+
 	building_types = {
 		building_chemical_plant
 		#building_synthetics_plant
@@ -67,6 +77,22 @@ INJECT:company_basic_chemicals = {
 	extension_building_types = {
 		building_sulfur_mine
 		building_mendelejew_synthetic_rubber_factory
+	}
+
+	possible_prestige_goods = {
+		prestige_good_generic_fertilizer
+	}
+
+	prestige_goods_trigger = {
+		custom_tooltip = {
+			text = je_prestige_goods_fertilizer_complete_tt
+			has_variable = prestige_good_generic_fertilizer_var
+		}
+	}
+
+	prosperity_modifier = {
+		unit_supply_consumption_mult = -0.05
+		building_chemical_plant_throughput_add = 0.1
 	}
 
 	possible = {
@@ -96,24 +122,19 @@ INJECT:company_basic_chemicals = {
 
 INJECT:company_basic_motors = {
 	extension_building_types = {
-		building_steel_mill
 		building_aircraft_industry
 	}
 }
 
 INJECT:company_basic_electrics = {
 	extension_building_types = {
-		building_iron_mine
-		building_rubber_plantation
 		building_consumer_electronics_industry
 	}
 }
 
 INJECT:company_basic_weapons = {
 	extension_building_types = {
-		building_automotive_industry
 		building_aircraft_industry
-		building_steel_mill
 	}
 }
 
