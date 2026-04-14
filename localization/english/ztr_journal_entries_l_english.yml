@@ -5,7 +5,7 @@ je_france_pop_reason: "[ROOT.GetCountry.GetName] was the first major European [C
 je_france_pop_goal: "Increase Healthcare around [ROOT.GetCountry.GetName] with laws, urban centers or researching new techs such as penicillin and antibiotics"
 
 je_irish_independence: "Irish Question"
-je_irish_independence_reason: "Ireland becomes part of the United Kingdom in 1801, but the Irish people have long sought independence. The Irish Question refers to the debate over whether Ireland should be an independent nation or remain part of the UK, despite the lack of a real economic or political integration. The Irish nationalist movement has gained momentum in recent years, with many advocating for self-determination and the establishment of an independent Irish state."
+je_irish_independence_reason: "Ireland becomes part of the United Kingdom in 1801, but the Irish people have long sought independence. The Irish Question refers to the debate over whether Ireland should be an independent nation or remain part of the UK, despite the lack of a real economic or political integration. The Irish nationalist movement has gained momentum in recent years, with many advocating for #v Self-Determination#! and the establishment of an independent Irish state."
 je_irish_independence_goal: "Reduce irish turmoil, maintain a low progress bar and, most important, enact cultural exclusion or multiculturalism laws."
 
 je_arabia_unification: "Arabian Unification"
@@ -443,7 +443,8 @@ je_un_votations_status_against:0 "#gold_value Vote Trend#!: #n Opposition#!\n#bl
  ztr_un_hr_slavery_illegal_desc:0 "The United Nations has declared all forms of slavery illegal under international law. Member states that still permit slavery face severe diplomatic consequences and loss of international standing."
 
  # Liberty Desire Descriptions
- LIBERTY_DESIRE_DECOLONIZATION_PRESSURE:0 "Decolonization Pressure"
+ LIBERTY_DESIRE_DECOLONIZATION_PRESSURE:0 "National Decolonization Pressure"
+LIBERTY_DESIRE_GLOBAL_DECOLONIZATION_PRESSURE:0 "Global Decolonization Pressure"
  LIBERTY_DESIRE_UN_DECOLONIZATION_ENCOURAGED:0 "UN Encourages Decolonization"
  LIBERTY_DESIRE_UN_COLONIAL_LAWS_CONDEMNED:0 "UN Condemns Colonial Laws"
  LIBERTY_DESIRE_UN_SLAVERY_CONDEMNED:0 "UN Condemns Slavery"
@@ -553,12 +554,16 @@ ztr_un_major_power_against_vote_display_rank_10_loc:0 "[GetGlobalVariable('ztr_u
 
 # Decolonization Journal Entry
 je_decolonization:0 "Winds of Decolonization"
-je_decolonization_reason:0 "The age of #v Colonial Empires#! is drawing to a close. Across the globe, subject peoples are demanding self-determination, international organizations are challenging the legitimacy of imperial rule, and the cost of maintaining overseas territories is mounting.\n\n[ROOT.GetCountry.GetName] must navigate this tidal shift carefully: resist and face growing insurgency and international condemnation, or guide the transition and preserve what influence it can.\n\nThe #n Decolonization Pressure#! measures the growing international and domestic momentum toward the dissolution of colonial empires. As pressure rises, subjects gain increasing liberty desire and decolonization events become more consequential."
+je_decolonization_reason:0 "The age of #v Colonial Empires#! is drawing to a close. Across the globe, subject peoples are demanding #v Self-Determination#!, international organizations are challenging the legitimacy of imperial rule, and the cost of maintaining overseas territories is mounting.\n\n[ROOT.GetCountry.GetName] must navigate this tidal shift carefully: resist and face growing insurgency and international condemnation, or guide the transition and preserve what influence it can.\n\nThe #n Decolonization Pressure#! measures the growing international and domestic momentum toward the dissolution of colonial empires. As pressure rises, subjects gain increasing liberty desire and events about states asking for #v Self-Determination#! become more consequential.\n\n[Concept('concept_decolonizing_state','$concept_decolonizing_states$')]:\n[GetScriptedGui('je_decolonization_colonial_states_sgui').ExecuteTooltip(GuiScope.SetRoot(ROOT.GetCountry.MakeScope).End)]"
  je_decolonization_goal:0 "All non-European [Concept('concept_subject','$concept_subjects$')] gain independence."
  je_decolonization_status_low:0 "Colonial governance remains broadly accepted internationally, though early signs of change are emerging."
  je_decolonization_status_rising:0 "Nationalist movements in the colonies are gaining momentum. International opinion is shifting against colonial rule."
  je_decolonization_status_high:0 "The tide of decolonization is now unmistakable. Multiple colonies are demanding independence and international pressure is mounting."
  je_decolonization_status_critical:0 "The colonial order is collapsing. Subject peoples across the empire are in open revolt or on the verge of it. Maintaining the empire has become politically and economically unsustainable."
  je_decolonization_complete_tt:0 "No remaining colonial subjects."
- ztr_decolonization_pressure_bar:0 "Decolonization Pressure"
+ JE_DECOLONIZATION_COLONIAL_STATE_ENTRY:0 " #v [THIS.GetState.GetName]#!"
+ JE_DECOLONIZATION_NO_COLONIAL_STATES:0 " #v No colonial states.#!"
+ ztr_decolonization_pressure_bar:0 "National Decolonization Pressure"
  ztr_decolonization_pressure_bar_desc:0 "Decolonization Pressure: #v [ROOT.GetCountry.MakeScope.Var('ztr_decolonization_pressure_var').GetValue|0]/100#!"
+ztr_global_decolonization_pressure_bar:0 "Global Decolonization Pressure"
+ztr_global_decolonization_pressure_bar_desc:0 "Global Decolonization Pressure: #v [GetGlobalVariable('ztr_global_decolonization_pressure_var').GetValue|0]/100#!"

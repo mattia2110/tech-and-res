@@ -72,13 +72,10 @@ nuclear_warfare_system.1 = {
 #THIS loses nuclear capability
 nuclear_warfare_system.2 = {
 	type = country_event
-
 	title = lost_nuclear_capability.t
 	desc = lost_nuclear_capability.d
 	flavor = lost_nuclear_capability.f
-
 	event_image = { video = "gfx/event_pictures/unspecific_military_parade.bk2" }
-
 	icon = "gfx/interface/icons/event_icons/nuclear_program_2.dds"
 
 	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
@@ -86,14 +83,10 @@ nuclear_warfare_system.2 = {
 	duration = 1
 
 	trigger = {
-	
 		has_modifier = nuclear_capability
-		
 		OR = { 
-		
 			#Does not have nuclear weapons law
 			NOT = { has_law = law_type:law_uranium_full_usage }
-		
 			#Does not have at least 1 functional nuclear weapons building
 			NOT = { 
 				any_scope_state = {
@@ -104,69 +97,25 @@ nuclear_warfare_system.2 = {
 					}
 				}
 			}
-			
 			#NOT a sovereign state
-			NOT = { is_subject = no }
-			
+			is_subject = yes	
 		}
-		
 	}
-
 	immediate = {
-	
 		#Remove Nuclear Capability
 		remove_modifier = nuclear_capability
 		remove_variable = nuclear_program_started
-		
+		remove_variable = thermonuclear_program_started
 		#Force disarmament if a non-autonomous subject
 		if = {
-			limit = { NOT = { is_subject = no } }
+			limit = { is_subject = yes }
 			activate_law = law_type:law_uranium_civil_usage
 		}
 		save_scope_as = nuclear_country
 	}
-
 	option = {
 		name = lost_nuclear_capability.option 	#The world shall tremble at our might!		
 	}	
-}
-
-#Clean up nuclear buildings
-nuclear_warfare_system.3 = {
-	type = country_event
-	hidden = yes
-
-	trigger = {
-		
-		#Not a nuclear capable country
-		NOT = { has_modifier = nuclear_capability }
-		
-		#Has Nuclear Weapons Silo OR Nuclear Submarine Base
-		any_scope_state = {
-			any_scope_building = { 
-				OR = { 
-					is_building_type = building_nuclear_weapons_silo
-					#is_building_type = building_nuclear_naval_base
-				}
-			}
-		}
-		
-	}
-
-	immediate = {
-		
-		#Clear nuclear buildings
-		every_scope_state = { 
-			limit = { has_building = building_nuclear_weapons_silo }
-			remove_building = building_nuclear_weapons_silo
-		}
-		# every_scope_state = { 
-		# 	limit = { has_building = building_nuclear_naval_base }
-		# 	remove_building = building_nuclear_naval_base
-		# }
-		
-	}
-	
 }
 
 #THIS has been struck by nuclear weapons
@@ -215,30 +164,6 @@ nuclear_warfare_system.4 = {
 			}
 		}
 		
-	}
-	
-}
-
-#Clean up nuclear weapons program variable
-nuclear_warfare_system.5 = {
-	type = country_event
-	hidden = yes
-
-	trigger = {
-		
-		#Has nuclear program
-		has_variable = nuclear_program_started
-		
-		#THIS no longer allows WMDs or has become an insufficiently independent subject
-		OR = {
-			NOT = { has_law = law_type:law_wmd_allowed }
-			NOT = { is_subject = no }
-		}
-		
-	}
-
-	immediate = {
-		remove_variable = nuclear_program_started
 	}
 	
 }

@@ -196,7 +196,7 @@ effect_compute_nuclear_capability_points_defense = {
 
 	if = {
 		limit = { has_technology_researched = ai_warfare gdp > 3000000000 }
-		owner = { change_global_variable = { name = nuclear_strike_power_global multiply = 1.25 } }
+		owner = { change_global_variable = { name = nuclear_strike_defence_global multiply = 1.25 } }
 	}
 
 	# This are only for AI since Player could micromanage everything like cheating
@@ -348,6 +348,17 @@ effect_very_low_nuclear_damage = {
 		value = 25
 	}
 
+	ordered_scope_state = {
+		limit = {
+			OR = {
+				is_capital = yes
+				state_population > 3000000
+   		 	}
+		}
+		order_by = gdp
+		max = 1
+		save_scope_as = nuclear_striked_state_target
+	}
 	every_scope_state = {
 		limit = {
     		OR = {
@@ -421,10 +432,7 @@ effect_very_low_nuclear_damage = {
 		#Destroy buildings
 		effect_nuclear_war_destroy_infrastructure_buildings = yes
 		effect_nuclear_war_destroy_city_buildings = yes
-		effect_nuclear_war_destroy_industrial_buildings = yes
-
-		save_scope_as = nuclear_striked_state_target
-		
+		effect_nuclear_war_destroy_industrial_buildings = yes		
 	}
 	trigger_event = { id = nuclear_warfare_system.4 }
 	
@@ -436,7 +444,17 @@ effect_low_nuclear_damage = {
 		target = THIS
 		value = 35
 	}
-
+	ordered_scope_state = {
+		limit = {
+    		OR = {
+        		is_capital = yes
+        		state_population > 2000000
+   		 	}
+		}
+		order_by = gdp
+		max = 1
+		save_scope_as = nuclear_striked_state_target
+	}
 	every_scope_state = {
 		limit = {
     		OR = {
@@ -510,10 +528,7 @@ effect_low_nuclear_damage = {
 		#Destroy buildings
 		effect_nuclear_war_destroy_infrastructure_buildings = yes
 		effect_nuclear_war_destroy_city_buildings = yes
-		effect_nuclear_war_destroy_industrial_buildings = yes
-
-		save_scope_as = nuclear_striked_state_target
-		
+		effect_nuclear_war_destroy_industrial_buildings = yes		
 	}
 	trigger_event = { id = nuclear_warfare_system.4 }
 
@@ -526,6 +541,17 @@ effect_medium_nuclear_damage = {
 		value = 45
 	}
 
+	ordered_scope_state = {
+		limit = {
+    		OR = {
+        		is_capital = yes
+        		state_population > 2000000
+   		 	}
+		}
+		order_by = gdp
+		max = 1
+		save_scope_as = nuclear_striked_state_target
+	}
 	every_scope_state = {
 		limit = {
     		OR = {
@@ -601,9 +627,6 @@ effect_medium_nuclear_damage = {
 		effect_nuclear_war_destroy_city_buildings = yes
 		effect_nuclear_war_destroy_industrial_buildings = yes
 		effect_nuclear_war_destroy_rural_buildings = yes
-
-		save_scope_as = nuclear_striked_state_target
-		
 	}
 	trigger_event = { id = nuclear_warfare_system.4 }
 
@@ -616,6 +639,17 @@ effect_high_nuclear_damage = {
 		value = 50
 	}
 
+	ordered_scope_state = {
+		limit = {
+    		OR = {
+        		is_capital = yes
+        		state_population > 1500000
+   		 	}
+		}
+		order_by = gdp
+		max = 1
+		save_scope_as = nuclear_striked_state_target
+	}
 	every_scope_state = {
 		limit = {
     		OR = {
@@ -691,8 +725,6 @@ effect_high_nuclear_damage = {
 		effect_nuclear_war_destroy_city_buildings = yes
 		effect_nuclear_war_destroy_industrial_buildings = yes
 		effect_nuclear_war_destroy_rural_buildings = yes
-
-		save_scope_as = nuclear_striked_state_target
 		
 	}
 	trigger_event = { id = nuclear_warfare_system.4 }

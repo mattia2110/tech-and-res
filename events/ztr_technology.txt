@@ -127,37 +127,6 @@ ztr_technology.2 = {
 	}
 }
 
-# research_center removed
-ztr_technology.3 = {
-	type = country_event
-	title = research_center.3.t
-	desc = research_center.3.d
-	hidden = yes
-	placement = root
-	event_image = {
-		video = "quantum_physics"
-	}
-	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
-	icon = "gfx/interface/icons/event_icons/innovation.dds"
-	duration = 3
-	trigger = {
-		any_scope_state = {
-			is_capital = no
-			has_building = building_research_center
-			count > 0
-		}
-	}
-	immediate = {
-		every_scope_state = {
-			limit = {
-				is_capital = no
-				has_building = building_research_center
-			}
-			remove_building = building_research_center
-		}
-	}
-}
-
 # Fusion Reactor - First breakthrough
 ztr_technology.10 = {
 	type = country_event
@@ -312,35 +281,6 @@ ztr_technology.13 = {
 				progress = 10000
 				technology = third_nuclear_reactor
 			}
-		}
-	}
-}
-
-# Fusion Reactor - removal from non-capital states
-ztr_technology.12 = {
-	type = country_event
-	hidden = yes
-	placement = root
-	event_image = {
-		video = "quantum_physics"
-	}
-	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
-	icon = "gfx/interface/icons/event_icons/innovation.dds"
-	duration = 3
-	trigger = {
-		any_scope_state = {
-			is_capital = no
-			has_building = building_fusion_power_plant
-			count > 0
-		}
-	}
-	immediate = {
-		every_scope_state = {
-			limit = {
-				is_capital = no
-				has_building = building_fusion_power_plant
-			}
-			remove_building = building_fusion_power_plant
 		}
 	}
 }

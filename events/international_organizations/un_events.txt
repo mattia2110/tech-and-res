@@ -1528,10 +1528,7 @@ ztr_un_event.45 = {
 	type = country_event
 	hidden = yes
 	trigger = {
-		has_global_variable = ztr_un_institution_icc
-		global_var:ztr_un_institution_icc = 1
-		ztr_is_un_member = yes
-		infamy >= 25
+		# By on_action
 	}
 	immediate = {
 		add_modifier = {
@@ -1619,69 +1616,4 @@ ztr_un_event.25 = {
 	}
 }
 
-# Event 100: Yearly AI UN proposal coordinator
-ztr_un_event.100 = {
-	dlc = dlc_tech_res
-	type = country_event
-	hidden = yes
-	trigger = {
-		global_country_ranking = 1
-		NOT = {
-			has_global_variable = ztr_un_vote_in_progress
-		}
-	}
-	immediate = {
-		# This is to avoid player touch the button during the AI voting
-		set_global_variable = ztr_un_button_opened
-		# This 99% finds at least one permanent member
-		random_country = {
-			limit = {
-				is_ai = yes
-				has_modifier = ztr_onu_permanent_member
-			}
-			save_scope_as = ztr_un_potential_proposer_scope_1
-		}
-		if = {
-			limit = {
-				scope:ztr_un_potential_proposer_scope_1 = {
-					exists = yes
-				}
-			}
-			random_country = {
-				limit = {
-					is_ai = yes
-					has_modifier = ztr_onu_permanent_member
-					NOT = {
-						this = scope:ztr_un_potential_proposer_scope_1
-					}
-				}
-				save_scope_as = ztr_un_potential_proposer_scope_2
-			}
-		}
-		if = {
-			limit = {
-				scope:ztr_un_potential_proposer_scope_1 = {
-					exists = yes
-				}
-			}
-			scope:ztr_un_potential_proposer_scope_1 = {
-				ztr_un_random_subject_and_law_extraction = yes
-				ztr_un_ai_try_start_possible_vote = yes
-			}
-			if = {
-				limit = {
-					NOT = {
-						has_global_variable = ztr_un_vote_in_progress
-					}
-					scope:ztr_un_potential_proposer_scope_2 = {
-						exists = yes
-					}
-				}
-				scope:ztr_un_potential_proposer_scope_2 = {
-					ztr_un_ai_try_start_possible_vote = yes
-				}
-			}
-		}
-		remove_global_variable = ztr_un_button_opened
-	}
-}
+# Event 100: 

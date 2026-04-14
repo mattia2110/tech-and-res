@@ -1,0 +1,675 @@
+namespace = ztr_decolonization_phases
+
+###########################################################
+# PHASE 1 EVENTS (Quiet, 0-25)
+###########################################################
+
+# Event 1: The Educated Native (Phase 1, Homeland)
+# A Western-educated native intellectual publishes a treatise demanding self-governance
+ztr_decolonization_phases.1 = {
+	dlc = dlc_tech_res
+	type = country_event
+	placement = scope:decolonizing_state
+
+	event_image = {
+		video = "africa_leader_arguing"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	icon = "gfx/interface/icons/event_icons/decolonization_event.dds"
+
+	title = ztr_decolonization_phases.1.t
+	desc = ztr_decolonization_phases.1.d
+
+	duration = 3
+
+	trigger = {
+		has_game_rule = allow_ztr_decolonization_content
+		ztr_decolonization_is_phase_1 = yes
+		NOT = { has_variable = ztr_decol_educated_native_cd }
+		any_scope_state = {
+			state_want_to_be_decolonized = yes
+			literacy_rate > 0.15
+		}
+		ztr_is_not_totalitarian = yes
+	}
+
+	immediate = {
+		set_variable = {
+			name = ztr_decol_educated_native_cd
+			years = 10
+		}
+		random_scope_state = {
+			limit = {
+				state_want_to_be_decolonized = yes
+				literacy_rate > 0.15
+			}
+			save_scope_as = decolonizing_state
+		}
+	}
+
+	option = {
+		name = ztr_decolonization_phases.1.a
+		ai_chance = {
+			base = 10
+			modifier = {
+				trigger = { ztr_is_democratic = yes }
+				add = 15
+			}
+		}
+		change_variable = {
+			name = ztr_decolonization_pressure_var
+			add = 2
+		}
+	}
+
+	option = {
+		name = ztr_decolonization_phases.1.b
+		default_option = yes
+		ai_chance = {
+			base = 10
+		}
+		change_infamy = 1
+		scope:decolonizing_state = {
+			add_radicals_in_state = {
+				value = small_radicals
+			}
+		}
+	}
+}
+
+# Event 2: Missionaries and Conscience (Phase 1, Subject)
+# Religious missionaries returning from colonies publish reports exposing poor conditions
+ztr_decolonization_phases.2 = {
+	dlc = dlc_tech_res
+	type = country_event
+	placement = scope:missionary_subject
+
+	event_image = {
+		video = "europenorthamerica_political_rally"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	icon = "gfx/interface/icons/event_icons/decolonization_event.dds"
+
+	title = ztr_decolonization_phases.2.t
+	desc = ztr_decolonization_phases.2.d
+
+	duration = 3
+
+	trigger = {
+		has_game_rule = allow_ztr_decolonization_content
+		ztr_decolonization_is_phase_1 = yes
+		NOT = { has_variable = ztr_decol_missionaries_cd }
+		any_subject_or_below = {
+			any_scope_state = {
+				average_sol < 12
+			}
+			NOT = { has_variable = ztr_decolonization_timer_var }
+		}
+		OR = {
+			ig:ig_devout ?= { is_marginal = no }
+			ig:ig_rural_folk ?= { is_marginal = no }
+		}
+	}
+
+	immediate = {
+		set_variable = {
+			name = ztr_decol_missionaries_cd
+			years = 10
+		}
+		random_subject_or_below = {
+			limit = {
+				any_scope_state = {
+					average_sol < 12
+				}
+				NOT = { has_variable = ztr_decolonization_timer_var }
+			}
+			save_scope_as = missionary_subject
+		}
+	}
+
+	option = {
+		name = ztr_decolonization_phases.2.a
+		ai_chance = {
+			base = 10
+			modifier = {
+				trigger = { ztr_is_democratic = yes }
+				add = 15
+			}
+		}
+		change_variable = {
+			name = ztr_decolonization_pressure_var
+			add = 2
+		}
+		add_legitimacy = 10
+	}
+
+	option = {
+		name = ztr_decolonization_phases.2.b
+		default_option = yes
+		ai_chance = {
+			base = 10
+		}
+		change_infamy = 1
+		add_legitimacy = -10
+	}
+}
+
+# Event 3: Songs of the Homeland (Phase 1, Homeland)
+# Folk songs and cultural revival movements emerge among colonized peoples
+ztr_decolonization_phases.3 = {
+	dlc = dlc_tech_res
+	type = country_event
+	placement = scope:songs_state
+
+	event_image = {
+		video = "africa_public_protest"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	icon = "gfx/interface/icons/event_icons/decolonization_event.dds"
+
+	title = ztr_decolonization_phases.3.t
+	desc = ztr_decolonization_phases.3.d
+
+	duration = 3
+
+	trigger = {
+		has_game_rule = allow_ztr_decolonization_content
+		ztr_decolonization_is_phase_1 = yes
+		NOT = { has_variable = ztr_decol_songs_cd }
+		any_scope_state = {
+			state_want_to_be_decolonized = yes
+			OR = {
+				turmoil > 0.1
+				radical_fraction > 0.1
+			}
+		}
+	}
+
+	immediate = {
+		set_variable = {
+			name = ztr_decol_songs_cd
+			years = 10
+		}
+		random_scope_state = {
+			limit = {
+				state_want_to_be_decolonized = yes
+				OR = {
+					turmoil > 0.1
+					radical_fraction > 0.1
+				}
+			}
+			save_scope_as = songs_state
+		}
+	}
+
+	option = {
+		name = ztr_decolonization_phases.3.a
+		ai_chance = {
+			base = 10
+			modifier = {
+				trigger = { ztr_is_democratic = yes }
+				add = 15
+			}
+		}
+		change_variable = {
+			name = ztr_decolonization_pressure_var
+			add = 1
+		}
+		scope:songs_state = {
+			add_loyalists_in_state = {
+				value = small_loyalists
+			}
+		}
+	}
+
+	option = {
+		name = ztr_decolonization_phases.3.b
+		default_option = yes
+		ai_chance = {
+			base = 10
+		}
+		change_infamy = 1
+		scope:songs_state = {
+			add_radicals_in_state = {
+				value = small_radicals
+			}
+		}
+	}
+}
+
+# Event 4: Whispers in the Bazaar (Phase 1, Subject)
+# Intelligence reports reveal underground nationalist networks forming among colonial subjects
+ztr_decolonization_phases.4 = {
+	dlc = dlc_tech_res
+	type = country_event
+	placement = scope:whispers_subject
+
+	event_image = {
+		video = "middleeast_courtroom_upheaval"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	icon = "gfx/interface/icons/event_icons/decolonization_event.dds"
+
+	title = ztr_decolonization_phases.4.t
+	desc = ztr_decolonization_phases.4.d
+
+	duration = 3
+
+	trigger = {
+		has_game_rule = allow_ztr_decolonization_content
+		ztr_decolonization_is_phase_1 = yes
+		NOT = { has_variable = ztr_decol_whispers_cd }
+		any_subject_or_below = {
+			liberty_desire > 25
+			NOT = { has_variable = ztr_decolonization_timer_var }
+			NOT = { is_subject_of = c:BIC }
+		}
+		is_at_war = no
+	}
+
+	immediate = {
+		set_variable = {
+			name = ztr_decol_whispers_cd
+			years = 10
+		}
+		random_subject_or_below = {
+			limit = {
+				liberty_desire > 25
+				NOT = { has_variable = ztr_decolonization_timer_var }
+				NOT = { is_subject_of = c:BIC }
+			}
+			save_scope_as = whispers_subject
+		}
+	}
+
+	option = {
+		name = ztr_decolonization_phases.4.a
+		ai_chance = {
+			base = 10
+			modifier = {
+				trigger = { ztr_is_democratic = yes }
+				add = 15
+			}
+		}
+		change_variable = {
+			name = ztr_decolonization_pressure_var
+			add = 2
+		}
+		scope:whispers_subject = {
+			change_liberty_desire = {
+				value = -10
+			}
+		}
+	}
+
+	option = {
+		name = ztr_decolonization_phases.4.b
+		default_option = yes
+		ai_chance = {
+			base = 10
+		}
+		scope:whispers_subject = {
+			change_liberty_desire = {
+				value = 15
+			}
+		}
+		add_authority = 5
+	}
+}
+
+###########################################################
+# PHASE 2 EVENTS (Request, 25-50)
+###########################################################
+
+# Event 5: A Formal Petition (Phase 2, Subject)
+# Colonial elites formally petition the metropole for self-governance
+ztr_decolonization_phases.5 = {
+	dlc = dlc_tech_res
+	type = country_event
+	placement = scope:petition_subject
+
+	event_image = {
+		video = "europenorthamerica_springtime_of_nations"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	icon = "gfx/interface/icons/event_icons/decolonization_event.dds"
+
+	title = ztr_decolonization_phases.5.t
+	desc = ztr_decolonization_phases.5.d
+
+	duration = 3
+
+	trigger = {
+		has_game_rule = allow_ztr_decolonization_content
+		ztr_decolonization_is_phase_2 = yes
+		NOT = { has_variable = ztr_decol_petition_cd }
+		any_subject_or_below = {
+			liberty_desire > 40
+			NOT = { has_variable = ztr_decolonization_timer_var }
+			NOT = { is_subject_of = c:BIC }
+			NOT = { is_diplomatic_play_enemy_of = root }
+		}
+		ztr_is_democratic = yes
+	}
+
+	immediate = {
+		set_variable = {
+			name = ztr_decol_petition_cd
+			years = 8
+		}
+		random_subject_or_below = {
+			limit = {
+				liberty_desire > 40
+				NOT = { has_variable = ztr_decolonization_timer_var }
+				NOT = { is_subject_of = c:BIC }
+				NOT = { is_diplomatic_play_enemy_of = root }
+			}
+			save_scope_as = petition_subject
+		}
+	}
+
+	option = {
+		name = ztr_decolonization_phases.5.a
+		ai_chance = {
+			base = 10
+			modifier = {
+				trigger = { ztr_is_full_democratic = yes }
+				add = 20
+			}
+		}
+		change_variable = {
+			name = ztr_decolonization_pressure_var
+			add = 3
+		}
+		scope:petition_subject = {
+			change_liberty_desire = {
+				value = -15
+			}
+		}
+		change_relations = {
+			country = scope:petition_subject
+			value = 5
+		}
+	}
+
+	option = {
+		name = ztr_decolonization_phases.5.b
+		default_option = yes
+		ai_chance = {
+			base = 10
+		}
+		change_variable = {
+			name = ztr_decolonization_pressure_var
+			add = 1
+		}
+		scope:petition_subject = {
+			change_liberty_desire = {
+				value = 20
+			}
+		}
+		change_infamy = 3
+	}
+}
+
+# Event 6: Colonial Workers' Strike (Phase 2, Homeland)
+# Workers in colonial industries organize a coordinated strike
+ztr_decolonization_phases.6 = {
+	dlc = dlc_tech_res
+	type = country_event
+	placement = scope:strike_state
+
+	event_image = {
+		video = "africa_public_protest"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	icon = "gfx/interface/icons/event_icons/decolonization_event.dds"
+
+	title = ztr_decolonization_phases.6.t
+	desc = ztr_decolonization_phases.6.d
+
+	duration = 3
+
+	trigger = {
+		has_game_rule = allow_ztr_decolonization_content
+		ztr_decolonization_is_phase_2 = yes
+		NOT = { has_variable = ztr_decol_strike_cd }
+		any_scope_state = {
+			state_want_to_be_decolonized = yes
+			radical_fraction > 0.15
+			state_population > 100000
+		}
+		OR = {
+			ig:ig_trade_unions ?= { is_marginal = no }
+			ig:ig_rural_folk ?= { is_marginal = no }
+		}
+	}
+
+	immediate = {
+		set_variable = {
+			name = ztr_decol_strike_cd
+			years = 8
+		}
+		random_scope_state = {
+			limit = {
+				state_want_to_be_decolonized = yes
+				radical_fraction > 0.15
+				state_population > 100000
+			}
+			save_scope_as = strike_state
+		}
+	}
+
+	option = {
+		name = ztr_decolonization_phases.6.a
+		ai_chance = {
+			base = 10
+			modifier = {
+				trigger = { ztr_is_democratic = yes }
+				add = 15
+			}
+		}
+		change_variable = {
+			name = ztr_decolonization_pressure_var
+			add = 3
+		}
+		scope:strike_state = {
+			add_loyalists_in_state = {
+				value = small_loyalists
+			}
+		}
+	}
+
+	option = {
+		name = ztr_decolonization_phases.6.b
+		default_option = yes
+		ai_chance = {
+			base = 10
+		}
+		change_variable = {
+			name = ztr_decolonization_pressure_var
+			add = 1
+		}
+		change_infamy = 1
+		scope:strike_state = {
+			add_radicals_in_state = {
+				value = medium_radicals
+			}
+		}
+	}
+}
+
+# Event 7: The International Stage (Phase 2, Subject)
+# A colonial delegation addresses an international forum, embarrassing the metropole
+ztr_decolonization_phases.7 = {
+	dlc = dlc_tech_res
+	type = country_event
+	placement = scope:intl_subject
+
+	event_image = {
+		video = "europenorthamerica_political_rally"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	icon = "gfx/interface/icons/event_icons/decolonization_event.dds"
+
+	title = ztr_decolonization_phases.7.t
+	desc = ztr_decolonization_phases.7.d
+
+	duration = 3
+
+	trigger = {
+		has_game_rule = allow_ztr_decolonization_content
+		ztr_decolonization_is_phase_2 = yes
+		NOT = { has_variable = ztr_decol_international_cd }
+		has_global_variable = ztr_united_nations_var
+		ztr_is_un_member = yes
+		any_subject_or_below = {
+			liberty_desire > 30
+			NOT = { has_variable = ztr_decolonization_timer_var }
+			NOT = { is_subject_of = c:BIC }
+		}
+		country_rank >= rank_value:major_power
+	}
+
+	immediate = {
+		set_variable = {
+			name = ztr_decol_international_cd
+			years = 8
+		}
+		random_subject_or_below = {
+			limit = {
+				liberty_desire > 30
+				NOT = { has_variable = ztr_decolonization_timer_var }
+				NOT = { is_subject_of = c:BIC }
+			}
+			save_scope_as = intl_subject
+		}
+	}
+
+	option = {
+		name = ztr_decolonization_phases.7.a
+		ai_chance = {
+			base = 10
+			modifier = {
+				trigger = { ztr_is_democratic = yes }
+				add = 20
+			}
+		}
+		change_variable = {
+			name = ztr_decolonization_pressure_var
+			add = 4
+		}
+		add_prestige = -5
+		change_infamy = -3
+	}
+
+	option = {
+		name = ztr_decolonization_phases.7.b
+		default_option = yes
+		ai_chance = {
+			base = 10
+		}
+		change_infamy = 3
+	}
+}
+
+# Event 8: A Native Press (Phase 2, Homeland)
+# A network of native-language newspapers emerges, spreading nationalist ideas
+ztr_decolonization_phases.8 = {
+	dlc = dlc_tech_res
+	type = country_event
+	placement = scope:press_state
+
+	event_image = {
+		video = "europenorthamerica_springtime_of_nations"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	icon = "gfx/interface/icons/event_icons/decolonization_event.dds"
+
+	title = ztr_decolonization_phases.8.t
+	desc = ztr_decolonization_phases.8.d
+
+	duration = 3
+
+	trigger = {
+		has_game_rule = allow_ztr_decolonization_content
+		ztr_decolonization_is_phase_2 = yes
+		NOT = { has_variable = ztr_decol_press_cd }
+		any_scope_state = {
+			state_want_to_be_decolonized = yes
+			literacy_rate > 0.25
+			state_population > 50000
+		}
+		NOR = {
+			has_law = law_type:law_outlawed_dissent
+		}
+	}
+
+	immediate = {
+		set_variable = {
+			name = ztr_decol_press_cd
+			years = 8
+		}
+		random_scope_state = {
+			limit = {
+				state_want_to_be_decolonized = yes
+				literacy_rate > 0.25
+				state_population > 50000
+			}
+			save_scope_as = press_state
+		}
+	}
+
+	option = {
+		name = ztr_decolonization_phases.8.a
+		ai_chance = {
+			base = 10
+			modifier = {
+				trigger = { ztr_is_democratic = yes }
+				add = 15
+			}
+		}
+		change_variable = {
+			name = ztr_decolonization_pressure_var
+			add = 3
+		}
+		scope:press_state = {
+			add_loyalists_in_state = {
+				value = small_loyalists
+			}
+		}
+	}
+
+	option = {
+		name = ztr_decolonization_phases.8.b
+		default_option = yes
+		ai_chance = {
+			base = 10
+		}
+		change_variable = {
+			name = ztr_decolonization_pressure_var
+			add = 1
+		}
+		change_infamy = 1
+		scope:press_state = {
+			add_radicals_in_state = {
+				value = small_radicals
+			}
+		}
+	}
+}

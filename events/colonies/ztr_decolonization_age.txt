@@ -1,28 +1,35 @@
 namespace = ztr_decolonization_age
 
-ztr_decolonization_age.1 = {
+# Marks the start of the decolonization age for all minor+ powers
+# Fired once from ztr_decolonization_age_on_yearly_pulse when the first country researches decolonization
+ztr_decolonization_age.2 = {
 	dlc = dlc_tech_res
 	type = country_event
 	placement = ROOT
-	hidden = yes
+
 	event_image = {
 		video = "southamerica_war_civilians"
 	}
 
 	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
 
-	icon = "gfx/interface/icons/event_icons/event_default.dds"
+	icon = "gfx/interface/icons/event_icons/event_newspaper.dds"
 
-	title = ztr_decolonization_age.1.t
-	desc = ztr_decolonization_age.1.d
-	
+	title = ztr_decolonization_age.2.t
+	desc = ztr_decolonization_age.2.d
+	flavor = ztr_decolonization_age.2.f
+
+	duration = 3
+
 	trigger = {
-		has_game_rule = allow_ztr_decolonization_content
-		has_technology_researched = decolonization
-		NOT = { has_global_variable = ztr_decolonization_age_var }
+		# Fired via on_action only; no self-trigger
 	}
 
 	immediate = {
-		set_global_variable = ztr_decolonization_age_var
+	}
+
+	option = {
+		name = ztr_decolonization_age.2.a
+		default_option = yes
 	}
 }

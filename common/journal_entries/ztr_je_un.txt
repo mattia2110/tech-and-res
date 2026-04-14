@@ -15,9 +15,66 @@ je_un_info_panel = {
 		effect = {
 			ztr_un_permanent_member_ranking_variables = yes
 			ztr_un_permanent_member_ranking_effect = yes
-		}
-		events = {
-			ztr_un_event.100
+			#Yearly AI UN proposal coordinator
+			if = {
+				limit = {
+					NOT = {
+						has_global_variable = ztr_un_vote_in_progress
+					}
+				}
+				# This is to avoid player touch the button during the AI voting
+				set_global_variable = ztr_un_button_opened
+				# This 99% finds at least one permanent member
+				random_country = {
+					limit = {
+						is_ai = yes
+						has_modifier = ztr_onu_permanent_member
+					}
+					save_scope_as = ztr_un_potential_proposer_scope_1
+				}
+				if = {
+					limit = {
+						scope:ztr_un_potential_proposer_scope_1 = {
+							exists = yes
+						}
+					}
+					random_country = {
+						limit = {
+							is_ai = yes
+							has_modifier = ztr_onu_permanent_member
+							NOT = {
+								this = scope:ztr_un_potential_proposer_scope_1
+							}
+						}
+						save_scope_as = ztr_un_potential_proposer_scope_2
+					}
+				}
+				if = {
+					limit = {
+						scope:ztr_un_potential_proposer_scope_1 = {
+							exists = yes
+						}
+					}
+					scope:ztr_un_potential_proposer_scope_1 = {
+						ztr_un_random_subject_and_law_extraction = yes
+						ztr_un_ai_try_start_possible_vote = yes
+					}
+					if = {
+						limit = {
+							NOT = {
+								has_global_variable = ztr_un_vote_in_progress
+							}
+							scope:ztr_un_potential_proposer_scope_2 = {
+								exists = yes
+							}
+						}
+						scope:ztr_un_potential_proposer_scope_2 = {
+							ztr_un_ai_try_start_possible_vote = yes
+						}
+					}
+				}
+				remove_global_variable = ztr_un_button_opened
+			}
 		}
 	}
 	scripted_button = ztr_un_open_governance_menu

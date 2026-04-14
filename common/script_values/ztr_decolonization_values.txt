@@ -830,7 +830,7 @@ REPLACE:liberty_desire_weekly_change = { #AKA liberty_desire_weekly_progress
 	if = {
 		limit = {
 			#This should be active from 1836 but we want to maintain vanilla experience at early/mid game
-			has_global_variable = ztr_decolonization_age_var
+			has_global_variable = ztr_global_decolonization_pressure_var
 			root.second_country = {
 				any_primary_culture = {
 					is_primary_culture_of = root.first_country
@@ -908,7 +908,7 @@ REPLACE:liberty_desire_weekly_change = { #AKA liberty_desire_weekly_progress
 					desc = "international_organizations"
 				}
 			}
-			# Decolonization pressure from the JE (0-100 scaled to 0-1)
+			# Global and National Decolonization pressure
 			if = {
 				limit = {
 					root.first_country = {
@@ -917,10 +917,22 @@ REPLACE:liberty_desire_weekly_change = { #AKA liberty_desire_weekly_progress
 				}
 				add = {
 					value = root.first_country.var:ztr_decolonization_pressure_var
-					divide = 100
+					multiply = 0.0075
 					min = 0
-					max = 1
+					max = 0.75
 					desc = "LIBERTY_DESIRE_DECOLONIZATION_PRESSURE"
+				}
+			}
+			if = {
+				limit = {
+					has_global_variable = ztr_global_decolonization_pressure_var
+				}
+				add = {
+					value = global_var:ztr_global_decolonization_pressure_var
+					multiply = 0.0025
+					min = 0
+					max = 0.25
+					desc = "LIBERTY_DESIRE_GLOBAL_DECOLONIZATION_PRESSURE"
 				}
 			}
 			# Post-1945: growing global norm of self-determination

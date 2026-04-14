@@ -1,35 +1,5 @@
 # Flavor Triggers
 
-# Trigger is altered by liberty index and not multiculturalism laws since they already modify culture acceptance score values.
-wants_to_be_decolonized = {
-		root = {
-			hidden_trigger = { has_variable = liberty_index_var }
-			OR = {
-				AND = {
-					ztr_is_full_democratic = yes
-					cultural_acceptance_base = {
-						target = prev
-						value < acceptance_status_4
-					}
-				}
-				AND = {
-					ztr_is_flawed_democratic = yes
-					cultural_acceptance_base = {
-						target = prev
-						value <= acceptance_status_4
-					}
-				}
-				AND = {
-					ztr_is_not_democratic = yes
-					cultural_acceptance_base = {
-						target = prev
-						value <= acceptance_status_5
-					}
-				}
-			}
-		}
-}
-
 hungary_is_subject_or_personal_union_austria = {
 	c:AUS ?= this
 	exists = c:HUN

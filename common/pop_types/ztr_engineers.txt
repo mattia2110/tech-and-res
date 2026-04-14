@@ -37,33 +37,30 @@
 			desc = "HAS_POLITICAL_AGITATION"
 			value = 1.0
 
-			if = {
-				limit = {
-					owner = {
-						has_technology_researched = political_agitation
-						NOT = { has_technology_researched = socialdemocracy }
-						NOT = { has_technology_researched = neoliberism }
-					}
-				}
-				value = 1.25 #1.5
-			}
 			# These two conditions are added in order to balance the rapid increase of engineers in late game
-			else_if = {
-				limit = {
-					owner = {
-						has_technology_researched = socialdemocracy
-						NOT = { has_technology_researched = neoliberism }
-					}
-				}
-				value = 0.75
-			}
-			else_if = {
+			if = {
 				limit = {
 					owner = {
 						has_technology_researched = neoliberism
 					}
 				}
-				value = 0.5
+				value = 0.75 #1.5
+			}
+			else_if = {
+				limit = {
+					owner = {
+						has_technology_researched = socialdemocracy
+					}
+				}
+				value = 1
+			}
+			else_if = {
+				limit = {
+					owner = {
+						has_technology_researched = political_agitation
+					}
+				}
+				value = 1.25
 			}
 		}
 	}
