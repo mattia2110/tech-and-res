@@ -7,7 +7,7 @@ after 1936 into later eras (atomic age, digital age, and beyond).
 1. The directory of Victoria 3 is in this path: C:\Program Files (x86)\Steam\steamapps\common\Victoria 3\game\
 2. The skills that you can use are in this path: .claude\skills\.
 3. Do not interact with Git, it is not needed.
-4. When you have finished a task, write a summary in LOG.md and delete yesterday's summary.
+4. When you have finished a task, append a summary at the end of LOG.md and delete last week's summary.
 
 ## Sub-Agents
 You can call the following sub-agents to help with specific tasks:

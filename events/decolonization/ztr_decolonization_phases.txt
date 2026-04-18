@@ -1,0 +1,1340 @@
+namespace = ztr_decolonization_phases
+
+###########################################################
+# PHASE 1 EVENTS (Quiet, 0-25)
+###########################################################
+
+# Event 1: The Educated Native (Phase 1, Homeland)
+# A Western-educated native intellectual publishes a treatise demanding self-governance
+ztr_decolonization_phases.1 = {
+	dlc = dlc_tech_res
+	type = country_event
+	placement = scope:decolonizing_state
+
+	event_image = {
+		video = "africa_leader_arguing"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	icon = "gfx/interface/icons/event_icons/event_portrait.dds"
+
+	title = ztr_decolonization_phases.1.t
+	desc = ztr_decolonization_phases.1.d
+
+	duration = 3
+
+	trigger = {
+		has_game_rule = allow_ztr_decolonization_content
+		ztr_decolonization_is_phase_1 = yes
+		NOT = { has_variable = ztr_decol_educated_native_cd }
+		any_scope_state = {
+			state_want_to_be_decolonized = yes
+			literacy_rate > 0.15
+		}
+		ztr_is_not_totalitarian = yes
+	}
+
+	immediate = {
+		set_variable = {
+			name = ztr_decol_educated_native_cd
+			years = 10
+		}
+		random_scope_state = {
+			limit = {
+				state_want_to_be_decolonized = yes
+				literacy_rate > 0.15
+			}
+			save_scope_as = decolonizing_state
+		}
+		scope:decolonizing_state = {
+			random_scope_culture = {
+				limit = {
+					has_homeland = prev
+				}
+				save_scope_as = native_culture_scope
+			}
+		}
+	}
+
+	option = {
+		name = ztr_decolonization_phases.1.a
+		ai_chance = {
+			base = 10
+			modifier = {
+				trigger = { ztr_is_democratic = yes }
+				add = 15
+			}
+		}
+		custom_tooltip = ztr_decolonization_pressure_increase_8_tt
+		change_variable = {
+			name = ztr_decolonization_pressure_var
+			add = 8
+		}
+		scope:decolonizing_state = {
+			every_scope_culture = {
+				limit = {
+					has_homeland = prev
+				}
+				add_fervor = 10
+				save_scope_as = native_culture_scope
+			}
+		}
+	}
+
+	option = {
+		name = ztr_decolonization_phases.1.b
+		default_option = yes
+		trigger = {
+			OR = {
+				has_law_or_variant = law_type:law_outlawed_dissent
+				has_law_or_variant = law_type:law_censorship
+			}
+		}
+		ai_chance = {
+			base = 10
+		}
+		change_infamy = 5
+		custom_tooltip = ztr_decolonization_pressure_decrease_5_tt
+		change_variable = {
+			name = ztr_decolonization_pressure_var
+			add = -5
+		}
+		scope:decolonizing_state = {
+			add_radicals_in_state = {
+				value = small_radicals
+			}
+		}
+	}
+}
+
+# Event 2: Missionaries and Conscience (Phase 1, Subject)
+# Religious missionaries returning from colonies publish reports exposing poor conditions
+ztr_decolonization_phases.2 = {
+	dlc = dlc_tech_res
+	type = country_event
+	placement = scope:missionary_subject
+
+	event_image = {
+		video = "africa_animism"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	icon = "gfx/interface/icons/event_icons/event_newspaper.dds"
+
+	title = ztr_decolonization_phases.2.t
+	desc = ztr_decolonization_phases.2.d
+
+	duration = 3
+
+	trigger = {
+		has_game_rule = allow_ztr_decolonization_content
+		ztr_decolonization_is_phase_1 = yes
+		NOT = { has_variable = ztr_decol_missionaries_cd }
+		any_subject_or_below = {
+			any_scope_state = {
+				average_sol < 12
+			}
+			NOT = { has_variable = ztr_decolonization_subject_cd }
+		}
+		OR = {
+			ig:ig_devout ?= { is_marginal = no }
+			ig:ig_rural_folk ?= { is_marginal = no }
+		}
+	}
+
+	immediate = {
+		set_variable = {
+			name = ztr_decol_missionaries_cd
+			years = 10
+		}
+		random_subject_or_below = {
+			limit = {
+				any_scope_state = {
+					average_sol < 12
+				}
+				NOT = { has_variable = ztr_decolonization_subject_cd }
+			}
+			save_scope_as = missionary_subject
+		}
+	}
+
+	option = {
+		name = ztr_decolonization_phases.2.a
+		ai_chance = {
+			base = 10
+			modifier = {
+				trigger = { ztr_is_democratic = yes }
+				add = 15
+			}
+		}
+		change_infamy = 2
+		if = {
+			limit = {
+				OR = {
+					ig:ig_devout ?= { is_marginal = no }
+					ig:ig_rural_folk ?= { is_marginal = no }
+				}
+			}
+			add_loyalists = {
+				value = 0.03
+				interest_group = ig:ig_devout
+			}
+			add_loyalists = {
+				value = 0.01
+				interest_group = ig:ig_rural_folk
+			}
+		}
+		custom_tooltip = ztr_decolonization_pressure_increase_5_tt
+		change_variable = {
+			name = ztr_decolonization_pressure_var
+			add = 5
+		}
+	}
+
+	option = {
+		name = ztr_decolonization_phases.2.b
+		default_option = yes
+		ai_chance = {
+			base = 10
+		}
+		if = {
+			limit = {
+				OR = {
+					ig:ig_devout ?= { is_marginal = no }
+					ig:ig_rural_folk ?= { is_marginal = no }
+				}
+			}
+			add_radicals = {
+				value = 0.1
+				interest_group = ig:ig_devout
+			}
+			add_radicals = {
+				value = 0.05
+				interest_group = ig:ig_rural_folk
+			}
+		}
+		change_infamy = 2
+	}
+}
+
+# Event 3: Songs of the Homeland (Phase 1, Homeland)
+# Folk songs and cultural revival movements emerge among colonized peoples
+ztr_decolonization_phases.3 = {
+	dlc = dlc_tech_res
+	type = country_event
+	placement = capital
+
+	event_image = {
+		video = "africa_public_protest"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	icon = "gfx/interface/icons/event_icons/event_protest.dds"
+
+	title = ztr_decolonization_phases.3.t
+	desc = ztr_decolonization_phases.3.d
+
+	duration = 3
+
+	trigger = {
+		has_game_rule = allow_ztr_decolonization_content
+		ztr_decolonization_is_phase_1 = yes
+		NOT = { has_variable = ztr_decol_songs_cd }
+		any_scope_state = {
+			state_want_to_be_decolonized = yes
+			OR = {
+				turmoil > 0.1
+			}
+		}
+	}
+
+	immediate = {
+		set_variable = {
+			name = ztr_decol_songs_cd
+			years = 10
+		}
+		random_scope_state = {
+			limit = {
+				state_want_to_be_decolonized = yes
+				OR = {
+					turmoil > 0.1
+				}
+			}
+			save_scope_as = songs_state
+		}
+		scope:songs_state = {
+			random_scope_culture = {
+				limit = {
+					has_homeland = prev
+				}
+				save_scope_as = native_culture_scope
+			}
+		}
+	}
+
+	option = {
+		name = ztr_decolonization_phases.3.a
+		ai_chance = {
+			base = 10
+			modifier = {
+				trigger = { ztr_is_democratic = yes }
+				add = 15
+			}
+		}
+		custom_tooltip = ztr_decolonization_pressure_increase_2_tt
+		change_variable = {
+			name = ztr_decolonization_pressure_var
+			add = 2
+		}
+		scope:songs_state = {
+			add_loyalists_in_state = {
+				value = 0.02
+			}
+		}
+	}
+
+	option = {
+		name = ztr_decolonization_phases.3.b
+		default_option = yes
+		ai_chance = {
+			base = 10
+		}
+		change_infamy = 2
+		custom_tooltip = ztr_decolonization_pressure_decrease_2_tt
+		change_variable = {
+			name = ztr_decolonization_pressure_var
+			add = -2
+		}
+		scope:songs_state = {
+			every_scope_culture = {
+				limit = {
+					has_homeland = prev
+				}
+				add_fervor = 10
+				save_scope_as = native_culture_scope
+			}
+		}
+		scope:songs_state = {
+			add_radicals_in_state = {
+				value = 0.02
+			}
+		}
+	}
+}
+
+# Event 4: Whispers in the Bazaar (Phase 1, Subject)
+# Intelligence reports reveal underground nationalist networks forming among colonial subjects
+ztr_decolonization_phases.4 = {
+	dlc = dlc_tech_res
+	type = country_event
+	placement = scope:whispers_subject
+
+	event_image = {
+		video = "middleeast_courtroom_upheaval"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	icon = "gfx/interface/icons/event_icons/event_map.dds"
+
+	title = ztr_decolonization_phases.4.t
+	desc = ztr_decolonization_phases.4.d
+
+	duration = 3
+
+	trigger = {
+		has_game_rule = allow_ztr_decolonization_content
+		ztr_decolonization_is_phase_1 = yes
+		NOT = { has_variable = ztr_decol_whispers_cd }
+		any_subject_or_below = {
+			liberty_desire > 50
+			NOT = { has_variable = ztr_decolonization_subject_cd }
+			NOT = { is_subject_of = c:BIC }
+			can_increase_autonomy = yes
+		}
+		is_at_war = no
+	}
+
+	immediate = {
+		set_variable = {
+			name = ztr_decol_whispers_cd
+			years = 10
+		}
+		random_subject_or_below = {
+			limit = {
+				liberty_desire > 50
+				NOT = { has_variable = ztr_decolonization_subject_cd }
+				NOT = { is_subject_of = c:BIC }
+				can_increase_autonomy = yes
+			}
+			save_scope_as = whispers_subject
+		}
+	}
+
+	option = {
+		name = ztr_decolonization_phases.4.a
+		ai_chance = {
+			base = 10
+			modifier = {
+				trigger = { ztr_is_democratic = yes }
+				add = 15
+			}
+		}
+		custom_tooltip = ztr_decolonization_pressure_increase_2_tt
+		change_variable = {
+			name = ztr_decolonization_pressure_var
+			add = 2
+		}
+		#TODO Aggiungi una perdita di denaro per overlord e modificatore per più bureaucracy e authority per subject
+		scope:whispers_subject = {
+			add_liberty_desire = {
+				value = -50
+			}
+			increase_autonomy = yes
+		}
+		change_relations = {
+			country = scope:whispers_subject
+			value = 10
+		}
+	}
+
+	option = {
+		name = ztr_decolonization_phases.4.b
+		default_option = yes
+		ai_chance = {
+			base = 10
+		}
+		scope:whispers_subject = {
+			add_liberty_desire = {
+				value = 15
+			}
+			if = {
+				limit = {
+					NOT = { has_law_or_variant = law_type:law_censorship }
+				}
+				activate_law = law_type:law_censorship
+			}
+			else_if = {
+				limit = {
+					NOT = { has_law_or_variant = law_type:law_outlawed_dissent }
+				}
+				activate_law = law_type:law_outlawed_dissent
+			}
+		}
+		change_relations = {
+			country = scope:whispers_subject
+			value = -50
+		}
+	}
+}
+
+###########################################################
+# PHASE 2 EVENTS (Request, 25-50)
+###########################################################
+
+# Event 5: A Formal Petition (Phase 2, Subject)
+# Colonial elites formally petition the metropole for self-governance
+ztr_decolonization_phases.5 = {
+	dlc = dlc_tech_res
+	type = country_event
+	placement = scope:petition_subject
+
+	event_image = {
+		video = "europenorthamerica_springtime_of_nations"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	icon = "gfx/interface/icons/event_icons/event_election.dds"
+
+	title = ztr_decolonization_phases.5.t
+	desc = ztr_decolonization_phases.5.d
+
+	duration = 3
+
+	trigger = {
+		has_game_rule = allow_ztr_decolonization_content
+		ztr_decolonization_is_phase_2 = yes
+		NOT = { has_variable = ztr_decol_petition_cd }
+		any_subject_or_below = {
+			liberty_desire > 40
+			NOT = { has_variable = ztr_decolonization_subject_cd }
+			NOT = { is_subject_of = c:BIC }
+			NOT = { is_diplomatic_play_enemy_of = root }
+		}
+		ztr_is_democratic = yes
+	}
+
+	immediate = {
+		set_variable = {
+			name = ztr_decol_petition_cd
+			years = 8
+		}
+		random_subject_or_below = {
+			limit = {
+				liberty_desire > 40
+				NOT = { has_variable = ztr_decolonization_subject_cd }
+				NOT = { is_subject_of = c:BIC }
+				NOT = { is_diplomatic_play_enemy_of = root }
+			}
+			save_scope_as = petition_subject
+		}
+	}
+
+	option = {
+		name = ztr_decolonization_phases.5.a
+		ai_chance = {
+			base = 10
+			modifier = {
+				trigger = { ztr_is_full_democratic = yes }
+				add = 20
+			}
+		}
+		custom_tooltip = ztr_decolonization_pressure_increase_10_tt
+		change_variable = {
+			name = ztr_decolonization_pressure_var
+			add = 10
+		}
+		scope:petition_subject = {
+			add_liberty_desire = {
+				value = -50
+			}
+		}
+		change_relations = {
+			country = scope:petition_subject
+			value = 20
+		}
+	}
+
+	option = {
+		name = ztr_decolonization_phases.5.b
+		default_option = yes
+		ai_chance = {
+			base = 10
+		}
+		custom_tooltip = ztr_decolonization_pressure_increase_5_tt
+		change_variable = {
+			name = ztr_decolonization_pressure_var
+			add = 5
+		}
+		scope:petition_subject = {
+			add_liberty_desire = {
+				value = 20
+			}
+		}
+		change_relations = {
+			country = scope:petition_subject
+			value = -50
+		}
+	}
+}
+
+# Event 6: Colonial Workers' Strike (Phase 2, Homeland)
+# Workers in colonial industries organize a coordinated strike
+ztr_decolonization_phases.6 = {
+	dlc = dlc_tech_res
+	type = country_event
+	placement = scope:strike_state
+
+	event_image = {
+		video = "africa_public_protest"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	icon = "gfx/interface/icons/event_icons/event_industry.dds"
+
+	title = ztr_decolonization_phases.6.t
+	desc = ztr_decolonization_phases.6.d
+
+	duration = 3
+
+	trigger = {
+		has_game_rule = allow_ztr_decolonization_content
+		ztr_decolonization_is_phase_2 = yes
+		NOT = { has_variable = ztr_decol_strike_cd }
+		any_scope_state = {
+			state_want_to_be_decolonized = yes
+			turmoil > 0.1
+			state_population > 100000
+		}
+		OR = {
+			ig:ig_trade_unions ?= { is_marginal = no }
+			ig:ig_rural_folk ?= { is_marginal = no }
+		}
+	}
+
+	immediate = {
+		set_variable = {
+			name = ztr_decol_strike_cd
+			years = 8
+		}
+		random_scope_state = {
+			limit = {
+				state_want_to_be_decolonized = yes
+				turmoil > 0.1
+				state_population > 100000
+			}
+			save_scope_as = strike_state
+		}
+	}
+
+	option = {
+		name = ztr_decolonization_phases.6.a
+		ai_chance = {
+			base = 10
+			modifier = {
+				trigger = { ztr_is_democratic = yes }
+				add = 15
+			}
+		}
+		custom_tooltip = ztr_decolonization_pressure_increase_5_tt
+		change_variable = {
+			name = ztr_decolonization_pressure_var
+			add = 5
+		}
+		scope:strike_state = {
+			add_loyalists_in_state = {
+				value = small_radicals
+			}
+		}
+		#TODO Creare modificatore per 10 anni che aumenta del 10% wage in stati non incorporati e una perdita di income -1% del gdp 
+	}
+
+	option = {
+		name = ztr_decolonization_phases.6.b
+		default_option = yes
+		ai_chance = {
+			base = 10
+		}
+		custom_tooltip = ztr_decolonization_pressure_increase_2_tt
+		change_variable = {
+			name = ztr_decolonization_pressure_var
+			add = 2
+		}
+		change_infamy = 2
+		scope:strike_state = {
+			every_scope_culture = {
+				limit = {
+					has_homeland = prev
+				}
+				add_fervor = 20
+			}
+		}
+		scope:strike_state = {
+			add_radicals_in_state = {
+				value = small_radicals
+			}
+		}
+	}
+}
+
+# Event 7: The International Stage (Phase 2, Subject)
+# A colonial delegation addresses an international forum, embarrassing the metropole
+ztr_decolonization_phases.7 = {
+	dlc = dlc_tech_res
+	type = country_event
+	placement = capital
+
+	event_image = {
+		video = "unspecific_politicians_arguing"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	icon = "gfx/interface/icons/event_icons/event_trade.dds"
+
+	title = ztr_decolonization_phases.7.t
+	desc = ztr_decolonization_phases.7.d
+
+	duration = 3
+
+	trigger = {
+		has_game_rule = allow_ztr_decolonization_content
+		ztr_decolonization_is_phase_2 = yes
+		NOT = { has_variable = ztr_decol_international_cd }
+		ztr_is_un_member = yes
+		any_subject_or_below = {
+			liberty_desire > 30
+			NOT = { has_variable = ztr_decolonization_subject_cd }
+			NOT = { is_subject_of = c:BIC }
+		}
+		country_rank >= rank_value:major_power
+	}
+
+	immediate = {
+		set_variable = {
+			name = ztr_decol_international_cd
+			years = 8
+		}
+		random_subject_or_below = {
+			limit = {
+				liberty_desire > 30
+				NOT = { has_variable = ztr_decolonization_subject_cd }
+				NOT = { is_subject_of = c:BIC }
+			}
+			save_scope_as = intl_subject
+		}
+	}
+
+	option = {
+		name = ztr_decolonization_phases.7.a
+		ai_chance = {
+			base = 10
+			modifier = {
+				trigger = { ztr_is_democratic = yes }
+				add = 20
+			}
+		}
+		custom_tooltip = ztr_decolonization_pressure_increase_20_tt
+		change_variable = {
+			name = ztr_decolonization_pressure_var
+			add = 20
+		}
+		change_relations = {
+			country = scope:intl_subject
+			value = 20
+		}
+		change_infamy = -5
+	}
+
+	option = {
+		name = ztr_decolonization_phases.7.b
+		default_option = yes
+		ai_chance = {
+			base = 10
+		}
+		change_infamy = 5
+	}
+}
+
+# Event 8: A Native Press (Phase 2, Homeland)
+# A network of native-language newspapers emerges, spreading nationalist ideas
+ztr_decolonization_phases.8 = {
+	dlc = dlc_tech_res
+	type = country_event
+	placement = scope:press_state
+
+	event_image = {
+		video = "europenorthamerica_springtime_of_nations"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	icon = "gfx/interface/icons/event_icons/event_newspaper.dds"
+
+	title = ztr_decolonization_phases.8.t
+	desc = ztr_decolonization_phases.8.d
+
+	duration = 3
+
+	trigger = {
+		has_game_rule = allow_ztr_decolonization_content
+		ztr_decolonization_is_phase_2 = yes
+		NOT = { has_variable = ztr_decol_press_cd }
+		any_scope_state = {
+			state_want_to_be_decolonized = yes
+			literacy_rate > 0.25
+			state_population > 100000
+		}
+		NOR = {
+			has_law = law_type:law_outlawed_dissent
+		}
+	}
+
+	immediate = {
+		set_variable = {
+			name = ztr_decol_press_cd
+			years = 8
+		}
+		random_scope_state = {
+			limit = {
+				state_want_to_be_decolonized = yes
+				literacy_rate > 0.25
+				state_population > 100000
+			}
+			save_scope_as = press_state
+		}
+	}
+
+	option = {
+		name = ztr_decolonization_phases.8.a
+		ai_chance = {
+			base = 10
+			modifier = {
+				trigger = { ztr_is_democratic = yes }
+				add = 15
+			}
+		}
+		custom_tooltip = ztr_decolonization_pressure_increase_10_tt
+		change_variable = {
+			name = ztr_decolonization_pressure_var
+			add = 10
+		}
+		scope:press_state = {
+			add_loyalists_in_state = {
+				value = small_radicals
+			}
+			every_scope_culture = {
+				limit = {
+					has_homeland = prev
+				}
+				add_fervor = 25
+			}
+		}
+	}
+
+	option = {
+		name = ztr_decolonization_phases.8.b
+		default_option = yes
+		ai_chance = {
+			base = 10
+		}
+		custom_tooltip = ztr_decolonization_pressure_increase_2_tt
+		change_variable = {
+			name = ztr_decolonization_pressure_var
+			add = 2
+		}
+		change_infamy = 1
+		scope:press_state = {
+			add_radicals_in_state = {
+				value = small_radicals
+			}
+			every_scope_culture = {
+				limit = {
+					has_homeland = prev
+				}
+				add_fervor = 10
+			}
+		}
+	}
+}
+
+###########################################################
+# PHASE 2 EVENTS (continued)
+###########################################################
+
+# Event 9: Religious Extremism (Phase 2)
+# Young people in Muslim or Middle Eastern colonial states turn to
+# nationalism and religious extremism, calling for the expulsion of infidels.
+ztr_decolonization_phases.9 = {
+	dlc = dlc_tech_res
+	type = country_event
+	placement = scope:extremism_state
+
+	event_image = {
+		video = "middleeast_courtroom_upheaval"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	icon = "gfx/interface/icons/event_icons/event_fire.dds"
+
+	title = ztr_decolonization_phases.9.t
+	desc = ztr_decolonization_phases.9.d
+
+	duration = 3
+
+	trigger = {
+		has_game_rule = allow_ztr_decolonization_content
+		ztr_decolonization_is_phase_2 = yes
+		NOT = { has_variable = ztr_decol_religious_extremism_cd }
+		country_rank >= rank_value:major_power
+		# The colonial power must NOT be Muslim
+		NOR = {
+			country_has_state_religion = rel:sunni
+			country_has_state_religion = rel:shiite
+		}
+		# Must have at least one colonial state in Muslim/Middle Eastern regions
+		any_scope_state = {
+			state_want_to_be_decolonized = yes
+			OR = {
+				is_in_geographic_region = geographic_region_middle_east
+				is_in_geographic_region = geographic_region_north_africa
+				is_in_geographic_region = geographic_region_central_asia
+			}
+		}
+	}
+
+	immediate = {
+		set_variable = {
+			name = ztr_decol_religious_extremism_cd
+			years = 10
+		}
+		random_scope_state = {
+			limit = {
+				state_want_to_be_decolonized = yes
+				OR = {
+					is_in_geographic_region = geographic_region_middle_east
+					is_in_geographic_region = geographic_region_north_africa
+					is_in_geographic_region = geographic_region_central_asia
+				}
+			}
+			save_scope_as = extremism_state
+		}
+	}
+
+	option = {
+		# Mitigate with spending and bureaucratic effort
+		name = ztr_decolonization_phases.9.a
+		default_option = yes
+		ai_chance = {
+			base = 15
+			modifier = {
+				trigger = { ztr_is_democratic = yes }
+				add = 10
+			}
+		}
+		add_modifier = {
+			name = ztr_religious_extremism_mitigation_modifier
+			months = 24
+		}
+		# Fervor still increases but less
+		every_scope_state = {
+			limit = {
+				state_want_to_be_decolonized = yes
+				OR = {
+					is_in_geographic_region = geographic_region_middle_east
+					is_in_geographic_region = geographic_region_north_africa
+					is_in_geographic_region = geographic_region_central_asia
+				}
+			}
+			every_scope_culture = {
+				limit = {
+					has_homeland = prev
+				}
+				add_fervor = 2
+			}
+		}
+	}
+
+	option = {
+		# Do nothing, let extremism fester
+		name = ztr_decolonization_phases.9.b
+		ai_chance = {
+			base = 10
+		}
+		every_scope_state = {
+			limit = {
+				state_want_to_be_decolonized = yes
+				OR = {
+					is_in_geographic_region = geographic_region_middle_east
+					is_in_geographic_region = geographic_region_north_africa
+					is_in_geographic_region = geographic_region_central_asia
+				}
+			}
+			every_scope_culture = {
+				limit = {
+					has_homeland = prev
+				}
+				add_fervor = 2
+			}
+		}
+		custom_tooltip = ztr_decolonization_pressure_increase_5_tt
+		change_variable = {
+			name = ztr_decolonization_pressure_var
+			add = 5
+		}
+	}
+}
+
+# Event 10: Apartheid (Phase 2)
+# Colonial states where the country's primary culture is present and there is
+# no multiculturalism law face criticism over ethnic division of public life.
+ztr_decolonization_phases.10 = {
+	dlc = dlc_tech_res
+	type = country_event
+	placement = scope:apartheid_state
+
+	event_image = {
+		video = "africa_public_protest"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	icon = "gfx/interface/icons/event_icons/event_scales.dds"
+
+	title = ztr_decolonization_phases.10.t
+	desc = ztr_decolonization_phases.10.d
+
+	duration = 3
+
+	trigger = {
+		has_game_rule = allow_ztr_decolonization_content
+		ztr_decolonization_is_phase_2 = yes
+		NOT = { has_variable = ztr_decol_apartheid_cd }
+		NOT = { has_law = law_type:law_multicultural }
+		# Must have a colonial state where the primary culture of the country is present
+		any_scope_state = {
+			state_want_to_be_decolonized = yes
+			any_scope_culture = {
+				is_primary_culture_of = root
+			}
+		}
+	}
+
+	immediate = {
+		set_variable = {
+			name = ztr_decol_apartheid_cd
+			years = 10
+		}
+		random_scope_state = {
+			limit = {
+				state_want_to_be_decolonized = yes
+				any_scope_culture = {
+					is_primary_culture_of = root
+				}
+			}
+			save_scope_as = apartheid_state
+		}
+		scope:apartheid_state = {
+			random_scope_culture = {
+				limit = {
+					is_primary_culture_of = root
+				}
+			}
+			save_scope_as = primary_culture_scope
+		}
+	}
+
+	option = {
+		# Acknowledge the criticism and start reforms
+		name = ztr_decolonization_phases.10.a
+		default_option = yes
+		ai_chance = {
+			base = 10
+			modifier = {
+				trigger = { ztr_is_democratic = yes }
+				add = 15
+			}
+		}
+		custom_tooltip = ztr_decolonization_pressure_increase_5_tt
+		change_variable = {
+			name = ztr_decolonization_pressure_var
+			add = 5
+		}
+		scope:apartheid_state = {
+			every_scope_culture = {
+				limit = {
+					has_homeland = prev
+				}
+				add_fervor = 5
+			}
+		}
+	}
+
+	option = {
+		# Double down on segregation
+		name = ztr_decolonization_phases.10.b
+		ai_chance = {
+			base = 10
+		}
+		change_infamy = 5
+		custom_tooltip = ztr_decolonization_pressure_increase_10_tt
+		change_variable = {
+			name = ztr_decolonization_pressure_var
+			add = 10
+		}
+		# All qualifying states face backlash
+		every_scope_state = {
+			limit = {
+				state_want_to_be_decolonized = yes
+				any_scope_culture = {
+					is_primary_culture_of = root
+				}
+			}
+			every_scope_culture = {
+				limit = {
+					has_homeland = prev
+				}
+				add_fervor = 2
+			}
+			add_radicals_in_state = {
+				value = small_radicals
+			}
+		}
+	}
+}
+
+###########################################################
+# PHASE 1 EVENTS (continued)
+###########################################################
+
+# Event 11: Colonial States' Population Boom (Phase 1)
+# Modern medicine reduces infant mortality in colonial states but
+# living conditions cannot keep up with the population growth.
+ztr_decolonization_phases.11 = {
+	dlc = dlc_tech_res
+	type = country_event
+	placement = scope:boom_colonial_state
+
+	event_image = {
+		video = "africa_leader_arguing"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	icon = "gfx/interface/icons/event_icons/event_map.dds"
+
+	title = ztr_decolonization_phases.11.t
+	desc = ztr_decolonization_phases.11.d
+
+	duration = 3
+
+	trigger = {
+		has_game_rule = allow_ztr_decolonization_content
+		ztr_decolonization_is_phase_1 = yes
+		NOT = { has_variable = ztr_decol_colonial_pop_boom_cd }
+		# Country must have some healthcare
+		NOT = { has_law_or_variant = law_type:law_no_health_system }
+		get_country_gdp_per > 3
+		# Must have a non-European colonial state with low SOL
+		any_scope_state = {
+			state_want_to_be_decolonized = yes
+			OR = {
+				is_in_geographic_region = geographic_region_africa
+				is_in_geographic_region = geographic_region_middle_east
+				is_in_geographic_region = geographic_region_india
+				is_in_geographic_region = geographic_region_east_asia
+				is_in_geographic_region = geographic_region_south_east_asia
+				is_in_geographic_region = geographic_region_central_asia
+			}
+			average_sol < 20
+		}
+	}
+
+	immediate = {
+		set_variable = {
+			name = ztr_decol_colonial_pop_boom_cd
+		}
+		random_scope_state = {
+			limit = {
+				state_want_to_be_decolonized = yes
+				OR = {
+					is_in_geographic_region = geographic_region_africa
+					is_in_geographic_region = geographic_region_middle_east
+					is_in_geographic_region = geographic_region_india
+					is_in_geographic_region = geographic_region_east_asia
+					is_in_geographic_region = geographic_region_south_east_asia
+					is_in_geographic_region = geographic_region_central_asia
+				}
+				average_sol < 20
+			}
+			save_scope_as = boom_colonial_state
+		}
+	}
+
+	option = {
+		# Impose birth control measures
+		name = ztr_decolonization_phases.11.a
+		ai_chance = {
+			base = 5
+		}
+		change_infamy = 5
+		# Slight radical increase in qualifying states plus declining boom
+		custom_tooltip = {
+			text = ztr_decolonization_phases_11_a_effect_tt
+			every_scope_state = {
+				limit = {
+					state_want_to_be_decolonized = yes
+					OR = {
+						is_in_geographic_region = geographic_region_africa
+						is_in_geographic_region = geographic_region_middle_east
+						is_in_geographic_region = geographic_region_india
+						is_in_geographic_region = geographic_region_east_asia
+						is_in_geographic_region = geographic_region_south_east_asia
+						is_in_geographic_region = geographic_region_central_asia
+					}
+					average_sol < 20
+				}
+				add_radicals_in_state = {
+					value = 0.02
+				}
+				add_modifier = {
+					name = ztr_demographic_boom_modifier
+					months = 240
+					is_decaying = yes
+				}
+			}
+		}
+	}
+
+	option = {
+		# Let nature take its course
+		name = ztr_decolonization_phases.11.b
+		default_option = yes
+		ai_chance = {
+			base = 15
+		}
+		custom_tooltip = {
+			text = ztr_decolonization_phases_11_b_effect_tt
+			every_scope_state = {
+				limit = {
+					state_want_to_be_decolonized = yes
+					OR = {
+						is_in_geographic_region = geographic_region_africa
+						is_in_geographic_region = geographic_region_middle_east
+						is_in_geographic_region = geographic_region_india
+						is_in_geographic_region = geographic_region_east_asia
+						is_in_geographic_region = geographic_region_south_east_asia
+						is_in_geographic_region = geographic_region_central_asia
+					}
+					average_sol < 20
+				}
+				add_modifier = {
+					name = ztr_demographic_boom_modifier
+					months = 240
+				}
+			}
+		}
+		custom_tooltip = ztr_decolonization_pressure_increase_5_tt
+		change_variable = {
+			name = ztr_decolonization_pressure_var
+			add = 5
+		}
+	}
+}
+
+# Event 12: Subject Demographic Boom (Phase 1)
+# Subjects in Africa or Asia see population surges as modern medicine
+# reaches their territories, straining colonial administration.
+ztr_decolonization_phases.12 = {
+	dlc = dlc_tech_res
+	type = country_event
+	placement = scope:boom_subject
+
+	event_image = {
+		video = "asia_farmers_market"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	icon = "gfx/interface/icons/event_icons/event_map.dds"
+
+	title = ztr_decolonization_phases.12.t
+	desc = ztr_decolonization_phases.12.d
+
+	duration = 3
+
+	trigger = {
+		has_game_rule = allow_ztr_decolonization_content
+		ztr_decolonization_is_phase_1 = yes
+		NOT = { has_variable = ztr_decol_subject_pop_boom_cd }
+		get_country_gdp_per > 3
+		# Must have subjects in Africa or Asia with low SOL
+		any_subject_or_below = {
+			average_sol < 20
+			# Country must have some healthcare
+			NOT = { has_law_or_variant = law_type:law_no_health_system }
+			NOT = { has_variable = ztr_decolonization_subject_cd }
+			OR = {
+				is_in_geographic_region = geographic_region_africa
+				is_in_geographic_region = geographic_region_middle_east
+				is_in_geographic_region = geographic_region_india
+				is_in_geographic_region = geographic_region_east_asia
+				is_in_geographic_region = geographic_region_south_east_asia
+				is_in_geographic_region = geographic_region_central_asia
+			}
+		}
+	}
+
+	immediate = {
+		set_variable = {
+			name = ztr_decol_subject_pop_boom_cd
+		}
+		# Pick the most populous qualifying subject
+		random_subject_or_below = {
+			limit = {
+				average_sol < 20
+				# Country must have some healthcare
+				NOT = { has_law_or_variant = law_type:law_no_health_system }
+				NOT = { has_variable = ztr_decolonization_subject_cd }
+				OR = {
+					is_in_geographic_region = geographic_region_africa
+					is_in_geographic_region = geographic_region_middle_east
+					is_in_geographic_region = geographic_region_india
+					is_in_geographic_region = geographic_region_east_asia
+					is_in_geographic_region = geographic_region_south_east_asia
+					is_in_geographic_region = geographic_region_central_asia
+				}
+			}
+			save_scope_as = boom_subject
+		}
+	}
+
+	option = {
+		# Impose birth limits on the subject
+		name = ztr_decolonization_phases.12.a
+		ai_chance = {
+			base = 5
+		}
+		change_infamy = 5
+		custom_tooltip = {
+			text = ztr_decolonization_phases_12_a_effect_tt
+			every_subject_or_below = {
+				limit = {
+					average_sol < 20
+					# Country must have some healthcare
+					NOT = { has_law_or_variant = law_type:law_no_health_system }
+					NOT = { has_variable = ztr_decolonization_subject_cd }
+					OR = {
+						is_in_geographic_region = geographic_region_africa
+						is_in_geographic_region = geographic_region_middle_east
+						is_in_geographic_region = geographic_region_india
+						is_in_geographic_region = geographic_region_east_asia
+						is_in_geographic_region = geographic_region_south_east_asia
+						is_in_geographic_region = geographic_region_central_asia
+					}
+				}
+				add_liberty_desire = {
+					value = 10
+				}
+				add_modifier = {
+					name = ztr_demographic_boom_modifier
+					months = 240
+					is_decaying = yes
+				}
+			}
+		}
+	}
+
+	option = {
+		# Let the population grow freely
+		name = ztr_decolonization_phases.12.b
+		default_option = yes
+		ai_chance = {
+			base = 15
+		}
+		custom_tooltip = {
+			text = ztr_decolonization_phases_12_b_effect_tt
+			every_subject_or_below = {
+				limit = {
+					average_sol < 20
+					# Country must have some healthcare
+					NOT = { has_law_or_variant = law_type:law_no_health_system }
+					NOT = { has_variable = ztr_decolonization_subject_cd }
+					OR = {
+						is_in_geographic_region = geographic_region_africa
+						is_in_geographic_region = geographic_region_middle_east
+						is_in_geographic_region = geographic_region_india
+						is_in_geographic_region = geographic_region_east_asia
+						is_in_geographic_region = geographic_region_south_east_asia
+						is_in_geographic_region = geographic_region_central_asia
+					}
+				}
+				add_modifier = {
+					name = ztr_demographic_boom_modifier
+					months = 240
+				}
+			}
+		}
+		custom_tooltip = ztr_decolonization_pressure_increase_5_tt
+		change_variable = {
+			name = ztr_decolonization_pressure_var
+			add = 5
+		}
+	}
+}

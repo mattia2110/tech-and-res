@@ -1,0 +1,259 @@
+namespace = colony_pop
+
+# Indonesia, India and Philippines during dutchand spanish colonialism
+colony_pop.1 = {
+	dlc = dlc_tech_res
+	type = country_event
+	placement = root
+
+	duration = 1
+
+	title = colony_pop.1.t
+	desc = colony_pop.1.d
+
+	event_image = {
+		video = "asia_farmers_market"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	on_opened_soundeffect = "event:/SFX/Events/middleeast/middleclass_cafe"
+
+	icon = "gfx/interface/icons/event_icons/event_newspaper.dds"
+
+	trigger = {
+		OR = {
+			is_in_geographic_region = geographic_region_south_east_asia
+			is_in_geographic_region = geographic_region_india
+		}
+		is_subject = yes
+		overlord = { is_in_geographic_region = geographic_region_europe }
+		year < 1860
+		NOT = { has_modifier = colonial_agricultural_shift }
+		NOT = { has_modifier = colonial_agricultural_shift_player }
+	}
+
+	immediate = {
+		overlord = {
+			save_scope_as = overlord_scope
+		}
+		root = {
+			save_scope_as = root_scope
+		}
+	}
+
+	option = {
+		name = colony_pop.1.a
+		default_option = yes
+		if = {
+			limit = {
+				is_ai = no
+			}
+			add_modifier = {
+				name = colonial_agricultural_shift_player
+				years = 80
+			}
+		}
+		else = {
+			add_modifier = {
+				name = colonial_agricultural_shift
+				years = 120
+			}
+		}
+		ai_chance = {
+			base = 1
+		}
+	}
+}
+
+###########################################################
+# GENERIC DEMOGRAPHIC BOOM EVENTS
+###########################################################
+
+# Event 2: Colonial States Demographic Boom (Generic, pre-1936)
+# Non-European colonial states with low living standards see population surges
+# as basic medical advances reduce mortality, even without modern healthcare.
+colony_pop.2 = {
+	dlc = dlc_tech_res
+	type = country_event
+	placement = scope:generic_boom_state
+
+	event_image = {
+		video = "asia_farmers_market"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	icon = "gfx/interface/icons/event_icons/event_newspaper.dds"
+
+	title = colony_pop.2.t
+	desc = colony_pop.2.d
+
+	duration = 3
+
+	trigger = {
+		year > 1880
+		year < 1936
+		NOT = { has_variable = ztr_generic_colonial_boom_cd }
+		# Country must have some healthcare
+		NOT = { has_law_or_variant = law_type:law_no_health_system }
+		get_country_gdp_per > 3
+		any_scope_state = {
+			state_want_to_be_decolonized = yes
+			OR = {
+				is_in_geographic_region = geographic_region_africa
+				is_in_geographic_region = geographic_region_middle_east
+				is_in_geographic_region = geographic_region_india
+				is_in_geographic_region = geographic_region_east_asia
+				is_in_geographic_region = geographic_region_south_east_asia
+			}
+			average_sol < 15
+		}
+	}
+
+	immediate = {
+		set_variable = {
+			name = ztr_generic_colonial_boom_cd
+			years = 20
+		}
+		random_scope_state = {
+			limit = {
+				state_want_to_be_decolonized = yes
+				OR = {
+					is_in_geographic_region = geographic_region_africa
+					is_in_geographic_region = geographic_region_middle_east
+					is_in_geographic_region = geographic_region_india
+					is_in_geographic_region = geographic_region_east_asia
+					is_in_geographic_region = geographic_region_south_east_asia
+				}
+				average_sol < 15
+			}
+			save_scope_as = generic_boom_state
+		}
+	}
+
+	option = {
+		name = colony_pop.2.a
+		default_option = yes
+		custom_tooltip = {
+			text = colony_pop_2_a_effect_tt
+			every_scope_state = {
+				limit = {
+					state_want_to_be_decolonized = yes
+					OR = {
+						is_in_geographic_region = geographic_region_africa
+						is_in_geographic_region = geographic_region_middle_east
+						is_in_geographic_region = geographic_region_india
+						is_in_geographic_region = geographic_region_east_asia
+						is_in_geographic_region = geographic_region_south_east_asia
+					}
+					average_sol < 15
+				}
+				add_modifier = {
+					name = ztr_demographic_boom_generic_modifier
+					months = 60
+				}
+			}
+		}
+		ai_chance = {
+			base = 1
+		}
+	}
+}
+
+# Event 3: Subject Population Boom (Generic, pre-1936)
+# Subjects in Africa or Asia with low living standards experience population growth
+# as early public health measures take effect.
+colony_pop.3 = {
+	dlc = dlc_tech_res
+	type = country_event
+	placement = scope:generic_boom_subject
+
+	event_image = {
+		video = "asia_farmers_market"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	icon = "gfx/interface/icons/event_icons/event_newspaper.dds"
+
+	title = colony_pop.3.t
+	desc = colony_pop.3.d
+
+	duration = 3
+
+	trigger = {
+		# In a specific window
+		year > 1880
+		year < 1936
+		NOT = { has_variable = ztr_generic_subject_boom_cd }
+		get_country_gdp_per > 3
+		any_subject_or_below = {
+			average_sol > 9
+			average_sol < 15
+			# Country must have some healthcare
+			NOT = { has_law_or_variant = law_type:law_no_health_system }
+			OR = {
+				is_in_geographic_region = geographic_region_africa
+				is_in_geographic_region = geographic_region_middle_east
+				is_in_geographic_region = geographic_region_india
+				is_in_geographic_region = geographic_region_east_asia
+				is_in_geographic_region = geographic_region_south_east_asia
+			}
+		}
+	}
+
+	immediate = {
+		set_variable = {
+			name = ztr_generic_subject_boom_cd
+			years = 20
+		}
+		# Pick a qualifying subject
+		random_subject_or_below = {
+			limit = {
+				average_sol > 9
+				average_sol < 15
+				# Country must have some healthcare
+				NOT = { has_law_or_variant = law_type:law_no_health_system }
+				OR = {
+					is_in_geographic_region = geographic_region_africa
+					is_in_geographic_region = geographic_region_middle_east
+					is_in_geographic_region = geographic_region_india
+					is_in_geographic_region = geographic_region_east_asia
+					is_in_geographic_region = geographic_region_south_east_asia
+				}
+			}
+			save_scope_as = generic_boom_subject
+		}
+	}
+
+	option = {
+		name = colony_pop.3.a
+		default_option = yes
+		custom_tooltip = {
+			text = colony_pop_3_a_effect_tt
+			every_subject_or_below = {
+				limit = {
+					average_sol > 9
+					average_sol < 15
+					# Country must have some healthcare
+					NOT = { has_law_or_variant = law_type:law_no_health_system }
+					OR = {
+						is_in_geographic_region = geographic_region_africa
+						is_in_geographic_region = geographic_region_middle_east
+						is_in_geographic_region = geographic_region_india
+						is_in_geographic_region = geographic_region_east_asia
+						is_in_geographic_region = geographic_region_south_east_asia
+						is_in_geographic_region = geographic_region_central_asia
+					}
+				}
+				add_modifier = {
+					name = ztr_demographic_boom_generic_modifier
+					months = 240
+				}
+			}
+		}
+		ai_chance = {
+			base = 1
+		}
+	}
+}
