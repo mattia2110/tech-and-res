@@ -15,7 +15,10 @@ ztr_main_script_on_yearly_pulse = {
 		# Special buildings creation on capital states
 		every_country = {
 			limit = {
-				has_technology_researched = modern_urban_planning
+				OR = {
+					has_technology_researched = modern_urban_planning
+					year > 1950
+				}
 				NOT = { has_building = building_modern_state_baseline }
 			}
 			capital = {
@@ -143,7 +146,7 @@ un_institutions_on_yearly_pulse = {
 				has_global_variable = ztr_un_institution_icc
 				global_var:ztr_un_institution_icc = 1
 				ztr_is_un_member = yes
-				infamy >= 25
+				infamy >= 60
 			}
 			trigger_event = { id = ztr_un_event.45 }
 		}
@@ -153,6 +156,7 @@ un_institutions_on_yearly_pulse = {
 		every_country = {
 			limit = {
 				has_global_variable = ztr_un_institution_imf
+				global_var:ztr_un_institution_imf = 1
 				ztr_is_un_member = yes
 				OR = {
 					average_sol < 10
@@ -215,6 +219,13 @@ on_yearly_pulse_country = {
 		imf_on_yearly_pulse_country
 		arable_land_on_yearly_pulse_country
 		atomic_on_yearly_pulse_country
+		modern_individualism_on_yearly_pulse_country
+	}
+}
+
+modern_individualism_on_yearly_pulse_country = {
+	events = {
+		ztr_modern_individualism.1
 	}
 }
 
@@ -378,6 +389,78 @@ on_monthly_pulse_country = {
 	on_actions = {
 		un_intervention_on_monthly_pulse_country
 		yeet_pops_on_monthly_pulse_country
+		eu_membership_enforcement_on_monthly_pulse_country
+	}
+}
+
+# EU power bloc membership is strictly tied to the ztr_eu_member modifier.
+# If a country has the modifier, it must be in the EU founder's power bloc.
+# If it doesn't have the modifier, it must not be in the EU founder's power bloc.
+eu_membership_enforcement_on_monthly_pulse_country = {
+	effect = {
+		# Force EU members into the EU power bloc if they aren't already in it
+		if = {
+			limit = {
+				has_global_variable = ztr_eu_created
+			}
+			if = {
+				limit = {
+					has_modifier = ztr_eu_member
+					exists = root.power_bloc
+					NOT = {
+						root.power_bloc = {
+							power_bloc_leader = {
+								has_variable = ztr_eu_founder
+							}
+						}
+					}
+				}
+				leave_power_bloc = yes
+				random_country = {
+					limit = {
+						has_variable = ztr_eu_founder
+						is_power_bloc_leader = yes
+					}
+					save_scope_as = ztr_eu_founder_scope
+				}
+				if = {
+					limit = { exists = scope:ztr_eu_founder_scope }
+					join_power_bloc = scope:ztr_eu_founder_scope
+				}
+			}
+			else_if = {
+				limit = {
+					has_modifier = ztr_eu_member
+					NOT = { exists = root.power_bloc }
+				}
+				random_country = {
+					limit = {
+						has_variable = ztr_eu_founder
+						is_power_bloc_leader = yes
+					}
+					save_scope_as = ztr_eu_founder_scope
+				}
+				if = {
+					limit = { exists = scope:ztr_eu_founder_scope }
+					join_power_bloc = scope:ztr_eu_founder_scope
+				}
+			}
+
+			# Force non-EU-members out of the EU power bloc
+			if = {
+				limit = {
+					NOT = { has_modifier = ztr_eu_member }
+					NOT = { has_variable = ztr_eu_founder }
+					exists = root.power_bloc
+					root.power_bloc = {
+						leader = {
+							has_variable = ztr_eu_founder
+						}
+					}
+				}
+				leave_power_bloc = yes
+			}
+		}
 	}
 }
 

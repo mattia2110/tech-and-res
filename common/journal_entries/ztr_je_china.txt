@@ -14,11 +14,17 @@ ztr_je_the_future_of_china = {
 		ztr_china_init_renaissance_vars = yes
 	}
 	on_monthly_pulse = {
+		# We don't want JE to progress during a revolution as it can cause weird consequences
 		effect = {
-			ztr_china_update_corporate_bar = yes
-			ztr_china_update_federation_bar = yes
-			ztr_china_update_technoconfucian_bar = yes
-			ztr_china_final_renaissance_update = yes
+			if = {
+				limit = {
+					NOT = { has_revolution = yes }
+				}
+				ztr_china_update_corporate_bar = yes
+				ztr_china_update_federation_bar = yes
+				ztr_china_update_technoconfucian_bar = yes
+				ztr_china_final_renaissance_update = yes
+			}
 		}
 		random_events = {
 			10 = 0

@@ -111,9 +111,15 @@ create_eu_decision = {
 			name = ztr_eu_founder
 			value = 1
 		}
+		# If a Country joins the EU, all of its subjects will become independent
+		custom_tooltip = {
+			text = ztr_eu_join_country_loose_all_subjects_tt
+			every_subject_or_below = {
+				make_independent = yes
+			}
+		}
 		# In order to destroy and recreate the power bloc (and to update its principles), we first set the country type to unrecognized to avoid issues. (NOT WORKING)
-		set_country_type = unrecognized
-		set_country_type = recognized
+		ztr_remove_any_power_bloc = yes
 		create_power_bloc = {
 			name = EUROPEAN_UNION
 			map_color = {
@@ -122,7 +128,7 @@ create_eu_decision = {
 				153
 			}
 			# Official EU blue
-			founding_date = 1936.1.1
+			founding_date = 1992.1.1
 			identity = identity_trade_league
 			principle = principle_defensive_cooperation_1
 		}
@@ -145,7 +151,7 @@ create_eu_decision = {
 
 join_european_union = {
 	is_shown = {
-		has_technology_researched = globalization
+		has_technology_researched = transnational_activism
 		year > 1992
 		NOT = {
 			has_modifier = ztr_eu_member
@@ -174,6 +180,22 @@ join_european_union = {
 		ztr_is_democratic = yes
 	}
 	when_taken = {
+		# If a Country joins the EU, all of its subjects will become independent
+		custom_tooltip = {
+			text = ztr_eu_join_country_loose_all_subjects_tt
+			every_subject_or_below = {
+				make_independent = yes
+			}
+		}
+		ztr_remove_any_power_bloc = yes
+		random_country = {
+			limit = {
+				has_variable = ztr_eu_founder
+			}
+			root = {
+				join_power_bloc = prev
+			}
+		}
 		change_infamy = -5
 		hidden_effect = {
 			if = {
@@ -224,7 +246,7 @@ join_european_union = {
 withdraw_from_european_union = {
 	is_shown = {
 		has_modifier = ztr_eu_member
-		year > 2010		# A sort of Brexit
+		year > 2015		# A sort of Brexit
 		is_subject = no
 	}
 	possible = {
@@ -256,3 +278,4 @@ withdraw_from_european_union = {
 		value = 10
 	}
 }
+

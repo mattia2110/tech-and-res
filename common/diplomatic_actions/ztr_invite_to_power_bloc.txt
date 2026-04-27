@@ -36,9 +36,20 @@ REPLACE:invite_to_power_bloc = {
 		}
 
 		power_bloc = {
-			leverage_advantage = {
-				target = scope:target_country
-				value >= leverage_threshold_to_invite
+			trigger_if = {
+				limit = {
+					scope:actor = { has_modifier = ztr_superpower }
+				}
+				leverage_advantage = {
+					target = scope:target_country
+					value >= 50
+				}
+			}
+			trigger_else = {
+				leverage_advantage = {
+					target = scope:target_country
+					value >= leverage_threshold_to_invite
+				}
 			}
 
 			NOT = {
@@ -49,6 +60,18 @@ REPLACE:invite_to_power_bloc = {
 		}
 		scope:target_country = {
 			is_revolutionary = no
+		}
+
+		# EU power bloc membership is determined by the ztr_eu_member modifier
+		custom_tooltip = {
+			text = "ZTR_EU_INVITE_RESTRICTION"
+			trigger_if = {
+				limit = { has_variable = ztr_eu_founder }
+				scope:target_country = { has_modifier = ztr_eu_member }
+			}
+			trigger_else = {
+				scope:target_country = { NOT = { has_modifier = ztr_eu_member } }
+			}
 		}
 		custom_tooltip = {
 			# This effectively sets a 2 year cooldown on invites. This length needs to be updated both in loc and in the catalyst definition

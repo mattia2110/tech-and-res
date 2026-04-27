@@ -1,0 +1,292 @@
+# State Unification Script
+# This script is built to unify countries that meets rigid criteria coming from ztr_countries_can_unify_trigger
+# regarding primary culture share, religion share, state contiguity and very high opinions.
+# This diplomatic action is unlocked by the neo-imperialism tech to help countries divided in many states
+# after late-game revolts to consolidate themselves peacefully rather than through constant warfare.
+
+ztr_unify_countries = {
+	groups = { general }
+	requires_approval = yes
+	uses_random_approval = no
+	can_use_obligations = no
+	should_notify_third_parties = yes
+
+	unlocking_technologies = {
+		international_organizations
+	}
+
+	selectable = {
+		NOT = { is_country_type = decentralized }
+		is_revolutionary = no
+		is_secessionist = no
+		NOT = { is_subject = yes }
+		NOT = { is_at_war = yes }
+	}
+
+	potential = {
+		# Structural eligibility
+		scope:target_country = {
+			NOT = { is_country_type = decentralized }
+			country_rank <= rank_value:minor_power
+			OR = {
+				NOT = { is_subject = yes }
+				is_subject_of = scope:actor
+			}
+			NOT = { is_at_war = yes }
+		}
+
+		# Master rigid trigger: culture, religion, contiguity, statelet, rank, prestige, liberty index
+		ztr_countries_can_unify_trigger = yes
+	}
+
+	possible = {		
+		# No active dispute between the two
+		NOT = { has_war_with = scope:target_country }
+		NOT = { is_diplomatic_play_enemy_of = scope:target_country }
+
+		# Infamy gate: a pariah cannot extort small neighbours into dissolution
+		NOT = { infamy >= 25 }
+	}
+
+	accept_effect = {
+		save_scope_as = ztr_unify_actor
+		scope:target_country = {
+			save_scope_as = ztr_unify_target
+			custom_tooltip = ztr_unify_countries_accept_effect_tt
+		}
+
+		annex = scope:target_country
+
+		# Integration bonus for the absorbing country
+		#TODO This can be expanded with a future JE
+		add_modifier = {
+			name = ztr_unified_country_integration
+			months = 120
+		}
+
+		# The act projects soft power across the neighbourhood
+		change_infamy = 5
+	}
+
+	decline_effect = {
+		change_relations = {
+			country = scope:target_country
+			value = -25
+		}
+	}
+
+	ai = {
+		check_acceptance_for_will_propose = yes
+
+		evaluation_chance = {
+			value = 1
+		}
+
+		accept_score = {
+			value = 0
+
+			# Unification is a one-way door for the target, so the baseline is hostile.
+			add = {
+				desc = "DIPLOMATIC_ACCEPTANCE_BASE"
+				value = -100
+			}
+
+			# Shared religion adds weight even when the cultures differ.
+			if = {
+				limit = {
+					scope:actor.religion = scope:target_country.religion
+				}
+				add = {
+					desc = "ZTR_UNIFY_ACCEPT_SHARED_RELIGION"
+					value = 15
+				}
+			}
+
+			# Liberty index alignment
+			if = {
+				limit = { ztr_is_very_similar_liberty_index = yes }
+				add = {
+					desc = "ZTR_VERY_SIMILAR_LIBERTY_INDEX"
+					value = 50
+				}
+			}
+			if = {
+				limit = {
+					ztr_similar_liberty_index = yes
+					NOT = { ztr_is_very_similar_liberty_index = yes }
+				}
+				add = {
+					desc = "ZTR_SIMILAR_LIBERTY_INDEX"
+					value = 25
+				}
+			}
+
+			# Equality index alignment
+			if = {
+				limit = { ztr_similar_equality_index = yes }
+				add = {
+					desc = "ZTR_SIMILAR_EQUALITY_INDEX"
+					value = 20
+				}
+			}
+
+			# Relations bands (root here is scope:target_country).
+			# Bands are mutually exclusive through NOT chains so no double counting.
+			add = {
+				desc = "DIPLOMATIC_ACCEPTANCE_RELATIONS"
+				if = {
+					limit = {
+						"relations(scope:actor)" < relations_threshold:cordial
+					}
+					value = -75
+				}
+				if = {
+					limit = {
+						"relations(scope:actor)" >= relations_threshold:neutral
+						"relations(scope:actor)" < relations_threshold:cordial
+					}
+					value = -25
+				}
+				if = {
+					limit = {
+						"relations(scope:actor)" >= relations_threshold:cordial
+						"relations(scope:actor)" < relations_threshold:amicable
+					}
+					value = 10
+				}
+				if = {
+					limit = {
+						"relations(scope:actor)" >= relations_threshold:amicable
+						"relations(scope:actor)" < relations_threshold:friendly
+					}
+					value = 25
+				}
+				if = {
+					limit = {
+						"relations(scope:actor)" >= relations_threshold:friendly
+					}
+					value = 50
+				}
+			}
+
+			# Attitude
+			if = {
+				limit = {
+					has_attitude = {
+						who = scope:actor
+						attitude = genial
+					}
+				}
+				add = {
+					desc = "DIPLOMATIC_ACCEPTANCE_ATTITUDE"
+					value = 25
+				}
+			}
+			if = {
+				limit = {
+					OR = {
+						has_attitude = {
+							who = scope:actor
+							attitude = cooperative
+						}
+						has_attitude = {
+							who = scope:actor
+							attitude = conciliatory
+						}
+						has_attitude = {
+							who = scope:actor
+							attitude = loyal
+						}
+						has_attitude = {
+							who = scope:actor
+							attitude = protective
+						}
+					}
+				}
+				add = {
+					desc = "DIPLOMATIC_ACCEPTANCE_ATTITUDE"
+					value = 15
+				}
+			}
+			if = {
+				limit = {
+					OR = {
+						has_attitude = {
+							who = scope:actor
+							attitude = antagonistic
+						}
+						has_attitude = {
+							who = scope:actor
+							attitude = domineering
+						}
+						has_attitude = {
+							who = scope:actor
+							attitude = belligerent
+						}
+						has_attitude = {
+							who = scope:actor
+							attitude = rebellious
+						}
+					}
+				}
+				add = {
+					desc = "DIPLOMATIC_ACCEPTANCE_ATTITUDE"
+					value = -1000
+				}
+			}
+
+			# Shared power bloc: the two are already politically integrated
+			if = {
+				limit = {
+					is_in_same_power_bloc = scope:actor
+				}
+				add = {
+					desc = "ZTR_UNIFY_ACCEPT_SAME_POWER_BLOC"
+					value = 50
+				}
+			}
+
+			# Rank gap: the smaller they are relative to the actor, the more attractive the offer
+			add = {
+				desc = "DIPLOMATIC_ACCEPTANCE_RANK"
+				value = scope:actor.country_rank
+				subtract = country_rank
+				multiply = 15
+				min = 0
+				max = 75
+			}
+
+			# Infamy: scary benefactors are not welcome heirs
+			if = {
+				limit = {
+					"scope:actor.infamy" >= infamy_threshold:infamous
+					"scope:actor.infamy" < infamy_threshold:notorious
+				}
+				add = {
+					desc = "DIPLOMATIC_ACCEPTANCE_INFAMY"
+					value = -40
+				}
+			}
+			if = {
+				limit = {
+					"scope:actor.infamy" >= infamy_threshold:notorious
+				}
+				add = {
+					desc = "DIPLOMATIC_ACCEPTANCE_INFAMY"
+					value = -120
+				}
+			}
+		}
+
+		will_propose = {
+			would_accept_diplomatic_action = {
+				actor = scope:target_country
+				type = ztr_unify_countries
+			}
+		}
+
+		propose_score = {
+			value = 10000
+		}
+	}
+}

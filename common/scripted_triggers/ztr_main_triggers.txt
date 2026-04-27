@@ -243,3 +243,76 @@ ztr_similar_equality_index = {
 		}
 	}
 }
+
+# Unification Triggers
+
+# Actor and target share a primary culture, so assimilation would be effectively automatic.
+ztr_countries_share_primary_culture = {
+	custom_tooltip = {
+		text = ztr_tooltip_countries_share_primary_culture
+		scope:actor = {
+			any_primary_culture = {
+				is_primary_culture_of = scope:target_country
+			}
+		}
+	}
+}
+
+# Actor has a homeland state for its own primary culture that is adjacent to, or in the same state region as, the target.
+# Filters out candidates where the actor has no territorial claim that could reach the target without crossing a stranger.
+ztr_countries_state_contiguity = {
+	custom_tooltip = {
+		text = ztr_tooltip_countries_state_contiguity
+		scope:actor = {
+			any_scope_state = {
+				is_homeland_of_country_cultures = scope:actor
+				OR = {
+					region = {
+						any_scope_state = {
+							is_incorporated = yes
+							owner = scope:target_country
+						}
+					}
+					any_neighbouring_state = {
+						is_incorporated = yes
+						owner = scope:target_country
+					}
+				}
+			}
+		}
+	}
+}
+
+# Blocks unification between countries sitting on opposite ends of the liberty or equality index spectrum.
+ztr_both_democratic = {
+	custom_tooltip = {
+		text = ztr_tooltip_both_democratic
+		AND = {
+				scope:actor = { ztr_is_democratic = yes }
+				scope:target_country = { ztr_is_democratic = yes }
+			}
+	}
+}
+
+# Master trigger: every rigid precondition for a peaceful country unification.
+ztr_countries_can_unify_trigger = {
+
+		# The target must be a small leftover country, not a peer or superior.
+		scope:actor = {
+			prestige > scope:target_country.prestige
+		}
+
+		# Identity prerequisites
+		custom_tooltip = {
+			text = ztr_tooltip_countries_have_cultural_or_relations_ground
+			ztr_countries_share_primary_culture = yes
+			scope:actor = {
+				"relations(scope:target_country)" >= relations_threshold:neutral
+			}
+		}
+		ztr_both_democratic = yes
+
+		# Geographic prerequisite: actor's homeland must border or overlap target's territory
+		ztr_countries_state_contiguity = yes
+
+}

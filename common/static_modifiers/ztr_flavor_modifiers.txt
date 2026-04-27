@@ -1,3 +1,12 @@
+#Unification modifier granted to the absorbing country after a peaceful unification.
+ztr_unified_country_integration = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_flag_positive.dds
+	country_prestige_mult = -0.10
+	country_authority_mult = 0.1
+	state_tax_waste_add = 0.25
+	state_turmoil_effects_mult = 0.15
+}
+
 #USA modifiers
 usa_gilded_age = {
 	icon = gfx/interface/icons/timed_modifier_icons/modifier_capitalist_positive.dds
@@ -473,4 +482,22 @@ ztr_religious_extremism_mitigation_modifier = {
 	icon = gfx/interface/icons/timed_modifier_icons/modifier_bureaucracy_negative.dds
 	country_bureaucracy_add = -50
 	country_tax_income_add = -100000
+}
+
+# Applied to the overlord when it chooses to crush a decolonization movement by war.
+# Represents the domestic strain of mobilizing a colonial campaign against a subject.
+ztr_colonial_war_mobilization_modifier = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_bureaucracy_negative.dds
+	building_mobilization_cost_mult = 0.25
+	country_prestige_mult = -0.1
+	country_legitimacy_base_add = -5
+}
+
+# Applied to a subject when the overlord cedes homeland states but keeps it as a
+# subject via negotiated transition. Reduced liberty desire buys time before the
+# next wave of demands.
+ztr_negotiated_transition_modifier = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_bureaucracy_positive.dds
+	country_liberty_desire_add = -0.25
+	country_minting_mult = 0.5
 }

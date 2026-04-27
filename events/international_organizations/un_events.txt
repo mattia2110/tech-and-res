@@ -267,9 +267,21 @@ ztr_un_event.3 = {
 				has_modifier = ztr_onu_permanent_member
 			}
 		}
-		add_modifier = {
-			name = ztr_un_condemned_modifier
-			months = 120
+		if = {
+			limit = {
+				has_global_variable = ztr_un_institution_icc
+				global_var:ztr_un_institution_icc = 1
+			}
+			add_modifier = {
+				name = icc_investigation_modifier
+				years = 5
+			}
+		}
+		else = {
+			add_modifier = {
+				name = ztr_un_condemned_modifier
+				years = 3
+			}
 		}
 		change_infamy = 5
 		ai_chance = {
@@ -1533,7 +1545,7 @@ ztr_un_event.45 = {
 	immediate = {
 		add_modifier = {
 			name = ztr_icc_investigation_modifier
-			days = 1095
+			years = 5
 		}
 	}
 }

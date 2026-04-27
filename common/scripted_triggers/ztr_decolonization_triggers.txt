@@ -41,21 +41,21 @@ culture_wants_to_be_decolonized_incorporated = {
 				ztr_is_full_democratic = yes
 				cultural_acceptance_base = {
 					target = prev
-					value <= 45 #acceptance_status_3 #40
+					value <= 40 #acceptance_status_3 #40
 				}
 			}
 			AND = {
 				ztr_is_flawed_democratic = yes
 				cultural_acceptance_base = {
 					target = prev
-					value <= 50 #acceptance_status_3 #40
+					value <= 45 #acceptance_status_3 #40
 				}
 			}
 			AND = {
 				ztr_is_not_democratic = yes
 				cultural_acceptance_base = {
 					target = prev
-					value <= 55 #acceptance_status_5 #80
+					value <= 50 #acceptance_status_5 #80
 				}
 			}
 		}
@@ -79,16 +79,22 @@ is_colonial_power = {
 }
 
 state_want_to_be_decolonized = {
+	# Skip states that are already homeland territory for the owner.
 	NOT = { is_homeland_of_country_cultures = root }
-	any_scope_culture = {
-		filter = {
-			has_homeland = prev
+	# Ignore tiny enclaves so decolonization pressure only tracks major possessions.
+	state_population > 1000000
+	# Exclude regions where the owner already has homeland presence in a neighboring state.
+	NOT = {
+		region = {
+			any_scope_state = {
+				is_homeland_of_country_cultures = root
+				count > 0
+			}
 		}
-		count > 0
-		always = yes
 	}
 	OR = {
 		AND = {
+			# Incorporated states use the stricter homeland-culture acceptance threshold.
 			is_incorporated = yes
 			any_scope_culture = {
 				filter = {
@@ -99,6 +105,7 @@ state_want_to_be_decolonized = {
 			}
 		}
 		AND = {
+			# Unincorporated states use the standard homeland-culture decolonization threshold.
 			is_incorporated = no
 			any_scope_culture = {
 				filter = {
@@ -107,6 +114,19 @@ state_want_to_be_decolonized = {
 				count = all
 				culture_wants_to_be_decolonized = yes
 			}
+		}
+	}
+}
+
+# Fast membership check against the yearly-cached colonial states list built by je_decolonization.
+# Use in contexts fired from or shortly after je_decolonization's yearly pulse.
+# Uses prev so the check resolves against the country scope that iterated into this state,
+# rather than assuming root is the colonial power owning the list.
+ztr_state_is_colonial = {
+	prev = {
+		is_target_in_variable_list = {
+			name = ztr_colonial_states_list
+			target = prev
 		}
 	}
 }
@@ -459,7 +479,10 @@ ztr_can_decolonize_cambodia = {
 ztr_can_decolonize_india = {
 	has_game_rule = allow_ztr_decolonization_content
 	NOT = { has_variable = ztr_india_decolonization_cd }
-	has_global_variable = ztr_indian_unifier_global_var
+	OR = {
+		has_global_variable = ztr_indian_unifier_global_var
+		exists = c:BHT
+	}
 	NOT = { has_variable = ztr_indian_unifier_var }
 	year > 1945
 	NOT = { is_subject = yes }
@@ -837,7 +860,7 @@ ztr_can_decolonize_eritrea = {
 # Chad
 ztr_can_decolonize_chad = {
 	has_global_variable = ztr_global_decolonization_pressure_var
-	ztr_decolonization_is_phase_2 = yes
+	NOT = { is_homeland_of_country_cultures = root }
 	cu:fur = { culture_wants_to_be_decolonized = yes }
 	NOT = { is_subject = yes }
 	any_scope_state = {
@@ -1013,6 +1036,7 @@ ztr_can_decolonize_nigeria = {
 	has_global_variable = ztr_global_decolonization_pressure_var
 	ztr_decolonization_is_phase_2 = yes
 	cu:yoruba = { culture_wants_to_be_decolonized = yes }
+	cu:hausa = { culture_wants_to_be_decolonized = yes }
 	NOT = { is_subject = yes }
 	any_scope_state = {
 		NOT = { is_homeland_of_country_cultures = root }

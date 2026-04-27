@@ -18,8 +18,10 @@ je_un_info_panel = {
 			#Yearly AI UN proposal coordinator
 			if = {
 				limit = {
-					NOT = {
+					NOR = {
 						has_global_variable = ztr_un_vote_in_progress
+						has_global_variable = ztr_un_vote_cd
+						has_global_variable = ztr_un_button_opened
 					}
 				}
 				# This is to avoid player touch the button during the AI voting
@@ -61,7 +63,7 @@ je_un_info_panel = {
 					}
 					if = {
 						limit = {
-							NOT = {
+							NOR = {
 								has_global_variable = ztr_un_vote_in_progress
 							}
 							scope:ztr_un_potential_proposer_scope_2 = {
@@ -203,6 +205,11 @@ je_un_votations = {
 				}
 				# Cleanup removes ztr_un_vote_active, making possible = no, then JE deactivates
 				ztr_un_vote_cleanup_all_members = yes
+				# Cooldown starts: set cooldown variable for 4 years (48 months)
+				set_global_variable = {
+					name = ztr_un_vote_cd
+					years = 4
+				}
 			}
 			# Edge case: no eligible countries left, then deactivate
 			else_if = {

@@ -29,7 +29,8 @@ ztr_decolonization_phases.1 = {
 		ztr_decolonization_is_phase_1 = yes
 		NOT = { has_variable = ztr_decol_educated_native_cd }
 		any_scope_state = {
-			state_want_to_be_decolonized = yes
+			ztr_state_is_colonial = yes
+			NOT = { is_incorporated = yes }
 			literacy_rate > 0.15
 		}
 		ztr_is_not_totalitarian = yes
@@ -42,7 +43,8 @@ ztr_decolonization_phases.1 = {
 		}
 		random_scope_state = {
 			limit = {
-				state_want_to_be_decolonized = yes
+				ztr_state_is_colonial = yes
+				NOT = { is_incorporated = yes }
 				literacy_rate > 0.15
 			}
 			save_scope_as = decolonizing_state
@@ -136,6 +138,7 @@ ztr_decolonization_phases.2 = {
 			any_scope_state = {
 				average_sol < 12
 			}
+			NOT = { religion = root.religion }
 			NOT = { has_variable = ztr_decolonization_subject_cd }
 		}
 		OR = {
@@ -154,6 +157,7 @@ ztr_decolonization_phases.2 = {
 				any_scope_state = {
 					average_sol < 12
 				}
+				NOT = { religion = root.religion }
 				NOT = { has_variable = ztr_decolonization_subject_cd }
 			}
 			save_scope_as = missionary_subject
@@ -244,7 +248,8 @@ ztr_decolonization_phases.3 = {
 		ztr_decolonization_is_phase_1 = yes
 		NOT = { has_variable = ztr_decol_songs_cd }
 		any_scope_state = {
-			state_want_to_be_decolonized = yes
+			ztr_state_is_colonial = yes
+			NOT = { is_incorporated = yes }
 			OR = {
 				turmoil > 0.1
 			}
@@ -258,7 +263,8 @@ ztr_decolonization_phases.3 = {
 		}
 		random_scope_state = {
 			limit = {
-				state_want_to_be_decolonized = yes
+				ztr_state_is_colonial = yes
+				NOT = { is_incorporated = yes }
 				OR = {
 					turmoil > 0.1
 				}
@@ -354,6 +360,13 @@ ztr_decolonization_phases.4 = {
 			NOT = { has_variable = ztr_decolonization_subject_cd }
 			NOT = { is_subject_of = c:BIC }
 			can_increase_autonomy = yes
+			OR = {
+				is_in_geographic_region = geographic_region_africa
+				is_in_geographic_region = geographic_region_middle_east
+				is_in_geographic_region = geographic_region_india
+				is_in_geographic_region = geographic_region_south_east_asia
+				is_in_geographic_region = geographic_region_central_asia
+			}
 		}
 		is_at_war = no
 	}
@@ -369,6 +382,13 @@ ztr_decolonization_phases.4 = {
 				NOT = { has_variable = ztr_decolonization_subject_cd }
 				NOT = { is_subject_of = c:BIC }
 				can_increase_autonomy = yes
+				OR = {
+					is_in_geographic_region = geographic_region_africa
+					is_in_geographic_region = geographic_region_middle_east
+					is_in_geographic_region = geographic_region_india
+					is_in_geographic_region = geographic_region_south_east_asia
+					is_in_geographic_region = geographic_region_central_asia
+				}
 			}
 			save_scope_as = whispers_subject
 		}
@@ -557,7 +577,8 @@ ztr_decolonization_phases.6 = {
 		ztr_decolonization_is_phase_2 = yes
 		NOT = { has_variable = ztr_decol_strike_cd }
 		any_scope_state = {
-			state_want_to_be_decolonized = yes
+			ztr_state_is_colonial = yes
+			NOT = { is_incorporated = yes }
 			turmoil > 0.1
 			state_population > 100000
 		}
@@ -574,7 +595,8 @@ ztr_decolonization_phases.6 = {
 		}
 		random_scope_state = {
 			limit = {
-				state_want_to_be_decolonized = yes
+				ztr_state_is_colonial = yes
+				NOT = { is_incorporated = yes }
 				turmoil > 0.1
 				state_population > 100000
 			}
@@ -640,12 +662,12 @@ ztr_decolonization_phases.7 = {
 	placement = capital
 
 	event_image = {
-		video = "unspecific_politicians_arguing"
+		video = "ztr_un_congress"
 	}
 
 	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
 
-	icon = "gfx/interface/icons/event_icons/event_trade.dds"
+	icon = "gfx/interface/icons/event_icons/international_organizations.dds"
 
 	title = ztr_decolonization_phases.7.t
 	desc = ztr_decolonization_phases.7.d
@@ -736,7 +758,8 @@ ztr_decolonization_phases.8 = {
 		ztr_decolonization_is_phase_2 = yes
 		NOT = { has_variable = ztr_decol_press_cd }
 		any_scope_state = {
-			state_want_to_be_decolonized = yes
+			ztr_state_is_colonial = yes
+			NOT = { is_incorporated = yes }
 			literacy_rate > 0.25
 			state_population > 100000
 		}
@@ -752,7 +775,8 @@ ztr_decolonization_phases.8 = {
 		}
 		random_scope_state = {
 			limit = {
-				state_want_to_be_decolonized = yes
+				ztr_state_is_colonial = yes
+				NOT = { is_incorporated = yes }
 				literacy_rate > 0.25
 				state_population > 100000
 			}
@@ -850,7 +874,8 @@ ztr_decolonization_phases.9 = {
 		}
 		# Must have at least one colonial state in Muslim/Middle Eastern regions
 		any_scope_state = {
-			state_want_to_be_decolonized = yes
+			ztr_state_is_colonial = yes
+			NOT = { is_incorporated = yes }
 			OR = {
 				is_in_geographic_region = geographic_region_middle_east
 				is_in_geographic_region = geographic_region_north_africa
@@ -866,7 +891,8 @@ ztr_decolonization_phases.9 = {
 		}
 		random_scope_state = {
 			limit = {
-				state_want_to_be_decolonized = yes
+				ztr_state_is_colonial = yes
+				NOT = { is_incorporated = yes }
 				OR = {
 					is_in_geographic_region = geographic_region_middle_east
 					is_in_geographic_region = geographic_region_north_africa
@@ -895,7 +921,7 @@ ztr_decolonization_phases.9 = {
 		# Fervor still increases but less
 		every_scope_state = {
 			limit = {
-				state_want_to_be_decolonized = yes
+				ztr_state_is_colonial = yes
 				OR = {
 					is_in_geographic_region = geographic_region_middle_east
 					is_in_geographic_region = geographic_region_north_africa
@@ -919,7 +945,7 @@ ztr_decolonization_phases.9 = {
 		}
 		every_scope_state = {
 			limit = {
-				state_want_to_be_decolonized = yes
+				ztr_state_is_colonial = yes
 				OR = {
 					is_in_geographic_region = geographic_region_middle_east
 					is_in_geographic_region = geographic_region_north_africa
@@ -969,7 +995,8 @@ ztr_decolonization_phases.10 = {
 		NOT = { has_law = law_type:law_multicultural }
 		# Must have a colonial state where the primary culture of the country is present
 		any_scope_state = {
-			state_want_to_be_decolonized = yes
+			ztr_state_is_colonial = yes
+			NOT = { is_incorporated = yes }
 			any_scope_culture = {
 				is_primary_culture_of = root
 			}
@@ -983,7 +1010,8 @@ ztr_decolonization_phases.10 = {
 		}
 		random_scope_state = {
 			limit = {
-				state_want_to_be_decolonized = yes
+				ztr_state_is_colonial = yes
+				NOT = { is_incorporated = yes }
 				any_scope_culture = {
 					is_primary_culture_of = root
 				}
@@ -1041,7 +1069,7 @@ ztr_decolonization_phases.10 = {
 		# All qualifying states face backlash
 		every_scope_state = {
 			limit = {
-				state_want_to_be_decolonized = yes
+				ztr_state_is_colonial = yes
 				any_scope_culture = {
 					is_primary_culture_of = root
 				}
@@ -1093,7 +1121,8 @@ ztr_decolonization_phases.11 = {
 		get_country_gdp_per > 3
 		# Must have a non-European colonial state with low SOL
 		any_scope_state = {
-			state_want_to_be_decolonized = yes
+			ztr_state_is_colonial = yes
+			NOT = { is_incorporated = yes }
 			OR = {
 				is_in_geographic_region = geographic_region_africa
 				is_in_geographic_region = geographic_region_middle_east
@@ -1112,7 +1141,8 @@ ztr_decolonization_phases.11 = {
 		}
 		random_scope_state = {
 			limit = {
-				state_want_to_be_decolonized = yes
+				ztr_state_is_colonial = yes
+				NOT = { is_incorporated = yes }
 				OR = {
 					is_in_geographic_region = geographic_region_africa
 					is_in_geographic_region = geographic_region_middle_east
@@ -1139,7 +1169,8 @@ ztr_decolonization_phases.11 = {
 			text = ztr_decolonization_phases_11_a_effect_tt
 			every_scope_state = {
 				limit = {
-					state_want_to_be_decolonized = yes
+					ztr_state_is_colonial = yes
+					NOT = { is_incorporated = yes }
 					OR = {
 						is_in_geographic_region = geographic_region_africa
 						is_in_geographic_region = geographic_region_middle_east
@@ -1173,7 +1204,8 @@ ztr_decolonization_phases.11 = {
 			text = ztr_decolonization_phases_11_b_effect_tt
 			every_scope_state = {
 				limit = {
-					state_want_to_be_decolonized = yes
+					ztr_state_is_colonial = yes
+					NOT = { is_incorporated = yes }
 					OR = {
 						is_in_geographic_region = geographic_region_africa
 						is_in_geographic_region = geographic_region_middle_east

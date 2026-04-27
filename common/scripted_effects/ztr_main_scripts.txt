@@ -42,6 +42,25 @@ ztr_state_finder_script = {
 	}
 }
 
+# State Finder Script
+ztr_second_state_finder_script = {
+	ordered_scope_state = {
+		limit = {
+			NOT = {
+				is_homeland_of_country_cultures = root
+			}
+			state_region = {
+				OR = {
+					is_homeland = scope:ztr_minor_primary_culture
+					is_homeland = scope:ztr_second_minor_primary_culture
+				}
+			}
+		}
+		order_by = gdp
+		save_scope_as = ztr_state_finder
+	}
+}
+
 # Gdp dependent cost (define first, then use)
 define_ztr_gdp_dependent_cost = {
 	set_variable = {

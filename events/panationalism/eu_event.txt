@@ -27,7 +27,10 @@ ztr_eu_event.1 = {
 	}
 
 	immediate = {
-		root = {
+		random_scope_country = {
+			limit = {
+				has_variable = ztr_eu_founder
+			}
 			save_scope_as = eu_founder
 		}
 	}
@@ -97,9 +100,22 @@ ztr_eu_event.2 = {
 	option = {
 		name = ztr_eu_event.2.a
 		default_option = yes
-		set_country_type = unrecognized
-		set_country_type = recognized
-		join_power_bloc = scope:eu_founder
+		# If a Country joins the EU, all of its subjects will become independent
+		custom_tooltip = {
+			text = ztr_eu_join_country_loose_all_subjects_tt
+			every_subject_or_below = {
+				make_independent = yes
+			}
+		}
+		ztr_remove_any_power_bloc = yes
+		random_country = {
+			limit = {
+				has_variable = ztr_eu_founder
+			}
+			root = {
+				join_power_bloc = prev
+			}
+		}
 		change_infamy = -5
 		hidden_effect = {
 			if = {

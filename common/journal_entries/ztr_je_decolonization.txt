@@ -8,7 +8,8 @@ je_decolonization = {
 	}
 	possible = {
 		has_game_rule = allow_ztr_decolonization_content
-		hidden_trigger = {
+		custom_tooltip = {
+			text = someone_has_discovered_decolonization_tech_tt
 			has_global_variable = ztr_global_decolonization_pressure_var
 		}
 		is_colonial_power = yes
@@ -21,7 +22,7 @@ je_decolonization = {
 	}
 	scripted_progress_bar = ztr_decolonization_pressure_bar
 	scripted_progress_bar = ztr_global_decolonization_pressure_bar
-	on_monthly_pulse = { #TODO Change to yearly_pulse at the end
+	on_yearly_pulse = {
 		effect = {
 			# Build colonial states list for desc tooltip
 			clear_variable_list = ztr_colonial_states_list
@@ -29,7 +30,7 @@ je_decolonization = {
 				limit = {
 					state_want_to_be_decolonized = yes
 				}
-				root = {
+				prev = {
 					add_to_variable_list = {
 						name = ztr_colonial_states_list
 						target = prev

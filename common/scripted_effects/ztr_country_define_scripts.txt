@@ -896,7 +896,10 @@ ztr_define_nigeria = {
 	cu:yoruba = {
 		save_scope_as = ztr_minor_primary_culture
 	}
-		ztr_state_finder_script = yes
+	cu:hausa = {
+		save_scope_as = ztr_second_minor_primary_culture
+	}
+		ztr_second_state_finder_script = yes
 		if = {
 			limit = { NOT = { exists = c:ZNG } }
 			create_country = {
@@ -924,7 +927,10 @@ ztr_define_nigeria = {
 					OR = {
 						region = sr:region_niger
 					}
-					is_homeland = scope:ztr_minor_primary_culture
+					OR = {
+						is_homeland = scope:ztr_minor_primary_culture
+						is_homeland = scope:ztr_second_minor_primary_culture
+					}
 				}
 			}
 			set_state_owner = c:ZNG
