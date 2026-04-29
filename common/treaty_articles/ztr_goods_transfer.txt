@@ -1,4 +1,4 @@
-﻿REPLACE:goods_transfer = {
+﻿goods_transfer = {
     kind = directed
     cost = 10
 
@@ -33,11 +33,11 @@
         OR = {
             AND = {
                 any_scope_state = {
-                    has_port = yes
+                    has_port_state = yes
                 }
                 scope:other_country = {
                     any_scope_state = {
-                        has_port = yes
+                        has_port_state = yes
                     }
                 }
             }
@@ -64,7 +64,7 @@
 							NOR = {
 								market = { is_adjacent_to_market = scope:article.target_country.market }
 								any_scope_state = {
-									has_port = yes
+									has_port_state = yes
 								}
 							}
 						}
@@ -131,7 +131,7 @@
 	}
 
     goods_valid_trigger = {
-        scope:input = {
+       scope:input = {
             is_tradeable = yes
         }
 		scope:market_goods ?= {
@@ -306,13 +306,13 @@
                                 OR = {
                                     g:explosives ?= this
                                     g:fertilizer ?= this
-                                    #T&R
-                                    g:copperwires ?= this
-                                    g:batteries ?= this
-                                    g:electroniccomponents ?= this
-                                    g:processors ?= this
-                                    g:robotics ?= this
-                                    g:engines ?= this
+									#T&R
+									g:copperwires ?= this
+									g:batteries ?= this
+									g:electroniccomponents ?= this
+									g:processors ?= this
+									g:robotics ?= this
+									g:engines ?= this
                                 }
                             }
                         }
@@ -357,15 +357,15 @@
                                     g:wood ?= this
                                     g:hardwood ?= this
                                     g:sulfur ?= this
-                                    #T&R
-                                    g:copper ?= this
-                                    g:bauxite ?= this
-                                    g:commonores ?= this
-                                    g:advancedores ?= this
-                                    g:rare_earths ?= this
-                                    g:good_uranium ?= this
-                                    g:water ?= this
-                                    g:gas ?= this
+									#T&R
+									g:copper ?= this
+									g:bauxite ?= this
+									g:commonores ?= this
+									g:advancedores ?= this
+									g:rare_earths ?= this
+									g:good_uranium ?= this
+									g:water ?= this
+									g:gas ?= this
                                 }
                             }
                         }
@@ -530,19 +530,19 @@
                                     g:sulfur ?= this
                                     g:oil ?= this
                                     g:rubber ?= this
-                                    #T&R
-                                    g:copper ?= this
-                                    g:bauxite ?= this
-                                    g:commonores ?= this
-                                    g:advancedores ?= this
-                                    g:rare_earths ?= this
-                                    g:good_uranium ?= this
-                                    g:water ?= this
-                                    g:gas ?= this
-                                    g:plastics ?= this
-                                    g:light_fuel ?= this
-                                    g:lubricant ?= this
-                                    g:heavy_fuel ?= this
+									#T&R
+									g:copper ?= this
+									g:bauxite ?= this
+									g:commonores ?= this
+									g:advancedores ?= this
+									g:rare_earths ?= this
+									g:good_uranium ?= this
+									g:water ?= this
+									g:gas ?= this
+									g:plastics ?= this
+									g:light_fuel ?= this
+									g:lubricant ?= this
+									g:heavy_fuel ?= this
                                 }
                             }
                         }
@@ -560,7 +560,6 @@
                                 OR = {
                                     g:fertilizer ?= this
                                     g:tools ?= this
-                                    g:light_fuel ?= this
                                 }
                             }
                         }
@@ -578,7 +577,6 @@
 								OR = {
 									g:explosives ?= this
 									g:tools ?= this
-                                    g:light_fuel ?= this
 								}
 							}
                         }

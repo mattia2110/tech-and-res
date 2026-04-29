@@ -5,20 +5,17 @@ REPLACE:company_mitsubishi = {
 
 	flavored_company = yes
 
-	preferred_headquarters = { STATE_CHUGOKU }
+	preferred_headquarters = { STATE_KANTO }
 
 	building_types = {
-		building_military_shipyard
-		#building_coal_mine
+		building_shipyard
 		building_paper_mill
 		building_motor_industry
 	}
 
 	extension_building_types = {
+		building_coal_mine
 		building_power_plant
-		building_shipyard
-		building_port
-		#building_iron_mine
 		building_electronics_industry # Mitsubishi Electric
 		building_automotive_industry # Mitsubishi Motors
 		building_mendelejew_synthetic_rubber_factory # Nippon Oil
@@ -29,56 +26,47 @@ REPLACE:company_mitsubishi = {
 	}
 
 	potential = {
-		country_has_primary_culture = cu:japanese
+		has_interest_marker_in_region = sr:region_northeast_asia
 	}
 
 	possible = {
 		has_technology_researched = ironclad_tech
 		custom_tooltip = {
 			text = is_meiji_japan
-			has_variable = meiji_restoration_complete
+			has_variable = japan_restoration_complete
 		}
 		any_scope_state = {
-			state_region = s:STATE_CHUGOKU
+			state_region = s:STATE_KYUSHU
 			is_incorporated = yes
 			any_scope_building = {
-				OR = {
-					is_building_type = building_paper_mill
-					is_building_type = building_military_shipyard
-				}
+				is_building_type = building_shipyard
 				level >= 5
 			}
 		}
 	}
 
 	prosperity_modifier = {
+		interest_group_ig_industrialists_pol_str_mult = 0.1
 		building_automotive_industry_throughput_add = 0.1
-		interest_group_ig_industrialists_approval_add = 2
 	}
 
 	ai_will_do = {
 		has_technology_researched = ironclad_tech
 		custom_tooltip = {
 			text = is_meiji_japan
-			has_variable = meiji_restoration_complete
+			has_variable = japan_restoration_complete
 		}
 		any_scope_state = {
-			state_region = s:STATE_CHUGOKU
+			state_region = s:STATE_KYUSHU
 			is_incorporated = yes
 		}
 	}
 
 	ai_construction_targets = {
-		building_paper_mill = {
+		building_shipyard = {
 			level = 5
 			state_trigger = {
-				state_region = s:STATE_CHUGOKU
-			}
-		}
-		building_military_shipyard = {
-			level = 5
-			state_trigger = {
-				state_region = s:STATE_CHUGOKU
+				state_region = s:STATE_KYUSHU
 			}
 		}
 	}

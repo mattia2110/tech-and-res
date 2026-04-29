@@ -1,40 +1,40 @@
 je_irish_independence = {
 	icon = "gfx/interface/icons/event_icons/waving_flag_ireland.dds"
 	group = je_group_historical_content
-
 	is_shown_when_inactive = {
 		year > 1900
 		has_game_rule = allow_ztr_historical_content
 		exists = c:GBR
-        THIS = c:GBR
+		THIS = c:GBR
 		has_technology_researched = pan-nationalism
-		NOT = {has_law = law_type:law_multicultural}
+		NOT = {
+			has_law_or_variant = law_type:law_multicultural
+		}
 	}
-
 	possible = {
 		year > 1900
 		exists = c:GBR
-        THIS = c:GBR
+		THIS = c:GBR
 		has_technology_researched = political_agitation
-		NOT = {has_law = law_type:law_multicultural}
+		NOT = {
+			has_law_or_variant = law_type:law_multicultural
+		}
 	}
-
 	immediate = {
 		set_variable = {
 			name = irish_independence_var
 			value = 0
 		}
 	}
-
 	on_yearly_pulse = {
 		effect = {
 			change_variable = {
-					name = irish_independence_var
-					add = 2
-				}
+				name = irish_independence_var
+				add = 2
+			}
 			if = {
 				limit = {
-					has_law = law_type:law_racial_segregation
+					has_law_or_variant = law_type:law_racial_segregation
 				}
 				change_variable = {
 					name = irish_independence_var
@@ -43,7 +43,7 @@ je_irish_independence = {
 			}
 			if = {
 				limit = {
-					has_law = law_type:law_cultural_exclusion
+					has_law_or_variant = law_type:law_cultural_exclusion
 				}
 				change_variable = {
 					name = irish_independence_var
@@ -52,7 +52,7 @@ je_irish_independence = {
 			}
 			if = {
 				limit = {
-					has_law = law_type:law_multicultural
+					has_law_or_variant = law_type:law_multicultural
 				}
 				change_variable = {
 					name = irish_independence_var
@@ -63,7 +63,7 @@ je_irish_independence = {
 				limit = {
 					any_scope_state = {
 						state_region = s:STATE_MUNSTER
-					turmoil > 0.10
+						turmoil > 0.1
 					}
 				}
 				change_variable = {
@@ -75,7 +75,7 @@ je_irish_independence = {
 				limit = {
 					any_scope_state = {
 						state_region = s:STATE_CONNAUGHT
-					turmoil > 0.10
+						turmoil > 0.1
 					}
 				}
 				change_variable = {
@@ -87,7 +87,7 @@ je_irish_independence = {
 				limit = {
 					any_scope_state = {
 						state_region = s:STATE_LEINSTER
-					turmoil > 0.10
+						turmoil > 0.1
 					}
 				}
 				change_variable = {
@@ -98,55 +98,50 @@ je_irish_independence = {
 		}
 		random_events = {
 			40 = 0
-			5 = irish_independence.3 # Gaelic Renaissance
-			5 = irish_independence.4 # Anglo-Irish Pact
-			10 = irish_independence.5 # Bloody Sunday
+			5 = irish_independence.3			# Gaelic Renaissance
+			5 = irish_independence.4			# Anglo-Irish Pact
+			10 = irish_independence.5			# Bloody Sunday
 		}
 	}
-
 	complete = {
 		OR = {
-			scope:journal_entry = { is_goal_complete = yes }
+			scope:journal_entry = {
+				is_goal_complete = yes
+			}
 			c:IRE = {
 				exists = yes
 			}
 		}
 	}
-
 	on_complete = {
-		trigger_event = { id = irish_independence.1 }
+		trigger_event = {
+			id = irish_independence.1
+		}
 	}
-
-
 	fail = {
 		OR = {
 			year > 1940
 			var:irish_independence_var < 10
 		}
 		OR = {
-			has_law = law_type:law_cultural_exclusion
-			has_law = law_type:law_multicultural
+			has_law_or_variant = law_type:law_cultural_exclusion
+			has_law_or_variant = law_type:law_multicultural
 		}
 	}
-
 	on_fail = {
-		trigger_event = { id = irish_independence.2 }
+		trigger_event = {
+			id = irish_independence.2
+		}
 	}
-
 	transferable = yes
-
 	current_value = {
 		value = var:irish_independence_var
 	}
-
 	#
 	goal_add_value = {
 		value = 50
 	}
-
 	progressbar = yes
-
 	weight = 20
-	should_be_pinned_by_default = yes
-
+	should_be_pinned_by_default_uninvolved_or_context = yes
 }

@@ -5,7 +5,6 @@
 # Société Pathé Frères
 # Warner Bros. Records
 # Universal Records (Decca Records)
-
 # Steinway & Sons
 REPLACE_OR_CREATE:elgar_company_steinway = {
 	# The logo of Steinway (without the frame) is a trademark owned by Steinway & Sons
@@ -34,8 +33,8 @@ REPLACE_OR_CREATE:elgar_company_steinway = {
 	}
 	potential = {
 		OR = {
-			has_interest_marker_in_region = region_new_england
-			has_interest_marker_in_region = region_north_germany
+			has_interest_marker_in_region = sr:region_atlantic_coast
+			has_interest_marker_in_region = sr:region_central_europe
 		}
 	}
 	attainable = {
@@ -97,7 +96,7 @@ REPLACE_OR_CREATE:company_yamaha = {
 	background = "gfx/interface/icons/company_icons/company_backgrounds/comp_illu_manufacturing_light.dds"
 	flavored_company = yes
 	preferred_headquarters = {
-		STATE_CHUBU
+		STATE_TOKAI
 	}
 	building_types = {
 		building_instrument_workshops
@@ -117,19 +116,19 @@ REPLACE_OR_CREATE:company_yamaha = {
 		}
 	}
 	potential = {
-		has_interest_marker_in_region = region_japan
+		has_interest_marker_in_region = sr:region_northeast_asia
 	}
 	attainable = {
 		hidden_trigger = {
 			# Hide attainable if it's always fulfilled by possible
 			any_scope_state = {
-				state_region = s:STATE_CHUBU
+				state_region = s:STATE_TOKAI
 			}
 		}
 	}
 	possible = {
 		any_scope_state = {
-			state_region = s:STATE_CHUBU
+			state_region = s:STATE_TOKAI
 			is_incorporated = yes
 			any_scope_building = {
 				is_building_type = building_instrument_workshops
@@ -145,7 +144,7 @@ REPLACE_OR_CREATE:company_yamaha = {
 	ai_will_do = {
 		has_technology_researched = rubber_mastication
 		any_scope_state = {
-			state_region = s:STATE_CHUBU
+			state_region = s:STATE_TOKAI
 			is_incorporated = yes
 		}
 	}
@@ -153,64 +152,12 @@ REPLACE_OR_CREATE:company_yamaha = {
 		building_instrument_workshops = {
 			level = 5
 			state_trigger = {
-				state_region = s:STATE_CHUBU
+				state_region = s:STATE_TOKAI
 			}
 		}
 	}
 	ai_weight = {
 		value = 4		# Higher base value for flavored companies
-	}
-}
-
-#Generic Records
-REPLACE_OR_CREATE:company_basic_records_and_films = {
-	icon = "gfx/interface/icons/company_icons/records_and_films_generic.dds"	#####
-	background = "gfx/interface/icons/company_icons/company_backgrounds/comp_illu_music.dds"
-	uses_dynamic_naming = yes
-	dynamic_company_type_names = {
-		"dynamic_company_type_company"
-		"dynamic_company_type_syndicate"
-		"dynamic_company_type_corporation"
-	}
-	building_types = {
-		building_manzoni_publishing_industry
-	}
-	extension_building_types = {
-		building_elgar_opera
-		building_instrument_workshops
-		building_art_academy
-	}
-	possible_prestige_goods = {
-		prestige_good_generic_records_and_films
-	}
-	prestige_goods_trigger = {
-		custom_tooltip = {
-			text = je_ztr_prestige_good_generic_records_and_films_complete_tt
-			has_variable = ztr_prestige_good_generic_records_and_films_var
-		}
-	}
-	possible = {
-		any_scope_state = {
-			is_incorporated = yes
-			any_scope_building = {
-				is_building_type = building_instrument_workshops
-				level >= 3
-			}
-		}
-		has_technology_researched = elgar_mass_culture_tech
-	}
-	prosperity_modifier = {
-		country_prestige_mult = 0.05
-		state_loyalists_from_political_movements_mult = 0.025
-	}
-	ai_will_do = {
-		any_scope_state = {
-			is_incorporated = yes
-			any_scope_building = {
-				is_building_type = building_instrument_workshops
-				level >= 3
-			}
-		}
 	}
 }
 
@@ -241,7 +188,7 @@ REPLACE_OR_CREATE:company_columbia_records = {
 		}
 	}
 	potential = {
-		has_interest_marker_in_region = region_dixie
+		has_interest_marker_in_region = sr:region_atlantic_coast
 	}
 	attainable = {
 		hidden_trigger = {
@@ -322,7 +269,7 @@ REPLACE_OR_CREATE:company_societe_pathe_freres = {
 		}
 	}
 	potential = {
-		has_interest_marker_in_region = region_france
+		has_interest_marker_in_region = sr:region_western_europe
 	}
 	attainable = {
 		hidden_trigger = {
@@ -392,7 +339,7 @@ REPLACE_OR_CREATE:company_warner_bros_records = {
 		}
 	}
 	potential = {
-		has_interest_marker_in_region = region_pacific_coast
+		has_interest_marker_in_region = sr:region_pacific_coast
 	}
 	attainable = {
 		hidden_trigger = {
@@ -470,9 +417,8 @@ REPLACE_OR_CREATE:company_universal_records = {
 	}
 	potential = {
 		OR = {
-			has_interest_marker_in_region = region_pacific_coast
-			has_interest_marker_in_region = region_england
-			has_interest_marker_in_region = region_rhine
+			has_interest_marker_in_region = sr:region_pacific_coast
+			has_interest_marker_in_region = sr:region_western_europe
 		}
 	}
 	attainable = {

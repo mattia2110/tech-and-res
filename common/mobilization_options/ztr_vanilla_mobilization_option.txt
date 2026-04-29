@@ -1,10 +1,9 @@
 ﻿#VANILLA
-
 REPLACE:mobilization_option_basic_supplies = {
 	texture = "gfx/interface/icons/mobilization_options/basic_supplies.dds"
 	can_be_turned_off = {
 		custom_tooltip = {
-		    text = mobilization_option_basic_supplies_can_be_turned_off_tt
+			text = mobilization_option_basic_supplies_can_be_turned_off_tt
 			always = no
 		}
 	}
@@ -12,27 +11,24 @@ REPLACE:mobilization_option_basic_supplies = {
 		goods_input_grain_add = 0.75
 	}
 	upkeep_modifier_unscaled = {
-        goods_input_small_arms_mult = 0.3
-        goods_input_artillery_mult = 0.3
+		goods_input_small_arms_mult = 0.3
+		goods_input_artillery_mult = 0.3
 		goods_input_ammunition_mult = 0.3
-        goods_input_oil_mult = 0.3
-        goods_input_radios_mult = 0.3
-        goods_input_tanks_mult = 0.3
+		goods_input_oil_mult = 0.3
+		goods_input_radios_mult = 0.3
+		goods_input_tanks_mult = 0.3
 	}
-
 	unit_modifier = {
 		# empty on purpose - this is the minimum mobilization cost
 	}
 	ai_weight = {
 		value = 1
 	}
-
 	group = supplies
 }
 
 REPLACE:mobilization_option_extra_supplies = {
 	texture = "gfx/interface/icons/mobilization_options/extra_supplies.dds"
-
 	possible = {
 		market ?= {
 			mg:groceries ?= {
@@ -40,11 +36,9 @@ REPLACE:mobilization_option_extra_supplies = {
 			}
 		}
 	}
-
 	unlocking_technologies = {
 		army_reserves
 	}
-
 	on_deactivate_while_mobilized = {
 		custom_tooltip = {
 			text = mobilization_option_it_hurts_morale_when_you_remove_supplies_while_in_combat_tt
@@ -56,19 +50,17 @@ REPLACE:mobilization_option_extra_supplies = {
 			}
 		}
 	}
-
 	upkeep_modifier = {
 		goods_input_groceries_add = 1.5
 	}
 	upkeep_modifier_unscaled = {
-        goods_input_small_arms_mult = 0.2
-        goods_input_artillery_mult = 0.2
+		goods_input_small_arms_mult = 0.2
+		goods_input_artillery_mult = 0.2
 		goods_input_ammunition_mult = 0.2
-        goods_input_oil_mult = 0.2
-        goods_input_radios_mult = 0.2
-        goods_input_tanks_mult = 0.2
+		goods_input_oil_mult = 0.2
+		goods_input_radios_mult = 0.2
+		goods_input_tanks_mult = 0.2
 	}
-
 	unit_modifier = {
 		unit_morale_loss_mult = -0.05
 		unit_offense_mult = 0.1
@@ -76,7 +68,6 @@ REPLACE:mobilization_option_extra_supplies = {
 	}
 	ai_weight = {
 		value = 1
-
 		if = {
 			limit = {
 				c:SPC ?= this
@@ -99,15 +90,15 @@ REPLACE:mobilization_option_extra_supplies = {
 			add = -1000000
 		}
 	}
-
 	group = supplies
 }
 
 REPLACE:mobilization_option_luxurious_supplies = {
 	texture = "gfx/interface/icons/mobilization_options/luxurious_supplies.dds"
-
 	possible = {
-		scope:military_formation = { has_mobilization_option = mobilization_option:mobilization_option_extra_supplies }
+		scope:military_formation = {
+			has_mobilization_option = mobilization_option:mobilization_option_extra_supplies
+		}
 		market ?= {
 			mg:meat ?= {
 				has_potential_supply = yes
@@ -117,11 +108,9 @@ REPLACE:mobilization_option_luxurious_supplies = {
 			}
 		}
 	}
-
 	unlocking_technologies = {
 		military_statistics
 	}
-
 	on_deactivate_while_mobilized = {
 		custom_tooltip = {
 			text = mobilization_option_it_hurts_morale_when_you_remove_supplies_while_in_combat_tt
@@ -133,20 +122,18 @@ REPLACE:mobilization_option_luxurious_supplies = {
 			}
 		}
 	}
-
 	upkeep_modifier = {
 		goods_input_meat_add = 1.5
 		goods_input_wine_add = 1.5
 	}
 	upkeep_modifier_unscaled = {
-        goods_input_small_arms_mult = 0.2
-        goods_input_artillery_mult = 0.2
+		goods_input_small_arms_mult = 0.2
+		goods_input_artillery_mult = 0.2
 		goods_input_ammunition_mult = 0.2
-        goods_input_oil_mult = 0.2
-        goods_input_radios_mult = 0.2
-        goods_input_tanks_mult = 0.2
+		goods_input_oil_mult = 0.2
+		goods_input_radios_mult = 0.2
+		goods_input_tanks_mult = 0.2
 	}
-
 	unit_modifier = {
 		unit_morale_loss_mult = -0.05
 		unit_offense_mult = 0.1
@@ -155,13 +142,11 @@ REPLACE:mobilization_option_luxurious_supplies = {
 	ai_weight = {
 		value = 1
 	}
-
 	group = supplies
 }
 
 REPLACE:mobilization_option_aerial_recon = {
 	texture = "gfx/interface/icons/mobilization_options/aerial_reconaissance.dds"
-
 	possible = {
 		market ?= {
 			mg:aeroplanes ?= {
@@ -172,7 +157,6 @@ REPLACE:mobilization_option_aerial_recon = {
 			}
 		}
 	}
-	
 	on_activate_while_mobilized = {
 		custom_tooltip = {
 			text = mobilization_option_it_hurts_organization_when_you_adjust_equipment_tt
@@ -182,7 +166,6 @@ REPLACE:mobilization_option_aerial_recon = {
 			}
 		}
 	}
-	
 	on_deactivate = {
 		custom_tooltip = {
 			text = mobilization_option_it_hurts_organization_when_you_adjust_equipment_tt
@@ -192,7 +175,6 @@ REPLACE:mobilization_option_aerial_recon = {
 			}
 		}
 	}
-	
 	unlocking_technologies = {
 		military_aviation
 	}
@@ -208,13 +190,11 @@ REPLACE:mobilization_option_aerial_recon = {
 	ai_weight = {
 		value = 1
 	}
-
 	group = reconnaissance
 }
 
 REPLACE:mobilization_option_flamethrowers = {
 	texture = "gfx/interface/icons/mobilization_options/flamethrowers.dds"
-
 	possible = {
 		market ?= {
 			mg:light_fuel ?= {
@@ -222,7 +202,6 @@ REPLACE:mobilization_option_flamethrowers = {
 			}
 		}
 	}
-	
 	on_activate_while_mobilized = {
 		custom_tooltip = {
 			text = mobilization_option_it_hurts_organization_when_you_adjust_equipment_tt
@@ -232,7 +211,6 @@ REPLACE:mobilization_option_flamethrowers = {
 			}
 		}
 	}
-	
 	on_deactivate = {
 		custom_tooltip = {
 			text = mobilization_option_it_hurts_organization_when_you_adjust_equipment_tt
@@ -242,7 +220,6 @@ REPLACE:mobilization_option_flamethrowers = {
 			}
 		}
 	}
-	
 	unlocking_technologies = {
 		flamethrowers
 	}
@@ -257,13 +234,11 @@ REPLACE:mobilization_option_flamethrowers = {
 	ai_weight = {
 		value = 1
 	}
-
-    group = special_weapons
+	group = special_weapons
 }
 
 REPLACE:mobilization_option_motorized_recon = {
 	texture = "gfx/interface/icons/mobilization_options/motorized_reconaissance.dds"
-
 	possible = {
 		market ?= {
 			mg:automobiles ?= {
@@ -274,7 +249,6 @@ REPLACE:mobilization_option_motorized_recon = {
 			}
 		}
 	}
-	
 	on_activate_while_mobilized = {
 		custom_tooltip = {
 			text = mobilization_option_it_hurts_organization_when_you_adjust_equipment_tt
@@ -284,7 +258,6 @@ REPLACE:mobilization_option_motorized_recon = {
 			}
 		}
 	}
-	
 	on_deactivate = {
 		custom_tooltip = {
 			text = mobilization_option_it_hurts_organization_when_you_adjust_equipment_tt
@@ -294,7 +267,6 @@ REPLACE:mobilization_option_motorized_recon = {
 			}
 		}
 	}
-	
 	unlocking_technologies = {
 		combustion_engine
 	}
@@ -304,20 +276,17 @@ REPLACE:mobilization_option_motorized_recon = {
 	}
 	unit_modifier = {
 		unit_occupation_mult = 0.5
-		military_formation_movement_speed_mult = 0.3
+		military_formation_army_movement_speed_mult = 0.3
 		character_battle_condition_surprise_maneuver_mult = 0.5
 	}
 	ai_weight = {
 		value = 1
 	}
-
-    group = reconnaissance
+	group = reconnaissance
 }
 
 # Medical Support
-
 REPLACE:mobilization_option_first_aid = {
-
 	unlocking_technologies = {
 		triage
 	}
@@ -341,7 +310,6 @@ REPLACE:mobilization_option_first_aid = {
 		}
 	}
 	texture = "gfx/interface/icons/mobilization_options/basic_medical_aid.dds"
-	
 	on_activate_while_mobilized = {
 		custom_tooltip = {
 			text = mobilization_option_it_hurts_organization_to_add_medic_support_tt
@@ -351,7 +319,6 @@ REPLACE:mobilization_option_first_aid = {
 			}
 		}
 	}
-	
 	on_deactivate = {
 		custom_tooltip = {
 			text = mobilization_option_it_hurts_morale_and_organization_when_you_remove_medic_support_tt
@@ -367,7 +334,6 @@ REPLACE:mobilization_option_first_aid = {
 			}
 		}
 	}
-	
 	upkeep_modifier = {
 		goods_input_fabric_add = 1
 		goods_input_water_add = 1
@@ -379,13 +345,11 @@ REPLACE:mobilization_option_first_aid = {
 	ai_weight = {
 		value = 1
 	}
-
 	group = medic_support
 }
 
 REPLACE:mobilization_option_field_hospitals = {
 	texture = "gfx/interface/icons/mobilization_options/field_hospitals.dds"
-
 	unlocking_technologies = {
 		modern_nursing
 	}
@@ -420,7 +384,6 @@ REPLACE:mobilization_option_field_hospitals = {
 			}
 		}
 	}
-	
 	on_deactivate = {
 		custom_tooltip = {
 			text = mobilization_option_it_hurts_morale_and_organization_when_you_remove_medic_support_tt
@@ -443,11 +406,10 @@ REPLACE:mobilization_option_field_hospitals = {
 		goods_input_tools_add = 1
 	}
 	unit_modifier = {
-		unit_recovery_rate_add = 0.40	
+		unit_recovery_rate_add = 0.4
 	}
 	ai_weight = {
 		value = 1
 	}
-
-    group = medic_support
+	group = medic_support
 }

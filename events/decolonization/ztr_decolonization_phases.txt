@@ -1,41 +1,36 @@
 namespace = ztr_decolonization_phases
-
 ###########################################################
 # PHASE 1 EVENTS (Quiet, 0-25)
 ###########################################################
-
 # Event 1: The Educated Native (Phase 1, Homeland)
 # A Western-educated native intellectual publishes a treatise demanding self-governance
 ztr_decolonization_phases.1 = {
 	dlc = dlc_tech_res
 	type = country_event
 	placement = scope:decolonizing_state
-
 	event_image = {
 		video = "africa_leader_arguing"
 	}
-
 	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
-
 	icon = "gfx/interface/icons/event_icons/event_portrait.dds"
-
 	title = ztr_decolonization_phases.1.t
 	desc = ztr_decolonization_phases.1.d
-
 	duration = 3
-
 	trigger = {
 		has_game_rule = allow_ztr_decolonization_content
 		ztr_decolonization_is_phase_1 = yes
-		NOT = { has_variable = ztr_decol_educated_native_cd }
+		NOT = {
+			has_variable = ztr_decol_educated_native_cd
+		}
 		any_scope_state = {
 			ztr_state_is_colonial = yes
-			NOT = { is_incorporated = yes }
+			NOT = {
+				is_incorporated = yes
+			}
 			literacy_rate > 0.15
 		}
 		ztr_is_not_totalitarian = yes
 	}
-
 	immediate = {
 		set_variable = {
 			name = ztr_decol_educated_native_cd
@@ -44,7 +39,9 @@ ztr_decolonization_phases.1 = {
 		random_scope_state = {
 			limit = {
 				ztr_state_is_colonial = yes
-				NOT = { is_incorporated = yes }
+				NOT = {
+					is_incorporated = yes
+				}
 				literacy_rate > 0.15
 			}
 			save_scope_as = decolonizing_state
@@ -58,13 +55,14 @@ ztr_decolonization_phases.1 = {
 			}
 		}
 	}
-
 	option = {
 		name = ztr_decolonization_phases.1.a
 		ai_chance = {
 			base = 10
 			modifier = {
-				trigger = { ztr_is_democratic = yes }
+				trigger = {
+					ztr_is_democratic = yes
+				}
 				add = 15
 			}
 		}
@@ -83,7 +81,6 @@ ztr_decolonization_phases.1 = {
 			}
 		}
 	}
-
 	option = {
 		name = ztr_decolonization_phases.1.b
 		default_option = yes
@@ -116,37 +113,40 @@ ztr_decolonization_phases.2 = {
 	dlc = dlc_tech_res
 	type = country_event
 	placement = scope:missionary_subject
-
 	event_image = {
 		video = "africa_animism"
 	}
-
 	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
-
 	icon = "gfx/interface/icons/event_icons/event_newspaper.dds"
-
 	title = ztr_decolonization_phases.2.t
 	desc = ztr_decolonization_phases.2.d
-
 	duration = 3
-
 	trigger = {
 		has_game_rule = allow_ztr_decolonization_content
 		ztr_decolonization_is_phase_1 = yes
-		NOT = { has_variable = ztr_decol_missionaries_cd }
+		NOT = {
+			has_variable = ztr_decol_missionaries_cd
+		}
 		any_subject_or_below = {
 			any_scope_state = {
 				average_sol < 12
 			}
-			NOT = { religion = root.religion }
-			NOT = { has_variable = ztr_decolonization_subject_cd }
+			NOT = {
+				religion = root.religion
+			}
+			NOT = {
+				has_variable = ztr_decolonization_subject_cd
+			}
 		}
 		OR = {
-			ig:ig_devout ?= { is_marginal = no }
-			ig:ig_rural_folk ?= { is_marginal = no }
+			ig:ig_devout ?= {
+				is_marginal = no
+			}
+			ig:ig_rural_folk ?= {
+				is_marginal = no
+			}
 		}
 	}
-
 	immediate = {
 		set_variable = {
 			name = ztr_decol_missionaries_cd
@@ -157,19 +157,24 @@ ztr_decolonization_phases.2 = {
 				any_scope_state = {
 					average_sol < 12
 				}
-				NOT = { religion = root.religion }
-				NOT = { has_variable = ztr_decolonization_subject_cd }
+				NOT = {
+					religion = root.religion
+				}
+				NOT = {
+					has_variable = ztr_decolonization_subject_cd
+				}
 			}
 			save_scope_as = missionary_subject
 		}
 	}
-
 	option = {
 		name = ztr_decolonization_phases.2.a
 		ai_chance = {
 			base = 10
 			modifier = {
-				trigger = { ztr_is_democratic = yes }
+				trigger = {
+					ztr_is_democratic = yes
+				}
 				add = 15
 			}
 		}
@@ -177,8 +182,12 @@ ztr_decolonization_phases.2 = {
 		if = {
 			limit = {
 				OR = {
-					ig:ig_devout ?= { is_marginal = no }
-					ig:ig_rural_folk ?= { is_marginal = no }
+					ig:ig_devout ?= {
+						is_marginal = no
+					}
+					ig:ig_rural_folk ?= {
+						is_marginal = no
+					}
 				}
 			}
 			add_loyalists = {
@@ -196,7 +205,6 @@ ztr_decolonization_phases.2 = {
 			add = 5
 		}
 	}
-
 	option = {
 		name = ztr_decolonization_phases.2.b
 		default_option = yes
@@ -206,8 +214,12 @@ ztr_decolonization_phases.2 = {
 		if = {
 			limit = {
 				OR = {
-					ig:ig_devout ?= { is_marginal = no }
-					ig:ig_rural_folk ?= { is_marginal = no }
+					ig:ig_devout ?= {
+						is_marginal = no
+					}
+					ig:ig_rural_folk ?= {
+						is_marginal = no
+					}
 				}
 			}
 			add_radicals = {
@@ -229,33 +241,30 @@ ztr_decolonization_phases.3 = {
 	dlc = dlc_tech_res
 	type = country_event
 	placement = capital
-
 	event_image = {
 		video = "africa_public_protest"
 	}
-
 	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
-
 	icon = "gfx/interface/icons/event_icons/event_protest.dds"
-
 	title = ztr_decolonization_phases.3.t
 	desc = ztr_decolonization_phases.3.d
-
 	duration = 3
-
 	trigger = {
 		has_game_rule = allow_ztr_decolonization_content
 		ztr_decolonization_is_phase_1 = yes
-		NOT = { has_variable = ztr_decol_songs_cd }
+		NOT = {
+			has_variable = ztr_decol_songs_cd
+		}
 		any_scope_state = {
 			ztr_state_is_colonial = yes
-			NOT = { is_incorporated = yes }
+			NOT = {
+				is_incorporated = yes
+			}
 			OR = {
 				turmoil > 0.1
 			}
 		}
 	}
-
 	immediate = {
 		set_variable = {
 			name = ztr_decol_songs_cd
@@ -264,7 +273,9 @@ ztr_decolonization_phases.3 = {
 		random_scope_state = {
 			limit = {
 				ztr_state_is_colonial = yes
-				NOT = { is_incorporated = yes }
+				NOT = {
+					is_incorporated = yes
+				}
 				OR = {
 					turmoil > 0.1
 				}
@@ -280,13 +291,14 @@ ztr_decolonization_phases.3 = {
 			}
 		}
 	}
-
 	option = {
 		name = ztr_decolonization_phases.3.a
 		ai_chance = {
 			base = 10
 			modifier = {
-				trigger = { ztr_is_democratic = yes }
+				trigger = {
+					ztr_is_democratic = yes
+				}
 				add = 15
 			}
 		}
@@ -301,7 +313,6 @@ ztr_decolonization_phases.3 = {
 			}
 		}
 	}
-
 	option = {
 		name = ztr_decolonization_phases.3.b
 		default_option = yes
@@ -337,28 +348,28 @@ ztr_decolonization_phases.4 = {
 	dlc = dlc_tech_res
 	type = country_event
 	placement = scope:whispers_subject
-
 	event_image = {
 		video = "middleeast_courtroom_upheaval"
 	}
-
 	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
-
 	icon = "gfx/interface/icons/event_icons/event_map.dds"
-
 	title = ztr_decolonization_phases.4.t
 	desc = ztr_decolonization_phases.4.d
-
 	duration = 3
-
 	trigger = {
 		has_game_rule = allow_ztr_decolonization_content
 		ztr_decolonization_is_phase_1 = yes
-		NOT = { has_variable = ztr_decol_whispers_cd }
+		NOT = {
+			has_variable = ztr_decol_whispers_cd
+		}
 		any_subject_or_below = {
 			liberty_desire > 50
-			NOT = { has_variable = ztr_decolonization_subject_cd }
-			NOT = { is_subject_of = c:BIC }
+			NOT = {
+				has_variable = ztr_decolonization_subject_cd
+			}
+			NOT = {
+				is_subject_of = c:BIC
+			}
 			can_increase_autonomy = yes
 			OR = {
 				is_in_geographic_region = geographic_region_africa
@@ -370,7 +381,6 @@ ztr_decolonization_phases.4 = {
 		}
 		is_at_war = no
 	}
-
 	immediate = {
 		set_variable = {
 			name = ztr_decol_whispers_cd
@@ -379,8 +389,12 @@ ztr_decolonization_phases.4 = {
 		random_subject_or_below = {
 			limit = {
 				liberty_desire > 50
-				NOT = { has_variable = ztr_decolonization_subject_cd }
-				NOT = { is_subject_of = c:BIC }
+				NOT = {
+					has_variable = ztr_decolonization_subject_cd
+				}
+				NOT = {
+					is_subject_of = c:BIC
+				}
 				can_increase_autonomy = yes
 				OR = {
 					is_in_geographic_region = geographic_region_africa
@@ -393,13 +407,14 @@ ztr_decolonization_phases.4 = {
 			save_scope_as = whispers_subject
 		}
 	}
-
 	option = {
 		name = ztr_decolonization_phases.4.a
 		ai_chance = {
 			base = 10
 			modifier = {
-				trigger = { ztr_is_democratic = yes }
+				trigger = {
+					ztr_is_democratic = yes
+				}
 				add = 15
 			}
 		}
@@ -420,7 +435,6 @@ ztr_decolonization_phases.4 = {
 			value = 10
 		}
 	}
-
 	option = {
 		name = ztr_decolonization_phases.4.b
 		default_option = yes
@@ -433,13 +447,17 @@ ztr_decolonization_phases.4 = {
 			}
 			if = {
 				limit = {
-					NOT = { has_law_or_variant = law_type:law_censorship }
+					NOT = {
+						has_law_or_variant = law_type:law_censorship
+					}
 				}
 				activate_law = law_type:law_censorship
 			}
 			else_if = {
 				limit = {
-					NOT = { has_law_or_variant = law_type:law_outlawed_dissent }
+					NOT = {
+						has_law_or_variant = law_type:law_outlawed_dissent
+					}
 				}
 				activate_law = law_type:law_outlawed_dissent
 			}
@@ -454,40 +472,40 @@ ztr_decolonization_phases.4 = {
 ###########################################################
 # PHASE 2 EVENTS (Request, 25-50)
 ###########################################################
-
 # Event 5: A Formal Petition (Phase 2, Subject)
 # Colonial elites formally petition the metropole for self-governance
 ztr_decolonization_phases.5 = {
 	dlc = dlc_tech_res
 	type = country_event
 	placement = scope:petition_subject
-
 	event_image = {
 		video = "europenorthamerica_springtime_of_nations"
 	}
-
 	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
-
 	icon = "gfx/interface/icons/event_icons/event_election.dds"
-
 	title = ztr_decolonization_phases.5.t
 	desc = ztr_decolonization_phases.5.d
-
 	duration = 3
-
 	trigger = {
 		has_game_rule = allow_ztr_decolonization_content
 		ztr_decolonization_is_phase_2 = yes
-		NOT = { has_variable = ztr_decol_petition_cd }
+		NOT = {
+			has_variable = ztr_decol_petition_cd
+		}
 		any_subject_or_below = {
 			liberty_desire > 40
-			NOT = { has_variable = ztr_decolonization_subject_cd }
-			NOT = { is_subject_of = c:BIC }
-			NOT = { is_diplomatic_play_enemy_of = root }
+			NOT = {
+				has_variable = ztr_decolonization_subject_cd
+			}
+			NOT = {
+				is_subject_of = c:BIC
+			}
+			NOT = {
+				is_diplomatic_play_enemy_of = root
+			}
 		}
 		ztr_is_democratic = yes
 	}
-
 	immediate = {
 		set_variable = {
 			name = ztr_decol_petition_cd
@@ -496,20 +514,27 @@ ztr_decolonization_phases.5 = {
 		random_subject_or_below = {
 			limit = {
 				liberty_desire > 40
-				NOT = { has_variable = ztr_decolonization_subject_cd }
-				NOT = { is_subject_of = c:BIC }
-				NOT = { is_diplomatic_play_enemy_of = root }
+				NOT = {
+					has_variable = ztr_decolonization_subject_cd
+				}
+				NOT = {
+					is_subject_of = c:BIC
+				}
+				NOT = {
+					is_diplomatic_play_enemy_of = root
+				}
 			}
 			save_scope_as = petition_subject
 		}
 	}
-
 	option = {
 		name = ztr_decolonization_phases.5.a
 		ai_chance = {
 			base = 10
 			modifier = {
-				trigger = { ztr_is_full_democratic = yes }
+				trigger = {
+					ztr_is_full_democratic = yes
+				}
 				add = 20
 			}
 		}
@@ -528,7 +553,6 @@ ztr_decolonization_phases.5 = {
 			value = 20
 		}
 	}
-
 	option = {
 		name = ztr_decolonization_phases.5.b
 		default_option = yes
@@ -558,36 +582,37 @@ ztr_decolonization_phases.6 = {
 	dlc = dlc_tech_res
 	type = country_event
 	placement = scope:strike_state
-
 	event_image = {
 		video = "africa_public_protest"
 	}
-
 	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
-
 	icon = "gfx/interface/icons/event_icons/event_industry.dds"
-
 	title = ztr_decolonization_phases.6.t
 	desc = ztr_decolonization_phases.6.d
-
 	duration = 3
-
 	trigger = {
 		has_game_rule = allow_ztr_decolonization_content
 		ztr_decolonization_is_phase_2 = yes
-		NOT = { has_variable = ztr_decol_strike_cd }
+		NOT = {
+			has_variable = ztr_decol_strike_cd
+		}
 		any_scope_state = {
 			ztr_state_is_colonial = yes
-			NOT = { is_incorporated = yes }
+			NOT = {
+				is_incorporated = yes
+			}
 			turmoil > 0.1
 			state_population > 100000
 		}
 		OR = {
-			ig:ig_trade_unions ?= { is_marginal = no }
-			ig:ig_rural_folk ?= { is_marginal = no }
+			ig:ig_trade_unions ?= {
+				is_marginal = no
+			}
+			ig:ig_rural_folk ?= {
+				is_marginal = no
+			}
 		}
 	}
-
 	immediate = {
 		set_variable = {
 			name = ztr_decol_strike_cd
@@ -596,20 +621,23 @@ ztr_decolonization_phases.6 = {
 		random_scope_state = {
 			limit = {
 				ztr_state_is_colonial = yes
-				NOT = { is_incorporated = yes }
+				NOT = {
+					is_incorporated = yes
+				}
 				turmoil > 0.1
 				state_population > 100000
 			}
 			save_scope_as = strike_state
 		}
 	}
-
 	option = {
 		name = ztr_decolonization_phases.6.a
 		ai_chance = {
 			base = 10
 			modifier = {
-				trigger = { ztr_is_democratic = yes }
+				trigger = {
+					ztr_is_democratic = yes
+				}
 				add = 15
 			}
 		}
@@ -625,7 +653,6 @@ ztr_decolonization_phases.6 = {
 		}
 		#TODO Creare modificatore per 10 anni che aumenta del 10% wage in stati non incorporati e una perdita di income -1% del gdp 
 	}
-
 	option = {
 		name = ztr_decolonization_phases.6.b
 		default_option = yes
@@ -660,33 +687,32 @@ ztr_decolonization_phases.7 = {
 	dlc = dlc_tech_res
 	type = country_event
 	placement = capital
-
 	event_image = {
 		video = "ztr_un_congress"
 	}
-
 	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
-
 	icon = "gfx/interface/icons/event_icons/international_organizations.dds"
-
 	title = ztr_decolonization_phases.7.t
 	desc = ztr_decolonization_phases.7.d
-
 	duration = 3
-
 	trigger = {
 		has_game_rule = allow_ztr_decolonization_content
 		ztr_decolonization_is_phase_2 = yes
-		NOT = { has_variable = ztr_decol_international_cd }
+		NOT = {
+			has_variable = ztr_decol_international_cd
+		}
 		ztr_is_un_member = yes
 		any_subject_or_below = {
 			liberty_desire > 30
-			NOT = { has_variable = ztr_decolonization_subject_cd }
-			NOT = { is_subject_of = c:BIC }
+			NOT = {
+				has_variable = ztr_decolonization_subject_cd
+			}
+			NOT = {
+				is_subject_of = c:BIC
+			}
 		}
 		country_rank >= rank_value:major_power
 	}
-
 	immediate = {
 		set_variable = {
 			name = ztr_decol_international_cd
@@ -695,19 +721,24 @@ ztr_decolonization_phases.7 = {
 		random_subject_or_below = {
 			limit = {
 				liberty_desire > 30
-				NOT = { has_variable = ztr_decolonization_subject_cd }
-				NOT = { is_subject_of = c:BIC }
+				NOT = {
+					has_variable = ztr_decolonization_subject_cd
+				}
+				NOT = {
+					is_subject_of = c:BIC
+				}
 			}
 			save_scope_as = intl_subject
 		}
 	}
-
 	option = {
 		name = ztr_decolonization_phases.7.a
 		ai_chance = {
 			base = 10
 			modifier = {
-				trigger = { ztr_is_democratic = yes }
+				trigger = {
+					ztr_is_democratic = yes
+				}
 				add = 20
 			}
 		}
@@ -722,7 +753,6 @@ ztr_decolonization_phases.7 = {
 		}
 		change_infamy = -5
 	}
-
 	option = {
 		name = ztr_decolonization_phases.7.b
 		default_option = yes
@@ -739,35 +769,32 @@ ztr_decolonization_phases.8 = {
 	dlc = dlc_tech_res
 	type = country_event
 	placement = scope:press_state
-
 	event_image = {
 		video = "europenorthamerica_springtime_of_nations"
 	}
-
 	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
-
 	icon = "gfx/interface/icons/event_icons/event_newspaper.dds"
-
 	title = ztr_decolonization_phases.8.t
 	desc = ztr_decolonization_phases.8.d
-
 	duration = 3
-
 	trigger = {
 		has_game_rule = allow_ztr_decolonization_content
 		ztr_decolonization_is_phase_2 = yes
-		NOT = { has_variable = ztr_decol_press_cd }
+		NOT = {
+			has_variable = ztr_decol_press_cd
+		}
 		any_scope_state = {
 			ztr_state_is_colonial = yes
-			NOT = { is_incorporated = yes }
+			NOT = {
+				is_incorporated = yes
+			}
 			literacy_rate > 0.25
 			state_population > 100000
 		}
 		NOR = {
-			has_law = law_type:law_outlawed_dissent
+			has_law_or_variant = law_type:law_outlawed_dissent
 		}
 	}
-
 	immediate = {
 		set_variable = {
 			name = ztr_decol_press_cd
@@ -776,20 +803,23 @@ ztr_decolonization_phases.8 = {
 		random_scope_state = {
 			limit = {
 				ztr_state_is_colonial = yes
-				NOT = { is_incorporated = yes }
+				NOT = {
+					is_incorporated = yes
+				}
 				literacy_rate > 0.25
 				state_population > 100000
 			}
 			save_scope_as = press_state
 		}
 	}
-
 	option = {
 		name = ztr_decolonization_phases.8.a
 		ai_chance = {
 			base = 10
 			modifier = {
-				trigger = { ztr_is_democratic = yes }
+				trigger = {
+					ztr_is_democratic = yes
+				}
 				add = 15
 			}
 		}
@@ -810,7 +840,6 @@ ztr_decolonization_phases.8 = {
 			}
 		}
 	}
-
 	option = {
 		name = ztr_decolonization_phases.8.b
 		default_option = yes
@@ -840,7 +869,6 @@ ztr_decolonization_phases.8 = {
 ###########################################################
 # PHASE 2 EVENTS (continued)
 ###########################################################
-
 # Event 9: Religious Extremism (Phase 2)
 # Young people in Muslim or Middle Eastern colonial states turn to
 # nationalism and religious extremism, calling for the expulsion of infidels.
@@ -848,24 +876,20 @@ ztr_decolonization_phases.9 = {
 	dlc = dlc_tech_res
 	type = country_event
 	placement = scope:extremism_state
-
 	event_image = {
 		video = "middleeast_courtroom_upheaval"
 	}
-
 	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
-
 	icon = "gfx/interface/icons/event_icons/event_fire.dds"
-
 	title = ztr_decolonization_phases.9.t
 	desc = ztr_decolonization_phases.9.d
-
 	duration = 3
-
 	trigger = {
 		has_game_rule = allow_ztr_decolonization_content
 		ztr_decolonization_is_phase_2 = yes
-		NOT = { has_variable = ztr_decol_religious_extremism_cd }
+		NOT = {
+			has_variable = ztr_decol_religious_extremism_cd
+		}
 		country_rank >= rank_value:major_power
 		# The colonial power must NOT be Muslim
 		NOR = {
@@ -875,7 +899,9 @@ ztr_decolonization_phases.9 = {
 		# Must have at least one colonial state in Muslim/Middle Eastern regions
 		any_scope_state = {
 			ztr_state_is_colonial = yes
-			NOT = { is_incorporated = yes }
+			NOT = {
+				is_incorporated = yes
+			}
 			OR = {
 				is_in_geographic_region = geographic_region_middle_east
 				is_in_geographic_region = geographic_region_north_africa
@@ -883,7 +909,6 @@ ztr_decolonization_phases.9 = {
 			}
 		}
 	}
-
 	immediate = {
 		set_variable = {
 			name = ztr_decol_religious_extremism_cd
@@ -892,7 +917,9 @@ ztr_decolonization_phases.9 = {
 		random_scope_state = {
 			limit = {
 				ztr_state_is_colonial = yes
-				NOT = { is_incorporated = yes }
+				NOT = {
+					is_incorporated = yes
+				}
 				OR = {
 					is_in_geographic_region = geographic_region_middle_east
 					is_in_geographic_region = geographic_region_north_africa
@@ -902,7 +929,6 @@ ztr_decolonization_phases.9 = {
 			save_scope_as = extremism_state
 		}
 	}
-
 	option = {
 		# Mitigate with spending and bureaucratic effort
 		name = ztr_decolonization_phases.9.a
@@ -910,7 +936,9 @@ ztr_decolonization_phases.9 = {
 		ai_chance = {
 			base = 15
 			modifier = {
-				trigger = { ztr_is_democratic = yes }
+				trigger = {
+					ztr_is_democratic = yes
+				}
 				add = 10
 			}
 		}
@@ -936,7 +964,6 @@ ztr_decolonization_phases.9 = {
 			}
 		}
 	}
-
 	option = {
 		# Do nothing, let extremism fester
 		name = ztr_decolonization_phases.9.b
@@ -974,35 +1001,34 @@ ztr_decolonization_phases.10 = {
 	dlc = dlc_tech_res
 	type = country_event
 	placement = scope:apartheid_state
-
 	event_image = {
 		video = "africa_public_protest"
 	}
-
 	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
-
 	icon = "gfx/interface/icons/event_icons/event_scales.dds"
-
 	title = ztr_decolonization_phases.10.t
 	desc = ztr_decolonization_phases.10.d
-
 	duration = 3
-
 	trigger = {
 		has_game_rule = allow_ztr_decolonization_content
 		ztr_decolonization_is_phase_2 = yes
-		NOT = { has_variable = ztr_decol_apartheid_cd }
-		NOT = { has_law = law_type:law_multicultural }
+		NOT = {
+			has_variable = ztr_decol_apartheid_cd
+		}
+		NOT = {
+			has_law_or_variant = law_type:law_multicultural
+		}
 		# Must have a colonial state where the primary culture of the country is present
 		any_scope_state = {
 			ztr_state_is_colonial = yes
-			NOT = { is_incorporated = yes }
+			NOT = {
+				is_incorporated = yes
+			}
 			any_scope_culture = {
 				is_primary_culture_of = root
 			}
 		}
 	}
-
 	immediate = {
 		set_variable = {
 			name = ztr_decol_apartheid_cd
@@ -1011,7 +1037,9 @@ ztr_decolonization_phases.10 = {
 		random_scope_state = {
 			limit = {
 				ztr_state_is_colonial = yes
-				NOT = { is_incorporated = yes }
+				NOT = {
+					is_incorporated = yes
+				}
 				any_scope_culture = {
 					is_primary_culture_of = root
 				}
@@ -1027,7 +1055,6 @@ ztr_decolonization_phases.10 = {
 			save_scope_as = primary_culture_scope
 		}
 	}
-
 	option = {
 		# Acknowledge the criticism and start reforms
 		name = ztr_decolonization_phases.10.a
@@ -1035,7 +1062,9 @@ ztr_decolonization_phases.10 = {
 		ai_chance = {
 			base = 10
 			modifier = {
-				trigger = { ztr_is_democratic = yes }
+				trigger = {
+					ztr_is_democratic = yes
+				}
 				add = 15
 			}
 		}
@@ -1053,7 +1082,6 @@ ztr_decolonization_phases.10 = {
 			}
 		}
 	}
-
 	option = {
 		# Double down on segregation
 		name = ztr_decolonization_phases.10.b
@@ -1090,7 +1118,6 @@ ztr_decolonization_phases.10 = {
 ###########################################################
 # PHASE 1 EVENTS (continued)
 ###########################################################
-
 # Event 11: Colonial States' Population Boom (Phase 1)
 # Modern medicine reduces infant mortality in colonial states but
 # living conditions cannot keep up with the population growth.
@@ -1098,31 +1125,31 @@ ztr_decolonization_phases.11 = {
 	dlc = dlc_tech_res
 	type = country_event
 	placement = scope:boom_colonial_state
-
 	event_image = {
 		video = "africa_leader_arguing"
 	}
-
 	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
-
 	icon = "gfx/interface/icons/event_icons/event_map.dds"
-
 	title = ztr_decolonization_phases.11.t
 	desc = ztr_decolonization_phases.11.d
-
 	duration = 3
-
 	trigger = {
 		has_game_rule = allow_ztr_decolonization_content
 		ztr_decolonization_is_phase_1 = yes
-		NOT = { has_variable = ztr_decol_colonial_pop_boom_cd }
+		NOT = {
+			has_variable = ztr_decol_colonial_pop_boom_cd
+		}
 		# Country must have some healthcare
-		NOT = { has_law_or_variant = law_type:law_no_health_system }
+		NOT = {
+			has_law_or_variant = law_type:law_no_health_system
+		}
 		get_country_gdp_per > 3
 		# Must have a non-European colonial state with low SOL
 		any_scope_state = {
 			ztr_state_is_colonial = yes
-			NOT = { is_incorporated = yes }
+			NOT = {
+				is_incorporated = yes
+			}
 			OR = {
 				is_in_geographic_region = geographic_region_africa
 				is_in_geographic_region = geographic_region_middle_east
@@ -1134,7 +1161,6 @@ ztr_decolonization_phases.11 = {
 			average_sol < 20
 		}
 	}
-
 	immediate = {
 		set_variable = {
 			name = ztr_decol_colonial_pop_boom_cd
@@ -1142,7 +1168,9 @@ ztr_decolonization_phases.11 = {
 		random_scope_state = {
 			limit = {
 				ztr_state_is_colonial = yes
-				NOT = { is_incorporated = yes }
+				NOT = {
+					is_incorporated = yes
+				}
 				OR = {
 					is_in_geographic_region = geographic_region_africa
 					is_in_geographic_region = geographic_region_middle_east
@@ -1156,7 +1184,6 @@ ztr_decolonization_phases.11 = {
 			save_scope_as = boom_colonial_state
 		}
 	}
-
 	option = {
 		# Impose birth control measures
 		name = ztr_decolonization_phases.11.a
@@ -1170,7 +1197,9 @@ ztr_decolonization_phases.11 = {
 			every_scope_state = {
 				limit = {
 					ztr_state_is_colonial = yes
-					NOT = { is_incorporated = yes }
+					NOT = {
+						is_incorporated = yes
+					}
 					OR = {
 						is_in_geographic_region = geographic_region_africa
 						is_in_geographic_region = geographic_region_middle_east
@@ -1192,7 +1221,6 @@ ztr_decolonization_phases.11 = {
 			}
 		}
 	}
-
 	option = {
 		# Let nature take its course
 		name = ztr_decolonization_phases.11.b
@@ -1205,7 +1233,9 @@ ztr_decolonization_phases.11 = {
 			every_scope_state = {
 				limit = {
 					ztr_state_is_colonial = yes
-					NOT = { is_incorporated = yes }
+					NOT = {
+						is_incorporated = yes
+					}
 					OR = {
 						is_in_geographic_region = geographic_region_africa
 						is_in_geographic_region = geographic_region_middle_east
@@ -1237,31 +1267,31 @@ ztr_decolonization_phases.12 = {
 	dlc = dlc_tech_res
 	type = country_event
 	placement = scope:boom_subject
-
 	event_image = {
 		video = "asia_farmers_market"
 	}
-
 	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
-
 	icon = "gfx/interface/icons/event_icons/event_map.dds"
-
 	title = ztr_decolonization_phases.12.t
 	desc = ztr_decolonization_phases.12.d
-
 	duration = 3
-
 	trigger = {
 		has_game_rule = allow_ztr_decolonization_content
 		ztr_decolonization_is_phase_1 = yes
-		NOT = { has_variable = ztr_decol_subject_pop_boom_cd }
+		NOT = {
+			has_variable = ztr_decol_subject_pop_boom_cd
+		}
 		get_country_gdp_per > 3
 		# Must have subjects in Africa or Asia with low SOL
 		any_subject_or_below = {
 			average_sol < 20
 			# Country must have some healthcare
-			NOT = { has_law_or_variant = law_type:law_no_health_system }
-			NOT = { has_variable = ztr_decolonization_subject_cd }
+			NOT = {
+				has_law_or_variant = law_type:law_no_health_system
+			}
+			NOT = {
+				has_variable = ztr_decolonization_subject_cd
+			}
 			OR = {
 				is_in_geographic_region = geographic_region_africa
 				is_in_geographic_region = geographic_region_middle_east
@@ -1272,7 +1302,6 @@ ztr_decolonization_phases.12 = {
 			}
 		}
 	}
-
 	immediate = {
 		set_variable = {
 			name = ztr_decol_subject_pop_boom_cd
@@ -1282,8 +1311,12 @@ ztr_decolonization_phases.12 = {
 			limit = {
 				average_sol < 20
 				# Country must have some healthcare
-				NOT = { has_law_or_variant = law_type:law_no_health_system }
-				NOT = { has_variable = ztr_decolonization_subject_cd }
+				NOT = {
+					has_law_or_variant = law_type:law_no_health_system
+				}
+				NOT = {
+					has_variable = ztr_decolonization_subject_cd
+				}
 				OR = {
 					is_in_geographic_region = geographic_region_africa
 					is_in_geographic_region = geographic_region_middle_east
@@ -1296,7 +1329,6 @@ ztr_decolonization_phases.12 = {
 			save_scope_as = boom_subject
 		}
 	}
-
 	option = {
 		# Impose birth limits on the subject
 		name = ztr_decolonization_phases.12.a
@@ -1310,8 +1342,12 @@ ztr_decolonization_phases.12 = {
 				limit = {
 					average_sol < 20
 					# Country must have some healthcare
-					NOT = { has_law_or_variant = law_type:law_no_health_system }
-					NOT = { has_variable = ztr_decolonization_subject_cd }
+					NOT = {
+						has_law_or_variant = law_type:law_no_health_system
+					}
+					NOT = {
+						has_variable = ztr_decolonization_subject_cd
+					}
 					OR = {
 						is_in_geographic_region = geographic_region_africa
 						is_in_geographic_region = geographic_region_middle_east
@@ -1332,7 +1368,6 @@ ztr_decolonization_phases.12 = {
 			}
 		}
 	}
-
 	option = {
 		# Let the population grow freely
 		name = ztr_decolonization_phases.12.b
@@ -1346,8 +1381,12 @@ ztr_decolonization_phases.12 = {
 				limit = {
 					average_sol < 20
 					# Country must have some healthcare
-					NOT = { has_law_or_variant = law_type:law_no_health_system }
-					NOT = { has_variable = ztr_decolonization_subject_cd }
+					NOT = {
+						has_law_or_variant = law_type:law_no_health_system
+					}
+					NOT = {
+						has_variable = ztr_decolonization_subject_cd
+					}
 					OR = {
 						is_in_geographic_region = geographic_region_africa
 						is_in_geographic_region = geographic_region_middle_east

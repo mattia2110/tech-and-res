@@ -1,20 +1,18 @@
 namespace = ztr_russian_revolution
-
 # Statuq Quo Path Wins
-
 ztr_russian_revolution.1 = {
 	dlc = dlc_tech_res
 	type = country_event
 	placement = root
-
 	duration = 1
-
 	title = ztr_russia_status_quo_path_wins.t
 	desc = {
 		first_valid = {
 			triggered_desc = {
 				trigger = {
-					NOT = { has_variable = russia_liberalist_path_var }
+					NOT = {
+						has_variable = russia_liberalist_path_var
+					}
 				}
 				desc = ztr_russia_status_quo_path_wins.d
 			}
@@ -27,19 +25,14 @@ ztr_russian_revolution.1 = {
 		}
 	}
 	flavor = ztr_russia_status_quo_path_wins.f
-
 	event_image = {
 		video = "ztr_duma_congress"
 	}
-
 	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
-
 	icon = "gfx/interface/icons/event_icons/russia_group_flag.dds"
-
 	trigger = {
 		# JE
 	}
-
 	immediate = {
 		ig:ig_industrialists = {
 			save_scope_as = russia_liberals_scope
@@ -50,13 +43,14 @@ ztr_russian_revolution.1 = {
 			}
 		}
 	}
-
 	option = {
 		name = ztr_russian_status_quo_path_wins.option
 		default_option = yes
 		custom_tooltip = russian_monarchy_can_survive_tt
 		trigger = {
-			NOT = { has_variable = russia_liberalist_path_var }
+			NOT = {
+				has_variable = russia_liberalist_path_var
+			}
 		}
 		remove_modifier = ztr_russian_proletariat_modifier
 		add_modifier = {
@@ -67,7 +61,6 @@ ztr_russian_revolution.1 = {
 			base = 10
 		}
 	}
-
 	option = {
 		name = ztr_russian_status_quo_path_wins_liberals.option
 		custom_tooltip = russian_modernization_keep_going_tt
@@ -87,25 +80,18 @@ ztr_russian_revolution.2 = {
 	dlc = dlc_tech_res
 	type = country_event
 	placement = root
-
 	duration = 1
-
 	title = ztr_russian_revolution_liberals_wins.t
 	desc = ztr_russian_revolution_liberals_wins.d
 	flavor = ztr_russian_revolution_liberals_wins.f
-
 	event_image = {
 		video = "europenorthamerica_springtime_of_nations"
 	}
-
 	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
-
 	icon = "gfx/interface/icons/event_icons/individualist_index.dds"
-
 	trigger = {
 		#JE
 	}
-
 	immediate = {
 		ig:ig_industrialists = {
 			save_scope_as = russia_liberals_scope
@@ -116,7 +102,6 @@ ztr_russian_revolution.2 = {
 			}
 		}
 	}
-
 	# Accept the abdication
 	option = {
 		name = ztr_russian_revolution_liberals_wins_abdication.option
@@ -167,11 +152,12 @@ ztr_russian_revolution.2 = {
 			base = 10
 		}
 	}
-
 	# Refuse the abdication
 	option = {
 		name = ztr_russian_revolution_liberals_wins_abdication_refused.option
-		create_political_movement = { type = movement_liberal }
+		create_political_movement = {
+			type = movement_liberal
+		}
 		remove_modifier = ztr_russian_proletariat_modifier
 		add_modifier = {
 			name = ztr_russian_liberal_revolution
@@ -210,7 +196,7 @@ ztr_russian_revolution.2 = {
 			pop_type = shopkeepers
 		}
 		ai_chance = {
-			base = 0 # AI will never do this since this will destroy Russia if not a player
+			base = 0			# AI will never do this since this will destroy Russia if not a player
 		}
 	}
 }
@@ -220,9 +206,7 @@ ztr_russian_revolution.3 = {
 	dlc = dlc_tech_res
 	type = country_event
 	placement = root
-
 	duration = 1
-
 	title = ztr_russian_revolution_communists_wins.t
 	desc = {
 		first_valid = {
@@ -244,19 +228,14 @@ ztr_russian_revolution.3 = {
 		}
 	}
 	flavor = ztr_russian_revolution_communists_wins.f
-
 	event_image = {
 		video = "ztr_soviet_congress"
 	}
-
 	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
-
 	icon = "gfx/interface/icons/event_icons/equality_index.dds"
-
 	trigger = {
 		#JE
 	}
-
 	immediate = {
 		ig:ig_trade_unions = {
 			save_scope_as = russia_liberals_scope
@@ -270,7 +249,6 @@ ztr_russian_revolution.3 = {
 			}
 		}
 	}
-
 	# Accept the abdication
 	option = {
 		name = ztr_russian_revolution_communists_wins_abdication.option
@@ -325,7 +303,9 @@ ztr_russian_revolution.3 = {
 		else = {
 			if = {
 				limit = {
-					NOT = { has_variable = ztr_bolshevik_ideology_var }
+					NOT = {
+						has_variable = ztr_bolshevik_ideology_var
+					}
 				}
 				set_variable = ztr_bolshevik_ideology_var
 			}
@@ -338,7 +318,6 @@ ztr_russian_revolution.3 = {
 			base = 10
 		}
 	}
-
 	# Refuse the abdication
 	option = {
 		name = ztr_russian_revolution_liberals_wins_abdication_refused.option
@@ -379,7 +358,7 @@ ztr_russian_revolution.3 = {
 			pop_type = peasants
 		}
 		ai_chance = {
-			base = 0 # AI will never do this since this will destroy Russia if not a player
+			base = 0			# AI will never do this since this will destroy Russia if not a player
 		}
 	}
 }
@@ -389,41 +368,37 @@ ztr_russian_revolution.4 = {
 	dlc = dlc_tech_res
 	type = country_event
 	placement = root
-
 	duration = 1
-
 	title = ztr_russian_revolution_polish_unrest.t
 	desc = ztr_russian_revolution_polish_unrest.d
 	flavor = ztr_russian_revolution_polish_unrest.f
-
 	event_image = {
 		video = "europenorthamerica_springtime_of_nations"
 	}
-
 	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
-
 	icon = "gfx/interface/icons/event_icons/russia_group_flag.dds"
-
 	trigger = {
 		any_scope_state = {
-			NOT = { is_homeland_of_country_cultures = root }
+			NOT = {
+				is_homeland_of_country_cultures = root
+			}
 			state_region = {
 				is_homeland = cu:polish
 			}
 			count > 0
 		}
-		cu:polish = { culture_wants_to_be_decolonized = yes }
+		cu:polish = {
+			culture_wants_to_be_decolonized = yes
+		}
 		has_variable = ztr_russia_minorities_unrest_var
 		var:ztr_russia_minorities_unrest_var = 1
 	}
-
 	immediate = {
 		change_variable = {
 			name = ztr_russia_minorities_unrest_var
 			add = 1
 		}
 	}
-
 	# Suppress the unrest
 	option = {
 		name = ztr_russian_revolution_polish_unrest_suppressed.option
@@ -437,7 +412,9 @@ ztr_russian_revolution.4 = {
 		}
 		every_scope_state = {
 			limit = {
-				NOT = { is_homeland_of_country_cultures = root }
+				NOT = {
+					is_homeland_of_country_cultures = root
+				}
 				state_region = {
 					is_homeland = cu:polish
 				}
@@ -451,19 +428,20 @@ ztr_russian_revolution.4 = {
 			base = 10
 			modifier = {
 				trigger = {
-					has_law = law_type:law_autocracy
+					has_law_or_variant = law_type:law_autocracy
 				}
-			add = 10
+				add = 10
 			}
 		}
 	}
-
 	# Appease the unrest
 	option = {
 		name = ztr_russian_revolution_polish_unrest_appeased.option
 		every_scope_state = {
 			limit = {
-				NOT = { is_homeland_of_country_cultures = root }
+				NOT = {
+					is_homeland_of_country_cultures = root
+				}
 				state_region = {
 					is_homeland = cu:polish
 				}
@@ -480,39 +458,34 @@ ztr_russian_revolution.4 = {
 }
 
 # Polish Ultimatum
-
 ztr_russian_revolution.5 = {
 	dlc = dlc_tech_res
 	type = country_event
 	placement = root
-
 	duration = 1
-
 	title = ztr_russian_revolution_polish_ultimatum.t
 	desc = ztr_russian_revolution_polish_ultimatum.d
 	flavor = ztr_russian_revolution_polish_ultimatum.f
-
 	event_image = {
 		video = "europenorthamerica_springtime_of_nations"
 	}
-
 	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
-
 	icon = "gfx/interface/icons/event_icons/russia_group_flag.dds"
-
 	trigger = {
 		var:ztr_russia_minorities_unrest_var = 2
-		cu:polish = { culture_wants_to_be_decolonized = yes }
-		NOT = { exists = c:POL}
+		cu:polish = {
+			culture_wants_to_be_decolonized = yes
+		}
+		NOT = {
+			exists = c:POL
+		}
 	}
-
 	immediate = {
 		change_variable = {
 			name = ztr_russia_minorities_unrest_var
 			add = 1
 		}
 	}
-
 	# Reject the ultimatum
 	option = {
 		name = ztr_russian_revolution_polish_ultimatum_reject.option
@@ -536,13 +509,12 @@ ztr_russian_revolution.5 = {
 			base = 10
 			modifier = {
 				trigger = {
-					has_law = law_type:law_autocracy
+					has_law_or_variant = law_type:law_autocracy
 				}
-			add = 10
+				add = 10
 			}
 		}
 	}
-
 	# Accept the ultimatum of more autonomy
 	option = {
 		name = ztr_russian_revolution_polish_ultimatum_accept.option
@@ -576,7 +548,6 @@ ztr_russian_revolution.5 = {
 			base = 10
 		}
 	}
-
 	# Give full independence to Poland
 	option = {
 		name = ztr_russian_revolution_polish_ultimatum_independence.option
@@ -617,40 +588,36 @@ ztr_russian_revolution.6 = {
 	dlc = dlc_tech_res
 	type = country_event
 	placement = root
-
 	duration = 1
-
 	title = ztr_russian_revolution_minorities_unrest.t
 	desc = ztr_russian_revolution_minorities_unrest.d
 	flavor = ztr_russian_revolution_minorities_unrest.f
-
 	event_image = {
 		video = "europenorthamerica_springtime_of_nations"
 	}
-
 	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
-
 	icon = "gfx/interface/icons/event_icons/russia_group_flag.dds"
-
 	trigger = {
 		any_scope_state = {
-			NOT = { is_homeland_of_country_cultures = root }
+			NOT = {
+				is_homeland_of_country_cultures = root
+			}
 			count > 0
 		}
-		NOT = { has_variable = ztr_russia_minorities_unrest_var }
+		NOT = {
+			has_variable = ztr_russia_minorities_unrest_var
+		}
 		NOR = {
 			has_law_or_variant = law_type:law_multicultural
 			has_law_or_variant = law_type:law_cultural_exclusion
 		}
 	}
-
 	immediate = {
 		set_variable = {
 			name = ztr_russia_minorities_unrest_var
 			value = 1
 		}
 	}
-
 	# Calm the unrest
 	option = {
 		name = ztr_russian_revolution_minorities_unrest.option
@@ -673,26 +640,21 @@ ztr_russian_revolution.7 = {
 	dlc = dlc_tech_res
 	type = country_event
 	placement = root
-
 	duration = 1
-
 	title = ztr_russian_revolution_peasant_unrest.t
 	desc = ztr_russian_revolution_peasant_unrest.d
 	flavor = ztr_russian_revolution_peasant_unrest.f
-
 	event_image = {
 		video = "europenorthamerica_russian_serfs"
 	}
-
 	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
-
 	icon = "gfx/interface/icons/event_icons/russia_group_flag.dds"
-
 	trigger = {
-		has_law = law_type:law_serfdom
-		NOT = { has_variable = ztr_russia_serfdom_active_var }
+		has_law_or_variant = law_type:law_serfdom
+		NOT = {
+			has_variable = ztr_russia_serfdom_active_var
+		}
 	}
-
 	immediate = {
 		ig:ig_rural_folk = {
 			save_scope_as = russia_peasants_scope
@@ -702,7 +664,6 @@ ztr_russian_revolution.7 = {
 		}
 		set_variable = ztr_russia_serfdom_active_var
 	}
-
 	# Address their concerns
 	option = {
 		name = ztr_russian_revolution_peasant_unrest.option
@@ -725,26 +686,23 @@ ztr_russian_revolution.8 = {
 	dlc = dlc_tech_res
 	type = country_event
 	placement = root
-
 	duration = 1
-
 	title = ztr_russian_revolution_serfdom_outlawed.t
 	desc = ztr_russian_revolution_serfdom_outlawed.d
 	flavor = ztr_russian_revolution_serfdom_outlawed.f
-
 	event_image = {
 		video = "europenorthamerica_russian_serfs"
 	}
-
 	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
-
 	icon = "gfx/interface/icons/event_icons/russia_group_flag.dds"
-
 	trigger = {
-		NOT = { has_law = law_type:law_serfdom }
-		NOT = { has_variable = ztr_russia_serfdom_deactive_var }
+		NOT = {
+			has_law_or_variant = law_type:law_serfdom
+		}
+		NOT = {
+			has_variable = ztr_russia_serfdom_deactive_var
+		}
 	}
-
 	immediate = {
 		ig:ig_rural_folk = {
 			save_scope_as = russia_peasants_scope
@@ -760,7 +718,6 @@ ztr_russian_revolution.8 = {
 		}
 		set_variable = ztr_russia_serfdom_deactive_var
 	}
-
 	# Celebrate the freedom
 	option = {
 		name = ztr_russian_revolution_serfdom_outlawed.option
@@ -783,33 +740,27 @@ ztr_russian_revolution.9 = {
 	dlc = dlc_tech_res
 	type = country_event
 	placement = root
-
 	duration = 1
-
 	title = ztr_russian_revolution_liberals_not_with_us.t
 	desc = ztr_russian_revolution_liberals_not_with_us.d
 	flavor = ztr_russian_revolution_liberals_not_with_us.f
-
 	event_image = {
 		video = "europenorthamerica_capitalists_meeting"
 	}
-
 	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
-
 	icon = "gfx/interface/icons/event_icons/russia_group_flag.dds"
-
 	trigger = {
 		has_variable = russia_liberalist_path_var
-		NOT = { has_variable = ztr_liberals_contrary_to_us_var }
+		NOT = {
+			has_variable = ztr_liberals_contrary_to_us_var
+		}
 	}
-
 	immediate = {
 		ig:ig_industrialists = {
-            save_scope_as = russia_liberals_scope
+			save_scope_as = russia_liberals_scope
 		}
 		set_variable = ztr_liberals_contrary_to_us_var
 	}
-
 	option = {
 		name = ztr_russian_revolution_liberals_not_with_us.option
 		default_option = yes
@@ -830,29 +781,24 @@ ztr_russian_revolution.10 = {
 	dlc = dlc_tech_res
 	type = country_event
 	placement = root
-
 	duration = 1
-
 	title = ztr_russian_revolution_strange_proletariat.t
 	desc = ztr_russian_revolution_strange_proletariat.d
 	flavor = ztr_russian_revolution_strange_proletariat.f
-
 	event_image = {
 		video = "ztr_strike"
 	}
-
 	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
-
 	icon = "gfx/interface/icons/event_icons/equality_index.dds"
-
 	trigger = {
 		has_variable = russia_sovietic_path_var
-		NOT = { has_modifier = ztr_russian_proletariat_modifier }
+		NOT = {
+			has_modifier = ztr_russian_proletariat_modifier
+		}
 	}
-
 	immediate = {
 		ig:ig_trade_unions = {
-            save_scope_as = russia_bolsheviks_scope
+			save_scope_as = russia_bolsheviks_scope
 		}
 		movement_type:movement_communist = {
 			save_scope_as = russia_communists_scope
@@ -861,7 +807,6 @@ ztr_russian_revolution.10 = {
 			save_scope_as = russia_socialists_scope
 		}
 	}
-
 	option = {
 		name = ztr_russian_revolution_strange_proletariat.option
 		default_option = yes
@@ -873,7 +818,9 @@ ztr_russian_revolution.10 = {
 					}
 				}
 			}
-			create_political_movement = { type = movement_communist }
+			create_political_movement = {
+				type = movement_communist
+			}
 		}
 		if = {
 			limit = {
@@ -883,7 +830,9 @@ ztr_russian_revolution.10 = {
 					}
 				}
 			}
-			create_political_movement = { type = movement_socialist }
+			create_political_movement = {
+				type = movement_socialist
+			}
 		}
 		add_modifier = {
 			name = ztr_russian_proletariat_modifier
@@ -901,34 +850,26 @@ ztr_russian_revolution.11 = {
 	dlc = dlc_tech_res
 	type = country_event
 	placement = root
-
 	duration = 1
-
 	title = ztr_russian_revolution_intelligentsia_ambiguity.t
 	desc = ztr_russian_revolution_intelligentsia_ambiguity.d
 	flavor = ztr_russian_revolution_intelligentsia_ambiguity.f
-
 	event_image = {
 		video = "europenorthamerica_art_gallery"
 	}
-
 	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
-
 	icon = "gfx/interface/icons/event_icons/russia_group_flag.dds"
-
 	trigger = {
 		NOR = {
 			has_variable = ztr_russia_refused_intel_requests_var
 			has_variable = ztr_russia_accepted_intel_requests_var
 		}
 	}
-
 	immediate = {
 		ig:ig_intelligentsia = {
 			save_scope_as = russia_intelligentsia_scope
 		}
 	}
-
 	# Accept their requests
 	option = {
 		name = ztr_russian_revolution_intelligentsia_ambiguity.option
@@ -955,7 +896,6 @@ ztr_russian_revolution.11 = {
 			base = 10
 		}
 	}
-
 	# Refuse their requests
 	option = {
 		name = ztr_russian_revolution_intelligentsia_ambiguity_refuse.option
@@ -977,9 +917,9 @@ ztr_russian_revolution.11 = {
 			base = 0
 			modifier = {
 				trigger = {
-					has_law = law_type:law_autocracy
+					has_law_or_variant = law_type:law_autocracy
 				}
-			add = 100
+				add = 100
 			}
 		}
 	}
@@ -990,31 +930,23 @@ ztr_russian_revolution.12 = {
 	dlc = dlc_tech_res
 	type = country_event
 	placement = root
-
 	duration = 1
-
 	title = ztr_russian_revolution_treaty_liberals.t
 	desc = ztr_russian_revolution_treaty_liberals.d
 	flavor = ztr_russian_revolution_treaty_liberals.f
-
 	event_image = {
 		video = "unspecific_signed_contract"
 	}
-
 	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
-
 	icon = "gfx/interface/icons/event_icons/russia_group_flag.dds"
-
 	trigger = {
 		#Scripted Button
 	}
-
 	immediate = {
 		ig:ig_industrialists = {
-            save_scope_as = russia_liberals_scope
+			save_scope_as = russia_liberals_scope
 		}
 	}
-
 	# Accept the treaty
 	option = {
 		name = ztr_russian_revolution_treaty_liberals_accept.option
@@ -1029,7 +961,6 @@ ztr_russian_revolution.12 = {
 			base = 90
 		}
 	}
-
 	# Refuse the treaty
 	option = {
 		name = ztr_russian_revolution_treaty_liberals_refuse.option
@@ -1051,69 +982,66 @@ ztr_russian_revolution.13 = {
 	dlc = dlc_tech_res
 	type = country_event
 	placement = root
-
 	duration = 1
-
 	title = ztr_russian_revolution_petition.t
 	desc = ztr_russian_revolution_petition.d
 	flavor = ztr_russian_revolution_petition.f
-
 	event_image = {
 		video = "europenorthamerica_capitalists_meeting"
 	}
-
 	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
-
 	icon = "gfx/interface/icons/event_icons/russia_group_flag.dds"
-
 	trigger = {
 		#Scripted Button
 	}
-
 	immediate = {
 		ig:ig_industrialists = {
-            save_scope_as = government_petition_ig
-            ordered_preferred_law = {
-                limit = {
-					law_is_valid_for_ig_petition = yes
-                }
-                min = 0
-                max = 2
-                check_range_bounds = no
-                save_scope_as = government_petition_law
-            }
+			save_scope_as = government_petition_ig
 			ordered_preferred_law = {
-                limit = {
+				limit = {
+					law_is_valid_for_ig_petition = yes
+				}
+				min = 0
+				max = 2
+				check_range_bounds = no
+				save_scope_as = government_petition_law
+			}
+			ordered_preferred_law = {
+				limit = {
 					law_is_valid_for_ig_petition = yes
 					NOT = {
 						scope:government_petition_law ?= THIS
 					}
-                }
-                min = 1
-                max = 3
-                check_range_bounds = no
-                save_scope_as = government_petition_law_2
-            }
-			set_variable = { name = petitioning_ig days = 100 }
-        }
+				}
+				min = 1
+				max = 3
+				check_range_bounds = no
+				save_scope_as = government_petition_law_2
+			}
+			set_variable = {
+				name = petitioning_ig
+				days = 100
+			}
+		}
 	}
-
 	cancellation_trigger = {
 		NOR = {
 			exists = scope:government_petition_ig
 			exists = scope:government_petition_law
 		}
 	}
-
 	option = {
 		name = government_petition_events.1.a
 		default_option = yes
-        if = {
-            limit = {
-                exists = scope:government_petition_law
-            }
-            set_variable = { name = desired_law_var value = scope:government_petition_law }
-        }
+		if = {
+			limit = {
+				exists = scope:government_petition_law
+			}
+			set_variable = {
+				name = desired_law_var
+				value = scope:government_petition_law
+			}
+		}
 		custom_tooltip = government_petition_tt
 		add_journal_entry = {
 			type = ztr_je_russian_absolutism_government_petition
@@ -1122,18 +1050,20 @@ ztr_russian_revolution.13 = {
 			base = 10
 		}
 	}
-
 	option = {
 		name = government_petition_events.1.b
 		trigger = {
 			exists = scope:government_petition_law_2
 		}
-        if = {
-            limit = {
-                exists = scope:government_petition_law_2
-            }
-            set_variable = { name = desired_law_var value = scope:government_petition_law_2 }
-        }
+		if = {
+			limit = {
+				exists = scope:government_petition_law_2
+			}
+			set_variable = {
+				name = desired_law_var
+				value = scope:government_petition_law_2
+			}
+		}
 		custom_tooltip = government_petition_2_tt
 		add_journal_entry = {
 			type = je_government_petition
@@ -1149,33 +1079,27 @@ ztr_russian_revolution.14 = {
 	dlc = dlc_tech_res
 	type = country_event
 	placement = root
-
 	duration = 1
-
 	title = ztr_russian_revolution_duma_role.t
 	desc = ztr_russian_revolution_duma_role.d
-
 	event_image = {
 		video = "ztr_duma_congress"
 	}
-
 	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
-
 	icon = "gfx/interface/icons/event_icons/russia_group_flag.dds"
-
 	trigger = {
 		has_modifier = ztr_russian_modernization
-		NOT = { has_variable = ztr_russia_duma_role_requested_var }
+		NOT = {
+			has_variable = ztr_russia_duma_role_requested_var
+		}
 		OR = {
-			has_law = law_type:law_autocracy
-			has_law = law_type:law_oligarchy
+			has_law_or_variant = law_type:law_autocracy
+			has_law_or_variant = law_type:law_oligarchy
 		}
 	}
-
 	immediate = {
 		set_variable = ztr_russia_duma_role_requested_var
 	}
-
 	# Accept the Duma's role
 	option = {
 		name = ztr_russian_revolution_duma_role.option
@@ -1199,7 +1123,6 @@ ztr_russian_revolution.14 = {
 			base = 10
 		}
 	}
-
 	# Reject the Duma's role
 	option = {
 		name = ztr_russian_revolution_duma_role_reject.option
@@ -1220,9 +1143,9 @@ ztr_russian_revolution.14 = {
 			base = 0
 			modifier = {
 				trigger = {
-					has_law = law_type:law_autocracy
+					has_law_or_variant = law_type:law_autocracy
 				}
-			add = 10
+				add = 10
 			}
 		}
 	}
@@ -1233,28 +1156,23 @@ ztr_russian_revolution.15 = {
 	dlc = dlc_tech_res
 	type = country_event
 	placement = root
-
 	duration = 1
-
 	title = ztr_duma_low_strata_question.t
 	desc = ztr_duma_low_strata_question.d
-
 	event_image = {
 		video = "ztr_duma_congress"
 	}
-
 	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
-
 	icon = "gfx/interface/icons/event_icons/russia_group_flag.dds"
-
 	trigger = {
 		OR = {
-            get_country_gdp_per < 2.5
-            average_sol < 12
-        }
-		NOT = { has_variable = ztr_duma_low_strata_question_var }
+			get_country_gdp_per < 2.5
+			average_sol < 12
+		}
+		NOT = {
+			has_variable = ztr_duma_low_strata_question_var
+		}
 	}
-
 	immediate = {
 		set_variable = ztr_duma_low_strata_question_var
 		ig:ig_industrialists = {
@@ -1264,7 +1182,6 @@ ztr_russian_revolution.15 = {
 			save_scope_as = russia_bolsheviks_scope
 		}
 	}
-
 	# Refuse to help the lower strata following Liberals ideas
 	option = {
 		name = ztr_duma_low_strata_question_refuse.option
@@ -1286,7 +1203,6 @@ ztr_russian_revolution.15 = {
 			base = 40
 		}
 	}
-
 	# Accept to help the lower strata following Sovietic ideas
 	option = {
 		name = ztr_duma_low_strata_question_accept.option
@@ -1318,29 +1234,24 @@ ztr_russian_revolution.16 = {
 	dlc = dlc_tech_res
 	type = country_event
 	placement = root
-
 	duration = 1
-
 	title = ztr_duma_workers_rights_question.t
 	desc = ztr_duma_workers_rights_question.d
-
 	event_image = {
 		video = "ztr_duma_congress"
 	}
-
 	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
-
 	icon = "gfx/interface/icons/event_icons/russia_group_flag.dds"
-
 	trigger = {
 		OR = {
-            get_country_gdp_per < 2.5
-            average_sol < 12
-        }
-		NOT = { has_variable = ztr_duma_workers_rights_question_var }
-		has_law = law_type:law_no_workers_rights
+			get_country_gdp_per < 2.5
+			average_sol < 12
+		}
+		NOT = {
+			has_variable = ztr_duma_workers_rights_question_var
+		}
+		has_law_or_variant = law_type:law_no_workers_rights
 	}
-
 	immediate = {
 		set_variable = ztr_duma_workers_rights_question_var
 		ig:ig_industrialists = {
@@ -1353,7 +1264,6 @@ ztr_russian_revolution.16 = {
 			save_scope_as = russia_no_workers_rights_law_scope
 		}
 	}
-
 	# Refuse to improve workers' rights
 	option = {
 		name = ztr_duma_workers_rights_question_refuse.option
@@ -1379,7 +1289,6 @@ ztr_russian_revolution.16 = {
 			base = 40
 		}
 	}
-
 	# Accept to improve workers' rights enacting regulatory bodies
 	option = {
 		name = ztr_duma_workers_rights_question_accept.option
@@ -1412,9 +1321,7 @@ ztr_russian_revolution.17 = {
 	dlc = dlc_tech_res
 	type = country_event
 	placement = root
-
 	duration = 1
-
 	title = ztr_russian_revolution_liberals_stop_supporting_us.t
 	desc = ztr_russian_revolution_liberals_stop_supporting_us.d
 	event_image = {
@@ -1450,31 +1357,29 @@ ztr_russian_revolution.18 = {
 	dlc = dlc_tech_res
 	type = country_event
 	placement = root
-
 	duration = 1
-
 	title = ztr_russian_revolution_leader_for_soviet.t
 	desc = ztr_russian_revolution_leader_for_soviet.d
-
 	gui_window = event_window_1char_tabloid
-
 	left_icon = scope:soviet_leader_character_scope
-
 	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
 	on_opened_soundeffect = "event:/SFX/Events/misc/1Character_Banner"
-
 	icon = "gfx/interface/icons/event_icons/equality_index.dds"
-
 	trigger = {
 		has_variable = russia_sovietic_path_var
 		var:russia_sovietic_path_var > 10
-		NOT = { has_variable = ztr_soviet_ideology_var }
+		NOT = {
+			has_variable = ztr_soviet_ideology_var
+		}
 	}
-
 	immediate = {
 		set_variable = ztr_soviet_ideology_var
 		if = {
-			limit = { NOT = { has_global_variable = lenin_spawn } }
+			limit = {
+				NOT = {
+					has_global_variable = lenin_spawn
+				}
+			}
 			create_character = {
 				template = rus_lenin_character_template
 				on_created = {
@@ -1486,13 +1391,17 @@ ztr_russian_revolution.18 = {
 		random_character = {
 			limit = {
 				has_variable = lenin_var
-				NOT = { has_modifier = modifier_lenin_in_exile } # Lenin is not in exile
+				NOT = {
+					has_modifier = modifier_lenin_in_exile
+				}				# Lenin is not in exile
 			}
 			save_scope_as = soviet_leader_character_scope
 		}
 		if = {
 			limit = {
-				NOT = { exists = scope:soviet_leader_character_scope }
+				NOT = {
+					exists = scope:soviet_leader_character_scope
+				}
 			}
 			ig:ig_trade_unions = {
 				save_scope_as = russia_bolsheviks_scope
@@ -1502,7 +1411,6 @@ ztr_russian_revolution.18 = {
 			}
 		}
 	}
-
 	# If Lenin exists, make him the temporary leader of the Soviets before Soviet Congress
 	option = {
 		name = ztr_russian_revolution_leader_for_soviet_lenin.option
@@ -1528,13 +1436,14 @@ ztr_russian_revolution.18 = {
 			base = 10
 		}
 	}
-
 	option = {
 		name = ztr_russian_revolution_leader_for_soviet.option
 		default_option = yes
 		trigger = {
 			scope:soviet_leader_character_scope = {
-				NOT = { has_variable = lenin_var }
+				NOT = {
+					has_variable = lenin_var
+				}
 			}
 		}
 		ig:ig_trade_unions = {
@@ -1554,21 +1463,15 @@ ztr_russian_revolution.19 = {
 	dlc = dlc_tech_res
 	type = country_event
 	placement = root
-
 	duration = 1
-
 	title = ztr_russian_revolution_first_soviet_congress.t
-	desc  = ztr_russian_revolution_first_soviet_congress.d
+	desc = ztr_russian_revolution_first_soviet_congress.d
 	flavor = ztr_russian_revolution_first_soviet_congress.f
-
 	event_image = {
 		video = "ztr_soviet_congress"
 	}
-
 	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
-
 	icon = "gfx/interface/icons/event_icons/equality_index.dds"
-
 	trigger = {
 		# Il Congresso si tiene dopo che è stato designato un leader (o equivalente)
 		has_variable = ztr_soviet_ideology_var
@@ -1577,27 +1480,31 @@ ztr_russian_revolution.19 = {
 			has_variable = ztr_menshevik_ideology_var
 			has_variable = ztr_agro_socialist_ideology_var
 		}
-		
 		# 1 is Bolsheviks, 2 is Mensheviks, 3 is Agro-Socialista
 		var:russia_sovietic_path_var > 25
-
 		# E dopo la fase preparatoria dei sindacati/bolscevichi
 		ig:ig_trade_unions = {
-			NOT = { has_modifier = ztr_bolsheviks_prepare_the_soviet_congress_modifier }
+			NOT = {
+				has_modifier = ztr_bolsheviks_prepare_the_soviet_congress_modifier
+			}
 		}
-
 		# Siamo nel percorso sovietico (non per forza vittorioso, ma attivo)
 		has_variable = russia_sovietic_path_var
 	}
-
 	immediate = {
-		ig:ig_intelligentsia = { save_scope_as = russia_intelligentsia_scope }
-		ig:ig_rural_folk = { save_scope_as = russia_peasants_scope }
-		ig:ig_industrialists = { save_scope_as = russia_liberals_scope }
-		ig:ig_landowners = { save_scope_as = russia_landowners_scope }
-
+		ig:ig_intelligentsia = {
+			save_scope_as = russia_intelligentsia_scope
+		}
+		ig:ig_rural_folk = {
+			save_scope_as = russia_peasants_scope
+		}
+		ig:ig_industrialists = {
+			save_scope_as = russia_liberals_scope
+		}
+		ig:ig_landowners = {
+			save_scope_as = russia_landowners_scope
+		}
 		remove_variable = ztr_soviet_ideology_var
-
 		ig:ig_trade_unions = {
 			save_scope_as = russia_bolsheviks_scope
 			leader = {
@@ -1605,19 +1512,22 @@ ztr_russian_revolution.19 = {
 			}
 		}
 	}
-
 	# Percorso 1 , Linea Bolscevica (Consigli + Comando dell'Economia, JE Rivoluzione permanente = Counter di 5 anni che necessita di guerra di diffusione)
 	option = {
 		name = ztr_first_soviet_congress_bolshevik.option
 		default_option = yes
 		ig:ig_trade_unions = {
 			if = {
-				limit = { NOT = { has_ideology = ideology:ideology_socialist } }
+				limit = {
+					NOT = {
+						has_ideology = ideology:ideology_socialist
+					}
+				}
 				add_ideology = ideology_socialist
 			}
 			leader = {
 				set_ideology = ideology:ideology_vanguardist
-			}			
+			}
 		}
 		ig:ig_armed_forces ?= {
 			add_ideology = ideology_patriotic
@@ -1625,49 +1535,51 @@ ztr_russian_revolution.19 = {
 				set_ideology = ideology:ideology_vanguardist
 			}
 		}
-
 		every_scope_pop = {
 			limit = {
 				is_pop_type = laborers
 			}
 			add_movement_enthusiasm_modifier = yes
 		}
-
 		custom_tooltip = {
 			text = ztr_russian_communist_bolshevik_ideology_potential_tt
 			# This will enable some aspects only for Bolshevik ideology
 			# Hook futuro: svolta "rivoluzione mondiale" o "socialismo in un paese"
 			set_variable = ztr_bolshevik_ideology_var
 		}
-
 		ai_chance = {
 			base = 10
 			modifier = {
 				trigger = {
 					OR = {
-						NOT = { has_variable = russia_liberalist_path_var }
+						NOT = {
+							has_variable = russia_liberalist_path_var
+						}
 						# If Lenin is leading, Bolshevik path is preferred
 						scope:soviet_leader_character_scope = {
 							has_variable = lenin_var
 						}
 					}
 				}
-			add = 1000
+				add = 1000
 			}
 		}
 	}
-
 	# Percorso 2 , Linea Menscevica/Socialdemocratica (Repubblica parlamentare, tutele del lavoro)
 	option = {
 		name = ztr_first_soviet_congress_menshevik.option
 		ig:ig_trade_unions = {
 			if = {
-				limit = { NOT = { has_ideology = ideology:ideology_socialist } }
+				limit = {
+					NOT = {
+						has_ideology = ideology:ideology_socialist
+					}
+				}
 				add_ideology = ideology_socialist
 			}
 			leader = {
 				set_ideology = ideology:ideology_social_democrat
-			}			
+			}
 		}
 		ig:ig_intelligentsia ?= {
 			add_ideology = ideology_egalitarian_modern
@@ -1675,52 +1587,61 @@ ztr_russian_revolution.19 = {
 				set_ideology = ideology:ideology_reformer
 			}
 		}
-
 		custom_tooltip = {
 			text = ztr_russian_socialdemocrat_menshevik_ideology_potential_tt
 			# This will enable some aspects only for Menshevik ideology
 			# Hook futuro: svolta "repubblica parlamentare" o "democrazia sovietica"
 			set_variable = ztr_menshevik_ideology_var
 		}
-
 		ai_chance = {
 			base = 10
 			modifier = {
 				trigger = {
 					has_variable = russia_liberalist_path_var
-					NOT = { has_law = law_type:law_serfdom }
+					NOT = {
+						has_law_or_variant = law_type:law_serfdom
+					}
 					# Lenin is not leading
 					scope:soviet_leader_character_scope = {
-						NOT = { has_variable = lenin_var }
+						NOT = {
+							has_variable = lenin_var
+						}
 					}
 				}
-			add = 1000
+				add = 1000
 			}
 		}
 	}
-
 	# Percorso 3 , Linea SR di Sinistra / Agro-Socialista (Potere ai Soviet rurali, ridistribuzione agraria)
 	option = {
 		name = ztr_first_soviet_congress_left_sr.option
 		ig:ig_trade_unions = {
 			if = {
-				limit = { NOT = { has_ideology = ideology:ideology_socialist } }
+				limit = {
+					NOT = {
+						has_ideology = ideology:ideology_socialist
+					}
+				}
 				add_ideology = ideology_socialist
-				
 			}
 			leader = {
 				set_ideology = ideology:ideology_communist
-			}			
+			}
 		}
 		ig:ig_rural_folk = {
 			if = {
-				limit = { NOT = { has_ideology = ideology:ideology_socialist } }
+				limit = {
+					NOT = {
+						has_ideology = ideology:ideology_socialist
+					}
+				}
 				add_ideology = ideology_socialist
 				add_ideology = ideology_agrarian
 			}
-			leader = { set_ideology = ideology:ideology_communist }
+			leader = {
+				set_ideology = ideology:ideology_communist
+			}
 		}
-
 		custom_tooltip = {
 			text = ztr_russian_agro_socialist_ideology_potential_tt
 			# This will enable some aspects only for Agrarian-Socialist ideology
@@ -1733,48 +1654,42 @@ ztr_russian_revolution.19 = {
 				trigger = {
 					# Deve esistere la legge della servitù della gleba per avere linea agraria forte
 					has_variable = russia_liberalist_path_var
-					has_law = law_type:law_serfdom
+					has_law_or_variant = law_type:law_serfdom
 					# Lenin is not leading
 					scope:soviet_leader_character_scope = {
-						NOT = { has_variable = lenin_var }
+						NOT = {
+							has_variable = lenin_var
+						}
 					}
 				}
-			add = 1000
+				add = 1000
 			}
 		}
 	}
 }
 
-
 ztr_russian_revolution.1000 = {
 	dlc = dlc_tech_res
 	type = country_event
 	placement = root
-
 	duration = 1
-
 	title = ztr_russian_revolution_minorities_unrest.t
 	desc = ztr_russian_revolution_minorities_unrest.d
-
 	event_image = {
 		video = "europenorthamerica_capitalists_meeting"
 	}
-
 	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
-
 	icon = "gfx/interface/icons/event_icons/russia_group_flag.dds"
-
 	trigger = {
 	}
-
 	immediate = {
-		
 	}
-
 	# Calm the unrest
 	option = {
 		name = ztr_russian_revolution_minorities_unrest.option
 		default_option = yes
-		add_journal_entry = { type = ztr_je_russian_absolutism }
+		add_journal_entry = {
+			type = ztr_je_russian_absolutism
+		}
 	}
 }

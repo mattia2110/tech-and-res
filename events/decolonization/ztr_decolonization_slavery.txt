@@ -1,9 +1,7 @@
 namespace = ztr_decolonization_slavery
-
 ###########################################################
 # UN SLAVERY BAN REACTION EVENTS
 ###########################################################
-
 # Event 1: The Overlord's Slaves
 # The UN slavery ban forces the metropole to confront pre-colonial slavery
 # maintained by native overlords in colonial territories as a status quo
@@ -11,30 +9,28 @@ ztr_decolonization_slavery.1 = {
 	dlc = dlc_tech_res
 	type = country_event
 	placement = scope:overlord_slavery_state
-
 	event_image = {
 		video = "southamerica_slave_chains"
 	}
-
 	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
-
 	icon = "gfx/interface/icons/event_icons/event_scales.dds"
-
 	title = ztr_decolonization_slavery.1.t
 	desc = ztr_decolonization_slavery.1.d
-
 	duration = 3
-
 	trigger = {
 		has_game_rule = allow_ztr_decolonization_content
 		has_global_variable = ztr_un_hr_slavery
 		global_var:ztr_un_hr_slavery >= 1
 		ztr_is_un_member = yes
-		NOT = { has_variable = ztr_decol_slavery_overlord_cd }
-		has_law = law_type:law_slavery_banned
+		NOT = {
+			has_variable = ztr_decol_slavery_overlord_cd
+		}
+		has_law_or_variant = law_type:law_slavery_banned
 		any_scope_state = {
 			ztr_state_is_colonial = yes
-			NOT = { is_incorporated = yes }
+			NOT = {
+				is_incorporated = yes
+			}
 			OR = {
 				is_in_geographic_region = geographic_region_africa
 				is_in_geographic_region = geographic_region_middle_east
@@ -46,12 +42,13 @@ ztr_decolonization_slavery.1 = {
 		}
 		is_colonial_power = yes
 	}
-
 	immediate = {
 		random_scope_state = {
 			limit = {
 				ztr_state_is_colonial = yes
-				NOT = { is_incorporated = yes }
+				NOT = {
+					is_incorporated = yes
+				}
 				OR = {
 					is_in_geographic_region = geographic_region_africa
 					is_in_geographic_region = geographic_region_middle_east
@@ -64,13 +61,14 @@ ztr_decolonization_slavery.1 = {
 			save_scope_as = overlord_slavery_state
 		}
 	}
-
 	option = {
 		name = ztr_decolonization_slavery.1.a
 		ai_chance = {
 			base = 10
 			modifier = {
-				trigger = { ztr_is_democratic = yes }
+				trigger = {
+					ztr_is_democratic = yes
+				}
 				add = 20
 			}
 		}
@@ -97,7 +95,9 @@ ztr_decolonization_slavery.1 = {
 			}
 			every_scope_culture = {
 				limit = {
-					NOT = { is_primary_culture_of = root }
+					NOT = {
+						is_primary_culture_of = root
+					}
 					any_scope_state = {
 						is_homeland = prev
 						ztr_state_is_colonial = yes
@@ -108,7 +108,6 @@ ztr_decolonization_slavery.1 = {
 			}
 		}
 	}
-
 	option = {
 		name = ztr_decolonization_slavery.1.b
 		default_option = yes
@@ -147,7 +146,6 @@ ztr_decolonization_slavery.1 = {
 				years = 3
 			}
 		}
-			
 		#TODO Aggiungere modifier che migliora approval landowners di 5 per 120 mesi
 	}
 }
@@ -158,31 +156,29 @@ ztr_decolonization_slavery.2 = {
 	dlc = dlc_tech_res
 	type = country_event
 	placement = scope:liberation_state
-
 	event_image = {
 		video = "africa_public_protest"
 	}
-
 	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
-
 	icon = "gfx/interface/icons/event_icons/event_protest.dds"
-
 	title = ztr_decolonization_slavery.2.t
 	desc = ztr_decolonization_slavery.2.d
-
 	duration = 3
-
 	trigger = {
 		has_game_rule = allow_ztr_decolonization_content
 		has_global_variable = ztr_un_hr_slavery
 		global_var:ztr_un_hr_slavery >= 1
 		ztr_is_un_member = yes
-		NOT = { has_variable = ztr_decol_slavery_liberation_fired }
-		has_law = law_type:law_slavery_banned
+		NOT = {
+			has_variable = ztr_decol_slavery_liberation_fired
+		}
+		has_law_or_variant = law_type:law_slavery_banned
 		has_variable = ztr_recently_banned_slavery
 		any_scope_state = {
 			ztr_state_is_colonial = yes
-			NOT = { is_incorporated = yes }
+			NOT = {
+				is_incorporated = yes
+			}
 			OR = {
 				is_in_geographic_region = geographic_region_africa
 				is_in_geographic_region = geographic_region_middle_east
@@ -194,14 +190,15 @@ ztr_decolonization_slavery.2 = {
 			state_population > 50000
 		}
 	}
-
 	immediate = {
 		# One-time event
 		set_variable = ztr_decol_slavery_liberation_fired
 		random_scope_state = {
 			limit = {
 				ztr_state_is_colonial = yes
-				NOT = { is_incorporated = yes }
+				NOT = {
+					is_incorporated = yes
+				}
 				OR = {
 					is_in_geographic_region = geographic_region_africa
 					is_in_geographic_region = geographic_region_middle_east
@@ -216,17 +213,20 @@ ztr_decolonization_slavery.2 = {
 		}
 		define_ztr_gdp_dependent_cost = yes
 	}
-
 	option = {
 		name = ztr_decolonization_slavery.2.a
 		ai_chance = {
 			base = 10
 			modifier = {
-				trigger = { ztr_is_democratic = yes }
+				trigger = {
+					ztr_is_democratic = yes
+				}
 				add = 15
 			}
 			modifier = {
-				trigger = { scaled_debt > 0.5 }
+				trigger = {
+					scaled_debt > 0.5
+				}
 				multiply = 0.5
 			}
 		}
@@ -248,7 +248,6 @@ ztr_decolonization_slavery.2 = {
 			add = 3
 		}
 	}
-
 	option = {
 		name = ztr_decolonization_slavery.2.b
 		default_option = yes
@@ -280,30 +279,28 @@ ztr_decolonization_slavery.3 = {
 	dlc = dlc_tech_res
 	type = country_event
 	placement = scope:defiance_state
-
 	event_image = {
 		video = "middleeast_courtroom_upheaval"
 	}
-
 	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
-
 	icon = "gfx/interface/icons/event_icons/event_fire.dds"
-
 	title = ztr_decolonization_slavery.3.t
 	desc = ztr_decolonization_slavery.3.d
-
 	duration = 3
-
 	trigger = {
 		has_game_rule = allow_ztr_decolonization_content
 		has_global_variable = ztr_un_hr_slavery
 		global_var:ztr_un_hr_slavery >= 1
 		ztr_is_un_member = yes
-		NOT = { has_variable = ztr_decol_slavery_defiance_cd }
-		has_law = law_type:law_slavery_banned
+		NOT = {
+			has_variable = ztr_decol_slavery_defiance_cd
+		}
+		has_law_or_variant = law_type:law_slavery_banned
 		any_scope_state = {
 			ztr_state_is_colonial = yes
-			NOT = { is_incorporated = yes }
+			NOT = {
+				is_incorporated = yes
+			}
 			OR = {
 				is_in_geographic_region = geographic_region_africa
 				is_in_geographic_region = geographic_region_middle_east
@@ -319,7 +316,6 @@ ztr_decolonization_slavery.3 = {
 		# Requires the overlord's slaves event to have happened first
 		has_variable = ztr_decol_slavery_overlord_cd
 	}
-
 	immediate = {
 		set_variable = {
 			name = ztr_decol_slavery_defiance_cd
@@ -328,7 +324,9 @@ ztr_decolonization_slavery.3 = {
 		random_scope_state = {
 			limit = {
 				ztr_state_is_colonial = yes
-				NOT = { is_incorporated = yes }
+				NOT = {
+					is_incorporated = yes
+				}
 				OR = {
 					is_in_geographic_region = geographic_region_africa
 					is_in_geographic_region = geographic_region_middle_east
@@ -343,13 +341,14 @@ ztr_decolonization_slavery.3 = {
 			save_scope_as = defiance_state
 		}
 	}
-
 	option = {
 		name = ztr_decolonization_slavery.3.a
 		ai_chance = {
 			base = 10
 			modifier = {
-				trigger = { ztr_is_democratic = yes }
+				trigger = {
+					ztr_is_democratic = yes
+				}
 				add = 15
 			}
 		}
@@ -368,7 +367,6 @@ ztr_decolonization_slavery.3 = {
 			}
 		}
 	}
-
 	option = {
 		name = ztr_decolonization_slavery.3.b
 		default_option = yes
@@ -391,31 +389,29 @@ ztr_decolonization_slavery.4 = {
 	dlc = dlc_tech_res
 	type = country_event
 	placement = scope:freedmen_state
-
 	event_image = {
 		video = "europenorthamerica_springtime_of_nations"
 	}
-
 	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
-
 	icon = "gfx/interface/icons/event_icons/event_election.dds"
-
 	title = ztr_decolonization_slavery.4.t
 	desc = ztr_decolonization_slavery.4.d
-
 	duration = 3
-
 	trigger = {
 		has_game_rule = allow_ztr_decolonization_content
 		has_global_variable = ztr_un_hr_slavery
 		global_var:ztr_un_hr_slavery >= 1
 		ztr_is_un_member = yes
-		NOT = { has_variable = ztr_decol_slavery_freedmen_cd }
+		NOT = {
+			has_variable = ztr_decol_slavery_freedmen_cd
+		}
 		# Mass Liberation must have already happened
 		has_variable = ztr_decol_slavery_liberation_fired
 		any_scope_state = {
 			ztr_state_is_colonial = yes
-			NOT = { is_incorporated = yes }
+			NOT = {
+				is_incorporated = yes
+			}
 			OR = {
 				is_in_geographic_region = geographic_region_africa
 				is_in_geographic_region = geographic_region_middle_east
@@ -427,7 +423,6 @@ ztr_decolonization_slavery.4 = {
 		}
 		ztr_is_democratic = yes
 	}
-
 	immediate = {
 		set_variable = {
 			name = ztr_decol_slavery_freedmen_cd
@@ -436,7 +431,9 @@ ztr_decolonization_slavery.4 = {
 		random_scope_state = {
 			limit = {
 				ztr_state_is_colonial = yes
-				NOT = { is_incorporated = yes }
+				NOT = {
+					is_incorporated = yes
+				}
 				OR = {
 					is_in_geographic_region = geographic_region_africa
 					is_in_geographic_region = geographic_region_middle_east
@@ -450,16 +447,19 @@ ztr_decolonization_slavery.4 = {
 		}
 		define_ztr_gdp_dependent_cost = yes
 	}
-
 	option = {
 		name = ztr_decolonization_slavery.4.a
 		trigger = {
-			NOT = { has_law_or_variant = law_type:law_no_schools }
+			NOT = {
+				has_law_or_variant = law_type:law_no_schools
+			}
 		}
 		ai_chance = {
 			base = 5
 			modifier = {
-				trigger = { ztr_is_full_democratic = yes }
+				trigger = {
+					ztr_is_full_democratic = yes
+				}
 				add = 20
 			}
 		}
@@ -482,7 +482,6 @@ ztr_decolonization_slavery.4 = {
 			}
 		}
 	}
-
 	option = {
 		name = ztr_decolonization_slavery.4.b
 		default_option = yes

@@ -1,184 +1,19 @@
 # The Petroleum Production Company Nobel Brothers, Limited
-REPLACE:company_branobel = {
-	icon = "gfx/interface/icons/company_icons/historical_company_icons/russian_branobel.dds"
-	background = "gfx/interface/icons/company_icons/company_backgrounds/comp_illu_oil_drills.dds"
-
-	flavored_company = yes
-
-	preferred_headquarters = { STATE_AZERBAIJAN }
-
-	building_types = {
-		building_oil_rig
-	}
-
+INJECT:company_branobel = {
 	extension_building_types = {
-		building_power_plant
 		building_mendelejew_hydrogenation_plants
 	}
-
-	possible_prestige_goods = {
-		prestige_good_baku_oil
-	}
-
-	potential = {
-		has_interest_marker_in_region = region_caucasus
-	}
-
-	attainable = {
-		hidden_trigger = { # Hide attainable if it's always fulfilled by possible
-			any_scope_state = {
-				state_region = s:STATE_AZERBAIJAN
-			}
-		}
-	}
-
-	possible = {
-		has_technology_researched = pumpjacks
-		any_scope_state = {
-			state_region = s:STATE_AZERBAIJAN
-			any_scope_building = {
-				is_building_type = building_oil_rig
-				level >= 5
-			}
-		}
-	}
-
 	prosperity_modifier = {
-		state_migration_pull_mult = 0.1
 		building_group_bg_oil_extraction_throughput_add = 0.1
 		building_mendelejew_hydrogenation_plants_throughput_add = -0.05
-	}
-
-	ai_will_do = {
-		has_technology_researched = pumpjacks
-		any_scope_state = {
-			state_region = s:STATE_AZERBAIJAN
-		}
-	}
-
-	ai_construction_targets = {
-		building_oil_rig = {
-			level = 5
-			state_trigger = {
-				state_region = s:STATE_AZERBAIJAN
-			}
-		}
-	}
-
-	ai_weight = {
-		value = 2 # Higher base value for flavored companies
+		building_railway_throughput_add = -0.05
 	}
 }
 
 # New Russia Company Limited
-REPLACE:company_john_hughes = {
-	icon = "gfx/interface/icons/company_icons/historical_company_icons/russian_new_russia_company.dds"
-	background = "gfx/interface/icons/company_icons/company_backgrounds/comp_illu_mining.dds"
-
-	flavored_company = yes
-
-	preferred_headquarters = { STATE_KHARKOV STATE_TAURIDA }
-
-	building_types = {
-		building_steel_mill
-		building_coal_mine
-		building_iron_mine
-	}
-
+INJECT:company_john_hughes = {
 	extension_building_types = {
-		building_railway
 		building_copper_mine
 		building_commonores_mine
-	}
-
-	possible_prestige_goods = {
-		prestige_good_russia_iron
-	}
-
-	potential = {
-		has_interest_marker_in_region = region_dnieper
-	}
-
-	attainable = {
-		hidden_trigger = { # Hide attainable if it's always fulfilled by possible
-			any_scope_state = {
-				OR = {
-					state_region = s:STATE_KHARKOV
-					state_region = s:STATE_TAURIDA
-				}
-			}
-		}
-	}
-
-	possible = {
-		has_technology_researched = bessemer_process
-		any_scope_state = {
-			OR = {
-				state_region = s:STATE_KHARKOV
-				state_region = s:STATE_TAURIDA
-			}
-			is_incorporated = yes
-			any_scope_building = {
-				OR = {
-					is_building_type = building_steel_mill
-					is_building_type = building_coal_mine
-					is_building_type = building_iron_mine
-				}
-				level >= 5
-			}
-		}
-	}
-
-	prosperity_modifier = {
-		building_railway_throughput_add = 0.1
-		interest_group_ig_industrialists_approval_add = 2
-	}
-
-	ai_will_do = {
-		has_technology_researched = bessemer_process
-		any_scope_state = {
-			OR = {
-				state_region = s:STATE_KHARKOV
-				state_region = s:STATE_TAURIDA
-			}
-			is_incorporated = yes
-		}
-	}
-
-	ai_construction_targets = {
-		building_steel_mill = {
-			level = 5
-			state_trigger = {
-				OR = {
-					state_region = s:STATE_KHARKOV
-					state_region = s:STATE_TAURIDA
-				}
-				is_incorporated = yes
-			}
-		}
-		building_coal_mine = {
-			level = 5
-			state_trigger = {
-				OR = {
-					state_region = s:STATE_KHARKOV
-					state_region = s:STATE_TAURIDA
-				}
-				is_incorporated = yes
-			}
-		}
-		building_iron_mine = {
-			level = 5
-			state_trigger = {
-				OR = {
-					state_region = s:STATE_KHARKOV
-					state_region = s:STATE_TAURIDA
-				}
-				is_incorporated = yes
-			}
-		}
-	}
-
-	ai_weight = {
-		value = 3 # Higher base value for flavored companies
 	}
 }

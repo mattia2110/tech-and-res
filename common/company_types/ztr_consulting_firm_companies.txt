@@ -1,0 +1,339 @@
+# Companies in this file
+# Generic Consulting Firm (dynamic, unlocked by market_studies)
+# Deloitte         - United Kingdom
+# McKinsey & Co.   - United States
+# Roland Berger    - Germany
+# Capgemini        - France
+# Nomura Research  - Japan
+# Deloitte - United Kingdom (London / Home Counties)
+# Big Four audit and advisory firm; clients concentrated in finance,
+# healthcare, public administration and corporate offices.
+company_deloitte = {
+	icon = "gfx/interface/icons/company_icons/historical_company_icons/english_deloitte_icon.dds"
+	background = "gfx/interface/icons/company_icons/company_backgrounds/comp_illu_publishing.dds"
+	flavored_company = yes
+	preferred_headquarters = {
+		STATE_HOME_COUNTIES
+	}
+	building_types = {
+		building_office
+	}
+	# extension_building_types = {
+	# 	building_pharmaceuticals_industry
+	# 	building_paper_mill
+	# }
+	potential = {
+		has_interest_marker_in_region = sr:region_western_europe
+	}
+	attainable = {
+		hidden_trigger = {
+			any_scope_state = {
+				state_region = s:STATE_HOME_COUNTIES
+			}
+		}
+	}
+	possible = {
+		has_technology_researched = market_studies
+		any_scope_state = {
+			state_region = s:STATE_HOME_COUNTIES
+			is_incorporated = yes
+			any_scope_building = {
+				is_building_type = building_office
+				level >= 3
+			}
+		}
+	}
+	prosperity_modifier = {
+		state_pop_qualifications_mult = 0.1
+		building_pharmaceuticals_industry_throughput_add = 0.05
+		country_bureaucracy_investment_cost_factor_mult = -0.15
+	}
+	ai_will_do = {
+		has_technology_researched = market_studies
+		any_scope_state = {
+			state_region = s:STATE_HOME_COUNTIES
+			is_incorporated = yes
+		}
+	}
+	ai_construction_targets = {
+		building_office = {
+			level = 5
+			state_trigger = {
+				state_region = s:STATE_HOME_COUNTIES
+			}
+		}
+	}
+	ai_weight = {
+		value = 5
+	}
+}
+
+# McKinsey & Company - United States (Chicago founding, New York HQ)
+# Strategy consultancy serving heavy industry, motors, pharma and the
+# wider corporate sector worldwide.
+company_mckinsey = {
+	icon = "gfx/interface/icons/company_icons/historical_company_icons/american_mckinsey_icon.dds"
+	background = "gfx/interface/icons/company_icons/company_backgrounds/comp_illu_publishing.dds"
+	flavored_company = yes
+	preferred_headquarters = {
+		STATE_NEW_YORK
+		STATE_ILLINOIS
+	}
+	building_types = {
+		building_office
+	}
+	# extension_building_types = {
+	# 	building_motor_industry
+	# 	building_steel_mills
+	# 	building_pharmaceuticals_industry
+	# }
+	potential = {
+		has_interest_marker_in_region = sr:region_atlantic_coast
+	}
+	attainable = {
+		hidden_trigger = {
+			any_scope_state = {
+				OR = {
+					state_region = s:STATE_NEW_YORK
+					state_region = s:STATE_ILLINOIS
+				}
+			}
+		}
+	}
+	possible = {
+		has_technology_researched = market_studies
+		any_scope_state = {
+			OR = {
+				state_region = s:STATE_NEW_YORK
+				state_region = s:STATE_ILLINOIS
+			}
+			is_incorporated = yes
+			any_scope_building = {
+				is_building_type = building_office
+				level >= 3
+			}
+		}
+	}
+	prosperity_modifier = {
+		state_pop_qualifications_mult = 0.1
+		state_capitalists_investment_pool_efficiency_mult = 0.02
+		building_pharmaceuticals_industry_throughput_add = 0.05
+	}
+	ai_will_do = {
+		has_technology_researched = market_studies
+		any_scope_state = {
+			OR = {
+				state_region = s:STATE_NEW_YORK
+				state_region = s:STATE_ILLINOIS
+			}
+			is_incorporated = yes
+		}
+	}
+	ai_construction_targets = {
+		building_office = {
+			level = 5
+			state_trigger = {
+				OR = {
+					state_region = s:STATE_NEW_YORK
+					state_region = s:STATE_ILLINOIS
+				}
+			}
+		}
+	}
+	ai_weight = {
+		value = 5
+	}
+}
+
+# Roland Berger - Germany (Munich / Bavaria)
+# Continental European strategy house; flagship clients in automotive,
+# heavy chemicals, steel and industrial electronics.
+company_roland_berger = {
+	icon = "gfx/interface/icons/company_icons/historical_company_icons/german_roland_berger_icon.dds"
+	background = "gfx/interface/icons/company_icons/company_backgrounds/comp_illu_publishing.dds"
+	flavored_company = yes
+	preferred_headquarters = {
+		STATE_BAVARIA
+	}
+	building_types = {
+		building_office
+	}
+	# extension_building_types = {
+	# 	building_motor_industry
+	# 	building_chemical_plant
+	# 	building_electrics_industry
+	# }
+	potential = {
+		has_interest_marker_in_region = sr:region_central_europe
+	}
+	attainable = {
+		hidden_trigger = {
+			any_scope_state = {
+				state_region = s:STATE_BAVARIA
+			}
+		}
+	}
+	possible = {
+		has_technology_researched = market_studies
+		any_scope_state = {
+			state_region = s:STATE_BAVARIA
+			is_incorporated = yes
+			any_scope_building = {
+				is_building_type = building_office
+				level >= 3
+			}
+		}
+	}
+	prosperity_modifier = {
+		building_motor_industry_throughput_add = 0.05
+		building_chemical_plant_throughput_add = 0.05
+		country_bureaucracy_investment_cost_factor_mult = -0.1
+	}
+	ai_will_do = {
+		has_technology_researched = market_studies
+		any_scope_state = {
+			state_region = s:STATE_BAVARIA
+			is_incorporated = yes
+		}
+	}
+	ai_construction_targets = {
+		building_office = {
+			level = 5
+			state_trigger = {
+				state_region = s:STATE_BAVARIA
+			}
+		}
+	}
+	ai_weight = {
+		value = 5
+	}
+}
+
+# Capgemini - France (Paris / Ile-de-France)
+# Tech and digital services consultancy; clients in software, datacenters,
+# aerospace and telecommunications.
+company_capgemini = {
+	icon = "gfx/interface/icons/company_icons/historical_company_icons/french_capgemini_icon.dds"
+	background = "gfx/interface/icons/company_icons/company_backgrounds/comp_illu_publishing.dds"
+	flavored_company = yes
+	preferred_headquarters = {
+		STATE_ILE_DE_FRANCE
+	}
+	building_types = {
+		building_office
+	}
+	# extension_building_types = {
+	# 	building_software_industry
+	# 	building_datacenter_industry
+	# 	building_aircraft_industry
+	# }
+	potential = {
+		has_interest_marker_in_region = sr:region_western_europe
+	}
+	attainable = {
+		hidden_trigger = {
+			any_scope_state = {
+				state_region = s:STATE_ILE_DE_FRANCE
+			}
+		}
+	}
+	possible = {
+		has_technology_researched = market_studies
+		any_scope_state = {
+			state_region = s:STATE_ILE_DE_FRANCE
+			is_incorporated = yes
+			any_scope_building = {
+				is_building_type = building_office
+				level >= 3
+			}
+		}
+	}
+	prosperity_modifier = {
+		building_software_industry_throughput_add = 0.05
+		building_aircraft_industry_throughput_add = 0.05
+		country_bureaucracy_investment_cost_factor_mult = -0.1
+	}
+	ai_will_do = {
+		has_technology_researched = market_studies
+		any_scope_state = {
+			state_region = s:STATE_ILE_DE_FRANCE
+			is_incorporated = yes
+		}
+	}
+	ai_construction_targets = {
+		building_office = {
+			level = 5
+			state_trigger = {
+				state_region = s:STATE_ILE_DE_FRANCE
+			}
+		}
+	}
+	ai_weight = {
+		value = 5
+	}
+}
+
+# Nomura Research Institute - Japan (Tokyo / Kanto)
+# Largest Japanese consultancy and IT services firm; clients in consumer
+# electronics, motors, the wider electronics supply chain and corporate
+# administration.
+company_nri_nomura = {
+	icon = "gfx/interface/icons/company_icons/historical_company_icons/japanese_nomura_icon.dds"
+	background = "gfx/interface/icons/company_icons/company_backgrounds/comp_illu_publishing.dds"
+	flavored_company = yes
+	preferred_headquarters = {
+		STATE_KANTO
+	}
+	building_types = {
+		building_office
+	}
+	extension_building_types = {
+		building_consumer_electronics_industry
+		building_electronics_industry
+		building_motor_industry
+	}
+	potential = {
+		has_interest_marker_in_region = sr:region_northeast_asia
+	}
+	attainable = {
+		hidden_trigger = {
+			any_scope_state = {
+				state_region = s:STATE_KANTO
+			}
+		}
+	}
+	possible = {
+		has_technology_researched = market_studies
+		any_scope_state = {
+			state_region = s:STATE_KANTO
+			is_incorporated = yes
+			any_scope_building = {
+				is_building_type = building_office
+				level >= 3
+			}
+		}
+	}
+	prosperity_modifier = {
+		building_electronics_industry_throughput_add = 0.05
+		building_motor_industry_throughput_add = 0.05
+		country_bureaucracy_investment_cost_factor_mult = -0.1
+	}
+	ai_will_do = {
+		has_technology_researched = market_studies
+		any_scope_state = {
+			state_region = s:STATE_KANTO
+			is_incorporated = yes
+		}
+	}
+	ai_construction_targets = {
+		building_office = {
+			level = 5
+			state_trigger = {
+				state_region = s:STATE_KANTO
+			}
+		}
+	}
+	ai_weight = {
+		value = 5
+	}
+}

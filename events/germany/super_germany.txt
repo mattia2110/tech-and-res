@@ -1,27 +1,23 @@
 namespace = ztr_super_germany
-
 # In order to nerf Super Germany (Aka Prussia + Austria), we trigger this event in which ex-Austrian Empire other cultures asks for higher autonomy, or civil war
 ztr_super_germany.1 = {
 	dlc = dlc_tech_res
 	type = country_event
 	placement = root
-
 	duration = 1
-
 	title = ztr_super_germany.1.t
 	desc = ztr_super_germany.1.d
-
 	event_image = {
 		video = "europenorthamerica_springtime_of_nations"
 	}
-
 	icon = "gfx/interface/icons/event_icons/event_newspaper.dds"
-
 	trigger = {
 		year > 1915
 		exists = c:GER
 		c:GER = root
-		NOT = { exists = c:AUS }
+		NOT = {
+			exists = c:AUS
+		}
 		OR = {
 			s:STATE_LOMBARDY = {
 				any_scope_state = {
@@ -69,36 +65,39 @@ ztr_super_germany.1 = {
 				}
 			}
 		}
-		NOT = { has_variable = ztr_super_germany_sphere_var }
+		NOT = {
+			has_variable = ztr_super_germany_sphere_var
+		}
 		has_game_rule = allow_ztr_historical_content
 	}
-
 	immediate = {
 		# Create the sphere variable
 		set_variable = {
-			name  = ztr_super_germany_sphere_var
+			name = ztr_super_germany_sphere_var
 			value = 1
 		}
 		c:GER = {
 			save_scope_as = ztr_super_germany_scope
 		}
 	}
-
 	# Total Acceptance
 	option = {
 		name = ztr_super_germany.1.a
 		ai_chance = {
 			base = 4
 		}
-
 		# Slovakia
 		if = {
 			limit = {
 				OR = {
-					NOT = { exists = c:SLV }
+					NOT = {
+						exists = c:SLV
+					}
 					AND = {
 						exists = c:SLV
-						c:SLV = { overlord = c:GER }
+						c:SLV = {
+							overlord = c:GER
+						}
 					}
 				}
 			}
@@ -113,15 +112,18 @@ ztr_super_germany.1 = {
 				}
 			}
 		}
-
 		# Galicia
 		if = {
 			limit = {
 				OR = {
-					NOT = { exists = c:GAL }
+					NOT = {
+						exists = c:GAL
+					}
 					AND = {
 						exists = c:GAL
-						c:GAL = { overlord = c:GER }
+						c:GAL = {
+							overlord = c:GER
+						}
 					}
 				}
 			}
@@ -139,15 +141,18 @@ ztr_super_germany.1 = {
 				}
 			}
 		}
-
 		# Hungary
 		if = {
 			limit = {
 				OR = {
-					NOT = { exists = c:HUN }
+					NOT = {
+						exists = c:HUN
+					}
 					AND = {
 						exists = c:HUN
-						c:HUN = { overlord = c:GER }
+						c:HUN = {
+							overlord = c:GER
+						}
 					}
 				}
 			}
@@ -165,15 +170,18 @@ ztr_super_germany.1 = {
 				}
 			}
 		}
-
 		#Croatia
 		if = {
 			limit = {
 				OR = {
-					NOT = { exists = c:CRO }
+					NOT = {
+						exists = c:CRO
+					}
 					AND = {
 						exists = c:CRO
-						c:CRO = { overlord = c:GER }
+						c:CRO = {
+							overlord = c:GER
+						}
 					}
 				}
 			}
@@ -191,15 +199,18 @@ ztr_super_germany.1 = {
 				}
 			}
 		}
-
 		#Venetian Republic
 		if = {
 			limit = {
 				OR = {
-					NOT = { exists = c:VEN }
+					NOT = {
+						exists = c:VEN
+					}
 					AND = {
 						exists = c:VEN
-						c:VEN = { overlord = c:GER }
+						c:VEN = {
+							overlord = c:GER
+						}
 					}
 				}
 			}
@@ -218,22 +229,24 @@ ztr_super_germany.1 = {
 			}
 		}
 	}
-
 	# Acceptance but not Northern Italy
 	option = {
 		name = ztr_super_germany.1.b
 		ai_chance = {
 			base = 6
 		}
-
 		# Slovakia
 		if = {
 			limit = {
 				OR = {
-					NOT = { exists = c:SLV }
+					NOT = {
+						exists = c:SLV
+					}
 					AND = {
 						exists = c:SLV
-						c:SLV = { overlord = c:GER }
+						c:SLV = {
+							overlord = c:GER
+						}
 					}
 				}
 			}
@@ -248,15 +261,18 @@ ztr_super_germany.1 = {
 				}
 			}
 		}
-
 		# Galicia
 		if = {
 			limit = {
 				OR = {
-					NOT = { exists = c:GAL }
+					NOT = {
+						exists = c:GAL
+					}
 					AND = {
 						exists = c:GAL
-						c:GAL = { overlord = c:GER }
+						c:GAL = {
+							overlord = c:GER
+						}
 					}
 				}
 			}
@@ -274,15 +290,18 @@ ztr_super_germany.1 = {
 				}
 			}
 		}
-
 		# Hungary
 		if = {
 			limit = {
 				OR = {
-					NOT = { exists = c:HUN }
+					NOT = {
+						exists = c:HUN
+					}
 					AND = {
 						exists = c:HUN
-						c:HUN = { overlord = c:GER }
+						c:HUN = {
+							overlord = c:GER
+						}
 					}
 				}
 			}
@@ -300,15 +319,18 @@ ztr_super_germany.1 = {
 				}
 			}
 		}
-
 		#Croatia
 		if = {
 			limit = {
 				OR = {
-					NOT = { exists = c:CRO }
+					NOT = {
+						exists = c:CRO
+					}
 					AND = {
 						exists = c:CRO
-						c:CRO = { overlord = c:GER }
+						c:CRO = {
+							overlord = c:GER
+						}
 					}
 				}
 			}
@@ -327,11 +349,10 @@ ztr_super_germany.1 = {
 			}
 		}
 		add_radicals = {
-			value   = 0.4
+			value = 0.4
 			culture = cu:north_italian
 		}
 	}
-
 	# Refusal
 	option = {
 		name = ztr_super_germany.1.c
@@ -341,11 +362,13 @@ ztr_super_germany.1 = {
 		}
 		if = {
 			limit = {
-				NOT = { has_variable = ztr_super_germany_sphere_refused_var }
+				NOT = {
+					has_variable = ztr_super_germany_sphere_refused_var
+				}
 			}
 			if = {
 				limit = {
-					has_law = law_type:law_multicultural
+					has_law_or_variant = law_type:law_multicultural
 				}
 				change_infamy = 15
 			}
@@ -354,39 +377,39 @@ ztr_super_germany.1 = {
 			}
 			# Radicalizza gli ungheresi
 			add_radicals = {
-				value   = 0.25
+				value = 0.25
 				culture = cu:hungarian
 			}
 			add_radicals = {
-				value   = 0.25
+				value = 0.25
 				culture = cu:serb
 			}
 			add_radicals = {
-				value   = 0.25
+				value = 0.25
 				culture = cu:croat
 			}
 			add_radicals = {
-				value   = 0.25
+				value = 0.25
 				culture = cu:north_italian
 			}
 			add_radicals = {
-				value   = 0.25
+				value = 0.25
 				culture = cu:slovak
 			}
 			add_radicals = {
-				value   = 0.25
+				value = 0.25
 				culture = cu:polish
 			}
 			add_radicals = {
-				value   = 0.25
+				value = 0.25
 				culture = cu:ukrainian
 			}
 			add_radicals = {
-				value   = 0.25
+				value = 0.25
 				culture = cu:romanian
 			}
 			set_variable = {
-				name  = ztr_super_germany_sphere_refused_var
+				name = ztr_super_germany_sphere_refused_var
 				value = 1
 			}
 		}
@@ -397,44 +420,40 @@ ztr_super_germany.2 = {
 	dlc = dlc_tech_res
 	type = country_event
 	placement = root
-
 	duration = 1
-
 	title = ztr_super_germany.2.t
 	desc = ztr_super_germany.2.d
-
 	event_image = {
 		video = "europenorthamerica_springtime_of_nations"
 	}
-
 	icon = "gfx/interface/icons/event_icons/event_newspaper.dds"
-
 	trigger = {
-	# Decision
+		# Decision
 	}
-
 	immediate = {
 		# Create the sphere variable
 		c:GER = {
 			save_scope_as = ztr_super_germany_scope
 		}
 	}
-
 	# Total Acceptance
 	option = {
 		name = ztr_super_germany.2.a
 		ai_chance = {
 			base = 4
 		}
-
 		# Slovakia
 		if = {
 			limit = {
 				OR = {
-					NOT = { exists = c:SLV }
+					NOT = {
+						exists = c:SLV
+					}
 					AND = {
 						exists = c:SLV
-						c:SLV = { overlord = c:GER }
+						c:SLV = {
+							overlord = c:GER
+						}
 					}
 				}
 			}
@@ -449,15 +468,18 @@ ztr_super_germany.2 = {
 				}
 			}
 		}
-
 		# Galicia
 		if = {
 			limit = {
 				OR = {
-					NOT = { exists = c:GAL }
+					NOT = {
+						exists = c:GAL
+					}
 					AND = {
 						exists = c:GAL
-						c:GAL = { overlord = c:GER }
+						c:GAL = {
+							overlord = c:GER
+						}
 					}
 				}
 			}
@@ -475,15 +497,18 @@ ztr_super_germany.2 = {
 				}
 			}
 		}
-
 		# Hungary
 		if = {
 			limit = {
 				OR = {
-					NOT = { exists = c:HUN }
+					NOT = {
+						exists = c:HUN
+					}
 					AND = {
 						exists = c:HUN
-						c:HUN = { overlord = c:GER }
+						c:HUN = {
+							overlord = c:GER
+						}
 					}
 				}
 			}
@@ -501,15 +526,18 @@ ztr_super_germany.2 = {
 				}
 			}
 		}
-
 		#Croatia
 		if = {
 			limit = {
 				OR = {
-					NOT = { exists = c:CRO }
+					NOT = {
+						exists = c:CRO
+					}
 					AND = {
 						exists = c:CRO
-						c:CRO = { overlord = c:GER }
+						c:CRO = {
+							overlord = c:GER
+						}
 					}
 				}
 			}
@@ -527,15 +555,18 @@ ztr_super_germany.2 = {
 				}
 			}
 		}
-
 		#Venetian Republic
 		if = {
 			limit = {
 				OR = {
-					NOT = { exists = c:VEN }
+					NOT = {
+						exists = c:VEN
+					}
 					AND = {
 						exists = c:VEN
-						c:VEN = { overlord = c:GER }
+						c:VEN = {
+							overlord = c:GER
+						}
 					}
 				}
 			}
@@ -554,22 +585,24 @@ ztr_super_germany.2 = {
 			}
 		}
 	}
-
 	# Acceptance but not Northern Italy
 	option = {
 		name = ztr_super_germany.2.b
 		ai_chance = {
 			base = 6
 		}
-
 		# Slovakia
 		if = {
 			limit = {
 				OR = {
-					NOT = { exists = c:SLV }
+					NOT = {
+						exists = c:SLV
+					}
 					AND = {
 						exists = c:SLV
-						c:SLV = { overlord = c:GER }
+						c:SLV = {
+							overlord = c:GER
+						}
 					}
 				}
 			}
@@ -584,15 +617,18 @@ ztr_super_germany.2 = {
 				}
 			}
 		}
-
 		# Galicia
 		if = {
 			limit = {
 				OR = {
-					NOT = { exists = c:GAL }
+					NOT = {
+						exists = c:GAL
+					}
 					AND = {
 						exists = c:GAL
-						c:GAL = { overlord = c:GER }
+						c:GAL = {
+							overlord = c:GER
+						}
 					}
 				}
 			}
@@ -610,15 +646,18 @@ ztr_super_germany.2 = {
 				}
 			}
 		}
-
 		# Hungary
 		if = {
 			limit = {
 				OR = {
-					NOT = { exists = c:HUN }
+					NOT = {
+						exists = c:HUN
+					}
 					AND = {
 						exists = c:HUN
-						c:HUN = { overlord = c:GER }
+						c:HUN = {
+							overlord = c:GER
+						}
 					}
 				}
 			}
@@ -636,15 +675,18 @@ ztr_super_germany.2 = {
 				}
 			}
 		}
-
 		#Croatia
 		if = {
 			limit = {
 				OR = {
-					NOT = { exists = c:CRO }
+					NOT = {
+						exists = c:CRO
+					}
 					AND = {
 						exists = c:CRO
-						c:CRO = { overlord = c:GER }
+						c:CRO = {
+							overlord = c:GER
+						}
 					}
 				}
 			}
@@ -663,11 +705,10 @@ ztr_super_germany.2 = {
 			}
 		}
 		add_radicals = {
-			value   = 0.4
+			value = 0.4
 			culture = cu:north_italian
 		}
 	}
-
 	# Refusal
 	option = {
 		name = ztr_super_germany.2.c
@@ -677,11 +718,13 @@ ztr_super_germany.2 = {
 		}
 		if = {
 			limit = {
-				NOT = { has_variable = ztr_super_germany_sphere_refused_var }
+				NOT = {
+					has_variable = ztr_super_germany_sphere_refused_var
+				}
 			}
 			if = {
 				limit = {
-					has_law = law_type:law_multicultural
+					has_law_or_variant = law_type:law_multicultural
 				}
 				change_infamy = 15
 			}
@@ -690,39 +733,39 @@ ztr_super_germany.2 = {
 			}
 			# Radicalizza gli ungheresi
 			add_radicals = {
-				value   = 0.25
+				value = 0.25
 				culture = cu:hungarian
 			}
 			add_radicals = {
-				value   = 0.25
+				value = 0.25
 				culture = cu:serb
 			}
 			add_radicals = {
-				value   = 0.25
+				value = 0.25
 				culture = cu:croat
 			}
 			add_radicals = {
-				value   = 0.25
+				value = 0.25
 				culture = cu:north_italian
 			}
 			add_radicals = {
-				value   = 0.25
+				value = 0.25
 				culture = cu:slovak
 			}
 			add_radicals = {
-				value   = 0.25
+				value = 0.25
 				culture = cu:polish
 			}
 			add_radicals = {
-				value   = 0.25
+				value = 0.25
 				culture = cu:ukrainian
 			}
 			add_radicals = {
-				value   = 0.25
+				value = 0.25
 				culture = cu:romanian
 			}
 			set_variable = {
-				name  = ztr_super_germany_sphere_refused_var
+				name = ztr_super_germany_sphere_refused_var
 				value = 1
 			}
 		}

@@ -9,46 +9,39 @@
 # CD Projekt
 # Codemasters
 # Electronic Arts
-
 # Nintendo
-
 company_nintendo = {
 	icon = "gfx/interface/icons/company_icons/historical_company_icons/japanese_nintendo.dds"
 	background = "gfx/interface/icons/company_icons/company_backgrounds/comp_illu_tech.dds"
-
 	flavored_company = yes
-
-	preferred_headquarters = { STATE_KANSAI }
-
+	preferred_headquarters = {
+		STATE_KYOTO
+	}
 	building_types = {
 		building_paper_mill
 		building_interactive_media_industry
 	}
-
 	extension_building_types = {
 		building_elgar_opera
 	}
-
 	possible_prestige_goods = {
-		prestige_good_nintendo_consoles # Nintendo TV are consoles
+		prestige_good_nintendo_consoles		# Nintendo TV are consoles
 	}
-
 	potential = {
-		has_interest_marker_in_region = region_japan
+		has_interest_marker_in_region = sr:region_northeast_asia
 	}
-
 	attainable = {
-		hidden_trigger = { # Hide attainable if it's always fulfilled by possible
+		hidden_trigger = {
+			# Hide attainable if it's always fulfilled by possible
 			any_scope_state = {
-				state_region = s:STATE_KANSAI
+				state_region = s:STATE_KYOTO
 			}
 		}
 	}
-
 	possible = {
 		has_technology_researched = chemical_bleaching
 		any_scope_state = {
-			state_region = s:STATE_KANSAI
+			state_region = s:STATE_KYOTO
 			is_incorporated = yes
 			any_scope_building = {
 				is_building_type = building_paper_mill
@@ -56,68 +49,59 @@ company_nintendo = {
 			}
 		}
 	}
-
 	prosperity_modifier = {
 		goods_output_televisions_mult = 0.1
 		country_prestige_mult = 0.05
 	}
-
 	ai_will_do = {
 		has_technology_researched = chemical_bleaching
 		any_scope_state = {
-			state_region = s:STATE_KANSAI
+			state_region = s:STATE_KYOTO
 			is_incorporated = yes
 		}
 	}
-
 	ai_construction_targets = {
 		building_paper_mill = {
 			level = 5
 			state_trigger = {
-				state_region = s:STATE_KANSAI
+				state_region = s:STATE_KYOTO
 			}
 		}
 	}
-
 	ai_weight = {
-		value = 4 # Higher base value for flavored companies
+		value = 4		# Higher base value for flavored companies
 	}
 }
 
 # Atari, it is american but now is french
-
 company_atari = {
 	icon = "gfx/interface/icons/company_icons/historical_company_icons/american_atari.dds"
 	background = "gfx/interface/icons/company_icons/company_backgrounds/comp_illu_tech.dds"
-
 	flavored_company = yes
-
-	preferred_headquarters = { STATE_CALIFORNIA STATE_NEW_YORK }
-
+	preferred_headquarters = {
+		STATE_CALIFORNIA
+		STATE_NEW_YORK
+	}
 	building_types = {
 		building_interactive_media_industry
 	}
-
 	extension_building_types = {
 		building_computer_assembly_plant
 	}
-
 	possible_prestige_goods = {
 		prestige_good_atari_consoles
 	}
-
 	potential = {
-		has_interest_marker_in_region = region_new_england
+		has_interest_marker_in_region = sr:region_atlantic_coast
 	}
-
 	attainable = {
-		hidden_trigger = { # Hide attainable if it's always fulfilled by possible
+		hidden_trigger = {
+			# Hide attainable if it's always fulfilled by possible
 			any_scope_state = {
 				state_region = s:STATE_NEW_YORK
 			}
 		}
 	}
-
 	possible = {
 		has_technology_researched = videogames
 		any_scope_state = {
@@ -130,12 +114,10 @@ company_atari = {
 		}
 		year < 1990
 	}
-
 	prosperity_modifier = {
 		building_processors_foundry_throughput_add = 0.05
 		building_telecommunications_industry_throughput_add = 0.05
 	}
-
 	ai_will_do = {
 		has_technology_researched = videogames
 		any_scope_state = {
@@ -143,7 +125,6 @@ company_atari = {
 			is_incorporated = yes
 		}
 	}
-
 	ai_construction_targets = {
 		building_interactive_media_industry = {
 			level = 5
@@ -152,47 +133,40 @@ company_atari = {
 			}
 		}
 	}
-
 	ai_weight = {
-		value = 4 # Higher base value for flavored companies
+		value = 4		# Higher base value for flavored companies
 	}
 }
 
 # Valve
-
 company_valve = {
 	icon = "gfx/interface/icons/company_icons/historical_company_icons/american_valve.dds"
 	background = "gfx/interface/icons/company_icons/company_backgrounds/comp_illu_tech.dds"
-
 	flavored_company = yes
-
-	preferred_headquarters = { STATE_WASHINGTON }
-
+	preferred_headquarters = {
+		STATE_WASHINGTON
+	}
 	building_types = {
 		building_interactive_media_industry
-		building_telecommunications_industry # Steam
+		building_telecommunications_industry		# Steam
 	}
-
 	extension_building_types = {
 		building_datacenter_industry
 	}
-
 	# possible_prestige_goods = {
 	# 	prestige_good_videogames
 	# }
-
 	potential = {
-		has_interest_marker_in_region = region_pacific_coast
+		has_interest_marker_in_region = sr:region_pacific_coast
 	}
-
 	attainable = {
-		hidden_trigger = { # Hide attainable if it's always fulfilled by possible
+		hidden_trigger = {
+			# Hide attainable if it's always fulfilled by possible
 			any_scope_state = {
 				state_region = s:STATE_WASHINGTON
 			}
 		}
 	}
-
 	possible = {
 		has_technology_researched = interactive_media
 		any_scope_state = {
@@ -205,12 +179,10 @@ company_valve = {
 		}
 		year > 1988
 	}
-
 	prosperity_modifier = {
-		building_computer_assembly_plant_throughput_add = 0.1 # Steam needs PC
-		building_interactive_media_industry_throughput_add = 0.1 # Valve is a digital distribution platform
+		building_computer_assembly_plant_throughput_add = 0.1		# Steam needs PC
+		building_interactive_media_industry_throughput_add = 0.1		# Valve is a digital distribution platform
 	}
-
 	ai_will_do = {
 		has_technology_researched = interactive_media
 		any_scope_state = {
@@ -218,7 +190,6 @@ company_valve = {
 			is_incorporated = yes
 		}
 	}
-
 	ai_construction_targets = {
 		building_interactive_media_industry = {
 			level = 5
@@ -227,46 +198,39 @@ company_valve = {
 			}
 		}
 	}
-
 	ai_weight = {
-		value = 4 # Higher base value for flavored companies
+		value = 4		# Higher base value for flavored companies
 	}
 }
 
 # Ubisoft
-
 company_ubisoft = {
 	icon = "gfx/interface/icons/company_icons/historical_company_icons/french_ubisoft.dds"
 	background = "gfx/interface/icons/company_icons/company_backgrounds/comp_illu_tech.dds"
-
 	flavored_company = yes
-
-	preferred_headquarters = { STATE_ILE_DE_FRANCE }
-
+	preferred_headquarters = {
+		STATE_ILE_DE_FRANCE
+	}
 	building_types = {
 		building_interactive_media_industry
 	}
-
 	extension_building_types = {
 		building_software_industry
 	}
-
 	# possible_prestige_goods = {
 	# 	prestige_good_videogames
 	# }
-
 	potential = {
-		has_interest_marker_in_region = region_france
+		has_interest_marker_in_region = sr:region_western_europe
 	}
-
 	attainable = {
-		hidden_trigger = { # Hide attainable if it's always fulfilled by possible
+		hidden_trigger = {
+			# Hide attainable if it's always fulfilled by possible
 			any_scope_state = {
 				state_region = s:STATE_ILE_DE_FRANCE
 			}
 		}
 	}
-
 	possible = {
 		has_technology_researched = videogames
 		any_scope_state = {
@@ -278,12 +242,10 @@ company_ubisoft = {
 			}
 		}
 	}
-
 	prosperity_modifier = {
 		building_art_academy_throughput_add = 0.05
 		building_telecommunications_industry_throughput_add = 0.05
 	}
-
 	ai_will_do = {
 		has_technology_researched = videogames
 		any_scope_state = {
@@ -291,7 +253,6 @@ company_ubisoft = {
 			is_incorporated = yes
 		}
 	}
-
 	ai_construction_targets = {
 		building_interactive_media_industry = {
 			level = 5
@@ -300,47 +261,40 @@ company_ubisoft = {
 			}
 		}
 	}
-
 	ai_weight = {
-		value = 4 # Higher base value for flavored companies
+		value = 4		# Higher base value for flavored companies
 	}
 }
 
 # Paradox Interactive
-
 company_paradox_interactive = {
 	icon = "gfx/interface/icons/company_icons/historical_company_icons/swedish_paradox_interactive.dds"
 	background = "gfx/interface/icons/company_icons/company_backgrounds/comp_illu_tech.dds"
-
 	flavored_company = yes
-
-	preferred_headquarters = { STATE_SVEALAND }
-
+	preferred_headquarters = {
+		STATE_SVEALAND
+	}
 	building_types = {
 		building_interactive_media_industry
 	}
-
 	extension_building_types = {
 		building_art_academy
 		building_software_industry
 	}
-
 	# possible_prestige_goods = {
 	# 	prestige_good_videogames
 	# }
-
 	potential = {
-		has_interest_marker_in_region = region_baltic
+		has_interest_marker_in_region = sr:region_northern_europe
 	}
-
 	attainable = {
-		hidden_trigger = { # Hide attainable if it's always fulfilled by possible
+		hidden_trigger = {
+			# Hide attainable if it's always fulfilled by possible
 			any_scope_state = {
 				state_region = s:STATE_SVEALAND
 			}
 		}
 	}
-
 	possible = {
 		has_technology_researched = videogames
 		any_scope_state = {
@@ -352,13 +306,11 @@ company_paradox_interactive = {
 			}
 		}
 	}
-
 	prosperity_modifier = {
-		unit_experience_gain_mult = 0.1 # Paradox is a strategy game company, so it has military experience
+		unit_experience_gain_mult = 0.1		# Paradox is a strategy game company, so it has military experience
 		building_university_throughput_add = 0.05
 		country_leverage_generation_mult = 0.1
 	}
-
 	ai_will_do = {
 		has_technology_researched = videogames
 		any_scope_state = {
@@ -366,7 +318,6 @@ company_paradox_interactive = {
 			is_incorporated = yes
 		}
 	}
-
 	ai_construction_targets = {
 		building_interactive_media_industry = {
 			level = 5
@@ -375,46 +326,39 @@ company_paradox_interactive = {
 			}
 		}
 	}
-
 	ai_weight = {
-		value = 4 # Higher base value for flavored companies
+		value = 4		# Higher base value for flavored companies
 	}
 }
 
 # Sega
-
 company_sega = {
 	icon = "gfx/interface/icons/company_icons/historical_company_icons/japanese_sega.dds"
 	background = "gfx/interface/icons/company_icons/company_backgrounds/comp_illu_tech.dds"
-
 	flavored_company = yes
-
-	preferred_headquarters = { STATE_KANTO }
-
+	preferred_headquarters = {
+		STATE_KANTO
+	}
 	building_types = {
 		building_interactive_media_industry
 	}
-
 	extension_building_types = {
 		building_computer_assembly_plant
 	}
-
 	# possible_prestige_goods = {
 	# 	prestige_good_videogames
 	# }
-
 	potential = {
-		has_interest_marker_in_region = region_japan
+		has_interest_marker_in_region = sr:region_northeast_asia
 	}
-
 	attainable = {
-		hidden_trigger = { # Hide attainable if it's always fulfilled by possible
+		hidden_trigger = {
+			# Hide attainable if it's always fulfilled by possible
 			any_scope_state = {
 				state_region = s:STATE_KANTO
 			}
 		}
 	}
-
 	possible = {
 		has_technology_researched = videogames
 		any_scope_state = {
@@ -426,12 +370,10 @@ company_sega = {
 			}
 		}
 	}
-
 	prosperity_modifier = {
 		building_consumer_electronics_industry_throughput_add = 0.05
 		state_market_access_price_impact = 0.05
 	}
-
 	ai_will_do = {
 		has_technology_researched = videogames
 		any_scope_state = {
@@ -439,7 +381,6 @@ company_sega = {
 			is_incorporated = yes
 		}
 	}
-
 	ai_construction_targets = {
 		building_interactive_media_industry = {
 			level = 5
@@ -448,46 +389,39 @@ company_sega = {
 			}
 		}
 	}
-
 	ai_weight = {
-		value = 4 # Higher base value for flavored companies
+		value = 4		# Higher base value for flavored companies
 	}
 }
 
 # Krafton, in 2000 Bluehole Studio
-
 company_krafton = {
 	icon = "gfx/interface/icons/company_icons/historical_company_icons/south_korean_krafton.dds"
 	background = "gfx/interface/icons/company_icons/company_backgrounds/comp_illu_tech.dds"
-
 	flavored_company = yes
-
-	preferred_headquarters = { STATE_SEOUL }
-
+	preferred_headquarters = {
+		STATE_SEOUL
+	}
 	building_types = {
 		building_interactive_media_industry
 	}
-
 	extension_building_types = {
 		building_elgar_opera
 	}
-
 	# possible_prestige_goods = {
 	# 	prestige_good_videogames
 	# }
-
 	potential = {
-		has_interest_marker_in_region = region_manchuria
+		has_interest_marker_in_region = sr:region_northeast_asia
 	}
-
 	attainable = {
-		hidden_trigger = { # Hide attainable if it's always fulfilled by possible
+		hidden_trigger = {
+			# Hide attainable if it's always fulfilled by possible
 			any_scope_state = {
 				state_region = s:STATE_SEOUL
 			}
 		}
 	}
-
 	possible = {
 		has_technology_researched = videogames
 		any_scope_state = {
@@ -499,12 +433,10 @@ company_krafton = {
 			}
 		}
 	}
-
 	prosperity_modifier = {
 		building_computer_assembly_plant_throughput_add = 0.05
 		building_telecommunications_industry_throughput_add = 0.05
 	}
-
 	ai_will_do = {
 		has_technology_researched = videogames
 		any_scope_state = {
@@ -512,7 +444,6 @@ company_krafton = {
 			is_incorporated = yes
 		}
 	}
-
 	ai_construction_targets = {
 		building_interactive_media_industry = {
 			level = 5
@@ -521,42 +452,36 @@ company_krafton = {
 			}
 		}
 	}
-
 	ai_weight = {
-		value = 4 # Higher base value for flavored companies
+		value = 4		# Higher base value for flavored companies
 	}
 }
 
 #CD Projekt
-
 company_cd_projekt = {
 	icon = "gfx/interface/icons/company_icons/historical_company_icons/polish_cd_projekt.dds"
 	background = "gfx/interface/icons/company_icons/company_backgrounds/comp_illu_tech.dds"
-
 	flavored_company = yes
-
-	preferred_headquarters = { STATE_GREATER_POLAND }
-
+	preferred_headquarters = {
+		STATE_GREATER_POLAND
+	}
 	building_types = {
 		building_interactive_media_industry
 	}
-
 	# possible_prestige_goods = {
 	# 	prestige_good_videogames
 	# }
-
 	potential = {
-		has_interest_marker_in_region = region_poland
+		has_interest_marker_in_region = sr:region_eastern_europe
 	}
-
 	attainable = {
-		hidden_trigger = { # Hide attainable if it's always fulfilled by possible
+		hidden_trigger = {
+			# Hide attainable if it's always fulfilled by possible
 			any_scope_state = {
 				state_region = s:STATE_GREATER_POLAND
 			}
 		}
 	}
-
 	possible = {
 		has_technology_researched = videogames
 		any_scope_state = {
@@ -568,12 +493,10 @@ company_cd_projekt = {
 			}
 		}
 	}
-
 	prosperity_modifier = {
 		building_computer_assembly_plant_throughput_add = 0.05
 		state_market_access_price_impact = 0.05
 	}
-
 	ai_will_do = {
 		has_technology_researched = videogames
 		any_scope_state = {
@@ -581,7 +504,6 @@ company_cd_projekt = {
 			is_incorporated = yes
 		}
 	}
-
 	ai_construction_targets = {
 		building_interactive_media_industry = {
 			level = 5
@@ -590,46 +512,39 @@ company_cd_projekt = {
 			}
 		}
 	}
-
 	ai_weight = {
-		value = 4 # Higher base value for flavored companies
+		value = 4		# Higher base value for flavored companies
 	}
 }
 
 # Codemasters
-
 company_codemasters = {
 	icon = "gfx/interface/icons/company_icons/historical_company_icons/british_codemasters.dds"
 	background = "gfx/interface/icons/company_icons/company_backgrounds/comp_illu_tech.dds"
-
 	flavored_company = yes
-
-	preferred_headquarters = { STATE_MIDLANDS }
-
+	preferred_headquarters = {
+		STATE_MIDLANDS
+	}
 	building_types = {
 		building_interactive_media_industry
 	}
-
 	extension_building_types = {
 		building_elgar_opera
 	}
-
 	# possible_prestige_goods = {
 	# 	prestige_good_videogames
 	# }
-
 	potential = {
-		has_interest_marker_in_region = region_england
+		has_interest_marker_in_region = sr:region_western_europe
 	}
-
 	attainable = {
-		hidden_trigger = { # Hide attainable if it's always fulfilled by possible
+		hidden_trigger = {
+			# Hide attainable if it's always fulfilled by possible
 			any_scope_state = {
 				state_region = s:STATE_MIDLANDS
 			}
 		}
 	}
-
 	possible = {
 		has_technology_researched = videogames
 		any_scope_state = {
@@ -641,12 +556,10 @@ company_codemasters = {
 			}
 		}
 	}
-
 	prosperity_modifier = {
 		building_automotive_industry_throughput_add = 0.05
 		building_elgar_opera_throughput_add = 0.05
 	}
-
 	ai_will_do = {
 		has_technology_researched = videogames
 		any_scope_state = {
@@ -654,7 +567,6 @@ company_codemasters = {
 			is_incorporated = yes
 		}
 	}
-
 	ai_construction_targets = {
 		building_interactive_media_industry = {
 			level = 5
@@ -663,44 +575,39 @@ company_codemasters = {
 			}
 		}
 	}
-
 	ai_weight = {
-		value = 4 # Higher base value for flavored companies
+		value = 4		# Higher base value for flavored companies
 	}
 }
 
 # Electronic Arts
-
 company_electronic_arts = {
 	icon = "gfx/interface/icons/company_icons/historical_company_icons/american_electronic_arts.dds"
 	background = "gfx/interface/icons/company_icons/company_backgrounds/comp_illu_tech.dds"
-
 	flavored_company = yes
-
+	preferred_headquarters = {
+		STATE_CALIFORNIA
+	}
 	building_types = {
 		building_interactive_media_industry
 	}
-
 	extension_building_types = {
 		building_datacenter_industry
 	}
-
 	# possible_prestige_goods = {
 	# 	prestige_good_videogames
 	# }
-
 	potential = {
-		has_interest_marker_in_region = region_pacific_coast
+		has_interest_marker_in_region = sr:region_pacific_coast
 	}
-
 	attainable = {
-		hidden_trigger = { # Hide attainable if it's always fulfilled by possible
+		hidden_trigger = {
+			# Hide attainable if it's always fulfilled by possible
 			any_scope_state = {
 				state_region = s:STATE_CALIFORNIA
 			}
 		}
 	}
-
 	possible = {
 		has_technology_researched = videogames
 		any_scope_state = {
@@ -712,12 +619,10 @@ company_electronic_arts = {
 			}
 		}
 	}
-
 	prosperity_modifier = {
 		building_computer_assembly_plant_throughput_add = 0.05
 		country_prestige_mult = 0.05
 	}
-
 	ai_will_do = {
 		has_technology_researched = videogames
 		any_scope_state = {
@@ -725,7 +630,6 @@ company_electronic_arts = {
 			is_incorporated = yes
 		}
 	}
-
 	ai_construction_targets = {
 		building_interactive_media_industry = {
 			level = 5
@@ -734,8 +638,7 @@ company_electronic_arts = {
 			}
 		}
 	}
-
 	ai_weight = {
-		value = 4 # Higher base value for flavored companies
+		value = 4		# Higher base value for flavored companies
 	}
 }

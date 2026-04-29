@@ -281,7 +281,7 @@ ztr_russia_update_communist_revolution_bar = {
 	# Other effects
 	if = {
 		limit = {
-			has_law = law_type:law_subjecthood
+			has_law_or_variant = law_type:law_subjecthood
 		}
 		change_variable = {
 			name = russia_communist_revolution_var
@@ -290,7 +290,7 @@ ztr_russia_update_communist_revolution_bar = {
 	}
 	if = {
 		limit = {
-			has_law = law_type:law_serfdom
+			has_law_or_variant = law_type:law_serfdom
 		}
 		change_variable = {
 			name = russia_communist_revolution_var
@@ -846,7 +846,7 @@ ztr_russia_law_changes_liberals = {
 	if = {
 		limit = {
 			NOT = {
-				has_law = law_type:law_presidential_republic
+				has_law_or_variant = law_type:law_presidential_republic
 			}
 		}
 		activate_law = law_type:law_presidential_republic
@@ -854,8 +854,8 @@ ztr_russia_law_changes_liberals = {
 	if = {
 		limit = {
 			OR = {
-				has_law = law_type:law_autocracy
-				has_law = law_type:law_oligarchy
+				has_law_or_variant = law_type:law_autocracy
+				has_law_or_variant = law_type:law_oligarchy
 			}
 		}
 		activate_law = law_type:law_wealth_voting
@@ -864,7 +864,7 @@ ztr_russia_law_changes_liberals = {
 	if = {
 		limit = {
 			NOT = {
-				has_law = law_type:law_free_trade
+				has_law_or_variant = law_type:law_free_trade
 			}
 		}
 		activate_law = law_type:law_free_trade
@@ -872,13 +872,13 @@ ztr_russia_law_changes_liberals = {
 	# Public -> Private
 	if = {
 		limit = {
-			has_law = law_type:law_public_health_insurance
+			has_law_or_variant = law_type:law_public_health_insurance
 		}
 		activate_law = law_type:law_private_health_insurance
 	}
 	if = {
 		limit = {
-			has_law = law_type:law_public_schools
+			has_law_or_variant = law_type:law_public_schools
 		}
 		activate_law = law_type:law_private_schools
 	}
@@ -919,12 +919,15 @@ ztr_russia_law_changes_bolshevik = {
 	if = {
 		limit = {
 			NOT = {
-				has_law_or_variant = law_type:law_council_republic_soviet
+				has_law_or_variant = law_type:law_council_republic
 			}
 		}
-		activate_law = law_type:law_council_republic_soviet		# SPECIAL
+		activate_law = law_type:law_council_republic
 	}
-	#activate_law = law_type:law_council_republic
+	add_modifier = {
+		name = law_council_republic_soviet
+		months = 600 # 50 years
+	}
 	# Bolshevik Monoparty State
 	activate_law = law_type:law_single_party_state
 	# Economy
@@ -936,13 +939,13 @@ ztr_russia_law_changes_bolshevik = {
 	# Public -> Private
 	if = {
 		limit = {
-			has_law = law_type:law_private_health_insurance
+			has_law_or_variant = law_type:law_private_health_insurance
 		}
 		activate_law = law_type:law_public_health_insurance
 	}
 	if = {
 		limit = {
-			has_law = law_type:law_private_schools
+			has_law_or_variant = law_type:law_private_schools
 		}
 		activate_law = law_type:law_public_schools
 	}
@@ -981,8 +984,11 @@ ztr_russia_law_changes_menshevik = {
 	# Bolshevik Monoparty State
 	activate_law = law_type:law_single_party_state
 	# Economy
-	activate_law = law_type:law_command_economy_menshevik	# SPECIAL
-	#activate_law = law_type:law_command_economy
+	activate_law = law_type:law_command_economy
+	add_modifier = {
+		name = law_command_economy_menshevik
+		months = 600 # 50 years
+	}
 	# Religion
 	activate_law = law_type:law_total_separation
 	# Agriculture Collectivization
@@ -990,13 +996,13 @@ ztr_russia_law_changes_menshevik = {
 	# Public -> Private
 	if = {
 		limit = {
-			has_law = law_type:law_private_health_insurance
+			has_law_or_variant = law_type:law_private_health_insurance
 		}
 		activate_law = law_type:law_public_health_insurance
 	}
 	if = {
 		limit = {
-			has_law = law_type:law_private_schools
+			has_law_or_variant = law_type:law_private_schools
 		}
 		activate_law = law_type:law_public_schools
 	}
@@ -1037,18 +1043,21 @@ ztr_russia_law_changes_agro_socialist = {
 	# Religions
 	activate_law = law_type:law_freedom_of_conscience
 	# Agriculture Collectivization
-	activate_law = law_type:law_collectivized_agriculture_agro_socialist	#SPECIAL
-	#activate_law = law_type:law_collectivized_agriculture
+	activate_law = law_type:law_collectivized_agriculture
+	add_modifier = {
+		name = law_collectivized_agriculture_agro_socialist
+		months = 600 # 50 years
+	}
 	# Politiche sociali: mutualismo pubblico di base
 	if = {
 		limit = {
-			has_law = law_type:law_private_health_insurance
+			has_law_or_variant = law_type:law_private_health_insurance
 		}
 		activate_law = law_type:law_public_health_insurance
 	}
 	if = {
 		limit = {
-			has_law = law_type:law_private_schools
+			has_law_or_variant = law_type:law_private_schools
 		}
 		activate_law = law_type:law_public_schools
 	}

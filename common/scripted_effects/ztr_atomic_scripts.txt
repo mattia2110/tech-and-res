@@ -45,7 +45,7 @@ effect_compute_nuclear_capability_points_attacker = {
 	every_scope_state = {
 		limit = { has_building = building_nuclear_weapons_silo
 			# Country must have nuclear submarines
-			owner = { country_navy_unit_type_fraction = { target = unit_type:combat_unit_type_nuclear_submarine value > 0 } } }
+			owner = { country_ship_type_fraction = { target = ship_type:ship_type_nuclear_submarine value > 0 } } }
 		owner = { change_global_variable = { name = nuclear_strike_power_global add = 10 } }
 	}
 
@@ -795,7 +795,6 @@ effect_nuclear_war_destroy_industrial_buildings = {
 	remove_building = building_munition_plant
 	remove_building = building_arms_industry
 	remove_building = building_artillery_foundry
-	remove_building = building_military_shipyard
 	remove_building = building_explosives_factory
 	remove_building = building_shipyard
 	remove_building = building_motor_industry
@@ -1610,7 +1609,7 @@ calculate_nuclear_strength_info = {
 	every_scope_state = {
 		limit = { has_building = building_nuclear_weapons_silo
 			# Country must have nuclear submarines
-			owner = { country_navy_unit_type_fraction = { target = unit_type:combat_unit_type_nuclear_submarine value > 0 } } }
+			owner = { country_ship_type_fraction = { target = ship_type:ship_type_nuclear_submarine value > 0 } } }
 		owner = { change_variable = { name = nuclear_strike_power_display add = 10 } }
 	}
 

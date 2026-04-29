@@ -18,7 +18,9 @@ ztr_je_the_future_of_china = {
 		effect = {
 			if = {
 				limit = {
-					NOT = { has_revolution = yes }
+					NOT = {
+						has_revolution = yes
+					}
 				}
 				ztr_china_update_corporate_bar = yes
 				ztr_china_update_federation_bar = yes
@@ -68,7 +70,7 @@ ztr_je_the_future_of_china = {
 			}
 		}
 		NOT = {
-			has_law = law_type:law_monarchy
+			has_law_or_variant = law_type:law_monarchy
 		}
 	}
 	scripted_progress_bar = ztr_china_corporate_progress_bar
@@ -78,7 +80,7 @@ ztr_je_the_future_of_china = {
 		ztr_china_remove_renaissance_vars = yes
 	}
 	weight = 1000
-	should_be_pinned_by_default = yes
+	should_be_pinned_by_default_uninvolved_or_context = yes
 }
 
 # Chinese Civil War
@@ -149,7 +151,9 @@ ztr_je_chinese_communist_front = {
 			every_country = {
 				limit = {
 					ztr_can_receive_communist_china_event = yes
-					NOT = { is_involved_in_journal_entry = ztr_je_chinese_communist_front }
+					NOT = {
+						is_involved_in_journal_entry = ztr_je_chinese_communist_front
+					}
 				}
 				add_involved_country = this
 			}
@@ -327,7 +331,7 @@ ztr_je_chinese_communist_front = {
 		}
 	}
 	weight = 1000
-	should_be_pinned_by_default = yes
+	should_be_pinned_by_default_uninvolved_or_context = yes
 }
 
 ztr_je_two_chinas_accord = {
@@ -394,5 +398,5 @@ ztr_je_two_chinas_accord = {
 	}
 	weight = 900
 	can_deactivate = yes
-	should_be_pinned_by_default = yes
+	should_be_pinned_by_default_uninvolved_or_context = yes
 }

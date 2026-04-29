@@ -156,7 +156,7 @@
 		}
 	}
 	weight = 100
-	should_be_pinned_by_default = yes
+	should_be_pinned_by_default_uninvolved_or_context = yes
 }
 
 REPLACE:je_warlord_china = {
@@ -264,12 +264,8 @@ REPLACE:je_warlord_china = {
 			}
 			if = {
 				limit = {
-					NOT = {
-						has_variable = china_abolished_monarchy
-					}
-					NOT = {
-						has_law = law_type:law_monarchy
-					}
+					NOT = { has_variable = china_abolished_monarchy }
+					NOT = { country_has_monarchy_law = yes }
 				}
 				set_variable = china_abolished_monarchy
 				chi_remove_1_fragile_unity = yes
@@ -289,5 +285,5 @@ REPLACE:je_warlord_china = {
 		}
 	}
 	weight = 10000
-	should_be_pinned_by_default = yes
+	should_be_pinned_by_default_uninvolved_or_context = yes
 }

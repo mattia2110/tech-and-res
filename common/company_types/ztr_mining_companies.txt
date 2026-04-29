@@ -5,38 +5,35 @@
 # Compagnie Générale des Matières Nucléaires (Orano)
 # Kazatomprom
 # Rosatom
-
 # Broken Hill Propretary Company
 company_bhp = {
 	icon = "gfx/interface/icons/company_icons/historical_company_icons/bhp.dds"
 	background = "gfx/interface/icons/company_icons/company_backgrounds/comp_illu_mining.dds"
-	
 	flavored_company = yes
-	preferred_headquarters = { STATE_NEW_SOUTH_WALES STATE_VICTORIA	}
-	
+	preferred_headquarters = {
+		STATE_NEW_SOUTH_WALES
+		STATE_VICTORIA
+	}
 	# possible_prestige_goods = {
 	# 	prestige_good_australian_coal
 	# }
-
-	building_types = {  
+	building_types = {
 		building_iron_mine
 		building_coal_mine
 		building_uranium_mine
 	}
-	
 	extension_building_types = {
 		building_lead_mine
 		building_commonores_mine
 	}
-	
 	potential = {
 		OR = {
-			has_interest_marker_in_region = region_oceania
+			has_interest_marker_in_region = sr:region_oceania
 		}
 	}
-	
 	attainable = {
-		hidden_trigger = { # Hide attainable if it's always fulfilled by possible
+		hidden_trigger = {
+			# Hide attainable if it's always fulfilled by possible
 			any_scope_state = {
 				OR = {
 					state_region = s:STATE_NEW_SOUTH_WALES
@@ -46,7 +43,6 @@ company_bhp = {
 			}
 		}
 	}
-	
 	possible = {
 		any_scope_state = {
 			OR = {
@@ -63,14 +59,11 @@ company_bhp = {
 			}
 		}
 	}
-	
 	prosperity_modifier = {
 		building_power_plant_throughput_add = 0.05
 		building_coal_mine_throughput_add = 0.05
 		goods_input_good_uranium_mult = -0.1
 	}
-
-
 	ai_will_do = {
 		any_scope_state = {
 			OR = {
@@ -80,7 +73,6 @@ company_bhp = {
 			is_incorporated = yes
 		}
 	}
-
 	ai_construction_targets = {
 		building_coal_mine = {
 			level = 5
@@ -101,9 +93,8 @@ company_bhp = {
 			}
 		}
 	}
-	
 	ai_weight = {
-		value = 4 # Higher base value for flavored companies
+		value = 4		# Higher base value for flavored companies
 	}
 }
 
@@ -111,36 +102,32 @@ company_bhp = {
 company_union_miniere_du_haut_katanga = {
 	icon = "gfx/interface/icons/company_icons/historical_company_icons/union_miniere_du_haut_katanga.dds"
 	background = "gfx/interface/icons/company_icons/company_backgrounds/comp_illu_mining.dds"
-	
 	flavored_company = yes
-	preferred_headquarters = { STATE_FLANDERS }
-
-	building_types = {  
+	preferred_headquarters = {
+		STATE_FLANDERS
+	}
+	building_types = {
 		building_uranium_mine
 		building_copper_mine
 	}
-	
 	extension_building_types = {
 		building_rare_earths_mine
 		building_advancedores_mine
 	}
-
 	potential = {
 		OR = {
-			has_interest_marker_in_region = region_congo
-			has_interest_marker_in_region = region_southern_africa
+			has_interest_marker_in_region = sr:region_equatorial_africa
+			has_interest_marker_in_region = sr:region_southern_africa
 		}
 	}
-
 	attainable = {
-		hidden_trigger = { 
+		hidden_trigger = {
 			OR = {
 				has_state_in_state_region = STATE_KATANGA
 				has_state_in_state_region = STATE_BOTSWANA
 			}
 		}
 	}
-	
 	# Incorporation is not needed
 	possible = {
 		any_scope_state = {
@@ -157,13 +144,10 @@ company_union_miniere_du_haut_katanga = {
 			}
 		}
 	}
-	
 	prosperity_modifier = {
 		building_power_plant_throughput_add = 0.05
 		goods_input_good_uranium_mult = -0.1
 	}
-
-
 	ai_will_do = {
 		any_scope_state = {
 			OR = {
@@ -172,7 +156,6 @@ company_union_miniere_du_haut_katanga = {
 			}
 		}
 	}
-
 	ai_construction_targets = {
 		building_copper_mine = {
 			level = 5
@@ -193,44 +176,38 @@ company_union_miniere_du_haut_katanga = {
 			}
 		}
 	}
-	
 	ai_weight = {
-		value = 4 # Higher base value for flavored companies
-	}	
+		value = 4		# Higher base value for flavored companies
+	}
 }
 
 # CAMECO
 company_cameco = {
 	icon = "gfx/interface/icons/company_icons/historical_company_icons/cameco.dds"
 	background = "gfx/interface/icons/company_icons/company_backgrounds/comp_illu_mining.dds"
-	
 	flavored_company = yes
-	preferred_headquarters = { STATE_NORTHWEST_TERRITORIES STATE_SASKATCHEWAN }
-	
+	preferred_headquarters = {
+		STATE_NORTHWEST_TERRITORIES
+		STATE_SASKATCHEWAN
+	}
 	# possible_prestige_goods = {
 	# 	prestige_high_quality_uranium
 	# }
-
-	building_types = {  
+	building_types = {
 		building_gold_mine
 		building_uranium_mine
 		building_power_plant
 	}
-	
 	extension_building_types = {
 		building_advancedores_mine
 		building_rare_earths_mine
 	}
-	
 	potential = {
-		OR = {
-			has_interest_marker_in_region = region_canada
-			has_interest_marker_in_region = region_great_plains
-		}
+		has_interest_marker_in_region = sr:region_canada
 	}
-	
 	attainable = {
-		hidden_trigger = { # Hide attainable if it's always fulfilled by possible
+		hidden_trigger = {
+			# Hide attainable if it's always fulfilled by possible
 			any_scope_state = {
 				OR = {
 					state_region = s:STATE_NORTHWEST_TERRITORIES
@@ -239,7 +216,6 @@ company_cameco = {
 			}
 		}
 	}
-	
 	possible = {
 		any_scope_state = {
 			OR = {
@@ -257,23 +233,19 @@ company_cameco = {
 		}
 		has_technology_researched = verrier_modern_physics_tech
 	}
-	
 	prosperity_modifier = {
 		goods_input_good_uranium_mult = -0.05
 		goods_output_good_uranium_mult = 0.05
 		state_birth_rate_mult = 0.05
 	}
-
-
 	ai_will_do = {
 		any_scope_state = {
 			OR = {
-					state_region = s:STATE_NORTHWEST_TERRITORIES
-					state_region = s:STATE_SASKATCHEWAN
-				}
+				state_region = s:STATE_NORTHWEST_TERRITORIES
+				state_region = s:STATE_SASKATCHEWAN
+			}
 		}
 	}
-
 	ai_construction_targets = {
 		building_gold_mine = {
 			level = 5
@@ -294,38 +266,36 @@ company_cameco = {
 			}
 		}
 	}
-	
 	ai_weight = {
-		value = 4 # Higher base value for flavored companies
-	}	
+		value = 4		# Higher base value for flavored companies
+	}
 }
 
 # Compagnie Générale des Matières Nucléaires (Orano)
 company_compagnie_generale_des_matieres_nucleaires = {
 	icon = "gfx/interface/icons/company_icons/historical_company_icons/orano.dds"
 	background = "gfx/interface/icons/company_icons/company_backgrounds/comp_illu_mining.dds"
-	
 	flavored_company = yes
-	preferred_headquarters = { STATE_ILE_DE_FRANCE STATE_PROVENCE}
-	
+	preferred_headquarters = {
+		STATE_ILE_DE_FRANCE
+		STATE_PROVENCE
+	}
 	# possible_prestige_goods = {
 	# 	prestige_high_quality_uranium
 	# }
-
-	building_types = {  
+	building_types = {
 		building_uranium_mine
 		building_power_plant
 	}
-
 	potential = {
 		OR = {
-			has_interest_marker_in_region = region_france
-			has_interest_marker_in_region = region_occitania
+			has_interest_marker_in_region = sr:region_western_europe
+			has_interest_marker_in_region = sr:region_southern_europe
 		}
 	}
-
 	attainable = {
-		hidden_trigger = { # Hide attainable if it's always fulfilled by possible
+		hidden_trigger = {
+			# Hide attainable if it's always fulfilled by possible
 			any_scope_state = {
 				OR = {
 					state_region = s:STATE_ILE_DE_FRANCE
@@ -334,7 +304,6 @@ company_compagnie_generale_des_matieres_nucleaires = {
 			}
 		}
 	}
-	
 	possible = {
 		any_scope_state = {
 			OR = {
@@ -349,14 +318,11 @@ company_compagnie_generale_des_matieres_nucleaires = {
 		}
 		has_technology_researched = verrier_modern_physics_tech
 	}
-	
 	prosperity_modifier = {
 		building_power_plant_throughput_add = 0.05
 		goods_input_good_uranium_mult = -0.05
 		goods_output_good_uranium_mult = 0.05
 	}
-
-
 	ai_will_do = {
 		has_technology_researched = verrier_modern_physics_tech
 		any_scope_state = {
@@ -367,45 +333,42 @@ company_compagnie_generale_des_matieres_nucleaires = {
 			is_incorporated = yes
 		}
 	}
-
 	ai_construction_targets = {
 		building_uranium_mine = {
 			level = 5
 		}
 	}
-
 	ai_weight = {
-		value = 4 # Higher base value for flavored companies
-	}	
+		value = 4		# Higher base value for flavored companies
+	}
 }
 
 # Kazatomprom
 company_kazatomprom = {
 	icon = "gfx/interface/icons/company_icons/historical_company_icons/kazak_kazatomprom.dds"
 	background = "gfx/interface/icons/company_icons/company_backgrounds/comp_illu_mining.dds"
-	
 	flavored_company = yes
-	preferred_headquarters = { STATE_KIRGHIZIA STATE_SEMIRECHE STATE_AKMOLINSK }
-	
+	preferred_headquarters = {
+		STATE_KIRGHIZIA
+		STATE_SEMIRECHE
+		STATE_AKMOLINSK
+	}
 	# possible_prestige_goods = {
 	# 	prestige_high_quality_uranium
 	# }
-
-	building_types = {  
+	building_types = {
 		building_uranium_mine
 		building_advancedores_mine
 	}
-	
 	extension_building_types = {
 		building_rare_earths_mine
 	}
-	
 	potential = {
-		has_interest_marker_in_region = region_central_asia
+		has_interest_marker_in_region = sr:region_central_asia
 	}
-	
 	attainable = {
-		hidden_trigger = { # Hide attainable if it's always fulfilled by possible
+		hidden_trigger = {
+			# Hide attainable if it's always fulfilled by possible
 			any_scope_state = {
 				OR = {
 					state_region = s:STATE_KIRGHIZIA
@@ -415,7 +378,6 @@ company_kazatomprom = {
 			}
 		}
 	}
-	
 	possible = {
 		any_scope_state = {
 			OR = {
@@ -434,25 +396,21 @@ company_kazatomprom = {
 		}
 		has_technology_researched = verrier_modern_physics_tech
 	}
-	
 	prosperity_modifier = {
 		building_power_plant_throughput_add = 0.05
 		goods_output_good_uranium_mult = 0.1
 	}
-
-
 	ai_will_do = {
 		has_technology_researched = verrier_modern_physics_tech
 		any_scope_state = {
 			OR = {
-					state_region = s:STATE_KIRGHIZIA
-					state_region = s:STATE_SEMIRECHE
-					state_region = s:STATE_AKMOLINSK
-				}
+				state_region = s:STATE_KIRGHIZIA
+				state_region = s:STATE_SEMIRECHE
+				state_region = s:STATE_AKMOLINSK
+			}
 			is_incorporated = yes
 		}
 	}
-
 	ai_construction_targets = {
 		building_advancedores_mine = {
 			level = 5
@@ -475,37 +433,35 @@ company_kazatomprom = {
 			}
 		}
 	}
-	
 	ai_weight = {
-		value = 4 # Higher base value for flavored companies
-	}	
+		value = 4		# Higher base value for flavored companies
+	}
 }
 
 # Rosatom
-
 company_rosatom = {
 	icon = "gfx/interface/icons/company_icons/historical_company_icons/russian_rosatom.dds"
 	background = "gfx/interface/icons/company_icons/company_backgrounds/comp_illu_mining.dds"
-	
 	flavored_company = yes
-	preferred_headquarters = { STATE_TVER STATE_CHERSON STATE_MOSCOW}
-
-	building_types = {  
+	preferred_headquarters = {
+		STATE_TVER
+		STATE_CHERSON
+		STATE_MOSCOW
+	}
+	building_types = {
 		building_uranium_mine
 		building_power_plant
 	}
-	
 	extension_building_types = {
 		building_robotics_industry
 		building_renewable_energy_power_plant
 	}
-
 	potential = {
-		has_interest_marker_in_region = region_russia
+		has_interest_marker_in_region = sr:region_russia
 	}
-	
 	attainable = {
-		hidden_trigger = { # Hide attainable if it's always fulfilled by possible
+		hidden_trigger = {
+			# Hide attainable if it's always fulfilled by possible
 			any_scope_state = {
 				OR = {
 					state_region = s:STATE_TVER
@@ -515,7 +471,6 @@ company_rosatom = {
 			}
 		}
 	}
-	
 	possible = {
 		any_scope_state = {
 			OR = {
@@ -530,12 +485,9 @@ company_rosatom = {
 		}
 		has_technology_researched = verrier_modern_physics_tech
 	}
-	
 	prosperity_modifier = {
 		goods_output_good_uranium_mult = 0.15
 	}
-
-	
 	ai_will_do = {
 		has_technology_researched = verrier_modern_physics_tech
 		any_scope_state = {
@@ -546,7 +498,6 @@ company_rosatom = {
 			is_incorporated = yes
 		}
 	}
-
 	ai_construction_targets = {
 		building_uranium_mine = {
 			level = 5
@@ -558,37 +509,35 @@ company_rosatom = {
 			}
 		}
 	}
-	
 	ai_weight = {
-		value = 4 # Higher base value for flavored companies
-	}	
+		value = 4		# Higher base value for flavored companies
+	}
 }
 
 # Glencore
 company_Glencore = {
 	icon = "gfx/interface/icons/company_icons/historical_company_icons/swizerland_glencore.dds"
 	background = "gfx/interface/icons/company_icons/company_backgrounds/comp_illu_mining.dds"
-	
 	flavored_company = yes
-	preferred_headquarters = { STATE_WEST_SWITZERLAND STATE_EAST_SWITZERLAND }
-
-	building_types = {  
+	preferred_headquarters = {
+		STATE_WEST_SWITZERLAND
+		STATE_EAST_SWITZERLAND
+	}
+	building_types = {
 		building_rare_earths_mine
 		building_copper_mine
 		building_gold_mine
 	}
-	
 	extension_building_types = {
 		building_oil_rig
 		building_natural_gas_rig
 	}
-
 	potential = {
-		has_interest_marker_in_region = region_south_germany
+		has_interest_marker_in_region = sr:region_central_europe
 	}
-	
 	attainable = {
-		hidden_trigger = { # Hide attainable if it's always fulfilled by possible
+		hidden_trigger = {
+			# Hide attainable if it's always fulfilled by possible
 			any_scope_state = {
 				OR = {
 					state_region = s:STATE_WEST_SWITZERLAND
@@ -598,7 +547,6 @@ company_Glencore = {
 			}
 		}
 	}
-	
 	possible = {
 		any_scope_state = {
 			OR = {
@@ -613,13 +561,10 @@ company_Glencore = {
 		}
 		has_technology_researched = rare_earths
 	}
-	
 	prosperity_modifier = {
 		building_battery_plant_throughput_add = 0.1
 		state_market_access_price_impact = 0.05
 	}
-
-	
 	ai_will_do = {
 		any_scope_state = {
 			OR = {
@@ -629,7 +574,6 @@ company_Glencore = {
 			is_incorporated = yes
 		}
 	}
-
 	ai_construction_targets = {
 		building_rare_earths_mine = {
 			level = 5
@@ -649,45 +593,42 @@ company_Glencore = {
 			}
 		}
 	}
-	
 	ai_weight = {
-		value = 4 # Higher base value for flavored companies
-	}	
+		value = 4		# Higher base value for flavored companies
+	}
 }
 
 # Southern Copper Corporation
 company_southern_copper_corp = {
 	icon = "gfx/interface/icons/company_icons/historical_company_icons/peru_southern_copper_corp.dds"
 	background = "gfx/interface/icons/company_icons/company_backgrounds/comp_illu_mining.dds"
-	
 	flavored_company = yes
-
-	building_types = {  
+	building_types = {
 		building_copper_mine
 		building_bauxite_mine
 		building_gold_mine
 	}
-	
 	extension_building_types = {
 		building_iron_mine
 	}
-
 	potential = {
-		has_interest_marker_in_region = region_andes
+		OR = {
+			has_interest_marker_in_region = sr:region_andes
+			has_interest_marker_in_region = sr:region_la_plata
+		}
 	}
-
 	attainable = {
-		hidden_trigger = { # Hide attainable if it's always fulfilled by possible
+		hidden_trigger = {
+			# Hide attainable if it's always fulfilled by possible
 			any_scope_state = {
 				OR = {
-					state_region = s:STATE_LIMA # Peru
-					state_region = s:STATE_SANTIAGO # Chile
+					state_region = s:STATE_LIMA					# Peru
+					state_region = s:STATE_SANTIAGO					# Chile
 				}
 				is_incorporated = yes
 			}
 		}
 	}
-	
 	possible = {
 		any_scope_state = {
 			region = sr:region_andes
@@ -699,23 +640,19 @@ company_southern_copper_corp = {
 			count >= 2
 		}
 	}
-
 	prosperity_modifier = {
 		building_alloys_plant_throughput_add = 0.05
 		building_tooling_workshop_throughput_add = 0.05
 	}
-
-	
 	ai_will_do = {
 		any_scope_state = {
 			OR = {
-				state_region = s:STATE_LIMA # Peru
-				state_region = s:STATE_SANTIAGO # Chile
+				state_region = s:STATE_LIMA				# Peru
+				state_region = s:STATE_SANTIAGO				# Chile
 			}
 			is_incorporated = yes
 		}
 	}
-
 	ai_construction_targets = {
 		building_copper_mine = {
 			level = 5
@@ -725,38 +662,37 @@ company_southern_copper_corp = {
 			}
 		}
 	}
-	
 	ai_weight = {
-		value = 4 # Higher base value for flavored companies
-	}	
+		value = 4		# Higher base value for flavored companies
+	}
 }
 
 # Rio Tinto
 company_rio_tinto = {
 	icon = "gfx/interface/icons/company_icons/historical_company_icons/rio_tinto.dds"
 	background = "gfx/interface/icons/company_icons/company_backgrounds/comp_illu_mining.dds"
-	
 	flavored_company = yes
-	preferred_headquarters = { STATE_UPPER_ANDALUSIA STATE_NEW_SOUTH_WALES STATE_HOME_COUNTIES }
-
-	building_types = {  
+	preferred_headquarters = {
+		STATE_UPPER_ANDALUSIA
+		STATE_NEW_SOUTH_WALES
+		STATE_HOME_COUNTIES
+	}
+	building_types = {
 		building_rare_earths_mine
 		building_copper_mine
 		building_bauxite_mine
 	}
-	
 	extension_building_types = {
 		building_iron_mine
 	}
-
 	potential = {
 		OR = {
-			has_interest_marker_in_region = region_oceania
+			has_interest_marker_in_region = sr:region_oceania
 		}
 	}
-	
 	attainable = {
-		hidden_trigger = { # Hide attainable if it's always fulfilled by possible
+		hidden_trigger = {
+			# Hide attainable if it's always fulfilled by possible
 			any_scope_state = {
 				OR = {
 					state_region = s:STATE_NEW_SOUTH_WALES
@@ -764,7 +700,6 @@ company_rio_tinto = {
 			}
 		}
 	}
-	
 	possible = {
 		any_scope_state = {
 			OR = {
@@ -778,13 +713,10 @@ company_rio_tinto = {
 			}
 		}
 	}
-	
 	prosperity_modifier = {
 		building_electronics_industry_throughput_add = 0.05
 		building_battery_plant_throughput_add = 0.05
 	}
-
-	
 	ai_will_do = {
 		any_scope_state = {
 			OR = {
@@ -793,7 +725,6 @@ company_rio_tinto = {
 			is_incorporated = yes
 		}
 	}
-
 	ai_construction_targets = {
 		building_copper_mine = {
 			level = 5
@@ -804,37 +735,36 @@ company_rio_tinto = {
 			}
 		}
 	}
-	
 	ai_weight = {
-		value = 4 # Higher base value for flavored companies
-	}	
+		value = 4		# Higher base value for flavored companies
+	}
 }
 
 # China Rare Earth Group
 company_china_rare_earth_group = {
 	icon = "gfx/interface/icons/company_icons/historical_company_icons/china_rare_earth_group.dds"
 	background = "gfx/interface/icons/company_icons/company_backgrounds/comp_illu_mining.dds"
-	
 	flavored_company = yes
-	preferred_headquarters = { STATE_SHANXI STATE_JIANGXI STATE_HINGGAN }
-
-	building_types = {  
+	preferred_headquarters = {
+		STATE_SHANXI
+		STATE_JIANGXI
+		STATE_HINGGAN
+	}
+	building_types = {
 		building_rare_earths_mine
 		building_advancedores_mine
 	}
-	
 	extension_building_types = {
 		building_bauxite_mine
 		building_copper_mine
 	}
-
 	potential = {
-		has_interest_marker_in_region = region_north_china
-		has_interest_marker_in_region = region_south_china
+		has_interest_marker_in_region = sr:region_north_china
+		has_interest_marker_in_region = sr:region_south_china
 	}
-	
 	attainable = {
-		hidden_trigger = { # Hide attainable if it's always fulfilled by possible
+		hidden_trigger = {
+			# Hide attainable if it's always fulfilled by possible
 			any_scope_state = {
 				OR = {
 					state_region = s:STATE_SHANXI
@@ -844,7 +774,6 @@ company_china_rare_earth_group = {
 			}
 		}
 	}
-	
 	possible = {
 		any_scope_state = {
 			OR = {
@@ -859,14 +788,11 @@ company_china_rare_earth_group = {
 			}
 		}
 	}
-	
 	prosperity_modifier = {
 		building_consumer_electronics_industry_throughput_add = 0.05
 		building_battery_plant_throughput_add = 0.1
 		state_birth_rate_mult = 0.05
 	}
-
-	
 	ai_will_do = {
 		any_scope_state = {
 			OR = {
@@ -877,7 +803,6 @@ company_china_rare_earth_group = {
 			is_incorporated = yes
 		}
 	}
-
 	ai_construction_targets = {
 		building_rare_earths_mine = {
 			level = 5
@@ -899,8 +824,7 @@ company_china_rare_earth_group = {
 			}
 		}
 	}
-	
 	ai_weight = {
-		value = 4 # Higher base value for flavored companies
-	}	
+		value = 4		# Higher base value for flavored companies
+	}
 }

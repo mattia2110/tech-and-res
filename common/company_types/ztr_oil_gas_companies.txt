@@ -7,31 +7,27 @@
 # Gazprom
 # Saudi Aramco
 # ExonMobil remains standard Oil in order to avoid problems with US oil production
-
 company_petrobas = {
 	icon = "gfx/interface/icons/company_icons/historical_company_icons/brazilian_company_petrobas.dds"
 	background = "gfx/interface/icons/company_icons/company_backgrounds/comp_illu_oil_drills.dds"
-
 	flavored_company = yes
-
-	preferred_headquarters = { STATE_RIO_DE_JANEIRO }
-
+	preferred_headquarters = {
+		STATE_RIO_DE_JANEIRO
+	}
 	building_types = {
 		building_oil_rig
 		building_natural_gas_rig
 		building_mendelejew_hydrogenation_plants
 	}
-
 	extension_building_types = {
 		building_mendelejew_synthetic_rubber_factory
 	}
-
 	potential = {
-		has_interest_marker_in_region = region_brazil
+		has_interest_marker_in_region = sr:region_brazil
 	}
-
 	attainable = {
-		hidden_trigger = { # Hide attainable if it's always fulfilled by possible
+		hidden_trigger = {
+			# Hide attainable if it's always fulfilled by possible
 			any_scope_state = {
 				OR = {
 					state_region = s:STATE_MINAS_GERAIS
@@ -40,7 +36,6 @@ company_petrobas = {
 			}
 		}
 	}
-
 	possible = {
 		has_technology_researched = pumpjacks
 		any_scope_state = {
@@ -54,13 +49,11 @@ company_petrobas = {
 			}
 		}
 	}
-
 	prosperity_modifier = {
 		building_mendelejew_hydrogenation_plants_throughput_add = 0.05
 		building_group_bg_logging_throughput_add = 0.05
 		state_birth_rate_mult = 0.05
 	}
-
 	ai_will_do = {
 		has_technology_researched = pumpjacks
 		any_scope_state = {
@@ -71,7 +64,6 @@ company_petrobas = {
 			has_potential_resource = bg_oil_extraction
 		}
 	}
-
 	ai_construction_targets = {
 		building_oil_rig = {
 			level = 5
@@ -83,45 +75,40 @@ company_petrobas = {
 			}
 		}
 	}
-
 	ai_weight = {
-		value = 4 # Higher base value for flavored companies
+		value = 4		# Higher base value for flavored companies
 	}
 }
 
 # Sinopec
-
 company_sinopec = {
 	icon = "gfx/interface/icons/company_icons/historical_company_icons/chinese_company_sinopec.dds"
 	background = "gfx/interface/icons/company_icons/company_backgrounds/comp_illu_oil_drills.dds"
-
 	flavored_company = yes
-
-	preferred_headquarters = { STATE_BEIJING STATE_SUZHOU }
-
+	preferred_headquarters = {
+		STATE_BEIJING
+		STATE_SUZHOU
+	}
 	building_types = {
 		building_oil_rig
 		building_natural_gas_rig
 		building_mendelejew_hydrogenation_plants
 	}
-
 	extension_building_types = {
 		building_mendelejew_synthetic_rubber_factory
 	}
-
 	potential = {
-		has_interest_marker_in_region = region_north_china
+		has_interest_marker_in_region = sr:region_north_china
 	}
-
 	attainable = {
-		hidden_trigger = { # Hide attainable if it's always fulfilled by possible
+		hidden_trigger = {
+			# Hide attainable if it's always fulfilled by possible
 			any_scope_state = {
 				state_region = s:STATE_BEIJING
-				is_incorporated = yes # Necessary in this case
+				is_incorporated = yes				# Necessary in this case
 			}
 		}
 	}
-
 	possible = {
 		has_technology_researched = pumpjacks
 		any_scope_state = {
@@ -131,22 +118,19 @@ company_sinopec = {
 			}
 		}
 	}
-
 	prosperity_modifier = {
 		building_rare_earths_mine_throughput_add = 0.05
 		building_power_plant_throughput_add = 0.1
 		building_railway_throughput_add = 0.05
 	}
-
 	ai_will_do = {
 		has_technology_researched = pumpjacks
 		any_scope_state = {
 			has_potential_resource = bg_oil_extraction
 		}
 	}
-
 	ai_weight = {
-		value = 4 # Higher base value for flavored companies
+		value = 4		# Higher base value for flavored companies
 	}
 }
 
@@ -154,34 +138,30 @@ company_sinopec = {
 company_total = {
 	icon = "gfx/interface/icons/company_icons/historical_company_icons/french_company_total.dds"
 	background = "gfx/interface/icons/company_icons/company_backgrounds/comp_illu_oil_drills.dds"
-
 	flavored_company = yes
-
-	preferred_headquarters = { STATE_ILE_DE_FRANCE }
-
+	preferred_headquarters = {
+		STATE_ILE_DE_FRANCE
+	}
 	building_types = {
 		building_oil_rig
 		building_natural_gas_rig
 		building_mendelejew_hydrogenation_plants
 	}
-
 	extension_building_types = {
 		building_mendelejew_synthetic_rubber_factory
 	}
-
 	potential = {
-		has_interest_marker_in_region = region_france
+		has_interest_marker_in_region = sr:region_western_europe
 	}
-
 	attainable = {
-		hidden_trigger = { # Hide attainable if it's always fulfilled by possible
+		hidden_trigger = {
+			# Hide attainable if it's always fulfilled by possible
 			any_scope_state = {
 				state_region = s:STATE_ILE_DE_FRANCE
-				is_incorporated = yes # Necessary in this case
+				is_incorporated = yes				# Necessary in this case
 			}
 		}
 	}
-
 	possible = {
 		has_technology_researched = pumpjacks
 		any_scope_state = {
@@ -191,22 +171,19 @@ company_total = {
 			}
 		}
 	}
-
 	prosperity_modifier = {
 		building_railway_throughput_add = 0.05
 		state_colony_growth_speed_mult = 0.15
 		state_migration_pull_mult = 0.05
 	}
-
 	ai_will_do = {
 		has_technology_researched = pumpjacks
 		any_scope_state = {
 			has_potential_resource = bg_oil_extraction
 		}
 	}
-
 	ai_weight = {
-		value = 4 # Higher base value for flavored companies
+		value = 4		# Higher base value for flavored companies
 	}
 }
 
@@ -214,35 +191,31 @@ company_total = {
 company_bg = {
 	icon = "gfx/interface/icons/company_icons/historical_company_icons/british_company_bg.dds"
 	background = "gfx/interface/icons/company_icons/company_backgrounds/comp_illu_oil_drills.dds"
-
 	flavored_company = yes
-
-	preferred_headquarters = { STATE_HOME_COUNTIES }
-
+	preferred_headquarters = {
+		STATE_HOME_COUNTIES
+	}
 	building_types = {
 		building_oil_rig
 		building_natural_gas_rig
 		building_mendelejew_hydrogenation_plants
 	}
-
 	extension_building_types = {
 		building_mendelejew_synthetic_rubber_factory
 		building_chemical_plant
 	}
-
 	potential = {
-		has_interest_marker_in_region = region_england
+		has_interest_marker_in_region = sr:region_western_europe
 	}
-
 	attainable = {
-		hidden_trigger = { # Hide attainable if it's always fulfilled by possible
+		hidden_trigger = {
+			# Hide attainable if it's always fulfilled by possible
 			any_scope_state = {
 				state_region = s:STATE_HOME_COUNTIES
-				is_incorporated = yes # Necessary in this case
+				is_incorporated = yes				# Necessary in this case
 			}
 		}
 	}
-
 	possible = {
 		has_technology_researched = pumpjacks
 		any_scope_state = {
@@ -252,57 +225,49 @@ company_bg = {
 			}
 		}
 	}
-
 	prosperity_modifier = {
 		building_natural_gas_rig_throughput_add = 0.1
 		state_colony_growth_speed_mult = 0.15
 	}
-
 	ai_will_do = {
 		has_technology_researched = pumpjacks
 		any_scope_state = {
 			has_potential_resource = bg_oil_extraction
 		}
 	}
-
 	ai_weight = {
-		value = 4 # Higher base value for flavored companies
+		value = 4		# Higher base value for flavored companies
 	}
 }
 
 #ENI/ENEL
-
 company_eni = {
 	icon = "gfx/interface/icons/company_icons/historical_company_icons/italian_company_eni.dds"
 	background = "gfx/interface/icons/company_icons/company_backgrounds/comp_illu_oil_drills.dds"
-
 	flavored_company = yes
-
-	preferred_headquarters = { STATE_LAZIO }
-
+	preferred_headquarters = {
+		STATE_LAZIO
+	}
 	building_types = {
 		building_oil_rig
 		building_natural_gas_rig
 		building_mendelejew_hydrogenation_plants
 	}
-
 	extension_building_types = {
 		building_mendelejew_synthetic_rubber_factory
 	}
-
 	potential = {
-		has_interest_marker_in_region = region_italy
+		has_interest_marker_in_region = sr:region_southern_europe
 	}
-
 	attainable = {
-		hidden_trigger = { # Hide attainable if it's always fulfilled by possible
+		hidden_trigger = {
+			# Hide attainable if it's always fulfilled by possible
 			any_scope_state = {
 				state_region = s:STATE_LAZIO
-				is_incorporated = yes # Necessary in this case
+				is_incorporated = yes				# Necessary in this case
 			}
 		}
 	}
-
 	possible = {
 		has_technology_researched = pumpjacks
 		any_scope_state = {
@@ -312,20 +277,17 @@ company_eni = {
 			}
 		}
 	}
-
 	prosperity_modifier = {
 		building_mendelejew_synthetic_rubber_factory_throughput_add = 0.1
 		building_railway_throughput_add = 0.1
 		building_renewable_energy_power_plant_throughput_add = -0.05
 	}
-
 	ai_will_do = {
 		has_technology_researched = pumpjacks
 		any_scope_state = {
 			has_potential_resource = bg_oil_extraction
 		}
 	}
-
 	ai_construction_targets = {
 		building_oil_rig = {
 			level = 5
@@ -337,48 +299,41 @@ company_eni = {
 			}
 		}
 	}
-
 	ai_weight = {
-		value = 4 # Higher base value for flavored companies
+		value = 4		# Higher base value for flavored companies
 	}
 }
 
 # Gazprom
-
 company_gazprom = {
 	icon = "gfx/interface/icons/company_icons/historical_company_icons/russian_company_gazprom.dds"
 	background = "gfx/interface/icons/company_icons/company_backgrounds/comp_illu_oil_drills.dds"
-
 	flavored_company = yes
-
-	preferred_headquarters = { STATE_INGRIA }
-
+	preferred_headquarters = {
+		STATE_INGRIA
+	}
 	building_types = {
 		building_power_plant
 		building_natural_gas_rig
 	}
-
 	possible_prestige_goods = {
 		prestige_good_gazprom_natural_gas
 	}
-
 	extension_building_types = {
 		building_mendelejew_hydrogenation_plants
 	}
-
 	potential = {
-		has_interest_marker_in_region = region_russia
+		has_interest_marker_in_region = sr:region_russia
 	}
-
 	attainable = {
-		hidden_trigger = { # Hide attainable if it's always fulfilled by possible
+		hidden_trigger = {
+			# Hide attainable if it's always fulfilled by possible
 			any_scope_state = {
 				state_region = s:STATE_INGRIA
-				is_incorporated = yes # Necessary in this case
+				is_incorporated = yes				# Necessary in this case
 			}
 		}
 	}
-
 	possible = {
 		has_technology_researched = natural_gas_extraction
 		any_scope_state = {
@@ -388,20 +343,17 @@ company_gazprom = {
 			}
 		}
 	}
-
 	prosperity_modifier = {
 		building_natural_gas_rig_throughput_add = 0.25
 		country_prestige_from_army_power_projection_mult = 0.2
 		state_mortality_mult = 0.05
 	}
-
 	ai_will_do = {
 		has_technology_researched = natural_gas_extraction
 		any_scope_state = {
 			has_potential_resource = building_natural_gas_rig
 		}
 	}
-
 	ai_construction_targets = {
 		building_oil_rig = {
 			level = 5
@@ -413,43 +365,38 @@ company_gazprom = {
 			}
 		}
 	}
-
 	ai_weight = {
-		value = 4 # Higher base value for flavored companies
+		value = 4		# Higher base value for flavored companies
 	}
 }
 
 #Saudi Aramco
-
 company_saudi_aramco = {
 	icon = "gfx/interface/icons/company_icons/historical_company_icons/arabian_company_saudi_aramco.dds"
 	background = "gfx/interface/icons/company_icons/company_backgrounds/comp_illu_oil_drills.dds"
-
 	flavored_company = yes
-
-	preferred_headquarters = { STATE_NEJD STATE_ABU_DHABI }
-
+	preferred_headquarters = {
+		STATE_NEJD
+		STATE_ABU_DHABI
+	}
 	building_types = {
 		building_oil_rig
 		building_natural_gas_rig
 		building_mendelejew_hydrogenation_plants
 	}
-
 	extension_building_types = {
 		building_mendelejew_synthetic_rubber_factory
 		building_power_plant
 	}
-
 	possible_prestige_goods = {
 		prestige_good_saudi_aramco_oil
 	}
-
 	potential = {
-		has_interest_marker_in_region = region_arabic
+		has_interest_marker_in_region = sr:region_arabia
 	}
-
 	attainable = {
-		hidden_trigger = { # Hide attainable if it's always fulfilled by possible
+		hidden_trigger = {
+			# Hide attainable if it's always fulfilled by possible
 			any_scope_state = {
 				OR = {
 					state_region = s:STATE_NEJD
@@ -458,7 +405,6 @@ company_saudi_aramco = {
 			}
 		}
 	}
-
 	possible = {
 		year >= 1900
 		has_technology_researched = pumpjacks
@@ -474,13 +420,11 @@ company_saudi_aramco = {
 			}
 		}
 	}
-
 	prosperity_modifier = {
 		building_mendelejew_hydrogenation_plants_throughput_add = 0.15
 		building_group_bg_oil_extraction_throughput_add = 0.15
 		state_mortality_wealth_mult = -0.002
 	}
-
 	ai_will_do = {
 		has_technology_researched = pumpjacks
 		any_scope_state = {
@@ -488,7 +432,6 @@ company_saudi_aramco = {
 			has_potential_resource = bg_oil_extraction
 		}
 	}
-
 	ai_construction_targets = {
 		building_oil_rig = {
 			level = 5
@@ -500,8 +443,7 @@ company_saudi_aramco = {
 			}
 		}
 	}
-
 	ai_weight = {
-		value = 4 # Higher base value for flavored companies
+		value = 4		# Higher base value for flavored companies
 	}
 }

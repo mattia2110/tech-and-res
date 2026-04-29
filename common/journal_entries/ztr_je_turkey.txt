@@ -1,4 +1,3 @@
-
 je_ottoman_empire_collapse = {
 	icon = "gfx/interface/icons/event_icons/waving_flag_ottoman.dds"
 	group = je_group_global_historical_content
@@ -12,7 +11,7 @@ je_ottoman_empire_collapse = {
 			c:TUR ?= this
 			AND = {
 				country_rank = rank_value:great_power
-				navy_size >= 30 #Naval Power
+				navy_size >= 30				#Naval Power
 			}
 		}
 	}
@@ -20,7 +19,6 @@ je_ottoman_empire_collapse = {
 		c:TUR ?= this
 		is_involved_in_journal_entry = je_ottoman_empire_collapse
 	}
-
 	scripted_button = ztr_ottoman_collapse_request_egypt
 	scripted_button = ztr_ottoman_collapse_request_levant
 	scripted_button = ztr_ottoman_collapse_request_iraq
@@ -102,7 +100,7 @@ je_ottoman_empire_collapse = {
 				# Liberal reforms lessen centrifugal forces
 				if = {
 					limit = {
-						has_law = law_type:law_universal_suffrage
+						has_law_or_variant = law_type:law_universal_suffrage
 					}
 					change_variable = {
 						name = ottoman_empire_collapse_var
@@ -112,7 +110,7 @@ je_ottoman_empire_collapse = {
 				# More inclusive citizenship reduces provincial separatism
 				if = {
 					limit = {
-						has_law = law_type:law_cultural_exclusion
+						has_law_or_variant = law_type:law_cultural_exclusion
 					}
 					change_variable = {
 						name = ottoman_empire_collapse_var
@@ -121,7 +119,7 @@ je_ottoman_empire_collapse = {
 				}
 				if = {
 					limit = {
-						has_law = law_type:law_multicultural
+						has_law_or_variant = law_type:law_multicultural
 					}
 					change_variable = {
 						name = ottoman_empire_collapse_var
@@ -774,5 +772,5 @@ je_ottoman_empire_collapse = {
 	}
 	progressbar = yes
 	weight = 20
-	should_be_pinned_by_default = yes
+	should_be_pinned_by_default_uninvolved_or_context = yes
 }

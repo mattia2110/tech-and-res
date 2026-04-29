@@ -16,37 +16,34 @@
 # Rolls-Royce (United Kingdom)
 # Volvo (Sweden)
 # Lada (Russia)
-
 # Xiaomi
-
 company_xiaomi = {
 	icon = "gfx/interface/icons/company_icons/historical_company_icons/chinese_xiaomi.dds"
 	background = "gfx/interface/icons/company_icons/company_backgrounds/comp_illu_automotive.dds"
-
 	flavored_company = yes
-	preferred_headquarters = { STATE_BEIJING }
-
+	preferred_headquarters = {
+		STATE_BEIJING
+	}
 	building_types = {
 		building_electrics_industry
 	}
-
 	extension_building_types = {
 		building_automotive_industry
 	}
-
 	possible_prestige_goods = {
 		prestige_good_smartphones
 		prestige_good_asia_automobiles
 	}
-
-	potential = { has_interest_marker_in_region = region_north_china }
-
+	potential = {
+		has_interest_marker_in_region = sr:region_north_china
+	}
 	attainable = {
 		hidden_trigger = {
-			any_scope_state = { state_region = s:STATE_BEIJING }
+			any_scope_state = {
+				state_region = s:STATE_BEIJING
+			}
 		}
 	}
-
 	possible = {
 		has_technology_researched = mobile_devices
 		any_scope_state = {
@@ -58,13 +55,11 @@ company_xiaomi = {
 			}
 		}
 	}
-
 	prosperity_modifier = {
 		building_telecommunications_industry_throughput_add = 0.1
 		building_renewable_energy_power_plant_throughput_add = 0.1
 		country_prestige_mult = 0.05
 	}
-
 	ai_will_do = {
 		has_technology_researched = mobile_devices
 		any_scope_state = {
@@ -72,55 +67,54 @@ company_xiaomi = {
 			is_incorporated = yes
 		}
 	}
-
 	ai_construction_targets = {
 		building_electrics_industry = {
 			level = 5
-			state_trigger = { state_region = s:STATE_BEIJING }
+			state_trigger = {
+				state_region = s:STATE_BEIJING
+			}
 		}
 	}
-
-	ai_weight = { value = 4 }
+	ai_weight = {
+		value = 4
+	}
 }
 
 # BYD
-
 company_byd = {
 	icon = "gfx/interface/icons/company_icons/historical_company_icons/chinese_byd.dds"
 	background = "gfx/interface/icons/company_icons/company_backgrounds/comp_illu_automotive.dds"
-
 	flavored_company = yes
-	preferred_headquarters = { STATE_GUANGDONG }
-
+	preferred_headquarters = {
+		STATE_GUANGDONG
+	}
 	building_types = {
 		building_motor_industry
 		building_battery_plant
-		building_automotive_industry # BYD electric vehicles
+		building_automotive_industry		# BYD electric vehicles
 	}
-
 	extension_building_types = {
 		building_renewable_energy_power_plant
 	}
-
 	possible_prestige_goods = {
 		prestige_good_asia_automobiles
 	}
-
 	prestige_goods_trigger = {
 		custom_tooltip = {
 			text = je_ztr_prestige_good_asia_automobiles_complete_tt
 			has_variable = ztr_prestige_good_asia_automobiles_var
 		}
 	}
-
-	potential = { has_interest_marker_in_region = region_south_china }
-
+	potential = {
+		has_interest_marker_in_region = sr:region_south_china
+	}
 	attainable = {
 		hidden_trigger = {
-			any_scope_state = { state_region = s:STATE_GUANGDONG }
+			any_scope_state = {
+				state_region = s:STATE_GUANGDONG
+			}
 		}
 	}
-
 	possible = {
 		has_technology_researched = hybrid_vehicles
 		any_scope_state = {
@@ -132,13 +126,11 @@ company_byd = {
 			}
 		}
 	}
-
 	prosperity_modifier = {
 		building_electronics_industry_throughput_add = 0.1
 		building_processors_foundry_throughput_add = 0.1
 		state_infrastructure_from_automobiles_consumption_add = 0.1
 	}
-
 	ai_will_do = {
 		has_technology_researched = hybrid_vehicles
 		any_scope_state = {
@@ -146,60 +138,59 @@ company_byd = {
 			is_incorporated = yes
 		}
 	}
-
 	ai_construction_targets = {
 		building_motor_industry = {
 			level = 5
-			state_trigger = { state_region = s:STATE_GUANGDONG }
+			state_trigger = {
+				state_region = s:STATE_GUANGDONG
+			}
 		}
 	}
-
-	ai_weight = { value = 4 }
+	ai_weight = {
+		value = 4
+	}
 }
 
 # Toyota
-
 company_toyota = {
 	icon = "gfx/interface/icons/company_icons/historical_company_icons/japanese_toyota.dds"
 	background = "gfx/interface/icons/company_icons/company_backgrounds/comp_illu_automotive.dds"
-
 	flavored_company = yes
-	preferred_headquarters = { STATE_CHUBU }
-
+	preferred_headquarters = {
+		STATE_TOKAI
+	}
 	building_types = {
 		building_textile_mill
 		building_motor_industry
-		building_automotive_industry # Toyota vehicles
+		building_automotive_industry		# Toyota vehicles
 	}
-
 	extension_building_types = {
 		building_robotics_industry
 		building_mendelejew_synthetic_rubber_factory
 	}
-
 	possible_prestige_goods = {
 		prestige_good_asia_automobiles
 	}
-
 	prestige_goods_trigger = {
 		custom_tooltip = {
 			text = je_ztr_prestige_good_asia_automobiles_complete_tt
 			has_variable = ztr_prestige_good_asia_automobiles_var
 		}
 	}
-
-	potential = { has_interest_marker_in_region = region_japan }
-
+	potential = {
+		has_interest_marker_in_region = sr:region_northeast_asia
+	}
 	attainable = {
 		hidden_trigger = {
-			any_scope_state = { state_region = s:STATE_CHUBU }
+			any_scope_state = {
+				state_region = s:STATE_TOKAI
+			}
 		}
 	}
-
 	possible = {
 		has_technology_researched = mechanized_workshops
 		any_scope_state = {
-			state_region = s:STATE_CHUBU
+			state_region = s:STATE_TOKAI
 			is_incorporated = yes
 			any_scope_building = {
 				is_building_type = building_textile_mill
@@ -207,67 +198,64 @@ company_toyota = {
 			}
 		}
 	}
-
 	prosperity_modifier = {
 		building_battery_plant_throughput_add = 0.1
 		building_automotive_industry_throughput_add = 0.05
 	}
-
 	ai_will_do = {
 		has_technology_researched = mechanized_workshops
 		any_scope_state = {
-			state_region = s:STATE_CHUBU
+			state_region = s:STATE_TOKAI
 			is_incorporated = yes
 		}
 	}
-
 	ai_construction_targets = {
 		building_textile_mill = {
 			level = 5
-			state_trigger = { state_region = s:STATE_CHUBU }
+			state_trigger = {
+				state_region = s:STATE_TOKAI
+			}
 		}
 	}
-
-	ai_weight = { value = 4 }
+	ai_weight = {
+		value = 4
+	}
 }
 
 # Honda
-
 company_honda = {
 	icon = "gfx/interface/icons/company_icons/historical_company_icons/japanese_honda.dds"
 	background = "gfx/interface/icons/company_icons/company_backgrounds/comp_illu_automotive.dds"
-
 	flavored_company = yes
-	preferred_headquarters = { STATE_KANTO }
-
+	preferred_headquarters = {
+		STATE_KANTO
+	}
 	building_types = {
 		building_motor_industry
 		building_automotive_industry
 	}
-
 	extension_building_types = {
 		building_robotics_industry
 	}
-
 	possible_prestige_goods = {
 		prestige_good_asia_automobiles
 	}
-
 	prestige_goods_trigger = {
 		custom_tooltip = {
 			text = je_ztr_prestige_good_asia_automobiles_complete_tt
 			has_variable = ztr_prestige_good_asia_automobiles_var
 		}
 	}
-
-	potential = { has_interest_marker_in_region = region_japan }
-
+	potential = {
+		has_interest_marker_in_region = sr:region_northeast_asia
+	}
 	attainable = {
 		hidden_trigger = {
-			any_scope_state = { state_region = s:STATE_KANTO }
+			any_scope_state = {
+				state_region = s:STATE_KANTO
+			}
 		}
 	}
-
 	possible = {
 		has_technology_researched = compression_ignition
 		any_scope_state = {
@@ -279,13 +267,10 @@ company_honda = {
 			}
 		}
 	}
-
 	prosperity_modifier = {
 		building_shipyard_throughput_add = 0.05
-		building_military_shipyard_throughput_add = 0.05
 		building_electronics_industry_throughput_add = 0.05
 	}
-
 	ai_will_do = {
 		has_technology_researched = compression_ignition
 		any_scope_state = {
@@ -293,43 +278,44 @@ company_honda = {
 			is_incorporated = yes
 		}
 	}
-
 	ai_construction_targets = {
 		building_motor_industry = {
 			level = 5
-			state_trigger = { state_region = s:STATE_KANTO }
+			state_trigger = {
+				state_region = s:STATE_KANTO
+			}
 		}
 	}
-
-	ai_weight = { value = 4 }
+	ai_weight = {
+		value = 4
+	}
 }
 
 # Mahindra & Mahindra
-
 company_mahindra = {
 	icon = "gfx/interface/icons/company_icons/historical_company_icons/indian_mahindra.dds"
 	background = "gfx/interface/icons/company_icons/company_backgrounds/comp_illu_automotive.dds"
-
 	flavored_company = yes
-	preferred_headquarters = { STATE_BOMBAY }
-
+	preferred_headquarters = {
+		STATE_BOMBAY
+	}
 	building_types = {
 		building_motor_industry
 	}
-
 	extension_building_types = {
 		building_automotive_industry
 		building_rubber_plantation
 	}
-
-	potential = { has_interest_marker_in_region = region_bombay }
-
+	potential = {
+		has_interest_marker_in_region = sr:region_south_india
+	}
 	attainable = {
 		hidden_trigger = {
-			any_scope_state = { state_region = s:STATE_BOMBAY }
+			any_scope_state = {
+				state_region = s:STATE_BOMBAY
+			}
 		}
 	}
-
 	possible = {
 		has_technology_researched = green_revolution
 		any_scope_state = {
@@ -341,12 +327,10 @@ company_mahindra = {
 			}
 		}
 	}
-
 	prosperity_modifier = {
 		building_group_bg_agriculture_throughput_add = 0.1
 		state_birth_rate_mult = 0.1
 	}
-
 	ai_will_do = {
 		has_technology_researched = green_revolution
 		any_scope_state = {
@@ -354,55 +338,54 @@ company_mahindra = {
 			is_incorporated = yes
 		}
 	}
-
 	ai_construction_targets = {
 		building_motor_industry = {
 			level = 5
-			state_trigger = { state_region = s:STATE_BOMBAY }
+			state_trigger = {
+				state_region = s:STATE_BOMBAY
+			}
 		}
 	}
-
-	ai_weight = { value = 4 }
+	ai_weight = {
+		value = 4
+	}
 }
 
 # Hyundai
-
 company_hyundai = {
 	icon = "gfx/interface/icons/company_icons/historical_company_icons/south_korean_hyundai.dds"
 	background = "gfx/interface/icons/company_icons/company_backgrounds/comp_illu_automotive.dds"
-
 	flavored_company = yes
-	preferred_headquarters = { STATE_SEOUL }
-
+	preferred_headquarters = {
+		STATE_SEOUL
+	}
 	building_types = {
 		building_motor_industry
 		building_railway
 		building_automotive_industry
 	}
-
 	extension_building_types = {
 		building_shipyard
 	}
-
 	possible_prestige_goods = {
 		prestige_good_asia_automobiles
 	}
-
 	prestige_goods_trigger = {
 		custom_tooltip = {
 			text = je_ztr_prestige_good_asia_automobiles_complete_tt
 			has_variable = ztr_prestige_good_asia_automobiles_var
 		}
 	}
-
-	potential = { has_interest_marker_in_region = region_manchuria }
-
+	potential = {
+		has_interest_marker_in_region = sr:region_northeast_asia
+	}
 	attainable = {
 		hidden_trigger = {
-			any_scope_state = { state_region = s:STATE_SEOUL }
+			any_scope_state = {
+				state_region = s:STATE_SEOUL
+			}
 		}
 	}
-
 	possible = {
 		has_technology_researched = combustion_engine
 		any_scope_state = {
@@ -414,12 +397,10 @@ company_hyundai = {
 			}
 		}
 	}
-
 	prosperity_modifier = {
-		building_military_shipyard_throughput_add = 0.1
+		building_shipyard_throughput_add = 0.1
 		state_infrastructure_from_automobiles_consumption_add = 0.1
 	}
-
 	ai_will_do = {
 		has_technology_researched = combustion_engine
 		any_scope_state = {
@@ -427,47 +408,47 @@ company_hyundai = {
 			is_incorporated = yes
 		}
 	}
-
 	ai_construction_targets = {
 		building_motor_industry = {
 			level = 5
-			state_trigger = { state_region = s:STATE_SEOUL }
+			state_trigger = {
+				state_region = s:STATE_SEOUL
+			}
 		}
 	}
-
-	ai_weight = { value = 4 }
+	ai_weight = {
+		value = 4
+	}
 }
 
 # Mercedes-Benz
-
 company_mercedes_benz = {
 	icon = "gfx/interface/icons/company_icons/historical_company_icons/german_mercedes_benz.dds"
 	background = "gfx/interface/icons/company_icons/company_backgrounds/comp_illu_automotive.dds"
-
 	flavored_company = yes
-	preferred_headquarters = { STATE_WURTTEMBERG }
-
+	preferred_headquarters = {
+		STATE_WURTTEMBERG
+	}
 	building_types = {
 		building_motor_industry
-		building_automotive_industry # Mercedes-Benz vehicles
+		building_automotive_industry		# Mercedes-Benz vehicles
 	}
-
 	extension_building_types = {
 		building_mendelejew_synthetic_rubber_factory
 	}
-
 	possible_prestige_goods = {
 		prestige_good_turin_automobiles
 	}
-
-	potential = { has_interest_marker_in_region = region_south_germany }
-
+	potential = {
+		has_interest_marker_in_region = sr:region_central_europe
+	}
 	attainable = {
 		hidden_trigger = {
-			any_scope_state = { state_region = s:STATE_WURTTEMBERG }
+			any_scope_state = {
+				state_region = s:STATE_WURTTEMBERG
+			}
 		}
 	}
-
 	possible = {
 		has_technology_researched = combustion_engine
 		any_scope_state = {
@@ -479,14 +460,12 @@ company_mercedes_benz = {
 			}
 		}
 	}
-
 	prosperity_modifier = {
 		state_infrastructure_from_automobiles_consumption_add = 0.1
 		building_battery_plant_throughput_add = 0.05
 		building_mendelejew_hydrogenation_plants_throughput_add = 0.05
 		country_prestige_mult = 0.05
 	}
-
 	ai_will_do = {
 		has_technology_researched = combustion_engine
 		any_scope_state = {
@@ -494,48 +473,48 @@ company_mercedes_benz = {
 			is_incorporated = yes
 		}
 	}
-
 	ai_construction_targets = {
 		building_motor_industry = {
 			level = 5
-			state_trigger = { state_region = s:STATE_WURTTEMBERG }
+			state_trigger = {
+				state_region = s:STATE_WURTTEMBERG
+			}
 		}
 	}
-
-	ai_weight = { value = 4 }
+	ai_weight = {
+		value = 4
+	}
 }
 
 # Volkswagen
-
 company_volkswagen = {
 	icon = "gfx/interface/icons/company_icons/historical_company_icons/german_volkswagen.dds"
 	background = "gfx/interface/icons/company_icons/company_backgrounds/comp_illu_automotive.dds"
-
 	flavored_company = yes
-	preferred_headquarters = { STATE_BRUNSWICK }
-
+	preferred_headquarters = {
+		STATE_BRUNSWICK
+	}
 	building_types = {
 		building_motor_industry
-		building_automotive_industry # Volkswagen vehicles
+		building_automotive_industry		# Volkswagen vehicles
 	}
-
 	extension_building_types = {
 		building_battery_plant
 		building_mendelejew_synthetic_rubber_factory
 	}
-
 	possible_prestige_goods = {
 		prestige_good_turin_automobiles
 	}
-
-	potential = { has_interest_marker_in_region = region_north_germany }
-
+	potential = {
+		has_interest_marker_in_region = sr:region_central_europe
+	}
 	attainable = {
 		hidden_trigger = {
-			any_scope_state = { state_region = s:STATE_BRUNSWICK }
+			any_scope_state = {
+				state_region = s:STATE_BRUNSWICK
+			}
 		}
 	}
-
 	possible = {
 		has_technology_researched = blitzkrieg
 		any_scope_state = {
@@ -547,13 +526,11 @@ company_volkswagen = {
 			}
 		}
 	}
-
 	prosperity_modifier = {
 		building_automotive_industry_throughput_add = 0.1
 		unit_combat_unit_type_modern_light_tanks_offense_mult = 0.15
 		unit_combat_unit_type_modern_heavy_tank_offense_mult = 0.15
 	}
-
 	ai_will_do = {
 		has_technology_researched = blitzkrieg
 		any_scope_state = {
@@ -561,47 +538,47 @@ company_volkswagen = {
 			is_incorporated = yes
 		}
 	}
-
 	ai_construction_targets = {
 		building_motor_industry = {
 			level = 5
-			state_trigger = { state_region = s:STATE_BRUNSWICK }
+			state_trigger = {
+				state_region = s:STATE_BRUNSWICK
+			}
 		}
 	}
-
-	ai_weight = { value = 4 }
+	ai_weight = {
+		value = 4
+	}
 }
 
 # BMW
-
 company_bmw = {
 	icon = "gfx/interface/icons/company_icons/historical_company_icons/german_bmw.dds"
 	background = "gfx/interface/icons/company_icons/company_backgrounds/comp_illu_automotive.dds"
-
 	flavored_company = yes
-	preferred_headquarters = { STATE_BAVARIA }
-
+	preferred_headquarters = {
+		STATE_BAVARIA
+	}
 	building_types = {
 		building_motor_industry
-		building_automotive_industry # BMW vehicles
+		building_automotive_industry		# BMW vehicles
 	}
-
 	extension_building_types = {
 		building_mendelejew_synthetic_rubber_factory
 	}
-
 	possible_prestige_goods = {
 		prestige_good_turin_automobiles
 	}
-
-	potential = { has_interest_marker_in_region = region_south_germany }
-
+	potential = {
+		has_interest_marker_in_region = sr:region_central_europe
+	}
 	attainable = {
 		hidden_trigger = {
-			any_scope_state = { state_region = s:STATE_BAVARIA }
+			any_scope_state = {
+				state_region = s:STATE_BAVARIA
+			}
 		}
 	}
-
 	possible = {
 		has_technology_researched = combustion_engine
 		any_scope_state = {
@@ -613,13 +590,11 @@ company_bmw = {
 			}
 		}
 	}
-
 	prosperity_modifier = {
 		building_motor_industry_throughput_add = 0.1
 		building_alloys_plant_throughput_add = 0.05
 		state_standard_of_living_add = 0.25
 	}
-
 	ai_will_do = {
 		has_technology_researched = combustion_engine
 		any_scope_state = {
@@ -627,43 +602,44 @@ company_bmw = {
 			is_incorporated = yes
 		}
 	}
-
 	ai_construction_targets = {
 		building_motor_industry = {
 			level = 5
-			state_trigger = { state_region = s:STATE_BAVARIA }
+			state_trigger = {
+				state_region = s:STATE_BAVARIA
+			}
 		}
 	}
-
-	ai_weight = { value = 4 }
+	ai_weight = {
+		value = 4
+	}
 }
 
 # Ferrari
-
 company_ferrari = {
 	icon = "gfx/interface/icons/company_icons/historical_company_icons/italian_ferrari.dds"
 	background = "gfx/interface/icons/company_icons/company_backgrounds/comp_illu_automotive.dds"
-
 	flavored_company = yes
-	preferred_headquarters = { STATE_EMILIA }
-
+	preferred_headquarters = {
+		STATE_EMILIA
+	}
 	building_types = {
 		building_motor_industry
 		building_automotive_industry
 	}
-
 	possible_prestige_goods = {
 		prestige_good_turin_automobiles
 	}
-
-	potential = { has_interest_marker_in_region = region_italy }
-
+	potential = {
+		has_interest_marker_in_region = sr:region_southern_europe
+	}
 	attainable = {
 		hidden_trigger = {
-			any_scope_state = { state_region = s:STATE_EMILIA }
+			any_scope_state = {
+				state_region = s:STATE_EMILIA
+			}
 		}
 	}
-
 	possible = {
 		has_technology_researched = compression_ignition
 		any_scope_state = {
@@ -675,14 +651,12 @@ company_ferrari = {
 			}
 		}
 	}
-
 	prosperity_modifier = {
 		state_market_access_price_impact = 0.05
-		building_elgar_opera_throughput_add = 0.05 # F1
+		building_elgar_opera_throughput_add = 0.05		# F1
 		building_mendelejew_hydrogenation_plants_throughput_add = 0.05
 		country_prestige_mult = 0.1
 	}
-
 	ai_will_do = {
 		has_technology_researched = compression_ignition
 		any_scope_state = {
@@ -690,47 +664,47 @@ company_ferrari = {
 			is_incorporated = yes
 		}
 	}
-
 	ai_construction_targets = {
 		building_motor_industry = {
 			level = 5
-			state_trigger = { state_region = s:STATE_EMILIA }
+			state_trigger = {
+				state_region = s:STATE_EMILIA
+			}
 		}
 	}
-
-	ai_weight = { value = 5 }
+	ai_weight = {
+		value = 5
+	}
 }
 
 # Peugeot
-
 company_peugeot = {
 	icon = "gfx/interface/icons/company_icons/historical_company_icons/french_peugeot.dds"
 	background = "gfx/interface/icons/company_icons/company_backgrounds/comp_illu_automotive.dds"
-
 	flavored_company = yes
-	preferred_headquarters = { STATE_FRANCHE_COMTE }
-
+	preferred_headquarters = {
+		STATE_FRANCHE_COMTE
+	}
 	building_types = {
 		building_steel_mill
 		building_motor_industry
 	}
-
 	extension_building_types = {
-		building_automotive_industry # Peugeot vehicles
+		building_automotive_industry		# Peugeot vehicles
 	}
-
 	possible_prestige_goods = {
 		prestige_good_turin_automobiles
 	}
-
-	potential = { has_interest_marker_in_region = region_france }
-
+	potential = {
+		has_interest_marker_in_region = sr:region_western_europe
+	}
 	attainable = {
 		hidden_trigger = {
-			any_scope_state = { state_region = s:STATE_FRANCHE_COMTE }
+			any_scope_state = {
+				state_region = s:STATE_FRANCHE_COMTE
+			}
 		}
 	}
-
 	possible = {
 		has_technology_researched = bessemer_process
 		any_scope_state = {
@@ -742,12 +716,10 @@ company_peugeot = {
 			}
 		}
 	}
-
 	prosperity_modifier = {
 		state_infrastructure_from_automobiles_consumption_add = 0.1
 		building_mendelejew_hydrogenation_plants_throughput_add = 0.05
 	}
-
 	ai_will_do = {
 		has_technology_researched = bessemer_process
 		any_scope_state = {
@@ -755,43 +727,44 @@ company_peugeot = {
 			is_incorporated = yes
 		}
 	}
-
 	ai_construction_targets = {
 		building_steel_mill = {
 			level = 5
-			state_trigger = { state_region = s:STATE_FRANCHE_COMTE }
+			state_trigger = {
+				state_region = s:STATE_FRANCHE_COMTE
+			}
 		}
 	}
-
-	ai_weight = { value = 5 }
+	ai_weight = {
+		value = 5
+	}
 }
 
 # Renault
-
 company_renault = {
 	icon = "gfx/interface/icons/company_icons/historical_company_icons/french_renault.dds"
 	background = "gfx/interface/icons/company_icons/company_backgrounds/comp_illu_automotive.dds"
-
 	flavored_company = yes
-	preferred_headquarters = { STATE_ILE_DE_FRANCE }
-
+	preferred_headquarters = {
+		STATE_ILE_DE_FRANCE
+	}
 	building_types = {
 		building_motor_industry
-		building_automotive_industry # Renault vehicles
+		building_automotive_industry		# Renault vehicles
 	}
-
 	possible_prestige_goods = {
 		prestige_good_turin_automobiles
 	}
-
-	potential = { has_interest_marker_in_region = region_france }
-
+	potential = {
+		has_interest_marker_in_region = sr:region_western_europe
+	}
 	attainable = {
 		hidden_trigger = {
-			any_scope_state = { state_region = s:STATE_ILE_DE_FRANCE }
+			any_scope_state = {
+				state_region = s:STATE_ILE_DE_FRANCE
+			}
 		}
 	}
-
 	possible = {
 		has_technology_researched = combustion_engine
 		any_scope_state = {
@@ -803,12 +776,10 @@ company_renault = {
 			}
 		}
 	}
-
 	prosperity_modifier = {
-		military_formation_movement_speed_mult = 0.05
+		military_formation_army_movement_speed_mult = 0.05
 		building_battery_plant_throughput_add = 0.1
 	}
-
 	ai_will_do = {
 		has_technology_researched = combustion_engine
 		any_scope_state = {
@@ -816,44 +787,45 @@ company_renault = {
 			is_incorporated = yes
 		}
 	}
-
 	ai_construction_targets = {
 		building_motor_industry = {
 			level = 5
-			state_trigger = { state_region = s:STATE_ILE_DE_FRANCE }
+			state_trigger = {
+				state_region = s:STATE_ILE_DE_FRANCE
+			}
 		}
 	}
-
-	ai_weight = { value = 4 }
+	ai_weight = {
+		value = 4
+	}
 }
 
 # Tesla
-
 company_tesla = {
 	icon = "gfx/interface/icons/company_icons/historical_company_icons/american_tesla.dds"
 	background = "gfx/interface/icons/company_icons/company_backgrounds/comp_illu_automotive.dds"
-
 	flavored_company = yes
-	preferred_headquarters = { STATE_TEXAS }
-
+	preferred_headquarters = {
+		STATE_TEXAS
+	}
 	building_types = {
 		building_motor_industry
 		building_battery_plant
 		building_automotive_industry
 	}
-
 	possible_prestige_goods = {
 		prestige_good_ford_automobiles
 	}
-
-	potential = { has_interest_marker_in_region = region_pacific_coast }
-
+	potential = {
+		has_interest_marker_in_region = sr:region_pacific_coast
+	}
 	attainable = {
 		hidden_trigger = {
-			any_scope_state = { state_region = s:STATE_CALIFORNIA }
+			any_scope_state = {
+				state_region = s:STATE_CALIFORNIA
+			}
 		}
 	}
-
 	possible = {
 		has_technology_researched = hybrid_vehicles
 		any_scope_state = {
@@ -865,13 +837,11 @@ company_tesla = {
 			}
 		}
 	}
-
 	prosperity_modifier = {
 		building_processors_foundry_throughput_add = 0.05
 		building_renewable_energy_power_plant_throughput_add = 0.05
 		country_production_tech_research_speed_mult = 0.05
 	}
-
 	ai_will_do = {
 		has_technology_researched = hybrid_vehicles
 		any_scope_state = {
@@ -879,45 +849,46 @@ company_tesla = {
 			is_incorporated = yes
 		}
 	}
-
 	ai_construction_targets = {
 		building_automotive_industry = {
 			level = 5
-			state_trigger = { state_region = s:STATE_CALIFORNIA }
+			state_trigger = {
+				state_region = s:STATE_CALIFORNIA
+			}
 		}
 	}
-
-	ai_weight = { value = 4 }
+	ai_weight = {
+		value = 4
+	}
 }
 
 company_general_motors = {
 	icon = "gfx/interface/icons/company_icons/historical_company_icons/american_general_motors.dds"
 	background = "gfx/interface/icons/company_icons/company_backgrounds/comp_illu_automotive.dds"
-
 	flavored_company = yes
-	preferred_headquarters = { STATE_MICHIGAN }
-
+	preferred_headquarters = {
+		STATE_MICHIGAN
+	}
 	building_types = {
 		building_motor_industry
-		building_automotive_industry # General Motors vehicles
+		building_automotive_industry		# General Motors vehicles
 	}
-
 	extension_building_types = {
-		building_arms_industry # GM M3 Grease Gun
+		building_arms_industry		# GM M3 Grease Gun
 	}
-
 	possible_prestige_goods = {
 		prestige_good_ford_automobiles
 	}
-
-	potential = { has_interest_marker_in_region = region_the_midwest }
-
+	potential = {
+		has_interest_marker_in_region = sr:region_atlantic_coast
+	}
 	attainable = {
 		hidden_trigger = {
-			any_scope_state = { state_region = s:STATE_MICHIGAN }
+			any_scope_state = {
+				state_region = s:STATE_MICHIGAN
+			}
 		}
 	}
-
 	possible = {
 		has_technology_researched = combustion_engine
 		any_scope_state = {
@@ -929,14 +900,12 @@ company_general_motors = {
 			}
 		}
 	}
-
 	prosperity_modifier = {
 		building_railway_throughput_add = -0.2
 		state_infrastructure_from_automobiles_consumption_add = 0.15
 		building_group_bg_heavy_industry_throughput_add = 0.01
 		state_birth_rate_mult = 0.05
 	}
-
 	ai_will_do = {
 		has_technology_researched = combustion_engine
 		any_scope_state = {
@@ -944,42 +913,43 @@ company_general_motors = {
 			is_incorporated = yes
 		}
 	}
-
 	ai_construction_targets = {
 		building_motor_industry = {
 			level = 5
-			state_trigger = { state_region = s:STATE_MICHIGAN }
+			state_trigger = {
+				state_region = s:STATE_MICHIGAN
+			}
 		}
 	}
-
-	ai_weight = { value = 4 }
+	ai_weight = {
+		value = 4
+	}
 }
 
 # Dacia
-
 company_dacia = {
 	icon = "gfx/interface/icons/company_icons/historical_company_icons/romanian_dacia.dds"
 	background = "gfx/interface/icons/company_icons/company_backgrounds/comp_illu_automotive.dds"
-
 	flavored_company = yes
-	preferred_headquarters = { STATE_MOLDAVIA }
-
+	preferred_headquarters = {
+		STATE_MOLDAVIA
+	}
 	building_types = {
 		building_automotive_industry
 	}
-
 	possible_prestige_goods = {
 		prestige_good_turin_automobiles
 	}
-
-	potential = { has_interest_marker_in_region = region_danubia }
-
+	potential = {
+		has_interest_marker_in_region = sr:region_balkans
+	}
 	attainable = {
 		hidden_trigger = {
-			any_scope_state = { state_region = s:STATE_WALLACHIA }
+			any_scope_state = {
+				state_region = s:STATE_WALLACHIA
+			}
 		}
 	}
-
 	possible = {
 		has_technology_researched = combustion_engine
 		any_scope_state = {
@@ -991,13 +961,11 @@ company_dacia = {
 			}
 		}
 	}
-
 	prosperity_modifier = {
 		building_mendelejew_hydrogenation_plants_throughput_add = 0.05
 		building_group_bg_oil_extraction_throughput_add = 0.05
 		state_infrastructure_from_automobiles_consumption_add = 0.1
 	}
-
 	ai_will_do = {
 		has_technology_researched = combustion_engine
 		any_scope_state = {
@@ -1005,39 +973,41 @@ company_dacia = {
 			is_incorporated = yes
 		}
 	}
-
 	ai_construction_targets = {
 		building_automotive_industry = {
 			level = 5
-			state_trigger = { state_region = s:STATE_WALLACHIA }
+			state_trigger = {
+				state_region = s:STATE_WALLACHIA
+			}
 		}
 	}
-
-	ai_weight = { value = 4 }
+	ai_weight = {
+		value = 4
+	}
 }
 
 # Rolls-Royce
-
 company_rolls_royce = {
 	icon = "gfx/interface/icons/company_icons/historical_company_icons/british_rolls_royce.dds"
 	background = "gfx/interface/icons/company_icons/company_backgrounds/comp_illu_automotive.dds"
-
 	flavored_company = yes
-	preferred_headquarters = { STATE_HOME_COUNTIES }
-
+	preferred_headquarters = {
+		STATE_HOME_COUNTIES
+	}
 	building_types = {
 		building_motor_industry
-		building_automotive_industry # Rolls-Royce vehicles
+		building_automotive_industry		# Rolls-Royce vehicles
 	}
-
-	potential = { has_interest_marker_in_region = region_england }
-
+	potential = {
+		has_interest_marker_in_region = sr:region_western_europe
+	}
 	attainable = {
 		hidden_trigger = {
-			any_scope_state = { state_region = s:STATE_HOME_COUNTIES }
+			any_scope_state = {
+				state_region = s:STATE_HOME_COUNTIES
+			}
 		}
 	}
-
 	possible = {
 		has_technology_researched = combustion_engine
 		any_scope_state = {
@@ -1049,13 +1019,10 @@ company_rolls_royce = {
 			}
 		}
 	}
-
 	prosperity_modifier = {
-		building_military_shipyard_throughput_add = 0.1
 		building_shipyard_throughput_add = 0.1
 		building_aircraft_industry_throughput_add = 0.1
 	}
-
 	ai_will_do = {
 		has_technology_researched = combustion_engine
 		any_scope_state = {
@@ -1063,43 +1030,45 @@ company_rolls_royce = {
 			is_incorporated = yes
 		}
 	}
-
 	ai_construction_targets = {
 		building_motor_industry = {
 			level = 5
-			state_trigger = { state_region = s:STATE_HOME_COUNTIES }
+			state_trigger = {
+				state_region = s:STATE_HOME_COUNTIES
+			}
 		}
 	}
-
-	ai_weight = { value = 2 } # Rolls-Royce is not a major automotive company, but rather known for luxury vehicles and aircraft engines.
+	ai_weight = {
+		value = 2
+	}
+	# Rolls-Royce is not a major automotive company, but rather known for luxury vehicles and aircraft engines.
 }
 
 # Volvo
-
 company_volvo = {
 	icon = "gfx/interface/icons/company_icons/historical_company_icons/swedish_volvo.dds"
 	background = "gfx/interface/icons/company_icons/company_backgrounds/comp_illu_automotive.dds"
-
 	flavored_company = yes
-	preferred_headquarters = { STATE_SVEALAND }
-
+	preferred_headquarters = {
+		STATE_SVEALAND
+	}
 	building_types = {
 		building_motor_industry
-		building_automotive_industry # Volvo vehicles
+		building_automotive_industry		# Volvo vehicles
 	}
-
 	possible_prestige_goods = {
 		prestige_good_turin_automobiles
 	}
-
-	potential = { has_interest_marker_in_region = region_baltic }
-
+	potential = {
+		has_interest_marker_in_region = sr:region_northern_europe
+	}
 	attainable = {
 		hidden_trigger = {
-			any_scope_state = { state_region = s:STATE_SVEALAND }
+			any_scope_state = {
+				state_region = s:STATE_SVEALAND
+			}
 		}
 	}
-
 	possible = {
 		has_technology_researched = combustion_engine
 		any_scope_state = {
@@ -1111,13 +1080,11 @@ company_volvo = {
 			}
 		}
 	}
-
 	prosperity_modifier = {
 		building_group_bg_heavy_industry_throughput_add = 0.01
 		building_group_bg_light_industry_throughput_add = 0.01
 		state_infrastructure_from_automobiles_consumption_add = 0.1
 	}
-
 	ai_will_do = {
 		has_technology_researched = combustion_engine
 		any_scope_state = {
@@ -1125,38 +1092,40 @@ company_volvo = {
 			is_incorporated = yes
 		}
 	}
-
 	ai_construction_targets = {
 		building_motor_industry = {
 			level = 5
-			state_trigger = { state_region = s:STATE_SVEALAND }
+			state_trigger = {
+				state_region = s:STATE_SVEALAND
+			}
 		}
 	}
-
-	ai_weight = { value = 4 }
+	ai_weight = {
+		value = 4
+	}
 }
 
 # Lada
-
 company_lada = {
 	icon = "gfx/interface/icons/company_icons/historical_company_icons/russian_lada.dds"
 	background = "gfx/interface/icons/company_icons/company_backgrounds/comp_illu_automotive.dds"
-
 	flavored_company = yes
-	preferred_headquarters = { STATE_SAMARA }
-
+	preferred_headquarters = {
+		STATE_SAMARA
+	}
 	building_types = {
 		building_automotive_industry
 	}
-
-	potential = { has_interest_marker_in_region = region_russia }
-
+	potential = {
+		has_interest_marker_in_region = sr:region_russia
+	}
 	attainable = {
 		hidden_trigger = {
-			any_scope_state = { state_region = s:STATE_SAMARA }
+			any_scope_state = {
+				state_region = s:STATE_SAMARA
+			}
 		}
 	}
-
 	possible = {
 		has_technology_researched = compression_ignition
 		any_scope_state = {
@@ -1168,14 +1137,12 @@ company_lada = {
 			}
 		}
 	}
-
 	prosperity_modifier = {
 		unit_combat_unit_type_modern_light_tanks_offense_mult = 0.1
 		unit_combat_unit_type_modern_heavy_tank_offense_mult = 0.1
 		unit_combat_unit_type_main_battle_tanks_offense_mult = 0.1
 		building_mendelejew_hydrogenation_plants_throughput_add = 0.1
 	}
-
 	ai_will_do = {
 		has_technology_researched = compression_ignition
 		any_scope_state = {
@@ -1183,13 +1150,15 @@ company_lada = {
 			is_incorporated = yes
 		}
 	}
-
 	ai_construction_targets = {
 		building_automotive_industry = {
 			level = 5
-			state_trigger = { state_region = s:STATE_SAMARA }
+			state_trigger = {
+				state_region = s:STATE_SAMARA
+			}
 		}
 	}
-
-	ai_weight = { value = 4 }
+	ai_weight = {
+		value = 4
+	}
 }

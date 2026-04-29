@@ -1,50 +1,51 @@
 namespace = austrian_empire_collapse
-
 austrian_empire_collapse.1 = {
 	dlc = dlc_tech_res
 	type = country_event
 	placement = root
-
 	duration = 1
-
 	event_image = {
 		video = "unspecific_devastation"
 	}
-
 	title = austrian_empire_collapse.1.t
 	desc = austrian_empire_collapse.1.d
-
 	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
 	on_opened_soundeffect = "event:/SFX/Events/middleeast/middleclass_cafe"
-
 	icon = "gfx/interface/icons/event_icons/waving_flag_austria.dds"
-
 	trigger = {
 		# JE
 	}
-
 	immediate = {
 		if = {
-			limit = { exists = c:HUN }
-			c:HUN = { save_scope_as = collapse_hungary_scope }
+			limit = {
+				exists = c:HUN
+			}
+			c:HUN = {
+				save_scope_as = collapse_hungary_scope
+			}
 		}
 		if = {
-			limit = { exists = c:CZH }
-			c:CZH = { save_scope_as = collapse_czech_scope }
+			limit = {
+				exists = c:CZH
+			}
+			c:CZH = {
+				save_scope_as = collapse_czech_scope
+			}
 		}
 	}
-
 	# Austria declares annexation war only on Hungary
 	option = {
 		name = austrian_empire_collapse.1.a
 		default_option = yes
 		trigger = {
 			exists = c:HUN
-			NOT = { exists = c:CZH }
+			NOT = {
+				exists = c:CZH
+			}
 		}
 		create_diplomatic_play = {
-		target_country = c:HUN
-		type = dp_annex_war
+			target_country = c:HUN
+			type = dp_annex_war
 		}
 		hidden_effect = {
 			change_infamy = -2000
@@ -53,7 +54,6 @@ austrian_empire_collapse.1 = {
 			base = 4
 		}
 	}
-
 	# Austria declares annexation war only on Czechoslovakia/Bohemia
 	option = {
 		name = austrian_empire_collapse.1.b
@@ -62,11 +62,15 @@ austrian_empire_collapse.1 = {
 				exists = c:CZH
 				exists = c:BOH
 			}
-			NOT = { exists = c:HUN }
+			NOT = {
+				exists = c:HUN
+			}
 		}
 		change_infamy = -20
 		if = {
-			limit = { exists = c:CZH }
+			limit = {
+				exists = c:CZH
+			}
 			create_diplomatic_play = {
 				target_country = c:CZH
 				type = dp_annex_war
@@ -85,7 +89,6 @@ austrian_empire_collapse.1 = {
 			base = 4
 		}
 	}
-
 	# Austria declares annexation war only on Hungary and Czechoslovakia/Bohemia
 	option = {
 		name = austrian_empire_collapse.1.c
@@ -102,7 +105,9 @@ austrian_empire_collapse.1 = {
 			type = dp_annex_war
 		}
 		if = {
-			limit = { exists = c:CZH }
+			limit = {
+				exists = c:CZH
+			}
 			create_diplomatic_play = {
 				target_country = c:CZH
 				type = dp_annex_war
@@ -121,7 +126,6 @@ austrian_empire_collapse.1 = {
 			base = 4
 		}
 	}
-
 	# Austria declares annexation against everyone
 	option = {
 		name = austrian_empire_collapse.1.e
@@ -130,8 +134,8 @@ austrian_empire_collapse.1 = {
 				exists = c:HUN
 			}
 			create_diplomatic_play = {
-			target_country = c:HUN
-			type = dp_annex_war
+				target_country = c:HUN
+				type = dp_annex_war
 			}
 		}
 		if = {
@@ -139,8 +143,8 @@ austrian_empire_collapse.1 = {
 				exists = c:CZH
 			}
 			create_diplomatic_play = {
-			target_country = c:CZH
-			type = dp_annex_war
+				target_country = c:CZH
+				type = dp_annex_war
 			}
 		}
 		if = {
@@ -148,8 +152,8 @@ austrian_empire_collapse.1 = {
 				exists = c:BOH
 			}
 			create_diplomatic_play = {
-			target_country = c:BOH
-			type = dp_annex_war
+				target_country = c:BOH
+				type = dp_annex_war
 			}
 		}
 		if = {
@@ -157,8 +161,8 @@ austrian_empire_collapse.1 = {
 				exists = c:SER
 			}
 			create_diplomatic_play = {
-			target_country = c:SER
-			type = dp_annex_war
+				target_country = c:SER
+				type = dp_annex_war
 			}
 		}
 		if = {
@@ -166,9 +170,9 @@ austrian_empire_collapse.1 = {
 				exists = c:ITA
 			}
 			create_diplomatic_play = {
-			target_country = c:ITA
-			type = dp_return_state
-			target_state = s:STATE_VENETIA.region_state:ITA
+				target_country = c:ITA
+				type = dp_return_state
+				target_state = s:STATE_VENETIA.region_state:ITA
 			}
 		}
 		if = {
@@ -176,9 +180,9 @@ austrian_empire_collapse.1 = {
 				exists = c:VEN
 			}
 			create_diplomatic_play = {
-			target_country = c:VEN
-			type = dp_return_state
-			target_state = s:STATE_VENETIA.region_state:VEN
+				target_country = c:VEN
+				type = dp_return_state
+				target_state = s:STATE_VENETIA.region_state:VEN
 			}
 		}
 		hidden_effect = {
@@ -188,7 +192,6 @@ austrian_empire_collapse.1 = {
 			base = 0
 		}
 	}
-
 	# Austria accepts its fate
 	option = {
 		name = austrian_empire_collapse.1.f
@@ -203,29 +206,20 @@ austrian_empire_collapse.2 = {
 	dlc = dlc_tech_res
 	type = country_event
 	placement = root
-
 	duration = 1
-
 	event_image = {
 		video = "unspecific_military_parade"
 	}
-
 	title = austrian_empire_collapse.2.t
 	desc = austrian_empire_collapse.2.d
-
 	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
 	on_opened_soundeffect = "event:/SFX/Events/middleeast/middleclass_cafe"
-
 	icon = "gfx/interface/icons/event_icons/waving_flag_austria.dds"
-
 	trigger = {
 		# JE
 	}
-
 	immediate = {
-
 	}
-
 	# Austrian empire restores unity
 	option = {
 		name = austrian_empire_collapse.2.a
@@ -234,7 +228,7 @@ austrian_empire_collapse.2 = {
 		add_modifier = {
 			name = austria_unity_restored
 			months = 120
-		}	
+		}
 	}
 }
 
@@ -242,33 +236,30 @@ austrian_empire_collapse.3 = {
 	dlc = dlc_tech_res
 	type = country_event
 	placement = root
-
 	duration = 1
-
 	event_image = {
 		video = "unspecific_politicians_arguing"
 	}
-
-	title = austrian_empire_collapse.3.t      # "Il magiaro contro il tedesco"
-	desc  = austrian_empire_collapse.3.d
-
+	title = austrian_empire_collapse.3.t	# "Il magiaro contro il tedesco"
+	desc = austrian_empire_collapse.3.d
 	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
-	on_opened_soundeffect  = "event:/SFX/Events/middleeast/middleclass_cafe"
-
+	on_opened_soundeffect = "event:/SFX/Events/middleeast/middleclass_cafe"
 	icon = "gfx/interface/icons/event_icons/waving_flag_austria.dds"
-
 	# Viene richiamato dal random_events del JE: nessun trigger aggiuntivo necessario
 	trigger = {
-		NOT = { has_variable = magyar_language_var }
+		NOT = {
+			has_variable = magyar_language_var
+		}
 		OR = {
 			AND = {
-				NOT = { exists = c:HUN }
+				NOT = {
+					exists = c:HUN
+				}
 				has_state_in_state_region = STATE_TRANSDANUBIA
 			}
 			hungary_is_subject_or_personal_union_austria = yes
 		}
 	}
-
 	immediate = {
 		set_variable = {
 			name = magyar_language_var
@@ -280,27 +271,23 @@ austrian_empire_collapse.3 = {
 			}
 		}
 	}
-
 	# Opzione dura: il tedesco resta unica lingua ufficiale
 	option = {
-		name = austrian_empire_collapse.3.a   # "Il tedesco o niente!"
+		name = austrian_empire_collapse.3.a		# "Il tedesco o niente!"
 		default_option = yes
-
 		# Aggrava la crisi imperiale
 		change_variable = {
 			name = austrian_empire_collapse_var
-			add  = 1
+			add = 1
 		}
-
 		custom_tooltip = austrian_empire_collapse_lose_minor_progress_tt
-
 		if = {
 			limit = {
 				hungary_is_subject_or_personal_union_austria = yes
 			}
 			s:STATE_TRANSDANUBIA.region_state:HUN = {
 				add_modifier = {
-					name   = magyar_linguistic_discrimination
+					name = magyar_linguistic_discrimination
 					months = 60
 				}
 			}
@@ -308,34 +295,31 @@ austrian_empire_collapse.3 = {
 		else = {
 			s:STATE_TRANSDANUBIA = {
 				add_modifier = {
-					name   = magyar_linguistic_discrimination
+					name = magyar_linguistic_discrimination
 					months = 60
 				}
 			}
 		}
-
-		ai_chance = { base = 7 }   # L’IA preferirà spesso questa strada
+		ai_chance = {
+			base = 7
+		}		# L’IA preferirà spesso questa strada
 	}
-
 	# Opzione conciliatoria: riconoscere il magiaro come lingua amministrativa regionale
 	option = {
-		name = austrian_empire_collapse.3.b          # "Concediamo la lingua magiara"
-
+		name = austrian_empire_collapse.3.b		# "Concediamo la lingua magiara"
 		# Smorza la crisi (–2 al valore del JE)
 		change_variable = {
 			name = austrian_empire_collapse_var
 			subtract = 1
 		}
-
 		custom_tooltip = austrian_empire_collapse_minor_progress_tt
-
 		if = {
 			limit = {
 				hungary_is_subject_or_personal_union_austria = yes
 			}
 			s:STATE_TRANSDANUBIA.region_state:HUN = {
 				add_modifier = {
-					name   = magyar_linguistic_freedom
+					name = magyar_linguistic_freedom
 					months = 60
 				}
 			}
@@ -343,18 +327,18 @@ austrian_empire_collapse.3 = {
 		else = {
 			s:STATE_TRANSDANUBIA = {
 				add_modifier = {
-					name   = magyar_linguistic_freedom
+					name = magyar_linguistic_freedom
 					months = 60
 				}
 			}
 		}
-
 		change_variable = {
 			name = magyar_language_var
 			add = 1
 		}
-
-		ai_chance = { base = 3 }
+		ai_chance = {
+			base = 3
+		}
 	}
 }
 
@@ -362,66 +346,59 @@ austrian_empire_collapse.4 = {
 	dlc = dlc_tech_res
 	type = country_event
 	placement = root
-
 	duration = 1
-
 	event_image = {
 		video = "unspecific_vandalized_storefront"
 	}
-
-	title = austrian_empire_collapse.4.t      # "Le rivolte ungheresi"
-	desc  = austrian_empire_collapse.4.d
-
+	title = austrian_empire_collapse.4.t	# "Le rivolte ungheresi"
+	desc = austrian_empire_collapse.4.d
 	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
-	on_opened_soundeffect  = "event:/SFX/Events/middleeast/middleclass_cafe"
-
+	on_opened_soundeffect = "event:/SFX/Events/middleeast/middleclass_cafe"
 	icon = "gfx/interface/icons/event_icons/waving_flag_austria.dds"
-
 	# Richiamato dal random_events del JE; compare solo se l’Ungheria esiste
 	trigger = {
-		NOT = { has_variable = hungarian_revolts_var }   # evita ripetizioni
+		NOT = {
+			has_variable = hungarian_revolts_var
+		}		# evita ripetizioni
 		OR = {
 			AND = {
-				NOT = { exists = c:HUN }
+				NOT = {
+					exists = c:HUN
+				}
 				has_state_in_state_region = STATE_TRANSDANUBIA
 			}
 			hungary_is_subject_or_personal_union_austria = yes
 		}
 	}
-
 	immediate = {
 		set_variable = {
-			name  = hungarian_revolts_var
+			name = hungarian_revolts_var
 			value = 0
 		}
 	}
-
 	### Opzione 1 – Repressione dura
 	option = {
-		name = austrian_empire_collapse.4.a   # "Schierate l’esercito!"
+		name = austrian_empire_collapse.4.a		# "Schierate l’esercito!"
 		default_option = yes
-
 		# Aggrava la crisi imperiale
 		change_variable = {
 			name = austrian_empire_collapse_var
-			add  = 2
+			add = 2
 		}
-
 		custom_tooltip = austrian_empire_collapse_lose_moderate_progress_tt
-
 		if = {
 			limit = {
 				hungary_is_subject_or_personal_union_austria = yes
 			}
 			s:STATE_TRANSDANUBIA.region_state:HUN = {
 				add_modifier = {
-					name   = ztr_collapse_revolt_crushed
+					name = ztr_collapse_revolt_crushed
 					months = 48
 				}
 			}
 			c:HUN = {
 				add_radicals = {
-					value   = 0.15
+					value = 0.15
 					culture = cu:hungarian
 				}
 			}
@@ -429,44 +406,41 @@ austrian_empire_collapse.4 = {
 		else = {
 			s:STATE_TRANSDANUBIA = {
 				add_modifier = {
-					name   = ztr_collapse_revolt_crushed
+					name = ztr_collapse_revolt_crushed
 					months = 48
 				}
 			}
 			add_radicals = {
-				value   = 0.15
+				value = 0.15
 				culture = cu:hungarian
 			}
 		}
-
-		ai_chance = { base = 6 }
+		ai_chance = {
+			base = 6
+		}
 	}
-
 	### Opzione 2 – Concessioni e autonomia
 	option = {
-		name = austrian_empire_collapse.4.b            # "Offrite riforme e autonomia"
-
+		name = austrian_empire_collapse.4.b		# "Offrite riforme e autonomia"
 		# Attenua la crisi
 		change_variable = {
 			name = austrian_empire_collapse_var
 			subtract = 2
 		}
-
 		custom_tooltip = austrian_empire_collapse_moderate_progress_tt
-
 		if = {
 			limit = {
 				hungary_is_subject_or_personal_union_austria = yes
-			 }
+			}
 			s:STATE_TRANSDANUBIA.region_state:HUN = {
 				add_modifier = {
-					name   = ztr_collapse_revolt_appeased
+					name = ztr_collapse_revolt_appeased
 					months = 24
 				}
 			}
 			c:HUN = {
 				add_loyalists = {
-					value   = 0.15
+					value = 0.15
 					culture = cu:hungarian
 				}
 			}
@@ -474,22 +448,22 @@ austrian_empire_collapse.4 = {
 		else = {
 			s:STATE_TRANSDANUBIA = {
 				add_modifier = {
-					name   = ztr_collapse_revolt_appeased
+					name = ztr_collapse_revolt_appeased
 					months = 24
 				}
 			}
 			add_loyalists = {
-				value   = 0.05
+				value = 0.05
 				culture = cu:hungarian
 			}
 		}
-
 		change_variable = {
-			name  = hungarian_revolts_var
+			name = hungarian_revolts_var
 			add = 1
 		}
-
-		ai_chance = { base = 4 }
+		ai_chance = {
+			base = 4
+		}
 	}
 }
 
@@ -498,105 +472,96 @@ austrian_empire_collapse.5 = {
 	type = country_event
 	placement = root
 	duration = 1
-
 	event_image = {
 		video = "southamerica_election"
 	}
-
-	title = austrian_empire_collapse.5.t          # "Stessi diritti dei cittadini tedeschi!"
-	desc  = austrian_empire_collapse.5.d
-
+	title = austrian_empire_collapse.5.t	# "Stessi diritti dei cittadini tedeschi!"
+	desc = austrian_empire_collapse.5.d
 	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
-	on_opened_soundeffect  = "event:/SFX/Events/middleeast/middleclass_cafe"
-	icon                   = "gfx/interface/icons/event_icons/waving_flag_austria.dds"
-
+	on_opened_soundeffect = "event:/SFX/Events/middleeast/middleclass_cafe"
+	icon = "gfx/interface/icons/event_icons/waving_flag_austria.dds"
 	# Invocato dal random_events del JE; si presenta
 	# solo se l’Ungheria esiste e le precedenti “concessioni” sono già avvenute
 	trigger = {
 		OR = {
 			AND = {
-				NOT = { exists = c:HUN }
+				NOT = {
+					exists = c:HUN
+				}
 				has_state_in_state_region = STATE_TRANSDANUBIA
 			}
 			hungary_is_subject_or_personal_union_austria = yes
 		}
 		OR = {
-			var:magyar_language_var   = 1   # Lingua magiara riconosciuta (evento .3)
-			var:hungarian_revolts_var = 1   # Rivolte sopite con riforme (evento .4)
+			var:magyar_language_var = 1			# Lingua magiara riconosciuta (evento .3)
+			var:hungarian_revolts_var = 1			# Rivolte sopite con riforme (evento .4)
 		}
-		NOT = { has_variable = hungarian_civil_rights_var }   # evita copie multiple
+		NOT = {
+			has_variable = hungarian_civil_rights_var
+		}		# evita copie multiple
 	}
-
 	immediate = {
-		set_variable = {         # traccia che l’evento è comparso
-			name  = hungarian_civil_rights_var
+		set_variable = {
+			# traccia che l’evento è comparso
+			name = hungarian_civil_rights_var
 			value = 0
 		}
 	}
-
 	### Opzione 1 – Rifiuto delle rivendicazioni
 	option = {
-		name           = austrian_empire_collapse.5.a      # "I privilegi non si toccano!"
+		name = austrian_empire_collapse.5.a		# "I privilegi non si toccano!"
 		default_option = yes
-
 		# La crisi dell’Impero peggiora
 		change_variable = {
 			name = austrian_empire_collapse_var
-			add  = 4
+			add = 4
 		}
-
 		custom_tooltip = austrian_empire_collapse_lose_moderate_progress_tt
-
 		# Radicalizza parte della popolazione ungherese
-
 		if = {
 			limit = {
 				hungary_is_subject_or_personal_union_austria = yes
-			 }
+			}
 			c:HUN = {
 				add_loyalists = {
-					value   = 0.1
+					value = 0.1
 					culture = cu:hungarian
 				}
 			}
 		}
 		else = {
 			add_loyalists = {
-				value   = 0.1
+				value = 0.1
 				culture = cu:hungarian
 			}
 		}
-
-		ai_chance = { base = 6 }
+		ai_chance = {
+			base = 6
+		}
 	}
-
 	### Opzione 2 – Concessione dell’uguaglianza civile
 	option = {
-		name = austrian_empire_collapse.5.b               # "Pari diritti per tutti"
-
+		name = austrian_empire_collapse.5.b		# "Pari diritti per tutti"
 		# Allevia la crisi imperiale
 		change_variable = {
 			name = austrian_empire_collapse_var
 			subtract = 2
 		}
-
 		custom_tooltip = austrian_empire_collapse_moderate_progress_tt
-
 		# Bonus di stabilità locale
-
 		if = {
 			limit = {
 				hungary_is_subject_or_personal_union_austria = yes
-			 }
+			}
 			s:STATE_TRANSDANUBIA.region_state:HUN = {
 				add_modifier = {
-					name   = hungarian_rights_granted
+					name = hungarian_rights_granted
 					months = 60
 				}
 			}
 			c:HUn = {
 				add_loyalists = {
-					value   = 0.10
+					value = 0.1
 					culture = cu:hungarian
 				}
 			}
@@ -604,93 +569,88 @@ austrian_empire_collapse.5 = {
 		else = {
 			s:STATE_TRANSDANUBIA = {
 				add_modifier = {
-					name   = hungarian_rights_granted
+					name = hungarian_rights_granted
 					months = 60
 				}
 			}
 			add_loyalists = {
-				value   = 0.10
+				value = 0.1
 				culture = cu:hungarian
 			}
 		}
-
 		add_modifier = {
-			name   = austrian_monarchy_humiliated
+			name = austrian_monarchy_humiliated
 			months = 12
 		}
-
 		# Segnala che la richiesta è stata accolta
 		change_variable = {
-			name  = hungarian_civil_rights_var
+			name = hungarian_civil_rights_var
 			add = 1
 		}
-
 		# This will make easier to integrate Hungary in a centralized Austria
 		add_primary_culture = cu:hungarian
-
-		ai_chance = { base = 4 }
+		ai_chance = {
+			base = 4
+		}
 	}
 }
 
 austrian_empire_collapse.6 = {
-    dlc = dlc_tech_res
-    type = country_event
-    placement = root
-
-    duration = 1
-
+	dlc = dlc_tech_res
+	type = country_event
+	placement = root
+	duration = 1
 	event_image = {
 		video = "europenorthamerica_springtime_of_nations"
 	}
-
-    title = austrian_empire_collapse.6.t      # "L'indipendenza dell'Ungheria"
-    desc  = austrian_empire_collapse.6.d
-
-    on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
-    on_opened_soundeffect  = "event:/SFX/Events/middleeast/middleclass_cafe"
-
-    icon = "gfx/interface/icons/event_icons/waving_flag_austria.dds"
-
-    # Richiamato dal random_events del JE quando le rivendicazioni civili sono state negate
-    trigger = {
+	title = austrian_empire_collapse.6.t	# "L'indipendenza dell'Ungheria"
+	desc = austrian_empire_collapse.6.d
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	on_opened_soundeffect = "event:/SFX/Events/middleeast/middleclass_cafe"
+	icon = "gfx/interface/icons/event_icons/waving_flag_austria.dds"
+	# Richiamato dal random_events del JE quando le rivendicazioni civili sono state negate
+	trigger = {
 		has_variable = hungarian_civil_rights_var
 		var:austrian_empire_collapse_var > 35
-        NOT = { has_variable = hungary_independence_var }
-        OR = {
+		NOT = {
+			has_variable = hungary_independence_var
+		}
+		OR = {
 			AND = {
-				NOT = { exists = c:HUN }
+				NOT = {
+					exists = c:HUN
+				}
 				has_state_in_state_region = STATE_TRANSDANUBIA
 			}
 			hungary_is_subject_or_personal_union_austria = yes
 		}
-    }
-
-    immediate = {
-        set_variable = {
-            name  = hungary_independence_var      # Evita ripetizioni
-            value = 0
-        }
-    }
-
-    ### Opzione 1 – L'insurrezione porta a guerra
-    option = {
-        name = austrian_empire_collapse.6.a   # "Reprimete la ribellione!"
-        default_option = yes
+	}
+	immediate = {
+		set_variable = {
+			name = hungary_independence_var			# Evita ripetizioni
+			value = 0
+		}
+	}
+	### Opzione 1 – L'insurrezione porta a guerra
+	option = {
+		name = austrian_empire_collapse.6.a		# "Reprimete la ribellione!"
+		default_option = yes
 		trigger = {
 			var:hungarian_civil_rights_var = 0
 		}
-
-        # La crisi dell'Impero migliora
-        change_variable = {
-            name = austrian_empire_collapse_var
-            subtract = 2
-        }
-
+		# La crisi dell'Impero migliora
+		change_variable = {
+			name = austrian_empire_collapse_var
+			subtract = 2
+		}
 		custom_tooltip = austrian_empire_collapse_moderate_progress_tt
-
-        # Se l'Ungheria non esiste, la si crea per la guerra di annessione
-        if = {
-			limit = { NOT = { exists = c:HUN } }
+		# Se l'Ungheria non esiste, la si crea per la guerra di annessione
+		if = {
+			limit = {
+				NOT = {
+					exists = c:HUN
+				}
+			}
 			ztr_define_hungary = yes
 			create_diplomatic_play = {
 				target_country = c:HUN
@@ -698,7 +658,9 @@ austrian_empire_collapse.6 = {
 			}
 		}
 		else_if = {
-			limit = { hungary_is_subject_or_personal_union_austria = yes }
+			limit = {
+				hungary_is_subject_or_personal_union_austria = yes
+			}
 			c:HUN = {
 				create_diplomatic_play = {
 					target_country = c:AUS
@@ -706,66 +668,63 @@ austrian_empire_collapse.6 = {
 				}
 			}
 		}
-
-        # Scoppia un conflitto per riannettere l'Ungheria
-        
+		# Scoppia un conflitto per riannettere l'Ungheria
 		hidden_effect = {
 			change_infamy = -2000
 		}
-
-        ai_chance = { base = 1 }
-    }
-
+		ai_chance = {
+			base = 1
+		}
+	}
 	### Opzione 2 – L'insurrezione, visti i precedenti eventi, non porta a guerra
 	option = {
-        name = austrian_empire_collapse.6.b   # "Reprimete la ribellione, hanno già avuto abbastanza!"
-		trigger = {	var:hungarian_civil_rights_var = 1	}
-
-        # La crisi dell'Impero migliora
-        change_variable = {
-            name = austrian_empire_collapse_var
-            add  = 2
-        }
-
+		name = austrian_empire_collapse.6.b		# "Reprimete la ribellione, hanno già avuto abbastanza!"
+		trigger = {
+			var:hungarian_civil_rights_var = 1
+		}
+		# La crisi dell'Impero migliora
+		change_variable = {
+			name = austrian_empire_collapse_var
+			add = 2
+		}
 		custom_tooltip = austrian_empire_collapse_lose_moderate_progress_tt
-
 		remove_primary_culture = cu:hungarian
-
-        # Radicalizza parte della popolazione ungherese
+		# Radicalizza parte della popolazione ungherese
 		if = {
 			limit = {
 				hungary_is_subject_or_personal_union_austria = yes
-			 }
+			}
 			c:HUN = {
 				add_radicals = {
-					value   = 0.15
+					value = 0.15
 					culture = cu:hungarian
 				}
 			}
 		}
 		else = {
 			add_radicals = {
-				value   = 0.15
+				value = 0.15
 				culture = cu:hungarian
 			}
 		}
-
-        ai_chance = { base = 1 }
-    }
-
-    ### Opzione 3 – Riconoscere l'indipendenza ungherese
-    option = {
-        name = austrian_empire_collapse.6.c       # "Che siano liberi…"
-
+		ai_chance = {
+			base = 1
+		}
+	}
+	### Opzione 3 – Riconoscere l'indipendenza ungherese
+	option = {
+		name = austrian_empire_collapse.6.c		# "Che siano liberi…"
 		change_variable = {
-            name = austrian_empire_collapse_var
-            subtract = 5
-        }
-
+			name = austrian_empire_collapse_var
+			subtract = 5
+		}
 		custom_tooltip = austrian_empire_collapse_great_progress_tt
-
-        if = {
-			limit = { NOT = { exists = c:HUN } }
+		if = {
+			limit = {
+				NOT = {
+					exists = c:HUN
+				}
+			}
 			ztr_define_hungary = yes
 		}
 		else_if = {
@@ -785,67 +744,58 @@ austrian_empire_collapse.6 = {
 				type = vassal
 			}
 		}
-
-        add_modifier = {
-            name   = austrian_monarchy_humiliated
-            months = 24
-        }
-
-        ai_chance = { base = 0 }
-    }
+		add_modifier = {
+			name = austrian_monarchy_humiliated
+			months = 24
+		}
+		ai_chance = {
+			base = 0
+		}
+	}
 }
 
 austrian_empire_collapse.7 = {
-    dlc = dlc_tech_res
-    type = country_event
-    placement = root
-
-    duration = 1
-
+	dlc = dlc_tech_res
+	type = country_event
+	placement = root
+	duration = 1
 	event_image = {
 		video = "unspecific_steam_ship"
 	}
-
-    title      = austrian_empire_collapse.7.t      # "Trieste, porto della Mitteleuropa"
-    desc       = austrian_empire_collapse.7.d
-
-    on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
-    on_opened_soundeffect  = "event:/SFX/Events/middleeast/middleclass_cafe"
-
-    icon       = "gfx/interface/icons/event_icons/waving_flag_austria.dds"
-
-    # Appears only once and only while Trieste/Istria is still under Austrian control
-    trigger = {
-        has_state_in_state_region = STATE_ISTRIA
-        NOT = { has_variable = trieste_harbor_var }
-    }
-
-    immediate = {
-        # Prevent repeated firing of the event
-        set_variable = {
-            name  = trieste_harbor_var
-            value = 0
-        }
-    }
-
-    #  Option A – Great Investment, strenghtening Austrian presence in Istria and Adriatic
-    option = {
-        name = austrian_empire_collapse.7.a      # "Il porto resterà sotto ferreo controllo imperiale"
-        default_option = yes
-
-        # Ease the imperial collapse variable
-        change_variable = {
-            name = austrian_empire_collapse_var
-            subtract = 2
-        }
-
+	title = austrian_empire_collapse.7.t	# "Trieste, porto della Mitteleuropa"
+	desc = austrian_empire_collapse.7.d
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	on_opened_soundeffect = "event:/SFX/Events/middleeast/middleclass_cafe"
+	icon = "gfx/interface/icons/event_icons/waving_flag_austria.dds"
+	# Appears only once and only while Trieste/Istria is still under Austrian control
+	trigger = {
+		has_state_in_state_region = STATE_ISTRIA
+		NOT = {
+			has_variable = trieste_harbor_var
+		}
+	}
+	immediate = {
+		# Prevent repeated firing of the event
+		set_variable = {
+			name = trieste_harbor_var
+			value = 0
+		}
+	}
+	#  Option A – Great Investment, strenghtening Austrian presence in Istria and Adriatic
+	option = {
+		name = austrian_empire_collapse.7.a		# "Il porto resterà sotto ferreo controllo imperiale"
+		default_option = yes
+		# Ease the imperial collapse variable
+		change_variable = {
+			name = austrian_empire_collapse_var
+			subtract = 2
+		}
 		custom_tooltip = austrian_empire_collapse_moderate_progress_tt
-
-        # Local unrest and deterioration
+		# Local unrest and deterioration
 		s:STATE_ISTRIA.region_state:AUS = {
 			add_modifier = {
-                name = mittleuropa_harbor
-            }
+				name = mittleuropa_harbor
+			}
 			create_building = {
 				building = building_port
 				add_ownership = {
@@ -857,302 +807,283 @@ austrian_empire_collapse.7 = {
 				reserves = 1
 			}
 		}
-		add_treasury = -1000000 # 100K in 10 years
-
+		add_treasury = -1000000		# 100K in 10 years
 		if = {
-			limit = { exists = c:ITA }
+			limit = {
+				exists = c:ITA
+			}
 			c:ITA = {
 				change_relations = {
 					country = c:AUS
 					value = -100
 				}
 			}
-        }
-
+		}
 		change_variable = {
-            name  = trieste_harbor_var
-            add = 1
-        }
-
-        ai_chance = { base = 2 }
-    }
-
-    #Option B – No Investments, as they would be disrespectful and too costly
-    option = {
-        name = austrian_empire_collapse.7.b
-
+			name = trieste_harbor_var
+			add = 1
+		}
+		ai_chance = {
+			base = 2
+		}
+	}
+	#Option B – No Investments, as they would be disrespectful and too costly
+	option = {
+		name = austrian_empire_collapse.7.b
 		# The imperial crisis deepens
-        change_variable = {
-            name = austrian_empire_collapse_var
-            add  = 3
-        }
-
+		change_variable = {
+			name = austrian_empire_collapse_var
+			add = 3
+		}
 		custom_tooltip = austrian_empire_collapse_lose_moderate_progress_tt
-
 		if = {
-			limit = { exists = c:ITA }
+			limit = {
+				exists = c:ITA
+			}
 			c:ITA = {
 				change_relations = {
 					country = c:AUS
 					value = 50
 				}
 			}
-        }
-
-        ai_chance = { base = 8 }
-    }
+		}
+		ai_chance = {
+			base = 8
+		}
+	}
 }
 
 austrian_empire_collapse.8 = {
 	dlc = dlc_tech_res
-    type = country_event
-    placement = root
+	type = country_event
+	placement = root
 	duration = 1
-
 	event_image = {
 		video = "europenorthamerica_springtime_of_nations"
 	}
-
-	title = austrian_empire_collapse.8.t        # “L’Italia s’è desta!”
+	title = austrian_empire_collapse.8.t	# “L’Italia s’è desta!”
 	desc = austrian_empire_collapse.8.d
-
 	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
-	on_opened_soundeffect  = "event:/SFX/Events/middleeast/middleclass_cafe"
-	icon                   = "gfx/interface/icons/event_icons/waving_flag_austria.dds"
-
+	on_opened_soundeffect = "event:/SFX/Events/middleeast/middleclass_cafe"
+	icon = "gfx/interface/icons/event_icons/waving_flag_austria.dds"
 	# Richiamato dal random_events del JE quando l’Italia esiste
 	trigger = {
 		exists = c:ITA
-		OR = {                                         # Vienna possiede ancora almeno uno dei due stati
+		OR = {
+			# Vienna possiede ancora almeno uno dei due stati
 			has_state_in_state_region = STATE_LOMBARDY
 			has_state_in_state_region = STATE_VENETIA
 		}
 		var:austrian_empire_collapse_var > 25
-		NOT = { has_variable = lombardy_veneto_revolt_var }  # evita doppie occorrenze
+		NOT = {
+			has_variable = lombardy_veneto_revolt_var
+		}		# evita doppie occorrenze
 	}
-
 	immediate = {
 		set_variable = {
-			name  = lombardy_veneto_revolt_var
-			value = 0                                     # segnaposto, serve solo come flag
+			name = lombardy_veneto_revolt_var
+			value = 0			# segnaposto, serve solo come flag
 		}
 		c:ITA = {
 			save_scope_as = stirs_italy_scope
 		}
 	}
-
 	### Opzione 1 – Repressione dura
 	option = {
-		name = austrian_empire_collapse.8.a   # "Schierate l’esercito!"
+		name = austrian_empire_collapse.8.a		# "Schierate l’esercito!"
 		default_option = yes
-
 		# Peggiora la crisi imperiale
 		change_variable = {
 			name = austrian_empire_collapse_var
-			add  = 3
+			add = 3
 		}
-
 		custom_tooltip = austrian_empire_collapse_lose_moderate_progress_tt
-
 		# Malus locali
 		s:STATE_LOMBARDY = {
 			add_modifier = {
-				name   = ztr_collapse_revolt_crushed
+				name = ztr_collapse_revolt_crushed
 				months = 48
 			}
 		}
 		s:STATE_VENETIA = {
 			add_modifier = {
-				name   = ztr_collapse_revolt_crushed
+				name = ztr_collapse_revolt_crushed
 				months = 48
 			}
 		}
-
 		# Radicalizza gli italiani
 		add_radicals = {
-			value   = 0.1
+			value = 0.1
 			culture = cu:north_italian
 		}
-
-		ai_chance = { base = 6 }
+		ai_chance = {
+			base = 6
+		}
 	}
-
 	### Opzione 2 – Concessioni e autonomia
 	option = {
-		name = austrian_empire_collapse.8.b            # "Offrite riforme e autonomia"
-
+		name = austrian_empire_collapse.8.b		# "Offrite riforme e autonomia"
 		# Attenua la crisi
 		change_variable = {
 			name = austrian_empire_collapse_var
 			subtract = 1
 		}
-
 		custom_tooltip = austrian_empire_collapse_minor_progress_tt
-
 		s:STATE_LOMBARDY = {
 			add_modifier = {
-				name   = ztr_collapse_revolt_appeased
+				name = ztr_collapse_revolt_appeased
 				months = 24
 			}
 		}
 		s:STATE_VENETIA = {
 			add_modifier = {
-				name   = ztr_collapse_revolt_appeased
+				name = ztr_collapse_revolt_appeased
 				months = 24
 			}
 		}
-
 		add_loyalists = {
-			value   = 0.05
+			value = 0.05
 			culture = cu:north_italian
 		}
-
-		ai_chance = { base = 3 }
+		ai_chance = {
+			base = 3
+		}
 	}
-
 	### Opzione 3 – Cedere i territori al Regno d’Italia e finire questa storia
 	option = {
-		name = austrian_empire_collapse.8.c            # "Lasciate che tornino all’Italia…"
-
-		if = {                                         # Lombardia
-			limit = { has_state_in_state_region = STATE_LOMBARDY }
+		name = austrian_empire_collapse.8.c		# "Lasciate che tornino all’Italia…"
+		if = {
+			# Lombardia
+			limit = {
+				has_state_in_state_region = STATE_LOMBARDY
+			}
 			s:STATE_LOMBARDY.region_state:AUS = {
 				set_state_owner = c:ITA
 			}
 		}
-		if = {                                         # Venetia
-			limit = { has_state_in_state_region = STATE_VENETIA }
+		if = {
+			# Venetia
+			limit = {
+				has_state_in_state_region = STATE_VENETIA
+			}
 			s:STATE_VENETIA.region_state:AUS = {
 				set_state_owner = c:ITA
 			}
 		}
-
 		# L’Impero è umiliato ma la crisi si placa
 		add_modifier = {
-			name   = austrian_monarchy_humiliated
+			name = austrian_monarchy_humiliated
 			months = 12
 		}
 		change_variable = {
 			name = austrian_empire_collapse_var
 			subtract = 10
 		}
-
 		custom_tooltip = austrian_empire_collapse_great_progress_tt
-
 		if = {
-			limit = { exists = c:ITA }
+			limit = {
+				exists = c:ITA
+			}
 			c:ITA = {
 				change_relations = {
 					country = c:AUS
 					value = 100
 				}
 			}
-        }
-
-		ai_chance = { base = 1 }
+		}
+		ai_chance = {
+			base = 1
+		}
 	}
 }
 
 austrian_empire_collapse.9 = {
-    dlc = dlc_tech_res
-    type = country_event
-    placement = root
-
-    duration = 1
-
+	dlc = dlc_tech_res
+	type = country_event
+	placement = root
+	duration = 1
 	event_image = {
 		video = "europenorthamerica_russian_serfs"
 	}
-
-    title = austrian_empire_collapse.9.t           # "Galizia, granaio dell'Impero"
-    desc  = austrian_empire_collapse.9.d
-
-    on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
-    on_opened_soundeffect  = "event:/SFX/Events/middleeast/middleclass_cafe"
-
-    icon = "gfx/interface/icons/event_icons/waving_flag_austria.dds"
-
-    # L'evento viene richiamato dal random_events del JE, ma si presenta solo se la Galizia è ancora sotto controllo austriaco
-    trigger = {
-        has_state_in_state_region = STATE_WEST_GALICIA
-        NOT = { has_variable = galicia_granary_var }
-    }
-
-    immediate = {
-        # Previene ripetizioni
-        set_variable = {
-            name  = galicia_granary_var
-            value = 0
-        }
-    }
-
-    ### Opzione 1 – Spremere ulteriormente la Galizia
-    option = {
-        name = austrian_empire_collapse.9.a      # "Spremete ancora la Galizia!"
-        default_option = yes
-
-        # La crisi imperiale peggiora
-        change_variable = {
-            name = austrian_empire_collapse_var
-            add  = 2
-        }
-
+	title = austrian_empire_collapse.9.t	# "Galizia, granaio dell'Impero"
+	desc = austrian_empire_collapse.9.d
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	on_opened_soundeffect = "event:/SFX/Events/middleeast/middleclass_cafe"
+	icon = "gfx/interface/icons/event_icons/waving_flag_austria.dds"
+	# L'evento viene richiamato dal random_events del JE, ma si presenta solo se la Galizia è ancora sotto controllo austriaco
+	trigger = {
+		has_state_in_state_region = STATE_WEST_GALICIA
+		NOT = {
+			has_variable = galicia_granary_var
+		}
+	}
+	immediate = {
+		# Previene ripetizioni
+		set_variable = {
+			name = galicia_granary_var
+			value = 0
+		}
+	}
+	### Opzione 1 – Spremere ulteriormente la Galizia
+	option = {
+		name = austrian_empire_collapse.9.a		# "Spremete ancora la Galizia!"
+		default_option = yes
+		# La crisi imperiale peggiora
+		change_variable = {
+			name = austrian_empire_collapse_var
+			add = 2
+		}
 		custom_tooltip = austrian_empire_collapse_lose_moderate_progress_tt
-
-        # Radicalizza parte della popolazione polacca
-        add_radicals = {
-            value   = 0.10
-            culture = cu:polish
-        }
+		# Radicalizza parte della popolazione polacca
 		add_radicals = {
-            value   = 0.10
-            culture = cu:ukrainian
-        }
-
-        ai_chance = { base = 5 }
-    }
-
-    ### Opzione 2 – Investimenti ed agevolazioni agricole per mantenerli al passo con l'agricoltura boema e ungherese
-    option = {
-        name = austrian_empire_collapse.9.b              # "Sovvenzioniamo i contadini galiziani"
-
-        # Allevia la crisi imperiale
-        change_variable = {
-            name = austrian_empire_collapse_var
-            subtract = 2
-        }
-		
+			value = 0.1
+			culture = cu:polish
+		}
+		add_radicals = {
+			value = 0.1
+			culture = cu:ukrainian
+		}
+		ai_chance = {
+			base = 5
+		}
+	}
+	### Opzione 2 – Investimenti ed agevolazioni agricole per mantenerli al passo con l'agricoltura boema e ungherese
+	option = {
+		name = austrian_empire_collapse.9.b		# "Sovvenzioniamo i contadini galiziani"
+		# Allevia la crisi imperiale
+		change_variable = {
+			name = austrian_empire_collapse_var
+			subtract = 2
+		}
 		custom_tooltip = austrian_empire_collapse_moderate_progress_tt
-
-        # Costo per le finanze imperiali (150k per 10 anni)
-        add_treasury = -500000
-
-        # Benefici locali
-        s:STATE_WEST_GALICIA.region_state:AUS = {
-            add_modifier = {
-                name   = galicia_agricultural_subsidies
-                months = 120
-            }
-        }
-        s:STATE_EAST_GALICIA.region_state:AUS = {
-            add_modifier = {
-                name   = galicia_agricultural_subsidies
-                months = 120
-            }
-        }
-
-        # Fidelizza parte dei contadini polacchi
-        add_loyalists = {
-            value   = 0.05
-            culture = cu:polish
-        }
+		# Costo per le finanze imperiali (150k per 10 anni)
+		add_treasury = -500000
+		# Benefici locali
+		s:STATE_WEST_GALICIA.region_state:AUS = {
+			add_modifier = {
+				name = galicia_agricultural_subsidies
+				months = 120
+			}
+		}
+		s:STATE_EAST_GALICIA.region_state:AUS = {
+			add_modifier = {
+				name = galicia_agricultural_subsidies
+				months = 120
+			}
+		}
+		# Fidelizza parte dei contadini polacchi
 		add_loyalists = {
-            value   = 0.05
-            culture = cu:ukrainian
-        }
-
-        ai_chance = { base = 5 }
-    }
+			value = 0.05
+			culture = cu:polish
+		}
+		add_loyalists = {
+			value = 0.05
+			culture = cu:ukrainian
+		}
+		ai_chance = {
+			base = 5
+		}
+	}
 }
 
 austrian_empire_collapse.10 = {
@@ -1160,94 +1091,81 @@ austrian_empire_collapse.10 = {
 	type = country_event
 	placement = root
 	duration = 1
-
 	event_image = {
 		video = "southamerica_election"
 	}
-
-	title = austrian_empire_collapse.10.t   # "Anche i Cechi chiedono uguaglianza!"
-	desc  = austrian_empire_collapse.10.d
-
+	title = austrian_empire_collapse.10.t	# "Anche i Cechi chiedono uguaglianza!"
+	desc = austrian_empire_collapse.10.d
 	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
-	on_opened_soundeffect  = "event:/SFX/Events/middleeast/middleclass_cafe"
-	icon                   = "gfx/interface/icons/event_icons/waving_flag_austria.dds"
-
+	on_opened_soundeffect = "event:/SFX/Events/middleeast/middleclass_cafe"
+	icon = "gfx/interface/icons/event_icons/waving_flag_austria.dds"
 	trigger = {
 		var:hungarian_civil_rights_var = 1
-		NOT = { has_variable = czech_civil_rights_var }
+		NOT = {
+			has_variable = czech_civil_rights_var
+		}
 		has_state_in_state_region = STATE_BOHEMIA
 	}
-
 	immediate = {
 		set_variable = {
 			name = czech_civil_rights_var
 			value = 0
 		}
 	}
-
 	### Opzione 1 – Rifiuto delle richieste ceche
 	option = {
-		name = austrian_empire_collapse.10.a   # "Non estenderemo i privilegi"
+		name = austrian_empire_collapse.10.a		# "Non estenderemo i privilegi"
 		default_option = yes
-
 		change_variable = {
 			name = austrian_empire_collapse_var
-			add  = 4
+			add = 4
 		}
-
 		custom_tooltip = austrian_empire_collapse_lose_moderate_progress_tt
-
 		add_radicals = {
-			value   = 0.1
+			value = 0.1
 			culture = cu:czech
 		}
-
-		ai_chance = { base = 6 }
+		ai_chance = {
+			base = 6
+		}
 	}
-
 	### Opzione 2 – Concessione dei diritti civili ai Cechi
 	option = {
-		name = austrian_empire_collapse.10.b   # "Anche i Cechi meritano uguaglianza"
-
+		name = austrian_empire_collapse.10.b		# "Anche i Cechi meritano uguaglianza"
 		change_variable = {
 			name = austrian_empire_collapse_var
 			subtract = 2
 		}
-
 		custom_tooltip = austrian_empire_collapse_moderate_progress_tt
-
 		s:STATE_BOHEMIA = {
 			add_modifier = {
-				name   = czech_rights_granted
+				name = czech_rights_granted
 				months = 60
 			}
 		}
 		s:STATE_MORAVIA = {
 			add_modifier = {
-				name   = czech_rights_granted
+				name = czech_rights_granted
 				months = 60
 			}
 		}
-
 		add_loyalists = {
-			value   = 0.1
+			value = 0.1
 			culture = cu:czech
 		}
-
 		add_modifier = {
 			name = austrian_monarchy_humiliated
 			months = 12
 		}
-
 		# This will make easier to integrate Czechs in a centralized Austria
 		add_primary_culture = cu:czech
-
 		change_variable = {
 			name = czech_civil_rights_var
 			add = 1
 		}
-
-		ai_chance = { base = 4 }
+		ai_chance = {
+			base = 4
+		}
 	}
 }
 
@@ -1256,67 +1174,58 @@ austrian_empire_collapse.11 = {
 	type = country_event
 	placement = root
 	duration = 1
-
 	event_image = {
 		video = "southamerica_aristocrats"
 	}
-
 	title = austrian_empire_collapse.11.t
-	desc  = austrian_empire_collapse.11.d
-
+	desc = austrian_empire_collapse.11.d
 	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
-	on_opened_soundeffect  = "event:/SFX/Events/middleeast/middleclass_cafe"
-	icon                   = "gfx/interface/icons/event_icons/waving_flag_austria.dds"
-
+	on_opened_soundeffect = "event:/SFX/Events/middleeast/middleclass_cafe"
+	icon = "gfx/interface/icons/event_icons/waving_flag_austria.dds"
 	trigger = {
 		has_state_in_state_region = STATE_SLOVAKIA
 		has_variable = hungarian_civil_rights_var
 		has_variable = czech_civil_rights_var
-		NOT = { has_variable = slovakia_question_var }
+		NOT = {
+			has_variable = slovakia_question_var
+		}
 		var:hungarian_civil_rights_var = 1
 		var:czech_civil_rights_var = 1
 	}
-
 	immediate = {
 		set_variable = {
 			name = slovakia_question_var
 			value = 0
 		}
 	}
-
 	### Opzione 1 – Preferisci i cechi sulla slovacchia
 	option = {
-		name = austrian_empire_collapse.11.a   # "Non estenderemo i privilegi"
+		name = austrian_empire_collapse.11.a		# "Non estenderemo i privilegi"
 		default_option = yes
-
 		change_variable = {
 			name = austrian_empire_collapse_var
-			add  = 2
+			add = 2
 		}
-
 		custom_tooltip = austrian_empire_collapse_lose_moderate_progress_tt
-
 		remove_primary_culture = cu:hungarian
-
 		# Radicalizza parte della popolazione ungherese
 		if = {
 			limit = {
 				hungary_is_subject_or_personal_union_austria = yes
-			 }
+			}
 			c:HUN = {
 				add_radicals = {
-					value   = 0.2
+					value = 0.2
 					culture = cu:hungarian
 				}
 			}
 		}
 		else = {
 			add_radicals = {
-				value   = 0.2
+				value = 0.2
 				culture = cu:hungarian
 			}
 		}
-
 		# With czech_civil_rights_var at 2, czech will not become independent after collapse
 		change_variable = {
 			name = czech_civil_rights_var
@@ -1326,28 +1235,23 @@ austrian_empire_collapse.11 = {
 			name = hungarian_civil_rights_var
 			subtract = 1
 		}
-
-		ai_chance = { base = 6 }
+		ai_chance = {
+			base = 6
+		}
 	}
-
 	### Opzione 2 – Preferisci gli ungheresi sulla slovacchia
 	option = {
-		name = austrian_empire_collapse.11.b   # "Anche i Cechi meritano uguaglianza"
-
+		name = austrian_empire_collapse.11.b		# "Anche i Cechi meritano uguaglianza"
 		change_variable = {
 			name = austrian_empire_collapse_var
-			add  = 2
+			add = 2
 		}
-
 		custom_tooltip = austrian_empire_collapse_moderate_progress_tt
-
 		remove_primary_culture = cu:czech
-
 		add_radicals = {
-			value   = 0.2
+			value = 0.2
 			culture = cu:czech
 		}
-		
 		# With hungarian_civil_rights_var at 2, hungarian will not become independent after collapse
 		change_variable = {
 			name = czech_civil_rights_var
@@ -1357,65 +1261,63 @@ austrian_empire_collapse.11 = {
 			name = hungarian_civil_rights_var
 			add = 1
 		}
-
-		ai_chance = { base = 6 }
+		ai_chance = {
+			base = 6
+		}
 	}
 }
 
 austrian_empire_collapse.12 = {
-    dlc = dlc_tech_res
-    type = country_event
-    placement = root
-
-    duration = 1
-
+	dlc = dlc_tech_res
+	type = country_event
+	placement = root
+	duration = 1
 	event_image = {
 		video = "europenorthamerica_springtime_of_nations"
 	}
-
-    title = austrian_empire_collapse.12.t      # "L'indipendenza dell'Ungheria"
-    desc  = austrian_empire_collapse.12.d
-
-    on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
-    on_opened_soundeffect  = "event:/SFX/Events/middleeast/middleclass_cafe"
-
-    icon = "gfx/interface/icons/event_icons/waving_flag_austria.dds"
-
-    # Richiamato dal random_events del JE quando le rivendicazioni civili sono state negate
-    trigger = {
+	title = austrian_empire_collapse.12.t	# "L'indipendenza dell'Ungheria"
+	desc = austrian_empire_collapse.12.d
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	on_opened_soundeffect = "event:/SFX/Events/middleeast/middleclass_cafe"
+	icon = "gfx/interface/icons/event_icons/waving_flag_austria.dds"
+	# Richiamato dal random_events del JE quando le rivendicazioni civili sono state negate
+	trigger = {
 		has_variable = czech_civil_rights_var
 		var:austrian_empire_collapse_var > 35
-        NOT = { has_variable = czech_independence_var }
-        NOT = { exists = c:CZH }                  # La Cecoslovacchia non è ancora indipendente
-        has_state_in_state_region = STATE_BOHEMIA
-    }
-
-    immediate = {
-        set_variable = {
-            name  = czech_independence_var      # Evita ripetizioni
-            value = 0
-        }
-    }
-
-    ### Opzione 1 – L'insurrezione porta a guerra
-    option = {
-        name = austrian_empire_collapse.12.a   # "Reprimete la ribellione!"
-        default_option = yes
-		trigger = { var:czech_civil_rights_var = 0 }
-
-        # La crisi dell'Impero migliora
-        change_variable = {
-            name = austrian_empire_collapse_var
-            subtract = 2
-        }
-
+		NOT = {
+			has_variable = czech_independence_var
+		}
+		NOT = {
+			exists = c:CZH
+		}		# La Cecoslovacchia non è ancora indipendente
+		has_state_in_state_region = STATE_BOHEMIA
+	}
+	immediate = {
+		set_variable = {
+			name = czech_independence_var			# Evita ripetizioni
+			value = 0
+		}
+	}
+	### Opzione 1 – L'insurrezione porta a guerra
+	option = {
+		name = austrian_empire_collapse.12.a		# "Reprimete la ribellione!"
+		default_option = yes
+		trigger = {
+			var:czech_civil_rights_var = 0
+		}
+		# La crisi dell'Impero migliora
+		change_variable = {
+			name = austrian_empire_collapse_var
+			subtract = 2
+		}
 		custom_tooltip = austrian_empire_collapse_moderate_progress_tt
-
-        # Se la Cecoslovacchia non esiste, la si crea per la guerra di annessione
-        #ztr_define_czech = yes This would work but south german consider czechia as their homeland
+		# Se la Cecoslovacchia non esiste, la si crea per la guerra di annessione
+		#ztr_define_czech = yes This would work but south german consider czechia as their homeland
 		if = {
 			limit = {
-				NOT = {	exists = c:CZH }
+				NOT = {
+					exists = c:CZH
+				}
 			}
 			create_country = {
 				tag = CZH
@@ -1448,61 +1350,57 @@ austrian_empire_collapse.12 = {
 				set_state_owner = c:CZH
 			}
 		}
-
-        # Scoppia un conflitto per riannettere la Cecoslovacchia
-        create_diplomatic_play = {
-            target_country = c:CZH
-            type = dp_annex_war
-        }
+		# Scoppia un conflitto per riannettere la Cecoslovacchia
+		create_diplomatic_play = {
+			target_country = c:CZH
+			type = dp_annex_war
+		}
 		hidden_effect = {
 			change_infamy = -2000
 		}
-
-        ai_chance = { base = 1 }
-    }
-
+		ai_chance = {
+			base = 1
+		}
+	}
 	### Opzione 2 – L'insurrezione, visti i precedenti eventi, non porta a guerra
 	option = {
-        name = austrian_empire_collapse.12.b   # "Reprimete la ribellione, hanno già avuto abbastanza!"
-		trigger = {	var:czech_civil_rights_var = 1	}
-
-        # La crisi dell'Impero migliora
-        change_variable = {
-            name = austrian_empire_collapse_var
-            add  = 2
-        }
-
-		custom_tooltip = austrian_empire_collapse_lose_moderate_progress_tt
-
-		remove_primary_culture = cu:czech
-
-        # Radicalizza parte della popolazione cecoslovacca
-        add_radicals = {
-            value   = 0.15
-            culture = cu:czech
-        }
-		add_radicals = {
-            value   = 0.15
-            culture = cu:slovak
-        }
-
-        ai_chance = { base = 1 }
-    }
-
-    ### Opzione 3 – Riconoscere l'indipendenza cecoslovacca
-    option = {
-        name = austrian_empire_collapse.12.c       # "Che siano liberi…"
-
+		name = austrian_empire_collapse.12.b		# "Reprimete la ribellione, hanno già avuto abbastanza!"
+		trigger = {
+			var:czech_civil_rights_var = 1
+		}
+		# La crisi dell'Impero migliora
 		change_variable = {
-            name = austrian_empire_collapse_var
-            subtract = 5
-        }
-
+			name = austrian_empire_collapse_var
+			add = 2
+		}
+		custom_tooltip = austrian_empire_collapse_lose_moderate_progress_tt
+		remove_primary_culture = cu:czech
+		# Radicalizza parte della popolazione cecoslovacca
+		add_radicals = {
+			value = 0.15
+			culture = cu:czech
+		}
+		add_radicals = {
+			value = 0.15
+			culture = cu:slovak
+		}
+		ai_chance = {
+			base = 1
+		}
+	}
+	### Opzione 3 – Riconoscere l'indipendenza cecoslovacca
+	option = {
+		name = austrian_empire_collapse.12.c		# "Che siano liberi…"
+		change_variable = {
+			name = austrian_empire_collapse_var
+			subtract = 5
+		}
 		custom_tooltip = austrian_empire_collapse_great_progress_tt
-
-        if = {
+		if = {
 			limit = {
-				NOT = {	exists = c:CZH }
+				NOT = {
+					exists = c:CZH
+				}
 			}
 			create_country = {
 				tag = CZH
@@ -1535,168 +1433,159 @@ austrian_empire_collapse.12 = {
 				set_state_owner = c:CZH
 			}
 		}
-
-        add_modifier = {
-            name   = austrian_monarchy_humiliated
-            months = 24
-        }
-
-        ai_chance = { base = 0 }
-    }
+		add_modifier = {
+			name = austrian_monarchy_humiliated
+			months = 24
+		}
+		ai_chance = {
+			base = 0
+		}
+	}
 }
 
 austrian_empire_collapse.13 = {
-    dlc = dlc_tech_res
-    type = country_event
-    placement = root
-
-    duration = 1
-
+	dlc = dlc_tech_res
+	type = country_event
+	placement = root
+	duration = 1
 	event_image = {
 		video = "europenorthamerica_rich_and_poor"
 	}
-
-    title = austrian_empire_collapse.13.t        # "Voci di un'unione jugoslava"
-    desc  = austrian_empire_collapse.13.d
-
-    icon  = "gfx/interface/icons/event_icons/waving_flag_austria.dds"
-
-    trigger = {
-        exists = c:SER                                  # La Serbia deve esistere a dare eco all'idea
-        var:austrian_empire_collapse_var > 15           # Il clima di crisi deve essere già considerevole
-        NOT = { has_variable = yugoslav_union_var }     # Fired only once
-        OR = {
+	title = austrian_empire_collapse.13.t	# "Voci di un'unione jugoslava"
+	desc = austrian_empire_collapse.13.d
+	icon = "gfx/interface/icons/event_icons/waving_flag_austria.dds"
+	trigger = {
+		exists = c:SER		# La Serbia deve esistere a dare eco all'idea
+		var:austrian_empire_collapse_var > 15		# Il clima di crisi deve essere già considerevole
+		NOT = {
+			has_variable = yugoslav_union_var
+		}		# Fired only once
+		OR = {
 			has_state_in_state_region = STATE_CROATIA
 			has_state_in_state_region = STATE_SLAVONIA
 			has_state_in_state_region = STATE_SLOVENIA
 			has_state_in_state_region = STATE_DALMATIA
 			has_state_in_state_region = STATE_DELVIDEK
 			has_state_in_state_region = STATE_BOSNIA
-        }
-    }
-
-    immediate = {
-        set_variable = {                 # Segnala che l'evento è stato già visto
-            name  = yugoslav_union_var
-            value = 0
-        }
-    }
-
-    ### Opzione 1 – Ignorare e censurare le voci sull'unione
-    option = {
-        name           = austrian_empire_collapse.13.a   # "Propaganda sedata: l'Impero è indivisibile!"
-        default_option = yes
+		}
+	}
+	immediate = {
+		set_variable = {
+			# Segnala che l'evento è stato già visto
+			name = yugoslav_union_var
+			value = 0
+		}
+	}
+	### Opzione 1 – Ignorare e censurare le voci sull'unione
+	option = {
+		name = austrian_empire_collapse.13.a		# "Propaganda sedata: l'Impero è indivisibile!"
+		default_option = yes
 		trigger = {
 			NOR = {
-				has_law = law_type:law_censorship
-			    has_law = law_type:law_outlawed_dissent
+				has_law_or_variant = law_type:law_censorship
+				has_law_or_variant = law_type:law_outlawed_dissent
 			}
 		}
-
-        # Migliora la crisi imperiale
-        change_variable = {
-            name = austrian_empire_collapse_var
-            subtract = 2
-        }
-
+		# Migliora la crisi imperiale
+		change_variable = {
+			name = austrian_empire_collapse_var
+			subtract = 2
+		}
 		custom_tooltip = austrian_empire_collapse_moderate_progress_tt
-
 		set_variable = {
-			name  = yugoslav_union_var
+			name = yugoslav_union_var
 			value = 1
 		}
-
-        ai_chance = { base = 10 }
-    }
-
-    ### Opzione 2 – Lasciare che il dibattito prosegua apertamente
-    option = {
-        name = austrian_empire_collapse.13.b            # "Libertà di parola per gli slavi del sud"
-
-        # Peggiora la crisi imperiale
-        change_variable = {
-            name = austrian_empire_collapse_var
-            add  = 3
-        }
-
+		ai_chance = {
+			base = 10
+		}
+	}
+	### Opzione 2 – Lasciare che il dibattito prosegua apertamente
+	option = {
+		name = austrian_empire_collapse.13.b		# "Libertà di parola per gli slavi del sud"
+		# Peggiora la crisi imperiale
+		change_variable = {
+			name = austrian_empire_collapse_var
+			add = 3
+		}
 		custom_tooltip = austrian_empire_collapse_lose_moderate_progress_tt
-
-        # Fidelizza parte della popolazione sud‑slava
-        add_radicals = {
-            value   = 0.15
-            culture = cu:croat
-        }
+		# Fidelizza parte della popolazione sud‑slava
 		add_radicals = {
-            value   = 0.15
-            culture = cu:serb
-        }
+			value = 0.15
+			culture = cu:croat
+		}
 		add_radicals = {
-            value   = 0.15
-            culture = cu:slovene
-        }
+			value = 0.15
+			culture = cu:serb
+		}
 		add_radicals = {
-            value   = 0.15
-            culture = cu:bosniak
-        }
-
-        ai_chance = { base = 1 }
-    }
+			value = 0.15
+			culture = cu:slovene
+		}
+		add_radicals = {
+			value = 0.15
+			culture = cu:bosniak
+		}
+		ai_chance = {
+			base = 1
+		}
+	}
 }
 
 austrian_empire_collapse.14 = {
-	dlc       = dlc_tech_res
-	type      = country_event
+	dlc = dlc_tech_res
+	type = country_event
 	placement = root
 	duration = 1
-
 	event_image = {
 		video = "unspecific_vandalized_storefront"
 	}
-
-	title = austrian_empire_collapse.14.t      # "La questione transilvana"
-	desc  = austrian_empire_collapse.14.d
-
-	icon                   = "gfx/interface/icons/event_icons/waving_flag_austria.dds"
-
+	title = austrian_empire_collapse.14.t	# "La questione transilvana"
+	desc = austrian_empire_collapse.14.d
+	icon = "gfx/interface/icons/event_icons/waving_flag_austria.dds"
 	trigger = {
 		exists = c:ROM
 		OR = {
 			AND = {
-				NOT = { exists = c:HUN }
+				NOT = {
+					exists = c:HUN
+				}
 				has_state_in_state_region = STATE_TRANSDANUBIA
 			}
 			hungary_is_subject_or_personal_union_austria = yes
 		}
 		OR = {
 			has_state_in_state_region = STATE_SOUTHERN_TRANSYLVANIA
-			c:HUN = { has_state_in_state_region = STATE_SOUTHERN_TRANSYLVANIA }
+			c:HUN = {
+				has_state_in_state_region = STATE_SOUTHERN_TRANSYLVANIA
+			}
 			has_state_in_state_region = STATE_NORTHERN_TRANSYLVANIA
-			c:HUN = { has_state_in_state_region = STATE_NORTHERN_TRANSYLVANIA }
+			c:HUN = {
+				has_state_in_state_region = STATE_NORTHERN_TRANSYLVANIA
+			}
 		}
 		var:austrian_empire_collapse_var > 25
-		NOT = { has_variable = transylvania_union_var }
+		NOT = {
+			has_variable = transylvania_union_var
+		}
 	}
-
 	immediate = {
-		set_variable = {           # flag per evitare repliche future
-			name  = transylvania_union_var
+		set_variable = {
+			# flag per evitare repliche future
+			name = transylvania_union_var
 			value = 0
 		}
 	}
-
 	### Opzione 1 – Repressione dura
 	option = {
-		name = austrian_empire_collapse.14.a   # "Schierate l’esercito!"
+		name = austrian_empire_collapse.14.a		# "Schierate l’esercito!"
 		default_option = yes
-
 		# La crisi peggiora
 		change_variable = {
 			name = austrian_empire_collapse_var
-			add  = 3
+			add = 3
 		}
-
 		custom_tooltip = austrian_empire_collapse_lose_moderate_progress_tt
-
 		# Malus locali
 		if = {
 			limit = {
@@ -1705,7 +1594,7 @@ austrian_empire_collapse.14 = {
 			}
 			s:STATE_SOUTHERN_TRANSYLVANIA.region_state:HUN = {
 				add_modifier = {
-					name   = ztr_collapse_revolt_crushed
+					name = ztr_collapse_revolt_crushed
 					months = 48
 				}
 			}
@@ -1716,7 +1605,7 @@ austrian_empire_collapse.14 = {
 			}
 			s:STATE_SOUTHERN_TRANSYLVANIA = {
 				add_modifier = {
-					name   = ztr_collapse_revolt_crushed
+					name = ztr_collapse_revolt_crushed
 					months = 48
 				}
 			}
@@ -1728,7 +1617,7 @@ austrian_empire_collapse.14 = {
 			}
 			s:STATE_NORTHERN_TRANSYLVANIA.region_state:HUN = {
 				add_modifier = {
-					name   = ztr_collapse_revolt_crushed
+					name = ztr_collapse_revolt_crushed
 					months = 48
 				}
 			}
@@ -1739,7 +1628,7 @@ austrian_empire_collapse.14 = {
 			}
 			s:STATE_NORTHERN_TRANSYLVANIA = {
 				add_modifier = {
-					name   = ztr_collapse_revolt_crushed
+					name = ztr_collapse_revolt_crushed
 					months = 48
 				}
 			}
@@ -1750,42 +1639,40 @@ austrian_empire_collapse.14 = {
 			}
 			s:STATE_BUKOVINA = {
 				add_modifier = {
-					name   = ztr_collapse_revolt_crushed
+					name = ztr_collapse_revolt_crushed
 					months = 48
 				}
 			}
 		}
-
 		# Radicalizza i romeni
 		add_radicals = {
-			value   = 0.10
+			value = 0.1
 			culture = cu:romanian
 		}
 		if = {
-			limit = { hungary_is_subject_or_personal_union_austria = yes }
+			limit = {
+				hungary_is_subject_or_personal_union_austria = yes
+			}
 			c:HUN = {
 				add_radicals = {
-					value   = 0.10
+					value = 0.1
 					culture = cu:romanian
 				}
 			}
 		}
-
-		ai_chance = { base = 6 }
+		ai_chance = {
+			base = 6
+		}
 	}
-
 	### Opzione 2 – Concessioni e ampia autonomia
 	option = {
-		name = austrian_empire_collapse.14.b           # "Offrite un'ampia autonomia"
-
+		name = austrian_empire_collapse.14.b		# "Offrite un'ampia autonomia"
 		# Mitiga la crisi
 		change_variable = {
 			name = austrian_empire_collapse_var
 			subtract = 1
 		}
-
 		custom_tooltip = austrian_empire_collapse_minor_progress_tt
-
 		# Bonus locali d’ordine
 		if = {
 			limit = {
@@ -1794,7 +1681,7 @@ austrian_empire_collapse.14 = {
 			}
 			s:STATE_SOUTHERN_TRANSYLVANIA.region_state:HUN = {
 				add_modifier = {
-					name   = ztr_collapse_revolt_appeased
+					name = ztr_collapse_revolt_appeased
 					months = 24
 				}
 			}
@@ -1805,7 +1692,7 @@ austrian_empire_collapse.14 = {
 			}
 			s:STATE_SOUTHERN_TRANSYLVANIA = {
 				add_modifier = {
-					name   = ztr_collapse_revolt_appeased
+					name = ztr_collapse_revolt_appeased
 					months = 24
 				}
 			}
@@ -1817,7 +1704,7 @@ austrian_empire_collapse.14 = {
 			}
 			s:STATE_NORTHERN_TRANSYLVANIA.region_state:HUN = {
 				add_modifier = {
-					name   = ztr_collapse_revolt_appeased
+					name = ztr_collapse_revolt_appeased
 					months = 24
 				}
 			}
@@ -1828,7 +1715,7 @@ austrian_empire_collapse.14 = {
 			}
 			s:STATE_NORTHERN_TRANSYLVANIA = {
 				add_modifier = {
-					name   = ztr_collapse_revolt_appeased
+					name = ztr_collapse_revolt_appeased
 					months = 24
 				}
 			}
@@ -1839,53 +1726,53 @@ austrian_empire_collapse.14 = {
 			}
 			s:STATE_BUKOVINA = {
 				add_modifier = {
-					name   = ztr_collapse_revolt_appeased
+					name = ztr_collapse_revolt_appeased
 					months = 24
 				}
 			}
 		}
-
 		# Fidelizza parte dei romeni
 		add_loyalists = {
-			value   = 0.05
+			value = 0.05
 			culture = cu:romanian
 		}
 		if = {
-			limit = { hungary_is_subject_or_personal_union_austria = yes }
+			limit = {
+				hungary_is_subject_or_personal_union_austria = yes
+			}
 			c:HUN = {
 				add_loyalists = {
-					value   = 0.05
+					value = 0.05
 					culture = cu:romanian
 				}
 			}
 		}
-
-		ai_chance = { base = 3 }
+		ai_chance = {
+			base = 3
+		}
 	}
-
 	### Opzione 3 – Cedere la Transilvania alla Romania
 	option = {
-		name = austrian_empire_collapse.14.c           # "Che la Transilvania sia romena…"
-
+		name = austrian_empire_collapse.14.c		# "Che la Transilvania sia romena…"
 		# L’Impero viene umiliato ma la crisi cala di molto
 		add_modifier = {
-			name   = austrian_monarchy_humiliated
+			name = austrian_monarchy_humiliated
 			months = 12
 		}
 		change_variable = {
 			name = austrian_empire_collapse_var
 			subtract = 5
 		}
-
 		custom_tooltip = austrian_empire_collapse_great_progress_tt
-
 		# Trasferimento dei territori
 		if = {
 			limit = {
 				OR = {
 					AND = {
 						hungary_is_subject_or_personal_union_austria = yes
-						c:HUN = { has_state_in_state_region = STATE_SOUTHERN_TRANSYLVANIA }
+						c:HUN = {
+							has_state_in_state_region = STATE_SOUTHERN_TRANSYLVANIA
+						}
 					}
 					has_state_in_state_region = STATE_SOUTHERN_TRANSYLVANIA
 				}
@@ -1902,7 +1789,9 @@ austrian_empire_collapse.14 = {
 				OR = {
 					AND = {
 						hungary_is_subject_or_personal_union_austria = yes
-						c:HUN = { has_state_in_state_region = STATE_NORTHERN_TRANSYLVANIA }
+						c:HUN = {
+							has_state_in_state_region = STATE_NORTHERN_TRANSYLVANIA
+						}
 					}
 					has_state_in_state_region = STATE_NORTHERN_TRANSYLVANIA
 				}
@@ -1915,39 +1804,37 @@ austrian_empire_collapse.14 = {
 			}
 		}
 		if = {
-			limit = { has_state_in_state_region = STATE_BUKOVINA }
+			limit = {
+				has_state_in_state_region = STATE_BUKOVINA
+			}
 			s:STATE_BUKOVINA.region_state:AUS = {
 				set_state_owner = c:ROM
 			}
 		}
-
 		# Migliora le relazioni con Bucarest
 		c:ROM = {
 			change_relations = {
 				country = c:AUS
-				value   = 100
+				value = 100
 			}
 		}
-
-		ai_chance = { base = 1 }
+		ai_chance = {
+			base = 1
+		}
 	}
 }
 
 austrian_empire_collapse.15 = {
-	dlc       = dlc_tech_res
-	type      = country_event
+	dlc = dlc_tech_res
+	type = country_event
 	placement = root
 	duration = 1
-
 	event_image = {
 		video = "unspecific_vandalized_storefront"
 	}
-
-	title = austrian_empire_collapse.14.t      # "La questione transilvana"
-	desc  = austrian_empire_collapse.14.d
-
-	icon                   = "gfx/interface/icons/event_icons/waving_flag_austria.dds"
-
+	title = austrian_empire_collapse.14.t	# "La questione transilvana"
+	desc = austrian_empire_collapse.14.d
+	icon = "gfx/interface/icons/event_icons/waving_flag_austria.dds"
 	trigger = {
 		exists = c:POL
 		OR = {
@@ -1955,341 +1842,306 @@ austrian_empire_collapse.15 = {
 			has_state_in_state_region = STATE_EAST_GALICIA
 		}
 		var:austrian_empire_collapse_var > 30
-		NOT = { has_variable = poland_union_var }
+		NOT = {
+			has_variable = poland_union_var
+		}
 	}
-
 	immediate = {
-		set_variable = {           # flag per evitare repliche future
-			name  = poland_union_var
+		set_variable = {
+			# flag per evitare repliche future
+			name = poland_union_var
 			value = 0
 		}
 		c:POL = {
 			save_scope_as = polish_question_scope
 		}
 	}
-
 	### Opzione 1 – Repressione dura
 	option = {
-		name = austrian_empire_collapse.14.a   # "Schierate l’esercito!"
+		name = austrian_empire_collapse.14.a		# "Schierate l’esercito!"
 		default_option = yes
-
 		# La crisi peggiora
 		change_variable = {
 			name = austrian_empire_collapse_var
-			add  = 3
+			add = 3
 		}
-
 		custom_tooltip = austrian_empire_collapse_lose_moderate_progress_tt
-
 		# Malus locali
 		s:STATE_WEST_GALICIA = {
 			add_modifier = {
-				name   = ztr_collapse_revolt_crushed
+				name = ztr_collapse_revolt_crushed
 				months = 48
 			}
 		}
 		s:STATE_EAST_GALICIA = {
 			add_modifier = {
-				name   = ztr_collapse_revolt_crushed
+				name = ztr_collapse_revolt_crushed
 				months = 48
 			}
 		}
-
 		# Radicalizza i romeni
 		add_radicals = {
-			value   = 0.10
+			value = 0.1
 			culture = cu:polish
-		}	
-
-		ai_chance = { base = 6 }
+		}
+		ai_chance = {
+			base = 6
+		}
 	}
-
 	### Opzione 2 – Concessioni e ampia autonomia
 	option = {
 		name = austrian_empire_collapse.14.b
-
 		# Mitiga la crisi
 		change_variable = {
 			name = austrian_empire_collapse_var
 			subtract = 1
 		}
-
 		custom_tooltip = austrian_empire_collapse_minor_progress_tt
-
 		# Bonus locali d’ordine
 		s:STATE_WEST_GALICIA = {
 			add_modifier = {
-				name   = ztr_collapse_revolt_appeased
+				name = ztr_collapse_revolt_appeased
 				months = 24
 			}
 		}
 		s:STATE_EAST_GALICIA = {
 			add_modifier = {
-				name   = ztr_collapse_revolt_appeased
+				name = ztr_collapse_revolt_appeased
 				months = 24
 			}
 		}
-
 		add_loyalists = {
-			value   = 0.05
+			value = 0.05
 			culture = cu:polish
 		}
-
-		ai_chance = { base = 3 }
+		ai_chance = {
+			base = 3
+		}
 	}
-
 	### Opzione 3 – Cedere la Galicia alla Polonia
 	option = {
 		name = austrian_empire_collapse.14.c
-
 		# L’Impero viene umiliato ma la crisi cala di molto
 		add_modifier = {
-			name   = austrian_monarchy_humiliated
+			name = austrian_monarchy_humiliated
 			months = 12
 		}
 		change_variable = {
 			name = austrian_empire_collapse_var
 			subtract = 5
 		}
-
 		custom_tooltip = austrian_empire_collapse_great_progress_tt
-
 		# Trasferimento dei territori
 		if = {
-			limit = { has_state_in_state_region = STATE_WEST_GALICIA }
+			limit = {
+				has_state_in_state_region = STATE_WEST_GALICIA
+			}
 			s:STATE_WEST_GALICIA.region_state:AUS = {
 				set_state_owner = c:POL
 			}
 		}
 		if = {
-			limit = { has_state_in_state_region = STATE_EAST_GALICIA }
+			limit = {
+				has_state_in_state_region = STATE_EAST_GALICIA
+			}
 			s:STATE_EAST_GALICIA.region_state:AUS = {
 				set_state_owner = c:POL
 			}
 		}
-
 		# Migliora le relazioni con la Polonia
 		c:POL = {
 			change_relations = {
 				country = c:AUS
-				value   = 50
+				value = 50
 			}
 		}
-
-		ai_chance = { base = 1 }
+		ai_chance = {
+			base = 1
+		}
 	}
 }
 
 austrian_empire_collapse.16 = {
-	dlc       = dlc_tech_res
-	type      = country_event
+	dlc = dlc_tech_res
+	type = country_event
 	placement = root
 	duration = 1
-
 	event_image = {
 		video = "unspecific_vandalized_storefront"
 	}
-
 	title = austrian_empire_collapse.16.t
-	desc  = austrian_empire_collapse.16.d
-
-	icon                   = "gfx/interface/icons/event_icons/waving_flag_austria.dds"
-
+	desc = austrian_empire_collapse.16.d
+	icon = "gfx/interface/icons/event_icons/waving_flag_austria.dds"
 	trigger = {
 		exists = c:SER
 		has_state_in_state_region = STATE_DELVIDEK
-		NOT = { has_variable = norther_serbia_union_var }
+		NOT = {
+			has_variable = norther_serbia_union_var
+		}
 	}
-
 	immediate = {
 		set_variable = {
-			name  = norther_serbia_union_var
+			name = norther_serbia_union_var
 			value = 0
 		}
 		c:SER = {
 			save_scope_as = serbia_proposal_scope
 		}
 	}
-
 	### Opzione 1 – Accetta
 	option = {
 		name = austrian_empire_collapse.16.a
 		default_option = yes
-
 		# La crisi peggiora
 		change_variable = {
 			name = austrian_empire_collapse_var
 			subtract = 2
 		}
-
 		custom_tooltip = austrian_empire_collapse_moderate_progress_tt
-
 		s:STATE_DELVIDEK.region_state:AUS = {
-				set_state_owner = c:SER
+			set_state_owner = c:SER
 		}
-
 		c:SER = {
 			change_relations = {
 				country = c:AUS
-				value   = 50
+				value = 50
 			}
 			set_owes_obligation_to = {
 				country = c:AUS
 				setting = yes
 			}
 		}
-
-		ai_chance = { base = 1 }
+		ai_chance = {
+			base = 1
+		}
 	}
-
 	### Opzione 2 – Rifiuta
 	option = {
 		name = austrian_empire_collapse.16.b
-
 		# Mitiga la crisi
 		change_variable = {
 			name = austrian_empire_collapse_var
-			add  = 4
+			add = 4
 		}
-
 		custom_tooltip = austrian_empire_collapse_lose_moderate_progress_tt
-
 		add_radicals = {
-			value   = 0.15
+			value = 0.15
 			culture = cu:serb
 		}
-
 		c:SER = {
 			change_relations = {
 				country = c:AUS
-				value   = -50
+				value = -50
 			}
 		}
-
-		ai_chance = { base = 0 }
+		ai_chance = {
+			base = 0
+		}
 	}
 }
 
 austrian_empire_collapse.17 = {
-	dlc       = dlc_tech_res
-	type      = country_event
+	dlc = dlc_tech_res
+	type = country_event
 	placement = root
 	duration = 1
-
 	event_image = {
 		video = "europenorthamerica_springtime_of_nations"
 	}
-
-	title = austrian_empire_collapse.17.t      # "La questione transilvana"
-	desc  = austrian_empire_collapse.17.d
-
-	icon                   = "gfx/interface/icons/event_icons/waving_flag_austria.dds"
-
+	title = austrian_empire_collapse.17.t	# "La questione transilvana"
+	desc = austrian_empire_collapse.17.d
+	icon = "gfx/interface/icons/event_icons/waving_flag_austria.dds"
 	trigger = {
 		exists = c:POL
 		exists = c:KRA
 		c:KRA = {
 			overlord = root
 		}
-		NOT = { has_variable = krakow_union_var }
+		NOT = {
+			has_variable = krakow_union_var
+		}
 	}
-
 	immediate = {
-		set_variable = {           # flag per evitare repliche future
-			name  = krakow_union_var
+		set_variable = {
+			# flag per evitare repliche future
+			name = krakow_union_var
 			value = 0
 		}
 		c:KRA = {
 			save_scope_as = krakow_agreement_scope
 		}
 	}
-
 	### Opzione 1 – Accetta
 	option = {
-		name = austrian_empire_collapse.17.a   # "Schierate l’esercito!"
+		name = austrian_empire_collapse.17.a		# "Schierate l’esercito!"
 		default_option = yes
-
 		# La crisi peggiora
 		change_variable = {
 			name = austrian_empire_collapse_var
 			subtract = 2
 		}
-
 		custom_tooltip = austrian_empire_collapse_moderate_progress_tt
-
-		c:POL = { annex = c:KRA	}
-
+		c:POL = {
+			annex = c:KRA
+		}
 		c:POL = {
 			change_relations = {
 				country = c:AUS
-				value   = 100
+				value = 100
 			}
 			set_owes_obligation_to = {
 				country = c:AUS
 				setting = yes
 			}
 		}
-
-		ai_chance = { base = 1 }
+		ai_chance = {
+			base = 1
+		}
 	}
-
 	### Opzione 2 – Rifiuta
 	option = {
 		name = austrian_empire_collapse.17.b
-
 		# Mitiga la crisi
 		change_variable = {
 			name = austrian_empire_collapse_var
-			add  = 4
+			add = 4
 		}
-
 		custom_tooltip = austrian_empire_collapse_lose_moderate_progress_tt
-
 		add_radicals = {
-			value   = 0.15
+			value = 0.15
 			culture = cu:polish
 		}
-
 		c:POL = {
 			change_relations = {
 				country = c:AUS
-				value   = -50
+				value = -50
 			}
 		}
-
-		ai_chance = { base = 0 }
+		ai_chance = {
+			base = 0
+		}
 	}
 }
 
 # Debug Event
-
 austrian_empire_collapse.18 = {
 	dlc = dlc_tech_res
 	type = country_event
 	placement = root
-
 	duration = 1
-
 	event_image = {
 		video = "unspecific_devastation"
 	}
-
 	title = austrian_empire_collapse.18.t
 	desc = austrian_empire_collapse.18.d
-
 	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
 	on_opened_soundeffect = "event:/SFX/Events/middleeast/middleclass_cafe"
-
 	icon = "gfx/interface/icons/event_icons/waving_flag_austria.dds"
-
 	trigger = {
 		# Debug Event
 	}
-
 	immediate = {
-
 	}
-
 	option = {
 		name = austrian_empire_collapse.18.a
 		default_option = yes

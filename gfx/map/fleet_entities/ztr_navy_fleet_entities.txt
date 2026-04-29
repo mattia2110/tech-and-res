@@ -1,0 +1,742 @@
+### Tech & Res modern hull fleet entities
+### Reuses vanilla base entities, locators and damage decals from the closest era
+### equivalents (destroyer, lightcruiser, superdreadnought, aircraftcarrier, submarine).
+### Visual modular slots are limited to armor / guns / propulsion / range — the new
+### ztr slots (electronics, missiles, air_wing, utility_*) are stat-only.
+
+####################################
+###         Torpedo Craft        ###
+####################################
+
+ship_type_modern_destroyer = {
+	ship_type = ship_type_modern_destroyer
+	weapon_type = turret
+	hull_type = steel
+	motion_intensity = 0.7
+
+	entity = "destroyer_base_entity"
+
+	locator = {
+		name = loc_foam
+		position = { 0.0 0.03 0.0 }
+	}
+
+	damage_decal_positions = {
+		{ -0.1 0.01 1.2 0.0 }
+		{ 0.0 0.02 0.8 0.0 }
+		{ -0.0 0.045 1.0 0.0 }
+		{ 0.05 0.03 0.7 0.0 }
+	}
+
+	vfx_entity = {
+		entity = "vfx_ship_hull_destroyer_damaged_entity"
+		attach = yes
+	}
+	vfx_entity = {
+		entity = "vfx_ship_destroyer_damage_entity"
+		attach = yes
+	}
+	vfx_entity = {
+		entity = "vfx_destroyer_foam_entity"
+		locator = loc_foam
+	}
+	vfx_entity = {
+		entity = "vfx_ship_water_miss_entity"
+		locator = loc_foam
+	}
+
+	# Armour
+	attach = {
+		locator = root
+		slot_type = ship_mod_slot_armor
+		modification = { entity = "hull_destroyer_light_entity" }
+		modification = { entity = "hull_destroyer_medium_entity" }
+		modification = { entity = "hull_destroyer_heavy_entity" }
+	}
+
+	# Guns
+	attach = {
+		locator = gun_torpedotube_r_01
+		slot_type = ship_mod_slot_guns
+		modification = { entity = "gun_torpedotube_tripple_01_entity"				fire_angle = 90 }
+		modification = { entity = "gun_torpedotube_tripple_01_entity"				fire_angle = 90 }
+		modification = { entity = "gun_torpedotube_tripple_01_entity"				fire_angle = 90 }
+	}
+	attach = {
+		locator = gun_torpedotube_r_02
+		slot_type = ship_mod_slot_guns
+		modification = { entity = "gun_torpedotube_tripple_01_entity"				fire_angle = 90 }
+		modification = { entity = "gun_torpedotube_tripple_01_entity"				fire_angle = 90 }
+		modification = { entity = "gun_torpedotube_tripple_01_entity"				fire_angle = 90 }
+	}
+	attach = {
+		locator = gun_torpedotube_l_01
+		slot_type = ship_mod_slot_guns
+		modification = { entity = "gun_torpedotube_tripple_01_entity"				disabled = yes }
+		modification = { entity = "gun_torpedotube_tripple_01_entity"				disabled = yes }
+		modification = { entity = "gun_torpedotube_tripple_01_entity"				disabled = yes }
+	}
+	attach = {
+		locator = gun_torpedotube_l_02
+		slot_type = ship_mod_slot_guns
+		modification = { entity = "gun_torpedotube_tripple_01_entity"				disabled = yes }
+		modification = { entity = "gun_torpedotube_tripple_01_entity"				disabled = yes }
+		modification = { entity = "gun_torpedotube_tripple_01_entity"				disabled = yes }
+	}
+
+	attach = {
+		locator = gun_deckmounted_01
+		slot_type = ship_mod_slot_guns
+		modification = { entity = "gun_deckmounted_twin_01_entity"					fire_angle = 90 }
+		modification = { entity = "gun_deckmounted_twin_01_entity"					fire_angle = 90 }
+		modification = { entity = "gun_deckmounted_twin_01_entity"					fire_angle = 90 }
+	}
+	attach = {
+		locator = gun_deckmounted_02
+		slot_type = ship_mod_slot_guns
+		modification = { entity = "gun_deckmounted_twin_01_entity"					fire_angle = -90 }
+		modification = { entity = "gun_deckmounted_twin_01_entity"					fire_angle = -90 }
+		modification = { entity = "gun_deckmounted_twin_01_entity"					fire_angle = -90 }
+	}
+	attach = {
+		locator = gun_deckmounted_l_01
+		slot_type = ship_mod_slot_guns
+		modification = { entity = "gun_deckmounted_01_entity"						disabled = yes }
+		modification = { entity = "gun_deckmounted_01_entity"						disabled = yes }
+		modification = { entity = "gun_deckmounted_01_entity"						disabled = yes }
+	}
+	attach = {
+		locator = gun_deckmounted_r_01
+		slot_type = ship_mod_slot_guns
+		modification = { entity = "gun_deckmounted_01_entity"						fire_angle = 90 }
+		modification = { entity = "gun_deckmounted_01_entity"						fire_angle = 90 }
+		modification = { entity = "gun_deckmounted_01_entity"						fire_angle = 90 }
+	}
+
+	# Propulsion
+	attach = {
+		locator = funnel_01
+		slot_type = ship_mod_slot_propulsion
+		modification = { entity = "funnel_small_03_entity" }
+		modification = { entity = "funnel_small_03_entity" }
+		modification = { entity = "funnel_small_03_entity" }
+	}
+	attach = {
+		locator = funnel_02
+		slot_type = ship_mod_slot_propulsion
+		modification = { entity = "funnel_small_03_entity" }
+		modification = { entity = "funnel_small_03_entity" }
+		modification = { entity = "funnel_small_03_entity" }
+	}
+	attach = {
+		locator = funnel_03
+		slot_type = ship_mod_slot_propulsion
+		modification = { entity = "funnel_small_03_entity" }
+		modification = { entity = "funnel_small_03_entity" }
+		modification = { entity = "funnel_small_03_entity" }
+	}
+	attach = {
+		locator = funnel_04
+		slot_type = ship_mod_slot_propulsion
+		modification = { entity = "funnel_small_03_entity" }
+		modification = { entity = "funnel_small_03_entity" }
+		modification = { entity = "funnel_small_03_entity" }
+	}
+}
+
+ship_type_nuclear_submarine = {
+	ship_type = ship_type_nuclear_submarine
+	weapon_type = turret
+	hull_type = steel
+	motion_intensity = 0.7
+
+	entity = "submarine_base_entity"
+
+	locator = {
+		name = loc_foam
+		position = { 0.0 0.03 0.0 }
+	}
+
+	damage_decal_positions = {
+		{ -0.1 0.04 1.5 0.0 }
+		{ 0.0 0.05 1.0 0.0 }
+		{ -0.0 0.055 1.5 0.0 }
+		{ 0.05 0.045 1.2 0.0 }
+	}
+
+	vfx_entity = {
+		entity = "vfx_ship_hull_submarine_damaged_entity"
+		attach = yes
+	}
+	vfx_entity = {
+		entity = "vfx_ship_submarine_damage_entity"
+		attach = yes
+	}
+	vfx_entity = {
+		entity = "vfx_submarine_foam_entity"
+		locator = loc_foam
+	}
+	vfx_entity = {
+		entity = "vfx_ship_water_miss_entity"
+		locator = loc_foam
+	}
+
+	# Armour
+	attach = {
+		locator = root
+		slot_type = ship_mod_slot_armor
+		modification = { entity = "hull_submarine_light_entity" }
+		modification = { entity = "hull_submarine_medium_entity" }
+		modification = { entity = "hull_submarine_heavy_entity" }
+	}
+}
+
+####################################
+###           Cruisers           ###
+####################################
+
+ship_type_modern_cruiser = {
+	ship_type = ship_type_modern_cruiser
+	weapon_type = turret
+	hull_type = steel
+	motion_intensity = 0.7
+
+	entity = "lightcruiser_base_entity"
+
+	locator = {
+		name = loc_foam
+		position = { 0.0 0.03 0.0 }
+	}
+
+	damage_decal_positions = {
+		{ -0.1 0.06 1.0 0.0 }
+		{ 0.0 0.05 0.6 0.0 }
+		{ -0.0 0.055 1.0 0.0 }
+		{ 0.05 0.045 0.7 0.0 }
+	}
+
+	vfx_entity = {
+		entity = "vfx_ship_hull_lightcruiser_damaged_entity"
+		attach = yes
+	}
+	vfx_entity = {
+		entity = "vfx_ship_lightcruiser_damage_entity"
+		attach = yes
+	}
+	vfx_entity = {
+		entity = "vfx_lightcruiser_foam_entity"
+		locator = loc_foam
+	}
+	vfx_entity = {
+		entity = "vfx_ship_water_miss_entity"
+		locator = loc_foam
+	}
+
+	# Propulsion uses the entity based on Range modification, so it needs to be defined first
+	modification = {
+		name = funnel
+		slot_type = ship_mod_slot_range
+		entity = "funnel_medium_01_entity"
+		entity = "funnel_medium_02_entity"
+		entity = "funnel_medium_03_entity"
+	}
+
+	# Armour
+	attach = {
+		locator = root
+		slot_type = ship_mod_slot_armor
+		modification = { entity = "hull_lightcruiser_light_entity" }
+		modification = { entity = "hull_lightcruiser_medium_entity" }
+		modification = { entity = "hull_lightcruiser_heavy_entity" }
+	}
+
+	# Guns
+	attach = {
+		locator = gun_deckmounted_fore
+		slot_type = ship_mod_slot_guns
+		modification = { entity = "gun_smallturret_twin_02_entity"					fire_angle = 90 }
+		modification = { entity = "gun_smallturret_twin_02_entity"					fire_angle = 90 }
+		modification = { entity = "gun_smallturret_twin_02_entity"					fire_angle = 90 }
+	}
+	attach = {
+		locator = gun_deckmounted_aft
+		slot_type = ship_mod_slot_guns
+		modification = { entity = "gun_smallturret_twin_02_entity"					fire_angle = -90 }
+		modification = { entity = "gun_smallturret_twin_02_entity"					fire_angle = -90 }
+		modification = { entity = "gun_smallturret_twin_02_entity"					fire_angle = -90 }
+	}
+	attach = {
+		locator = gun_deckmounted_r_01
+		slot_type = ship_mod_slot_guns
+		modification = { entity = "gun_deckmounted_twin_01_entity"					fire_angle = 45 }
+		modification = { entity = "gun_deckmounted_twin_01_entity"					fire_angle = 45 }
+		modification = { entity = "gun_deckmounted_twin_01_entity"					fire_angle = 45 }
+	}
+	attach = {
+		locator = gun_deckmounted_r_02
+		slot_type = ship_mod_slot_guns
+		modification = { entity = "gun_deckmounted_twin_01_entity"					fire_angle = 45 }
+		modification = { entity = "gun_deckmounted_twin_01_entity"					fire_angle = 45 }
+		modification = { entity = "gun_deckmounted_twin_01_entity"					fire_angle = 45 }
+	}
+	attach = {
+		locator = gun_deckmounted_r_03
+		slot_type = ship_mod_slot_guns
+		modification = { entity = "gun_deckmounted_twin_01_entity"					fire_angle = 45 }
+		modification = { entity = "gun_deckmounted_twin_01_entity"					fire_angle = 45 }
+		modification = { entity = "gun_deckmounted_twin_01_entity"					fire_angle = 45 }
+	}
+	attach = {
+		locator = gun_deckmounted_r_04
+		slot_type = ship_mod_slot_guns
+		modification = { entity = "gun_deckmounted_twin_01_entity"					fire_angle = -45 }
+		modification = { entity = "gun_deckmounted_twin_01_entity"					fire_angle = -45 }
+		modification = { entity = "gun_deckmounted_twin_01_entity"					fire_angle = -45 }
+	}
+	attach = {
+		locator = gun_deckmounted_r_05
+		slot_type = ship_mod_slot_guns
+		modification = { entity = "gun_deckmounted_twin_01_entity"					fire_angle = -45 }
+		modification = { entity = "gun_deckmounted_twin_01_entity"					fire_angle = -45 }
+		modification = { entity = "gun_deckmounted_twin_01_entity"					fire_angle = -45 }
+	}
+	attach = {
+		locator = gun_deckmounted_l_01
+		slot_type = ship_mod_slot_guns
+		modification = { entity = "gun_deckmounted_twin_01_entity"					disabled = yes }
+		modification = { entity = "gun_deckmounted_twin_01_entity"					disabled = yes }
+		modification = { entity = "gun_deckmounted_twin_01_entity"					disabled = yes }
+	}
+	attach = {
+		locator = gun_deckmounted_l_02
+		slot_type = ship_mod_slot_guns
+		modification = { entity = "gun_deckmounted_twin_01_entity"					disabled = yes }
+		modification = { entity = "gun_deckmounted_twin_01_entity"					disabled = yes }
+		modification = { entity = "gun_deckmounted_twin_01_entity"					disabled = yes }
+	}
+	attach = {
+		locator = gun_deckmounted_l_03
+		slot_type = ship_mod_slot_guns
+		modification = { entity = "gun_deckmounted_twin_01_entity"					disabled = yes }
+		modification = { entity = "gun_deckmounted_twin_01_entity"					disabled = yes }
+		modification = { entity = "gun_deckmounted_twin_01_entity"					disabled = yes }
+	}
+	attach = {
+		locator = gun_deckmounted_l_04
+		slot_type = ship_mod_slot_guns
+		modification = { entity = "gun_deckmounted_twin_01_entity"					disabled = yes }
+		modification = { entity = "gun_deckmounted_twin_01_entity"					disabled = yes }
+		modification = { entity = "gun_deckmounted_twin_01_entity"					disabled = yes }
+	}
+	attach = {
+		locator = gun_deckmounted_l_05
+		slot_type = ship_mod_slot_guns
+		modification = { entity = "gun_deckmounted_twin_01_entity"					disabled = yes }
+		modification = { entity = "gun_deckmounted_twin_01_entity"					disabled = yes }
+		modification = { entity = "gun_deckmounted_twin_01_entity"					disabled = yes }
+	}
+	attach = {
+		locator = gun_torpedotube_r_01
+		slot_type = ship_mod_slot_guns
+		modification = { entity = "gun_torpedotube_tripple_01_entity"				fire_angle = 90 }
+		modification = { entity = "gun_torpedotube_tripple_01_entity"				fire_angle = 90 }
+		modification = { entity = "gun_torpedotube_tripple_01_entity"				fire_angle = 90 }
+	}
+	attach = {
+		locator = gun_torpedotube_l_01
+		slot_type = ship_mod_slot_guns
+		modification = { entity = "gun_torpedotube_tripple_01_entity"				disabled = yes }
+		modification = { entity = "gun_torpedotube_tripple_01_entity"				disabled = yes }
+		modification = { entity = "gun_torpedotube_tripple_01_entity"				disabled = yes }
+	}
+
+	# Propulsion
+	attach = {
+		locator = funnel_01
+		slot_type = ship_mod_slot_propulsion
+		modification = { name = "funnel" }
+		modification = { name = "funnel" }
+		modification = { name = "funnel" }
+	}
+	attach = {
+		locator = funnel_02
+		slot_type = ship_mod_slot_propulsion
+		modification = { name = "funnel" }
+		modification = { name = "funnel" }
+		modification = { name = "funnel" }
+	}
+	attach = {
+		locator = funnel_03
+		slot_type = ship_mod_slot_propulsion
+		modification = { name = "funnel" }
+		modification = { name = "funnel" }
+		modification = { name = "funnel" }
+	}
+	attach = {
+		locator = funnel_04
+		slot_type = ship_mod_slot_propulsion
+		modification = { name = "funnel" }
+		modification = { name = "funnel" }
+		modification = { name = "funnel" }
+	}
+}
+
+ship_type_nuclear_carrier = {
+	ship_type = ship_type_nuclear_carrier
+	weapon_type = turret
+	hull_type = steel
+	motion_intensity = 0.7
+
+	entity = "aircraftcarrier_base_entity"
+
+	locator = {
+		name = loc_foam
+		position = { 0.0 0.03 0.0 }
+	}
+
+	damage_decal_positions = {
+		{ -0.1 0.06 1.0 0.0 }
+		{ 0.0 0.07 0.6 0.0 }
+		{ -0.0 0.06 1.0 0.0 }
+		{ 0.05 0.05 0.7 0.0 }
+	}
+
+	vfx_entity = {
+		entity = "vfx_ship_hull_aircraftcarrier_damaged_entity"
+		attach = yes
+	}
+	vfx_entity = {
+		entity = "vfx_ship_aircraftcarrier_damage_entity"
+		attach = yes
+	}
+	vfx_entity = {
+		entity = "vfx_aircraftcarrier_foam_entity"
+		locator = loc_foam
+	}
+	vfx_entity = {
+		entity = "vfx_ship_water_miss_entity"
+		locator = loc_foam
+	}
+
+	# Armour
+	attach = {
+		locator = root
+		slot_type = ship_mod_slot_armor
+		modification = { entity = "hull_aircraftcarrier_light_entity" }
+		modification = { entity = "hull_aircraftcarrier_medium_entity" }
+		modification = { entity = "hull_aircraftcarrier_heavy_entity" }
+	}
+
+	# Planes (always populated on a nuclear carrier)
+	attach = {
+		locator = plane_01
+		slot_type = ship_mod_slot_guns
+		modification = { entity = "generic_aerial_bleriotxi_02_entity" }
+		modification = { entity = "generic_aerial_bleriotxi_02_entity" }
+		modification = { entity = "generic_aerial_bleriotxi_02_entity" }
+	}
+	attach = {
+		locator = plane_02
+		slot_type = ship_mod_slot_guns
+		modification = { entity = "generic_aerial_bleriotxi_02_entity" }
+		modification = { entity = "generic_aerial_bleriotxi_02_entity" }
+		modification = { entity = "generic_aerial_bleriotxi_02_entity" }
+	}
+	attach = {
+		locator = plane_03
+		slot_type = ship_mod_slot_guns
+		modification = { entity = "generic_aerial_bleriotxi_02_entity" }
+		modification = { entity = "generic_aerial_bleriotxi_02_entity" }
+		modification = { entity = "generic_aerial_bleriotxi_02_entity" }
+	}
+	attach = {
+		locator = plane_04
+		slot_type = ship_mod_slot_guns
+		modification = { entity = "generic_aerial_bleriotxi_02_entity" }
+		modification = { entity = "generic_aerial_bleriotxi_02_entity" }
+		modification = { entity = "generic_aerial_bleriotxi_02_entity" }
+	}
+
+	# Guns
+	attach = {
+		locator = gun_fore_01
+		slot_type = ship_mod_slot_guns
+		modification = { entity = "gun_smallturret_single_01_entity"				fire_angle = 45 }
+		modification = { entity = "gun_smallturret_single_01_entity"				fire_angle = 45 }
+		modification = { entity = "gun_smallturret_single_01_entity"				fire_angle = 45 }
+	}
+	attach = {
+		locator = gun_fore_02
+		slot_type = ship_mod_slot_guns
+		modification = { entity = "gun_smallturret_single_01_entity"				fire_angle = 45 }
+		modification = { entity = "gun_smallturret_single_01_entity"				fire_angle = 45 }
+		modification = { entity = "gun_smallturret_single_01_entity"				fire_angle = 45 }
+	}
+	attach = {
+		locator = gun_aft
+		slot_type = ship_mod_slot_guns
+		modification = { entity = "gun_smallturret_single_01_entity"				fire_angle = -45 }
+		modification = { entity = "gun_smallturret_single_01_entity"				fire_angle = -45 }
+		modification = { entity = "gun_smallturret_single_01_entity"				fire_angle = -45 }
+	}
+	attach = {
+		locator = gun_tower_01
+		slot_type = ship_mod_slot_guns
+		modification = { entity = "gun_deckmounted_twin_01_entity"					fire_angle = -45 }
+		modification = { entity = "gun_deckmounted_twin_01_entity"					fire_angle = -45 }
+		modification = { entity = "gun_deckmounted_twin_01_entity"					fire_angle = -45 }
+	}
+	attach = {
+		locator = gun_tower_02
+		slot_type = ship_mod_slot_guns
+		modification = { entity = "gun_deckmounted_twin_01_entity"					disabled = yes }
+		modification = { entity = "gun_deckmounted_twin_01_entity"					disabled = yes }
+		modification = { entity = "gun_deckmounted_twin_01_entity"					disabled = yes }
+	}
+
+	# Propulsion
+	attach = {
+		locator = funnel_aft
+		slot_type = ship_mod_slot_propulsion
+		modification = { entity = "funnel_trunked_02_entity" }
+		modification = { entity = "funnel_trunked_02_entity" }
+		modification = { entity = "funnel_trunked_02_entity" }
+	}
+	attach = {
+		locator = funnel_fore
+		slot_type = ship_mod_slot_propulsion
+		modification = { entity = "funnel_trunked_02_entity" }
+		modification = { entity = "funnel_trunked_02_entity" }
+		modification = { entity = "funnel_trunked_02_entity" }
+	}
+}
+
+####################################
+###        Capital Ships         ###
+####################################
+
+ship_type_modern_battleship = {
+	ship_type = ship_type_modern_battleship
+	weapon_type = turret
+	hull_type = steel
+	motion_intensity = 0.7
+	length = 7.0
+
+	entity = "superdreadnought_base_entity"
+
+	locator = {
+		name = loc_foam
+		position = { 0.0 0.03 0.0 }
+	}
+
+	damage_decal_positions = {
+		{ -0.1 0.03 1.0 0.0 }
+		{ 0.0 0.035 0.6 0.0 }
+		{ -0.0 0.045 1.0 0.0 }
+		{ 0.05 0.035 0.7 0.0 }
+	}
+
+	vfx_entity = {
+		entity = "vfx_ship_hull_superdreadnought_damaged_entity"
+		attach = yes
+	}
+	vfx_entity = {
+		entity = "vfx_ship_superdreadnought_damage_entity"
+		attach = yes
+	}
+	vfx_entity = {
+		entity = "vfx_superdreadnought_foam_entity"
+		locator = loc_foam
+	}
+	vfx_entity = {
+		entity = "vfx_ship_water_miss_entity"
+		locator = loc_foam
+	}
+
+	# Propulsion uses the entity based on Range modification, so it needs to be defined first
+	modification = {
+		name = funnel
+		slot_type = ship_mod_slot_range
+		entity = "funnel_large_01_entity"
+		entity = "funnel_large_02_entity"
+		entity = "funnel_large_03_entity"
+	}
+
+	# Armour
+	attach = {
+		locator = root
+		slot_type = ship_mod_slot_armor
+		modification = { entity = "hull_superdreadnought_light_entity" }
+		modification = { entity = "hull_superdreadnought_medium_entity" }
+		modification = { entity = "hull_superdreadnought_heavy_entity" }
+	}
+
+	# Main turrets
+	attach = {
+		locator = turret_fore_01
+		slot_type = ship_mod_slot_guns
+		modification = { entity = "gun_bigturret_tripple_01_entity"					fire_angle = 90 }
+		modification = { entity = "gun_bigturret_tripple_01_entity"					fire_angle = 90 }
+		modification = { entity = "gun_bigturret_tripple_01_entity"					fire_angle = 90 }
+	}
+	attach = {
+		locator = turret_fore_02
+		slot_type = ship_mod_slot_guns
+		modification = { entity = "gun_bigturret_tripple_01_entity"					fire_angle = 90 }
+		modification = { entity = "gun_bigturret_tripple_01_entity"					fire_angle = 90 }
+		modification = { entity = "gun_bigturret_tripple_01_entity"					fire_angle = 90 }
+	}
+	attach = {
+		locator = turret_aft_01
+		slot_type = ship_mod_slot_guns
+		modification = { entity = "gun_bigturret_tripple_01_entity"					fire_angle = -90 }
+		modification = { entity = "gun_bigturret_tripple_01_entity"					fire_angle = -90 }
+		modification = { entity = "gun_bigturret_tripple_01_entity"					fire_angle = -90 }
+	}
+	attach = {
+		locator = turret_aft_02
+		slot_type = ship_mod_slot_guns
+		modification = { entity = "gun_bigturret_tripple_01_entity"					fire_angle = -90 }
+		modification = { entity = "gun_bigturret_tripple_01_entity"					fire_angle = -90 }
+		modification = { entity = "gun_bigturret_tripple_01_entity"					fire_angle = -90 }
+	}
+
+	# Casemates - right side firing
+	attach = {
+		locator = gun_casemate_r_01
+		slot_type = ship_mod_slot_guns
+		modification = { entity = "gun_casemate_case_01_entity"						fire_angle = 45 }
+		modification = { entity = "gun_casemate_case_01_entity"						fire_angle = 45 }
+		modification = { entity = "gun_casemate_case_01_entity"						fire_angle = 45 }
+	}
+	attach = {
+		locator = gun_casemate_r_02
+		slot_type = ship_mod_slot_guns
+		modification = { entity = "gun_casemate_case_01_entity"						fire_angle = 45 }
+		modification = { entity = "gun_casemate_case_01_entity"						fire_angle = 45 }
+		modification = { entity = "gun_casemate_case_01_entity"						fire_angle = 45 }
+	}
+	attach = {
+		locator = gun_casemate_r_03
+		slot_type = ship_mod_slot_guns
+		modification = { entity = "gun_casemate_case_01_entity"						fire_angle = 45 }
+		modification = { entity = "gun_casemate_case_01_entity"						fire_angle = 45 }
+		modification = { entity = "gun_casemate_case_01_entity"						fire_angle = 45 }
+	}
+	attach = {
+		locator = gun_casemate_r_04
+		slot_type = ship_mod_slot_guns
+		modification = { entity = "gun_casemate_case_01_entity"						fire_angle = 45 }
+		modification = { entity = "gun_casemate_case_01_entity"						fire_angle = 45 }
+		modification = { entity = "gun_casemate_case_01_entity"						fire_angle = 45 }
+	}
+	attach = {
+		locator = gun_casemate_r_05
+		slot_type = ship_mod_slot_guns
+		modification = { entity = "gun_casemate_case_01_entity"						fire_angle = 45 }
+		modification = { entity = "gun_casemate_case_01_entity"						fire_angle = 45 }
+		modification = { entity = "gun_casemate_case_01_entity"						fire_angle = 45 }
+	}
+	attach = {
+		locator = gun_casemate_r_06
+		slot_type = ship_mod_slot_guns
+		modification = { entity = "gun_casemate_case_01_entity"						fire_angle = 45 }
+		modification = { entity = "gun_casemate_case_01_entity"						fire_angle = 45 }
+		modification = { entity = "gun_casemate_case_01_entity"						fire_angle = 45 }
+	}
+	attach = {
+		locator = gun_casemate_r_07
+		slot_type = ship_mod_slot_guns
+		modification = { entity = "gun_casemate_case_01_entity"						fire_angle = -45 }
+		modification = { entity = "gun_casemate_case_01_entity"						fire_angle = -45 }
+		modification = { entity = "gun_casemate_case_01_entity"						fire_angle = -45 }
+	}
+	attach = {
+		locator = gun_casemate_r_08
+		slot_type = ship_mod_slot_guns
+		modification = { entity = "gun_casemate_case_01_entity"						fire_angle = -45 }
+		modification = { entity = "gun_casemate_case_01_entity"						fire_angle = -45 }
+		modification = { entity = "gun_casemate_case_01_entity"						fire_angle = -45 }
+	}
+
+	# Casemates - left side static
+	attach = {
+		locator = gun_casemate_l_01
+		slot_type = ship_mod_slot_guns
+		modification = { entity = "gun_casemate_case_01_entity"						disabled = yes }
+		modification = { entity = "gun_casemate_case_01_entity"						disabled = yes }
+		modification = { entity = "gun_casemate_case_01_entity"						disabled = yes }
+	}
+	attach = {
+		locator = gun_casemate_l_02
+		slot_type = ship_mod_slot_guns
+		modification = { entity = "gun_casemate_case_01_entity"						disabled = yes }
+		modification = { entity = "gun_casemate_case_01_entity"						disabled = yes }
+		modification = { entity = "gun_casemate_case_01_entity"						disabled = yes }
+	}
+	attach = {
+		locator = gun_casemate_l_03
+		slot_type = ship_mod_slot_guns
+		modification = { entity = "gun_casemate_case_01_entity"						disabled = yes }
+		modification = { entity = "gun_casemate_case_01_entity"						disabled = yes }
+		modification = { entity = "gun_casemate_case_01_entity"						disabled = yes }
+	}
+	attach = {
+		locator = gun_casemate_l_04
+		slot_type = ship_mod_slot_guns
+		modification = { entity = "gun_casemate_case_01_entity"						disabled = yes }
+		modification = { entity = "gun_casemate_case_01_entity"						disabled = yes }
+		modification = { entity = "gun_casemate_case_01_entity"						disabled = yes }
+	}
+	attach = {
+		locator = gun_casemate_l_05
+		slot_type = ship_mod_slot_guns
+		modification = { entity = "gun_casemate_case_01_entity"						disabled = yes }
+		modification = { entity = "gun_casemate_case_01_entity"						disabled = yes }
+		modification = { entity = "gun_casemate_case_01_entity"						disabled = yes }
+	}
+	attach = {
+		locator = gun_casemate_l_06
+		slot_type = ship_mod_slot_guns
+		modification = { entity = "gun_casemate_case_01_entity"						disabled = yes }
+		modification = { entity = "gun_casemate_case_01_entity"						disabled = yes }
+		modification = { entity = "gun_casemate_case_01_entity"						disabled = yes }
+	}
+	attach = {
+		locator = gun_casemate_l_07
+		slot_type = ship_mod_slot_guns
+		modification = { entity = "gun_casemate_case_01_entity"						disabled = yes }
+		modification = { entity = "gun_casemate_case_01_entity"						disabled = yes }
+		modification = { entity = "gun_casemate_case_01_entity"						disabled = yes }
+	}
+	attach = {
+		locator = gun_casemate_l_08
+		slot_type = ship_mod_slot_guns
+		modification = { entity = "gun_casemate_case_01_entity"						disabled = yes }
+		modification = { entity = "gun_casemate_case_01_entity"						disabled = yes }
+		modification = { entity = "gun_casemate_case_01_entity"						disabled = yes }
+	}
+
+	# Propulsion
+	attach = {
+		locator = funnel_01
+		slot_type = ship_mod_slot_propulsion
+		modification = { name = "funnel" }
+		modification = { name = "funnel" }
+		modification = { name = "funnel" }
+	}
+	attach = {
+		locator = funnel_02
+		slot_type = ship_mod_slot_propulsion
+		modification = { name = "funnel" }
+		modification = { name = "funnel" }
+		modification = { name = "funnel" }
+	}
+	attach = {
+		locator = funnel_03
+		slot_type = ship_mod_slot_propulsion
+		modification = { name = "funnel" }
+		modification = { name = "funnel" }
+		modification = { name = "funnel" }
+	}
+}

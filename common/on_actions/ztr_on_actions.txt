@@ -1,7 +1,6 @@
 ######################################################################
 ###GLOBAL ON_ACTION DEFINITIONS###
 ######################################################################
-
 on_yearly_pulse = {
 	on_actions = {
 		ztr_main_script_on_yearly_pulse
@@ -19,7 +18,9 @@ ztr_main_script_on_yearly_pulse = {
 					has_technology_researched = modern_urban_planning
 					year > 1950
 				}
-				NOT = { has_building = building_modern_state_baseline }
+				NOT = {
+					has_building = building_modern_state_baseline
+				}
 			}
 			capital = {
 				create_building = {
@@ -28,7 +29,6 @@ ztr_main_script_on_yearly_pulse = {
 				}
 			}
 		}
-
 		# Special buildings removal from non-capital states
 		every_country = {
 			limit = {
@@ -56,11 +56,12 @@ ztr_main_script_on_yearly_pulse = {
 				remove_building = building_modern_state_baseline
 			}
 		}
-
 		# Early progressist ideologies
 		every_country = {
 			limit = {
-				NOT = { has_variable = has_progressist_ideology }
+				NOT = {
+					has_variable = has_progressist_ideology
+				}
 				has_technology_researched = human_rights
 			}
 			set_variable = {
@@ -69,7 +70,6 @@ ztr_main_script_on_yearly_pulse = {
 			}
 			ztr_apply_early_progressist_ideologies = yes
 		}
-
 		# Mid progressist ideologies
 		every_country = {
 			limit = {
@@ -83,7 +83,6 @@ ztr_main_script_on_yearly_pulse = {
 			}
 			ztr_apply_mid_progressist_ideologies = yes
 		}
-
 		# Late progressist ideologies
 		every_country = {
 			limit = {
@@ -108,9 +107,10 @@ ztr_decolonization_age_on_yearly_pulse = {
 				any_country = {
 					has_technology_researched = decolonization
 				}
-				NOT = { has_global_variable = ztr_global_decolonization_pressure_var }
+				NOT = {
+					has_global_variable = ztr_global_decolonization_pressure_var
+				}
 			}
-
 			# First time: initialize the global variable and announce the decolonization age
 			set_global_variable = {
 				name = ztr_global_decolonization_pressure_var
@@ -120,7 +120,9 @@ ztr_decolonization_age_on_yearly_pulse = {
 				limit = {
 					country_rank >= rank_value:minor_power
 				}
-				trigger_event = { id = ztr_decolonization.1 }
+				trigger_event = {
+					id = ztr_decolonization.1
+				}
 			}
 		}
 		else_if = {
@@ -128,7 +130,6 @@ ztr_decolonization_age_on_yearly_pulse = {
 				has_game_rule = allow_ztr_decolonization_content
 				has_global_variable = ztr_global_decolonization_pressure_var
 			}
-
 			# Subsequent years: recalculate global decolonization pressure
 			ztr_calculate_global_decolonization_pressure = yes
 		}
@@ -148,9 +149,10 @@ un_institutions_on_yearly_pulse = {
 				ztr_is_un_member = yes
 				infamy >= 60
 			}
-			trigger_event = { id = ztr_un_event.45 }
+			trigger_event = {
+				id = ztr_un_event.45
+			}
 		}
-
 		# IMF global mechanics
 		# IMF poor countries management
 		every_country = {
@@ -201,7 +203,6 @@ un_institutions_on_yearly_pulse = {
 #####################################################################
 ### COUNTRY ON_ACTION DEFINITIONS ###
 #####################################################################
-
 on_yearly_pulse_country = {
 	on_actions = {
 		economy_update_on_yearly_pulse_country
@@ -231,7 +232,7 @@ modern_individualism_on_yearly_pulse_country = {
 
 economy_update_on_yearly_pulse_country = {
 	events = {
-		ztr_economic_update.1 # Tech & Res Inizialization
+		ztr_economic_update.1		# Tech & Res Inizialization
 		ztr_economic_update.2
 		ztr_economic_update.3
 		ztr_economic_update.4
@@ -253,46 +254,46 @@ economy_update_on_yearly_pulse_country = {
 
 brazil_pop_update_on_yearly_pulse_country = {
 	events = {
-		brazil_pop.1 # Brazil End of Slavery pop
-		brazil_pop.2 # Brazil during Slavery pop
+		brazil_pop.1		# Brazil End of Slavery pop
+		brazil_pop.2		# Brazil during Slavery pop
 	}
 }
 
 colony_pop_update_on_yearly_pulse_country = {
 	events = {
-		colony_pop.1 # Colony pop growth
-		colony_pop.2 # Colonial States Demographic Boom
-		colony_pop.3 # Subject Population Boom
+		colony_pop.1		# Colony pop growth
+		colony_pop.2		# Colonial States Demographic Boom
+		colony_pop.3		# Subject Population Boom
 	}
 }
 
 france_pop_update_on_yearly_pulse_country = {
 	events = {
-		france_pop.1 # France pop growth problem
+		france_pop.1		# France pop growth problem
 	}
 }
 
 germany_pop_update_on_yearly_pulse_country = {
 	events = {
-		germany_pop.1 # Germany pop growth bonus
+		germany_pop.1		# Germany pop growth bonus
 	}
 }
 
 usa_economy_update_on_yearly_pulse_country = {
 	events = {
-		usa_economy.1 # USA Gilded Age
+		usa_economy.1		# USA Gilded Age
 	}
 }
 
 japan_economy_update_on_yearly_pulse_country = {
 	events = {
-		japan_economy.1 # Japan Meiji Modernization
+		japan_economy.1		# Japan Meiji Modernization
 	}
 }
 
 irish_independence_on_yearly_pulse_country = {
 	events = {
-		irish_independence.6 # Good Friday Agreement
+		irish_independence.6		# Good Friday Agreement
 	}
 }
 
@@ -314,16 +315,16 @@ super_germany_on_yearly_pulse_country = {
 
 superpower_on_yearly_pulse_country = {
 	events = {
-		ztr_superpower.1 # Give superpower status
-		ztr_superpower.2 # Remove superpower status if lost ranking
+		ztr_superpower.1		# Give superpower status
+		ztr_superpower.2		# Remove superpower status if lost ranking
 	}
 }
 
 flavor_middle_east_on_yearly_pulse_country = {
 	events = {
-		ztr_middle_east.1 # Egypt Sinai-Suez Question
-		ztr_middle_east.3 # The idea of Israel
-		ztr_middle_east.6 # Birth of Zionism in our country, after Israel creation, we will have a mass migration of Jewish from our country
+		ztr_middle_east.1		# Egypt Sinai-Suez Question
+		ztr_middle_east.3		# The idea of Israel
+		ztr_middle_east.6		# Birth of Zionism in our country, after Israel creation, we will have a mass migration of Jewish from our country
 	}
 }
 
@@ -335,8 +336,8 @@ imf_on_yearly_pulse_country = {
 
 arable_land_on_yearly_pulse_country = {
 	events = {
-		ztr_arable_land.1 # Arable Land driven by Unemployment for developing countries
-		ztr_arable_land.2 # Arable Land driven by Green Revolution for not poor countries
+		ztr_arable_land.1		# Arable Land driven by Unemployment for developing countries
+		ztr_arable_land.2		# Arable Land driven by Green Revolution for not poor countries
 	}
 }
 
@@ -348,8 +349,12 @@ atomic_on_yearly_pulse_country = {
 		# Clear nuclear weapons silo if no longer have nuclear program
 		if = {
 			limit = {
-				NOT = { has_modifier = nuclear_capability }
-				NOT = { has_variable = nuclear_program_started }
+				NOT = {
+					has_modifier = nuclear_capability
+				}
+				NOT = {
+					has_variable = nuclear_program_started
+				}
 				any_scope_state = {
 					any_scope_building = {
 						OR = {
@@ -358,20 +363,22 @@ atomic_on_yearly_pulse_country = {
 					}
 				}
 			}
-
 			# Clear nuclear buildings
 			every_scope_state = {
-				limit = { has_building = building_nuclear_weapons_silo }
+				limit = {
+					has_building = building_nuclear_weapons_silo
+				}
 				remove_building = building_nuclear_weapons_silo
 			}
 		}
-
 		# Clean up nuclear weapons program variable
 		if = {
 			limit = {
 				has_variable = nuclear_program_started
 				OR = {
-					NOT = { has_law = law_type:law_uranium_full_usage }
+					NOT = {
+						has_law_or_variant = law_type:law_uranium_full_usage
+					}
 					has_variable = signed_nuclear_non_proliferation_treaty
 					is_subject = yes
 				}
@@ -384,7 +391,6 @@ atomic_on_yearly_pulse_country = {
 ####################################################################
 ### COUNTRY MONTHLY ON_ACTION DEFINITIONS ###
 ####################################################################
-
 on_monthly_pulse_country = {
 	on_actions = {
 		un_intervention_on_monthly_pulse_country
@@ -424,14 +430,18 @@ eu_membership_enforcement_on_monthly_pulse_country = {
 					save_scope_as = ztr_eu_founder_scope
 				}
 				if = {
-					limit = { exists = scope:ztr_eu_founder_scope }
+					limit = {
+						exists = scope:ztr_eu_founder_scope
+					}
 					join_power_bloc = scope:ztr_eu_founder_scope
 				}
 			}
 			else_if = {
 				limit = {
 					has_modifier = ztr_eu_member
-					NOT = { exists = root.power_bloc }
+					NOT = {
+						exists = root.power_bloc
+					}
 				}
 				random_country = {
 					limit = {
@@ -441,16 +451,21 @@ eu_membership_enforcement_on_monthly_pulse_country = {
 					save_scope_as = ztr_eu_founder_scope
 				}
 				if = {
-					limit = { exists = scope:ztr_eu_founder_scope }
+					limit = {
+						exists = scope:ztr_eu_founder_scope
+					}
 					join_power_bloc = scope:ztr_eu_founder_scope
 				}
 			}
-
 			# Force non-EU-members out of the EU power bloc
 			if = {
 				limit = {
-					NOT = { has_modifier = ztr_eu_member }
-					NOT = { has_variable = ztr_eu_founder }
+					NOT = {
+						has_modifier = ztr_eu_member
+					}
+					NOT = {
+						has_variable = ztr_eu_founder
+					}
 					exists = root.power_bloc
 					root.power_bloc = {
 						leader = {
@@ -482,7 +497,6 @@ yeet_pops_on_monthly_pulse_country = {
 #####################################################################
 ### TECHNOLOGY ON_ACTION DEFINITIONS ###
 #####################################################################
-
 on_acquired_technology = {
 	on_actions = {
 		on_acquired_technology_deposits
@@ -495,119 +509,71 @@ on_acquired_technology_deposits = {
 		# Bauxite deposits addition
 		if = {
 			limit = {
-				NOT = { has_global_variable = ztr_bauxite_added_var }
+				NOT = {
+					has_global_variable = ztr_bauxite_added_var
+				}
 				has_technology_researched = bauxite_processing
 			}
 			set_global_variable = ztr_bauxite_added_var
-			if = {
-				limit = {
-					NOT = { has_global_variable = ztr_hidden_traits_var }
-				}
-				bauxite_nano_add_deposits = yes
-				bauxite_small_add_deposits = yes
-				bauxite_medium_add_deposits = yes
-				bauxite_big_add_deposits = yes
-				bauxite_huge_add_deposits = yes
-			}
-			else = {
-				bauxite_nano_add_deposits_hidden = yes
-				bauxite_small_add_deposits_hidden = yes
-				bauxite_medium_add_deposits_hidden = yes
-				bauxite_big_add_deposits_hidden = yes
-				bauxite_huge_add_deposits_hidden = yes
-			}
+			bauxite_nano_add_deposits = yes
+			bauxite_small_add_deposits = yes
+			bauxite_medium_add_deposits = yes
+			bauxite_big_add_deposits = yes
+			bauxite_huge_add_deposits = yes
 		}
-
 		# Advanced ores deposits addition
 		if = {
 			limit = {
-				NOT = { has_global_variable = ztr_advancedores_added_var }
+				NOT = {
+					has_global_variable = ztr_advancedores_added_var
+				}
 				has_technology_researched = quartz_glass
 			}
 			set_global_variable = ztr_advancedores_added_var
-			if = {
-				limit = {
-					NOT = { has_global_variable = ztr_hidden_traits_var }
-				}
-				advancedores_nano_add_deposits = yes
-				advancedores_small_add_deposits = yes
-				advancedores_medium_add_deposits = yes
-				advancedores_big_add_deposits = yes
-			}
-			else = {
-				advancedores_nano_add_deposits_hidden = yes
-				advancedores_small_add_deposits_hidden = yes
-				advancedores_medium_add_deposits_hidden = yes
-				advancedores_big_add_deposits_hidden = yes
-			}
+			advancedores_nano_add_deposits = yes
+			advancedores_small_add_deposits = yes
+			advancedores_medium_add_deposits = yes
+			advancedores_big_add_deposits = yes
 		}
-
 		# Uranium deposits addition
 		if = {
 			limit = {
-				NOT = { has_global_variable = ztr_uranium_added_var }
+				NOT = {
+					has_global_variable = ztr_uranium_added_var
+				}
 				has_technology_researched = verrier_modern_physics_tech
 			}
 			set_global_variable = ztr_uranium_added_var
-			if = {
-				limit = {
-					NOT = { has_global_variable = ztr_hidden_traits_var }
-				}
-				good_uranium_small_add_deposits = yes
-				good_uranium_medium_add_deposits = yes
-				good_uranium_big_add_deposits = yes
-			}
-			else = {
-				good_uranium_small_add_deposits_hidden = yes
-				good_uranium_medium_add_deposits = yes
-				good_uranium_big_add_deposits = yes
-			}
+			good_uranium_small_add_deposits = yes
+			good_uranium_medium_add_deposits = yes
+			good_uranium_big_add_deposits = yes
 		}
-
 		# Gas deposits addition
 		if = {
 			limit = {
-				NOT = { has_global_variable = ztr_gas_added_var }
+				NOT = {
+					has_global_variable = ztr_gas_added_var
+				}
 				has_technology_researched = natural_gas_extraction
 			}
 			set_global_variable = ztr_gas_added_var
-			if = {
-				limit = {
-					NOT = { has_global_variable = ztr_hidden_traits_var }
-				}
-				gas_small_add_deposits = yes
-				gas_medium_add_deposits = yes
-				gas_big_add_deposits = yes
-				gas_huge_add_deposits = yes
-			}
-			else = {
-				gas_small_add_deposits_hidden = yes
-				gas_medium_add_deposits_hidden = yes
-				gas_big_add_deposits_hidden = yes
-				gas_huge_add_deposits_hidden = yes
-			}
+			gas_small_add_deposits = yes
+			gas_medium_add_deposits = yes
+			gas_big_add_deposits = yes
+			gas_huge_add_deposits = yes
 		}
-
 		# Rare earths deposits addition
 		if = {
 			limit = {
-				NOT = { has_global_variable = ztr_rare_earths_added_var }
+				NOT = {
+					has_global_variable = ztr_rare_earths_added_var
+				}
 				has_technology_researched = rare_earths
 			}
 			set_global_variable = ztr_rare_earths_added_var
-			if = {
-				limit = {
-					NOT = { has_global_variable = ztr_hidden_traits_var }
-				}
-				rare_earths_small_add_deposits = yes
-				rare_earths_medium_add_deposits = yes
-				rare_earths_big_add_deposits = yes
-			}
-			else = {
-				rare_earths_small_add_deposits_hidden = yes
-				rare_earths_medium_add_deposits_hidden = yes
-				rare_earths_big_add_deposits_hidden = yes
-			}
+			rare_earths_small_add_deposits = yes
+			rare_earths_medium_add_deposits = yes
+			rare_earths_big_add_deposits = yes
 		}
 	}
 }

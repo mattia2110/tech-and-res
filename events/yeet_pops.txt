@@ -1,24 +1,17 @@
 ﻿namespace = yeet_pops
-
 # Thanks to Glompspark and Caracus for the on_action lag fix
-
 yeet_pops.1 = {
 	type = country_event
 	placement = ROOT
 	hidden = yes
-
 	title = yeet_pops.1.t
-
 	flavor = yeet_pops.1.f
-
 	event_image = {
 		video = "gfx/event_pictures/unspecific_ruler_speaking_to_people.bk2"
 	}
 	icon = "gfx/interface/icons/event_icons/event_portrait.dds"
-
 	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
 	on_opened_soundeffect = "event:/SFX/Events/unspecific/leader_speaking_to_a_group_of_people"
-
 	trigger = {
 		OR = {
 			#Low-Aggressive active from 1836 to 1936 with allow
@@ -34,14 +27,13 @@ yeet_pops.1 = {
 		}
 		NOT = {
 			c:CHI ?= this
-			OR = { 
+			OR = {
 				has_journal_entry = je_chinese_missions
 				has_journal_entry = je_heavenly_kingdom_main
 			}
 		}
 		is_secessionist = no
 	}
-
 	immediate = {
 		ordered_primary_culture = {
 			position = 0
@@ -57,56 +49,68 @@ yeet_pops.1 = {
 			every_scope_pop = {
 				limit = {
 					this.culture = {
-						NOT = { 
+						NOT = {
 							is_primary_culture_of = root
 						}
-						NOT = { this = cu:ashkenazi } # We don't want to change Ashkenazi culture as this is important for Israel migration events
-						NOT = { this = cu:sephardic } # We don't want to change Sephardic culture as this is important for Israel migration events
-						NOT = {this = cu:yankee } # Sometimes indian states removes yankee pops, we don't want that
+						NOT = {
+							this = cu:ashkenazi
+						}						# We don't want to change Ashkenazi culture as this is important for Israel migration events
+						NOT = {
+							this = cu:sephardic
+						}						# We don't want to change Sephardic culture as this is important for Israel migration events
+						NOT = {
+							this = cu:yankee
+						}						# Sometimes indian states removes yankee pops, we don't want that
 						NOT = {
 							has_homeland = scope:executing_state
 						}
 					}
-					OR = { 
+					OR = {
 						pop_acceptance >= 60
 						total_size < 10000
 						root = {
-							has_law = law_type:law_multicultural
+							has_law_or_variant = law_type:law_multicultural
 						}
 						AND = {
 							root = {
-								has_law = law_type:law_cultural_exclusion
+								has_law_or_variant = law_type:law_cultural_exclusion
 							}
 							this.culture = {
 								shares_heritage_trait_with_any_primary_culture = root
 							}
-						}	
+						}
 						AND = {
 							root = {
-								has_law = law_type:law_racial_segregation
+								has_law_or_variant = law_type:law_racial_segregation
 							}
 							this.culture = {
 								shares_heritage_and_other_trait_with_any_primary_culture = root
 							}
-						}	
+						}
 					}
 				}
-				change_pop_culture = { target = scope:primary_culture value = 1 }
+				change_pop_culture = {
+					target = scope:primary_culture
+					value = 1
+				}
 			}
 			every_scope_pop = {
 				limit = {
 					has_state_religion = no
-					OR = { 
+					OR = {
 						pop_acceptance >= 60
 						total_size < 10000
 						#root = {
-							#has_law = law_type:law_total_separation
+						#has_law_or_variant = law_type:law_total_separation
 						#}
 					}
 				}
-				change_pop_religion = { target = root.religion value = 1 }
+				change_pop_religion = {
+					target = root.religion
+					value = 1
+				}
 			}
-		}	
+		}
 	}
 }
 
@@ -116,15 +120,12 @@ yeet_pops.2 = {
 	hidden = yes
 	title = yeet_pops.1.t
 	flavor = yeet_pops.1.f
-
 	event_image = {
 		video = "gfx/event_pictures/unspecific_ruler_speaking_to_people.bk2"
 	}
 	icon = "gfx/interface/icons/event_icons/event_portrait.dds"
-
 	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
 	on_opened_soundeffect = "event:/SFX/Events/unspecific/leader_speaking_to_a_group_of_people"
-
 	trigger = {
 		#Aggressive active from 1836 to 1936 with allow and mid
 		OR = {
@@ -133,7 +134,7 @@ yeet_pops.2 = {
 		}
 		NOT = {
 			c:CHI ?= this
-			OR = { 
+			OR = {
 				has_journal_entry = je_chinese_missions
 				has_journal_entry = je_heavenly_kingdom_main
 			}
@@ -141,7 +142,6 @@ yeet_pops.2 = {
 		is_secessionist = no
 		game_date >= 1936.1.1
 	}
-
 	immediate = {
 		ordered_primary_culture = {
 			position = 0
@@ -157,24 +157,36 @@ yeet_pops.2 = {
 			every_scope_pop = {
 				limit = {
 					this.culture = {
-						NOT = { 
+						NOT = {
 							is_primary_culture_of = root
 						}
-						NOT = { this = cu:ashkenazi } # We don't want to change Ashkenazi culture as this is important for Israel migration events
-						NOT = { this = cu:sephardic } # We don't want to change Sephardic culture as this is important for Israel migration events
-						NOT = { this = cu:yankee } # Sometimes indian states removes yankee pops, we don't want that
-						NOT = { 
+						NOT = {
+							this = cu:ashkenazi
+						}						# We don't want to change Ashkenazi culture as this is important for Israel migration events
+						NOT = {
+							this = cu:sephardic
+						}						# We don't want to change Sephardic culture as this is important for Israel migration events
+						NOT = {
+							this = cu:yankee
+						}						# Sometimes indian states removes yankee pops, we don't want that
+						NOT = {
 							has_homeland = scope:executing_state
 						}
 					}
 				}
-				change_pop_culture = { target = scope:primary_culture value = 1 }
+				change_pop_culture = {
+					target = scope:primary_culture
+					value = 1
+				}
 			}
 			every_scope_pop = {
 				limit = {
 					has_state_religion = no
 				}
-				change_pop_religion = { target = root.religion value = 1 }
+				change_pop_religion = {
+					target = root.religion
+					value = 1
+				}
 			}
 		}
 	}

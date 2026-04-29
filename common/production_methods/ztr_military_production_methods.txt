@@ -358,12 +358,15 @@ pm_network_centric_warfare = {
 	texture = "gfx/interface/icons/production_method_icons/network_centric_warfare.dds"
 
 	profession_ratio = {
-		soldiers = 75
-		officers = 25
+		soldiers = 70
+		officers = 30
 	}
 
 	unlocking_technologies = {
 		network_centric_warfare
+	}
+	disallowing_laws = {
+		law_warrior_caste
 	}
 	building_modifiers = {
 		unscaled = {
@@ -381,12 +384,16 @@ pm_network_centric_warfare_conscription = {
 	texture = "gfx/interface/icons/production_method_icons/network_centric_warfare.dds"
 
 	profession_ratio = {
-		soldiers = 75
-		officers = 25
+		soldiers = 70
+		officers = 30
 	}
 
 	unlocking_technologies = {
 		network_centric_warfare
+	}
+	disallowing_laws = {
+		law_peasant_levies
+		law_warrior_caste
 	}
 	building_modifiers = {
 		unscaled = {
@@ -411,22 +418,19 @@ pm_modern_naval_doctrine = {
 	unlocking_technologies = {
 		modern_naval_doctrine
 	}
-
-	state_modifiers = {
-		level_scaled = {
-			state_blockade_resistance_add = 35
-		}
-	}
 	
 	building_modifiers = {
 		level_scaled = {
-			building_training_rate_add = 8
+			building_naval_administration_training_rate_add = 8
 		}
 
 		unscaled = {
 			unit_morale_loss_mult = -0.2
-			unit_morale_damage_mult = 0.5
-			building_training_rate_add = 10
+			unit_morale_damage_mult = 0.45
+			building_naval_administration_training_rate_add = 10
+			ship_hull_damage_mult = 0.05
+			ship_suffered_hull_damage_mult = -0.05
+			ship_readiness_gain_mult = 0.10
 		}
 	}
 }
@@ -649,3 +653,110 @@ pm_icbms = {
 # 		pm_offense_defense_readjustment
 # 	}
 # }
+
+# Naval PM
+#TODO Da aggiustare
+
+### Naval fortifications
+pm_naval_fortification_radar_batteries = {
+	texture = "gfx/interface/icons/production_method_icons/fortification_advanced.dds"
+	is_hidden_when_unavailable = yes
+	unlocking_technologies = {
+		radar
+	}
+	state_modifiers = {
+		level_scaled = {
+			state_fortification_naval_invasion_add = 800
+			state_fortification_naval_battle_mult = 0.30
+			state_fortification_bombardment_resistance_add = 4000
+			state_blockade_resistance_add = 350
+		}
+		unscaled = {
+			state_control_strait_bool = yes
+		}
+	}
+	building_modifiers = {
+		workforce_scaled = {
+			goods_input_artillery_add = 6
+			goods_input_ammunition_add = 8
+			goods_input_steel_add = 12
+			goods_input_radios_add = 4
+			goods_input_electricity_add = 5
+		}
+		level_scaled = {
+			building_employment_soldiers_add = 700
+			building_employment_officers_add = 200
+			building_employment_engineers_add = 100
+		}
+	}
+	required_input_goods = electricity
+}
+pm_naval_fortification_coastal_missile_batteries = {
+	texture = "gfx/interface/icons/production_method_icons/missiles.dds"
+	is_hidden_when_unavailable = yes
+	unlocking_technologies = {
+		guided_missiles
+		electronic_warfare
+	}
+	state_modifiers = {
+		level_scaled = {
+			state_fortification_naval_invasion_add = 1200
+			state_fortification_naval_battle_mult = 0.45
+			state_fortification_bombardment_resistance_add = 8000
+			state_blockade_resistance_add = 600
+		}
+		unscaled = {
+			state_control_strait_bool = yes
+		}
+	}
+	building_modifiers = {
+		workforce_scaled = {
+			goods_input_artillery_add = 4
+			goods_input_ammunition_add = 12
+			goods_input_explosives_add = 5
+			goods_input_radios_add = 6
+			goods_input_processors_add = 3
+			goods_input_electricity_add = 8
+		}
+		level_scaled = {
+			building_employment_soldiers_add = 550
+			building_employment_officers_add = 250
+			building_employment_engineers_add = 200
+		}
+	}
+	required_input_goods = electricity
+}
+pm_naval_fortification_integrated_defense_grid = {
+	texture = "gfx/interface/icons/production_method_icons/network_centric_warfare.dds"
+	is_hidden_when_unavailable = yes
+	unlocking_technologies = {
+		network_centric_warfare
+	}
+	state_modifiers = {
+		level_scaled = {
+			state_fortification_naval_invasion_add = 1750
+			state_fortification_naval_battle_mult = 0.60
+			state_fortification_bombardment_resistance_add = 12500
+			state_blockade_resistance_add = 900
+		}
+		unscaled = {
+			state_control_strait_bool = yes
+		}
+	}
+	building_modifiers = {
+		workforce_scaled = {
+			goods_input_ammunition_add = 10
+			goods_input_radios_add = 8
+			goods_input_processors_add = 6
+			goods_input_robotics_add = 2
+			goods_input_electricity_add = 12
+			goods_input_good_uranium_add = 1
+		}
+		level_scaled = {
+			building_employment_soldiers_add = 450
+			building_employment_officers_add = 300
+			building_employment_engineers_add = 250
+		}
+	}
+	required_input_goods = electricity
+}

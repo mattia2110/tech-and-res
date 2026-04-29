@@ -1,28 +1,23 @@
 namespace = ztr_middle_east
-
 # Egypt Sinai-Suez Crisis (Egypt/Arabian Power wants European powers to leave Suez Canal)
-
 ztr_middle_east.1 = {
 	dlc = dlc_tech_res
 	type = country_event
 	placement = root
-
 	duration = 1
-
 	title = ztr_middle_east.1.t
 	desc = ztr_middle_east.1.d
-
 	event_image = {
 		video = "africa_construction_colony"
 	}
-
 	icon = "gfx/interface/icons/event_icons/event_newspaper.dds"
-
 	trigger = {
 		year > 1950
 		has_global_variable = ztr_global_decolonization_pressure_var
 		has_game_rule = allow_ztr_decolonization_content
-		NOT = { is_subject = yes }
+		NOT = {
+			is_subject = yes
+		}
 		OR = {
 			is_in_geographic_region = geographic_region_africa
 			is_in_geographic_region = geographic_region_middle_east
@@ -35,12 +30,15 @@ ztr_middle_east.1 = {
 		s:STATE_SINAI ?= {
 			has_building = building_suez_canal
 		}
-		NOT = { has_global_variable = ztr_suez_crisis_var }
+		NOT = {
+			has_global_variable = ztr_suez_crisis_var
+		}
 		scope:ztr_european_colonial_power_scope = {
-			NOT = { has_war_with = ROOT }
+			NOT = {
+				has_war_with = ROOT
+			}
 		}
 	}
-
 	immediate = {
 		every_country = {
 			limit = {
@@ -54,48 +52,48 @@ ztr_middle_east.1 = {
 		}
 		set_global_variable = ztr_suez_crisis_var
 	}
-
 	# Arabian Country can ask them to leave peacefully with a financial purchase of 9 millions
 	option = {
 		name = ztr_middle_east.1.a
 		add_loyalists = {
-			value   = 0.5
+			value = 0.5
 			pop_type = officers
 		}
 		add_loyalists = {
-			value   = 0.25
+			value = 0.25
 			pop_type = soldiers
 		}
 		add_loyalists = {
-			value   = 0.1
+			value = 0.1
 			culture = cu:misri
 		}
-		scope:ztr_european_colonial_power_scope = { trigger_event = ztr_middle_east.2 }
+		scope:ztr_european_colonial_power_scope = {
+			trigger_event = ztr_middle_east.2
+		}
 		ai_chance = {
 			base = 7
 			modifier = {
 				trigger = {
-					scaled_debt > 0 # Is in debt
+					scaled_debt > 0					# Is in debt
 				}
 				subtract = 7
 			}
 		}
 	}
-
 	# Arabian Country can avoid any problem
 	option = {
 		name = ztr_middle_east.1.b
 		default_option = yes
 		add_radicals = {
-			value   = 0.75
+			value = 0.75
 			pop_type = officers
 		}
 		add_radicals = {
-			value   = 0.5
+			value = 0.5
 			pop_type = soldiers
 		}
 		add_radicals = {
-			value   = 0.15
+			value = 0.15
 			culture = cu:misri
 		}
 		ai_chance = {
@@ -108,22 +106,16 @@ ztr_middle_east.2 = {
 	dlc = dlc_tech_res
 	type = country_event
 	placement = root
-
 	duration = 1
-
 	title = ztr_middle_east.2.t
 	desc = ztr_middle_east.2.d
-
 	event_image = {
 		video = "africa_construction_colony"
 	}
-
 	icon = "gfx/interface/icons/event_icons/event_newspaper.dds"
-
 	trigger = {
 		# Middle_east.1
 	}
-
 	immediate = {
 		every_scope_state = {
 			limit = {
@@ -132,14 +124,12 @@ ztr_middle_east.2 = {
 			save_scope_as = ztr_sinai_state_european
 		}
 	}
-
 	# Accept diplomatic solution with money concession of 90 millions
 	# Obviously, the Arabian Country will pay less for this.
-
 	option = {
 		name = ztr_middle_east.2.a
 		scope:ztr_arabian_country_scope = {
-			hidden_effect= {
+			hidden_effect = {
 				add_modifier = {
 					name = suez_canal_big_money_exit
 					months = 36
@@ -173,9 +163,7 @@ ztr_middle_east.2 = {
 			}
 		}
 	}
-
 	# Neutral Option, giving some of the Suez Canal earning
-
 	option = {
 		name = ztr_middle_east.2.b
 		# This modifiers are permanent
@@ -201,9 +189,7 @@ ztr_middle_east.2 = {
 			}
 		}
 	}
-
 	# Refuse diplomatic
-
 	option = {
 		name = ztr_middle_east.2.c
 		scope:ztr_arabian_country_scope = {
@@ -218,14 +204,18 @@ ztr_middle_east.2 = {
 				target_country = root
 				type = dp_return_state
 				target_state = scope:ztr_sinai_state_european
-				add_war_goal = { holder = scope:ztr_arabian_country_scope target_country = root 
-				type = enforce_treaty_article
-				article = {
+				add_war_goal = {
+					holder = scope:ztr_arabian_country_scope
+					target_country = root
+					type = enforce_treaty_article
+					article = {
 						article = money_transfer
 						source_country = root
 						target_country = scope:ztr_arabian_country_scope
 						inputs = {
-							{ quantity = 50000 }
+							{
+								quantity = 50000
+							}
 						}
 					}
 				}
@@ -235,49 +225,47 @@ ztr_middle_east.2 = {
 			base = 10
 		}
 	}
-
 }
 
 # The idea of Israel
-
 ztr_middle_east.3 = {
 	dlc = dlc_tech_res
 	type = country_event
 	placement = root
-
 	duration = 1
-
 	title = ztr_middle_east.3.t
 	desc = ztr_middle_east.3.d
-
 	event_image = {
 		video = "europenorthamerica_judaism"
 	}
-
 	icon = "gfx/interface/icons/event_icons/event_newspaper.dds"
-
 	trigger = {
 		has_game_rule = allow_ztr_historical_content
-
 		# For Israel creation, we need a strong western country to back jewish homeland creation
-		has_global_variable = un_founded_var # The UN exists
+		has_global_variable = un_founded_var		# The UN exists
 		has_modifier = ztr_onu_permanent_member
 		OR = {
-			is_in_geographic_region = geographic_region_europe # Some European superpower
-			is_in_geographic_region = geographic_region_north_america # Basicaly USA
+			is_in_geographic_region = geographic_region_europe			# Some European superpower
+			is_in_geographic_region = geographic_region_north_america			# Basicaly USA
 		}
-		NOT = { c:RUS ?= this } # Russia can't create Israel
-
+		NOT = {
+			c:RUS ?= this
+		}		# Russia can't create Israel
 		#Russia is the European country with most Jewish pops and an antisemitism condition will lead Jewish pops to leave Russia
 		# If one of those 3 conditions is true, Jewish pops will be unhappy and more likely to form Sionism
 		c:RUS = {
 			OR = {
-				NOT = { country_rank = rank_value:great_power}
-				NOT = { has_law = law_type:law_multicultural }
-				NOT = { has_law = law_type:law_total_separation }
+				NOT = {
+					country_rank = rank_value:great_power
+				}
+				NOT = {
+					has_law_or_variant = law_type:law_multicultural
+				}
+				NOT = {
+					has_law_or_variant = law_type:law_total_separation
+				}
 			}
 		}
-
 		# Palestine should not be controlled by an important non-western country
 		# In the first two cases, the event will lead to an offer to the western country, in the other case, or accept or war
 		# scope:ztr_palestine_controller_scope = {
@@ -285,10 +273,8 @@ ztr_middle_east.3 = {
 		# 		# Western country or root -> to offer
 		# 		is_in_geographic_region = geographic_region_europe
 		# 		is_in_geographic_region = geographic_region_north_america
-
 		# 		# Non-western minor country -> they will surely accept
 		# 		country_rank < rank_value:major_power
-
 		# 		# Non-western major country or subject to non-western country -> accept or war
 		# 		AND = {
 		# 			country_is_in_europe = no
@@ -305,7 +291,6 @@ ztr_middle_east.3 = {
 		# 				}
 		# 			}
 		# 		}
-
 		# 		# Subject of a western country -> they will surely accept
 		# 		AND = {
 		# 			is_subject = yes
@@ -316,13 +301,12 @@ ztr_middle_east.3 = {
 		# 				}
 		# 			}
 		# 		}
-
 		# 	}
 		# }
-		
-		NOT = { has_global_variable = ztr_israel_creation_var }
+		NOT = {
+			has_global_variable = ztr_israel_creation_var
+		}
 	}
-
 	immediate = {
 		s:STATE_PALESTINE = {
 			random_state = {
@@ -345,11 +329,8 @@ ztr_middle_east.3 = {
 		}
 		set_global_variable = ztr_israel_creation_var
 	}
-
 	# This will start a mass migration of jewish from our country to Israel, and give some arable land and a farm building to help them settle
-
 	# ROOT EVENT: This options happen when the same root superpower controls Palestine, so not much diplomatic problem
-
 	# Acceptance
 	option = {
 		name = ztr_middle_east.3.a
@@ -357,23 +338,29 @@ ztr_middle_east.3 = {
 			OR = {
 				# Ourselves
 				scope:ztr_palestine_controller_scope = root
-
 				# Non-western minor country
 				scope:ztr_palestine_controller_scope = {
 					is_subject = no
 					country_rank < rank_value:minor_power
-					NOT = { is_in_geographic_region = geographic_region_europe }
-					NOT = { is_in_geographic_region = geographic_region_north_america }
+					NOT = {
+						is_in_geographic_region = geographic_region_europe
+					}
+					NOT = {
+						is_in_geographic_region = geographic_region_north_america
+					}
 				}
 			}
 		}
 		ztr_define_israel = yes
-		c:ISR = { add_journal_entry = { type = je_demographic_0_to_1 } }
+		c:ISR = {
+			add_journal_entry = {
+				type = je_demographic_0_to_1
+			}
+		}
 		ai_chance = {
 			base = 10
 		}
 	}
-
 	# Refusal (This has to be seen as a decision made with all other european superpowers)
 	option = {
 		name = ztr_middle_east.3.b
@@ -397,13 +384,14 @@ ztr_middle_east.3 = {
 			base = 0
 		}
 	}
-
 	# WESTERN EVENT: This options happen when Palestine is controlled by another western country
 	option = {
 		name = ztr_middle_east.3.c
 		trigger = {
 			# Western country
-			NOT = { scope:ztr_palestine_controller_scope = root }
+			NOT = {
+				scope:ztr_palestine_controller_scope = root
+			}
 			scope:ztr_palestine_controller_scope = {
 				OR = {
 					is_in_geographic_region = geographic_region_europe
@@ -412,40 +400,49 @@ ztr_middle_east.3 = {
 			}
 		}
 		# The offer for Israel creation
-		scope:ztr_palestine_controller_scope = { trigger_event = ztr_middle_east.4 }
+		scope:ztr_palestine_controller_scope = {
+			trigger_event = ztr_middle_east.4
+		}
 		ai_chance = {
 			base = 5
 		}
 	}
-
 	# NON-WESTERN MAJOR EVENT: This options happen when Palestine is controlled by a non-western country
-
 	option = {
 		name = ztr_middle_east.3.e
 		trigger = {
 			# Non-western major country
-			NOT = { scope:ztr_palestine_controller_scope = root }
+			NOT = {
+				scope:ztr_palestine_controller_scope = root
+			}
 			scope:ztr_palestine_controller_scope = {
 				AND = {
-					NOT = { is_in_geographic_region = geographic_region_europe }
-					NOT = { is_in_geographic_region = geographic_region_north_america }
+					NOT = {
+						is_in_geographic_region = geographic_region_europe
+					}
+					NOT = {
+						is_in_geographic_region = geographic_region_north_america
+					}
 					country_rank >= rank_value:minor_power
 				}
 			}
 		}
 		# The offer for Israel creation, non-western version
-		scope:ztr_palestine_controller_scope = { trigger_event = ztr_middle_east.5 }
+		scope:ztr_palestine_controller_scope = {
+			trigger_event = ztr_middle_east.5
+		}
 		ai_chance = {
 			base = 5
 		}
 	}
-
 	# WESTERN SUBJECT EVENT: This options happen when Palestine is controlled by a subject of a western country
 	option = {
 		name = ztr_middle_east.3.f
 		trigger = {
 			# Western subject country
-			NOT = { scope:ztr_palestine_controller_scope = root }
+			NOT = {
+				scope:ztr_palestine_controller_scope = root
+			}
 			scope:ztr_palestine_controller_scope = {
 				AND = {
 					is_subject = yes
@@ -459,26 +456,32 @@ ztr_middle_east.3 = {
 			}
 		}
 		# The offer for Israel creation, western subject version
-		scope:ztr_palestine_controller_overlord_scope = { trigger_event = ztr_middle_east.4 }
+		scope:ztr_palestine_controller_overlord_scope = {
+			trigger_event = ztr_middle_east.4
+		}
 		ai_chance = {
 			base = 5
 		}
 	}
-
 	# NON-WESTERN SUBJECT EVENT: This options happen when Palestine is controlled by a subject of a non-western country
-
 	option = {
 		name = ztr_middle_east.3.g
 		trigger = {
 			# Non-western major country
-			NOT = { scope:ztr_palestine_controller_scope = root }
+			NOT = {
+				scope:ztr_palestine_controller_scope = root
+			}
 			scope:ztr_palestine_controller_scope = {
 				AND = {
 					is_subject = yes
 					overlord = {
 						AND = {
-							NOT = { is_in_geographic_region = geographic_region_europe }
-							NOT = { is_in_geographic_region = geographic_region_north_america }
+							NOT = {
+								is_in_geographic_region = geographic_region_europe
+							}
+							NOT = {
+								is_in_geographic_region = geographic_region_north_america
+							}
 							country_rank >= rank_value:minor_power
 						}
 					}
@@ -486,7 +489,9 @@ ztr_middle_east.3 = {
 			}
 		}
 		# The offer for Israel creation, non-western version
-		scope:ztr_palestine_controller_overlord_scope = { trigger_event = ztr_middle_east.5 }
+		scope:ztr_palestine_controller_overlord_scope = {
+			trigger_event = ztr_middle_east.5
+		}
 		ai_chance = {
 			base = 5
 		}
@@ -494,27 +499,19 @@ ztr_middle_east.3 = {
 }
 
 # Offer to western country, they can accept or refuse, but in that case they will loose a lot of prestige and relations with other western countries
-
 ztr_middle_east.4 = {
 	dlc = dlc_tech_res
 	type = country_event
 	placement = root
-
 	duration = 1
-
 	title = ztr_middle_east.4.t
 	desc = ztr_middle_east.4.d
-
 	event_image = {
 		video = "unspecific_signed_contract"
 	}
-
 	icon = "gfx/interface/icons/event_icons/event_newspaper.dds"
-
 	trigger = {
-		
 	}
-
 	immediate = {
 		s:STATE_PALESTINE = {
 			random_state = {
@@ -522,26 +519,29 @@ ztr_middle_east.4 = {
 			}
 		}
 	}
-
 	# Acceptance
 	option = {
 		name = ztr_middle_east.4.a
 		ztr_define_israel = yes
-		c:ISR = { add_journal_entry = { type = je_demographic_0_to_1 } }
+		c:ISR = {
+			add_journal_entry = {
+				type = je_demographic_0_to_1
+			}
+		}
 		ai_chance = {
 			base = 15
 		}
 	}
-
 	# TODO (Another option in which Israel will be created in another part of the world)
-
 	# Refusal
 	option = {
 		name = ztr_middle_east.4.b
 		change_infamy = 50
 		every_country = {
 			limit = {
-				NOT = { root = this }
+				NOT = {
+					root = this
+				}
 				is_in_geographic_region = geographic_region_europe
 			}
 			change_relations = {
@@ -556,27 +556,19 @@ ztr_middle_east.4 = {
 }
 
 # Offer to non-western country, they can accept or refuse, but in that case they will go to war against all western countries
-
 ztr_middle_east.5 = {
 	dlc = dlc_tech_res
 	type = country_event
 	placement = root
-
 	duration = 1
-
 	title = ztr_middle_east.5.t
 	desc = ztr_middle_east.5.d
-
 	event_image = {
 		video = "asia_politician_parliament_motion"
 	}
-
 	icon = "gfx/interface/icons/event_icons/event_newspaper.dds"
-
 	trigger = {
-		
 	}
-
 	immediate = {
 		s:STATE_PALESTINE = {
 			random_state = {
@@ -584,26 +576,34 @@ ztr_middle_east.5 = {
 			}
 		}
 	}
-
 	# Acceptance
 	option = {
 		name = ztr_middle_east.5.a
 		ztr_define_israel = yes
-		c:ISR = { add_journal_entry = { type = je_demographic_0_to_1 } }
+		c:ISR = {
+			add_journal_entry = {
+				type = je_demographic_0_to_1
+			}
+		}
 		ai_chance = {
 			base = 2
 		}
 	}
-
 	# Refusal
 	option = {
 		name = ztr_middle_east.5.b
 		change_infamy = 50
 		ztr_define_israel = yes
-		c:ISR = { add_journal_entry = { type = je_demographic_0_to_1 } }
+		c:ISR = {
+			add_journal_entry = {
+				type = je_demographic_0_to_1
+			}
+		}
 		every_country = {
 			limit = {
-				NOT = { root = this }
+				NOT = {
+					root = this
+				}
 				is_in_geographic_region = geographic_region_europe
 			}
 			change_relations = {
@@ -625,45 +625,43 @@ ztr_middle_east.5 = {
 }
 
 #Birth of Zionism in our country, after Israel creation, we will have a mass migration of Jewish from our country
-
 ztr_middle_east.6 = {
 	dlc = dlc_tech_res
 	type = country_event
 	placement = root
-
 	duration = 1
-
 	title = ztr_middle_east.6.t
 	desc = ztr_middle_east.6.d
-
 	event_image = {
 		video = "asia_poor_people_moving"
 	}
-
 	icon = "gfx/interface/icons/event_icons/event_newspaper.dds"
-
 	trigger = {
 		has_game_rule = allow_ztr_historical_content
 		exists = c:ISR
 		is_in_geographic_region = geographic_region_europe
 		culture_percent_country = {
 			target = cu:ashkenazi
-			value > 0 #This should work if there are Jewish pops in the country
+			value > 0			#This should work if there are Jewish pops in the country
 		}
 		# If there is multiculturalism or total separation, Jewish pops are already happy
-		NOT = { has_law = law_type:law_multicultural }
-		NOT = { has_law = law_type:law_total_separation }
-		NOT = { has_variable = ztr_sionism_migration_happened_var }
+		NOT = {
+			has_law_or_variant = law_type:law_multicultural
+		}
+		NOT = {
+			has_law_or_variant = law_type:law_total_separation
+		}
+		NOT = {
+			has_variable = ztr_sionism_migration_happened_var
+		}
 		has_global_variable = ztr_israel_creation_var
 	}
-
 	immediate = {
 		c:ISR = {
 			save_scope_as = ztr_israel_scope
 		}
 		set_variable = ztr_sionism_migration_happened_var
 	}
-
 	# This will start a mass migration of jewish from our country to Israel, and give some arable land and a farm building to help them settle
 	option = {
 		name = ztr_middle_east.6.a
@@ -701,7 +699,3 @@ ztr_middle_east.6 = {
 		}
 	}
 }
-
-
-
-

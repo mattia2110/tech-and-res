@@ -308,7 +308,7 @@ These are preview helpers for the UI. The `*_effect_desc` blocks generate toolti
 - `weight`: Goal-tracker priority.
 - `transferable`: Whether the JE follows the player on country switch or subject release.
 - `can_revolution_inherit`: Whether a victorious revolution can inherit the JE.
-- `should_be_pinned_by_default`: Default outliner behavior.
+- `should_be_pinned_by_default_uninvolved_or_context`: Default outliner behavior.
 - `how_tutorial` and `why_tutorial`: Tutorial-only guidance fields used heavily in `00_tutorial.txt`.
 
 ## Important Caution
@@ -419,7 +419,7 @@ my_journal_entry = {
 	weight = 200
 	transferable = no
 	can_revolution_inherit = yes
-	should_be_pinned_by_default = yes
+	should_be_pinned_by_default_uninvolved_or_context = yes
 }
 ```
 

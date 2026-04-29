@@ -84,7 +84,7 @@ building_advanced_electronics = {
 
 	possible = {
 		owner = {
-			has_law = law_type:law_interventionism
+			has_law_or_variant = law_type:law_interventionism
 		}
 	}
 

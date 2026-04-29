@@ -60,7 +60,7 @@ ztr_china_update_corporate_bar = {
 	}
 	if = {
 		limit = {
-			has_law = law_type:law_free_trade
+			has_law_or_variant = law_type:law_free_trade
 		}
 		change_variable = {
 			name = ztr_china_corporate_component_var
@@ -69,7 +69,7 @@ ztr_china_update_corporate_bar = {
 	}
 	if = {
 		limit = {
-			has_law = law_type:law_laissez_faire
+			has_law_or_variant = law_type:law_laissez_faire
 		}
 		change_variable = {
 			name = ztr_china_corporate_component_var
@@ -117,8 +117,8 @@ ztr_china_update_corporate_bar = {
 	if = {
 		limit = {
 			OR = {
-				has_law = law_type:law_isolationism
-				has_law = law_type:law_canton_system
+				has_law_or_variant = law_type:law_isolationism
+				has_law_or_variant = law_type:law_canton_system
 			}
 		}
 		change_variable = {
@@ -152,8 +152,8 @@ ztr_china_update_federation_bar = {
 	if = {
 		limit = {
 			OR = {
-				has_law = law_type:law_census_voting
-				has_law = law_type:law_universal_suffrage
+				has_law_or_variant = law_type:law_census_voting
+				has_law_or_variant = law_type:law_universal_suffrage
 			}
 		}
 		change_variable = {
@@ -190,7 +190,7 @@ ztr_china_update_federation_bar = {
 	}
 	if = {
 		limit = {
-			has_law = law_type:law_serfdom
+			has_law_or_variant = law_type:law_serfdom
 		}
 		change_variable = {
 			name = ztr_china_federation_component_var
@@ -200,8 +200,8 @@ ztr_china_update_federation_bar = {
 	if = {
 		limit = {
 			OR = {
-				has_law = law_type:law_national_militia
-				has_law = law_type:law_professional_army
+				has_law_or_variant = law_type:law_national_militia
+				has_law_or_variant = law_type:law_professional_army
 			}
 		}
 		change_variable = {
@@ -236,7 +236,7 @@ ztr_china_update_federation_bar = {
 	}
 	if = {
 		limit = {
-			has_law = law_type:law_autocracy
+			has_law_or_variant = law_type:law_autocracy
 		}
 		change_variable = {
 			name = ztr_china_federation_component_var
@@ -280,8 +280,8 @@ ztr_china_update_technoconfucian_bar = {
 	if = {
 		limit = {
 			OR = {
-				has_law = law_type:law_isolationism
-				has_law = law_type:law_canton_system
+				has_law_or_variant = law_type:law_isolationism
+				has_law_or_variant = law_type:law_canton_system
 			}
 		}
 		change_variable = {
@@ -292,8 +292,8 @@ ztr_china_update_technoconfucian_bar = {
 	if = {
 		limit = {
 			OR = {
-				has_law = law_type:law_serfdom
-				has_law = law_type:law_debt_slavery
+				has_law_or_variant = law_type:law_serfdom
+				has_law_or_variant = law_type:law_debt_slavery
 			}
 		}
 		change_variable = {
@@ -303,7 +303,7 @@ ztr_china_update_technoconfucian_bar = {
 	}
 	if = {
 		limit = {
-			has_law = law_type:law_autocracy
+			has_law_or_variant = law_type:law_autocracy
 		}
 		change_variable = {
 			name = ztr_china_technoconfucian_component_var
@@ -944,10 +944,10 @@ ztr_two_chinas_prepare_joint_targets = {
 				}
 			}
 		}
-			random_country = {
-				limit = {
-					ztr_is_chinese_warlord = yes
-					is_adjacent_to_country = c:CHI
+		random_country = {
+			limit = {
+				ztr_is_chinese_warlord = yes
+				is_adjacent_to_country = c:CHI
 				NOT = {
 					this = scope:ztr_two_chinas_zfc_target
 				}

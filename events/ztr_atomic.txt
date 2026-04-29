@@ -1,16 +1,15 @@
 namespace = nuclear_warfare_system
-
 #THIS gains nuclear capability
 nuclear_warfare_system.1 = {
 	type = country_event
-
 	title = gained_nuclear_capability.t
-
 	desc = {
 		first_valid = {
 			triggered_desc = {
 				trigger = {
-					NOT = { has_global_variable = atomic_bomb_discovered }
+					NOT = {
+						has_global_variable = atomic_bomb_discovered
+					}
 				}
 				desc = gained_nuclear_capability_first.d
 			}
@@ -22,48 +21,50 @@ nuclear_warfare_system.1 = {
 			}
 		}
 	}
-
 	flavor = gained_nuclear_capability.f
-
-	event_image = { video = "atomic_bomb" }
-
-	icon = "gfx/interface/icons/event_icons/nuclear_program_2.dds"
-
-	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
-
-	duration = 1
-
-	trigger = {
-
+	event_image = {
+		video = "atomic_bomb"
 	}
-
+	icon = "gfx/interface/icons/event_icons/nuclear_program_2.dds"
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	duration = 1
+	trigger = {
+	}
 	immediate = {
-		add_modifier = { name = nuclear_capability }
+		add_modifier = {
+			name = nuclear_capability
+		}
 		save_scope_as = nuclear_country
 		# Her we remember who discovered the bomb first
 		if = {
 			limit = {
-				NOT = { has_global_variable = atomic_bomb_discovered }
+				NOT = {
+					has_global_variable = atomic_bomb_discovered
+				}
 			}
 			set_variable = first_nuclear_country_var
 		}
 	}
-
 	option = {
-		name = gained_nuclear_capability.option 	#The world shall tremble at our might!
+		name = gained_nuclear_capability.option		#The world shall tremble at our might!
 		trigger = {
 			has_global_variable = atomic_bomb_discovered
 		}
 	}
-
 	option = {
-		name = gained_nuclear_capability_first.option 	# Now I am become Death, the destroyer of worlds.
+		name = gained_nuclear_capability_first.option		# Now I am become Death, the destroyer of worlds.
 		trigger = {
-			NOT = { has_global_variable = atomic_bomb_discovered }
+			NOT = {
+				has_global_variable = atomic_bomb_discovered
+			}
 		}
 		set_global_variable = atomic_bomb_discovered
 		every_country = {
-			limit = { NOT = { this = root } }
+			limit = {
+				NOT = {
+					this = root
+				}
+			}
 			trigger_event = nuclear_warfare_system.8
 		}
 	}
@@ -75,20 +76,21 @@ nuclear_warfare_system.2 = {
 	title = lost_nuclear_capability.t
 	desc = lost_nuclear_capability.d
 	flavor = lost_nuclear_capability.f
-	event_image = { video = "gfx/event_pictures/unspecific_military_parade.bk2" }
+	event_image = {
+		video = "gfx/event_pictures/unspecific_military_parade.bk2"
+	}
 	icon = "gfx/interface/icons/event_icons/nuclear_program_2.dds"
-
 	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
-
 	duration = 1
-
 	trigger = {
 		has_modifier = nuclear_capability
-		OR = { 
+		OR = {
 			#Does not have nuclear weapons law
-			NOT = { has_law = law_type:law_uranium_full_usage }
+			NOT = {
+				has_law_or_variant = law_type:law_uranium_full_usage
+			}
 			#Does not have at least 1 functional nuclear weapons building
-			NOT = { 
+			NOT = {
 				any_scope_state = {
 					any_scope_building = {
 						is_building_type = building_nuclear_weapons_silo
@@ -98,7 +100,7 @@ nuclear_warfare_system.2 = {
 				}
 			}
 			#NOT a sovereign state
-			is_subject = yes	
+			is_subject = yes
 		}
 	}
 	immediate = {
@@ -108,39 +110,35 @@ nuclear_warfare_system.2 = {
 		remove_variable = thermonuclear_program_started
 		#Force disarmament if a non-autonomous subject
 		if = {
-			limit = { is_subject = yes }
+			limit = {
+				is_subject = yes
+			}
 			activate_law = law_type:law_uranium_civil_usage
 		}
 		save_scope_as = nuclear_country
 	}
 	option = {
-		name = lost_nuclear_capability.option 	#The world shall tremble at our might!		
-	}	
+		name = lost_nuclear_capability.option		#The world shall tremble at our might!		
+	}
 }
 
 #THIS has been struck by nuclear weapons
 nuclear_warfare_system.4 = {
 	type = country_event
-
 	title = nuclear_attack.t
 	desc = nuclear_attack.d
 	flavor = nuclear_attack.f
-
-	event_image = { video = "atomic_bomb_first_use" }
-
+	event_image = {
+		video = "atomic_bomb_first_use"
+	}
 	icon = "gfx/interface/icons/event_icons/nuclear_program_2.dds"
-
 	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
-
 	duration = 1
-
 	immediate = {
 		save_scope_as = nuclear_country
 	}
-
 	option = {
-		name = nuclear_attack.option 	#The world shall tremble at our might!
-		
+		name = nuclear_attack.option		#The world shall tremble at our might!
 		#Collapse government if capital is badly damaged
 		if = {
 			limit = {
@@ -159,35 +157,27 @@ nuclear_warfare_system.4 = {
 				}
 			}
 			every_country = {
-				limit = { is_direct_subject_of = ROOT }
+				limit = {
+					is_direct_subject_of = ROOT
+				}
 				make_independent = yes
 			}
 		}
-		
 	}
-	
 }
 
 #Add Nuclear Fallout
 # nuclear_warfare_system.6 = {
 # 	type = country_event
-
 # 	title = add_nuclear_fallout.t
 # 	desc = add_nuclear_fallout.d
 # 	flavor = add_nuclear_fallout.f
-
 # 	event_image = { video = "nuclear_fallout" }
-
 # 	icon = "gfx/interface/icons/event_icons/nuclear_program_2.dds"
-
 # 	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
-
 # 	duration = 1
-
 # 	trigger = {
-	
 # 		has_global_variable = nuclear_weapons_used_somewhere
-		
 # 		#Have neighbouring states with nuclear damage
 # 		any_scope_state = {
 # 			NOR = {
@@ -214,11 +204,8 @@ nuclear_warfare_system.4 = {
 # 				}
 # 			}
 # 		}
-		
 # 	}
-
 # 	immediate = {
-		
 # 		every_scope_state = {
 # 			limit = { 
 # 				NOR = {
@@ -277,40 +264,26 @@ nuclear_warfare_system.4 = {
 # 				add_modifier = { name = nuclear_fallout_5 }
 # 			}
 # 		}
-		
 # 	}
-
 # 	option = {
 # 		name = add_nuclear_fallout.option 		#Okay
-		
 # 		add_radicals = {
 # 			value = small_radicals
 # 		}
-		
 # 	}
-	
 # }
-
 # #Remove Nuclear Fallout
 # nuclear_warfare_system.7 = {
 # 	type = country_event
-
 # 	title = remove_nuclear_fallout.t
 # 	desc = remove_nuclear_fallout.d
 # 	flavor = remove_nuclear_fallout.f
-
 # 	event_image = { video = "nuclear_fallout" }
-
 # 	icon = "gfx/interface/icons/event_icons/nuclear_program_2.dds"
-
 # 	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
-
 # 	duration = 1
-
 # 	trigger = {
-	
 # 		has_global_variable = nuclear_weapons_used_somewhere
-		
 # 		any_scope_state = {
 # 			OR = {
 # 				has_modifier = nuclear_fallout_1
@@ -331,11 +304,8 @@ nuclear_warfare_system.4 = {
 # 				}
 # 			}
 # 		}
-		
 # 	}
-
 # 	immediate = {
-		
 # 		#No longer have neighbouring states with nuclear damage
 # 		every_scope_state = {
 # 			limit = { 
@@ -364,49 +334,34 @@ nuclear_warfare_system.4 = {
 # 			remove_modifier = nuclear_fallout_4
 # 			remove_modifier = nuclear_fallout_5
 # 		}
-		
 # 	}
-
 # 	option = {
 # 		name = remove_nuclear_fallout.option 		#Okay
-		
 # 	}
-	
 # }
-
 nuclear_warfare_system.8 = {
 	type = country_event
-
 	title = gained_nuclear_capability_others.t
-
 	desc = gained_nuclear_capability_others.d
-
 	flavor = gained_nuclear_capability_others.f
-
-	event_image = { video = "atomic_bomb" }
-
+	event_image = {
+		video = "atomic_bomb"
+	}
 	icon = "gfx/interface/icons/event_icons/nuclear_program_2.dds"
-
 	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
-
 	duration = 1
-
 	trigger = {
-
 	}
-
 	immediate = {
-		
 	}
-
 	option = {
 		# Rivals will gain a bit of research boost regarding nuclear tech
-		name = gained_nuclear_capability_others_rivals.option 	#The world shall tremble at our might!
+		name = gained_nuclear_capability_others_rivals.option		#The world shall tremble at our might!
 		trigger = {
 			OR = {
 				AND = {
 					country_rank >= scope:nuclear_country.country_rank
-					OR = { 
+					OR = {
 						has_attitude = {
 							who = scope:nuclear_country
 							attitude <= antagonistic
@@ -415,22 +370,31 @@ nuclear_warfare_system.8 = {
 					}
 				}
 				AND = {
-					NOT = { is_subject = yes }
-					has_diplomatic_pact = { who = scope:nuclear_country type = rivalry }
+					NOT = {
+						is_subject = yes
+					}
+					has_diplomatic_pact = {
+						who = scope:nuclear_country
+						type = rivalry
+					}
 				}
 			}
 		}
 		if = {
 			limit = {
-				NOT = { has_technology_researched = atomic_bomb }
+				NOT = {
+					has_technology_researched = atomic_bomb
+				}
 			}
-			add_technology_progress = { progress = 8000 technology = atomic_bomb }
+			add_technology_progress = {
+				progress = 8000
+				technology = atomic_bomb
+			}
 		}
 		ai_chance = {
 			base = 1000
 		}
 	}
-
 	option = {
 		name = gained_nuclear_capability_others.option
 		ai_chance = {
@@ -441,31 +405,22 @@ nuclear_warfare_system.8 = {
 
 nuclear_warfare_system.9 = {
 	type = country_event
-
 	title = atomic_bomb_first_use.t
-
 	desc = atomic_bomb_first_use.d
-
 	flavor = atomic_bomb_first_use.f
-
-	event_image = { video = "atomic_bomb_first_use" }
-
-	icon = "gfx/interface/icons/event_icons/nuclear_program_2.dds"
-
-	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
-
-	duration = 1
-
-	trigger = {
-
+	event_image = {
+		video = "atomic_bomb_first_use"
 	}
-
+	icon = "gfx/interface/icons/event_icons/nuclear_program_2.dds"
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	duration = 1
+	trigger = {
+	}
 	immediate = {
 		set_global_variable = ztr_atomic_bomb_first_use_var
 	}
-
 	option = {
-		name = atomic_bomb_first_use.option 	#Welcome to the Atomic Age!
+		name = atomic_bomb_first_use.option		#Welcome to the Atomic Age!
 		default_option = yes
 	}
 }
@@ -474,28 +429,20 @@ nuclear_warfare_system.9 = {
 #THIS gains nuclear capability
 nuclear_warfare_system.10 = {
 	type = country_event
-
 	title = gained_thermonuclear_capability.t
-
 	desc = gained_thermonuclear_capability.d
-
-	event_image = { video = "atomic_bomb" }
-
-	icon = "gfx/interface/icons/event_icons/nuclear_program_2.dds"
-
-	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
-
-	duration = 1
-
-	trigger = {
-
+	event_image = {
+		video = "atomic_bomb"
 	}
-
+	icon = "gfx/interface/icons/event_icons/nuclear_program_2.dds"
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	duration = 1
+	trigger = {
+	}
 	immediate = {
 		set_variable = thermonuclear_capability_var
 		save_scope_as = nuclear_country
 	}
-
 	option = {
 		default_option = yes
 		add_technology_researched = hydrogen_bomb
@@ -507,46 +454,40 @@ nuclear_warfare_system.10 = {
 }
 
 #TODO Adding fallout events
-
 # Disabled for now, too much devastation
 nuclear_warfare_system.99 = {
 	type = country_event
-
 	title = nuclear_attack.t
 	desc = nuclear_attack.d
 	flavor = nuclear_attack.f
-
-	event_image = { video = "gfx/event_pictures/unspecific_devastation.bk2" }
-
+	event_image = {
+		video = "gfx/event_pictures/unspecific_devastation.bk2"
+	}
 	icon = "gfx/interface/icons/event_icons/nuclear_program_2.dds"
-
 	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
-
 	duration = 1
-
 	immediate = {
 		save_scope_as = nuclear_country
 	}
 	option = {
-		name = nuclear_attack.option 	#The world shall tremble at our might!
-		
+		name = nuclear_attack.option		#The world shall tremble at our might!
 		#Collapse government if capital is badly damaged
-	set_country_type = decentralized
-	ruler = {
-    	kill_character = yes
-	}
-	create_character = {
-				ruler = yes
-				first_name = anarchy
-				last_name = anarchy
-				ideology = ideology_anarchist
-				birth_date = 1.1.1
-				on_created = {
-					set_variable = { 
-						name = anarchy
-					}
-					set_character_immortal = yes
+		set_country_type = decentralized
+		ruler = {
+			kill_character = yes
+		}
+		create_character = {
+			ruler = yes
+			first_name = anarchy
+			last_name = anarchy
+			ideology = ideology_anarchist
+			birth_date = 1.1.1
+			on_created = {
+				set_variable = {
+					name = anarchy
 				}
-			}	
-	}	
+				set_character_immortal = yes
+			}
+		}
+	}
 }

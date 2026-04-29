@@ -1,6 +1,5 @@
 # This decision is only for AI, since it's still stupid and doesn't always activate health laws
 # Since demographic mechanics are pretty strong, it might be worth to help advanced AI to activate healthcare laws in certain conditions
-
 ztr_population_measure_decision = {
 	is_shown = {
 		# The country should be a bit advanced technologically and economically
@@ -13,13 +12,14 @@ ztr_population_measure_decision = {
 		}
 		# The country should have a poor healthcare system
 		OR = {
-			has_law = law_type:law_no_health_system
-			has_law = law_type:law_charitable_health_system
+			has_law_or_variant = law_type:law_no_health_system
+			has_law_or_variant = law_type:law_charitable_health_system
 		}
 		# The country should not be Russia (to avoid population boom issues)
-		NOT = { c:RUS = this }
+		NOT = {
+			c:RUS = this
+		}
 	}
-
 	possible = {
 		# The country should be in an advanced demographic stage
 		OR = {
@@ -34,14 +34,13 @@ ztr_population_measure_decision = {
 			}
 		}
 	}
-
 	when_taken = {
 		# Public choice
 		if = {
 			limit = {
 				AND = {
 					ig:ig_intelligentsia = {
-					is_powerful = yes
+						is_powerful = yes
 					}
 					ig:ig_trade_unions = {
 						is_powerful = yes
@@ -55,7 +54,7 @@ ztr_population_measure_decision = {
 			limit = {
 				AND = {
 					ig:ig_petty_bourgeoisie = {
-					is_powerful = yes
+						is_powerful = yes
 					}
 					ig:ig_industrialists = {
 						is_powerful = yes
@@ -69,7 +68,7 @@ ztr_population_measure_decision = {
 			limit = {
 				AND = {
 					ig:ig_intelligentsia = {
-					is_powerful = yes
+						is_powerful = yes
 					}
 					ig:ig_industrialists = {
 						is_powerful = yes
@@ -82,7 +81,7 @@ ztr_population_measure_decision = {
 			limit = {
 				AND = {
 					ig:ig_intelligentsia = {
-					is_powerful = yes
+						is_powerful = yes
 					}
 					ig:ig_petty_bourgeoisie = {
 						is_powerful = yes
@@ -122,7 +121,6 @@ ztr_population_measure_decision = {
 			activate_law = law_type:law_public_health_insurance
 		}
 	}
-
 	ai_chance = {
 		value = 100
 	}

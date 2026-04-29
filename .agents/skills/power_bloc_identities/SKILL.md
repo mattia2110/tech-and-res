@@ -82,7 +82,7 @@ example_identity = {
 	}
 
 	possible = {
-		has_law = law_type:law_monarchy
+		has_law_or_variant = law_type:law_monarchy
 	}
 
 	can_leave = {
