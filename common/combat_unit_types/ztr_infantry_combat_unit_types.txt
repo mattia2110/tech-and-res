@@ -9,10 +9,6 @@
 
 INJECT:combat_unit_type_irregular_infantry = {
 	upgrades = {
-		combat_unit_type_line_infantry
-		combat_unit_type_skirmish_infantry
-        combat_unit_type_trench_infantry
-        combat_unit_type_squad_infantry
         combat_unit_type_mechanized_infantry
         combat_unit_type_modern_mechanized_infantry
         combat_unit_type_advanced_mechanized_infantry
@@ -20,10 +16,7 @@ INJECT:combat_unit_type_irregular_infantry = {
 }
 
 INJECT:combat_unit_type_line_infantry = {
-	upgrades = {	
-		combat_unit_type_skirmish_infantry
-        combat_unit_type_trench_infantry
-        combat_unit_type_squad_infantry
+	upgrades = {
         combat_unit_type_mechanized_infantry
         combat_unit_type_modern_mechanized_infantry
         combat_unit_type_advanced_mechanized_infantry
@@ -32,8 +25,6 @@ INJECT:combat_unit_type_line_infantry = {
 
 INJECT:combat_unit_type_skirmish_infantry = {
 	upgrades = {
-		combat_unit_type_trench_infantry
-        combat_unit_type_squad_infantry
         combat_unit_type_mechanized_infantry
         combat_unit_type_modern_mechanized_infantry
         combat_unit_type_advanced_mechanized_infantry
@@ -42,7 +33,6 @@ INJECT:combat_unit_type_skirmish_infantry = {
 
 INJECT:combat_unit_type_trench_infantry = {
     upgrades = {
-        combat_unit_type_squad_infantry
         combat_unit_type_mechanized_infantry
         combat_unit_type_modern_mechanized_infantry
         combat_unit_type_advanced_mechanized_infantry
@@ -184,4 +174,95 @@ combat_unit_type_advanced_mechanized_infantry = {
 		# fallback
         texture = "gfx/unit_illustrations/infantry_eu_advanced_mechanized.dds"
     }
+}
+
+### Marines
+
+### marines
+
+INJECT:combat_unit_type_low_tier_marines = {
+	upgrades = {
+        combat_unit_type_modern_tier_marines
+        combat_unit_type_advanced_tier_marines
+	}
+}
+
+INJECT:combat_unit_type_mid_tier_marines = {
+    upgrades = {
+        combat_unit_type_modern_tier_marines
+        combat_unit_type_advanced_tier_marines
+	}
+}
+
+INJECT:combat_unit_type_high_tier_marines = {
+	upgrades = {
+        combat_unit_type_modern_tier_marines
+        combat_unit_type_advanced_tier_marines
+	}
+}
+
+combat_unit_type_modern_tier_marines = {
+	group = combat_unit_group_marines
+	max_manpower = 1000
+	supply_capacity = 32
+
+	conscript_peasant_levies = yes
+
+	upkeep_modifier = {
+		goods_input_small_arms_add = 4
+		goods_input_ammunition_add = 3
+		goods_input_radios_add = 1
+		goods_input_light_fuel_add = 1
+        goods_input_electroniccomponents_add = 1
+	}
+
+	battle_modifier = {
+		unit_offense_add = 50
+		unit_defense_add = 55
+		unit_morale_loss_add = 7
+		# no naval invasion efficiency loss
+	}
+
+	unlocking_technologies = { amphibious_warfare }
+
+	combat_unit_image = {
+		# fallback
+		texture = "gfx/unit_illustrations/marines_eu_modern.dds"
+	}
+
+	upgrades = {
+		combat_unit_type_advanced_tier_marines
+	}
+}
+
+combat_unit_type_advanced_tier_marines = {
+	group = combat_unit_group_marines
+	max_manpower = 1000
+	supply_capacity = 38
+
+	conscript_peasant_levies = yes
+
+	upkeep_modifier = {
+		goods_input_small_arms_add = 5
+		goods_input_ammunition_add = 4
+		goods_input_radios_add = 1
+		goods_input_processors_add = 1
+		goods_input_light_fuel_add = 1
+        goods_input_tanks_add = 1
+	}
+
+	battle_modifier = {
+		unit_offense_add = 60
+		unit_defense_add = 75
+		unit_morale_loss_add = 6
+		unit_devastation_mult = 0.05
+		# no naval invasion efficiency loss
+	}
+
+	unlocking_technologies = { high_performance_apparel }
+
+	combat_unit_image = {
+		# fallback
+		texture = "gfx/unit_illustrations/marines_eu_advanced.dds"
+	}
 }

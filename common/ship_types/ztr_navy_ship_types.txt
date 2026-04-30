@@ -54,7 +54,7 @@ INJECT:ship_type_super_dreadnought = {
 	materiel_goods = {
 		goods_input_oil_add = -1
 		goods_input_heavy_fuel_add = 0.6
-		goods_input_telecommunications_add = 0.5
+		goods_input_radios_add = 0.2
 	}
 }
 
@@ -71,7 +71,7 @@ INJECT:ship_type_aircraft_carrier = {
 	materiel_goods = {
 		goods_input_oil_add = -1
 		goods_input_heavy_fuel_add = 0.6
-		goods_input_telecommunications_add = 0.5
+		goods_input_radios_add = 0.2
 	}
 }
 
@@ -89,13 +89,13 @@ ship_type_modern_destroyer = {
 		ship_supply_capacity_add = 55
 		ship_hull_damage_add = 75
 		ship_crew_damage_add = 35
-		ship_armor_add = 55
+		ship_armor_add = 50
 		ship_critical_hit_chance_add = 0.3
 		ship_critical_hit_multiplier_add = 3
-		ship_vulnerability_add = 35
-		ship_screening_add = 220
+		ship_vulnerability_add = 40
+		ship_screening_add = 175
 		ship_readiness_gain_add = 15
-		ship_accuracy_add = 35
+		ship_accuracy_add = 30
 		ship_visibility_add = 18
 		ship_detection_add = 60
 		ship_blockade_strength_add = 120
@@ -119,10 +119,9 @@ ship_type_modern_destroyer = {
 	materiel_goods = {
 		goods_input_groceries_add = 1
 		goods_input_heavy_fuel_add = 1
-		goods_input_radios_add = 0.5
+		goods_input_radios_add = 0.6
 		goods_input_ammunition_add = 0.1
-		goods_input_electroniccomponents_add = 0.1
-		goods_input_telecommunications_add = 0.5
+		goods_input_electroniccomponents_add = 0.2
 	}
 	unlocking_technologies = {
 		modern_naval_doctrine
@@ -157,29 +156,19 @@ ship_type_modern_destroyer = {
 			ship_mod_ztr_networked_battle_management
 		}
 		ship_mod_slot_missiles = {
-			ship_mod_ztr_no_missile_battery
-			ship_mod_ztr_guided_missile_battery
-			ship_mod_ztr_vertical_launch_cells
+			ship_mod_ztr_modern_destroyer_simple_missile_battery
+			ship_mod_ztr_modern_destroyer_guided_missile_battery
+			ship_mod_ztr_modern_destroyer_vertical_launch_cells
 		}
 		ship_mod_slot_utility_1 = {
 			utility_mod_patrol_boats
 			utility_mod_fire_suppression
 			utility_mod_searchlights
-			utility_mod_ztr_close_in_weapon_system
-			utility_mod_ztr_electronic_warfare_suite
-			utility_mod_ztr_replenishment_at_sea
 		}
 		ship_mod_slot_utility_2 = {
 			utility_mod_fire_suppression
 			utility_mod_torpedo_nets
-			utility_mod_ztr_close_in_weapon_system
-			utility_mod_ztr_electronic_warfare_suite
-			utility_mod_ztr_replenishment_at_sea
 		}
-	}
-	default_modifications = {
-		ship_mod_slot_electronics = ship_mod_ztr_combat_information_center
-		ship_mod_slot_missiles = ship_mod_ztr_no_missile_battery
 	}
 }
 
@@ -195,19 +184,19 @@ ship_type_modern_cruiser = {
 		ship_movement_speed_add = 6.5
 		ship_supply_capacity_add = 85
 		ship_hull_damage_add = 100
-		ship_crew_damage_add = 45
-		ship_armor_add = 180
+		ship_crew_damage_add = 40
+		ship_armor_add = 120
 		ship_critical_hit_chance_add = 0.3
 		ship_critical_hit_multiplier_add = 3
-		ship_vulnerability_add = 25
-		ship_screening_add = 120
+		ship_vulnerability_add = 20
+		ship_screening_add = 75
 		ship_readiness_gain_add = 15
-		ship_accuracy_add = 25
+		ship_accuracy_add = 20
 		ship_visibility_add = 20
-		ship_detection_add = 80
+		ship_detection_add = 60
 		ship_blockade_strength_add = 200
-		ship_carrying_capacity_add = 0.5
-		ship_marine_capacity_add = 0.25
+		ship_carrying_capacity_add = 0.4
+		ship_marine_capacity_add = 0.2
 		ship_max_distance_to_port_add = 2
 	}
 	construction_goods = {
@@ -222,10 +211,9 @@ ship_type_modern_cruiser = {
 		goods_input_groceries_add = 1
 		goods_input_heavy_fuel_add = 1.5
 		goods_input_ammunition_add = 0.1
-		goods_input_radios_add = 0.5
-		goods_input_computer_add = 0.5
-		goods_input_electroniccomponents_add = 0.1
-		goods_input_telecommunications_add = 1
+		goods_input_radios_add = 0.6
+		goods_input_computer_add = 0.6
+		goods_input_electroniccomponents_add = 0.2
 	}
 	unlocking_technologies = {
 		modern_naval_doctrine
@@ -260,29 +248,20 @@ ship_type_modern_cruiser = {
 			ship_mod_ztr_networked_battle_management
 		}
 		ship_mod_slot_missiles = {
-			ship_mod_ztr_no_missile_battery
-			ship_mod_ztr_guided_missile_battery
-			ship_mod_ztr_vertical_launch_cells
+			ship_mod_ztr_modern_cruiser_simple_missile_battery
+			ship_mod_ztr_modern_cruiser_guided_missile_battery
+			ship_mod_ztr_modern_cruiser_vertical_launch_cells
 		}
 		ship_mod_slot_utility_1 = {
 			utility_mod_patrol_boats
 			utility_mod_fire_suppression
 			utility_mod_camouflage
-			utility_mod_ztr_close_in_weapon_system
-			utility_mod_ztr_electronic_warfare_suite
-			utility_mod_ztr_replenishment_at_sea
 		}
 		ship_mod_slot_utility_2 = {
 			utility_mod_fire_suppression
 			utility_mod_torpedo_nets
 			utility_mod_fire_control_system
-			utility_mod_ztr_close_in_weapon_system
-			utility_mod_ztr_electronic_warfare_suite
 		}
-	}
-	default_modifications = {
-		ship_mod_slot_electronics = ship_mod_ztr_combat_information_center
-		ship_mod_slot_missiles = ship_mod_ztr_no_missile_battery
 	}
 }
 
@@ -296,20 +275,20 @@ ship_type_modern_battleship = {
 		ship_hit_points_max_add = 5600
 		ship_crew_max_add = 1000
 		ship_movement_speed_add = 6
-		ship_supply_capacity_add = 95
+		ship_supply_capacity_add = 90
 		ship_carrying_capacity_add = 3
 		ship_marine_capacity_add = 1.5
 		ship_hull_damage_add = 140
 		ship_crew_damage_add = 65
-		ship_armor_add = 300
+		ship_armor_add = 150
 		ship_critical_hit_chance_add = 0.2
 		ship_critical_hit_multiplier_add = 3
-		ship_vulnerability_add = 80
-		ship_screening_add = 30
+		ship_vulnerability_add = 90
+		ship_screening_add = 25
 		ship_readiness_gain_add = 15
 		ship_accuracy_add = 20
 		ship_visibility_add = 100
-		ship_detection_add = 90
+		ship_detection_add = 75
 		ship_blockade_strength_add = 650
 		ship_max_distance_to_port_add = 1
 		ship_battle_against_ship_type_torpedo_boat_accuracy_mult = -0.7
@@ -332,10 +311,9 @@ ship_type_modern_battleship = {
 		goods_input_heavy_fuel_add = 2
 		goods_input_steel_add = 0.1
 		goods_input_ammunition_add = 0.1
-		goods_input_radios_add = 0.5
-		goods_input_computer_add = 0.5
-		goods_input_electroniccomponents_add = 0.2
-		goods_input_telecommunications_add = 1.5
+		goods_input_radios_add = 0.6
+		goods_input_computer_add = 0.7
+		goods_input_electroniccomponents_add = 0.3
 	}
 	unlocking_technologies = {
 		modern_naval_doctrine
@@ -370,9 +348,9 @@ ship_type_modern_battleship = {
 			ship_mod_ztr_networked_battle_management
 		}
 		ship_mod_slot_missiles = {
-			ship_mod_ztr_no_missile_battery
-			ship_mod_ztr_guided_missile_battery
-			ship_mod_ztr_vertical_launch_cells
+			ship_mod_ztr_modern_battleship_simple_missile_battery
+			ship_mod_ztr_modern_battleship_guided_missile_battery
+			ship_mod_ztr_modern_battleship_vertical_launch_cells
 		}
 		ship_mod_slot_utility_1 = {
 			utility_mod_patrol_boats
@@ -380,9 +358,6 @@ ship_type_modern_battleship = {
 			utility_mod_fire_suppression
 			utility_mod_extended_sick_bay
 			utility_mod_torpedo_nets
-			utility_mod_ztr_close_in_weapon_system
-			utility_mod_ztr_electronic_warfare_suite
-			utility_mod_ztr_replenishment_at_sea
 		}
 		ship_mod_slot_utility_2 = {
 			utility_mod_patrol_boats
@@ -390,8 +365,6 @@ ship_type_modern_battleship = {
 			utility_mod_fire_suppression
 			utility_mod_extended_sick_bay
 			utility_mod_torpedo_nets
-			utility_mod_ztr_close_in_weapon_system
-			utility_mod_ztr_electronic_warfare_suite
 		}
 		ship_mod_slot_utility_3 = {
 			utility_mod_patrol_boats
@@ -400,12 +373,7 @@ ship_type_modern_battleship = {
 			utility_mod_torpedo_nets
 			utility_mod_fire_control_system
 			utility_mod_range_finder
-			utility_mod_ztr_replenishment_at_sea
 		}
-	}
-	default_modifications = {
-		ship_mod_slot_electronics = ship_mod_ztr_combat_information_center
-		ship_mod_slot_missiles = ship_mod_ztr_no_missile_battery
 	}
 }
 
@@ -419,14 +387,14 @@ ship_type_nuclear_carrier = {
 		ship_hit_points_max_add = 4000
 		ship_crew_max_add = 1500
 		ship_movement_speed_add = 7
-		ship_supply_capacity_add = 140
-		ship_hull_damage_add = 70
+		ship_supply_capacity_add = 100
+		ship_hull_damage_add = 125
 		ship_crew_damage_add = 25
-		ship_armor_add = 230
+		ship_armor_add = 140
 		ship_critical_hit_chance_add = 0.4
 		ship_critical_hit_multiplier_add = 3
-		ship_vulnerability_add = 120
-		ship_screening_add = 20
+		ship_vulnerability_add = 110
+		ship_screening_add = 10
 		ship_readiness_gain_add = 15
 		ship_accuracy_add = 40
 		ship_visibility_add = 130
@@ -447,9 +415,8 @@ ship_type_nuclear_carrier = {
 		goods_input_heavy_fuel_add = 1
 		goods_input_aeroplanes_add = 1
 		goods_input_radios_add = 0.5
-		goods_input_electroniccomponents_add = 0.3
-		goods_input_computer_add = 0.5
-		goods_input_telecommunications_add = 2
+		goods_input_electroniccomponents_add = 0.4
+		goods_input_computer_add = 1.0
 	}
 	unlocking_technologies = {
 		integrated_naval_air_tactics
@@ -493,26 +460,15 @@ ship_type_nuclear_carrier = {
 			utility_mod_extended_sick_bay
 			utility_mod_torpedo_nets
 			utility_mod_camouflage
-			utility_mod_ztr_electronic_warfare_suite
 		}
 		ship_mod_slot_utility_2 = {
 			utility_mod_fire_suppression
 			utility_mod_extended_sick_bay
-			utility_mod_ztr_close_in_weapon_system
-			utility_mod_ztr_electronic_warfare_suite
-			utility_mod_ztr_replenishment_at_sea
 		}
 		ship_mod_slot_utility_3 = {
 			utility_mod_fire_suppression
 			utility_mod_extended_sick_bay
-			utility_mod_ztr_close_in_weapon_system
-			utility_mod_ztr_electronic_warfare_suite
-			utility_mod_ztr_replenishment_at_sea
 		}
-	}
-	default_modifications = {
-		ship_mod_slot_electronics = ship_mod_ztr_networked_battle_management
-		#ship_mod_slot_air_wing = ship_mod_ztr_integrated_air_wing
 	}
 }
 
@@ -531,7 +487,7 @@ ship_type_nuclear_submarine = {
 		ship_armor_add = 30
 		ship_critical_hit_chance_add = 0.45
 		ship_critical_hit_multiplier_add = 3
-		ship_vulnerability_add = 3
+		ship_vulnerability_add = 4
 		ship_screening_add = 5
 		ship_readiness_gain_add = 15
 		ship_accuracy_add = 35
@@ -560,12 +516,7 @@ ship_type_nuclear_submarine = {
 		goods_input_ammunition_add = 0.1
 		goods_input_radios_add = 0.5
 		goods_input_electroniccomponents_add = 0.2
-		goods_input_computer_add = 0.2
-		goods_input_telecommunications_add = 1
-	}
-	distance_to_port_modifier = {
-		ship_hull_damage_mult = -0.25
-		ship_crew_damage_mult = -0.25
+		goods_input_computer_add = 0.4
 	}
 	unlocking_technologies = {
 		nuclear_submarine
@@ -595,19 +546,14 @@ ship_type_nuclear_submarine = {
 			ship_mod_submarine_range_high
 		}
 		ship_mod_slot_electronics = {
+			ship_mod_ztr_radio_direction_finding
 			ship_mod_ztr_combat_information_center
 			ship_mod_ztr_networked_battle_management
 		}
 		ship_mod_slot_missiles = {
-			ship_mod_ztr_guided_missile_battery
-			ship_mod_ztr_vertical_launch_cells
+			ship_mod_ztr_nuclear_submarine_simple_missile_battery
+			ship_mod_ztr_nuclear_submarine_guided_missile_battery
+			ship_mod_ztr_nuclear_submarine_vertical_launch_cells
 		}
-		ship_mod_slot_utility_1 = {
-			utility_mod_ztr_electronic_warfare_suite
-		}
-	}
-	default_modifications = {
-		ship_mod_slot_electronics = ship_mod_ztr_combat_information_center
-		ship_mod_slot_missiles = ship_mod_ztr_guided_missile_battery
 	}
 }

@@ -21,17 +21,6 @@ REPLACE:wanted_army_size_script_value = {
 		divide = 1000000 # 1 level of barracks per 1 million unincorporated population
 	}
 
-	# Coastal population reduces spending on army as that spending is needed for navy too
-	subtract = {
-		value = cached_ai_incorporated_coastal_population
-		divide = 1000000
-	}
-
-	subtract = {
-		value = cached_ai_unincorporated_coastal_population
-		divide = 4000000
-	}
-
 	# Extra army size from rank
 	if = {
 		limit = { country_rank = rank_value:great_power }
@@ -69,7 +58,7 @@ REPLACE:wanted_army_size_script_value = {
 				subtract = { # Coastal population reduces spending on army as that spending is needed for navy too
 					value = cached_ai_incorporated_coastal_population
 					divide = cached_ai_incorporated_population
-					divide = 2
+					divide = 4
 				}
 			}
 			divide = 2500 # 1 level of barracks per 2.5k income
@@ -189,8 +178,8 @@ REPLACE:wanted_army_size_script_value = {
 		limit = {
 			capital = {
 				OR = {
-					region = sr:region_england
-					region = sr:region_north_sea_coast
+					is_in_geographic_region = geographic_region_england_old
+					is_in_geographic_region = geographic_region_north_sea_coast_old
 				}
 			}
 		}
@@ -203,6 +192,12 @@ REPLACE:wanted_army_size_script_value = {
 			has_journal_entry = je_lands_of_anarchy
 		}
 		multiply = 1.5 # More eager to enlarge army in general during the makhzen je
+	}
+	
+	# Multiply final value by diplomatic pact expenses ratio - countries paying a lot to pacts have lower spending ambitions
+	multiply = {
+		value = 1
+		subtract = diplomatic_pact_expense_ratio
 	}
 
 	min = {
@@ -249,23 +244,23 @@ REPLACE:wanted_army_size_script_value = {
 REPLACE:wanted_navy_size_script_value = {
 	value = 0
 
-	# 1 level of naval base per 500k coastal incorporated population
+	# 1 ship per 500k coastal incorporated population
 	add = {
 		value = cached_ai_incorporated_coastal_population
 		divide = 500000
 	}
-	# 1 level of naval base per 2 million coastal unincorporated population
+	# 1 ship per 2 million coastal unincorporated population
 	add = {
 		value = cached_ai_unincorporated_coastal_population
 		divide = 2000000
 	}
-	# 1 level of naval base per 10 million population in direct overseas subjects
+	# 1 ship per 10 million population in direct overseas subjects
 	add = {
 		value = cached_ai_overseas_subject_population
 		divide = 10000000
 	}
 	max = 100 # No more than 100 from population
-	# 1 level of naval base per 5k income, multiplied by relative incorporated coastal population to total incorporated population
+	# 1 ship per 5k income, multiplied by relative incorporated coastal population to total incorporated population
 	if = {
 		limit = {
 			cached_ai_incorporated_population > 0
@@ -283,8 +278,8 @@ REPLACE:wanted_navy_size_script_value = {
 		limit = {
 			capital = {
 				OR = {
-					region = sr:region_england
-					region = sr:region_north_sea_coast
+					is_in_geographic_region = geographic_region_england_old
+					is_in_geographic_region = geographic_region_north_sea_coast_old
 				}
 			}
 		}
@@ -298,18 +293,22 @@ REPLACE:wanted_navy_size_script_value = {
 		limit = { country_rank = rank_value:major_power }
 		add = 10
 	}
-	# More advanced navies are expensive and should be smaller relative to population
+	
+	# General multiplier for easy adjustment
+	multiply = 0.75
+	
+	# More advanced ships require more crew
 	if = {
 		limit = { has_technology_researched = ironclad_tech }
-		multiply = 0.75
+		multiply = 1.15
 	}
 	if = {
-		limit = { has_technology_researched = dreadnought }
-		multiply = 0.75
+		limit = { has_technology_researched = dreadnought_tech }
+		multiply = 1.25
 	}
 	if = {
 		limit = { has_technology_researched = battleship_tech }
-		multiply = 0.75
+		multiply = 1.25
 	}
 
 	# Journal related AI behaviours, choose this if you DONT care about the exact number of ships
@@ -321,7 +320,7 @@ REPLACE:wanted_navy_size_script_value = {
 	}
 
 	# Factor in strategies
-	
+
 	#T&R
 	if = {
 		limit = {
@@ -337,7 +336,7 @@ REPLACE:wanted_navy_size_script_value = {
 		}
 		multiply = 1.5
 	}
-
+	
 	if = {
 		limit = {
 			OR = {
@@ -363,6 +362,12 @@ REPLACE:wanted_navy_size_script_value = {
 		limit = { has_strategy = ai_strategy_maintain_mandate_of_heaven }
 		multiply = 0.25
 	}
+	
+	# Multiply final value by diplomatic pact expenses ratio - countries paying a lot to pacts have lower spending ambitions
+	multiply = {
+		value = 1
+		subtract = diplomatic_pact_expense_ratio
+	}	
 
 	# Journal related AI behaviours, choose this if you DO care about the exact number of ships
 	if = {

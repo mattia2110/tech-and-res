@@ -1,0 +1,89 @@
+pdxmesh = {
+	name = "generic_aerial_bleriotxi_modern_01_mesh"
+	file = "generic_aerial_bleriotxi_modern_01.mesh"
+
+	lod_percentages = {
+		lod = { index = 1 percent = 8.0 }
+		lod = { index = 2 percent = 2.0 }
+	}
+
+	animation = { id = "moving_animation" type = "generic_aerial_bleriotxi_modern_01_moving.anim" }
+	animation = { id = "carrier_idle_animation" type = "generic_aerial_bleriotxi_modern_01_carrier_idle.anim" }
+	animation = { id = "carrier_recon_animation" type = "generic_aerial_bleriotxi_modern_01_carrier_recon.anim" }
+
+	meshsettings = {
+		name = "bleriotxi_0Shape"
+		index = 0
+		texture_diffuse = "generic_aerial_bleriotxi_modern_01_diffuse.dds"
+		texture_normal = "generic_aerial_bleriotxi_modern_01_normal.dds"
+		texture_specular = "generic_aerial_bleriotxi_modern_01_properties.dds"
+		texture = { file = "generic_aerial_bleriotxi_modern_01_tint.dds" index = 5 }
+		shader = "standard"
+		additional_shader_defines = { "TINT_COLOR" }
+		shader_file = "gfx/FX/pdxmesh.shader"
+	}
+
+	meshsettings = {
+		name = "bleriotxi_0Shape"
+		index = 1
+		texture_diffuse = "generic_aerial_bleriotxi_modern_01_diffuse.dds"
+		texture_normal = "generic_aerial_bleriotxi_modern_01_normal.dds"
+		texture_specular = "generic_aerial_bleriotxi_modern_01_properties.dds"
+		shader = "standard_alpha_blend"
+		shader_file = "gfx/FX/pdxmesh.shader"
+	}
+
+	meshsettings = {
+		name = "bleriotxi_1Shape"
+		index = 0
+		texture_diffuse = "generic_aerial_bleriotxi_modern_01_diffuse.dds"
+		texture_normal = "generic_aerial_bleriotxi_modern_01_normal.dds"
+		texture_specular = "generic_aerial_bleriotxi_modern_01_properties.dds"
+		texture = { file = "generic_aerial_bleriotxi_modern_01_tint.dds" index = 5 }
+		shader = "standard"
+		additional_shader_defines = { "TINT_COLOR" }
+		shader_file = "gfx/FX/pdxmesh.shader"
+	}
+
+	meshsettings = {
+		name = "bleriotxi_1Shape"
+		index = 1
+		texture_diffuse = "generic_aerial_bleriotxi_modern_01_diffuse.dds"
+		texture_normal = "generic_aerial_bleriotxi_modern_01_normal.dds"
+		texture_specular = "generic_aerial_bleriotxi_modern_01_properties.dds"
+		shader = "standard_alpha_blend"
+		shader_file = "gfx/FX/pdxmesh.shader"
+	}
+
+	meshsettings = {
+		name = "bleriotxi_2Shape"
+		index = 0
+		texture_diffuse = "generic_aerial_bleriotxi_modern_01_diffuse.dds"
+		texture_normal = "generic_aerial_bleriotxi_modern_01_normal.dds"
+		texture_specular = "generic_aerial_bleriotxi_modern_01_properties.dds"
+		texture = { file = "generic_aerial_bleriotxi_modern_01_tint.dds" index = 5 }
+		shader = "standard"
+		additional_shader_defines = { "TINT_COLOR" }
+		shader_file = "gfx/FX/pdxmesh.shader"
+	}
+
+	meshsettings = {
+		name = "bleriotxi_2Shape"
+		index = 1
+		texture_diffuse = "generic_aerial_bleriotxi_modern_01_diffuse.dds"
+		texture_normal = "generic_aerial_bleriotxi_modern_01_normal.dds"
+		texture_specular = "generic_aerial_bleriotxi_modern_01_properties.dds"
+		shader = "standard_alpha_blend"
+		shader_file = "gfx/FX/pdxmesh.shader"
+	}
+}
+
+entity = {
+	name = "generic_aerial_bleriotxi_modern_02_entity"
+	pdxmesh = "generic_aerial_bleriotxi_modern_01_mesh"
+
+	default_state = "carrier_idle"
+	state = { name = "carrier_idle"
+		animation = "carrier_idle_animation"
+	}
+}
