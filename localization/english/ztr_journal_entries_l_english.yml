@@ -568,3 +568,14 @@ je_decolonization_status_low: "Imperial governance remains broadly accepted inte
 ztr_global_decolonization_pressure_bar: "Global Self-Determination Pressure"
 ztr_global_decolonization_pressure_bar_desc: "Global Self-Determination Pressure: #v [GetGlobalVariable('ztr_global_decolonization_pressure_var').GetValue|0]#!"
 someone_has_discovered_decolonization_tech_tt: "#v Someone#! has discovered #gold_value Decolonization#! #v Tech#!."
+
+# National Electricity System
+je_national_electric_system: "National Electricity System"
+je_national_electric_system_reason: "A #gold_value National Electricity System#! cannot be declared by decree alone. Local networks must be tied into a coordinated transmission grid, with substations capable of receiving and redistributing power across the country.\n\n#v Conversion Progress#!: #v [ROOT.GetCountry.MakeScope.Var('ztr_nes_states_with_grid_var').GetValue|0]#! of #v [ROOT.GetCountry.MakeScope.Var('ztr_nes_states_total_var').GetValue|0]#! incorporated states have at least one #v $building_power_grid_station$#! [concept_building].\n\n#v Incorporated States Still Missing a Power Grid Station#!:\n[GetScriptedGui('je_national_electric_system_missing_states_sgui').ExecuteTooltip(GuiScope.SetRoot(ROOT.GetCountry.MakeScope).End)]"
+je_national_electric_system_goal: "Every incorporated state must have at least one #v $building_power_grid_station$#! [concept_building]."
+je_national_electric_system_status: "The conversion from local electricity systems to a national grid is underway."
+je_national_electric_system_complete_tt: "Every incorporated state has at least one #v $building_power_grid_station$#! [concept_building]."
+JE_NATIONAL_ELECTRIC_SYSTEM_MISSING_STATE_ENTRY: "#v [THIS.GetState.GetName]#!"
+JE_NATIONAL_ELECTRIC_SYSTEM_NO_MISSING_STATES: "\n#v No incorporated states are missing a Power Grid Station.#!"
+national_electric_system_transition_boost: "Grid Integration Surge"
+national_electric_system_transition_boost_desc: "The completion of the national electricity system has created a temporary surge in grid efficiency as local networks are standardized and operators adapt to national dispatch."

@@ -30,6 +30,9 @@
 			
 			#THIS is not in the midst of a revolution
 			has_revolution = no
+
+			#TARGET does not have its own nuclear capability
+			NOT = { has_modifier = nuclear_capability }
 		}
 		
 		#TARGET neighbours a state hostile to THIS
@@ -126,6 +129,9 @@
 					
 					#THIS is not in the midst of a revolution
 					has_revolution = no
+
+					#TARGET does not have its own nuclear capability
+					NOT = { has_modifier = nuclear_capability }
 					
 				}
 				
@@ -183,6 +189,16 @@
 			add = {
 				desc = "DIPLOMATIC_ACCEPTANCE_BASE"
 				value = -200
+			}
+
+			add = {
+				desc = "DEVELOPING_OWN_NUCLEAR_WEAPONS"
+				if = {
+					limit = {
+						has_journal_entry = je_develop_nuclear_weapons
+					}
+					value = -100
+				}
 			}
 
 			if = {

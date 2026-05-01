@@ -1,0 +1,48 @@
+ztr_update_national_electric_system_progress = {
+	set_variable = {
+		name = ztr_nes_states_total_var
+		value = 0
+	}
+	set_variable = {
+		name = ztr_nes_states_with_grid_var
+		value = 0
+	}
+	clear_variable_list = ztr_nes_states_missing_grid_list
+
+	every_scope_state = {
+		limit = {
+			is_incorporated = yes
+		}
+		root = {
+			change_variable = {
+				name = ztr_nes_states_total_var
+				add = 1
+			}
+		}
+		if = {
+			limit = {
+				has_building = building_power_grid_station
+			}
+			root = {
+				change_variable = {
+					name = ztr_nes_states_with_grid_var
+					add = 1
+				}
+			}
+		}
+		else = {
+			root = {
+				add_to_variable_list = {
+					name = ztr_nes_states_missing_grid_list
+					target = prev
+				}
+			}
+		}
+	}
+}
+
+ztr_clear_national_electric_system_progress = {
+	remove_variable = ztr_nes_states_total_var
+	remove_variable = ztr_nes_states_with_grid_var
+	clear_variable_list = ztr_nes_states_missing_grid_list
+}

@@ -1,0 +1,54 @@
+start_national_electric_system_conversion_decision = {
+	is_shown = {
+		has_technology_researched = national_power_grid
+		has_law_or_variant = law_type:law_no_national_electric_system
+		NOT = {
+			has_journal_entry = je_national_electric_system
+		}
+	}
+	possible = {
+		always = yes
+	}
+	when_taken = {
+		set_variable = national_electric_system_started
+		add_journal_entry = {
+			type = je_national_electric_system
+		}
+	}
+	ai_chance = {
+		value = 0
+		if = {
+			limit = {
+				is_at_war = no
+				scaled_debt < 0.25
+			}
+			add = 1000
+		}
+	}
+}
+
+modernize_national_electric_system_decision = {
+	is_shown = {
+		has_technology_researched = high_voltage_transmission
+		has_law_or_variant = law_type:law_national_electric_system
+		NOT = {
+			has_journal_entry = je_national_electric_system
+		}
+	}
+	possible = {
+		always = yes
+	}
+	when_taken = {
+		activate_law = law_type:law_modern_national_electric_system
+	}
+	ai_chance = {
+		value = 0
+		if = {
+			limit = {
+				is_at_war = no
+				scaled_debt < 0.25
+			}
+			add = 1000
+		}
+	}
+}

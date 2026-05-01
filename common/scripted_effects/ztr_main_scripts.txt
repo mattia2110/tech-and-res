@@ -803,7 +803,7 @@ calculate_liberty_equality_index = {
 	# Farming Policy
 	if = {
 		limit = {
-			has_law_or_variant = law_type:law_homesteading
+			has_law_or_variant = law_type:law_peasant_proprietorship
 		}
 		change_variable = {
 			name = liberty_index_var
@@ -1529,6 +1529,19 @@ calculate_liberty_equality_index_bpm = {
 	}
 	else_if = {
 		limit = {
+			has_law = law_type:law_organic_regulation
+		}
+		change_variable = {
+			name = liberty_index_var
+			add = 2
+		}
+		change_variable = {
+			name = equality_index_var
+			add = 1
+		}
+	}
+	else_if = {
+		limit = {
 			has_law_or_variant = law_type:law_oligarchy
 		}
 		change_variable = {
@@ -1538,20 +1551,7 @@ calculate_liberty_equality_index_bpm = {
 	}
 	else_if = {
 		limit = {
-			has_law_or_variant = law_type:law_organic_regulation
-		}
-		change_variable = {
-			name = liberty_index_var
-			add = 3
-		}
-		change_variable = {
-			name = equality_index_var
-			add = 1
-		}
-	}
-	else_if = {
-		limit = {
-			has_law_or_variant = law_type:law_neo_absolutism
+			has_law = law_type:law_neo_absolutism
 		}
 		change_variable = {
 			name = liberty_index_var
@@ -1840,7 +1840,7 @@ calculate_liberty_equality_index_bpm = {
 	# Farming Policy
 	if = {
 		limit = {
-			has_law_or_variant = law_type:law_homesteading
+			has_law_or_variant = law_type:law_peasant_proprietorship
 		}
 		change_variable = {
 			name = liberty_index_var

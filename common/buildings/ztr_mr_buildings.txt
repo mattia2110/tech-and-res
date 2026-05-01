@@ -1,12 +1,11 @@
 ﻿# Uranium Mine
 REPLACE_OR_CREATE:building_uranium_mine = {
-	building_group = bg_uranium_mining
+	building_group = bg_mining
 	icon = "gfx/interface/icons/building_icons/building_uranium_mine.dds"
 	city_type = mine
 	levels_per_mesh = 50
 	required_construction = construction_cost_high
 	terrain_manipulator = mining
-	has_max_level = yes
 	unlocking_technologies = {
 		verrier_modern_physics_tech
 	}
@@ -19,7 +18,6 @@ REPLACE_OR_CREATE:building_uranium_mine = {
 		pmg_data_optimization_primary_sector
 	}
 	possible = {
-		modifier:state_building_uranium_mine_max_level_add > 0
 		owner = {
 			NOT = {
 				OR = {
@@ -28,9 +26,6 @@ REPLACE_OR_CREATE:building_uranium_mine = {
 				}
 			}
 		}
-	}
-	potential = {
-		modifier:state_building_uranium_mine_max_level_add > 0
 	}
 	ownership_type = self
 	background = "gfx/interface/icons/building_icons/backgrounds/building_panel_bg_mining.dds"

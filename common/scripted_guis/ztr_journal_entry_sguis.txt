@@ -16,3 +16,22 @@ je_decolonization_colonial_states_sgui = {
 		}
 	}
 }
+
+je_national_electric_system_missing_states_sgui = {
+	scope = country
+
+	effect = {
+		if = {
+			limit = {
+				has_variable_list = ztr_nes_states_missing_grid_list
+			}
+			every_in_list = {
+				variable = ztr_nes_states_missing_grid_list
+				custom_tooltip = "JE_NATIONAL_ELECTRIC_SYSTEM_MISSING_STATE_ENTRY"
+			}
+		}
+		else = {
+			custom_tooltip = "JE_NATIONAL_ELECTRIC_SYSTEM_NO_MISSING_STATES"
+		}
+	}
+}

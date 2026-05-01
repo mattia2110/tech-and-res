@@ -132,6 +132,100 @@ je_research_center_construction = {
 	should_be_pinned_by_default_uninvolved_or_context = yes
 }
 
+# National Electricity System Journal Entries
+je_national_electric_system = {
+	icon = "gfx/interface/icons/goods_icons/electrical_generation.dds"
+	group = je_group_technology
+
+	possible = {
+		#JE
+		has_variable = national_electric_system_started
+	}
+
+	immediate = {
+		ztr_update_national_electric_system_progress = yes
+	}
+
+	on_monthly_pulse = {
+		effect = {
+			ztr_update_national_electric_system_progress = yes
+		}
+	}
+
+	on_yearly_pulse = {
+		effect = {
+			if = {
+				limit = {
+					is_ai = yes
+				}
+				every_scope_state = {
+					limit = {
+						NOR = {
+							has_building = building_power_grid_station
+							any_scope_building = {
+								is_building_type = building_power_grid_station
+								is_under_construction = yes
+							}
+						}
+					}
+					create_building = {
+						building = building_power_grid_station
+						level = 1
+					}
+				}
+			}
+		}
+	}
+
+	complete = {
+		any_scope_state = {
+			filter = {
+				is_incorporated = yes
+			}
+			custom_tooltip = {
+				text = je_national_electric_system_complete_tt
+				has_building = building_power_grid_station
+			}
+			percent = 1
+		}
+	}
+
+	on_complete = {
+		ztr_update_national_electric_system_progress = yes
+		add_modifier = {
+			name = national_electric_system_transition_boost
+			years = 10
+			is_decaying = yes
+		}
+		activate_law = law_type:law_national_electric_system
+		ztr_clear_national_electric_system_progress = yes
+		remove_variable = national_electric_system_started
+	}
+
+	status_desc = {
+		first_valid = {
+			triggered_desc = {
+				desc = je_national_electric_system_status
+				trigger = {
+					always = yes
+				}
+			}
+		}
+	}
+
+	current_value = {
+		value = var:ztr_nes_states_with_grid_var
+	}
+	goal_add_value = {
+		value = var:ztr_nes_states_total_var
+	}
+
+	weight = 100
+	should_be_pinned_by_default_uninvolved_or_context = yes
+	transferable = no
+	progressbar = yes
+}
+
 # Fusion Reactor Journal Entries
 je_fusion_reactor_research = {
 	icon = "gfx/interface/icons/event_icons/innovation.dds"

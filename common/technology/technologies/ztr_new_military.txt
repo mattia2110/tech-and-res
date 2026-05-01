@@ -705,17 +705,15 @@ satellites = {
 }
 
 modern_naval_doctrine = {
-	# unlocks modern naval doctrine
+	# unlocks modern destroyers
 	era = era_7
 	texture = "gfx/interface/icons/invention_icons/modern_naval_doctrine.dds"
 	category = military
 
 	modifier = {
 		unit_navy_offense_mult = 0.15
-		unit_navy_defense_mult = 0.35
+		unit_navy_defense_mult = 0.2
 		country_military_wages_mult = 0.15
-		country_military_goods_cost_mult = 0.15
-		unit_navy_experience_gain_mult = 0.1
 	}
 
 	unlocking_technologies = {	
@@ -724,6 +722,33 @@ modern_naval_doctrine = {
 		military_encryption
 	}
 	
+	ai_weight = {
+		value = 1
+		if = {
+			limit = {
+				has_variable = ztr_bolshevik_ideology_var
+			}
+			add = 1
+		}
+	}
+}
+
+modern_battleships = {
+	# unlocks modern cruisers and modern battleships
+	era = era_7
+	texture = "gfx/interface/icons/invention_icons/modern_battleships.dds"
+	category = military
+
+	unlocking_technologies = {
+		modern_naval_doctrine
+	}
+
+	modifier = {
+		unit_navy_defense_mult = 0.15
+		country_military_goods_cost_mult = 0.15
+		unit_navy_experience_gain_mult = 0.1
+	}
+
 	ai_weight = {
 		value = 1
 		if = {
@@ -747,7 +772,7 @@ naval_logistic_automation = {
 
 	unlocking_technologies = {	
 		modular_shipbuilding
-		modern_naval_doctrine
+		modern_battleships
 	}
 	ai_weight = {
 		value = 1

@@ -114,6 +114,12 @@ building_renewable_energy_power_plant = {
 			NOT = {
 				has_law_or_variant = law_type:law_industry_banned
 			}
+			custom_tooltip = {
+				text = building_renewable_energy_requires_national_electric_system_tt
+				NOT = {
+					has_law_or_variant = law_type:law_no_national_electric_system
+				}
+			}
 		}
 	}
 	ownership_type = self
@@ -204,6 +210,12 @@ building_fusion_power_plant = {
 			NOT = {
 				has_law_or_variant = law_type:law_industry_banned
 			}
+			custom_tooltip = {
+				text = building_renewable_energy_requires_national_electric_system_tt
+				NOT = {
+					has_law_or_variant = law_type:law_no_national_electric_system
+				}
+			}
 		}
 	}
 	can_build_private = {
@@ -228,25 +240,23 @@ building_power_grid_station = {
 	production_method_groups = {
 		pmg_grid_download
 	}
-	required_construction = construction_cost_medium
-	can_build_government = {
-		NOT = {
-			has_law_or_variant = law_type:law_industry_banned
-		}
-	}
+	required_construction = construction_cost_very_high
 	possible = {
 		owner = {
 			NOT = {
 				has_law_or_variant = law_type:law_industry_banned
 			}
+			OR = {
+				NOT = {
+					has_law_or_variant = law_type:law_no_national_electric_system
+				}
+				has_journal_entry = je_national_electric_system
+			}
 		}
+		# Uncomment as this complex thing makes AI very stupi on PMs optimization
 		OR = {
 			is_capital = yes
-			owner = {
-				is_ai = yes
-			}
 			any_neighbouring_state = {
-				owner ?= prev.owner
 				any_scope_building = {
 					OR = {
 						is_building_type = building_power_grid_station
@@ -267,24 +277,19 @@ building_power_grid_station = {
 			cash_reserves_ratio > 0.8
 			is_subsidized = yes
 		}
-		OR = {
+		AND = {
 			state = {
 				sg:electricity = {
 					state_goods_pricier >= 0.1
 				}
 			}
-			state = {
-				sg:global_electricity = {
-					state_goods_pricier <= 0.1
-				}
+			g:global_electricity = {
+				market_goods_pricier <= -0.1
 			}
-		}
-		NOT = {
-			is_under_construction = yes
 		}
 	}
 	ai_value = {
-		value = 2000
+		value = 1000
 		# More valuable in states with significant power generation (upload mode)
 		if = {
 			limit = {
@@ -296,7 +301,15 @@ building_power_grid_station = {
 					}
 				}
 			}
-			add = 10000
+			add = 4000
+		}
+		if = {
+			limit = {
+				g:global_electricity = {
+					market_goods_pricier <= -0.25
+				}
+			}
+			add = 4000
 		}
 	}
 }

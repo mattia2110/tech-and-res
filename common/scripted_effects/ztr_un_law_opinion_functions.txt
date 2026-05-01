@@ -2504,7 +2504,6 @@ ztr_un_value_law = {
 				limit = {
 					OR = {
 						has_law_or_variant = law_type:law_no_womens_rights
-						has_law_or_variant = law_type:law_women_in_the_fields
 					}
 				}
 				change_variable = {
@@ -2581,7 +2580,6 @@ ztr_un_value_law = {
 				limit = {
 					OR = {
 						has_law_or_variant = law_type:law_no_womens_rights
-						has_law_or_variant = law_type:law_women_in_the_fields
 					}
 				}
 				change_variable = {
@@ -3785,7 +3783,7 @@ ztr_un_value_law = {
 						has_law_or_variant = law_type:law_colonial_exploitation
 					}
 				}
-				root = {
+				prev = {
 					change_variable = {
 						name = ztr_un_law_value_secret_considered
 						add = -5
@@ -3807,7 +3805,7 @@ ztr_un_value_law = {
 						has_law_or_variant = law_type:law_colonial_exploitation
 					}
 				}
-				root = {
+				prev = {
 					change_variable = {
 						name = ztr_un_law_value_secret_considered
 						add = 5
@@ -3829,7 +3827,7 @@ ztr_un_value_law = {
 						has_law_or_variant = law_type:law_colonial_exploitation
 					}
 				}
-				root = {
+				prev = {
 					change_variable = {
 						name = ztr_un_law_value_secret_considered
 						add = 10
@@ -3852,7 +3850,7 @@ ztr_un_value_law = {
 						has_law_or_variant = law_type:law_legacy_slavery
 					}
 				}
-				root = {
+				prev = {
 					change_variable = {
 						name = ztr_un_law_value_secret_considered
 						add = -5
@@ -3875,7 +3873,7 @@ ztr_un_value_law = {
 						has_law_or_variant = law_type:law_legacy_slavery
 					}
 				}
-				root = {
+				prev = {
 					change_variable = {
 						name = ztr_un_law_value_secret_considered
 						add = 10
@@ -3893,7 +3891,7 @@ ztr_un_value_law = {
 				limit = {
 					has_law_or_variant = law_type:law_child_labor_allowed
 				}
-				root = {
+				prev = {
 					change_variable = {
 						name = ztr_un_law_value_secret_considered
 						add = -5
@@ -3911,7 +3909,7 @@ ztr_un_value_law = {
 				limit = {
 					has_law_or_variant = law_type:law_child_labor_allowed
 				}
-				root = {
+				prev = {
 					change_variable = {
 						name = ztr_un_law_value_secret_considered
 						add = 5
@@ -3932,7 +3930,7 @@ ztr_un_value_law = {
 						has_law_or_variant = law_type:law_restricted_child_labor
 					}
 				}
-				root = {
+				prev = {
 					change_variable = {
 						name = ztr_un_law_value_secret_considered
 						add = 10
@@ -3950,11 +3948,10 @@ ztr_un_value_law = {
 				limit = {
 					OR = {
 						has_law_or_variant = law_type:law_no_womens_rights
-						has_law_or_variant = law_type:law_women_in_the_fields
 						has_law_or_variant = law_type:law_women_own_property
 					}
 				}
-				root = {
+				prev = {
 					change_variable = {
 						name = ztr_un_law_value_secret_considered
 						add = -5
@@ -3972,11 +3969,10 @@ ztr_un_value_law = {
 				limit = {
 					OR = {
 						has_law_or_variant = law_type:law_no_womens_rights
-						has_law_or_variant = law_type:law_women_in_the_fields
 						has_law_or_variant = law_type:law_women_own_property
 					}
 				}
-				root = {
+				prev = {
 					change_variable = {
 						name = ztr_un_law_value_secret_considered
 						add = 10
@@ -3998,7 +3994,7 @@ ztr_un_value_law = {
 						has_law_or_variant = law_type:law_laissez_faire
 					}
 				}
-				root = {
+				prev = {
 					change_variable = {
 						name = ztr_un_law_value_secret_considered
 						add = 5
@@ -4020,7 +4016,7 @@ ztr_un_value_law = {
 						has_law_or_variant = law_type:law_laissez_faire
 					}
 				}
-				root = {
+				prev = {
 					change_variable = {
 						name = ztr_un_law_value_secret_considered
 						add = -5
@@ -4041,7 +4037,7 @@ ztr_un_value_law = {
 						has_law_or_variant = law_type:law_free_trade
 					}
 				}
-				root = {
+				prev = {
 					change_variable = {
 						name = ztr_un_law_value_secret_considered
 						add = 5
@@ -4062,7 +4058,7 @@ ztr_un_value_law = {
 						has_law_or_variant = law_type:law_free_trade
 					}
 				}
-				root = {
+				prev = {
 					change_variable = {
 						name = ztr_un_law_value_secret_considered
 						add = -5
@@ -4089,7 +4085,7 @@ ztr_un_value_law = {
 						has_law_or_variant = law_type:law_legacy_slavery
 					}
 				}
-				root = {
+				prev = {
 					change_variable = {
 						name = ztr_un_law_value_secret_considered
 						add = -5
@@ -4102,6 +4098,18 @@ ztr_un_value_law = {
 			limit = {
 				var:ztr_un_subject_considered = 10
 				var:ztr_un_law_considered = 1
+				any_rival_country = {
+					OR = {
+						infamy >= 25
+						has_law_or_variant = law_type:law_frontier_colonization
+						has_law_or_variant = law_type:law_colonial_resettlement
+						has_law_or_variant = law_type:law_colonial_exploitation
+						has_law_or_variant = law_type:law_colonial_slavery
+						has_law_or_variant = law_type:law_debt_slavery
+						has_law_or_variant = law_type:law_slave_trade
+						has_law_or_variant = law_type:law_legacy_slavery
+					}
+				}
 			}
 			every_rival_country = {
 				limit = {
@@ -4116,7 +4124,7 @@ ztr_un_value_law = {
 						has_law_or_variant = law_type:law_legacy_slavery
 					}
 				}
-				root = {
+				prev = {
 					change_variable = {
 						name = ztr_un_law_value_secret_considered
 						add = 10
@@ -4129,6 +4137,13 @@ ztr_un_value_law = {
 			limit = {
 				var:ztr_un_subject_considered = 11
 				var:ztr_un_law_considered = 0
+				any_rival_country = {
+					OR = {
+						literacy_rate >= 0.5
+						has_research_center = yes
+						has_technology_researched = international_organizations
+					}
+				}
 			}
 			every_rival_country = {
 				limit = {
@@ -4138,7 +4153,7 @@ ztr_un_value_law = {
 						has_technology_researched = international_organizations
 					}
 				}
-				root = {
+				prev = {
 					change_variable = {
 						name = ztr_un_law_value_secret_considered
 						add = 5
@@ -4151,6 +4166,13 @@ ztr_un_value_law = {
 			limit = {
 				var:ztr_un_subject_considered = 11
 				var:ztr_un_law_considered = 1
+				any_rival_country = {
+					OR = {
+						literacy_rate >= 0.5
+						has_research_center = yes
+						has_technology_researched = international_organizations
+					}
+				}
 			}
 			every_rival_country = {
 				limit = {
@@ -4160,7 +4182,7 @@ ztr_un_value_law = {
 						has_technology_researched = international_organizations
 					}
 				}
-				root = {
+				prev = {
 					change_variable = {
 						name = ztr_un_law_value_secret_considered
 						add = -5
@@ -4185,9 +4207,9 @@ ztr_un_value_law = {
 				}
 				if = {
 					limit = {
-						root ?= this
+						prev ?= this
 					}
-					root = {
+					prev = {
 						change_variable = {
 							name = ztr_un_law_value_secret_considered
 							add = 15
@@ -4197,11 +4219,11 @@ ztr_un_value_law = {
 				if = {
 					limit = {
 						has_diplomatic_pact = {
-							who = root
+							who = prev
 							type = rivalry
 						}
 					}
-					root = {
+					prev = {
 						change_variable = {
 							name = ztr_un_law_value_secret_considered
 							add = -15
@@ -4210,9 +4232,9 @@ ztr_un_value_law = {
 				}
 				if = {
 					limit = {
-						relations:root <= relations_threshold:poor
+						relations:prev <= relations_threshold:poor
 					}
-					root = {
+					prev = {
 						change_variable = {
 							name = ztr_un_law_value_secret_considered
 							add = -10
@@ -4221,9 +4243,9 @@ ztr_un_value_law = {
 				}
 				else_if = {
 					limit = {
-						relations:root >= relations_threshold:friendly
+						relations:prev >= relations_threshold:friendly
 					}
-					root = {
+					prev = {
 						change_variable = {
 							name = ztr_un_law_value_secret_considered
 							add = 10
@@ -4232,9 +4254,9 @@ ztr_un_value_law = {
 				}
 				else_if = {
 					limit = {
-						relations:root >= relations_threshold:cordial
+						relations:prev >= relations_threshold:cordial
 					}
-					root = {
+					prev = {
 						change_variable = {
 							name = ztr_un_law_value_secret_considered
 							add = 5
@@ -4243,7 +4265,7 @@ ztr_un_value_law = {
 				}
 				if = {
 					limit = {
-						root = {
+						prev = {
 							OR = {
 								has_attitude = {
 									who = prev
@@ -4264,7 +4286,7 @@ ztr_un_value_law = {
 							}
 						}
 					}
-					root = {
+					prev = {
 						change_variable = {
 							name = ztr_un_law_value_secret_considered
 							add = -10
@@ -4273,7 +4295,7 @@ ztr_un_value_law = {
 				}
 				if = {
 					limit = {
-						root = {
+						prev = {
 							OR = {
 								has_attitude = {
 									who = prev
@@ -4294,7 +4316,7 @@ ztr_un_value_law = {
 							}
 						}
 					}
-					root = {
+					prev = {
 						change_variable = {
 							name = ztr_un_law_value_secret_considered
 							add = 10
