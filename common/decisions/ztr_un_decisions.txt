@@ -135,7 +135,11 @@ un_foundation = {
 
 become_member_united_nations = {
 	is_shown = {
-		has_technology_researched = human_rights
+		OR = {
+			has_technology_researched = human_rights
+			prestige >= 200 # Country must be a bit important
+		}
+		
 		year > 1945
 		NOT = {
 			OR = {
@@ -174,7 +178,7 @@ become_member_united_nations = {
 		join_un_law_changes = yes
 	}
 	ai_chance = {
-		value = 5
+		value = 10
 	}
 }
 

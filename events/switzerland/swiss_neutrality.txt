@@ -1,0 +1,67 @@
+namespace = ztr_switzerland
+
+ztr_switzerland.1 = {
+	dlc = dlc_tech_res
+	type = country_event
+	placement = root
+
+	duration = 3
+
+	title = ztr_switzerland.1.t
+	desc = ztr_switzerland.1.d
+	flavor = ztr_switzerland.1.f
+
+	event_image = {
+		video = "europenorthamerica_capitalists_meeting"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	icon = "gfx/interface/icons/event_icons/cross_event.dds"
+
+	trigger = {
+		c:SWI ?= root
+		is_revolutionary = no
+		is_secessionist = no
+		NOT = { has_modifier = ztr_swiss_neutral_financial_hub }
+	}
+
+	option = {
+		name = ztr_switzerland.1.a
+		default_option = yes
+
+		add_modifier = ztr_swiss_neutral_financial_hub
+	}
+}
+
+ztr_switzerland.2 = {
+	dlc = dlc_tech_res
+	type = country_event
+	placement = root
+
+	duration = 3
+
+	title = ztr_switzerland.2.t
+	desc = ztr_switzerland.2.d
+	flavor = ztr_switzerland.2.f
+
+	event_image = {
+		video = "unspecific_signed_contract"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	icon = "gfx/interface/icons/event_icons/cross_event.dds"
+
+	trigger = {
+		c:SWI ?= this
+		infamy > 10
+	}
+
+	option = {
+		name = ztr_switzerland.2.a
+		default_option = yes
+
+		remove_modifier = ztr_swiss_neutral_financial_hub
+	}
+}

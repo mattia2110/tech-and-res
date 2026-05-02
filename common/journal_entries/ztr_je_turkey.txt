@@ -63,6 +63,14 @@ je_ottoman_empire_collapse = {
 		effect = {
 			if = {
 				limit = {
+					NOT = { exists = scope:ztr_ottoman_collapse_target_country }
+				}
+				c:TUR = {
+					save_scope_as = ztr_ottoman_collapse_target_country
+				}
+			}
+			if = {
+				limit = {
 					NOT = {
 						has_global_variable = ztr_ottoman_collapse_happened
 					}

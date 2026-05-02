@@ -256,14 +256,19 @@ building_power_grid_station = {
 		# Uncomment as this complex thing makes AI very stupi on PMs optimization
 		OR = {
 			is_capital = yes
+			any_scope_building = {
+				OR = {
+					is_building_type = building_power_grid_station
+					is_building_type = building_power_plant
+					is_building_type = building_hydroelectric_power_plant
+					is_building_type = building_renewable_energy_power_plant
+					is_building_type = building_geothermal_power_plant
+				}
+			}
 			any_neighbouring_state = {
 				any_scope_building = {
 					OR = {
 						is_building_type = building_power_grid_station
-						is_building_type = building_power_plant
-						is_building_type = building_hydroelectric_power_plant
-						is_building_type = building_renewable_energy_power_plant
-						is_building_type = building_geothermal_power_plant
 					}
 				}
 			}

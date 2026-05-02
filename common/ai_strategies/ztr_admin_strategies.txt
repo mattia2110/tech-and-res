@@ -117,9 +117,24 @@ REPLACE:ai_strategy_industrial_expansion = {
 		### T&R Raw Materials Needed ###
 		copper = { stance = wants_high_supply }
 		commonores = { stance = wants_high_supply }
-		bauxite = { stance = wants_high_supply }
-		advancedores = { stance = wants_high_supply }
-		rare_earths = { stance = wants_high_supply }
+		bauxite = {
+			stance = wants_high_supply
+			trigger = {
+				has_technology_researched = bauxite_processing
+			}
+		}
+		advancedores = {
+			stance = wants_high_supply
+			trigger = {
+				has_technology_researched = quartz_glass 
+			}
+		}
+		rare_earths = {
+			stance = wants_high_supply
+			trigger = {
+				has_technology_researched = rare_earths
+			}
+		}
 		gas = {
 			stance = wants_high_supply
 			trigger = {

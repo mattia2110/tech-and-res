@@ -4,10 +4,11 @@
 #3. ztr_un_set_current_law_as_considered -> Sets the current law as considered
 #4. ztr_un_set_vote_proposal_as_considered -> Sets the active vote proposal as considered
 #5. ztr_un_set_current_vote_law_as_considered -> Sets the current law of the active vote subject as considered
-#6. ztr_un_ai_try_start_possible_vote -> Tries to start a possible vote
-#7. ztr_un_ai_take_neutral_vote_position -> Lets a neutral AI country pick support or against during a live vote
-#8. ztr_un_value_law_prepare_country_context -> Prepares the country context for the law
-#9. ztr_un_value_law -> Used by country to decide favor, neutral or against and by proposer if it wants to propose the law
+#6. ztr_un_prioritize_first_institution_establishment_vote -> Once per institution, prioritizes an available UN institution establishment proposal
+#7. ztr_un_ai_try_start_possible_vote -> Tries to start a possible vote
+#8. ztr_un_ai_take_neutral_vote_position -> Lets a neutral AI country pick support or against during a live vote
+#9. ztr_un_value_law_prepare_country_context -> Prepares the country context for the law
+#10. ztr_un_value_law -> Used by country to decide favor, neutral or against and by proposer if it wants to propose the law
 
 ztr_un_random_subject_and_law_extraction = {
 	# Make sure every UN subject has a current fallback value before we compare proposals.
@@ -225,6 +226,125 @@ ztr_un_random_subject_and_law_extraction = {
 			}
 		}
 		1 = {
+			set_global_variable = {
+				name = ztr_un_subject_possible_proposal
+				value = 11
+			}
+			set_global_variable = {
+				name = ztr_un_law_possible_proposal
+				value = 1
+			}
+		}
+	}
+}
+
+ztr_un_prioritize_first_institution_establishment_vote = {
+	# First AI scripted attempt per institution: if this proposer can found one, prefer it over the generic law pool.
+	if = {
+		limit = {
+			OR = {
+				AND = {
+					NOT = {
+						has_global_variable = ztr_un_institution_imf_establishment_priority_attempted
+					}
+					has_global_variable = ztr_un_institution_imf
+					global_var:ztr_un_institution_imf = 0
+					has_technology_researched = secure_market_transactions
+				}
+				AND = {
+					NOT = {
+						has_global_variable = ztr_un_institution_wto_establishment_priority_attempted
+					}
+					has_global_variable = ztr_un_institution_wto
+					global_var:ztr_un_institution_wto = 0
+					has_technology_researched = globalization
+				}
+				AND = {
+					NOT = {
+						has_global_variable = ztr_un_institution_icc_establishment_priority_attempted
+					}
+					has_global_variable = ztr_un_institution_icc
+					global_var:ztr_un_institution_icc = 0
+					has_technology_researched = human_rights
+					has_technology_researched = globalization
+				}
+				AND = {
+					NOT = {
+						has_global_variable = ztr_un_institution_unesco_establishment_priority_attempted
+					}
+					has_global_variable = ztr_un_institution_unesco
+					global_var:ztr_un_institution_unesco = 0
+					has_technology_researched = international_organizations
+				}
+			}
+		}
+		if = {
+			limit = {
+				NOT = {
+					has_global_variable = ztr_un_institution_imf_establishment_priority_attempted
+				}
+				has_global_variable = ztr_un_institution_imf
+				global_var:ztr_un_institution_imf = 0
+				has_technology_researched = secure_market_transactions
+			}
+			set_global_variable = ztr_un_institution_imf_establishment_priority_attempted
+			set_global_variable = {
+				name = ztr_un_subject_possible_proposal
+				value = 8
+			}
+			set_global_variable = {
+				name = ztr_un_law_possible_proposal
+				value = 1
+			}
+		}
+		else_if = {
+			limit = {
+				NOT = {
+					has_global_variable = ztr_un_institution_wto_establishment_priority_attempted
+				}
+				has_global_variable = ztr_un_institution_wto
+				global_var:ztr_un_institution_wto = 0
+				has_technology_researched = globalization
+			}
+			set_global_variable = ztr_un_institution_wto_establishment_priority_attempted
+			set_global_variable = {
+				name = ztr_un_subject_possible_proposal
+				value = 9
+			}
+			set_global_variable = {
+				name = ztr_un_law_possible_proposal
+				value = 1
+			}
+		}
+		else_if = {
+			limit = {
+				NOT = {
+					has_global_variable = ztr_un_institution_icc_establishment_priority_attempted
+				}
+				has_global_variable = ztr_un_institution_icc
+				global_var:ztr_un_institution_icc = 0
+				has_technology_researched = globalization
+			}
+			set_global_variable = ztr_un_institution_icc_establishment_priority_attempted
+			set_global_variable = {
+				name = ztr_un_subject_possible_proposal
+				value = 10
+			}
+			set_global_variable = {
+				name = ztr_un_law_possible_proposal
+				value = 1
+			}
+		}
+		else_if = {
+			limit = {
+				NOT = {
+					has_global_variable = ztr_un_institution_unesco_establishment_priority_attempted
+				}
+				has_global_variable = ztr_un_institution_unesco
+				global_var:ztr_un_institution_unesco = 0
+				has_technology_researched = international_organizations
+			}
+			set_global_variable = ztr_un_institution_unesco_establishment_priority_attempted
 			set_global_variable = {
 				name = ztr_un_subject_possible_proposal
 				value = 11
@@ -489,6 +609,8 @@ ztr_un_ai_try_start_possible_vote = {
 	remove_variable = ztr_un_ai_possible_law_value
 	remove_variable = ztr_un_subject_considered
 	remove_variable = ztr_un_law_considered
+
+	ztr_un_prioritize_first_institution_establishment_vote = yes
 
 	if = {
 		limit = {

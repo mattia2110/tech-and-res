@@ -1,7 +1,8 @@
 # Hydroelectric Power Plants
-
+###LOCAL SYSTEM
 pm_run_of_river_plants = {
 	texture = "gfx/interface/icons/production_method_icons/pm_run_of_river_plants.dds"
+	replacement_if_valid = pm_run_of_river_plants_2
 
 	building_modifiers = {
 		workforce_scaled = {
@@ -11,7 +12,7 @@ pm_run_of_river_plants = {
 			goods_input_wood_add = 20 #400
 			goods_input_copperwires_add = 5 #250 #2150
 			goods_output_electricity_add = 150 # 54000
-			goods_output_global_electricity_add = 155
+			goods_output_global_electricity_add = 16
 		}
 
 		level_scaled = {
@@ -20,10 +21,15 @@ pm_run_of_river_plants = {
 			building_employment_engineers_add = 250
 		}
 	}
+
+	unlocking_laws = {
+		law_no_national_electric_system
+	}
 }
 
 pm_reservoir_dams = {
 	texture = "gfx/interface/icons/production_method_icons/hydroelectric_plant.dds"
+	replacement_if_valid = pm_reservoir_dams_2
 
 	unlocking_technologies = {
 		pneumatic_tools
@@ -36,7 +42,7 @@ pm_reservoir_dams = {
 			goods_input_engines_add = 20 # 600
 			goods_input_copperwires_add = 10 #250 #2150
 			goods_output_electricity_add = 285 # 54000
-			goods_output_global_electricity_add = 290
+			goods_output_global_electricity_add = 29
 		}
 
 		level_scaled = {
@@ -45,10 +51,15 @@ pm_reservoir_dams = {
 			building_employment_engineers_add = 250
 		}
 	}
+
+	unlocking_laws = {
+		law_no_national_electric_system
+	}
 }
 
 pm_advanced_turbine_generators = {
 	texture = "gfx/interface/icons/production_method_icons/pm_advanced_turbine_generators.dds"
+	replacement_if_valid = pm_advanced_turbine_generators_2
 
 	unlocking_technologies = {
 		oil_turbine
@@ -62,13 +73,193 @@ pm_advanced_turbine_generators = {
 			goods_input_copperwires_add = 10 #250 #2150
 			goods_input_electroniccomponents_add = 10
 			goods_output_electricity_add = 420 # 54000
-			goods_output_global_electricity_add = 430
+			goods_output_global_electricity_add = 43
 		}
 
 		level_scaled = {
 			building_employment_machinists_add = 4500
 			building_employment_engineers_add = 500
 		}
+	}
+
+	unlocking_laws = {
+		law_no_national_electric_system
+	}
+}
+
+###MIXED SYSTEM
+pm_run_of_river_plants_2 = {
+	texture = "gfx/interface/icons/production_method_icons/pm_run_of_river_plants.dds"
+	is_hidden_when_unavailable = yes
+
+	building_modifiers = {
+		workforce_scaled = {
+			goods_input_steel_add = 10 # 1000
+			goods_input_batteries_add = 5 #300
+			goods_input_engines_add = 10 # 600
+			goods_input_wood_add = 20 #400
+			goods_input_copperwires_add = 5 #250 #2150
+			goods_output_electricity_add = 85 # 54000
+			goods_output_global_electricity_add = 90
+		}
+
+		level_scaled = {
+			building_employment_laborers_add = 1500
+			building_employment_machinists_add = 2750 #-500
+			building_employment_engineers_add = 250
+		}
+	}
+
+	unlocking_laws = {
+		law_national_electric_system
+	}
+}
+
+pm_reservoir_dams_2 = {
+	texture = "gfx/interface/icons/production_method_icons/hydroelectric_plant.dds"
+	is_hidden_when_unavailable = yes
+
+	unlocking_technologies = {
+		pneumatic_tools
+	}
+
+	building_modifiers = {
+		workforce_scaled = {
+			goods_input_steel_add = 50 # 1000
+			goods_input_batteries_add = 10 #300
+			goods_input_engines_add = 20 # 600
+			goods_input_copperwires_add = 10 #250 #2150
+			goods_output_electricity_add = 170 # 54000
+			goods_output_global_electricity_add = 175
+		}
+
+		level_scaled = {
+			building_employment_laborers_add = 500
+			building_employment_machinists_add = 3750 #-500
+			building_employment_engineers_add = 250
+		}
+	}
+
+	unlocking_laws = {
+		law_national_electric_system
+	}
+}
+
+pm_advanced_turbine_generators_2 = {
+	texture = "gfx/interface/icons/production_method_icons/pm_advanced_turbine_generators.dds"
+	is_hidden_when_unavailable = yes
+
+	unlocking_technologies = {
+		oil_turbine
+	}
+
+	building_modifiers = {
+		workforce_scaled = {
+			goods_input_steel_add = 75 # 1000
+			goods_input_batteries_add = 10 #300
+			goods_input_engines_add = 30 # 600
+			goods_input_copperwires_add = 10 #250 #2150
+			goods_input_electroniccomponents_add = 10
+			goods_output_electricity_add = 250 # 54000
+			goods_output_global_electricity_add = 260
+		}
+
+		level_scaled = {
+			building_employment_machinists_add = 4000 #-500
+			building_employment_engineers_add = 500
+		}
+	}
+
+	unlocking_laws = {
+		law_national_electric_system
+	}
+}
+
+#NATIONAL SYSTEM
+pm_run_of_river_plants_3 = {
+	texture = "gfx/interface/icons/production_method_icons/pm_run_of_river_plants.dds"
+	is_hidden_when_unavailable = yes
+
+	building_modifiers = {
+		workforce_scaled = {
+			goods_input_steel_add = 10 # 1000
+			goods_input_batteries_add = 5 #300
+			goods_input_engines_add = 10 # 600
+			goods_input_wood_add = 20 #400
+			goods_input_copperwires_add = 5 #250 #2150
+			goods_output_electricity_add = 15 # 54000
+			goods_output_global_electricity_add = 155
+		}
+
+		level_scaled = {
+			building_employment_laborers_add = 1500
+			building_employment_machinists_add = 2500 #-750
+			building_employment_engineers_add = 250
+		}
+	}
+
+	unlocking_laws = {
+		law_modern_national_electric_system
+	}
+}
+
+pm_reservoir_dams_3 = {
+	texture = "gfx/interface/icons/production_method_icons/hydroelectric_plant.dds"
+	is_hidden_when_unavailable = yes
+
+	unlocking_technologies = {
+		pneumatic_tools
+	}
+
+	building_modifiers = {
+		workforce_scaled = {
+			goods_input_steel_add = 50 # 1000
+			goods_input_batteries_add = 10 #300
+			goods_input_engines_add = 20 # 600
+			goods_input_copperwires_add = 10 #250 #2150
+			goods_output_electricity_add = 28 # 54000
+			goods_output_global_electricity_add = 290
+		}
+
+		level_scaled = {
+			building_employment_laborers_add = 500
+			building_employment_machinists_add = 3500 #-750
+			building_employment_engineers_add = 250
+		}
+	}
+
+	unlocking_laws = {
+		law_modern_national_electric_system
+	}
+}
+
+pm_advanced_turbine_generators_3 = {
+	texture = "gfx/interface/icons/production_method_icons/pm_advanced_turbine_generators.dds"
+	is_hidden_when_unavailable = yes
+
+	unlocking_technologies = {
+		oil_turbine
+	}
+
+	building_modifiers = {
+		workforce_scaled = {
+			goods_input_steel_add = 75 # 1000
+			goods_input_batteries_add = 10 #300
+			goods_input_engines_add = 30 # 600
+			goods_input_copperwires_add = 10 #250 #2150
+			goods_input_electroniccomponents_add = 10
+			goods_output_electricity_add = 42 # 54000
+			goods_output_global_electricity_add = 430
+		}
+
+		level_scaled = {
+			building_employment_machinists_add = 3750 #-750
+			building_employment_engineers_add = 500
+		}
+	}
+
+	unlocking_laws = {
+		law_modern_national_electric_system
 	}
 }
 
@@ -201,8 +392,12 @@ pm_smart_grid_energy_management_power_plant = {
 	}
 }
 
+# Power Plant
+
+### LOCAL SYSTEM
 REPLACE:pm_early_power_plant = {
 	texture = "gfx/interface/icons/production_method_icons/power_plant.dds"
+	replacement_if_valid = pm_early_power_plant_2
 
 	state_modifiers = {
 		workforce_scaled = {
@@ -219,7 +414,7 @@ REPLACE:pm_early_power_plant = {
 			goods_input_copperwires_add = 1 #50 #110 less cheap tha vanilla
 
 			goods_output_electricity_add = 25 
-			goods_output_global_electricity_add = 25
+			goods_output_global_electricity_add = 3
 		}
 
 		level_scaled = {
@@ -229,10 +424,14 @@ REPLACE:pm_early_power_plant = {
 		}
 	}
 	
+	unlocking_laws = {
+		law_no_national_electric_system
+	}
 }
 
 REPLACE:pm_coal-fired_plant = {
 	texture = "gfx/interface/icons/production_method_icons/coal_fired_plant.dds"
+	replacement_if_valid = pm_coal-fired_plant_2
 
 	unlocking_technologies = {
 		steam_turbine
@@ -253,7 +452,7 @@ REPLACE:pm_coal-fired_plant = {
 			goods_input_coal_add = 20 #600 #80 less cheap than vanilla
 
 			goods_output_electricity_add = 55 #1500
-			goods_output_global_electricity_add = 55
+			goods_output_global_electricity_add = 6
 		}
 
 		level_scaled = {
@@ -261,6 +460,10 @@ REPLACE:pm_coal-fired_plant = {
 			building_employment_machinists_add = 500
 			building_employment_engineers_add = 150
 		}
+	}
+
+	unlocking_laws = {
+		law_no_national_electric_system
 	}
 
 	disallowing_laws = {
@@ -271,6 +474,7 @@ REPLACE:pm_coal-fired_plant = {
 
 REPLACE:pm_oil-fired_plant = {
 	texture = "gfx/interface/icons/production_method_icons/oil_fired_plant.dds"
+	replacement_if_valid = pm_oil-fired_plant_2
 
 	unlocking_technologies = {
 		oil_turbine
@@ -291,7 +495,7 @@ REPLACE:pm_oil-fired_plant = {
 			goods_input_oil_add = 25 #1000 # 130 less cheap than vanilla
 
 			goods_output_electricity_add = 85 #2400
-			goods_output_global_electricity_add = 90
+			goods_output_global_electricity_add = 9
 		}
 
 		level_scaled = {
@@ -300,6 +504,10 @@ REPLACE:pm_oil-fired_plant = {
 			building_employment_engineers_add = 200
 		}
 	}
+
+	unlocking_laws = {
+		law_no_national_electric_system
+	}
 	disallowing_laws = {
 		law_active_restoration
 	}
@@ -307,6 +515,7 @@ REPLACE:pm_oil-fired_plant = {
 
 pm_gas-fired_plant = {
 	texture = "gfx/interface/icons/production_method_icons/gas_fired_plant.dds"
+	replacement_if_valid = pm_gas-fired_plant_2
 
 	unlocking_technologies = {
 		gas_turbine
@@ -327,7 +536,7 @@ pm_gas-fired_plant = {
 			goods_input_gas_add = 25 #750
 
 			goods_output_electricity_add = 85 #2400
-			goods_output_global_electricity_add = 90
+			goods_output_global_electricity_add = 9
 		}
 
 		level_scaled = {
@@ -336,12 +545,17 @@ pm_gas-fired_plant = {
 			building_employment_engineers_add = 200
 		}
 	}
+
+	unlocking_laws = {
+		law_no_national_electric_system
+	}
 }
 
 # Nuclear Power Plants
 
 pm_nuclear-fission_plant = {
 	texture = "gfx/interface/icons/production_method_icons/pm_nuclear_reactor.dds"
+	replacement_if_valid = pm_nuclear-fission_plant_2
 
 	unlocking_technologies = {
 		nuclear_reactor
@@ -362,7 +576,7 @@ pm_nuclear-fission_plant = {
 			goods_input_electroniccomponents_add = 3 #180
 			goods_input_good_uranium_add = 20 #800 #2010
 			goods_output_electricity_add = 110 #3000
-			goods_output_global_electricity_add = 115
+			goods_output_global_electricity_add = 12
 
 		}
 
@@ -373,9 +587,433 @@ pm_nuclear-fission_plant = {
 		}
 	}
 
+	unlocking_laws = {
+		law_no_national_electric_system
+	}
+
 	disallowing_laws = {
 		law_uranium_ban
 	}
+}
+
+### MIXED SYSTEM
+
+pm_early_power_plant_2 = {
+	texture = "gfx/interface/icons/production_method_icons/power_plant.dds"
+	is_hidden_when_unavailable = yes
+
+	state_modifiers = {
+		workforce_scaled = {
+			state_pollution_generation_add = 25
+		}
+	}
+
+	building_modifiers = {
+		workforce_scaled = {
+			goods_input_batteries_add = 1 #60
+			goods_input_engines_add = 2 # 240
+			goods_input_coal_add = 4 # 150
+			goods_input_wood_add = 4 # 100
+			goods_input_copperwires_add = 1 #50 #110 less cheap tha vanilla
+
+			goods_output_electricity_add = 15
+			goods_output_global_electricity_add = 15
+		}
+
+		level_scaled = {
+			building_employment_laborers_add = 500
+			building_employment_machinists_add = 325 #-75
+			building_employment_engineers_add = 100
+		}
+	}
+	
+	unlocking_laws = {
+		law_national_electric_system
+	}
+}
+
+pm_coal-fired_plant_2 = {
+	texture = "gfx/interface/icons/production_method_icons/coal_fired_plant.dds"
+	is_hidden_when_unavailable = yes
+
+	unlocking_technologies = {
+		steam_turbine
+	}
+
+	state_modifiers = {
+		workforce_scaled = {
+			state_pollution_generation_add = 50
+		}
+	}
+	
+	building_modifiers = {
+		workforce_scaled = {
+			goods_input_batteries_add = 1 #60
+			goods_input_engines_add = 3 #180
+			goods_input_water_add = 2 #100
+			goods_input_copperwires_add = 2 #100
+			goods_input_coal_add = 20 #600 #80 less cheap than vanilla
+
+			goods_output_electricity_add = 30 #1500
+			goods_output_global_electricity_add = 35
+		}
+
+		level_scaled = {
+			building_employment_laborers_add = 350
+			building_employment_machinists_add = 425 #-75
+			building_employment_engineers_add = 150
+		}
+	}
+
+	unlocking_laws = {
+		law_national_electric_system
+	}
+
+	disallowing_laws = {
+		law_basic_protection
+		law_active_restoration
+	}
+}
+
+pm_oil-fired_plant_2 = {
+	texture = "gfx/interface/icons/production_method_icons/oil_fired_plant.dds"
+	is_hidden_when_unavailable = yes
+
+	unlocking_technologies = {
+		oil_turbine
+	}
+
+	state_modifiers = {
+		workforce_scaled = {
+			state_pollution_generation_add = 50
+		}
+	}
+
+	building_modifiers = {
+		workforce_scaled = {
+			goods_input_batteries_add = 2 #120
+			goods_input_engines_add = 6 #360
+			goods_input_water_add = 3 #150
+			goods_input_copperwires_add = 2 #100
+			goods_input_oil_add = 25 #1000 # 130 less cheap than vanilla
+
+			goods_output_electricity_add = 50 #2400
+			goods_output_global_electricity_add = 55
+		}
+
+		level_scaled = {
+			building_employment_laborers_add = 200
+			building_employment_machinists_add = 525 #-75
+			building_employment_engineers_add = 200
+		}
+	}
+
+	unlocking_laws = {
+		law_national_electric_system
+	}
+
+	disallowing_laws = {
+		law_active_restoration
+	}
+}
+
+pm_gas-fired_plant_2 = {
+	texture = "gfx/interface/icons/production_method_icons/gas_fired_plant.dds"
+	is_hidden_when_unavailable = yes
+
+	unlocking_technologies = {
+		gas_turbine
+	}
+
+	state_modifiers = {
+		workforce_scaled = {
+			state_pollution_generation_add = 20
+		}
+	}
+
+	building_modifiers = {
+		workforce_scaled = {
+			goods_input_batteries_add = 2 #120
+			goods_input_engines_add = 6 #360
+			goods_input_water_add = 3 #150
+			goods_input_copperwires_add = 2 #100
+			goods_input_gas_add = 25 #750
+
+			goods_output_electricity_add = 50 #2400
+			goods_output_global_electricity_add = 55
+		}
+
+		level_scaled = {
+			building_employment_laborers_add = 200
+			building_employment_machinists_add = 425 #-75
+			building_employment_engineers_add = 200
+		}
+	}
+
+	unlocking_laws = {
+		law_national_electric_system
+	}
+
+}
+
+# Nuclear Power Plants
+
+pm_nuclear-fission_plant_2 = {
+	texture = "gfx/interface/icons/production_method_icons/pm_nuclear_reactor.dds"
+	is_hidden_when_unavailable = yes
+
+	unlocking_technologies = {
+		nuclear_reactor
+	}
+
+	state_modifiers = {
+		workforce_scaled = {
+			state_pollution_generation_add = 5
+		}
+	}
+
+	building_modifiers = {
+		workforce_scaled = {
+			goods_input_batteries_add = 2 #120
+			goods_input_engines_add = 6 #360
+			goods_input_water_add = 10 #500
+			goods_input_copperwires_add = 2 #100
+			goods_input_electroniccomponents_add = 3 #180
+			goods_input_good_uranium_add = 20 #800 #2010
+			goods_output_electricity_add = 65 #3000
+			goods_output_global_electricity_add = 70
+
+		}
+
+		level_scaled = {
+			building_employment_laborers_add = 200
+			building_employment_machinists_add = 325 #-75
+			building_employment_engineers_add = 300
+		}
+	}
+
+	unlocking_laws = {
+		law_national_electric_system
+	}
+
+	disallowing_laws = {
+		law_uranium_ban
+	}
+}
+
+### NATIONAL SYSTEM
+
+pm_early_power_plant_3 = {
+	texture = "gfx/interface/icons/production_method_icons/power_plant.dds"
+	is_hidden_when_unavailable = yes
+
+	state_modifiers = {
+		workforce_scaled = {
+			state_pollution_generation_add = 25
+		}
+	}
+
+	building_modifiers = {
+		workforce_scaled = {
+			goods_input_batteries_add = 1 #60
+			goods_input_engines_add = 2 # 240
+			goods_input_coal_add = 4 # 150
+			goods_input_wood_add = 4 # 100
+			goods_input_copperwires_add = 1 #50 #110 less cheap tha vanilla
+
+			goods_output_electricity_add = 3
+			goods_output_global_electricity_add = 25
+		}
+
+		level_scaled = {
+			building_employment_laborers_add = 500
+			building_employment_machinists_add = 300 #-100
+			building_employment_engineers_add = 100
+		}
+	}
+
+	unlocking_laws = {
+		law_modern_national_electric_system
+	}
+	
+}
+
+pm_coal-fired_plant_3 = {
+	texture = "gfx/interface/icons/production_method_icons/coal_fired_plant.dds"
+	is_hidden_when_unavailable = yes
+
+	unlocking_technologies = {
+		steam_turbine
+	}
+
+	state_modifiers = {
+		workforce_scaled = {
+			state_pollution_generation_add = 50
+		}
+	}
+	
+	building_modifiers = {
+		workforce_scaled = {
+			goods_input_batteries_add = 1 #60
+			goods_input_engines_add = 3 #180
+			goods_input_water_add = 2 #100
+			goods_input_copperwires_add = 2 #100
+			goods_input_coal_add = 20 #600 #80 less cheap than vanilla
+
+			goods_output_electricity_add = 6 #1500
+			goods_output_global_electricity_add = 55
+		}
+
+		level_scaled = {
+			building_employment_laborers_add = 350
+			building_employment_machinists_add = 400 #-100
+			building_employment_engineers_add = 150
+		}
+	}
+
+	unlocking_laws = {
+		law_modern_national_electric_system
+	}
+
+	disallowing_laws = {
+		law_basic_protection
+		law_active_restoration
+	}
+}
+
+pm_oil-fired_plant_3 = {
+	texture = "gfx/interface/icons/production_method_icons/oil_fired_plant.dds"
+	is_hidden_when_unavailable = yes
+
+	unlocking_technologies = {
+		oil_turbine
+	}
+
+	state_modifiers = {
+		workforce_scaled = {
+			state_pollution_generation_add = 50
+		}
+	}
+
+	building_modifiers = {
+		workforce_scaled = {
+			goods_input_batteries_add = 2 #120
+			goods_input_engines_add = 6 #360
+			goods_input_water_add = 3 #150
+			goods_input_copperwires_add = 2 #100
+			goods_input_oil_add = 25 #1000 # 130 less cheap than vanilla
+
+			goods_output_electricity_add = 9 #2400
+			goods_output_global_electricity_add = 90
+		}
+
+		level_scaled = {
+			building_employment_laborers_add = 200
+			building_employment_machinists_add = 500 #-100
+			building_employment_engineers_add = 200
+		}
+	}
+
+	unlocking_laws = {
+		law_modern_national_electric_system
+	}
+
+	disallowing_laws = {
+		law_active_restoration
+	}
+}
+
+pm_gas-fired_plant_3 = {
+	texture = "gfx/interface/icons/production_method_icons/gas_fired_plant.dds"
+	is_hidden_when_unavailable = yes
+
+	unlocking_technologies = {
+		gas_turbine
+	}
+
+	state_modifiers = {
+		workforce_scaled = {
+			state_pollution_generation_add = 20
+		}
+	}
+
+	building_modifiers = {
+		workforce_scaled = {
+			goods_input_batteries_add = 2 #120
+			goods_input_engines_add = 6 #360
+			goods_input_water_add = 3 #150
+			goods_input_copperwires_add = 2 #100
+			goods_input_gas_add = 25 #750
+
+			goods_output_electricity_add = 0 #2400
+			goods_output_global_electricity_add = 90
+		}
+
+		level_scaled = {
+			building_employment_laborers_add = 200
+			building_employment_machinists_add = 400 #-100
+			building_employment_engineers_add = 200
+		}
+	}
+
+	unlocking_laws = {
+		law_modern_national_electric_system
+	}
+}
+
+# Nuclear Power Plants
+
+pm_nuclear-fission_plant_3 = {
+	texture = "gfx/interface/icons/production_method_icons/pm_nuclear_reactor.dds"
+	is_hidden_when_unavailable = yes
+
+	unlocking_technologies = {
+		nuclear_reactor
+	}
+
+	state_modifiers = {
+		workforce_scaled = {
+			state_pollution_generation_add = 5
+		}
+	}
+
+	building_modifiers = {
+		workforce_scaled = {
+			goods_input_batteries_add = 2 #120
+			goods_input_engines_add = 6 #360
+			goods_input_water_add = 10 #500
+			goods_input_copperwires_add = 2 #100
+			goods_input_electroniccomponents_add = 3 #240
+			goods_input_good_uranium_add = 20 #800 #2010
+			goods_output_electricity_add = 11 #3000
+			goods_output_global_electricity_add = 115
+
+		}
+
+		level_scaled = {
+			building_employment_laborers_add = 200
+			building_employment_machinists_add = 300 #-100
+			building_employment_engineers_add = 300
+		}
+	}
+
+	unlocking_laws = {
+		law_modern_national_electric_system
+	}
+
+	disallowing_laws = {
+		law_uranium_ban
+	}
+}
+
+# Refining PMs
+
+no_refining_power_plant = {
+	texture = "gfx/interface/icons/production_method_icons/elgar_no_radio_stations.dds"
+}
+
+no_automation_power_plant = {
+	texture = "gfx/interface/icons/production_method_icons/elgar_no_ballet.dds"
 }
 
 pm_nuclear_second_generation = {
@@ -386,7 +1024,7 @@ pm_nuclear_second_generation = {
 	}
 
 	unlocking_production_methods = {
-		pm_nuclear-fission_plant
+		pm_nuclear-fission_plant_3
 	}
 	
 	building_modifiers = {
@@ -394,21 +1032,27 @@ pm_nuclear_second_generation = {
 			# input goods
 			goods_input_robotics_add = 2 #300
 			goods_input_processors_add = 2 #260
-			goods_output_electricity_add = 15 #450
+			goods_output_electricity_add = 2 #450
 			goods_output_global_electricity_add = 20 #600 +5 for more buildings
 		}
+		unscaled = {
+			building_power_plant_throughput_add = 0.15
+		}
+	}
+	unlocking_laws = {
+		law_modern_national_electric_system
 	}
 }
 
 pm_nuclear_third_generation = {
 	texture = "gfx/interface/icons/production_method_icons/pm_nuclear_second_generation.dds"
-	
+
 	unlocking_technologies = {
 		third_nuclear_reactor
 	}
 
 	unlocking_production_methods = {
-		pm_nuclear-fission_plant
+		pm_nuclear-fission_plant_3
 	}
 	
 	building_modifiers = {
@@ -417,22 +1061,13 @@ pm_nuclear_third_generation = {
 			goods_input_robotics_add = 3 #300
 			goods_input_computer_add = 3 #390
 			goods_input_softwares_add = 1 # 60
-			goods_output_electricity_add = 25 # 750
+			goods_output_electricity_add = 3 # 750
 			goods_output_global_electricity_add = 30 #1000 +5 for more buildings
 		}
 	}
-}
-
-# Quando crei generazione 4 usa immagine della generazione 3
-
-#Power Plant
-
-no_refining_power_plant = {
-	texture = "gfx/interface/icons/production_method_icons/elgar_no_radio_stations.dds"
-}
-
-no_automation_power_plant = {
-	texture = "gfx/interface/icons/production_method_icons/elgar_no_ballet.dds"
+	unlocking_laws = {
+		law_modern_national_electric_system
+	}
 }
 
 pm_automation_HFO_fuel = {
@@ -443,7 +1078,7 @@ pm_automation_HFO_fuel = {
 	}
 
 	unlocking_production_methods = {
-		pm_oil-fired_plant
+		pm_oil-fired_plant_3
 	}
 
 	state_modifiers = {
@@ -457,16 +1092,20 @@ pm_automation_HFO_fuel = {
 			# input goods
 			goods_input_heavy_fuel_add = 15 #15*70 = 1050
 			goods_input_oil_add = -25 # 25*40 = 1000
-			goods_output_electricity_add = 10 #300
-			goods_output_global_electricity_add = 10
+			goods_output_global_electricity_add = 5
 		}
+	}
+	unlocking_laws = {
+		law_modern_national_electric_system
 	}
 }
 
 # Geothermal Power Plants
 
+### LOCAL SYSTEM
 pm_geothermal_turbine = {
 	texture = "gfx/interface/icons/production_method_icons/pm_geothermal_turbine.dds"
+	is_hidden_when_unavailable = yes
 
 	unlocking_technologies = {
 		geothermal_energy
@@ -488,14 +1127,98 @@ pm_geothermal_turbine = {
 
 			# output goods
 			goods_output_electricity_add = 385
-			goods_output_global_electricity_add = 390 #400 +50 for more buildings
+			goods_output_global_electricity_add = 39 #400 +50 for more buildings
 		}
 		level_scaled = {
 			building_employment_machinists_add = 7000
 			building_employment_engineers_add = 2000
 		}
 	}
+
+	unlocking_laws = {
+		law_no_national_electric_system
+	}
 }
+
+### MIXED SYSTEM
+
+pm_geothermal_turbine_2 = {
+	texture = "gfx/interface/icons/production_method_icons/pm_geothermal_turbine.dds"
+	is_hidden_when_unavailable = yes
+
+	unlocking_technologies = {
+		geothermal_energy
+	}
+
+	state_modifiers = {
+		workforce_scaled = {
+			state_pollution_generation_add = 5
+		}
+	}
+
+	building_modifiers = {
+		workforce_scaled = {
+			goods_input_copperwires_add = 5
+			goods_input_batteries_add = 10
+			goods_input_electroniccomponents_add = 10
+			goods_input_engines_add = 20
+			goods_input_water_add = 20
+
+			# output goods
+			goods_output_electricity_add = 230
+			goods_output_global_electricity_add = 235 #400 +50 for more buildings
+		}
+		level_scaled = {
+			building_employment_machinists_add = 6250 #-750
+			building_employment_engineers_add = 2000
+		}
+	}
+
+	unlocking_laws = {
+		law_national_electric_system
+	}
+}
+
+### NATIONAL SYSTEM
+
+pm_geothermal_turbine_3 = {
+	texture = "gfx/interface/icons/production_method_icons/pm_geothermal_turbine.dds"
+	is_hidden_when_unavailable = yes
+
+	unlocking_technologies = {
+		geothermal_energy
+	}
+
+	state_modifiers = {
+		workforce_scaled = {
+			state_pollution_generation_add = 5
+		}
+	}
+
+	building_modifiers = {
+		workforce_scaled = {
+			goods_input_copperwires_add = 5
+			goods_input_batteries_add = 10
+			goods_input_electroniccomponents_add = 10
+			goods_input_engines_add = 20
+			goods_input_water_add = 20
+
+			# output goods
+			goods_output_electricity_add = 39
+			goods_output_global_electricity_add = 390 #400 +50 for more buildings
+		}
+		level_scaled = {
+			building_employment_machinists_add = 6000 #-1000
+			building_employment_engineers_add = 2000
+		}
+	}
+
+	unlocking_laws = {
+		law_modern_national_electric_system
+	}
+}
+
+### Refining PMs
 
 pm_automation_closed_loop_system = {
 	texture = "gfx/interface/icons/production_method_icons/pm_automation_closed_loop_system.dds"
@@ -777,12 +1500,6 @@ pm_uhv_grid_download = {
 pm_direct_current = {
 	texture = "gfx/interface/icons/goods_icons/electricity.dds"
 
-	building_modifiers = {
-		unscaled = {
-			goods_output_global_electricity_mult = -0.9
-		}
-	}
-
 	unlocking_laws = {
 		law_no_national_electric_system
 	}
@@ -793,16 +1510,6 @@ pm_half_current = {
 
 	unlocking_technologies = {
 		national_power_grid
-	}
-
-	building_modifiers = {
-		unscaled = {
-			goods_output_global_electricity_mult = -0.45
-			goods_output_electricity_mult = -0.45
-		}
-		level_scaled = {
-			building_employment_machinists_add = -75
-		}
 	}
 
 	unlocking_laws = {
@@ -817,15 +1524,6 @@ pm_alternating_current = {
 		high_voltage_transmission
 	}
 
-	building_modifiers = {
-		unscaled = {
-			goods_output_electricity_mult = -0.9
-		}
-		level_scaled = {
-			building_employment_machinists_add = -100
-		}
-	}
-
 	unlocking_laws = {
 		law_modern_national_electric_system
 	}
@@ -833,12 +1531,6 @@ pm_alternating_current = {
 
 pm_direct_current_large = {
 	texture = "gfx/interface/icons/goods_icons/electricity.dds"
-
-	building_modifiers = {
-		unscaled = {
-			goods_output_global_electricity_mult = -0.9
-		}
-	}
 
 	unlocking_laws = {
 		law_no_national_electric_system
@@ -852,16 +1544,6 @@ pm_half_current_large = {
 		national_power_grid
 	}
 
-	building_modifiers = {
-		unscaled = {
-			goods_output_global_electricity_mult = -0.45
-			goods_output_electricity_mult = -0.45
-		}
-		level_scaled = {
-			building_employment_machinists_add = -750
-		}
-	}
-
 	unlocking_laws = {
 		law_national_electric_system
 	}
@@ -872,15 +1554,6 @@ pm_alternating_current_large = {
 
 	unlocking_technologies = {
 		high_voltage_transmission
-	}
-
-	building_modifiers = {
-		unscaled = {
-			goods_output_electricity_mult = -0.9
-		}
-		level_scaled = {
-			building_employment_machinists_add = -1000
-		}
 	}
 
 	unlocking_laws = {
