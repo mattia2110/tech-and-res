@@ -1,5 +1,4 @@
 ###Volcano Triggers###
-
 agassiz_state_has_volcano = {
 	has_state_trait = dubois_state_trait_volcano
 }
@@ -10,8 +9,16 @@ dubois_has_volcano = {
 	}
 }
 
-# Building Triggers
+# Age
+ztr_global_warming_active = {
+	has_global_variable = ztr_global_warming_initialized
+}
 
+ztr_decolonization_age_active = {
+	has_global_variable = ztr_global_decolonization_pressure_var
+}
+
+# Building Triggers
 has_research_center = {
 	any_scope_state = {
 		any_scope_building = {
@@ -36,7 +43,6 @@ has_fusion_reactor_target = {
 }
 
 # Liberty Index Triggers
-
 is_distopia = {
 	custom_tooltip = {
 		text = ztr_tooltip_is_distopia
@@ -88,7 +94,6 @@ ztr_is_democratic = {
 }
 
 # Negatives
-
 is_not_distopia = {
 	custom_tooltip = {
 		text = ztr_tooltip_is_not_distopia
@@ -122,7 +127,6 @@ ztr_is_not_full_democratic = {
 }
 
 # Equality Index Triggers
-
 ztr_is_individualist = {
 	custom_tooltip = {
 		text = ztr_tooltip_is_individualist_state
@@ -147,7 +151,6 @@ ztr_is_communist = {
 }
 
 # Similar Index Triggers
-
 ztr_is_very_similar_liberty_index = {
 	OR = {
 		AND = {
@@ -245,7 +248,6 @@ ztr_similar_equality_index = {
 }
 
 # Unification Triggers
-
 # Actor and target share a primary culture, so assimilation would be effectively automatic.
 ztr_countries_share_primary_culture = {
 	custom_tooltip = {
@@ -288,31 +290,31 @@ ztr_both_democratic = {
 	custom_tooltip = {
 		text = ztr_tooltip_both_not_totalitarian
 		AND = {
-				scope:actor = { ztr_is_not_totalitarian = yes }
-				scope:target_country = { ztr_is_not_totalitarian = yes }
+			scope:actor = {
+				ztr_is_not_totalitarian = yes
 			}
+			scope:target_country = {
+				ztr_is_not_totalitarian = yes
+			}
+		}
 	}
 }
 
 # Master trigger: every rigid precondition for a peaceful country unification.
 ztr_countries_can_unify_trigger = {
-
-		# The target must be a small leftover country, not a peer or superior.
+	# The target must be a small leftover country, not a peer or superior.
+	scope:actor = {
+		prestige > scope:target_country.prestige
+	}
+	# Identity prerequisites
+	custom_tooltip = {
+		text = ztr_tooltip_countries_have_cultural_or_relations_ground
+		ztr_countries_share_primary_culture = yes
 		scope:actor = {
-			prestige > scope:target_country.prestige
+			"relations(scope:target_country)" >= relations_threshold:neutral
 		}
-
-		# Identity prerequisites
-		custom_tooltip = {
-			text = ztr_tooltip_countries_have_cultural_or_relations_ground
-			ztr_countries_share_primary_culture = yes
-			scope:actor = {
-				"relations(scope:target_country)" >= relations_threshold:neutral
-			}
-		}
-		ztr_both_democratic = yes
-
-		# Geographic prerequisite: actor's homeland must border or overlap target's territory
-		ztr_countries_state_contiguity = yes
-
+	}
+	ztr_both_democratic = yes
+	# Geographic prerequisite: actor's homeland must border or overlap target's territory
+	ztr_countries_state_contiguity = yes
 }

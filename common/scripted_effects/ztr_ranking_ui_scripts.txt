@@ -1429,3 +1429,210 @@ ztr_un_major_power_support_vote_display_global_effect = {
 		}
 	}
 }
+
+# Polluters Ranking
+
+ztr_global_warming_rank_polluters = {
+	ordered_country = {
+		limit = {
+			NOT = {
+				is_country_type = decentralized
+			}
+			has_variable = ztr_country_total_pollution_current_var
+			var:ztr_country_total_pollution_current_var > 0
+		}
+		order_by = var:ztr_country_total_pollution_current_var
+		max = 10
+		check_range_bounds = no
+		if = {
+			limit = {
+				NOT = {
+					has_global_variable = ztr_global_warming_polluter_rank_1_var
+				}
+			}
+			set_global_variable = {
+				name = ztr_global_warming_polluter_rank_1_var
+				value = this
+			}
+			set_global_variable = {
+				name = ztr_global_warming_polluter_rank_1_pollution_var
+				value = var:ztr_country_total_pollution_current_var
+			}
+			set_global_variable = {
+				name = ztr_global_warming_polluter_rank_1_change_var
+				value = var:ztr_country_total_pollution_change_var
+			}
+		}
+		else_if = {
+			limit = {
+				NOT = {
+					has_global_variable = ztr_global_warming_polluter_rank_2_var
+				}
+			}
+			set_global_variable = {
+				name = ztr_global_warming_polluter_rank_2_var
+				value = this
+			}
+			set_global_variable = {
+				name = ztr_global_warming_polluter_rank_2_pollution_var
+				value = var:ztr_country_total_pollution_current_var
+			}
+			set_global_variable = {
+				name = ztr_global_warming_polluter_rank_2_change_var
+				value = var:ztr_country_total_pollution_change_var
+			}
+		}
+		else_if = {
+			limit = {
+				NOT = {
+					has_global_variable = ztr_global_warming_polluter_rank_3_var
+				}
+			}
+			set_global_variable = {
+				name = ztr_global_warming_polluter_rank_3_var
+				value = this
+			}
+			set_global_variable = {
+				name = ztr_global_warming_polluter_rank_3_pollution_var
+				value = var:ztr_country_total_pollution_current_var
+			}
+			set_global_variable = {
+				name = ztr_global_warming_polluter_rank_3_change_var
+				value = var:ztr_country_total_pollution_change_var
+			}
+		}
+		else_if = {
+			limit = {
+				NOT = {
+					has_global_variable = ztr_global_warming_polluter_rank_4_var
+				}
+			}
+			set_global_variable = {
+				name = ztr_global_warming_polluter_rank_4_var
+				value = this
+			}
+			set_global_variable = {
+				name = ztr_global_warming_polluter_rank_4_pollution_var
+				value = var:ztr_country_total_pollution_current_var
+			}
+			set_global_variable = {
+				name = ztr_global_warming_polluter_rank_4_change_var
+				value = var:ztr_country_total_pollution_change_var
+			}
+		}
+		else_if = {
+			limit = {
+				NOT = {
+					has_global_variable = ztr_global_warming_polluter_rank_5_var
+				}
+			}
+			set_global_variable = {
+				name = ztr_global_warming_polluter_rank_5_var
+				value = this
+			}
+			set_global_variable = {
+				name = ztr_global_warming_polluter_rank_5_pollution_var
+				value = var:ztr_country_total_pollution_current_var
+			}
+			set_global_variable = {
+				name = ztr_global_warming_polluter_rank_5_change_var
+				value = var:ztr_country_total_pollution_change_var
+			}
+		}
+		else_if = {
+			limit = {
+				NOT = {
+					has_global_variable = ztr_global_warming_polluter_rank_6_var
+				}
+			}
+			set_global_variable = {
+				name = ztr_global_warming_polluter_rank_6_var
+				value = this
+			}
+			set_global_variable = {
+				name = ztr_global_warming_polluter_rank_6_pollution_var
+				value = var:ztr_country_total_pollution_current_var
+			}
+			set_global_variable = {
+				name = ztr_global_warming_polluter_rank_6_change_var
+				value = var:ztr_country_total_pollution_change_var
+			}
+		}
+		else_if = {
+			limit = {
+				NOT = {
+					has_global_variable = ztr_global_warming_polluter_rank_7_var
+				}
+			}
+			set_global_variable = {
+				name = ztr_global_warming_polluter_rank_7_var
+				value = this
+			}
+			set_global_variable = {
+				name = ztr_global_warming_polluter_rank_7_pollution_var
+				value = var:ztr_country_total_pollution_current_var
+			}
+			set_global_variable = {
+				name = ztr_global_warming_polluter_rank_7_change_var
+				value = var:ztr_country_total_pollution_change_var
+			}
+		}
+		else_if = {
+			limit = {
+				NOT = {
+					has_global_variable = ztr_global_warming_polluter_rank_8_var
+				}
+			}
+			set_global_variable = {
+				name = ztr_global_warming_polluter_rank_8_var
+				value = this
+			}
+			set_global_variable = {
+				name = ztr_global_warming_polluter_rank_8_pollution_var
+				value = var:ztr_country_total_pollution_current_var
+			}
+			set_global_variable = {
+				name = ztr_global_warming_polluter_rank_8_change_var
+				value = var:ztr_country_total_pollution_change_var
+			}
+		}
+		else_if = {
+			limit = {
+				NOT = {
+					has_global_variable = ztr_global_warming_polluter_rank_9_var
+				}
+			}
+			set_global_variable = {
+				name = ztr_global_warming_polluter_rank_9_var
+				value = this
+			}
+			set_global_variable = {
+				name = ztr_global_warming_polluter_rank_9_pollution_var
+				value = var:ztr_country_total_pollution_current_var
+			}
+			set_global_variable = {
+				name = ztr_global_warming_polluter_rank_9_change_var
+				value = var:ztr_country_total_pollution_change_var
+			}
+		}
+		else_if = {
+			limit = {
+				NOT = {
+					has_global_variable = ztr_global_warming_polluter_rank_10_var
+				}
+			}
+			set_global_variable = {
+				name = ztr_global_warming_polluter_rank_10_var
+				value = this
+			}
+			set_global_variable = {
+				name = ztr_global_warming_polluter_rank_10_pollution_var
+				value = var:ztr_country_total_pollution_current_var
+			}
+			set_global_variable = {
+				name = ztr_global_warming_polluter_rank_10_change_var
+				value = var:ztr_country_total_pollution_change_var
+			}
+		}
+	}
+}

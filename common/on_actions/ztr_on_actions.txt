@@ -108,7 +108,7 @@ ztr_decolonization_age_on_yearly_pulse = {
 					has_technology_researched = decolonization
 				}
 				NOT = {
-					has_global_variable = ztr_global_decolonization_pressure_var
+					ztr_decolonization_age_active = yes
 				}
 			}
 			# First time: initialize the global variable and announce the decolonization age
@@ -128,10 +128,25 @@ ztr_decolonization_age_on_yearly_pulse = {
 		else_if = {
 			limit = {
 				has_game_rule = allow_ztr_decolonization_content
-				has_global_variable = ztr_global_decolonization_pressure_var
+				ztr_decolonization_age_active = yes
 			}
 			# Subsequent years: recalculate global decolonization pressure
 			ztr_calculate_global_decolonization_pressure = yes
+		}
+		else_if = {
+			limit = {
+				NOT = {
+					has_game_rule = allow_ztr_decolonization_content
+				}
+				ztr_decolonization_age_active = yes
+			}
+			remove_global_variable = ztr_global_decolonization_pressure_var
+			every_country = {
+				limit = {
+					has_variable = ztr_decolonization_pressure_var
+				}
+				remove_variable = ztr_decolonization_pressure_var
+			}
 		}
 	}
 }
@@ -391,10 +406,10 @@ atomic_on_yearly_pulse_country = {
 
 swiss_neutrality_on_yearly_pulse_country = {
 	events = {
+		ztr_switzerland.1
 		ztr_switzerland.2
 	}
 }
-
 
 ####################################################################
 ### COUNTRY MONTHLY ON_ACTION DEFINITIONS ###

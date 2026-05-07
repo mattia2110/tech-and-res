@@ -302,7 +302,7 @@ austrian_empire_collapse.3 = {
 		}
 		ai_chance = {
 			base = 7
-		}		# L’IA preferirà spesso questa strada
+		}		# L'IA preferirà spesso questa strada
 	}
 	# Opzione conciliatoria: riconoscere il magiaro come lingua amministrativa regionale
 	option = {
@@ -355,7 +355,7 @@ austrian_empire_collapse.4 = {
 	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
 	on_opened_soundeffect = "event:/SFX/Events/middleeast/middleclass_cafe"
 	icon = "gfx/interface/icons/event_icons/waving_flag_austria.dds"
-	# Richiamato dal random_events del JE; compare solo se l’Ungheria esiste
+	# Richiamato dal random_events del JE; compare solo se l'Ungheria esiste
 	trigger = {
 		NOT = {
 			has_variable = hungarian_revolts_var
@@ -378,7 +378,7 @@ austrian_empire_collapse.4 = {
 	}
 	### Opzione 1 – Repressione dura
 	option = {
-		name = austrian_empire_collapse.4.a		# "Schierate l’esercito!"
+		name = austrian_empire_collapse.4.a		# "Schierate l'esercito!"
 		default_option = yes
 		# Aggrava la crisi imperiale
 		change_variable = {
@@ -481,7 +481,7 @@ austrian_empire_collapse.5 = {
 	on_opened_soundeffect = "event:/SFX/Events/middleeast/middleclass_cafe"
 	icon = "gfx/interface/icons/event_icons/waving_flag_austria.dds"
 	# Invocato dal random_events del JE; si presenta
-	# solo se l’Ungheria esiste e le precedenti “concessioni” sono già avvenute
+	# solo se l'Ungheria esiste e le precedenti “concessioni” sono già avvenute
 	trigger = {
 		OR = {
 			AND = {
@@ -502,7 +502,7 @@ austrian_empire_collapse.5 = {
 	}
 	immediate = {
 		set_variable = {
-			# traccia che l’evento è comparso
+			# traccia che l'evento è comparso
 			name = hungarian_civil_rights_var
 			value = 0
 		}
@@ -511,7 +511,7 @@ austrian_empire_collapse.5 = {
 	option = {
 		name = austrian_empire_collapse.5.a		# "I privilegi non si toccano!"
 		default_option = yes
-		# La crisi dell’Impero peggiora
+		# La crisi dell'Impero peggiora
 		change_variable = {
 			name = austrian_empire_collapse_var
 			add = 4
@@ -539,7 +539,7 @@ austrian_empire_collapse.5 = {
 			base = 6
 		}
 	}
-	### Opzione 2 – Concessione dell’uguaglianza civile
+	### Opzione 2 – Concessione dell'uguaglianza civile
 	option = {
 		name = austrian_empire_collapse.5.b		# "Pari diritti per tutti"
 		# Allevia la crisi imperiale
@@ -861,12 +861,12 @@ austrian_empire_collapse.8 = {
 	event_image = {
 		video = "europenorthamerica_springtime_of_nations"
 	}
-	title = austrian_empire_collapse.8.t	# “L’Italia s’è desta!”
+	title = austrian_empire_collapse.8.t	# “L'Italia s'è desta!”
 	desc = austrian_empire_collapse.8.d
 	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
 	on_opened_soundeffect = "event:/SFX/Events/middleeast/middleclass_cafe"
 	icon = "gfx/interface/icons/event_icons/waving_flag_austria.dds"
-	# Richiamato dal random_events del JE quando l’Italia esiste
+	# Richiamato dal random_events del JE quando l'Italia esiste
 	trigger = {
 		exists = c:ITA
 		OR = {
@@ -890,7 +890,7 @@ austrian_empire_collapse.8 = {
 	}
 	### Opzione 1 – Repressione dura
 	option = {
-		name = austrian_empire_collapse.8.a		# "Schierate l’esercito!"
+		name = austrian_empire_collapse.8.a		# "Schierate l'esercito!"
 		default_option = yes
 		# Peggiora la crisi imperiale
 		change_variable = {
@@ -949,9 +949,9 @@ austrian_empire_collapse.8 = {
 			base = 3
 		}
 	}
-	### Opzione 3 – Cedere i territori al Regno d’Italia e finire questa storia
+	### Opzione 3 – Cedere i territori al Regno d'Italia e finire questa storia
 	option = {
-		name = austrian_empire_collapse.8.c		# "Lasciate che tornino all’Italia…"
+		name = austrian_empire_collapse.8.c		# "Lasciate che tornino all'Italia…"
 		if = {
 			# Lombardia
 			limit = {
@@ -970,7 +970,7 @@ austrian_empire_collapse.8 = {
 				set_state_owner = c:ITA
 			}
 		}
-		# L’Impero è umiliato ma la crisi si placa
+		# L'Impero è umiliato ma la crisi si placa
 		add_modifier = {
 			name = austrian_monarchy_humiliated
 			months = 12
@@ -1578,7 +1578,7 @@ austrian_empire_collapse.14 = {
 	}
 	### Opzione 1 – Repressione dura
 	option = {
-		name = austrian_empire_collapse.14.a		# "Schierate l’esercito!"
+		name = austrian_empire_collapse.14.a		# "Schierate l'esercito!"
 		default_option = yes
 		# La crisi peggiora
 		change_variable = {
@@ -1673,7 +1673,7 @@ austrian_empire_collapse.14 = {
 			subtract = 1
 		}
 		custom_tooltip = austrian_empire_collapse_minor_progress_tt
-		# Bonus locali d’ordine
+		# Bonus locali d'ordine
 		if = {
 			limit = {
 				hungary_is_subject_or_personal_union_austria = yes
@@ -1754,7 +1754,7 @@ austrian_empire_collapse.14 = {
 	### Opzione 3 – Cedere la Transilvania alla Romania
 	option = {
 		name = austrian_empire_collapse.14.c		# "Che la Transilvania sia romena…"
-		# L’Impero viene umiliato ma la crisi cala di molto
+		# L'Impero viene umiliato ma la crisi cala di molto
 		add_modifier = {
 			name = austrian_monarchy_humiliated
 			months = 12
@@ -1858,7 +1858,7 @@ austrian_empire_collapse.15 = {
 	}
 	### Opzione 1 – Repressione dura
 	option = {
-		name = austrian_empire_collapse.14.a		# "Schierate l’esercito!"
+		name = austrian_empire_collapse.14.a		# "Schierate l'esercito!"
 		default_option = yes
 		# La crisi peggiora
 		change_variable = {
@@ -1897,7 +1897,7 @@ austrian_empire_collapse.15 = {
 			subtract = 1
 		}
 		custom_tooltip = austrian_empire_collapse_minor_progress_tt
-		# Bonus locali d’ordine
+		# Bonus locali d'ordine
 		s:STATE_WEST_GALICIA = {
 			add_modifier = {
 				name = ztr_collapse_revolt_appeased
@@ -1921,7 +1921,7 @@ austrian_empire_collapse.15 = {
 	### Opzione 3 – Cedere la Galicia alla Polonia
 	option = {
 		name = austrian_empire_collapse.14.c
-		# L’Impero viene umiliato ma la crisi cala di molto
+		# L'Impero viene umiliato ma la crisi cala di molto
 		add_modifier = {
 			name = austrian_monarchy_humiliated
 			months = 12
@@ -2073,7 +2073,7 @@ austrian_empire_collapse.17 = {
 	}
 	### Opzione 1 – Accetta
 	option = {
-		name = austrian_empire_collapse.17.a		# "Schierate l’esercito!"
+		name = austrian_empire_collapse.17.a		# "Schierate l'esercito!"
 		default_option = yes
 		# La crisi peggiora
 		change_variable = {

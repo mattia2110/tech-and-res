@@ -34,18 +34,29 @@ british_raj_consolidation_effect = {
 give_claims_on_india = {
 	every_state = {
 		limit = {
-			NOT = { owner = ROOT }
+			NOT = {
+				owner = ROOT
+			}
 			is_in_geographic_region = geographic_region_india
-			NOT = { state_region = s:STATE_CEYLON }
+			NOT = {
+				state_region = s:STATE_CEYLON
+			}
 		}
-		state_region = { add_claim = ROOT }
+		state_region = {
+			add_claim = ROOT
+		}
 	}
 }
 
 calculate_infamy_decolonization_subject_event = {
 	scope:subject_scope = {
 		every_scope_state = {
-			root = { change_variable = { name = decolonization_subject_event_var add = 1 }}
+			root = {
+				change_variable = {
+					name = decolonization_subject_event_var
+					add = 1
+				}
+			}
 		}
 	}
 	change_variable = {
@@ -72,7 +83,9 @@ calculate_infamy_decolonization_subject_event = {
 ztr_transfer_subject_homeland_states_effect = {
 	every_scope_state = {
 		limit = {
-			NOT = { is_homeland_of_country_cultures = root }
+			NOT = {
+				is_homeland_of_country_cultures = root
+			}
 			is_homeland_of_country_cultures = scope:subject_scope
 		}
 		set_state_owner = scope:subject_scope
@@ -85,7 +98,9 @@ ztr_transfer_subject_homeland_states_effect = {
 ztr_claim_subject_homeland_states_effect = {
 	every_scope_state = {
 		limit = {
-			NOT = { is_homeland_of_country_cultures = root }
+			NOT = {
+				is_homeland_of_country_cultures = root
+			}
 			is_homeland_of_country_cultures = scope:subject_scope
 		}
 		state_region = {
@@ -104,14 +119,15 @@ ztr_calculate_decolonization_pressure = {
 	# Initialize if needed
 	if = {
 		limit = {
-			NOT = { has_variable = ztr_decolonization_pressure_var }
+			NOT = {
+				has_variable = ztr_decolonization_pressure_var
+			}
 		}
 		set_variable = {
 			name = ztr_decolonization_pressure_var
 			value = 0
 		}
 	}
-
 	# =============================================
 	# FACTOR 1: Tendency toward global pressure (-5 to +5)
 	# =============================================
@@ -120,7 +136,7 @@ ztr_calculate_decolonization_pressure = {
 	# This creates a slow convergence: isolated colonial powers feel the world tide.
 	if = {
 		limit = {
-			has_global_variable = ztr_global_decolonization_pressure_var
+			ztr_decolonization_age_active = yes
 		}
 		set_variable = {
 			name = ztr_temp_convergence
@@ -140,33 +156,37 @@ ztr_calculate_decolonization_pressure = {
 		}
 		remove_variable = ztr_temp_convergence
 	}
-
 	# =============================================
 	# FACTOR 2: Legitimacy (-3 to +3)
 	# =============================================
 	# Low legitimacy destabilizes colonial rule; high legitimacy helps maintain it.
 	if = {
-		limit = { government_legitimacy < 25 }
+		limit = {
+			government_legitimacy < 25
+		}
 		change_variable = {
 			name = ztr_decolonization_pressure_var
 			add = 3
 		}
 	}
 	else_if = {
-		limit = { government_legitimacy < 50 }
+		limit = {
+			government_legitimacy < 50
+		}
 		change_variable = {
 			name = ztr_decolonization_pressure_var
 			add = 1
 		}
 	}
 	else_if = {
-		limit = { government_legitimacy > 75 }
+		limit = {
+			government_legitimacy > 75
+		}
 		change_variable = {
 			name = ztr_decolonization_pressure_var
 			add = -3
 		}
 	}
-
 	# =============================================
 	# FACTOR 3: Average standard of living (-2 to +3)
 	# =============================================
@@ -177,7 +197,9 @@ ztr_calculate_decolonization_pressure = {
 			ztr_state_is_colonial = yes
 		}
 		if = {
-			limit = { average_sol < 10 }
+			limit = {
+				average_sol < 10
+			}
 			change_variable = {
 				name = ztr_decolonization_pressure_var
 				add = 3
@@ -193,14 +215,15 @@ ztr_calculate_decolonization_pressure = {
 			}
 		}
 		else_if = {
-			limit = { average_sol >= 18 }
+			limit = {
+				average_sol >= 18
+			}
 			change_variable = {
 				name = ztr_decolonization_pressure_var
 				add = -2
 			}
 		}
 	}
-
 	# =============================================
 	# FACTOR 4: Liberty index / equality index (-4 to +5)
 	# =============================================
@@ -260,7 +283,6 @@ ztr_calculate_decolonization_pressure = {
 			add = 2
 		}
 	}
-
 	# =============================================
 	# FACTOR 5: Colonial population ratio (0 to +5)
 	# =============================================
@@ -287,7 +309,9 @@ ztr_calculate_decolonization_pressure = {
 	}
 	every_scope_state = {
 		limit = {
-			NOT = { ztr_state_is_colonial = yes }
+			NOT = {
+				ztr_state_is_colonial = yes
+			}
 		}
 		root = {
 			change_variable = {
@@ -311,28 +335,36 @@ ztr_calculate_decolonization_pressure = {
 			divide = var:ztr_temp_homeland_pop
 		}
 		if = {
-			limit = { var:ztr_temp_pop_ratio >= 3 }
+			limit = {
+				var:ztr_temp_pop_ratio >= 3
+			}
 			change_variable = {
 				name = ztr_decolonization_pressure_var
 				add = 5
 			}
 		}
 		else_if = {
-			limit = { var:ztr_temp_pop_ratio >= 2 }
+			limit = {
+				var:ztr_temp_pop_ratio >= 2
+			}
 			change_variable = {
 				name = ztr_decolonization_pressure_var
 				add = 3
 			}
 		}
 		else_if = {
-			limit = { var:ztr_temp_pop_ratio >= 1 }
+			limit = {
+				var:ztr_temp_pop_ratio >= 1
+			}
 			change_variable = {
 				name = ztr_decolonization_pressure_var
 				add = 2
 			}
 		}
 		else_if = {
-			limit = { var:ztr_temp_pop_ratio >= 0.5 }
+			limit = {
+				var:ztr_temp_pop_ratio >= 0.5
+			}
 			change_variable = {
 				name = ztr_decolonization_pressure_var
 				add = 1
@@ -342,33 +374,37 @@ ztr_calculate_decolonization_pressure = {
 	}
 	remove_variable = ztr_temp_colonial_pop
 	remove_variable = ztr_temp_homeland_pop
-
 	# =============================================
 	# FACTOR 6: Infamy (0 to +4)
 	# =============================================
 	# International notorious+pariah status accelerates colonial collapse.
 	if = {
-		limit = { infamy >= infamy_threshold:notorious }
+		limit = {
+			infamy >= infamy_threshold:notorious
+		}
 		change_variable = {
 			name = ztr_decolonization_pressure_var
 			add = 2
 		}
 	}
 	else_if = {
-		limit = { infamy >= infamy_threshold:infamous }
+		limit = {
+			infamy >= infamy_threshold:infamous
+		}
 		change_variable = {
 			name = ztr_decolonization_pressure_var
 			add = 1
 		}
 	}
-
 	# =============================================
 	# FACTOR 7: At war (-1 to +3)
 	# =============================================
 	# Wars drain resources from colonial administration.
 	# But not being at war allows focus on colonial stability.
 	if = {
-		limit = { is_at_war = yes }
+		limit = {
+			is_at_war = yes
+		}
 		change_variable = {
 			name = ztr_decolonization_pressure_var
 			add = 3
@@ -380,7 +416,6 @@ ztr_calculate_decolonization_pressure = {
 			add = -1
 		}
 	}
-
 	# =============================================
 	# FACTOR 8: Number of subjects (0 to +3)
 	# =============================================
@@ -398,28 +433,33 @@ ztr_calculate_decolonization_pressure = {
 		}
 	}
 	if = {
-		limit = { var:ztr_temp_subject_count >= 5 }
+		limit = {
+			var:ztr_temp_subject_count >= 5
+		}
 		change_variable = {
 			name = ztr_decolonization_pressure_var
 			add = 3
 		}
 	}
 	else_if = {
-		limit = { var:ztr_temp_subject_count >= 3 }
+		limit = {
+			var:ztr_temp_subject_count >= 3
+		}
 		change_variable = {
 			name = ztr_decolonization_pressure_var
 			add = 2
 		}
 	}
 	else_if = {
-		limit = { var:ztr_temp_subject_count >= 1 }
+		limit = {
+			var:ztr_temp_subject_count >= 1
+		}
 		change_variable = {
 			name = ztr_decolonization_pressure_var
 			add = 1
 		}
 	}
 	remove_variable = ztr_temp_subject_count
-
 	# =============================================
 	# FACTOR 9: Colonial exploitation law (+2)
 	# =============================================
@@ -433,7 +473,6 @@ ztr_calculate_decolonization_pressure = {
 			add = 2
 		}
 	}
-
 	# =============================================
 	# FACTOR 10: Radicals vs loyalists in colonial states (-3 to +5)
 	# =============================================
@@ -488,7 +527,9 @@ ztr_calculate_decolonization_pressure = {
 	}
 	# Score based on balance: more radical-heavy than loyalist-heavy states = pressure
 	if = {
-		limit = { var:ztr_temp_colonial_state_count > 0 }
+		limit = {
+			var:ztr_temp_colonial_state_count > 0
+		}
 		set_variable = {
 			name = ztr_temp_radical_balance
 			value = var:ztr_temp_radical_colonial_states
@@ -498,28 +539,36 @@ ztr_calculate_decolonization_pressure = {
 			subtract = var:ztr_temp_loyalist_colonial_states
 		}
 		if = {
-			limit = { var:ztr_temp_radical_balance >= 4 }
+			limit = {
+				var:ztr_temp_radical_balance >= 4
+			}
 			change_variable = {
 				name = ztr_decolonization_pressure_var
 				add = 5
 			}
 		}
 		else_if = {
-			limit = { var:ztr_temp_radical_balance >= 2 }
+			limit = {
+				var:ztr_temp_radical_balance >= 2
+			}
 			change_variable = {
 				name = ztr_decolonization_pressure_var
 				add = 3
 			}
 		}
 		else_if = {
-			limit = { var:ztr_temp_radical_balance >= 1 }
+			limit = {
+				var:ztr_temp_radical_balance >= 1
+			}
 			change_variable = {
 				name = ztr_decolonization_pressure_var
 				add = 1
 			}
 		}
 		else_if = {
-			limit = { var:ztr_temp_radical_balance <= -3 }
+			limit = {
+				var:ztr_temp_radical_balance <= -3
+			}
 			# Loyalist-dominated colonies relieve pressure
 			change_variable = {
 				name = ztr_decolonization_pressure_var
@@ -527,7 +576,9 @@ ztr_calculate_decolonization_pressure = {
 			}
 		}
 		else_if = {
-			limit = { var:ztr_temp_radical_balance <= -1 }
+			limit = {
+				var:ztr_temp_radical_balance <= -1
+			}
 			change_variable = {
 				name = ztr_decolonization_pressure_var
 				add = -1
@@ -538,7 +589,6 @@ ztr_calculate_decolonization_pressure = {
 	remove_variable = ztr_temp_radical_colonial_states
 	remove_variable = ztr_temp_loyalist_colonial_states
 	remove_variable = ztr_temp_colonial_state_count
-
 	# =============================================
 	# FACTOR 11: Subject liberty desire (0 to +5)
 	# =============================================
@@ -573,31 +623,38 @@ ztr_calculate_decolonization_pressure = {
 		}
 	}
 	if = {
-		limit = { var:ztr_temp_restless_subjects >= 5 }
+		limit = {
+			var:ztr_temp_restless_subjects >= 5
+		}
 		change_variable = {
 			name = ztr_decolonization_pressure_var
 			add = 5
 		}
 	}
 	else_if = {
-		limit = { var:ztr_temp_restless_subjects >= 3 }
+		limit = {
+			var:ztr_temp_restless_subjects >= 3
+		}
 		change_variable = {
 			name = ztr_decolonization_pressure_var
 			add = 3
 		}
 	}
 	else_if = {
-		limit = { var:ztr_temp_restless_subjects >= 1 }
+		limit = {
+			var:ztr_temp_restless_subjects >= 1
+		}
 		change_variable = {
 			name = ztr_decolonization_pressure_var
 			add = 1
 		}
 	}
 	remove_variable = ztr_temp_restless_subjects
-
 	# Clamp to 0-100
 	if = {
-		limit = { var:ztr_decolonization_pressure_var < 0 }
+		limit = {
+			var:ztr_decolonization_pressure_var < 0
+		}
 		remove_variable = ztr_decolonization_pressure_var
 		set_variable = {
 			name = ztr_decolonization_pressure_var
@@ -605,7 +662,9 @@ ztr_calculate_decolonization_pressure = {
 		}
 	}
 	if = {
-		limit = { var:ztr_decolonization_pressure_var > 100 }
+		limit = {
+			var:ztr_decolonization_pressure_var > 100
+		}
 		remove_variable = ztr_decolonization_pressure_var
 		set_variable = {
 			name = ztr_decolonization_pressure_var
@@ -624,7 +683,6 @@ ztr_calculate_global_decolonization_pressure = {
 		name = ztr_global_decolonization_pressure_var
 		value = 0
 	}
-
 	# =============================================
 	# FACTOR 1: UN Decolonization Statement (0-20)
 	# =============================================
@@ -649,7 +707,6 @@ ztr_calculate_global_decolonization_pressure = {
 			add = 10
 		}
 	}
-
 	# =============================================
 	# FACTOR 2: UN Slavery Statement (0-8)
 	# =============================================
@@ -664,7 +721,6 @@ ztr_calculate_global_decolonization_pressure = {
 			add = 8
 		}
 	}
-
 	# =============================================
 	# FACTOR 3: UN ICC Established (0-3)
 	# =============================================
@@ -679,7 +735,6 @@ ztr_calculate_global_decolonization_pressure = {
 			add = 3
 		}
 	}
-
 	# =============================================
 	# FACTOR 4: UN Women's Rights (0-2)
 	# =============================================
@@ -704,7 +759,6 @@ ztr_calculate_global_decolonization_pressure = {
 			add = 1
 		}
 	}
-
 	# =============================================
 	# FACTOR 5: UN Children's Rights (0-2)
 	# =============================================
@@ -729,7 +783,6 @@ ztr_calculate_global_decolonization_pressure = {
 			add = 1
 		}
 	}
-
 	# =============================================
 	# FACTOR 6: Average colonial major-power pressure (0-30)
 	# =============================================
@@ -784,7 +837,6 @@ ztr_calculate_global_decolonization_pressure = {
 			add = var:ztr_temp_colonial_pressure_sum
 		}
 	}
-
 	# =============================================
 	# FACTOR 7: Decolonization tech spread (0-20)
 	# =============================================
@@ -818,7 +870,6 @@ ztr_calculate_global_decolonization_pressure = {
 		name = ztr_global_decolonization_pressure_var
 		add = var:ztr_temp_decolonization_tech_count
 	}
-
 	# =============================================
 	# FACTOR 8: Colonial holdout isolation (0-15)
 	# =============================================
@@ -869,7 +920,6 @@ ztr_calculate_global_decolonization_pressure = {
 			add = 3
 		}
 	}
-
 	if = {
 		limit = {
 			year > 1960
@@ -906,15 +956,15 @@ ztr_calculate_global_decolonization_pressure = {
 			multiply = 1.2
 		}
 	}
-
 	# --- Cleanup temp variables ---
 	remove_variable = ztr_temp_colonial_pressure_sum
 	remove_variable = ztr_temp_colonial_power_count
 	remove_variable = ztr_temp_decolonization_tech_count
-
 	# Clamp to 0-100
 	if = {
-		limit = { global_var:ztr_global_decolonization_pressure_var < 0 }
+		limit = {
+			global_var:ztr_global_decolonization_pressure_var < 0
+		}
 		remove_global_variable = ztr_global_decolonization_pressure_var
 		set_global_variable = {
 			name = ztr_global_decolonization_pressure_var
@@ -922,7 +972,9 @@ ztr_calculate_global_decolonization_pressure = {
 		}
 	}
 	if = {
-		limit = { global_var:ztr_global_decolonization_pressure_var > 100 }
+		limit = {
+			global_var:ztr_global_decolonization_pressure_var > 100
+		}
 		remove_global_variable = ztr_global_decolonization_pressure_var
 		set_global_variable = {
 			name = ztr_global_decolonization_pressure_var

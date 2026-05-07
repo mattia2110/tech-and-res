@@ -13,8 +13,7 @@ ztr_middle_east.1 = {
 	icon = "gfx/interface/icons/event_icons/event_newspaper.dds"
 	trigger = {
 		year > 1950
-		has_global_variable = ztr_global_decolonization_pressure_var
-		has_game_rule = allow_ztr_decolonization_content
+		ztr_decolonization_age_active = yes
 		NOT = {
 			is_subject = yes
 		}
@@ -250,7 +249,8 @@ ztr_middle_east.3 = {
 		}
 		NOT = {
 			c:RUS ?= this
-		}		# Russia can't create Israel
+		}
+		# Russia can't create Israel
 		#Russia is the European country with most Jewish pops and an antisemitism condition will lead Jewish pops to leave Russia
 		# If one of those 3 conditions is true, Jewish pops will be unhappy and more likely to form Sionism
 		c:RUS = {

@@ -1,0 +1,72 @@
+je_global_warming = {
+	icon = "gfx/interface/icons/event_icons/global_warming.dds"
+	group = je_group_global_historical_content
+	scripted_progress_bar = ztr_global_warming_temperature_progress_bar
+
+	should_be_involved = {
+		always = yes
+	}
+
+	is_shown_when_inactive = {
+		always = yes
+	}
+
+	possible = {
+		always = yes
+	}
+
+	immediate = {
+		ztr_global_warming_yearly_update = yes
+
+		scope:journal_entry = {
+			set_bar_progress = {
+				value = {
+					value = global_var:ztr_global_warming_temperature_anomaly
+					multiply = 100
+				}
+				name = ztr_global_warming_temperature_progress_bar
+			}
+		}
+	}
+
+	on_yearly_pulse = {
+		effect = {
+			ztr_global_warming_yearly_update = yes
+
+			scope:journal_entry = {
+				set_bar_progress = {
+					value = {
+						value = global_var:ztr_global_warming_temperature_anomaly
+						multiply = 100
+					}
+					name = ztr_global_warming_temperature_progress_bar
+				}
+			}
+		}
+	}
+
+	status_desc = {
+		first_valid = {
+			triggered_desc = {
+				trigger = {
+					has_global_variable = ztr_global_warming_temperature_anomaly
+					global_var:ztr_global_warming_temperature_anomaly >= 3
+				}
+				desc = je_global_warming_status_severe
+			}
+			triggered_desc = {
+				trigger = {
+					has_global_variable = ztr_global_warming_temperature_anomaly
+					global_var:ztr_global_warming_temperature_anomaly >= 1.5
+				}
+				desc = je_global_warming_status_warming
+			}
+			desc = je_global_warming_status
+		}
+	}
+
+	weight = 1000
+	transferable = no
+	should_be_pinned_by_default_involved = yes
+	should_be_pinned_by_default_uninvolved_or_context = yes
+}

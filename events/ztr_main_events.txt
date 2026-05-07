@@ -136,7 +136,7 @@ ztr_economic_update.1 = {
 					is_in_geographic_region = geographic_region_africa
 				}
 				NOT = { is_in_geographic_region = geographic_region_europe }
-				NOT = { c:USA = this }
+				NOT = { c:USA ?= this }
 				NOR = {
 					has_journal_entry = je_demographic_0_to_1
 					has_journal_entry = je_demographic_1_to_2
@@ -156,9 +156,9 @@ ztr_economic_update.1 = {
 			limit = {
 				average_sol < 14
 				year < 1960
-				NOT = { c:FRA = this }
-				NOT = { c:SPA = this }
-				NOT = { c:GBR = this }
+				NOT = { c:FRA ?= this }
+				NOT = { c:SPA ?= this }
+				NOT = { c:GBR ?= this }
 				NOR = {
 					has_journal_entry = je_demographic_0_to_1
 					has_journal_entry = je_demographic_1_to_2
@@ -177,7 +177,7 @@ ztr_economic_update.1 = {
 		else_if = {
 			limit = {
 				average_sol < 17
-				NOT = { c:FRA = this }
+				NOT = { c:FRA ?= this }
 				NOR = {
 					has_journal_entry = je_demographic_0_to_1
 					has_journal_entry = je_demographic_1_to_2

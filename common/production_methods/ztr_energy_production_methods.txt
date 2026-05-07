@@ -3,6 +3,7 @@
 pm_run_of_river_plants = {
 	texture = "gfx/interface/icons/production_method_icons/pm_run_of_river_plants.dds"
 	replacement_if_valid = pm_run_of_river_plants_2
+	is_hidden_when_unavailable = yes
 
 	building_modifiers = {
 		workforce_scaled = {
@@ -30,6 +31,7 @@ pm_run_of_river_plants = {
 pm_reservoir_dams = {
 	texture = "gfx/interface/icons/production_method_icons/hydroelectric_plant.dds"
 	replacement_if_valid = pm_reservoir_dams_2
+	is_hidden_when_unavailable = yes
 
 	unlocking_technologies = {
 		pneumatic_tools
@@ -60,6 +62,7 @@ pm_reservoir_dams = {
 pm_advanced_turbine_generators = {
 	texture = "gfx/interface/icons/production_method_icons/pm_advanced_turbine_generators.dds"
 	replacement_if_valid = pm_advanced_turbine_generators_2
+	is_hidden_when_unavailable = yes
 
 	unlocking_technologies = {
 		oil_turbine
@@ -309,8 +312,10 @@ pm_automated_hydro_control_systems = {
 	}
 
 	unlocking_production_methods = {
-		pm_reservoir_dams
-		pm_advanced_turbine_generators
+		pm_reservoir_dams_2
+		pm_reservoir_dams_3
+		pm_advanced_turbine_generators_2
+		pm_advanced_turbine_generators_3
 	}
 }
 
@@ -336,8 +341,10 @@ pm_smart_grid_hydro = {
 	}
 
 	unlocking_production_methods = {
-		pm_reservoir_dams
-		pm_advanced_turbine_generators
+		pm_reservoir_dams_2
+		pm_reservoir_dams_3
+		pm_advanced_turbine_generators_2
+		pm_advanced_turbine_generators_3
 	}
 }
 
@@ -365,6 +372,14 @@ pm_pressurized_systems_power_plant = {
 			building_employment_laborers_add = -200
 		}
 	}
+
+	unlocking_production_methods = {
+		pm_early_power_plant_3
+		pm_coal-fired_plant_3
+		pm_oil-fired_plant_3
+		pm_gas-fired_plant_3
+		pm_nuclear-fission_plant_3
+	}
 }
 
 pm_smart_grid_energy_management_power_plant = {
@@ -390,6 +405,14 @@ pm_smart_grid_energy_management_power_plant = {
 
 		}
 	}
+
+	unlocking_production_methods = {
+		pm_early_power_plant_3
+		pm_coal-fired_plant_3
+		pm_oil-fired_plant_3
+		pm_gas-fired_plant_3
+		pm_nuclear-fission_plant_3
+	}
 }
 
 # Power Plant
@@ -398,6 +421,7 @@ pm_smart_grid_energy_management_power_plant = {
 REPLACE:pm_early_power_plant = {
 	texture = "gfx/interface/icons/production_method_icons/power_plant.dds"
 	replacement_if_valid = pm_early_power_plant_2
+	is_hidden_when_unavailable = yes
 
 	state_modifiers = {
 		workforce_scaled = {
@@ -432,6 +456,7 @@ REPLACE:pm_early_power_plant = {
 REPLACE:pm_coal-fired_plant = {
 	texture = "gfx/interface/icons/production_method_icons/coal_fired_plant.dds"
 	replacement_if_valid = pm_coal-fired_plant_2
+	is_hidden_when_unavailable = yes
 
 	unlocking_technologies = {
 		steam_turbine
@@ -475,6 +500,7 @@ REPLACE:pm_coal-fired_plant = {
 REPLACE:pm_oil-fired_plant = {
 	texture = "gfx/interface/icons/production_method_icons/oil_fired_plant.dds"
 	replacement_if_valid = pm_oil-fired_plant_2
+	is_hidden_when_unavailable = yes
 
 	unlocking_technologies = {
 		oil_turbine
@@ -516,6 +542,7 @@ REPLACE:pm_oil-fired_plant = {
 pm_gas-fired_plant = {
 	texture = "gfx/interface/icons/production_method_icons/gas_fired_plant.dds"
 	replacement_if_valid = pm_gas-fired_plant_2
+	is_hidden_when_unavailable = yes
 
 	unlocking_technologies = {
 		gas_turbine
@@ -556,6 +583,7 @@ pm_gas-fired_plant = {
 pm_nuclear-fission_plant = {
 	texture = "gfx/interface/icons/production_method_icons/pm_nuclear_reactor.dds"
 	replacement_if_valid = pm_nuclear-fission_plant_2
+	is_hidden_when_unavailable = yes
 
 	unlocking_technologies = {
 		nuclear_reactor
@@ -1397,6 +1425,7 @@ pm_fusion_reactor = {
 	country_modifiers = {
 		unscaled = {
 			goods_input_electricity_mult = -0.1
+			goods_output_electricity_mult = 0.1
 		}
 	}
 }
