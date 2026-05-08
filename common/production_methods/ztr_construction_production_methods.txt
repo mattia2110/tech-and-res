@@ -6,7 +6,8 @@ INJECT:pm_iron_frame_buildings = {
 	building_modifiers = {
 		workforce_scaled = {
 			goods_input_commonores_add = 5
-			goods_input_tools_add = 10
+			goods_input_iron_add = -5
+			goods_input_wood_add = -5
 		}
 	}
 }
@@ -15,52 +16,24 @@ INJECT:pm_steel_frame_buildings = {
 	building_modifiers = {
 		workforce_scaled = {
 			goods_input_alloys_add = 10
+			goods_input_steel_add = -10
 		}
 	}
 }
 
-REPLACE:pm_arc_welded_buildings = {
-	texture = "gfx/interface/icons/production_method_icons/arc_welded_buildings.dds"
-
-	unlocking_technologies = {
-		arc_welding
-	}
-		
+INJECT:pm_arc_welded_buildings = {
 	country_modifiers = {
 		workforce_scaled = {
-			country_construction_add = 12
+			country_construction_add = -2
 		}
 	}
 
 	building_modifiers = {
 		workforce_scaled = {
-			goods_input_steel_add = 50
-			goods_input_glass_add = 40
-			goods_input_explosives_add = 20
-			goods_input_tools_add = 40
+			goods_input_steel_add = -10
 			goods_input_alloys_add = 10
-			goods_input_electricity_add = 40
-		} 
-
-		level_scaled = {
-			building_employment_bureaucrats_add = 100
-			building_employment_clerks_add = 100
-			building_employment_engineers_add = 50
-			building_employment_machinists_add = 150
-			building_employment_laborers_add = 600
-		}
-		unscaled = {
-			building_laborers_mortality_mult = 0.1
 		}
 	}
-
-	state_modifiers = {
-		workforce_scaled = {
-			state_construction_mult = 0.01
-		}	
-	}
-
-	required_input_goods = electricity
 }
 
 pm_prefabricated_concrete_buildings = {
@@ -78,14 +51,14 @@ pm_prefabricated_concrete_buildings = {
 
 	building_modifiers = {
 		workforce_scaled = {
-			goods_input_steel_add = 40 #-1000
-			goods_input_aluminium_add = 10 #500
+			goods_input_steel_add = 40
+			goods_input_aluminium_add = 10 # 500
 			goods_input_alloys_add = 10
 			goods_input_glass_add = 40
-			goods_input_plastics_add = 10 #900
+			goods_input_plastics_add = 10 # 450
 			goods_input_explosives_add = 20
-			goods_input_robotics_add = 15 #1500
-			goods_input_electricity_add = 40
+			goods_input_robotics_add = 15 # 1500
+			goods_input_electricity_add = 30 #-300
 			# -1600 non essendoci tools
 		}
 
@@ -95,9 +68,6 @@ pm_prefabricated_concrete_buildings = {
 			building_employment_engineers_add = 50
 			building_employment_machinists_add = 200
 			building_employment_laborers_add = 300
-		}
-		unscaled = {
-			building_laborers_mortality_mult = 0.05
 		}
 	}
 
