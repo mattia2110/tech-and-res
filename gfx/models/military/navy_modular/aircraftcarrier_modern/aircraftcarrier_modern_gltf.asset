@@ -1,0 +1,123 @@
+pdxmesh = {
+	name = "aircraftcarrier_modern_gltf_base_mesh"
+	file = "aircraftcarrier_modern_gltf.mesh"
+
+	meshsettings = {
+		name = "kiev_gltf_00_Material_2_baseColor"
+		index = 0
+		texture_diffuse = "aircraftcarrier_modern_gltf_canvas_deck_diffuse.dds"
+		texture_normal = "aircraftcarrier_modern_gltf_canvas_deck_normal.dds"
+		texture_specular = "aircraftcarrier_modern_gltf_canvas_deck_properties.dds"
+		texture = { file = "aircraftcarrier_modern_gltf_canvas_deck_colormask.dds" index = 6 }
+		shader = "standard"
+		additional_shader_defines = { "UNIT_COLOR" "EMISSIVE_NIGHT" }
+		shader_file = "gfx/FX/pdxmesh.shader"
+	}
+	meshsettings = {
+		name = "kiev_gltf_01_Material_1_baseColor"
+		index = 0
+		texture_diffuse = "aircraftcarrier_modern_gltf_deck_dark_diffuse.dds"
+		texture_normal = "aircraftcarrier_modern_gltf_deck_dark_normal.dds"
+		texture_specular = "aircraftcarrier_modern_gltf_deck_dark_properties.dds"
+		texture = { file = "aircraftcarrier_modern_gltf_deck_dark_colormask.dds" index = 6 }
+		shader = "standard"
+		additional_shader_defines = { "UNIT_COLOR" "EMISSIVE_NIGHT" }
+		shader_file = "gfx/FX/pdxmesh.shader"
+	}
+	meshsettings = {
+		name = "kiev_gltf_03_Material_6_baseColor"
+		index = 0
+		texture_diffuse = "aircraftcarrier_modern_gltf_aircraft_blue_diffuse.dds"
+		texture_normal = "aircraftcarrier_modern_gltf_aircraft_blue_normal.dds"
+		texture_specular = "aircraftcarrier_modern_gltf_aircraft_blue_properties.dds"
+		texture = { file = "aircraftcarrier_modern_gltf_aircraft_blue_colormask.dds" index = 6 }
+		shader = "standard"
+		additional_shader_defines = { "UNIT_COLOR" "EMISSIVE_NIGHT" }
+		shader_file = "gfx/FX/pdxmesh.shader"
+	}
+	meshsettings = {
+		name = "kiev_gltf_05_Material_4_baseColor"
+		index = 0
+		texture_diffuse = "aircraftcarrier_modern_gltf_equipment_diffuse.dds"
+		texture_normal = "aircraftcarrier_modern_gltf_equipment_normal.dds"
+		texture_specular = "aircraftcarrier_modern_gltf_equipment_properties.dds"
+		texture = { file = "aircraftcarrier_modern_gltf_equipment_colormask.dds" index = 6 }
+		shader = "standard"
+		additional_shader_defines = { "UNIT_COLOR" "EMISSIVE_NIGHT" }
+		shader_file = "gfx/FX/pdxmesh.shader"
+	}
+	meshsettings = {
+		name = "kiev_gltf_06_Material_5_baseColor"
+		index = 0
+		texture_diffuse = "aircraftcarrier_modern_gltf_hull_secondary_diffuse.dds"
+		texture_normal = "aircraftcarrier_modern_gltf_hull_secondary_normal.dds"
+		texture_specular = "aircraftcarrier_modern_gltf_hull_secondary_properties.dds"
+		texture = { file = "aircraftcarrier_modern_gltf_hull_secondary_colormask.dds" index = 6 }
+		shader = "standard"
+		additional_shader_defines = { "UNIT_COLOR" "EMISSIVE_NIGHT" }
+		shader_file = "gfx/FX/pdxmesh.shader"
+	}
+	meshsettings = {
+		name = "kiev_gltf_07_Material_baseColor"
+		index = 0
+		texture_diffuse = "aircraftcarrier_modern_gltf_superstructure_diffuse.dds"
+		texture_normal = "aircraftcarrier_modern_gltf_superstructure_normal.dds"
+		texture_specular = "aircraftcarrier_modern_gltf_superstructure_properties.dds"
+		texture = { file = "aircraftcarrier_modern_gltf_superstructure_colormask.dds" index = 6 }
+		shader = "standard"
+		additional_shader_defines = { "UNIT_COLOR" "EMISSIVE_NIGHT" }
+		shader_file = "gfx/FX/pdxmesh.shader"
+	}
+	meshsettings = {
+		name = "LOD_Group_LOD_0_ship_flag_0.001"
+		index = 0
+		texture_diffuse = "flag_wrinkles_diffuse.dds"
+		texture_normal = "flag_wrinkles_normal.dds"
+		texture_specular = "flag_wrinkles_properties.dds"
+		shader = "standard_flag_basic"
+		shader_file = "gfx/FX/pdxmesh.shader"
+		additional_shader_defines = { "COA_TEXTURE" }
+	}
+	meshsettings = {
+		name = "LOD_Group_LOD_0_ship_ropes_0.001"
+		index = 0
+		texture_diffuse = "generic_ship_alpha_diffuse.dds"
+		texture_normal = "generic_ship_alpha_normal.dds"
+		texture_specular = "generic_ship_alpha_properties.dds"
+		shader = "standard"
+		shader_file = "gfx/FX/pdxmesh.shader"
+	}
+}
+
+entity = {
+	name = "aircraftcarrier_modern_gltf_base_entity"
+	pdxmesh = "aircraftcarrier_modern_gltf_base_mesh"
+
+	default_state = "move"
+
+	state = { name = "idle"
+		event = { time = 0 keep_sound = yes sound  = { soundeffect = "event:/SFX/Animation/vehicles/naval/fleet/cruisers/aircraft_carrier/anm_ship_aircraftcarrier_idle" } }
+	}
+
+	state = { name = "move"
+		event = { time = 0 keep_sound = yes sound = { soundeffect = "event:/SFX/Animation/vehicles/naval/fleet/cruisers/aircraft_carrier/anm_ship_aircraftcarrier_moving" } }
+		event = { time = 0 trigger_once = yes keep_sound = no sound = { soundeffect = "event:/SFX/Animation/vehicles/naval/fleet/cruisers/aircraft_carrier/anm_ship_aircraftcarrier_moving_start" } }
+	}
+
+	state = { name = "move_local"
+		event = { time = 0 keep_sound = yes sound = { soundeffect = "event:/SFX/Animation/vehicles/naval/fleet/cruisers/aircraft_carrier/anm_ship_aircraftcarrier_moving_local" } }
+		event = { time = 0 trigger_once = yes keep_sound = no sound = { soundeffect = "event:/SFX/Animation/vehicles/naval/fleet/cruisers/aircraft_carrier/anm_ship_aircraftcarrier_moving_start" } }
+	}
+
+	state = { name = "move_ship_viewer"
+		event = { time = 0 keep_sound = yes sound = { soundeffect = "event:/SFX/Animation/vehicles/naval/fleet/cruisers/aircraft_carrier/anm_ship_aircraftcarrier_moving_ship_viewer" } }
+	}
+
+	state = { name = "combat"
+		event = { time = 0 keep_sound = yes sound  = { soundeffect = "event:/SFX/Animation/vehicles/naval/fleet/cruisers/aircraft_carrier/anm_ship_aircraftcarrier_combat" } }
+	}
+
+	state = { name = "destroyed"
+		event = { time = 0 keep_sound = yes sound  = { soundeffect = "event:/SFX/Animation/vehicles/naval/fleet/cruisers/aircraft_carrier/anm_ship_aircraftcarrier_destroyed" } }
+	}
+}
