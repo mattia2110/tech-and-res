@@ -104,8 +104,7 @@ ship_mod_modern_carrier_propulsion_nuclear = {
 	clicksound = "event:/SFX/UI/ShipDesigner/shipdesigner_modification_propulsion_heavy"
 	modifier = {
 		ship_movement_speed_add = 25
-		ship_max_distance_to_port_add = 5
-		ship_supply_capacity_add = 150
+		ship_supply_capacity_add = 500
 	}
 	construction_goods = {
 		goods_input_steel_add = 20
@@ -249,6 +248,68 @@ ship_mod_modern_destroyer_propulsion_high = {
 	}
 }
 
+## Modern Troop Ship
+ship_mod_modern_troop_ship_propulsion_light = {
+	type = ship_mod_slot_propulsion
+	icon = "gfx/interface/icons/military_icons/navy_icons/ship_designer_icons/ship_designer_propulsion_low.dds"
+	clicksound = "event:/SFX/UI/ShipDesigner/shipdesigner_modification_propulsion_light"
+	modifier = {
+		ship_movement_speed_add = 10
+	}
+	construction_goods = { # 500
+		goods_input_engines_add = 6
+		goods_input_heavy_fuel_add = 2
+	}
+	ai_weight = {
+		value = 1
+		multiply = ship_mod_market_multiplier
+		multiply = ship_mod_merchant_navy_doctrine
+	}
+}
+
+ship_mod_modern_troop_ship_propulsion_medium = {
+	type = ship_mod_slot_propulsion
+	icon = "gfx/interface/icons/military_icons/navy_icons/ship_designer_icons/ship_designer_propulsion_mid.dds"
+	clicksound = "event:/SFX/UI/ShipDesigner/shipdesigner_modification_propulsion_medium"
+	modifier = {
+		ship_movement_speed_add = 14
+	}
+	construction_goods = { # 820
+		goods_input_engines_add = 9
+		goods_input_heavy_fuel_add = 2
+		goods_input_light_fuel_add = 2
+	}
+	unlocking_technologies = {
+		curtiss_modern_aviation_tech
+	}
+	ai_weight = {
+		value = 2
+		multiply = ship_mod_market_multiplier
+		multiply = ship_mod_merchant_navy_doctrine
+	}
+}
+
+ship_mod_modern_troop_ship_propulsion_high = {
+	type = ship_mod_slot_propulsion
+	icon = "gfx/interface/icons/military_icons/navy_icons/ship_designer_icons/ship_designer_propulsion_high.dds"
+	clicksound = "event:/SFX/UI/ShipDesigner/shipdesigner_modification_propulsion_heavy"
+	modifier = {
+		ship_movement_speed_add = 18
+	}
+	construction_goods = { # 1140
+		goods_input_engines_add = 12
+		goods_input_light_fuel_add = 6
+	}
+	unlocking_technologies = {
+		integrated_naval_air_tactics
+	}
+	ai_weight = {
+		value = 3
+		multiply = ship_mod_market_multiplier
+		multiply = ship_mod_merchant_navy_doctrine
+	}
+}
+
 ## Modern Submarine
 ship_mod_nuclear_submarine_propulsion_light = {
 	type = ship_mod_slot_propulsion
@@ -296,8 +357,7 @@ ship_mod_nuclear_submarine_propulsion_nuclear = {
 	clicksound = "event:/SFX/UI/ShipDesigner/shipdesigner_modification_propulsion_heavy"
 	modifier = {
 		ship_movement_speed_add = 15
-		ship_max_distance_to_port_add = 5
-		ship_supply_capacity_add = 40
+		ship_supply_capacity_add = 250
 	}
 	construction_goods = {
 		goods_input_steel_add = 10

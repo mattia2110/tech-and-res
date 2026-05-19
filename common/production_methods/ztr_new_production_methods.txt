@@ -6758,7 +6758,6 @@ pm_hydroponic_coffee = {
 
 # Urban Center
 
-
 pm_shopping_centers = {
 	texture = "gfx/interface/icons/production_method_icons/pm_shopping_centers.dds"
 	unlocking_technologies = {
@@ -7085,6 +7084,31 @@ pm_advanced_healtcare = {
 		}
 	}
 	required_input_goods = electricity
+}
+
+pm_urban_carbon_capture = {
+	texture = "gfx/interface/icons/production_method_icons/pm_carbon_capture.dds"
+	
+	unlocking_technologies = {
+		carbon_capture_storage
+	}
+	building_modifiers = {
+		workforce_scaled = {
+			goods_input_water = 0.5
+			goods_input_electricity_add = 0.5
+		}
+	}
+	state_modifiers = {
+		level_scaled = {
+			state_pollution_generation_add = -5
+		}
+		unscaled = {
+			state_pollution_reduction_health_mult = -0.1
+		}
+	}
+	disallowing_laws = {
+		law_no_protection
+	}
 }
 
 # PHARMACEUTICALS
@@ -7414,6 +7438,42 @@ pm_oil_hydraulic_fracturing = {
 			building_employment_engineers_add = 500
 		}
 	}
+}
+
+# Carbon Capture & Storage
+
+pm_no_carbon_capture = {
+	texture = "gfx/interface/icons/production_method_icons/pm_no_carbon_capture.dds"
+}
+
+pm_co2_enhanced_oil_recovery = {
+	texture = "gfx/interface/icons/production_method_icons/pm_carbon_capture.dds"
+
+	unlocking_technologies = {
+		carbon_capture_storage
+	}
+
+	unlocking_production_methods = {
+		pm_oil_hydraulic_fracturing
+	}
+
+	state_modifiers = {
+		workforce_scaled = {
+			state_pollution_generation_add = -5
+		}
+	}
+
+	building_modifiers = {
+		workforce_scaled = {
+			goods_input_electricity_add = 20 #300
+			goods_input_water_add = 10 #250
+			goods_input_engines_add = 10 #300
+
+			goods_output_oil_add = 50 #1000
+		}
+	}
+
+	required_input_goods = electricity
 }
 
 # Gas Drilling
