@@ -56,12 +56,13 @@
 
 	possible = {
 
-		#THIS has nuclear weapons or an allied country has nuclear weapons
+		#THIS has nuclear weapons or a country fighting on THIS's side has nuclear weapons
 		OR = {
 			has_modifier = nuclear_capability
 			AND = {
 				NOT = { has_modifier = nuclear_capability }
 				any_country = {
+					is_in_war_together = root
 					is_at_war = yes
 					any_scope_war = {
 						is_warleader = root

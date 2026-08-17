@@ -50,6 +50,277 @@ show_equality_index_rankings_button = {
 	}
 }
 
+# Research Center panel (je_research_center)
+# Converted from start_nuclear_weapons_program_decision, logic kept identical:
+# is_shown -> visible, possible -> possible, when_taken -> effect, ai_chance -> ai_chance
+ztr_start_nuclear_weapons_program_button = {
+	name = "start_nuclear_weapons_program_decision"
+	desc = "start_nuclear_weapons_program_decision_desc"
+	visible = {
+		has_technology_researched = verrier_nuclear_physics_tech
+		# Nuclear Weapon without bombers doesn't make any sense (Missiles tech need bombers tech too)
+		has_technology_researched = bombing
+		NOT = {
+			has_modifier = nuclear_capability
+		}
+		NOT = {
+			has_variable = nuclear_program_started
+		}
+		NOT = {
+			has_variable = signed_nuclear_non_proliferation_treaty
+		}
+		has_game_rule = allow_ztr_atom_bomb_content
+		#THIS is a major power or dictatorship
+		OR = {
+			# Flawed democracy and autocracy only if it is a great power
+			country_rank >= rank_value:great_power
+			# A dictatorship will always want nukes
+			ztr_is_totalitarian = yes
+		}
+		#THIS must not be a revolutionary
+		is_revolutionary = no
+		is_secessionist = no
+		#TODO Israel
+		#c:ISR ?= this
+	}
+	possible = {
+		# Must have a research center
+		has_research_center = yes
+		# Must be a sovereign state
+		is_subject = no
+		# THIS is not broke
+		in_default = no
+		# THIS is not in the midst of a revolution
+		has_revolution = no
+	}
+	effect = {
+		#Mark country as having started a nuclear program
+		set_variable = nuclear_program_started
+		activate_law = law_type:law_uranium_full_usage
+		#Add JE
+		add_journal_entry = {
+			type = je_develop_nuclear_weapons
+		}
+		# World will hate this only if nuclear bomb is actually used
+		if = {
+			limit = {
+				has_global_variable = ztr_atomic_bomb_first_use_var
+			}
+			#Hostile countries become more hostile
+			every_country = {
+				limit = {
+					OR = {
+						AND = {
+							country_rank > root.country_rank
+							OR = {
+								has_modifier = nuclear_capability
+								has_variable = nuclear_program_started
+							}
+							OR = {
+								has_attitude = {
+									who = ROOT
+									attitude <= antagonistic
+								}
+								relations:root < relations_threshold:poor
+							}
+						}
+						AND = {
+							NOT = {
+								is_subject = yes
+							}
+							has_diplomatic_pact = {
+								who = ROOT
+								type = rivalry
+							}
+							OR = {
+								has_modifier = nuclear_capability
+								has_variable = nuclear_program_started
+							}
+						}
+					}
+				}
+				change_relations = {
+					country = root
+					value = -100
+				}
+			}
+			#International community does not like this
+			change_infamy = 30
+		}
+	}
+	ai_chance = {
+		value = 0
+		if = {
+			#THIS is a superpower, Israel or great power
+			limit = {
+				OR = {
+					country_rank >= rank_value:great_power
+					c:ISR ?= this
+				}
+			}
+			add = 1000
+		}
+	}
+}
+
+# Converted from develop_thermonuclear_weapons_decision, logic kept identical
+ztr_develop_thermonuclear_weapons_button = {
+	name = "develop_thermonuclear_weapons_decision"
+	desc = "develop_thermonuclear_weapons_decision_desc"
+	visible = {
+		has_modifier = nuclear_capability
+		NOT = {
+			has_variable = thermonuclear_program_started
+		}
+		NOT = {
+			has_variable = signed_nuclear_non_proliferation_treaty
+		}
+		has_law_or_variant = law_type:law_uranium_full_usage
+		#THIS is a major power or dictatorship
+		OR = {
+			country_rank >= rank_value:great_power
+			ztr_is_not_full_democratic = yes
+			ztr_is_totalitarian = yes
+		}
+		#THIS must not be a revolutionary
+		is_revolutionary = no
+		is_secessionist = no
+	}
+	possible = {
+		# Must have a research center
+		has_research_center = yes
+		#Must be a sovereign state
+		is_subject = no
+		#THIS is not broke
+		in_default = no
+		#THIS is not in the midst of a revolution
+		has_revolution = no
+	}
+	effect = {
+		#Mark country as having started a nuclear program
+		set_variable = thermonuclear_program_started
+		#Add JE
+		add_journal_entry = {
+			type = je_develop_thermonuclear_weapons
+		}
+		# Here world will already know about nukes
+		every_country = {
+			limit = {
+				OR = {
+					AND = {
+						country_rank > root.country_rank
+						OR = {
+							has_modifier = nuclear_capability
+							has_variable = nuclear_program_started
+						}
+						OR = {
+							has_attitude = {
+								who = ROOT
+								attitude <= antagonistic
+							}
+							relations:root < relations_threshold:poor
+						}
+					}
+					AND = {
+						NOT = {
+							is_subject = yes
+						}
+						has_diplomatic_pact = {
+							who = ROOT
+							type = rivalry
+						}
+						OR = {
+							has_modifier = nuclear_capability
+							has_variable = nuclear_program_started
+						}
+					}
+				}
+			}
+			change_relations = {
+				country = root
+				value = -100
+			}
+		}
+		#International community doesn't like this, but if it is a superpower, less
+		if = {
+			limit = {
+				has_modifier = ztr_superpower
+			}
+			change_infamy = 25
+		}
+		else = {
+			change_infamy = 50
+		}
+	}
+	ai_chance = {
+		value = 0
+		if = {
+			#THIS is a superpower, Israel or great power
+			limit = {
+				has_modifier = ztr_superpower
+			}
+			add = 1000
+		}
+	}
+}
+
+# Converted from fusion_reactor_decision, logic kept identical
+ztr_fusion_reactor_button = {
+	name = "fusion_reactor_decision"
+	desc = "fusion_reactor_decision_desc"
+	visible = {
+		has_technology_researched = third_nuclear_reactor
+		NOT = {
+			any_scope_state = {
+				any_scope_building = {
+					is_building_type = building_fusion_power_plant
+				}
+			}
+		}
+		NOT = {
+			has_variable = fusion_reactor_var
+		}
+	}
+	possible = {
+		has_research_center = yes
+		produced_bureaucracy > 2500
+		has_technology_researched = smart_energy_grid
+	}
+	effect = {
+		set_variable = {
+			name = fusion_reactor_var
+			value = 0
+		}
+		add_journal_entry = {
+			type = je_fusion_reactor_research
+		}
+	}
+	ai_chance = {
+		value = 0
+		if = {
+			limit = {
+				produced_bureaucracy > 5000
+			}
+			add = 500
+		}
+		if = {
+			limit = {
+				has_strategy = ai_strategy_industrial_expansion
+			}
+			add = 500
+		}
+		if = {
+			limit = {
+				OR = {
+					is_diplomatic_play_committed_participant = yes
+					is_at_war = yes
+				}
+			}
+			multiply = 0
+		}
+	}
+}
+
 # Russian Revolution
 ztr_repress_soviet_movements = {
 	name = "ztr_repress_soviet_movements"

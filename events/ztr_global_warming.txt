@@ -1,0 +1,215 @@
+namespace = ztr_global_warming
+
+# Climate disaster events.
+
+# First climate disaster recorded anywhere in the world. One-off milestone.
+ztr_global_warming.1 = {
+	type = country_event
+	placement = scope:ztr_climate_disaster_state
+
+	title = {
+		first_valid = {
+			triggered_desc = {
+				trigger = { scope:ztr_climate_disaster_country ?= this }
+				desc = ztr_global_warming.1.t
+			}
+			triggered_desc = {
+				trigger = { always = yes }
+				desc = ztr_global_warming.1.t_global
+			}
+		}
+	}
+	desc = {
+		first_valid = {
+			triggered_desc = {
+				trigger = { scope:ztr_climate_disaster_country ?= this }
+				desc = ztr_global_warming.1.d
+			}
+			triggered_desc = {
+				trigger = { always = yes }
+				desc = ztr_global_warming.1.d_global
+			}
+		}
+	}
+	flavor = ztr_global_warming.1.f
+
+	event_image = { video = "unspecific_devastation" }
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	icon = "gfx/interface/icons/event_icons/global_warming.dds"
+
+	duration = 3
+
+	trigger = {
+		# Fired from ztr_on_harvest_condition_started_in_country.
+	}
+
+	option = {
+		name = ztr_global_warming.1.a
+		trigger = { scope:ztr_climate_disaster_country ?= this }
+		default_option = yes
+	}
+
+	option = {
+		name = ztr_global_warming.1.c
+		trigger = {
+			NOT = { scope:ztr_climate_disaster_country ?= this }
+		}
+		default_option = yes
+	}
+}
+
+# Hurricane landfall, intensity above 4.
+ztr_global_warming.2 = {
+	type = country_event
+	placement = scope:ztr_climate_disaster_state
+
+	title = {
+		first_valid = {
+			triggered_desc = {
+				trigger = { scope:ztr_climate_disaster_country ?= this }
+				desc = ztr_global_warming.2.t
+			}
+			triggered_desc = {
+				trigger = { always = yes }
+				desc = ztr_global_warming.2.t_global
+			}
+		}
+	}
+	desc = {
+		first_valid = {
+			triggered_desc = {
+				trigger = { scope:ztr_climate_disaster_country ?= this }
+				desc = ztr_global_warming.2.d
+			}
+			triggered_desc = {
+				trigger = { always = yes }
+				desc = ztr_global_warming.2.d_global
+			}
+		}
+	}
+	flavor = ztr_global_warming.2.f
+
+	event_image = { video = "unspecific_devastation" }
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	icon = "gfx/interface/icons/event_icons/event_skull.dds"
+
+	duration = 3
+
+	trigger = {
+		OR = {
+			scope:ztr_climate_disaster_country ?= this
+			NOT = { has_variable = ztr_hurricane_local_event_pending_var }
+		}
+	}
+
+	option = { # Let the coast rebuild itself
+		name = ztr_global_warming.2.a
+		trigger = { scope:ztr_climate_disaster_country ?= this }
+		default_option = yes
+		scope:ztr_climate_disaster_state.state_region = {
+			add_devastation = 40
+		}
+	}
+
+	option = { # Pay for the relief effort
+		name = ztr_global_warming.2.b
+		trigger = { scope:ztr_climate_disaster_country ?= this }
+		add_modifier = {
+			name = modifier_cyclone_relief
+			multiplier = money_amount_multiplier_medium
+			days = short_modifier_time
+		}
+		scope:ztr_climate_disaster_state.state_region = {
+			add_devastation = 15
+		}
+	}
+
+	option = {
+		name = ztr_global_warming.2.c
+		trigger = {
+			NOT = { scope:ztr_climate_disaster_country ?= this }
+		}
+		default_option = yes
+	}
+}
+
+# Semi-Permanent coastal inundation.
+ztr_global_warming.3 = {
+	type = country_event
+	placement = scope:ztr_climate_disaster_state
+
+	title = {
+		first_valid = {
+			triggered_desc = {
+				trigger = { scope:ztr_climate_disaster_country ?= this }
+				desc = ztr_global_warming.3.t
+			}
+			triggered_desc = {
+				trigger = { always = yes }
+				desc = ztr_global_warming.3.t_global
+			}
+		}
+	}
+	desc = {
+		first_valid = {
+			triggered_desc = {
+				trigger = { scope:ztr_climate_disaster_country ?= this }
+				desc = ztr_global_warming.3.d
+			}
+			triggered_desc = {
+				trigger = { always = yes }
+				desc = ztr_global_warming.3.d_global
+			}
+		}
+	}
+	flavor = ztr_global_warming.3.f
+
+	event_image = { video = "unspecific_devastation" }
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	icon = "gfx/interface/icons/event_icons/global_warming.dds"
+
+	duration = 3
+
+	trigger = {
+		OR = {
+			scope:ztr_climate_disaster_country ?= this
+			NOT = { has_variable = ztr_coastal_flooding_local_event_pending_var }
+		}
+	}
+
+	option = { # Abandon the lowest ground
+		name = ztr_global_warming.3.a
+		trigger = { scope:ztr_climate_disaster_country ?= this }
+		default_option = yes
+		scope:ztr_climate_disaster_state.state_region = {
+			add_devastation = 20
+			#TODO Aggiungere tratto flooded_1, oppure passare da flooded_1->flooded_2, oppure da flooded_2->flooded_3 (Stato perso).
+			#TODO Aggiungere un -10% di arable land
+			#TODO Aggiungere la rimozione, se ne esiste almeno uno, di 1 industria e di X edifici che usano arable land, dove X è l'intero più prossimo per difetto al -10% di arable land rimossa.
+		}
+	}
+
+	option = {
+		name = ztr_global_warming.3.c
+		trigger = {
+			NOT = { scope:ztr_climate_disaster_country ?= this }
+		}
+		default_option = yes
+	}
+
+	option = { # Raise the sea walls
+		name = ztr_global_warming.3.b
+		trigger = { scope:ztr_climate_disaster_country ?= this }
+		add_modifier = {
+			name = modifier_mega_flood_relief
+			multiplier = money_amount_multiplier_large
+			days = normal_modifier_time
+		}
+		scope:ztr_climate_disaster_state.state_region = {
+			add_devastation = 5
+			#TODO Aggiungere tratto flooded_1, oppure passare da flooded_1->flooded_2, mai flooded_2->flooded_3 (Stato perso).
+			#TODO Aggiungere un -10% di arable land
+			#TODO Aggiungere la rimozione, se ne esiste almeno uno, di 1 industria e di X edifici che usano arable land, dove X è l'intero più prossimo per difetto al -10% di arable land rimossa.
+		}
+	}
+}

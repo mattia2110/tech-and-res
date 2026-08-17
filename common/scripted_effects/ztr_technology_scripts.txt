@@ -1,0 +1,56 @@
+# Monthly progress for je_fusion_reactor_research. Scope: country
+fusion_reactor_add_progress = {
+	# Progress depends on nation's development indicators
+	change_variable = {
+		name = fusion_reactor_var
+		add = 0.25
+	}
+	# GDP per capita bonus: wealthy nations progress faster
+	if = {
+		limit = {
+			gdp > 1000000000
+		}
+		change_variable = {
+			name = fusion_reactor_var
+			add = 0.25
+		}
+	}
+	if = {
+		limit = {
+			gdp > 5000000000
+		}
+		change_variable = {
+			name = fusion_reactor_var
+			add = 0.5
+		}
+	}
+	# Literacy bonus: highly educated populace accelerates R&D
+	if = {
+		limit = {
+			literacy_rate > 0.95
+		}
+		change_variable = {
+			name = fusion_reactor_var
+			add = 0.25
+		}
+	}
+	# Major population bonus: large labor pool of scientists
+	if = {
+		limit = {
+			total_population > 50000000
+		}
+		change_variable = {
+			name = fusion_reactor_var
+			add = 0.25
+		}
+	}
+	if = {
+		limit = {
+			total_population > 500000000
+		}
+		change_variable = {
+			name = fusion_reactor_var
+			add = 0.25
+		}
+	}
+}

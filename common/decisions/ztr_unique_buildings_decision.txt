@@ -19,7 +19,11 @@ research_center_decision = {
 	}
 	possible = {
 		produced_bureaucracy > 1000
-		literacy_rate > 0.6
+		# Literacy is high or number of literate pop is high
+		OR = {
+			literacy_rate > 0.5
+			ztr_literate_population > 25000000
+		}
 		any_scope_state = {
 			is_incorporated = yes
 			is_split_state = no
@@ -79,60 +83,6 @@ research_center_decision = {
 	}
 }
 
-fusion_reactor_decision = {
-	is_shown = {
-		has_technology_researched = third_nuclear_reactor
-		has_research_center = yes
-		NOT = {
-			any_scope_state = {
-				any_scope_building = {
-					is_building_type = building_fusion_power_plant
-				}
-			}
-		}
-		NOT = {
-			has_variable = fusion_reactor_var
-		}
-	}
-	possible = {
-		produced_bureaucracy > 2500
-		has_technology_researched = smart_energy_grid
-	}
-	when_taken = {
-		set_variable = {
-			name = fusion_reactor_var
-			value = 0
-		}
-		add_journal_entry = {
-			type = je_fusion_reactor_research
-		}
-	}
-	ai_chance = {
-		value = 0
-		if = {
-			limit = {
-				produced_bureaucracy > 5000
-			}
-			add = 500
-		}
-		if = {
-			limit = {
-				has_strategy = ai_strategy_industrial_expansion
-			}
-			add = 500
-		}
-		if = {
-			limit = {
-				OR = {
-					is_diplomatic_play_committed_participant = yes
-					is_at_war = yes
-				}
-			}
-			multiply = 0
-		}
-	}
-}
-
 # Purchase fusion reactor technology from a major power
 # Available only to countries with the modern universities linkage modifier (minor powers)
 # This represents buying proven fusion technology rather than developing it from scratch
@@ -162,7 +112,11 @@ fusion_reactor_purchase_decision = {
 	possible = {
 		produced_bureaucracy > 1000
 		has_technology_researched = smart_energy_grid
-		literacy_rate > 0.75
+		# Literacy is high or number of literate pop is high
+		OR = {
+			literacy_rate > 0.7
+			ztr_literate_population > 50000000
+		}
 		# Must have good relations or diplomatic ties with a fusion-owning greatpower
 		custom_tooltip = {
 			text = fusion_reactor_purchase_relations_tt

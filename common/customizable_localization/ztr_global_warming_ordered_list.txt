@@ -1,3 +1,27 @@
+ztr_global_warming_yearly_temperature_change_type = {
+	type = journal_entry
+	text = {
+		trigger = {
+			has_global_variable = ztr_global_warming_yearly_temperature_change_var
+			global_var:ztr_global_warming_yearly_temperature_change_var > 0
+		}
+		localization_key = ztr_global_warming_yearly_temperature_change_red_loc
+	}
+	text = {
+		trigger = {
+			has_global_variable = ztr_global_warming_yearly_temperature_change_var
+			global_var:ztr_global_warming_yearly_temperature_change_var <= 0
+		}
+		localization_key = ztr_global_warming_yearly_temperature_change_green_loc
+	}
+	text = {
+		trigger = {
+			NOT = { has_global_variable = ztr_global_warming_yearly_temperature_change_var }
+		}
+		localization_key = ztr_global_warming_yearly_temperature_change_zero_loc
+	}
+}
+
 ztr_global_warming_total_pollution_change_type = {
 	type = journal_entry
 	text = {
@@ -247,5 +271,63 @@ ztr_global_warming_polluter_rank_10_type = {
 			global_var:ztr_global_warming_polluter_rank_10_change_var > 0
 		}
 		localization_key = ztr_global_warming_polluter_rank_10_red_loc
+	}
+}
+
+### Climate stage and disaster readout ###
+
+ztr_global_warming_stage_type = {
+	type = journal_entry
+	text = {
+		trigger = {
+			ztr_global_warming_stage_4 = yes
+		}
+		localization_key = ztr_global_warming_stage_4_loc
+	}
+	text = {
+		trigger = {
+			ztr_global_warming_stage_3 = yes
+		}
+		localization_key = ztr_global_warming_stage_3_loc
+	}
+	text = {
+		trigger = {
+			ztr_global_warming_stage_2 = yes
+		}
+		localization_key = ztr_global_warming_stage_2_loc
+	}
+	text = {
+		trigger = {
+			ztr_global_warming_stage_1 = yes
+		}
+		localization_key = ztr_global_warming_stage_1_loc
+	}
+	text = {
+		trigger = {
+			NOT = { ztr_global_warming_stage_1 = yes }
+		}
+		localization_key = ztr_global_warming_stage_0_loc
+	}
+}
+
+ztr_global_warming_climate_disasters_type = {
+	type = journal_entry
+	text = {
+		trigger = {
+			has_global_variable = ztr_global_warming_climate_disaster_states_var
+			global_var:ztr_global_warming_climate_disaster_states_var > 0
+		}
+		localization_key = ztr_global_warming_climate_disasters_active_loc
+	}
+	text = {
+		trigger = {
+			NOT = {
+				AND = {
+					has_global_variable = ztr_global_warming_climate_disaster_states_var
+					global_var:ztr_global_warming_climate_disaster_states_var > 0
+				}
+			}
+		}
+		localization_key = ztr_global_warming_climate_disasters_none_loc
 	}
 }

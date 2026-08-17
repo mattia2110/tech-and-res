@@ -1,4 +1,7 @@
-ztr_global_warming_yearly_update = {
+﻿# Startup guard for the yearly tick: creates the global counters on the first run,
+# snapshots last year's totals and zeroes what the update recounts from scratch.
+ztr_global_warming_check_variables_initialization = {
+	# First run: the yearly update assumes these already exist
 	if = {
 		limit = {
 			NOT = {
@@ -21,6 +24,8 @@ ztr_global_warming_yearly_update = {
 			value = 0
 		}
 	}
+
+	# Snapshot of last year's global pollution, used for the year-over-year change
 	if = {
 		limit = {
 			ztr_global_warming_active = yes
@@ -36,16 +41,31 @@ ztr_global_warming_yearly_update = {
 			value = 0
 		}
 	}
+
+	# Accumulators recounted from scratch by the yearly update: no decrement hook needed
 	set_global_variable = {
 		name = ztr_global_warming_total_pollution_var
 		value = 0
 	}
+	set_global_variable = {
+		name = ztr_global_warming_climate_disaster_states_var
+		value = 0
+	}
+}
+
+# Yearly global warming tick: recount pollution, move the temperature anomaly,
+# refresh the top polluter rankings.
+ztr_global_warming_yearly_update = {
+	ztr_global_warming_check_variables_initialization = yes
+
+	# === Per-country pollution: sum the states, apply reductions, compute the yearly change ===
 	every_country = {
 		limit = {
 			NOT = {
 				is_country_type = decentralized
 			}
 		}
+		# Snapshot of last year's country pollution, then reset the counter
 		if = {
 			limit = {
 				ztr_global_warming_active = yes
@@ -73,11 +93,33 @@ ztr_global_warming_yearly_update = {
 					add = prev.pollution_generation
 				}
 			}
-			change_global_variable = {
-				name = ztr_global_warming_total_pollution_var
-				add = pollution_generation
+			# Climate disaster count, piggybacked on this loop. Counts states, not
+			# regions: a region split between owners counts once per owner.
+			if = {
+				limit = {
+					state_region = {
+						ztr_has_extreme_climate_harvest_condition = yes
+					}
+				}
+				change_global_variable = {
+					name = ztr_global_warming_climate_disaster_states_var
+					add = 1
+				}
 			}
 		}
+		# Tracked at 1/100 of the raw pollution_generation scale to keep the
+		# displayed values short; the temperature divisor below compensates.
+		change_variable = {
+			name = ztr_country_total_pollution_current_var
+			divide = 100
+		}
+		ztr_global_warming_apply_country_pollution_reductions = yes
+		change_global_variable = {
+			name = ztr_global_warming_total_pollution_var
+			add = var:ztr_country_total_pollution_current_var
+		}
+
+		# Year-over-year change (%) of this country; 0 on the first tracked year
 		if = {
 			limit = {
 				NOT = {
@@ -130,6 +172,8 @@ ztr_global_warming_yearly_update = {
 			}
 		}
 	}
+
+	# === Global pollution change (%) vs last year ===
 	if = {
 		limit = {
 			NOT = {
@@ -181,6 +225,7 @@ ztr_global_warming_yearly_update = {
 			value = 0
 		}
 	}
+	# === Temperature anomaly: growth from pollution minus 1% yearly decay ===
 	set_global_variable = {
 		name = ztr_global_warming_yearly_temperature_change_var
 		value = 0
@@ -194,15 +239,36 @@ ztr_global_warming_yearly_update = {
 			name = ztr_global_warming_yearly_temperature_change_var
 			value = global_var:ztr_global_warming_total_pollution_var
 		}
+		# Main balance knob: T_eq = 100 * total_pollution_var / divisor.
+		# 3000000 targets ~3.0 C at a late-game pollution near 4500; retune from a
+		# real campaign with new_divisor = 100 * observed_pollution / desired_T_eq.
+		# Literal because only a number is accepted here: keep in sync with
+		# ztr_gw_temperature_divisor in script_values/ztr_global_warming_values.txt.
 		change_global_variable = {
 			name = ztr_global_warming_yearly_temperature_change_var
 			divide = 3000000
+		}
+		# Absorption: 1% of the accumulated anomaly decays each year
+		set_global_variable = {
+			name = ztr_global_warming_temperature_decay_var
+			value = global_var:ztr_global_warming_temperature_anomaly
+		}
+		change_global_variable = {
+			name = ztr_global_warming_temperature_decay_var
+			multiply = 0.01
+		}
+		change_global_variable = {
+			name = ztr_global_warming_yearly_temperature_change_var
+			subtract = global_var:ztr_global_warming_temperature_decay_var
 		}
 		change_global_variable = {
 			name = ztr_global_warming_temperature_anomaly
 			add = global_var:ztr_global_warming_yearly_temperature_change_var
 		}
 	}
+	# === Clamp to the 0-6 C scale used by the journal entry ===
+	# Ceiling matches the JE progress bar (max_value 600, fed with anomaly * 100).
+	# Stage 4 begins above 2 C, but the model keeps tracking further warming.
 	if = {
 		limit = {
 			global_var:ztr_global_warming_temperature_anomaly < 0
@@ -214,16 +280,298 @@ ztr_global_warming_yearly_update = {
 	}
 	if = {
 		limit = {
-			global_var:ztr_global_warming_temperature_anomaly > 60
+			global_var:ztr_global_warming_temperature_anomaly > 6.0
 		}
 		set_global_variable = {
 			name = ztr_global_warming_temperature_anomaly
-			value = 60
+			value = 6.0
 		}
 	}
+	# === Projected equilibrium: where the anomaly settles at constant pollution ===
+	# Growth cancels the 1% decay at pollution / (divisor / 100). Shown in the JE.
+	set_global_variable = {
+		name = ztr_global_warming_equilibrium_temperature_var
+		value = global_var:ztr_global_warming_total_pollution_var
+	}
+	change_global_variable = {
+		name = ztr_global_warming_equilibrium_temperature_var
+		divide = 1500
+	}
+	if = {
+		limit = {
+			global_var:ztr_global_warming_equilibrium_temperature_var > 6.0
+		}
+		set_global_variable = {
+			name = ztr_global_warming_equilibrium_temperature_var
+			value = 6.0
+		}
+	}
+	# === Top polluters leaderboard ===
 	ztr_global_warming_clear_polluter_rankings = yes
 	ztr_global_warming_rank_polluters = yes
+
 	set_global_variable = ztr_global_warming_initialized
+	ztr_global_warming_announce_stage_transitions = yes
+}
+
+# Announces every crossed climate threshold once worldwide. Independent checks
+# ensure a large yearly temperature jump cannot skip an intermediate milestone.
+ztr_global_warming_announce_stage_transitions = {
+	if = {
+		limit = {
+			ztr_global_warming_stage_1 = yes
+			NOT = { has_global_variable = ztr_global_warming_stage_1_announced }
+		}
+		set_global_variable = ztr_global_warming_stage_1_announced
+		every_country = {
+			trigger_event = {
+				id = ztr_global_warming_stage.1
+				days = 1
+				popup = yes
+			}
+		}
+	}
+
+	if = {
+		limit = {
+			ztr_global_warming_stage_2 = yes
+			NOT = { has_global_variable = ztr_global_warming_stage_2_announced }
+		}
+		set_global_variable = ztr_global_warming_stage_2_announced
+		every_country = {
+			trigger_event = {
+				id = ztr_global_warming_stage.2
+				days = 2
+				popup = yes
+			}
+		}
+	}
+
+	if = {
+		limit = {
+			ztr_global_warming_stage_3 = yes
+			NOT = { has_global_variable = ztr_global_warming_stage_3_announced }
+		}
+		set_global_variable = ztr_global_warming_stage_3_announced
+		every_country = {
+			trigger_event = {
+				id = ztr_global_warming_stage.3
+				days = 3
+				popup = yes
+			}
+		}
+	}
+
+	if = {
+		limit = {
+			ztr_global_warming_stage_4 = yes
+			NOT = { has_global_variable = ztr_global_warming_stage_4_announced }
+		}
+		set_global_variable = ztr_global_warming_stage_4_announced
+		every_country = {
+			trigger_event = {
+				id = ztr_global_warming_stage.4
+				days = 4
+				popup = yes
+			}
+		}
+	}
+}
+
+# State scope. The index is rolled once before an event is broadcast so every
+# recipient resolves the same deterministic custom-localization entry.
+ztr_assign_hurricane_name = {
+	random_list = {
+		1 = { set_variable = { name = ztr_hurricane_name_index value = 1 } }
+		1 = { set_variable = { name = ztr_hurricane_name_index value = 2 } }
+		1 = { set_variable = { name = ztr_hurricane_name_index value = 3 } }
+		1 = { set_variable = { name = ztr_hurricane_name_index value = 4 } }
+		1 = { set_variable = { name = ztr_hurricane_name_index value = 5 } }
+		1 = { set_variable = { name = ztr_hurricane_name_index value = 6 } }
+		1 = { set_variable = { name = ztr_hurricane_name_index value = 7 } }
+		1 = { set_variable = { name = ztr_hurricane_name_index value = 8 } }
+		1 = { set_variable = { name = ztr_hurricane_name_index value = 9 } }
+		1 = { set_variable = { name = ztr_hurricane_name_index value = 10 } }
+		1 = { set_variable = { name = ztr_hurricane_name_index value = 11 } }
+		1 = { set_variable = { name = ztr_hurricane_name_index value = 12 } }
+		1 = { set_variable = { name = ztr_hurricane_name_index value = 13 } }
+		1 = { set_variable = { name = ztr_hurricane_name_index value = 14 } }
+		1 = { set_variable = { name = ztr_hurricane_name_index value = 15 } }
+		1 = { set_variable = { name = ztr_hurricane_name_index value = 16 } }
+		1 = { set_variable = { name = ztr_hurricane_name_index value = 17 } }
+		1 = { set_variable = { name = ztr_hurricane_name_index value = 18 } }
+		1 = { set_variable = { name = ztr_hurricane_name_index value = 19 } }
+		1 = { set_variable = { name = ztr_hurricane_name_index value = 20 } }
+		1 = { set_variable = { name = ztr_hurricane_name_index value = 21 } }
+		1 = { set_variable = { name = ztr_hurricane_name_index value = 22 } }
+		1 = { set_variable = { name = ztr_hurricane_name_index value = 23 } }
+		1 = { set_variable = { name = ztr_hurricane_name_index value = 24 } }
+		1 = { set_variable = { name = ztr_hurricane_name_index value = 25 } }
+		1 = { set_variable = { name = ztr_hurricane_name_index value = 26 } }
+		1 = { set_variable = { name = ztr_hurricane_name_index value = 27 } }
+		1 = { set_variable = { name = ztr_hurricane_name_index value = 28 } }
+		1 = { set_variable = { name = ztr_hurricane_name_index value = 29 } }
+		1 = { set_variable = { name = ztr_hurricane_name_index value = 30 } }
+		1 = { set_variable = { name = ztr_hurricane_name_index value = 31 } }
+		1 = { set_variable = { name = ztr_hurricane_name_index value = 32 } }
+		1 = { set_variable = { name = ztr_hurricane_name_index value = 33 } }
+		1 = { set_variable = { name = ztr_hurricane_name_index value = 34 } }
+		1 = { set_variable = { name = ztr_hurricane_name_index value = 35 } }
+		1 = { set_variable = { name = ztr_hurricane_name_index value = 36 } }
+		1 = { set_variable = { name = ztr_hurricane_name_index value = 37 } }
+		1 = { set_variable = { name = ztr_hurricane_name_index value = 38 } }
+		1 = { set_variable = { name = ztr_hurricane_name_index value = 39 } }
+		1 = { set_variable = { name = ztr_hurricane_name_index value = 40 } }
+		1 = { set_variable = { name = ztr_hurricane_name_index value = 41 } }
+		1 = { set_variable = { name = ztr_hurricane_name_index value = 42 } }
+		1 = { set_variable = { name = ztr_hurricane_name_index value = 43 } }
+		1 = { set_variable = { name = ztr_hurricane_name_index value = 44 } }
+		1 = { set_variable = { name = ztr_hurricane_name_index value = 45 } }
+		1 = { set_variable = { name = ztr_hurricane_name_index value = 46 } }
+		1 = { set_variable = { name = ztr_hurricane_name_index value = 47 } }
+		1 = { set_variable = { name = ztr_hurricane_name_index value = 48 } }
+		1 = { set_variable = { name = ztr_hurricane_name_index value = 49 } }
+		1 = { set_variable = { name = ztr_hurricane_name_index value = 50 } }
+	}
+}
+
+# Simulates country-wide pollution reduction, which has no native modifier.
+# Each eligible source is applied independently to the country's raw pollution.
+ztr_global_warming_apply_country_pollution_reductions = {
+	if = {
+		limit = {
+			has_law = law_type:law_basic_protection
+		}
+		change_variable = {
+			name = ztr_country_total_pollution_current_var
+			multiply = 0.95
+		}
+	}
+	else_if = {
+		limit = {
+			has_law = law_type:law_active_restoration
+		}
+		change_variable = {
+			name = ztr_country_total_pollution_current_var
+			multiply = 0.90
+		}
+	}
+
+	# Environmental Policy: -5% per investment level, capped at -25%.
+	if = {
+		limit = {
+			institution_investment_level = {
+				institution = institution_environmental_policy
+				value >= 5
+			}
+		}
+		change_variable = {
+			name = ztr_country_total_pollution_current_var
+			multiply = 0.75
+		}
+	}
+	else_if = {
+		limit = {
+			institution_investment_level = {
+				institution = institution_environmental_policy
+				value >= 4
+			}
+		}
+		change_variable = {
+			name = ztr_country_total_pollution_current_var
+			multiply = 0.80
+		}
+	}
+	else_if = {
+		limit = {
+			institution_investment_level = {
+				institution = institution_environmental_policy
+				value >= 3
+			}
+		}
+		change_variable = {
+			name = ztr_country_total_pollution_current_var
+			multiply = 0.85
+		}
+	}
+	else_if = {
+		limit = {
+			institution_investment_level = {
+				institution = institution_environmental_policy
+				value >= 2
+			}
+		}
+		change_variable = {
+			name = ztr_country_total_pollution_current_var
+			multiply = 0.90
+		}
+	}
+	else_if = {
+		limit = {
+			institution_investment_level = {
+				institution = institution_environmental_policy
+				value >= 1
+			}
+		}
+		change_variable = {
+			name = ztr_country_total_pollution_current_var
+			multiply = 0.95
+		}
+	}
+
+	if = {
+		limit = {
+			has_law = law_type:law_mining_restrict_hazardous
+		}
+		change_variable = {
+			name = ztr_country_total_pollution_current_var
+			multiply = 0.98
+		}
+	}
+	else_if = {
+		limit = {
+			has_law = law_type:law_mining_strategic
+		}
+		change_variable = {
+			name = ztr_country_total_pollution_current_var
+			multiply = 0.95
+		}
+	}
+	else_if = {
+		limit = {
+			has_law = law_type:law_polluting_mining_banned
+		}
+		change_variable = {
+			name = ztr_country_total_pollution_current_var
+			multiply = 0.90
+		}
+	}
+
+	if = {
+		limit = {
+			has_technology_researched = carbon_capture_storage
+			capital = {
+				any_scope_building = {
+					is_building_type = building_urban_center
+					has_active_production_method = pm_urban_carbon_capture
+				}
+			}
+		}
+		change_variable = {
+			name = ztr_country_total_pollution_current_var
+			multiply = 0.80
+		}
+	}
+
+	if = {
+		limit = {
+			has_technology_researched = urban_sustainability
+		}
+		change_variable = {
+			name = ztr_country_total_pollution_current_var
+			multiply = 0.90
+		}
+	}
 }
 
 ztr_global_warming_clear_polluter_rankings = {

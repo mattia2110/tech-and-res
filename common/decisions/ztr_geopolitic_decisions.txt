@@ -1,203 +1,56 @@
-# EU
+# ===================================================================================
+# The European Project decisions
+# Phase 1: EEC (Treaty of Rome)  ->  Phase 2: European Union (decision below)
+# Phase 3 is reached by Council treaty; Phase 4 begins through individual federal invitations.
+# ===================================================================================
+
+# Found or join the European Economic Community
 firm_ztr_treaty_of_rome = {
 	is_shown = {
 		has_technology_researched = socialdemocracy
 		year > 1950
-		year < 1962
 		is_subject = no
-		OR = {
-			capital.region = sr:region_western_europe
-			capital.region = sr:region_central_europe
-			capital.region = sr:region_northern_europe
-			capital.region = sr:region_southern_europe
-		}
+		ztr_is_ecc_country = yes
+		is_not_isolationist_switzerland = yes
 		NOT = {
 			has_modifier = ztr_eec_member
 		}
 		NOT = {
 			has_modifier = ztr_eu_member
 		}
-	}
-	possible = {
-		ztr_is_un_member = yes
-		ztr_is_democratic = yes
-	}
-	when_taken = {
-		change_infamy = -5
-		hidden_effect = {
-			if = {
-				limit = {
-					has_modifier = ztr_eec_member
-				}
-				remove_modifier = ztr_eec_member
-			}
-			if = {
-				limit = {
-					has_modifier = ztr_eu_member
-				}
-				remove_modifier = ztr_eu_member
-			}
-			join_eu_law_changes = yes
-		}
-		add_modifier = {
-			name = ztr_eec_member
-		}
-		every_country = {
-			limit = {
-				has_modifier = ztr_eec_member
-			}
-			change_relations = {
-				country = root
-				value = 200
-			}
-		}
-		every_rival_country = {
-			limit = {
-				has_modifier = ztr_eec_member
-			}
-			remove_diplomatic_pact = {
-				country = root
-				type = rivalry
-			}
-			change_relations = {
-				country = root
-				value = 200
-			}
-		}
-	}
-	ai_chance = {
-		value = 10
-	}
-}
-
-create_eu_decision = {
-	is_shown = {
-		has_technology_researched = globalization
-		year > 1992
-		has_modifier = ztr_eec_member
-		country_rank = rank_value:great_power
-		OR = {
-			capital.region = sr:region_western_europe
-			capital.region = sr:region_central_europe
-			capital.region = sr:region_northern_europe
-			capital.region = sr:region_southern_europe
-			capital.region = sr:region_eastern_europe
-			capital.region = sr:region_balkans
-		}
+		# Once the EU exists the EEC chapter is closed: new countries join the Union directly
 		NOT = {
 			has_global_variable = ztr_eu_created
 		}
 	}
 	possible = {
 		ztr_is_un_member = yes
-		ztr_is_democratic = yes
+		is_at_war = no
+		is_revolutionary = no
 	}
 	when_taken = {
-		change_infamy = -5
-		set_global_variable = ztr_eu_created
-		set_variable = {
-			name = ztr_eu_founder
-			value = 1
-		}
-		# If a Country joins the EU, all of its subjects will become independent
-		custom_tooltip = {
-			text = ztr_eu_join_country_loose_all_subjects_tt
-			every_subject_or_below = {
-				make_independent = yes
-			}
-		}
-		# In order to destroy and recreate the power bloc (and to update its principles), we first set the country type to unrecognized to avoid issues. (NOT WORKING)
-		ztr_remove_any_power_bloc = yes
-		create_power_bloc = {
-			name = EUROPEAN_UNION
-			map_color = {
-				0
-				51
-				153
-			}
-			# Official EU blue
-			founding_date = 1992.1.1
-			identity = identity_trade_league
-			principle = principle_defensive_cooperation_1
-		}
-		if = {
-			limit = {
-				has_dlc_feature = power_bloc_features
-			}
-			power_bloc = {
-				add_principle = principle_internal_trade_1
-				add_principle = principle_external_trade_1
-				add_principle = principle_companies_1
-			}
-		}
-		trigger_event = ztr_eu_event.1
-	}
-	ai_chance = {
-		value = 50
-	}
-}
-
-join_european_union = {
-	is_shown = {
-		has_technology_researched = transnational_activism
-		year > 1992
-		NOT = {
-			has_modifier = ztr_eu_member
-		}
-		has_global_variable = ztr_eu_created
-		is_subject = no
-		OR = {
-			capital.region = sr:region_western_europe
-			capital.region = sr:region_central_europe
-			capital.region = sr:region_northern_europe
-			capital.region = sr:region_southern_europe
-			capital.region = sr:region_eastern_europe
-			capital.region = sr:region_balkans
-		}
-	}
-	possible = {
-		ztr_is_un_member = yes
-		ztr_is_democratic = yes
-	}
-	when_taken = {
-		# If a Country joins the EU, all of its subjects will become independent
-		custom_tooltip = {
-			text = ztr_eu_join_country_loose_all_subjects_tt
-			every_subject_or_below = {
-				make_independent = yes
-			}
-		}
-		ztr_remove_any_power_bloc = yes
-		random_country = {
-			limit = {
-				has_variable = ztr_eu_founder
-			}
-			root = {
-				join_power_bloc = prev
-			}
-		}
 		change_infamy = -5
 		hidden_effect = {
 			if = {
 				limit = {
-					has_modifier = ztr_eec_member
+					NOT = {
+						has_global_variable = ztr_eec_created
+					}
 				}
-				remove_modifier = ztr_eec_member
-			}
-			if = {
-				limit = {
-					has_modifier = ztr_eu_member
+				set_global_variable = ztr_eec_created
+				set_global_variable = {
+					name = ztr_eu_phase
+					value = 1
 				}
-				remove_modifier = ztr_eu_member
 			}
-			join_eu_law_changes = yes
 		}
 		add_modifier = {
-			name = ztr_eu_member
+			name = ztr_eec_member
 		}
 		every_country = {
 			limit = {
-				has_modifier = ztr_eu_member
+				NOT = { this = root }
+				has_modifier = ztr_eec_member
 			}
 			change_relations = {
 				country = root
@@ -206,7 +59,7 @@ join_european_union = {
 		}
 		every_rival_country = {
 			limit = {
-				has_modifier = ztr_eu_member
+				has_modifier = ztr_eec_member
 			}
 			remove_diplomatic_pact = {
 				country = root
@@ -219,43 +72,203 @@ join_european_union = {
 		}
 	}
 	ai_chance = {
+		value = 25
+	}
+}
+
+# Found the European Union (WIP)
+# create_eu_decision = {
+# 	is_shown = {
+# 		has_technology_researched = globalization
+# 		has_modifier = ztr_eec_member
+# 		is_not_isolationist_switzerland = yes
+# 		country_rank = rank_value:great_power
+# 		NOT = {
+# 			has_global_variable = ztr_eu_created
+# 		}
+# 	}
+# 	possible = {
+# 		ztr_is_un_member = yes
+# 		is_at_war = no
+# 		is_revolutionary = no
+# 		# The Union needs at least three signatories
+# 		custom_tooltip = {
+# 			text = ztr_eu_three_signatories_tt
+# 			any_country = {
+# 				count >= 2
+# 				NOT = { this = root }
+# 				has_modifier = ztr_eec_member
+# 			}
+# 		}
+# 	}
+# 	when_taken = {
+# 		hidden_effect = {
+# 			# Ideology must be computed while the EEC roster is still intact
+# 			ztr_eu_compute_ideology = yes
+# 			set_global_variable = ztr_eu_created
+# 			set_global_variable = {
+# 				name = ztr_eu_phase
+# 				value = 2
+# 			}
+# 			set_variable = {
+# 				name = ztr_eu_founder
+# 				value = 1
+# 			}
+# 		}
+# 		trigger_event = {
+# 			id = ztr_eu_event.1
+# 			popup = yes
+# 		}
+# 	}
+# 	ai_chance = {
+# 		value = 50
+# 	}
+# }
+
+# Join the existing European Union
+join_european_union = {
+	is_shown = {
+		has_technology_researched = transnational_activism
+		has_global_variable = ztr_eu_created
+		global_var:ztr_eu_phase < 4
+		is_subject = no
+		ztr_is_european_country = yes
+		NOT = {
+			has_modifier = ztr_eu_member
+		}
+		NOT = {
+			has_variable = ztr_eu_rejoin_cd
+		}
+	}
+	possible = {
+		ztr_is_un_member = yes
+		is_at_war = no
+		is_revolutionary = no
+		NOT = { infamy >= 25 }
+		# Copenhagen-style criteria: the Union only opens to politically aligned countries
+		ztr_eu_ideology_compatible = yes
+		is_not_isolationist_switzerland = yes
+		custom_tooltip = {
+			text = ztr_eu_join_chair_relations_tt
+			any_country = {
+				has_variable = ztr_eu_founder
+				"relations(root)" >= relations_threshold:cordial
+			}
+		}
+	}
+	when_taken = {
+		# If a Country joins the EU, all of its European subjects will become independent.
+		# Overseas dependencies are kept: the EEC founders joined while holding colonial empires.
+		custom_tooltip = {
+			text = ztr_eu_join_country_loose_all_subjects_tt
+			every_subject_or_below = {
+				limit = { ztr_is_european_country = yes }
+				make_independent = yes
+			}
+		}
+		change_infamy = -5
+		ztr_eu_member_accession = yes
+	}
+	ai_chance = {
 		value = 50
 	}
 }
 
+# Withdraw from the European Union
 withdraw_from_european_union = {
 	is_shown = {
 		has_modifier = ztr_eu_member
-		year > 2015		# A sort of Brexit
+		year > 2010 #TODO Da sostituire con righ-wing populism tech
 		is_subject = no
+		NOT = {
+			has_variable = ztr_eu_founder
+		}
 	}
 	possible = {
-		OR = {
-			#TODO, Brexit mechanics after right wing populism tech discovery
-			AND = {
+		custom_tooltip = {
+			text = ztr_eu_vote_session_clear_tt
+			NOT = {
+				has_global_variable = ztr_eu_vote_active
+			}
+		}
+		custom_tooltip = {
+			text = ztr_eu_withdraw_euroscepticism_tt
+			OR = {
 				is_ai = no
 				ig:ig_petty_bourgeoisie = {
 					is_powerful = yes
 				}
+				NOT = {
+					ztr_eu_ideology_compatible = yes
+				}
 			}
-			ztr_is_not_democratic = yes
 		}
 	}
 	when_taken = {
-		change_infamy = 10
-		remove_modifier = ztr_eu_member
-		every_country = {
-			limit = {
-				has_modifier = ztr_eu_member
-			}
-			change_relations = {
-				country = root
-				value = -50
-			}
-		}
+		change_infamy = 5
+		ztr_eu_member_exit = yes
 	}
 	ai_chance = {
-		value = 10
+		value = 5
 	}
 }
 
+# Join the sovereign European Federation after the EU institutions have dissolved
+join_european_federation = {
+	is_shown = {
+		has_global_variable = ztr_eu_federation_formed
+		exists = c:EUF
+		NOT = { this = c:EUF }
+		is_subject = no
+		ztr_is_european_country = yes
+		is_not_isolationist_switzerland = yes
+		NOT = {
+			has_variable = ztr_eu_rejoin_cd
+		}
+	}
+	possible = {
+		is_at_war = no
+		is_revolutionary = no
+		NOT = { infamy >= 25 }
+		ztr_euf_ideology_compatible = yes
+	}
+	when_taken = {
+		# As with EU accession, European dependencies are freed; overseas ones are kept
+		custom_tooltip = {
+			text = ztr_eu_join_country_loose_all_subjects_tt
+			every_subject_or_below = {
+				limit = { ztr_is_european_country = yes }
+				make_independent = yes
+			}
+		}
+		ztr_eu_join_existing_federation = yes
+	}
+	ai_chance = {
+		value = 25
+	}
+}
+
+# Adopt the Euro (open from the EU phase onwards, convergence criteria apply)
+ztr_adopt_euro_decision = {
+	is_shown = {
+		has_modifier = ztr_eu_member
+		has_global_variable = ztr_eu_created
+		is_not_isolationist_switzerland = yes
+		has_technology_researched = electronic_payment_systems
+		global_var:ztr_eu_phase >= 2
+		global_var:ztr_eu_phase < 4
+		NOT = {
+			has_modifier = ztr_euro_member
+		}
+	}
+	possible = {
+		ztr_eu_euro_convergence_criteria = yes
+	}
+	when_taken = {
+		ztr_eu_adopt_euro = yes
+	}
+	ai_chance = {
+		# The AI adopts the Euro through the Union panel once it qualifies
+		value = 0
+	}
+}

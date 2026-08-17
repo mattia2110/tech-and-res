@@ -1,3 +1,23 @@
+# National Research Center control panel.
+# It has no complete/fail/timeout transition on purpose: it simply activates as soon as the
+# country operates a Research Center and deactivates again if that Research Center is lost.
+je_research_center = {
+	icon = "gfx/interface/icons/event_icons/innovation.dds"
+	group = je_group_technology
+	is_shown_when_inactive = {
+		has_research_center = yes
+	}
+	possible = {
+		has_research_center = yes
+	}
+	can_deactivate = yes
+	scripted_button = ztr_start_nuclear_weapons_program_button
+	scripted_button = ztr_develop_thermonuclear_weapons_button
+	scripted_button = ztr_fusion_reactor_button
+	weight = 50
+	should_be_pinned_by_default_uninvolved_or_context = yes
+}
+
 je_research_center_site = {
 	icon = "gfx/interface/icons/event_icons/innovation.dds"
 	group = je_group_technology
@@ -66,7 +86,7 @@ je_research_center_site = {
 }
 
 je_research_center_construction = {
-	icon = "gfx/interface/icons/event_icons/academia.dds"
+	icon = "gfx/interface/icons/event_icons/innovation.dds"
 	group = je_group_technology
 	complete = {
 		scope:target = {
@@ -98,15 +118,6 @@ je_research_center_construction = {
 						level = 1
 					}
 				}
-				# random_scope_state = {
-				# 	limit = {
-				# 		is_capital = yes
-				# 	}
-				# 	create_building = {
-				# 		building = building_research_center
-				# 		level = 1
-				# 	}
-				# }
 			}
 		}
 	}
@@ -232,59 +243,7 @@ je_fusion_reactor_research = {
 	group = je_group_technology
 	on_monthly_pulse = {
 		effect = {
-			# Progress depends on nation's development indicators
-			change_variable = {
-				name = fusion_reactor_var
-				add = 0.25
-			}
-			# GDP per capita bonus: wealthy nations progress faster
-			if = {
-				limit = {
-					gdp > 1000000000
-				}
-				change_variable = {
-					name = fusion_reactor_var
-					add = 0.25
-				}
-			}
-			if = {
-				limit = {
-					gdp > 705032704
-				}
-				change_variable = {
-					name = fusion_reactor_var
-					add = 0.5
-				}
-			}
-			# Literacy bonus: highly educated populace accelerates R&D
-			if = {
-				limit = {
-					literacy_rate > 0.95
-				}
-				change_variable = {
-					name = fusion_reactor_var
-					add = 0.25
-				}
-			}
-			# Major population bonus: large labor pool of scientists
-			if = {
-				limit = {
-					total_population > 50000000
-				}
-				change_variable = {
-					name = fusion_reactor_var
-					add = 0.25
-				}
-			}
-			if = {
-				limit = {
-					total_population > 500000000
-				}
-				change_variable = {
-					name = fusion_reactor_var
-					add = 0.25
-				}
-			}
+			fusion_reactor_add_progress = yes
 		}
 	}
 	complete = {
@@ -299,16 +258,10 @@ je_fusion_reactor_research = {
 		# fusion reactor first breakthrough
 	}
 	invalid = {
-		OR = {
-			NOT = {
-				has_technology_researched = smart_energy_grid
-			}
-			NOT = {
-				has_technology_researched = third_nuclear_reactor
-			}
-			NOT = {
-				has_research_center = yes
-			}
+		NAND = {
+			has_technology_researched = smart_energy_grid
+			has_technology_researched = third_nuclear_reactor
+			has_research_center = yes
 		}
 	}
 	on_invalid = {

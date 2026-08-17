@@ -1,0 +1,3003 @@
+# ===================================================================================
+# The European Project - core scripted effects
+# Phases (global_var:ztr_eu_phase): 1 = EEC, 2 = European Union, 3 = European Confederation, 4 = European Federation
+# Ideologies (global_var:ztr_eu_ideology): 1 = Liberal, 2 = Communist, 3 = Authoritarian
+# The ideology is computed at the founding of the Union, reviewed every ten years
+# while the Union remains in phase 2 (ztr_eu_review_union_ideology), and frozen for
+# good once the Confederation is proclaimed.
+# Council votes use a fixed double majority: member states AND parliament seats (360).
+# States vote through their governments; each parliament delegation instead splits
+# by the popular europeanism of its own nation (J, see ztr_eu_compute_europeanism).
+# ===================================================================================
+
+# -----------------------------------------------------------------------------------
+# Ideology of the Union, computed from the political composition of its members.
+# Used at EU founding (counting EEC members) and by the rare reviews below.
+# The ztr_eu_count_dem / _com / _auth tallies are internal to the computation and
+# removed by ztr_eu_compute_ideology / ztr_eu_review_union_ideology once decided.
+# -----------------------------------------------------------------------------------
+ztr_eu_count_member_ideologies = {
+	set_global_variable = {
+		name = ztr_eu_count_dem
+		value = 0
+	}
+	set_global_variable = {
+		name = ztr_eu_count_com
+		value = 0
+	}
+	set_global_variable = {
+		name = ztr_eu_count_auth
+		value = 0
+	}
+	every_country = {
+		limit = {
+			OR = {
+				has_modifier = ztr_eu_member
+				# At EU founding the counting happens while countries still hold the EEC modifier
+				AND = {
+					NOT = { has_global_variable = ztr_eu_created }
+					has_modifier = ztr_eec_member
+				}
+			}
+		}
+		if = {
+			limit = {
+				ztr_is_communist = yes
+			}
+			change_global_variable = {
+				name = ztr_eu_count_com
+				add = 1
+			}
+		}
+		else_if = {
+			limit = {
+				ztr_is_democratic = yes
+			}
+			change_global_variable = {
+				name = ztr_eu_count_dem
+				add = 1
+			}
+		}
+		else_if = {
+			limit = {
+				ztr_is_not_democratic = yes
+			}
+			change_global_variable = {
+				name = ztr_eu_count_auth
+				add = 1
+			}
+		}
+	}
+}
+
+ztr_eu_compute_ideology = {
+	ztr_eu_count_member_ideologies = yes
+	if = {
+		limit = {
+			global_var:ztr_eu_count_com > global_var:ztr_eu_count_dem
+			global_var:ztr_eu_count_com > global_var:ztr_eu_count_auth
+		}
+		set_global_variable = {
+			name = ztr_eu_ideology
+			value = 2
+		}
+	}
+	else_if = {
+		limit = {
+			global_var:ztr_eu_count_auth > global_var:ztr_eu_count_dem
+			global_var:ztr_eu_count_auth >= global_var:ztr_eu_count_com
+		}
+		set_global_variable = {
+			name = ztr_eu_ideology
+			value = 3
+		}
+	}
+	else = {
+		set_global_variable = {
+			name = ztr_eu_ideology
+			value = 1
+		}
+	}
+	remove_global_variable = ztr_eu_count_dem
+	remove_global_variable = ztr_eu_count_com
+	remove_global_variable = ztr_eu_count_auth
+}
+
+# -----------------------------------------------------------------------------------
+# Rare ideological review of the Union (phase 2 only: the orientation freezes for
+# good once the Confederation is proclaimed). Recounts the members' political
+# families and flips ztr_eu_ideology only when a challenger family outnumbers the
+# incumbent by at least global_var:ztr_eu_ideology_review_margin, which the caller
+# must set beforehand (2 for the routine decennial review - hysteresis against
+# flip-flopping - and 1 for the final recount right before the confederal treaty).
+# Fires ztr_eu_event.40 at every human member when the orientation actually flips.
+# -----------------------------------------------------------------------------------
+ztr_eu_review_union_ideology = {
+	ztr_eu_count_member_ideologies = yes
+	# The bar every challenger must clear: incumbent family count plus the margin
+	if = {
+		limit = {
+			global_var:ztr_eu_ideology = 2
+		}
+		set_global_variable = {
+			name = ztr_eu_ideology_bar
+			value = global_var:ztr_eu_count_com
+		}
+	}
+	else_if = {
+		limit = {
+			global_var:ztr_eu_ideology = 3
+		}
+		set_global_variable = {
+			name = ztr_eu_ideology_bar
+			value = global_var:ztr_eu_count_auth
+		}
+	}
+	else = {
+		set_global_variable = {
+			name = ztr_eu_ideology_bar
+			value = global_var:ztr_eu_count_dem
+		}
+	}
+	change_global_variable = {
+		name = ztr_eu_ideology_bar
+		add = global_var:ztr_eu_ideology_review_margin
+	}
+	set_global_variable = {
+		name = ztr_eu_ideology_old
+		value = global_var:ztr_eu_ideology
+	}
+	# A challenger flips the Union only by clearing the bar AND leading every other
+	# family; the evaluation order breaks exact ties between challengers
+	if = {
+		limit = {
+			NOT = { global_var:ztr_eu_ideology = 1 }
+			global_var:ztr_eu_count_dem >= global_var:ztr_eu_ideology_bar
+			global_var:ztr_eu_count_dem >= global_var:ztr_eu_count_com
+			global_var:ztr_eu_count_dem >= global_var:ztr_eu_count_auth
+		}
+		set_global_variable = {
+			name = ztr_eu_ideology
+			value = 1
+		}
+	}
+	else_if = {
+		limit = {
+			NOT = { global_var:ztr_eu_ideology = 2 }
+			global_var:ztr_eu_count_com >= global_var:ztr_eu_ideology_bar
+			global_var:ztr_eu_count_com >= global_var:ztr_eu_count_dem
+			global_var:ztr_eu_count_com >= global_var:ztr_eu_count_auth
+		}
+		set_global_variable = {
+			name = ztr_eu_ideology
+			value = 2
+		}
+	}
+	else_if = {
+		limit = {
+			NOT = { global_var:ztr_eu_ideology = 3 }
+			global_var:ztr_eu_count_auth >= global_var:ztr_eu_ideology_bar
+			global_var:ztr_eu_count_auth >= global_var:ztr_eu_count_dem
+			global_var:ztr_eu_count_auth >= global_var:ztr_eu_count_com
+		}
+		set_global_variable = {
+			name = ztr_eu_ideology
+			value = 3
+		}
+	}
+	if = {
+		limit = {
+			NOT = {
+				global_var:ztr_eu_ideology = global_var:ztr_eu_ideology_old
+			}
+		}
+		every_country = {
+			limit = {
+				has_modifier = ztr_eu_member
+				is_ai = no
+			}
+			trigger_event = {
+				id = ztr_eu_event.40
+				days = 3
+			}
+		}
+	}
+	remove_global_variable = ztr_eu_ideology_old
+	remove_global_variable = ztr_eu_ideology_bar
+	remove_global_variable = ztr_eu_ideology_review_margin
+	remove_global_variable = ztr_eu_count_dem
+	remove_global_variable = ztr_eu_count_com
+	remove_global_variable = ztr_eu_count_auth
+}
+
+# -----------------------------------------------------------------------------------
+# Law harmonization on accession, by Union ideology.
+# Liberal harmonization reuses join_eu_law_changes from ztr_geopolitic_scripts.txt.
+# -----------------------------------------------------------------------------------
+ztr_eu_law_harmonization = {
+	if = {
+		limit = {
+			global_var:ztr_eu_ideology = 1
+		}
+		join_eu_law_changes = yes
+	}
+	else_if = {
+		limit = {
+			global_var:ztr_eu_ideology = 2
+		}
+		# Communist Europe: planned economy, strong labor rights, internationalism
+		if = {
+			limit = {
+				NOT = {
+					has_law_or_variant = law_type:law_command_economy
+				}
+			}
+			activate_law = law_type:law_command_economy
+		}
+		if = {
+			limit = {
+				NOT = {
+					has_law_or_variant = law_type:law_worker_protections
+				}
+			}
+			activate_law = law_type:law_worker_protections
+		}
+		if = {
+			limit = {
+				OR = {
+					has_law_or_variant = law_type:law_ethnostate
+					has_law_or_variant = law_type:law_national_supremacy
+				}
+			}
+			activate_law = law_type:law_cultural_exclusion
+		}
+	}
+	else_if = {
+		limit = {
+			global_var:ztr_eu_ideology = 3
+		}
+		# Fortress Europe: order at home, walls at the borders
+		if = {
+			limit = {
+				has_law_or_variant = law_type:law_guaranteed_liberties
+			}
+			activate_law = law_type:law_censorship
+		}
+		if = {
+			limit = {
+				has_law_or_variant = law_type:law_no_migration_controls
+			}
+			activate_law = law_type:law_migration_controls
+		}
+		if = {
+			limit = {
+				has_law_or_variant = law_type:law_multicultural
+			}
+			activate_law = law_type:law_cultural_exclusion
+		}
+	}
+}
+
+# -----------------------------------------------------------------------------------
+# European Parliament: 360 seats split by population (floor of 6 per member,
+# see ztr_eu_country_seats_sv). Recalculated every 5 years, at every accession
+# and at every exit.
+# -----------------------------------------------------------------------------------
+ztr_eu_distribute_seats = {
+	set_global_variable = {
+		name = ztr_eu_total_member_pop
+		value = 0
+	}
+	every_country = {
+		limit = {
+			has_modifier = ztr_eu_member
+		}
+		change_global_variable = {
+			name = ztr_eu_total_member_pop
+			add = total_population
+		}
+	}
+	if = {
+		limit = {
+			global_var:ztr_eu_total_member_pop > 0
+		}
+		every_country = {
+			limit = {
+				has_modifier = ztr_eu_member
+			}
+			set_variable = {
+				name = ztr_eu_seats
+				value = ztr_eu_country_seats_sv
+			}
+		}
+	}
+	remove_global_variable = ztr_eu_total_member_pop
+	# The five-year legislature timer is managed by je_eu_info_panel, not here:
+	# accessions, exits and vote snapshots reapportion seats without renewing the term.
+}
+
+# -----------------------------------------------------------------------------------
+# Union display data: member ranking by parliament seats and aggregate statistics.
+# Fills ztr_eu_member_display_rank_1..10_var globals (country values) plus
+# ztr_eu_total_gdp_display / ztr_eu_total_pop_display, read by je_eu_info_panel.
+# -----------------------------------------------------------------------------------
+ztr_eu_member_ranking_variables = {
+	remove_global_variable = ztr_eu_member_display_rank_1_var
+	remove_global_variable = ztr_eu_member_display_rank_2_var
+	remove_global_variable = ztr_eu_member_display_rank_3_var
+	remove_global_variable = ztr_eu_member_display_rank_4_var
+	remove_global_variable = ztr_eu_member_display_rank_5_var
+	remove_global_variable = ztr_eu_member_display_rank_6_var
+	remove_global_variable = ztr_eu_member_display_rank_7_var
+	remove_global_variable = ztr_eu_member_display_rank_8_var
+	remove_global_variable = ztr_eu_member_display_rank_9_var
+	remove_global_variable = ztr_eu_member_display_rank_10_var
+	# Aggregate Union statistics
+	set_global_variable = {
+		name = ztr_eu_total_gdp_display
+		value = 0
+	}
+	set_global_variable = {
+		name = ztr_eu_total_pop_display
+		value = 0
+	}
+	every_country = {
+		limit = {
+			has_modifier = ztr_eu_member
+		}
+		change_global_variable = {
+			name = ztr_eu_total_gdp_display
+			add = gdp
+		}
+		change_global_variable = {
+			name = ztr_eu_total_pop_display
+			add = total_population
+		}
+	}
+	# Member states ordered by parliament seats
+	ordered_country = {
+		limit = {
+			has_modifier = ztr_eu_member
+			has_variable = ztr_eu_seats
+		}
+		order_by = {
+			value = var:ztr_eu_seats
+		}
+		max = 10
+		check_range_bounds = no
+		if = {
+			limit = {
+				NOT = {
+					has_global_variable = ztr_eu_member_display_rank_1_var
+				}
+			}
+			set_global_variable = {
+				name = ztr_eu_member_display_rank_1_var
+				value = this
+			}
+		}
+		else_if = {
+			limit = {
+				NOT = {
+					has_global_variable = ztr_eu_member_display_rank_2_var
+				}
+			}
+			set_global_variable = {
+				name = ztr_eu_member_display_rank_2_var
+				value = this
+			}
+		}
+		else_if = {
+			limit = {
+				NOT = {
+					has_global_variable = ztr_eu_member_display_rank_3_var
+				}
+			}
+			set_global_variable = {
+				name = ztr_eu_member_display_rank_3_var
+				value = this
+			}
+		}
+		else_if = {
+			limit = {
+				NOT = {
+					has_global_variable = ztr_eu_member_display_rank_4_var
+				}
+			}
+			set_global_variable = {
+				name = ztr_eu_member_display_rank_4_var
+				value = this
+			}
+		}
+		else_if = {
+			limit = {
+				NOT = {
+					has_global_variable = ztr_eu_member_display_rank_5_var
+				}
+			}
+			set_global_variable = {
+				name = ztr_eu_member_display_rank_5_var
+				value = this
+			}
+		}
+		else_if = {
+			limit = {
+				NOT = {
+					has_global_variable = ztr_eu_member_display_rank_6_var
+				}
+			}
+			set_global_variable = {
+				name = ztr_eu_member_display_rank_6_var
+				value = this
+			}
+		}
+		else_if = {
+			limit = {
+				NOT = {
+					has_global_variable = ztr_eu_member_display_rank_7_var
+				}
+			}
+			set_global_variable = {
+				name = ztr_eu_member_display_rank_7_var
+				value = this
+			}
+		}
+		else_if = {
+			limit = {
+				NOT = {
+					has_global_variable = ztr_eu_member_display_rank_8_var
+				}
+			}
+			set_global_variable = {
+				name = ztr_eu_member_display_rank_8_var
+				value = this
+			}
+		}
+		else_if = {
+			limit = {
+				NOT = {
+					has_global_variable = ztr_eu_member_display_rank_9_var
+				}
+			}
+			set_global_variable = {
+				name = ztr_eu_member_display_rank_9_var
+				value = this
+			}
+		}
+		else_if = {
+			limit = {
+				NOT = {
+					has_global_variable = ztr_eu_member_display_rank_10_var
+				}
+			}
+			set_global_variable = {
+				name = ztr_eu_member_display_rank_10_var
+				value = this
+			}
+		}
+	}
+}
+
+# -----------------------------------------------------------------------------------
+# Accession: turns ROOT into a full EU member. Assumes eligibility already checked.
+# -----------------------------------------------------------------------------------
+ztr_eu_member_accession = {
+	if = {
+		limit = {
+			has_modifier = ztr_eec_member
+		}
+		remove_modifier = ztr_eec_member
+	}
+	if = {
+		limit = {
+			NOT = {
+				has_modifier = ztr_eu_member
+			}
+		}
+		add_modifier = {
+			name = ztr_eu_member
+		}
+	}
+	# New members wait five years before qualifying for the Euro
+	set_variable = {
+		name = ztr_eu_new_member
+		years = 5
+	}
+	hidden_effect = {
+		ztr_eu_law_harmonization = yes
+		ztr_eu_sync_directive_modifiers = yes
+		# First europeanism reading, so the Union panel is populated from day one
+		ztr_eu_compute_europeanism = yes
+		# If the Confederation already exists, a new member does not settle as a plain
+		# event 60. The single market and bloc entry are granted there, not here.
+		if = {
+			limit = {
+				has_global_variable = ztr_eu_bloc_created
+				NOT = { has_variable = ztr_eu_founder }
+			}
+			trigger_event = {
+				id = ztr_eu_event.60
+				days = 1
+				popup = yes
+			}
+		}
+		ztr_eu_distribute_seats = yes
+	}
+	every_country = {
+		limit = {
+			NOT = { this = ROOT }
+			has_modifier = ztr_eu_member
+		}
+		change_relations = {
+			country = ROOT
+			value = 200
+		}
+	}
+	every_rival_country = {
+		limit = {
+			has_modifier = ztr_eu_member
+		}
+		remove_diplomatic_pact = {
+			country = ROOT
+			type = rivalry
+		}
+	}
+}
+
+# -----------------------------------------------------------------------------------
+# Exit: strips ROOT of everything tied to the Union (withdrawal, confederal refusal).
+# -----------------------------------------------------------------------------------
+ztr_eu_member_exit = {
+	if = {
+		limit = {
+			has_modifier = ztr_eu_member
+		}
+		remove_modifier = ztr_eu_member
+	}
+	if = {
+		limit = {
+			has_modifier = ztr_eu_single_market
+		}
+		remove_modifier = ztr_eu_single_market
+	}
+	ztr_eu_remove_all_directive_modifiers = yes
+	ztr_eu_leave_eurozone = yes
+	if = {
+		limit = {
+			has_variable = ztr_eu_seats
+		}
+		remove_variable = ztr_eu_seats
+	}
+	if = {
+		limit = {
+			has_variable = ztr_eu_new_member
+		}
+		remove_variable = ztr_eu_new_member
+	}
+	hidden_effect = {
+		# Leave the EU power bloc if applicable
+		if = {
+			limit = {
+				exists = ROOT.power_bloc
+				ROOT.power_bloc = {
+					power_bloc_leader = {
+						has_variable = ztr_eu_bloc_leader
+					}
+				}
+				NOT = {
+					has_variable = ztr_eu_bloc_leader
+				}
+			}
+			leave_power_bloc = yes
+		}
+		# Drop any pending vote participation
+		remove_variable = ztr_eu_vote_eligible
+		remove_variable = ztr_eu_vote_choice_support
+		remove_variable = ztr_eu_vote_choice_against
+		remove_variable = ztr_eu_vote_proposer
+		remove_variable = ztr_eu_europeist_seats
+		remove_variable = ztr_eu_eurosceptic_seats
+		# Europeanism is Union bookkeeping: it leaves with the membership
+		remove_variable = ztr_eu_j_pop
+		remove_variable = ztr_eu_j_gov
+		remove_variable = ztr_eu_j_pop_display
+		remove_variable = ztr_eu_j_gov_display
+		# Cancel any delayed federal-union invitation before it can bypass the cooldown
+		remove_variable = ztr_eu_federation_invited
+		# If the departing country proposed the federation, cancel the entire pending round
+		if = {
+			limit = {
+				has_variable = ztr_eu_federation_proposer
+			}
+			remove_variable = ztr_eu_federation_proposer
+			every_country = {
+				limit = {
+					has_variable = ztr_eu_federation_invited
+				}
+				remove_variable = ztr_eu_federation_invited
+			}
+		}
+		# Involvement in the vote journal entry is sticky: the engine never re-evaluates
+		# should_be_involved to drop a country, so strip it explicitly or the departed
+		# country keeps sitting (and voting) in the Council session
+		je:je_eu_votations ?= {
+			remove_involved_country = prev
+		}
+		ztr_eu_distribute_seats = yes
+	}
+	set_variable = {
+		name = ztr_eu_rejoin_cd
+		years = 5
+	}
+	every_country = {
+		limit = {
+			NOT = { this = ROOT }
+			has_modifier = ztr_eu_member
+		}
+		change_relations = {
+			country = ROOT
+			value = -50
+		}
+	}
+}
+
+# -----------------------------------------------------------------------------------
+# Europeanism (J): clout-weighted backing for the European project, in [0, 1].
+# Europeist interest groups count full, eurosceptic ones count zero and everything
+# else (lukewarm or unclassified, see ztr_eu_triggers.txt) counts half.
+# Sets on the country:
+#   ztr_eu_j_pop / ztr_eu_j_gov            - society-wide and government-only J
+#   ztr_eu_j_pop_display / _gov_display    - same values in 0..100 for the UI
+# Refreshed yearly by je_eu_info_panel and frozen into the delegation split
+# (ztr_eu_europeist_seats) when a Council vote opens.
+# -----------------------------------------------------------------------------------
+ztr_eu_compute_europeanism = {
+	set_variable = {
+		name = ztr_eu_tmp_num_pop
+		value = 0
+	}
+	set_variable = {
+		name = ztr_eu_tmp_mid_pop
+		value = 0
+	}
+	set_variable = {
+		name = ztr_eu_tmp_den_pop
+		value = 0
+	}
+	set_variable = {
+		name = ztr_eu_tmp_num_gov
+		value = 0
+	}
+	set_variable = {
+		name = ztr_eu_tmp_mid_gov
+		value = 0
+	}
+	set_variable = {
+		name = ztr_eu_tmp_den_gov
+		value = 0
+	}
+	every_interest_group = {
+		save_temporary_scope_as = ztr_eu_ig_tmp
+		prev = {
+			change_variable = {
+				name = ztr_eu_tmp_den_pop
+				add = scope:ztr_eu_ig_tmp.ig_clout
+			}
+		}
+		if = {
+			limit = {
+				ztr_eu_ig_is_europeist = yes
+			}
+			prev = {
+				change_variable = {
+					name = ztr_eu_tmp_num_pop
+					add = scope:ztr_eu_ig_tmp.ig_clout
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				NOT = {
+					ztr_eu_ig_is_eurosceptic = yes
+				}
+			}
+			prev = {
+				change_variable = {
+					name = ztr_eu_tmp_mid_pop
+					add = scope:ztr_eu_ig_tmp.ig_clout
+				}
+			}
+		}
+		if = {
+			limit = {
+				is_in_government = yes
+			}
+			prev = {
+				change_variable = {
+					name = ztr_eu_tmp_den_gov
+					add = scope:ztr_eu_ig_tmp.ig_clout
+				}
+			}
+			if = {
+				limit = {
+					ztr_eu_ig_is_europeist = yes
+				}
+				prev = {
+					change_variable = {
+						name = ztr_eu_tmp_num_gov
+						add = scope:ztr_eu_ig_tmp.ig_clout
+					}
+				}
+			}
+			else_if = {
+				limit = {
+					NOT = {
+						ztr_eu_ig_is_eurosceptic = yes
+					}
+				}
+				prev = {
+					change_variable = {
+						name = ztr_eu_tmp_mid_gov
+						add = scope:ztr_eu_ig_tmp.ig_clout
+					}
+				}
+			}
+		}
+	}
+	# J = (europeist clout + half the lukewarm clout) / total clout
+	set_variable = {
+		name = ztr_eu_j_pop
+		value = var:ztr_eu_tmp_mid_pop
+	}
+	change_variable = {
+		name = ztr_eu_j_pop
+		multiply = 0.5
+	}
+	change_variable = {
+		name = ztr_eu_j_pop
+		add = var:ztr_eu_tmp_num_pop
+	}
+	if = {
+		limit = {
+			var:ztr_eu_tmp_den_pop > 0
+		}
+		change_variable = {
+			name = ztr_eu_j_pop
+			divide = var:ztr_eu_tmp_den_pop
+		}
+	}
+	else = {
+		set_variable = {
+			name = ztr_eu_j_pop
+			value = 0.5
+		}
+	}
+	set_variable = {
+		name = ztr_eu_j_gov
+		value = var:ztr_eu_tmp_mid_gov
+	}
+	change_variable = {
+		name = ztr_eu_j_gov
+		multiply = 0.5
+	}
+	change_variable = {
+		name = ztr_eu_j_gov
+		add = var:ztr_eu_tmp_num_gov
+	}
+	if = {
+		limit = {
+			var:ztr_eu_tmp_den_gov > 0
+		}
+		change_variable = {
+			name = ztr_eu_j_gov
+			divide = var:ztr_eu_tmp_den_gov
+		}
+	}
+	else = {
+		set_variable = {
+			name = ztr_eu_j_gov
+			value = 0.5
+		}
+	}
+	# 0..100 mirrors for localization
+	set_variable = {
+		name = ztr_eu_j_pop_display
+		value = var:ztr_eu_j_pop
+	}
+	change_variable = {
+		name = ztr_eu_j_pop_display
+		multiply = 100
+	}
+	set_variable = {
+		name = ztr_eu_j_gov_display
+		value = var:ztr_eu_j_gov
+	}
+	change_variable = {
+		name = ztr_eu_j_gov_display
+		multiply = 100
+	}
+	remove_variable = ztr_eu_tmp_num_pop
+	remove_variable = ztr_eu_tmp_mid_pop
+	remove_variable = ztr_eu_tmp_den_pop
+	remove_variable = ztr_eu_tmp_num_gov
+	remove_variable = ztr_eu_tmp_mid_gov
+	remove_variable = ztr_eu_tmp_den_gov
+}
+
+# -----------------------------------------------------------------------------------
+# Council votes (double majority: states + seats)
+# Subjects: 1 Agriculture, 2 Schengen, 6 Cohesion (phase 2 directives),
+#           8 CSDP reinforcement, 9 Global Europe expansion (phase 3 principle upgrades)
+#           (3 Trade, 4 Environment, 5 Defense and 7 Confederation treaty were
+#           removed; their numbers stay retired)
+# Proposal: 1 = enact, 0 = repeal (principle upgrades are always 1)
+# -----------------------------------------------------------------------------------
+ztr_eu_vote_clear_results = {
+	remove_global_variable = ztr_eu_vote_support_countries
+	remove_global_variable = ztr_eu_vote_against_countries
+	remove_global_variable = ztr_eu_vote_support_seats
+	remove_global_variable = ztr_eu_vote_against_seats
+	remove_global_variable = ztr_eu_vote_total_seats
+	remove_global_variable = ztr_eu_vote_support_percent
+	remove_global_variable = ztr_eu_vote_against_percent
+}
+
+ztr_eu_start_council_vote = {
+	# Expects ztr_eu_vote_subject and ztr_eu_vote_proposal globals to be set by the proposer
+	set_global_variable = ztr_eu_vote_active
+	set_global_variable = {
+		name = ztr_eu_vote_months_remaining
+		value = 6
+	}
+	# Seats snapshot: the parliament in office when the vote opens is the one that counts
+	ztr_eu_distribute_seats = yes
+	every_country = {
+		limit = {
+			has_variable = ztr_eu_vote_eligible
+		}
+		remove_variable = ztr_eu_vote_eligible
+		remove_variable = ztr_eu_vote_choice_support
+		remove_variable = ztr_eu_vote_choice_against
+		remove_variable = ztr_eu_europeist_seats
+		remove_variable = ztr_eu_eurosceptic_seats
+	}
+	every_country = {
+		limit = {
+			has_modifier = ztr_eu_member
+		}
+		# Europeanism snapshot: like the seats, the delegation split is frozen for
+		# the whole session at the values in force when the vote opens
+		ztr_eu_compute_europeanism = yes
+		set_variable = {
+			name = ztr_eu_europeist_seats
+			value = ztr_eu_europeist_seats_sv
+		}
+		set_variable = {
+			name = ztr_eu_eurosceptic_seats
+			value = var:ztr_eu_europeist_seats
+		}
+		change_variable = {
+			name = ztr_eu_eurosceptic_seats
+			multiply = -1
+		}
+		change_variable = {
+			name = ztr_eu_eurosceptic_seats
+			add = var:ztr_eu_seats
+		}
+		set_variable = ztr_eu_vote_eligible
+		if = {
+			limit = {
+				is_ai = no
+			}
+			trigger_event = {
+				id = ztr_eu_event.10
+				days = 7
+				popup = yes
+			}
+		}
+		else = {
+			ztr_eu_ai_decide_vote_position = yes
+		}
+	}
+}
+
+ztr_eu_vote_recalculate_results = {
+	# No clear pass needed: every result global is unconditionally re-set below
+	set_global_variable = {
+		name = ztr_eu_vote_support_countries
+		value = 0
+	}
+	set_global_variable = {
+		name = ztr_eu_vote_against_countries
+		value = 0
+	}
+	set_global_variable = {
+		name = ztr_eu_vote_support_seats
+		value = 0
+	}
+	set_global_variable = {
+		name = ztr_eu_vote_against_seats
+		value = 0
+	}
+	set_global_variable = {
+		name = ztr_eu_vote_total_seats
+		value = 0
+	}
+	every_country = {
+		limit = {
+			has_variable = ztr_eu_vote_eligible
+			has_variable = ztr_eu_seats
+			# Only sitting members count: guards against any stale eligibility left
+			# on a country that dropped out of the Union through an unforeseen path
+			has_modifier = ztr_eu_member
+		}
+		change_global_variable = {
+			name = ztr_eu_vote_total_seats
+			add = var:ztr_eu_seats
+		}
+		# Parliament: the delegation splits by the nation's popular europeanism,
+		# regardless of the position its government declares in the Council
+		if = {
+			limit = {
+				has_variable = ztr_eu_europeist_seats
+				has_variable = ztr_eu_eurosceptic_seats
+			}
+			if = {
+				limit = {
+					has_global_variable = ztr_eu_vote_proposal
+					global_var:ztr_eu_vote_proposal = 0
+				}
+				# Repeal on the floor: the europeist seats defend the policy
+				change_global_variable = {
+					name = ztr_eu_vote_against_seats
+					add = var:ztr_eu_europeist_seats
+				}
+				change_global_variable = {
+					name = ztr_eu_vote_support_seats
+					add = var:ztr_eu_eurosceptic_seats
+				}
+			}
+			else = {
+				change_global_variable = {
+					name = ztr_eu_vote_support_seats
+					add = var:ztr_eu_europeist_seats
+				}
+				change_global_variable = {
+					name = ztr_eu_vote_against_seats
+					add = var:ztr_eu_eurosceptic_seats
+				}
+			}
+		}
+		# Council: a state weighs on the double majority only once its government
+		# has declared a position; silence counts for neither side
+		if = {
+			limit = {
+				has_variable = ztr_eu_vote_choice_support
+			}
+			change_global_variable = {
+				name = ztr_eu_vote_support_countries
+				add = 1
+			}
+		}
+		else_if = {
+			limit = {
+				has_variable = ztr_eu_vote_choice_against
+			}
+			change_global_variable = {
+				name = ztr_eu_vote_against_countries
+				add = 1
+			}
+		}
+	}
+	set_global_variable = {
+		name = ztr_eu_vote_support_percent
+		value = 0
+	}
+	set_global_variable = {
+		name = ztr_eu_vote_against_percent
+		value = 0
+	}
+	if = {
+		limit = {
+			global_var:ztr_eu_vote_total_seats > 0
+		}
+		set_global_variable = {
+			name = ztr_eu_vote_support_percent
+			value = global_var:ztr_eu_vote_support_seats
+		}
+		change_global_variable = {
+			name = ztr_eu_vote_support_percent
+			divide = global_var:ztr_eu_vote_total_seats
+		}
+		change_global_variable = {
+			name = ztr_eu_vote_support_percent
+			multiply = 100
+		}
+		set_global_variable = {
+			name = ztr_eu_vote_against_percent
+			value = global_var:ztr_eu_vote_against_seats
+		}
+		change_global_variable = {
+			name = ztr_eu_vote_against_percent
+			divide = global_var:ztr_eu_vote_total_seats
+		}
+		change_global_variable = {
+			name = ztr_eu_vote_against_percent
+			multiply = 100
+		}
+	}
+}
+
+ztr_eu_vote_refresh_results = {
+	scope:journal_entry = {
+		set_bar_progress = {
+			value = global_var:ztr_eu_vote_support_percent
+			name = ztr_eu_vote_support_progress_bar
+		}
+		set_bar_progress = {
+			value = global_var:ztr_eu_vote_against_percent
+			name = ztr_eu_vote_against_progress_bar
+		}
+	}
+}
+
+ztr_eu_vote_update_results = {
+	ztr_eu_vote_recalculate_results = yes
+	ztr_eu_vote_refresh_results = yes
+}
+
+# ROOT tables the proposal on the Council floor: proposer bookkeeping plus session
+# start. Expects ztr_eu_vote_subject and ztr_eu_vote_proposal to be set already.
+# Shared by the directive menu options (event 20) and the AI chair.
+ztr_eu_table_proposal = {
+	set_variable = ztr_eu_vote_proposer
+	set_variable = ztr_eu_vote_choice_support
+	ztr_eu_start_council_vote = yes
+}
+
+ztr_eu_vote_cleanup_all_members = {
+	every_country = {
+		limit = {
+			OR = {
+				has_variable = ztr_eu_vote_eligible
+				has_variable = ztr_eu_vote_choice_support
+				has_variable = ztr_eu_vote_choice_against
+				has_variable = ztr_eu_vote_proposer
+				has_variable = ztr_eu_europeist_seats
+				is_involved_in_journal_entry = je_eu_votations
+			}
+		}
+		remove_variable = ztr_eu_vote_eligible
+		remove_variable = ztr_eu_vote_choice_support
+		remove_variable = ztr_eu_vote_choice_against
+		remove_variable = ztr_eu_vote_proposer
+		remove_variable = ztr_eu_europeist_seats
+		remove_variable = ztr_eu_eurosceptic_seats
+		# Involvement never expires on its own: empty the Council roster so the next
+		# session does not inherit participants from a previous one
+		je:je_eu_votations ?= {
+			remove_involved_country = prev
+		}
+	}
+	ztr_eu_vote_clear_results = yes
+	if = {
+		limit = {
+			has_global_variable = ztr_eu_vote_active
+		}
+		remove_global_variable = ztr_eu_vote_active
+	}
+	if = {
+		limit = {
+			has_global_variable = ztr_eu_vote_subject
+		}
+		remove_global_variable = ztr_eu_vote_subject
+	}
+	if = {
+		limit = {
+			has_global_variable = ztr_eu_vote_proposal
+		}
+		remove_global_variable = ztr_eu_vote_proposal
+	}
+	if = {
+		limit = {
+			has_global_variable = ztr_eu_vote_months_remaining
+		}
+		remove_global_variable = ztr_eu_vote_months_remaining
+	}
+	if = {
+		limit = {
+			has_global_variable = ztr_eu_button_opened
+		}
+		remove_global_variable = ztr_eu_button_opened
+	}
+}
+
+# -----------------------------------------------------------------------------------
+# AI voting position. The AI first decides whether it favors the policy being ACTIVE
+# (var ztr_eu_ai_favor = 1/0), then maps that onto the actual proposal direction.
+# On top of each subject's own material interests, the government's europeanism
+# leans every roll: the J_gov brackets (ztr_eu_gov_*_europeist / _eurosceptic,
+# see ztr_eu_triggers.txt) add +50 to the integration side when the lean is strong
+# and +20 when it is mild.
+# -----------------------------------------------------------------------------------
+ztr_eu_ai_decide_vote_position = {
+	remove_variable = ztr_eu_ai_favor
+	# Subject 1: Common Agricultural Policy
+	if = {
+		limit = {
+			has_global_variable = ztr_eu_vote_subject
+			global_var:ztr_eu_vote_subject = 1
+		}
+		random_list = {
+			60 = {
+				modifier = {
+					trigger = {
+						ig:ig_rural_folk = {
+							is_powerful = yes
+						}
+					}
+					add = 40
+				}
+				modifier = {
+					trigger = {
+						ztr_eu_gov_strongly_europeist = yes
+					}
+					add = 50
+				}
+				modifier = {
+					trigger = {
+						ztr_eu_gov_mildly_europeist = yes
+					}
+					add = 20
+				}
+				set_variable = {
+					name = ztr_eu_ai_favor
+					value = 1
+				}
+			}
+			40 = {
+				modifier = {
+					trigger = {
+						has_law_or_variant = law_type:law_free_trade
+					}
+					add = 20
+				}
+				modifier = {
+					trigger = {
+						ztr_eu_gov_strongly_eurosceptic = yes
+					}
+					add = 50
+				}
+				modifier = {
+					trigger = {
+						ztr_eu_gov_mildly_eurosceptic = yes
+					}
+					add = 20
+				}
+				set_variable = {
+					name = ztr_eu_ai_favor
+					value = 0
+				}
+			}
+		}
+	}
+	# Subject 2: Free Movement (Schengen)
+	else_if = {
+		limit = {
+			has_global_variable = ztr_eu_vote_subject
+			global_var:ztr_eu_vote_subject = 2
+		}
+		random_list = {
+			55 = {
+				modifier = {
+					trigger = {
+						OR = {
+							has_law_or_variant = law_type:law_no_migration_controls
+							global_var:ztr_eu_ideology = 1
+						}
+					}
+					add = 35
+				}
+				modifier = {
+					trigger = {
+						ztr_eu_gov_strongly_europeist = yes
+					}
+					add = 50
+				}
+				modifier = {
+					trigger = {
+						ztr_eu_gov_mildly_europeist = yes
+					}
+					add = 20
+				}
+				set_variable = {
+					name = ztr_eu_ai_favor
+					value = 1
+				}
+			}
+			45 = {
+				modifier = {
+					trigger = {
+						has_law_or_variant = law_type:law_closed_borders
+					}
+					add = 50
+				}
+				modifier = {
+					trigger = {
+						ig:ig_petty_bourgeoisie = {
+							is_powerful = yes
+						}
+					}
+					add = 25
+				}
+				modifier = {
+					trigger = {
+						ztr_eu_gov_strongly_eurosceptic = yes
+					}
+					add = 50
+				}
+				modifier = {
+					trigger = {
+						ztr_eu_gov_mildly_eurosceptic = yes
+					}
+					add = 20
+				}
+				set_variable = {
+					name = ztr_eu_ai_favor
+					value = 0
+				}
+			}
+		}
+	}
+	# Subject 6: Cohesion Funds - prospective beneficiaries (GDP per capita below the
+	# Union average) lean in favour, prospective contributors lean against
+	else_if = {
+		limit = {
+			has_global_variable = ztr_eu_vote_subject
+			global_var:ztr_eu_vote_subject = 6
+		}
+		if = {
+			limit = {
+				NOT = {
+					has_global_variable = ztr_eu_avg_gdp_pc
+				}
+			}
+			ztr_eu_update_cohesion_average = yes
+		}
+		set_variable = {
+			name = ztr_eu_tmp_gdp_pc
+			value = gdp
+		}
+		change_variable = {
+			name = ztr_eu_tmp_gdp_pc
+			divide = total_population
+		}
+		random_list = {
+			50 = {
+				modifier = {
+					trigger = {
+						var:ztr_eu_tmp_gdp_pc < global_var:ztr_eu_avg_gdp_pc
+					}
+					add = 40
+				}
+				modifier = {
+					trigger = {
+						ztr_eu_gov_strongly_europeist = yes
+					}
+					add = 50
+				}
+				modifier = {
+					trigger = {
+						ztr_eu_gov_mildly_europeist = yes
+					}
+					add = 20
+				}
+				set_variable = {
+					name = ztr_eu_ai_favor
+					value = 1
+				}
+			}
+			50 = {
+				modifier = {
+					trigger = {
+						var:ztr_eu_tmp_gdp_pc >= global_var:ztr_eu_avg_gdp_pc
+					}
+					add = 30
+				}
+				modifier = {
+					trigger = {
+						ztr_eu_gov_strongly_eurosceptic = yes
+					}
+					add = 50
+				}
+				modifier = {
+					trigger = {
+						ztr_eu_gov_mildly_eurosceptic = yes
+					}
+					add = 20
+				}
+				set_variable = {
+					name = ztr_eu_ai_favor
+					value = 0
+				}
+			}
+		}
+		remove_variable = ztr_eu_tmp_gdp_pc
+	}
+	# Subject 8: reinforcement of the Common Security and Defence Policy (phase 3)
+	else_if = {
+		limit = {
+			has_global_variable = ztr_eu_vote_subject
+			global_var:ztr_eu_vote_subject = 8
+		}
+		random_list = {
+			55 = {
+				modifier = {
+					trigger = {
+						any_country = {
+							has_variable = ztr_eu_founder
+							"relations(root)" >= relations_threshold:amicable
+						}
+					}
+					add = 30
+				}
+				modifier = {
+					trigger = {
+						ig:ig_armed_forces = {
+							is_powerful = yes
+						}
+					}
+					add = 20
+				}
+				modifier = {
+					trigger = {
+						ztr_eu_gov_strongly_europeist = yes
+					}
+					add = 50
+				}
+				modifier = {
+					trigger = {
+						ztr_eu_gov_mildly_europeist = yes
+					}
+					add = 20
+				}
+				set_variable = {
+					name = ztr_eu_ai_favor
+					value = 1
+				}
+			}
+			45 = {
+				modifier = {
+					trigger = {
+						ztr_eu_gov_strongly_eurosceptic = yes
+					}
+					add = 50
+				}
+				modifier = {
+					trigger = {
+						ztr_eu_gov_mildly_eurosceptic = yes
+					}
+					add = 20
+				}
+				set_variable = {
+					name = ztr_eu_ai_favor
+					value = 0
+				}
+			}
+		}
+	}
+	# Subject 9: expansion of the Global Europe Investment Programme (phase 3)
+	else_if = {
+		limit = {
+			has_global_variable = ztr_eu_vote_subject
+			global_var:ztr_eu_vote_subject = 9
+		}
+		random_list = {
+			60 = {
+				modifier = {
+					trigger = {
+						ig:ig_industrialists = {
+							is_powerful = yes
+						}
+					}
+					add = 25
+				}
+				modifier = {
+					trigger = {
+						has_law_or_variant = law_type:law_free_trade
+					}
+					add = 15
+				}
+				modifier = {
+					trigger = {
+						ztr_eu_gov_strongly_europeist = yes
+					}
+					add = 50
+				}
+				modifier = {
+					trigger = {
+						ztr_eu_gov_mildly_europeist = yes
+					}
+					add = 20
+				}
+				set_variable = {
+					name = ztr_eu_ai_favor
+					value = 1
+				}
+			}
+			40 = {
+				modifier = {
+					trigger = {
+						ig:ig_petty_bourgeoisie = {
+							is_powerful = yes
+						}
+					}
+					add = 20
+				}
+				modifier = {
+					trigger = {
+						ztr_eu_gov_strongly_eurosceptic = yes
+					}
+					add = 50
+				}
+				modifier = {
+					trigger = {
+						ztr_eu_gov_mildly_eurosceptic = yes
+					}
+					add = 20
+				}
+				set_variable = {
+					name = ztr_eu_ai_favor
+					value = 0
+				}
+			}
+		}
+	}
+	# Map the preference onto the proposal direction
+	if = {
+		limit = {
+			has_variable = ztr_eu_ai_favor
+		}
+		if = {
+			limit = {
+				has_global_variable = ztr_eu_vote_proposal
+				OR = {
+					AND = {
+						var:ztr_eu_ai_favor = 1
+						global_var:ztr_eu_vote_proposal = 1
+					}
+					AND = {
+						var:ztr_eu_ai_favor = 0
+						global_var:ztr_eu_vote_proposal = 0
+					}
+				}
+			}
+			set_variable = ztr_eu_vote_choice_support
+		}
+		else = {
+			set_variable = ztr_eu_vote_choice_against
+		}
+		remove_variable = ztr_eu_ai_favor
+	}
+}
+
+ztr_eu_vote_update_ai_positions = {
+	every_country = {
+		limit = {
+			is_ai = yes
+			has_variable = ztr_eu_vote_eligible
+			NOT = {
+				has_variable = ztr_eu_vote_choice_support
+			}
+			NOT = {
+				has_variable = ztr_eu_vote_choice_against
+			}
+		}
+		ztr_eu_ai_decide_vote_position = yes
+	}
+}
+
+# -----------------------------------------------------------------------------------
+# Resolution of a passed vote
+# -----------------------------------------------------------------------------------
+ztr_eu_apply_council_vote = {
+	# Subjects 1-6: policy toggles
+	if = {
+		limit = {
+			has_global_variable = ztr_eu_vote_subject
+			global_var:ztr_eu_vote_subject = 1
+		}
+		set_global_variable = {
+			name = ztr_eu_dir_agriculture
+			value = global_var:ztr_eu_vote_proposal
+		}
+	}
+	else_if = {
+		limit = {
+			has_global_variable = ztr_eu_vote_subject
+			global_var:ztr_eu_vote_subject = 2
+		}
+		set_global_variable = {
+			name = ztr_eu_dir_schengen
+			value = global_var:ztr_eu_vote_proposal
+		}
+	}
+	else_if = {
+		limit = {
+			has_global_variable = ztr_eu_vote_subject
+			global_var:ztr_eu_vote_subject = 6
+		}
+		set_global_variable = {
+			name = ztr_eu_dir_cohesion
+			value = global_var:ztr_eu_vote_proposal
+		}
+		# Fresh Union average so the beneficiary/contributor split is correct on day one
+		if = {
+			limit = {
+				global_var:ztr_eu_vote_proposal = 1
+			}
+			ztr_eu_update_cohesion_average = yes
+		}
+	}
+	# Subject 8 (phase 3): raise the Defensive Cooperation principle one level
+	else_if = {
+		limit = {
+			has_global_variable = ztr_eu_vote_subject
+			global_var:ztr_eu_vote_subject = 8
+		}
+		every_country = {
+			limit = {
+				has_variable = ztr_eu_bloc_leader
+				is_power_bloc_leader = yes
+			}
+			power_bloc = {
+				if = {
+					limit = {
+						has_principle = principle:principle_defensive_cooperation_1
+					}
+					remove_principle = principle_defensive_cooperation_1
+					add_principle = principle_defensive_cooperation_2
+				}
+				else_if = {
+					limit = {
+						has_principle = principle:principle_defensive_cooperation_2
+					}
+					remove_principle = principle_defensive_cooperation_2
+					add_principle = principle_defensive_cooperation_3
+				}
+			}
+		}
+	}
+	# Subject 9 (phase 3): raise the Foreign Investment principle one level
+	else_if = {
+		limit = {
+			has_global_variable = ztr_eu_vote_subject
+			global_var:ztr_eu_vote_subject = 9
+		}
+		every_country = {
+			limit = {
+				has_variable = ztr_eu_bloc_leader
+				is_power_bloc_leader = yes
+			}
+			power_bloc = {
+				if = {
+					limit = {
+						has_principle = principle:principle_foreign_investment_1
+					}
+					remove_principle = principle_foreign_investment_1
+					add_principle = principle_foreign_investment_2
+				}
+				else_if = {
+					limit = {
+						has_principle = principle:principle_foreign_investment_2
+					}
+					remove_principle = principle_foreign_investment_2
+					add_principle = principle_foreign_investment_3
+				}
+			}
+		}
+	}
+	# Refresh policy modifiers on all members
+	every_country = {
+		limit = {
+			has_modifier = ztr_eu_member
+		}
+		ztr_eu_sync_directive_modifiers = yes
+	}
+}
+
+# -----------------------------------------------------------------------------------
+# Post-vote fallout, applied per member by the outcome events (25 passed, 26 failed).
+# The family that carried the day sees its pops turn loyal; the defeated family
+# radicalizes AND mobilizes - a decaying five-year attraction surge on its interest
+# groups - so every Council decision breeds its own opposition (thermostatic
+# backlash: integration victories feed euroscepticism, and vice versa).
+# Direction: a passed enactment or a failed repeal is a europeist win; a passed
+# repeal or a failed enactment is a eurosceptic win (the events map this from
+# global_var:ztr_eu_last_vote_proposal).
+# -----------------------------------------------------------------------------------
+ztr_eu_vote_backlash_integration_won = {
+	every_interest_group = {
+		limit = {
+			ztr_eu_ig_is_europeist = yes
+		}
+		save_temporary_scope_as = ztr_eu_ig_tmp
+		prev = {
+			add_loyalists = {
+				value = 0.1
+				interest_group = scope:ztr_eu_ig_tmp
+			}
+		}
+	}
+	every_interest_group = {
+		limit = {
+			ztr_eu_ig_is_eurosceptic = yes
+		}
+		save_temporary_scope_as = ztr_eu_ig_tmp
+		prev = {
+			add_radicals = {
+				value = 0.1
+				interest_group = scope:ztr_eu_ig_tmp
+			}
+		}
+		# Refresh rather than stack when Council votes come back to back
+		if = {
+			limit = {
+				has_modifier = ztr_eu_vote_backlash_mod
+			}
+			remove_modifier = ztr_eu_vote_backlash_mod
+		}
+		add_modifier = {
+			name = ztr_eu_vote_backlash_mod
+			years = 5
+			is_decaying = yes
+		}
+	}
+}
+
+ztr_eu_vote_backlash_integration_lost = {
+	every_interest_group = {
+		limit = {
+			ztr_eu_ig_is_eurosceptic = yes
+		}
+		save_temporary_scope_as = ztr_eu_ig_tmp
+		prev = {
+			add_loyalists = {
+				value = 0.1
+				interest_group = scope:ztr_eu_ig_tmp
+			}
+		}
+	}
+	every_interest_group = {
+		limit = {
+			ztr_eu_ig_is_europeist = yes
+		}
+		save_temporary_scope_as = ztr_eu_ig_tmp
+		prev = {
+			add_radicals = {
+				value = 0.1
+				interest_group = scope:ztr_eu_ig_tmp
+			}
+		}
+		# Refresh rather than stack when Council votes come back to back
+		if = {
+			limit = {
+				has_modifier = ztr_eu_vote_backlash_mod
+			}
+			remove_modifier = ztr_eu_vote_backlash_mod
+		}
+		add_modifier = {
+			name = ztr_eu_vote_backlash_mod
+			years = 5
+			is_decaying = yes
+		}
+	}
+}
+
+# -----------------------------------------------------------------------------------
+# Directive modifiers, kept in sync with the global policy state (idempotent)
+# -----------------------------------------------------------------------------------
+ztr_eu_sync_directive_modifiers = {
+	# Common Agricultural Policy
+	if = {
+		limit = {
+			has_global_variable = ztr_eu_dir_agriculture
+			global_var:ztr_eu_dir_agriculture = 1
+			NOT = {
+				has_modifier = ztr_eu_dir_agriculture_mod
+			}
+		}
+		add_modifier = {
+			name = ztr_eu_dir_agriculture_mod
+		}
+	}
+	else_if = {
+		limit = {
+			has_modifier = ztr_eu_dir_agriculture_mod
+			NOT = {
+				AND = {
+					has_global_variable = ztr_eu_dir_agriculture
+					global_var:ztr_eu_dir_agriculture = 1
+				}
+			}
+		}
+		remove_modifier = ztr_eu_dir_agriculture_mod
+	}
+	# Free Movement (Schengen)
+	if = {
+		limit = {
+			has_global_variable = ztr_eu_dir_schengen
+			global_var:ztr_eu_dir_schengen = 1
+			NOT = {
+				has_modifier = ztr_eu_dir_schengen_mod
+			}
+		}
+		add_modifier = {
+			name = ztr_eu_dir_schengen_mod
+		}
+	}
+	else_if = {
+		limit = {
+			has_modifier = ztr_eu_dir_schengen_mod
+			NOT = {
+				AND = {
+					has_global_variable = ztr_eu_dir_schengen
+					global_var:ztr_eu_dir_schengen = 1
+				}
+			}
+		}
+		remove_modifier = ztr_eu_dir_schengen_mod
+	}
+	# Cohesion Funds: beneficiary/contributor status by GDP per capita vs the Union average
+	ztr_eu_sync_cohesion_status = yes
+}
+
+# -----------------------------------------------------------------------------------
+# Cohesion Funds: every member is either a beneficiary (GDP per capita below the
+# Union average) or a contributor (at or above it). The average is refreshed when
+# the directive is enacted and once a year by ztr_eu_cohesion_on_yearly_pulse.
+# -----------------------------------------------------------------------------------
+ztr_eu_update_cohesion_average = {
+	set_global_variable = {
+		name = ztr_eu_tmp_cohesion_gdp
+		value = 0
+	}
+	set_global_variable = {
+		name = ztr_eu_tmp_cohesion_pop
+		value = 0
+	}
+	every_country = {
+		limit = {
+			has_modifier = ztr_eu_member
+		}
+		change_global_variable = {
+			name = ztr_eu_tmp_cohesion_gdp
+			add = gdp
+		}
+		change_global_variable = {
+			name = ztr_eu_tmp_cohesion_pop
+			add = total_population
+		}
+	}
+	if = {
+		limit = {
+			global_var:ztr_eu_tmp_cohesion_pop > 0
+		}
+		set_global_variable = {
+			name = ztr_eu_avg_gdp_pc
+			value = global_var:ztr_eu_tmp_cohesion_gdp
+		}
+		change_global_variable = {
+			name = ztr_eu_avg_gdp_pc
+			divide = global_var:ztr_eu_tmp_cohesion_pop
+		}
+	}
+	remove_global_variable = ztr_eu_tmp_cohesion_gdp
+	remove_global_variable = ztr_eu_tmp_cohesion_pop
+}
+
+# Country scope: assigns the correct cohesion modifier, or strips both when the
+# directive is repealed or the country is no longer a member (idempotent)
+ztr_eu_sync_cohesion_status = {
+	if = {
+		limit = {
+			has_modifier = ztr_eu_member
+			has_global_variable = ztr_eu_dir_cohesion
+			global_var:ztr_eu_dir_cohesion = 1
+		}
+		# Fallback if the directive fired before any average was ever computed
+		if = {
+			limit = {
+				NOT = {
+					has_global_variable = ztr_eu_avg_gdp_pc
+				}
+			}
+			ztr_eu_update_cohesion_average = yes
+		}
+		set_variable = {
+			name = ztr_eu_tmp_gdp_pc
+			value = gdp
+		}
+		change_variable = {
+			name = ztr_eu_tmp_gdp_pc
+			divide = total_population
+		}
+		if = {
+			limit = {
+				var:ztr_eu_tmp_gdp_pc < global_var:ztr_eu_avg_gdp_pc
+			}
+			if = {
+				limit = {
+					has_modifier = ztr_eu_dir_cohesion_mod_rich
+				}
+				remove_modifier = ztr_eu_dir_cohesion_mod_rich
+			}
+			if = {
+				limit = {
+					NOT = {
+						has_modifier = ztr_eu_dir_cohesion_mod_poor
+					}
+				}
+				add_modifier = {
+					name = ztr_eu_dir_cohesion_mod_poor
+				}
+			}
+		}
+		else = {
+			if = {
+				limit = {
+					has_modifier = ztr_eu_dir_cohesion_mod_poor
+				}
+				remove_modifier = ztr_eu_dir_cohesion_mod_poor
+			}
+			if = {
+				limit = {
+					NOT = {
+						has_modifier = ztr_eu_dir_cohesion_mod_rich
+					}
+				}
+				add_modifier = {
+					name = ztr_eu_dir_cohesion_mod_rich
+				}
+			}
+		}
+		remove_variable = ztr_eu_tmp_gdp_pc
+	}
+	else = {
+		if = {
+			limit = {
+				has_modifier = ztr_eu_dir_cohesion_mod_poor
+			}
+			remove_modifier = ztr_eu_dir_cohesion_mod_poor
+		}
+		if = {
+			limit = {
+				has_modifier = ztr_eu_dir_cohesion_mod_rich
+			}
+			remove_modifier = ztr_eu_dir_cohesion_mod_rich
+		}
+	}
+}
+
+ztr_eu_remove_all_directive_modifiers = {
+	if = {
+		limit = {
+			has_modifier = ztr_eu_dir_agriculture_mod
+		}
+		remove_modifier = ztr_eu_dir_agriculture_mod
+	}
+	if = {
+		limit = {
+			has_modifier = ztr_eu_dir_schengen_mod
+		}
+		remove_modifier = ztr_eu_dir_schengen_mod
+	}
+	if = {
+		limit = {
+			has_modifier = ztr_eu_dir_cohesion_mod_poor
+		}
+		remove_modifier = ztr_eu_dir_cohesion_mod_poor
+	}
+	if = {
+		limit = {
+			has_modifier = ztr_eu_dir_cohesion_mod_rich
+		}
+		remove_modifier = ztr_eu_dir_cohesion_mod_rich
+	}
+}
+
+# -----------------------------------------------------------------------------------
+# Phase 3: the European Confederation. Convened by the chair as a treaty conference:
+# there is no Council vote. The chair founds the power bloc immediately with the
+# identity_continental_confederation identity, a primary principle at level 3 chosen
+# by the Union's ideology, plus Defensive Cooperation 1 and Foreign Investment 1
+# (the fourth principle slot is never used). Every other member then receives
+# event 60: accept - adopting the Euro if needed - or leave the European project.
+# -----------------------------------------------------------------------------------
+ztr_eu_establish_single_market = {
+	# Last recount of the Union's orientation before it freezes for good: the
+	# confederal bloc's name and principles must reflect the Europe that signs the
+	# treaty. A simple lead (margin 1) is enough here, unlike the decennial review.
+	set_global_variable = {
+		name = ztr_eu_ideology_review_margin
+		value = 1
+	}
+	ztr_eu_review_union_ideology = yes
+	set_global_variable = {
+		name = ztr_eu_phase
+		value = 3
+	}
+	set_global_variable = ztr_eu_bloc_created
+	every_country = {
+		limit = {
+			has_variable = ztr_eu_founder
+		}
+		# The bloc founder keeps its leadership even when the Council chair rotates
+		set_variable = ztr_eu_bloc_leader
+		# Leading a different bloc is incompatible with chairing the Confederation
+		ztr_remove_any_power_bloc = yes
+		if = {
+			limit = {
+				global_var:ztr_eu_ideology = 2
+			}
+			create_power_bloc = {
+				name = EUROPEAN_COMMUNE
+				map_color = {
+					204
+					0
+					0
+				}
+				identity = identity_continental_confederation
+				principle = principle_construction_3
+			}
+		}
+		else_if = {
+			limit = {
+				global_var:ztr_eu_ideology = 3
+			}
+			create_power_bloc = {
+				name = EUROPEAN_DIRECTORATE
+				map_color = {
+					70
+					70
+					80
+				}
+				identity = identity_continental_confederation
+				principle = principle_military_industry_3
+			}
+		}
+		else = {
+			create_power_bloc = {
+				name = EUROPEAN_UNION
+				map_color = {
+					0
+					51
+					153
+				}
+				# Official EU blue
+				identity = identity_continental_confederation
+				principle = principle_internal_trade_3
+			}
+		}
+		if = {
+			limit = {
+				has_dlc_feature = power_bloc_features
+			}
+			power_bloc = {
+				add_principle = principle_defensive_cooperation_1
+				add_principle = principle_foreign_investment_1
+			}
+		}
+		if = {
+			limit = {
+				NOT = {
+					has_modifier = ztr_eu_single_market
+				}
+			}
+			add_modifier = {
+				name = ztr_eu_single_market
+			}
+		}
+	}
+	# Every other member answers the confederal call for itself: enter the
+	# Confederation (adopting the Euro if needed) or walk out of the European project
+	every_country = {
+		limit = {
+			has_modifier = ztr_eu_member
+			NOT = {
+				has_variable = ztr_eu_founder
+			}
+		}
+		trigger_event = {
+			id = ztr_eu_event.60
+			days = 7
+			popup = yes
+		}
+	}
+}
+
+# -----------------------------------------------------------------------------------
+# Euro and European Central Bank
+# -----------------------------------------------------------------------------------
+ztr_eu_adopt_euro = {
+	if = {
+		limit = {
+			NOT = {
+				has_modifier = ztr_euro_member
+			}
+		}
+		add_modifier = {
+			name = ztr_euro_member
+		}
+	}
+	# The first adopter hosts the European Central Bank
+	if = {
+		limit = {
+			NOT = {
+				has_global_variable = ztr_eu_ecb_established
+			}
+		}
+		set_global_variable = ztr_eu_ecb_established
+		set_global_variable = {
+			name = ztr_eu_ecb_stance
+			value = 2
+		}
+		set_variable = ztr_ecb_host
+		# The first automatic stance review comes five years after the bank opens
+		set_global_variable = {
+			name = ztr_eu_ecb_stance_cd
+			years = 5
+		}
+		every_country = {
+			limit = {
+				has_modifier = ztr_eu_member
+				is_ai = no
+			}
+			trigger_event = {
+				id = ztr_eu_event.31
+				days = 3
+			}
+		}
+	}
+	# Align with the current monetary stance
+	ztr_eu_apply_ecb_stance_to_self = yes
+	# From the Confederation phase, adopting the Euro opens the single market
+	if = {
+		limit = {
+			has_global_variable = ztr_eu_bloc_created
+			has_modifier = ztr_eu_member
+			NOT = {
+				has_modifier = ztr_eu_single_market
+			}
+		}
+		add_modifier = {
+			name = ztr_eu_single_market
+		}
+		if = {
+			limit = {
+				NOT = {
+					has_variable = ztr_eu_bloc_leader
+				}
+			}
+			every_subject_or_below = {
+				make_independent = yes
+			}
+			ztr_remove_any_power_bloc = yes
+			random_country = {
+				limit = {
+					has_variable = ztr_eu_bloc_leader
+					is_power_bloc_leader = yes
+				}
+				ROOT = {
+					join_power_bloc = prev
+				}
+			}
+		}
+	}
+	trigger_event = {
+		id = ztr_eu_event.30
+		days = 1
+	}
+}
+
+ztr_eu_leave_eurozone = {
+	if = {
+		limit = {
+			has_modifier = ztr_euro_member
+		}
+		remove_modifier = ztr_euro_member
+	}
+	if = {
+		limit = {
+			has_modifier = ztr_ecb_stance_expansive
+		}
+		remove_modifier = ztr_ecb_stance_expansive
+	}
+	if = {
+		limit = {
+			has_modifier = ztr_ecb_stance_restrictive
+		}
+		remove_modifier = ztr_ecb_stance_restrictive
+	}
+	# If the ECB host leaves, the bank moves to the largest remaining eurozone economy
+	if = {
+		limit = {
+			has_variable = ztr_ecb_host
+		}
+		remove_variable = ztr_ecb_host
+		ordered_country = {
+			limit = {
+				has_modifier = ztr_euro_member
+				NOT = { this = ROOT }
+			}
+			order_by = gdp
+			max = 1
+			check_range_bounds = no
+			set_variable = ztr_ecb_host
+		}
+	}
+}
+
+ztr_eu_apply_ecb_stance_to_self = {
+	if = {
+		limit = {
+			has_modifier = ztr_ecb_stance_expansive
+		}
+		remove_modifier = ztr_ecb_stance_expansive
+	}
+	if = {
+		limit = {
+			has_modifier = ztr_ecb_stance_restrictive
+		}
+		remove_modifier = ztr_ecb_stance_restrictive
+	}
+	if = {
+		limit = {
+			has_global_variable = ztr_eu_ecb_stance
+			global_var:ztr_eu_ecb_stance = 1
+		}
+		add_modifier = {
+			name = ztr_ecb_stance_expansive
+		}
+	}
+	else_if = {
+		limit = {
+			has_global_variable = ztr_eu_ecb_stance
+			global_var:ztr_eu_ecb_stance = 3
+		}
+		add_modifier = {
+			name = ztr_ecb_stance_restrictive
+		}
+	}
+}
+
+# Expects global_var:ztr_eu_ecb_stance to have been set to the new stance
+ztr_eu_apply_ecb_stance = {
+	every_country = {
+		limit = {
+			has_modifier = ztr_euro_member
+		}
+		ztr_eu_apply_ecb_stance_to_self = yes
+		if = {
+			limit = {
+				is_ai = no
+			}
+			trigger_event = {
+				id = ztr_eu_event.32
+				days = 3
+			}
+		}
+	}
+}
+
+# Automatic five-yearly stance review (called from on_yearly_pulse once the cooldown
+# clears). The outcome is a weighted random pick: every heavily indebted eurozone
+# member pushes the bank towards an expansionary stance and every solvent one towards
+# a restrictive stance. The chair's books weigh triple and human players' double, so
+# the bank stays roughly in sync with the countries that matter most.
+ztr_eu_update_ecb_stance = {
+	set_global_variable = {
+		name = ztr_eu_ecb_debt_signal
+		value = 0
+	}
+	set_global_variable = {
+		name = ztr_euro_country_total
+		value = 0
+	}
+	every_country = {
+		limit = {
+			has_modifier = ztr_euro_member
+		}
+		change_global_variable = {
+			name = ztr_euro_country_total
+			add = 1
+		}
+		if = {
+			limit = {
+				scaled_debt > 0
+			}
+			change_global_variable = {
+				name = ztr_eu_ecb_debt_signal
+				add = 1
+			}
+			if = {
+				limit = {
+					has_variable = ztr_eu_founder
+				}
+				change_global_variable = {
+					name = ztr_eu_ecb_debt_signal
+					add = 2
+				}
+			}
+			if = {
+				limit = {
+					is_ai = no
+				}
+				change_global_variable = {
+					name = ztr_eu_ecb_debt_signal
+					add = 1
+				}
+			}
+		}	
+	}
+	change_global_variable = {
+		name = ztr_eu_ecb_debt_signal
+		divide = global_var:ztr_euro_country_total
+	}
+	remove_global_variable = ztr_euro_country_total
+	random_list = {
+		# Expansionary: favored the deeper the eurozone sits in debt
+		15 = {
+			modifier = {
+				if = {
+					limit = {
+						global_var:ztr_eu_ecb_debt_signal > 0.25
+					}
+					add = 20
+				}
+				if = {
+					limit = {
+						global_var:ztr_eu_ecb_debt_signal > 0.5
+					}
+					add = 30
+				}
+			}
+			if = {
+				limit = {
+					NOT = {
+						global_var:ztr_eu_ecb_stance = 1
+					}
+				}
+				set_global_variable = {
+					name = ztr_eu_ecb_stance
+					value = 1
+				}
+				ztr_eu_apply_ecb_stance = yes
+			}
+		}
+		# Neutral
+		25 = {
+			if = {
+				limit = {
+					NOT = {
+						global_var:ztr_eu_ecb_stance = 2
+					}
+				}
+				set_global_variable = {
+					name = ztr_eu_ecb_stance
+					value = 2
+				}
+				ztr_eu_apply_ecb_stance = yes
+			}
+		}
+		# Restrictive: favored when the eurozone's books are sound
+		15 = {
+			modifier = {
+				if = {
+					limit = {
+						global_var:ztr_eu_ecb_debt_signal < 0.2
+					}
+					add = 20
+				}
+				if = {
+					limit = {
+						global_var:ztr_eu_ecb_debt_signal < 0.1
+					}
+					add = 40
+				}
+			}
+			if = {
+				limit = {
+					NOT = {
+						global_var:ztr_eu_ecb_stance = 3
+					}
+				}
+				set_global_variable = {
+					name = ztr_eu_ecb_stance
+					value = 3
+				}
+				ztr_eu_apply_ecb_stance = yes
+			}
+		}
+	}
+	remove_global_variable = ztr_eu_ecb_debt_signal
+	# The next automatic review comes in five years
+	set_global_variable = {
+		name = ztr_eu_ecb_stance_cd
+		years = 5
+	}
+}
+
+# -----------------------------------------------------------------------------------
+# Federation treaty gate: counts member states and Euro adopters into
+# ztr_eu_tmp_member_count / ztr_eu_tmp_euro_count (the latter already doubled, so
+# "euro_count >= member_count" reads as "at least half the members use the Euro").
+# Callers must remove both temporary globals when done.
+# Shared by the AI chair below and the treaty menu (event 21).
+# -----------------------------------------------------------------------------------
+ztr_eu_count_members_and_euro = {
+	set_global_variable = {
+		name = ztr_eu_tmp_member_count
+		value = 0
+	}
+	set_global_variable = {
+		name = ztr_eu_tmp_euro_count
+		value = 0
+	}
+	every_country = {
+		limit = {
+			has_modifier = ztr_eu_member
+		}
+		change_global_variable = {
+			name = ztr_eu_tmp_member_count
+			add = 1
+		}
+		if = {
+			limit = {
+				has_modifier = ztr_euro_member
+			}
+			change_global_variable = {
+				name = ztr_eu_tmp_euro_count
+				add = 1
+			}
+		}
+	}
+	change_global_variable = {
+		name = ztr_eu_tmp_euro_count
+		multiply = 2
+	}
+}
+
+# -----------------------------------------------------------------------------------
+# AI chair: propose directives and treaties when the floor is free
+# -----------------------------------------------------------------------------------
+ztr_eu_ai_propose_directive = {
+	remove_global_variable = ztr_eu_ai_picked_subject
+	# The great treaty conferences take absolute priority when their conditions are met
+	if = {
+		limit = {
+			global_var:ztr_eu_phase = 2
+			has_technology_researched = e_government
+			# The chair leads the Confederation bloc, so it must be in the eurozone
+			has_modifier = ztr_euro_member
+			# The three common policies must be in force before the confederal leap
+			has_global_variable = ztr_eu_dir_agriculture
+			global_var:ztr_eu_dir_agriculture = 1
+			has_global_variable = ztr_eu_dir_schengen
+			global_var:ztr_eu_dir_schengen = 1
+			has_global_variable = ztr_eu_dir_cohesion
+			global_var:ztr_eu_dir_cohesion = 1
+		}
+		# No Council vote: the chair convenes the confederal treaty conference directly
+		ztr_eu_establish_single_market = yes
+	}
+	else_if = {
+		limit = {
+			global_var:ztr_eu_phase = 3
+			has_technology_researched = digital_governance
+			# Both Council-driven principles must be fully developed
+			power_bloc ?= {
+				has_principle = principle:principle_defensive_cooperation_3
+				has_principle = principle:principle_foreign_investment_3
+			}
+			NOT = {
+				has_global_variable = ztr_eu_federation_invitation_cd
+			}
+		}
+		# Same gate as the player's treaty menu: half the members in the eurozone
+		ztr_eu_count_members_and_euro = yes
+		if = {
+			limit = {
+				global_var:ztr_eu_tmp_euro_count >= global_var:ztr_eu_tmp_member_count
+			}
+			ztr_eu_start_federation_invitations = yes
+		}
+		remove_global_variable = ztr_eu_tmp_member_count
+		remove_global_variable = ztr_eu_tmp_euro_count
+	}
+	else_if = {
+		limit = {
+			global_var:ztr_eu_phase = 2
+		}
+		random_list = {
+			# Agriculture first: it was historically the founding common policy
+			20 = {
+				trigger = {
+					NOT = {
+						AND = {
+							has_global_variable = ztr_eu_dir_agriculture
+							global_var:ztr_eu_dir_agriculture = 1
+						}
+					}
+				}
+				set_global_variable = {
+					name = ztr_eu_ai_picked_subject
+					value = 1
+				}
+			}
+			15 = {
+				trigger = {
+					NOT = {
+						AND = {
+							has_global_variable = ztr_eu_dir_schengen
+							global_var:ztr_eu_dir_schengen = 1
+						}
+					}
+				}
+				set_global_variable = {
+					name = ztr_eu_ai_picked_subject
+					value = 2
+				}
+			}
+			10 = {
+				trigger = {
+					NOT = {
+						AND = {
+							has_global_variable = ztr_eu_dir_cohesion
+							global_var:ztr_eu_dir_cohesion = 1
+						}
+					}
+				}
+				set_global_variable = {
+					name = ztr_eu_ai_picked_subject
+					value = 6
+				}
+			}
+			# Sometimes the Council simply has no appetite for new policy
+			20 = {
+			}
+		}
+	}
+	# Phase 3: the Council only tables the two institutional upgrades
+	else_if = {
+		limit = {
+			global_var:ztr_eu_phase = 3
+		}
+		random_list = {
+			15 = {
+				trigger = {
+					power_bloc ?= {
+						NOR = {
+							has_principle = principle:principle_defensive_cooperation_3
+						}
+					}
+				}
+				set_global_variable = {
+					name = ztr_eu_ai_picked_subject
+					value = 8
+				}
+			}
+			15 = {
+				trigger = {
+					power_bloc ?= {
+						NOR = {
+							has_principle = principle:principle_foreign_investment_3
+						}
+					}
+				}
+				set_global_variable = {
+					name = ztr_eu_ai_picked_subject
+					value = 9
+				}
+			}
+			# Sometimes the Council simply has no appetite for deeper integration
+			20 = {
+			}
+		}
+	}
+	if = {
+		limit = {
+			has_global_variable = ztr_eu_ai_picked_subject
+		}
+		set_global_variable = {
+			name = ztr_eu_vote_subject
+			value = global_var:ztr_eu_ai_picked_subject
+		}
+		set_global_variable = {
+			name = ztr_eu_vote_proposal
+			value = 1
+		}
+		remove_global_variable = ztr_eu_ai_picked_subject
+		ztr_eu_table_proposal = yes
+	}
+}
+
+# -----------------------------------------------------------------------------------
+# Federation invitations and player-safe unification
+# -----------------------------------------------------------------------------------
+ztr_eu_start_federation_invitations = {
+	# ROOT is the chair/proposer and is understood to accept its own proposal
+	every_country = {
+		limit = {
+			has_variable = ztr_eu_federation_proposer
+		}
+		remove_variable = ztr_eu_federation_proposer
+	}
+	set_variable = ztr_eu_federation_proposer
+	set_global_variable = {
+		name = ztr_eu_federation_invitation_cd
+		years = 3
+	}
+	every_country = {
+		limit = {
+			has_modifier = ztr_eu_member
+			NOT = { this = ROOT }
+		}
+		set_variable = ztr_eu_federation_invited
+		trigger_event = {
+			id = ztr_eu_event.70
+			days = 14
+			popup = yes
+		}
+	}
+}
+
+# ROOT accepted the confederal invitation. The first acceptance merges ROOT with the
+# proposer and creates EUF; later acceptances merge ROOT into the existing EUF.
+# The player country always remains the surviving country scope.
+ztr_eu_accept_federation_invitation = {
+	if = {
+		limit = {
+			exists = c:EUF
+		}
+		ztr_eu_join_existing_federation = yes
+	}
+	else = {
+		random_country = {
+			limit = {
+				has_variable = ztr_eu_federation_proposer
+			}
+			save_scope_as = ztr_eu_federation_proposer_scope
+		}
+		if = {
+			limit = {
+				is_player = yes
+				exists = scope:ztr_eu_federation_proposer_scope
+			}
+			# The player survives the merger, but the federal capital must remain the
+			# proposer's capital (Brussels in the intended timeline).
+			scope:ztr_eu_federation_proposer_scope.capital.state_region = {
+				save_scope_as = ztr_eu_federation_capital_region
+			}
+			scope:ztr_eu_federation_proposer_scope = {
+				every_primary_culture = {
+					save_scope_as = ztr_fed_culture_tmp
+					ROOT = {
+						add_primary_culture = scope:ztr_fed_culture_tmp
+					}
+				}
+			}
+			annex = scope:ztr_eu_federation_proposer_scope
+			change_tag = EUF
+			set_capital = scope:ztr_eu_federation_capital_region
+			ztr_eu_finalize_federation = yes
+		}
+		else_if = {
+			limit = {
+				exists = scope:ztr_eu_federation_proposer_scope
+			}
+			every_primary_culture = {
+				save_scope_as = ztr_fed_culture_tmp
+				scope:ztr_eu_federation_proposer_scope = {
+					add_primary_culture = scope:ztr_fed_culture_tmp
+				}
+			}
+			scope:ztr_eu_federation_proposer_scope = {
+				annex = ROOT
+				change_tag = EUF
+				ztr_eu_finalize_federation = yes
+			}
+		}
+	}
+}
+
+# ROOT joins an already existing EUF. If ROOT is the player, ROOT annexes EUF and
+# takes its tag; otherwise EUF annexes ROOT. This avoids ending the player's game.
+ztr_eu_join_existing_federation = {
+	if = {
+		limit = {
+			exists = c:EUF
+			NOT = { this = c:EUF }
+			is_player = yes
+		}
+		# Preserve the Federation's existing capital before the player annexes it.
+		c:EUF.capital.state_region = {
+			save_scope_as = ztr_eu_federation_capital_region
+		}
+		c:EUF = {
+			every_primary_culture = {
+				save_scope_as = ztr_fed_culture_tmp
+				ROOT = {
+					add_primary_culture = scope:ztr_fed_culture_tmp
+				}
+			}
+		}
+		annex = c:EUF
+		change_tag = EUF
+		set_capital = scope:ztr_eu_federation_capital_region
+		if = {
+			limit = {
+				NOT = { has_modifier = ztr_european_federation_integration}
+			}
+			add_modifier = {
+				name = ztr_european_federation_integration
+				months = 120
+			}
+		}
+	}
+	else_if = {
+		limit = {
+			exists = c:EUF
+			NOT = { this = c:EUF }
+		}
+		every_primary_culture = {
+			save_scope_as = ztr_fed_culture_tmp
+			c:EUF = {
+				add_primary_culture = scope:ztr_fed_culture_tmp
+			}
+		}
+		c:EUF = {
+			annex = ROOT
+			if = {
+				limit = {
+					NOT = { has_modifier = ztr_european_federation_integration}
+				}
+				add_modifier = {
+					name = ztr_european_federation_integration
+					months = 120
+				}
+			}
+		}
+	}
+}
+
+# ROOT is the country that has just become EUF. All supranational Union machinery
+# is shut down; from now on enlargement happens only through the accession decision.
+ztr_eu_finalize_federation = {
+	# Keep an explicit survivor scope because ROOT may still be the accepting country
+	# when this effect runs inside the proposer's scope.
+	save_scope_as = eu_federation_scope
+	set_global_variable = ztr_eu_federation_formed
+	set_global_variable = {
+		name = ztr_eu_phase
+		value = 4
+	}
+	# The Union's organs dissolve into the new federal state
+	ztr_eu_vote_cleanup_all_members = yes
+	# Remove all non-leading confederated members from their EU power bloc. The
+	# surviving Federation may retain a one-country shell, but no bloc mechanics,
+	# membership enforcement, or enlargement logic remains attached to it.
+	every_country = {
+		limit = {
+			has_modifier = ztr_eu_single_market
+			exists = power_bloc
+			is_power_bloc_leader = no
+			NOT = { this = scope:eu_federation_scope }
+		}
+		leave_power_bloc = yes
+	}
+	# Strip every country of the dissolved Union's membership, parliament, directive,
+	# and monetary-policy state. Pending invitation markers intentionally remain so
+	# countries can still answer invitations already in their event queues.
+	every_country = {
+		limit = {
+			OR = {
+				has_modifier = ztr_eu_member
+				has_modifier = ztr_eu_single_market
+				has_variable = ztr_eu_founder
+				has_variable = ztr_eu_bloc_leader
+				has_variable = ztr_eu_seats
+			}
+		}
+		ztr_eu_remove_all_directive_modifiers = yes
+		if = {
+			limit = {
+				NOT = { this = scope:eu_federation_scope }
+			}
+			ztr_eu_leave_eurozone = yes
+		}
+		if = {
+			limit = { has_modifier = ztr_eu_member }
+			remove_modifier = ztr_eu_member
+		}
+		if = {
+			limit = { has_modifier = ztr_eu_single_market }
+			remove_modifier = ztr_eu_single_market
+		}
+		remove_variable = ztr_eu_seats
+		remove_variable = ztr_eu_new_member
+		remove_variable = ztr_eu_founder
+		remove_variable = ztr_eu_bloc_leader
+		remove_variable = ztr_eu_vote_proposer
+		remove_variable = ztr_eu_federation_proposer
+		remove_variable = ztr_ecb_host
+		remove_variable = ztr_eu_j_pop
+		remove_variable = ztr_eu_j_gov
+		remove_variable = ztr_eu_j_pop_display
+		remove_variable = ztr_eu_j_gov_display
+	}
+	# The Federation retains the Euro as its national currency, but the ECB policy
+	# machinery itself ends with the supranational Union.
+	if = {
+		limit = {
+			NOT = { has_modifier = ztr_euro_member }
+		}
+		add_modifier = {
+			name = ztr_euro_member
+		}
+	}
+	if = {
+		limit = {
+			has_modifier = ztr_ecb_stance_expansive
+		}
+		remove_modifier = ztr_ecb_stance_expansive
+	}
+	if = {
+		limit = {
+			has_modifier = ztr_ecb_stance_restrictive
+		}
+		remove_modifier = ztr_ecb_stance_restrictive
+	}
+	# Operational globals are removed; ztr_eu_created, ztr_eu_phase,
+	# ztr_eu_ideology and ztr_eu_federation_formed remain as terminal history state.
+	remove_global_variable = ztr_eu_bloc_created
+	remove_global_variable = ztr_eu_chair_var
+	remove_global_variable = ztr_eu_dir_agriculture
+	remove_global_variable = ztr_eu_dir_schengen
+	remove_global_variable = ztr_eu_dir_cohesion
+	remove_global_variable = ztr_eu_seats_timer
+	remove_global_variable = ztr_eu_ideology_timer
+	remove_global_variable = ztr_eu_ecb_established
+	remove_global_variable = ztr_eu_ecb_stance
+	remove_global_variable = ztr_eu_ecb_stance_cd
+	remove_global_variable = ztr_eu_ecb_debt_signal
+	remove_global_variable = ztr_eu_avg_gdp_pc
+	remove_global_variable = ztr_eu_total_member_pop
+	remove_global_variable = ztr_eu_total_gdp_display
+	remove_global_variable = ztr_eu_total_pop_display
+	remove_global_variable = ztr_eu_tmp_cohesion_gdp
+	remove_global_variable = ztr_eu_tmp_cohesion_pop
+	remove_global_variable = ztr_eu_button_opened
+	remove_global_variable = ztr_eu_federation_invitation_cd
+	remove_global_variable = ztr_eu_last_vote_subject
+	remove_global_variable = ztr_eu_last_vote_proposal
+	remove_global_variable = ztr_eu_member_display_rank_1_var
+	remove_global_variable = ztr_eu_member_display_rank_2_var
+	remove_global_variable = ztr_eu_member_display_rank_3_var
+	remove_global_variable = ztr_eu_member_display_rank_4_var
+	remove_global_variable = ztr_eu_member_display_rank_5_var
+	remove_global_variable = ztr_eu_member_display_rank_6_var
+	remove_global_variable = ztr_eu_member_display_rank_7_var
+	remove_global_variable = ztr_eu_member_display_rank_8_var
+	remove_global_variable = ztr_eu_member_display_rank_9_var
+	remove_global_variable = ztr_eu_member_display_rank_10_var
+	# Federal constitution, by ideological orientation
+	if = {
+		limit = {
+			global_var:ztr_eu_ideology = 2
+		}
+		if = {
+			limit = {
+				NOT = {
+					has_law_or_variant = law_type:law_council_republic
+				}
+			}
+			activate_law = law_type:law_council_republic
+		}
+		if = {
+			limit = {
+				NOT = {
+					has_law_or_variant = law_type:law_command_economy
+				}
+			}
+			activate_law = law_type:law_command_economy
+		}
+		if = {
+			limit = {
+				NOT = {
+					has_law_or_variant = law_type:law_multicultural
+				}
+			}
+			activate_law = law_type:law_multicultural
+		}
+	}
+	else_if = {
+		limit = {
+			global_var:ztr_eu_ideology = 3
+		}
+		if = {
+			limit = {
+				NOT = {
+					has_law_or_variant = law_type:law_presidential_republic
+				}
+			}
+			activate_law = law_type:law_presidential_republic
+		}
+		if = {
+			limit = {
+				has_law_or_variant = law_type:law_guaranteed_liberties
+			}
+			activate_law = law_type:law_censorship
+		}
+		if = {
+			limit = {
+				NOT = {
+					has_law_or_variant = law_type:law_cultural_exclusion
+				}
+			}
+			activate_law = law_type:law_cultural_exclusion
+		}
+	}
+	else = {
+		if = {
+			limit = {
+				NOT = {
+					has_law_or_variant = law_type:law_parliamentary_republic
+				}
+			}
+			activate_law = law_type:law_parliamentary_republic
+		}
+		if = {
+			limit = {
+				NOT = {
+					has_law_or_variant = law_type:law_universal_suffrage
+				}
+			}
+			activate_law = law_type:law_universal_suffrage
+		}
+		if = {
+			limit = {
+				NOT = {
+					has_law_or_variant = law_type:law_multicultural
+				}
+			}
+			activate_law = law_type:law_multicultural
+		}
+	}
+	# Integrating half a continent takes a decade
+	if = {
+		limit = {
+			NOT = {
+				has_modifier = ztr_european_federation_integration
+			}
+		}
+		add_modifier = {
+			name = ztr_european_federation_integration
+			months = 120
+		}
+	}
+	# The Federation's own membership bookkeeping (ztr_eu_member, single market,
+	# parliament seats) was already stripped by the every_country sweep above.
+}
+
+# -----------------------------------------------------------------------------------
+# Safety: if the chair country ceases to exist, the strongest member inherits the chair
+# -----------------------------------------------------------------------------------
+ztr_eu_ensure_chair_exists = {
+	if = {
+		limit = {
+			has_global_variable = ztr_eu_created
+			global_var:ztr_eu_phase < 4
+			NOT = {
+				any_country = {
+					has_variable = ztr_eu_founder
+				}
+			}
+		}
+		ordered_country = {
+			limit = {
+				has_modifier = ztr_eu_member
+			}
+			order_by = prestige
+			max = 1
+			check_range_bounds = no
+			set_variable = {
+				name = ztr_eu_founder
+				value = 1
+			}
+		}
+	}
+	# Keep the chair reference fresh for localization (Union panel)
+	every_country = {
+		limit = {
+			has_variable = ztr_eu_founder
+		}
+		set_global_variable = {
+			name = ztr_eu_chair_var
+			value = this
+		}
+	}
+}
+
+# -----------------------------------------------------------------------------------
+# Annual rotation: the chair passes to the most prestigious member. Once the EU power
+# bloc exists, the chair stays with the bloc leader instead.
+# -----------------------------------------------------------------------------------
+ztr_eu_rotate_chair = {
+	if = {
+		limit = {
+			has_global_variable = ztr_eu_created
+			global_var:ztr_eu_phase < 4
+		}
+		# From the Confederation phase the chair is pinned to the bloc leader
+		if = {
+			limit = {
+				has_global_variable = ztr_eu_bloc_created
+			}
+			every_country = {
+				limit = {
+					has_variable = ztr_eu_bloc_leader
+					NOT = {
+						has_variable = ztr_eu_founder
+					}
+				}
+				save_temporary_scope_as = ztr_eu_new_chair
+			}
+		}
+		else = {
+			ordered_country = {
+				limit = {
+					has_modifier = ztr_eu_member
+				}
+				order_by = prestige
+				max = 1
+				check_range_bounds = no
+				save_temporary_scope_as = ztr_eu_top_prestige
+			}
+			if = {
+				limit = {
+					exists = scope:ztr_eu_top_prestige
+					scope:ztr_eu_top_prestige = {
+						NOT = {
+							has_variable = ztr_eu_founder
+						}
+					}
+				}
+				scope:ztr_eu_top_prestige = {
+					save_temporary_scope_as = ztr_eu_new_chair
+				}
+			}
+		}
+		if = {
+			limit = {
+				exists = scope:ztr_eu_new_chair
+			}
+			every_country = {
+				limit = {
+					has_variable = ztr_eu_founder
+				}
+				remove_variable = ztr_eu_founder
+			}
+			scope:ztr_eu_new_chair = {
+				set_variable = {
+					name = ztr_eu_founder
+					value = 1
+				}
+				set_global_variable = {
+					name = ztr_eu_chair_var
+					value = this
+				}
+			}
+		}
+	}
+}

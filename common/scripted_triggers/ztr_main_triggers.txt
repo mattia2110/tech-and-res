@@ -9,9 +9,58 @@ dubois_has_volcano = {
 	}
 }
 
+# Master switch for the whole Global Warming mechanic. While this is "no" the
+ztr_global_warming_enabled = {
+	always = yes
+}
+
 # Age
 ztr_global_warming_active = {
 	has_global_variable = ztr_global_warming_initialized
+}
+
+### Global Warming - climate stages ###
+# Deliberately scope-agnostic: these only read global variables, so they are
+# valid in country, state and state_region scope alike. That matters because
+# they are evaluated inside harvest_condition_types, which run in state_region scope.
+#
+# The thresholds are written as literals rather than script values because a
+# global_var comparison only accepts a variable or a number. They must stay in
+# sync with ztr_gw_stage_*_threshold in script_values/ztr_global_warming_values.txt.
+ztr_global_warming_stage_1 = { # Above 0.5 C
+	ztr_global_warming_enabled = yes
+	has_global_variable = ztr_global_warming_temperature_anomaly
+	global_var:ztr_global_warming_temperature_anomaly > 0.5
+}
+
+ztr_global_warming_stage_2 = { # Above 1.0 C
+	ztr_global_warming_enabled = yes
+	has_global_variable = ztr_global_warming_temperature_anomaly
+	global_var:ztr_global_warming_temperature_anomaly > 1.0
+}
+
+ztr_global_warming_stage_3 = { # Above 1.5 C
+	ztr_global_warming_enabled = yes
+	has_global_variable = ztr_global_warming_temperature_anomaly
+	global_var:ztr_global_warming_temperature_anomaly > 1.5
+}
+
+ztr_global_warming_stage_4 = { # Above 2.0 C
+	ztr_global_warming_enabled = yes
+	has_global_variable = ztr_global_warming_temperature_anomaly
+	global_var:ztr_global_warming_temperature_anomaly > 2.0
+}
+
+# True for any of the climate harvest conditions added by the mod.
+# state_region scope.
+ztr_has_extreme_climate_harvest_condition = {
+	OR = {
+		has_harvest_condition = ztr_extreme_heatwave
+		has_harvest_condition = ztr_megadrought
+		has_harvest_condition = ztr_hurricane
+		has_harvest_condition = ztr_extreme_wildfire
+		has_harvest_condition = ztr_coastal_flooding
+	}
 }
 
 ztr_decolonization_age_active = {
@@ -28,10 +77,7 @@ has_research_modernized = {
 
 has_research_center = {
 	any_scope_state = {
-		any_scope_building = {
-			is_building_type = building_research_center
-			is_under_construction = no
-		}
+		has_research_center_target = yes
 	}
 }
 

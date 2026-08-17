@@ -1,0 +1,144 @@
+# Global Warming - vanilla harvest conditions made climate sensitive
+#
+# Everything here uses INJECT: on purpose. Only the components that change are
+# written; the vanilla trigger, modifier, duration and range are left untouched
+# and keep inheriting Paradox patches.
+
+### 1. Climate scaling ###
+
+# Vanilla base: chance 0.0025 (:54), intensity 2-6 (:46-51)
+INJECT:drought = {
+
+	modifier = {
+		building_water_plant_throughput_add = -0.1
+	}
+
+	chance = {
+		value = 0.0025
+		if = {
+			limit = {
+				has_harvest_condition = optimal_sunlight
+			}
+			multiply = 1.2
+		}
+		if = {
+			limit = {
+				has_harvest_condition = heatwave
+			}
+			multiply = 1.5
+		}
+		multiply = ztr_gw_hc_chance_mult
+	}
+
+	incompatible_with = ztr_extreme_heatwave
+	incompatible_with = ztr_megadrought
+	incompatible_with = ztr_hurricane
+	incompatible_with = ztr_coastal_flooding
+}
+
+# Vanilla base: chance 0.0025 (:492), intensity 2-4 (:484-489)
+INJECT:heatwave = {
+
+	chance = {
+		value = 0.0025
+		if = {
+			limit = {
+				has_harvest_condition = optimal_sunlight
+			}
+			multiply = 1.4
+		}
+		multiply = ztr_gw_hc_chance_mult
+	}
+
+	incompatible_with = ztr_extreme_heatwave
+}
+
+# Vanilla base: chance 0.0008 (:291), intensity 4-8 (:283-288)
+INJECT:wildfire = {
+
+	chance = {
+		value = 0.0008
+		if = {
+			limit = {
+				has_harvest_condition = optimal_sunlight
+			}
+			multiply = 1.2
+		}
+		if = {
+			limit = {
+				has_harvest_condition = heatwave
+			}
+			multiply = 1.3
+		}
+		if = {
+			limit = {
+				OR = {
+					has_harvest_condition = drought
+					has_harvest_condition = ztr_megadrought
+				}
+			}
+			multiply = 1.4
+		}
+		multiply = ztr_gw_hc_chance_mult
+	}
+
+	incompatible_with = ztr_hurricane
+	incompatible_with = ztr_extreme_wildfire
+	incompatible_with = ztr_coastal_flooding
+}
+
+### 2. Reciprocal incompatibilities only ###
+
+INJECT:frost = {
+	incompatible_with = ztr_extreme_heatwave
+	incompatible_with = ztr_megadrought
+	incompatible_with = ztr_hurricane
+	incompatible_with = ztr_extreme_wildfire
+	incompatible_with = ztr_coastal_flooding
+}
+
+INJECT:hailstorm = {
+	incompatible_with = ztr_extreme_heatwave
+	incompatible_with = ztr_megadrought
+	incompatible_with = ztr_extreme_wildfire
+}
+
+INJECT:flood = {
+	incompatible_with = ztr_extreme_heatwave
+	incompatible_with = ztr_megadrought
+	incompatible_with = ztr_extreme_wildfire
+}
+
+INJECT:torrential_rains = {
+	incompatible_with = ztr_extreme_heatwave
+	incompatible_with = ztr_megadrought
+	incompatible_with = ztr_extreme_wildfire
+}
+
+INJECT:moderate_rainfall = {
+	incompatible_with = ztr_extreme_heatwave
+	incompatible_with = ztr_megadrought
+	incompatible_with = ztr_hurricane
+	incompatible_with = ztr_extreme_wildfire
+}
+
+INJECT:optimal_sunlight = {
+	incompatible_with = ztr_hurricane
+	incompatible_with = ztr_coastal_flooding
+}
+
+INJECT:tsunami = {
+	incompatible_with = ztr_extreme_heatwave
+	incompatible_with = ztr_megadrought
+	incompatible_with = ztr_hurricane
+	incompatible_with = ztr_extreme_wildfire
+	incompatible_with = ztr_coastal_flooding
+}
+
+INJECT:earthquake = {
+	incompatible_with = ztr_extreme_heatwave
+	incompatible_with = ztr_megadrought
+	incompatible_with = ztr_hurricane
+	incompatible_with = ztr_extreme_wildfire
+	incompatible_with = ztr_coastal_flooding
+}

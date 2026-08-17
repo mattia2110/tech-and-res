@@ -83,10 +83,7 @@ calculate_infamy_decolonization_subject_event = {
 ztr_transfer_subject_homeland_states_effect = {
 	every_scope_state = {
 		limit = {
-			NOT = {
-				is_homeland_of_country_cultures = root
-			}
-			is_homeland_of_country_cultures = scope:subject_scope
+			ztr_state_eligible_for_subject_homeland_cession = yes
 		}
 		set_state_owner = scope:subject_scope
 	}
@@ -98,10 +95,7 @@ ztr_transfer_subject_homeland_states_effect = {
 ztr_claim_subject_homeland_states_effect = {
 	every_scope_state = {
 		limit = {
-			NOT = {
-				is_homeland_of_country_cultures = root
-			}
-			is_homeland_of_country_cultures = scope:subject_scope
+			ztr_state_eligible_for_subject_homeland_cession = yes
 		}
 		state_region = {
 			add_claim = scope:subject_scope
@@ -694,7 +688,7 @@ ztr_calculate_global_decolonization_pressure = {
 		}
 		change_global_variable = {
 			name = ztr_global_decolonization_pressure_var
-			add = 25
+			add = 30
 		}
 	}
 	else_if = {
@@ -704,7 +698,7 @@ ztr_calculate_global_decolonization_pressure = {
 		}
 		change_global_variable = {
 			name = ztr_global_decolonization_pressure_var
-			add = 10
+			add = 15
 		}
 	}
 	# =============================================
@@ -718,7 +712,7 @@ ztr_calculate_global_decolonization_pressure = {
 		}
 		change_global_variable = {
 			name = ztr_global_decolonization_pressure_var
-			add = 8
+			add = 10
 		}
 	}
 	# =============================================
@@ -732,7 +726,7 @@ ztr_calculate_global_decolonization_pressure = {
 		}
 		change_global_variable = {
 			name = ztr_global_decolonization_pressure_var
-			add = 3
+			add = 5
 		}
 	}
 	# =============================================
@@ -746,7 +740,7 @@ ztr_calculate_global_decolonization_pressure = {
 		}
 		change_global_variable = {
 			name = ztr_global_decolonization_pressure_var
-			add = 2
+			add = 5
 		}
 	}
 	else_if = {
@@ -756,7 +750,7 @@ ztr_calculate_global_decolonization_pressure = {
 		}
 		change_global_variable = {
 			name = ztr_global_decolonization_pressure_var
-			add = 1
+			add = 2
 		}
 	}
 	# =============================================
@@ -770,7 +764,7 @@ ztr_calculate_global_decolonization_pressure = {
 		}
 		change_global_variable = {
 			name = ztr_global_decolonization_pressure_var
-			add = 2
+			add = 5
 		}
 	}
 	else_if = {
@@ -780,7 +774,7 @@ ztr_calculate_global_decolonization_pressure = {
 		}
 		change_global_variable = {
 			name = ztr_global_decolonization_pressure_var
-			add = 1
+			add = 2
 		}
 	}
 	# =============================================
@@ -935,7 +929,7 @@ ztr_calculate_global_decolonization_pressure = {
 		}
 		change_global_variable = {
 			name = ztr_global_decolonization_pressure_var
-			multiply = 1.4
+			multiply = 1.5
 		}
 	}
 	if = {
@@ -944,7 +938,7 @@ ztr_calculate_global_decolonization_pressure = {
 		}
 		change_global_variable = {
 			name = ztr_global_decolonization_pressure_var
-			multiply = 1.3
+			multiply = 1.5
 		}
 	}
 	if = {
@@ -953,7 +947,16 @@ ztr_calculate_global_decolonization_pressure = {
 		}
 		change_global_variable = {
 			name = ztr_global_decolonization_pressure_var
-			multiply = 1.2
+			multiply = 1.5
+		}
+	}
+	if = {
+		limit = {
+			year > 2000
+		}
+		change_global_variable = {
+			name = ztr_global_decolonization_pressure_var
+			multiply = 1.5
 		}
 	}
 	# --- Cleanup temp variables ---

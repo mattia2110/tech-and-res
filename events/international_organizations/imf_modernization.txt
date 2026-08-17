@@ -14,7 +14,8 @@ ztr_imf_modernization.10 = {
 	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
 	icon = "gfx/interface/icons/generic_icons/international_organizations.dds"
 	trigger = {
-		literacy_rate < 0.5
+		literacy_rate > 0.3
+		average_sol < 9.5
 		any_country = {
 			is_country_type = recognized
 			country_rank >= rank_value:great_power
@@ -81,13 +82,7 @@ ztr_imf_modernization.10 = {
 			base = 25
 			modifier = {
 				trigger = {
-					literacy_rate < 0.35
-				}
-				add = 20
-			}
-			modifier = {
-				trigger = {
-					average_sol >= 12
+					average_sol > 9
 				}
 				add = 10
 			}
@@ -217,7 +212,7 @@ ztr_imf_modernization.11 = {
 			}
 			modifier = {
 				trigger = {
-					average_sol >= 15
+					average_sol > 9.5
 				}
 				add = 10
 			}
@@ -260,7 +255,7 @@ ztr_imf_modernization.11 = {
 			}
 			modifier = {
 				trigger = {
-					average_sol < 12
+					average_sol < 9
 				}
 				add = 10
 			}
@@ -289,7 +284,7 @@ ztr_imf_modernization.11 = {
 			base = 25
 			modifier = {
 				trigger = {
-					average_sol < 15
+					average_sol < 9
 				}
 				add = 15
 			}
@@ -326,7 +321,7 @@ ztr_imf_modernization.12 = {
 	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
 	icon = "gfx/interface/icons/generic_icons/international_organizations.dds"
 	trigger = {
-		get_country_gdp_per < 5
+		get_country_gdp_per < 3.5
 		any_country = {
 			is_country_type = recognized
 			country_rank >= rank_value:great_power
@@ -422,7 +417,7 @@ ztr_imf_modernization.12 = {
 			}
 			modifier = {
 				trigger = {
-					get_country_gdp_per < 3.5
+					get_country_gdp_per < 2.5
 				}
 				add = 10
 			}
@@ -445,7 +440,7 @@ ztr_imf_modernization.12 = {
 			}
 			modifier = {
 				trigger = {
-					get_country_gdp_per >= 3.5
+					get_country_gdp_per > 2.5
 				}
 				add = 10
 			}
@@ -521,8 +516,7 @@ ztr_imf_modernization.13 = {
 	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
 	icon = "gfx/interface/icons/event_icons/innovation.dds"
 	trigger = {
-		literacy_rate > 0.4
-		literacy_rate < 0.6
+		literacy_rate > 0.25
 		NOT = {
 			has_variable = imf_rural_education_cooldown
 		}
@@ -557,7 +551,7 @@ ztr_imf_modernization.13 = {
 			base = 20
 			modifier = {
 				trigger = {
-					literacy_rate < 0.5
+					literacy_rate < 0.3
 				}
 				add = 20
 			}
@@ -607,7 +601,7 @@ ztr_imf_modernization.13 = {
 			}
 			modifier = {
 				trigger = {
-					literacy_rate >= 0.5
+					literacy_rate > 0.35
 				}
 				add = 10
 			}
@@ -897,7 +891,7 @@ ztr_imf_modernization.15 = {
 			}
 			modifier = {
 				trigger = {
-					get_country_gdp_per < 3
+					get_country_gdp_per < 2.5
 				}
 				add = 15
 			}

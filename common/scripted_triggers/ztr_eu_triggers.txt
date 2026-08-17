@@ -1,0 +1,220 @@
+# European Project triggers
+# Phases (global_var:ztr_eu_phase): 1 = EEC, 2 = European Union, 3 = European Confederation, 4 = European Federation
+# Ideologies (global_var:ztr_eu_ideology): 1 = Liberal, 2 = Communist, 3 = Authoritarian
+
+ztr_is_ecc_country = {
+	OR = {
+		capital.region = sr:region_western_europe
+		capital.region = sr:region_central_europe
+		capital.region = sr:region_northern_europe
+		capital.region = sr:region_southern_europe
+	}
+}
+
+ztr_is_european_country = {
+	OR = {
+		capital.region = sr:region_western_europe
+		capital.region = sr:region_central_europe
+		capital.region = sr:region_northern_europe
+		capital.region = sr:region_southern_europe
+		capital.region = sr:region_eastern_europe
+		capital.region = sr:region_balkans
+	}
+}
+
+# Switzerland's neutral financial role is incompatible with every stage of
+# institutional European integration while the modifier remains active.
+is_not_isolationist_switzerland = {
+	custom_tooltip = {
+		text = ztr_eu_neutral_financial_hub_exclusion_tt
+		NOT = {
+			has_modifier = ztr_swiss_neutral_financial_hub
+		}
+	}
+}
+
+ztr_is_eu_member = {
+	has_modifier = ztr_eu_member
+}
+
+ztr_is_eu_chair = {
+	has_variable = ztr_eu_founder
+}
+
+# Whether a country fits the current ideological orientation of the Union.
+# Liberal Europe wants democracies, Communist Europe wants council republics,
+# Authoritarian Europe wants authoritarian states.
+ztr_eu_ideology_compatible = {
+	OR = {
+		AND = {
+			global_var:ztr_eu_ideology = 1
+			ztr_is_democratic = yes
+		}
+		AND = {
+			global_var:ztr_eu_ideology = 2
+			ztr_is_communist = yes
+		}
+		AND = {
+			global_var:ztr_eu_ideology = 3
+			ztr_is_not_democratic = yes
+		}
+	}
+}
+
+# Whether the current country shares the European Federation's ideological category.
+# Unlike the Union trigger above, this compares the two countries directly because
+# the sovereign Federation's government may change after unification.
+ztr_euf_ideology_compatible = {
+	OR = {
+		AND = {
+			c:EUF = { ztr_is_democratic = yes }
+			this = { ztr_is_democratic = yes }
+		}
+		AND = {
+			c:EUF = { ztr_is_communist = yes }
+			this = { ztr_is_communist = yes }
+		}
+		AND = {
+			c:EUF = { ztr_is_not_democratic = yes }
+			this = { ztr_is_not_democratic = yes }
+		}
+	}
+}
+
+# Maastricht-style convergence criteria to adopt the Euro
+ztr_eu_euro_convergence_criteria = {
+	custom_tooltip = {
+		text = ztr_eu_euro_criteria_default_tt
+		in_default = no
+	}
+	custom_tooltip = {
+		text = ztr_eu_euro_criteria_peace_tt
+		is_at_war = no
+	}
+	custom_tooltip = {
+		text = ztr_eu_euro_criteria_stability_tt
+		is_revolutionary = no
+	}
+	custom_tooltip = {
+		text = ztr_eu_euro_criteria_seniority_tt
+		NOT = { has_variable = ztr_eu_new_member }
+	}
+}
+
+# -----------------------------------------------------------------------------------
+# Europeanism: which interest groups back the European project. The classification
+# depends on the ideological orientation of the Union (global_var:ztr_eu_ideology):
+#   Democratic (1):    europeist = trade unions, intelligentsia, industrialists
+#                      lukewarm  = devout, petty bourgeoisie, rural folk
+#   Communist (2):     europeist = trade unions, armed forces, intelligentsia
+#                      lukewarm  = devout, rural folk
+#   Authoritarian (3): europeist = armed forces, industrialists, petty bourgeoisie
+#                      lukewarm  = devout, rural folk
+# Every other vanilla interest group is eurosceptic. Interest groups from other mods
+# (unclassified) count as lukewarm, so a modded political scene stays near neutral.
+# Used by ztr_eu_compute_europeanism (J) and by the post-vote backlash effects.
+# -----------------------------------------------------------------------------------
+ztr_eu_ig_is_europeist = {
+	OR = {
+		AND = {
+			has_global_variable = ztr_eu_ideology
+			global_var:ztr_eu_ideology = 1
+			OR = {
+				is_interest_group_type = ig_trade_unions
+				is_interest_group_type = ig_intelligentsia
+				is_interest_group_type = ig_industrialists
+			}
+		}
+		AND = {
+			has_global_variable = ztr_eu_ideology
+			global_var:ztr_eu_ideology = 2
+			OR = {
+				is_interest_group_type = ig_trade_unions
+				is_interest_group_type = ig_armed_forces
+				is_interest_group_type = ig_intelligentsia
+			}
+		}
+		AND = {
+			has_global_variable = ztr_eu_ideology
+			global_var:ztr_eu_ideology = 3
+			OR = {
+				is_interest_group_type = ig_armed_forces
+				is_interest_group_type = ig_industrialists
+				is_interest_group_type = ig_petty_bourgeoisie
+			}
+		}
+	}
+}
+
+# Hostile to the European project under the current orientation. Deliberately
+# restricted to the vanilla interest groups excluded from the tables above:
+# unclassified (modded) groups fall through to the lukewarm half weight instead.
+ztr_eu_ig_is_eurosceptic = {
+	# No overlap with ztr_eu_ig_is_europeist is possible: the two tables list
+	# disjoint interest groups within each ideological orientation.
+	OR = {
+		is_interest_group_type = ig_landowners
+		AND = {
+			has_global_variable = ztr_eu_ideology
+			global_var:ztr_eu_ideology = 1
+			is_interest_group_type = ig_armed_forces
+		}
+		AND = {
+			has_global_variable = ztr_eu_ideology
+			global_var:ztr_eu_ideology = 2
+			OR = {
+				is_interest_group_type = ig_industrialists
+				is_interest_group_type = ig_petty_bourgeoisie
+			}
+		}
+		AND = {
+			has_global_variable = ztr_eu_ideology
+			global_var:ztr_eu_ideology = 3
+			OR = {
+				is_interest_group_type = ig_trade_unions
+				is_interest_group_type = ig_intelligentsia
+			}
+		}
+	}
+}
+
+# -----------------------------------------------------------------------------------
+# Government europeanism brackets, read from var:ztr_eu_j_gov (0..1, computed by
+# ztr_eu_compute_europeanism). They weigh the AI's position in Council votes.
+# -----------------------------------------------------------------------------------
+ztr_eu_gov_strongly_europeist = {
+	has_variable = ztr_eu_j_gov
+	var:ztr_eu_j_gov > 0.7
+}
+
+ztr_eu_gov_mildly_europeist = {
+	has_variable = ztr_eu_j_gov
+	var:ztr_eu_j_gov <= 0.7
+	var:ztr_eu_j_gov >= 0.5
+}
+
+ztr_eu_gov_mildly_eurosceptic = {
+	has_variable = ztr_eu_j_gov
+	var:ztr_eu_j_gov < 0.5
+	var:ztr_eu_j_gov >= 0.3
+}
+
+ztr_eu_gov_strongly_eurosceptic = {
+	has_variable = ztr_eu_j_gov
+	var:ztr_eu_j_gov < 0.3
+}
+
+# A council vote passes with a double majority:
+# more member states in favour than against AND more parliament seats in favour than against.
+# States vote through their governments; parliament seats follow each nation's
+# popular europeanism (see ztr_eu_vote_recalculate_results).
+ztr_eu_vote_double_majority_passes = {
+	# Guards: the JE status_desc evaluates this every frame, including in the window
+	# between the vote opening and the first result recalculation
+	has_global_variable = ztr_eu_vote_support_countries
+	has_global_variable = ztr_eu_vote_against_countries
+	has_global_variable = ztr_eu_vote_support_seats
+	has_global_variable = ztr_eu_vote_against_seats
+	global_var:ztr_eu_vote_support_countries > global_var:ztr_eu_vote_against_countries
+	global_var:ztr_eu_vote_support_seats > global_var:ztr_eu_vote_against_seats
+}

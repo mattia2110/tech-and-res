@@ -37,6 +37,16 @@ ztr_unify_countries = {
 
 		# Master rigid trigger: culture, religion, contiguity, statelet, rank, prestige, liberty index
 		ztr_countries_can_unify_trigger = yes
+
+		# Preserve neutral Switzerland unless the absorbing country is Alemannic.
+		NOT = {
+			AND = {
+				scope:target_country = {
+					has_modifier = ztr_swiss_neutral_financial_hub
+				}
+				NOT = { country_has_primary_culture = cu:alemannic }
+			}
+		}
 	}
 
 	possible = {		

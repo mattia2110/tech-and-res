@@ -8023,7 +8023,7 @@ pm_rudimental_data_networks = {
 	texture = "gfx/interface/icons/production_method_icons/pm_rudimental_data_networks.dds"
 
 	unlocking_technologies = {
-		data_processing
+		electronic_payment_systems
 	}
 
 	country_modifiers = {
@@ -10450,12 +10450,40 @@ pm_trade_center_trade_quantity_ultra = {
 			goods_input_merchant_marine_add = 8
 		}
 		level_scaled = {
-			building_employment_shopkeepers_add = -200
+			building_employment_shopkeepers_add = -150
 		}
 	}
 	state_modifiers = {
 		unscaled = {
 			state_trade_quantity_mult = 1.5
+		}
+	}
+}
+
+# Trade Center - Aerial Trade (separate axis, stacks on top of the merchant marine scale)
+
+pm_no_aerial_trade = {
+	texture = "gfx/interface/icons/production_method_icons/no_aerial_trade.dds"
+	is_default = yes
+}
+
+pm_aerial_trade = {
+	texture = "gfx/interface/icons/production_method_icons/aerial_trade.dds"
+
+	unlocking_technologies = { jet_aviation }
+
+	building_modifiers = {
+		workforce_scaled = {
+			goods_input_civil_planes_add = 1
+			goods_input_light_fuel_add = 0.5
+		}
+		level_scaled = {
+			building_employment_shopkeepers_add = -50
+		}
+	}
+	state_modifiers = {
+		unscaled = {
+			state_trade_quantity_mult = 0.5
 		}
 	}
 }

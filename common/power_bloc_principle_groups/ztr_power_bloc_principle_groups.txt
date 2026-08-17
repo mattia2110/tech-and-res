@@ -1,0 +1,37 @@
+# Overrides of the vanilla principle groups so the European Confederation identity
+# (identity_continental_confederation) can hold its ideology-driven primary principle:
+# Construction (communist Europe), Military Industry (authoritarian Europe) and
+# Internal Trade (democratic Europe). Everything else matches vanilla.
+
+REPLACE:principle_group_construction = {
+	primary_for_identity = identity_continental_confederation
+
+	levels = {
+		principle_construction_1
+		principle_construction_2
+		principle_construction_3
+	}
+}
+
+REPLACE:principle_group_military_industry = {
+	primary_for_identity = identity_continental_confederation
+
+	levels = {
+		principle_military_industry_1
+		principle_military_industry_2
+		principle_military_industry_3
+	}
+}
+
+REPLACE:principle_group_internal_trade = {
+	primary_for_identity = identity_trade_league
+	primary_for_identity = identity_continental_confederation
+	unlocking_identity = identity_trade_league
+	unlocking_identity = identity_continental_confederation
+
+	levels = {
+		principle_internal_trade_1
+		principle_internal_trade_2
+		principle_internal_trade_3
+	}
+}

@@ -35,8 +35,8 @@
 		# Scaling with literacy 10-30%
 		multiply = {
 			value = literacy_rate
-			add = -0.1
-			divide = 0.2
+			add = -0.10
+			divide = 0.20
 			min = 0
 			max = 1
 		}
@@ -48,6 +48,7 @@ REPLACE:ai_strategy_industrial_expansion = {
 	icon = "gfx/interface/icons/ai_strategy_icons/industrial_expansion.dds"
 	type = administrative
 	subsidies = {
+		building_datacenter_industry = wants_to_have
 		building_coal_mine = nice_to_have
 		building_iron_mine = nice_to_have
 		building_lead_mine = nice_to_have
@@ -340,19 +341,12 @@ REPLACE:ai_strategy_industrial_expansion = {
 		}
 		if = {
 			limit = {
-				year < 1870
+				year < 1880
 				OR = {
 					c:AUS ?= this
 					c:HUN ?= this
 					c:ITA ?= this
 				}
-			}
-			add = -150
-		}
-		if = {
-			limit = {
-				year < 1900
-				c:SIC ?= this
 			}
 			add = -150
 		}

@@ -1,0 +1,406 @@
+# Global Warming - climate driven harvest conditions
+
+# Stage 2 - Prolonged lethal heat. Hits cities as well as fields.
+ztr_extreme_heatwave = {
+	trigger = {
+		has_game_rule = allow_ztr_climate_disasters
+		ztr_global_warming_stage_2 = yes
+		is_vulnerable_to_heatwaves = yes
+	}
+
+	incompatible_with = heatwave
+	incompatible_with = frost
+	incompatible_with = hailstorm
+	incompatible_with = drought
+	incompatible_with = ztr_megadrought
+	incompatible_with = ztr_hurricane
+	incompatible_with = ztr_coastal_flooding
+	incompatible_with = flood
+	incompatible_with = torrential_rains
+	incompatible_with = moderate_rainfall
+	incompatible_with = tsunami
+	incompatible_with = earthquake
+
+	range = {
+		integer_range = {
+			min = 1
+			max = 2
+		}
+	}
+
+	duration = {
+		fixed_range = {
+			min = 20
+			max = 60
+		}
+	}
+
+	modifier = {
+		# Throughput
+		building_group_bg_agriculture_throughput_add = -0.05
+		building_group_bg_plantations_throughput_add = -0.05
+		building_group_bg_ranching_throughput_add = -0.05
+		building_group_bg_rubber_throughput_add = -0.05
+		building_group_bg_logging_throughput_add = -0.05
+		building_urban_center_throughput_add = -0.03
+
+		# Mortality - heat kills, unlike the vanilla heatwave
+		state_mortality_mult = 0.02
+
+		# Subsistence
+		state_peasants_consumption_multiplier_add = 0.025
+	}
+
+	intensity = {
+		fixed_range = {
+			min = 3
+			max = 5
+		}
+		add = ztr_gw_hc_intensity_bonus
+	}
+
+	chance = {
+		value = 0.0015
+		multiply = ztr_gw_hc_chance_mult
+		if = {
+			limit = {
+				has_harvest_condition = optimal_sunlight
+			}
+			multiply = 1.4
+		}
+	}
+
+	color = { 214 88 22 }
+	icon = "gfx/interface/icons/harvest_condition_icons/extreme_heatwave.dds"
+	map_texture = "gfx/map/map_painting/harvest_conditions_map_patterns/harvest_conditions_bad.dds"
+	graphics = heatwave
+}
+
+# Stage 2 - Multi-year drought. The defining slow disaster of a warming world.
+ztr_megadrought = {
+	trigger = {
+		has_game_rule = allow_ztr_climate_disasters
+		ztr_global_warming_stage_2 = yes
+		is_vulnerable_to_droughts = yes
+	}
+
+	incompatible_with = drought
+	incompatible_with = flood
+	incompatible_with = frost
+	incompatible_with = hailstorm
+	incompatible_with = torrential_rains
+	incompatible_with = moderate_rainfall
+	incompatible_with = ztr_extreme_heatwave
+	incompatible_with = ztr_coastal_flooding
+	incompatible_with = tsunami
+	incompatible_with = earthquake
+
+	range = {
+		integer_range = {
+			min = 1
+			max = 3
+		}
+	}
+
+	duration = {
+		fixed_range = {
+			min = 150
+			max = 260
+		}
+	}
+
+	modifier = {
+		# Throughput
+		building_group_bg_agriculture_throughput_add = -0.05
+		building_group_bg_plantations_throughput_add = -0.05
+		building_group_bg_ranching_throughput_add = -0.05
+		building_group_bg_extraction_throughput_add = -0.02
+		building_water_plant_throughput_add = -0.1
+
+		# Infrastructure
+		building_group_bg_agriculture_infrastructure_usage_mult = 0.1
+		building_group_bg_plantations_infrastructure_usage_mult = 0.1
+		building_group_bg_ranching_infrastructure_usage_mult = 0.1
+
+		# Subsistence
+		state_peasants_consumption_multiplier_add = 0.03
+	}
+
+	intensity = {
+		fixed_range = {
+			min = 3
+			max = 5
+		}
+		add = ztr_gw_hc_intensity_bonus
+	}
+
+	chance = {
+		value = 0.0010
+		multiply = ztr_gw_hc_chance_mult
+		if = {
+			limit = {
+				has_harvest_condition = drought
+			}
+			multiply = 2
+		}
+	}
+
+	color = { 168 122 24 }
+	icon = "gfx/interface/icons/harvest_condition_icons/extreme_drought.dds"
+	map_texture = "gfx/map/map_painting/harvest_conditions_map_patterns/harvest_conditions_bad.dds"
+	graphics = drought
+}
+
+# Stage 3 - Tropical cyclone landfall. Short, violent, infrastructure focused.
+ztr_hurricane = {
+	trigger = {
+		has_game_rule = allow_ztr_climate_disasters
+		ztr_global_warming_stage_3 = yes
+		is_in_geographic_region = ztr_geographic_region_cyclone_landfall
+	}
+
+	incompatible_with = drought
+	incompatible_with = frost
+	incompatible_with = wildfire
+	incompatible_with = ztr_extreme_wildfire
+	incompatible_with = ztr_megadrought
+	incompatible_with = ztr_extreme_heatwave
+	incompatible_with = ztr_coastal_flooding
+	incompatible_with = optimal_sunlight
+	incompatible_with = moderate_rainfall
+	incompatible_with = tsunami
+	incompatible_with = earthquake
+
+	range = {
+		integer_range = {
+			min = 1
+			max = 2
+		}
+	}
+
+	duration = {
+		fixed_range = {
+			min = 8
+			max = 20
+		}
+	}
+
+	modifier = {
+		# Infrastructure
+		state_infrastructure_mult = -0.08
+
+		# MAPI
+		state_market_access_price_impact = -0.05
+
+		# Throughput
+		building_urban_center_throughput_add = -0.05
+		building_group_bg_agriculture_throughput_add = -0.05
+		building_group_bg_plantations_throughput_add = -0.05
+		building_group_bg_ranching_throughput_add = -0.05
+
+		# Subsistence
+		state_peasants_consumption_multiplier_add = 0.025
+
+		# Mortality
+		state_mortality_mult = 0.03
+	}
+
+	intensity = {
+		fixed_range = {
+			min = 2
+			max = 7
+		}
+		add = ztr_gw_hc_intensity_bonus
+	}
+
+	chance = {
+		value = 0.0020
+		multiply = ztr_gw_hc_chance_mult
+		# Northern hemisphere cyclone season
+		if = {
+			limit = {
+				month >= 6
+				month <= 11
+			}
+			multiply = 1.5
+		}
+	}
+
+	color = { 46 138 156 }
+	icon = "gfx/interface/icons/harvest_condition_icons/hurricane.dds"
+	map_texture = "gfx/map/map_painting/harvest_conditions_map_patterns/harvest_conditions_bad.dds"
+	graphics = extreme_winds
+}
+
+# Stage 3 - Megafire. The single harshest condition in the mod, on purpose.
+ztr_extreme_wildfire = {
+	trigger = {
+		has_game_rule = allow_ztr_climate_disasters
+		ztr_global_warming_stage_3 = yes
+		is_vulnerable_to_wildfires = yes
+	}
+
+	incompatible_with = wildfire
+	incompatible_with = flood
+	incompatible_with = frost
+	incompatible_with = hailstorm
+	incompatible_with = torrential_rains
+	incompatible_with = moderate_rainfall
+	incompatible_with = ztr_hurricane
+	incompatible_with = ztr_coastal_flooding
+	incompatible_with = tsunami
+	incompatible_with = earthquake
+
+	range = {
+		integer_range = {
+			min = 1
+			max = 3
+		}
+	}
+
+	duration = {
+		fixed_range = {
+			min = 12
+			max = 40
+		}
+	}
+
+	modifier = {
+		# Throughput - base values kept low because intensity reaches 10
+		building_group_bg_agriculture_throughput_add = -0.05
+		building_group_bg_plantations_throughput_add = -0.05
+		building_group_bg_ranching_throughput_add = -0.05
+		building_group_bg_logging_throughput_add = -0.05
+		building_group_bg_extraction_throughput_add = -0.05
+
+		# Infrastructure
+		building_group_bg_agriculture_infrastructure_usage_mult = 0.1
+		building_group_bg_plantations_infrastructure_usage_mult = 0.1
+		building_group_bg_ranching_infrastructure_usage_mult = 0.1
+		state_infrastructure_mult = -0.05
+
+		# Subsistence
+		state_peasants_consumption_multiplier_add = 0.025
+
+		#Subsistence
+		state_peasants_consumption_multiplier_add = 0.03
+
+		# Mortality
+		state_mortality_mult = 0.02
+	}
+
+	intensity = {
+		fixed_range = {
+			min = 4
+			max = 7
+		}
+		add = ztr_gw_hc_intensity_bonus
+	}
+
+	chance = {
+		value = 0.0006
+		multiply = ztr_gw_hc_chance_mult
+		if = {
+			limit = {
+				OR = {
+					has_harvest_condition = drought
+					has_harvest_condition = ztr_megadrought
+				}
+			}
+			multiply = 2
+		}
+		if = {
+			limit = {
+				OR = {
+					has_harvest_condition = heatwave
+					has_harvest_condition = ztr_extreme_heatwave
+				}
+			}
+			multiply = 1.5
+		}
+	}
+
+	color = { 138 30 24 }
+	icon = "gfx/interface/icons/harvest_condition_icons/extreme_wildfire.dds"
+	map_texture = "gfx/map/map_painting/harvest_conditions_map_patterns/harvest_conditions_bad.dds"
+	graphics = wildfire
+}
+
+# Stage 4 - Sea level rise. Very long duration: this is meant to read as
+# permanent land loss rather than as weather.
+ztr_coastal_flooding = {
+	trigger = {
+		has_game_rule = allow_ztr_climate_disasters
+		ztr_global_warming_stage_4 = yes
+		is_in_geographic_region = ztr_geographic_region_low_lying_coast
+	}
+
+	incompatible_with = drought
+	incompatible_with = wildfire
+	incompatible_with = frost
+	incompatible_with = ztr_megadrought
+	incompatible_with = ztr_extreme_wildfire
+	incompatible_with = ztr_extreme_heatwave
+	incompatible_with = ztr_hurricane
+	incompatible_with = optimal_sunlight
+	incompatible_with = tsunami
+	incompatible_with = earthquake
+
+	range = {
+		integer_range = {
+			min = 0
+			max = 1
+		}
+	}
+
+	duration = {
+		fixed_range = {
+			min = 200
+			max = 400
+		}
+	}
+
+	modifier = {
+		# Infrastructure
+		state_infrastructure_mult = -0.03
+
+		# MAPI
+		state_market_access_price_impact = -0.015
+
+		# Throughput
+		building_group_bg_agriculture_throughput_add = -0.04
+		building_group_bg_plantations_throughput_add = -0.04
+		building_group_bg_ranching_throughput_add = -0.04
+		building_urban_center_throughput_add = -0.03
+
+		# Subsistence
+		state_peasants_consumption_multiplier_add = 0.02
+	}
+
+	intensity = {
+		fixed_range = {
+			min = 4
+			max = 5
+		}
+		add = ztr_gw_hc_intensity_bonus
+	}
+
+	chance = {
+		value = 0.0030
+		multiply = ztr_gw_hc_chance_mult
+		if = {
+			limit = {
+				OR = {
+					has_harvest_condition = flood
+					has_harvest_condition = ztr_hurricane
+				}
+			}
+			multiply = 1.5
+		}
+	}
+
+	color = { 28 78 130 }
+	icon = "gfx/interface/icons/harvest_condition_icons/coastal_flooding.dds"
+	map_texture = "gfx/map/map_painting/harvest_conditions_map_patterns/harvest_conditions_bad.dds"
+	graphics = flood
+}

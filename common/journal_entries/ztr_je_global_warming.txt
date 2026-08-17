@@ -4,33 +4,24 @@ je_global_warming = {
 	scripted_progress_bar = ztr_global_warming_temperature_progress_bar
 
 	should_be_involved = {
-		always = yes
+		ztr_global_warming_enabled = yes
 	}
 
 	is_shown_when_inactive = {
-		always = yes
+		ztr_global_warming_enabled = yes
 	}
 
 	possible = {
-		always = yes
+		ztr_global_warming_enabled = yes
 	}
 
+	# The two blocks below are guarded as well, so the temperature model cannot be
+	# initialised even if the entry is somehow instantiated for a single tick.
 	immediate = {
-		ztr_global_warming_yearly_update = yes
-
-		scope:journal_entry = {
-			set_bar_progress = {
-				value = {
-					value = global_var:ztr_global_warming_temperature_anomaly
-					multiply = 100
-				}
-				name = ztr_global_warming_temperature_progress_bar
+		if = {
+			limit = {
+				ztr_global_warming_enabled = yes
 			}
-		}
-	}
-
-	on_yearly_pulse = {
-		effect = {
 			ztr_global_warming_yearly_update = yes
 
 			scope:journal_entry = {
@@ -45,20 +36,51 @@ je_global_warming = {
 		}
 	}
 
+	on_yearly_pulse = {
+		effect = {
+			if = {
+				limit = {
+					ztr_global_warming_enabled = yes
+				}
+				ztr_global_warming_yearly_update = yes
+
+				scope:journal_entry = {
+					set_bar_progress = {
+						value = {
+							value = global_var:ztr_global_warming_temperature_anomaly
+							multiply = 100
+						}
+						name = ztr_global_warming_temperature_progress_bar
+					}
+				}
+			}
+		}
+	}
+
 
 	status_desc = {
 		first_valid = {
 			triggered_desc = {
 				trigger = {
-					has_global_variable = ztr_global_warming_temperature_anomaly
-					global_var:ztr_global_warming_temperature_anomaly >= 3
+					ztr_global_warming_stage_4 = yes
+				}
+				desc = je_global_warming_status_critical
+			}
+			triggered_desc = {
+				trigger = {
+					ztr_global_warming_stage_3 = yes
 				}
 				desc = je_global_warming_status_severe
 			}
 			triggered_desc = {
 				trigger = {
-					has_global_variable = ztr_global_warming_temperature_anomaly
-					global_var:ztr_global_warming_temperature_anomaly >= 1.5
+					ztr_global_warming_stage_2 = yes
+				}
+				desc = je_global_warming_status_established
+			}
+			triggered_desc = {
+				trigger = {
+					ztr_global_warming_stage_1 = yes
 				}
 				desc = je_global_warming_status_warming
 			}

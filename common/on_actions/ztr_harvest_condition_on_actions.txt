@@ -1,0 +1,166 @@
+######################################################################
+### HARVEST CONDITION ON_ACTIONS ###
+######################################################################
+#
+# Vanilla already defines on_harvest_condition_started_in_country in
+# 00_code_on_actions.txt:7035, where it posts the map notification and handles
+# the earthquake / Manila Cathedral content. A second effect block on the same
+# on_action conflicts with vanilla, so the mod appends a child on_action and
+# keeps its effects in that separate chain.
+#
+# Available scopes (documented at 00_code_on_actions.txt:7029-7034):
+#   root             = country
+#   scope:area       = harvest condition area
+#   scope:state      = affected state with the highest intensity
+#   scope:duration   = duration of the harvest condition, in days
+#   scope:num_states = number of affected states in the country
+#   scope:intensity  = highest intensity among the affected states
+#
+# Note there is no script scope for the newly started harvest condition *type*.
+# Hurricane and coastal-flooding events therefore have to infer it from the
+# conditions currently active on the state region. A pre-existing overlapping
+# condition can theoretically cause a false positive; no verified type trigger
+# exists for scope:area.
+
+on_harvest_condition_started_in_country = {
+	on_actions = {
+		ztr_on_harvest_condition_started_in_country
+	}
+}
+
+ztr_on_harvest_condition_started_in_country = {
+	effect = {
+		if = {
+			limit = {
+				scope:state.state_region = {
+					ztr_has_extreme_climate_harvest_condition = yes
+				}
+			}
+
+			scope:state = {
+				save_scope_as = ztr_climate_disaster_state
+			}
+			save_scope_as = ztr_climate_disaster_country
+
+			# The first extreme climate disaster is a narrative milestone for the
+			# whole world. It deliberately applies no extra devastation because a
+			# first hurricane/flood can also fire its specific event below.
+			if = {
+				limit = {
+					NOT = { has_global_variable = ztr_global_warming_first_disaster_happened }
+				}
+				set_global_variable = ztr_global_warming_first_disaster_happened
+				every_country = {
+					trigger_event = {
+						id = ztr_global_warming.1
+						days = 3
+						popup = yes
+					}
+				}
+			}
+
+			# The first qualifying hurricane is announced worldwide. Later severe
+			# hurricanes continue to notify only the affected country.
+			if = {
+				limit = {
+					scope:state.state_region = {
+						has_harvest_condition = ztr_hurricane
+					}
+					scope:intensity > 4
+				}
+				if = {
+					limit = {
+						NOT = { has_global_variable = ztr_global_warming_first_hurricane_happened }
+					}
+					set_global_variable = ztr_global_warming_first_hurricane_happened
+					set_variable = {
+						name = ztr_hurricane_event_cooldown_var
+						days = normal_modifier_time
+					}
+					set_variable = {
+						name = ztr_hurricane_local_event_pending_var
+						days = 10
+					}
+					scope:state = {
+						ztr_assign_hurricane_name = yes
+					}
+					every_country = {
+						trigger_event = {
+							id = ztr_global_warming.2
+							days = 6
+							popup = yes
+						}
+					}
+				}
+				else_if = {
+					limit = {
+						NOT = { has_variable = ztr_hurricane_event_cooldown_var }
+					}
+					set_variable = {
+						name = ztr_hurricane_event_cooldown_var
+						days = normal_modifier_time
+					}
+					set_variable = {
+						name = ztr_hurricane_local_event_pending_var
+						days = 10
+					}
+					scope:state = {
+						ztr_assign_hurricane_name = yes
+					}
+					trigger_event = {
+						id = ztr_global_warming.2
+						days = 3
+					}
+				}
+			}
+
+			# Coastal flooding uses its own flag and cooldown so it cannot suppress
+			# (or be suppressed by) a hurricane event in the same country.
+			if = {
+				limit = {
+					scope:state.state_region = {
+						has_harvest_condition = ztr_coastal_flooding
+					}
+				}
+				if = {
+					limit = {
+						NOT = { has_global_variable = ztr_global_warming_first_coastal_flooding_happened }
+					}
+					set_global_variable = ztr_global_warming_first_coastal_flooding_happened
+					set_variable = {
+						name = ztr_coastal_flooding_event_cooldown_var
+						days = normal_modifier_time
+					}
+					set_variable = {
+						name = ztr_coastal_flooding_local_event_pending_var
+						days = 10
+					}
+					every_country = {
+						trigger_event = {
+							id = ztr_global_warming.3
+							days = 6
+							popup = yes
+						}
+					}
+				}
+				else_if = {
+					limit = {
+						NOT = { has_variable = ztr_coastal_flooding_event_cooldown_var }
+					}
+					set_variable = {
+						name = ztr_coastal_flooding_event_cooldown_var
+						days = normal_modifier_time
+					}
+					set_variable = {
+						name = ztr_coastal_flooding_local_event_pending_var
+						days = 10
+					}
+					trigger_event = {
+						id = ztr_global_warming.3
+						days = 3
+					}
+				}
+			}
+		}
+	}
+}

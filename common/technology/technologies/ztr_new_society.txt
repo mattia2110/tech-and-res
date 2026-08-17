@@ -68,6 +68,12 @@ keynesian_economics = {
 		
 	ai_weight = {
 		value = 1
+		if = {
+			limit = {
+				total_population > 100000000
+			}
+			add = 3
+		}
 	}
 }
 
@@ -91,6 +97,12 @@ modern_urban_planning = {
 	
 	ai_weight = {
 		value = 1 # Important tech for modern economies
+		if = {
+			limit = {
+				total_population > 100000000
+			}
+			add = 3
+		}
 	}
 }
 
@@ -174,6 +186,12 @@ highway_systems = {
 		
 	ai_weight = {
 		value = 1
+		if = {
+			limit = {
+				total_population > 100000000
+			}
+			add = 3
+		}
 	}
 }
 
@@ -427,6 +445,12 @@ prefabricated_concrete_buildings = {
 			limit = { has_strategy = ai_strategy_industrial_expansion }
 			add = 1
 		}
+		if = {
+			limit = {
+				total_population > 100000000
+			}
+			add = 3
+		}
 	}
 }
 
@@ -548,7 +572,7 @@ neoliberism = {
 		country_free_charters_add = 1
 		country_authority_mult = -0.2
 		state_shopkeepers_investment_pool_efficiency_mult = -0.05
-		interest_group_ig_petty_bourgeoisie_pol_str_mult = -0.25
+		interest_group_ig_petty_bourgeoisie_pol_str_mult = -0.2
 		building_nationalization_cost_mult = 0.25
 		state_political_strength_from_wealth_mult = 0.25
 	}
@@ -821,7 +845,7 @@ data_processing = {
 	texture = "gfx/interface/icons/invention_icons/data_processing.dds"
 	category = society
 	modifier = {
-		country_authority_mult = 0.1
+		building_economy_of_scale_level_cap_add = 10
 	}
 	unlocking_technologies = {
 		modern_statistics
@@ -878,6 +902,25 @@ digital_infrastructure = {
 		data_processing
 	}
 		
+	ai_weight = {
+		value = 1
+	}
+}
+
+electronic_payment_systems = {
+	era = era_8
+	texture = "gfx/interface/icons/invention_icons/electronic_payment_systems.dds"
+	category = society
+	modifier = {
+		country_authority_mult = 0.1
+		state_max_trade_advantage_from_capacity_add = 0.05
+		interest_group_ig_petty_bourgeoisie_pol_str_mult = -0.2
+	}
+
+	unlocking_technologies = {
+		global_stock_market
+	}
+
 	ai_weight = {
 		value = 1
 	}
@@ -1113,7 +1156,7 @@ internet = {
 	category = society
 	
 	unlocking_technologies = {
-		networking_protocols
+		electronic_payment_systems
 		globalization
 		operating_systems
 	}
@@ -1249,6 +1292,7 @@ big_data_analytics = {
 
     modifier = {
 		building_datacenter_industry_throughput_add = 0.05
+		building_economy_of_scale_level_cap_add = 10
     }
 
     ai_weight = { value = 1 }

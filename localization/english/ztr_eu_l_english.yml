@@ -1,0 +1,243 @@
+﻿l_english:
+
+ ###################################################
+ # THE EUROPEAN PROJECT
+ ###################################################
+
+ # Power bloc names (the liberal EUROPEAN_UNION key already exists)
+ EUROPEAN_COMMUNE: "European Commune"
+ EUROPEAN_DIRECTORATE: "European Directorate"
+
+ # Power bloc identity of the European Confederation
+ identity_continental_confederation: "Continental Confederation"
+ identity_continental_confederation_desc: "A confederal union of sovereign states bound together by a single market, a common currency and common institutions. The bloc accrues no mandates and admits no invitations: the Confederation deepens only through the votes of its own Council, and no member may walk away from it without leaving the European project altogether."
+
+ # European Federation country
+ EUF: "European Federation"
+ EUF_ADJ: "European"
+ dyn_c_european_commune: "European Commune"
+ dyn_c_european_commune_adj: "European"
+ dyn_c_european_imperium: "European Imperium"
+ dyn_c_european_imperium_adj: "European"
+
+ # Customizable localization helpers
+ ztr_eu_org_name_liberal_loc: "European Union"
+ ztr_eu_org_name_communist_loc: "European Commune"
+ ztr_eu_org_name_authoritarian_loc: "European Directorate"
+ ztr_eu_phase_0_loc: "Pre-Community Europe"
+ ztr_eu_phase_1_loc: "European Economic Community"
+ ztr_eu_phase_2_loc: "European Union"
+ ztr_eu_phase_3_loc: "European Confederation"
+ ztr_eu_phase_4_loc: "European Federation"
+ ztr_eu_ideology_democratic_loc: "Democratic"
+ ztr_eu_ideology_communist_loc: "Communist"
+ ztr_eu_ideology_authoritarian_loc: "Authoritarian"
+ ztr_eu_subject_1_loc: "@agricolture_eu! Common Agricultural Policy"
+ ztr_eu_subject_2_loc: "@schengen_eu! Free Movement Area (Schengen)"
+ ztr_eu_subject_6_loc: "@cohesion_eu! Cohesion Funds"
+ ztr_eu_subject_7_loc: "Treaty Establishing the European Confederation"
+ ztr_eu_subject_8_loc: "[GetPowerBlocPrincipleGroup('principle_group_defensive_cooperation').GetName]"
+ ztr_eu_subject_9_loc: "[GetPowerBlocPrincipleGroup('principle_group_foreign_investment').GetName]"
+ ztr_eu_subject_none_loc: "No proposal"
+ ztr_eu_action_enact_loc: "enactment"
+ ztr_eu_action_repeal_loc: "repeal"
+ ztr_eu_action_upgrade_loc: "strengthening"
+
+ # Game concepts
+ concept_european_union: "European Union"
+ concept_european_union_desc: "A political and economic union binding the nations of Europe ever closer together, governed by a European Council of member states and a European Parliament apportioned by population."
+ concept_ztr_eu_phases: "European Integration Phases"
+ concept_ztr_eu_phases_desc: "The European Project advances through #v four phases#! of ever-closer union:\n 1. #v European Economic Community#!: a customs club of European states born with the Treaty of Rome.\n 2. #v European Union#!: a political union with a European Parliament, a Council voting by double majority, and the path to the Euro.\n 3. #v European Confederation#!: a confederal bloc with one market, one currency, one external border and common institutions. Signing the confederal treaty means adopting the #b Euro#!; refusing it means leaving the European project.\n 4. #v European Federation#!: the final step. The Confederation's chair invites each member to unite in a single sovereign federal Europe; every country answers for itself."
+ concept_ztr_eu_chair: "Chair of the European Council"
+ concept_ztr_eu_chair_desc: "The country presiding over the #v European Council#!, a seat that rotates #v annually#! to the most prestigious member state. The chair hosts the Council's sessions and is the only member allowed to convene the treaty conference establishing the European Confederation or invite the confederated members to form the European Federation. From the Confederation phase onwards the seat stays with the leader of the Union's power bloc."
+ concept_ztr_eu_directive: "European Directive"
+ concept_ztr_eu_directive_desc: "Directives are common policy of the Union. Any member state may table a directive before the #v European Council#!, which enacts or repeals it by a system of #v Double Majority#!:\n- A majority of #b member states#!, each government casting its state's one vote;\n- A majority of #b parliament seats#!, each national delegation splitting its seats by the [Concept('concept_ztr_eu_europeanism','Europeanism')] of its own society.\n\nWhile a directive is in force, every member state carries its [concept_modifier].\nIn total there are three directives:\n- #b $ztr_eu_subject_1_loc$#!\n- #b $ztr_eu_subject_2_loc$#!\n- #b $ztr_eu_subject_6_loc$#!\n\nFrom the #v European Confederation#! phase the directives are set in stone: the Council instead votes, by the same double majority, on strengthening the Confederation's two [Concept('concept_power_bloc_principle','Principles')] - #b $ztr_eu_subject_8_loc$#! and #b $ztr_eu_subject_9_loc$#!."
+ concept_ztr_eu_europeanism: "Europeanism"
+ concept_ztr_eu_europeanism_desc: "How much a nation stands behind the European project, measured as the political clout of the interest groups aligned with the Union's orientation (lukewarm groups count at half weight). It is read twice:\n- across the #v whole society#!, fixing how the nation's parliament delegation splits its seats in every Council vote;\n- across the #v government#! alone, steering the state's own vote in the Council.\n\nEvery Council outcome feeds back into it: the pops of the winning family turn loyal, while the defeated family radicalizes and rallies pops to its interest groups for years."
+ concept_ztr_eu_dir_agriculture: "@agricolture_eu! Common Agricultural Policy"
+ concept_ztr_eu_dir_agriculture_desc: "A directive subsidizing and integrating the farms of the continent. While in force, every member state receives #v $ztr_eu_dir_agriculture_mod$#!:\n#p +5%#! Agriculture building throughput\n#p +5%#! Plantations building throughput\n#p +10%#! Food Security\n#n -5%#! Food Industries building throughput\n#n -3%#! @bur! Bureaucracy"
+ concept_ztr_eu_dir_schengen: "@schengen_eu! Free Movement Area (Schengen)"
+ concept_ztr_eu_dir_schengen_desc: "A directive abolishing internal border controls across the Union. While in force, every member state receives #v $ztr_eu_dir_schengen_mod$#!:\n#p +15%#! Migration attraction\n#p +10%#! Technology spread\n#p +2%#! Workforce Ratio\n#n -3%#! @bur! Bureaucracy"
+ concept_ztr_eu_dir_cohesion: "@cohesion_eu! Cohesion Funds"
+ concept_ztr_eu_dir_cohesion_desc: "A directive channeling investment towards the Union's less developed economies. Every year each member state is measured against the Union's average [concept_gdp] per capita.\nStates below the average become #v $ztr_eu_dir_cohesion_mod_poor$#!:\n#p -5%#! Construction Goods Cost\n#p +5%#! Technology spread\n#n -5%#! Prestige\n#n -3%#! @bur! Bureaucracy\nStates at or above it become #v $ztr_eu_dir_cohesion_mod_rich$#!:\n#p +5%#! Prestige\n#n -3%#! @bur! Bureaucracy"
+
+ # Journal entries
+ je_group_global_eu_content: "European Union"
+ je_eu_info_panel: "European Union"
+ je_eu_info_panel_reason: "The #blue_value [ROOT.GetCountry.GetCustom('ztr_eu_org_name')]#! binds the nations of #gold_value Europe#! ever closer together. Its course is set by:\n - #v European Council#!, where member states vote on common directives with one vote per [concept_country].\n - #v European Parliament#! of #v 360#! seats, reapportioned among the members by population every #v 5 years#! or after a #v New Member#!.\n\n#gold_value [Concept('concept_ztr_eu_phases','CURRENT PHASE')]#!: [ROOT.GetCountry.GetCustom('ztr_eu_phase_name')]\n#gold_value POLITICAL ORIENTATION#!: [ROOT.GetCountry.GetCustom('ztr_eu_ideology_name')]\n#gold_value [Concept('concept_ztr_eu_chair','COUNCIL CHAIR')]#!: [GetGlobalVariable('ztr_eu_chair_var').GetCountry.GetName]\n[Concept('concept_ztr_eu_europeanism','EUROPEANISM')]: #p [ROOT.GetCountry.MakeScope.Var('ztr_eu_j_pop_display').GetValue|0]%#! of our society, #p [ROOT.GetCountry.MakeScope.Var('ztr_eu_j_gov_display').GetValue|0]%#! of our government\n\n[concept_gdp]: #v @gdp! [GetGlobalVariable('ztr_eu_total_gdp_display').GetValue|vD]#!\n[Concept('concept_pop', '$concept_population$')]: #v @population![GetGlobalVariable('ztr_eu_total_pop_display').GetValue|vD]#!\n\n#v OUR SEATS IN PARLIAMENT#!: #p [ROOT.GetCountry.MakeScope.Var('ztr_eu_seats').GetValue|0]#! of #v 360#!\n(Next legislature in #v [GetGlobalVariable('ztr_eu_seats_timer').GetValue|0]#! years)\n\n#i Active [Concept('concept_ztr_eu_directive','Directives')]#!:[ROOT.GetCountry.GetCustom('ztr_eu_dir_agriculture_row_type')][ROOT.GetCountry.GetCustom('ztr_eu_dir_schengen_row_type')][ROOT.GetCountry.GetCustom('ztr_eu_dir_cohesion_row_type')][ROOT.GetCountry.GetCustom('ztr_eu_dir_none_row_type')]\n\n#v MEMBER STATES BY PARLIAMENT SEATS#!:\n[SCOPE.GetRootScope.GetCountry.GetCustom('ztr_eu_member_display_rank_1_type')][SCOPE.GetRootScope.GetCountry.GetCustom('ztr_eu_member_display_rank_2_type')][SCOPE.GetRootScope.GetCountry.GetCustom('ztr_eu_member_display_rank_3_type')][SCOPE.GetRootScope.GetCountry.GetCustom('ztr_eu_member_display_rank_4_type')][SCOPE.GetRootScope.GetCountry.GetCustom('ztr_eu_member_display_rank_5_type')][SCOPE.GetRootScope.GetCountry.GetCustom('ztr_eu_member_display_rank_6_type')][SCOPE.GetRootScope.GetCountry.GetCustom('ztr_eu_member_display_rank_7_type')][SCOPE.GetRootScope.GetCountry.GetCustom('ztr_eu_member_display_rank_8_type')][SCOPE.GetRootScope.GetCountry.GetCustom('ztr_eu_member_display_rank_9_type')][SCOPE.GetRootScope.GetCountry.GetCustom('ztr_eu_member_display_rank_10_type')]\n\nEvery member may table a proposal before the Council; only the chair may convene the great treaty conferences. Directives - and, in the Confederation phase, the strengthening of its principles - pass by #b double majority#!: a majority of member states, each government casting its state's vote, AND a majority of parliament seats, each delegation splitting by the [Concept('concept_ztr_eu_europeanism','europeanism')] of its own society. The great treaties are different: both the European Confederation and the European Federation confront every member with an individual summons, and each country answers for itself."
+ je_eu_info_panel_status_chair: "#gold_value Status#!: Chair of the European Council\n#blue_value Phase#!: [ROOT.GetCountry.GetCustom('ztr_eu_phase_name')]\n#blue_value Seats#!: #v [ROOT.GetCountry.MakeScope.Var('ztr_eu_seats').GetValue|0]#!/360"
+ je_eu_info_panel_status_single_market: "#blue_value Status#!: European Confederation Member\n#blue_value Seats#!: #v [ROOT.GetCountry.MakeScope.Var('ztr_eu_seats').GetValue|0]#!/360"
+ je_eu_info_panel_status_member: "#blue_value Status#!: Member State\n#blue_value Seats#!: #v [ROOT.GetCountry.MakeScope.Var('ztr_eu_seats').GetValue|0]#!/360"
+
+ # Member states ranked by parliament seats (panel list rows)
+ ztr_eu_member_display_rank_1_loc: "1. [GetGlobalVariable('ztr_eu_member_display_rank_1_var').GetCountry.GetName]: #v [GetGlobalVariable('ztr_eu_member_display_rank_1_var').GetVariable('ztr_eu_seats').GetValue|0]#! seats"
+ ztr_eu_member_display_rank_2_loc: "\n2. [GetGlobalVariable('ztr_eu_member_display_rank_2_var').GetCountry.GetName]: #v [GetGlobalVariable('ztr_eu_member_display_rank_2_var').GetVariable('ztr_eu_seats').GetValue|0]#! seats"
+ ztr_eu_member_display_rank_3_loc: "\n3. [GetGlobalVariable('ztr_eu_member_display_rank_3_var').GetCountry.GetName]: #v [GetGlobalVariable('ztr_eu_member_display_rank_3_var').GetVariable('ztr_eu_seats').GetValue|0]#! seats"
+ ztr_eu_member_display_rank_4_loc: "\n4. [GetGlobalVariable('ztr_eu_member_display_rank_4_var').GetCountry.GetName]: #v [GetGlobalVariable('ztr_eu_member_display_rank_4_var').GetVariable('ztr_eu_seats').GetValue|0]#! seats"
+ ztr_eu_member_display_rank_5_loc: "\n5. [GetGlobalVariable('ztr_eu_member_display_rank_5_var').GetCountry.GetName]: #v [GetGlobalVariable('ztr_eu_member_display_rank_5_var').GetVariable('ztr_eu_seats').GetValue|0]#! seats"
+ ztr_eu_member_display_rank_6_loc: "\n6. [GetGlobalVariable('ztr_eu_member_display_rank_6_var').GetCountry.GetName]: #v [GetGlobalVariable('ztr_eu_member_display_rank_6_var').GetVariable('ztr_eu_seats').GetValue|0]#! seats"
+ ztr_eu_member_display_rank_7_loc: "\n7. [GetGlobalVariable('ztr_eu_member_display_rank_7_var').GetCountry.GetName]: #v [GetGlobalVariable('ztr_eu_member_display_rank_7_var').GetVariable('ztr_eu_seats').GetValue|0]#! seats"
+ ztr_eu_member_display_rank_8_loc: "\n8. [GetGlobalVariable('ztr_eu_member_display_rank_8_var').GetCountry.GetName]: #v [GetGlobalVariable('ztr_eu_member_display_rank_8_var').GetVariable('ztr_eu_seats').GetValue|0]#! seats"
+ ztr_eu_member_display_rank_9_loc: "\n9. [GetGlobalVariable('ztr_eu_member_display_rank_9_var').GetCountry.GetName]: #v [GetGlobalVariable('ztr_eu_member_display_rank_9_var').GetVariable('ztr_eu_seats').GetValue|0]#! seats"
+ ztr_eu_member_display_rank_10_loc: "\n10. [GetGlobalVariable('ztr_eu_member_display_rank_10_var').GetCountry.GetName]: #v [GetGlobalVariable('ztr_eu_member_display_rank_10_var').GetVariable('ztr_eu_seats').GetValue|0]#! seats"
+
+ # Active directives (panel list rows)
+ ztr_eu_dir_agriculture_row_loc: "\n- [Concept('concept_ztr_eu_dir_agriculture','$ztr_eu_subject_1_loc$')]"
+ ztr_eu_dir_schengen_row_loc: "\n- [Concept('concept_ztr_eu_dir_schengen','$ztr_eu_subject_2_loc$')]"
+ ztr_eu_dir_cohesion_row_loc: "\n- [Concept('concept_ztr_eu_dir_cohesion','$ztr_eu_subject_6_loc$')]"
+ ztr_eu_dir_none_row_loc: "\nNone"
+
+ je_eu_votations: "European Council Vote"
+ je_eu_votations_reason: "The Council of the [JournalEntry.GetCustom('ztr_eu_org_name_je')] is voting on the [JournalEntry.GetCustom('ztr_eu_vote_action_name_je')] of: #v [JournalEntry.GetCustom('ztr_eu_vote_subject_name_je')]#!\n\nThe proposal passes by #v Double Majority#!: more #b Member States#! in favour than against AND more #b Parliament Seats#! in favour than against. Governments cast their state's vote - and a state that never declares counts for neither side - while the #v 360#! parliament seats follow the peoples: each delegation splits between the two sides by the [Concept('concept_ztr_eu_europeanism','Europeanism')] of its own society.\n\n#v MEMBER STATES#!: #p [GetGlobalVariable('ztr_eu_vote_support_countries').GetValue|0]#! for - #n [GetGlobalVariable('ztr_eu_vote_against_countries').GetValue|0]#! against\n#v PARLIAMENT SEATS#!: #p [GetGlobalVariable('ztr_eu_vote_support_seats').GetValue|0]#! for - #n [GetGlobalVariable('ztr_eu_vote_against_seats').GetValue|0]#! against\n#v OUR DELEGATION#!: #p [ROOT.GetCountry.MakeScope.Var('ztr_eu_europeist_seats').GetValue|0]#! europeist - #n [ROOT.GetCountry.MakeScope.Var('ztr_eu_eurosceptic_seats').GetValue|0]#! eurosceptic seats"
+ je_eu_votations_lobby: "$je_eu_votations_reason$"
+ je_eu_votations_status_passing: "#gold_value Vote Trend#!: #p Passing#!\n#blue_value Months Remaining#!: #v [GetGlobalVariable('ztr_eu_vote_months_remaining').GetValue|0]#!"
+ je_eu_votations_status_failing: "#gold_value Vote Trend#!: #n Failing#!\n#blue_value Months Remaining#!: #v [GetGlobalVariable('ztr_eu_vote_months_remaining').GetValue|0]#!"
+
+
+ # Progress bars
+ ztr_eu_vote_support_progress_bar: "Parliament in favor: #v [GetGlobalVariable('ztr_eu_vote_support_percent').GetValue|0]%#!"
+ ztr_eu_vote_support_progress_bar_desc: "Parliament in favor: #v [GetGlobalVariable('ztr_eu_vote_support_seats').GetValue|0]#! of #v [GetGlobalVariable('ztr_eu_vote_total_seats').GetValue|0]#! (#v [GetGlobalVariable('ztr_eu_vote_support_percent').GetValue|0]%#!)"
+ ztr_eu_vote_against_progress_bar: "Parliament against: #v [GetGlobalVariable('ztr_eu_vote_against_percent').GetValue|0]%#!"
+ ztr_eu_vote_against_progress_bar_desc: "Parliament against: #v [GetGlobalVariable('ztr_eu_vote_against_seats').GetValue|0]#! of #v [GetGlobalVariable('ztr_eu_vote_total_seats').GetValue|0]#! (#v [GetGlobalVariable('ztr_eu_vote_against_percent').GetValue|0]%#!)"
+
+ # Scripted buttons
+ ztr_eu_open_directives_menu: "Table a Directive"
+ ztr_eu_open_directives_menu_desc: "Any member state may bring a [Concept('concept_ztr_eu_directive','directive')] before the #v European Council#!. The proposal is then put to a vote of all member states, resolved by #v Double Majority#!."
+ ztr_eu_open_treaties_menu: "Convene a Treaty Conference"
+ ztr_eu_open_treaties_menu_desc: "As chair of the European Council, we may pursue the great steps that push integration into a new phase: convene the treaty conference establishing the European Confederation, or invite every confederated member to unite in the European Federation. Neither is a Council vote: every member state answers the summons for itself."
+ ztr_eu_vote_for_statement: "Vote In Favour"
+ ztr_eu_vote_for_statement_desc: "Declare that [ROOT.GetCountry.GetName] supports the proposal, casting our state's vote in its favour. Our parliament delegation is not bound by the government: its seats split by the [Concept('concept_ztr_eu_europeanism','europeanism')] of our society."
+ ztr_eu_vote_against_statement: "Vote Against"
+ ztr_eu_vote_against_statement_desc: "Declare that [ROOT.GetCountry.GetName] opposes the proposal, casting our state's vote against it. Our parliament delegation is not bound by the government: its seats split by the [Concept('concept_ztr_eu_europeanism','europeanism')] of our society."
+ ztr_eu_vote_session_clear_tt: "No European Council vote is currently in progress"
+ ztr_eu_start_vote_tt: "The proposal is tabled before the #v European Council#!: a #v 6-month#! voting session opens in which every member state casts its vote, resolved by #v Double Majority#!"
+ ztr_eu_vote_cooldown_tt: "The Council is not on cooldown from a previous vote"
+
+ # Trigger tooltips
+ ztr_eu_euro_criteria_default_tt: "Is not in default"
+ ztr_eu_euro_criteria_peace_tt: "Is at peace"
+ ztr_eu_euro_criteria_stability_tt: "Is not a revolutionary government"
+ ztr_eu_euro_criteria_seniority_tt: "Has been a member of the Union for at least #v 5#! years"
+
+ # Decision tooltips
+ ztr_eu_three_signatories_tt: "At least #v 2#! other countries are members of the European Economic Community"
+ ztr_eu_join_chair_relations_tt: "Has at least #v Cordial#! relations with the chair of the European Council"
+ ztr_eu_withdraw_euroscepticism_tt: "Either the #v Petty Bourgeoisie#! interest group is powerful in our country, or our political system no longer matches the orientation of the Union"
+ ztr_eu_federation_euro_majority_tt: "At least half of the member states have adopted the #v Euro#!"
+ ztr_eu_federation_principles_tt: "The #v $ztr_eu_subject_8_loc$#! and #v $ztr_eu_subject_9_loc$#! [Concept('concept_power_bloc_principle','Principles')] have both been strengthened to their highest level (#v 3#!)"
+ ztr_eu_single_market_euro_tt: "We have adopted the #v Euro#!: the single market is open only to the eurozone, and its chair can be no exception"
+ ztr_eu_confed_agriculture_tt: "The $ztr_eu_subject_1_loc$ is in force"
+ ztr_eu_confed_schengen_tt: "The $ztr_eu_subject_2_loc$ is in force"
+ ztr_eu_confed_cohesion_tt: "The $ztr_eu_subject_6_loc$ are in force"
+ ztr_eu_establish_confederation_tt: "The #v Treaty Establishing the European Confederation#! enters into force at once: the Confederation's power bloc is founded under our leadership, and every other member state receives an individual summons - enter the Confederation, adopting the #b Euro#! if needed, or leave the European project altogether"
+ ztr_eu_confed_forced_euro_tt: "We adopt the #b Euro#! as part of the confederal treaty, regardless of the convergence criteria"
+ ztr_eu_your_seats_tt: "Our delegation now holds #v [ROOT.GetCountry.MakeScope.Var('ztr_eu_seats').GetValue|0]#! of the #v 360#! seats of the European Parliament"
+ ztr_eu_federation_ratify_tt: "We accept the invitation and unite with [SCOPE.sCountry('eu_federation_partner').GetName] as the #v European Federation#!. A player-controlled country remains under player control and becomes the Federation."
+ ztr_eu_federation_refuse_tt: "We remain independent. Refusal does not prevent us from seeking admission to the #v European Federation#! later."
+
+ # New decision
+ ztr_adopt_euro_decision: "Adopt the Euro"
+ ztr_adopt_euro_decision_desc: "Replacing our national currency with the #b Euro#! ties our economy to the continent: credit becomes cheaper and trade smoother, but monetary policy passes forever to the European Central Bank. Only countries meeting the convergence criteria - solvency, peace, stability and five years of membership - may join the common currency. The first country to adopt the Euro will host the European Central Bank, and from the Confederation phase onwards the common currency is also the key to the #b single market#!."
+
+ # Modifiers
+ ztr_eu_single_market: "European Confederation Member"
+ ztr_euro_member: "Eurozone Member"
+ ztr_ecb_stance_expansive: "ECB Expansionary Policy"
+ ztr_ecb_stance_restrictive: "ECB Restrictive Policy"
+ ztr_eu_dir_agriculture_mod: "Common Agricultural Policy"
+ ztr_eu_dir_schengen_mod: "Free Movement Area"
+ ztr_eu_dir_cohesion_mod_poor: "Cohesion Funds Beneficiary"
+ ztr_eu_dir_cohesion_mod_rich: "Cohesion Funds Contributor"
+ ztr_european_federation_integration: "Federal Integration"
+ ztr_euro_changeover: "Currency Changeover"
+ ztr_eu_vote_backlash_mod: "Post-Vote Mobilization"
+
+ ###################################################
+ # EVENTS
+ ###################################################
+
+ # 10 - council vote opened
+ ztr_eu_event.10.t: "The Council Convenes"
+ ztr_eu_event.10.d: "The European Council has opened a vote on the [ROOT.GetCountry.GetCustom('ztr_eu_vote_action_name')] of: #v [ROOT.GetCountry.GetCustom('ztr_eu_vote_subject_name')]#!.\n\nThe session will last #v six months#! and is resolved by #b double majority#!: a majority of member states and a majority of the 360 seats of the European Parliament. Our delegation awaits instructions."
+ ztr_eu_event.10.f: "Diplomats whisper in the corridors of Brussels as the agenda lands on every delegation's desk."
+ ztr_eu_event.10.a: "Instruct our delegation to vote in favour."
+ ztr_eu_event.10.b: "Instruct our delegation to vote against."
+ ztr_eu_event.10.c: "Let us watch the debate unfold first."
+
+ # 11 - parliament reapportioned
+ ztr_eu_event.11.t: "A New European Legislature"
+ ztr_eu_event.11.d: "The five-year term of the European Parliament has ended. The #v 360#! seats have been reapportioned among the member states according to their populations, with no delegation smaller than #v 6#! seats."
+ ztr_eu_event.11.f: "From Lisbon to the Carpathians, posters peel off the walls as the count ends and the new parliament takes its seats."
+ ztr_eu_event.11.a: "Our voice in Europe is counted."
+
+ # 20 - directives menu
+ ztr_eu_event.20.t: "The Council Agenda"
+ ztr_eu_event.20.d: "Which proposal shall we bring before the #v European Council#!? The motion will be put to all member states and resolved by #v Double Majority#! over the next six months."
+ ztr_eu_event.20.a: "Table the [Concept('concept_ztr_eu_dir_agriculture','$ztr_eu_subject_1_loc$')]."
+ ztr_eu_event.20.b: "Move to repeal the [Concept('concept_ztr_eu_dir_agriculture','$ztr_eu_subject_1_loc$')]."
+ ztr_eu_event.20.c: "Table the [Concept('concept_ztr_eu_dir_schengen','$ztr_eu_subject_2_loc$')]."
+ ztr_eu_event.20.e: "Move to repeal the [Concept('concept_ztr_eu_dir_schengen','$ztr_eu_subject_2_loc$')]."
+ ztr_eu_event.20.l: "Table the [Concept('concept_ztr_eu_dir_cohesion','$ztr_eu_subject_6_loc$')]."
+ ztr_eu_event.20.m: "Move to repeal the [Concept('concept_ztr_eu_dir_cohesion','$ztr_eu_subject_6_loc$')]."
+ ztr_eu_event.20.n: "Strengthen the #gold_value $ztr_eu_subject_8_loc$#! [Concept('concept_power_bloc_principle','Principle')]."
+ ztr_eu_event.20.o: "Expand the #gold_value $ztr_eu_subject_9_loc$#! [Concept('concept_power_bloc_principle','Principle')]."
+ ztr_eu_event.20.z: "On second thought, the agenda is full."
+
+ # 21 - treaties menu
+ ztr_eu_event.21.t: "A Treaty Conference"
+ ztr_eu_event.21.d: "As chair of the European Council we may summon the member states to pursue the next phase of integration. Neither great treaty is a Council vote. The $ztr_eu_subject_7_loc$ enters into force the moment we proclaim it: every member state receives an individual summons and must choose between the Confederation - adopting the #b Euro#! if it has not already - and the door. The federal proposal likewise sends an individual invitation to every other confederated member, and each country decides for itself whether to unite."
+ ztr_eu_event.21.a: "Convene the treaty conference establishing the European Confederation."
+ ztr_eu_event.21.b: "Invite the Confederation to form the European Federation."
+ ztr_eu_event.21.z: "Europe is not ready. Adjourn the conference."
+
+ # 25/26 - vote outcome
+ ztr_eu_event.25.t: "The Council Has Spoken"
+ ztr_eu_event.25.d: "The vote on the [ROOT.GetCountry.GetCustom('ztr_eu_last_vote_action_name')] of #v [ROOT.GetCountry.GetCustom('ztr_eu_last_vote_subject_name')]#! has #p passed#! by double majority. The decision now binds every member state of the [ROOT.GetCountry.GetCustom('ztr_eu_org_name')]."
+ ztr_eu_event.25.a: "So Europe decides."
+ ztr_eu_event.26.t: "The Proposal Falls"
+ ztr_eu_event.26.d: "The vote on the [ROOT.GetCountry.GetCustom('ztr_eu_last_vote_action_name')] of #v [ROOT.GetCountry.GetCustom('ztr_eu_last_vote_subject_name')]#! has #n failed#! to gather a double majority of states and seats. The Council adjourns; the matter may not return to the floor for two years."
+ ztr_eu_event.26.a: "Europe moves at the speed of its doubts."
+
+ # 30 - Euro adopted
+ ztr_eu_event.30.t: "The Euro Is Ours"
+ ztr_eu_event.30.d: "At midnight the exchange offices switched their boards: our national currency is no more. The #b Euro#! is now the money of our bakers, our banks and our budget. Credit flows cheaper across the continent - but the printing press now answers to the European Central Bank, not to us."
+ ztr_eu_event.30.f: "Old banknotes are pressed into albums and museum cases as children ask what they were ever worth."
+ ztr_eu_event.30.a: "One market, one money."
+
+ # 31 - ECB established
+ ztr_eu_event.31.t: "The European Central Bank"
+ ztr_eu_event.31.d: "With the first member state adopting the Euro, the #b European Central Bank#! opens its doors in [SCOPE.sCountry('ecb_host_scope').GetName]. From today a single monetary authority watches over the common currency, and its stance - expansionary, neutral or restrictive - will be felt in every eurozone treasury."
+ ztr_eu_event.31.f: "A tower of glass and steel rises over the financial district, its vaults deeper than any king's."
+ ztr_eu_event.31.a: "The continent has a banker."
+
+ # 32 - ECB stance changed
+ ztr_eu_event.32.t: "[SCOPE.sCountry('ecb_host_scope').GetCapital.GetCityHubName] Turns the Wheel"
+ ztr_eu_event.32.d.expansive: "The European Central Bank has adopted an #p Expansionary#! stance: rates fall and the money supply swells across the eurozone. Cheap credit will warm the economy - and perhaps overheat it."
+ ztr_eu_event.32.d.neutral: "The European Central Bank has returned to a #v Neutral#! stance, letting the eurozone breathe at its natural rhythm."
+ ztr_eu_event.32.d.restrictive: "The European Central Bank has adopted a #n Restrictive#! stance: rates rise and the Euro hardens. Savers and creditors smile; debtors tighten their belts."
+ ztr_eu_event.32.a: "We adjust our books accordingly."
+
+ # 40 - the Union's political orientation shifted
+ ztr_eu_event.40.t: "The Soul of Europe Shifts"
+ ztr_eu_event.40.d: "A decade of elections, coups and quiet drifts has remade the governments seated around the Council table. The political orientation of the [ROOT.GetCountry.GetCustom('ztr_eu_org_name')] is now #v [ROOT.GetCountry.GetCustom('ztr_eu_ideology_name')]#!."
+ ztr_eu_event.40.f: "The same anthem, the same ring of stars - but the speeches now carry a different creed."
+ ztr_eu_event.40.a: "Europe is what its members make of it."
+ ztr_eu_ideology_shift_tt: "The Union's accession criteria, its europeanism alignments and its withdrawal politics now follow the #v new orientation#!; member states whose governments no longer match it will find the exit door easier to justify."
+
+ # 60 - the confederal treaty conference
+ ztr_eu_event.60.t: "A Confederation for Europe"
+ ztr_eu_event.60.d: "[SCOPE.sCountry('eu_founder').GetName] has summoned the member states to a treaty conference and laid a single question on the table. From the chair's address: #italic 'For a generation this Union has bound our markets, our borders and our laws ever closer - yet history does not wait for the hesitant. The time has come for the further leap: a European Confederation - one market, one currency, one external border, common institutions - binding the nations of Europe together for good, with one destination before us: a single European state. Let those who believe in Europe sign; let those who do not, take their leave of it.'#!\n\nThere is no vote to hide behind. If we sign, we enter the #v European Confederation#! and adopt the #b Euro#! if we have not already. If we refuse, we leave the European project altogether."
+ ztr_eu_event.60.f: "Across the continent, cabinets sit through the night: this is the question a generation of statesmen hoped - or feared - they would live to answer."
+ ztr_eu_event.60.a: "Sign. Our future is the Confederation."
+ ztr_eu_event.60.b: "Refuse. We take our leave of the European project."
+
+ # 70 - invitation to form the European Federation
+ ztr_eu_event.70.t: "An Invitation to Federal Europe"
+ ztr_eu_event.70.d: "[SCOPE.sCountry('eu_federation_partner').GetName] has invited us to unite in a single sovereign #b European Federation#!. This is no Council vote: every nation must answer for itself. The first country to accept the proposer's invitation will found the Federation together with them; every later signatory will unite with the federal state already proclaimed. If we refuse, we remain independent without closing the door to future accession."
+ ztr_eu_event.70.f: "Across Europe, governments open identical envelopes and confront the same irreversible choice."
+ ztr_eu_event.70.a: "Accept. Our future is federal Europe."
+ ztr_eu_event.70.b: "Decline. We will remain independent."
+
+ ztr_eu_start_federation_invitations_tt: "Individual invitations are sent to every other member of the #v European Confederation#!. The proposer commits to federal union automatically: the first acceptance creates the #v European Federation#!, and every later acceptance unites that country with the Federation."
+
+ ztr_eu_neutral_financial_hub_exclusion_tt: "Is not Switzerland."

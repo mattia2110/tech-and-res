@@ -1,8 +1,21 @@
 namespace = ztr_eu_event
 
-# Unfortunately, Vic 3 still does not support country bloc event-driven creation, so right now it's just a modifier for European countries.
+# ===================================================================================
+# The European Project
+# 1    EU founded (chair)                    2  invitation to EEC members
+# 10   council vote opened (humans)          11 parliament reapportioned
+# 20   directives menu                       21 treaties menu (chair)
+# 25   vote passed                           26 vote failed
+#      (25/26 go to every member, humans and AI: they carry the political backlash)
+# 30   Euro adopted                          31 ECB established
+# 32   ECB stance changed
+# 40   the Union's political orientation shifted (decennial review)
+# 60   confederal treaty conference (every member decides for itself)
+# 70   individual invitation to federal union
+# (41-42 ideological drift and 61 eurozone-gated market were removed)
+# ===================================================================================
 
-#EU foundation through Treaty of Maastricht
+# EU foundation - the chair signs the Treaty on European Union
 ztr_eu_event.1 = {
 	dlc = dlc_tech_res
 	type = country_event
@@ -15,54 +28,33 @@ ztr_eu_event.1 = {
 	flavor = ztr_eu_event.1.f
 
 	event_image = {
-		video = "unspecific_ruler_speaking_to_people"
+		video = "unspecific_signed_contract"
 	}
 
 	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
 
 	icon = "gfx/interface/icons/event_icons/ztr_eu.dds"
 
-	trigger = {
-		#Decision
-	}
-
 	immediate = {
-		random_scope_country = {
-			limit = {
-				has_variable = ztr_eu_founder
-			}
-			save_scope_as = eu_founder
-		}
+		save_scope_as = eu_founder
 	}
 
 	option = {
 		name = ztr_eu_event.1.a
 		default_option = yes
 		change_infamy = -5
+		ztr_eu_member_accession = yes
 		hidden_effect = {
-			if = {
+			every_country = {
 				limit = {
+					NOT = { this = root }
 					has_modifier = ztr_eec_member
 				}
-				remove_modifier = ztr_eec_member
-			}
-			if = {
-				limit = {
-					has_modifier = ztr_eu_member
+				trigger_event = {
+					id = ztr_eu_event.2
+					popup = yes
 				}
-				remove_modifier = ztr_eu_member
 			}
-			join_eu_law_changes = yes
-		}
-		add_modifier = {
-			name = ztr_eu_member
-		}
-		every_country = {
-			limit = {
-				NOT = { this = root }
-				has_modifier = ztr_eec_member
-			}
-			trigger_event = ztr_eu_event.2
 		}
 		ai_chance = {
 			base = 100
@@ -70,7 +62,7 @@ ztr_eu_event.1 = {
 	}
 }
 
-#EU foundation - other countries in Treaty of Maastricht
+# EU foundation - the other EEC members decide whether to follow
 ztr_eu_event.2 = {
 	dlc = dlc_tech_res
 	type = country_event
@@ -83,92 +75,60 @@ ztr_eu_event.2 = {
 	flavor = ztr_eu_event.1.f
 
 	event_image = {
-		video = "unspecific_ruler_speaking_to_people"
+		video = "unspecific_signed_contract"
 	}
 
 	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
 
 	icon = "gfx/interface/icons/event_icons/ztr_eu.dds"
 
-	trigger = {
-	}
-
 	immediate = {
-	}
-
-	# Standard Option
-	option = {
-		name = ztr_eu_event.2.a
-		default_option = yes
-		# If a Country joins the EU, all of its subjects will become independent
-		custom_tooltip = {
-			text = ztr_eu_join_country_loose_all_subjects_tt
-			every_subject_or_below = {
-				make_independent = yes
-			}
-		}
-		ztr_remove_any_power_bloc = yes
 		random_country = {
 			limit = {
 				has_variable = ztr_eu_founder
 			}
-			root = {
-				join_power_bloc = prev
-			}
-		}
-		change_infamy = -5
-		hidden_effect = {
-			if = {
-				limit = {
-					has_modifier = ztr_eec_member
-				}
-				remove_modifier = ztr_eec_member
-			}
-			if = {
-				limit = {
-					has_modifier = ztr_eu_member
-				}
-				remove_modifier = ztr_eu_member
-			}
-			join_eu_law_changes = yes
-		}
-		add_modifier = {
-			name = ztr_eu_member
-		}
-		every_country = {
-			limit = {
-				OR = {
-					has_modifier = ztr_eu_member
-					has_modifier = ztr_eec_member
-				}
-			}
-			change_relations = {
-				country = root
-				value = 200
-			}
-		}
-		every_rival_country = {
-			limit = {
-				OR = {
-					has_modifier = ztr_eu_member
-					has_modifier = ztr_eec_member
-				}
-			}
-			remove_diplomatic_pact = {
-				country = root
-				type = rivalry
-			}
-			change_relations = {
-				country = root
-				value = 200
-			}
-		}
-		ai_chance = {
-			base = 100
+			save_scope_as = eu_founder
 		}
 	}
 
-	# Refusal option
+	# Join the Union
+	option = {
+		name = ztr_eu_event.2.a
+		default_option = yes
+		trigger = {
+			is_not_isolationist_switzerland = yes
+		}
+		# If a Country joins the EU, all of its European subjects will become independent.
+		# Overseas dependencies are kept: the EEC founders joined while holding colonial empires.
+		custom_tooltip = {
+			text = ztr_eu_join_country_loose_all_subjects_tt
+			every_subject_or_below = {
+				limit = { ztr_is_european_country = yes }
+				make_independent = yes
+			}
+		}
+		change_infamy = -5
+		ztr_eu_member_accession = yes
+		ai_chance = {
+			base = 80
+			modifier = {
+				trigger = {
+					NOT = {
+						ztr_eu_ideology_compatible = yes
+					}
+				}
+				add = -60
+			}
+			modifier = {
+				trigger = {
+					"relations(scope:eu_founder)" >= relations_threshold:amicable
+				}
+				add = 20
+			}
+		}
+	}
+
+	# Stay out: the EEC dissolves beneath our feet
 	option = {
 		name = ztr_eu_event.2.b
 		hidden_effect = {
@@ -178,21 +138,950 @@ ztr_eu_event.2 = {
 				}
 				remove_modifier = ztr_eec_member
 			}
-			if = {
-				limit = {
-					has_modifier = ztr_eu_member
-				}
-				remove_modifier = ztr_eu_member
+		}
+		every_country = {
+			limit = {
+				has_modifier = ztr_eu_member
+			}
+			change_relations = {
+				country = root
+				value = -20
 			}
 		}
 		ai_chance = {
-			base = 0
+			base = 20
 			modifier = {
 				trigger = {
-					ztr_is_not_democratic = yes
+					NOT = {
+						ztr_eu_ideology_compatible = yes
+					}
+				}
+				add = 60
+			}
+		}
+	}
+}
+
+# A council vote has opened (human members only; the AI takes positions silently)
+ztr_eu_event.10 = {
+	dlc = dlc_tech_res
+	type = country_event
+	placement = root
+
+	duration = 1
+
+	title = ztr_eu_event.10.t
+	desc = ztr_eu_event.10.d
+	flavor = ztr_eu_event.10.f
+
+	event_image = {
+		video = "unspecific_politicians_arguing"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	icon = "gfx/interface/icons/event_icons/ztr_eu.dds"
+
+	# The event arrives a week after the session opens: make sure the recipient
+	# still holds a ballot (it may have left the Union in the meantime)
+	trigger = {
+		has_global_variable = ztr_eu_vote_active
+		has_modifier = ztr_eu_member
+		has_variable = ztr_eu_vote_eligible
+	}
+
+	immediate = {
+	}
+
+	# Vote in favour
+	option = {
+		name = ztr_eu_event.10.a
+		set_variable = ztr_eu_vote_choice_support
+		ai_chance = {
+			base = 0
+		}
+	}
+
+	# Vote against
+	option = {
+		name = ztr_eu_event.10.b
+		set_variable = ztr_eu_vote_choice_against
+		ai_chance = {
+			base = 0
+		}
+	}
+
+	# Decide later: leaves the state undeclared (the journal entry buttons remain
+	# available for the whole session; a state that never declares counts for
+	# neither side of the double majority)
+	option = {
+		name = ztr_eu_event.10.c
+		default_option = yes
+		ai_chance = {
+			base = 100
+		}
+	}
+}
+
+# The European Parliament has been reapportioned (every 5 years)
+ztr_eu_event.11 = {
+	dlc = dlc_tech_res
+	type = country_event
+	placement = root
+
+	duration = 1
+
+	title = ztr_eu_event.11.t
+	desc = ztr_eu_event.11.d
+	flavor = ztr_eu_event.11.f
+
+	event_image = {
+		video = "asia_politician_parliament_motion"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	icon = "gfx/interface/icons/event_icons/ztr_eu.dds"
+
+	immediate = {
+	}
+
+	option = {
+		name = ztr_eu_event.11.a
+		default_option = yes
+		custom_tooltip = {
+			text = ztr_eu_your_seats_tt
+		}
+		ai_chance = {
+			base = 100
+		}
+	}
+}
+
+# Directive proposal menu
+ztr_eu_event.20 = {
+	dlc = dlc_tech_res
+	type = country_event
+	placement = root
+	duration = 1
+	title = ztr_eu_event.20.t
+	desc = ztr_eu_event.20.d
+	event_image = {
+		video = "unspecific_politicians_arguing"
+	}
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	icon = "gfx/interface/icons/event_icons/ztr_eu.dds"
+	immediate = {
+	}
+
+	# Enact the Common Agricultural Policy
+	option = {
+		name = ztr_eu_event.20.a
+		trigger = {
+			global_var:ztr_eu_phase = 2
+			NOT = {
+				AND = {
+					has_global_variable = ztr_eu_dir_agriculture
+					global_var:ztr_eu_dir_agriculture = 1
+				}
+			}
+		}
+		set_global_variable = {
+			name = ztr_eu_vote_subject
+			value = 1
+		}
+		set_global_variable = {
+			name = ztr_eu_vote_proposal
+			value = 1
+		}
+		custom_tooltip = ztr_eu_start_vote_tt
+		# Hidden: the tooltip walker must not descend into the vote start,
+		# it would evaluate the AI stance of every country with no subject set yet
+		hidden_effect = {
+			ztr_eu_table_proposal = yes
+		}
+		remove_global_variable = ztr_eu_button_opened
+		ai_chance = {
+			base = 0
+		}
+	}
+	# Repeal the Common Agricultural Policy
+	option = {
+		name = ztr_eu_event.20.b
+		trigger = {
+			global_var:ztr_eu_phase = 2
+			has_global_variable = ztr_eu_dir_agriculture
+			global_var:ztr_eu_dir_agriculture = 1
+		}
+		set_global_variable = {
+			name = ztr_eu_vote_subject
+			value = 1
+		}
+		set_global_variable = {
+			name = ztr_eu_vote_proposal
+			value = 0
+		}
+		custom_tooltip = ztr_eu_start_vote_tt
+		# Hidden: the tooltip walker must not descend into the vote start,
+		# it would evaluate the AI stance of every country with no subject set yet
+		hidden_effect = {
+			ztr_eu_table_proposal = yes
+		}
+		remove_global_variable = ztr_eu_button_opened
+		ai_chance = {
+			base = 0
+		}
+	}
+	# Enact Free Movement (Schengen)
+	option = {
+		name = ztr_eu_event.20.c
+		trigger = {
+			global_var:ztr_eu_phase = 2
+			NOT = {
+				AND = {
+					has_global_variable = ztr_eu_dir_schengen
+					global_var:ztr_eu_dir_schengen = 1
+				}
+			}
+		}
+		set_global_variable = {
+			name = ztr_eu_vote_subject
+			value = 2
+		}
+		set_global_variable = {
+			name = ztr_eu_vote_proposal
+			value = 1
+		}
+		custom_tooltip = ztr_eu_start_vote_tt
+		# Hidden: the tooltip walker must not descend into the vote start,
+		# it would evaluate the AI stance of every country with no subject set yet
+		hidden_effect = {
+			ztr_eu_table_proposal = yes
+		}
+		remove_global_variable = ztr_eu_button_opened
+		ai_chance = {
+			base = 0
+		}
+	}
+	# Repeal Free Movement (Schengen)
+	option = {
+		name = ztr_eu_event.20.e
+		trigger = {
+			global_var:ztr_eu_phase = 2
+			has_global_variable = ztr_eu_dir_schengen
+			global_var:ztr_eu_dir_schengen = 1
+		}
+		set_global_variable = {
+			name = ztr_eu_vote_subject
+			value = 2
+		}
+		set_global_variable = {
+			name = ztr_eu_vote_proposal
+			value = 0
+		}
+		custom_tooltip = ztr_eu_start_vote_tt
+		# Hidden: the tooltip walker must not descend into the vote start,
+		# it would evaluate the AI stance of every country with no subject set yet
+		hidden_effect = {
+			ztr_eu_table_proposal = yes
+		}
+		remove_global_variable = ztr_eu_button_opened
+		ai_chance = {
+			base = 0
+		}
+	}
+	# Enact the Cohesion Funds
+	option = {
+		name = ztr_eu_event.20.l
+		trigger = {
+			global_var:ztr_eu_phase = 2
+			NOT = {
+				AND = {
+					has_global_variable = ztr_eu_dir_cohesion
+					global_var:ztr_eu_dir_cohesion = 1
+				}
+			}
+		}
+		set_global_variable = {
+			name = ztr_eu_vote_subject
+			value = 6
+		}
+		set_global_variable = {
+			name = ztr_eu_vote_proposal
+			value = 1
+		}
+		custom_tooltip = ztr_eu_start_vote_tt
+		# Hidden: the tooltip walker must not descend into the vote start,
+		# it would evaluate the AI stance of every country with no subject set yet
+		hidden_effect = {
+			ztr_eu_table_proposal = yes
+		}
+		remove_global_variable = ztr_eu_button_opened
+		ai_chance = {
+			base = 0
+		}
+	}
+	# Repeal the Cohesion Funds
+	option = {
+		name = ztr_eu_event.20.m
+		trigger = {
+			global_var:ztr_eu_phase = 2
+			has_global_variable = ztr_eu_dir_cohesion
+			global_var:ztr_eu_dir_cohesion = 1
+		}
+		set_global_variable = {
+			name = ztr_eu_vote_subject
+			value = 6
+		}
+		set_global_variable = {
+			name = ztr_eu_vote_proposal
+			value = 0
+		}
+		custom_tooltip = ztr_eu_start_vote_tt
+		# Hidden: the tooltip walker must not descend into the vote start,
+		# it would evaluate the AI stance of every country with no subject set yet
+		hidden_effect = {
+			ztr_eu_table_proposal = yes
+		}
+		remove_global_variable = ztr_eu_button_opened
+		ai_chance = {
+			base = 0
+		}
+	}
+	# Reinforce the Common Security and Defence Policy (Confederation phase only)
+	option = {
+		name = ztr_eu_event.20.n
+		trigger = {
+			global_var:ztr_eu_phase = 3
+			any_country = {
+				has_variable = ztr_eu_bloc_leader
+				is_power_bloc_leader = yes
+				power_bloc = {
+					NOR = {
+						has_principle = principle:principle_defensive_cooperation_3
+					}
+				}
+			}
+		}
+		set_global_variable = {
+			name = ztr_eu_vote_subject
+			value = 8
+		}
+		set_global_variable = {
+			name = ztr_eu_vote_proposal
+			value = 1
+		}
+		custom_tooltip = ztr_eu_start_vote_tt
+		# Hidden: the tooltip walker must not descend into the vote start,
+		# it would evaluate the AI stance of every country with no subject set yet
+		hidden_effect = {
+			ztr_eu_table_proposal = yes
+		}
+		remove_global_variable = ztr_eu_button_opened
+		ai_chance = {
+			base = 0
+		}
+	}
+	# Expand the Global Europe Investment Programme (Confederation phase only)
+	option = {
+		name = ztr_eu_event.20.o
+		trigger = {
+			global_var:ztr_eu_phase = 3
+			any_country = {
+				has_variable = ztr_eu_bloc_leader
+				is_power_bloc_leader = yes
+				power_bloc = {
+					NOR = {
+						has_principle = principle:principle_foreign_investment_3
+					}
+				}
+			}
+		}
+		set_global_variable = {
+			name = ztr_eu_vote_subject
+			value = 9
+		}
+		set_global_variable = {
+			name = ztr_eu_vote_proposal
+			value = 1
+		}
+		custom_tooltip = ztr_eu_start_vote_tt
+		# Hidden: the tooltip walker must not descend into the vote start,
+		# it would evaluate the AI stance of every country with no subject set yet
+		hidden_effect = {
+			ztr_eu_table_proposal = yes
+		}
+		remove_global_variable = ztr_eu_button_opened
+		ai_chance = {
+			base = 0
+		}
+	}
+	# Nevermind
+	option = {
+		name = ztr_eu_event.20.z
+		default_option = yes
+		remove_global_variable = ztr_eu_button_opened
+		ai_chance = {
+			base = 100
+		}
+	}
+}
+
+# Treaty menu (chair only)
+ztr_eu_event.21 = {
+	dlc = dlc_tech_res
+	type = country_event
+	placement = root
+	duration = 1
+	title = ztr_eu_event.21.t
+	desc = ztr_eu_event.21.d
+	event_image = {
+		video = "unspecific_signed_contract"
+	}
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	icon = "gfx/interface/icons/event_icons/ztr_eu.dds"
+	immediate = {
+		# Count members and Euro adopters to gate the federation treaty
+		ztr_eu_count_members_and_euro = yes
+	}
+
+	# Convene the confederal treaty conference: no Council vote is held, every
+	# member state receives an individual summons (event 60) and answers alone
+	option = {
+		name = ztr_eu_event.21.a
+		trigger = {
+			is_not_isolationist_switzerland = yes
+			global_var:ztr_eu_phase = 2
+			has_technology_researched = e_government
+			# The chair leads the Confederation bloc, so it must be in the eurozone
+			custom_tooltip = {
+				text = ztr_eu_single_market_euro_tt
+				has_modifier = ztr_euro_member
+			}
+			# The three common policies must already bind the Union together
+			custom_tooltip = {
+				text = ztr_eu_confed_agriculture_tt
+				has_global_variable = ztr_eu_dir_agriculture
+				global_var:ztr_eu_dir_agriculture = 1
+			}
+			custom_tooltip = {
+				text = ztr_eu_confed_schengen_tt
+				has_global_variable = ztr_eu_dir_schengen
+				global_var:ztr_eu_dir_schengen = 1
+			}
+			custom_tooltip = {
+				text = ztr_eu_confed_cohesion_tt
+				has_global_variable = ztr_eu_dir_cohesion
+				global_var:ztr_eu_dir_cohesion = 1
+			}
+		}
+		custom_tooltip = ztr_eu_establish_confederation_tt
+		# Hidden: the tooltip walker must not descend into the bloc creation,
+		# it would evaluate every member's accession while the bloc does not exist yet
+		hidden_effect = {
+			ztr_eu_establish_single_market = yes
+		}
+		remove_global_variable = ztr_eu_button_opened
+		remove_global_variable = ztr_eu_tmp_member_count
+		remove_global_variable = ztr_eu_tmp_euro_count
+		ai_chance = {
+			base = 0
+		}
+	}
+
+	# Invite every other confederated member to form the European Federation
+	option = {
+		name = ztr_eu_event.21.b
+		trigger = {
+			is_not_isolationist_switzerland = yes
+			global_var:ztr_eu_phase = 3
+			has_technology_researched = digital_governance
+			# Both Council-driven principles must be fully developed
+			custom_tooltip = {
+				text = ztr_eu_federation_principles_tt
+				power_bloc ?= {
+					has_principle = principle:principle_defensive_cooperation_3
+					has_principle = principle:principle_foreign_investment_3
+				}
+			}
+			custom_tooltip = {
+				text = ztr_eu_federation_euro_majority_tt
+				global_var:ztr_eu_tmp_euro_count >= global_var:ztr_eu_tmp_member_count
+			}
+			NOT = {
+				has_global_variable = ztr_eu_federation_invitation_cd
+			}
+			any_country = {
+				has_modifier = ztr_eu_member
+				NOT = { this = ROOT }
+			}
+		}
+		custom_tooltip = ztr_eu_start_federation_invitations_tt
+		hidden_effect = {
+			ztr_eu_start_federation_invitations = yes
+		}
+		remove_global_variable = ztr_eu_button_opened
+		remove_global_variable = ztr_eu_tmp_member_count
+		remove_global_variable = ztr_eu_tmp_euro_count
+		ai_chance = {
+			base = 0
+		}
+	}
+
+	# Nevermind
+	option = {
+		name = ztr_eu_event.21.z
+		default_option = yes
+		remove_global_variable = ztr_eu_button_opened
+		remove_global_variable = ztr_eu_tmp_member_count
+		remove_global_variable = ztr_eu_tmp_euro_count
+		ai_chance = {
+			base = 100
+		}
+	}
+}
+
+# The council vote passed. Fired at every member (humans and AI): the option
+# applies the political backlash of the outcome (see the effects in
+# ztr_eu_scripts.txt). A passed enactment is a europeist win; a passed repeal
+# is a eurosceptic one.
+ztr_eu_event.25 = {
+	dlc = dlc_tech_res
+	type = country_event
+	placement = root
+	duration = 1
+	title = ztr_eu_event.25.t
+	desc = ztr_eu_event.25.d
+	event_image = {
+		video = "asia_politician_parliament_motion"
+	}
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	icon = "gfx/interface/icons/event_icons/ztr_eu.dds"
+	# The outcome lands a few days after the session closes: countries that left
+	# the Union in the meantime are spared the domestic fallout
+	trigger = {
+		has_modifier = ztr_eu_member
+	}
+	immediate = {
+	}
+	option = {
+		name = ztr_eu_event.25.a
+		default_option = yes
+		if = {
+			limit = {
+				has_global_variable = ztr_eu_last_vote_proposal
+				global_var:ztr_eu_last_vote_proposal = 0
+			}
+			ztr_eu_vote_backlash_integration_lost = yes
+		}
+		else = {
+			ztr_eu_vote_backlash_integration_won = yes
+		}
+		ai_chance = {
+			base = 100
+		}
+	}
+}
+
+# The council vote failed. Fired at every member (humans and AI): the option
+# applies the political backlash of the outcome. A failed enactment is a
+# eurosceptic win; a failed repeal is a europeist one.
+ztr_eu_event.26 = {
+	dlc = dlc_tech_res
+	type = country_event
+	placement = root
+	duration = 1
+	title = ztr_eu_event.26.t
+	desc = ztr_eu_event.26.d
+	event_image = {
+		video = "unspecific_politicians_arguing"
+	}
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	icon = "gfx/interface/icons/event_icons/ztr_eu.dds"
+	trigger = {
+		has_modifier = ztr_eu_member
+	}
+	immediate = {
+	}
+	option = {
+		name = ztr_eu_event.26.a
+		default_option = yes
+		if = {
+			limit = {
+				has_global_variable = ztr_eu_last_vote_proposal
+				global_var:ztr_eu_last_vote_proposal = 0
+			}
+			ztr_eu_vote_backlash_integration_won = yes
+		}
+		else = {
+			ztr_eu_vote_backlash_integration_lost = yes
+		}
+		ai_chance = {
+			base = 100
+		}
+	}
+}
+
+# We adopted the Euro
+ztr_eu_event.30 = {
+	dlc = dlc_tech_res
+	type = country_event
+	placement = root
+	duration = 1
+	title = ztr_eu_event.30.t
+	desc = ztr_eu_event.30.d
+	flavor = ztr_eu_event.30.f
+	event_image = {
+		video = "unspecific_signed_contract"
+	}
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	icon = "gfx/interface/icons/event_icons/ztr_eu.dds"
+	immediate = {
+	}
+	option = {
+		name = ztr_eu_event.30.a
+		default_option = yes
+		add_modifier = {
+			name = ztr_euro_changeover
+			months = 24
+		}
+		ai_chance = {
+			base = 100
+		}
+	}
+}
+
+# The European Central Bank has been established
+ztr_eu_event.31 = {
+	dlc = dlc_tech_res
+	type = country_event
+	placement = root
+	duration = 1
+	title = ztr_eu_event.31.t
+	desc = ztr_eu_event.31.d
+	flavor = ztr_eu_event.31.f
+	event_image = {
+		video = "unspecific_world_fair"
+	}
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	icon = "gfx/interface/icons/event_icons/ztr_eu.dds"
+	immediate = {
+		random_country = {
+			limit = {
+				has_variable = ztr_ecb_host
+			}
+			save_scope_as = ecb_host_scope
+		}
+	}
+	option = {
+		name = ztr_eu_event.31.a
+		default_option = yes
+		ai_chance = {
+			base = 100
+		}
+	}
+}
+
+# The ECB changed its monetary stance
+ztr_eu_event.32 = {
+	dlc = dlc_tech_res
+	type = country_event
+	placement = root
+	duration = 1
+	title = ztr_eu_event.32.t
+	desc = {
+		first_valid = {
+			triggered_desc = {
+				desc = ztr_eu_event.32.d.expansive
+				trigger = {
+					global_var:ztr_eu_ecb_stance = 1
+				}
+			}
+			triggered_desc = {
+				desc = ztr_eu_event.32.d.restrictive
+				trigger = {
+					global_var:ztr_eu_ecb_stance = 3
+				}
+			}
+			triggered_desc = {
+				desc = ztr_eu_event.32.d.neutral
+				trigger = {
+					always = yes
+				}
+			}
+		}
+	}
+	event_image = {
+		video = "unspecific_politicians_arguing"
+	}
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	icon = "gfx/interface/icons/event_icons/ztr_eu.dds"
+	immediate = {
+		random_country = {
+			limit = {
+				has_variable = ztr_ecb_host
+			}
+			save_scope_as = ecb_host_scope
+		}
+	}
+	option = {
+		name = ztr_eu_event.32.a
+		default_option = yes
+		ai_chance = {
+			base = 100
+		}
+	}
+}
+
+# The decennial review flipped the Union's political orientation (see
+# ztr_eu_review_union_ideology). Pure notification: accession criteria and
+# withdrawal politics follow the new orientation automatically.
+ztr_eu_event.40 = {
+	dlc = dlc_tech_res
+	type = country_event
+	placement = root
+	duration = 1
+	title = ztr_eu_event.40.t
+	desc = ztr_eu_event.40.d
+	flavor = ztr_eu_event.40.f
+	event_image = {
+		video = "unspecific_politicians_arguing"
+	}
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	icon = "gfx/interface/icons/event_icons/ztr_eu.dds"
+	trigger = {
+		has_modifier = ztr_eu_member
+	}
+	immediate = {
+	}
+	option = {
+		name = ztr_eu_event.40.a
+		default_option = yes
+		custom_tooltip = ztr_eu_ideology_shift_tt
+		ai_chance = {
+			base = 100
+		}
+	}
+}
+
+# The confederal treaty conference: the chair has proclaimed the European
+# Confederation and every other member state must now answer for itself.
+# Accepting means adopting the Euro (if not already done) and entering the
+# Confederation's power bloc; refusing means leaving the European project.
+ztr_eu_event.60 = {
+	dlc = dlc_tech_res
+	type = country_event
+	placement = root
+	duration = 1
+	title = ztr_eu_event.60.t
+	desc = ztr_eu_event.60.d
+	flavor = ztr_eu_event.60.f
+	event_image = {
+		video = "unspecific_signed_contract"
+	}
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	icon = "gfx/interface/icons/event_icons/ztr_eu.dds"
+	trigger = {
+		has_modifier = ztr_eu_member
+		NOT = {
+			has_variable = ztr_eu_founder
+		}
+	}
+	immediate = {
+		random_country = {
+			limit = {
+				has_variable = ztr_eu_founder
+			}
+			save_scope_as = eu_founder
+		}
+	}
+
+	# Take the leap: enter the Confederation, adopting the Euro if we must
+	option = {
+		name = ztr_eu_event.60.a
+		default_option = yes
+		trigger = {
+			is_not_isolationist_switzerland = yes
+		}
+		# Power bloc membership is incompatible with keeping subjects
+		custom_tooltip = {
+			text = ztr_eu_join_country_loose_all_subjects_tt
+			every_subject_or_below = {
+				make_independent = yes
+			}
+		}
+		ztr_remove_any_power_bloc = yes
+		# The treaty itself is the mandate: the Euro is adopted regardless of the
+		# convergence criteria (this also grants the single market and bloc entry)
+		if = {
+			limit = {
+				NOT = {
+					has_modifier = ztr_euro_member
+				}
+			}
+			custom_tooltip = ztr_eu_confed_forced_euro_tt
+			hidden_effect = {
+				ztr_eu_adopt_euro = yes
+			}
+		}
+		if = {
+			limit = {
+				NOT = {
+					has_modifier = ztr_eu_single_market
+				}
+			}
+			add_modifier = {
+				name = ztr_eu_single_market
+			}
+		}
+		random_country = {
+			limit = {
+				has_variable = ztr_eu_bloc_leader
+				is_power_bloc_leader = yes
+			}
+			root = {
+				join_power_bloc = prev
+			}
+		}
+		ai_chance = {
+			base = 90
+		}
+	}
+
+	# Refuse - and walk out of the European project altogether
+	option = {
+		name = ztr_eu_event.60.b
+		ztr_eu_member_exit = yes
+		ai_chance = {
+			base = 10
+			modifier = {
+				trigger = {
+					NOT = {
+						ztr_eu_ideology_compatible = yes
+					}
+				}
+				add = 25
+			}
+			modifier = {
+				trigger = {
+					ig:ig_petty_bourgeoisie = {
+						is_powerful = yes
+					}
+				}
+				add = 15
+			}
+		}
+	}
+}
+
+# A confederated member is invited to unite in the European Federation
+ztr_eu_event.70 = {
+	dlc = dlc_tech_res
+	type = country_event
+	placement = root
+	duration = 1
+	title = ztr_eu_event.70.t
+	desc = ztr_eu_event.70.d
+	flavor = ztr_eu_event.70.f
+	event_image = {
+		video = "unspecific_signed_contract"
+	}
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	icon = "gfx/interface/icons/event_icons/ztr_eu.dds"
+	trigger = {
+		has_variable = ztr_eu_federation_invited
+		NOT = {
+			has_variable = ztr_eu_rejoin_cd
+		}
+		OR = {
+			exists = c:EUF
+			any_country = {
+				has_variable = ztr_eu_federation_proposer
+			}
+		}
+	}
+	immediate = {
+		if = {
+			limit = {
+				exists = c:EUF
+			}
+			c:EUF = {
+				save_scope_as = eu_federation_partner
+			}
+		}
+		else = {
+			random_country = {
+				limit = {
+					has_variable = ztr_eu_federation_proposer
+				}
+				save_scope_as = eu_federation_partner
+			}
+		}
+	}
+
+	# Accept: the player country always survives the merger; AI countries join the
+	# proposer or, after the first acceptance, the already existing Federation
+	option = {
+		name = ztr_eu_event.70.a
+		trigger = {
+			is_not_isolationist_switzerland = yes
+		}
+		custom_tooltip = ztr_eu_federation_ratify_tt
+		hidden_effect = {
+			remove_variable = ztr_eu_federation_invited
+			ztr_eu_accept_federation_invitation = yes
+		}
+		ai_chance = {
+			base = 55
+			modifier = {
+				trigger = {
+					ztr_eu_ideology_compatible = yes
+					"relations(scope:eu_federation_partner)" >= relations_threshold:amicable
+				}
+				add = 30
+			}
+			modifier = {
+				trigger = {
+					has_modifier = ztr_euro_member
 				}
 				add = 10
 			}
+			modifier = {
+				trigger = {
+					country_rank = rank_value:great_power
+				}
+				add = -25
+			}
+			modifier = {
+				trigger = {
+					ig:ig_petty_bourgeoisie = {
+						is_powerful = yes
+					}
+				}
+				add = -25
+			}
+		}
+	}
+
+	# Refuse: remain independent; the post-federation accession decision stays open
+	option = {
+		name = ztr_eu_event.70.b
+		default_option = yes
+		custom_tooltip = ztr_eu_federation_refuse_tt
+		hidden_effect = {
+			remove_variable = ztr_eu_federation_invited
+			if = {
+				limit = {
+					exists = scope:eu_federation_partner
+				}
+				change_relations = {
+					country = scope:eu_federation_partner
+					value = -25
+				}
+			}
+		}
+		ai_chance = {
+			base = 45
 		}
 	}
 }

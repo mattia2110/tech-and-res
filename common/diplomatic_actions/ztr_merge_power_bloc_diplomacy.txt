@@ -140,6 +140,23 @@
 			}
 
 			#T&R
+			# Penalty for countries on same continental union
+			if = {
+				limit = {
+					AND = {
+						scope:actor = {
+							has_modifier = ztr_eu_member
+						}
+						scope:target_country = {
+							has_modifier = ztr_eu_member
+						}
+					}
+				}
+				add = {
+					desc = "ZTR_BOTH_EU_MEMBER"
+					value = -50
+				}
+			}
 			if = {
 				limit = {
 					OR = {
@@ -169,7 +186,7 @@
 					desc = "ZTR_VERY_SIMILAR_LIBERTY_INDEX"
 					value = 120
 				}
-			}				
+			}
 			else_if = {
 				limit = {
 					OR = {

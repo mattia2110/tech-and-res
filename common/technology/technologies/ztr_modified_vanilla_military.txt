@@ -19,6 +19,37 @@ INJECT:zeppelins = {
 	}
 }
 
+REPLACE:dreadnought_tech = {
+	# Unlocks Dreadnoughts PM in Naval Bases
+	era = era_4
+	texture = "gfx/interface/icons/invention_icons/dreadnought.dds"
+	category = military
+
+	modifier = {
+		# increased coal consumption
+		# increased offense and defense?
+
+		# prestige bonus? Or a prestige bonus to overall naval size. Could apply this to mahanian_thought instead.
+	}
+
+	unlocking_technologies = {
+		pre_dreadnought_tech
+		sea_lane_strategies
+		concrete_dockyards
+		zeppelins
+	}
+
+	ai_weight = {
+		value = 1
+
+		# Important for naval powers
+		if = {
+			limit = { navy_size >= 20 }
+			add = 0.5
+		}
+	}
+}
+
 REPLACE:military_aviation = {
 	# Unlocks Vehicles Industries
 	# Unlocks Tanks, Planes and Tanks PM in Barracks

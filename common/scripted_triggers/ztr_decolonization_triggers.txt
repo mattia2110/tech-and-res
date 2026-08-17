@@ -124,6 +124,25 @@ state_want_to_be_decolonized = {
 	}
 }
 
+# State-scope eligibility for the homeland-cession path on decolonization: a state qualifies
+# when it is a homeland of the decolonizing subject's primary culture(s) (scope:subject_scope)
+# but NOT a homeland of the overlord's (root). This lets a freed nation recover its heartland
+# from the colonial power.
+# Guard against shared-culture spillover: Liberia's primary culture (afro_american) is also a
+# homeland culture of the American Deep South (alongside dixie). Without a restriction, a USA
+# that lacks dixie as a primary culture would surrender the Deep South to a decolonizing Liberia.
+# Liberia therefore only ever recovers homeland states located within the West Africa region.
+ztr_state_eligible_for_subject_homeland_cession = {
+	NOT = {
+		is_homeland_of_country_cultures = root
+	}
+	is_homeland_of_country_cultures = scope:subject_scope
+	trigger_if = {
+		limit = { scope:subject_scope ?= c:LIB }
+		is_in_geographic_region = geographic_region_west_africa
+	}
+}
+
 # Fast membership check against the yearly-cached colonial states list built by je_decolonization.
 # Use in contexts fired from or shortly after je_decolonization's yearly pulse.
 # Uses prev so the check resolves against the country scope that iterated into this state,

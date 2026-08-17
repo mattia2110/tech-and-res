@@ -62,12 +62,13 @@ REPLACE:invite_to_power_bloc = {
 			is_revolutionary = no
 		}
 
-		# EU power bloc membership is determined by the ztr_eu_member modifier
+		# EU power bloc membership is determined by the ztr_eu_single_market modifier
+		# (EU members outside the single market may not join any power bloc)
 		custom_tooltip = {
 			text = "ZTR_EU_INVITE_RESTRICTION"
 			trigger_if = {
-				limit = { has_variable = ztr_eu_founder }
-				scope:target_country = { has_modifier = ztr_eu_member }
+				limit = { has_variable = ztr_eu_bloc_leader }
+				scope:target_country = { has_modifier = ztr_eu_single_market }
 			}
 			trigger_else = {
 				scope:target_country = { NOT = { has_modifier = ztr_eu_member } }
