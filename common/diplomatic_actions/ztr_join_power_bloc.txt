@@ -50,23 +50,6 @@ REPLACE:join_power_bloc = {
 				}
 			}
 		}
-
-		# EU power bloc membership is determined by the ztr_eu_single_market modifier
-		# (EU members outside the single market may not join any power bloc)
-		custom_tooltip = {
-			text = "ZTR_EU_JOIN_RESTRICTION"
-			trigger_if = {
-				limit = { has_modifier = ztr_eu_single_market }
-				scope:target_country = { has_variable = ztr_eu_bloc_leader }
-			}
-			trigger_else_if = {
-				limit = { has_modifier = ztr_eu_member }
-				always = no
-			}
-			trigger_else = {
-				scope:target_country = { NOT = { has_variable = ztr_eu_bloc_leader } }
-			}
-		}
 	}
 
 	accept_effect = {

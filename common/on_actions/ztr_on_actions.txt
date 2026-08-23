@@ -6,8 +6,6 @@ on_yearly_pulse = {
 		ztr_main_script_on_yearly_pulse
 		ztr_decolonization_age_on_yearly_pulse
 		un_institutions_on_yearly_pulse
-		ztr_eu_cohesion_on_yearly_pulse
-		ztr_eu_ecb_on_yearly_pulse
 	}
 }
 
@@ -217,43 +215,6 @@ un_institutions_on_yearly_pulse = {
 	}
 }
 
-# EU Cohesion Funds: yearly reassessment of the Union average GDP per capita.
-# Members below the average become beneficiaries (ztr_eu_dir_cohesion_mod_poor),
-# members at or above it become contributors (ztr_eu_dir_cohesion_mod_rich).
-ztr_eu_cohesion_on_yearly_pulse = {
-	trigger = {
-		has_global_variable = ztr_eu_dir_cohesion
-		global_var:ztr_eu_dir_cohesion = 1
-	}
-	effect = {
-		ztr_eu_update_cohesion_average = yes
-		every_country = {
-			limit = {
-				has_modifier = ztr_eu_member
-			}
-			ztr_eu_sync_cohesion_status = yes
-		}
-	}
-}
-
-# ECB automatic monetary policy: once the five-year cooldown (ztr_eu_ecb_stance_cd)
-# clears, the bank reviews its stance with a random pick weighted by eurozone debt
-# (see ztr_eu_update_ecb_stance). The mechanism ends with the European Federation
-# (phase 4): a single federal state runs its own treasury.
-ztr_eu_ecb_on_yearly_pulse = {
-	trigger = {
-		has_global_variable = ztr_eu_ecb_established
-		has_global_variable = ztr_eu_phase
-		global_var:ztr_eu_phase < 4
-		NOT = {
-			has_global_variable = ztr_eu_ecb_stance_cd
-		}
-	}
-	effect = {
-		ztr_eu_update_ecb_stance = yes
-	}
-}
-
 #####################################################################
 ### COUNTRY ON_ACTION DEFINITIONS ###
 #####################################################################
@@ -457,7 +418,6 @@ on_monthly_pulse_country = {
 	on_actions = {
 		un_intervention_on_monthly_pulse_country
 		yeet_pops_on_monthly_pulse_country
-		eu_membership_enforcement_on_monthly_pulse_country
 		ztr_two_chinas_reckoning_on_monthly_pulse_country
 	}
 }
@@ -511,87 +471,6 @@ ztr_two_chinas_reckoning_on_monthly_pulse_country = {
 					}
 				}
 			}
-		}
-	}
-}
-
-# EU power bloc membership is strictly tied to the ztr_eu_single_market modifier
-# (the single market is reserved to eurozone members of the Union).
-# If a country has the modifier, it must be in the EU bloc founder's power bloc.
-# If it doesn't have the modifier, it must not be in that power bloc.
-# The bloc only exists from the Confederation phase onwards (ztr_eu_bloc_created).
-eu_membership_enforcement_on_monthly_pulse_country = {
-	# Skip the whole effect until the Confederation's power bloc exists
-	trigger = {
-		has_global_variable = ztr_eu_bloc_created
-	}
-	effect = {
-		# Force single-market members into the EU power bloc if they aren't already in it
-		if = {
-			limit = {
-				has_modifier = ztr_eu_single_market
-				exists = root.power_bloc
-				NOT = {
-					root.power_bloc = {
-						power_bloc_leader = {
-							has_variable = ztr_eu_bloc_leader
-						}
-					}
-				}
-			}
-			leave_power_bloc = yes
-			random_country = {
-				limit = {
-					has_variable = ztr_eu_bloc_leader
-					is_power_bloc_leader = yes
-				}
-				save_scope_as = ztr_eu_bloc_leader_scope
-			}
-			if = {
-				limit = {
-					exists = scope:ztr_eu_bloc_leader_scope
-				}
-				join_power_bloc = scope:ztr_eu_bloc_leader_scope
-			}
-		}
-		else_if = {
-			limit = {
-				has_modifier = ztr_eu_single_market
-				NOT = {
-					exists = root.power_bloc
-				}
-			}
-			random_country = {
-				limit = {
-					has_variable = ztr_eu_bloc_leader
-					is_power_bloc_leader = yes
-				}
-				save_scope_as = ztr_eu_bloc_leader_scope
-			}
-			if = {
-				limit = {
-					exists = scope:ztr_eu_bloc_leader_scope
-				}
-				join_power_bloc = scope:ztr_eu_bloc_leader_scope
-			}
-		}
-		# Force countries outside the single market out of the EU power bloc
-		if = {
-			limit = {
-				NOT = {
-					has_modifier = ztr_eu_single_market
-				}
-				NOT = {
-					has_variable = ztr_eu_bloc_leader
-				}
-				exists = root.power_bloc
-				root.power_bloc = {
-					leader = {
-						has_variable = ztr_eu_bloc_leader
-					}
-				}
-			}
-			leave_power_bloc = yes
 		}
 	}
 }

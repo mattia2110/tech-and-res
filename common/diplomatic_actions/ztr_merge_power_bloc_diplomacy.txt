@@ -30,18 +30,6 @@
 		OR = {
 			has_modifier = ztr_superpower
 			AND = {
-				has_modifier = ztr_eu_member
-				scope:target_country = {
-					has_modifier = ztr_eu_member
-				}
-			}
-			AND = {
-				has_modifier = ztr_eec_member
-				scope:target_country = {
-					has_modifier = ztr_eec_member
-				}
-			}
-			AND = {
 				ztr_is_communist = yes
 				scope:target_country = {
 					ztr_is_communist = yes
@@ -140,23 +128,6 @@
 			}
 
 			#T&R
-			# Penalty for countries on same continental union
-			if = {
-				limit = {
-					AND = {
-						scope:actor = {
-							has_modifier = ztr_eu_member
-						}
-						scope:target_country = {
-							has_modifier = ztr_eu_member
-						}
-					}
-				}
-				add = {
-					desc = "ZTR_BOTH_EU_MEMBER"
-					value = -50
-				}
-			}
 			if = {
 				limit = {
 					OR = {

@@ -62,18 +62,6 @@ REPLACE:invite_to_power_bloc = {
 			is_revolutionary = no
 		}
 
-		# EU power bloc membership is determined by the ztr_eu_single_market modifier
-		# (EU members outside the single market may not join any power bloc)
-		custom_tooltip = {
-			text = "ZTR_EU_INVITE_RESTRICTION"
-			trigger_if = {
-				limit = { has_variable = ztr_eu_bloc_leader }
-				scope:target_country = { has_modifier = ztr_eu_single_market }
-			}
-			trigger_else = {
-				scope:target_country = { NOT = { has_modifier = ztr_eu_member } }
-			}
-		}
 		custom_tooltip = {
 			# This effectively sets a 2 year cooldown on invites. This length needs to be updated both in loc and in the catalyst definition
 			text = invite_to_power_bloc_recently_declined
