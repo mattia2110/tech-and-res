@@ -22,108 +22,7 @@
 	}
 	on_monthly_pulse = {
 		effect = {
-			set_variable = {
-				name = nuclear_development_var_delta
-				value = 0
-			}
-			if = {
-				limit = {
-					#Has nuclear weapons tech
-					has_technology_researched = atomic_bomb
-					#Has at least 1 functional nuclear weapons building
-					any_scope_state = {
-						any_scope_building = {
-							is_building_type = building_nuclear_weapons_silo
-							level >= 1
-							building_has_goods_shortage = no
-						}
-					}
-					NOT = {
-						any_scope_treaty = {
-							binds = ROOT
-							any_scope_article = {
-								has_type = pause_nuclear_weapons_development
-							}
-						}
-					}
-				}
-				change_variable = {
-					name = nuclear_development_var_delta
-					add = 1
-				}
-				# Indicators affecting nuclear development speed
-				# This will emulate a factor of literacy * population = total research capacity
-				# Unliterate and small North Korea: good luck! (42 years of work to do!)
-				# Literacy
-				if = {
-					limit = {
-						literacy_rate < 0.5
-					}
-					change_variable = {
-						name = nuclear_development_var_delta
-						multiply = 0.1
-					}
-				}
-				else_if = {
-					limit = {
-						literacy_rate < 0.8
-					}
-					change_variable = {
-						name = nuclear_development_var_delta
-						multiply = 0.5
-					}
-				}
-				# Population
-				if = {
-					limit = {
-						total_population < 25000000
-					}
-					change_variable = {
-						name = nuclear_development_var_delta
-						multiply = 0.1
-					}
-				}
-				else_if = {
-					limit = {
-						total_population < 100000000
-					}
-					change_variable = {
-						name = nuclear_development_var_delta
-						multiply = 0.33
-					}
-				}
-				# Geopolitic
-				# The need to rush nuclear development if rivals have nukes or if at war
-				if = {
-					limit = {
-						OR = {
-							any_rival_country = {
-								has_modifier = nuclear_capability
-							}
-							is_at_war = yes
-						}
-					}
-					change_variable = {
-						name = nuclear_development_var_delta
-						multiply = 2
-					}
-				}
-				# If country has signed the NPT, halt new developments
-				if = {
-					limit = {
-						has_variable = signed_nuclear_non_proliferation_treaty
-					}
-					change_variable = {
-						name = nuclear_development_var_delta
-						multiply = 0
-					}
-				}
-				change_variable = {
-					name = nuclear_development_var
-					add = var:nuclear_development_var_delta
-				}
-				remove_variable = nuclear_development_var_delta
-			}
+			nuclear_development_add_progress = yes
 		}
 	}
 	on_yearly_pulse = {
@@ -215,11 +114,12 @@
 	modifiers_while_active = {
 		nuclear_dev_cost
 	}
+	scripted_button = ztr_abandon_nuclear_weapons_program_button
 	current_value = {
 		value = var:nuclear_development_var
 	}
 	goal_add_value = {
-		value = 36
+		value = 1500
 	}
 	weight = 100
 	should_be_pinned_by_default_uninvolved_or_context = yes
@@ -248,95 +148,7 @@ je_develop_thermonuclear_weapons = {
 	}
 	on_monthly_pulse = {
 		effect = {
-			set_variable = {
-				name = thermonuclear_development_var_delta
-				value = 0
-			}
-			if = {
-				limit = {
-					#Has nuclear weapons tech
-					has_technology_researched = second_nuclear_reactor
-					#Has at least 1 functional nuclear weapons building
-					# any_scope_state = {
-					# 	any_scope_building = {
-					# 		is_building_type = building_nuclear_weapons_silo
-					# 		level >= 1
-					# 		building_has_goods_shortage = no
-					# 	}
-					# }
-					NOT = {
-						any_scope_treaty = {
-							binds = ROOT
-							any_scope_article = {
-								has_type = pause_nuclear_weapons_development
-							}
-						}
-					}
-				}
-				change_variable = {
-					name = thermonuclear_development_var_delta
-					add = 1
-				}
-				# Literacy
-				if = {
-					limit = {
-						literacy_rate < 0.7
-					}
-					change_variable = {
-						name = thermonuclear_development_var_delta
-						multiply = 0.33
-					}
-				}
-				else_if = {
-					limit = {
-						literacy_rate < 0.9
-					}
-					change_variable = {
-						name = thermonuclear_development_var_delta
-						multiply = 0.75
-					}
-				}
-				# Population
-				if = {
-					limit = {
-						total_population < 50000000
-					}
-					change_variable = {
-						name = thermonuclear_development_var_delta
-						multiply = 0.33
-					}
-				}
-				else_if = {
-					limit = {
-						total_population < 150000000
-					}
-					change_variable = {
-						name = thermonuclear_development_var_delta
-						multiply = 0.66
-					}
-				}
-				# Geopolitic
-				# The need to rush nuclear development if rivals have nukes or if at war
-				if = {
-					limit = {
-						OR = {
-							any_rival_country = {
-								has_variable = thermonuclear_capability_var
-							}
-							is_at_war = yes
-						}
-					}
-					change_variable = {
-						name = thermonuclear_development_var_delta
-						multiply = 3
-					}
-				}
-				change_variable = {
-					name = thermonuclear_development_var
-					add = var:thermonuclear_development_var_delta
-				}
-				remove_variable = thermonuclear_development_var_delta
-			}
+			thermonuclear_development_add_progress = yes
 		}
 	}
 	complete = {
@@ -374,6 +186,8 @@ je_develop_thermonuclear_weapons = {
 		NAND = {
 			#Country is actively developing nukes
 			has_variable = nuclear_program_started
+			# This programme has not been abandoned
+			has_variable = thermonuclear_program_started
 			#Has nuclear weapons law
 			has_law_or_variant = law_type:law_uranium_full_usage
 			#Must be a sovereign state
@@ -384,11 +198,12 @@ je_develop_thermonuclear_weapons = {
 	modifiers_while_active = {
 		nuclear_dev_cost
 	}
+	scripted_button = ztr_abandon_thermonuclear_weapons_program_button
 	current_value = {
 		value = var:thermonuclear_development_var
 	}
 	goal_add_value = {
-		value = 36
+		value = 2000
 	}
 	weight = 100
 	should_be_pinned_by_default_uninvolved_or_context = yes

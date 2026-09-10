@@ -11,8 +11,19 @@ je_research_center = {
 		has_research_center = yes
 	}
 	can_deactivate = yes
+	# The research output bonus is a flat modifier scaled by country_research_progress,
+	# so it has to be re-applied whenever the underlying value can have moved.
+	immediate = {
+		ztr_update_research_center_progress = yes
+	}
+	on_yearly_pulse = {
+		effect = {
+			ztr_update_research_center_progress = yes
+		}
+	}
 	scripted_button = ztr_start_nuclear_weapons_program_button
 	scripted_button = ztr_develop_thermonuclear_weapons_button
+	scripted_button = ztr_nuclear_power_program_button
 	scripted_button = ztr_fusion_reactor_button
 	weight = 50
 	should_be_pinned_by_default_uninvolved_or_context = yes
@@ -237,6 +248,68 @@ je_national_electric_system = {
 	progressbar = yes
 }
 
+# Fission nuclear power programme, opened by ztr_nuclear_power_program_button.
+# nuclear_reactor is can_research = no, so ztr_technology.20 granting it on completion is
+# one of the only two ways into the fission branch; the other is buying the patent.
+je_nuclear_power_program = {
+	icon = "gfx/interface/icons/event_icons/nuclear_reactor_je.dds"
+	group = je_group_technology
+	possible = {
+		has_variable = ztr_nuclear_power_program_started
+	}
+	immediate = {
+		set_variable = {
+			name = ztr_nuclear_power_var
+			value = 0
+		}
+	}
+	on_monthly_pulse = {
+		effect = {
+			nuclear_power_add_progress = yes
+		}
+	}
+	complete = {
+		scope:journal_entry = {
+			is_goal_complete = yes
+		}
+	}
+	on_complete = {
+		trigger_event = {
+			id = ztr_technology.20
+		}
+		remove_variable = ztr_nuclear_power_var
+	}
+	# The programme dies with the Research Center, and is pointless if the patent was
+	# bought in the meantime.
+	invalid = {
+		OR = {
+			NOT = {
+				has_research_center = yes
+			}
+			has_technology_researched = nuclear_reactor
+			# Abandoned from the journal entry's own button
+			NOT = {
+				has_variable = ztr_nuclear_power_program_started
+			}
+		}
+	}
+	on_invalid = {
+		remove_variable = ztr_nuclear_power_var
+		remove_variable = ztr_nuclear_power_program_started
+	}
+	scripted_button = ztr_abandon_nuclear_power_program_button
+	current_value = {
+		value = var:ztr_nuclear_power_var
+	}
+	goal_add_value = {
+		value = 2000
+	}
+	weight = 100
+	should_be_pinned_by_default_uninvolved_or_context = yes
+	transferable = no
+	progressbar = yes
+}
+
 # Fusion Reactor Journal Entries
 je_fusion_reactor_research = {
 	icon = "gfx/interface/icons/event_icons/innovation.dds"
@@ -262,16 +335,19 @@ je_fusion_reactor_research = {
 			has_technology_researched = smart_energy_grid
 			has_technology_researched = third_nuclear_reactor
 			has_research_center = yes
+			# fusion_reactor_var doubles as this programme's started marker
+			has_variable = fusion_reactor_var
 		}
 	}
 	on_invalid = {
 		remove_variable = fusion_reactor_var
 	}
+	scripted_button = ztr_abandon_fusion_reactor_program_button
 	current_value = {
 		value = root.var:fusion_reactor_var
 	}
 	goal_add_value = {
-		value = 100
+		value = 2000
 	}
 	progressbar = yes
 	weight = 10

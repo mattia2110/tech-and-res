@@ -1,0 +1,458 @@
+﻿# Research Center panel (je_research_center)
+# Converted from start_nuclear_weapons_program_decision, logic kept identical:
+# is_shown -> visible, possible -> possible, when_taken -> effect, ai_chance -> ai_chance
+ztr_start_nuclear_weapons_program_button = {
+	name = "start_nuclear_weapons_program_decision"
+	desc = "start_nuclear_weapons_program_decision_desc"
+	visible = {
+		has_technology_researched = verrier_nuclear_physics_tech
+		# Nuclear Weapon without bombers doesn't make any sense (Missiles tech need bombers tech too)
+		has_technology_researched = bombing
+		NOT = {
+			has_modifier = nuclear_capability
+		}
+		NOT = {
+			has_variable = nuclear_program_started
+		}
+		NOT = {
+			has_variable = signed_nuclear_non_proliferation_treaty
+		}
+		has_game_rule = allow_ztr_atom_bomb_content
+		#THIS is a major power or dictatorship
+		OR = {
+			# Flawed democracy and autocracy only if it is a great power
+			country_rank >= rank_value:great_power
+			# A dictatorship will always want nukes
+			ztr_is_totalitarian = yes
+		}
+		#THIS must not be a revolutionary
+		is_revolutionary = no
+		is_secessionist = no
+		#TODO Israel
+		#c:ISR ?= this
+	}
+	possible = {
+		# Must have a research center
+		has_research_center = yes
+		# Must be a sovereign state
+		is_subject = no
+		# THIS is not broke
+		in_default = no
+		# THIS is not in the midst of a revolution
+		has_revolution = no
+		# One programme at a time: eight years must pass before the Research Center
+		# can be turned onto another project.
+		custom_tooltip = {
+			text = ztr_research_center_cooldown_tt
+			NOT = {
+				has_variable = ztr_research_center_cooldown
+			}
+		}
+	}
+	effect = {
+		# Locks the other Research Center programmes for eight years.
+		set_variable = {
+			name = ztr_research_center_cooldown
+			years = 8
+		}
+		#Mark country as having started a nuclear program
+		set_variable = nuclear_program_started
+		activate_law = law_type:law_uranium_full_usage
+		#Add JE
+		add_journal_entry = {
+			type = je_develop_nuclear_weapons
+		}
+		# World will hate this only if nuclear bomb is actually used
+		if = {
+			limit = {
+				has_global_variable = ztr_atomic_bomb_first_use_var
+			}
+			#Hostile countries become more hostile
+			every_country = {
+				limit = {
+					OR = {
+						AND = {
+							country_rank > root.country_rank
+							OR = {
+								has_modifier = nuclear_capability
+								has_variable = nuclear_program_started
+							}
+							OR = {
+								has_attitude = {
+									who = ROOT
+									attitude <= antagonistic
+								}
+								relations:root < relations_threshold:poor
+							}
+						}
+						AND = {
+							NOT = {
+								is_subject = yes
+							}
+							has_diplomatic_pact = {
+								who = ROOT
+								type = rivalry
+							}
+							OR = {
+								has_modifier = nuclear_capability
+								has_variable = nuclear_program_started
+							}
+						}
+					}
+				}
+				change_relations = {
+					country = root
+					value = -100
+				}
+			}
+			#International community does not like this
+			change_infamy = 30
+		}
+	}
+	ai_chance = {
+		value = 0
+		if = {
+			#THIS is a superpower, Israel or great power
+			limit = {
+				OR = {
+					country_rank >= rank_value:great_power
+					c:ISR ?= this
+				}
+			}
+			add = 1000
+		}
+	}
+}
+
+# Converted from develop_thermonuclear_weapons_decision, logic kept identical
+ztr_develop_thermonuclear_weapons_button = {
+	name = "develop_thermonuclear_weapons_decision"
+	desc = "develop_thermonuclear_weapons_decision_desc"
+	visible = {
+		has_modifier = nuclear_capability
+		NOT = {
+			has_variable = thermonuclear_program_started
+		}
+		NOT = {
+			has_variable = signed_nuclear_non_proliferation_treaty
+		}
+		has_law_or_variant = law_type:law_uranium_full_usage
+		#THIS is a major power or dictatorship
+		OR = {
+			country_rank >= rank_value:great_power
+			ztr_is_not_full_democratic = yes
+			ztr_is_totalitarian = yes
+		}
+		#THIS must not be a revolutionary
+		is_revolutionary = no
+		is_secessionist = no
+	}
+	possible = {
+		# Must have a research center
+		has_research_center = yes
+		#Must be a sovereign state
+		is_subject = no
+		#THIS is not broke
+		in_default = no
+		#THIS is not in the midst of a revolution
+		has_revolution = no
+		# One programme at a time: eight years must pass before the Research Center
+		# can be turned onto another project.
+		custom_tooltip = {
+			text = ztr_research_center_cooldown_tt
+			NOT = {
+				has_variable = ztr_research_center_cooldown
+			}
+		}
+	}
+	effect = {
+		# Locks the other Research Center programmes for eight years.
+		set_variable = {
+			name = ztr_research_center_cooldown
+			years = 8
+		}
+		#Mark country as having started a nuclear program
+		set_variable = thermonuclear_program_started
+		#Add JE
+		add_journal_entry = {
+			type = je_develop_thermonuclear_weapons
+		}
+		# Here world will already know about nukes
+		every_country = {
+			limit = {
+				OR = {
+					AND = {
+						country_rank > root.country_rank
+						OR = {
+							has_modifier = nuclear_capability
+							has_variable = nuclear_program_started
+						}
+						OR = {
+							has_attitude = {
+								who = ROOT
+								attitude <= antagonistic
+							}
+							relations:root < relations_threshold:poor
+						}
+					}
+					AND = {
+						NOT = {
+							is_subject = yes
+						}
+						has_diplomatic_pact = {
+							who = ROOT
+							type = rivalry
+						}
+						OR = {
+							has_modifier = nuclear_capability
+							has_variable = nuclear_program_started
+						}
+					}
+				}
+			}
+			change_relations = {
+				country = root
+				value = -100
+			}
+		}
+		#International community doesn't like this, but if it is a superpower, less
+		if = {
+			limit = {
+				has_modifier = ztr_superpower
+			}
+			change_infamy = 25
+		}
+		else = {
+			change_infamy = 50
+		}
+	}
+	ai_chance = {
+		value = 0
+		if = {
+			#THIS is a superpower, Israel or great power
+			limit = {
+				has_modifier = ztr_superpower
+			}
+			add = 1000
+		}
+	}
+}
+
+# Converted from fusion_reactor_decision, logic kept identical
+ztr_fusion_reactor_button = {
+	name = "fusion_reactor_decision"
+	desc = "fusion_reactor_decision_desc"
+	visible = {
+		has_technology_researched = third_nuclear_reactor
+		NOT = {
+			any_scope_state = {
+				any_scope_building = {
+					is_building_type = building_fusion_power_plant
+				}
+			}
+		}
+		NOT = {
+			has_variable = fusion_reactor_var
+		}
+	}
+	possible = {
+		has_research_center = yes
+		produced_bureaucracy > 2500
+		has_technology_researched = smart_energy_grid
+		# One programme at a time: eight years must pass before the Research Center
+		# can be turned onto another project.
+		custom_tooltip = {
+			text = ztr_research_center_cooldown_tt
+			NOT = {
+				has_variable = ztr_research_center_cooldown
+			}
+		}
+	}
+	effect = {
+		# Locks the other Research Center programmes for eight years.
+		set_variable = {
+			name = ztr_research_center_cooldown
+			years = 8
+		}
+		set_variable = {
+			name = fusion_reactor_var
+			value = 0
+		}
+		add_journal_entry = {
+			type = je_fusion_reactor_research
+		}
+	}
+	ai_chance = {
+		value = 0
+		if = {
+			limit = {
+				produced_bureaucracy > 5000
+			}
+			add = 500
+		}
+		if = {
+			limit = {
+				has_strategy = ai_strategy_industrial_expansion
+			}
+			add = 500
+		}
+		if = {
+			limit = {
+				OR = {
+					is_diplomatic_play_committed_participant = yes
+					is_at_war = yes
+				}
+			}
+			multiply = 0
+		}
+	}
+}
+# Fission nuclear power. nuclear_reactor is can_research = no.
+ztr_nuclear_power_program_button = {
+	name = "ztr_nuclear_power_program_button"
+	desc = "ztr_nuclear_power_program_button_desc"
+	visible = {
+		NOT = {
+			has_technology_researched = nuclear_reactor
+		}
+		NOT = {
+			has_variable = ztr_nuclear_power_program_started
+		}
+	}
+	possible = {
+		# Must have a research center
+		has_research_center = yes
+		# Owning warheads is not required, it only doubles the pace - see nuclear_power_add_progress.
+		has_technology_researched = atomic_bomb
+		has_technology_researched = national_power_grid
+		has_technology_researched = semiconductor
+		# Must be a sovereign state
+		is_subject = no
+		# THIS is not broke
+		in_default = no
+		# One programme at a time: eight years must pass before the Research Center
+		# can be turned onto another project.
+		custom_tooltip = {
+			text = ztr_research_center_cooldown_tt
+			NOT = {
+				has_variable = ztr_research_center_cooldown
+			}
+		}
+	}
+	effect = {
+		# Locks the other Research Center programmes for eight years.
+		set_variable = {
+			name = ztr_research_center_cooldown
+			years = 8
+		}
+		set_variable = ztr_nuclear_power_program_started
+		add_journal_entry = {
+			type = je_nuclear_power_program
+		}
+	}
+	ai_chance = {
+		value = 1000
+		if = {
+			limit = {
+				has_strategy = ai_strategy_industrial_expansion
+			}
+			add = 1000
+		}
+		if = {
+			limit = {
+				has_modifier = nuclear_capability
+			}
+			add = 500
+		}
+		if = {
+			limit = {
+				OR = {
+					is_diplomatic_play_committed_participant = yes
+					is_at_war = yes
+				}
+			}
+			multiply = 0
+		}
+	}
+}
+
+# --- Abandon buttons ---------------------------------------------------------
+# One per programme journal entry, not on the Research Center panel itself. Each
+# clears its programme's variables, which makes the journal entry's invalid trigger
+# fire and the entry disappear silently. Safe to press in any state.
+
+ztr_abandon_nuclear_weapons_program_button = {
+	name = "ztr_abandon_program_button"
+	desc = "ztr_abandon_nuclear_weapons_program_button_desc"
+	# Players only. The AI has no way to judge a sunk cost and would only ever use
+	# this to undo its own decisions.
+	visible = {
+		is_ai = no
+	}
+	possible = {
+		always = yes
+	}
+	effect = {
+		ztr_abandon_nuclear_weapons_program = yes
+	}
+	ai_chance = {
+		value = 0
+	}
+}
+
+ztr_abandon_thermonuclear_weapons_program_button = {
+	name = "ztr_abandon_program_button"
+	desc = "ztr_abandon_thermonuclear_weapons_program_button_desc"
+	# Players only. The AI has no way to judge a sunk cost and would only ever use
+	# this to undo its own decisions.
+	visible = {
+		is_ai = no
+	}
+	possible = {
+		always = yes
+	}
+	effect = {
+		ztr_abandon_thermonuclear_weapons_program = yes
+	}
+	ai_chance = {
+		value = 0
+	}
+}
+
+ztr_abandon_nuclear_power_program_button = {
+	name = "ztr_abandon_program_button"
+	desc = "ztr_abandon_nuclear_power_program_button_desc"
+	# Players only. The AI has no way to judge a sunk cost and would only ever use
+	# this to undo its own decisions.
+	visible = {
+		is_ai = no
+	}
+	possible = {
+		always = yes
+	}
+	effect = {
+		ztr_abandon_nuclear_power_program = yes
+	}
+	ai_chance = {
+		value = 0
+	}
+}
+
+ztr_abandon_fusion_reactor_program_button = {
+	name = "ztr_abandon_program_button"
+	desc = "ztr_abandon_fusion_reactor_program_button_desc"
+	# Players only. The AI has no way to judge a sunk cost and would only ever use
+	# this to undo its own decisions.
+	visible = {
+		is_ai = no
+	}
+	possible = {
+		always = yes
+	}
+	effect = {
+		ztr_abandon_fusion_reactor_program = yes
+	}
+	ai_chance = {
+		value = 0
+	}
+}

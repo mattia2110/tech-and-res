@@ -45,6 +45,22 @@
         }
 	}
 
+    requirement_to_maintain = {
+        trigger = {
+            scope:source_country ?= {
+                is_junior_in_customs_union = no
+            }
+        }
+    }
+
+    requirement_to_maintain = {
+        trigger = {
+            scope:target_country ?= {
+                is_junior_in_customs_union = no
+            }
+        }
+    }
+
     non_fulfillment = {
         consequences = freeze
         max_consecutive_contraventions = 3

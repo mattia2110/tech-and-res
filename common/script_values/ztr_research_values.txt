@@ -1,0 +1,148 @@
+# Research Center pace
+#
+# country_research_progress is the speed at which the national Research Center
+# pushes its projects forward. It is consumed by je_research_center, where it
+# scales ztr_research_center_progress_modifier (+5 max innovation per point).
+#
+# All values in this file are country scope.
+
+# --- Component 1: academic base ---------------------------------------------
+# Highest country_has_academic_base_level_* satisfied (see
+# common/scripted_triggers/ztr_literacy_trigger.txt), 0 when none of them is.
+# Evaluated from the top down so the first match wins.
+ztr_academic_base_level = {
+	if = {
+		limit = { country_has_academic_base_level_10 = yes }
+		value = 10
+	}
+	else_if = {
+		limit = { country_has_academic_base_level_9 = yes }
+		value = 9
+	}
+	else_if = {
+		limit = { country_has_academic_base_level_8 = yes }
+		value = 8
+	}
+	else_if = {
+		limit = { country_has_academic_base_level_7 = yes }
+		value = 7
+	}
+	else_if = {
+		limit = { country_has_academic_base_level_6 = yes }
+		value = 6
+	}
+	else_if = {
+		limit = { country_has_academic_base_level_5 = yes }
+		value = 5
+	}
+	else_if = {
+		limit = { country_has_academic_base_level_4 = yes }
+		value = 4
+	}
+	else_if = {
+		limit = { country_has_academic_base_level_3 = yes }
+		value = 3
+	}
+	else_if = {
+		limit = { country_has_academic_base_level_2 = yes }
+		value = 2
+	}
+	else_if = {
+		limit = { country_has_academic_base_level_1 = yes }
+		value = 1
+	}
+	else = {
+		value = 0
+	}
+}
+
+# --- Component 2: economic development --------------------------------------
+# Index of the dev_*_country modifier granted by the ztr_economic_update event
+# chain (see events/ztr_main_events.txt). 0 for a country that has not been
+# classified yet.
+ztr_development_level = {
+	if = {
+		limit = { has_modifier = dev_8_country }
+		value = 10
+	}
+	else_if = {
+		limit = { has_modifier = dev_7_country }
+		value = 9
+	}
+	else_if = {
+		limit = { has_modifier = dev_6_country }
+		value = 8
+	}
+	else_if = {
+		limit = { has_modifier = dev_5_country }
+		value = 7
+	}
+	else_if = {
+		limit = { has_modifier = dev_4_country }
+		value = 6
+	}
+	else_if = {
+		limit = { has_modifier = dev_3_country }
+		value = 5
+	}
+	else_if = {
+		limit = { has_modifier = dev_2_country }
+		value = 4
+	}
+	else_if = {
+		limit = { has_modifier = dev_1_country }
+		value = 3
+	}
+	else = {
+		value = 2
+	}
+}
+
+# --- Component 3: research agreements ---------------------------------------
+# Ceiling on how much foreign cooperation can contribute: +3 on its own, +5
+# once UNESCO is up and this country sits in it (ztr_unesco_member_modifier is
+# handed out by ztr_un_apply_member_institution_modifiers to UN members only).
+ztr_research_agreements_cap = {
+	if = {
+		limit = { has_modifier = ztr_unesco_member_modifier }
+		value = 5
+	}
+	else = {
+		value = 3
+	}
+}
+
+# Number of research agreements currently in force.
+# PLACEHOLDER: the research agreement treaty article does not exist yet, so the
+# count is kept in the ztr_research_agreements_var country variable and the
+# future article only has to change_variable it in its on_entry / on_exit.
+# Once the article exists, replace the body of this value with:
+#	every_scope_treaty = {
+#		limit = { any_scope_article = { has_type = ztr_research_agreement } }
+#		add = 1
+#	}
+ztr_research_agreements_count = {
+	if = {
+		limit = { has_variable = ztr_research_agreements_var }
+		value = var:ztr_research_agreements_var
+	}
+	else = {
+		value = 0
+	}
+	min = 0
+	max = ztr_research_agreements_cap
+}
+
+# --- Result ------------------------------------------------------------------
+# 2 points per academic base level (0-20), the development tier (2-10) and one
+# per research agreement (0-3, 0-5 with UNESCO). Range: 2-35 - the floor is not
+# zero because every country, classified or not, is worth at least 2 for its
+# development.
+country_research_progress = {
+	value = ztr_academic_base_level
+	multiply = 2
+	add = ztr_development_level
+	add = ztr_research_agreements_count
+	min = 0
+	round = yes
+}

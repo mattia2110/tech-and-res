@@ -52,3 +52,255 @@ modernize_national_electric_system_decision = {
 		}
 	}
 }
+
+# License first generation reactor technology from a country that already operates one.
+nuclear_reactor_purchase_decision = {
+	is_shown = {
+		# Research Center or the universities linkage: has_research_modernized covers both.
+		has_research_modernized = yes
+		has_technology_researched = national_power_grid
+		NOT = {
+			has_technology_researched = nuclear_reactor
+		}
+		NOT = {
+			has_variable = nuclear_reactor_purchase_cooldown
+		}
+	}
+	possible = {
+		produced_bureaucracy > 500
+		# Literacy is high or number of literate pop is high
+		country_has_academic_low_cap = yes
+		# Someone has to be willing to sell
+		custom_tooltip = {
+			text = nuclear_reactor_purchase_relations_tt
+			any_country = {
+				NOT = {
+					this = root
+				}
+				has_technology_researched = nuclear_reactor
+				OR = {
+					relations:root >= relations_threshold:cordial
+					root = {
+						is_subject_of = PREV
+					}
+					is_in_same_power_bloc = root
+				}
+			}
+		}
+	}
+	when_taken = {
+		# Set 3-year cooldown
+		set_variable = {
+			name = nuclear_reactor_purchase_cooldown
+			years = 3
+		}
+		save_scope_as = nuclear_technology_requester
+		random_country = {
+			limit = {
+				NOT = {
+					this = root
+				}
+				has_technology_researched = nuclear_reactor
+				OR = {
+					relations:root >= relations_threshold:cordial
+					root = {
+						is_subject_of = PREV
+					}
+					is_in_same_power_bloc = root
+				}
+			}
+			save_scope_as = nuclear_technology_seller
+			trigger_event = {
+				id = ztr_technology.21
+				popup = yes
+			}
+		}
+	}
+	ai_chance = {
+		value = 0
+		if = {
+			limit = {
+				produced_bureaucracy > 2000
+			}
+			add = 500
+		}
+		if = {
+			limit = {
+				has_strategy = ai_strategy_industrial_expansion
+			}
+			add = 5000
+		}
+		if = {
+			limit = {
+				OR = {
+					is_diplomatic_play_committed_participant = yes
+					is_at_war = yes
+				}
+			}
+			multiply = 0
+		}
+		# Do not buy what we can build ourselves.
+		if = {
+			limit = {
+				has_research_center = yes
+				country_research_progress >= 22
+				NOT = {
+					any_country = {
+						NOT = {
+							this = root
+						}
+						has_technology_researched = nuclear_reactor
+						OR = {
+							relations:root >= relations_threshold:cordial
+							root = {
+								is_subject_of = PREV
+							}
+							is_in_same_power_bloc = root
+						}
+						prestige >= root.prestige
+					}
+				}
+			}
+			multiply = 0
+		}
+	}
+}
+
+# Purchase fusion reactor technology from a major power.
+fusion_reactor_purchase_decision = {
+	is_shown = {
+		# Research Center or the universities linkage: has_research_modernized covers both.
+		has_research_modernized = yes
+		has_technology_researched = third_nuclear_reactor
+		NOT = {
+			any_scope_state = {
+				any_scope_building = {
+					is_building_type = building_fusion_power_plant
+				}
+			}
+		}
+		NOT = {
+			any_scope_state = {
+				has_modifier = fusion_reactor_site
+			}
+		}
+		NOT = {
+			has_variable = fusion_reactor_purchase_cooldown
+		}
+	}
+	possible = {
+		produced_bureaucracy > 1000
+		has_technology_researched = smart_energy_grid
+		# Literacy is high or number of literate pop is high
+		country_has_academic_medium_cap = yes
+		# Must have good relations or diplomatic ties with a fusion-owning greatpower
+		custom_tooltip = {
+			text = fusion_reactor_purchase_relations_tt
+			any_country = {
+				NOT = {
+					this = root
+				}
+				country_rank = rank_value:great_power
+				any_scope_state = {
+					any_scope_building = {
+						is_building_type = building_fusion_power_plant
+					}
+				}
+				# Diplomatic prerequisite: cordial relations, subject status, or same power bloc
+				OR = {
+					relations:root >= relations_threshold:cordial
+					root = {
+						is_subject_of = PREV
+					}
+					is_in_same_power_bloc = root
+				}
+			}
+		}
+	}
+	when_taken = {
+		# Set 3-year cooldown
+		set_variable = {
+			name = fusion_reactor_purchase_cooldown
+			years = 3
+		}
+		save_scope_as = fusion_technology_requester
+		random_country = {
+			limit = {
+				NOT = {
+					this = root
+				}
+				country_rank = rank_value:great_power
+				any_scope_state = {
+					any_scope_building = {
+						is_building_type = building_fusion_power_plant
+					}
+				}
+				OR = {
+					relations:root >= relations_threshold:cordial
+					root = {
+						is_subject_of = PREV
+					}
+					is_in_same_power_bloc = root
+				}
+			}
+			save_scope_as = fusion_technology_seller
+			trigger_event = {
+				id = ztr_technology.14
+				popup = yes
+			}
+		}
+	}
+	ai_chance = {
+		value = 0
+		if = {
+			limit = {
+				produced_bureaucracy > 5000
+			}
+			add = 500
+		}
+		if = {
+			limit = {
+				has_strategy = ai_strategy_industrial_expansion
+			}
+			add = 5000
+		}
+		if = {
+			limit = {
+				OR = {
+					is_diplomatic_play_committed_participant = yes
+					is_at_war = yes
+				}
+			}
+			multiply = 0
+		}
+		# Do not buy what we can build ourselves.
+		if = {
+			limit = {
+				has_research_center = yes
+				country_research_progress >= 22
+				NOT = {
+					any_country = {
+						NOT = {
+							this = root
+						}
+						country_rank = rank_value:great_power
+						any_scope_state = {
+							any_scope_building = {
+								is_building_type = building_fusion_power_plant
+							}
+						}
+						OR = {
+							relations:root >= relations_threshold:cordial
+							root = {
+								is_subject_of = PREV
+							}
+							is_in_same_power_bloc = root
+						}
+						prestige >= root.prestige
+					}
+				}
+			}
+			multiply = 0
+		}
+	}
+}

@@ -68,7 +68,6 @@ research_center_decision: "Survey a Research Center Site"
 research_center_decision_desc: "As our understanding of science and technology advances, we recognize the need for a dedicated facility to conduct cutting-edge research. Our scientists propose the construction of a state-of-the-art Research Center to foster innovation and drive progress in various fields. We must authorize a survey to identify the best possible site for this important institution, a place around the best minds of our nation."
 
 je_research_center: "National Research Center"
-je_research_center_reason: "Our National Research Center is the beating heart of the nation's scientific establishment. From its laboratories and drawing boards we can direct the most ambitious programs our scientists are capable of undertaking, for as long as the facility remains in operation."
 
 je_research_center_site: "Research Center Survey"
 je_research_center_site_reason: "To ensure the success of our Research Center, we must first identify the optimal location for its construction. Our scientists and planners will conduct a thorough survey to evaluate potential sites based on factors such as accessibility, infrastructure, and proximity to academic institutions."
@@ -133,15 +132,14 @@ research_center_can_construct_tt: "Has identified and surveyed an appropriate si
 
 # NEW 1.6
 
-fusion_reactor_decision: "Start Research for a Fusion Reactor"
+fusion_reactor_decision: "#i Fusion Reactor Power#! Program"
 fusion_reactor_decision_desc: "With the advent of advanced #blue_value Nuclear Physics#! and #blue_value Smart Energy Grids#!, our scientists believe that #gold_value Controlled Nuclear Fusion#!, the process that powers the stars themselves, may finally be within reach. A massive undertaking, the construction of a #gold_value Fusion Power Plant#! would revolutionize our nation's energy supply, but also destroy energy market. However, we must still stabilize this process and find a way to make it commercially viable."
 
 fusion_reactor_purchase_decision: "Purchase Fusion Reactor Technology"
 fusion_reactor_purchase_decision_desc: "While we lack the indigenous research infrastructure of the great powers, the world's first #gold_value Fusion Power Plant#! has already proved the viability of commercial fusion energy. By leveraging our technology partnerships and relations, we can negotiate the licensing and transfer of this technology. The cost will be enormous, but the rewards, virtually unlimited #P Clean Energy#!, are immeasurable."
 
-je_fusion_reactor_research: "#gold_value Fusion Reactor#! Research"
-je_fusion_reactor_research_reason: "Our top physicists and engineers are conducting an exhaustive research and experimentation on fusion energy, stabilizing #blue_value Plasma#! and achieving net energy gain. Progress depends on our nation's #v economy#!, #v scientific capacity#!, and #v population#!"
-je_fusion_reactor_research_goal: "Complete the #gold_value Fusion Reactor#! Research"
+je_fusion_reactor_research: "#i Fusion Reactor Power#! Program"
+je_fusion_reactor_research_goal: "Complete the #i Fusion Reactor#! Research"
 je_fusion_reactor_construction: "Construct a #gold_value Fusion Power Plant#!"
 je_fusion_reactor_construction_reason: "With the site for our #gold_value Fusion Power Plant#! identified, we can now proceed with the most ambitious construction project in our nation's history. This facility will harness the power of nuclear fusion, the same process that fuels the sun, to produce virtually limitless #P Clean Energy#!. Its completion will mark a new era in our nation's technological supremacy."
 
@@ -644,3 +642,46 @@ je_imf_modernization_status_progressing: "[ROOT.GetCountry.GetName] is now firml
  ### Superstates ###
 
 je_group_global_superstates_content: "Superstates"
+
+ ### Nuclear Power ###
+
+ztr_nuclear_power_program_button: "#gold_value Civil Nuclear Power#! Program"
+ztr_nuclear_power_program_button_desc: "The physics of the chain reaction is no longer a secret, but turning it into a machine that boils water safely, year after year, is a different discipline entirely. Fuel fabrication, control rods, containment, heat exchangers, a grid stable enough to absorb a station of that size: each is an industry that does not yet exist here. Our #v Research Center#! can build them all, and free us from the coal seam and the oil tanker for good."
+
+je_nuclear_power_program: "#gold_value Civil Nuclear Power#! Program"
+je_nuclear_power_program_goal: "Complete the #gold_value Civil Nuclear Power#! Program"
+
+nuclear_reactor_purchase_decision: "License #gold_value Nuclear Reactor#! Technology"
+nuclear_reactor_purchase_decision_desc: "We will never design a power reactor from first principles: the laboratories, the test facilities and the twenty years of accumulated failure simply are not ours. But reactors are sold. A supplier state will hand over the drawings, ship the components and second the engineers, in exchange for a great deal of money and a degree of dependence we will be living with for decades."
+nuclear_reactor_purchase_relations_tt: "A country operating #gold_value Nuclear Reactors#! is willing to sell to us"
+
+nuclear_power_program.1.t: "The Pile Goes Critical"
+nuclear_power_program.1.d: "The first generation reactor has reached sustained criticality and, for the first time, its steam is turning a turbine connected to the national grid. The output is modest and the cost was extravagant, but the principle is settled: a few tonnes of fuel will now do the work of trainloads of coal.\n\nOur engineers already speak of the stations that will follow, and of a grid that no longer depends on what we can dig out of the ground or buy from abroad."
+nuclear_power_program.1.f: "A lump of metal the size of a fist, and the lights of a city."
+nuclear_power_program.1.a: "Connect it to the grid."
+
+nuclear_reactor_purchase.1.t: "A Request for #gold_value Reactor#! Technology"
+nuclear_reactor_purchase.1.d: "[SCOPE.sCountry('nuclear_technology_requester').GetName] has approached us about licensing our first generation reactor design. They want the drawings, the fuel fabrication process and our engineers on site until their first station is running.\n\nThe fee would be substantial and the dependence it creates would last decades. But reactor technology does not stay in one place forever, and a customer today is a customer we keep."
+nuclear_reactor_purchase.1.a: "Sell them the design."
+nuclear_reactor_purchase.1.b: "Some things are not for sale."
+
+nuclear_reactor_purchase.2.t: "The #gold_value Reactor#! Contract Is Signed"
+nuclear_reactor_purchase.2.d: "[SCOPE.sCountry('nuclear_technology_seller').GetName] has agreed to license their reactor design to us. The first crates of components are already at the docks, and their engineers will be seconded to our programme until the station reaches criticality.\n\nThe price is enormous and our treasury will feel it for years. But we have skipped two decades of research in a single signature."
+nuclear_reactor_purchase.2.a: "Break ground immediately."
+
+nuclear_reactor_purchase.3.t: "The #gold_value Reactor#! Request Is Refused"
+nuclear_reactor_purchase.3.d: "[SCOPE.sCountry('nuclear_technology_seller').GetName] has declined to license their reactor technology to us. The refusal was polite and the reasoning vague: technical readiness, regulatory concerns, the sensitivity of the fuel cycle.\n\nNobody in our foreign ministry believes any of it. They intend to keep the advantage, and we will have to look elsewhere."
+nuclear_reactor_purchase.3.a: "We will remember this."
+
+je_research_center_reason: "Our #v National Research Center#! is the beating heart of the nation's scientific establishment.\n\nThanks to it we are able to conduct private, national and secret research for social, military and geopolitical purposes.\n\nOur [Concept('concept_research_capacity','$concept_research_capacity$')] is #P [ROOT.GetCountry.MakeScope.ScriptValue('country_research_progress')|0]#!." # UPDATED
+
+je_nuclear_power_program_reason: "Our reactor physicists, metallurgists and grid engineers are working toward a first generation power reactor: a machine that produces electricity rather than plutonium.\n\nProgress depends on our [Concept('concept_research_capacity','$concept_research_capacity$')]." # UPDATED
+je_fusion_reactor_research_reason: "Our top physicists and engineers are conducting an exhaustive research and experimentation on fusion energy, stabilizing #blue_value Plasma#! and achieving net energy gain.\n\nProgress depends on our [Concept('concept_research_capacity','$concept_research_capacity$')]." # UPDATED
+
+ztr_research_center_cooldown_tt: "The #v Research Center#! has not started another program in the last #P 8#! years"
+
+ztr_abandon_program_button: "Abandon the Programme"
+ztr_abandon_nuclear_weapons_program_button_desc: "Wind up the weapons programme. The teams are dispersed, the reserved site is released and every month of accumulated progress is lost. The #v Research Center#! is free to take on another project at once.\n\nWhat cannot be undone: the uranium law we enacted stays on the books, the #v infamy#! we earned and the relations we spent are already spent, and any #v Nuclear Silo#! we have built remains standing."
+ztr_abandon_thermonuclear_weapons_program_button_desc: "Wind up the thermonuclear programme. All accumulated progress is lost and the #v Research Center#! is free to take on another project at once. Our existing #v Nuclear Weapons#! are unaffected.\n\nWhat cannot be undone: the #v infamy#! we earned and the relations we spent when the programme was announced."
+ztr_abandon_nuclear_power_program_button_desc: "Wind up the civil reactor programme. All accumulated progress is lost and the #v Research Center#! is free to take on another project at once. Nothing else was committed to it, so nothing else is forfeited — and the programme can be launched again from the beginning whenever we choose."
+ztr_abandon_fusion_reactor_program_button_desc: "Wind up the fusion programme. All accumulated progress is lost and the #v Research Center#! is free to take on another project at once. Nothing else was committed to it, so nothing else is forfeited — and the programme can be launched again from the beginning whenever we choose."

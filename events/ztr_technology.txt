@@ -41,7 +41,7 @@ ztr_technology.1 = {
 		name = research_center.1.minor_power
 		add_modifier = ztr_modern_universities_linkage
 		trigger = {
-			country_rank < rank_value:major_power
+			total_population < 20000000
 		}
 		ai_chance = {
 			base = 1000
@@ -360,6 +360,142 @@ ztr_technology.16 = {
 	duration = 3
 	option = {
 		name = fusion_reactor_purchase.3.a
+		default_option = yes
+	}
+}
+
+# Nuclear Power - First generation reactor achieved
+ztr_technology.20 = {
+	type = country_event
+	title = nuclear_power_program.1.t
+	desc = nuclear_power_program.1.d
+	flavor = nuclear_power_program.1.f
+	placement = ROOT
+	event_image = {
+		video = "quantum_physics"
+	}
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	icon = "gfx/interface/icons/event_icons/nuclear_reactor_je.dds"
+	duration = 3
+	trigger = {
+		# triggered by je_nuclear_power_program
+	}
+	immediate = {
+		add_technology_researched = nuclear_reactor
+	}
+	option = {
+		name = nuclear_power_program.1.a
+		default_option = yes
+		ai_chance = {
+			base = 1
+		}
+	}
+}
+
+# Nuclear Power - Licensing request from another country
+ztr_technology.21 = {
+	type = country_event
+	title = nuclear_reactor_purchase.1.t
+	desc = nuclear_reactor_purchase.1.d
+	event_image = {
+		video = "quantum_physics"
+	}
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	icon = "gfx/interface/icons/event_icons/nuclear_reactor_je.dds"
+
+	option = {
+		name = nuclear_reactor_purchase.1.a
+		default_option = yes
+		# Accept request
+		scope:nuclear_technology_requester = {
+			trigger_event = {
+				id = ztr_technology.22
+				popup = yes
+			}
+		}
+		ai_chance = {
+			base = 100
+			modifier = {
+				trigger = {
+					relations:scope:nuclear_technology_requester >= relations_threshold:amicable
+				}
+				add = 100
+			}
+			# Command Hegemony see this as a threat
+			modifier = {
+				trigger = {
+					has_strategy = ai_strategy_superpower_command_hegemony
+				}
+				add = -100
+			}
+			# A requester already chasing warheads is a proliferation risk
+			modifier = {
+				trigger = {
+					scope:nuclear_technology_requester = {
+						has_variable = nuclear_program_started
+					}
+				}
+				add = -150
+			}
+		}
+	}
+
+	option = {
+		name = nuclear_reactor_purchase.1.b
+		# Reject request
+		scope:nuclear_technology_requester = {
+			trigger_event = {
+				id = ztr_technology.23
+				popup = yes
+			}
+		}
+		ai_chance = {
+			base = 100
+		}
+	}
+}
+
+# Nuclear Power - Licensing request accepted
+ztr_technology.22 = {
+	type = country_event
+	title = nuclear_reactor_purchase.2.t
+	desc = nuclear_reactor_purchase.2.d
+	event_image = {
+		video = "quantum_physics"
+	}
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	icon = "gfx/interface/icons/event_icons/nuclear_reactor_je.dds"
+	duration = 3
+	immediate = {
+		# Licensing fee and the imported engineering that comes with it
+		add_modifier = {
+			name = nuclear_reactor_purchase_cost
+			months = 60
+		}
+		scope:nuclear_technology_seller = {
+			add_treasury = 10000000
+		}
+		add_technology_researched = nuclear_reactor
+	}
+	option = {
+		name = nuclear_reactor_purchase.2.a
+		default_option = yes
+	}
+}
+
+# Nuclear Power - Licensing request rejected
+ztr_technology.23 = {
+	type = country_event
+	title = nuclear_reactor_purchase.3.t
+	desc = nuclear_reactor_purchase.3.d
+	event_image = {
+		video = "quantum_physics"
+	}
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	icon = "gfx/interface/icons/event_icons/nuclear_reactor_je.dds"
+	duration = 3
+	option = {
+		name = nuclear_reactor_purchase.3.a
 		default_option = yes
 	}
 }

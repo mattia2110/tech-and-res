@@ -1,56 +1,185 @@
+# Refreshes the Research Center research output modifier. Scope: country
+ztr_update_research_center_progress = {
+	if = {
+		limit = {
+			has_modifier = ztr_research_center_progress_modifier
+		}
+		remove_modifier = ztr_research_center_progress_modifier
+	}
+	if = {
+		limit = {
+			country_research_progress > 0
+		}
+		add_modifier = {
+			name = ztr_research_center_progress_modifier
+			multiplier = country_research_progress
+			years = 2
+		}
+	}
+}
+
 # Monthly progress for je_fusion_reactor_research. Scope: country
 fusion_reactor_add_progress = {
-	# Progress depends on nation's development indicators
+	# One point of progress per point of country_research_progress.
 	change_variable = {
 		name = fusion_reactor_var
-		add = 0.25
+		add = {
+			value = country_research_progress
+			subtract = 14
+			min = 1
+		}
 	}
-	# GDP per capita bonus: wealthy nations progress faster
+}
+
+# Monthly progress for je_develop_nuclear_weapons.
+nuclear_development_add_progress = {
+	change_variable = {
+		name = nuclear_development_var
+		add = {
+			value = country_research_progress
+			subtract = 5
+			min = 1
+			# The need to rush if rivals have nukes or if at war
+			if = {
+				limit = {
+					OR = {
+						any_rival_country = {
+							has_modifier = nuclear_capability
+						}
+						is_at_war = yes
+					}
+				}
+				multiply = 2
+			}
+			# A pause treaty or the NPT stops the programme dead
+			if = {
+				limit = {
+					OR = {
+						has_variable = signed_nuclear_non_proliferation_treaty
+						any_scope_treaty = {
+							binds = ROOT
+							any_scope_article = {
+								has_type = pause_nuclear_weapons_development
+							}
+						}
+					}
+				}
+				multiply = 0
+			}
+		}
+	}
+}
+
+# Monthly progress for je_develop_thermonuclear_weapons.
+thermonuclear_development_add_progress = {
+	change_variable = {
+		name = thermonuclear_development_var
+		add = {
+			value = country_research_progress
+			subtract = 5
+			min = 1
+			# The need to rush if rivals have the H bomb or if at war
+			if = {
+				limit = {
+					OR = {
+						any_rival_country = {
+							has_variable = thermonuclear_capability_var
+						}
+						is_at_war = yes
+					}
+				}
+				multiply = 3
+			}
+			# A pause treaty stops the programme dead
+			if = {
+				limit = {
+					any_scope_treaty = {
+						binds = ROOT
+						any_scope_article = {
+							has_type = pause_nuclear_weapons_development
+						}
+					}
+				}
+				multiply = 0
+			}
+		}
+	}
+}
+
+# Monthly progress for je_nuclear_power_program. Scope: country
+# The button asks for the atomic_bomb technology, not for warheads. A country that has
+# actually built and tested them already runs the enrichment plants, the production
+# reactors and the engineers, so it gets to civil power twice as fast.
+nuclear_power_add_progress = {
+	change_variable = {
+		name = ztr_nuclear_power_var
+		add = {
+			value = country_research_progress
+			subtract = 5
+			min = 1
+			if = {
+				limit = {
+					has_modifier = nuclear_capability
+				}
+				multiply = 2
+			}
+		}
+	}
+}
+
+# Releases the shared eight year Research Center cooldown set by the programme
+# buttons, but only once no programme is running at all: abandoning an old project
+# must not free a slot that a more recent one is legitimately occupying.
+ztr_research_center_release_cooldown = {
 	if = {
 		limit = {
-			gdp > 1000000000
+			NOR = {
+				has_variable = nuclear_program_started
+				has_variable = thermonuclear_program_started
+				has_variable = ztr_nuclear_power_program_started
+				has_variable = fusion_reactor_var
+			}
 		}
-		change_variable = {
-			name = fusion_reactor_var
-			add = 0.25
-		}
+		remove_variable = ztr_research_center_cooldown
 	}
-	if = {
+}
+
+# Abandons the atomic bomb programme and puts the country back where it was before
+# ztr_start_nuclear_weapons_program_button was pressed. Idempotent: every step is
+# either a remove_variable, which does nothing when the variable is not set, or is
+# guarded by a limit. Not reverted, on purpose: law_uranium_full_usage (activate_law
+# cannot restore whichever uranium law was in force before), the infamy and the
+# relation hits (the world already reacted) and any silo already built.
+ztr_abandon_nuclear_weapons_program = {
+	remove_variable = nuclear_program_started
+	remove_variable = nuclear_development_var
+	every_scope_state = {
 		limit = {
-			gdp > 5000000000
+			has_modifier = nuclear_weapon_site
 		}
-		change_variable = {
-			name = fusion_reactor_var
-			add = 0.5
-		}
+		remove_modifier = nuclear_weapon_site
 	}
-	# Literacy bonus: highly educated populace accelerates R&D
-	if = {
-		limit = {
-			literacy_rate > 0.95
-		}
-		change_variable = {
-			name = fusion_reactor_var
-			add = 0.25
-		}
-	}
-	# Major population bonus: large labor pool of scientists
-	if = {
-		limit = {
-			total_population > 50000000
-		}
-		change_variable = {
-			name = fusion_reactor_var
-			add = 0.25
-		}
-	}
-	if = {
-		limit = {
-			total_population > 500000000
-		}
-		change_variable = {
-			name = fusion_reactor_var
-			add = 0.25
-		}
-	}
+	ztr_research_center_release_cooldown = yes
+}
+
+# Abandons the thermonuclear programme. The infamy and relation hits taken when it
+# was launched are not reverted.
+ztr_abandon_thermonuclear_weapons_program = {
+	remove_variable = thermonuclear_program_started
+	remove_variable = thermonuclear_development_var
+	ztr_research_center_release_cooldown = yes
+}
+
+# Abandons the civil nuclear power programme. Nothing else was spent to start it.
+ztr_abandon_nuclear_power_program = {
+	remove_variable = ztr_nuclear_power_program_started
+	remove_variable = ztr_nuclear_power_var
+	ztr_research_center_release_cooldown = yes
+}
+
+# Abandons the fusion programme. fusion_reactor_var doubles as the started marker
+# for this one, so removing it is the whole reset.
+ztr_abandon_fusion_reactor_program = {
+	remove_variable = fusion_reactor_var
+	ztr_research_center_release_cooldown = yes
 }
