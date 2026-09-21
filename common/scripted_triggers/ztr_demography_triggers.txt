@@ -1,0 +1,81 @@
+﻿# Triggers shared by the demographic transition progress bars
+
+# Development Tiers - each tier builds on the previous one
+ztr_demographic_above_dev_0 = {
+	NOT = {
+		has_modifier = dev_0_country
+	}
+}
+
+ztr_demographic_above_dev_1 = {
+	ztr_demographic_above_dev_0 = yes
+	NOT = {
+		has_modifier = dev_1_country
+	}
+}
+
+ztr_demographic_above_dev_2 = {
+	ztr_demographic_above_dev_1 = yes
+	NOT = {
+		has_modifier = dev_2_country
+	}
+}
+
+ztr_demographic_above_dev_3 = {
+	ztr_demographic_above_dev_2 = yes
+	NOT = {
+		has_modifier = dev_3_country
+	}
+}
+
+ztr_demographic_above_dev_4 = {
+	ztr_demographic_above_dev_3 = yes
+	NOT = {
+		has_modifier = dev_4_country
+	}
+}
+
+# Society
+ztr_demographic_has_healthcare = {
+	OR = {
+		has_law_or_variant = law_type:law_private_health_insurance
+		has_law_or_variant = law_type:law_public_health_insurance
+	}
+}
+
+ztr_demographic_slavery_legal = {
+	NOT = {
+		has_law_or_variant = law_type:law_slavery_banned
+	}
+}
+
+ztr_demographic_traditional_society = {
+	OR = {
+		country_has_state_religion = rel:sunni
+		country_has_state_religion = rel:shiite
+		AND = {
+			exists = c:DEI
+			c:DEI = this
+		}
+		AND = {
+			exists = c:BIC
+			c:BIC = this
+		}
+	}
+}
+
+# Open borders only matter where there is somewhere to migrate from
+ztr_demographic_open_to_immigration = {
+	OR = {
+		has_law_or_variant = law_type:law_multicultural
+		has_law_or_variant = law_type:law_no_migration_controls
+	}
+	OR = {
+		total_population < 200000000
+		is_in_geographic_region = geographic_region_americas
+	}
+}
+
+ztr_demographic_north_america = {
+	is_in_geographic_region = geographic_region_north_america
+}
