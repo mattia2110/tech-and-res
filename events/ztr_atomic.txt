@@ -1,4 +1,4 @@
-namespace = nuclear_warfare_system
+﻿namespace = nuclear_warfare_system
 #THIS gains nuclear capability
 nuclear_warfare_system.1 = {
 	type = country_event
@@ -7,15 +7,13 @@ nuclear_warfare_system.1 = {
 		first_valid = {
 			triggered_desc = {
 				trigger = {
-					NOT = {
-						has_global_variable = atomic_bomb_discovered
-					}
+					exists = scope:ztr_first_nuclear_discovery_country
 				}
 				desc = gained_nuclear_capability_first.d
 			}
 			triggered_desc = {
 				trigger = {
-					has_global_variable = atomic_bomb_discovered
+					NOT = { exists = scope:ztr_first_nuclear_discovery_country }
 				}
 				desc = gained_nuclear_capability.d
 			}
@@ -31,41 +29,18 @@ nuclear_warfare_system.1 = {
 	trigger = {
 	}
 	immediate = {
-		add_modifier = {
-			name = nuclear_capability
-		}
-		save_scope_as = nuclear_country
-		# Her we remember who discovered the bomb first
-		if = {
-			limit = {
-				NOT = {
-					has_global_variable = atomic_bomb_discovered
-				}
-			}
-			set_variable = first_nuclear_country_var
-		}
+		ztr_grant_nuclear_capability = yes
 	}
 	option = {
 		name = gained_nuclear_capability.option		#The world shall tremble at our might!
 		trigger = {
-			has_global_variable = atomic_bomb_discovered
+			NOT = { exists = scope:ztr_first_nuclear_discovery_country }
 		}
 	}
 	option = {
 		name = gained_nuclear_capability_first.option		# Now I am become Death, the destroyer of worlds.
 		trigger = {
-			NOT = {
-				has_global_variable = atomic_bomb_discovered
-			}
-		}
-		set_global_variable = atomic_bomb_discovered
-		every_country = {
-			limit = {
-				NOT = {
-					this = root
-				}
-			}
-			trigger_event = nuclear_warfare_system.8
+			exists = scope:ztr_first_nuclear_discovery_country
 		}
 	}
 }
@@ -106,8 +81,11 @@ nuclear_warfare_system.2 = {
 	immediate = {
 		#Remove Nuclear Capability
 		remove_modifier = nuclear_capability
-		remove_variable = nuclear_program_started
-		remove_variable = thermonuclear_program_started
+		ztr_abandon_nuclear_weapons_program = yes
+		ztr_abandon_thermonuclear_weapons_program = yes
+		remove_variable = thermonuclear_capability_var
+		calculate_nuclear_strength_info = yes
+		calculate_nuclear_defence_info = yes
 		#Force disarmament if a non-autonomous subject
 		if = {
 			limit = {
@@ -438,18 +416,28 @@ nuclear_warfare_system.10 = {
 	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
 	duration = 1
 	trigger = {
+		has_modifier = nuclear_capability
+		has_technology_researched = second_nuclear_reactor
+		has_law_or_variant = law_type:law_uranium_full_usage
+		is_subject = no
+		ztr_nuclear_research_paused = no
+		ztr_has_operational_nuclear_silo = yes
+		NOR = {
+			has_variable = thermonuclear_capability_var
+			has_technology_researched = hydrogen_bomb
+		}
 	}
 	immediate = {
 		set_variable = thermonuclear_capability_var
+		add_technology_researched = hydrogen_bomb
+		remove_variable = thermonuclear_program_started
+		remove_variable = thermonuclear_development_var
 		save_scope_as = nuclear_country
+		calculate_nuclear_strength_info = yes
 	}
 	option = {
 		default_option = yes
-		add_technology_researched = hydrogen_bomb
 		name = gained_thermonuclear_capability.option
-		trigger = {
-			has_global_variable = atomic_bomb_discovered
-		}
 	}
 }
 

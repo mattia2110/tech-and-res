@@ -2023,79 +2023,155 @@ pm_iot_building_ecommerce_logistics = {
 	required_input_goods = electricity
 }
 
-#SELECTIVE EXTRACTION
+#BYPRODUCT EXTRACTION
 
-pm_no_selective_mineral_extraction = {
+pm_no_byproduct_extraction = {
 	texture = "gfx/interface/icons/production_method_icons/disabled_purple.dds"
 }
 
-selective_mineral_extraction_coal_mine = {
-    texture = "gfx/interface/icons/production_method_icons/sulfur.dds"
-    building_modifiers = {
-        workforce_scaled = {
-            # input goods
-            goods_output_sulfur_add = 5
-            goods_output_coal_add = -15
-        }
-    }
-	unlocking_technologies = {
-		selective_mineral_extraction
-	}
-}
+# Basic byproducts - agassiz_geology_tech
 
-selective_mineral_extraction_iron_mine = {
-    texture = "gfx/interface/icons/production_method_icons/commonores.dds"
-    building_modifiers = {
-        workforce_scaled = {
-            # input goods
-            goods_output_commonores_add = 8
-            goods_output_iron_add = -15
-        }
-    }
+basic_byproduct_extraction_iron_mine = {
+	texture = "gfx/interface/icons/goods_icons/commonores.dds"
+	building_modifiers = {
+		workforce_scaled = {
+			# output goods
+			goods_output_iron_add = -15 # -600
+			goods_output_commonores_add = 12 # +480
+		}
+	}
 	unlocking_technologies = {
 		agassiz_geology_tech
 	}
 }
 
-selective_mineral_extraction_lead_mine = {
-    texture = "gfx/interface/icons/production_method_icons/copper.dds"
-    building_modifiers = {
-        workforce_scaled = {
-            # input goods
-            goods_output_copper_add = 8
-            goods_output_lead_add = -15
-        }
-    }
+basic_byproduct_extraction_commonores_mine = {
+	texture = "gfx/interface/icons/goods_icons/iron.dds"
+	building_modifiers = {
+		workforce_scaled = {
+			# output goods
+			goods_output_commonores_add = -15 # -600
+			goods_output_iron_add = 12 # +480
+		}
+	}
 	unlocking_technologies = {
 		agassiz_geology_tech
 	}
 }
 
-selective_mineral_extraction_sulfur_mine = {
-    texture = "gfx/interface/icons/production_method_icons/lead.dds"
-    building_modifiers = {
-        workforce_scaled = {
-            # input goods
-            goods_output_lead_add = 8
-            goods_output_sulfur_add = -15
-        }
-    }
+basic_byproduct_extraction_sulfur_mine = {
+	texture = "gfx/interface/icons/goods_icons/copper.dds"
+	building_modifiers = {
+		workforce_scaled = {
+			# output goods
+			goods_output_sulfur_add = -12 # -600
+			goods_output_copper_add = 15 # +480
+		}
+	}
+	unlocking_technologies = {
+		agassiz_geology_tech
+	}
+}
+
+# Mid byproducts - selective_mineral_extraction
+
+mid_byproduct_extraction_coal_mine = {
+	texture = "gfx/interface/icons/goods_icons/sulfur.dds"
+	building_modifiers = {
+		workforce_scaled = {
+			# output goods
+			goods_output_coal_add = -15 # -450
+			goods_output_sulfur_add = 7 # +350
+		}
+	}
 	unlocking_technologies = {
 		selective_mineral_extraction
 	}
 }
 
-selective_mineral_extraction_commonores_mine = {
-    texture = "gfx/interface/icons/production_method_icons/iron.dds"
-    building_modifiers = {
-        workforce_scaled = {
-            # input goods
-            goods_output_iron_add = 8
-            goods_output_commonores_add = -15
-        }
-    }
+mid_byproduct_extraction_lead_mine = {
+	texture = "gfx/interface/icons/goods_icons/iron.dds"
+	building_modifiers = {
+		workforce_scaled = {
+			# output goods
+			goods_output_lead_add = -15 # -600
+			goods_output_iron_add = 12 # +480
+		}
+	}
 	unlocking_technologies = {
 		selective_mineral_extraction
+	}
+}
+
+mid_byproduct_extraction_uranium_mine = {
+	texture = "gfx/interface/icons/goods_icons/copper.dds"
+	building_modifiers = {
+		workforce_scaled = {
+			# output goods
+			goods_output_good_uranium_add = -12 # -480
+			goods_output_copper_add = 12 # +360
+		}
+	}
+	unlocking_technologies = {
+		selective_mineral_extraction
+	}
+}
+
+# Advanced byproducts - high_pressure_grinding_rolls / rare_earths_advanced_purification
+
+advanced_byproduct_extraction_copper_mine = {
+	texture = "gfx/interface/icons/goods_icons/advancedores.dds"
+	building_modifiers = {
+		workforce_scaled = {
+			# output goods
+			goods_output_copper_add = -20 # -600
+			goods_output_advancedores_add = 6 # +480
+		}
+	}
+	unlocking_technologies = {
+		high_pressure_grinding_rolls
+	}
+}
+
+advanced_byproduct_extraction_bauxite_mine = {
+	texture = "gfx/interface/icons/goods_icons/rare_earths.dds"
+	building_modifiers = {
+		workforce_scaled = {
+			# output goods
+			goods_output_bauxite_add = -20 # -600
+			goods_output_rare_earths_add = 10 # +500
+		}
+	}
+	unlocking_technologies = {
+		rare_earths_advanced_purification
+	}
+}
+
+advanced_byproduct_extraction_advancedores_mine = {
+	texture = "gfx/interface/icons/goods_icons/rare_earths.dds"
+	building_modifiers = {
+		workforce_scaled = {
+			# output goods
+			goods_output_advancedores_add = -8 # -640
+			goods_output_rare_earths_add = 10 # +500
+		}
+	}
+	unlocking_technologies = {
+		rare_earths_advanced_purification
+	}
+}
+
+advanced_byproduct_extraction_rare_earths_mine = {
+	texture = "gfx/interface/icons/goods_icons/curie_uranium.dds"
+	building_modifiers = {
+		workforce_scaled = {
+			# output goods
+			goods_output_rare_earths_add = -12 # -600
+			goods_output_good_uranium_add = 10 # +480
+		}
+	}
+	unlocking_technologies = {
+		rare_earths_advanced_purification
 	}
 }
 

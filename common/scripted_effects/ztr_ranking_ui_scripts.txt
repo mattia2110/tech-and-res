@@ -1,4 +1,4 @@
-# Creates a list of the ten countries with the most artifacts
+﻿# Creates a list of the ten countries with the most artifacts
 #As this effect is called in an effect, it creates the list with normal variables
 #Look at the customizable localizations to see how the countries are displayed.
 #Basically the custom loc uses the variable to display both the countries in their order as well as the variables of those countries
@@ -619,6 +619,7 @@ ztr_socialist_individualist_index_ranking_variables = {
 # Nuclear Offense
 
 ztr_nuclear_strength_ranking_effect = {
+	save_scope_as = ztr_nuclear_ranking_owner
 	ordered_country = {
 		limit = {
 			has_modifier = nuclear_capability
@@ -634,12 +635,12 @@ ztr_nuclear_strength_ranking_effect = {
 		if = {
 			limit = {
 				NOT = {
-					root = {
+					scope:ztr_nuclear_ranking_owner = {
 						has_variable = ztr_nuclear_strike_power_display_rank_1_var
 					}
 				}
 			}
-			root = { #The countries are actually saved to the country that uses the effect in the event window
+			scope:ztr_nuclear_ranking_owner = { #The countries are actually saved to the country that uses the effect in the event window
 				set_variable = {
 					name = ztr_nuclear_strike_power_display_rank_1_var
 					value = prev
@@ -649,12 +650,12 @@ ztr_nuclear_strength_ranking_effect = {
 		else_if = {
 			limit = {
 				NOT = {
-					root = {
+					scope:ztr_nuclear_ranking_owner = {
 						has_variable = ztr_nuclear_strike_power_display_rank_2_var
 					}
 				}
 			}
-			root = {
+			scope:ztr_nuclear_ranking_owner = {
 				set_variable = {
 					name = ztr_nuclear_strike_power_display_rank_2_var
 					value = prev
@@ -664,12 +665,12 @@ ztr_nuclear_strength_ranking_effect = {
 		else_if = {
 			limit = {
 				NOT = {
-					root = {
+					scope:ztr_nuclear_ranking_owner = {
 						has_variable = ztr_nuclear_strike_power_display_rank_3_var
 					}
 				}
 			}
-			root = {
+			scope:ztr_nuclear_ranking_owner = {
 				set_variable = {
 					name = ztr_nuclear_strike_power_display_rank_3_var
 					value = prev
@@ -679,12 +680,12 @@ ztr_nuclear_strength_ranking_effect = {
 		else_if = {
 			limit = {
 				NOT = {
-					root = {
+					scope:ztr_nuclear_ranking_owner = {
 						has_variable = ztr_nuclear_strike_power_display_rank_4_var
 					}
 				}
 			}
-			root = {
+			scope:ztr_nuclear_ranking_owner = {
 				set_variable = {
 					name = ztr_nuclear_strike_power_display_rank_4_var
 					value = prev
@@ -694,12 +695,12 @@ ztr_nuclear_strength_ranking_effect = {
 		else_if = {
 			limit = {
 				NOT = {
-					root = {
+					scope:ztr_nuclear_ranking_owner = {
 						has_variable = ztr_nuclear_strike_power_display_rank_5_var
 					}
 				}
 			}
-			root = {
+			scope:ztr_nuclear_ranking_owner = {
 				set_variable = {
 					name = ztr_nuclear_strike_power_display_rank_5_var
 					value = prev
@@ -712,6 +713,7 @@ ztr_nuclear_strength_ranking_effect = {
 # Nuclear Defense
 
 ztr_nuclear_defence_ranking_effect = {
+	save_scope_as = ztr_nuclear_ranking_owner
 	ordered_country = {
 		limit = {
 			has_modifier = nuclear_capability
@@ -727,12 +729,12 @@ ztr_nuclear_defence_ranking_effect = {
 		if = {
 			limit = {
 				NOT = {
-					root = {
+					scope:ztr_nuclear_ranking_owner = {
 						has_variable = ztr_nuclear_strike_defence_display_rank_1_var
 					}
 				}
 			}
-			root = { #The countries are actually saved to the country that uses the effect in the event window
+			scope:ztr_nuclear_ranking_owner = { #The countries are actually saved to the country that uses the effect in the event window
 				set_variable = {
 					name = ztr_nuclear_strike_defence_display_rank_1_var
 					value = prev
@@ -742,12 +744,12 @@ ztr_nuclear_defence_ranking_effect = {
 		else_if = {
 			limit = {
 				NOT = {
-					root = {
+					scope:ztr_nuclear_ranking_owner = {
 						has_variable = ztr_nuclear_strike_defence_display_rank_2_var
 					}
 				}
 			}
-			root = {
+			scope:ztr_nuclear_ranking_owner = {
 				set_variable = {
 					name = ztr_nuclear_strike_defence_display_rank_2_var
 					value = prev
@@ -757,12 +759,12 @@ ztr_nuclear_defence_ranking_effect = {
 		else_if = {
 			limit = {
 				NOT = {
-					root = {
+					scope:ztr_nuclear_ranking_owner = {
 						has_variable = ztr_nuclear_strike_defence_display_rank_3_var
 					}
 				}
 			}
-			root = {
+			scope:ztr_nuclear_ranking_owner = {
 				set_variable = {
 					name = ztr_nuclear_strike_defence_display_rank_3_var
 					value = prev
@@ -772,12 +774,12 @@ ztr_nuclear_defence_ranking_effect = {
 		else_if = {
 			limit = {
 				NOT = {
-					root = {
+					scope:ztr_nuclear_ranking_owner = {
 						has_variable = ztr_nuclear_strike_defence_display_rank_4_var
 					}
 				}
 			}
-			root = {
+			scope:ztr_nuclear_ranking_owner = {
 				set_variable = {
 					name = ztr_nuclear_strike_defence_display_rank_4_var
 					value = prev
@@ -787,12 +789,12 @@ ztr_nuclear_defence_ranking_effect = {
 		else_if = {
 			limit = {
 				NOT = {
-					root = {
+					scope:ztr_nuclear_ranking_owner = {
 						has_variable = ztr_nuclear_strike_defence_display_rank_5_var
 					}
 				}
 			}
-			root = {
+			scope:ztr_nuclear_ranking_owner = {
 				set_variable = {
 					name = ztr_nuclear_strike_defence_display_rank_5_var
 					value = prev

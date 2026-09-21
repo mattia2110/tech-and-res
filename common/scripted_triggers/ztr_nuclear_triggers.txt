@@ -1,0 +1,128 @@
+﻿# Building scope.
+ztr_is_operational_nuclear_silo = {
+	is_building_type = building_nuclear_weapons_silo
+	is_under_construction = no
+	level >= 1
+	building_has_goods_shortage = no
+	occupancy > 0
+}
+
+# Country scope.
+ztr_has_operational_nuclear_silo = {
+	any_scope_state = { any_scope_building = { ztr_is_operational_nuclear_silo = yes } }
+}
+
+ztr_has_operational_research_center = {
+	any_scope_state = {
+		any_scope_building = {
+			is_building_type = building_research_center
+			is_under_construction = no
+			building_has_goods_shortage = no
+			occupancy > 0
+		}
+	}
+}
+
+ztr_nuclear_research_paused = {
+	OR = {
+		has_variable = signed_nuclear_non_proliferation_treaty
+		in_default = yes
+		NOT = { ztr_has_operational_research_center = yes }
+		any_scope_treaty = {
+			any_scope_article = {
+				has_type = pause_nuclear_weapons_development
+				source_country = prev.prev
+			}
+		}
+	}
+}
+
+# Country scope; TARGET is an explicit country scope.
+ztr_nuclear_target_in_range = {
+	OR = {
+		AND = {
+			has_technology_researched = icbms
+			any_scope_state = {
+				any_scope_building = {
+					ztr_is_operational_nuclear_silo = yes
+					has_active_production_method = pm_icbms
+				}
+			}
+		}
+		has_strategic_adjacency = $TARGET$
+	}
+}
+
+ztr_nuclear_first_use_allowed = {
+	OR = {
+		AND = {
+			OR = {
+				NOT = { has_variable = signed_nuclear_non_proliferation_treaty }
+				country_rank = rank_value:great_power
+			}
+			ztr_is_totalitarian = yes
+		}
+		AND = {
+			OR = {
+				NOT = { has_variable = signed_nuclear_non_proliferation_treaty }
+				$TARGET$ = { ztr_is_totalitarian = yes }
+				has_modifier = ztr_superpower
+			}
+			ztr_is_authoritarian = yes
+		}
+		AND = {
+			OR = {
+				AND = {
+					NOT = { has_global_variable = ztr_atomic_bomb_first_use_var }
+					$TARGET$ = { ztr_is_totalitarian = yes }
+				}
+				AND = {
+					NOT = { has_variable = signed_nuclear_non_proliferation_treaty }
+					country_rank = rank_value:great_power
+				}
+				has_modifier = ztr_superpower
+			}
+			ztr_is_democratic = yes
+		}
+	}
+
+}
+
+# Country scope. A salvo is available once per year.
+ztr_nuclear_arsenal_ready = {
+	has_modifier = nuclear_capability
+	has_technology_researched = atomic_bomb
+	has_law_or_variant = law_type:law_uranium_full_usage
+	is_subject = no
+	is_revolutionary = no
+	is_secessionist = no
+	ztr_has_operational_nuclear_silo = yes
+	NOT = { has_modifier = nuclear_attack_cooldown }
+}
+
+# Retaliation may override political restrictions, but requires a ready arsenal.
+ztr_can_retaliate_nuclear_strike = {
+	ztr_nuclear_arsenal_ready = yes
+	NOT = { this = $TARGET$ }
+	ztr_nuclear_target_in_range = { TARGET = $TARGET$ }
+}
+
+ztr_can_launch_nuclear_strike = {
+	ztr_can_retaliate_nuclear_strike = { TARGET = $TARGET$ }
+	ztr_nuclear_first_use_allowed = { TARGET = $TARGET$ }
+}
+
+# Diplomatic-action context; the proposing country is scope:actor.
+ztr_can_issue_nuclear_ultimatum = {
+	is_subject = no
+	ztr_nuclear_first_use_allowed = { TARGET = scope:target_country }
+	OR = {
+		ztr_can_launch_nuclear_strike = { TARGET = scope:target_country }
+		any_country = {
+			is_in_war_together = scope:actor
+			has_war_with = scope:target_country
+			any_scope_war = { is_war_participant = scope:actor is_war_participant = scope:target_country }
+			ztr_can_launch_nuclear_strike = { TARGET = scope:target_country }
+		}
+	}
+}

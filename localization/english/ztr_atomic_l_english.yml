@@ -19,7 +19,6 @@
     pmg_nuclear_submarine_military:0 "Nuclear Armed Submarine"
     pm_nuclear_submarine_0:0 "No Nuclear Armed Submarines"
     pm_nuclear_submarine_1:0 "Nuclear Armed Submarines"
-    nuclear_dev_cost:0 "Nuclear Weapons Development Cost"
     
     nuclear_capability:0 "Nuclear Weapons State"
     start_nuclear_weapons_program_decision:0 "#n Nuclear Weapons#! Program"
@@ -31,7 +30,6 @@
     gained_nuclear_capability_first.option:0 "'Now I am become Death, the destroyer of worlds.'\n - J. Robert Oppenheimer"
     gained_nuclear_capability.t:0 "A place among the nuclear powers"
     gained_nuclear_capability.d:0 "With the success of our last tests, we have acquired nuclear weapons and a means of delivering those weapons to its enemies. This means that it can now strike enemy nations at war with it with nuclear weapons."
-    gained_nuclear_capability.f:0 "Note that the nuclear capability would be lost if [SCOPE.sCountry('nuclear_country').GetName] either no longer has a $building_nuclear_weapons_silo$ [concept_building] that does not have a goods shortage, or becomes a subject."
     gained_nuclear_capability.option:0 "The world shall tremble at our might!"
 
     gained_nuclear_capability_others.t:0 "A Strange Weapon"
@@ -51,14 +49,10 @@
     nuclear_attack.option:0 "A moment of silence for those who did not survive."
 
     atomic_bomb_first_use.t:0 "A Weapon That Will Change the World"
-    atomic_bomb_first_use.d:0 "News of unimaginable destruction has reached the world. A single bomb, powered by the splitting of the atom, has turned [SCOPE.sState('nuclear_striked_state_target').GetName] into a wasteland, while the few survivors are suffering from burns and radiation sickness. [SCOPE.sCountry('actor').GetName] has unleashed this terrifying new force upon [SCOPE.sCountry('target_country').GetName], marking the first use of an atomic weapon in human history. The balance of power, and perhaps the fate of civilization itself, has changed forever."
     atomic_bomb_first_use.f:0 "Reports speak of a blinding flash, a roaring wave of destruction, and a mushroom cloud towering into the heavens. Scientists and generals alike now realize that this is not just another weapon: it is the beginning of a new era where humanity is capable of destroying itself in a matter of seconds."
     atomic_bomb_first_use.option:0 "Welcome to the #V #i Atomic Age#!#!."
 
 je_develop_nuclear_weapons:0 "#n Nuclear Weapons#! Program"
-je_develop_nuclear_weapons_reason:0 "[ROOT.GetCountry.GetName] is currently attempting to create its own #V #N Nuclear Weapon#!#!.\nThis is a monumental task requiring [ROOT.GetCountry.GetAdjective] scientists to research the #v $atomic_bomb$#! [concept_technology] and the military to build at least #v 1 $building_nuclear_weapons_silo$#! [concept_building] in the country.\n\nProgress depends on our [Concept('concept_research_capacity','$concept_research_capacity$')]."
-je_develop_nuclear_weapons_1.tt:0 "There is at least #v 1 $building_nuclear_weapons_silo$#! [concept_building] in the country"
-je_develop_nuclear_weapons_2.tt:0 "Does not have a #v$pause_nuclear_weapons_development$#! #Treaty#! with any country"
 
 je_nuclear_weapons_info_panel:0 "The Atomic Age"
 je_nuclear_weapons_info_panel_reason:0 "After the discovery of the #i Atomic Bomb#! made by [SCOPE.sCountry('first_nuclear_country').GetName], the [Concept('concept_great_power', '$concept_great_powers$')] of the world have been racing to develop and expand their own nuclear arsenals in order to maintain a balance of power and deter potential adversaries from launching a nuclear attack. This has led to a dangerous escalation of tensions between nations, as each side seeks to outdo the other in terms of nuclear capabilities.\n\nThe #V #i Atomic Age#!#! has begun, and with it comes the specter of mutually assured destruction.\n\n#v RANKING BY NUCLEAR STRIKE POWER#! @nuclear_icon!:\n[SCOPE.GetRootScope.GetCountry.GetCustom('ztr_nuclear_strike_power_display_rank_1_type')][SCOPE.GetRootScope.GetCountry.GetCustom('ztr_nuclear_strike_power_display_rank_2_type')][SCOPE.GetRootScope.GetCountry.GetCustom('ztr_nuclear_strike_power_display_rank_3_type')][SCOPE.GetRootScope.GetCountry.GetCustom('ztr_nuclear_strike_power_display_rank_4_type')][SCOPE.GetRootScope.GetCountry.GetCustom('ztr_nuclear_strike_power_display_rank_5_type')]\n\n#v RANKING BY NUCLEAR STRIKE DEFENSE#! @nuclear_icon!:\n[SCOPE.GetRootScope.GetCountry.GetCustom('ztr_nuclear_strike_defence_display_rank_1_type')][SCOPE.GetRootScope.GetCountry.GetCustom('ztr_nuclear_strike_defence_display_rank_2_type')][SCOPE.GetRootScope.GetCountry.GetCustom('ztr_nuclear_strike_defence_display_rank_3_type')][SCOPE.GetRootScope.GetCountry.GetCustom('ztr_nuclear_strike_defence_display_rank_4_type')][SCOPE.GetRootScope.GetCountry.GetCustom('ztr_nuclear_strike_defence_display_rank_5_type')]"
@@ -86,7 +80,6 @@ je_nuclear_weapons_info_panel_reason:0 "After the discovery of the #i Atomic Bom
     nuclear_damage_3:0 "Medium Nuclear Damage"
     nuclear_damage_4:0 "High Nuclear Damage"
     nuclear_damage_5:0 "Very High Nuclear Damage"
-    nuclear_attack_cooldown:0 "Nuclear Weapons Stockpile Exhausted"
     
     nuclear_fallout_1:0 "Very Low Nuclear Fallout"
     nuclear_fallout_2:0 "Low Nuclear Fallout"
@@ -104,12 +97,9 @@ je_nuclear_weapons_info_panel_reason:0 "After the discovery of the #i Atomic Bom
     nuclear_ultimatum_white_peace:0 "Give Nuclear Ultimatum (White Peace)"
     nuclear_ultimatum_white_peace_action_name:0 "Give Nuclear Ultimatum (White Peace)"
     nuclear_ultimatum_white_peace_action_propose_name:0 "Nuclear Ultimatum (White Peace)"
-    nuclear_ultimatum_white_peace_desc:3 "This diplomatic action demands that the recipient agrees to a White Peace (ie. the status quo) or be attacked with nuclear weapons. Note that the recipient will launch a retaliatory strike against the proposer if it has nuclear weapons."
     nuclear_ultimatum_white_peace_action_notification_name:0 "Struck by [INITIATOR_COUNTRY.GetAdjective] Nuclear Weapons"
-    nuclear_ultimatum_white_peace_action_notification_desc:2 "[INITIATOR_COUNTRY.GetName] has attacked [TARGET_COUNTRY.GetName] with nuclear weapons. The damage that [TARGET_COUNTRY.GetName] received to its provinces depended on the level of civil defence and anti-ballistic missile defence systems that each state region had."
     nuclear_ultimatum_white_peace_proposal_notification_name:0 "Nuclear Ultimatum (White Peace)"
     nuclear_ultimatum_white_peace_proposal_notification_desc:3 "[INITIATOR_COUNTRY.GetName] demands that [TARGET_COUNTRY.GetName] agree to a White Peace (ie. the status quo) or be attacked with nuclear weapons." 
-    nuclear_ultimatum_white_peace_proposal_notification_effects_desc:0 "[TARGET_COUNTRY.GetName] will launch a retaliatory strike against [INITIATOR_COUNTRY.GetName] if it has nuclear weapons."
     nuclear_ultimatum_white_peace_proposal_accepted_name:0 "[INITIATOR_COUNTRY.GetAdjective] Nuclear Ultimatum Accepted by [TARGET_COUNTRY.GetName]"
     nuclear_ultimatum_white_peace_proposal_accepted_desc:0 "[TARGET_COUNTRY.GetName] has accepted [INITIATOR_COUNTRY.GetName]'s proposal to have a white peace."
     nuclear_ultimatum_white_peace_proposal_declined_name:0 "[INITIATOR_COUNTRY.GetAdjective] Nuclear Ultimatum Rejected by [TARGET_COUNTRY.GetName]"
@@ -138,48 +128,26 @@ je_nuclear_weapons_info_panel_reason:0 "After the discovery of the #i Atomic Bom
     station_nuclear_weapons_action_notification_desc:2 "[INITIATOR_COUNTRY.GetName] has stationed its nuclear weapons in [TARGET_COUNTRY.GetName] which allows them to strike any country neighbouring [TARGET_COUNTRY.GetName] more effectively."
     station_nuclear_weapons_proposal_notification_name:0 "Station [INITIATOR_COUNTRY.GetAdjective] Nuclear Weapons in [TARGET_COUNTRY.GetNameNoFlag]?"
     station_nuclear_weapons_proposal_notification_desc:3 "[INITIATOR_COUNTRY.GetName] proposes to station its nuclear weapons in [TARGET_COUNTRY.GetName] to allow them to strike any country neighbouring [TARGET_COUNTRY.GetName] more effectively." 
-    station_nuclear_weapons_proposal_notification_effects_desc:0 "[INITIATOR_COUNTRY.GetName] will be able to attack any country neighbouring [TARGET_COUNTRY.GetName] with nuclear weapons more effectively by reducing the defence points a country gets from the number of states it owns by 25% per country with [INITIATOR_COUNTRY.GetAdjective] weapons stationed."    
     station_nuclear_weapons_action_notification_break_name:0 "[INITIATOR_COUNTRY.GetAdjectiveNoFlag] Nuclear Weapons Removed"
     station_nuclear_weapons_action_notification_break_desc:0 "[INITIATOR_COUNTRY.GetName] has removed [TARGET_COUNTRY.GetAdjective] Nuclear Weapons from [INITIATOR_COUNTRY.GetName]."
     station_nuclear_weapons_trigger_desc_global:0 "Has our Nuclear Weapons Stationed in the country"
     
     pause_nuclear_weapons_development:0 "Pause Nuclear Weapons Program"
-    pause_nuclear_weapons_development_pact_desc:0 "[SCOPE.GetRootScope.GetDiplomaticPact.GetSecondCountry.GetName] has agreed to [SCOPE.GetRootScope.GetDiplomaticPact.GetFirstCountry.GetName]'s request to pause the [SCOPE.GetRootScope.GetDiplomaticPact.GetSecondCountry.GetAdjective] nuclear program for the duration of this treaty."
     pause_nuclear_weapons_development_action_name:0 "Pause Nuclear Weapons Program Treaty"
     pause_nuclear_weapons_development_action_break_name:0 "Resume Nuclear Weapons Program"
     pause_nuclear_weapons_development_action_propose_name:0 "Pause Nuclear Weapons Program Treaty"
-    pause_nuclear_weapons_development_proposal_accepted_name:0 "[TARGET_COUNTRY.GetAdjective] Nuclear Weapons Program Paused"
-    pause_nuclear_weapons_development_proposal_accepted_desc:0 "[TARGET_COUNTRY.GetName] has accepted [INITIATOR_COUNTRY.GetName]'s offer to pause the [TARGET_COUNTRY.GetAdjective] Nuclear Weapons Program and [INITIATOR_COUNTRY.GetName] will pay [TARGET_COUNTRY.GetName] a weekly income."
-    pause_nuclear_weapons_development_desc:3 "The #y Nuclear Weapons Program#! of the target of this [concept_article] will not progress for the duration of this [concept_treaty]."
-    pause_nuclear_weapons_development_action_notification_name:0 "[TARGET_COUNTRY.GetName] Pauses its Nuclear Weapons Program"
-    pause_nuclear_weapons_development_action_notification_desc:2 "[TARGET_COUNTRY.GetName] agrees to pause its nuclear weapons program in exchange for [INITIATOR_COUNTRY.GetName] paying [TARGET_COUNTRY.GetName] a weekly income."
-    pause_nuclear_weapons_development_proposal_notification_name:0 "[TARGET_COUNTRY.GetName] Pauses its Nuclear Weapons Program"
-    pause_nuclear_weapons_development_proposal_notification_desc:3 "[INITIATOR_COUNTRY.GetName] has made an offer to [TARGET_COUNTRY.GetName]: Pause [TARGET_COUNTRY.GetAdjective] Nuclear Weapons Program and [INITIATOR_COUNTRY.GetName] will pay [TARGET_COUNTRY.GetName] a weekly income." 
-    pause_nuclear_weapons_development_proposal_notification_effects_desc:0 "If accepted, [TARGET_COUNTRY.GetName] shall pause its nuclear weapons program in exchange for [INITIATOR_COUNTRY.GetName] paying [TARGET_COUNTRY.GetName] a weekly income."
-    pause_nuclear_weapons_development_proposal_accepted_name:0 "[INITIATOR_COUNTRY.GetAdjectiveNoFlag]-[TARGET_COUNTRY.GetAdjectiveNoFlag] Pause Nuclear Weapons Program Treaty"
-    pause_nuclear_weapons_development_proposal_accepted_desc:0 "[TARGET_COUNTRY.GetName] has agreed to pause its nuclear weapons program in exchange for [INITIATOR_COUNTRY.GetName] paying [TARGET_COUNTRY.GetName] a weekly income."
     pause_nuclear_weapons_development_proposal_declined_name:0 "Pause Nuclear Weapons Program Treaty Rejected"
-    pause_nuclear_weapons_development_proposal_declined_desc:0 "[TARGET_COUNTRY.GetName] has rejected [INITIATOR_COUNTRY.GetName]'s offer to pause its nuclear weapons program in exchange for [INITIATOR_COUNTRY.GetName] paying [TARGET_COUNTRY.GetName] a weekly income. The [TARGET_COUNTRY.GetAdjective] Nuclear Program continues."
     
-    pause_nuclear_weapons_development_effects_desc: "• An agreement established by one [concept_country] targeting another, where the second $concept_country$ will pause its #y Nuclear Weapons Program#! for the duration of the [concept_treaty]."
     pause_nuclear_weapons_development_article_short_desc: "[SOURCE_COUNTRY.GetNameNoFormatting] will pause its Nuclear Weapons Program"
     
     recently_reduced_nukes:0 "Reduced Nuclear Weapons"
     nuclear_de_escalation_treaty:0 "Nuclear Arms Reduction"
-    nuclear_de_escalation_treaty_pact_desc:0 "[SCOPE.GetRootScope.GetDiplomaticPact.GetSecondCountry.GetName] has agreed to [SCOPE.GetRootScope.GetDiplomaticPact.GetFirstCountry.GetName]'s request to pause the [SCOPE.GetRootScope.GetDiplomaticPact.GetSecondCountry.GetAdjective] nuclear program for the duration of this treaty."
     nuclear_de_escalation_treaty_action_name:0 "Nuclear De-escalation Treaty"
     nuclear_de_escalation_treaty_action_break_name:0 "Renounce Nuclear De-escalation Treaty"
     nuclear_de_escalation_treaty_action_propose_name:0 "Nuclear De-escalation Treaty"
-    nuclear_de_escalation_treaty_proposal_accepted_name:0 "[INITIATOR_COUNTRY.GetAdjectiveNoFlag]-[TARGET_COUNTRY.GetAdjectiveNoFlag] Nuclear De-escalation Treaty"
-    nuclear_de_escalation_treaty_proposal_accepted_desc:0 "[INITIATOR_COUNTRY.GetName] and [TARGET_COUNTRY.GetName] have promised to de-escalate their nuclear weapons posture by agreeing to not station any nuclear weapons in countries bordering each other, reduce their nuclear strike capability by 50% and not deploy any Anti-Ballistic Missile systems."
     #nuclear_de_escalation_treaty_desc:3 "This is an [concept_article] which requires both parties to not station any nuclear weapons in countries bordering each other, reduce their nuclear strike capability by 50% and not deploy any Anti-Ballistic Missile systems."
     nuclear_de_escalation_treaty_proposal_notification_name:0 "[INITIATOR_COUNTRY.GetAdjectiveNoFlag]-[TARGET_COUNTRY.GetAdjectiveNoFlag] Nuclear De-escalation Treaty?"
-    nuclear_de_escalation_treaty_proposal_notification_desc:0 "It is proposed that [INITIATOR_COUNTRY.GetName] and [TARGET_COUNTRY.GetName] promise to de-escalate their nuclear weapons posture by agreeing to not station any nuclear weapons in countries bordering each other, reduce their nuclear strike capability by 50% and not deploy any Anti-Ballistic Missile systems." 
-    nuclear_de_escalation_treaty_proposal_notification_effects_desc:0 "If accepted, both countries shall not station any nuclear weapons in countries bordering each other, reduce their nuclear strike capability by 50% and not deploy any Anti-Ballistic Missile systems."
-    nuclear_de_escalation_treaty_proposal_accepted_name:0 "[INITIATOR_COUNTRY.GetAdjectiveNoFlag]-[TARGET_COUNTRY.GetAdjectiveNoFlag] Nuclear De-escalation Treaty"
-    nuclear_de_escalation_treaty_proposal_accepted_desc:0 "[INITIATOR_COUNTRY.GetName] and [TARGET_COUNTRY.GetName] have promised to de-escalate their nuclear weapons posture by agreeing to not station any nuclear weapons in countries bordering each other, reduce their nuclear strike capability by 50% and not deploy any Anti-Ballistic Missile systems."
     nuclear_de_escalation_treaty_proposal_declined_name:0 "Nuclear De-escalation Treaty Rejected"
-    nuclear_de_escalation_treaty_proposal_declined_desc:0 "[TARGET_COUNTRY.GetName] has rejected [INITIATOR_COUNTRY.GetName]'s proposal for to de-escalate their nuclear weapons posture by agreeing to not station any nuclear weapons in countries bordering each other, reduce their nuclear strike capability by 50% and not deploy any Anti-Ballistic Missile systems."
     nuclear_de_escalation_treaty_action_notification_name:0 "[INITIATOR_COUNTRY.GetAdjectiveNoFlag]-[TARGET_COUNTRY.GetAdjectiveNoFlag] $nuclear_de_escalation_treaty$"
     nuclear_de_escalation_treaty_action_notification_desc:0 "[INITIATOR_COUNTRY.GetName] and [TARGET_COUNTRY.GetName] have entered into a $nuclear_de_escalation_treaty$."
     nuclear_de_escalation_treaty_action_notification_break_name:0 "[INITIATOR_COUNTRY.GetAdjectiveNoFlag]-[TARGET_COUNTRY.GetAdjectiveNoFlag] $nuclear_de_escalation_treaty$ Dissolved"
@@ -188,7 +156,6 @@ je_nuclear_weapons_info_panel_reason:0 "After the discovery of the #i Atomic Bom
     nuclear_de_escalation_treaty_trigger_desc_third:0 "[COUNTRY.GetName] and [TARGET_COUNTRY.GetName] shall both reduce their nuclear capabilities"
     nuclear_de_escalation_treaty_effect_desc_global:0 "Sign $nuclear_de_escalation_treaty$"
     
-    nuclear_de_escalation_treaty_effects_desc: "• Both [Concept('concept_country', '$concept_countries$')] will: \n  (1) reduce their respective stockpiles of $nuclear_weapons$ by #r 50%#!; \n  (2) not station any $nuclear_weapons$ in countries bordering each other; and \n  (3) not deploy any #y Anti-Ballistic Missile Systems#!."
     nuclear_de_escalation_treaty_article_short_desc: "[FIRST_COUNTRY.GetNameNoFormatting] and [SECOND_COUNTRY.GetNameNoFormatting] will both reduce their stockpiles of nuclear weapons"
     TREATY_DRAFT_ARTICLE_FLAG_IS_NUCLEAR_DE_ESCALATION_TREATY_EFFECT: "• [FIRST_COUNTRY.GetName] and [SECOND_COUNTRY.GetName] will both reduce their stockpiles of nuclear weapons"
     TREATY_ARTICLE_FLAG_IS_NUCLEAR_DE_ESCALATION_TREATY_EFFECT: "• [FIRST_COUNTRY.GetName] and [SECOND_COUNTRY.GetName] will both reduce their stockpiles of nuclear weapons"
@@ -226,9 +193,6 @@ je_nuclear_weapons_info_panel_reason:0 "After the discovery of the #i Atomic Bom
     war_nuclear_strike_action_notification_desc:0 "[INITIATOR_COUNTRY.GetName] has launched its Nuclear Weapons at [TARGET_COUNTRY.GetName], inflicting great damage on [TARGET_COUNTRY.GetAdjective] [Concept('concept_state', '$concept_states$')]."
     war_nuclear_strike_action_notification_third_party_name:0 "[INITIATOR_COUNTRY.GetAdjective] Nuclear Strike on [TARGET_COUNTRY.GetName]"
     war_nuclear_strike_action_notification_third_party_desc:0 "[INITIATOR_COUNTRY.GetName] has launched its Nuclear Weapons at [TARGET_COUNTRY.GetName], inflicting great damage on [TARGET_COUNTRY.GetAdjective] [Concept('concept_state', '$concept_states$')]."
-    hydrogen_bomb:0 "Hydrogen bomb"
-    hydrogen_bomb_desc:0 "It is the ultimate military application of the power of nuclear fusion. It has the destructive power to change the situation of the battlefield at once, surpassing existing nuclear weapons with its explosive power that mimics the sun."
-    nuclear_dev_cost:0 "Nuclear development cost"
     nuclear_war:0 "Nuclear war"
     dp_annex_war_historical:0 "Nuclear war"
     THIS_DOES_NOT_HAVE_NUKES:0 "This does not have nukes"
@@ -249,31 +213,74 @@ je_nuclear_weapons_info_panel_reason:0 "After the discovery of the #i Atomic Bom
     anarchy:0 " "
     anarchy_name:0 " "
     anarchy_name_adj:0 "anarchy"
-    has_not_signed_nuclear_non_proliferation_treaty_tt:0 "[ROOT.GetCountry.GetName] has not signed #! Nuclear Non-Proliferation Treaty"
 
     # Thermonuclear Weapons Localization
     develop_thermonuclear_weapons_decision:0 "#n Thermonuclear Weapons#! Program"
     develop_thermonuclear_weapons_decision_desc:0 "We are already a nuclear power, but to truly dominate the world stage, we must develop a stronger weapon using nuclear fusion: the Thermonuclear Bomb. This weapon will have a far greater destructive power than our current atomic bombs, and will cement our position as the leading superpower."
 je_develop_thermonuclear_weapons:0 "#n Thermonuclear Weapons#! Program"
-je_develop_thermonuclear_weapons_reason:0 "[ROOT.GetCountry.GetName] is currently attempting to create its own #V #N Thermonuclear Weapon#!#!. This is an even more monumental task requiring [ROOT.GetCountry.GetAdjective] scientists to improve their knowledge about #v Nuclear Fusion#!.\n\nProgress depends on our [Concept('concept_research_capacity','$concept_research_capacity$')]."
 gained_thermonuclear_capability.t:0 "A Stronger Nuclear Arsenal"
 gained_thermonuclear_capability.d:0 "With the successful development of #V #N Thermonuclear Weapons#!#!, we have significantly enhanced its nuclear arsenal. These new weapons, which utilize nuclear fusion, possess a far greater destructive power than traditional atomic bombs. Is this to be feared or celebrated?"
-gained_thermonuclear_capability.option:0 "Our Nuclear Arsenal is Stronger than Ever#!#!."
 je_develop_nuclear_weapons_goal:0 "Complete the #v Research#!."
 je_develop_thermonuclear_weapons_goal:0 "Complete the #v Research#!."
 
     join_nuclear_non_proliferation_treaty_decision:0 "Join Nuclear Non-Proliferation Treaty"
     join_nuclear_non_proliferation_treaty_decision_desc:0 "The dawn of the Atomic Age has brought both immense promise and unparalleled peril. As the number of nuclear-armed states grows, so too does the risk of global catastrophe. The United Nations has therefore proposed the Nuclear Non-Proliferation Treaty (NPT); a landmark accord designed to curb the spread of nuclear weapons, advance disarmament, and encourage the peaceful use of atomic energy. By acceding to this treaty, our nation will stand among those who choose diplomacy over destruction, and cooperation over isolation."
-    signed_NPT_1_tt:0 "[ROOT.GetCountry.GetName] can no longer develop #V #N Nuclear Weapons#!#! and must work towards disarmament for at least 10 #V #N Years#!#!."
 
     leave_nuclear_non_proliferation_treaty_decision:0 "Leave Nuclear Non-Proliferation Treaty"
     leave_nuclear_non_proliferation_treaty_decision_desc:0 "The Nuclear Non-Proliferation Treaty (NPT) was established to prevent the spread of nuclear weapons and promote disarmament. However, it has become clear that this treaty is hindering our nation's ability to defend itself and assert its sovereignty on the global stage. By withdrawing from the NPT, we can regain control over our nuclear program and ensure that we have the means to protect our national interests in an increasingly uncertain world."
-    signed_NPT_2_tt:0 "[ROOT.GetCountry.GetName] is no longer bound by the restrictions of the #v Nuclear Non-Proliferation Treaty#!."
 
-    hydrogen_bomb:0 "Hydrogen Bomb"
-    hydrogen_bomb_desc:0 "Thermonuclear weapons, also known as hydrogen bombs, represent the pinnacle of nuclear weapon technology. Unlike atomic bombs that rely solely on nuclear fission, thermonuclear weapons utilize a two-stage process that combines both fission and fusion reactions. The initial fission explosion generates the extreme temperatures and pressures necessary to ignite the fusion of hydrogen isotopes, resulting in an immensely powerful blast far exceeding that of traditional atomic bombs. The development of thermonuclear weapons has significantly altered the strategic landscape of global military power, introducing new considerations for deterrence, defense, and international relations."
 
     # NEW 1.6
 
     take_control_of_nuclear_arsenal_decision:0 "Take Control of Nuclear Arsenal"
-    take_control_of_nuclear_arsenal_decision_desc:0 "In our states is already present a significant nuclear arsenal. Since we have now fully occupied it, we can take control of its nuclear weapons and use them to defend our homeland from enemies."
+
+    atomic_bomb_first_use.d:0 "News of unimaginable destruction has reached the world. [SCOPE.sCountry('ztr_first_nuclear_attacker').GetName] has struck [SCOPE.sState('ztr_first_nuclear_state').GetName] in [SCOPE.sCountry('ztr_first_nuclear_defender').GetName] with nuclear weapons. The first use of this terrifying force in war has changed the balance of power forever." # UPDATED
+    gained_nuclear_capability.f:0 "Nuclear capability is lost if we no longer possess a Nuclear Weapons Silo, abandon military uranium use or become a subject. Silos need personnel and supplies to contribute to nuclear strike power." # UPDATED
+    je_develop_nuclear_weapons_1.tt:0 "Has at least one completed Nuclear Weapons Silo with personnel and no goods shortages" # UPDATED
+    je_develop_nuclear_weapons_2.tt:0 "Research is not paused by the NPT, a nuclear programme pause treaty, default or the lack of a staffed and supplied Research Center" # UPDATED
+    je_develop_nuclear_weapons_reason:0 "Develop an independent #v Nuclear Weapons#! capability by completing #v 1500#! research points, researching #v $atomic_bomb$#! and operating a staffed and supplied #v $building_nuclear_weapons_silo$#!.\n\nMonthly progress is our [concept_research_capacity] minus 5, with a minimum of 1. War or a nuclear-armed rival doubles progress. The NPT, a pause treaty, default or loss of an operational Research Center suspends progress without erasing it." # UPDATED
+    je_develop_thermonuclear_weapons_reason:0 "Develop #v Thermonuclear Weapons#! by completing #v 2000#! research points and researching #v $second_nuclear_reactor$#!.\n\nMonthly progress is our [concept_research_capacity] minus 5, with a minimum of 1. War or a thermonuclear-armed rival triples progress. The NPT, a pause treaty, default or loss of an operational Research Center suspends progress without erasing it. We must retain nuclear capability to continue this programme." # UPDATED
+    signed_NPT_1_tt:0 "Suspends atomic and thermonuclear weapons research without erasing progress, prevents new weapons programmes and silo construction, and restricts nuclear first use. Existing arsenals are retained. Withdrawal is unavailable for at least #v 10 years#!." # UPDATED
+    signed_NPT_2_tt:0 "At least #v 10 years#! have passed since joining the Nuclear Non-Proliferation Treaty" # UPDATED
+    has_not_signed_nuclear_non_proliferation_treaty_tt:0 "Has not signed the #v Nuclear Non-Proliferation Treaty#!" # UPDATED
+    ztr_research_center_project_available_tt:0 "No other Research Center programme or fusion reactor construction project is active"
+    ztr_tested_nuclear_arsenal_tt:0 "Owns a staffed and supplied Nuclear Weapons Silo containing an arsenal that has already been tested"
+    ztr_nuclear_arsenal_ready:0 "Has an independent, operational nuclear arsenal ready to launch"
+    ztr_has_operational_nuclear_silo:0 "Has a staffed and supplied Nuclear Weapons Silo"
+    ztr_is_operational_nuclear_silo:0 "Is a completed Nuclear Weapons Silo with personnel and no goods shortages"
+    ztr_has_operational_research_center:0 "Has a staffed and supplied Research Center"
+    ztr_nuclear_research_paused:0 "Nuclear weapons research is paused"
+    ztr_nuclear_target_in_range:0 "The target is within nuclear delivery range"
+    ztr_nuclear_first_use_allowed:0 "Political and treaty conditions permit nuclear first use against this country"
+    ztr_can_launch_nuclear_strike:0 "Can launch a nuclear strike against this country"
+    ztr_can_retaliate_nuclear_strike:0 "Can retaliate against this country with a ready nuclear arsenal"
+    ztr_can_issue_nuclear_ultimatum:0 "Can support this ultimatum with an available nuclear arsenal"
+    nuclear_attack_cooldown:0 "Nuclear Arsenal Rearming (One Year)" # UPDATED
+    take_control_of_nuclear_arsenal_decision_desc:0 "Recover a tested nuclear arsenal in a staffed and supplied silo we own. This requires atomic bomb technology, independence and no NPT commitment. An unfinished programme or an untested prototype cannot provide nuclear capability." # UPDATED
+    gained_thermonuclear_capability.option:0 "Our nuclear arsenal is stronger than ever." # UPDATED
+    station_nuclear_weapons_proposal_notification_effects_desc:0 "Each host country strategically adjacent to a nuclear target reduces that target's defence by 10%. Delivery range still requires strategic adjacency to the attacker or operational ICBMs." # UPDATED
+    pause_nuclear_weapons_development_desc:0 "The source country pauses its atomic and thermonuclear weapons research for the duration of this [concept_article], retaining accumulated progress. The recipient's own research is unaffected." # UPDATED
+    pause_nuclear_weapons_development_effects_desc:0 "The source country's atomic and thermonuclear weapons research is suspended while this [concept_article] remains in force. Accumulated progress is preserved." # UPDATED
+    pause_nuclear_weapons_development_pact_desc:0 "The country providing this commitment suspends its atomic and thermonuclear weapons research, retaining accumulated progress." # UPDATED
+    pause_nuclear_weapons_development_proposal_accepted_name:0 "Nuclear Weapons Research Suspended" # UPDATED
+    pause_nuclear_weapons_development_proposal_accepted_desc:0 "The nuclear research pause agreement has been accepted. The country providing the commitment suspends its atomic and thermonuclear weapons programmes, retaining accumulated progress." # UPDATED
+    pause_nuclear_weapons_development_action_notification_name:0 "Nuclear Weapons Research Suspended" # UPDATED
+    pause_nuclear_weapons_development_action_notification_desc:0 "The source country has agreed to suspend its atomic and thermonuclear weapons programmes for the duration of the treaty." # UPDATED
+    pause_nuclear_weapons_development_proposal_notification_name:0 "Suspend Nuclear Weapons Research?" # UPDATED
+    pause_nuclear_weapons_development_proposal_notification_desc:0 "The proposed agreement would suspend the source country's atomic and thermonuclear weapons research without erasing accumulated progress." # UPDATED
+    pause_nuclear_weapons_development_proposal_notification_effects_desc:0 "Suspends the source country's atomic and thermonuclear weapons research while the agreement remains in force." # UPDATED
+    pause_nuclear_weapons_development_proposal_declined_desc:0 "The proposed nuclear research pause was rejected. No programme is suspended by this proposal." # UPDATED
+    nuclear_de_escalation_treaty_desc:0 "Both countries halve their effective nuclear strike power and refrain from stationing weapons in countries strategically adjacent to the other. A withdrawing country's strike power remains halved for five years."
+    nuclear_de_escalation_treaty_effects_desc:0 "Both countries' nuclear strike power is reduced by #v 50%#! while the treaty is active. A withdrawing country's power remains reduced for #v 5 years#!. Nuclear stationing agreements near the other party are restricted." # UPDATED
+    nuclear_de_escalation_treaty_pact_desc:0 "Both countries maintain reduced nuclear strike power and restrict nuclear stationing near each other." # UPDATED
+    nuclear_de_escalation_treaty_proposal_accepted_name:0 "Nuclear De-escalation Treaty Accepted" # UPDATED
+    nuclear_de_escalation_treaty_proposal_accepted_desc:0 "[INITIATOR_COUNTRY.GetName] and [TARGET_COUNTRY.GetName] have agreed to halve their nuclear strike power and restrict nuclear stationing near each other." # UPDATED
+    nuclear_de_escalation_treaty_proposal_notification_desc:0 "[INITIATOR_COUNTRY.GetName] and [TARGET_COUNTRY.GetName] would halve their nuclear strike power and restrict nuclear stationing near each other." # UPDATED
+    nuclear_de_escalation_treaty_proposal_notification_effects_desc:0 "Halves both countries' effective nuclear strike power. A withdrawing country's power remains reduced for five years." # UPDATED
+    nuclear_de_escalation_treaty_proposal_declined_desc:0 "[TARGET_COUNTRY.GetName] has rejected the proposed reduction of nuclear strike power and restrictions on nuclear stationing." # UPDATED
+    nuclear_ultimatum_white_peace_action_notification_desc:0 "The nuclear ultimatum has led to a nuclear exchange. Damage depends on operational arsenals, national defences and delivery range." # UPDATED
+    nuclear_ultimatum_white_peace_desc:0 "Demand a white peace backed by an available nuclear arsenal of our own or an ally in the same war. Refusal can trigger strikes against the opposing coalition and retaliation by countries with ready arsenals." # UPDATED
+    nuclear_ultimatum_white_peace_proposal_notification_effects_desc:0 "Refusal can trigger a nuclear exchange involving other participants in the war. Retaliation requires an operational arsenal that is not rearming and can reach its target." # UPDATED
+    nuclear_dev_cost:0 "Nuclear development cost" # UPDATED
+    hydrogen_bomb:0 "Hydrogen Bomb" # UPDATED
+    hydrogen_bomb_desc:0 "Thermonuclear weapons, also known as hydrogen bombs, represent the pinnacle of nuclear weapon technology. Unlike atomic bombs that rely solely on nuclear fission, thermonuclear weapons utilize a two-stage process that combines both fission and fusion reactions. The initial fission explosion generates the extreme temperatures and pressures necessary to ignite the fusion of hydrogen isotopes, resulting in an immensely powerful blast far exceeding that of traditional atomic bombs. The development of thermonuclear weapons has significantly altered the strategic landscape of global military power, introducing new considerations for deterrence, defense, and international relations." # UPDATED

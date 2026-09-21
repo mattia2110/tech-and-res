@@ -1,0 +1,215 @@
+﻿# Building scope. Staffing scales the contribution of each operational silo.
+ztr_nuclear_silo_strength = {
+	value = 0
+	if = { limit = { has_active_production_method = pm_atomic_bomb } add = 3 }
+	if = { limit = { has_active_production_method = pm_hydrogen_bomb } add = 12 }
+	if = { limit = { has_active_production_method = pm_nuclear_stockpile_2 } add = 2 }
+	if = { limit = { has_active_production_method = pm_nuclear_stockpile_3 } add = 4 }
+	if = { limit = { has_active_production_method = pm_nuclear_bomber } add = 1 }
+	if = { limit = { has_active_production_method = pm_icbms } add = 8 }
+	if = {
+		limit = { owner = { country_ship_type_fraction = { target = ship_type:ship_type_nuclear_submarine value > 0 } } }
+		add = 3
+	}
+	multiply = occupancy
+}
+
+# Country scope. Shared by launches and the information panel.
+ztr_nuclear_attack_strength = {
+	value = 0
+	every_scope_state = {
+		every_scope_building = {
+			limit = { ztr_is_operational_nuclear_silo = yes }
+			add = ztr_nuclear_silo_strength
+		}
+	}
+
+	if = {
+		limit = { has_technology_researched = guided_missiles gdp > 250000000 }
+		multiply = 1.20
+	}
+
+	if = {
+		limit = { has_technology_researched = anti_satellite_weapons gdp > 500000000 }
+		multiply = 1.10
+	}
+
+	if = {
+		limit = { has_technology_researched = directed_energy_weapons gdp > 1000000000 }
+		multiply = 1.10
+	}
+
+	if = {
+		limit = { has_technology_researched = electronic_warfare get_country_gdp_per > 10 }
+		add = 2
+	}
+
+	if = {
+		limit = { has_technology_researched = network_centric_warfare get_country_gdp_per > 20 }
+		add = 3
+	}
+
+	if = {
+		limit = { has_technology_researched = cyber_warfare get_country_gdp_per > 15 }
+		add = 1
+	}
+
+	if = {
+		limit = { has_technology_researched = stealth_technology gdp > 2000000000 }
+		add = 3
+	}
+
+	if = {
+		limit = { has_technology_researched = ai_warfare gdp > 3000000000 }
+		multiply = 1.10
+	}
+
+	if = {
+		limit = {
+			is_ai = yes
+		}
+		if = {
+			limit = { has_modifier = ztr_superpower }
+			multiply = 1.25
+		}
+
+		if = {
+			limit = { military_wage_level = very_low }
+			multiply = 0.5
+		}
+
+		if = {
+			limit = { military_wage_level = low }
+			multiply = 0.75
+		}
+
+		if = {
+			limit = { military_wage_level = high }
+			multiply = 1.2
+		}
+
+		if = {
+			limit = { military_wage_level = very_high }
+			multiply = 1.4
+		}
+	}
+	if = {
+		limit = {
+			OR = {
+				any_scope_treaty = { any_scope_article = { has_type = nuclear_de_escalation_treaty } }
+				has_modifier = recently_reduced_nukes
+			}
+		}
+		divide = 3
+	}
+	if = {
+		limit = {
+			OR = {
+				NOT = { has_modifier = nuclear_capability }
+				NOT = { ztr_has_operational_nuclear_silo = yes }
+				NOT = { has_law_or_variant = law_type:law_uranium_full_usage }
+				is_subject = yes
+			}
+		}
+		value = 0
+	}
+	min = 0
+}
+
+# Country scope. Positioning penalties are applied separately for each target.
+ztr_nuclear_defence_strength = {
+	value = 16
+	every_scope_state = { add = 0.2 }
+
+	if = {
+		limit = { has_technology_researched = radar get_country_gdp_per > 8 }
+		multiply = 1.05
+	}
+
+	if = {
+		limit = { has_technology_researched = satellites gdp > 250000000 }
+		multiply = 1.05
+	}
+
+	if = {
+		limit = { has_technology_researched = guided_missiles gdp > 250000000 }
+		add = 2
+	}
+
+	if = {
+		limit = { country_army_unit_type_fraction = { target = unit_type:combat_unit_type_rocket_artillery value > 0 } }
+		every_scope_state = {
+			limit = { any_scope_building = { ztr_is_operational_nuclear_silo = yes } }
+			add = 0.5
+		}
+	}
+
+	if = {
+		limit = { has_technology_researched = radar get_country_gdp_per > 8 }
+		add = 1
+	}
+
+	if = {
+		limit = { has_technology_researched = satellites gdp > 250000000}
+		add = 1.5
+	}
+
+	if = {
+		limit = { has_technology_researched = laser_guided_weapons gdp > 500000000  }
+		add = 0.5
+	}
+
+	if = {
+		limit = { has_technology_researched = directed_energy_weapons gdp > 1000000000 }
+		add = 1
+	}
+
+	if = {
+		limit = { has_technology_researched = electronic_countermeasures get_country_gdp_per > 10 }
+		add = 1
+	}
+
+	if = {
+		limit = { has_technology_researched = network_centric_warfare get_country_gdp_per > 20 }
+		add = 1.5
+	}
+
+	if = {
+		limit = { has_technology_researched = ai_warfare gdp > 3000000000 }
+		multiply = 1.10
+	}
+
+	if = {
+		limit = {
+			is_ai = yes
+		}
+		if = {
+			limit = { has_modifier = ztr_superpower }
+			multiply = 1.25
+		}
+
+		if = {
+			limit = { military_wage_level = very_low }
+			multiply = 0.8
+		}
+
+		if = {
+			limit = { military_wage_level = low }
+			multiply = 0.9
+		}
+
+		if = {
+			limit = { military_wage_level = high }
+			multiply = 1.25
+		}
+
+		if = {
+			limit = { military_wage_level = very_high }
+			multiply = 1.5
+		}
+	}
+
+	multiply = 0.25
+
+	min = 0.01
+}

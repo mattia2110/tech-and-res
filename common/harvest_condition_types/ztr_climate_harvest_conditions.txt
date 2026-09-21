@@ -135,14 +135,8 @@ ztr_megadrought = {
 	}
 
 	chance = {
-		value = 0.0010
+		value = 0.0015
 		multiply = ztr_gw_hc_chance_mult
-		if = {
-			limit = {
-				has_harvest_condition = drought
-			}
-			multiply = 2
-		}
 	}
 
 	color = { 168 122 24 }
@@ -216,11 +210,19 @@ ztr_hurricane = {
 	chance = {
 		value = 0.0020
 		multiply = ztr_gw_hc_chance_mult
-		# Northern hemisphere cyclone season
+		# Seasonal windows are mirrored between hemispheres.
 		if = {
 			limit = {
+				NOT = { is_in_geographic_region = ztr_geographic_region_southern_cyclone_landfall }
 				month >= 6
 				month <= 11
+			}
+			multiply = 1.5
+		}
+		else_if = {
+			limit = {
+				is_in_geographic_region = ztr_geographic_region_southern_cyclone_landfall
+				OR = { month = 12 month <= 5 }
 			}
 			multiply = 1.5
 		}
@@ -280,9 +282,6 @@ ztr_extreme_wildfire = {
 		state_infrastructure_mult = -0.05
 
 		# Subsistence
-		state_peasants_consumption_multiplier_add = 0.025
-
-		#Subsistence
 		state_peasants_consumption_multiplier_add = 0.03
 
 		# Mortality
@@ -326,8 +325,7 @@ ztr_extreme_wildfire = {
 	graphics = wildfire
 }
 
-# Stage 4 - Sea level rise. Very long duration: this is meant to read as
-# permanent land loss rather than as weather.
+# Stage 4 - Prolonged coastal inundation.
 ztr_coastal_flooding = {
 	trigger = {
 		has_game_rule = allow_ztr_climate_disasters
@@ -390,10 +388,7 @@ ztr_coastal_flooding = {
 		multiply = ztr_gw_hc_chance_mult
 		if = {
 			limit = {
-				OR = {
-					has_harvest_condition = flood
-					has_harvest_condition = ztr_hurricane
-				}
+				has_harvest_condition = flood
 			}
 			multiply = 1.5
 		}

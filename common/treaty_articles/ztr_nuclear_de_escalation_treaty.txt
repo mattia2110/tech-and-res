@@ -1,11 +1,11 @@
-nuclear_de_escalation_treaty = {
+﻿nuclear_de_escalation_treaty = {
 	kind = mutual
 	cost = 25
 
 	relations_progress_per_day = 1
 	relations_improvement_max = 80
 
-	icon = "gfx/interface/icons/lens_toolbar_icons/nuclear_de_escalation_treaty.dds"
+	icon = "gfx/interface/icons/event_icons/nuclear_capability.dds"
 
 	flags = {
 		can_be_renegotiated
@@ -28,12 +28,11 @@ nuclear_de_escalation_treaty = {
 	}
 
 	visible = {
-		is_not_revolutionary_or_decentralised = yes
+		is_revolutionary = no
+		NOT = { is_country_type = decentralized }
 		is_subject = no
 		
-		#THIS and TARGET have nukes
 		has_modifier = nuclear_capability
-		scope:other_country ?= { has_modifier = nuclear_capability }
 	}
 
 	possible = {
@@ -72,23 +71,20 @@ nuclear_de_escalation_treaty = {
 	}
 
 	requirement_to_maintain = {
-		
-		#Proper countries
-		is_not_revolutionary_or_decentralised = yes
-		scope:other_country = { is_not_revolutionary_or_decentralised = yes }
-		
-		#Both parties are sufficiently independent
-		is_subject = no
-		scope:other_country = { is_subject = no }
-		
-		#Neither parties are subjects of the other
-		scope:other_country = { NOT = { is_subject_of = ROOT } } 
-		NOT = { is_subject_of = scope:other_country }
-		
-		#THIS and TARGET have nukes
-		has_modifier = nuclear_capability
-		scope:other_country ?= { has_modifier = nuclear_capability }
-		
+		trigger = {
+			scope:first_country = {
+				is_revolutionary = no
+				NOT = { is_country_type = decentralized }
+				is_subject = no
+				has_modifier = nuclear_capability
+			}
+			scope:second_country = {
+				is_revolutionary = no
+				NOT = { is_country_type = decentralized }
+				is_subject = no
+				has_modifier = nuclear_capability
+			}
+		}
 	}
 	
 	can_withdraw = {  
@@ -121,39 +117,6 @@ nuclear_de_escalation_treaty = {
 			change_infamy = -10
 			scope:article_options.second_country = { change_infamy = -10 }
 			
-			#Rulers of both countries can win a nobel peace prize
-			nominate_ruler_for_nobel_peace_prize = yes
-			scope:article_options.second_country = { 
-				nominate_ruler_for_nobel_peace_prize = yes
-			}
-			
-			#Reset ABM
-			if = {
-				limit = { has_modifier = law_moderate_civil_defence_law }
-				add_modifier = { name = law_weak_civil_defence_law }
-			}
-			if = {
-				limit = { has_modifier = law_strong_civil_defence_law }
-				add_modifier = { name = law_weak_civil_defence_law }
-			}
-			if = {
-				limit = { has_modifier = law_very_strong_civil_defence_law }
-				add_modifier = { name = law_weak_civil_defence_law }
-			}
-			scope:article_options.second_country = {
-				if = {
-					limit = { has_modifier = law_moderate_civil_defence_law }
-					add_modifier = { name = law_weak_civil_defence_law }
-				}
-				if = {
-					limit = { has_modifier = law_strong_civil_defence_law }
-					add_modifier = { name = law_weak_civil_defence_law }
-				}
-				if = {
-					limit = { has_modifier = law_very_strong_civil_defence_law }
-					add_modifier = { name = law_weak_civil_defence_law }
-				}
-			}
 		}
 	}
 
@@ -163,12 +126,9 @@ nuclear_de_escalation_treaty = {
 			create_bidirectional_truce = { country = scope:non_withdrawing_country months = 12 }
 			change_relations = { country = scope:non_withdrawing_country value = -25 }
 			
-			#Nuclear power remains low for a while
+			#Withdrawal runs before the current treaty is removed.
 			if = {
 				limit = {  
-					NOT = { 
-						any_scope_treaty = { binds = scope:withdrawing_country any_scope_article = { has_type = nuclear_de_escalation_treaty } }
-					}
 					has_modifier = nuclear_capability
 				}
 				hidden_effect = { remove_modifier = recently_reduced_nukes }

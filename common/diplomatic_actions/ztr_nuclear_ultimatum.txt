@@ -17,7 +17,7 @@
 				has_diplomatic_pact = { who = scope:actor type = station_nuclear_weapons is_initiator = no }
 				is_at_war = yes
 				any_scope_war = {
-					is_warleader = root
+					is_warleader = prev
 				}
 			}
 		}
@@ -55,43 +55,7 @@
 	}
 
 	possible = {
-
-		#THIS has nuclear weapons or a country fighting on THIS's side has nuclear weapons
-		OR = {
-			has_modifier = nuclear_capability
-			AND = {
-				NOT = { has_modifier = nuclear_capability }
-				any_country = {
-					is_in_war_together = root
-					is_at_war = yes
-					any_scope_war = {
-						is_warleader = root
-					}
-					has_modifier = nuclear_capability
-				}
-			}
-		}
-
-		# If ICBM technology is not researched and nuclear weapon silo doesn't have ICBM production method, nuclear strike can be lauched only on neighboring countries
-		OR = {
-			AND = {
-				has_technology_researched = icbms
-				any_scope_state = {
-					any_scope_building = {
-						is_building_type = building_nuclear_weapons_silo
-						has_active_production_method = pm_icbms
-					}
-				}
-			}
-			has_strategic_adjacency = scope:target_country
-		}
-		#Only once a month
-		NOT = { has_modifier = nuclear_attack_cooldown }
-		
-		#Only radical leaders think of launching nukes
-		
-		#Only an independent country can issue ultimatums
-		is_subject = no	
+		ztr_can_issue_nuclear_ultimatum = yes
 	}
 	
 	accept_effect = {
@@ -138,7 +102,7 @@
 				has_diplomatic_pact = { who = scope:actor type = station_nuclear_weapons is_initiator = no }
 				has_war_with = scope:target_country
 				any_scope_war = {
-					is_warleader = root
+					is_warleader = prev
 					is_warleader = scope:target_country
 				}
 				is_diplomatic_play_enemy_of = scope:target_country
@@ -176,11 +140,10 @@
 	}
 
 	decline_effect = {
-		hidden_effect = {
-			#Fail safe in case parties peaced out before timer expired
-			
-			if = {
-				limit = {
+		if = {
+			limit = {
+				ztr_can_issue_nuclear_ultimatum = yes
+
 					OR = {
 						AND = {
 							any_scope_war = {
@@ -206,48 +169,38 @@
 							}
 						}
 					}
-				}
-			
-				#THIS gains infamy for unprovoked nuclear attack
-				create_incident = {
-					country = scope:target_country
-					value = 50
-				}
 				
-				#Notice
-				scope:actor = { save_scope_as = nuclear_war_actor }
-				scope:target_country = { save_scope_as = nuclear_war_target }
-				
-				#Start nuclear war
-				# This calculates damage between actor and target country
-				effect_launch_nuclear_weapons_to_target = yes
-
-				if = {
+			}
+			if = {
+				limit = { ztr_can_launch_nuclear_strike = { TARGET = scope:target_country } }
+				save_scope_as = ztr_nuclear_ultimatum_attacker
+			}
+			else = {
+				ordered_country = {
 					limit = {
-						NOT = { has_global_variable = ztr_atomic_bomb_first_use_var }
+						is_in_war_together = scope:actor
+						has_war_with = scope:target_country
+						any_scope_war = { is_war_participant = scope:actor is_war_participant = scope:target_country }
+						ztr_can_launch_nuclear_strike = { TARGET = scope:target_country }
 					}
-					every_country = {
-						limit = {
-							NOR = {
-								scope:actor = this
-								scope:target_country = this
-							}
-						}
-						trigger_event = nuclear_warfare_system.9
-					}
+					order_by = ztr_nuclear_attack_strength
+					max = 1
+					check_range_bounds = no
+					save_scope_as = ztr_nuclear_ultimatum_attacker
 				}
-
-				# This calculates damage between actor and all target allied countries
-				effect_launch_nuclear_weapons_to_all_enemy_countries = yes
-				# This calculates damage between target and all actor allied countries
-				effect_launch_nuclear_weapons_to_all_allied_countries = yes
-				# This will remove possible duplicates
-				effect_cleanup_nuclear_damage = yes
+			}
+			if = {
+				limit = { exists = scope:ztr_nuclear_ultimatum_attacker }
+				scope:ztr_nuclear_ultimatum_attacker = {
+					create_incident = { country = scope:target_country value = 50 }
+				}
+				ztr_launch_nuclear_exchange = {
+					ATTACKER = scope:ztr_nuclear_ultimatum_attacker
+					DEFENDER = scope:target_country
+					ESCALATE = yes
+				}
 			}
 		}
-		custom_tooltip = {
-			text = launch_nuclear_weapons.1.tt
-		}		
 	}
 	
 	ai = {

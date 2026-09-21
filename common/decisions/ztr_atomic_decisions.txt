@@ -157,7 +157,7 @@ leave_nuclear_non_proliferation_treaty_decision = {
 	}
 }
 
-# This decision is to give nuclear capability to countries if revolutionary side wins and country had already nuclear capability
+# Recover an existing tested arsenal after a change of government or ownership.
 take_control_of_nuclear_arsenal_decision = {
 	is_shown = {
 		#THIS doesn't have nuclear weapons
@@ -165,6 +165,7 @@ take_control_of_nuclear_arsenal_decision = {
 			has_modifier = nuclear_capability
 		}
 		any_scope_state = {
+			has_variable = ztr_tested_nuclear_arsenal
 			has_building = building_nuclear_weapons_silo
 		}
 		NOT = {
@@ -172,6 +173,15 @@ take_control_of_nuclear_arsenal_decision = {
 		}
 	}
 	possible = {
+		is_subject = no
+		is_revolutionary = no
+		is_secessionist = no
+		has_technology_researched = atomic_bomb
+		NOT = { has_variable = signed_nuclear_non_proliferation_treaty }
+		any_scope_state = {
+			has_variable = ztr_tested_nuclear_arsenal
+			any_scope_building = { ztr_is_operational_nuclear_silo = yes }
+		}
 		#THIS is a superpower or great power
 		country_rank >= rank_value:great_power
 		custom_tooltip = {
@@ -182,17 +192,8 @@ take_control_of_nuclear_arsenal_decision = {
 		}
 	}
 	when_taken = {
-		add_modifier = nuclear_capability
 		activate_law = law_type:law_uranium_full_usage
-		random_scope_state = {
-			limit = {
-				has_building = building_nuclear_weapons_silo
-				NOT = {
-					has_modifier = nuclear_weapon_site
-				}
-			}
-			add_modifier = nuclear_weapon_site
-		}
+		ztr_grant_nuclear_capability = yes
 	}
 	ai_chance = {
 		value = 1000

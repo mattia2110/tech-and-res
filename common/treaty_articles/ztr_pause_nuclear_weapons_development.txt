@@ -1,9 +1,9 @@
-pause_nuclear_weapons_development = {
+﻿pause_nuclear_weapons_development = {
 	kind = directed
 	cost = 50
 	relations_progress_per_day = 1
 	relations_improvement_max = 80
-	icon = "gfx/interface/icons/lens_toolbar_icons/pause_nuclear_weapons_development.dds"
+	icon = "gfx/interface/icons/event_icons/nuclear_program.dds"
 	flags = {
 		can_be_renegotiated
 		giftable
@@ -29,8 +29,6 @@ pause_nuclear_weapons_development = {
 		is_revolutionary = no
 		is_subject = no
 		ztr_is_un_member = yes
-		#THIS is developing nuclear weapons
-		has_journal_entry = je_develop_nuclear_weapons
 	}
 	possible = {
 		#THIS is interested in TARGET
@@ -54,27 +52,20 @@ pause_nuclear_weapons_development = {
 		}
 	}
 	requirement_to_maintain = {
-		#Proper countries
-		is_revolutionary = no
-		scope:other_country = {
-			is_revolutionary = no
-		}
-		#Both parties are sufficiently independent
-		is_subject = no
-		scope:other_country = {
-			is_subject = no
-		}
-		#Neither parties are subjects of the other
-		scope:other_country = {
-			NOT = {
-				is_subject_of = ROOT
+		trigger = {
+			scope:source_country = {
+				is_revolutionary = no
+				is_subject = no
+				OR = {
+					has_journal_entry = je_develop_nuclear_weapons
+					has_journal_entry = je_develop_thermonuclear_weapons
+				}
+			}
+			scope:target_country = {
+				is_revolutionary = no
+				is_subject = no
 			}
 		}
-		NOT = {
-			is_subject_of = scope:other_country
-		}
-		#THIS is developing nuclear weapons
-		has_journal_entry = je_develop_nuclear_weapons
 	}
 	can_withdraw = {
 		scope:source_country = {
@@ -102,10 +93,6 @@ pause_nuclear_weapons_development = {
 			}
 			#International community likes reduced nuclear arms race
 			change_infamy = -10
-			#Ruler of recipient can win a nobel peace prize
-			scope:article_options.target_country = {
-				nominate_ruler_for_nobel_peace_prize = yes
-			}
 		}
 	}
 	on_withdrawal = {
@@ -287,9 +274,7 @@ pause_nuclear_weapons_development = {
 			}
 			if = {
 				limit = {
-					ruler ?= {
-						has_ideology = ideology:ideology_autocratic
-					}
+					ztr_is_totalitarian = yes
 				}
 				add = {
 					desc = "DIPLOMATIC_ACCEPTANCE_JINGOISTIC_RULER"
@@ -298,9 +283,7 @@ pause_nuclear_weapons_development = {
 			}
 			if = {
 				limit = {
-					ruler ?= {
-						has_ideology = ideology:ideology_power_hungry
-					}
+					ztr_is_authoritarian = yes
 				}
 				add = {
 					desc = "DIPLOMATIC_ACCEPTANCE_JINGOISTIC_RULER"
@@ -309,9 +292,7 @@ pause_nuclear_weapons_development = {
 			}
 			if = {
 				limit = {
-					ruler ?= {
-						has_ideology = ideology:ideology_democratic
-					}
+					ztr_is_flawed_democratic = yes
 				}
 				add = {
 					desc = "DIPLOMATIC_ACCEPTANCE_JINGOISTIC_RULER"
@@ -320,9 +301,7 @@ pause_nuclear_weapons_development = {
 			}
 			if = {
 				limit = {
-					ruler ?= {
-						has_ideology = ideology:ideology_liberal
-					}
+					ztr_is_full_democratic = yes
 				}
 				add = {
 					desc = "DIPLOMATIC_ACCEPTANCE_JINGOISTIC_RULER"

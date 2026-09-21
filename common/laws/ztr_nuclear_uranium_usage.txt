@@ -1,4 +1,4 @@
-law_uranium_civil_usage = {
+﻿law_uranium_civil_usage = {
 	group = lawgroup_uranium_usage
 	
 	icon = "gfx/interface/icons/law_icons/law_uranium_civil_usage.dds"
@@ -18,7 +18,8 @@ law_uranium_civil_usage = {
 		custom_tooltip = {
 			text = nuclear_weapons_silo_destroy_tt
 			every_scope_state = {
-				limit = { has_modifier = nuclear_weapon_site}
+				limit = { OR = { has_building = building_nuclear_weapons_silo has_variable = ztr_tested_nuclear_arsenal } }
+				remove_variable = ztr_tested_nuclear_arsenal
 				if = {
 					limit = { has_building = building_nuclear_weapons_silo }
 					remove_building = building_nuclear_weapons_silo
@@ -76,7 +77,8 @@ law_uranium_ban = {
 		custom_tooltip = {
 			text = nuclear_weapons_silo_destroy_and_nuclear_power_plant_disabled_tt
 			every_scope_state = {
-				limit = { has_modifier = nuclear_weapon_site}
+				limit = { OR = { has_building = building_nuclear_weapons_silo has_variable = ztr_tested_nuclear_arsenal } }
+				remove_variable = ztr_tested_nuclear_arsenal
 				if = {
 					limit = { has_building = building_nuclear_weapons_silo }
 					remove_building = building_nuclear_weapons_silo

@@ -11,4 +11,3 @@
 - EU Better System with policies, and also move EU power bloc creation to a policy.
 
 ## BUG FIXES
-- There seems to be an issue with slavery laws that cause crashes.

@@ -1,6 +1,4 @@
 ﻿# Research Center panel (je_research_center)
-# Converted from start_nuclear_weapons_program_decision, logic kept identical:
-# is_shown -> visible, possible -> possible, when_taken -> effect, ai_chance -> ai_chance
 ztr_start_nuclear_weapons_program_button = {
 	name = "start_nuclear_weapons_program_decision"
 	desc = "start_nuclear_weapons_program_decision_desc"
@@ -12,7 +10,7 @@ ztr_start_nuclear_weapons_program_button = {
 			has_modifier = nuclear_capability
 		}
 		NOT = {
-			has_variable = nuclear_program_started
+			has_journal_entry = je_develop_nuclear_weapons
 		}
 		NOT = {
 			has_variable = signed_nuclear_non_proliferation_treaty
@@ -38,10 +36,20 @@ ztr_start_nuclear_weapons_program_button = {
 		is_subject = no
 		# THIS is not broke
 		in_default = no
+		ztr_nuclear_research_paused = no
 		# THIS is not in the midst of a revolution
 		has_revolution = no
-		# One programme at a time: eight years must pass before the Research Center
-		# can be turned onto another project.
+		# Projects cannot overlap, even after the launch cooldown expires.
+		custom_tooltip = {
+			text = ztr_research_center_project_available_tt
+			NOR = {
+				has_journal_entry = je_develop_nuclear_weapons
+				has_journal_entry = je_develop_thermonuclear_weapons
+				has_journal_entry = je_nuclear_power_program
+				has_journal_entry = je_fusion_reactor_research
+				has_journal_entry = je_fusion_reactor_construction
+			}
+		}
 		custom_tooltip = {
 			text = ztr_research_center_cooldown_tt
 			NOT = {
@@ -124,14 +132,15 @@ ztr_start_nuclear_weapons_program_button = {
 	}
 }
 
-# Converted from develop_thermonuclear_weapons_decision, logic kept identical
 ztr_develop_thermonuclear_weapons_button = {
 	name = "develop_thermonuclear_weapons_decision"
 	desc = "develop_thermonuclear_weapons_decision_desc"
 	visible = {
 		has_modifier = nuclear_capability
-		NOT = {
-			has_variable = thermonuclear_program_started
+		NOR = {
+			has_journal_entry = je_develop_thermonuclear_weapons
+			has_variable = thermonuclear_capability_var
+			has_technology_researched = hydrogen_bomb
 		}
 		NOT = {
 			has_variable = signed_nuclear_non_proliferation_treaty
@@ -154,10 +163,20 @@ ztr_develop_thermonuclear_weapons_button = {
 		is_subject = no
 		#THIS is not broke
 		in_default = no
+		ztr_nuclear_research_paused = no
 		#THIS is not in the midst of a revolution
 		has_revolution = no
-		# One programme at a time: eight years must pass before the Research Center
-		# can be turned onto another project.
+		# Projects cannot overlap, even after the launch cooldown expires.
+		custom_tooltip = {
+			text = ztr_research_center_project_available_tt
+			NOR = {
+				has_journal_entry = je_develop_nuclear_weapons
+				has_journal_entry = je_develop_thermonuclear_weapons
+				has_journal_entry = je_nuclear_power_program
+				has_journal_entry = je_fusion_reactor_research
+				has_journal_entry = je_fusion_reactor_construction
+			}
+		}
 		custom_tooltip = {
 			text = ztr_research_center_cooldown_tt
 			NOT = {
@@ -252,15 +271,24 @@ ztr_fusion_reactor_button = {
 			}
 		}
 		NOT = {
-			has_variable = fusion_reactor_var
+			has_journal_entry = je_fusion_reactor_research
 		}
 	}
 	possible = {
 		has_research_center = yes
 		produced_bureaucracy > 2500
 		has_technology_researched = smart_energy_grid
-		# One programme at a time: eight years must pass before the Research Center
-		# can be turned onto another project.
+		# Projects cannot overlap, even after the launch cooldown expires.
+		custom_tooltip = {
+			text = ztr_research_center_project_available_tt
+			NOR = {
+				has_journal_entry = je_develop_nuclear_weapons
+				has_journal_entry = je_develop_thermonuclear_weapons
+				has_journal_entry = je_nuclear_power_program
+				has_journal_entry = je_fusion_reactor_research
+				has_journal_entry = je_fusion_reactor_construction
+			}
+		}
 		custom_tooltip = {
 			text = ztr_research_center_cooldown_tt
 			NOT = {
@@ -312,11 +340,12 @@ ztr_nuclear_power_program_button = {
 	name = "ztr_nuclear_power_program_button"
 	desc = "ztr_nuclear_power_program_button_desc"
 	visible = {
+		has_technology_researched = verrier_nuclear_physics_tech
 		NOT = {
 			has_technology_researched = nuclear_reactor
 		}
 		NOT = {
-			has_variable = ztr_nuclear_power_program_started
+			has_journal_entry = je_nuclear_power_program
 		}
 	}
 	possible = {
@@ -330,8 +359,17 @@ ztr_nuclear_power_program_button = {
 		is_subject = no
 		# THIS is not broke
 		in_default = no
-		# One programme at a time: eight years must pass before the Research Center
-		# can be turned onto another project.
+		# Projects cannot overlap, even after the launch cooldown expires.
+		custom_tooltip = {
+			text = ztr_research_center_project_available_tt
+			NOR = {
+				has_journal_entry = je_develop_nuclear_weapons
+				has_journal_entry = je_develop_thermonuclear_weapons
+				has_journal_entry = je_nuclear_power_program
+				has_journal_entry = je_fusion_reactor_research
+				has_journal_entry = je_fusion_reactor_construction
+			}
+		}
 		custom_tooltip = {
 			text = ztr_research_center_cooldown_tt
 			NOT = {

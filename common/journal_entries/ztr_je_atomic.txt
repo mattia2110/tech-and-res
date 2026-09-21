@@ -44,6 +44,8 @@
 						}
 					}
 					is_ai = yes
+					has_technology_researched = atomic_bomb
+					ztr_nuclear_research_paused = no
 				}
 				random_scope_state = {
 					limit = {
@@ -65,26 +67,18 @@
 		has_technology_researched = atomic_bomb
 		custom_tooltip = {
 			text = je_develop_nuclear_weapons_1.tt
-			#Has at least 1 functional nuclear weapons building
-			any_scope_state = {
-				any_scope_building = {
-					is_building_type = building_nuclear_weapons_silo
-					level >= 1
-					building_has_goods_shortage = no
-				}
-			}
+			ztr_has_operational_nuclear_silo = yes
 		}
 		custom_tooltip = {
 			text = je_develop_nuclear_weapons_2.tt
-			NOT = {
-				any_scope_treaty = {
-					binds = ROOT
-					any_scope_article = {
-						has_type = pause_nuclear_weapons_development
-					}
-				}
-			}
+			ztr_nuclear_research_paused = no
 		}
+		has_variable = nuclear_program_started
+		has_law_or_variant = law_type:law_uranium_full_usage
+		NOT = { has_modifier = nuclear_capability }
+		is_subject = no
+		is_revolutionary = no
+		is_secessionist = no
 	}
 	on_complete = {
 		#Set nuclear capability
@@ -92,6 +86,7 @@
 			id = nuclear_warfare_system.1
 		}
 		remove_variable = nuclear_development_var
+		remove_variable = nuclear_program_started
 		#Add nuclear development cost
 		add_modifier = {
 			name = nuclear_dev_cost
@@ -103,12 +98,21 @@
 		NAND = {
 			#Country is actively developing nukes
 			has_variable = nuclear_program_started
+			NOT = { has_modifier = nuclear_capability }
 			#Has nuclear weapons law
 			#has_law_or_variant = law_type:law_wmd_allowed
 			has_law_or_variant = law_type:law_uranium_full_usage
 			#Must be a sovereign state
 			is_subject = no
+			is_revolutionary = no
+			is_secessionist = no
 		}
+	}
+	on_invalid = {
+		ztr_abandon_nuclear_weapons_program = yes
+	}
+	is_progressing = {
+		ztr_nuclear_research_paused = no
 	}
 	# zero or more static modifiers that will be applied to the Journal Entry when it activates, where they will propagate to the country
 	modifiers_while_active = {
@@ -136,8 +140,10 @@ je_develop_thermonuclear_weapons = {
 		#Must be a sovereign state
 		is_subject = no
 		#Has not already acquired nuclear weapons
-		NOT = {
+		has_variable = thermonuclear_program_started
+		NOR = {
 			has_variable = thermonuclear_capability_var
+			has_technology_researched = hydrogen_bomb
 		}
 	}
 	immediate = {
@@ -159,15 +165,19 @@ je_develop_thermonuclear_weapons = {
 		has_technology_researched = second_nuclear_reactor
 		custom_tooltip = {
 			text = je_develop_nuclear_weapons_2.tt
-			NOT = {
-				any_scope_treaty = {
-					binds = ROOT
-					any_scope_article = {
-						has_type = pause_nuclear_weapons_development
-					}
-				}
-			}
+			ztr_nuclear_research_paused = no
 		}
+		has_modifier = nuclear_capability
+		ztr_has_operational_nuclear_silo = yes
+		has_variable = thermonuclear_program_started
+		has_law_or_variant = law_type:law_uranium_full_usage
+		NOR = {
+			has_variable = thermonuclear_capability_var
+			has_technology_researched = hydrogen_bomb
+		}
+		is_subject = no
+		is_revolutionary = no
+		is_secessionist = no
 	}
 	on_complete = {
 		#Set nuclear capability
@@ -175,6 +185,7 @@ je_develop_thermonuclear_weapons = {
 			id = nuclear_warfare_system.10
 		}
 		remove_variable = thermonuclear_development_var
+		remove_variable = thermonuclear_program_started
 		#Add nuclear development cost
 		add_modifier = {
 			name = nuclear_dev_cost
@@ -184,15 +195,26 @@ je_develop_thermonuclear_weapons = {
 	}
 	invalid = {
 		NAND = {
-			#Country is actively developing nukes
-			has_variable = nuclear_program_started
+			has_modifier = nuclear_capability
+			NOR = {
+				has_variable = thermonuclear_capability_var
+				has_technology_researched = hydrogen_bomb
+			}
 			# This programme has not been abandoned
 			has_variable = thermonuclear_program_started
 			#Has nuclear weapons law
 			has_law_or_variant = law_type:law_uranium_full_usage
 			#Must be a sovereign state
 			is_subject = no
+			is_revolutionary = no
+			is_secessionist = no
 		}
+	}
+	on_invalid = {
+		ztr_abandon_thermonuclear_weapons_program = yes
+	}
+	is_progressing = {
+		ztr_nuclear_research_paused = no
 	}
 	# zero or more static modifiers that will be applied to the Journal Entry when it activates, where they will propagate to the country
 	modifiers_while_active = {
@@ -214,36 +236,20 @@ je_develop_thermonuclear_weapons = {
 je_nuclear_weapons_info_panel = {
 	icon = "gfx/interface/icons/event_icons/nuclear_capability.dds"
 	group = je_group_foreign_affairs
-	is_shown_when_inactive = {
-		has_global_variable = atomic_bomb_discovered
-	}
-	possible = {
-		has_global_variable = ztr_atomic_bomb_first_use_var
-	}
+	is_shown_when_inactive = { has_global_variable = atomic_bomb_discovered }
+	possible = { has_global_variable = ztr_atomic_bomb_first_use_var }
 	immediate = {
 		every_country = {
-			limit = {
-				has_variable = first_nuclear_country_var
-			}
+			limit = { has_variable = first_nuclear_country_var }
 			save_scope_as = first_nuclear_country
 		}
-	}
-	on_yearly_pulse = {
-		effect = {
-			every_country = {
-				limit = {
-					has_modifier = nuclear_capability
-				}
-				calculate_nuclear_strength_info = yes
-				calculate_nuclear_defence_info = yes
-				#calculate_enemy_nuclear_strength_info = yes
-				#calculate_allied_nuclear_strength_info = yes
-				#calculate_nuclear_arms_race_ratio = yes
-			}
-			ztr_nuclear_ranking_variables = yes
-			ztr_nuclear_strength_ranking_effect = yes
-			ztr_nuclear_defence_ranking_effect = yes
+		if = {
+			limit = { NOT = { has_global_variable = ztr_nuclear_scores_initialized } }
+			ztr_refresh_nuclear_scores = yes
 		}
+		ztr_nuclear_ranking_variables = yes
+		ztr_nuclear_strength_ranking_effect = yes
+		ztr_nuclear_defence_ranking_effect = yes
 	}
 	weight = 100
 	transferable = no

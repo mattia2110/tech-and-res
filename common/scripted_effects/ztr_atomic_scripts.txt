@@ -1,268 +1,4 @@
-effect_compute_nuclear_capability_points_attacker = {
-
-	#Always first reset to 0
-	remove_global_variable = nuclear_strike_power_global
-	set_global_variable = { 
-		name = nuclear_strike_power_global
-		value = 0
-	}
-
-	#Create total score from all working buildings (max score: 10/state)
-	
-	#Nuclear weapons type
-	every_scope_state = {
-		limit = { has_building = building_nuclear_weapons_silo any_scope_building = { has_active_production_method = pm_atomic_bomb } }
-		owner = { change_global_variable = { name = nuclear_strike_power_global add = 3 } }
-	}
-	every_scope_state = {
-		limit = { has_building = building_nuclear_weapons_silo any_scope_building = { has_active_production_method = pm_hydrogen_bomb } }
-		owner = { change_global_variable = { name = nuclear_strike_power_global add = 12 } }
-	}
-	
-	#Stockpile
-	every_scope_state = {
-		limit = { has_building = building_nuclear_weapons_silo any_scope_building = { has_active_production_method = pm_nuclear_stockpile_2 } }
-		owner = { change_global_variable = { name = nuclear_strike_power_global add = 2 } }
-	}
-	every_scope_state = {
-		limit = { has_building = building_nuclear_weapons_silo any_scope_building = { has_active_production_method = pm_nuclear_stockpile_3 } }
-		owner = { change_global_variable = { name = nuclear_strike_power_global add = 4 } }
-	}
-	
-	#Nuclear bomber
-	every_scope_state = {
-		limit = { has_building = building_nuclear_weapons_silo any_scope_building = { has_active_production_method = pm_nuclear_bomber } }
-		owner = { change_global_variable = { name = nuclear_strike_power_global add = 5 } }
-	}
-	
-	#Nuclear rocket
-	every_scope_state = {
-		limit = { has_building = building_nuclear_weapons_silo any_scope_building = { has_active_production_method = pm_icbms } }
-		owner = { change_global_variable = { name = nuclear_strike_power_global add = 15 } }
-	}
-
-	#Nuclear submarine
-	every_scope_state = {
-		limit = { has_building = building_nuclear_weapons_silo
-			# Country must have nuclear submarines
-			owner = { country_ship_type_fraction = { target = ship_type:ship_type_nuclear_submarine value > 0 } } }
-		owner = { change_global_variable = { name = nuclear_strike_power_global add = 10 } }
-	}
-
-	# Having guided missiles will increase nuclear defence by 5 points (Obsiously, this are true for countries with nuclear capability)
-	# Some technologies requires strong economies, other rich economies to develop them
-	if = {
-		limit = { has_technology_researched = guided_missiles gdp > 250000000 }
-		owner = { change_global_variable = { name = nuclear_strike_power_global multiply = 1.6 } }
-	}
-
-	if = {
-		limit = { has_technology_researched = anti_satellite_weapons gdp > 500000000 }
-		owner = { change_global_variable = { name = nuclear_strike_power_global multiply = 1.5 } }
-	}
-
-	if = {
-		limit = { has_technology_researched = directed_energy_weapons gdp > 1000000000 }
-		owner = { change_global_variable = { name = nuclear_strike_power_global multiply = 1.4 } }
-	}
-
-	if = {
-		limit = { has_technology_researched = electronic_warfare get_country_gdp_per > 10 }
-		owner = { change_global_variable = { name = nuclear_strike_power_global add = 5 } }
-	}
-
-	if = {
-		limit = { has_technology_researched = network_centric_warfare get_country_gdp_per > 20 }
-		owner = { change_global_variable = { name = nuclear_strike_power_global add = 8 } }
-	}
-
-	if = {
-		limit = { has_technology_researched = cyber_warfare get_country_gdp_per > 15 }
-		owner = { change_global_variable = { name = nuclear_strike_power_global add = 10 } }
-	}
-
-	if = {
-		limit = { has_technology_researched = stealth_technology gdp > 2000000000 }
-		owner = { change_global_variable = { name = nuclear_strike_power_global add = 10 } }
-	}
-
-	if = {
-		limit = { has_technology_researched = ai_warfare gdp > 3000000000 }
-		owner = { change_global_variable = { name = nuclear_strike_power_global multiply = 1.25 } }
-	}
-
-	# This are only for AI since Player could micromanage everything like cheating
-	if = {
-		limit = {
-			is_ai = yes
-		}
-		if = {
-			limit = { has_modifier = ztr_superpower }
-			owner = { change_global_variable = { name = nuclear_strike_power_global multiply = 1.25 } }
-		}
-
-		if = {
-			limit = { military_wage_level = very_low }
-			owner = { change_global_variable = { name = nuclear_strike_power_global multiply = 0.5 } }
-		}
-
-		if = {
-			limit = { military_wage_level = low }
-			owner = { change_global_variable = { name = nuclear_strike_power_global multiply = 0.75 } }
-		}
-
-		if = {
-			limit = { military_wage_level = high }
-			owner = { change_global_variable = { name = nuclear_strike_power_global multiply = 1.25 } }
-		}
-
-		if = {
-			limit = { military_wage_level = very_high }
-			owner = { change_global_variable = { name = nuclear_strike_power_global multiply = 1.5 } }
-		}
-	}
-}
-
-effect_compute_nuclear_capability_points_defense = {
-
-	#Always first reset to 0
-	remove_global_variable = nuclear_strike_defence_global
-	set_global_variable = { 
-		name = nuclear_strike_defence_global
-		value = 5
-	}
-
-	# Without any nuclear defense technology, country size is the only way to reduce impact of nuclear strike
-	# Some technologies requires strong economies, other rich economies to develop them
-	#Calculate total number of states
-	every_scope_state = { 
-		owner = { change_global_variable = { name = nuclear_strike_defence_global add = 0.5 }}
-	}
-
-	# Here we reduce a bit and gradually the impact of nuclear strike based on country size
-	if = {
-		limit = { has_technology_researched = radar get_country_gdp_per > 8 }
-		owner = { change_global_variable = { name = nuclear_strike_defence_global multiply = 0.9 } }
-	}
-
-	if = {
-		limit = { has_technology_researched = satellites gdp > 250000000 }
-		owner = { change_global_variable = { name = nuclear_strike_defence_global multiply = 0.9 } }
-	}
-
-	# Having guided missiles will increase nuclear defence by 5 points
-	if = {
-		limit = { has_technology_researched = guided_missiles gdp > 250000000 }
-		owner = { change_global_variable = { name = nuclear_strike_defence_global add = 4 } }
-	}
-
-	# Rocket Artillery can slightly improve nuclear defence
-	every_scope_state = {
-		limit = { has_building = building_nuclear_weapons_silo
-			# Country must have rocket artillery
-			country_army_unit_type_fraction = { target = unit_type:combat_unit_type_rocket_artillery value > 0 } }
-		owner = { change_global_variable = { name = nuclear_strike_defence_global add = 2 } }
-	}
-
-	if = {
-		limit = { has_technology_researched = radar get_country_gdp_per > 8 }
-		owner = { change_global_variable = { name = nuclear_strike_defence_global add = 4 } }
-	}
-
-	if = {
-		limit = { has_technology_researched = satellites gdp > 250000000}
-		owner = { change_global_variable = { name = nuclear_strike_defence_global add = 6 } }
-	}
-
-	if = {
-		limit = { has_technology_researched = laser_guided_weapons gdp > 500000000  }
-		owner = { change_global_variable = { name = nuclear_strike_defence_global add = 10 } }
-	}
-
-	if = {
-		limit = { has_technology_researched = directed_energy_weapons gdp > 1000000000 }
-		owner = { change_global_variable = { name = nuclear_strike_defence_global add = 14 } }
-	}
-
-	if = {
-		limit = { has_technology_researched = electronic_countermeasures get_country_gdp_per > 10 }
-		owner = { change_global_variable = { name = nuclear_strike_defence_global add = 8 } }
-	}
-
-	if = {
-		limit = { has_technology_researched = network_centric_warfare get_country_gdp_per > 20 }
-		owner = { change_global_variable = { name = nuclear_strike_defence_global add = 14 } }
-	}
-
-	if = {
-		limit = { has_technology_researched = ai_warfare gdp > 3000000000 }
-		owner = { change_global_variable = { name = nuclear_strike_defence_global multiply = 1.25 } }
-	}
-
-	# This are only for AI since Player could micromanage everything like cheating
-	if = {
-		limit = {
-			is_ai = yes
-		}
-		if = {
-			limit = { has_modifier = ztr_superpower }
-			owner = { change_global_variable = { name = nuclear_strike_defence_global multiply = 1.25 } }
-		}
-
-		if = {
-			limit = { military_wage_level = very_low }
-			owner = { change_global_variable = { name = nuclear_strike_defence_global multiply = 0.5 } }
-		}
-
-		if = {
-			limit = { military_wage_level = low }
-			owner = { change_global_variable = { name = nuclear_strike_defence_global multiply = 0.75 } }
-		}
-
-		if = {
-			limit = { military_wage_level = high }
-			owner = { change_global_variable = { name = nuclear_strike_defence_global multiply = 1.25 } }
-		}
-
-		if = {
-			limit = { military_wage_level = very_high }
-			owner = { change_global_variable = { name = nuclear_strike_defence_global multiply = 1.5 } }
-		}
-	}
-
-	owner = { change_global_variable = { name = nuclear_strike_defence_global multiply = 0.25 } }
-
-	# Would be cool to add a Dome Shield later to further reduce nuclear strike impact
-	# Would be cool to add the value of this defense in acceptance of a Nuclear Strike Treaty later
-}
-
-effect_compute_nuclear_capability_points_stationed_nukes_actor = {
-
-	#Reduce defence due to nuclear weapons stationed next to THIS
-	every_country = {
-		limit = { 
-			OR = { has_diplomatic_pact = { who = scope:actor type = station_nuclear_weapons } is_subject_of = scope:actor }
-			has_strategic_adjacency = scope:target_country
-		}
-		change_global_variable = { name = nuclear_strike_defence_global multiply = 0.9 }
-	}
-	
-}
-
-effect_compute_nuclear_capability_points_stationed_nukes_target_country = {
-
-	#Reduce defence due to nuclear weapons stationed next to THIS
-	every_country = {
-		limit = { 
-			OR = { has_diplomatic_pact = { who = scope:target_country type = station_nuclear_weapons } is_subject_of = scope:target_country }
-			has_strategic_adjacency = scope:actor
-		}
-		change_global_variable = { name = nuclear_strike_defence_global multiply = 0.9 }
-	}
-	
-}
-
-effect_tiny_nuclear_damage = {
+﻿effect_tiny_nuclear_damage = {
 
 	add_war_exhaustion = {
 		target = THIS
@@ -840,1182 +576,272 @@ effect_nuclear_war_destroy_city_buildings = {
 
 }
 
-effect_launch_nuclear_weapons_to_target = {
-
-	#Enable fallout system
-	#set_global_variable = nuclear_weapons_used_somewhere
-	
-	### Calculate strike capability ###
-
-	#Attacker's gross attack ability
-	effect_compute_nuclear_capability_points_attacker = yes
-	
-	#Defender's inherent defence
-	scope:target_country = {
-		effect_compute_nuclear_capability_points_defense = yes
-		effect_compute_nuclear_capability_points_stationed_nukes_actor = yes
-	}
-	#Aggregate score (Total attack points / Total states of defender)
-	change_global_variable = { 
-		name = nuclear_strike_power_global
-		divide = global_var:nuclear_strike_defence_global
-	}
-	
-	### Apply damage based on ratio calculated above ###
-	scope:target_country = {
-		if = {
-			limit = { 
-				global_var:nuclear_strike_power_global > 0
-				global_var:nuclear_strike_power_global <= 1 
-			}
-			custom_tooltip = {
-				text = tiny_nuclear_damage_custom_tooltip
-				effect_tiny_nuclear_damage = yes
-			}
-		}
-		else_if = {
-			limit = { 
-				global_var:nuclear_strike_power_global > 1
-				global_var:nuclear_strike_power_global <= 2 
-			}
-			custom_tooltip = {
-				text = very_low_nuclear_damage_custom_tooltip
-				effect_very_low_nuclear_damage = yes
-			}
-		}
-		else_if = {
-			limit = { 
-				global_var:nuclear_strike_power_global > 2
-				global_var:nuclear_strike_power_global <= 4 
-			}
-			custom_tooltip = {
-				text = low_nuclear_damage_custom_tooltip
-				effect_low_nuclear_damage = yes
-			}
-		}
-		else_if = {
-			limit = { 
-				global_var:nuclear_strike_power_global > 4
-				global_var:nuclear_strike_power_global <= 6 
-			}
-			custom_tooltip = {
-				text = medium_nuclear_damage_custom_tooltip
-				effect_medium_nuclear_damage = yes
-			}
-		}
-		else_if = {
-			limit = { 
-				global_var:nuclear_strike_power_global > 6
-				#global_var:nuclear_strike_power_global <= 8 
-			}
-			custom_tooltip = {
-				text = high_nuclear_damage_custom_tooltip
-				effect_high_nuclear_damage = yes
-			}
-		}
-		# else_if = {
-		# 	limit = { 
-		# 		global_var:nuclear_strike_power_global > 8
-		# 		#global_var:nuclear_strike_power_global <= 10 
-		# 	}
-		# 	custom_tooltip = {
-		# 		text = very_high_nuclear_damage_custom_tooltip
-		# 		effect_very_high_nuclear_damage = yes
-		# 	}
-		# }
-	}
-	
-	### Attacker Cooldown ###
-	hidden_effect = { remove_modifier = nuclear_attack_cooldown }
-	add_modifier = {
-		name = nuclear_attack_cooldown
-		years = 1
-	}
-	
-	### Possible Second Strike ###
-	if = {
-		limit = { 
-			scope:target_country = {
-				has_modifier = nuclear_capability
-				OR = {
-					AND = {
-						has_technology_researched = icbms
-						any_scope_state = {
-							any_scope_building = {
-								is_building_type = building_nuclear_weapons_silo
-								has_active_production_method = pm_icbms
-							}
-						}
-					}
-					has_strategic_adjacency = scope:actor
-				}
-			} 
-		}
-		
-		#Notice
-		scope:actor = { save_scope_as = nuclear_war_actor }
-		scope:target_country = {
-			custom_tooltip = {
-				text = launch_nuclear_weapons.2.tt
-			}
-		}
-		
-		### Calculate strike capability ###
-		#Attacker's gross attack ability
-		scope:target_country = {
-			effect_compute_nuclear_capability_points_attacker = yes
-		}
-		
-		#Defender's inherent defence
-		effect_compute_nuclear_capability_points_defense = yes
-		effect_compute_nuclear_capability_points_stationed_nukes_target_country = yes
-		
-		#Aggregate score (Total attack points / Total states of defender)
-		change_global_variable = { 
-			name = nuclear_strike_power_global
-			divide = global_var:nuclear_strike_defence_global
-		}
-		
-		### Apply damage based on ratio calculated above ###
-		if = {
-			limit = { 
-				global_var:nuclear_strike_power_global > 0
-				global_var:nuclear_strike_power_global <= 1 
-			}
-			custom_tooltip = {
-				text = tiny_nuclear_damage_custom_tooltip
-				effect_tiny_nuclear_damage = yes
-			}
-		}
-		else_if = {
-			limit = { 
-				global_var:nuclear_strike_power_global > 1
-				global_var:nuclear_strike_power_global <= 2 
-			}
-			custom_tooltip = {
-				text = very_low_nuclear_damage_custom_tooltip
-				effect_very_low_nuclear_damage = yes
-			}
-		}
-		else_if = {
-			limit = { 
-				global_var:nuclear_strike_power_global > 2
-				global_var:nuclear_strike_power_global <= 4 
-			}
-			custom_tooltip = {
-				text = low_nuclear_damage_custom_tooltip
-				effect_low_nuclear_damage = yes
-			}
-		}
-		else_if = {
-			limit = { 
-				global_var:nuclear_strike_power_global > 4
-				global_var:nuclear_strike_power_global <= 6 
-			}
-			custom_tooltip = {
-				text = medium_nuclear_damage_custom_tooltip
-				effect_medium_nuclear_damage = yes
-			}
-		}
-		else_if = {
-			limit = { 
-				global_var:nuclear_strike_power_global > 6
-				#global_var:nuclear_strike_power_global <= 8 
-			}
-			custom_tooltip = {
-				text = high_nuclear_damage_custom_tooltip
-				effect_high_nuclear_damage = yes
-			}
-		}
-		# else_if = {
-		# 	limit = { 
-		# 		global_var:nuclear_strike_power_global > 8
-		# 		#global_var:nuclear_strike_power_global <= 10 
-		# 	}
-		# 	custom_tooltip = {
-		# 		text = very_high_nuclear_damage_custom_tooltip
-		# 		effect_very_high_nuclear_damage = yes
-		# 	}
-		# }
-		
-		### Defender Cooldown ###
-		scope:target_country = {
-			hidden_effect = { 
-				remove_modifier = nuclear_attack_cooldown
-				add_modifier = {
-					name = nuclear_attack_cooldown
-					years = 1
-				}
-			}
-		}
-	}
-
-}
-
-effect_launch_nuclear_weapons_to_all_enemy_countries = {
-	
-	every_country = {
-		limit = { 
-			has_war_with = scope:actor
-			NOT = { this = scope:target_country }
-			any_scope_war = {
-				is_warleader = scope:actor
-				is_warleader = scope:target_country
-				#is_war_participant = this
-			}
-			OR = {
-				AND = {
-					has_technology_researched = icbms
-					any_scope_state = {
-						any_scope_building = {
-							is_building_type = building_nuclear_weapons_silo
-							has_active_production_method = pm_icbms
-						}
-					}
-				}
-				has_strategic_adjacency = this
-			}
-		}
-		
-		### Calculate strike capability ###
-		scope:actor = {
-			#Attacker's gross attack ability
-			effect_compute_nuclear_capability_points_attacker = yes
-		}
-		
-		#Notice
-		this = { save_scope_as = nuclear_war_target }
-		scope:actor = { save_scope_as = nuclear_war_actor }
-		custom_tooltip = {
-			text = launch_nuclear_weapons.3.tt
-		}
-		
-		#Defender's inherent defence
-		this = {
-			effect_compute_nuclear_capability_points_defense = yes
-			effect_compute_nuclear_capability_points_stationed_nukes_actor = yes
-		}
-		#Aggregate score (Total attack points / Total states of defender)
-		change_global_variable = { 
-			name = nuclear_strike_power_global
-			divide = global_var:nuclear_strike_defence_global
-		}
-		
-		### Apply damage based on ratio calculated above ###
-		this = {
-			if = {
-				limit = { 
-					global_var:nuclear_strike_power_global > 0
-					global_var:nuclear_strike_power_global <= 1 
-				}
-				effect_tiny_nuclear_damage = yes
-			}
-			else_if = {
-				limit = { 
-					global_var:nuclear_strike_power_global > 1
-					global_var:nuclear_strike_power_global <= 2 
-				}
-				effect_very_low_nuclear_damage = yes
-			}
-			else_if = {
-				limit = { 
-					global_var:nuclear_strike_power_global > 2
-					global_var:nuclear_strike_power_global <= 4 
-				}
-				effect_low_nuclear_damage = yes
-			}
-			else_if = {
-				limit = { 
-					global_var:nuclear_strike_power_global > 4
-					global_var:nuclear_strike_power_global <= 6 
-				}
-				effect_medium_nuclear_damage = yes
-			}
-			else_if = {
-				limit = { 
-					global_var:nuclear_strike_power_global > 6
-					#global_var:nuclear_strike_power_global <= 8 
-				}
-				effect_high_nuclear_damage = yes
-			}
-			# else_if = {
-			# 	limit = { 
-			# 		global_var:nuclear_strike_power_global > 8
-			# 		#global_var:nuclear_strike_power_global <= 10 
-			# 	}
-			# 	effect_very_high_nuclear_damage = yes
-			# }
-		}
-		
-		### Possible Second Strike ###
-		if = {
-			limit = { 
-				this = {
-					has_modifier = nuclear_capability
-					OR = {
-						AND = {
-							has_technology_researched = icbms
-							any_scope_state = {
-								any_scope_building = {
-									is_building_type = building_nuclear_weapons_silo
-									has_active_production_method = pm_icbms
-								}
-							}
-						}
-						has_strategic_adjacency = scope:actor
-					}
-				}
-			}
-			
-			#Notice
-			scope:actor = { save_scope_as = nuclear_war_actor }
-			this = {
-				save_scope_as = nuclear_war_target
-				custom_tooltip = {
-					text = launch_nuclear_weapons.4.tt
-				}
-			}
-			
-			### Calculate strike capability ###
-			#Attacker's gross attack ability
-			this = {
-				effect_compute_nuclear_capability_points_attacker = yes
-			}
-			
-			#Defender's inherent defence
-			effect_compute_nuclear_capability_points_defense = yes
-			effect_compute_nuclear_capability_points_stationed_nukes_target_country = yes
-			
-			#Aggregate score (Total attack points / Total states of defender)
-			change_global_variable = { 
-				name = nuclear_strike_power_global
-				divide = global_var:nuclear_strike_defence_global
-			}
-			
-			### Apply damage based on ratio calculated above ###
-			if = {
-				limit = { 
-					global_var:nuclear_strike_power_global > 0
-					global_var:nuclear_strike_power_global <= 1 
-				}
-				custom_tooltip = {
-					text = tiny_nuclear_damage_custom_tooltip
-					effect_tiny_nuclear_damage = yes
-				}
-			}
-			else_if = {
-				limit = { 
-					global_var:nuclear_strike_power_global > 1
-					global_var:nuclear_strike_power_global <= 2 
-				}
-				custom_tooltip = {
-					text = very_low_nuclear_damage_custom_tooltip
-					effect_very_low_nuclear_damage = yes
-				}
-			}
-			else_if = {
-				limit = { 
-					global_var:nuclear_strike_power_global > 2
-					global_var:nuclear_strike_power_global <= 4 
-				}
-				custom_tooltip = {
-					text = low_nuclear_damage_custom_tooltip
-					effect_low_nuclear_damage = yes
-				}
-			}
-			else_if = {
-				limit = { 
-					global_var:nuclear_strike_power_global > 4
-					global_var:nuclear_strike_power_global <= 6 
-				}
-				custom_tooltip = {
-					text = medium_nuclear_damage_custom_tooltip
-					effect_medium_nuclear_damage = yes
-				}
-			}
-			else_if = {
-				limit = { 
-					global_var:nuclear_strike_power_global > 6
-					#global_var:nuclear_strike_power_global <= 8 
-				}
-				custom_tooltip = {
-					text = high_nuclear_damage_custom_tooltip
-					effect_high_nuclear_damage = yes
-				}
-			}
-			# else_if = {
-			# 	limit = { 
-			# 		global_var:nuclear_strike_power_global > 8
-			# 		#global_var:nuclear_strike_power_global <= 10 
-			# 	}
-			# 	custom_tooltip = {
-			# 		text = very_high_nuclear_damage_custom_tooltip
-			# 		effect_very_high_nuclear_damage = yes
-			# 	}
-			# }
-			
-			### Defender Cooldown ###
-			this = {
-				hidden_effect = { 
-					remove_modifier = nuclear_attack_cooldown
-					add_modifier = {
-						name = nuclear_attack_cooldown
-						years = 1
-					}
-				}
-			}
-		}
-		
-	}
-
-}
-
-effect_launch_nuclear_weapons_to_all_allied_countries = {
-	
-	if = { 
-		limit = { 
-			scope:target_country = { has_modifier = nuclear_capability }
-		}
-		
-		every_country = {
-			limit = { 
-				has_war_with = scope:target_country
-				NOT = { this = scope:actor }
-				any_scope_war = {
-					is_warleader = scope:actor
-					is_warleader = scope:target_country
-					#is_war_participant = this
-				}
-				scope:target_country = {
-					OR = {
-						AND = {
-							has_technology_researched = icbms
-							any_scope_state = {
-								any_scope_building = {
-									is_building_type = building_nuclear_weapons_silo
-									has_active_production_method = pm_icbms
-								}
-							}
-						}
-						has_strategic_adjacency = this
-					}
-				}
-			}
-			
-			### Calculate strike capability ###
-			scope:target_country = {
-			
-				#Attacker's gross attack ability
-				effect_compute_nuclear_capability_points_attacker = yes
-			
-			}
-			
-			#Notice
-			this = { save_scope_as = nuclear_war_target }
-			scope:target_country = { save_scope_as = nuclear_war_actor }
-			custom_tooltip = {
-				text = launch_nuclear_weapons.3.tt
-			}
-			
-			#Defender's inherent defence
-			this = {
-				effect_compute_nuclear_capability_points_defense = yes
-				effect_compute_nuclear_capability_points_stationed_nukes_actor = yes
-			}
-			#Aggregate score (Total attack points / Total states of defender)
-			change_global_variable = { 
-				name = nuclear_strike_power_global
-				divide = global_var:nuclear_strike_defence_global
-			}
-			
-			### Apply damage based on ratio calculated above ###
-			this = {
-				if = {
-					limit = { 
-						global_var:nuclear_strike_power_global > 0
-						global_var:nuclear_strike_power_global <= 1 
-					}
-					effect_tiny_nuclear_damage = yes
-				}
-				else_if = {
-					limit = { 
-						global_var:nuclear_strike_power_global > 1
-						global_var:nuclear_strike_power_global <= 2 
-					}
-					effect_very_low_nuclear_damage = yes
-				}
-				else_if = {
-					limit = { 
-						global_var:nuclear_strike_power_global > 2
-						global_var:nuclear_strike_power_global <= 4 
-					}
-					effect_low_nuclear_damage = yes
-				}
-				else_if = {
-					limit = { 
-						global_var:nuclear_strike_power_global > 4
-						global_var:nuclear_strike_power_global <= 6 
-					}
-					effect_medium_nuclear_damage = yes
-				}
-				else_if = {
-					limit = { 
-						global_var:nuclear_strike_power_global > 6
-						#global_var:nuclear_strike_power_global <= 8 
-					}
-					effect_high_nuclear_damage = yes
-				}
-				# else_if = {
-				# 	limit = { 
-				# 		global_var:nuclear_strike_power_global > 8
-				# 		#global_var:nuclear_strike_power_global <= 10 
-				# 	}
-				# 	effect_very_high_nuclear_damage = yes
-				# }
-			}
-			
-			### Possible Second Strike ###
-			if = {
-				limit = { 
-					this = {
-						has_modifier = nuclear_capability
-						OR = {
-							AND = {
-								has_technology_researched = icbms
-								any_scope_state = {
-									any_scope_building = {
-										is_building_type = building_nuclear_weapons_silo
-										has_active_production_method = pm_icbms
-									}
-								}
-							}
-							has_strategic_adjacency = scope:target_country
-						}
-					}
-				}
-				
-				#Notice
-				scope:target_country = { save_scope_as = nuclear_war_actor }
-				this = {
-					save_scope_as = nuclear_war_target
-					custom_tooltip = {
-						text = launch_nuclear_weapons.4.tt
-					}
-				}
-				
-				### Calculate strike capability ###
-				#Attacker's gross attack ability
-				this = {
-					effect_compute_nuclear_capability_points_attacker = yes
-				}
-				
-				#Defender's inherent defence
-				effect_compute_nuclear_capability_points_defense = yes
-				effect_compute_nuclear_capability_points_stationed_nukes_target_country = yes
-				
-				#Aggregate score (Total attack points / Total states of defender)
-				change_global_variable = { 
-					name = nuclear_strike_power_global
-					divide = global_var:nuclear_strike_defence_global
-				}
-				
-				### Apply damage based on ratio calculated above ###
-				if = {
-					limit = { 
-						global_var:nuclear_strike_power_global > 0
-						global_var:nuclear_strike_power_global <= 1 
-					}
-					custom_tooltip = {
-						text = tiny_nuclear_damage_custom_tooltip
-						effect_tiny_nuclear_damage = yes
-					}
-				}
-				else_if = {
-					limit = { 
-						global_var:nuclear_strike_power_global > 1
-						global_var:nuclear_strike_power_global <= 2 
-					}
-					custom_tooltip = {
-						text = very_low_nuclear_damage_custom_tooltip
-						effect_very_low_nuclear_damage = yes
-					}
-				}
-				else_if = {
-					limit = { 
-						global_var:nuclear_strike_power_global > 2
-						global_var:nuclear_strike_power_global <= 4 
-					}
-					custom_tooltip = {
-						text = low_nuclear_damage_custom_tooltip
-						effect_low_nuclear_damage = yes
-					}
-				}
-				else_if = {
-					limit = { 
-						global_var:nuclear_strike_power_global > 4
-						global_var:nuclear_strike_power_global <= 6 
-					}
-					custom_tooltip = {
-						text = medium_nuclear_damage_custom_tooltip
-						effect_medium_nuclear_damage = yes
-					}
-				}
-				else_if = {
-					limit = { 
-						global_var:nuclear_strike_power_global > 6
-						#global_var:nuclear_strike_power_global <= 8 
-					}
-					custom_tooltip = {
-						text = high_nuclear_damage_custom_tooltip
-						effect_high_nuclear_damage = yes
-					}
-				}
-				# else_if = {
-				# 	limit = { 
-				# 		global_var:nuclear_strike_power_global > 8
-				# 		#global_var:nuclear_strike_power_global <= 10 
-				# 	}
-				# 	custom_tooltip = {
-				# 		text = very_high_nuclear_damage_custom_tooltip
-				# 		effect_very_high_nuclear_damage = yes
-				# 	}
-				# }
-				
-				### Defender Cooldown ###
-				this = {
-					hidden_effect = { 
-						remove_modifier = nuclear_attack_cooldown
-						add_modifier = {
-							name = nuclear_attack_cooldown
-							years = 1
-						}
-					}
-				}
-			}
-			
-		}
-
-	}
-	
-}
-
 effect_cleanup_nuclear_damage = {
-	every_country = {
-		every_scope_state = {
-			limit = {
+	every_scope_state = {
+		limit = {
+			OR = {
+				has_modifier = nuclear_damage_5
+				has_modifier = nuclear_damage_4
+				has_modifier = nuclear_damage_3
+				has_modifier = nuclear_damage_2
+				has_modifier = nuclear_damage_1
+			}
+		}
+		if = { 
+			limit = { 
+				has_modifier = nuclear_damage_5
 				OR = {
-					has_modifier = nuclear_damage_5
 					has_modifier = nuclear_damage_4
 					has_modifier = nuclear_damage_3
 					has_modifier = nuclear_damage_2
 					has_modifier = nuclear_damage_1
 				}
 			}
-			if = { 
-				limit = { 
-					has_modifier = nuclear_damage_5
-					OR = {
-						has_modifier = nuclear_damage_4
-						has_modifier = nuclear_damage_3
-						has_modifier = nuclear_damage_2
-						has_modifier = nuclear_damage_1
-					}
-				}
-				remove_modifier = nuclear_damage_4
-				remove_modifier = nuclear_damage_3
-				remove_modifier = nuclear_damage_2
-				remove_modifier = nuclear_damage_1
-			}
-			if = { 
-				limit = { 
-					has_modifier = nuclear_damage_4
-					OR = {
-						has_modifier = nuclear_damage_3
-						has_modifier = nuclear_damage_2
-						has_modifier = nuclear_damage_1
-					}
-				}
-				remove_modifier = nuclear_damage_3
-				remove_modifier = nuclear_damage_2
-				remove_modifier = nuclear_damage_1
-			}
-			if = { 
-				limit = { 
+			remove_modifier = nuclear_damage_4
+			remove_modifier = nuclear_damage_3
+			remove_modifier = nuclear_damage_2
+			remove_modifier = nuclear_damage_1
+		}
+		if = { 
+			limit = { 
+				has_modifier = nuclear_damage_4
+				OR = {
 					has_modifier = nuclear_damage_3
-					OR = {
-						has_modifier = nuclear_damage_2
-						has_modifier = nuclear_damage_1
-					}
-				}
-				remove_modifier = nuclear_damage_2
-				remove_modifier = nuclear_damage_1
-			}
-			if = { 
-				limit = { 
 					has_modifier = nuclear_damage_2
 					has_modifier = nuclear_damage_1
 				}
-				remove_modifier = nuclear_damage_1
 			}
+			remove_modifier = nuclear_damage_3
+			remove_modifier = nuclear_damage_2
+			remove_modifier = nuclear_damage_1
+		}
+		if = { 
+			limit = { 
+				has_modifier = nuclear_damage_3
+				OR = {
+					has_modifier = nuclear_damage_2
+					has_modifier = nuclear_damage_1
+				}
+			}
+			remove_modifier = nuclear_damage_2
+			remove_modifier = nuclear_damage_1
+		}
+		if = { 
+			limit = { 
+				has_modifier = nuclear_damage_2
+				has_modifier = nuclear_damage_1
+			}
+			remove_modifier = nuclear_damage_1
 		}
 	}
 }
 
-### Nuclear Weapon Info Panel ###
 
-calculate_nuclear_strength_info = {
-
-	#Always first reset to 0
-	set_variable = { 
-		name = nuclear_strike_power_display
-		value = 0
-	}
-
-	#Create total score from all working buildings (max score: 10/state)
-	
-	#Nuclear weapons type
-	every_scope_state = {
-		limit = { has_building = building_nuclear_weapons_silo any_scope_building = { has_active_production_method = pm_atomic_bomb } }
-		owner = { change_variable = { name = nuclear_strike_power_display add = 3 } }
-	}
-	every_scope_state = {
-		limit = { has_building = building_nuclear_weapons_silo any_scope_building = { has_active_production_method = pm_hydrogen_bomb } }
-		owner = { change_variable = { name = nuclear_strike_power_display add = 12 } }
-	}
-	
-	#Stockpile
-	every_scope_state = {
-		limit = { has_building = building_nuclear_weapons_silo any_scope_building = { has_active_production_method = pm_nuclear_stockpile_2 } }
-		owner = { change_variable = { name = nuclear_strike_power_display add = 2 } }
-	}
-	every_scope_state = {
-		limit = { has_building = building_nuclear_weapons_silo any_scope_building = { has_active_production_method = pm_nuclear_stockpile_3 } }
-		owner = { change_variable = { name = nuclear_strike_power_display add = 4 } }
-	}
-	
-	#Nuclear bomber
-	every_scope_state = {
-		limit = { has_building = building_nuclear_weapons_silo any_scope_building = { has_active_production_method = pm_nuclear_bomber } }
-		owner = { change_variable = { name = nuclear_strike_power_display add = 5 } }
-	}
-	
-	#Nuclear rocket
-	every_scope_state = {
-		limit = { has_building = building_nuclear_weapons_silo any_scope_building = { has_active_production_method = pm_icbms } }
-		owner = { change_variable = { name = nuclear_strike_power_display add = 15 } }
-	}
-
-	#Nuclear submarine
-	every_scope_state = {
-		limit = { has_building = building_nuclear_weapons_silo
-			# Country must have nuclear submarines
-			owner = { country_ship_type_fraction = { target = ship_type:ship_type_nuclear_submarine value > 0 } } }
-		owner = { change_variable = { name = nuclear_strike_power_display add = 10 } }
-	}
-
-	# Having guided missiles will increase nuclear defence by 5 points (Obsiously, this are true for countries with nuclear capability)
-	# Some technologies requires strong economies, other rich economies to develop them
-	if = {
-		limit = { has_technology_researched = guided_missiles gdp > 250000000 }
-		owner = { change_variable = { name = nuclear_strike_power_display multiply = 1.6 } }
-	}
-
-	if = {
-		limit = { has_technology_researched = anti_satellite_weapons gdp > 500000000 }
-		owner = { change_variable = { name = nuclear_strike_power_display multiply = 1.5 } }
-	}
-
-	if = {
-		limit = { has_technology_researched = directed_energy_weapons gdp > 1000000000 }
-		owner = { change_variable = { name = nuclear_strike_power_display multiply = 1.4 } }
-	}
-
-	if = {
-		limit = { has_technology_researched = electronic_warfare get_country_gdp_per > 10 }
-		owner = { change_variable = { name = nuclear_strike_power_display add = 5 } }
-	}
-
-	if = {
-		limit = { has_technology_researched = network_centric_warfare get_country_gdp_per > 20 }
-		owner = { change_variable = { name = nuclear_strike_power_display add = 8 } }
-	}
-
-	if = {
-		limit = { has_technology_researched = cyber_warfare get_country_gdp_per > 15 }
-		owner = { change_variable = { name = nuclear_strike_power_display add = 10 } }
-	}
-
-	if = {
-		limit = { has_technology_researched = stealth_technology gdp > 2000000000 }
-		owner = { change_variable = { name = nuclear_strike_power_display add = 10 } }
-	}
-
-	if = {
-		limit = { has_technology_researched = ai_warfare gdp > 3000000000 }
-		owner = { change_variable = { name = nuclear_strike_power_display multiply = 1.25 } }
-	}
-
-	# This are only for AI since Player could micromanage everything like cheating
+# One strike; ATTACKER and DEFENDER are explicit country scopes.
+# Cooldown is checked before an exchange, allowing its salvo to reach several targets.
+ztr_apply_nuclear_strike = {
 	if = {
 		limit = {
-			is_ai = yes
-		}
-		if = {
-			limit = { has_modifier = ztr_superpower }
-			owner = { change_variable = { name = nuclear_strike_power_display multiply = 1.25 } }
-		}
-
-		if = {
-			limit = { military_wage_level = very_low }
-			owner = { change_variable = { name = nuclear_strike_power_display multiply = 0.5 } }
-		}
-
-		if = {
-			limit = { military_wage_level = low }
-			owner = { change_variable = { name = nuclear_strike_power_display multiply = 0.75 } }
-		}
-
-		if = {
-			limit = { military_wage_level = high }
-			owner = { change_variable = { name = nuclear_strike_power_display multiply = 1.25 } }
-		}
-
-		if = {
-			limit = { military_wage_level = very_high }
-			owner = { change_variable = { name = nuclear_strike_power_display multiply = 1.5 } }
-		}
-	}
-	
-	#Reduce nuclear power due to nuclear disarmament treaty
-	if = {
-		limit = { 
-			OR = { 
-				any_scope_treaty = { binds = root any_scope_article = { has_type = nuclear_de_escalation_treaty } }
-				has_modifier = recently_reduced_nukes
+			$ATTACKER$ = {
+				has_modifier = nuclear_capability
+				ztr_has_operational_nuclear_silo = yes
+				ztr_nuclear_target_in_range = { TARGET = $DEFENDER$ }
+				NOT = { this = $DEFENDER$ }
+				ztr_nuclear_attack_strength > 0
 			}
 		}
-		change_variable = { name = nuclear_strike_power_display divide = 2 }
+		$ATTACKER$ = { save_scope_as = nuclear_war_actor }
+		$DEFENDER$ = {
+			save_scope_as = nuclear_war_target
+			set_variable = { name = ztr_nuclear_target_defence value = ztr_nuclear_defence_strength }
+		}
+		every_country = {
+			limit = {
+				OR = {
+					has_diplomatic_pact = { who = $ATTACKER$ type = station_nuclear_weapons is_initiator = no }
+					is_subject_of = $ATTACKER$
+				}
+				has_strategic_adjacency = $DEFENDER$
+				NOT = { this = $DEFENDER$ }
+			}
+			$DEFENDER$ = { change_variable = { name = ztr_nuclear_target_defence multiply = 0.9 } }
+		}
+		$DEFENDER$ = {
+			set_variable = {
+				name = ztr_nuclear_damage_ratio
+				value = {
+					value = $ATTACKER$.ztr_nuclear_attack_strength
+					divide = { value = var:ztr_nuclear_target_defence min = 0.01 }
+				}
+			}
+			custom_tooltip = {
+				text = launch_nuclear_weapons.1.tt
+				if = {
+					limit = { var:ztr_nuclear_damage_ratio <= 1 }
+					effect_tiny_nuclear_damage = yes
+				}
+				else_if = {
+					limit = { var:ztr_nuclear_damage_ratio <= 2 }
+					effect_very_low_nuclear_damage = yes
+				}
+				else_if = {
+					limit = { var:ztr_nuclear_damage_ratio <= 4 }
+					effect_low_nuclear_damage = yes
+				}
+				else_if = {
+					limit = { var:ztr_nuclear_damage_ratio <= 6 }
+					effect_medium_nuclear_damage = yes
+				}
+				else = { effect_high_nuclear_damage = yes }
+			}
+			effect_cleanup_nuclear_damage = yes
+			remove_variable = ztr_nuclear_damage_ratio
+			remove_variable = ztr_nuclear_target_defence
+		}
+		$ATTACKER$ = {
+			remove_modifier = nuclear_attack_cooldown
+			add_modifier = { name = nuclear_attack_cooldown years = 1 }
+		}
+		# Capture the first impact before any retaliation overwrites presentation scopes.
+		if = {
+			limit = { NOT = { has_global_variable = ztr_atomic_bomb_first_use_var } }
+			set_global_variable = ztr_atomic_bomb_first_use_var
+			$ATTACKER$ = { save_scope_as = ztr_first_nuclear_attacker }
+			$DEFENDER$ = { save_scope_as = ztr_first_nuclear_defender }
+			scope:nuclear_striked_state_target = { save_scope_as = ztr_first_nuclear_state }
+			every_country = {
+				limit = {
+					NOR = { this = $ATTACKER$ this = $DEFENDER$ }
+				}
+				trigger_event = nuclear_warfare_system.9
+			}
+		}
 	}
+}
+
+ztr_nuclear_strike_and_response = {
+	if = {
+		limit = {
+			$ATTACKER$ = {
+				ztr_nuclear_attack_strength > 0
+				ztr_nuclear_target_in_range = { TARGET = $DEFENDER$ }
+				NOT = { this = $DEFENDER$ }
+			}
+		}
+		ztr_apply_nuclear_strike = { ATTACKER = $ATTACKER$ DEFENDER = $DEFENDER$ }
+		if = {
+			limit = { $DEFENDER$ = { ztr_can_retaliate_nuclear_strike = { TARGET = $ATTACKER$ } } }
+			ztr_apply_nuclear_strike = { ATTACKER = $DEFENDER$ DEFENDER = $ATTACKER$ }
+		}
+	}
+}
+
+# Diplomatic action entry point. The saved leaders remain fixed for the whole exchange.
+ztr_launch_nuclear_exchange = {
+	$ATTACKER$ = { save_scope_as = ztr_nuclear_exchange_attacker }
+	$DEFENDER$ = { save_scope_as = ztr_nuclear_exchange_defender }
+	if = {
+		limit = { $DEFENDER$ = { ztr_nuclear_arsenal_ready = yes } }
+		$DEFENDER$ = { save_scope_as = ztr_nuclear_retaliating_leader }
+	}
+	# The protected war leader may be hosting an arsenal owned by a nonparticipant.
+	if = {
+		limit = { $ATTACKER$ = { has_war_with = $DEFENDER$ } }
+		$ATTACKER$ = { save_scope_as = ztr_nuclear_protected_warleader }
+	}
+	else = {
+		random_country = {
+			limit = {
+				has_diplomatic_pact = { who = $ATTACKER$ type = station_nuclear_weapons is_initiator = no }
+				has_war_with = $DEFENDER$
+				any_scope_war = { is_warleader = prev is_warleader = $DEFENDER$ }
+			}
+			save_scope_as = ztr_nuclear_protected_warleader
+		}
+	}
+	ztr_nuclear_strike_and_response = {
+		ATTACKER = scope:ztr_nuclear_exchange_attacker
+		DEFENDER = scope:ztr_nuclear_exchange_defender
+	}
+	if = {
+		limit = { always = $ESCALATE$ exists = scope:ztr_nuclear_protected_warleader }
+		every_country = {
+			limit = {
+				has_war_with = scope:ztr_nuclear_protected_warleader
+				NOT = { this = scope:ztr_nuclear_exchange_defender }
+				is_revolutionary = no
+				is_secessionist = no
+				any_scope_war = {
+					is_war_participant = scope:ztr_nuclear_protected_warleader
+					is_war_participant = scope:ztr_nuclear_exchange_defender
+				}
+			}
+			save_scope_as = ztr_nuclear_secondary_target
+			if = {
+				limit = {
+					scope:ztr_nuclear_exchange_attacker = {
+						ztr_nuclear_target_in_range = { TARGET = scope:ztr_nuclear_secondary_target }
+					}
+				}
+				ztr_nuclear_strike_and_response = {
+					ATTACKER = scope:ztr_nuclear_exchange_attacker
+					DEFENDER = scope:ztr_nuclear_secondary_target
+				}
+			}
+		}
+		if = {
+			limit = { exists = scope:ztr_nuclear_retaliating_leader }
+			every_country = {
+				limit = {
+					has_war_with = scope:ztr_nuclear_exchange_defender
+					NOT = { this = scope:ztr_nuclear_exchange_attacker }
+					is_revolutionary = no
+					is_secessionist = no
+					any_scope_war = {
+						is_war_participant = scope:ztr_nuclear_protected_warleader
+						is_war_participant = scope:ztr_nuclear_exchange_defender
+					}
+				}
+				save_scope_as = ztr_nuclear_secondary_target
+				if = {
+					limit = {
+						scope:ztr_nuclear_exchange_defender = {
+							ztr_nuclear_target_in_range = { TARGET = scope:ztr_nuclear_secondary_target }
+						}
+					}
+					ztr_nuclear_strike_and_response = {
+						ATTACKER = scope:ztr_nuclear_exchange_defender
+						DEFENDER = scope:ztr_nuclear_secondary_target
+					}
+				}
+			}
+		}
+	}
+	ztr_refresh_nuclear_scores = yes
+}
+
+calculate_nuclear_strength_info = {
+	set_variable = { name = nuclear_strike_power_display value = ztr_nuclear_attack_strength }
 }
 
 calculate_nuclear_defence_info = {
+	set_variable = { name = nuclear_strike_defence_display value = ztr_nuclear_defence_strength }
+}
 
-	#Always first reset to 0
-	set_variable = { 
-		name = nuclear_strike_defence_display
-		value = 0
-	}
-
-	# Without any nuclear defense technology, country size is the only way to reduce impact of nuclear strike
-	# Some technologies requires strong economies, other rich economies to develop them
-	#Calculate total number of states
-	every_scope_state = { 
-		owner = { change_variable = { name = nuclear_strike_defence_display add = 0.5 }}
-	}
-
-	# Here we reduce a bit and gradually the impact of nuclear strike based on country size
-	if = {
-		limit = { has_technology_researched = radar get_country_gdp_per > 8 }
-		owner = { change_variable = { name = nuclear_strike_defence_display multiply = 0.9 } }
-	}
-
-	if = {
-		limit = { has_technology_researched = satellites gdp > 250000000 }
-		owner = { change_variable = { name = nuclear_strike_defence_display multiply = 0.9 } }
-	}
-
-	# Having guided missiles will increase nuclear defence by 5 points
-	if = {
-		limit = { has_technology_researched = guided_missiles gdp > 250000000 }
-		owner = { change_variable = { name = nuclear_strike_defence_display add = 5 } }
-	}
-
-	# Rocket Artillery can slightly improve nuclear defence
-	every_scope_state = {
-		limit = { has_building = building_nuclear_weapons_silo
-			# Country must have rocket artillery
-			country_army_unit_type_fraction = { target = unit_type:combat_unit_type_rocket_artillery value > 0 } }
-		owner = { change_variable = { name = nuclear_strike_defence_display add = 2 } }
-	}
-
-	if = {
-		limit = { has_technology_researched = radar get_country_gdp_per > 8 }
-		owner = { change_variable = { name = nuclear_strike_defence_display add = 5 } }
-	}
-
-	if = {
-		limit = { has_technology_researched = satellites gdp > 250000000}
-		owner = { change_variable = { name = nuclear_strike_defence_display add = 7 } }
-	}
-
-	if = {
-		limit = { has_technology_researched = laser_guided_weapons gdp > 500000000  }
-		owner = { change_variable = { name = nuclear_strike_defence_display add = 10 } }
-	}
-
-	if = {
-		limit = { has_technology_researched = directed_energy_weapons gdp > 1000000000 }
-		owner = { change_variable = { name = nuclear_strike_defence_display add = 15 } }
-	}
-
-	if = {
-		limit = { has_technology_researched = electronic_countermeasures get_country_gdp_per > 10 }
-		owner = { change_variable = { name = nuclear_strike_defence_display add = 8 } }
-	}
-
-	if = {
-		limit = { has_technology_researched = network_centric_warfare get_country_gdp_per > 20 }
-		owner = { change_variable = { name = nuclear_strike_defence_display add = 15 } }
-	}
-
-	if = {
-		limit = { has_technology_researched = ai_warfare gdp > 3000000000 }
-		owner = { change_variable = { name = nuclear_strike_defence_display multiply = 1.25 } }
-	}
-
-	# This are only for AI since Player could micromanage everything like cheating
-	if = {
+# One world scan per annual pulse or nuclear exchange, not one per country panel.
+ztr_refresh_nuclear_scores = {
+	set_global_variable = ztr_nuclear_scores_initialized
+	every_country = {
 		limit = {
-			is_ai = yes
-		}
-		if = {
-			limit = { has_modifier = ztr_superpower }
-			owner = { change_variable = { name = nuclear_strike_defence_display multiply = 1.25 } }
-		}
-
-		if = {
-			limit = { military_wage_level = very_low }
-			owner = { change_variable = { name = nuclear_strike_defence_display multiply = 0.5 } }
-		}
-
-		if = {
-			limit = { military_wage_level = low }
-			owner = { change_variable = { name = nuclear_strike_defence_display multiply = 0.75 } }
-		}
-
-		if = {
-			limit = { military_wage_level = high }
-			owner = { change_variable = { name = nuclear_strike_defence_display multiply = 1.25 } }
-		}
-
-		if = {
-			limit = { military_wage_level = very_high }
-			owner = { change_variable = { name = nuclear_strike_defence_display multiply = 1.5 } }
-		}
-	}
-
-	owner = { change_variable = { name = nuclear_strike_defence_display multiply = 0.25 } }
-
-	# Would be cool to add a Dome Shield later to further reduce nuclear strike impact
-	# Would be cool to add the value of this defense in acceptance of a Nuclear Strike Treaty later
-}
-
-calculate_enemy_nuclear_strength_info = {
-	
-	#Always first reset to 0
-	set_variable = { 
-		name = nuclear_strike_power_enemy_display
-		value = 0
-	}
-	set_variable = { 
-		name = nuclear_strike_defence_enemy_display
-		value = 0
-	}
-	set_variable = { 
-		name = nuclear_enemy_counter_display
-		value = 1
-	}
-
-	#Calculate enemy nuclear strength
-	every_country = {
-		limit = { 
-			NOT = { THIS = ROOT }
-			has_modifier = nuclear_capability 
-			
-			has_variable = nuclear_strike_power_display
-			has_variable = nuclear_strike_defence_display
-			
-			OR = { 
-				relations:root < relations_threshold:poor
-				has_diplomatic_pact = { who = ROOT type = rivalry }
-			}
+			OR = { has_modifier = nuclear_capability has_variable = nuclear_strike_power_display }
 		}
 		calculate_nuclear_strength_info = yes
 		calculate_nuclear_defence_info = yes
-		
-		set_global_variable = {
-			name = nuclear_strike_power_enemy_display_global
-			value = this.var:nuclear_strike_power_display
-		}
-		set_global_variable = {
-			name = nuclear_strike_defence_display_global
-			value = this.var:nuclear_strike_defence_display
-		}
-		
-		ROOT = {
-			change_variable = {
-				name = nuclear_strike_power_enemy_display
-				add = global_var:nuclear_strike_power_enemy_display_global
-			}
-			change_variable = {
-				name = nuclear_strike_defence_enemy_display
-				add = global_var:nuclear_strike_defence_display_global
-			}
-			change_variable = {
-				name = nuclear_enemy_counter_display
-				add = 1
-			}
-		}
-		
-		remove_global_variable = nuclear_strike_power_enemy_display_global
-		remove_global_variable = nuclear_strike_defence_display_global
-		
 	}
-	
-}
-
-calculate_allied_nuclear_strength_info = {
-	
-	#Always first reset to 0
-	set_variable = { 
-		name = nuclear_strike_power_allied_display
-		value = 0
-	}
-	set_variable = { 
-		name = nuclear_strike_defence_allied_display
-		value = 0
-	}
-
-	#Calculate allied nuclear strength
 	every_country = {
-		limit = { 
-			NOT = { THIS = ROOT }
-			has_modifier = nuclear_capability 
-			
-			#has_variable = nuclear_strike_power_display
-			#has_variable = nuclear_strike_defence_display
-			
-			OR = { 
-				any_scope_treaty = { binds = ROOT any_scope_article = { has_type = alliance } }
-				any_scope_treaty = { binds = ROOT any_scope_article = { has_type = defensive_pact } }
-			}
-		}
-		calculate_nuclear_strength_info = yes
-		calculate_nuclear_defence_info = yes
-		
-		set_global_variable = {
-			name = nuclear_strike_power_allied_display_global
-			value = this.var:nuclear_strike_power_display
-		}
-		set_global_variable = {
-			name = nuclear_strike_defence_display_global
-			value = this.var:nuclear_strike_defence_display
-		}
-		
-		ROOT = {
-			change_variable = {
-				name = nuclear_strike_power_allied_display
-				add = global_var:nuclear_strike_power_allied_display_global
-			}
-			change_variable = {
-				name = nuclear_strike_defence_allied_display
-				add = global_var:nuclear_strike_defence_display_global
-			}
-		}
-		
-		remove_global_variable = nuclear_strike_power_allied_display_global
-		remove_global_variable = nuclear_strike_defence_display_global
-		
+		limit = { has_journal_entry = je_nuclear_weapons_info_panel }
+		ztr_nuclear_ranking_variables = yes
+		ztr_nuclear_strength_ranking_effect = yes
+		ztr_nuclear_defence_ranking_effect = yes
 	}
-	
-	change_variable = { 
-		name = nuclear_strike_power_display
-		add = root.var:nuclear_strike_power_allied_display
-	}
-	
-	change_variable = { 
-		name = nuclear_strike_defence_display
-		add = root.var:nuclear_strike_defence_allied_display
-	}
-	
-}
-
-calculate_nuclear_arms_race_ratio = {
-	
-	#THIS vs Enemy ratio
-	set_variable = { 
-		name = nuclear_strike_power_THIS_enemy_ratio
-		value = root.var:nuclear_strike_power_display
-	}
-	if = {
-		limit = { root.var:nuclear_strike_defence_enemy_display > 0 }
-		change_variable = {
-			name = nuclear_strike_power_THIS_enemy_ratio
-			divide = root.var:nuclear_strike_defence_enemy_display
-		}
-	}
-	else = {
-		set_variable = { 
-			name = nuclear_strike_power_THIS_enemy_ratio
-			value = 0
-		}
-	}
-	
-	#Enemy vs THIS ratio
-	set_variable = { 
-		name = nuclear_strike_power_enemy_THIS_ratio
-		value = root.var:nuclear_strike_power_enemy_display
-	}
-	if = {
-		limit = { root.var:nuclear_strike_defence_display > 0 }
-		change_variable = {
-			name = nuclear_strike_power_enemy_THIS_ratio
-			divide = root.var:nuclear_strike_defence_display
-		}
-	}
-	else = {
-		set_variable = { 
-			name = nuclear_strike_power_enemy_THIS_ratio
-			value = 0
-		}
-	}
-	
-	#Aggregate
-	set_variable = { 
-		name = nuclear_strike_power_ratio
-		value = root.var:nuclear_strike_power_THIS_enemy_ratio
-	}
-	change_variable = { 
-		name = nuclear_strike_power_ratio
-		multiply = root.var:nuclear_enemy_counter_display
-	}
-	change_variable = { 
-		name = nuclear_strike_power_ratio
-		subtract = root.var:nuclear_strike_power_enemy_THIS_ratio
-	}
-	if = {
-		limit = { 
-			root.var:nuclear_strike_power_THIS_enemy_ratio >= root.var:nuclear_strike_power_enemy_THIS_ratio 
-			root.var:nuclear_strike_power_THIS_enemy_ratio > 0
-		}
-		change_variable = { 
-			name = nuclear_strike_power_ratio
-			divide = root.var:nuclear_strike_power_THIS_enemy_ratio
-		}
-	}
-	if = {
-		limit = { 
-			root.var:nuclear_strike_power_THIS_enemy_ratio < root.var:nuclear_strike_power_enemy_THIS_ratio 
-			root.var:nuclear_strike_power_enemy_THIS_ratio > 0
-		}
-		change_variable = { 
-			name = nuclear_strike_power_ratio
-			divide = root.var:nuclear_strike_power_enemy_THIS_ratio
-		}
-	}
-	change_variable = { 
-		name = nuclear_strike_power_ratio
-		multiply = 100
-	}
-
 }
