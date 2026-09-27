@@ -158,7 +158,7 @@ je_austrian_empire_collapse = {
 					exists = c:BOH
 				}
 				NOT = {
-					var:czech_civil_rights_var = 2
+					var:czech_civil_rights_var ?= 2
 				}
 				has_state_in_state_region = STATE_BOHEMIA
 			}
@@ -192,9 +192,9 @@ je_austrian_empire_collapse = {
 			limit = {
 				exists = c:BOH
 				NOT = {
-					var:czech_civil_rights_var = 2
+					var:czech_civil_rights_var ?= 2
 				}
-				var:hungarian_civil_rights_var = 2
+				var:hungarian_civil_rights_var ?= 2
 			}
 			c:BOH = {
 				change_tag = CZH
@@ -225,7 +225,7 @@ je_austrian_empire_collapse = {
 				NOT = {
 					exists = c:BOH
 				}
-				var:czech_civil_rights_var = 2
+				var:czech_civil_rights_var ?= 2
 				has_state_in_state_region = STATE_SLOVAKIA
 			}
 			ztr_define_slovakia = yes
@@ -270,7 +270,7 @@ je_austrian_empire_collapse = {
 			ztr_define_republic_venice = yes
 			if = {
 				limit = {
-					var:trieste_harbor_var = 1
+					var:trieste_harbor_var ?= 1
 				}
 				s:STATE_ISTRIA.region_state:VEN = {
 					set_state_owner = c:AUS
@@ -359,8 +359,7 @@ je_austrian_empire_collapse = {
 			ztr_define_poland = yes
 			if = {
 				limit = {
-					c:KRA = {
-						exists = yes
+					c:KRA ?= {
 						overlord = c:AUS
 					}
 				}
@@ -373,7 +372,7 @@ je_austrian_empire_collapse = {
 		if = {
 			limit = {
 				NOT = {
-					var:hungarian_civil_rights_var = 2
+					var:hungarian_civil_rights_var ?= 2
 				}
 				hungary_is_subject_or_personal_union_austria = yes
 			}
@@ -394,7 +393,7 @@ je_austrian_empire_collapse = {
 		else_if = {
 			limit = {
 				NOT = {
-					var:hungarian_civil_rights_var = 2
+					var:hungarian_civil_rights_var ?= 2
 				}
 				any_scope_state = {
 					NOT = {

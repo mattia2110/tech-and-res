@@ -1,36 +1,21 @@
 REPLACE:gfx_experimental_locomotive_trigger = {
 
 	scope:state = {
-		NOR = {
+		# Single building scan instead of one per PM
+		NOT = {
 			any_scope_building = {
-				has_active_production_method = pm_steam_trains
-			}
-			any_scope_building = {
-				has_active_production_method = pm_steam_trains_principle_transport_3
-			}
-			any_scope_building = {
-				has_active_production_method = pm_electric_trains
-			}
-			any_scope_building = {
-				has_active_production_method = pm_electric_trains_principle_transport_3
-			}
-			any_scope_building = {
-				has_active_production_method = pm_diesel_trains
-			}
-			any_scope_building = {
-				has_active_production_method = pm_diesel_trains_principle_transport_3
-			}
-			any_scope_building = {
-				has_active_production_method = pm_advanced_express_trains
-			}
-			any_scope_building = {
-				has_active_production_method = pm_advanced_express_trains_principle_transport_3
-			}
-			any_scope_building = {
-				has_active_production_method = pm_high_speed_trains
-			}
-			any_scope_building = {
-				has_active_production_method = pm_high_speed_trains_principle_transport_3
+				OR = {
+					has_active_production_method = pm_steam_trains
+					has_active_production_method = pm_steam_trains_principle_transport_3
+					has_active_production_method = pm_electric_trains
+					has_active_production_method = pm_electric_trains_principle_transport_3
+					has_active_production_method = pm_diesel_trains
+					has_active_production_method = pm_diesel_trains_principle_transport_3
+					has_active_production_method = pm_advanced_express_trains
+					has_active_production_method = pm_advanced_express_trains_principle_transport_3
+					has_active_production_method = pm_high_speed_trains
+					has_active_production_method = pm_high_speed_trains_principle_transport_3
+				}
 			}
 		}
 	}

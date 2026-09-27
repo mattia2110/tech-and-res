@@ -1,0 +1,256 @@
+﻿# Country-scoped demographic control panel.
+ztr_demography_drift_scale = 1.5
+ztr_demography_drift_literacy = 2
+ztr_demography_drift_sol = 0.15
+ztr_demography_drift_sol_max = 3
+ztr_demography_speed = 3
+ztr_demography_growth_threshold = 0.04
+ztr_demography_recession_floor = -0.5
+ztr_demography_saturation = 3
+ztr_demography_turning_point = 6
+ztr_demography_max_gain = 15
+ztr_demography_max_loss = -5
+ztr_demography_era_start = 1880
+ztr_demography_era_step = 30
+ztr_demography_era_min = 0
+ztr_demography_era_max = 5
+
+# on_yearly_pulse_country can skip a year; `year` is only safe as a script value.
+# initialize always sets the last year before this is read.
+ztr_demography_years_elapsed = {
+	value = year
+	subtract = var:ztr_demography_last_year_var
+}
+
+ztr_demography_continuous_stage = {
+	value = 0
+	if = {
+		limit = { has_variable = ztr_demography_progress_var }
+		value = var:ztr_demography_progress_var
+	}
+	min = 0
+	max = 900
+	divide = 100
+}
+
+ztr_demography_stage = {
+	value = ztr_demography_continuous_stage
+	floor = yes
+	max = 8
+}
+
+# The modifier stores the applied stage; -1 means no stage is assigned.
+ztr_demography_applied_stage = {
+	value = -1
+	if = {
+		limit = { has_modifier = demographic_stage_0 }
+		value = 0
+	}
+	else_if = {
+		limit = { has_modifier = demographic_stage_1 }
+		value = 1
+	}
+	else_if = {
+		limit = { has_modifier = demographic_stage_2 }
+		value = 2
+	}
+	else_if = {
+		limit = { has_modifier = demographic_stage_3 }
+		value = 3
+	}
+	else_if = {
+		limit = { has_modifier = demographic_stage_4 }
+		value = 4
+	}
+	else_if = {
+		limit = { has_modifier = demographic_stage_5 }
+		value = 5
+	}
+	else_if = {
+		limit = { has_modifier = demographic_stage_6 }
+		value = 6
+	}
+	else_if = {
+		limit = { has_modifier = demographic_stage_7 }
+		value = 7
+	}
+	else_if = {
+		limit = { has_modifier = demographic_stage_8 }
+		value = 8
+	}
+}
+
+# A(u) = min(u/S, 1) * (C-u).
+ztr_demography_stage_coefficient = {
+	value = ztr_demography_continuous_stage
+	divide = {
+		value = ztr_demography_saturation
+		min = 0.01
+	}
+	max = 1
+	multiply = {
+		value = ztr_demography_turning_point
+		subtract = ztr_demography_continuous_stage
+	}
+}
+
+# k = (year - start) / step, clamped: zero before the start year, linear afterwards.
+ztr_demography_era = {
+	value = year
+	subtract = ztr_demography_era_start
+	divide = {
+		value = ztr_demography_era_step
+		min = 1
+	}
+	min = ztr_demography_era_min
+	max = ztr_demography_era_max
+}
+
+# Kd * (Ld*L + min(Ls*SoL, Lm) - u + k): turns negative once the stage outruns literacy, SoL and era.
+ztr_demography_drift_change = {
+	value = literacy_rate
+	multiply = ztr_demography_drift_literacy
+	add = {
+		value = average_sol
+		multiply = ztr_demography_drift_sol
+		max = ztr_demography_drift_sol_max
+	}
+	subtract = ztr_demography_continuous_stage
+	add = ztr_demography_era
+	multiply = ztr_demography_drift_scale
+}
+
+# Economic effects start once a complete five-year window exists.
+ztr_demography_economy_change = {
+	value = 0
+	if = {
+		limit = { has_variable = ztr_demography_growth_var }
+		value = var:ztr_demography_growth_var
+		divide = {
+			value = ztr_demography_growth_threshold
+			min = 0.001
+		}
+		# Recession deepens the stagnation response down to the floor.
+		min = ztr_demography_recession_floor
+		subtract = 1
+		multiply = ztr_demography_stage_coefficient
+		multiply = ztr_demography_speed
+		multiply = literacy_rate
+	}
+}
+
+ztr_demography_formula_change = {
+	value = ztr_demography_drift_change
+	add = ztr_demography_economy_change
+}
+
+# Existing extras remain outside the literacy-scaled formula.
+ztr_demography_healthcare_change = {
+	value = 0
+	if = {
+		limit = { ztr_demographic_has_healthcare = yes }
+		if = {
+			limit = { ztr_demography_continuous_stage < 3 }
+			value = 0.6
+		}
+		else_if = {
+			limit = { ztr_demography_continuous_stage < 6 }
+			value = 0.3
+		}
+	}
+}
+
+ztr_demography_traditional_change = {
+	value = 0
+	if = {
+		limit = {
+			ztr_demographic_traditional_society = yes
+			ztr_demography_continuous_stage < 4
+		}
+		value = -0.3
+	}
+}
+
+ztr_demography_slavery_change = {
+	value = 0
+	if = {
+		limit = {
+			ztr_demographic_slavery_legal = yes
+			ztr_demography_continuous_stage >= 1
+		}
+		if = {
+			limit = { ztr_demography_continuous_stage < 3 }
+			value = -0.3
+		}
+		else = {
+			value = -0.6
+		}
+	}
+}
+
+ztr_demography_north_america_change = {
+	value = 0
+	if = {
+		limit = {
+			is_in_geographic_region = geographic_region_north_america
+			ztr_demography_continuous_stage >= 1
+		}
+		value = -1
+	}
+}
+
+ztr_demography_immigration_change = {
+	value = 0
+	if = {
+		limit = {
+			ztr_demographic_open_to_immigration = yes
+			ztr_demography_continuous_stage >= 2
+		}
+		if = {
+			limit = { ztr_demography_continuous_stage < 3 }
+			value = -0.3
+		}
+		else_if = {
+			limit = { ztr_demography_continuous_stage < 4 }
+			value = -0.7
+		}
+		else_if = {
+			limit = { ztr_demography_continuous_stage < 5 }
+			value = -1.2
+		}
+		else_if = {
+			limit = { ztr_demography_continuous_stage < 6 }
+			value = -1.7
+		}
+		else_if = {
+			limit = { ztr_demography_continuous_stage < 7 }
+			value = -2.1
+		}
+		else = {
+			value = -2.4
+		}
+	}
+}
+
+ztr_demography_extra_change = {
+	value = ztr_demography_healthcare_change
+	add = ztr_demography_traditional_change
+	add = ztr_demography_slavery_change
+	add = ztr_demography_north_america_change
+	add = ztr_demography_immigration_change
+}
+
+# Reuse the two recorded contributions, even after progress has advanced; caps apply to their sum.
+ztr_demography_recorded_yearly_change = {
+	value = 0
+	if = {
+		limit = {
+			has_variable = ztr_demography_formula_change_var
+			has_variable = ztr_demography_extra_change_var
+		}
+		value = var:ztr_demography_formula_change_var
+		add = var:ztr_demography_extra_change_var
+		min = ztr_demography_max_loss
+		max = ztr_demography_max_gain
+	}
+}

@@ -10,8 +10,18 @@
 	}
 
 	potential = {
+		# Cheap checks first: both branches below require TARGET to be at war
+		scope:target_country = {
+			is_at_war = yes
+			is_revolutionary = no
+			is_secessionist = no
+		}
+		NOT = { is_in_war_together = scope:target_country }
+		#Civil war countries do not nuke each other
+		is_revolutionary = no is_secessionist = no is_subject = no
+
 		#THIS is at war OR a country that THIS has stationed nuclear weapons in is at war
-		OR = { 
+		OR = {
 			is_at_war = yes
 			any_country = {
 				has_diplomatic_pact = { who = scope:actor type = station_nuclear_weapons is_initiator = no }
@@ -21,37 +31,29 @@
 				}
 			}
 		}
-		
+
 		#Can only threaten an enemy war leader
 		OR = {
 			AND = {
+				has_war_with = scope:target_country
+				scope:target_country = { is_diplomatic_play_enemy_of = scope:actor }
 				any_scope_war = {
 					is_warleader = scope:actor
 					is_warleader = scope:target_country
 					is_war_participant = scope:actor
 					is_war_participant = scope:target_country
 				}
-				scope:target_country = { is_diplomatic_play_enemy_of = scope:actor }
-				has_war_with = scope:target_country
-				NOT = { is_in_war_together = scope:target_country }
 			}
-			AND = {
-				NOT = { is_in_war_together = scope:target_country }
-				any_country = {
-					has_diplomatic_pact = { who = scope:actor type = station_nuclear_weapons is_initiator = no }
-					has_war_with = scope:target_country
-					any_scope_war = {
-						is_warleader = prev
-						is_warleader = scope:target_country
-					}
-					is_diplomatic_play_enemy_of = scope:target_country
+			any_country = {
+				has_diplomatic_pact = { who = scope:actor type = station_nuclear_weapons is_initiator = no }
+				has_war_with = scope:target_country
+				any_scope_war = {
+					is_warleader = prev
+					is_warleader = scope:target_country
 				}
+				is_diplomatic_play_enemy_of = scope:target_country
 			}
 		}
-		
-		#Civil war countries do not nuke each other
-		is_revolutionary = no is_secessionist = no is_subject = no
-		scope:target_country = { is_revolutionary = no is_secessionist = no }
 	}
 
 	possible = {

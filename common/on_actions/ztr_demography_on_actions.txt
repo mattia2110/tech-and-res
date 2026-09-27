@@ -1,0 +1,35 @@
+# The pulse hooks are registered in ztr_on_actions.txt, which already declares those keys.
+on_revolution_start = { on_actions = { ztr_demography_on_revolution } }
+on_secession_start = { on_actions = { ztr_demography_on_uprising } }
+on_country_released_as_independent = { on_actions = { ztr_demography_on_release } }
+on_country_released_as_own_subject = { on_actions = { ztr_demography_on_release } }
+on_country_released_as_company_subject = { on_actions = { ztr_demography_on_release } }
+on_country_released_as_overlord_subject = { on_actions = { ztr_demography_on_release } }
+
+# je_demography activates on its own, so the missing variable is what marks an untracked country.
+ztr_demography_on_monthly_pulse = {
+	trigger = {
+		total_population > 0
+		NOT = { has_variable = ztr_demography_progress_var }
+	}
+	effect = { ztr_demography_initialize = yes }
+}
+
+ztr_demography_on_yearly_pulse = {
+	trigger = { total_population > 0 }
+	effect = { ztr_demography_yearly_update = yes }
+}
+
+# Root = original country, scope:target = the new uprising.
+ztr_demography_on_revolution = {
+	effect = { ztr_demography_inherit_revolution = yes }
+}
+
+# Seceding regions start their own history: the parent's per-capita data does not describe them.
+ztr_demography_on_uprising = {
+	effect = { ztr_demography_inherit_uprising = yes }
+}
+
+ztr_demography_on_release = {
+	effect = { scope:target ?= { ztr_demography_initialize = yes } }
+}

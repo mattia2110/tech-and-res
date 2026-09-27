@@ -1,0 +1,336 @@
+# Country variables own progress; the journal entry only displays it.
+ztr_demography_initialize = {
+	if = {
+		limit = { NOT = { has_variable = ztr_demography_progress_var } }
+		ztr_demography_pick_starting_progress = yes
+		ztr_demography_reset_history = yes
+	}
+	if = {
+		limit = { NOT = { has_variable = ztr_demography_history_samples_var } }
+		ztr_demography_reset_history = yes
+	}
+	if = {
+		limit = { ztr_demography_applied_stage < 0 }
+		ztr_demography_apply_stage = yes
+	}
+	if = {
+		limit = { NOT = { has_journal_entry = je_demography } }
+		add_journal_entry = { type = je_demography }
+	}
+	ztr_demography_sync_bar = yes
+}
+
+# A country born from a civil war keeps its parent's progress.
+ztr_demography_pick_starting_progress = {
+	if = {
+		limit = {
+			exists = civil_war_origin_country
+			civil_war_origin_country = { has_variable = ztr_demography_progress_var }
+		}
+		set_variable = {
+			name = ztr_demography_progress_var
+			value = civil_war_origin_country.var:ztr_demography_progress_var
+		}
+	}
+	else = {
+		ztr_demography_historical_start = yes
+	}
+}
+
+# Preserve the former initial-stage rules, including European exceptions.
+ztr_demography_historical_start = {
+	# The three early European transitions are placed explicitly, just under their
+	# drift ceiling at game start; see ztr_demography_formula.md.
+	if = {
+		limit = { c:FRA ?= this }
+		set_variable = { name = ztr_demography_progress_var value = 200 }
+	}
+	else_if = {
+		limit = { c:GBR ?= this }
+		set_variable = { name = ztr_demography_progress_var value = 150 }
+	}
+	else_if = {
+		limit = { c:SPA ?= this }
+		set_variable = { name = ztr_demography_progress_var value = 125 }
+	}
+	else_if = {
+		limit = {
+			average_sol < 11
+			OR = { year < 1920 is_in_geographic_region = geographic_region_africa }
+			NOT = { is_in_geographic_region = geographic_region_europe }
+			NOT = { c:USA ?= this }
+		}
+		set_variable = { name = ztr_demography_progress_var value = 0 }
+	}
+	else_if = {
+		limit = {
+			average_sol < 14
+			year < 1960
+		}
+		set_variable = { name = ztr_demography_progress_var value = 100 }
+	}
+	else_if = {
+		limit = { average_sol < 17 }
+		set_variable = { name = ztr_demography_progress_var value = 200 }
+	}
+	else_if = {
+		limit = { average_sol < 20 }
+		set_variable = { name = ztr_demography_progress_var value = 300 }
+	}
+	else_if = {
+		limit = { average_sol < 23 }
+		set_variable = { name = ztr_demography_progress_var value = 400 }
+	}
+	else_if = {
+		limit = { average_sol < 26 }
+		set_variable = { name = ztr_demography_progress_var value = 500 }
+	}
+	else = { set_variable = { name = ztr_demography_progress_var value = 600 } }
+}
+
+# Newly separated economies need their own baseline, not their parent's GDP.
+# Without usable data the window stays empty and initialize retries at the next pulse.
+ztr_demography_reset_history = {
+	remove_variable = ztr_demography_history_samples_var
+	remove_variable = ztr_demography_growth_var
+	set_variable = { name = ztr_demography_last_year_var value = year }
+	if = {
+		limit = { average_sol > 0 get_country_gdp_per > 0 }
+		set_variable = { name = ztr_demography_history_samples_var value = 1 }
+		set_variable = { name = ztr_demography_sol_1_var value = average_sol }
+		set_variable = { name = ztr_demography_gdp_1_var value = get_country_gdp_per }
+		set_variable = { name = ztr_demography_sol_2_var value = average_sol }
+		set_variable = { name = ztr_demography_gdp_2_var value = get_country_gdp_per }
+		set_variable = { name = ztr_demography_sol_3_var value = average_sol }
+		set_variable = { name = ztr_demography_gdp_3_var value = get_country_gdp_per }
+		set_variable = { name = ztr_demography_sol_4_var value = average_sol }
+		set_variable = { name = ztr_demography_gdp_4_var value = get_country_gdp_per }
+		set_variable = { name = ztr_demography_sol_5_var value = average_sol }
+		set_variable = { name = ztr_demography_gdp_5_var value = get_country_gdp_per }
+	}
+	ztr_demography_refresh_breakdown = yes
+}
+
+# Only the aggregates are displayed; the per-component values stay in the script values.
+ztr_demography_refresh_breakdown = {
+	set_variable = { name = ztr_demography_formula_change_var value = ztr_demography_formula_change }
+	set_variable = { name = ztr_demography_extra_change_var value = ztr_demography_extra_change }
+}
+
+# Rolls the five-year window by one. The caller then writes the current year into
+# slot 1; leaving it untouched repeats the last observation for a year without data.
+ztr_demography_shift_history = {
+	set_variable = { name = ztr_demography_sol_5_var value = var:ztr_demography_sol_4_var }
+	set_variable = { name = ztr_demography_gdp_5_var value = var:ztr_demography_gdp_4_var }
+	set_variable = { name = ztr_demography_sol_4_var value = var:ztr_demography_sol_3_var }
+	set_variable = { name = ztr_demography_gdp_4_var value = var:ztr_demography_gdp_3_var }
+	set_variable = { name = ztr_demography_sol_3_var value = var:ztr_demography_sol_2_var }
+	set_variable = { name = ztr_demography_gdp_3_var value = var:ztr_demography_gdp_2_var }
+	set_variable = { name = ztr_demography_sol_2_var value = var:ztr_demography_sol_1_var }
+	set_variable = { name = ztr_demography_gdp_2_var value = var:ztr_demography_gdp_1_var }
+	set_variable = {
+		name = ztr_demography_history_samples_var
+		value = { value = var:ztr_demography_history_samples_var add = 1 max = 5 }
+	}
+}
+
+# Skipped pulses and years without usable data repeat the last observation, so the
+# comparison stays with t-5; five repeats already replace the whole window.
+ztr_demography_fill_missing_years = {
+	if = {
+		limit = { has_variable = ztr_demography_history_samples_var }
+		if = { limit = { ztr_demography_years_elapsed > 1 } ztr_demography_shift_history = yes }
+		if = { limit = { ztr_demography_years_elapsed > 2 } ztr_demography_shift_history = yes }
+		if = { limit = { ztr_demography_years_elapsed > 3 } ztr_demography_shift_history = yes }
+		if = { limit = { ztr_demography_years_elapsed > 4 } ztr_demography_shift_history = yes }
+		if = { limit = { ztr_demography_years_elapsed > 5 } ztr_demography_shift_history = yes }
+	}
+}
+
+ztr_demography_yearly_update = {
+	ztr_demography_initialize = yes
+	# A year without usable data is skipped; the next valid pulse fills it.
+	if = {
+		limit = {
+			ztr_demography_years_elapsed > 0
+			average_sol > 0
+			get_country_gdp_per > 0
+		}
+		ztr_demography_fill_missing_years = yes
+		set_variable = { name = ztr_demography_last_year_var value = year }
+		# Slots only ever hold valid observations, so the divisors are positive.
+		if = {
+			limit = { var:ztr_demography_history_samples_var >= 5 }
+			set_variable = {
+				name = ztr_demography_growth_var
+				value = {
+					value = average_sol
+					divide = var:ztr_demography_sol_5_var
+					subtract = 1
+					add = {
+						value = get_country_gdp_per
+						divide = var:ztr_demography_gdp_5_var
+						subtract = 1
+					}
+					divide = 2
+				}
+			}
+		}
+		else = { remove_variable = ztr_demography_growth_var }
+		ztr_demography_refresh_breakdown = yes
+		set_variable = {
+			name = ztr_demography_progress_var
+			value = {
+				value = var:ztr_demography_progress_var
+				add = ztr_demography_recorded_yearly_change
+				min = 0
+				max = 900
+			}
+		}
+		# The notification reads the stage, so it follows the new modifier.
+		if = {
+			limit = { ztr_demography_stage > ztr_demography_applied_stage }
+			ztr_demography_apply_stage = yes
+			post_notification = ztr_demography_stage_advanced
+		}
+		else_if = {
+			limit = { ztr_demography_stage < ztr_demography_applied_stage }
+			ztr_demography_apply_stage = yes
+			post_notification = ztr_demography_stage_regressed
+		}
+		ztr_demography_shift_history = yes
+		set_variable = { name = ztr_demography_sol_1_var value = average_sol }
+		set_variable = { name = ztr_demography_gdp_1_var value = get_country_gdp_per }
+		ztr_demography_sync_bar = yes
+	}
+}
+
+ztr_demography_apply_stage = {
+	remove_modifier = demographic_stage_0
+	remove_modifier = demographic_stage_1
+	remove_modifier = demographic_stage_2
+	remove_modifier = demographic_stage_3
+	remove_modifier = demographic_stage_4
+	remove_modifier = demographic_stage_5
+	remove_modifier = demographic_stage_6
+	remove_modifier = demographic_stage_7
+	remove_modifier = demographic_stage_8
+	if = {
+		limit = { ztr_demography_stage = 0 }
+		add_modifier = demographic_stage_0
+	}
+	else_if = {
+		limit = { ztr_demography_stage = 1 }
+		add_modifier = demographic_stage_1
+	}
+	else_if = {
+		limit = { ztr_demography_stage = 2 }
+		add_modifier = demographic_stage_2
+	}
+	else_if = {
+		limit = { ztr_demography_stage = 3 }
+		add_modifier = demographic_stage_3
+	}
+	else_if = {
+		limit = { ztr_demography_stage = 4 }
+		add_modifier = demographic_stage_4
+	}
+	else_if = {
+		limit = { ztr_demography_stage = 5 }
+		add_modifier = demographic_stage_5
+	}
+	else_if = {
+		limit = { ztr_demography_stage = 6 }
+		add_modifier = demographic_stage_6
+	}
+	else_if = {
+		limit = { ztr_demography_stage = 7 }
+		add_modifier = demographic_stage_7
+	}
+	else_if = {
+		limit = { ztr_demography_stage = 8 }
+		add_modifier = demographic_stage_8
+	}
+}
+
+ztr_demography_sync_bar = {
+	if = {
+		limit = {
+			has_variable = ztr_demography_progress_var
+			has_journal_entry = je_demography
+		}
+		save_scope_as = ztr_demography_bar_country
+		je:je_demography = {
+			set_bar_progress = {
+				name = ztr_demography_progress_bar
+				value = scope:ztr_demography_bar_country.var:ztr_demography_progress_var
+			}
+		}
+	}
+}
+
+# ROOT is the original country; target is its new uprising.
+ztr_demography_inherit_uprising = {
+	ztr_demography_initialize = yes
+	save_scope_as = ztr_demography_parent
+	scope:target ?= { ztr_demography_copy_parent = yes }
+}
+
+# Caller saves the original country as ztr_demography_parent.
+ztr_demography_copy_parent = {
+	set_variable = {
+		name = ztr_demography_progress_var
+		value = scope:ztr_demography_parent.var:ztr_demography_progress_var
+	}
+	ztr_demography_reset_history = yes
+	ztr_demography_apply_stage = yes
+	ztr_demography_initialize = yes
+}
+
+# ROOT is the original country; target is its revolution, which also takes the five-year window.
+ztr_demography_inherit_revolution = {
+	ztr_demography_inherit_uprising = yes
+	if = {
+		limit = { has_variable = ztr_demography_history_samples_var }
+		scope:target ?= { ztr_demography_copy_parent_history = yes }
+	}
+}
+
+# Caller saves the original country as ztr_demography_parent.
+ztr_demography_copy_parent_history = {
+	set_variable = { name = ztr_demography_history_samples_var value = scope:ztr_demography_parent.var:ztr_demography_history_samples_var }
+	set_variable = { name = ztr_demography_last_year_var value = scope:ztr_demography_parent.var:ztr_demography_last_year_var }
+	set_variable = { name = ztr_demography_sol_1_var value = scope:ztr_demography_parent.var:ztr_demography_sol_1_var }
+	set_variable = { name = ztr_demography_gdp_1_var value = scope:ztr_demography_parent.var:ztr_demography_gdp_1_var }
+	set_variable = { name = ztr_demography_sol_2_var value = scope:ztr_demography_parent.var:ztr_demography_sol_2_var }
+	set_variable = { name = ztr_demography_gdp_2_var value = scope:ztr_demography_parent.var:ztr_demography_gdp_2_var }
+	set_variable = { name = ztr_demography_sol_3_var value = scope:ztr_demography_parent.var:ztr_demography_sol_3_var }
+	set_variable = { name = ztr_demography_gdp_3_var value = scope:ztr_demography_parent.var:ztr_demography_gdp_3_var }
+	set_variable = { name = ztr_demography_sol_4_var value = scope:ztr_demography_parent.var:ztr_demography_sol_4_var }
+	set_variable = { name = ztr_demography_gdp_4_var value = scope:ztr_demography_parent.var:ztr_demography_gdp_4_var }
+	set_variable = { name = ztr_demography_sol_5_var value = scope:ztr_demography_parent.var:ztr_demography_sol_5_var }
+	set_variable = { name = ztr_demography_gdp_5_var value = scope:ztr_demography_parent.var:ztr_demography_gdp_5_var }
+	if = {
+		limit = { scope:ztr_demography_parent = { has_variable = ztr_demography_growth_var } }
+		set_variable = { name = ztr_demography_growth_var value = scope:ztr_demography_parent.var:ztr_demography_growth_var }
+	}
+	else = { remove_variable = ztr_demography_growth_var }
+	ztr_demography_refresh_breakdown = yes
+}
+
+# Callers that recreate a nation impose its stage, overriding any earlier initialization.
+ztr_demography_start_0 = {
+	set_variable = { name = ztr_demography_progress_var value = 0 }
+	ztr_demography_forced_start = yes
+}
+
+ztr_demography_start_1 = {
+	set_variable = { name = ztr_demography_progress_var value = 100 }
+	ztr_demography_forced_start = yes
+}
+
+ztr_demography_forced_start = {
+	ztr_demography_reset_history = yes
+	ztr_demography_apply_stage = yes
+	ztr_demography_initialize = yes
+}

@@ -1,39 +1,4 @@
-﻿# Triggers shared by the demographic transition progress bars
-
-# Development Tiers - each tier builds on the previous one
-ztr_demographic_above_dev_0 = {
-	NOT = {
-		has_modifier = dev_0_country
-	}
-}
-
-ztr_demographic_above_dev_1 = {
-	ztr_demographic_above_dev_0 = yes
-	NOT = {
-		has_modifier = dev_1_country
-	}
-}
-
-ztr_demographic_above_dev_2 = {
-	ztr_demographic_above_dev_1 = yes
-	NOT = {
-		has_modifier = dev_2_country
-	}
-}
-
-ztr_demographic_above_dev_3 = {
-	ztr_demographic_above_dev_2 = yes
-	NOT = {
-		has_modifier = dev_3_country
-	}
-}
-
-ztr_demographic_above_dev_4 = {
-	ztr_demographic_above_dev_3 = yes
-	NOT = {
-		has_modifier = dev_4_country
-	}
-}
+﻿# Social conditions read by the demographic extras in ztr_demography_values.txt
 
 # Society
 ztr_demographic_has_healthcare = {
@@ -53,14 +18,8 @@ ztr_demographic_traditional_society = {
 	OR = {
 		country_has_state_religion = rel:sunni
 		country_has_state_religion = rel:shiite
-		AND = {
-			exists = c:DEI
-			c:DEI = this
-		}
-		AND = {
-			exists = c:BIC
-			c:BIC = this
-		}
+		c:DEI ?= this
+		c:BIC ?= this
 	}
 }
 
@@ -76,6 +35,3 @@ ztr_demographic_open_to_immigration = {
 	}
 }
 
-ztr_demographic_north_america = {
-	is_in_geographic_region = geographic_region_north_america
-}

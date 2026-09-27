@@ -17,11 +17,8 @@ REPLACE_OR_CREATE:building_elgar_opera = {
 
 	can_build_government = {
 		OR = {
-			any_scope_building = {
-				is_building_type = building_elgar_opera
-			}
-			any_scope_building = {
-				is_building_type = building_urban_center
+			has_building = building_elgar_opera
+			b:building_urban_center ?= {
 				level >= 5
 			}
 		}
@@ -29,11 +26,8 @@ REPLACE_OR_CREATE:building_elgar_opera = {
 
 	can_build_private = {
 		OR = {
-			any_scope_building = {
-				is_building_type = building_elgar_opera
-			}
-			any_scope_building = {
-				is_building_type = building_urban_center
+			has_building = building_elgar_opera
+			b:building_urban_center ?= {
 				level >= 5
 			}
 		}
