@@ -1,10 +1,5 @@
-# The European Confederation identity.
-# Script-only: the bloc is created by ztr_eu_establish_single_market when the chair
-# convenes the confederal treaty conference. Mandates never progress (the Union has
-# no leverage politics: principles advance only through Council votes, see subjects
-# 8 and 9 in ztr_eu_scripts.txt), members cannot leave through the bloc UI (exit
-# happens only through the EU withdrawal decision), and nobody can be invited in
-# (accession is handled by the Union's own decisions and journal entries).
+# Continental Confederation identity, reserved for the future Superstate mechanic.
+# Script-only: never selectable when founding a power bloc.
 identity_continental_confederation = {
 	power_bloc_modifier = {
 		power_bloc_customs_union_bool = yes
@@ -22,15 +17,12 @@ identity_continental_confederation = {
 		state_max_trade_advantage_from_capacity_add = 0.05
 	}
 
-	# Leaving the Confederation through the power bloc interface is impossible:
-	# the only door out is withdrawing from the European Union itself.
+	# Leaving is handled by script, not by the power bloc interface
 	can_leave = {
 		always = no
 	}
 
-	# Only the chair of the European Council (flagged right before the scripted
-	# bloc creation) may ever hold this identity; it cannot be picked when
-	# founding an ordinary power bloc.
+	# Only a country flagged by script may hold this identity
 	possible = {
 		has_variable = ztr_eu_bloc_leader
 	}
@@ -38,8 +30,9 @@ identity_continental_confederation = {
 	icon = "gfx/interface/icons/central_identity_pillars_icons/continental_federation.dds"
 	background = "gfx/interface/power_blocs/backgrounds/pb_background_generic.dds"
 
+	# Hidden until the Superstate mechanic replaces the removed EU
 	visible = {
-		has_dlc_feature = power_bloc_features
+		always = no
 	}
 
 	# The Confederation accumulates no mandates at all

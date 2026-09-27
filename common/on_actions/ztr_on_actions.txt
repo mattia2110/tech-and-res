@@ -425,7 +425,37 @@ on_monthly_pulse_country = {
 		un_intervention_on_monthly_pulse_country
 		yeet_pops_on_monthly_pulse_country
 		ztr_two_chinas_reckoning_on_monthly_pulse_country
+		ztr_chinese_civil_war_on_monthly_pulse_country
 		ztr_demography_on_monthly_pulse
+	}
+}
+
+# Keeps the radical-dampening civil war modifiers on CHI and ZFC until reunification.
+ztr_chinese_civil_war_on_monthly_pulse_country = {
+	effect = {
+		if = {
+			limit = {
+				OR = {
+					has_global_variable = ztr_chinese_civil_war_active
+					has_global_variable = ztr_two_chinas_reckoning_active
+				}
+			}
+			# Both Chinas gone without a reunification: close the civil war.
+			if = {
+				limit = {
+					NOT = {
+						exists = c:CHI
+					}
+					NOT = {
+						exists = c:ZFC
+					}
+				}
+				ztr_chinese_civil_war_end = yes
+			}
+			else = {
+				ztr_chinese_civil_war_refresh_modifiers = yes
+			}
+		}
 	}
 }
 

@@ -56,7 +56,10 @@ ztr_demography_historical_start = {
 	else_if = {
 		limit = {
 			average_sol < 11
-			OR = { year < 1920 is_in_geographic_region = geographic_region_africa }
+			OR = {
+				year < 1900
+				is_in_geographic_region = geographic_region_africa
+			}
 			NOT = { is_in_geographic_region = geographic_region_europe }
 			NOT = { c:USA ?= this }
 		}
@@ -64,25 +67,25 @@ ztr_demography_historical_start = {
 	}
 	else_if = {
 		limit = {
-			average_sol < 14
-			year < 1960
+			average_sol < 13
+			year < 1920
 		}
 		set_variable = { name = ztr_demography_progress_var value = 100 }
 	}
 	else_if = {
-		limit = { average_sol < 17 }
+		limit = { average_sol < 16 }
 		set_variable = { name = ztr_demography_progress_var value = 200 }
 	}
 	else_if = {
-		limit = { average_sol < 20 }
+		limit = { average_sol < 19 }
 		set_variable = { name = ztr_demography_progress_var value = 300 }
 	}
 	else_if = {
-		limit = { average_sol < 23 }
+		limit = { average_sol < 22 }
 		set_variable = { name = ztr_demography_progress_var value = 400 }
 	}
 	else_if = {
-		limit = { average_sol < 26 }
+		limit = { average_sol < 25 }
 		set_variable = { name = ztr_demography_progress_var value = 500 }
 	}
 	else = { set_variable = { name = ztr_demography_progress_var value = 600 } }

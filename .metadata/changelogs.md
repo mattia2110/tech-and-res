@@ -1,17 +1,21 @@
 ﻿# Tech & Res
 
-## Version 1.7 (NEED LOCALIZATION UPDATE)
+## [b]Version 1.7 — Modernization Update[/b] 
+[i]NOT SAVE COMPATIBLE[/i]
+[i]NEED LOCALIZATION UPDATE[/i]
 
-- Updated AI and mod to latest KAI and Vic 3 versions.
-- Nuclear warfare reworked and rebalanced. Nuclear ultimatums and strikes, de-escalation treaties and research suspension reworked.
-- Research Center reworked: academic level, development and research agreements now drive your country's research speed. Atomic programs (nuclear weapons, thermonuclear, nuclear power, fusion) moved from decisions to Research Center as buttons, with new dedicated journal entries.
-- New global warming mechanic: staged events, rising sea levels and climate disasters (heatwaves, megadroughts, named hurricanes, wildfires, coastal flooding).
-- Renewable energy output now depends on state geography.
-- Like Fusion Nuclear Reactors, now also Fission Nuclear ones can be purchased from other countries.
-- Chinese reunification reworked: a final war between the two Chinas with claims and victory.
-- Navy overhaul: new modern troop ships, updated ship modifications and ship names.
-- Removed the European Union mechanics and obsolete geopolitical decisions. In the future will be replaced with a better Superstate mechanic.
-- Many tweaks to production methods, technologies, decolonization and the UN.
+- [b]Localization:[/b] English localization is now the base for every Victoria 3 language: players using any game language see the mod's English text instead of missing keys.
+- [b]New Demographic Transition Model:[/b] Economic swings move countries more smoothly between stages, poorer countries in the first stage get a higher birth rate, and 20th-century medicine modifiers arrive earlier.
+- [b]Compatibility and AI:[/b] Updated the mod and AI to the latest Victoria 3 1.13 and KAI versions. [i](No 1.14 Beta support)[/i]
+- [b]Nuclear Warfare:[/b] Reworked and rebalanced nuclear ultimatums and strikes, de-escalation treaties, and research suspension.
+- [b]Research Center:[/b] Academic level, development, and research agreements now drive country's research speed. Atomic programs (nuclear weapons, thermonuclear weapons, nuclear power, and fusion) moved from decisions to Research Center buttons, with new dedicated journal entries.
+- [b]Global Warming:[/b] Added staged events, rising sea levels, and climate disasters: heatwaves, megadroughts, named hurricanes, wildfires, and coastal flooding.
+- [b]Renewable Energy:[/b] Output now depends on state geography.
+- [b]Nuclear Reactors:[/b] Fission reactors can now be purchased from other countries, like fusion reactors.
+- [b]Chinese Reunification:[/b] Reworked around a final war between the two Chinas, with claims and victory conditions.
+- [b]Navy Overhaul:[/b] Added new modern troop ships and updated ship modifications and names.
+- [b]Geopolitics:[/b] Removed the European Union mechanics and obsolete geopolitical decisions. They will be replaced by an improved Superstate mechanic in the future.
+- [b]General Improvements:[/b] Many tweaks to production methods, technologies, decolonization, and the United Nations.
 
 ## Version 1.6.0 Stable Official Version
 - Updated army/navy scripts and AI to Vic 3 1.13.5

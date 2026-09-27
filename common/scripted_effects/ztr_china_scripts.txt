@@ -1185,6 +1185,7 @@ ztr_communist_china_create_front = {
 		change_tag = CHI
 		ztr_communist_china_adopt_laws_and_loyalist = yes
 		set_global_variable = ztr_communist_china_created
+		set_global_variable = ztr_chinese_civil_war_active
 		ztr_communist_china_cleanup = yes
 	}
 	else_if = {
@@ -1266,10 +1267,64 @@ ztr_two_chinas_launch_final_war = {
 	}
 }
 
+# Country scope: keeps the civil war radical-dampening modifier on CHI/ZFC (tags can change hands).
+ztr_chinese_civil_war_refresh_modifiers = {
+	if = {
+		limit = {
+			exists = c:CHI
+			this = c:CHI
+			NOT = {
+				has_modifier = ztr_ccp_revolutionary_discipline
+			}
+		}
+		add_modifier = {
+			name = ztr_ccp_revolutionary_discipline
+		}
+	}
+	else_if = {
+		limit = {
+			exists = c:ZFC
+			this = c:ZFC
+			NOT = {
+				has_modifier = ztr_kmt_national_salvation
+			}
+		}
+		add_modifier = {
+			name = ztr_kmt_national_salvation
+		}
+	}
+}
+
+# Ends the civil war and strips its modifiers from both Chinas.
+ztr_chinese_civil_war_end = {
+	remove_global_variable = ztr_chinese_civil_war_active
+	every_country = {
+		limit = {
+			OR = {
+				has_modifier = ztr_ccp_revolutionary_discipline
+				has_modifier = ztr_kmt_national_salvation
+			}
+		}
+		if = {
+			limit = {
+				has_modifier = ztr_ccp_revolutionary_discipline
+			}
+			remove_modifier = ztr_ccp_revolutionary_discipline
+		}
+		if = {
+			limit = {
+				has_modifier = ztr_kmt_national_salvation
+			}
+			remove_modifier = ztr_kmt_national_salvation
+		}
+	}
+}
+
 # Resolve the reckoning once one of the two Chinas has been annexed: the survivor
 # (renamed to CHI if it was the Nationalists) reunifies the country.
 ztr_two_chinas_resolve_unification = {
 	remove_global_variable = ztr_two_chinas_reckoning_active
+	ztr_chinese_civil_war_end = yes
 	if = {
 		limit = {
 			exists = c:ZFC
