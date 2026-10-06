@@ -371,3 +371,21 @@ ztr_countries_can_unify_trigger = {
 	# Geographic prerequisite: actor's homeland must border or overlap target's territory
 	ztr_countries_state_contiguity = yes
 }
+
+# Development gates shared by modern law groups and ideology tiers
+ztr_dev_3_or_higher = {
+	OR = {
+		has_modifier = dev_3_country
+		ztr_dev_4_or_higher = yes
+	}
+}
+
+ztr_dev_4_or_higher = {
+	OR = {
+		has_modifier = dev_4_country
+		has_modifier = dev_5_country
+		has_modifier = dev_6_country
+		has_modifier = dev_7_country
+		has_modifier = dev_8_country
+	}
+}

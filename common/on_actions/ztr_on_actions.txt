@@ -57,45 +57,97 @@ ztr_main_script_on_yearly_pulse = {
 				remove_building = building_modern_state_baseline
 			}
 		}
-		# Early progressist ideologies
+		# Social ideologies: same gates as the lgbtq/bioethics/education/data law groups
 		every_country = {
 			limit = {
 				NOT = {
-					has_variable = has_progressist_ideology
+					has_variable = ztr_social_ideology_tier
 				}
-				has_technology_researched = human_rights
+				has_technology_researched = counterculture
+				ztr_dev_4_or_higher = yes
 			}
 			set_variable = {
-				name = has_progressist_ideology
+				name = ztr_social_ideology_tier
 				value = 1
 			}
-			ztr_apply_early_progressist_ideologies = yes
+			ztr_apply_early_social_ideologies = yes
 		}
-		# Mid progressist ideologies
 		every_country = {
 			limit = {
-				has_variable = has_progressist_ideology
-				var:has_progressist_ideology = 1
-				has_technology_researched = socialdemocracy
-			}
-			change_variable = {
-				name = has_progressist_ideology
-				add = 1
-			}
-			ztr_apply_mid_progressist_ideologies = yes
-		}
-		# Late progressist ideologies
-		every_country = {
-			limit = {
-				has_variable = has_progressist_ideology
-				var:has_progressist_ideology = 2
+				has_variable = ztr_social_ideology_tier
+				var:ztr_social_ideology_tier = 1
 				has_technology_researched = neoliberism
+				ztr_dev_4_or_higher = yes
 			}
 			change_variable = {
-				name = has_progressist_ideology
+				name = ztr_social_ideology_tier
 				add = 1
 			}
-			ztr_apply_late_progressist_ideologies = yes
+			ztr_apply_mid_social_ideologies = yes
+		}
+		every_country = {
+			limit = {
+				has_variable = ztr_social_ideology_tier
+				var:ztr_social_ideology_tier = 2
+				has_technology_researched = data_processing
+				ztr_dev_4_or_higher = yes
+			}
+			change_variable = {
+				name = ztr_social_ideology_tier
+				add = 1
+			}
+			ztr_apply_late_social_ideologies = yes
+		}
+		# Environmental ideologies: same gates as the environmental/mining/uranium law groups
+		every_country = {
+			limit = {
+				NOT = {
+					has_variable = ztr_env_ideology_tier
+				}
+				has_technology_researched = counterculture
+				ztr_dev_4_or_higher = yes
+			}
+			set_variable = {
+				name = ztr_env_ideology_tier
+				value = 1
+			}
+			ztr_apply_early_env_ideologies = yes
+		}
+		every_country = {
+			limit = {
+				has_variable = ztr_env_ideology_tier
+				var:ztr_env_ideology_tier = 1
+				has_technology_researched = ambientalism
+				ztr_dev_4_or_higher = yes
+			}
+			change_variable = {
+				name = ztr_env_ideology_tier
+				add = 1
+			}
+			ztr_apply_mid_env_ideologies = yes
+		}
+		every_country = {
+			limit = {
+				has_variable = ztr_env_ideology_tier
+				var:ztr_env_ideology_tier = 2
+				has_technology_researched = circular_economy
+				ztr_dev_4_or_higher = yes
+			}
+			change_variable = {
+				name = ztr_env_ideology_tier
+				add = 1
+			}
+			ztr_apply_late_env_ideologies = yes
+		}
+		# Laissez-faire becomes neoliberism, regardless of development
+		every_country = {
+			limit = {
+				has_technology_researched = neoliberism
+				any_interest_group = {
+					has_ideology = ideology:ideology_laissez_faire
+				}
+			}
+			ztr_apply_neoliberism_ideology = yes
 		}
 	}
 }

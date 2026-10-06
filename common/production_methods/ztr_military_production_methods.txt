@@ -51,9 +51,13 @@ pm_rocket_building_munition_plant = {
 			goods_input_engines_add = 5 #300
 
 			# output goods
-			goods_output_ammunition_add = 35
+			goods_output_ammunition_add = 40
 			#goods_output_ammunition_add = -10
 			#goods_output_missiles_add = 30
+		}
+		level_scaled = {
+			# employment
+			building_employment_engineers_add = 50
 		}
 	}
 }
@@ -75,9 +79,13 @@ pm_guided_missiles_building_munition_plant = {
 			goods_input_engines_add = 5 #300
 
 			# output goods
-			goods_output_ammunition_add = 50
+			goods_output_ammunition_add = 55
 			# goods_output_ammunition_add = -20 #1000
 			# goods_output_missiles_add = 45 #3600
+		}
+		level_scaled = {
+			# employment
+			building_employment_engineers_add = 50
 		}
 	}
 }
@@ -258,6 +266,34 @@ pm_civil_planes_production = {
 	}
 }
 
+pm_wide_body_airliners = {
+	texture = "gfx/interface/icons/production_method_icons/pm_wide_body_airliners.dds"
+	unlocking_technologies = {
+		wide_body_airliners
+	}
+
+	building_modifiers = {
+		workforce_scaled = {
+			# input goods
+			goods_input_engines_add = 30
+			goods_input_aluminium_add = 25
+			goods_input_plastics_add = 15
+			goods_input_electroniccomponents_add = 10
+			goods_input_computer_add = 5
+
+			# output goods
+			goods_output_civil_planes_add = 100
+		}
+
+		level_scaled = {
+			# employment
+			building_employment_laborers_add = 2000
+			building_employment_machinists_add = 1500
+			building_employment_engineers_add = 750
+		}
+	}
+}
+
 REPLACE:pm_no_aeroplane_production = {
 	texture = "gfx/interface/icons/production_method_icons/no_aeroplanes_purple.dds"
 }
@@ -300,6 +336,7 @@ pm_modern_warplanes_production = {
 	unlocking_production_methods = {
 		pm_zeppelins_production
 		pm_civil_planes_production
+		pm_wide_body_airliners
 	}
 
 	building_modifiers = {
@@ -330,6 +367,7 @@ pm_supersonic_warplanes_production = {
 
 	unlocking_production_methods = {
 		pm_civil_planes_production
+		pm_wide_body_airliners
 	}
 
 	building_modifiers = {

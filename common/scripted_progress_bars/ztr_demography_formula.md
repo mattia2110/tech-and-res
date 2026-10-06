@@ -13,6 +13,7 @@ D     = ((SoL(t) / SoL(t-H) - 1) + (PILpc(t) / PILpc(t-H) - 1)) / 2
 A(u)  = min(u / S, 1) * (C - u)
 drift = Kd * (Ld * L + min(Ls * SoL, Lm) - u + k)
 econ  = Ke * L * A(u) * (max(D / D0, Lr) - 1)
+econ  = econ * 0.5 se u < 6 ed econ < 0
 F     = drift + econ
 dX    = clamp(F + extra, Lo, Hi)
 X(t+1)= clamp(X(t) + dX, 0, 900)
@@ -26,8 +27,11 @@ Con i valori predefiniti:
 k     = clamp((anno - 1880) / 30, 0, 5)
 drift = 1.5 * (2L + min(0.15 * SoL, 3) - u + k)
 econ  = 3 * L * min(u / 3, 1) * (6 - u) * (max(D / 0.04, -0.5) - 1)
+econ  = econ * 0.5 se u < 6 ed econ < 0
 dX    = clamp(drift + econ + extra, -5, +15)
 ```
+
+Il contributo economico negativo viene dimezzato nelle fasi 0–5, incluso tutto il tratto 500 <= X < 600. Vale per recessione, stagnazione e crescita media quinquennale inferiore al 4%. Il dimezzamento precede la somma con drift ed extra e i limiti annuali; da X=600 il comportamento resta invariato.
 
 ### Simboli
 
@@ -120,19 +124,21 @@ Con `k=0` la soglia a inizio partita è `200*L + min(15*SoL, 300)`. Le tre trans
 
 | | literacy iniziale | SoL iniziale | soglia 1836 | partenza | drift | totale con D=0, senza extra |
 |---|---:|---:|---:|---:|---:|---:|
-| Francia | 47% | 11,4 | 265 | 200 | +0,97 | -2,79 |
-| Gran Bretagna | 51% | 9,8 | 249 | 150 | +1,49 | -1,96 |
-| Spagna | 27% | 9,4 | 195 | 125 | +1,05 | -0,55 |
+| Francia | 47% | 11,4 | 265 | 200 | +0,97 | -0,91 |
+| Gran Bretagna | 51% | 9,8 | 249 | 150 | +1,49 | -0,24 |
+| Spagna | 27% | 9,4 | 195 | 125 | +1,05 | +0,25 |
 
-Literacy e SoL sono quelli del salvataggio di settembre 1836. Tutte e tre partono sotto la propria soglia: la Francia di 65 punti, la Gran Bretagna di 99, la Spagna di 70; un eventuale sorpasso dipende dalla crescita e dagli extra. Con `D=0` tutte e tre arretrano: per avanzare serve crescita economica.
+Literacy e SoL sono quelli del salvataggio di settembre 1836. Tutte e tre partono sotto la propria soglia: la Francia di 65 punti, la Gran Bretagna di 99, la Spagna di 70; un eventuale sorpasso dipende dalla crescita e dagli extra. Con `D=0`, senza extra, Francia e Gran Bretagna arretrano lentamente; la Spagna avanza leggermente grazie al dimezzamento del freno economico.
 
 Il termine economico sposta il punto di riposo effettivo: sopra `X=100*C=600` è positivo con `D=0`, quindi un paese stagnante e avanzato scivola oltre la soglia del solo drift. L'inversione è la stessa per tutti i paesi: un paese povero in forte crescita si ferma prima della fase 6 come uno ricco, invece di superarlo.
 
 ### Regressione ed equilibri
 
-La regressione è intenzionale: non si limita `F` a zero. Sommando il termine economico, un paese stagnante si ferma dove `F = 0`: nel 1836 attorno a `X=93` con literacy 50%, SoL 10 e senza extra, mantenendo fissi anno, literacy e SoL. Oltre `C` il termine economico cambia segno, quindi la crescita frena il declino mentre la stagnazione lo accompagna. La recessione aggiunge penalità fino a `D = -2%`; oltre, il fattore resta a -1,5.
+La regressione è intenzionale: non si limita `F` a zero. Sommando il termine economico, un paese stagnante si ferma dove `F = 0`: nel 1836 attorno a `X=142` con literacy 50%, SoL 10 e senza extra, mantenendo fissi anno, literacy e SoL. Oltre `C` il termine economico cambia segno, quindi la crescita frena il declino mentre la stagnazione lo accompagna. La recessione aggiunge penalità fino a `D = -2%`; oltre, il fattore resta a -1,5.
 
-In stagnazione e per `u>=S`, la pendenza di `F` rispetto a `u` è `-Kd + Ke*L`, cioè `-1,5 + 3L`: è positiva oltre il 50% di literacy; in recessione piena diventa `-1,5 + 4,5L`, positiva oltre il 33%. In quel caso il declino accelera con l'aumento della fase e prosegue fino a 900, frenato solo dal limite annuale. Gli extra possono cambiare alle soglie di fase.
+In stagnazione, per `S<=u<6`, la pendenza di `F` è `-Kd + 0,5*Ke*L`, cioè `-1,5 + 1,5L`: non è positiva con literacy tra 0 e 1. In recessione piena diventa `-1,5 + 2,25L`, positiva oltre il 66,7%.
+
+Da `u>=6`, in stagnazione, la pendenza di `F` rispetto a `u` è `-Kd + Ke*L`, cioè `-1,5 + 3L`: è positiva oltre il 50% di literacy; in recessione piena diventa `-1,5 + 4,5L`, positiva oltre il 33%. In quel caso il declino accelera con l'aumento della fase e prosegue fino a 900, frenato solo dal limite annuale. Gli extra possono cambiare alle soglie di fase.
 
 I limiti annuali impongono almeno 6,7 anni per percorrere 100 punti in avanti e 20 all'indietro. Si applicano alla somma di drift, economia ed extra: anche una crescita economica forte può attivarli.
 

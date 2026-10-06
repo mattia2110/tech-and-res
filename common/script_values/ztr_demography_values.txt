@@ -136,6 +136,14 @@ ztr_demography_economy_change = {
 		multiply = ztr_demography_stage_coefficient
 		multiply = ztr_demography_speed
 		multiply = literacy_rate
+		# Halve economic setbacks before stage 6, including stagnation.
+		if = {
+			limit = {
+				ztr_demography_continuous_stage < 6
+				var:ztr_demography_growth_var < ztr_demography_growth_threshold
+			}
+			multiply = 0.5
+		}
 	}
 }
 
