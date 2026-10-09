@@ -476,6 +476,33 @@ pm_multiway_transport_plantation_rubber = {
 	}
 }
 
+# Logging trucks; laborers are already gone at this stage, so the saving is on machinists
+pm_multiway_transport_logging_camp = {
+	texture = "gfx/interface/icons/production_method_icons/pm_multiway_transport_building.dds"
+	state_modifiers = {
+		workforce_scaled = {
+			state_pollution_generation_add = 5
+		}
+	}
+
+	unlocking_technologies = {
+		modern_transport
+	}
+
+	building_modifiers = {
+		workforce_scaled = {
+			# input goods
+			goods_input_transportation_add = 2 #60
+			goods_input_automobiles_add = 2 #240
+		}
+
+		level_scaled = {
+			building_employment_laborers_add = -1500
+			building_employment_machinists_add = -500
+		}
+	}
+}
+
 #Chip Foundry
 
 pm_photomask_projection = {
@@ -2519,7 +2546,7 @@ pm_electric_fueled_pump_building_copper_mine = {
 			goods_input_light_fuel_add = 5 #350 #1060
 			
 			# output goods
-			goods_output_copper_add = 105 #2700
+			goods_output_copper_add = 115 #2700
 		}
 
 		level_scaled = {
@@ -2627,7 +2654,7 @@ pm_electric_fueled_pump_building_bauxite_mine = {
 			goods_input_light_fuel_add = 5 #350 #1060
 			
 			# output goods
-			goods_output_bauxite_add = 105 #2700
+			goods_output_bauxite_add = 115 #2700
 		}
 
 		level_scaled = {
@@ -2895,7 +2922,7 @@ pm_autonomous_and_remote_ops_building_uranium_mine = {
 			goods_input_light_fuel_add = 5 #350 #1060
 			
 			# output goods
-			goods_output_good_uranium_add = 135 #3600
+			goods_output_good_uranium_add = 130 #3600
 		}
 
 		level_scaled = {
@@ -2932,7 +2959,7 @@ pm_heavy_machineries_building_copper_mine = {
 			goods_input_light_fuel_add = 5 #350 #1060
 			
 			# output goods
-			goods_output_copper_add = 130 #2700
+			goods_output_copper_add = 140 #2700
 		}
 
 		level_scaled = {
@@ -2970,7 +2997,7 @@ pm_autonomous_and_remote_ops_building_copper_mine = {
 			goods_input_light_fuel_add = 5 #350 #1060
 			
 			# output goods
-			goods_output_copper_add = 165 #2700
+			goods_output_copper_add = 175 #2700
 		}
 
 		level_scaled = {
@@ -3044,7 +3071,7 @@ pm_autonomous_and_remote_ops_building_commonores_mine = {
 			goods_input_light_fuel_add = 5 #350 #1060
 			
 			# output goods
-			goods_output_commonores_add = 130 #3400
+			goods_output_commonores_add = 127 #3400
 		}
 
 		level_scaled = {
@@ -3155,7 +3182,7 @@ pm_heavy_machineries_building_bauxite_mine = {
 			goods_input_light_fuel_add = 5 #350 #1060
 			
 			# output goods
-			goods_output_bauxite_add = 130 #2700
+			goods_output_bauxite_add = 140 #2700
 		}
 
 		level_scaled = {
@@ -3192,7 +3219,7 @@ pm_autonomous_and_remote_ops_building_bauxite_mine = {
 			goods_input_light_fuel_add = 5 #350 #1060
 			
 			# output goods
-			goods_output_bauxite_add = 165 #2700
+			goods_output_bauxite_add = 175 #2700
 		}
 
 		level_scaled = {
@@ -3266,7 +3293,7 @@ pm_autonomous_and_remote_ops_building_iron_mine = {
 			goods_input_light_fuel_add = 5 #350 #1060
 			
 			# output goods
-			goods_output_iron_add = 130 #2700
+			goods_output_iron_add = 127 #2700
 		}
 
 		level_scaled = {
@@ -3340,7 +3367,7 @@ pm_autonomous_and_remote_ops_building_lead_mine = {
 			goods_input_light_fuel_add = 5 #350 #1060
 			
 			# output goods
-			goods_output_lead_add = 130 #2700
+			goods_output_lead_add = 128 #2700
 		}
 
 		level_scaled = {
@@ -3377,7 +3404,7 @@ pm_heavy_machineries_building_sulfur_mine = {
 			goods_input_light_fuel_add = 5 #350 #1060
 			
 			# output goods
-			goods_output_sulfur_add = 100 #4250
+			goods_output_sulfur_add = 95 #4250
 		}
 
 		level_scaled = {
@@ -3414,7 +3441,7 @@ pm_autonomous_and_remote_ops_building_sulfur_mine = {
 			goods_input_light_fuel_add = 5 #350 #1060
 			
 			# output goods
-			goods_output_sulfur_add = 115 #2700
+			goods_output_sulfur_add = 105 #2700
 		}
 
 		level_scaled = {
@@ -3964,7 +3991,7 @@ pm_digital_sound_devices = {
 
 # Telephones
 
-pm_telephones = {
+REPLACE:pm_telephones = {
 	texture = "gfx/interface/icons/production_method_icons/telephones.dds"
 	unlocking_technologies = {
 		telephone
@@ -5005,7 +5032,7 @@ pm_atmospheric_engine_pump_building_copper_mine = {
 			goods_input_coal_add = 10
 			
 			# output goods
-			goods_output_copper_add = 40
+			goods_output_copper_add = 45
 		}
 
 		level_scaled = {
@@ -5038,7 +5065,7 @@ pm_condensing_engine_pump_building_copper_mine = {
 			goods_input_coal_add = 15
 			
 			# output goods
-			goods_output_copper_add = 60
+			goods_output_copper_add = 65
 		}
 
 		level_scaled = {
@@ -5071,7 +5098,7 @@ pm_diesel_pump_building_copper_mine = {
 			goods_input_light_fuel_add = 3
 			
 			# output goods
-			goods_output_copper_add = 85
+			goods_output_copper_add = 90
 		}
 
 		level_scaled = {
@@ -5522,7 +5549,7 @@ pm_atmospheric_engine_pump_building_bauxite_mine = {
 			goods_input_coal_add = 10
 			
 			# output goods
-			goods_output_bauxite_add = 40
+			goods_output_bauxite_add = 45
 		}
 
 		level_scaled = {
@@ -5555,7 +5582,7 @@ pm_condensing_engine_pump_building_bauxite_mine = {
 			goods_input_coal_add = 15
 			
 			# output goods
-			goods_output_bauxite_add = 60
+			goods_output_bauxite_add = 65
 		}
 
 		level_scaled = {
@@ -5588,7 +5615,7 @@ pm_diesel_pump_building_bauxite_mine = {
 			goods_input_light_fuel_add = 3
 			
 			# output goods
-			goods_output_bauxite_add = 85
+			goods_output_bauxite_add = 90
 		}
 
 		level_scaled = {
@@ -6469,7 +6496,7 @@ pm_hand_pumped_water = {
             goods_input_tools_add = 25 #200
             
             # output goods
-            goods_output_water_add = 40 #750
+            goods_output_water_add = 35 #750
         }
         
         level_scaled = {
@@ -6498,7 +6525,7 @@ pm_steam_pumped_water = {
 			goods_input_engines_add = 15 #300 #850
             
             # output goods
-            goods_output_water_add = 75 #1500
+            goods_output_water_add = 80 #1500
         }
         
         level_scaled = {
@@ -6523,7 +6550,7 @@ pm_electric_pumped_water = {
 			goods_input_engines_add = 30 #600 #1500
             
             # output goods
-            goods_output_water_add = 135 #2500
+            goods_output_water_add = 140 #2500
         }
         
         level_scaled = {
@@ -6552,7 +6579,7 @@ pm_advanced_water_filtration = {
 			goods_input_electroniccomponents_add = 15 #400 #2300
             
             # output goods
-            goods_output_water_add = 180 #3500
+            goods_output_water_add = 190 #3500
         }
         
         level_scaled = {
@@ -7349,7 +7376,7 @@ pm_synthetic_pharmaceuticals = {
 }
 
 pm_biopharmaceuticals = {
-	texture = "gfx/interface/icons/production_method_icons/pm_synthetic_pharmaceuticals.dds"
+	texture = "gfx/interface/icons/production_method_icons/pm_biopharmaceuticals.dds"
 
 	unlocking_technologies = {
 		genomic_sequencing
@@ -8574,6 +8601,7 @@ pm_hpgr_comminution = {
 
 		level_scaled = {
 			building_employment_laborers_add = -1000
+			building_employment_machinists_add = -100
 		}
 
 		unscaled = {
@@ -8675,11 +8703,11 @@ pm_advanced_purification_mine = {
 	building_modifiers = {
 		workforce_scaled = {
 			# input goods
-			goods_input_fertilizer_add = 60 #30
-			goods_input_robotics_add = 15 #60
-			goods_input_steel_add = 15 #50
+			goods_input_fertilizer_add = 35 #30
+			goods_input_robotics_add = 7 #60
+			goods_input_steel_add = 7 #50
 
-			goods_output_rare_earths_add = 25 #65
+			goods_output_rare_earths_add = 30 #65
 		}
 
 		level_scaled = {
@@ -9254,7 +9282,7 @@ pm_fuel_trawlers = {
 			goods_input_heavy_fuel_add = 5 #100
 
 			# output
-			goods_output_fish_add = 120 #400
+			goods_output_fish_add = 130 #400
 		}
 
 		level_scaled = {
@@ -10290,6 +10318,10 @@ pm_mechanized_harvesters = {
 		law_industry_banned
 	}
 
+	unlocking_production_methods = {
+		pm_electric_saw_mills
+	}
+
 	building_modifiers = {
 		workforce_scaled = {
 			# Input di beni
@@ -10297,9 +10329,7 @@ pm_mechanized_harvesters = {
 			goods_input_light_fuel_add = 1 #50
 			goods_input_steel_add = 2 #100
 			goods_input_robotics_add = 1 #100
-		}
-		unscaled = {
-			building_throughput_add = 0.5
+			goods_output_wood_add = 10
 		}
 		level_scaled = {
 			# Occupazione
@@ -10628,7 +10658,8 @@ pm_trade_center_trade_quantity_ultra = {
 			goods_input_merchant_marine_add = 8
 		}
 		level_scaled = {
-			building_employment_shopkeepers_add = -150
+			building_employment_shopkeepers_add = -100
+			building_employment_clerks_add = -50
 		}
 	}
 	state_modifiers = {
@@ -10656,7 +10687,7 @@ pm_aerial_trade = {
 			goods_input_light_fuel_add = 0.5
 		}
 		level_scaled = {
-			building_employment_shopkeepers_add = -50
+			building_employment_clerks_add = -75
 		}
 	}
 	state_modifiers = {
@@ -10677,7 +10708,7 @@ pm_air_cargo_trade = {
 			goods_input_light_fuel_add = 0.5
 		}
 		level_scaled = {
-			building_employment_shopkeepers_add = -75
+			building_employment_clerks_add = -150
 		}
 	}
 	state_modifiers = {

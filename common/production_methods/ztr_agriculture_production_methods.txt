@@ -204,12 +204,10 @@ pm_hormonal_feedlots = {
 	building_modifiers = {
 		workforce_scaled = {
 			# input goods
-			goods_input_pharmaceuticals_add = 1 #50
-			goods_input_groceries_add = 1 #30
-			goods_input_tools_add = 1 #40
+			goods_input_pharmaceuticals_add = 2 #50
 		}
 		unscaled = {
-			building_throughput_add = 0.15
+			building_throughput_add = 1
 		}
 	}
 }
@@ -224,11 +222,10 @@ pm_genetic_analysis_breeding = {
 	building_modifiers = {
 		workforce_scaled = {
 			# input goods
-			goods_input_pharmaceuticals_add = 2 #100
-			goods_input_electroniccomponents_add = 1 #80
+			goods_input_electroniccomponents_add = 2 #80
 		}
 		unscaled = {
-			building_throughput_add = 0.15
+			building_throughput_add = 0.5
 		}
 	}
 }
@@ -259,8 +256,66 @@ pm_conveyor_belt_abattoirs = {
 
 		level_scaled = {
 			building_employment_laborers_add = 2250
-			building_employment_farmers_add = 1750
-			building_employment_machinists_add = 1000
+			building_employment_farmers_add = 1250
+			building_employment_machinists_add = 500
+		}
+	}
+}
+
+# Industrial feedlots with automated feeding; feed grain ties the ranch to farms
+pm_intensive_livestock_operations = {
+	texture = "gfx/interface/icons/production_method_icons/pm_intensive_livestock_operations.dds"
+
+	unlocking_technologies = {
+		controlled_environment_agriculture
+	}
+
+	state_modifiers = {
+		workforce_scaled = {
+			state_pollution_generation_add = 20
+		}
+	}
+
+	building_modifiers = {
+		workforce_scaled = {
+			# input goods
+			goods_input_grain_add = 20
+			goods_input_pharmaceuticals_add = 2
+			goods_input_tools_add = 10
+			goods_input_robotics_add = 8
+			goods_input_electricity_add = 10
+			goods_input_lubricant_add = 2
+
+			goods_output_meat_add = 115
+		}
+
+		level_scaled = {
+			building_employment_laborers_add = 2000
+			building_employment_farmers_add = 1250
+			building_employment_machinists_add = 500
+		}
+	}
+}
+
+# GPS collars replace physical herding
+pm_virtual_fencing = {
+	texture = "gfx/interface/icons/production_method_icons/pm_virtual_fencing.dds"
+
+	unlocking_technologies = {
+		precision_agriculture
+	}
+
+	building_modifiers = {
+		workforce_scaled = {
+			goods_input_steel_add = 1
+			goods_input_electroniccomponents_add = 0.5
+			goods_input_telecommunications_add = 0.5
+			goods_input_electricity_add = 0.5
+		}
+
+		level_scaled = {
+			building_employment_laborers_add = -1000
+			building_employment_farmers_add = -250
 		}
 	}
 }
@@ -354,6 +409,70 @@ advanced_plantation_methods_building_silk_plantation = {
 			goods_input_light_fuel_add = 2
 			goods_input_steel_add = 5
 			goods_output_silk_add = 90
+		}
+
+		level_scaled = {
+			# profit
+			building_employment_laborers_add = 2500
+			building_employment_farmers_add = 1500
+			building_employment_machinists_add = 500
+		}
+	}
+}
+
+# rubber plantation (smaller drone step than other plantations: synthetic rubber should stay ahead)
+
+advanced_plantation_methods_building_rubber_plantation = {
+	texture = "gfx/interface/icons/production_method_icons/mechanical_harvesting.dds"
+
+	state_modifiers = {
+		workforce_scaled = {
+			state_pollution_generation_add = 5
+		}
+	}
+
+	unlocking_technologies = {
+		heavy_machinery
+	}
+
+	building_modifiers = {
+		workforce_scaled = {
+			# output goods
+			goods_input_engines_add = 20
+			goods_input_fertilizer_add = 5
+			goods_input_light_fuel_add = 2
+			goods_input_steel_add = 5
+			goods_output_rubber_add = 80
+		}
+
+		level_scaled = {
+			# profit
+			building_employment_laborers_add = 3000
+			building_employment_farmers_add = 1500
+			building_employment_machinists_add = 500
+		}
+	}
+}
+
+drone_assisted_agriculture_building_rubber_plantation = {
+	texture = "gfx/interface/icons/production_method_icons/pm_drones_farming_yellow.dds"
+
+	state_modifiers = {
+	}
+
+	unlocking_technologies = {
+		civil_drones
+	}
+
+	building_modifiers = {
+		workforce_scaled = {
+			# output goods
+			goods_input_engines_add = 20
+			goods_input_fertilizer_add = 10
+			goods_input_telecommunications_add = 8
+			goods_input_robotics_add = 3
+			goods_input_electricity_add = 2
+			goods_output_rubber_add = 90
 		}
 
 		level_scaled = {
