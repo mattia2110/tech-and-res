@@ -9465,3 +9465,529 @@ ztr_decolonization.100 = {
 		remove_variable = ztr_decolonization_has_homeland_states
 	}
 }
+
+
+# Bahamian Decolonization
+ztr_decolonization.68 = {
+	dlc = dlc_tech_res
+	type = country_event
+	placement = ROOT
+	event_image = {
+		trigger = { ztr_decolonization_is_phase_4 = yes }
+		video = "southamerica_war_civilians"
+	}
+	event_image = {
+		trigger = { ztr_decolonization_is_phase_3 = yes }
+		video = "southamerica_war_civilians"
+	}
+	event_image = {
+		trigger = { always = yes }
+		video = "unspecific_signed_contract"
+	}
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	icon = "gfx/interface/icons/event_icons/decolonization_event.dds"
+
+	title = ztr_decolonization.68.t
+	desc = {
+		first_valid = {
+			triggered_desc = { trigger = { ztr_decolonization_is_phase_4 = yes } desc = ztr_decolonization.68.d_phase4 }
+			triggered_desc = { trigger = { ztr_decolonization_is_phase_3 = yes } desc = ztr_decolonization.68.d_phase3 }
+			triggered_desc = { trigger = { always = yes } desc = ztr_decolonization.68.d_phase2 }
+		}
+	}
+
+	duration = 3
+
+	trigger = {
+		ztr_can_decolonize_bahamas = yes
+		NOT = { has_variable = ztr_bahamas_decolonization_cd }
+	}
+
+	immediate = {
+		cu:afro_caribbean = { save_scope_as = ztr_decolonization_culture_scope }
+	}
+
+	# Option A: Grant Independence (Phase 3+)
+	option = {
+		name = ztr_decolonization.68.a
+		trigger = { ztr_decolonization_is_phase_3 = yes }
+		ai_chance = { base = 50 }
+		custom_tooltip = ztr_decolonization_pressure_decrease_5_tt
+		hidden_effect = { change_variable = { name = ztr_decolonization_pressure_var add = -5 } }
+		if = {
+			limit = { infamy > 10 }
+			change_infamy = -5
+		}
+		ztr_define_bahamas = yes
+		create_bidirectional_truce = { country = c:BAH months = 120 }
+		c:BAH = { change_relations = { country = root value = 50 } }
+	}
+
+	# Option B: Reject Independence
+	option = {
+		name = ztr_decolonization.68.b
+		trigger = {
+			OR = {
+				NOT = { ztr_decolonization_is_phase_4 = yes }
+				cu:afro_caribbean = { culture_current_fervor < 60 }
+				exists = c:BAH
+			}
+		}
+		default_option = yes
+		ai_chance = { base = 10 }
+		custom_tooltip = ztr_decolonization_pressure_increase_5_tt
+		hidden_effect = { change_variable = { name = ztr_decolonization_pressure_var add = 5 } }
+		if = {
+			limit = { infamy < 50 }
+			change_infamy = 5
+		}
+		else = {
+			change_infamy = 3
+		}
+		cu:afro_caribbean = { add_fervor = 15 }
+		set_variable = { name = ztr_bahamas_decolonization_cd years = 3 }
+	}
+
+	# Option C: Create as Colony
+	option = {
+		name = ztr_decolonization.c
+		trigger = {
+			NOT = { ztr_decolonization_is_phase_4 = yes }
+			country_rank >= rank_value:major_power
+			NOT = { exists = c:BAH }
+		}
+		ai_chance = { base = 30 }
+		custom_tooltip = ztr_decolonization_pressure_decrease_5_tt
+		hidden_effect = { change_variable = { name = ztr_decolonization_pressure_var add = -5 } }
+		if = {
+			limit = { infamy > 10 }
+			change_infamy = -2
+		}
+		ztr_define_bahamas = yes
+		create_bidirectional_truce = { country = c:BAH months = 120 }
+		create_diplomatic_pact = { country = c:BAH type = puppet }
+		c:BAH = { change_relations = { country = root value = 25 } }
+		cu:afro_caribbean = { add_fervor = 20 }
+		c:BAH = { set_variable = { name = ztr_decolonization_subject_cd years = 4 } }
+	}
+
+	# Option E: War of Independence (Phase 4 + high fervor)
+	option = {
+		name = ztr_decolonization.e
+		trigger = {
+			ztr_decolonization_is_phase_4 = yes
+			cu:afro_caribbean = { culture_current_fervor >= 60 }
+			NOT = { exists = c:BAH }
+		}
+		ai_chance = { base = 5 }
+		custom_tooltip = ztr_decolonization_pressure_decrease_15_tt
+		hidden_effect = { change_variable = { name = ztr_decolonization_pressure_var add = -15 } }
+		if = {
+			limit = { infamy < 50 }
+			change_infamy = 5
+		}
+		else = {
+			change_infamy = 3
+		}
+		ztr_define_bahamas = yes
+		create_diplomatic_play = {
+			target_country = c:BAH
+			type = dp_annex_war
+		}
+		set_variable = { name = ztr_bahamas_decolonization_cd years = 5 }
+	}
+}
+
+
+# Jamaican Decolonization
+ztr_decolonization.69 = {
+	dlc = dlc_tech_res
+	type = country_event
+	placement = ROOT
+	event_image = {
+		trigger = { ztr_decolonization_is_phase_4 = yes }
+		video = "southamerica_war_civilians"
+	}
+	event_image = {
+		trigger = { ztr_decolonization_is_phase_3 = yes }
+		video = "southamerica_war_civilians"
+	}
+	event_image = {
+		trigger = { always = yes }
+		video = "unspecific_signed_contract"
+	}
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	icon = "gfx/interface/icons/event_icons/decolonization_event.dds"
+
+	title = ztr_decolonization.69.t
+	desc = {
+		first_valid = {
+			triggered_desc = { trigger = { ztr_decolonization_is_phase_4 = yes } desc = ztr_decolonization.69.d_phase4 }
+			triggered_desc = { trigger = { ztr_decolonization_is_phase_3 = yes } desc = ztr_decolonization.69.d_phase3 }
+			triggered_desc = { trigger = { always = yes } desc = ztr_decolonization.69.d_phase2 }
+		}
+	}
+
+	duration = 3
+
+	trigger = {
+		ztr_can_decolonize_jamaica = yes
+		NOT = { has_variable = ztr_jamaica_decolonization_cd }
+	}
+
+	immediate = {
+		cu:afro_caribbean = { save_scope_as = ztr_decolonization_culture_scope }
+	}
+
+	# Option A: Grant Independence (Phase 3+)
+	option = {
+		name = ztr_decolonization.69.a
+		trigger = { ztr_decolonization_is_phase_3 = yes }
+		ai_chance = { base = 50 }
+		custom_tooltip = ztr_decolonization_pressure_decrease_5_tt
+		hidden_effect = { change_variable = { name = ztr_decolonization_pressure_var add = -5 } }
+		if = {
+			limit = { infamy > 10 }
+			change_infamy = -5
+		}
+		ztr_define_jamaica = yes
+		create_bidirectional_truce = { country = c:JAM months = 120 }
+		c:JAM = { change_relations = { country = root value = 50 } }
+	}
+
+	# Option B: Reject Independence
+	option = {
+		name = ztr_decolonization.69.b
+		trigger = {
+			OR = {
+				NOT = { ztr_decolonization_is_phase_4 = yes }
+				cu:afro_caribbean = { culture_current_fervor < 60 }
+				exists = c:JAM
+			}
+		}
+		default_option = yes
+		ai_chance = { base = 10 }
+		custom_tooltip = ztr_decolonization_pressure_increase_5_tt
+		hidden_effect = { change_variable = { name = ztr_decolonization_pressure_var add = 5 } }
+		if = {
+			limit = { infamy < 50 }
+			change_infamy = 5
+		}
+		else = {
+			change_infamy = 3
+		}
+		cu:afro_caribbean = { add_fervor = 15 }
+		set_variable = { name = ztr_jamaica_decolonization_cd years = 3 }
+	}
+
+	# Option C: Create as Colony
+	option = {
+		name = ztr_decolonization.c
+		trigger = {
+			NOT = { ztr_decolonization_is_phase_4 = yes }
+			country_rank >= rank_value:major_power
+			NOT = { exists = c:JAM }
+		}
+		ai_chance = { base = 30 }
+		custom_tooltip = ztr_decolonization_pressure_decrease_5_tt
+		hidden_effect = { change_variable = { name = ztr_decolonization_pressure_var add = -5 } }
+		if = {
+			limit = { infamy > 10 }
+			change_infamy = -2
+		}
+		ztr_define_jamaica = yes
+		create_bidirectional_truce = { country = c:JAM months = 120 }
+		create_diplomatic_pact = { country = c:JAM type = puppet }
+		c:JAM = { change_relations = { country = root value = 25 } }
+		cu:afro_caribbean = { add_fervor = 20 }
+		c:JAM = { set_variable = { name = ztr_decolonization_subject_cd years = 4 } }
+	}
+
+	# Option E: War of Independence (Phase 4 + high fervor)
+	option = {
+		name = ztr_decolonization.e
+		trigger = {
+			ztr_decolonization_is_phase_4 = yes
+			cu:afro_caribbean = { culture_current_fervor >= 60 }
+			NOT = { exists = c:JAM }
+		}
+		ai_chance = { base = 5 }
+		custom_tooltip = ztr_decolonization_pressure_decrease_15_tt
+		hidden_effect = { change_variable = { name = ztr_decolonization_pressure_var add = -15 } }
+		if = {
+			limit = { infamy < 50 }
+			change_infamy = 5
+		}
+		else = {
+			change_infamy = 3
+		}
+		ztr_define_jamaica = yes
+		create_diplomatic_play = {
+			target_country = c:JAM
+			type = dp_annex_war
+		}
+		set_variable = { name = ztr_jamaica_decolonization_cd years = 5 }
+	}
+}
+
+# Guyanese Decolonization
+ztr_decolonization.70 = {
+	dlc = dlc_tech_res
+	type = country_event
+	placement = ROOT
+	event_image = {
+		trigger = { ztr_decolonization_is_phase_4 = yes }
+		video = "southamerica_war_civilians"
+	}
+	event_image = {
+		trigger = { ztr_decolonization_is_phase_3 = yes }
+		video = "southamerica_war_civilians"
+	}
+	event_image = {
+		trigger = { always = yes }
+		video = "unspecific_signed_contract"
+	}
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	icon = "gfx/interface/icons/event_icons/decolonization_event.dds"
+
+	title = ztr_decolonization.70.t
+	desc = {
+		first_valid = {
+			triggered_desc = { trigger = { ztr_decolonization_is_phase_4 = yes } desc = ztr_decolonization.70.d_phase4 }
+			triggered_desc = { trigger = { ztr_decolonization_is_phase_3 = yes } desc = ztr_decolonization.70.d_phase3 }
+			triggered_desc = { trigger = { always = yes } desc = ztr_decolonization.70.d_phase2 }
+		}
+	}
+
+	duration = 3
+
+	trigger = {
+		ztr_can_decolonize_guyana = yes
+		NOT = { has_variable = ztr_guyana_decolonization_cd }
+	}
+
+	immediate = {
+		cu:afro_caribbean = { save_scope_as = ztr_decolonization_culture_scope }
+	}
+
+	# Option A: Grant Independence (Phase 3+)
+	option = {
+		name = ztr_decolonization.70.a
+		trigger = { ztr_decolonization_is_phase_3 = yes }
+		ai_chance = { base = 50 }
+		custom_tooltip = ztr_decolonization_pressure_decrease_5_tt
+		hidden_effect = { change_variable = { name = ztr_decolonization_pressure_var add = -5 } }
+		if = {
+			limit = { infamy > 10 }
+			change_infamy = -5
+		}
+		ztr_define_guyana = yes
+		create_bidirectional_truce = { country = c:ZGY months = 120 }
+		c:ZGY = { change_relations = { country = root value = 50 } }
+	}
+
+	# Option B: Reject Independence
+	option = {
+		name = ztr_decolonization.70.b
+		trigger = {
+			OR = {
+				NOT = { ztr_decolonization_is_phase_4 = yes }
+				cu:afro_caribbean = { culture_current_fervor < 60 }
+				exists = c:ZGY
+			}
+		}
+		default_option = yes
+		ai_chance = { base = 10 }
+		custom_tooltip = ztr_decolonization_pressure_increase_5_tt
+		hidden_effect = { change_variable = { name = ztr_decolonization_pressure_var add = 5 } }
+		if = {
+			limit = { infamy < 50 }
+			change_infamy = 5
+		}
+		else = {
+			change_infamy = 3
+		}
+		cu:afro_caribbean = { add_fervor = 15 }
+		set_variable = { name = ztr_guyana_decolonization_cd years = 3 }
+	}
+
+	# Option C: Create as Colony
+	option = {
+		name = ztr_decolonization.c
+		trigger = {
+			NOT = { ztr_decolonization_is_phase_4 = yes }
+			country_rank >= rank_value:major_power
+			NOT = { exists = c:ZGY }
+		}
+		ai_chance = { base = 30 }
+		custom_tooltip = ztr_decolonization_pressure_decrease_5_tt
+		hidden_effect = { change_variable = { name = ztr_decolonization_pressure_var add = -5 } }
+		if = {
+			limit = { infamy > 10 }
+			change_infamy = -2
+		}
+		ztr_define_guyana = yes
+		create_bidirectional_truce = { country = c:ZGY months = 120 }
+		create_diplomatic_pact = { country = c:ZGY type = puppet }
+		c:ZGY = { change_relations = { country = root value = 25 } }
+		cu:afro_caribbean = { add_fervor = 20 }
+		c:ZGY = { set_variable = { name = ztr_decolonization_subject_cd years = 4 } }
+	}
+
+	# Option E: War of Independence (Phase 4 + high fervor)
+	option = {
+		name = ztr_decolonization.e
+		trigger = {
+			ztr_decolonization_is_phase_4 = yes
+			cu:afro_caribbean = { culture_current_fervor >= 60 }
+			NOT = { exists = c:ZGY }
+		}
+		ai_chance = { base = 5 }
+		custom_tooltip = ztr_decolonization_pressure_decrease_15_tt
+		hidden_effect = { change_variable = { name = ztr_decolonization_pressure_var add = -15 } }
+		if = {
+			limit = { infamy < 50 }
+			change_infamy = 5
+		}
+		else = {
+			change_infamy = 3
+		}
+		ztr_define_guyana = yes
+		create_diplomatic_play = {
+			target_country = c:ZGY
+			type = dp_annex_war
+		}
+		set_variable = { name = ztr_guyana_decolonization_cd years = 5 }
+	}
+}
+
+# Surinamese Decolonization
+ztr_decolonization.71 = {
+	dlc = dlc_tech_res
+	type = country_event
+	placement = ROOT
+	event_image = {
+		trigger = { ztr_decolonization_is_phase_4 = yes }
+		video = "southamerica_war_civilians"
+	}
+	event_image = {
+		trigger = { ztr_decolonization_is_phase_3 = yes }
+		video = "southamerica_war_civilians"
+	}
+	event_image = {
+		trigger = { always = yes }
+		video = "unspecific_signed_contract"
+	}
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	icon = "gfx/interface/icons/event_icons/decolonization_event.dds"
+
+	title = ztr_decolonization.71.t
+	desc = {
+		first_valid = {
+			triggered_desc = { trigger = { ztr_decolonization_is_phase_4 = yes } desc = ztr_decolonization.71.d_phase4 }
+			triggered_desc = { trigger = { ztr_decolonization_is_phase_3 = yes } desc = ztr_decolonization.71.d_phase3 }
+			triggered_desc = { trigger = { always = yes } desc = ztr_decolonization.71.d_phase2 }
+		}
+	}
+
+	duration = 3
+
+	trigger = {
+		ztr_can_decolonize_suriname = yes
+		NOT = { has_variable = ztr_suriname_decolonization_cd }
+	}
+
+	immediate = {
+		cu:afro_caribbean = { save_scope_as = ztr_decolonization_culture_scope }
+	}
+
+	# Option A: Grant Independence (Phase 3+)
+	option = {
+		name = ztr_decolonization.71.a
+		trigger = { ztr_decolonization_is_phase_3 = yes }
+		ai_chance = { base = 50 }
+		custom_tooltip = ztr_decolonization_pressure_decrease_5_tt
+		hidden_effect = { change_variable = { name = ztr_decolonization_pressure_var add = -5 } }
+		if = {
+			limit = { infamy > 10 }
+			change_infamy = -5
+		}
+		ztr_define_suriname = yes
+		create_bidirectional_truce = { country = c:ZSR months = 120 }
+		c:ZSR = { change_relations = { country = root value = 50 } }
+	}
+
+	# Option B: Reject Independence
+	option = {
+		name = ztr_decolonization.71.b
+		trigger = {
+			OR = {
+				NOT = { ztr_decolonization_is_phase_4 = yes }
+				cu:afro_caribbean = { culture_current_fervor < 60 }
+				exists = c:ZSR
+			}
+		}
+		default_option = yes
+		ai_chance = { base = 10 }
+		custom_tooltip = ztr_decolonization_pressure_increase_5_tt
+		hidden_effect = { change_variable = { name = ztr_decolonization_pressure_var add = 5 } }
+		if = {
+			limit = { infamy < 50 }
+			change_infamy = 5
+		}
+		else = {
+			change_infamy = 3
+		}
+		cu:afro_caribbean = { add_fervor = 15 }
+		set_variable = { name = ztr_suriname_decolonization_cd years = 3 }
+	}
+
+	# Option C: Create as Colony
+	option = {
+		name = ztr_decolonization.c
+		trigger = {
+			NOT = { ztr_decolonization_is_phase_4 = yes }
+			country_rank >= rank_value:major_power
+			NOT = { exists = c:ZSR }
+		}
+		ai_chance = { base = 30 }
+		custom_tooltip = ztr_decolonization_pressure_decrease_5_tt
+		hidden_effect = { change_variable = { name = ztr_decolonization_pressure_var add = -5 } }
+		if = {
+			limit = { infamy > 10 }
+			change_infamy = -2
+		}
+		ztr_define_suriname = yes
+		create_bidirectional_truce = { country = c:ZSR months = 120 }
+		create_diplomatic_pact = { country = c:ZSR type = puppet }
+		c:ZSR = { change_relations = { country = root value = 25 } }
+		cu:afro_caribbean = { add_fervor = 20 }
+		c:ZSR = { set_variable = { name = ztr_decolonization_subject_cd years = 4 } }
+	}
+
+	# Option E: War of Independence (Phase 4 + high fervor)
+	option = {
+		name = ztr_decolonization.e
+		trigger = {
+			ztr_decolonization_is_phase_4 = yes
+			cu:afro_caribbean = { culture_current_fervor >= 60 }
+			NOT = { exists = c:ZSR }
+		}
+		ai_chance = { base = 5 }
+		custom_tooltip = ztr_decolonization_pressure_decrease_15_tt
+		hidden_effect = { change_variable = { name = ztr_decolonization_pressure_var add = -15 } }
+		if = {
+			limit = { infamy < 50 }
+			change_infamy = 5
+		}
+		else = {
+			change_infamy = 3
+		}
+		ztr_define_suriname = yes
+		create_diplomatic_play = {
+			target_country = c:ZSR
+			type = dp_annex_war
+		}
+		set_variable = { name = ztr_suriname_decolonization_cd years = 5 }
+	}
+}

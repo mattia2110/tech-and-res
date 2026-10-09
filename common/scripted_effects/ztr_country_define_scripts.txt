@@ -3329,3 +3329,163 @@ ztr_define_israel = {
 		}
 	}
 }
+
+ztr_define_bahamas = {
+	if = {
+		limit = { has_state_in_state_region = STATE_BAHAMAS }
+		random_scope_state = {
+			limit = { state_region = s:STATE_BAHAMAS }
+			save_scope_as = ztr_state_finder
+		}
+		if = {
+			limit = { NOT = { exists = c:BAH } }
+			create_country = {
+				tag = BAH
+				origin = this
+				state = scope:ztr_state_finder
+				on_created = {
+					set_country_type = recognized
+					activate_law = law_type:law_parliamentary_republic
+					activate_law = law_type:law_census_voting
+				}
+			}
+		}
+		every_scope_state = {
+			limit = { state_region = s:STATE_BAHAMAS }
+			set_state_owner = c:BAH
+		}
+	}
+}
+
+
+ztr_define_jamaica = {
+	if = {
+		limit = { has_state_in_state_region = STATE_JAMAICA }
+		random_scope_state = {
+			limit = { state_region = s:STATE_JAMAICA }
+			save_scope_as = ztr_state_finder
+		}
+		if = {
+			limit = { NOT = { exists = c:JAM } }
+			create_country = {
+				tag = JAM
+				origin = this
+				state = scope:ztr_state_finder
+				on_created = {
+					set_country_type = recognized
+					activate_law = law_type:law_parliamentary_republic
+					activate_law = law_type:law_census_voting
+				}
+			}
+		}
+		every_scope_state = {
+			limit = { state_region = s:STATE_JAMAICA }
+			set_state_owner = c:JAM
+		}
+	}
+}
+
+
+# Release only provinces owned by the country taking the decision or event.
+ztr_release_guianas_province_effect = {
+	if = {
+		limit = {
+			p:$PROVINCE$.state = {
+				owner = scope:ztr_guianas_colonizer
+				NOT = { is_homeland_of_country_cultures = scope:ztr_guianas_colonizer }
+			}
+		}
+		if = {
+			limit = { NOT = { exists = c:$TAG$ } }
+			create_country = {
+				tag = $TAG$
+				origin = this
+				province = p:$PROVINCE$
+				on_created = {
+					set_country_type = recognized
+					activate_law = law_type:law_parliamentary_republic
+					activate_law = law_type:law_census_voting
+				}
+			}
+		}
+		s:STATE_GUAYANA = {
+			set_owner_of_provinces = {
+				country = c:$TAG$
+				provinces = { $PROVINCE$ }
+			}
+		}
+	}
+}
+
+ztr_define_guyana = {
+	save_scope_as = ztr_guianas_colonizer
+	ztr_release_guianas_province_effect = { TAG = ZGY PROVINCE = x8E31E8 }
+	ztr_release_guianas_province_effect = { TAG = ZGY PROVINCE = xA22A4C }
+	ztr_release_guianas_province_effect = { TAG = ZGY PROVINCE = xBB88B5 }
+	ztr_release_guianas_province_effect = { TAG = ZGY PROVINCE = x218011 }
+	ztr_release_guianas_province_effect = { TAG = ZGY PROVINCE = x1F5190 }
+	ztr_release_guianas_province_effect = { TAG = ZGY PROVINCE = x6B802F }
+	ztr_release_guianas_province_effect = { TAG = ZGY PROVINCE = xA52CE3 }
+	ztr_release_guianas_province_effect = { TAG = ZGY PROVINCE = xE600F3 }
+	ztr_release_guianas_province_effect = { TAG = ZGY PROVINCE = xA00111 }
+	ztr_release_guianas_province_effect = { TAG = ZGY PROVINCE = x734F81 }
+	ztr_release_guianas_province_effect = { TAG = ZGY PROVINCE = x7B4B5E }
+	ztr_release_guianas_province_effect = { TAG = ZGY PROVINCE = x63ABD4 }
+	ztr_release_guianas_province_effect = { TAG = ZGY PROVINCE = x3A069F }
+	ztr_release_guianas_province_effect = { TAG = ZGY PROVINCE = x24A66B }
+	ztr_release_guianas_province_effect = { TAG = ZGY PROVINCE = x719492 }
+	ztr_release_guianas_province_effect = { TAG = ZGY PROVINCE = x41552E }
+	ztr_release_guianas_province_effect = { TAG = ZGY PROVINCE = x4AE8F7 }
+	ztr_release_guianas_province_effect = { TAG = ZGY PROVINCE = x9A88B5 }
+	ztr_release_guianas_province_effect = { TAG = ZGY PROVINCE = xB21306 }
+	ztr_release_guianas_province_effect = { TAG = ZGY PROVINCE = xB1960A }
+	ztr_release_guianas_province_effect = { TAG = ZGY PROVINCE = x805A8C }
+	ztr_release_guianas_province_effect = { TAG = ZGY PROVINCE = x518580 }
+	ztr_release_guianas_province_effect = { TAG = ZGY PROVINCE = xC0C0D0 }
+	ztr_release_guianas_province_effect = { TAG = ZGY PROVINCE = xADE6C2 }
+	ztr_release_guianas_province_effect = { TAG = ZGY PROVINCE = xE85635 }
+	ztr_release_guianas_province_effect = { TAG = ZGY PROVINCE = x9FEDF7 }
+	ztr_release_guianas_province_effect = { TAG = ZGY PROVINCE = xAA1153 }
+	ztr_release_guianas_province_effect = { TAG = ZGY PROVINCE = x6816FF }
+	ztr_release_guianas_province_effect = { TAG = ZGY PROVINCE = x350473 }
+	ztr_release_guianas_province_effect = { TAG = ZGY PROVINCE = xFAE8C5 }
+	ztr_release_guianas_province_effect = { TAG = ZGY PROVINCE = xB3512B }
+	ztr_release_guianas_province_effect = { TAG = ZGY PROVINCE = xD0678B }
+	ztr_release_guianas_province_effect = { TAG = ZGY PROVINCE = xD0BA2B }
+	ztr_release_guianas_province_effect = { TAG = ZGY PROVINCE = xE7864B }
+	ztr_release_guianas_province_effect = { TAG = ZGY PROVINCE = xA350D5 }
+	ztr_release_guianas_province_effect = { TAG = ZGY PROVINCE = x6C6251 }
+}
+
+ztr_define_suriname = {
+	save_scope_as = ztr_guianas_colonizer
+	ztr_release_guianas_province_effect = { TAG = ZSR PROVINCE = x50D012 }
+	ztr_release_guianas_province_effect = { TAG = ZSR PROVINCE = xF17CCC }
+	ztr_release_guianas_province_effect = { TAG = ZSR PROVINCE = xA08011 }
+	ztr_release_guianas_province_effect = { TAG = ZSR PROVINCE = xDBF640 }
+	ztr_release_guianas_province_effect = { TAG = ZSR PROVINCE = x29D96A }
+	ztr_release_guianas_province_effect = { TAG = ZSR PROVINCE = xE18467 }
+	ztr_release_guianas_province_effect = { TAG = ZSR PROVINCE = xDB86CE }
+	ztr_release_guianas_province_effect = { TAG = ZSR PROVINCE = xE8D6CB }
+	ztr_release_guianas_province_effect = { TAG = ZSR PROVINCE = xE6BBD3 }
+	ztr_release_guianas_province_effect = { TAG = ZSR PROVINCE = xA9777B }
+	ztr_release_guianas_province_effect = { TAG = ZSR PROVINCE = xF6408F }
+	ztr_release_guianas_province_effect = { TAG = ZSR PROVINCE = x063557 }
+	ztr_release_guianas_province_effect = { TAG = ZSR PROVINCE = xA299AE }
+	ztr_release_guianas_province_effect = { TAG = ZSR PROVINCE = x210190 }
+	ztr_release_guianas_province_effect = { TAG = ZSR PROVINCE = x771D68 }
+	ztr_release_guianas_province_effect = { TAG = ZSR PROVINCE = xD8362B }
+	ztr_release_guianas_province_effect = { TAG = ZSR PROVINCE = xF1E3BF }
+	ztr_release_guianas_province_effect = { TAG = ZSR PROVINCE = x4B427A }
+	ztr_release_guianas_province_effect = { TAG = ZSR PROVINCE = x0753FE }
+	ztr_release_guianas_province_effect = { TAG = ZSR PROVINCE = x19A3D9 }
+	ztr_release_guianas_province_effect = { TAG = ZSR PROVINCE = xC2E46E }
+	ztr_release_guianas_province_effect = { TAG = ZSR PROVINCE = x58ABBF }
+	ztr_release_guianas_province_effect = { TAG = ZSR PROVINCE = x3EC2E7 }
+	ztr_release_guianas_province_effect = { TAG = ZSR PROVINCE = xB6F7B4 }
+	ztr_release_guianas_province_effect = { TAG = ZSR PROVINCE = x43E136 }
+	ztr_release_guianas_province_effect = { TAG = ZSR PROVINCE = x102B13 }
+	ztr_release_guianas_province_effect = { TAG = ZSR PROVINCE = xCD1A5A }
+	ztr_release_guianas_province_effect = { TAG = ZSR PROVINCE = x822364 }
+	ztr_release_guianas_province_effect = { TAG = ZSR PROVINCE = x27E268 }
+}

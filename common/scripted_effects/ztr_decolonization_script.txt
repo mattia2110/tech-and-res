@@ -81,11 +81,22 @@ calculate_infamy_decolonization_subject_event = {
 # political control but also the homeland territory of the nation it used to rule.
 # Also counts the transferred states into decolonization_homeland_states_var for locv.
 ztr_transfer_subject_homeland_states_effect = {
-	every_scope_state = {
-		limit = {
-			ztr_state_eligible_for_subject_homeland_cession = yes
+	# Guayana's countries share a state region, so transfer individual provinces.
+	if = {
+		limit = { scope:subject_scope ?= c:ZGY }
+		ztr_define_guyana = yes
+	}
+	else_if = {
+		limit = { scope:subject_scope ?= c:ZSR }
+		ztr_define_suriname = yes
+	}
+	else = {
+		every_scope_state = {
+			limit = {
+				ztr_state_eligible_for_subject_homeland_cession = yes
+			}
+			set_state_owner = scope:subject_scope
 		}
-		set_state_owner = scope:subject_scope
 	}
 }
 
@@ -95,6 +106,9 @@ ztr_transfer_subject_homeland_states_effect = {
 ztr_claim_subject_homeland_states_effect = {
 	every_scope_state = {
 		limit = {
+			# State-region claims would also cover the other Guianas.
+			NOT = { scope:subject_scope ?= c:ZGY }
+			NOT = { scope:subject_scope ?= c:ZSR }
 			ztr_state_eligible_for_subject_homeland_cession = yes
 		}
 		state_region = {

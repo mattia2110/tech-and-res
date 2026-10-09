@@ -141,6 +141,23 @@ ztr_state_eligible_for_subject_homeland_cession = {
 		limit = { scope:subject_scope ?= c:LIB }
 		is_in_geographic_region = geographic_region_west_africa
 	}
+	# Caribbean countries recover only their own island state.
+	trigger_if = {
+		limit = { scope:subject_scope ?= c:BAH }
+		state_region = s:STATE_BAHAMAS
+	}
+	trigger_if = {
+		limit = { scope:subject_scope ?= c:JAM }
+		state_region = s:STATE_JAMAICA
+	}
+	trigger_if = {
+		limit = { scope:subject_scope ?= c:ZGY }
+		ztr_state_contains_guyana_provinces = yes
+	}
+	trigger_if = {
+		limit = { scope:subject_scope ?= c:ZSR }
+		ztr_state_contains_suriname_provinces = yes
+	}
 }
 
 # Fast membership check against the yearly-cached colonial states list built by je_decolonization.
@@ -2109,4 +2126,133 @@ ztr_can_decolonize_ethiopia = {
 	NOT = {
 		has_variable = ztr_ethiopia_decolonization_cd
 	}
+}
+
+
+ztr_can_decolonize_bahamas = {
+	ztr_decolonization_age_active = yes
+	ztr_decolonization_is_phase_2 = yes
+	cu:afro_caribbean = { culture_wants_to_be_decolonized = yes }
+	NOT = { is_subject = yes }
+	any_scope_state = {
+		state_region = s:STATE_BAHAMAS
+		NOT = { is_homeland_of_country_cultures = root }
+	}
+	NOT = { has_variable = ztr_bahamas_decolonization_cd }
+}
+
+
+ztr_can_decolonize_jamaica = {
+	ztr_decolonization_age_active = yes
+	ztr_decolonization_is_phase_2 = yes
+	cu:afro_caribbean = { culture_wants_to_be_decolonized = yes }
+	NOT = { is_subject = yes }
+	any_scope_state = {
+		state_region = s:STATE_JAMAICA
+		NOT = { is_homeland_of_country_cultures = root }
+	}
+	NOT = { has_variable = ztr_jamaica_decolonization_cd }
+}
+
+# Guyana provinces in the shared Guayana state region.
+ztr_state_contains_guyana_provinces = {
+	state_region = s:STATE_GUAYANA
+	OR = {
+		this = p:x8E31E8.state
+		this = p:xA22A4C.state
+		this = p:xBB88B5.state
+		this = p:x218011.state
+		this = p:x1F5190.state
+		this = p:x6B802F.state
+		this = p:xA52CE3.state
+		this = p:xE600F3.state
+		this = p:xA00111.state
+		this = p:x734F81.state
+		this = p:x7B4B5E.state
+		this = p:x63ABD4.state
+		this = p:x3A069F.state
+		this = p:x24A66B.state
+		this = p:x719492.state
+		this = p:x41552E.state
+		this = p:x4AE8F7.state
+		this = p:x9A88B5.state
+		this = p:xB21306.state
+		this = p:xB1960A.state
+		this = p:x805A8C.state
+		this = p:x518580.state
+		this = p:xC0C0D0.state
+		this = p:xADE6C2.state
+		this = p:xE85635.state
+		this = p:x9FEDF7.state
+		this = p:xAA1153.state
+		this = p:x6816FF.state
+		this = p:x350473.state
+		this = p:xFAE8C5.state
+		this = p:xB3512B.state
+		this = p:xD0678B.state
+		this = p:xD0BA2B.state
+		this = p:xE7864B.state
+		this = p:xA350D5.state
+		this = p:x6C6251.state
+	}
+}
+
+ztr_can_decolonize_guyana = {
+	ztr_decolonization_age_active = yes
+	ztr_decolonization_is_phase_2 = yes
+	cu:afro_caribbean = { culture_wants_to_be_decolonized = yes }
+	NOT = { is_subject = yes }
+	any_scope_state = {
+		ztr_state_contains_guyana_provinces = yes
+		NOT = { is_homeland_of_country_cultures = root }
+	}
+	NOT = { has_variable = ztr_guyana_decolonization_cd }
+}
+
+# Suriname provinces in the shared Guayana state region.
+ztr_state_contains_suriname_provinces = {
+	state_region = s:STATE_GUAYANA
+	OR = {
+		this = p:x50D012.state
+		this = p:xF17CCC.state
+		this = p:xA08011.state
+		this = p:xDBF640.state
+		this = p:x29D96A.state
+		this = p:xE18467.state
+		this = p:xDB86CE.state
+		this = p:xE8D6CB.state
+		this = p:xE6BBD3.state
+		this = p:xA9777B.state
+		this = p:xF6408F.state
+		this = p:x063557.state
+		this = p:xA299AE.state
+		this = p:x210190.state
+		this = p:x771D68.state
+		this = p:xD8362B.state
+		this = p:xF1E3BF.state
+		this = p:x4B427A.state
+		this = p:x0753FE.state
+		this = p:x19A3D9.state
+		this = p:xC2E46E.state
+		this = p:x58ABBF.state
+		this = p:x3EC2E7.state
+		this = p:xB6F7B4.state
+		this = p:x43E136.state
+		this = p:x102B13.state
+		this = p:xCD1A5A.state
+		this = p:x822364.state
+		this = p:x27E268.state
+	}
+}
+
+ztr_can_decolonize_suriname = {
+	ztr_decolonization_age_active = yes
+	ztr_decolonization_is_phase_2 = yes
+	cu:afro_caribbean = { culture_wants_to_be_decolonized = yes }
+	NOT = { is_subject = yes }
+	any_scope_state = {
+		ztr_state_contains_suriname_provinces = yes
+		NOT = { is_homeland_of_country_cultures = root }
+	}
+	NOT = { has_variable = ztr_suriname_decolonization_cd }
 }

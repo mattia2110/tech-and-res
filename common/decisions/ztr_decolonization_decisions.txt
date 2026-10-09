@@ -4193,3 +4193,169 @@ decolonization_new_zealand_decision_gbr = {
 		}
 	}
 }
+
+
+decolonization_bahamas_decision = {
+	is_shown = {
+		ztr_decolonization_age_active = yes
+		cu:afro_caribbean = {
+			culture_wants_to_be_decolonized = yes
+		}
+		NOT = {
+			is_subject = yes
+		}
+		any_scope_state = {
+			state_region = s:STATE_BAHAMAS
+			NOT = { is_homeland_of_country_cultures = root }
+		}
+	}
+	possible = {
+		cu:afro_caribbean = {
+			culture_wants_to_be_decolonized = yes
+		}
+	}
+	when_taken = {
+		change_infamy = -5
+		ztr_define_bahamas = yes
+		if = {
+			limit = { exists = c:BAH }
+			create_bidirectional_truce = {
+				country = c:BAH
+				months = 120
+			}
+		}
+	}
+	ai_chance = {
+		value = 5
+		if = {
+			limit = {
+				country_rank <= rank_value:minor_power
+			}
+			add = 1000
+		}
+	}
+}
+
+
+decolonization_jamaica_decision = {
+	is_shown = {
+		ztr_decolonization_age_active = yes
+		cu:afro_caribbean = {
+			culture_wants_to_be_decolonized = yes
+		}
+		NOT = {
+			is_subject = yes
+		}
+		any_scope_state = {
+			state_region = s:STATE_JAMAICA
+			NOT = { is_homeland_of_country_cultures = root }
+		}
+	}
+	possible = {
+		cu:afro_caribbean = {
+			culture_wants_to_be_decolonized = yes
+		}
+	}
+	when_taken = {
+		change_infamy = -5
+		ztr_define_jamaica = yes
+		if = {
+			limit = { exists = c:JAM }
+			create_bidirectional_truce = {
+				country = c:JAM
+				months = 120
+			}
+		}
+	}
+	ai_chance = {
+		value = 5
+		if = {
+			limit = {
+				country_rank <= rank_value:minor_power
+			}
+			add = 1000
+		}
+	}
+}
+
+decolonization_guyana_decision = {
+	is_shown = {
+		ztr_decolonization_age_active = yes
+		cu:afro_caribbean = {
+			culture_wants_to_be_decolonized = yes
+		}
+		NOT = {
+			is_subject = yes
+		}
+		any_scope_state = {
+			ztr_state_contains_guyana_provinces = yes
+			NOT = { is_homeland_of_country_cultures = root }
+		}
+	}
+	possible = {
+		cu:afro_caribbean = {
+			culture_wants_to_be_decolonized = yes
+		}
+	}
+	when_taken = {
+		change_infamy = -5
+		ztr_define_guyana = yes
+		if = {
+			limit = { exists = c:ZGY }
+			create_bidirectional_truce = {
+				country = c:ZGY
+				months = 120
+			}
+		}
+	}
+	ai_chance = {
+		value = 5
+		if = {
+			limit = {
+				country_rank <= rank_value:minor_power
+			}
+			add = 1000
+		}
+	}
+}
+
+decolonization_suriname_decision = {
+	is_shown = {
+		ztr_decolonization_age_active = yes
+		cu:afro_caribbean = {
+			culture_wants_to_be_decolonized = yes
+		}
+		NOT = {
+			is_subject = yes
+		}
+		any_scope_state = {
+			ztr_state_contains_suriname_provinces = yes
+			NOT = { is_homeland_of_country_cultures = root }
+		}
+	}
+	possible = {
+		cu:afro_caribbean = {
+			culture_wants_to_be_decolonized = yes
+		}
+	}
+	when_taken = {
+		change_infamy = -5
+		ztr_define_suriname = yes
+		if = {
+			limit = { exists = c:ZSR }
+			create_bidirectional_truce = {
+				country = c:ZSR
+				months = 120
+			}
+		}
+	}
+	ai_chance = {
+		value = 5
+		if = {
+			limit = {
+				country_rank <= rank_value:minor_power
+			}
+			add = 1000
+		}
+	}
+}
