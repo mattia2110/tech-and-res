@@ -1,0 +1,82 @@
+﻿# City graphics triggers for ztr city types (docs/ztr_city_graphics_design.md). Root = state region.
+
+ztr_city_zone_na_trigger = {
+	OR = {
+		is_in_geographic_region = geographic_region_canada
+		is_in_geographic_region = geographic_region_pacific_coast
+		is_in_geographic_region = geographic_region_great_plains
+		is_in_geographic_region = geographic_region_atlantic_coast
+		is_in_geographic_region = geographic_region_australasia
+		this = s:STATE_HAWAIIAN_ISLANDS
+	}
+}
+
+# Mexico, Central America, Caribbean and South America; same coverage as vanilla latin_city minus Iberia and the Philippines
+ztr_city_zone_latam_trigger = {
+	OR = {
+		is_in_geographic_region = geographic_region_central_america
+		is_in_geographic_region = geographic_region_gran_colombia
+		is_in_geographic_region = geographic_region_andes
+		is_in_geographic_region = geographic_region_brazil
+		is_in_geographic_region = geographic_region_la_plata
+	}
+}
+
+# Boundary states (BOHEMIA, MORAVIA, KOLA, EAST_KARELIA) still to decide: design doc §7.2
+ztr_city_zone_neu_trigger = {
+	OR = {
+		is_in_geographic_region = geographic_region_western_europe
+		is_in_geographic_region = geographic_region_central_europe
+		is_in_geographic_region = geographic_region_northern_europe
+	}
+}
+
+# Japan with Sakhalin and Ryukyu, all of Korea (North Korea included, no socialist variant)
+ztr_city_zone_jpk_trigger = {
+	OR = {
+		is_in_geographic_region = geographic_region_japan
+		is_in_geographic_region = geographic_region_korea
+	}
+}
+
+# 1890-1909
+ztr_city_era_early_modern_start_trigger = {
+	any_scope_state = {
+		owner = { has_technology_researched = elevator }
+	}
+}
+
+# 1910-1939
+ztr_city_era_early_modern_trigger = {
+	any_scope_state = {
+		owner = { has_technology_researched = paved_roads }
+	}
+}
+
+# 1940-1969
+ztr_city_era_late_modern_trigger = {
+	any_scope_state = {
+		owner = { has_technology_researched = highway_systems }
+	}
+}
+
+# 1970-1999
+ztr_city_era_postmodern_trigger = {
+	any_scope_state = {
+		owner = { has_technology_researched = multinational_corporations }
+	}
+}
+
+# 2000-2029
+ztr_city_era_digital_trigger = {
+	any_scope_state = {
+		owner = { has_technology_researched = circular_economy }
+	}
+}
+
+# 2030+
+ztr_city_era_ai_trigger = {
+	any_scope_state = {
+		owner = { has_technology_researched = agentic_ai }
+	}
+}

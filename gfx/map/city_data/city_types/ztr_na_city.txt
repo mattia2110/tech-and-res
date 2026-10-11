@@ -1,0 +1,852 @@
+﻿# North America city types. See docs/ztr_city_graphics_design.md.
+# Pool weights = repeated entries. Late-game SoL is mostly rich, so every tier mixes
+# suburban blocks, apartments, public housing and a few towers; the downtown is the centerpiece.
+# North America, early modern start (1890-1909): elevator-age tenements, apartments and houses over the
+# vanilla Victorian layer.
+ztr_na_city_early_modern_start = {
+	city_type = city
+
+	trigger = {
+		ztr_city_zone_na_trigger = yes
+		ztr_city_era_early_modern_start_trigger = yes
+	}
+	weight = 50
+
+	min_residential_buildings = 2
+	max_residential_buildings = 150
+	max_residence_points = 200
+
+	rich_building_meshes = {
+		"european_urban_residential_rich_01_mesh"
+		"european_urban_residential_rich_01_mesh"
+		"european_urban_residential_rich_01_mesh"
+		"european_urban_residential_rich_01_mesh"
+		"european_urban_residential_rich_01_mesh"
+		"european_urban_residential_rich_01_mesh"
+		"european_urban_residential_rich_02_mesh"
+		"european_urban_residential_rich_02_mesh"
+		"european_urban_residential_rich_02_mesh"
+		"european_urban_residential_rich_02_mesh"
+		"european_urban_residential_rich_02_mesh"
+		"european_urban_residential_rich_02_mesh"
+		"european_urban_residential_rich_03_mesh"
+		"european_urban_residential_rich_03_mesh"
+		"european_urban_residential_rich_03_mesh"
+		"european_urban_residential_rich_03_mesh"
+		"european_urban_residential_rich_03_mesh"
+		"european_urban_residential_rich_03_mesh"
+		"ztr_na_modern_villa_01_mesh"
+		"ztr_na_modern_house_05_mesh"
+		"ztr_na_modern_mid_04_mesh"
+	}
+	rich_building_offsets = {
+		position = 0.0
+		rotation = 0.0
+	}
+
+	mid_building_meshes = {
+		"european_urban_residential_mid_01_mesh"
+		"european_urban_residential_mid_01_mesh"
+		"european_urban_residential_mid_01_mesh"
+		"european_urban_residential_mid_01_mesh"
+		"european_urban_residential_mid_01_mesh"
+		"european_urban_residential_mid_01_mesh"
+		"european_urban_residential_mid_01_mesh"
+		"european_urban_residential_mid_01_mesh"
+		"european_urban_residential_mid_01_mesh"
+		"european_urban_residential_mid_01_mesh"
+		"european_urban_residential_mid_01_mesh"
+		"european_urban_residential_mid_01_mesh"
+		"european_urban_residential_mid_02_mesh"
+		"european_urban_residential_mid_02_mesh"
+		"european_urban_residential_mid_02_mesh"
+		"european_urban_residential_mid_02_mesh"
+		"european_urban_residential_mid_02_mesh"
+		"european_urban_residential_mid_02_mesh"
+		"european_urban_residential_mid_02_mesh"
+		"european_urban_residential_mid_02_mesh"
+		"european_urban_residential_mid_02_mesh"
+		"european_urban_residential_mid_02_mesh"
+		"european_urban_residential_mid_02_mesh"
+		"european_urban_residential_mid_02_mesh"
+		"european_urban_residential_mid_03_mesh"
+		"european_urban_residential_mid_03_mesh"
+		"european_urban_residential_mid_03_mesh"
+		"european_urban_residential_mid_03_mesh"
+		"european_urban_residential_mid_03_mesh"
+		"european_urban_residential_mid_03_mesh"
+		"european_urban_residential_mid_03_mesh"
+		"european_urban_residential_mid_03_mesh"
+		"european_urban_residential_mid_03_mesh"
+		"european_urban_residential_mid_03_mesh"
+		"european_urban_residential_mid_03_mesh"
+		"european_urban_residential_mid_03_mesh"
+		"ztr_na_modern_house_04_mesh"
+		"ztr_na_modern_house_05_mesh"
+		"ztr_na_modern_mid_03_mesh"
+		"ztr_na_modern_mid_04_mesh"
+	}
+	mid_building_offsets = {
+		position = 0.2
+		rotation = 6.25
+	}
+
+	poor_building_meshes = {
+		"european_urban_residential_poor_01_mesh"
+		"european_urban_residential_poor_01_mesh"
+		"european_urban_residential_poor_01_mesh"
+		"european_urban_residential_poor_01_mesh"
+		"european_urban_residential_poor_01_mesh"
+		"european_urban_residential_poor_01_mesh"
+		"european_urban_residential_poor_01_mesh"
+		"european_urban_residential_poor_01_mesh"
+		"european_urban_residential_poor_01_mesh"
+		"european_urban_residential_poor_02_mesh"
+		"european_urban_residential_poor_02_mesh"
+		"european_urban_residential_poor_02_mesh"
+		"european_urban_residential_poor_02_mesh"
+		"european_urban_residential_poor_02_mesh"
+		"european_urban_residential_poor_02_mesh"
+		"european_urban_residential_poor_02_mesh"
+		"european_urban_residential_poor_02_mesh"
+		"european_urban_residential_poor_02_mesh"
+		"european_urban_residential_poor_03_mesh"
+		"european_urban_residential_poor_03_mesh"
+		"european_urban_residential_poor_03_mesh"
+		"european_urban_residential_poor_03_mesh"
+		"european_urban_residential_poor_03_mesh"
+		"european_urban_residential_poor_03_mesh"
+		"european_urban_residential_poor_03_mesh"
+		"european_urban_residential_poor_03_mesh"
+		"european_urban_residential_poor_03_mesh"
+		"ztr_na_modern_poor_01_mesh"
+		"ztr_na_modern_poor_03_mesh"
+		"ztr_na_modern_poor_04_mesh"
+	}
+	poor_building_offsets = {
+		position = 0.2
+		rotation = 20.0
+	}
+
+	building_offsets = {	#offsets for regular buildings
+		position = 0.0
+		rotation = 0.0
+	}
+
+	building_construction_sector = {"generic_manufactory_03_mesh"}
+	building_food_industry = {"generic_manufactory_01_mesh"}
+	building_textile_mill = {"tools_manufactory_01_mesh"}
+	building_furniture_manufactory= {"furniture_manufactory_01_mesh"}
+	building_glassworks = {"glassworks_manufactory_01_mesh"}
+	building_tooling_workshop = {"tools_manufactory_01_mesh"}
+	building_paper_mill = {"generic_manufactory_02_mesh"}
+	building_chemical_plant = {"colonial_manufactory_01_mesh"}
+	building_steel_mill = {"generic_manufactory_01_mesh"}
+	building_arms_industry = {"colonial_manufactory_03_mesh"}
+	building_artillery_foundry = {"colonial_manufactory_03_mesh"}
+	building_automotive_industry = {"war_machines_manufactory_01_mesh"}
+	building_motor_industry = {"colonial_manufactory_02_mesh"}
+	building_munition_plant = {"colonial_manufactory_03_mesh"}
+	building_synthetics_plant = {"glassworks_manufactory_01_mesh"}
+	building_electrics_industry = {"generic_manufactory_02_mesh"}
+	building_power_plant = {"generic_manufactory_01_mesh"}
+	building_explosives_factory = {"colonial_manufactory_01_mesh"}
+
+	building_suez_canal = {"canal_suezcanal_01_mesh"}
+	building_panama_canal = {"canal_panamacanal_01_mesh"}
+	building_eiffel_tower = {"wonder_eiffel_tower_01_mesh"}
+
+	building_urban_center = {}
+	building_naval_administration = {"european_port_naval_base_01_mesh"}
+
+	building_government_administration = {"european_city_government_administration_01_mesh"}
+	building_trade_center = {"european_city_tradecenter_01_mesh"}
+	building_university = {"european_city_university_01_mesh"}
+	building_art_academy = {"european_city_academy_01_mesh"}
+	building_barrack = {"european_city_barracks_01_mesh"}
+	building_financial_district = {"european_city_financialdistrict_01_mesh"}
+	building_company_headquarter = {"generic_companyhq_01_mesh"}
+	building_company_regional_headquarter = {"generic_regionalcompanyhq_01_mesh"}
+	building_army_logistics_center = {"generic_logisticscenter_01_mesh"}
+}
+
+# North America, early modern era (1910-1939): prewar models over the vanilla Victorian layer.
+ztr_na_city_early_modern = {
+	city_type = city
+
+	trigger = {
+		ztr_city_zone_na_trigger = yes
+		ztr_city_era_early_modern_trigger = yes
+	}
+	weight = 100
+
+	min_residential_buildings = 2
+	max_residential_buildings = 150
+	max_residence_points = 200
+
+	rich_building_meshes = {
+		"european_urban_residential_rich_01_mesh"
+		"european_urban_residential_rich_01_mesh"
+		"european_urban_residential_rich_01_mesh"
+		"european_urban_residential_rich_02_mesh"
+		"european_urban_residential_rich_02_mesh"
+		"european_urban_residential_rich_02_mesh"
+		"european_urban_residential_rich_03_mesh"
+		"european_urban_residential_rich_03_mesh"
+		"european_urban_residential_rich_03_mesh"
+		"ztr_na_modern_villa_01_mesh"
+		"ztr_na_modern_villa_01_mesh"
+		"ztr_na_modern_villa_01_mesh"
+		"ztr_na_modern_house_04_mesh"
+		"ztr_na_modern_house_04_mesh"
+		"ztr_na_modern_house_05_mesh"
+		"ztr_na_modern_house_05_mesh"
+		"ztr_na_modern_house_02_mesh"
+		"ztr_na_modern_rich_03_mesh"
+		"ztr_na_modern_rich_03_mesh"
+		"ztr_na_modern_mid_03_mesh"
+		"ztr_na_modern_mid_03_mesh"
+		"ztr_na_modern_mid_04_mesh"
+		"ztr_na_modern_mid_04_mesh"
+		"ztr_na_modern_poor_03_mesh"
+		"ztr_na_modern_poor_03_mesh"
+	}
+	rich_building_offsets = {
+		position = 0.0
+		rotation = 0.0
+	}
+
+	mid_building_meshes = {
+		"european_urban_residential_mid_01_mesh"
+		"european_urban_residential_mid_01_mesh"
+		"european_urban_residential_mid_01_mesh"
+		"european_urban_residential_mid_01_mesh"
+		"european_urban_residential_mid_02_mesh"
+		"european_urban_residential_mid_02_mesh"
+		"european_urban_residential_mid_02_mesh"
+		"european_urban_residential_mid_03_mesh"
+		"european_urban_residential_mid_03_mesh"
+		"european_urban_residential_mid_03_mesh"
+		"ztr_na_modern_mid_03_mesh"
+		"ztr_na_modern_mid_04_mesh"
+		"ztr_na_modern_house_04_mesh"
+		"ztr_na_modern_house_05_mesh"
+		"ztr_na_modern_house_02_mesh"
+		"ztr_na_modern_poor_03_mesh"
+		"ztr_na_modern_poor_04_mesh"
+	}
+	mid_building_offsets = {
+		position = 0.2
+		rotation = 6.25
+	}
+
+	poor_building_meshes = {
+		"european_urban_residential_poor_01_mesh"
+		"european_urban_residential_poor_01_mesh"
+		"european_urban_residential_poor_01_mesh"
+		"european_urban_residential_poor_01_mesh"
+		"european_urban_residential_poor_02_mesh"
+		"european_urban_residential_poor_02_mesh"
+		"european_urban_residential_poor_02_mesh"
+		"european_urban_residential_poor_03_mesh"
+		"european_urban_residential_poor_03_mesh"
+		"european_urban_residential_poor_03_mesh"
+		"ztr_na_modern_poor_01_mesh"
+		"ztr_na_modern_poor_03_mesh"
+		"ztr_na_modern_poor_03_mesh"
+		"ztr_na_modern_poor_04_mesh"
+		"ztr_na_modern_poor_04_mesh"
+		"ztr_na_modern_house_02_mesh"
+	}
+	poor_building_offsets = {
+		position = 0.2
+		rotation = 20.0
+	}
+
+	building_offsets = {	#offsets for regular buildings
+		position = 0.0
+		rotation = 0.0
+	}
+
+	building_construction_sector = {"generic_manufactory_03_mesh"}
+	building_food_industry = {"generic_manufactory_01_mesh"}
+	building_textile_mill = {"tools_manufactory_01_mesh"}
+	building_furniture_manufactory= {"furniture_manufactory_01_mesh"}
+	building_glassworks = {"glassworks_manufactory_01_mesh"}
+	building_tooling_workshop = {"tools_manufactory_01_mesh"}
+	building_paper_mill = {"generic_manufactory_02_mesh"}
+	building_chemical_plant = {"colonial_manufactory_01_mesh"}
+	building_steel_mill = {"generic_manufactory_01_mesh"}
+	building_arms_industry = {"colonial_manufactory_03_mesh"}
+	building_artillery_foundry = {"colonial_manufactory_03_mesh"}
+	building_automotive_industry = {"war_machines_manufactory_01_mesh"}
+	building_motor_industry = {"colonial_manufactory_02_mesh"}
+	building_munition_plant = {"colonial_manufactory_03_mesh"}
+	building_synthetics_plant = {"glassworks_manufactory_01_mesh"}
+	building_electrics_industry = {"generic_manufactory_02_mesh"}
+	building_power_plant = {"generic_manufactory_01_mesh"}
+	building_explosives_factory = {"colonial_manufactory_01_mesh"}
+
+	building_suez_canal = {"canal_suezcanal_01_mesh"}
+	building_panama_canal = {"canal_panamacanal_01_mesh"}
+	building_eiffel_tower = {"wonder_eiffel_tower_01_mesh"}
+
+	building_urban_center = {}
+	building_naval_administration = {"european_port_naval_base_01_mesh"}
+
+	building_government_administration = {"european_city_government_administration_01_mesh"}
+	building_trade_center = {"european_city_tradecenter_01_mesh"}
+	building_university = {"european_city_university_01_mesh"}
+	building_art_academy = {"european_city_academy_01_mesh"}
+	building_barrack = {"european_city_barracks_01_mesh"}
+	building_financial_district = {"european_city_financialdistrict_01_mesh"}
+	building_company_headquarter = {"generic_companyhq_01_mesh"}
+	building_company_regional_headquarter = {"generic_regionalcompanyhq_01_mesh"}
+	building_army_logistics_center = {"generic_logisticscenter_01_mesh"}
+}
+
+# North America, late modern era (1940-1969): postwar models; prewar and Victorian buildings
+# stay as older layers of the city.
+ztr_na_city_late_modern = {
+	city_type = city
+
+	trigger = {
+		ztr_city_zone_na_trigger = yes
+		ztr_city_era_late_modern_trigger = yes
+	}
+	weight = 200
+
+	min_residential_buildings = 2
+	max_residential_buildings = 150
+	max_residence_points = 200
+
+	rich_building_meshes = {
+		"european_urban_residential_rich_01_mesh"
+		"european_urban_residential_rich_02_mesh"
+		"european_urban_residential_rich_03_mesh"
+		"european_urban_residential_mid_01_mesh"
+		"european_urban_residential_mid_02_mesh"
+		"ztr_na_modern_villa_01_mesh"
+		"ztr_na_modern_house_04_mesh"
+		"ztr_na_modern_house_05_mesh"
+		"ztr_na_modern_house_02_mesh"
+		"ztr_na_modern_rich_03_mesh"
+		"ztr_na_modern_mid_03_mesh"
+		"ztr_na_modern_mid_04_mesh"
+		"ztr_na_modern_poor_03_mesh"
+		"ztr_na_modern_poor_01_mesh"
+		"ztr_na_modern_villa_02_mesh"
+		"ztr_na_modern_villa_02_mesh"
+		"ztr_na_modern_villa_02_mesh"
+		"ztr_na_modern_house_03_mesh"
+		"ztr_na_modern_house_03_mesh"
+		"ztr_na_modern_house_03_mesh"
+		"ztr_na_modern_house_01_mesh"
+		"ztr_na_modern_house_01_mesh"
+		"ztr_na_modern_rich_01_mesh"
+		"ztr_na_modern_rich_02_mesh"
+		"ztr_na_modern_mid_01_mesh"
+		"ztr_na_modern_mid_02_mesh"
+		"ztr_na_modern_poor_02_mesh"
+	}
+	rich_building_offsets = {
+		position = 0.0
+		rotation = 0.0
+	}
+
+	mid_building_meshes = {
+		"european_urban_residential_mid_01_mesh"
+		"european_urban_residential_mid_01_mesh"
+		"european_urban_residential_mid_02_mesh"
+		"european_urban_residential_mid_03_mesh"
+		"ztr_na_modern_house_04_mesh"
+		"ztr_na_modern_house_04_mesh"
+		"ztr_na_modern_house_05_mesh"
+		"ztr_na_modern_house_02_mesh"
+		"ztr_na_modern_house_02_mesh"
+		"ztr_na_modern_mid_03_mesh"
+		"ztr_na_modern_mid_03_mesh"
+		"ztr_na_modern_mid_04_mesh"
+		"ztr_na_modern_poor_03_mesh"
+		"ztr_na_modern_poor_04_mesh"
+		"ztr_na_modern_house_03_mesh"
+		"ztr_na_modern_house_03_mesh"
+		"ztr_na_modern_house_01_mesh"
+		"ztr_na_modern_house_01_mesh"
+		"ztr_na_modern_mid_01_mesh"
+		"ztr_na_modern_mid_02_mesh"
+	}
+	mid_building_offsets = {
+		position = 0.2
+		rotation = 6.25
+	}
+
+	poor_building_meshes = {
+		"european_urban_residential_poor_01_mesh"
+		"european_urban_residential_poor_01_mesh"
+		"european_urban_residential_poor_02_mesh"
+		"european_urban_residential_poor_02_mesh"
+		"european_urban_residential_poor_03_mesh"
+		"european_urban_residential_poor_03_mesh"
+		"ztr_na_modern_poor_01_mesh"
+		"ztr_na_modern_poor_03_mesh"
+		"ztr_na_modern_poor_04_mesh"
+		"ztr_na_modern_house_02_mesh"
+		"ztr_na_modern_house_02_mesh"
+		"ztr_na_modern_poor_02_mesh"
+		"ztr_na_modern_house_01_mesh"
+		"ztr_na_modern_house_01_mesh"
+	}
+	poor_building_offsets = {
+		position = 0.2
+		rotation = 20.0
+	}
+
+	building_offsets = {	#offsets for regular buildings
+		position = 0.0
+		rotation = 0.0
+	}
+
+	building_construction_sector = {"generic_manufactory_03_mesh"}
+	building_food_industry = {"generic_manufactory_01_mesh"}
+	building_textile_mill = {"tools_manufactory_01_mesh"}
+	building_furniture_manufactory= {"furniture_manufactory_01_mesh"}
+	building_glassworks = {"glassworks_manufactory_01_mesh"}
+	building_tooling_workshop = {"tools_manufactory_01_mesh"}
+	building_paper_mill = {"generic_manufactory_02_mesh"}
+	building_chemical_plant = {"colonial_manufactory_01_mesh"}
+	building_steel_mill = {"generic_manufactory_01_mesh"}
+	building_arms_industry = {"colonial_manufactory_03_mesh"}
+	building_artillery_foundry = {"colonial_manufactory_03_mesh"}
+	building_automotive_industry = {"war_machines_manufactory_01_mesh"}
+	building_motor_industry = {"colonial_manufactory_02_mesh"}
+	building_munition_plant = {"colonial_manufactory_03_mesh"}
+	building_synthetics_plant = {"glassworks_manufactory_01_mesh"}
+	building_electrics_industry = {"generic_manufactory_02_mesh"}
+	building_power_plant = {"generic_manufactory_01_mesh"}
+	building_explosives_factory = {"colonial_manufactory_01_mesh"}
+
+	building_suez_canal = {"canal_suezcanal_01_mesh"}
+	building_panama_canal = {"canal_panamacanal_01_mesh"}
+	building_eiffel_tower = {"wonder_eiffel_tower_01_mesh"}
+
+	building_urban_center = {}
+	building_naval_administration = {"european_port_naval_base_01_mesh"}
+
+	building_government_administration = {"european_city_government_administration_01_mesh"}
+	building_trade_center = {"european_city_tradecenter_01_mesh"}
+	building_university = {"european_city_university_01_mesh"}
+	building_art_academy = {"european_city_academy_01_mesh"}
+	building_barrack = {"european_city_barracks_01_mesh"}
+	building_financial_district = {"european_city_financialdistrict_01_mesh"}
+	building_company_headquarter = {"generic_companyhq_01_mesh"}
+	building_company_regional_headquarter = {"generic_regionalcompanyhq_01_mesh"}
+	building_army_logistics_center = {"generic_logisticscenter_01_mesh"}
+}
+
+# North America, postmodern era (1970-1999). Same pool logic as the late modern era;
+# brick buildings of the modern era stay as the older layer of the city.
+ztr_na_city_postmodern = {
+	city_type = city
+
+	trigger = {
+		ztr_city_zone_na_trigger = yes
+		ztr_city_era_postmodern_trigger = yes
+	}
+	weight = 300
+
+	min_residential_buildings = 2
+	max_residential_buildings = 150
+	max_residence_points = 200
+
+	rich_building_meshes = {
+		"ztr_na_postmodern_villa_01_mesh"
+		"ztr_na_postmodern_villa_01_mesh"
+		"ztr_na_postmodern_villa_01_mesh"
+		"ztr_na_postmodern_villa_01_mesh"
+		"ztr_na_postmodern_house_02_mesh"
+		"ztr_na_postmodern_house_02_mesh"
+		"ztr_na_postmodern_house_02_mesh"
+		"ztr_na_postmodern_house_03_mesh"
+		"ztr_na_postmodern_house_03_mesh"
+		"ztr_na_postmodern_house_03_mesh"
+		"ztr_na_postmodern_house_04_mesh"
+		"ztr_na_postmodern_house_04_mesh"
+		"ztr_na_postmodern_mid_01_mesh"
+		"ztr_na_postmodern_mid_01_mesh"
+		"ztr_na_postmodern_mid_02_mesh"
+		"ztr_na_postmodern_mid_02_mesh"
+		"ztr_na_postmodern_mid_03_mesh"
+		"ztr_na_postmodern_poor_01_mesh"
+		"ztr_na_postmodern_poor_02_mesh"
+		"ztr_na_postmodern_poor_03_mesh"
+		"ztr_na_modern_mid_02_mesh"
+		"ztr_na_modern_poor_01_mesh"
+		"ztr_na_modern_poor_02_mesh"
+		"ztr_na_postmodern_rich_01_mesh"
+		"ztr_na_postmodern_rich_02_mesh"
+		"ztr_na_postmodern_rich_03_mesh"
+	}
+	rich_building_offsets = {
+		position = 0.0
+		rotation = 0.0
+	}
+
+	mid_building_meshes = {
+		"ztr_na_postmodern_house_02_mesh"
+		"ztr_na_postmodern_house_02_mesh"
+		"ztr_na_postmodern_house_02_mesh"
+		"ztr_na_postmodern_house_03_mesh"
+		"ztr_na_postmodern_house_03_mesh"
+		"ztr_na_postmodern_house_03_mesh"
+		"ztr_na_postmodern_house_04_mesh"
+		"ztr_na_postmodern_house_04_mesh"
+		"ztr_na_postmodern_house_01_mesh"
+		"ztr_na_postmodern_mid_01_mesh"
+		"ztr_na_postmodern_mid_02_mesh"
+		"ztr_na_postmodern_mid_03_mesh"
+		"ztr_na_postmodern_poor_01_mesh"
+		"ztr_na_postmodern_poor_02_mesh"
+		"ztr_na_postmodern_poor_03_mesh"
+		"ztr_na_modern_mid_01_mesh"
+		"ztr_na_modern_poor_01_mesh"
+	}
+	mid_building_offsets = {
+		position = 0.2
+		rotation = 6.25
+	}
+
+	poor_building_meshes = {
+		"ztr_na_postmodern_house_01_mesh"
+		"ztr_na_postmodern_house_01_mesh"
+		"ztr_na_postmodern_house_01_mesh"
+		"ztr_na_postmodern_house_03_mesh"
+		"ztr_na_postmodern_house_03_mesh"
+		"ztr_na_postmodern_house_04_mesh"
+		"ztr_na_postmodern_house_04_mesh"
+		"ztr_na_postmodern_poor_01_mesh"
+		"ztr_na_postmodern_poor_02_mesh"
+		"ztr_na_postmodern_poor_03_mesh"
+		"ztr_na_postmodern_poor_03_mesh"
+		"ztr_na_modern_poor_01_mesh"
+		"ztr_na_modern_poor_03_mesh"
+	}
+	poor_building_offsets = {
+		position = 0.2
+		rotation = 20.0
+	}
+
+	building_offsets = {	#offsets for regular buildings
+		position = 0.0
+		rotation = 0.0
+	}
+
+	building_construction_sector = {"generic_manufactory_03_mesh"}
+	building_food_industry = {"generic_manufactory_01_mesh"}
+	building_textile_mill = {"tools_manufactory_01_mesh"}
+	building_furniture_manufactory= {"furniture_manufactory_01_mesh"}
+	building_glassworks = {"glassworks_manufactory_01_mesh"}
+	building_tooling_workshop = {"tools_manufactory_01_mesh"}
+	building_paper_mill = {"generic_manufactory_02_mesh"}
+	building_chemical_plant = {"colonial_manufactory_01_mesh"}
+	building_steel_mill = {"generic_manufactory_01_mesh"}
+	building_arms_industry = {"colonial_manufactory_03_mesh"}
+	building_artillery_foundry = {"colonial_manufactory_03_mesh"}
+	building_automotive_industry = {"war_machines_manufactory_01_mesh"}
+	building_motor_industry = {"colonial_manufactory_02_mesh"}
+	building_munition_plant = {"colonial_manufactory_03_mesh"}
+	building_synthetics_plant = {"glassworks_manufactory_01_mesh"}
+	building_electrics_industry = {"generic_manufactory_02_mesh"}
+	building_power_plant = {"generic_manufactory_01_mesh"}
+	building_explosives_factory = {"colonial_manufactory_01_mesh"}
+
+	building_suez_canal = {"canal_suezcanal_01_mesh"}
+	building_panama_canal = {"canal_panamacanal_01_mesh"}
+	building_eiffel_tower = {"wonder_eiffel_tower_01_mesh"}
+
+	building_urban_center = {}
+	building_naval_administration = {"european_port_naval_base_01_mesh"}
+
+	building_government_administration = {"european_city_government_administration_01_mesh"}
+	building_trade_center = {"european_city_tradecenter_01_mesh"}
+	building_university = {"european_city_university_01_mesh"}
+	building_art_academy = {"european_city_academy_01_mesh"}
+	building_barrack = {"european_city_barracks_01_mesh"}
+	building_financial_district = {"european_city_financialdistrict_01_mesh"}
+	building_company_headquarter = {"generic_companyhq_01_mesh"}
+	building_company_regional_headquarter = {"generic_regionalcompanyhq_01_mesh"}
+	building_army_logistics_center = {"generic_logisticscenter_01_mesh"}
+}
+
+# North America, digital era (2000-2029). Same pool logic; postmodern and modern buildings
+# stay as older layers of the city.
+ztr_na_city_digital = {
+	city_type = city
+
+	trigger = {
+		ztr_city_zone_na_trigger = yes
+		ztr_city_era_digital_trigger = yes
+	}
+	weight = 400
+
+	min_residential_buildings = 2
+	max_residential_buildings = 150
+	max_residence_points = 200
+
+	rich_building_meshes = {
+		"ztr_na_digital_villa_01_mesh"
+		"ztr_na_digital_villa_01_mesh"
+		"ztr_na_digital_villa_01_mesh"
+		"ztr_na_digital_villa_01_mesh"
+		"ztr_na_digital_house_01_mesh"
+		"ztr_na_digital_house_01_mesh"
+		"ztr_na_digital_house_01_mesh"
+		"ztr_na_digital_house_01_mesh"
+		"ztr_na_digital_house_02_mesh"
+		"ztr_na_digital_house_02_mesh"
+		"ztr_na_digital_house_02_mesh"
+		"ztr_na_postmodern_villa_01_mesh"
+		"ztr_na_postmodern_house_02_mesh"
+		"ztr_na_digital_mid_01_mesh"
+		"ztr_na_digital_mid_01_mesh"
+		"ztr_na_digital_mid_02_mesh"
+		"ztr_na_digital_mid_02_mesh"
+		"ztr_na_postmodern_mid_01_mesh"
+		"ztr_na_postmodern_mid_03_mesh"
+		"ztr_na_digital_poor_01_mesh"
+		"ztr_na_digital_poor_02_mesh"
+		"ztr_na_modern_poor_01_mesh"
+		"ztr_na_digital_rich_01_mesh"
+		"ztr_na_digital_rich_02_mesh"
+		"ztr_na_digital_rich_03_mesh"
+		"ztr_na_digital_rich_04_mesh"
+	}
+	rich_building_offsets = {
+		position = 0.0
+		rotation = 0.0
+	}
+
+	mid_building_meshes = {
+		"ztr_na_digital_house_01_mesh"
+		"ztr_na_digital_house_01_mesh"
+		"ztr_na_digital_house_01_mesh"
+		"ztr_na_digital_house_02_mesh"
+		"ztr_na_digital_house_02_mesh"
+		"ztr_na_digital_house_02_mesh"
+		"ztr_na_postmodern_house_02_mesh"
+		"ztr_na_postmodern_house_03_mesh"
+		"ztr_na_digital_mid_01_mesh"
+		"ztr_na_digital_mid_01_mesh"
+		"ztr_na_digital_mid_02_mesh"
+		"ztr_na_digital_mid_02_mesh"
+		"ztr_na_postmodern_mid_01_mesh"
+		"ztr_na_postmodern_mid_02_mesh"
+		"ztr_na_digital_poor_01_mesh"
+		"ztr_na_digital_poor_02_mesh"
+		"ztr_na_modern_poor_01_mesh"
+	}
+	mid_building_offsets = {
+		position = 0.2
+		rotation = 6.25
+	}
+
+	poor_building_meshes = {
+		"ztr_na_digital_house_02_mesh"
+		"ztr_na_digital_house_02_mesh"
+		"ztr_na_digital_house_02_mesh"
+		"ztr_na_digital_house_01_mesh"
+		"ztr_na_postmodern_house_01_mesh"
+		"ztr_na_postmodern_house_01_mesh"
+		"ztr_na_postmodern_house_03_mesh"
+		"ztr_na_digital_poor_01_mesh"
+		"ztr_na_digital_poor_01_mesh"
+		"ztr_na_digital_poor_02_mesh"
+		"ztr_na_digital_poor_02_mesh"
+		"ztr_na_postmodern_poor_01_mesh"
+		"ztr_na_postmodern_poor_03_mesh"
+		"ztr_na_modern_poor_01_mesh"
+	}
+	poor_building_offsets = {
+		position = 0.2
+		rotation = 20.0
+	}
+
+	building_offsets = {	#offsets for regular buildings
+		position = 0.0
+		rotation = 0.0
+	}
+
+	building_construction_sector = {"generic_manufactory_03_mesh"}
+	building_food_industry = {"generic_manufactory_01_mesh"}
+	building_textile_mill = {"tools_manufactory_01_mesh"}
+	building_furniture_manufactory= {"furniture_manufactory_01_mesh"}
+	building_glassworks = {"glassworks_manufactory_01_mesh"}
+	building_tooling_workshop = {"tools_manufactory_01_mesh"}
+	building_paper_mill = {"generic_manufactory_02_mesh"}
+	building_chemical_plant = {"colonial_manufactory_01_mesh"}
+	building_steel_mill = {"generic_manufactory_01_mesh"}
+	building_arms_industry = {"colonial_manufactory_03_mesh"}
+	building_artillery_foundry = {"colonial_manufactory_03_mesh"}
+	building_automotive_industry = {"war_machines_manufactory_01_mesh"}
+	building_motor_industry = {"colonial_manufactory_02_mesh"}
+	building_munition_plant = {"colonial_manufactory_03_mesh"}
+	building_synthetics_plant = {"glassworks_manufactory_01_mesh"}
+	building_electrics_industry = {"generic_manufactory_02_mesh"}
+	building_power_plant = {"generic_manufactory_01_mesh"}
+	building_explosives_factory = {"colonial_manufactory_01_mesh"}
+
+	building_suez_canal = {"canal_suezcanal_01_mesh"}
+	building_panama_canal = {"canal_panamacanal_01_mesh"}
+	building_eiffel_tower = {"wonder_eiffel_tower_01_mesh"}
+
+	building_urban_center = {}
+	building_naval_administration = {"european_port_naval_base_01_mesh"}
+
+	building_government_administration = {"european_city_government_administration_01_mesh"}
+	building_trade_center = {"european_city_tradecenter_01_mesh"}
+	building_university = {"european_city_university_01_mesh"}
+	building_art_academy = {"european_city_academy_01_mesh"}
+	building_barrack = {"european_city_barracks_01_mesh"}
+	building_financial_district = {"european_city_financialdistrict_01_mesh"}
+	building_company_headquarter = {"generic_companyhq_01_mesh"}
+	building_company_regional_headquarter = {"generic_regionalcompanyhq_01_mesh"}
+	building_army_logistics_center = {"generic_logisticscenter_01_mesh"}
+}
+
+# North America, AI era (from 2030): the digital city with a few AI towers (glowing rings, LED bands, screens).
+ztr_na_city_ai = {
+	city_type = city
+
+	trigger = {
+		ztr_city_zone_na_trigger = yes
+		ztr_city_era_ai_trigger = yes
+	}
+	weight = 500
+
+	min_residential_buildings = 2
+	max_residential_buildings = 150
+	max_residence_points = 200
+
+	rich_building_meshes = {
+		"ztr_na_digital_villa_01_mesh"
+		"ztr_na_digital_villa_01_mesh"
+		"ztr_na_digital_villa_01_mesh"
+		"ztr_na_digital_villa_01_mesh"
+		"ztr_na_digital_house_01_mesh"
+		"ztr_na_digital_house_01_mesh"
+		"ztr_na_digital_house_01_mesh"
+		"ztr_na_digital_house_01_mesh"
+		"ztr_na_digital_house_02_mesh"
+		"ztr_na_digital_house_02_mesh"
+		"ztr_na_digital_house_02_mesh"
+		"ztr_na_postmodern_villa_01_mesh"
+		"ztr_na_postmodern_house_02_mesh"
+		"ztr_na_digital_mid_01_mesh"
+		"ztr_na_digital_mid_01_mesh"
+		"ztr_na_digital_mid_02_mesh"
+		"ztr_na_digital_mid_02_mesh"
+		"ztr_na_postmodern_mid_01_mesh"
+		"ztr_na_postmodern_mid_03_mesh"
+		"ztr_na_digital_poor_01_mesh"
+		"ztr_na_digital_poor_02_mesh"
+		"ztr_na_modern_poor_01_mesh"
+		"ztr_na_digital_rich_01_mesh"
+		"ztr_na_digital_rich_02_mesh"
+		"ztr_na_digital_rich_03_mesh"
+		"ztr_na_digital_rich_04_mesh"
+		"ztr_na_ai_rich_01_mesh"
+		"ztr_na_ai_rich_02_mesh"
+		"ztr_na_ai_rich_03_mesh"
+	}
+	rich_building_offsets = {
+		position = 0.0
+		rotation = 0.0
+	}
+
+	mid_building_meshes = {
+		"ztr_na_digital_house_01_mesh"
+		"ztr_na_digital_house_01_mesh"
+		"ztr_na_digital_house_01_mesh"
+		"ztr_na_digital_house_02_mesh"
+		"ztr_na_digital_house_02_mesh"
+		"ztr_na_digital_house_02_mesh"
+		"ztr_na_postmodern_house_02_mesh"
+		"ztr_na_postmodern_house_03_mesh"
+		"ztr_na_digital_mid_01_mesh"
+		"ztr_na_digital_mid_01_mesh"
+		"ztr_na_digital_mid_02_mesh"
+		"ztr_na_digital_mid_02_mesh"
+		"ztr_na_postmodern_mid_01_mesh"
+		"ztr_na_postmodern_mid_02_mesh"
+		"ztr_na_digital_poor_01_mesh"
+		"ztr_na_digital_poor_02_mesh"
+		"ztr_na_modern_poor_01_mesh"
+		"ztr_na_ai_rich_03_mesh"
+	}
+	mid_building_offsets = {
+		position = 0.2
+		rotation = 6.25
+	}
+
+	poor_building_meshes = {
+		"ztr_na_digital_house_02_mesh"
+		"ztr_na_digital_house_02_mesh"
+		"ztr_na_digital_house_02_mesh"
+		"ztr_na_digital_house_01_mesh"
+		"ztr_na_postmodern_house_01_mesh"
+		"ztr_na_postmodern_house_01_mesh"
+		"ztr_na_postmodern_house_03_mesh"
+		"ztr_na_digital_poor_01_mesh"
+		"ztr_na_digital_poor_01_mesh"
+		"ztr_na_digital_poor_02_mesh"
+		"ztr_na_digital_poor_02_mesh"
+		"ztr_na_postmodern_poor_01_mesh"
+		"ztr_na_postmodern_poor_03_mesh"
+		"ztr_na_modern_poor_01_mesh"
+	}
+	poor_building_offsets = {
+		position = 0.2
+		rotation = 20.0
+	}
+
+	building_offsets = {	#offsets for regular buildings
+		position = 0.0
+		rotation = 0.0
+	}
+
+	building_construction_sector = {"generic_manufactory_03_mesh"}
+	building_food_industry = {"generic_manufactory_01_mesh"}
+	building_textile_mill = {"tools_manufactory_01_mesh"}
+	building_furniture_manufactory= {"furniture_manufactory_01_mesh"}
+	building_glassworks = {"glassworks_manufactory_01_mesh"}
+	building_tooling_workshop = {"tools_manufactory_01_mesh"}
+	building_paper_mill = {"generic_manufactory_02_mesh"}
+	building_chemical_plant = {"colonial_manufactory_01_mesh"}
+	building_steel_mill = {"generic_manufactory_01_mesh"}
+	building_arms_industry = {"colonial_manufactory_03_mesh"}
+	building_artillery_foundry = {"colonial_manufactory_03_mesh"}
+	building_automotive_industry = {"war_machines_manufactory_01_mesh"}
+	building_motor_industry = {"colonial_manufactory_02_mesh"}
+	building_munition_plant = {"colonial_manufactory_03_mesh"}
+	building_synthetics_plant = {"glassworks_manufactory_01_mesh"}
+	building_electrics_industry = {"generic_manufactory_02_mesh"}
+	building_power_plant = {"generic_manufactory_01_mesh"}
+	building_explosives_factory = {"colonial_manufactory_01_mesh"}
+
+	building_suez_canal = {"canal_suezcanal_01_mesh"}
+	building_panama_canal = {"canal_panamacanal_01_mesh"}
+	building_eiffel_tower = {"wonder_eiffel_tower_01_mesh"}
+
+	building_urban_center = {}
+	building_naval_administration = {"european_port_naval_base_01_mesh"}
+
+	building_government_administration = {"european_city_government_administration_01_mesh"}
+	building_trade_center = {"european_city_tradecenter_01_mesh"}
+	building_university = {"european_city_university_01_mesh"}
+	building_art_academy = {"european_city_academy_01_mesh"}
+	building_barrack = {"european_city_barracks_01_mesh"}
+	building_financial_district = {"european_city_financialdistrict_01_mesh"}
+	building_company_headquarter = {"generic_companyhq_01_mesh"}
+	building_company_regional_headquarter = {"generic_regionalcompanyhq_01_mesh"}
+	building_army_logistics_center = {"generic_logisticscenter_01_mesh"}
+}

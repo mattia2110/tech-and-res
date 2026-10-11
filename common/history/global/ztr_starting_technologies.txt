@@ -1,0 +1,32 @@
+# Runs after ztr_global.txt and the country/building histories.
+GLOBAL = {
+	every_country = {
+		# Complete era-1 starters retain Romanticism after its move to era 2.
+		if = {
+			limit = {
+				has_technology_researched = empiricism
+				has_technology_researched = elgar_classicism_tech
+				NOT = { has_technology_researched = romanticism }
+			}
+			add_technology_researched = romanticism
+		}
+
+		# Romanticism requires Classicism in the mod's tree.
+		if = {
+			limit = {
+				has_technology_researched = romanticism
+				NOT = { has_technology_researched = elgar_classicism_tech }
+			}
+			add_technology_researched = elgar_classicism_tech
+		}
+
+		# Atmospheric engines require Physics in the mod's tree.
+		if = {
+			limit = {
+				has_technology_researched = atmospheric_engine
+				NOT = { has_technology_researched = verrier_physics_tech }
+			}
+			add_technology_researched = verrier_physics_tech
+		}
+	}
+}
