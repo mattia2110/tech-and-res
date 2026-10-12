@@ -910,11 +910,7 @@ ztr_russia_law_changes_bolshevik = {
 	ig:ig_trade_unions ?= {
 		add_ruling_interest_group = yes
 	}
-	ig:ig_trade_unions = {
-		leader = {
-			set_character_as_ruler = yes
-		}
-	}
+	ztr_russia_soviet_winner_takes_power = yes
 	# Communist Council Republic
 	if = {
 		limit = {
@@ -929,7 +925,7 @@ ztr_russia_law_changes_bolshevik = {
 		months = 600 # 50 years
 	}
 	# Bolshevik Monoparty State
-	activate_law = law_type:law_single_party_state
+	ztr_activate_communist_single_party_law = yes
 	# Economy
 	activate_law = law_type:law_command_economy
 	# Religion
@@ -967,11 +963,7 @@ ztr_russia_law_changes_menshevik = {
 	ig:ig_intelligentsia ?= {
 		add_ruling_interest_group = yes
 	}
-	ig:ig_trade_unions = {
-		leader = {
-			set_character_as_ruler = yes
-		}
-	}
+	ztr_russia_soviet_winner_takes_power = yes
 	# Communist Council Republic
 	if = {
 		limit = {
@@ -981,8 +973,8 @@ ztr_russia_law_changes_menshevik = {
 		}
 		activate_law = law_type:law_council_republic
 	}
-	# Bolshevik Monoparty State
-	activate_law = law_type:law_single_party_state
+	# Menshevik Monoparty State
+	ztr_activate_menshevik_single_party_law = yes
 	# Economy
 	activate_law = law_type:law_command_economy
 	add_modifier = {
@@ -1022,11 +1014,15 @@ ztr_russia_law_changes_agro_socialist = {
 	ig:ig_rural_folk ?= {
 		add_ruling_interest_group = yes
 	}
-	ig:ig_trade_unions = {
-		leader = {
-			set_character_as_ruler = yes
+	if = {
+		limit = {
+			BPM_is_active_trigger = yes
+		}
+		ig:ig_anarchists ?= {
+			add_ruling_interest_group = yes
 		}
 	}
+	ztr_russia_soviet_winner_takes_power = yes
 	# Communist Council Republic
 	if = {
 		limit = {

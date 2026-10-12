@@ -237,7 +237,8 @@ ztr_russian_revolution.3 = {
 		#JE
 	}
 	immediate = {
-		ig:ig_trade_unions = {
+		ztr_russia_save_soviet_ig_scopes = yes
+		scope:russia_soviet_winner_scope ?= {
 			save_scope_as = russia_liberals_scope
 			leader = {
 				save_scope_as = russia_communists_leader_scope
@@ -798,9 +799,7 @@ ztr_russian_revolution.10 = {
 		}
 	}
 	immediate = {
-		ig:ig_trade_unions = {
-			save_scope_as = russia_bolsheviks_scope
-		}
+		ztr_russia_save_soviet_ig_scopes = yes
 		movement_type:movement_communist = {
 			save_scope_as = russia_communists_scope
 		}
@@ -1179,9 +1178,7 @@ ztr_russian_revolution.15 = {
 		ig:ig_industrialists = {
 			save_scope_as = russia_liberals_scope
 		}
-		ig:ig_trade_unions = {
-			save_scope_as = russia_bolsheviks_scope
-		}
+		ztr_russia_save_soviet_ig_scopes = yes
 	}
 	# Refuse to help the lower strata following Liberals ideas
 	option = {
@@ -1258,9 +1255,7 @@ ztr_russian_revolution.16 = {
 		ig:ig_industrialists = {
 			save_scope_as = russia_liberals_scope
 		}
-		ig:ig_trade_unions = {
-			save_scope_as = russia_bolsheviks_scope
-		}
+		ztr_russia_save_soviet_ig_scopes = yes
 		law_type:law_no_workers_rights = {
 			save_scope_as = russia_no_workers_rights_law_scope
 		}
@@ -1375,6 +1370,7 @@ ztr_russian_revolution.18 = {
 	}
 	immediate = {
 		set_variable = ztr_soviet_ideology_var
+		ztr_russia_save_soviet_ig_scopes = yes
 		if = {
 			limit = {
 				NOT = {
@@ -1404,8 +1400,7 @@ ztr_russian_revolution.18 = {
 					exists = scope:soviet_leader_character_scope
 				}
 			}
-			ig:ig_trade_unions = {
-				save_scope_as = russia_bolsheviks_scope
+			scope:russia_bolsheviks_scope ?= {
 				leader = {
 					save_scope_as = soviet_leader_character_scope
 				}
@@ -1427,7 +1422,7 @@ ztr_russian_revolution.18 = {
 			transfer_character = c:RUS
 			set_as_interest_group_leader = yes
 		}
-		ig:ig_trade_unions = {
+		scope:russia_bolsheviks_scope ?= {
 			add_modifier = {
 				name = ztr_bolsheviks_prepare_the_soviet_congress_modifier
 				years = 1
@@ -1447,7 +1442,7 @@ ztr_russian_revolution.18 = {
 				}
 			}
 		}
-		ig:ig_trade_unions = {
+		scope:russia_bolsheviks_scope ?= {
 			add_modifier = {
 				name = ztr_bolsheviks_prepare_the_soviet_congress_modifier
 				years = 1
@@ -1483,9 +1478,9 @@ ztr_russian_revolution.19 = {
 		}
 		# 1 is Bolsheviks, 2 is Mensheviks, 3 is Agro-Socialista
 		var:russia_sovietic_path_var > 25
-		# E dopo la fase preparatoria dei sindacati/bolscevichi
-		ig:ig_trade_unions = {
-			NOT = {
+		# E dopo la fase preparatoria dei sindacati/bolscevichi (IG variabile con BPM)
+		NOT = {
+			any_interest_group = {
 				has_modifier = ztr_bolsheviks_prepare_the_soviet_congress_modifier
 			}
 		}
@@ -1506,8 +1501,8 @@ ztr_russian_revolution.19 = {
 			save_scope_as = russia_landowners_scope
 		}
 		remove_variable = ztr_soviet_ideology_var
-		ig:ig_trade_unions = {
-			save_scope_as = russia_bolsheviks_scope
+		ztr_russia_save_soviet_ig_scopes = yes
+		scope:russia_bolsheviks_scope ?= {
 			leader = {
 				save_scope_as = soviet_leader_character_scope
 			}
@@ -1517,7 +1512,7 @@ ztr_russian_revolution.19 = {
 	option = {
 		name = ztr_first_soviet_congress_bolshevik.option
 		default_option = yes
-		ig:ig_trade_unions = {
+		scope:russia_bolsheviks_scope ?= {
 			if = {
 				limit = {
 					NOT = {
@@ -1569,7 +1564,7 @@ ztr_russian_revolution.19 = {
 	# Percorso 2 , Linea Menscevica/Socialdemocratica (Repubblica parlamentare, tutele del lavoro)
 	option = {
 		name = ztr_first_soviet_congress_menshevik.option
-		ig:ig_trade_unions = {
+		scope:russia_mensheviks_scope ?= {
 			if = {
 				limit = {
 					NOT = {
@@ -1616,7 +1611,7 @@ ztr_russian_revolution.19 = {
 	# Percorso 3 , Linea SR di Sinistra / Agro-Socialista (Potere ai Soviet rurali, ridistribuzione agraria)
 	option = {
 		name = ztr_first_soviet_congress_left_sr.option
-		ig:ig_trade_unions = {
+		scope:russia_bolsheviks_scope ?= {
 			if = {
 				limit = {
 					NOT = {
@@ -1629,7 +1624,7 @@ ztr_russian_revolution.19 = {
 				set_ideology = ideology:ideology_communist
 			}
 		}
-		ig:ig_rural_folk = {
+		scope:russia_left_sr_scope ?= {
 			if = {
 				limit = {
 					NOT = {

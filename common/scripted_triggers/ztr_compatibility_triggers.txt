@@ -1,4 +1,84 @@
-# This allows for other mods to check whether if Tech & Res is enabled.
+﻿# This allows for other mods to check whether if Tech & Res is enabled.
 REPLACE_OR_CREATE:technres_is_active = {
 	always = yes
+}
+
+# Fallback for BPM checks: BPM's zz_bpm_mod_compatibility_triggers.txt loads later and sets it to yes
+REPLACE_OR_CREATE:BPM_is_active_trigger = {
+	always = no
+}
+
+# Hook: single-party regime; the Tech&Res + BPM compatch adds BPM's party laws
+ztr_has_single_party_law = {
+	coa_single_party_state_trigger = yes
+}
+
+# Tech&Res modifier carried by the country or by one of its IGs
+ztr_bpm_has_mirrored_modifier = {
+	OR = {
+		has_modifier = $MODIFIER$
+		any_interest_group = {
+			has_modifier = $MODIFIER$
+		}
+	}
+}
+
+# Any Tech&Res modifier whose IG effects are mirrored onto BPM IGs (monthly pre-check, kept cheap)
+ztr_bpm_has_any_mirrored_modifier = {
+	OR = {
+		has_modifier = law_collectivized_agriculture_agro_socialist
+		has_modifier = law_command_economy_menshevik
+		has_modifier = law_council_republic_soviet
+		has_modifier = rise_of_extremism_modifier
+		has_modifier = rise_of_left_modifier
+		has_modifier = the_future_of_china_corporate_outcome_modifier
+		has_modifier = usa_gilded_age
+		has_modifier = usa_gilded_age_player
+		has_modifier = ztr_bolsheviks_prepare_the_soviet_congress_modifier
+		has_modifier = ztr_ccp_long_march_legacy
+		has_modifier = ztr_ccp_mass_line_campaign
+		has_modifier = ztr_ccp_repression_campaign
+		has_modifier = ztr_ccp_united_front_campaign
+		has_modifier = ztr_corporate_disempowered_modifier
+		has_modifier = ztr_corporate_empowered_modifier
+		has_modifier = ztr_devout_happy_modifier
+		has_modifier = ztr_devout_unhappy_modifier
+		has_modifier = ztr_federation_disempowered_modifier
+		has_modifier = ztr_federation_empowered_modifier
+		has_modifier = ztr_industrialists_appeased_modifier
+		has_modifier = ztr_industrialists_happy_modifier
+		has_modifier = ztr_industrialists_unhappy_modifier
+		has_modifier = ztr_industrialists_unpleased_modifier
+		has_modifier = ztr_intelligentsia_happy_modifier
+		has_modifier = ztr_intelligentsia_unhappy_modifier
+		has_modifier = ztr_liberal_consensus_helped_modifier
+		has_modifier = ztr_liberal_petition_success_modifier
+		has_modifier = ztr_repressed_soviet_movements_modifier
+		has_modifier = ztr_russian_communist_revolution
+		has_modifier = ztr_russian_liberal_revolution
+		has_modifier = ztr_russian_proletariat_modifier
+		has_modifier = ztr_technoconfucian_disempowered_modifier
+		has_modifier = ztr_technoconfucian_empowered_modifier
+		# Modifiers Tech&Res adds to interest groups
+		any_interest_group = {
+			OR = {
+				has_modifier = ztr_bolsheviks_prepare_the_soviet_congress_modifier
+				has_modifier = ztr_corporate_disempowered_modifier
+				has_modifier = ztr_corporate_empowered_modifier
+				has_modifier = ztr_devout_happy_modifier
+				has_modifier = ztr_devout_unhappy_modifier
+				has_modifier = ztr_federation_disempowered_modifier
+				has_modifier = ztr_federation_empowered_modifier
+				has_modifier = ztr_industrialists_appeased_modifier
+				has_modifier = ztr_industrialists_happy_modifier
+				has_modifier = ztr_industrialists_unhappy_modifier
+				has_modifier = ztr_industrialists_unpleased_modifier
+				has_modifier = ztr_intelligentsia_happy_modifier
+				has_modifier = ztr_intelligentsia_unhappy_modifier
+				has_modifier = ztr_liberal_petition_success_modifier
+				has_modifier = ztr_technoconfucian_disempowered_modifier
+				has_modifier = ztr_technoconfucian_empowered_modifier
+			}
+		}
+	}
 }

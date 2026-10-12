@@ -2,6 +2,8 @@
 	icon = "gfx/interface/icons/event_icons/event_protest.dds"
 	group = je_group_crises
 	is_shown_when_inactive = {
+		# BPM replaces this crisis with its General Strike JE
+		BPM_is_active_trigger = no
 		has_technology_researched = political_agitation
 		has_technology_researched = human_rights
 		NOT = {
@@ -16,6 +18,7 @@
 		}
 	}
 	possible = {
+		BPM_is_active_trigger = no
 		ig:ig_trade_unions ?= {
 			is_in_government = no
 			ig_approval < 0

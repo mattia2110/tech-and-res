@@ -793,9 +793,26 @@ ztr_communist_china_adopt_laws_and_loyalist = {
 	ig:ig_armed_forces ?= {
 		add_ruling_interest_group = yes
 	}
-	ig:ig_trade_unions ?= {
-		leader = {
-			set_character_as_ruler = yes
+	# BPM: communist and peasant party IGs join, the communists provide the ruler
+	if = {
+		limit = {
+			BPM_is_active_trigger = yes
+		}
+		ig:ig_agrarian_populists ?= {
+			add_ruling_interest_group = yes
+		}
+		ig:ig_revolutionist_socialists ?= {
+			add_ruling_interest_group = yes
+			leader = {
+				set_character_as_ruler = yes
+			}
+		}
+	}
+	else = {
+		ig:ig_trade_unions ?= {
+			leader = {
+				set_character_as_ruler = yes
+			}
 		}
 	}
 	if = {
@@ -806,7 +823,7 @@ ztr_communist_china_adopt_laws_and_loyalist = {
 		}
 		activate_law = law_type:law_council_republic
 	}
-	activate_law = law_type:law_single_party_state
+	ztr_activate_communist_single_party_law = yes
 	activate_law = law_type:law_command_economy
 	activate_law = law_type:law_collectivized_agriculture
 	activate_law = law_type:law_state_atheism

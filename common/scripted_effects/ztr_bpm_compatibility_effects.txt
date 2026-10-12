@@ -1,0 +1,183 @@
+﻿# BPM compatibility: vanilla behaviour here, BPM branches gated by BPM_is_active_trigger.
+# Hooks are replaced by the Tech&Res + BPM compatch, since BPM laws are unknown keys without BPM.
+
+#############################
+# LAW HOOKS
+#############################
+
+# Hook: single-party law of communist regimes (Bolsheviks, CCP)
+ztr_activate_communist_single_party_law = {
+	activate_law = law_type:law_single_party_state
+}
+
+# Hook: single-party law of the Menshevik soviet republic
+ztr_activate_menshevik_single_party_law = {
+	activate_law = law_type:law_single_party_state
+}
+
+#############################
+# RUSSIAN REVOLUTION IG ROLES
+#############################
+
+# Soviet factions: Trade Unions and Rural Folk in vanilla, BPM socialist IGs with BPM
+ztr_russia_save_soviet_ig_scopes = {
+	if = {
+		limit = {
+			BPM_is_active_trigger = yes
+		}
+		ig:ig_revolutionist_socialists ?= {
+			save_scope_as = russia_bolsheviks_scope
+		}
+		ig:ig_reformist_socialists ?= {
+			save_scope_as = russia_mensheviks_scope
+		}
+		ig:ig_agrarian_populists ?= {
+			save_scope_as = russia_left_sr_scope
+		}
+		# Faction chosen at the First Soviet Congress
+		if = {
+			limit = {
+				has_variable = ztr_menshevik_ideology_var
+			}
+			scope:russia_mensheviks_scope ?= {
+				save_scope_as = russia_soviet_winner_scope
+			}
+		}
+		else_if = {
+			limit = {
+				has_variable = ztr_agro_socialist_ideology_var
+			}
+			scope:russia_left_sr_scope ?= {
+				save_scope_as = russia_soviet_winner_scope
+			}
+		}
+		else = {
+			scope:russia_bolsheviks_scope ?= {
+				save_scope_as = russia_soviet_winner_scope
+			}
+		}
+	}
+	else = {
+		ig:ig_trade_unions ?= {
+			save_scope_as = russia_bolsheviks_scope
+			save_scope_as = russia_mensheviks_scope
+			save_scope_as = russia_soviet_winner_scope
+		}
+		ig:ig_rural_folk ?= {
+			save_scope_as = russia_left_sr_scope
+		}
+	}
+}
+
+# Winning soviet faction joins the government and provides the ruler
+ztr_russia_soviet_winner_takes_power = {
+	ztr_russia_save_soviet_ig_scopes = yes
+	scope:russia_soviet_winner_scope ?= {
+		if = {
+			limit = {
+				is_in_government = no
+			}
+			add_ruling_interest_group = yes
+		}
+		leader = {
+			set_character_as_ruler = yes
+		}
+	}
+}
+
+#############################
+# BPM IG MODIFIERS
+#############################
+
+# Replaces a generic IG modifier with its current share (scope: interest group)
+ztr_bpm_sync_ig_modifier = {
+	remove_modifier = $MODIFIER$
+	if = {
+		limit = {
+			$VALUE$ != 0
+		}
+		add_modifier = {
+			name = $MODIFIER$
+			multiplier = $VALUE$
+		}
+	}
+}
+
+# Mirrors the IG effects of Tech&Res modifiers onto BPM IGs (scope: country)
+ztr_bpm_sync_ig_modifiers = {
+	if = {
+		limit = {
+			ztr_bpm_has_any_mirrored_modifier = yes
+		}
+		set_variable = ztr_bpm_ig_modifiers_var
+		ig:ig_agrarian_populists ?= {
+			ztr_bpm_sync_ig_modifier = { MODIFIER = ztr_bpm_ig_approval_modifier VALUE = ztr_bpm_agrarian_populists_approval_value }
+			ztr_bpm_sync_ig_modifier = { MODIFIER = ztr_bpm_ig_pol_str_modifier VALUE = ztr_bpm_agrarian_populists_pol_str_value }
+		}
+		ig:ig_anarchists ?= {
+			ztr_bpm_sync_ig_modifier = { MODIFIER = ztr_bpm_ig_approval_modifier VALUE = ztr_bpm_anarchists_approval_value }
+			ztr_bpm_sync_ig_modifier = { MODIFIER = ztr_bpm_ig_pol_str_modifier VALUE = ztr_bpm_anarchists_pol_str_value }
+			ztr_bpm_sync_ig_modifier = { MODIFIER = ztr_bpm_ig_pop_attraction_modifier VALUE = ztr_bpm_anarchists_pop_attraction_value }
+		}
+		ig:ig_christian_democrats ?= {
+			ztr_bpm_sync_ig_modifier = { MODIFIER = ztr_bpm_ig_approval_modifier VALUE = ztr_bpm_christian_democrats_approval_value }
+			ztr_bpm_sync_ig_modifier = { MODIFIER = ztr_bpm_ig_pol_str_modifier VALUE = ztr_bpm_christian_democrats_pol_str_value }
+		}
+		ig:ig_conservatives ?= {
+			ztr_bpm_sync_ig_modifier = { MODIFIER = ztr_bpm_ig_approval_modifier VALUE = ztr_bpm_conservatives_approval_value }
+			ztr_bpm_sync_ig_modifier = { MODIFIER = ztr_bpm_ig_pol_str_modifier VALUE = ztr_bpm_conservatives_pol_str_value }
+			ztr_bpm_sync_ig_modifier = { MODIFIER = ztr_bpm_ig_pop_attraction_modifier VALUE = ztr_bpm_conservatives_pop_attraction_value }
+		}
+		ig:ig_fascists ?= {
+			ztr_bpm_sync_ig_modifier = { MODIFIER = ztr_bpm_ig_pop_attraction_modifier VALUE = ztr_bpm_fascists_pop_attraction_value }
+		}
+		ig:ig_liberals ?= {
+			ztr_bpm_sync_ig_modifier = { MODIFIER = ztr_bpm_ig_approval_modifier VALUE = ztr_bpm_liberals_approval_value }
+			ztr_bpm_sync_ig_modifier = { MODIFIER = ztr_bpm_ig_pop_attraction_modifier VALUE = ztr_bpm_liberals_pop_attraction_value }
+		}
+		ig:ig_market_liberals ?= {
+			ztr_bpm_sync_ig_modifier = { MODIFIER = ztr_bpm_ig_approval_modifier VALUE = ztr_bpm_market_liberals_approval_value }
+			ztr_bpm_sync_ig_modifier = { MODIFIER = ztr_bpm_ig_pol_str_modifier VALUE = ztr_bpm_market_liberals_pol_str_value }
+			ztr_bpm_sync_ig_modifier = { MODIFIER = ztr_bpm_ig_pop_attraction_modifier VALUE = ztr_bpm_market_liberals_pop_attraction_value }
+		}
+		ig:ig_national_liberals ?= {
+			ztr_bpm_sync_ig_modifier = { MODIFIER = ztr_bpm_ig_approval_modifier VALUE = ztr_bpm_national_liberals_approval_value }
+			ztr_bpm_sync_ig_modifier = { MODIFIER = ztr_bpm_ig_pop_attraction_modifier VALUE = ztr_bpm_national_liberals_pop_attraction_value }
+		}
+		ig:ig_radicals ?= {
+			ztr_bpm_sync_ig_modifier = { MODIFIER = ztr_bpm_ig_approval_modifier VALUE = ztr_bpm_radicals_approval_value }
+			ztr_bpm_sync_ig_modifier = { MODIFIER = ztr_bpm_ig_pop_attraction_modifier VALUE = ztr_bpm_radicals_pop_attraction_value }
+		}
+		ig:ig_reactionaries ?= {
+			ztr_bpm_sync_ig_modifier = { MODIFIER = ztr_bpm_ig_approval_modifier VALUE = ztr_bpm_reactionaries_approval_value }
+			ztr_bpm_sync_ig_modifier = { MODIFIER = ztr_bpm_ig_pol_str_modifier VALUE = ztr_bpm_reactionaries_pol_str_value }
+			ztr_bpm_sync_ig_modifier = { MODIFIER = ztr_bpm_ig_pop_attraction_modifier VALUE = ztr_bpm_reactionaries_pop_attraction_value }
+		}
+		ig:ig_reformist_socialists ?= {
+			ztr_bpm_sync_ig_modifier = { MODIFIER = ztr_bpm_ig_approval_modifier VALUE = ztr_bpm_reformist_socialists_approval_value }
+			ztr_bpm_sync_ig_modifier = { MODIFIER = ztr_bpm_ig_pol_str_modifier VALUE = ztr_bpm_reformist_socialists_pol_str_value }
+			ztr_bpm_sync_ig_modifier = { MODIFIER = ztr_bpm_ig_pop_attraction_modifier VALUE = ztr_bpm_reformist_socialists_pop_attraction_value }
+		}
+		ig:ig_revolutionist_socialists ?= {
+			ztr_bpm_sync_ig_modifier = { MODIFIER = ztr_bpm_ig_approval_modifier VALUE = ztr_bpm_revolutionist_socialists_approval_value }
+			ztr_bpm_sync_ig_modifier = { MODIFIER = ztr_bpm_ig_pol_str_modifier VALUE = ztr_bpm_revolutionist_socialists_pol_str_value }
+			ztr_bpm_sync_ig_modifier = { MODIFIER = ztr_bpm_ig_pop_attraction_modifier VALUE = ztr_bpm_revolutionist_socialists_pop_attraction_value }
+		}
+		ig:ig_socialists ?= {
+			ztr_bpm_sync_ig_modifier = { MODIFIER = ztr_bpm_ig_approval_modifier VALUE = ztr_bpm_socialists_approval_value }
+			ztr_bpm_sync_ig_modifier = { MODIFIER = ztr_bpm_ig_pol_str_modifier VALUE = ztr_bpm_socialists_pol_str_value }
+			ztr_bpm_sync_ig_modifier = { MODIFIER = ztr_bpm_ig_pop_attraction_modifier VALUE = ztr_bpm_socialists_pop_attraction_value }
+		}
+	}
+	else_if = {
+		limit = {
+			has_variable = ztr_bpm_ig_modifiers_var
+		}
+		remove_variable = ztr_bpm_ig_modifiers_var
+		every_interest_group = {
+			remove_modifier = ztr_bpm_ig_approval_modifier
+			remove_modifier = ztr_bpm_ig_pol_str_modifier
+			remove_modifier = ztr_bpm_ig_pop_attraction_modifier
+		}
+	}
+}
