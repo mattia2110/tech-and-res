@@ -1,0 +1,21 @@
+﻿### Tech&Res - Map Modes: yearly cache for data the map GUI cannot read directly
+
+ztr_mm_update_map_modes = {
+	every_state = {
+		set_variable = {
+			name = ztr_mm_renewable_value_var
+			value = ztr_mm_renewable_value_calc
+		}
+		set_variable = {
+			name = ztr_mm_renewable_level_var
+			value = ztr_mm_renewable_level_calc
+		}
+	}
+	random_country = {
+		limit = { has_global_highest_innovation = yes }
+		set_global_variable = {
+			name = ztr_mm_innovation_leader_var
+			value = this
+		}
+	}
+}

@@ -1,0 +1,322 @@
+﻿### Tech&Res - Map Modes (gfx/map/map_modes/ztr_map_modes.txt)
+# Every *_level value is in state scope and read by gui/ztr_map_modes.gui; -1 hides the tile.
+
+#### Renewable Potential ####################
+
+# Geographic renewable throughput from state traits; mirrors common/state_traits/ztr_renewable_state_traits.txt.
+ztr_mm_renewable_value_calc = {
+	value = 0
+	if = {
+		limit = { has_state_trait = state_trait_sahara_desert }
+		add = 0.33
+	}
+	if = {
+		limit = { has_state_trait = state_trait_gobi_desert }
+		add = 0.33
+	}
+	if = {
+		limit = { has_state_trait = state_trait_atacama_desert }
+		add = 0.33
+	}
+	if = {
+		limit = { has_state_trait = state_trait_arabian_desert }
+		add = 0.25
+	}
+	if = {
+		limit = { has_state_trait = state_trait_australian_desert }
+		add = 0.25
+	}
+	if = {
+		limit = { has_state_trait = state_trait_taklamakan_desert }
+		add = 0.25
+	}
+	if = {
+		limit = { has_state_trait = state_trait_the_great_basin_desert }
+		add = 0.25
+	}
+	if = {
+		limit = { has_state_trait = state_trait_the_great_plains }
+		add = 0.25
+	}
+	if = {
+		limit = { has_state_trait = state_trait_sahel }
+		add = 0.25
+	}
+	if = {
+		limit = { has_state_trait = state_trait_canales_patagonicos }
+		add = 0.25
+	}
+	if = {
+		limit = { has_state_trait = state_trait_sertao }
+		add = 0.25
+	}
+	if = {
+		limit = { has_state_trait = state_trait_western_steppe }
+		add = 0.15
+	}
+	if = {
+		limit = { has_state_trait = state_trait_eastern_steppe }
+		add = 0.15
+	}
+	if = {
+		limit = { has_state_trait = state_trait_pampas }
+		add = 0.15
+	}
+	if = {
+		limit = { has_state_trait = state_trait_canadian_prairies }
+		add = 0.15
+	}
+	if = {
+		limit = { has_state_trait = state_trait_anatolian_plateau }
+		add = 0.15
+	}
+	if = {
+		limit = { has_state_trait = state_trait_atlas_mountains }
+		add = 0.15
+	}
+	if = {
+		limit = { has_state_trait = state_trait_central_valley }
+		add = 0.15
+	}
+	if = {
+		limit = { has_state_trait = state_trait_la_costa }
+		add = 0.15
+	}
+	if = {
+		limit = { has_state_trait = state_trait_tihamah }
+		add = 0.15
+	}
+	if = {
+		limit = { has_state_trait = state_trait_scottish_highlands }
+		add = 0.15
+	}
+	if = {
+		limit = { has_state_trait = state_trait_north_sea_fishing }
+		add = 0.15
+	}
+	if = {
+		limit = { has_state_trait = state_trait_pannonian_plain }
+		add = 0.1
+	}
+	if = {
+		limit = { has_state_trait = state_trait_murray_darling_basin }
+		add = 0.1
+	}
+	if = {
+		limit = { has_state_trait = state_trait_great_dividing_range }
+		add = 0.1
+	}
+	if = {
+		limit = { has_state_trait = state_trait_oresund }
+		add = 0.1
+	}
+	if = {
+		limit = { has_state_trait = state_trait_mesopotamian_floodplain }
+		add = 0.1
+	}
+	if = {
+		limit = { has_state_trait = state_trait_black_forest }
+		add = -0.1
+	}
+	if = {
+		limit = { has_state_trait = state_trait_northern_california_coastal_forests }
+		add = -0.1
+	}
+	if = {
+		limit = { has_state_trait = state_trait_mata_atlantica }
+		add = -0.1
+	}
+	if = {
+		limit = { has_state_trait = state_trait_tasmanian_rainforest }
+		add = -0.1
+	}
+	if = {
+		limit = { has_state_trait = state_trait_indochinese_forest }
+		add = -0.1
+	}
+	if = {
+		limit = { has_state_trait = state_trait_hyrcanian_forests }
+		add = -0.1
+	}
+	if = {
+		limit = { has_state_trait = state_trait_amazon_rainforest_level_2 }
+		add = -0.1
+	}
+	if = {
+		limit = { has_state_trait = state_trait_scandinavian_forests }
+		add = -0.25
+	}
+	if = {
+		limit = { has_state_trait = state_trait_russian_forest }
+		add = -0.25
+	}
+	if = {
+		limit = { has_state_trait = state_trait_siberian_terrain }
+		add = -0.25
+	}
+	if = {
+		limit = { has_state_trait = state_trait_northern_canadian_terrain }
+		add = -0.25
+	}
+	if = {
+		limit = { has_state_trait = state_trait_amazon_rainforest_level_1 }
+		add = -0.25
+	}
+	if = {
+		limit = { has_state_trait = state_trait_congo_forest }
+		add = -0.5
+	}
+	if = {
+		limit = { has_state_trait = state_trait_amazon_rainforest }
+		add = -0.5
+	}
+	if = {
+		limit = { has_state_trait = state_trait_borneo_rainforest }
+		add = -0.5
+	}
+}
+
+# 0 (rainforest, -50%) to 7 (desert, +33%); 3 is neutral geography. Needs ztr_mm_renewable_value_var.
+ztr_mm_renewable_level_calc = {
+	value = 3
+	if = {
+		limit = { var:ztr_mm_renewable_value_var < -0.3 }
+		value = 0
+	}
+	else_if = {
+		limit = { var:ztr_mm_renewable_value_var < -0.15 }
+		value = 1
+	}
+	else_if = {
+		limit = { var:ztr_mm_renewable_value_var < -0.05 }
+		value = 2
+	}
+	else_if = {
+		limit = { var:ztr_mm_renewable_value_var < 0.05 }
+		value = 3
+	}
+	else_if = {
+		limit = { var:ztr_mm_renewable_value_var < 0.125 }
+		value = 4
+	}
+	else_if = {
+		limit = { var:ztr_mm_renewable_value_var < 0.2 }
+		value = 5
+	}
+	else_if = {
+		limit = { var:ztr_mm_renewable_value_var < 0.3 }
+		value = 6
+	}
+	else = {
+		value = 7
+	}
+}
+
+# Cached yearly by ztr_mm_update_map_modes.
+ztr_mm_renewable_value = {
+	value = 0
+	if = {
+		limit = { has_variable = ztr_mm_renewable_value_var }
+		value = var:ztr_mm_renewable_value_var
+	}
+}
+
+ztr_mm_renewable_level = {
+	value = -1
+	if = {
+		limit = { has_variable = ztr_mm_renewable_level_var }
+		value = var:ztr_mm_renewable_level_var
+	}
+}
+
+#### Innovation ####################
+
+# Leader stored yearly by ztr_mm_update_map_modes; the GUI compares live weekly innovation against it.
+ztr_mm_innovation_ready = {
+	value = 0
+	if = {
+		limit = { has_global_variable = ztr_mm_innovation_leader_var }
+		value = 1
+	}
+}
+
+#### Liberty and Equality Index ####################
+
+ztr_mm_liberty_value = {
+	value = 0
+	if = {
+		limit = { owner ?= { has_variable = liberty_index_var } }
+		value = owner.var:liberty_index_var
+	}
+}
+
+ztr_mm_equality_value = {
+	value = 0
+	if = {
+		limit = { owner ?= { has_variable = equality_index_var } }
+		value = owner.var:equality_index_var
+	}
+}
+
+# Index 0-100 split in 8 steps.
+ztr_mm_liberty_level = {
+	value = -1
+	if = {
+		limit = { owner ?= { has_variable = liberty_index_var } }
+		value = ztr_mm_liberty_value
+		divide = 12.5
+		floor = yes
+		min = 0
+		max = 7
+	}
+}
+
+ztr_mm_equality_level = {
+	value = -1
+	if = {
+		limit = { owner ?= { has_variable = equality_index_var } }
+		value = ztr_mm_equality_value
+		divide = 12.5
+		floor = yes
+		min = 0
+		max = 7
+	}
+}
+
+#### Demographic Stage ####################
+
+ztr_mm_demography_level = {
+	value = -1
+	if = {
+		limit = { exists = owner }
+		value = owner.ztr_demography_applied_stage
+	}
+}
+
+#### Nuclear Powers ####################
+
+# 0 none, 1 civil (nuclear_reactor + civil or military uranium law), 2 military (nuclear_capability + military uranium law).
+ztr_mm_nuclear_level = {
+	value = 0
+	if = {
+		limit = {
+			owner ?= {
+				has_modifier = nuclear_capability
+				has_law = law_type:law_uranium_full_usage
+			}
+		}
+		value = 2
+	}
+	else_if = {
+		limit = {
+			owner ?= {
+				has_technology_researched = nuclear_reactor
+				OR = {
+					has_law = law_type:law_uranium_civil_usage
+					has_law = law_type:law_uranium_full_usage
+				}
+			}
+		}
+		value = 1
+	}
+}

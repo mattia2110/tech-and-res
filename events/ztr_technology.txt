@@ -84,6 +84,51 @@ ztr_technology.2 = {
 	}
 }
 
+# Universities linkage outgrown: a Great Power converts it into a Research Center
+ztr_technology.3 = {
+	type = country_event
+	title = research_center.3.t
+	desc = research_center.3.d
+	flavor = research_center.3.f
+	placement = scope:research_center_site
+	event_image = {
+		video = "generic_university"
+	}
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	icon = "gfx/interface/icons/event_icons/innovation.dds"
+	duration = 3
+	trigger = {
+		# triggered by research_center_linkage_on_yearly_pulse_country
+		has_modifier = ztr_modern_universities_linkage
+		country_rank >= rank_value:great_power
+		has_research_center = no
+		NOT = { has_journal_entry = je_research_center_site }
+		NOT = { has_journal_entry = je_research_center_construction }
+	}
+	immediate = {
+		capital = {
+			save_scope_as = research_center_site
+		}
+	}
+	option = {
+		name = research_center.3.a
+		default_option = yes
+		remove_modifier = ztr_modern_universities_linkage
+		scope:research_center_site = {
+			add_modifier = {
+				name = research_center_site
+			}
+		}
+		add_journal_entry = {
+			type = je_research_center_construction
+			target = scope:research_center_site
+		}
+		ai_chance = {
+			base = 1
+		}
+	}
+}
+
 # Fusion Reactor - First breakthrough
 ztr_technology.10 = {
 	type = country_event
@@ -382,6 +427,14 @@ ztr_technology.20 = {
 	}
 	immediate = {
 		add_technology_researched = nuclear_reactor
+		# Civil nuclear power comes with civilian uranium usage, unless military usage is already enacted
+		if = {
+			limit = {
+				NOT = { has_law = law_type:law_uranium_full_usage }
+				NOT = { has_law = law_type:law_uranium_civil_usage }
+			}
+			activate_law = law_type:law_uranium_civil_usage
+		}
 	}
 	option = {
 		name = nuclear_power_program.1.a
@@ -476,6 +529,14 @@ ztr_technology.22 = {
 			add_treasury = 10000000
 		}
 		add_technology_researched = nuclear_reactor
+		# Civil nuclear power comes with civilian uranium usage, unless military usage is already enacted
+		if = {
+			limit = {
+				NOT = { has_law = law_type:law_uranium_full_usage }
+				NOT = { has_law = law_type:law_uranium_civil_usage }
+			}
+			activate_law = law_type:law_uranium_civil_usage
+		}
 	}
 	option = {
 		name = nuclear_reactor_purchase.2.a

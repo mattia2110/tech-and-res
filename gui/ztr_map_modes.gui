@@ -1,0 +1,306 @@
+### Tech&Res - Map Modes overlay
+# Instanced inside production_marker (gui/map_markers.gui); one tile per state colored by the ztr_mm_*_level script values.
+
+template ztr_map_tile_fill {
+	size = { 100% 100% }
+	texture = "gfx/interface/backgrounds/white.dds"
+	alwaystransparent = yes
+}
+
+types ztr_map_modes_types {
+	type ztr_map_mode_overlay = container {
+		parentanchor = hcenter
+		visible = "[Or6(IsMapModeSelected('mm_ztr_renewable_potential'), IsMapModeSelected('mm_ztr_innovation'), IsMapModeSelected('mm_ztr_liberty_index'), IsMapModeSelected('mm_ztr_equality_index'), IsMapModeSelected('mm_ztr_demographic_stage'), IsMapModeSelected('mm_ztr_nuclear_powers'))]"
+
+		# Renewable Potential: white (-50%) to solar yellow (+33%)
+		ztr_map_tile = {
+			visible = "[And(IsMapModeSelected('mm_ztr_renewable_potential'), GreaterThanOrEqualTo_CFixedPoint(State.MakeScope.ScriptValue('ztr_mm_renewable_level'), '(CFixedPoint)0'))]"
+			tooltip = "ZTR_MM_RENEWABLE_TOOLTIP"
+
+			blockoverride "ztr_map_tile_fills" {
+				icon = {
+					using = ztr_map_tile_fill
+					visible = "[EqualTo_CFixedPoint(State.MakeScope.ScriptValue('ztr_mm_renewable_level'), '(CFixedPoint)0')]"
+					color = { 1.0 1.0 1.0 1 }
+				}
+				icon = {
+					using = ztr_map_tile_fill
+					visible = "[EqualTo_CFixedPoint(State.MakeScope.ScriptValue('ztr_mm_renewable_level'), '(CFixedPoint)1')]"
+					color = { 1.0 0.97 0.87 1 }
+				}
+				icon = {
+					using = ztr_map_tile_fill
+					visible = "[EqualTo_CFixedPoint(State.MakeScope.ScriptValue('ztr_mm_renewable_level'), '(CFixedPoint)2')]"
+					color = { 1.0 0.93 0.74 1 }
+				}
+				icon = {
+					using = ztr_map_tile_fill
+					visible = "[EqualTo_CFixedPoint(State.MakeScope.ScriptValue('ztr_mm_renewable_level'), '(CFixedPoint)3')]"
+					color = { 1.0 0.9 0.61 1 }
+				}
+				icon = {
+					using = ztr_map_tile_fill
+					visible = "[EqualTo_CFixedPoint(State.MakeScope.ScriptValue('ztr_mm_renewable_level'), '(CFixedPoint)4')]"
+					color = { 1.0 0.86 0.49 1 }
+				}
+				icon = {
+					using = ztr_map_tile_fill
+					visible = "[EqualTo_CFixedPoint(State.MakeScope.ScriptValue('ztr_mm_renewable_level'), '(CFixedPoint)5')]"
+					color = { 1.0 0.83 0.36 1 }
+				}
+				icon = {
+					using = ztr_map_tile_fill
+					visible = "[EqualTo_CFixedPoint(State.MakeScope.ScriptValue('ztr_mm_renewable_level'), '(CFixedPoint)6')]"
+					color = { 1.0 0.79 0.23 1 }
+				}
+				icon = {
+					using = ztr_map_tile_fill
+					visible = "[EqualTo_CFixedPoint(State.MakeScope.ScriptValue('ztr_mm_renewable_level'), '(CFixedPoint)7')]"
+					color = { 1.0 0.76 0.1 1 }
+				}
+			}
+		}
+
+		# Innovation: white (worst) to scientific blue (world leader); live owner/leader ratio in eighths
+		ztr_map_tile = {
+			visible = "[And(IsMapModeSelected('mm_ztr_innovation'), GreaterThan_CFixedPoint(State.MakeScope.ScriptValue('ztr_mm_innovation_ready'), '(CFixedPoint)0'))]"
+			tooltip = "ZTR_MM_INNOVATION_TOOLTIP"
+
+			blockoverride "ztr_map_tile_fills" {
+				icon = {
+					using = ztr_map_tile_fill
+					visible = "[LessThan_CFixedPoint(Multiply_CFixedPoint(State.GetOwner.GetWeeklyInnovation, '(CFixedPoint)8'), Multiply_CFixedPoint(GetGlobalVariable('ztr_mm_innovation_leader_var').GetCountry.GetWeeklyInnovation, '(CFixedPoint)1'))]"
+					color = { 1.0 1.0 1.0 1 }
+				}
+				icon = {
+					using = ztr_map_tile_fill
+					visible = "[And(GreaterThanOrEqualTo_CFixedPoint(Multiply_CFixedPoint(State.GetOwner.GetWeeklyInnovation, '(CFixedPoint)8'), Multiply_CFixedPoint(GetGlobalVariable('ztr_mm_innovation_leader_var').GetCountry.GetWeeklyInnovation, '(CFixedPoint)1')), LessThan_CFixedPoint(Multiply_CFixedPoint(State.GetOwner.GetWeeklyInnovation, '(CFixedPoint)8'), Multiply_CFixedPoint(GetGlobalVariable('ztr_mm_innovation_leader_var').GetCountry.GetWeeklyInnovation, '(CFixedPoint)2')))]"
+					color = { 0.87 0.92 1.0 1 }
+				}
+				icon = {
+					using = ztr_map_tile_fill
+					visible = "[And(GreaterThanOrEqualTo_CFixedPoint(Multiply_CFixedPoint(State.GetOwner.GetWeeklyInnovation, '(CFixedPoint)8'), Multiply_CFixedPoint(GetGlobalVariable('ztr_mm_innovation_leader_var').GetCountry.GetWeeklyInnovation, '(CFixedPoint)2')), LessThan_CFixedPoint(Multiply_CFixedPoint(State.GetOwner.GetWeeklyInnovation, '(CFixedPoint)8'), Multiply_CFixedPoint(GetGlobalVariable('ztr_mm_innovation_leader_var').GetCountry.GetWeeklyInnovation, '(CFixedPoint)3')))]"
+					color = { 0.75 0.84 1.0 1 }
+				}
+				icon = {
+					using = ztr_map_tile_fill
+					visible = "[And(GreaterThanOrEqualTo_CFixedPoint(Multiply_CFixedPoint(State.GetOwner.GetWeeklyInnovation, '(CFixedPoint)8'), Multiply_CFixedPoint(GetGlobalVariable('ztr_mm_innovation_leader_var').GetCountry.GetWeeklyInnovation, '(CFixedPoint)3')), LessThan_CFixedPoint(Multiply_CFixedPoint(State.GetOwner.GetWeeklyInnovation, '(CFixedPoint)8'), Multiply_CFixedPoint(GetGlobalVariable('ztr_mm_innovation_leader_var').GetCountry.GetWeeklyInnovation, '(CFixedPoint)4')))]"
+					color = { 0.62 0.76 1.0 1 }
+				}
+				icon = {
+					using = ztr_map_tile_fill
+					visible = "[And(GreaterThanOrEqualTo_CFixedPoint(Multiply_CFixedPoint(State.GetOwner.GetWeeklyInnovation, '(CFixedPoint)8'), Multiply_CFixedPoint(GetGlobalVariable('ztr_mm_innovation_leader_var').GetCountry.GetWeeklyInnovation, '(CFixedPoint)4')), LessThan_CFixedPoint(Multiply_CFixedPoint(State.GetOwner.GetWeeklyInnovation, '(CFixedPoint)8'), Multiply_CFixedPoint(GetGlobalVariable('ztr_mm_innovation_leader_var').GetCountry.GetWeeklyInnovation, '(CFixedPoint)5')))]"
+					color = { 0.5 0.68 1.0 1 }
+				}
+				icon = {
+					using = ztr_map_tile_fill
+					visible = "[And(GreaterThanOrEqualTo_CFixedPoint(Multiply_CFixedPoint(State.GetOwner.GetWeeklyInnovation, '(CFixedPoint)8'), Multiply_CFixedPoint(GetGlobalVariable('ztr_mm_innovation_leader_var').GetCountry.GetWeeklyInnovation, '(CFixedPoint)5')), LessThan_CFixedPoint(Multiply_CFixedPoint(State.GetOwner.GetWeeklyInnovation, '(CFixedPoint)8'), Multiply_CFixedPoint(GetGlobalVariable('ztr_mm_innovation_leader_var').GetCountry.GetWeeklyInnovation, '(CFixedPoint)6')))]"
+					color = { 0.37 0.6 1.0 1 }
+				}
+				icon = {
+					using = ztr_map_tile_fill
+					visible = "[And(GreaterThanOrEqualTo_CFixedPoint(Multiply_CFixedPoint(State.GetOwner.GetWeeklyInnovation, '(CFixedPoint)8'), Multiply_CFixedPoint(GetGlobalVariable('ztr_mm_innovation_leader_var').GetCountry.GetWeeklyInnovation, '(CFixedPoint)6')), LessThan_CFixedPoint(Multiply_CFixedPoint(State.GetOwner.GetWeeklyInnovation, '(CFixedPoint)8'), Multiply_CFixedPoint(GetGlobalVariable('ztr_mm_innovation_leader_var').GetCountry.GetWeeklyInnovation, '(CFixedPoint)7')))]"
+					color = { 0.25 0.52 1.0 1 }
+				}
+				icon = {
+					using = ztr_map_tile_fill
+					visible = "[GreaterThanOrEqualTo_CFixedPoint(Multiply_CFixedPoint(State.GetOwner.GetWeeklyInnovation, '(CFixedPoint)8'), Multiply_CFixedPoint(GetGlobalVariable('ztr_mm_innovation_leader_var').GetCountry.GetWeeklyInnovation, '(CFixedPoint)7'))]"
+					color = { 0.12 0.44 1.0 1 }
+				}
+			}
+		}
+
+		# Liberty Index: autocratic brown (0) to democratic light blue (100)
+		ztr_map_tile = {
+			visible = "[And(IsMapModeSelected('mm_ztr_liberty_index'), GreaterThanOrEqualTo_CFixedPoint(State.MakeScope.ScriptValue('ztr_mm_liberty_level'), '(CFixedPoint)0'))]"
+			tooltip = "ZTR_MM_LIBERTY_TOOLTIP"
+
+			blockoverride "ztr_map_tile_fills" {
+				icon = {
+					using = ztr_map_tile_fill
+					visible = "[EqualTo_CFixedPoint(State.MakeScope.ScriptValue('ztr_mm_liberty_level'), '(CFixedPoint)0')]"
+					color = { 0.42 0.23 0.12 1 }
+				}
+				icon = {
+					using = ztr_map_tile_fill
+					visible = "[EqualTo_CFixedPoint(State.MakeScope.ScriptValue('ztr_mm_liberty_level'), '(CFixedPoint)1')]"
+					color = { 0.43 0.32 0.24 1 }
+				}
+				icon = {
+					using = ztr_map_tile_fill
+					visible = "[EqualTo_CFixedPoint(State.MakeScope.ScriptValue('ztr_mm_liberty_level'), '(CFixedPoint)2')]"
+					color = { 0.44 0.4 0.36 1 }
+				}
+				icon = {
+					using = ztr_map_tile_fill
+					visible = "[EqualTo_CFixedPoint(State.MakeScope.ScriptValue('ztr_mm_liberty_level'), '(CFixedPoint)3')]"
+					color = { 0.45 0.49 0.48 1 }
+				}
+				icon = {
+					using = ztr_map_tile_fill
+					visible = "[EqualTo_CFixedPoint(State.MakeScope.ScriptValue('ztr_mm_liberty_level'), '(CFixedPoint)4')]"
+					color = { 0.47 0.57 0.61 1 }
+				}
+				icon = {
+					using = ztr_map_tile_fill
+					visible = "[EqualTo_CFixedPoint(State.MakeScope.ScriptValue('ztr_mm_liberty_level'), '(CFixedPoint)5')]"
+					color = { 0.48 0.66 0.73 1 }
+				}
+				icon = {
+					using = ztr_map_tile_fill
+					visible = "[EqualTo_CFixedPoint(State.MakeScope.ScriptValue('ztr_mm_liberty_level'), '(CFixedPoint)6')]"
+					color = { 0.49 0.74 0.85 1 }
+				}
+				icon = {
+					using = ztr_map_tile_fill
+					visible = "[EqualTo_CFixedPoint(State.MakeScope.ScriptValue('ztr_mm_liberty_level'), '(CFixedPoint)7')]"
+					color = { 0.5 0.83 0.97 1 }
+				}
+			}
+		}
+
+		# Equality Index: liberal blue (0) to socialist red (100)
+		ztr_map_tile = {
+			visible = "[And(IsMapModeSelected('mm_ztr_equality_index'), GreaterThanOrEqualTo_CFixedPoint(State.MakeScope.ScriptValue('ztr_mm_equality_level'), '(CFixedPoint)0'))]"
+			tooltip = "ZTR_MM_EQUALITY_TOOLTIP"
+
+			blockoverride "ztr_map_tile_fills" {
+				icon = {
+					using = ztr_map_tile_fill
+					visible = "[EqualTo_CFixedPoint(State.MakeScope.ScriptValue('ztr_mm_equality_level'), '(CFixedPoint)0')]"
+					color = { 0.13 0.3 0.75 1 }
+				}
+				icon = {
+					using = ztr_map_tile_fill
+					visible = "[EqualTo_CFixedPoint(State.MakeScope.ScriptValue('ztr_mm_equality_level'), '(CFixedPoint)1')]"
+					color = { 0.23 0.27 0.66 1 }
+				}
+				icon = {
+					using = ztr_map_tile_fill
+					visible = "[EqualTo_CFixedPoint(State.MakeScope.ScriptValue('ztr_mm_equality_level'), '(CFixedPoint)2')]"
+					color = { 0.32 0.25 0.57 1 }
+				}
+				icon = {
+					using = ztr_map_tile_fill
+					visible = "[EqualTo_CFixedPoint(State.MakeScope.ScriptValue('ztr_mm_equality_level'), '(CFixedPoint)3')]"
+					color = { 0.42 0.22 0.48 1 }
+				}
+				icon = {
+					using = ztr_map_tile_fill
+					visible = "[EqualTo_CFixedPoint(State.MakeScope.ScriptValue('ztr_mm_equality_level'), '(CFixedPoint)4')]"
+					color = { 0.51 0.2 0.39 1 }
+				}
+				icon = {
+					using = ztr_map_tile_fill
+					visible = "[EqualTo_CFixedPoint(State.MakeScope.ScriptValue('ztr_mm_equality_level'), '(CFixedPoint)5')]"
+					color = { 0.61 0.17 0.3 1 }
+				}
+				icon = {
+					using = ztr_map_tile_fill
+					visible = "[EqualTo_CFixedPoint(State.MakeScope.ScriptValue('ztr_mm_equality_level'), '(CFixedPoint)6')]"
+					color = { 0.7 0.15 0.21 1 }
+				}
+				icon = {
+					using = ztr_map_tile_fill
+					visible = "[EqualTo_CFixedPoint(State.MakeScope.ScriptValue('ztr_mm_equality_level'), '(CFixedPoint)7')]"
+					color = { 0.8 0.12 0.12 1 }
+				}
+			}
+		}
+
+		# Demographic Stage: fertile green (0) to deadly black (8)
+		ztr_map_tile = {
+			visible = "[And(IsMapModeSelected('mm_ztr_demographic_stage'), GreaterThanOrEqualTo_CFixedPoint(State.MakeScope.ScriptValue('ztr_mm_demography_level'), '(CFixedPoint)0'))]"
+			tooltip = "ZTR_MM_DEMOGRAPHY_TOOLTIP"
+
+			blockoverride "ztr_map_tile_fills" {
+				icon = {
+					using = ztr_map_tile_fill
+					visible = "[EqualTo_CFixedPoint(State.MakeScope.ScriptValue('ztr_mm_demography_level'), '(CFixedPoint)0')]"
+					color = { 0.2 0.7 0.25 1 }
+				}
+				icon = {
+					using = ztr_map_tile_fill
+					visible = "[EqualTo_CFixedPoint(State.MakeScope.ScriptValue('ztr_mm_demography_level'), '(CFixedPoint)1')]"
+					color = { 0.18 0.61 0.22 1 }
+				}
+				icon = {
+					using = ztr_map_tile_fill
+					visible = "[EqualTo_CFixedPoint(State.MakeScope.ScriptValue('ztr_mm_demography_level'), '(CFixedPoint)2')]"
+					color = { 0.15 0.53 0.19 1 }
+				}
+				icon = {
+					using = ztr_map_tile_fill
+					visible = "[EqualTo_CFixedPoint(State.MakeScope.ScriptValue('ztr_mm_demography_level'), '(CFixedPoint)3')]"
+					color = { 0.13 0.44 0.16 1 }
+				}
+				icon = {
+					using = ztr_map_tile_fill
+					visible = "[EqualTo_CFixedPoint(State.MakeScope.ScriptValue('ztr_mm_demography_level'), '(CFixedPoint)4')]"
+					color = { 0.11 0.36 0.14 1 }
+				}
+				icon = {
+					using = ztr_map_tile_fill
+					visible = "[EqualTo_CFixedPoint(State.MakeScope.ScriptValue('ztr_mm_demography_level'), '(CFixedPoint)5')]"
+					color = { 0.09 0.28 0.11 1 }
+				}
+				icon = {
+					using = ztr_map_tile_fill
+					visible = "[EqualTo_CFixedPoint(State.MakeScope.ScriptValue('ztr_mm_demography_level'), '(CFixedPoint)6')]"
+					color = { 0.07 0.19 0.08 1 }
+				}
+				icon = {
+					using = ztr_map_tile_fill
+					visible = "[EqualTo_CFixedPoint(State.MakeScope.ScriptValue('ztr_mm_demography_level'), '(CFixedPoint)7')]"
+					color = { 0.04 0.1 0.05 1 }
+				}
+				icon = {
+					using = ztr_map_tile_fill
+					visible = "[EqualTo_CFixedPoint(State.MakeScope.ScriptValue('ztr_mm_demography_level'), '(CFixedPoint)8')]"
+					color = { 0.02 0.02 0.02 1 }
+				}
+			}
+		}
+
+		# Nuclear Powers: white (none), dull green (civil only), bright green (military)
+		ztr_map_tile = {
+			visible = "[And(IsMapModeSelected('mm_ztr_nuclear_powers'), GreaterThanOrEqualTo_CFixedPoint(State.MakeScope.ScriptValue('ztr_mm_nuclear_level'), '(CFixedPoint)0'))]"
+			tooltip = "ZTR_MM_NUCLEAR_TOOLTIP"
+
+			blockoverride "ztr_map_tile_fills" {
+				icon = {
+					using = ztr_map_tile_fill
+					visible = "[EqualTo_CFixedPoint(State.MakeScope.ScriptValue('ztr_mm_nuclear_level'), '(CFixedPoint)0')]"
+					color = { 1.0 1.0 1.0 1 }
+				}
+				icon = {
+					using = ztr_map_tile_fill
+					visible = "[EqualTo_CFixedPoint(State.MakeScope.ScriptValue('ztr_mm_nuclear_level'), '(CFixedPoint)1')]"
+					color = { 0.45 0.6 0.38 1 }
+				}
+				icon = {
+					using = ztr_map_tile_fill
+					visible = "[EqualTo_CFixedPoint(State.MakeScope.ScriptValue('ztr_mm_nuclear_level'), '(CFixedPoint)2')]"
+					color = { 0.22 1.0 0.08 1 }
+				}
+			}
+		}
+	}
+
+	type ztr_map_tile = button {
+		size = { 22 22 }
+		onclick = "[InformationPanelBar.OpenStatePanel(State.AccessSelf)]"
+		onmousehierarchyenter = "[AccessHighlightManager.HighlightState(State.Self)]"
+		onmousehierarchyleave = "[AccessHighlightManager.RemoveHighlight]"
+
+		block "ztr_map_tile_fills" {}
+
+		icon = {
+			size = { 100% 100% }
+			texture = "gfx/interface/map_markers/ztr_map_tile_frame.dds"
+			spriteType = Corneredtiled
+			spriteborder = { 2 2 }
+			alwaystransparent = yes
+		}
+	}
+}
