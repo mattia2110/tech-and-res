@@ -22,12 +22,121 @@ ztr_city_zone_latam_trigger = {
 	}
 }
 
-# Boundary states (BOHEMIA, MORAVIA, KOLA, EAST_KARELIA) still to decide: design doc §7.2
+# East Germany, Bohemia and Moravia included; Kola and East Karelia go to eeu
 ztr_city_zone_neu_trigger = {
 	OR = {
 		is_in_geographic_region = geographic_region_western_europe
 		is_in_geographic_region = geographic_region_central_europe
 		is_in_geographic_region = geographic_region_northern_europe
+	}
+	NOR = {
+		this = s:STATE_KOLA
+		this = s:STATE_EAST_KARELIA
+	}
+}
+
+# Iberia, Italy, Occitania, Greece, Cyprus and Turkey (Anatolia, Eastern Thrace, Kars)
+ztr_city_zone_seu_trigger = {
+	OR = {
+		is_in_geographic_region = geographic_region_southern_europe
+		is_in_geographic_region = geographic_region_anatolia_old
+		this = s:STATE_KARS
+		this = s:STATE_PELOPONNESE
+		this = s:STATE_IONIAN_ISLANDS
+		this = s:STATE_ATTICA
+		this = s:STATE_THESSALIA
+		this = s:STATE_MACEDONIA
+		this = s:STATE_WESTERN_THRACE
+		this = s:STATE_CRETE
+		this = s:STATE_WEST_AEGEAN_ISLANDS
+	}
+}
+
+# Poland, Baltics, Belarus, Ukraine, Russia with Siberia and the Far East, Slovakia, Hungary, Romania,
+# the Balkans without Greece and Turkey, the Caucasus. Socialist housing is a separate overlay (ztr_city_socialist_trigger)
+ztr_city_zone_eeu_trigger = {
+	OR = {
+		is_in_geographic_region = geographic_region_eastern_europe
+		is_in_geographic_region = geographic_region_russia
+		is_in_geographic_region = geographic_region_siberia
+		AND = {
+			is_in_geographic_region = geographic_region_balkans
+			NOT = { ztr_city_zone_seu_trigger = yes }
+		}
+		this = s:STATE_KOLA
+		this = s:STATE_EAST_KARELIA
+		this = s:STATE_OUTER_MANCHURIA
+		this = s:STATE_AMUR
+		this = s:STATE_CHUKOTKA
+		this = s:STATE_KAMCHATKA
+		this = s:STATE_OKHOTSK
+		this = s:STATE_GREATER_CAUCASUS
+		this = s:STATE_ARMENIA
+		this = s:STATE_AZERBAIJAN
+		this = s:STATE_ELIZAVETPOL
+	}
+}
+
+# North Africa, Egypt and Sudan (South Sudan to ssa), Levant, Iraq, Arabia, Persia, Afghanistan, Central Asia with Xinjiang
+ztr_city_zone_mena_trigger = {
+	OR = {
+		is_in_geographic_region = geographic_region_north_africa
+		is_in_geographic_region = geographic_region_nile_basin
+		is_in_geographic_region = geographic_region_near_east
+		is_in_geographic_region = geographic_region_arabia
+		is_in_geographic_region = geographic_region_greater_persia
+		is_in_geographic_region = geographic_region_central_asia
+	}
+	NOR = {
+		ztr_city_zone_seu_trigger = yes
+		ztr_city_zone_eeu_trigger = yes
+		is_in_geographic_region = geographic_region_india
+		this = s:STATE_EQUATORIA
+	}
+}
+
+ztr_city_zone_ssa_trigger = {
+	OR = {
+		is_in_geographic_region = geographic_region_west_africa
+		is_in_geographic_region = geographic_region_equatorial_africa
+		is_in_geographic_region = geographic_region_east_africa
+		is_in_geographic_region = geographic_region_southern_africa
+		this = s:STATE_EQUATORIA
+	}
+}
+
+# India with Pakistan, Bangladesh and Ceylon; Nepal and Bhutan
+ztr_city_zone_ind_trigger = {
+	OR = {
+		is_in_geographic_region = geographic_region_india
+		this = s:STATE_HIMALAYAS
+		this = s:STATE_EASTERN_HIMALAYAS
+	}
+}
+
+# China with Mongolia, Taiwan, Hong Kong, Manchuria and Tibet
+ztr_city_zone_chn_trigger = {
+	OR = {
+		is_in_geographic_region = geographic_region_north_china
+		is_in_geographic_region = geographic_region_south_china
+		this = s:STATE_SOUTHERN_MANCHURIA
+		this = s:STATE_NORTHERN_MANCHURIA
+		this = s:STATE_SHENGJING
+		this = s:STATE_LHASA
+		this = s:STATE_NGARI
+		this = s:STATE_QINGHAI
+	}
+}
+
+# Indochina with Burma and Malaya, Indonesia with the Philippines, Pacific islands (Australia, NZ and Hawaii are na)
+ztr_city_zone_sea_trigger = {
+	OR = {
+		is_in_geographic_region = geographic_region_indochina
+		is_in_geographic_region = geographic_region_indonesia
+		AND = {
+			is_in_geographic_region = geographic_region_oceania
+			NOT = { ztr_city_zone_na_trigger = yes }
+		}
 	}
 }
 
@@ -36,6 +145,13 @@ ztr_city_zone_jpk_trigger = {
 	OR = {
 		is_in_geographic_region = geographic_region_japan
 		is_in_geographic_region = geographic_region_korea
+	}
+}
+
+# Socialist housing overlay of the generated zones: a communist owner replaces the local post-1940 layers
+ztr_city_socialist_trigger = {
+	any_scope_state = {
+		owner = { ztr_is_communist = yes }
 	}
 }
 

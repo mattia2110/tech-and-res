@@ -136,11 +136,10 @@ ztr_na_digital_downtown_skyscraper_01 = {
 	}
 }
 
-# AI era: global downtown and landmark for every zone; add one city_graphics_type line per zone AI city type
+# AI era: global downtown and landmark of na and latam; generated zones list it in ztr_<zone>_cities.txt
 ztr_na_ai_downtown_01 = {
 	city_graphics_type = ztr_na_city_ai
 	city_graphics_type = ztr_latam_city_ai
-	city_graphics_type = ztr_jpk_city_ai
 	grid_size = { 2 2 }
 	attach = { variant = { entity = ztr_na_ai_downtown_01_entity } }
 }
@@ -148,7 +147,6 @@ ztr_na_ai_downtown_01 = {
 ztr_na_ai_downtown_skyscraper_01 = {
 	city_graphics_type = ztr_na_city_ai
 	city_graphics_type = ztr_latam_city_ai
-	city_graphics_type = ztr_jpk_city_ai
 	priority = 10
 	grid_size = { 2 2 }
 
@@ -279,119 +277,5 @@ ztr_latam_digital_downtown_skyscraper_01 = {
 
 	attach = {
 		variant = { entity = ztr_latam_digital_downtown_skyscraper_01_entity 	building_type = building_skyscraper }
-	}
-}
-
-# Japan and Korea early modern: vanilla asian centerpiece in both phases
-ztr_jpk_early_modern_downtown_01 = {
-	city_graphics_type = ztr_jpk_city_early_modern_start
-	city_graphics_type = ztr_jpk_city_early_modern
-	grid_size = { 2 2 }
-	attach = { variant = { entity = asian_city_centerpiece_01_entity } }
-}
-
-ztr_jpk_early_modern_downtown_skyscraper_01 = {
-	city_graphics_type = ztr_jpk_city_early_modern_start
-	city_graphics_type = ztr_jpk_city_early_modern
-	priority = 10
-	grid_size = { 2 2 }
-
-	trigger = {
-		any_scope_state = {
-			"b(building_skyscraper)" ?= {
-				OR = {
-					is_under_construction = yes
-					level > 0
-				}
-			}
-		}
-	}
-
-	attach = {
-		variant = { entity = asian_city_centerpiece_skyscraper_01_entity 	building_type = building_skyscraper }
-	}
-}
-
-# Japan and Korea late modern: Kasumigaseki, Tange-type prefectural office, Sewoon-type slab; Tokyo Tower-type landmark
-ztr_jpk_late_modern_downtown_01 = {
-	city_graphics_type = ztr_jpk_city_late_modern
-	grid_size = { 2 2 }
-	attach = { variant = { entity = ztr_jpk_late_modern_downtown_01_entity } }
-}
-
-ztr_jpk_late_modern_downtown_skyscraper_01 = {
-	city_graphics_type = ztr_jpk_city_late_modern
-	priority = 10
-	grid_size = { 2 2 }
-
-	trigger = {
-		any_scope_state = {
-			"b(building_skyscraper)" ?= {
-				OR = {
-					is_under_construction = yes
-					level > 0
-				}
-			}
-		}
-	}
-
-	attach = {
-		variant = { entity = ztr_jpk_late_modern_downtown_skyscraper_01_entity 	building_type = building_skyscraper }
-	}
-}
-
-# Japan and Korea postmodern: 63 Building-type gold tower, Shinjuku towers, stepped plaza; Tokyo Metropolitan Government-type landmark
-ztr_jpk_postmodern_downtown_01 = {
-	city_graphics_type = ztr_jpk_city_postmodern
-	grid_size = { 2 2 }
-	attach = { variant = { entity = ztr_jpk_postmodern_downtown_01_entity } }
-}
-
-ztr_jpk_postmodern_downtown_skyscraper_01 = {
-	city_graphics_type = ztr_jpk_city_postmodern
-	priority = 10
-	grid_size = { 2 2 }
-
-	trigger = {
-		any_scope_state = {
-			"b(building_skyscraper)" ?= {
-				OR = {
-					is_under_construction = yes
-					level > 0
-				}
-			}
-		}
-	}
-
-	attach = {
-		variant = { entity = ztr_jpk_postmodern_downtown_skyscraper_01_entity 	building_type = building_skyscraper }
-	}
-}
-
-# Japan and Korea digital: Mori Tower, Abeno Harukas, Namba Parks terraces; Lotte World Tower-type landmark
-ztr_jpk_digital_downtown_01 = {
-	city_graphics_type = ztr_jpk_city_digital
-	grid_size = { 2 2 }
-	attach = { variant = { entity = ztr_jpk_digital_downtown_01_entity } }
-}
-
-ztr_jpk_digital_downtown_skyscraper_01 = {
-	city_graphics_type = ztr_jpk_city_digital
-	priority = 10
-	grid_size = { 2 2 }
-
-	trigger = {
-		any_scope_state = {
-			"b(building_skyscraper)" ?= {
-				OR = {
-					is_under_construction = yes
-					level > 0
-				}
-			}
-		}
-	}
-
-	attach = {
-		variant = { entity = ztr_jpk_digital_downtown_skyscraper_01_entity 	building_type = building_skyscraper }
 	}
 }
