@@ -5,12 +5,6 @@ ztr_ind_cp_arabic_urban_city_townsquare_01 = {
 	city_graphics_type = ztr_ind_city_early_modern_start
 	city_graphics_type = ztr_ind_city_early_modern
 	city_graphics_type = ztr_ind_city_early_modern_socialist
-	city_graphics_type = ztr_ind_city_late_modern
-	city_graphics_type = ztr_ind_city_late_modern_socialist
-	city_graphics_type = ztr_ind_city_postmodern
-	city_graphics_type = ztr_ind_city_postmodern_socialist
-	city_graphics_type = ztr_ind_city_digital
-	city_graphics_type = ztr_ind_city_digital_socialist
 	grid_size = { 2 2 }
 	attach = { variant = { entity = arabic_urban_city_townsquare_01_entity } }
 }
@@ -19,12 +13,6 @@ ztr_ind_cp_arabic_urban_city_townsquare_01_skyscraper = {
 	city_graphics_type = ztr_ind_city_early_modern_start
 	city_graphics_type = ztr_ind_city_early_modern
 	city_graphics_type = ztr_ind_city_early_modern_socialist
-	city_graphics_type = ztr_ind_city_late_modern
-	city_graphics_type = ztr_ind_city_late_modern_socialist
-	city_graphics_type = ztr_ind_city_postmodern
-	city_graphics_type = ztr_ind_city_postmodern_socialist
-	city_graphics_type = ztr_ind_city_digital
-	city_graphics_type = ztr_ind_city_digital_socialist
 	priority = 10
 	grid_size = { 2 2 }
 
@@ -48,12 +36,6 @@ ztr_ind_cp_indian_city_centerpiece = {
 	city_graphics_type = ztr_ind_indian_city_early_modern_start
 	city_graphics_type = ztr_ind_indian_city_early_modern
 	city_graphics_type = ztr_ind_indian_city_early_modern_socialist
-	city_graphics_type = ztr_ind_indian_city_late_modern
-	city_graphics_type = ztr_ind_indian_city_late_modern_socialist
-	city_graphics_type = ztr_ind_indian_city_postmodern
-	city_graphics_type = ztr_ind_indian_city_postmodern_socialist
-	city_graphics_type = ztr_ind_indian_city_digital
-	city_graphics_type = ztr_ind_indian_city_digital_socialist
 	grid_size = { 2 2 }
 	attach = { variant = { entity = indian_city_centerpiece_entity } }
 }
@@ -62,12 +44,6 @@ ztr_ind_cp_indian_city_centerpiece_skyscraper = {
 	city_graphics_type = ztr_ind_indian_city_early_modern_start
 	city_graphics_type = ztr_ind_indian_city_early_modern
 	city_graphics_type = ztr_ind_indian_city_early_modern_socialist
-	city_graphics_type = ztr_ind_indian_city_late_modern
-	city_graphics_type = ztr_ind_indian_city_late_modern_socialist
-	city_graphics_type = ztr_ind_indian_city_postmodern
-	city_graphics_type = ztr_ind_indian_city_postmodern_socialist
-	city_graphics_type = ztr_ind_indian_city_digital
-	city_graphics_type = ztr_ind_indian_city_digital_socialist
 	priority = 10
 	grid_size = { 2 2 }
 
@@ -87,14 +63,113 @@ ztr_ind_cp_indian_city_centerpiece_skyscraper = {
 	}
 }
 
-ztr_ind_cp_ztr_na_ai_downtown_01 = {
+ztr_ind_cp_ztr_ind_late_modern_downtown_01 = {
+	city_graphics_type = ztr_ind_city_late_modern
+	city_graphics_type = ztr_ind_indian_city_late_modern
+	city_graphics_type = ztr_ind_city_late_modern_socialist
+	city_graphics_type = ztr_ind_indian_city_late_modern_socialist
+	grid_size = { 2 2 }
+	attach = { variant = { entity = ztr_ind_late_modern_downtown_01_entity } }
+}
+
+ztr_ind_cp_ztr_ind_late_modern_downtown_01_skyscraper = {
+	city_graphics_type = ztr_ind_city_late_modern
+	city_graphics_type = ztr_ind_indian_city_late_modern
+	city_graphics_type = ztr_ind_city_late_modern_socialist
+	city_graphics_type = ztr_ind_indian_city_late_modern_socialist
+	priority = 10
+	grid_size = { 2 2 }
+
+	trigger = {
+		any_scope_state = {
+			"b(building_skyscraper)" ?= {
+				OR = {
+					is_under_construction = yes
+					level > 0
+				}
+			}
+		}
+	}
+
+	attach = {
+		variant = { entity = ztr_ind_late_modern_downtown_skyscraper_01_entity 	building_type = building_skyscraper }
+	}
+}
+
+ztr_ind_cp_ztr_ind_postmodern_downtown_01 = {
+	city_graphics_type = ztr_ind_city_postmodern
+	city_graphics_type = ztr_ind_indian_city_postmodern
+	city_graphics_type = ztr_ind_city_postmodern_socialist
+	city_graphics_type = ztr_ind_indian_city_postmodern_socialist
+	grid_size = { 2 2 }
+	attach = { variant = { entity = ztr_ind_postmodern_downtown_01_entity } }
+}
+
+ztr_ind_cp_ztr_ind_postmodern_downtown_01_skyscraper = {
+	city_graphics_type = ztr_ind_city_postmodern
+	city_graphics_type = ztr_ind_indian_city_postmodern
+	city_graphics_type = ztr_ind_city_postmodern_socialist
+	city_graphics_type = ztr_ind_indian_city_postmodern_socialist
+	priority = 10
+	grid_size = { 2 2 }
+
+	trigger = {
+		any_scope_state = {
+			"b(building_skyscraper)" ?= {
+				OR = {
+					is_under_construction = yes
+					level > 0
+				}
+			}
+		}
+	}
+
+	attach = {
+		variant = { entity = ztr_ind_postmodern_downtown_skyscraper_01_entity 	building_type = building_skyscraper }
+	}
+}
+
+ztr_ind_cp_ztr_ind_digital_downtown_01 = {
+	city_graphics_type = ztr_ind_city_digital
+	city_graphics_type = ztr_ind_indian_city_digital
+	city_graphics_type = ztr_ind_city_digital_socialist
+	city_graphics_type = ztr_ind_indian_city_digital_socialist
+	grid_size = { 2 2 }
+	attach = { variant = { entity = ztr_ind_digital_downtown_01_entity } }
+}
+
+ztr_ind_cp_ztr_ind_digital_downtown_01_skyscraper = {
+	city_graphics_type = ztr_ind_city_digital
+	city_graphics_type = ztr_ind_indian_city_digital
+	city_graphics_type = ztr_ind_city_digital_socialist
+	city_graphics_type = ztr_ind_indian_city_digital_socialist
+	priority = 10
+	grid_size = { 2 2 }
+
+	trigger = {
+		any_scope_state = {
+			"b(building_skyscraper)" ?= {
+				OR = {
+					is_under_construction = yes
+					level > 0
+				}
+			}
+		}
+	}
+
+	attach = {
+		variant = { entity = ztr_ind_digital_downtown_skyscraper_01_entity 	building_type = building_skyscraper }
+	}
+}
+
+ztr_ind_cp_ztr_generic_ai_downtown_01 = {
 	city_graphics_type = ztr_ind_city_ai
 	city_graphics_type = ztr_ind_indian_city_ai
 	grid_size = { 2 2 }
-	attach = { variant = { entity = ztr_na_ai_downtown_01_entity } }
+	attach = { variant = { entity = ztr_generic_ai_downtown_01_entity } }
 }
 
-ztr_ind_cp_ztr_na_ai_downtown_01_skyscraper = {
+ztr_ind_cp_ztr_generic_ai_downtown_01_skyscraper = {
 	city_graphics_type = ztr_ind_city_ai
 	city_graphics_type = ztr_ind_indian_city_ai
 	priority = 10
@@ -112,6 +187,6 @@ ztr_ind_cp_ztr_na_ai_downtown_01_skyscraper = {
 	}
 
 	attach = {
-		variant = { entity = ztr_na_ai_downtown_skyscraper_01_entity 	building_type = building_skyscraper }
+		variant = { entity = ztr_generic_ai_downtown_skyscraper_01_entity 	building_type = building_skyscraper }
 	}
 }
