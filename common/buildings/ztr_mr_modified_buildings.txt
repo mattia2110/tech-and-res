@@ -166,20 +166,14 @@ REPLACE_OR_CREATE:building_airport = {
 
 	can_build_government = {
 		custom_tooltip = {
-			text = mr_airport_can_construct_tt
+			text = ztr_airport_can_construct_tt
 			NOT = {
 				b:building_airport ?= {
 					level_after_queued_constructions >= {
-						value = 1							# Ensures always 1 level is buildable
-						add = {
-							state.b:building_urban_center ?= {
-								add = level
-							}
-							divide = 10						# 1 additional level per 10 urban centres
-							floor = yes						# Otherwise this rounds UP for all decimals
-							# Whatever curtiss flight route variable you would like:
-							# add = var:curtiss_local_aviation_enthusiasm
-						}
+						value = state.state_population
+						divide = 400000
+						floor = yes
+						min = 1
 					}
 				}
 			}
@@ -188,20 +182,14 @@ REPLACE_OR_CREATE:building_airport = {
 	
 	can_build_private = {
 		custom_tooltip = {
-			text = mr_airport_can_construct_tt
+			text = ztr_airport_can_construct_tt
 			NOT = {
 				b:building_airport ?= {
 					level_after_queued_constructions >= {
-						value = 1							# Ensures always 1 level is buildable
-						add = {
-							state.b:building_urban_center ?= {
-								add = level
-							}
-							divide = 10						# 1 additional level per 10 urban centres
-							floor = yes						# Otherwise this rounds UP for all decimals
-							# Whatever curtiss flight route variable you would like:
-							# add = var:curtiss_local_aviation_enthusiasm
-						}
+						value = state.state_population
+						divide = 400000
+						floor = yes
+						min = 1
 					}
 				}
 			}
