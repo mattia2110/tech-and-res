@@ -7,6 +7,9 @@ ztr_demography_speed = 3
 ztr_demography_growth_threshold = 0.04
 ztr_demography_recession_floor = -0.5
 ztr_demography_saturation = 3
+ztr_demography_saturation_start = 1836
+ztr_demography_saturation_years = 100
+ztr_demography_saturation_gain = 3
 ztr_demography_turning_point = 6
 ztr_demography_max_gain = 15
 ztr_demography_max_loss = -5
@@ -80,11 +83,25 @@ ztr_demography_applied_stage = {
 	}
 }
 
-# A(u) = min(u/S, 1) * (C-u).
+# s(y) grows from 0 to 3 during 1836-1936, then stays constant.
+ztr_demography_saturation_shift = {
+	value = year
+	subtract = ztr_demography_saturation_start
+	divide = {
+		value = ztr_demography_saturation_years
+		min = 1
+	}
+	min = 0
+	max = 1
+	multiply = ztr_demography_saturation_gain
+}
+
+# A(u,y) = min(u/(S+s(y)), 1) * (C-u).
 ztr_demography_stage_coefficient = {
 	value = ztr_demography_continuous_stage
 	divide = {
 		value = ztr_demography_saturation
+		add = ztr_demography_saturation_shift
 		min = 0.01
 	}
 	max = 1

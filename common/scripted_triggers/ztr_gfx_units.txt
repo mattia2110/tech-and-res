@@ -112,3 +112,215 @@ REPLACE:gfx_military_unit_is_mechanized = {
 	}
 
 }
+
+#################################################################
+#####			ZTR TRAINSETS (route graphics)				#####
+#################################################################
+
+REPLACE:gfx_passanger_train_trigger = {
+
+	scope:state = {
+		market = {
+			mg:transportation = {
+				market_goods_sell_orders > 20
+			}
+		}
+	}
+	# Trainsets of ztr_railroad_vehicles.txt take over
+	NOT = { ztr_gfx_streamliner_train_trigger = yes }
+	NOT = { ztr_gfx_high_speed_train_trigger = yes }
+}
+
+ztr_gfx_streamliner_train_trigger = {
+
+	scope:state = {
+		any_scope_building = {
+			OR = {
+				has_active_production_method = pm_advanced_express_trains
+				has_active_production_method = pm_advanced_express_trains_principle_transport_3
+			}
+		}
+	}
+}
+
+ztr_gfx_high_speed_train_trigger = {
+
+	scope:state = {
+		any_scope_building = {
+			OR = {
+				has_active_production_method = pm_high_speed_trains
+				has_active_production_method = pm_high_speed_trains_principle_transport_3
+			}
+		}
+	}
+}
+
+#################################################################
+#####			ZTR CARGO SHIPS (naval route graphics)		#####
+#################################################################
+
+ztr_gfx_container_ship_trigger = {
+
+	scope:state = {
+		any_scope_building = {
+			is_building_type = building_port
+			has_active_production_method = pm_advanced_port
+		}
+	}
+}
+
+ztr_gfx_motor_ship_trigger = {
+
+	NOT = { ztr_gfx_container_ship_trigger = yes }
+	scope:state = {
+		owner ?= { has_technology_researched = compression_ignition }
+	}
+}
+
+# Vanilla sail, sail-steam and steam ships stop where either takes over
+ztr_gfx_modern_ship_trigger = {
+
+	OR = {
+		ztr_gfx_container_ship_trigger = yes
+		ztr_gfx_motor_ship_trigger = yes
+	}
+}
+
+#################################################################
+#####			ZTR TRUCKS (route graphics)					#####
+#################################################################
+
+# Cars in the market keep the horse carts away (they need NOR car, truck, tractor) wherever the ztr trucks drive
+ztr_gfx_truck_1960s_trigger = {
+
+	gfx_car_condition_trigger = yes
+	scope:state = {
+		any_scope_building = {
+			OR = {
+				has_active_production_method = pm_highways_building_railway
+				has_active_production_method = pm_expressways_building_railway
+				has_active_production_method = pm_logistics_hubs_building_railway
+			}
+		}
+	}
+}
+
+ztr_gfx_truck_modern_trigger = {
+
+	gfx_car_condition_trigger = yes
+	scope:state = {
+		any_scope_building = {
+			OR = {
+				has_active_production_method = pm_expressways_building_railway
+				has_active_production_method = pm_logistics_hubs_building_railway
+			}
+		}
+	}
+}
+
+# The vanilla flatbed truck stays off the roads where the ztr trucks drive
+REPLACE:gfx_truck_condition_trigger = {
+
+	scope:state = {
+		any_scope_building = {
+			has_active_production_method = pm_public_motor_carriages
+		}
+	}
+	NOT = { ztr_gfx_truck_1960s_trigger = yes }
+}
+
+# Tractor styles by zone: bonneted North American tractors in the USA, Canada and Australasia, mixed with cab-overs
+# in Latin America; cab-overs everywhere else
+ztr_gfx_truck_conventional_trigger = {
+
+	scope:state = {
+		OR = {
+			ztr_city_zone_na_trigger = yes
+			ztr_city_zone_latam_trigger = yes
+		}
+	}
+}
+
+ztr_gfx_truck_cabover_trigger = {
+
+	NOT = { scope:state = { ztr_city_zone_na_trigger = yes } }
+}
+
+# Regions that weight the light vehicles: Japanese-style cab-overs in Asia, minibuses in the south, vans in Europe
+ztr_gfx_road_asia_trigger = {
+
+	scope:state = {
+		OR = {
+			ztr_city_zone_jpk_trigger = yes
+			ztr_city_zone_chn_trigger = yes
+			ztr_city_zone_sea_trigger = yes
+			ztr_city_zone_ind_trigger = yes
+		}
+	}
+}
+
+ztr_gfx_road_south_trigger = {
+
+	scope:state = {
+		OR = {
+			ztr_city_zone_ssa_trigger = yes
+			ztr_city_zone_latam_trigger = yes
+			ztr_city_zone_mena_trigger = yes
+		}
+	}
+}
+
+ztr_gfx_road_europe_trigger = {
+
+	scope:state = {
+		OR = {
+			ztr_city_zone_neu_trigger = yes
+			ztr_city_zone_seu_trigger = yes
+			ztr_city_zone_eeu_trigger = yes
+		}
+	}
+}
+
+#################################################################
+#####			ZTR BUSES (route graphics)						#####
+#################################################################
+
+# Urban centre transport PMs bring the buses of ztr_road_vehicles.txt
+ztr_gfx_bus_trigger = {
+
+	scope:state = {
+		any_scope_building = {
+			OR = {
+				has_active_production_method = pm_modern_city_transport
+				has_active_production_method = pm_autonomous_city_transport
+			}
+		}
+	}
+}
+
+# Bus styles by zone: transit buses in North America, high-floor buses in Latin America, Sub-Saharan Africa, South
+# and Southeast Asia, European low-floor buses elsewhere (Europe, MENA, China, Japan)
+ztr_gfx_bus_na_trigger = {
+
+	scope:state = { ztr_city_zone_na_trigger = yes }
+}
+
+ztr_gfx_bus_south_trigger = {
+
+	scope:state = {
+		OR = {
+			ztr_city_zone_latam_trigger = yes
+			ztr_city_zone_ssa_trigger = yes
+			ztr_city_zone_ind_trigger = yes
+			ztr_city_zone_sea_trigger = yes
+		}
+	}
+}
+
+ztr_gfx_bus_eu_trigger = {
+
+	NOR = {
+		ztr_gfx_bus_na_trigger = yes
+		ztr_gfx_bus_south_trigger = yes
+	}
+}

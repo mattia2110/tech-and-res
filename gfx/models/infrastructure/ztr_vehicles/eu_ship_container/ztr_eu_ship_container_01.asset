@@ -1,0 +1,59 @@
+pdxmesh = {
+	name = "ztr_eu_ship_container_01_mesh"
+	file = "ztr_eu_ship_container_01.mesh"
+
+	animation = { id = "moving_animation" type = "ztr_eu_ship_container_01_moving.anim" }
+
+	lod_percentages = {
+		lod = { index = 1 percent = 6.0 }
+		lod = { index = 2 percent = 3.0 }
+	}
+
+	meshsettings = {
+		name = "ztr_eu_ship_container_01_LOD0"
+		index = 0
+		texture_diffuse = "ztr_eu_ship_container_diffuse.dds"
+		texture_normal = "ztr_eu_ship_container_normal.dds"
+		texture_specular = "ztr_eu_ship_container_properties.dds"
+		shader = "standard"
+		additional_shader_defines = { "EMISSIVE_NIGHT" }
+		shader_file = "gfx/FX/pdxmesh.shader"
+	}
+
+	meshsettings = {
+		name = "ztr_eu_ship_container_01_LOD1"
+		index = 0
+		texture_diffuse = "ztr_eu_ship_container_diffuse.dds"
+		texture_normal = "ztr_eu_ship_container_normal.dds"
+		texture_specular = "ztr_eu_ship_container_properties.dds"
+		shader = "standard"
+		additional_shader_defines = { "EMISSIVE_NIGHT" }
+		shader_file = "gfx/FX/pdxmesh.shader"
+	}
+
+	meshsettings = {
+		name = "ztr_eu_ship_container_01_LOD2"
+		index = 0
+		texture_diffuse = "ztr_eu_ship_container_diffuse.dds"
+		texture_normal = "ztr_eu_ship_container_normal.dds"
+		texture_specular = "ztr_eu_ship_container_properties.dds"
+		shader = "standard"
+		additional_shader_defines = { "EMISSIVE_NIGHT" }
+		shader_file = "gfx/FX/pdxmesh.shader"
+	}
+}
+
+entity = {
+	name = "ztr_eu_ship_container_01_entity"
+	pdxmesh = "ztr_eu_ship_container_01_mesh"
+	cull_radius = 10
+
+	default_state = "moving"
+	state = {
+		name = "moving"
+		animation = "moving_animation"
+		looping = yes
+		event = { time = 0 node = "ztr_chimney_01" particle = "infrastructure/ship_chimney" trigger_once = yes }
+		start_event = { sound = { soundeffect = "event:/SFX/Vehicles/ships/ship_cargo" } keep_sound = yes }
+	}
+}

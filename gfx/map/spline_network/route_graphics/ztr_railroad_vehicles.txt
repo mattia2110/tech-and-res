@@ -1,0 +1,108 @@
+﻿#################################################################
+#####			ZTR TRAINSETS									#####
+#################################################################
+# Passenger trainsets of the post-1936 railway PMs (models: scripts/city_gen/ztr_vehiclegen.py).
+# The vanilla passenger_train is excluded in these states by gfx_passanger_train_trigger.
+# Cars between head (position 0) and mirrored tail (position 2) scale with transportation sales, like vanilla wagons.
+
+ztr_streamliner_train = {
+	valid_spline_styles = { "railroad" }
+
+	speed = 1.25
+	min_caravan_distance = 15.0
+	routes_to_caravans_ratio = 0.2
+	max_count = 30
+	max_path_length = 5
+
+	possible = {
+		scope:state = {
+			market = {
+				mg:transportation = {
+					market_goods_sell_orders > 20
+				}
+			}
+		}
+		ztr_gfx_streamliner_train_trigger = yes
+	}
+
+	route_entities = {
+		head = {
+			entity = "ztr_eu_train_streamliner_head_01_entity"
+			position = 0
+			entity_length = 2.0
+		}
+		car = {
+			entity = "ztr_eu_train_streamliner_car_01_entity"
+			position = 1
+			entity_length = 1.74
+			count = {
+				scope:state = {
+					market = {
+						mg:transportation = {
+							add = market_goods_sell_orders
+						}
+					}
+				}
+				divide = 1000
+				add = 1
+				max = 5
+			}
+		}
+		tail = {
+			entity = "ztr_eu_train_streamliner_tail_01_entity"
+			position = 2
+			entity_length = 2.0
+		}
+	}
+}
+
+ztr_high_speed_train = {
+	valid_spline_styles = { "railroad" }
+
+	speed = 1.75
+	min_caravan_distance = 15.0
+	routes_to_caravans_ratio = 0.2
+	max_count = 30
+	max_path_length = 5
+
+	possible = {
+		scope:state = {
+			market = {
+				mg:transportation = {
+					market_goods_sell_orders > 20
+				}
+			}
+		}
+		ztr_gfx_high_speed_train_trigger = yes
+	}
+
+	route_entities = {
+		head = {
+			entity = "ztr_eu_train_hst_head_01_entity"
+			position = 0
+			entity_length = 2.0
+		}
+		car = {
+			entity = "ztr_eu_train_hst_car_01_entity"
+			position = 1
+			entity_length = 1.74
+			count = {
+				scope:state = {
+					market = {
+						mg:transportation = {
+							add = market_goods_sell_orders
+						}
+					}
+				}
+				divide = 1000
+				add = 2
+				max = 6
+			}
+		}
+		tail = {
+			entity = "ztr_eu_train_hst_tail_01_entity"
+			position = 2
+			entity_length = 2.0
+		}
+	}
+}

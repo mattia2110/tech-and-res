@@ -1,0 +1,58 @@
+pdxmesh = {
+	name = "ztr_us_bus_transit_01_mesh"
+	file = "ztr_us_bus_transit_01.mesh"
+
+	lod_percentages = {
+		lod = { index = 1 percent = 8.0 }
+		lod = { index = 2 percent = 4.0 }
+	}
+
+	meshsettings = {
+		name = "ztr_us_bus_transit_01_LOD0"
+		index = 0
+		texture_diffuse = "ztr_us_bus_transit_diffuse.dds"
+		texture_normal = "ztr_us_bus_transit_normal.dds"
+		texture_specular = "ztr_us_bus_transit_properties.dds"
+		shader = "standard"
+		additional_shader_defines = { "EMISSIVE_NIGHT" }
+		shader_file = "gfx/FX/pdxmesh.shader"
+	}
+
+	meshsettings = {
+		name = "ztr_us_bus_transit_01_LOD1"
+		index = 0
+		texture_diffuse = "ztr_us_bus_transit_diffuse.dds"
+		texture_normal = "ztr_us_bus_transit_normal.dds"
+		texture_specular = "ztr_us_bus_transit_properties.dds"
+		shader = "standard"
+		additional_shader_defines = { "EMISSIVE_NIGHT" }
+		shader_file = "gfx/FX/pdxmesh.shader"
+	}
+
+	meshsettings = {
+		name = "ztr_us_bus_transit_01_LOD2"
+		index = 0
+		texture_diffuse = "ztr_us_bus_transit_diffuse.dds"
+		texture_normal = "ztr_us_bus_transit_normal.dds"
+		texture_specular = "ztr_us_bus_transit_properties.dds"
+		shader = "standard"
+		additional_shader_defines = { "EMISSIVE_NIGHT" }
+		shader_file = "gfx/FX/pdxmesh.shader"
+	}
+}
+
+entity = {
+	name = "ztr_us_bus_transit_01_entity"
+	pdxmesh = "ztr_us_bus_transit_01_mesh"
+	locator = { name = "loc_wheel" position = { 0.17 0.02 0.38 } rotation = { 0 0 0 } }
+
+	default_state = "moving"
+	state = {
+		name = "moving"
+		looping = no
+		event = { time = 0 node = "loc_wheel" particle = "vehicles/truck_effects" trigger_once = yes }
+		start_event = { sound = { soundeffect = "event:/SFX/Vehicles/flatbed_truck" } keep_sound = yes }
+	}
+
+	scale = 1.5
+}

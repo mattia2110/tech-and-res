@@ -1,0 +1,51 @@
+﻿#################################################################
+#####			ZTR AIRLINERS									#####
+#################################################################
+# Jet airliners flying between regions (models: scripts/city_gen/ztr_vehiclegen.py). Zeppelins stop at jet_aviation
+# (override of 01_zeppelin.txt); 1960s twinjet from jet_aviation on, modern jet added with
+# wide_body_airliners: two types with their own height and speed and the same max_count, so about half each (user request).
+
+ztr_airliner_1960s = {
+	entities = {
+		skin_1 = {
+			name = "ztr_eu_plane_1960s_01_entity"
+			possible = {
+			}
+			weight = {
+				value = 1
+			}
+		}
+	}
+
+	# Always flying from jet_aviation on: after wide_body_airliners it shares the routes with the modern type
+	possible = {
+		has_technology_researched = jet_aviation
+	}
+
+	entity_length = 3.9
+	speed = 3.5
+	max_count = 100
+	height = 4.5
+}
+
+ztr_airliner_modern = {
+	entities = {
+		skin_1 = {
+			name = "ztr_eu_plane_modern_01_entity"
+			possible = {
+			}
+			weight = {
+				value = 1
+			}
+		}
+	}
+
+	possible = {
+		has_technology_researched = wide_body_airliners
+	}
+
+	entity_length = 4.55
+	speed = 5
+	max_count = 100
+	height = 6.5
+}

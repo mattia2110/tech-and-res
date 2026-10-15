@@ -1,0 +1,57 @@
+pdxmesh = {
+	name = "ztr_generic_trailer_box_01_mesh"
+	file = "ztr_generic_trailer_box_01.mesh"
+
+	lod_percentages = {
+		lod = { index = 1 percent = 8.0 }
+		lod = { index = 2 percent = 4.0 }
+	}
+
+	meshsettings = {
+		name = "ztr_generic_trailer_box_01_LOD0"
+		index = 0
+		texture_diffuse = "ztr_generic_trailer_box_diffuse.dds"
+		texture_normal = "ztr_generic_trailer_box_normal.dds"
+		texture_specular = "ztr_generic_trailer_box_properties.dds"
+		shader = "standard"
+		additional_shader_defines = { "EMISSIVE_NIGHT" }
+		shader_file = "gfx/FX/pdxmesh.shader"
+	}
+
+	meshsettings = {
+		name = "ztr_generic_trailer_box_01_LOD1"
+		index = 0
+		texture_diffuse = "ztr_generic_trailer_box_diffuse.dds"
+		texture_normal = "ztr_generic_trailer_box_normal.dds"
+		texture_specular = "ztr_generic_trailer_box_properties.dds"
+		shader = "standard"
+		additional_shader_defines = { "EMISSIVE_NIGHT" }
+		shader_file = "gfx/FX/pdxmesh.shader"
+	}
+
+	meshsettings = {
+		name = "ztr_generic_trailer_box_01_LOD2"
+		index = 0
+		texture_diffuse = "ztr_generic_trailer_box_diffuse.dds"
+		texture_normal = "ztr_generic_trailer_box_normal.dds"
+		texture_specular = "ztr_generic_trailer_box_properties.dds"
+		shader = "standard"
+		additional_shader_defines = { "EMISSIVE_NIGHT" }
+		shader_file = "gfx/FX/pdxmesh.shader"
+	}
+}
+
+entity = {
+	name = "ztr_generic_trailer_box_01_entity"
+	pdxmesh = "ztr_generic_trailer_box_01_mesh"
+	locator = { name = "loc_wheel" position = { 0.17 0.02 0.38 } rotation = { 0 0 0 } }
+
+	default_state = "moving"
+	state = {
+		name = "moving"
+		looping = no
+		event = { time = 0 node = "loc_wheel" particle = "vehicles/truck_effects" trigger_once = yes }
+	}
+
+	scale = 1.5
+}

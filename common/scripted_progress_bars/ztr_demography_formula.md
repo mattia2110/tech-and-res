@@ -10,9 +10,10 @@ Un'unica barra `X` tra 0 e 900 determina la fase `x = min(8, floor(X/100))` e il
 u     = X / 100
 k     = clamp((anno - Ks) / Kp, kmin, kmax)
 D     = ((SoL(t) / SoL(t-H) - 1) + (PILpc(t) / PILpc(t-H) - 1)) / 2
-A(u)  = min(u / S, 1) * (C - u)
+s(y)  = Sm * clamp((anno - Ss) / Sp, 0, 1)
+A(u,y)= min(u / (S + s(y)), 1) * (C - u)
 drift = Kd * (Ld * L + min(Ls * SoL, Lm) - u + k)
-econ  = Ke * L * A(u) * (max(D / D0, Lr) - 1)
+econ  = Ke * L * A(u,y) * (max(D / D0, Lr) - 1)
 econ  = econ * 0.5 se u < 6 ed econ < 0
 F     = drift + econ
 dX    = clamp(F + extra, Lo, Hi)
@@ -26,12 +27,15 @@ Con i valori predefiniti:
 ```text
 k     = clamp((anno - 1880) / 30, 0, 5)
 drift = 1.5 * (2L + min(0.15 * SoL, 3) - u + k)
-econ  = 3 * L * min(u / 3, 1) * (6 - u) * (max(D / 0.04, -0.5) - 1)
+s(y)  = 3 * clamp((anno - 1836) / 100, 0, 1)
+econ  = 3 * L * min(u / (3 + s(y)), 1) * (6 - u) * (max(D / 0.04, -0.5) - 1)
 econ  = econ * 0.5 se u < 6 ed econ < 0
 dX    = clamp(drift + econ + extra, -5, +15)
 ```
 
 Il contributo economico negativo viene dimezzato nelle fasi 0–5, incluso tutto il tratto 500 <= X < 600. Vale per recessione, stagnazione e crescita media quinquennale inferiore al 4%. Il dimezzamento precede la somma con drift ed extra e i limiti annuali; da X=600 il comportamento resta invariato.
+
+La soglia economica sale da 3 nel 1836 a 4,5 nel 1886 e 6 nel 1936, poi resta a 6. Prima del 1836 resta a 3. Per `u >= S+s(y)` il termine economico conserva il comportamento precedente; sotto la soglia vengono attenuati sia la spinta della crescita sia il freno della stagnazione/recessione. Con i default, dal 1936 il peso si dimezza per `0<u<=3`, mentre da `u>=6` resta invariato. Lo stadio demografico rappresenta lo sviluppo: non viene usato un filtro diretto sulla ricchezza.
 
 ### Simboli
 
@@ -42,7 +46,8 @@ Il contributo economico negativo viene dimezzato nelle fasi 0–5, incluso tutto
 | `k` | Epoca: alza nel tempo la fase verso cui tende il drift. |
 | `SoL` | SoL medio del paese (`average_sol`); `SoL(t)` è il valore al pulse corrente. |
 | `PILpc(t)` | PIL pro capite (`get_country_gdp_per`). |
-| `A(u)` | Peso dell'economia per fase: parte da zero, si annulla a `u=C` e oltre cambia segno; `S` ne smorza le fasi iniziali. |
+| `A(u,y)` | Peso dell'economia per fase: parte da zero, si annulla a `u=C` e oltre cambia segno; `S+s(y)` ne smorza le fasi iniziali in funzione dell'anno. |
+| `s(y)` | Incremento temporale della soglia di saturazione: da 0 a 3 fra 1836 e 1936, poi costante. |
 | `drift` | Richiamo verso `u*`, determinato da literacy, SoL ed epoca. |
 | `econ` | Spinta economica: positiva con `D > D0`, negativa sotto, con verso invertito oltre `C`. La recessione pesa fino a `D = Lr*D0` (-2%), dove il fattore tocca `Lr - 1 = -1,5`. |
 | `extra` | Correttivi additivi di `ztr_demography_extra_change`: sanità (+), società tradizionale, schiavitù, Nord America e immigrazione (-). |
@@ -61,6 +66,9 @@ Il contributo economico negativo viene dimezzato nelle fasi 0–5, incluso tutto
 | `Lr` — pavimento della recessione | -0,5 | Più vicino a 0 riduce la penalità extra della recessione: a 0 si torna a trattare ogni `D` negativo come stagnazione. |
 | `H` — finestra in anni | 5 | Fissa nel buffer storico; cambiarla richiede adattare campioni e aggiornamento, oltre a ritarare `D0`. |
 | `S` — saturazione iniziale | 3 | Riduce il peso economico iniziale e ne ritarda la saturazione. |
+| `Ss` — inizio della saturazione temporale | 1836 | Ritarda l'inizio dell'attenuazione economica. |
+| `Sp` — durata della transizione temporale | 100 | Rallenta la crescita della soglia; minimo tecnico 1 anno. |
+| `Sm` — incremento massimo della saturazione | 3 | Attenua maggiormente la risposta economica degli stadi sotto la soglia. |
 | `C` — inversione | 6 | Sposta più avanti il cambio di segno economico, uguale per tutti i paesi. |
 | `Hi` — guadagno massimo | +15 | Permette avanzamenti annuali più rapidi prima della saturazione. |
 | `Lo` — perdita massima | -5 | Alza il pavimento annuale e riduce la regressione consentita: -5 significa al massimo 5 punti persi l'anno. |
@@ -71,7 +79,7 @@ Il contributo economico negativo viene dimezzato nelle fasi 0–5, incluso tutto
 
 Per il bilanciamento ordinario modificare soprattutto `Kd`, `Ld`, `Ls` e `Ke`. `D0` sostituisce il precedente prodotto `Q*G`: `D0=1/(Q*G)`. Con `Ld=5` e `Ls=0` si torna al drift basato solo sulla literacy.
 
-I parametri sono in `common/script_values/ztr_demography_values.txt`: `Kd=drift_scale`, `Ld=drift_literacy`, `Ls=drift_sol`, `Lm=drift_sol_max`, `Ke=speed`, `D0=growth_threshold`, `Lr=recession_floor`, `S=saturation`, `C=turning_point`, `Hi=max_gain`, `Lo=max_loss`, `Ks=era_start`, `Kp=era_step`, `kmin=era_min`, `kmax=era_max`, tutti con prefisso `ztr_demography_`. L'epoca `k` è `ztr_demography_era`.
+I parametri sono in `common/script_values/ztr_demography_values.txt`: `Kd=drift_scale`, `Ld=drift_literacy`, `Ls=drift_sol`, `Lm=drift_sol_max`, `Ke=speed`, `D0=growth_threshold`, `Lr=recession_floor`, `S=saturation`, `Ss=saturation_start`, `Sp=saturation_years`, `Sm=saturation_gain`, `C=turning_point`, `Hi=max_gain`, `Lo=max_loss`, `Ks=era_start`, `Kp=era_step`, `kmin=era_min`, `kmax=era_max`, tutti con prefisso `ztr_demography_`. L'epoca `k` è `ztr_demography_era`.
 
 ### Variabili persistenti
 
@@ -136,7 +144,7 @@ Il termine economico sposta il punto di riposo effettivo: sopra `X=100*C=600` è
 
 La regressione è intenzionale: non si limita `F` a zero. Sommando il termine economico, un paese stagnante si ferma dove `F = 0`: nel 1836 attorno a `X=142` con literacy 50%, SoL 10 e senza extra, mantenendo fissi anno, literacy e SoL. Oltre `C` il termine economico cambia segno, quindi la crescita frena il declino mentre la stagnazione lo accompagna. La recessione aggiunge penalità fino a `D = -2%`; oltre, il fattore resta a -1,5.
 
-In stagnazione, per `S<=u<6`, la pendenza di `F` è `-Kd + 0,5*Ke*L`, cioè `-1,5 + 1,5L`: non è positiva con literacy tra 0 e 1. In recessione piena diventa `-1,5 + 2,25L`, positiva oltre il 66,7%.
+In stagnazione, per `S+s(y)<=u<6`, la pendenza di `F` è `-Kd + 0,5*Ke*L`, cioè `-1,5 + 1,5L`: non è positiva con literacy tra 0 e 1. In recessione piena diventa `-1,5 + 2,25L`, positiva oltre il 66,7%.
 
 Da `u>=6`, in stagnazione, la pendenza di `F` rispetto a `u` è `-Kd + Ke*L`, cioè `-1,5 + 3L`: è positiva oltre il 50% di literacy; in recessione piena diventa `-1,5 + 4,5L`, positiva oltre il 33%. In quel caso il declino accelera con l'aumento della fase e prosegue fino a 900, frenato solo dal limite annuale. Gli extra possono cambiare alle soglie di fase.
 

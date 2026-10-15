@@ -4,6 +4,8 @@ pdxmesh = {
 
 	scale = 2
 
+	animation = { id = "idle_animation" type = "ztr_global_power_wind_01_idle.anim" }
+
 	lod_percentages = {
 		lod = { index = 1 percent = 7.0 }
 		lod = { index = 2 percent = 4.0 }
@@ -18,6 +20,18 @@ pdxmesh = {
 		texture = { file = "ztr_global_power_wind_01_tint.dds" index = 5 }
 		shader = "standard"
 		additional_shader_defines = { "PDX_MESH_SNAP_VERTICES_TO_TERRAIN" "TINT_COLOR" "EMISSIVE_NIGHT" "EMISSIVE_NIGHT_RANDOM" "SOL_VISUALS" "HUB_BUILDING" }
+		shader_file = "gfx/FX/pdxmesh.shader"
+	}
+
+	meshsettings = {
+		name = "ztr_global_power_wind_01_rotor_LOD0"
+		index = 0
+		texture_diffuse = "ztr_global_power_wind_atlas_diffuse.dds"
+		texture_normal = "ztr_city_normal_6012464312aa.dds"
+		texture_specular = "ztr_city_properties_a0ac4ea20c0d.dds"
+		texture = { file = "ztr_global_power_wind_01_rotor_tint.dds" index = 5 }
+		shader = "standard"
+		additional_shader_defines = { "TINT_COLOR" "EMISSIVE_NIGHT" "EMISSIVE_NIGHT_RANDOM" "SOL_VISUALS" "HUB_BUILDING" }
 		shader_file = "gfx/FX/pdxmesh.shader"
 	}
 
@@ -55,6 +69,18 @@ pdxmesh = {
 	}
 
 	meshsettings = {
+		name = "ztr_global_power_wind_01_rotor_LOD1"
+		index = 0
+		texture_diffuse = "ztr_global_power_wind_atlas_diffuse.dds"
+		texture_normal = "ztr_city_normal_6012464312aa.dds"
+		texture_specular = "ztr_city_properties_a0ac4ea20c0d.dds"
+		texture = { file = "ztr_global_power_wind_01_rotor_tint.dds" index = 5 }
+		shader = "standard"
+		additional_shader_defines = { "TINT_COLOR" "EMISSIVE_NIGHT" "EMISSIVE_NIGHT_RANDOM" "SOL_VISUALS" "HUB_BUILDING" }
+		shader_file = "gfx/FX/pdxmesh.shader"
+	}
+
+	meshsettings = {
 		name = "ztr_global_power_wind_01_LOD1_trees"
 		index = 0
 		texture_diffuse = "tree_oak_002_diffuse.dds"
@@ -88,6 +114,18 @@ pdxmesh = {
 	}
 
 	meshsettings = {
+		name = "ztr_global_power_wind_01_rotor_LOD2"
+		index = 0
+		texture_diffuse = "ztr_global_power_wind_atlas_diffuse.dds"
+		texture_normal = "ztr_city_normal_6012464312aa.dds"
+		texture_specular = "ztr_city_properties_a0ac4ea20c0d.dds"
+		texture = { file = "ztr_global_power_wind_01_rotor_tint.dds" index = 5 }
+		shader = "standard"
+		additional_shader_defines = { "TINT_COLOR" "EMISSIVE_NIGHT" "EMISSIVE_NIGHT_RANDOM" "SOL_VISUALS" "HUB_BUILDING" }
+		shader_file = "gfx/FX/pdxmesh.shader"
+	}
+
+	meshsettings = {
 		name = "ztr_global_power_wind_01_LOD2_trees"
 		index = 0
 		texture_diffuse = "tree_oak_002_diffuse.dds"
@@ -113,4 +151,6 @@ pdxmesh = {
 entity = {
 	name = "ztr_global_power_wind_01_entity"
 	pdxmesh = "ztr_global_power_wind_01_mesh"
+	default_state = "idle"
+	state = { name = "idle" animation = "idle_animation" state_time = 5 looping = yes }
 }

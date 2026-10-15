@@ -1,0 +1,53 @@
+pdxmesh = {
+	name = "ztr_eu_train_streamliner_car_01_mesh"
+	file = "ztr_eu_train_streamliner_car_01.mesh"
+
+	lod_percentages = {
+		lod = { index = 1 percent = 6.0 }
+		lod = { index = 2 percent = 3.0 }
+	}
+
+	meshsettings = {
+		name = "ztr_eu_train_streamliner_car_01_LOD0"
+		index = 0
+		texture_diffuse = "ztr_eu_train_streamliner_diffuse.dds"
+		texture_normal = "ztr_eu_train_streamliner_normal.dds"
+		texture_specular = "ztr_eu_train_streamliner_properties.dds"
+		shader = "standard"
+		additional_shader_defines = { "EMISSIVE_NIGHT" }
+		shader_file = "gfx/FX/pdxmesh.shader"
+	}
+
+	meshsettings = {
+		name = "ztr_eu_train_streamliner_car_01_LOD1"
+		index = 0
+		texture_diffuse = "ztr_eu_train_streamliner_diffuse.dds"
+		texture_normal = "ztr_eu_train_streamliner_normal.dds"
+		texture_specular = "ztr_eu_train_streamliner_properties.dds"
+		shader = "standard"
+		additional_shader_defines = { "EMISSIVE_NIGHT" }
+		shader_file = "gfx/FX/pdxmesh.shader"
+	}
+
+	meshsettings = {
+		name = "ztr_eu_train_streamliner_car_01_LOD2"
+		index = 0
+		texture_diffuse = "ztr_eu_train_streamliner_diffuse.dds"
+		texture_normal = "ztr_eu_train_streamliner_normal.dds"
+		texture_specular = "ztr_eu_train_streamliner_properties.dds"
+		shader = "standard"
+		additional_shader_defines = { "EMISSIVE_NIGHT" }
+		shader_file = "gfx/FX/pdxmesh.shader"
+	}
+}
+
+entity = {
+	name = "ztr_eu_train_streamliner_car_01_entity"
+	pdxmesh = "ztr_eu_train_streamliner_car_01_mesh"
+	default_state = "moving"
+	state = {
+		name = "moving"
+		looping = no
+		start_event = { time = 0 particle = "trains/passenger_lights" trigger_once = yes }
+	}
+}
