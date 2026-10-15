@@ -151,6 +151,8 @@ REPLACE_OR_CREATE:building_mendelejew_synthetic_rubber_factory = {
 REPLACE_OR_CREATE:building_airport = {
 	building_group = bg_private_infrastructure	
 	icon = "gfx/interface/icons/building_icons/airport.dds"
+	has_max_level = yes
+	ignore_stateregion_max_level = yes
 	
 	unlocking_technologies = {
 		zeppelins
@@ -164,38 +166,6 @@ REPLACE_OR_CREATE:building_airport = {
 		pmg_data_optimization_light_industry_no_shopkeepers
 	}
 
-	can_build_government = {
-		custom_tooltip = {
-			text = ztr_airport_can_construct_tt
-			NOT = {
-				b:building_airport ?= {
-					level_after_queued_constructions >= {
-						value = state.state_population
-						divide = 400000
-						floor = yes
-						min = 1
-					}
-				}
-			}
-		}
-	}
-	
-	can_build_private = {
-		custom_tooltip = {
-			text = ztr_airport_can_construct_tt
-			NOT = {
-				b:building_airport ?= {
-					level_after_queued_constructions >= {
-						value = state.state_population
-						divide = 400000
-						floor = yes
-						min = 1
-					}
-				}
-			}
-		}
-	}
-	
 	should_auto_expand = {
 		OR = {
 			cash_reserves_ratio >= 0.5
@@ -204,7 +174,7 @@ REPLACE_OR_CREATE:building_airport = {
 		state.market_access > 1.1
 	}
 	
-	required_construction = construction_cost_very_high
+	required_construction = construction_cost_light_modern
 	
 	ownership_type = self
 	

@@ -1,0 +1,31 @@
+on_game_started = {
+	on_actions = {
+		ztr_initialize_airport_capacity
+	}
+}
+
+ztr_initialize_airport_capacity = {
+	effect = {
+		every_state = {
+			ztr_refresh_airport_capacity = yes
+		}
+	}
+}
+
+on_yearly_pulse_state = {
+	on_actions = {
+		ztr_update_state_airport_capacity
+	}
+}
+
+on_state_created = {
+	on_actions = {
+		ztr_update_state_airport_capacity
+	}
+}
+
+ztr_update_state_airport_capacity = {
+	effect = {
+		ztr_refresh_airport_capacity = yes
+	}
+}

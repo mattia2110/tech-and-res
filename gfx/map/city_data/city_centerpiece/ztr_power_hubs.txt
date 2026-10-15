@@ -317,7 +317,7 @@ ztr_chn_hub_asian_wood_1_power_renewable = {
 	}
 }
 
-ztr_chn_hub_asian_wood_1_airport = {
+ztr_chn_hub_asian_wood_1_airport_small = {
 	city_graphics_type = ztr_chn_wood_early_modern
 	city_graphics_type = ztr_chn_wood_late_modern
 	city_graphics_type = ztr_chn_wood_postmodern
@@ -334,6 +334,104 @@ ztr_chn_hub_asian_wood_1_airport = {
 					is_under_construction = yes
 					level > 0
 				}
+			}
+		}
+		NOT = {
+			any_scope_state = {
+				"b(building_airport)" ?= { level >= 5 }
+			}
+		}
+		NOT = {
+			any_scope_state = {
+				"b(building_renewable_energy_power_plant)" ?= {
+					OR = {
+						is_under_construction = yes
+						level > 0
+					}
+				}
+			}
+		}
+	}
+
+	locator = { name = ztr_centre position = { -1.0 0 0 } rotation = { 0 0 0 } scale = 1.0 }
+	locator = { name = ztr_airport_small position = { 1.0 0 0 } rotation = { 0 0 0 } scale = 1.0 }
+	attach = { locator = ztr_centre variant = { entity = asian_forestry_centerpiece_01_entity } }
+	attach = {
+		locator = ztr_airport_small
+		variant = { entity = ztr_global_transport_airfield_01_entity	building_type = building_airport }
+	}
+}
+
+ztr_chn_hub_asian_wood_1_power_airport_small = {
+	city_graphics_type = ztr_chn_wood_early_modern
+	city_graphics_type = ztr_chn_wood_late_modern
+	city_graphics_type = ztr_chn_wood_postmodern
+	city_graphics_type = ztr_chn_wood_digital
+	city_graphics_type = ztr_chn_wood_ai
+	priority = 4
+	grid_size = { 7 6 }
+	should_update_on_pm_change = yes
+
+	trigger = {
+		any_scope_state = {
+			"b(building_renewable_energy_power_plant)" ?= {
+				OR = {
+					is_under_construction = yes
+					level > 0
+				}
+			}
+		}
+		any_scope_state = {
+			"b(building_airport)" ?= {
+				OR = {
+					is_under_construction = yes
+					level > 0
+				}
+			}
+		}
+		NOT = {
+			any_scope_state = {
+				"b(building_airport)" ?= { level >= 5 }
+			}
+		}
+	}
+
+	locator = { name = ztr_centre position = { 0.5 0 0 } rotation = { 0 0 0 } scale = 1.0 }
+	locator = { name = ztr_renewable position = { -2.0 0 0 } rotation = { 0 0 0 } scale = 1.0 }
+	locator = { name = ztr_airport_small position = { 2.5 0 0 } rotation = { 0 0 0 } scale = 1.0 }
+	composition_group = {
+		composition = { name = ztr_wind trigger = { any_scope_building = { has_active_production_method = pm_wind_turbines } } }
+		composition = { name = ztr_solar trigger = { any_scope_building = { OR = { has_active_production_method = pm_rudimental_photovoltaic_cells has_active_production_method = pm_solar_panels } } } }
+	}
+	attach = { locator = ztr_centre variant = { entity = asian_forestry_centerpiece_01_entity } }
+	attach = {
+		locator = ztr_renewable
+		variant = { entity = ztr_global_power_wind_01_entity	building_type = building_renewable_energy_power_plant	compositions = { ztr_wind } }
+		variant = { entity = ztr_global_power_solar_01_entity	building_type = building_renewable_energy_power_plant	compositions = { ztr_solar } }
+	}
+	attach = {
+		locator = ztr_airport_small
+		variant = { entity = ztr_global_transport_airfield_01_entity	building_type = building_airport }
+	}
+}
+
+ztr_chn_hub_asian_wood_1_airport = {
+	city_graphics_type = ztr_chn_wood_early_modern
+	city_graphics_type = ztr_chn_wood_late_modern
+	city_graphics_type = ztr_chn_wood_postmodern
+	city_graphics_type = ztr_chn_wood_digital
+	city_graphics_type = ztr_chn_wood_ai
+	priority = 2
+	grid_size = { 4 6 }
+	should_update_on_pm_change = yes
+
+	trigger = {
+		any_scope_state = {
+			"b(building_airport)" ?= { level >= 5 }
+		}
+		NOT = {
+			any_scope_state = {
+				owner = { has_technology_researched = wide_body_airliners }
 			}
 		}
 		NOT = {
@@ -377,11 +475,11 @@ ztr_chn_hub_asian_wood_1_power_airport = {
 			}
 		}
 		any_scope_state = {
-			"b(building_airport)" ?= {
-				OR = {
-					is_under_construction = yes
-					level > 0
-				}
+			"b(building_airport)" ?= { level >= 5 }
+		}
+		NOT = {
+			any_scope_state = {
+				owner = { has_technology_researched = wide_body_airliners }
 			}
 		}
 	}
@@ -402,6 +500,90 @@ ztr_chn_hub_asian_wood_1_power_airport = {
 	attach = {
 		locator = ztr_airport
 		variant = { entity = ztr_global_transport_airport_01_entity	building_type = building_airport }
+	}
+}
+
+ztr_chn_hub_asian_wood_1_airport_intl = {
+	city_graphics_type = ztr_chn_wood_early_modern
+	city_graphics_type = ztr_chn_wood_late_modern
+	city_graphics_type = ztr_chn_wood_postmodern
+	city_graphics_type = ztr_chn_wood_digital
+	city_graphics_type = ztr_chn_wood_ai
+	priority = 2
+	grid_size = { 5 6 }
+	should_update_on_pm_change = yes
+
+	trigger = {
+		any_scope_state = {
+			"b(building_airport)" ?= { level >= 5 }
+		}
+		any_scope_state = {
+			owner = { has_technology_researched = wide_body_airliners }
+		}
+		NOT = {
+			any_scope_state = {
+				"b(building_renewable_energy_power_plant)" ?= {
+					OR = {
+						is_under_construction = yes
+						level > 0
+					}
+				}
+			}
+		}
+	}
+
+	locator = { name = ztr_centre position = { -1.5 0 0 } rotation = { 0 0 0 } scale = 1.0 }
+	locator = { name = ztr_airport_intl position = { 1.0 0 0 } rotation = { 0 0 0 } scale = 1.0 }
+	attach = { locator = ztr_centre variant = { entity = asian_forestry_centerpiece_01_entity } }
+	attach = {
+		locator = ztr_airport_intl
+		variant = { entity = ztr_global_transport_airport_02_entity	building_type = building_airport }
+	}
+}
+
+ztr_chn_hub_asian_wood_1_power_airport_intl = {
+	city_graphics_type = ztr_chn_wood_early_modern
+	city_graphics_type = ztr_chn_wood_late_modern
+	city_graphics_type = ztr_chn_wood_postmodern
+	city_graphics_type = ztr_chn_wood_digital
+	city_graphics_type = ztr_chn_wood_ai
+	priority = 4
+	grid_size = { 8 6 }
+	should_update_on_pm_change = yes
+
+	trigger = {
+		any_scope_state = {
+			"b(building_renewable_energy_power_plant)" ?= {
+				OR = {
+					is_under_construction = yes
+					level > 0
+				}
+			}
+		}
+		any_scope_state = {
+			"b(building_airport)" ?= { level >= 5 }
+		}
+		any_scope_state = {
+			owner = { has_technology_researched = wide_body_airliners }
+		}
+	}
+
+	locator = { name = ztr_centre position = { 0.0 0 0 } rotation = { 0 0 0 } scale = 1.0 }
+	locator = { name = ztr_renewable position = { -2.5 0 0 } rotation = { 0 0 0 } scale = 1.0 }
+	locator = { name = ztr_airport_intl position = { 2.5 0 0 } rotation = { 0 0 0 } scale = 1.0 }
+	composition_group = {
+		composition = { name = ztr_wind trigger = { any_scope_building = { has_active_production_method = pm_wind_turbines } } }
+		composition = { name = ztr_solar trigger = { any_scope_building = { OR = { has_active_production_method = pm_rudimental_photovoltaic_cells has_active_production_method = pm_solar_panels } } } }
+	}
+	attach = { locator = ztr_centre variant = { entity = asian_forestry_centerpiece_01_entity } }
+	attach = {
+		locator = ztr_renewable
+		variant = { entity = ztr_global_power_wind_01_entity	building_type = building_renewable_energy_power_plant	compositions = { ztr_wind } }
+		variant = { entity = ztr_global_power_solar_01_entity	building_type = building_renewable_energy_power_plant	compositions = { ztr_solar } }
+	}
+	attach = {
+		locator = ztr_airport_intl
+		variant = { entity = ztr_global_transport_airport_02_entity	building_type = building_airport }
 	}
 }
 
@@ -1261,7 +1443,7 @@ ztr_eeu_hub_default_wood_1_power_renewable = {
 	}
 }
 
-ztr_eeu_hub_default_wood_1_airport = {
+ztr_eeu_hub_default_wood_1_airport_small = {
 	city_graphics_type = ztr_eeu_wood_early_modern
 	city_graphics_type = ztr_eeu_wood_late_modern
 	city_graphics_type = ztr_eeu_wood_postmodern
@@ -1278,6 +1460,104 @@ ztr_eeu_hub_default_wood_1_airport = {
 					is_under_construction = yes
 					level > 0
 				}
+			}
+		}
+		NOT = {
+			any_scope_state = {
+				"b(building_airport)" ?= { level >= 5 }
+			}
+		}
+		NOT = {
+			any_scope_state = {
+				"b(building_renewable_energy_power_plant)" ?= {
+					OR = {
+						is_under_construction = yes
+						level > 0
+					}
+				}
+			}
+		}
+	}
+
+	locator = { name = ztr_centre position = { -1.0 0 0 } rotation = { 0 0 0 } scale = 1.0 }
+	locator = { name = ztr_airport_small position = { 1.0 0 0 } rotation = { 0 0 0 } scale = 1.0 }
+	attach = { locator = ztr_centre variant = { entity = european_forestry_centerpiece_01_entity } }
+	attach = {
+		locator = ztr_airport_small
+		variant = { entity = ztr_global_transport_airfield_01_entity	building_type = building_airport }
+	}
+}
+
+ztr_eeu_hub_default_wood_1_power_airport_small = {
+	city_graphics_type = ztr_eeu_wood_early_modern
+	city_graphics_type = ztr_eeu_wood_late_modern
+	city_graphics_type = ztr_eeu_wood_postmodern
+	city_graphics_type = ztr_eeu_wood_digital
+	city_graphics_type = ztr_eeu_wood_ai
+	priority = 4
+	grid_size = { 7 6 }
+	should_update_on_pm_change = yes
+
+	trigger = {
+		any_scope_state = {
+			"b(building_renewable_energy_power_plant)" ?= {
+				OR = {
+					is_under_construction = yes
+					level > 0
+				}
+			}
+		}
+		any_scope_state = {
+			"b(building_airport)" ?= {
+				OR = {
+					is_under_construction = yes
+					level > 0
+				}
+			}
+		}
+		NOT = {
+			any_scope_state = {
+				"b(building_airport)" ?= { level >= 5 }
+			}
+		}
+	}
+
+	locator = { name = ztr_centre position = { 0.5 0 0 } rotation = { 0 0 0 } scale = 1.0 }
+	locator = { name = ztr_renewable position = { -2.0 0 0 } rotation = { 0 0 0 } scale = 1.0 }
+	locator = { name = ztr_airport_small position = { 2.5 0 0 } rotation = { 0 0 0 } scale = 1.0 }
+	composition_group = {
+		composition = { name = ztr_wind trigger = { any_scope_building = { has_active_production_method = pm_wind_turbines } } }
+		composition = { name = ztr_solar trigger = { any_scope_building = { OR = { has_active_production_method = pm_rudimental_photovoltaic_cells has_active_production_method = pm_solar_panels } } } }
+	}
+	attach = { locator = ztr_centre variant = { entity = european_forestry_centerpiece_01_entity } }
+	attach = {
+		locator = ztr_renewable
+		variant = { entity = ztr_global_power_wind_01_entity	building_type = building_renewable_energy_power_plant	compositions = { ztr_wind } }
+		variant = { entity = ztr_global_power_solar_01_entity	building_type = building_renewable_energy_power_plant	compositions = { ztr_solar } }
+	}
+	attach = {
+		locator = ztr_airport_small
+		variant = { entity = ztr_global_transport_airfield_01_entity	building_type = building_airport }
+	}
+}
+
+ztr_eeu_hub_default_wood_1_airport = {
+	city_graphics_type = ztr_eeu_wood_early_modern
+	city_graphics_type = ztr_eeu_wood_late_modern
+	city_graphics_type = ztr_eeu_wood_postmodern
+	city_graphics_type = ztr_eeu_wood_digital
+	city_graphics_type = ztr_eeu_wood_ai
+	priority = 2
+	grid_size = { 4 6 }
+	should_update_on_pm_change = yes
+
+	trigger = {
+		any_scope_state = {
+			"b(building_airport)" ?= { level >= 5 }
+		}
+		NOT = {
+			any_scope_state = {
+				owner = { has_technology_researched = wide_body_airliners }
 			}
 		}
 		NOT = {
@@ -1321,11 +1601,11 @@ ztr_eeu_hub_default_wood_1_power_airport = {
 			}
 		}
 		any_scope_state = {
-			"b(building_airport)" ?= {
-				OR = {
-					is_under_construction = yes
-					level > 0
-				}
+			"b(building_airport)" ?= { level >= 5 }
+		}
+		NOT = {
+			any_scope_state = {
+				owner = { has_technology_researched = wide_body_airliners }
 			}
 		}
 	}
@@ -1346,6 +1626,90 @@ ztr_eeu_hub_default_wood_1_power_airport = {
 	attach = {
 		locator = ztr_airport
 		variant = { entity = ztr_global_transport_airport_01_entity	building_type = building_airport }
+	}
+}
+
+ztr_eeu_hub_default_wood_1_airport_intl = {
+	city_graphics_type = ztr_eeu_wood_early_modern
+	city_graphics_type = ztr_eeu_wood_late_modern
+	city_graphics_type = ztr_eeu_wood_postmodern
+	city_graphics_type = ztr_eeu_wood_digital
+	city_graphics_type = ztr_eeu_wood_ai
+	priority = 2
+	grid_size = { 5 6 }
+	should_update_on_pm_change = yes
+
+	trigger = {
+		any_scope_state = {
+			"b(building_airport)" ?= { level >= 5 }
+		}
+		any_scope_state = {
+			owner = { has_technology_researched = wide_body_airliners }
+		}
+		NOT = {
+			any_scope_state = {
+				"b(building_renewable_energy_power_plant)" ?= {
+					OR = {
+						is_under_construction = yes
+						level > 0
+					}
+				}
+			}
+		}
+	}
+
+	locator = { name = ztr_centre position = { -1.5 0 0 } rotation = { 0 0 0 } scale = 1.0 }
+	locator = { name = ztr_airport_intl position = { 1.0 0 0 } rotation = { 0 0 0 } scale = 1.0 }
+	attach = { locator = ztr_centre variant = { entity = european_forestry_centerpiece_01_entity } }
+	attach = {
+		locator = ztr_airport_intl
+		variant = { entity = ztr_global_transport_airport_02_entity	building_type = building_airport }
+	}
+}
+
+ztr_eeu_hub_default_wood_1_power_airport_intl = {
+	city_graphics_type = ztr_eeu_wood_early_modern
+	city_graphics_type = ztr_eeu_wood_late_modern
+	city_graphics_type = ztr_eeu_wood_postmodern
+	city_graphics_type = ztr_eeu_wood_digital
+	city_graphics_type = ztr_eeu_wood_ai
+	priority = 4
+	grid_size = { 8 6 }
+	should_update_on_pm_change = yes
+
+	trigger = {
+		any_scope_state = {
+			"b(building_renewable_energy_power_plant)" ?= {
+				OR = {
+					is_under_construction = yes
+					level > 0
+				}
+			}
+		}
+		any_scope_state = {
+			"b(building_airport)" ?= { level >= 5 }
+		}
+		any_scope_state = {
+			owner = { has_technology_researched = wide_body_airliners }
+		}
+	}
+
+	locator = { name = ztr_centre position = { 0.0 0 0 } rotation = { 0 0 0 } scale = 1.0 }
+	locator = { name = ztr_renewable position = { -2.5 0 0 } rotation = { 0 0 0 } scale = 1.0 }
+	locator = { name = ztr_airport_intl position = { 2.5 0 0 } rotation = { 0 0 0 } scale = 1.0 }
+	composition_group = {
+		composition = { name = ztr_wind trigger = { any_scope_building = { has_active_production_method = pm_wind_turbines } } }
+		composition = { name = ztr_solar trigger = { any_scope_building = { OR = { has_active_production_method = pm_rudimental_photovoltaic_cells has_active_production_method = pm_solar_panels } } } }
+	}
+	attach = { locator = ztr_centre variant = { entity = european_forestry_centerpiece_01_entity } }
+	attach = {
+		locator = ztr_renewable
+		variant = { entity = ztr_global_power_wind_01_entity	building_type = building_renewable_energy_power_plant	compositions = { ztr_wind } }
+		variant = { entity = ztr_global_power_solar_01_entity	building_type = building_renewable_energy_power_plant	compositions = { ztr_solar } }
+	}
+	attach = {
+		locator = ztr_airport_intl
+		variant = { entity = ztr_global_transport_airport_02_entity	building_type = building_airport }
 	}
 }
 
@@ -1394,7 +1758,7 @@ ztr_eeu_hub_arabic_wood_1_power_renewable = {
 	}
 }
 
-ztr_eeu_hub_arabic_wood_1_airport = {
+ztr_eeu_hub_arabic_wood_1_airport_small = {
 	city_graphics_type = ztr_eeu_caucasus_wood_early_modern
 	city_graphics_type = ztr_eeu_caucasus_wood_late_modern
 	city_graphics_type = ztr_eeu_caucasus_wood_postmodern
@@ -1411,6 +1775,104 @@ ztr_eeu_hub_arabic_wood_1_airport = {
 					is_under_construction = yes
 					level > 0
 				}
+			}
+		}
+		NOT = {
+			any_scope_state = {
+				"b(building_airport)" ?= { level >= 5 }
+			}
+		}
+		NOT = {
+			any_scope_state = {
+				"b(building_renewable_energy_power_plant)" ?= {
+					OR = {
+						is_under_construction = yes
+						level > 0
+					}
+				}
+			}
+		}
+	}
+
+	locator = { name = ztr_centre position = { -1.0 0 0 } rotation = { 0 0 0 } scale = 1.0 }
+	locator = { name = ztr_airport_small position = { 1.0 0 0 } rotation = { 0 0 0 } scale = 1.0 }
+	attach = { locator = ztr_centre variant = { entity = arabic_forestry_centerpiece_01_entity } }
+	attach = {
+		locator = ztr_airport_small
+		variant = { entity = ztr_global_transport_airfield_01_entity	building_type = building_airport }
+	}
+}
+
+ztr_eeu_hub_arabic_wood_1_power_airport_small = {
+	city_graphics_type = ztr_eeu_caucasus_wood_early_modern
+	city_graphics_type = ztr_eeu_caucasus_wood_late_modern
+	city_graphics_type = ztr_eeu_caucasus_wood_postmodern
+	city_graphics_type = ztr_eeu_caucasus_wood_digital
+	city_graphics_type = ztr_eeu_caucasus_wood_ai
+	priority = 4
+	grid_size = { 7 6 }
+	should_update_on_pm_change = yes
+
+	trigger = {
+		any_scope_state = {
+			"b(building_renewable_energy_power_plant)" ?= {
+				OR = {
+					is_under_construction = yes
+					level > 0
+				}
+			}
+		}
+		any_scope_state = {
+			"b(building_airport)" ?= {
+				OR = {
+					is_under_construction = yes
+					level > 0
+				}
+			}
+		}
+		NOT = {
+			any_scope_state = {
+				"b(building_airport)" ?= { level >= 5 }
+			}
+		}
+	}
+
+	locator = { name = ztr_centre position = { 0.5 0 0 } rotation = { 0 0 0 } scale = 1.0 }
+	locator = { name = ztr_renewable position = { -2.0 0 0 } rotation = { 0 0 0 } scale = 1.0 }
+	locator = { name = ztr_airport_small position = { 2.5 0 0 } rotation = { 0 0 0 } scale = 1.0 }
+	composition_group = {
+		composition = { name = ztr_wind trigger = { any_scope_building = { has_active_production_method = pm_wind_turbines } } }
+		composition = { name = ztr_solar trigger = { any_scope_building = { OR = { has_active_production_method = pm_rudimental_photovoltaic_cells has_active_production_method = pm_solar_panels } } } }
+	}
+	attach = { locator = ztr_centre variant = { entity = arabic_forestry_centerpiece_01_entity } }
+	attach = {
+		locator = ztr_renewable
+		variant = { entity = ztr_global_power_wind_01_entity	building_type = building_renewable_energy_power_plant	compositions = { ztr_wind } }
+		variant = { entity = ztr_global_power_solar_01_entity	building_type = building_renewable_energy_power_plant	compositions = { ztr_solar } }
+	}
+	attach = {
+		locator = ztr_airport_small
+		variant = { entity = ztr_global_transport_airfield_01_entity	building_type = building_airport }
+	}
+}
+
+ztr_eeu_hub_arabic_wood_1_airport = {
+	city_graphics_type = ztr_eeu_caucasus_wood_early_modern
+	city_graphics_type = ztr_eeu_caucasus_wood_late_modern
+	city_graphics_type = ztr_eeu_caucasus_wood_postmodern
+	city_graphics_type = ztr_eeu_caucasus_wood_digital
+	city_graphics_type = ztr_eeu_caucasus_wood_ai
+	priority = 2
+	grid_size = { 4 6 }
+	should_update_on_pm_change = yes
+
+	trigger = {
+		any_scope_state = {
+			"b(building_airport)" ?= { level >= 5 }
+		}
+		NOT = {
+			any_scope_state = {
+				owner = { has_technology_researched = wide_body_airliners }
 			}
 		}
 		NOT = {
@@ -1454,11 +1916,11 @@ ztr_eeu_hub_arabic_wood_1_power_airport = {
 			}
 		}
 		any_scope_state = {
-			"b(building_airport)" ?= {
-				OR = {
-					is_under_construction = yes
-					level > 0
-				}
+			"b(building_airport)" ?= { level >= 5 }
+		}
+		NOT = {
+			any_scope_state = {
+				owner = { has_technology_researched = wide_body_airliners }
 			}
 		}
 	}
@@ -1479,6 +1941,90 @@ ztr_eeu_hub_arabic_wood_1_power_airport = {
 	attach = {
 		locator = ztr_airport
 		variant = { entity = ztr_global_transport_airport_01_entity	building_type = building_airport }
+	}
+}
+
+ztr_eeu_hub_arabic_wood_1_airport_intl = {
+	city_graphics_type = ztr_eeu_caucasus_wood_early_modern
+	city_graphics_type = ztr_eeu_caucasus_wood_late_modern
+	city_graphics_type = ztr_eeu_caucasus_wood_postmodern
+	city_graphics_type = ztr_eeu_caucasus_wood_digital
+	city_graphics_type = ztr_eeu_caucasus_wood_ai
+	priority = 2
+	grid_size = { 5 6 }
+	should_update_on_pm_change = yes
+
+	trigger = {
+		any_scope_state = {
+			"b(building_airport)" ?= { level >= 5 }
+		}
+		any_scope_state = {
+			owner = { has_technology_researched = wide_body_airliners }
+		}
+		NOT = {
+			any_scope_state = {
+				"b(building_renewable_energy_power_plant)" ?= {
+					OR = {
+						is_under_construction = yes
+						level > 0
+					}
+				}
+			}
+		}
+	}
+
+	locator = { name = ztr_centre position = { -1.5 0 0 } rotation = { 0 0 0 } scale = 1.0 }
+	locator = { name = ztr_airport_intl position = { 1.0 0 0 } rotation = { 0 0 0 } scale = 1.0 }
+	attach = { locator = ztr_centre variant = { entity = arabic_forestry_centerpiece_01_entity } }
+	attach = {
+		locator = ztr_airport_intl
+		variant = { entity = ztr_global_transport_airport_02_entity	building_type = building_airport }
+	}
+}
+
+ztr_eeu_hub_arabic_wood_1_power_airport_intl = {
+	city_graphics_type = ztr_eeu_caucasus_wood_early_modern
+	city_graphics_type = ztr_eeu_caucasus_wood_late_modern
+	city_graphics_type = ztr_eeu_caucasus_wood_postmodern
+	city_graphics_type = ztr_eeu_caucasus_wood_digital
+	city_graphics_type = ztr_eeu_caucasus_wood_ai
+	priority = 4
+	grid_size = { 8 6 }
+	should_update_on_pm_change = yes
+
+	trigger = {
+		any_scope_state = {
+			"b(building_renewable_energy_power_plant)" ?= {
+				OR = {
+					is_under_construction = yes
+					level > 0
+				}
+			}
+		}
+		any_scope_state = {
+			"b(building_airport)" ?= { level >= 5 }
+		}
+		any_scope_state = {
+			owner = { has_technology_researched = wide_body_airliners }
+		}
+	}
+
+	locator = { name = ztr_centre position = { 0.0 0 0 } rotation = { 0 0 0 } scale = 1.0 }
+	locator = { name = ztr_renewable position = { -2.5 0 0 } rotation = { 0 0 0 } scale = 1.0 }
+	locator = { name = ztr_airport_intl position = { 2.5 0 0 } rotation = { 0 0 0 } scale = 1.0 }
+	composition_group = {
+		composition = { name = ztr_wind trigger = { any_scope_building = { has_active_production_method = pm_wind_turbines } } }
+		composition = { name = ztr_solar trigger = { any_scope_building = { OR = { has_active_production_method = pm_rudimental_photovoltaic_cells has_active_production_method = pm_solar_panels } } } }
+	}
+	attach = { locator = ztr_centre variant = { entity = arabic_forestry_centerpiece_01_entity } }
+	attach = {
+		locator = ztr_renewable
+		variant = { entity = ztr_global_power_wind_01_entity	building_type = building_renewable_energy_power_plant	compositions = { ztr_wind } }
+		variant = { entity = ztr_global_power_solar_01_entity	building_type = building_renewable_energy_power_plant	compositions = { ztr_solar } }
+	}
+	attach = {
+		locator = ztr_airport_intl
+		variant = { entity = ztr_global_transport_airport_02_entity	building_type = building_airport }
 	}
 }
 
@@ -2068,7 +2614,7 @@ ztr_ind_hub_arabic_wood_1_power_renewable = {
 	}
 }
 
-ztr_ind_hub_arabic_wood_1_airport = {
+ztr_ind_hub_arabic_wood_1_airport_small = {
 	city_graphics_type = ztr_ind_wood_early_modern
 	city_graphics_type = ztr_ind_wood_late_modern
 	city_graphics_type = ztr_ind_wood_postmodern
@@ -2085,6 +2631,104 @@ ztr_ind_hub_arabic_wood_1_airport = {
 					is_under_construction = yes
 					level > 0
 				}
+			}
+		}
+		NOT = {
+			any_scope_state = {
+				"b(building_airport)" ?= { level >= 5 }
+			}
+		}
+		NOT = {
+			any_scope_state = {
+				"b(building_renewable_energy_power_plant)" ?= {
+					OR = {
+						is_under_construction = yes
+						level > 0
+					}
+				}
+			}
+		}
+	}
+
+	locator = { name = ztr_centre position = { -1.0 0 0 } rotation = { 0 0 0 } scale = 1.0 }
+	locator = { name = ztr_airport_small position = { 1.0 0 0 } rotation = { 0 0 0 } scale = 1.0 }
+	attach = { locator = ztr_centre variant = { entity = arabic_forestry_centerpiece_01_entity } }
+	attach = {
+		locator = ztr_airport_small
+		variant = { entity = ztr_global_transport_airfield_01_entity	building_type = building_airport }
+	}
+}
+
+ztr_ind_hub_arabic_wood_1_power_airport_small = {
+	city_graphics_type = ztr_ind_wood_early_modern
+	city_graphics_type = ztr_ind_wood_late_modern
+	city_graphics_type = ztr_ind_wood_postmodern
+	city_graphics_type = ztr_ind_wood_digital
+	city_graphics_type = ztr_ind_wood_ai
+	priority = 4
+	grid_size = { 7 6 }
+	should_update_on_pm_change = yes
+
+	trigger = {
+		any_scope_state = {
+			"b(building_renewable_energy_power_plant)" ?= {
+				OR = {
+					is_under_construction = yes
+					level > 0
+				}
+			}
+		}
+		any_scope_state = {
+			"b(building_airport)" ?= {
+				OR = {
+					is_under_construction = yes
+					level > 0
+				}
+			}
+		}
+		NOT = {
+			any_scope_state = {
+				"b(building_airport)" ?= { level >= 5 }
+			}
+		}
+	}
+
+	locator = { name = ztr_centre position = { 0.5 0 0 } rotation = { 0 0 0 } scale = 1.0 }
+	locator = { name = ztr_renewable position = { -2.0 0 0 } rotation = { 0 0 0 } scale = 1.0 }
+	locator = { name = ztr_airport_small position = { 2.5 0 0 } rotation = { 0 0 0 } scale = 1.0 }
+	composition_group = {
+		composition = { name = ztr_wind trigger = { any_scope_building = { has_active_production_method = pm_wind_turbines } } }
+		composition = { name = ztr_solar trigger = { any_scope_building = { OR = { has_active_production_method = pm_rudimental_photovoltaic_cells has_active_production_method = pm_solar_panels } } } }
+	}
+	attach = { locator = ztr_centre variant = { entity = arabic_forestry_centerpiece_01_entity } }
+	attach = {
+		locator = ztr_renewable
+		variant = { entity = ztr_global_power_wind_01_entity	building_type = building_renewable_energy_power_plant	compositions = { ztr_wind } }
+		variant = { entity = ztr_global_power_solar_01_entity	building_type = building_renewable_energy_power_plant	compositions = { ztr_solar } }
+	}
+	attach = {
+		locator = ztr_airport_small
+		variant = { entity = ztr_global_transport_airfield_01_entity	building_type = building_airport }
+	}
+}
+
+ztr_ind_hub_arabic_wood_1_airport = {
+	city_graphics_type = ztr_ind_wood_early_modern
+	city_graphics_type = ztr_ind_wood_late_modern
+	city_graphics_type = ztr_ind_wood_postmodern
+	city_graphics_type = ztr_ind_wood_digital
+	city_graphics_type = ztr_ind_wood_ai
+	priority = 2
+	grid_size = { 4 6 }
+	should_update_on_pm_change = yes
+
+	trigger = {
+		any_scope_state = {
+			"b(building_airport)" ?= { level >= 5 }
+		}
+		NOT = {
+			any_scope_state = {
+				owner = { has_technology_researched = wide_body_airliners }
 			}
 		}
 		NOT = {
@@ -2128,11 +2772,11 @@ ztr_ind_hub_arabic_wood_1_power_airport = {
 			}
 		}
 		any_scope_state = {
-			"b(building_airport)" ?= {
-				OR = {
-					is_under_construction = yes
-					level > 0
-				}
+			"b(building_airport)" ?= { level >= 5 }
+		}
+		NOT = {
+			any_scope_state = {
+				owner = { has_technology_researched = wide_body_airliners }
 			}
 		}
 	}
@@ -2153,6 +2797,90 @@ ztr_ind_hub_arabic_wood_1_power_airport = {
 	attach = {
 		locator = ztr_airport
 		variant = { entity = ztr_global_transport_airport_01_entity	building_type = building_airport }
+	}
+}
+
+ztr_ind_hub_arabic_wood_1_airport_intl = {
+	city_graphics_type = ztr_ind_wood_early_modern
+	city_graphics_type = ztr_ind_wood_late_modern
+	city_graphics_type = ztr_ind_wood_postmodern
+	city_graphics_type = ztr_ind_wood_digital
+	city_graphics_type = ztr_ind_wood_ai
+	priority = 2
+	grid_size = { 5 6 }
+	should_update_on_pm_change = yes
+
+	trigger = {
+		any_scope_state = {
+			"b(building_airport)" ?= { level >= 5 }
+		}
+		any_scope_state = {
+			owner = { has_technology_researched = wide_body_airliners }
+		}
+		NOT = {
+			any_scope_state = {
+				"b(building_renewable_energy_power_plant)" ?= {
+					OR = {
+						is_under_construction = yes
+						level > 0
+					}
+				}
+			}
+		}
+	}
+
+	locator = { name = ztr_centre position = { -1.5 0 0 } rotation = { 0 0 0 } scale = 1.0 }
+	locator = { name = ztr_airport_intl position = { 1.0 0 0 } rotation = { 0 0 0 } scale = 1.0 }
+	attach = { locator = ztr_centre variant = { entity = arabic_forestry_centerpiece_01_entity } }
+	attach = {
+		locator = ztr_airport_intl
+		variant = { entity = ztr_global_transport_airport_02_entity	building_type = building_airport }
+	}
+}
+
+ztr_ind_hub_arabic_wood_1_power_airport_intl = {
+	city_graphics_type = ztr_ind_wood_early_modern
+	city_graphics_type = ztr_ind_wood_late_modern
+	city_graphics_type = ztr_ind_wood_postmodern
+	city_graphics_type = ztr_ind_wood_digital
+	city_graphics_type = ztr_ind_wood_ai
+	priority = 4
+	grid_size = { 8 6 }
+	should_update_on_pm_change = yes
+
+	trigger = {
+		any_scope_state = {
+			"b(building_renewable_energy_power_plant)" ?= {
+				OR = {
+					is_under_construction = yes
+					level > 0
+				}
+			}
+		}
+		any_scope_state = {
+			"b(building_airport)" ?= { level >= 5 }
+		}
+		any_scope_state = {
+			owner = { has_technology_researched = wide_body_airliners }
+		}
+	}
+
+	locator = { name = ztr_centre position = { 0.0 0 0 } rotation = { 0 0 0 } scale = 1.0 }
+	locator = { name = ztr_renewable position = { -2.5 0 0 } rotation = { 0 0 0 } scale = 1.0 }
+	locator = { name = ztr_airport_intl position = { 2.5 0 0 } rotation = { 0 0 0 } scale = 1.0 }
+	composition_group = {
+		composition = { name = ztr_wind trigger = { any_scope_building = { has_active_production_method = pm_wind_turbines } } }
+		composition = { name = ztr_solar trigger = { any_scope_building = { OR = { has_active_production_method = pm_rudimental_photovoltaic_cells has_active_production_method = pm_solar_panels } } } }
+	}
+	attach = { locator = ztr_centre variant = { entity = arabic_forestry_centerpiece_01_entity } }
+	attach = {
+		locator = ztr_renewable
+		variant = { entity = ztr_global_power_wind_01_entity	building_type = building_renewable_energy_power_plant	compositions = { ztr_wind } }
+		variant = { entity = ztr_global_power_solar_01_entity	building_type = building_renewable_energy_power_plant	compositions = { ztr_solar } }
+	}
+	attach = {
+		locator = ztr_airport_intl
+		variant = { entity = ztr_global_transport_airport_02_entity	building_type = building_airport }
 	}
 }
 
@@ -2201,7 +2929,7 @@ ztr_ind_hub_indian_wood_1_power_renewable = {
 	}
 }
 
-ztr_ind_hub_indian_wood_1_airport = {
+ztr_ind_hub_indian_wood_1_airport_small = {
 	city_graphics_type = ztr_ind_indian_wood_early_modern
 	city_graphics_type = ztr_ind_indian_wood_late_modern
 	city_graphics_type = ztr_ind_indian_wood_postmodern
@@ -2218,6 +2946,104 @@ ztr_ind_hub_indian_wood_1_airport = {
 					is_under_construction = yes
 					level > 0
 				}
+			}
+		}
+		NOT = {
+			any_scope_state = {
+				"b(building_airport)" ?= { level >= 5 }
+			}
+		}
+		NOT = {
+			any_scope_state = {
+				"b(building_renewable_energy_power_plant)" ?= {
+					OR = {
+						is_under_construction = yes
+						level > 0
+					}
+				}
+			}
+		}
+	}
+
+	locator = { name = ztr_centre position = { -1.0 0 0 } rotation = { 0 0 0 } scale = 1.0 }
+	locator = { name = ztr_airport_small position = { 1.0 0 0 } rotation = { 0 0 0 } scale = 1.0 }
+	attach = { locator = ztr_centre variant = { entity = indian_forestry_centerpiece_01_entity } }
+	attach = {
+		locator = ztr_airport_small
+		variant = { entity = ztr_global_transport_airfield_01_entity	building_type = building_airport }
+	}
+}
+
+ztr_ind_hub_indian_wood_1_power_airport_small = {
+	city_graphics_type = ztr_ind_indian_wood_early_modern
+	city_graphics_type = ztr_ind_indian_wood_late_modern
+	city_graphics_type = ztr_ind_indian_wood_postmodern
+	city_graphics_type = ztr_ind_indian_wood_digital
+	city_graphics_type = ztr_ind_indian_wood_ai
+	priority = 4
+	grid_size = { 7 6 }
+	should_update_on_pm_change = yes
+
+	trigger = {
+		any_scope_state = {
+			"b(building_renewable_energy_power_plant)" ?= {
+				OR = {
+					is_under_construction = yes
+					level > 0
+				}
+			}
+		}
+		any_scope_state = {
+			"b(building_airport)" ?= {
+				OR = {
+					is_under_construction = yes
+					level > 0
+				}
+			}
+		}
+		NOT = {
+			any_scope_state = {
+				"b(building_airport)" ?= { level >= 5 }
+			}
+		}
+	}
+
+	locator = { name = ztr_centre position = { 0.5 0 0 } rotation = { 0 0 0 } scale = 1.0 }
+	locator = { name = ztr_renewable position = { -2.0 0 0 } rotation = { 0 0 0 } scale = 1.0 }
+	locator = { name = ztr_airport_small position = { 2.5 0 0 } rotation = { 0 0 0 } scale = 1.0 }
+	composition_group = {
+		composition = { name = ztr_wind trigger = { any_scope_building = { has_active_production_method = pm_wind_turbines } } }
+		composition = { name = ztr_solar trigger = { any_scope_building = { OR = { has_active_production_method = pm_rudimental_photovoltaic_cells has_active_production_method = pm_solar_panels } } } }
+	}
+	attach = { locator = ztr_centre variant = { entity = indian_forestry_centerpiece_01_entity } }
+	attach = {
+		locator = ztr_renewable
+		variant = { entity = ztr_global_power_wind_01_entity	building_type = building_renewable_energy_power_plant	compositions = { ztr_wind } }
+		variant = { entity = ztr_global_power_solar_01_entity	building_type = building_renewable_energy_power_plant	compositions = { ztr_solar } }
+	}
+	attach = {
+		locator = ztr_airport_small
+		variant = { entity = ztr_global_transport_airfield_01_entity	building_type = building_airport }
+	}
+}
+
+ztr_ind_hub_indian_wood_1_airport = {
+	city_graphics_type = ztr_ind_indian_wood_early_modern
+	city_graphics_type = ztr_ind_indian_wood_late_modern
+	city_graphics_type = ztr_ind_indian_wood_postmodern
+	city_graphics_type = ztr_ind_indian_wood_digital
+	city_graphics_type = ztr_ind_indian_wood_ai
+	priority = 2
+	grid_size = { 4 6 }
+	should_update_on_pm_change = yes
+
+	trigger = {
+		any_scope_state = {
+			"b(building_airport)" ?= { level >= 5 }
+		}
+		NOT = {
+			any_scope_state = {
+				owner = { has_technology_researched = wide_body_airliners }
 			}
 		}
 		NOT = {
@@ -2261,11 +3087,11 @@ ztr_ind_hub_indian_wood_1_power_airport = {
 			}
 		}
 		any_scope_state = {
-			"b(building_airport)" ?= {
-				OR = {
-					is_under_construction = yes
-					level > 0
-				}
+			"b(building_airport)" ?= { level >= 5 }
+		}
+		NOT = {
+			any_scope_state = {
+				owner = { has_technology_researched = wide_body_airliners }
 			}
 		}
 	}
@@ -2286,6 +3112,90 @@ ztr_ind_hub_indian_wood_1_power_airport = {
 	attach = {
 		locator = ztr_airport
 		variant = { entity = ztr_global_transport_airport_01_entity	building_type = building_airport }
+	}
+}
+
+ztr_ind_hub_indian_wood_1_airport_intl = {
+	city_graphics_type = ztr_ind_indian_wood_early_modern
+	city_graphics_type = ztr_ind_indian_wood_late_modern
+	city_graphics_type = ztr_ind_indian_wood_postmodern
+	city_graphics_type = ztr_ind_indian_wood_digital
+	city_graphics_type = ztr_ind_indian_wood_ai
+	priority = 2
+	grid_size = { 5 6 }
+	should_update_on_pm_change = yes
+
+	trigger = {
+		any_scope_state = {
+			"b(building_airport)" ?= { level >= 5 }
+		}
+		any_scope_state = {
+			owner = { has_technology_researched = wide_body_airliners }
+		}
+		NOT = {
+			any_scope_state = {
+				"b(building_renewable_energy_power_plant)" ?= {
+					OR = {
+						is_under_construction = yes
+						level > 0
+					}
+				}
+			}
+		}
+	}
+
+	locator = { name = ztr_centre position = { -1.5 0 0 } rotation = { 0 0 0 } scale = 1.0 }
+	locator = { name = ztr_airport_intl position = { 1.0 0 0 } rotation = { 0 0 0 } scale = 1.0 }
+	attach = { locator = ztr_centre variant = { entity = indian_forestry_centerpiece_01_entity } }
+	attach = {
+		locator = ztr_airport_intl
+		variant = { entity = ztr_global_transport_airport_02_entity	building_type = building_airport }
+	}
+}
+
+ztr_ind_hub_indian_wood_1_power_airport_intl = {
+	city_graphics_type = ztr_ind_indian_wood_early_modern
+	city_graphics_type = ztr_ind_indian_wood_late_modern
+	city_graphics_type = ztr_ind_indian_wood_postmodern
+	city_graphics_type = ztr_ind_indian_wood_digital
+	city_graphics_type = ztr_ind_indian_wood_ai
+	priority = 4
+	grid_size = { 8 6 }
+	should_update_on_pm_change = yes
+
+	trigger = {
+		any_scope_state = {
+			"b(building_renewable_energy_power_plant)" ?= {
+				OR = {
+					is_under_construction = yes
+					level > 0
+				}
+			}
+		}
+		any_scope_state = {
+			"b(building_airport)" ?= { level >= 5 }
+		}
+		any_scope_state = {
+			owner = { has_technology_researched = wide_body_airliners }
+		}
+	}
+
+	locator = { name = ztr_centre position = { 0.0 0 0 } rotation = { 0 0 0 } scale = 1.0 }
+	locator = { name = ztr_renewable position = { -2.5 0 0 } rotation = { 0 0 0 } scale = 1.0 }
+	locator = { name = ztr_airport_intl position = { 2.5 0 0 } rotation = { 0 0 0 } scale = 1.0 }
+	composition_group = {
+		composition = { name = ztr_wind trigger = { any_scope_building = { has_active_production_method = pm_wind_turbines } } }
+		composition = { name = ztr_solar trigger = { any_scope_building = { OR = { has_active_production_method = pm_rudimental_photovoltaic_cells has_active_production_method = pm_solar_panels } } } }
+	}
+	attach = { locator = ztr_centre variant = { entity = indian_forestry_centerpiece_01_entity } }
+	attach = {
+		locator = ztr_renewable
+		variant = { entity = ztr_global_power_wind_01_entity	building_type = building_renewable_energy_power_plant	compositions = { ztr_wind } }
+		variant = { entity = ztr_global_power_solar_01_entity	building_type = building_renewable_energy_power_plant	compositions = { ztr_solar } }
+	}
+	attach = {
+		locator = ztr_airport_intl
+		variant = { entity = ztr_global_transport_airport_02_entity	building_type = building_airport }
 	}
 }
 
@@ -2875,7 +3785,7 @@ ztr_jpk_hub_asian_wood_1_power_renewable = {
 	}
 }
 
-ztr_jpk_hub_asian_wood_1_airport = {
+ztr_jpk_hub_asian_wood_1_airport_small = {
 	city_graphics_type = ztr_jpk_wood_early_modern
 	city_graphics_type = ztr_jpk_wood_late_modern
 	city_graphics_type = ztr_jpk_wood_postmodern
@@ -2892,6 +3802,104 @@ ztr_jpk_hub_asian_wood_1_airport = {
 					is_under_construction = yes
 					level > 0
 				}
+			}
+		}
+		NOT = {
+			any_scope_state = {
+				"b(building_airport)" ?= { level >= 5 }
+			}
+		}
+		NOT = {
+			any_scope_state = {
+				"b(building_renewable_energy_power_plant)" ?= {
+					OR = {
+						is_under_construction = yes
+						level > 0
+					}
+				}
+			}
+		}
+	}
+
+	locator = { name = ztr_centre position = { -1.0 0 0 } rotation = { 0 0 0 } scale = 1.0 }
+	locator = { name = ztr_airport_small position = { 1.0 0 0 } rotation = { 0 0 0 } scale = 1.0 }
+	attach = { locator = ztr_centre variant = { entity = asian_forestry_centerpiece_01_entity } }
+	attach = {
+		locator = ztr_airport_small
+		variant = { entity = ztr_global_transport_airfield_01_entity	building_type = building_airport }
+	}
+}
+
+ztr_jpk_hub_asian_wood_1_power_airport_small = {
+	city_graphics_type = ztr_jpk_wood_early_modern
+	city_graphics_type = ztr_jpk_wood_late_modern
+	city_graphics_type = ztr_jpk_wood_postmodern
+	city_graphics_type = ztr_jpk_wood_digital
+	city_graphics_type = ztr_jpk_wood_ai
+	priority = 4
+	grid_size = { 7 6 }
+	should_update_on_pm_change = yes
+
+	trigger = {
+		any_scope_state = {
+			"b(building_renewable_energy_power_plant)" ?= {
+				OR = {
+					is_under_construction = yes
+					level > 0
+				}
+			}
+		}
+		any_scope_state = {
+			"b(building_airport)" ?= {
+				OR = {
+					is_under_construction = yes
+					level > 0
+				}
+			}
+		}
+		NOT = {
+			any_scope_state = {
+				"b(building_airport)" ?= { level >= 5 }
+			}
+		}
+	}
+
+	locator = { name = ztr_centre position = { 0.5 0 0 } rotation = { 0 0 0 } scale = 1.0 }
+	locator = { name = ztr_renewable position = { -2.0 0 0 } rotation = { 0 0 0 } scale = 1.0 }
+	locator = { name = ztr_airport_small position = { 2.5 0 0 } rotation = { 0 0 0 } scale = 1.0 }
+	composition_group = {
+		composition = { name = ztr_wind trigger = { any_scope_building = { has_active_production_method = pm_wind_turbines } } }
+		composition = { name = ztr_solar trigger = { any_scope_building = { OR = { has_active_production_method = pm_rudimental_photovoltaic_cells has_active_production_method = pm_solar_panels } } } }
+	}
+	attach = { locator = ztr_centre variant = { entity = asian_forestry_centerpiece_01_entity } }
+	attach = {
+		locator = ztr_renewable
+		variant = { entity = ztr_global_power_wind_01_entity	building_type = building_renewable_energy_power_plant	compositions = { ztr_wind } }
+		variant = { entity = ztr_global_power_solar_01_entity	building_type = building_renewable_energy_power_plant	compositions = { ztr_solar } }
+	}
+	attach = {
+		locator = ztr_airport_small
+		variant = { entity = ztr_global_transport_airfield_01_entity	building_type = building_airport }
+	}
+}
+
+ztr_jpk_hub_asian_wood_1_airport = {
+	city_graphics_type = ztr_jpk_wood_early_modern
+	city_graphics_type = ztr_jpk_wood_late_modern
+	city_graphics_type = ztr_jpk_wood_postmodern
+	city_graphics_type = ztr_jpk_wood_digital
+	city_graphics_type = ztr_jpk_wood_ai
+	priority = 2
+	grid_size = { 4 6 }
+	should_update_on_pm_change = yes
+
+	trigger = {
+		any_scope_state = {
+			"b(building_airport)" ?= { level >= 5 }
+		}
+		NOT = {
+			any_scope_state = {
+				owner = { has_technology_researched = wide_body_airliners }
 			}
 		}
 		NOT = {
@@ -2935,11 +3943,11 @@ ztr_jpk_hub_asian_wood_1_power_airport = {
 			}
 		}
 		any_scope_state = {
-			"b(building_airport)" ?= {
-				OR = {
-					is_under_construction = yes
-					level > 0
-				}
+			"b(building_airport)" ?= { level >= 5 }
+		}
+		NOT = {
+			any_scope_state = {
+				owner = { has_technology_researched = wide_body_airliners }
 			}
 		}
 	}
@@ -2960,6 +3968,90 @@ ztr_jpk_hub_asian_wood_1_power_airport = {
 	attach = {
 		locator = ztr_airport
 		variant = { entity = ztr_global_transport_airport_01_entity	building_type = building_airport }
+	}
+}
+
+ztr_jpk_hub_asian_wood_1_airport_intl = {
+	city_graphics_type = ztr_jpk_wood_early_modern
+	city_graphics_type = ztr_jpk_wood_late_modern
+	city_graphics_type = ztr_jpk_wood_postmodern
+	city_graphics_type = ztr_jpk_wood_digital
+	city_graphics_type = ztr_jpk_wood_ai
+	priority = 2
+	grid_size = { 5 6 }
+	should_update_on_pm_change = yes
+
+	trigger = {
+		any_scope_state = {
+			"b(building_airport)" ?= { level >= 5 }
+		}
+		any_scope_state = {
+			owner = { has_technology_researched = wide_body_airliners }
+		}
+		NOT = {
+			any_scope_state = {
+				"b(building_renewable_energy_power_plant)" ?= {
+					OR = {
+						is_under_construction = yes
+						level > 0
+					}
+				}
+			}
+		}
+	}
+
+	locator = { name = ztr_centre position = { -1.5 0 0 } rotation = { 0 0 0 } scale = 1.0 }
+	locator = { name = ztr_airport_intl position = { 1.0 0 0 } rotation = { 0 0 0 } scale = 1.0 }
+	attach = { locator = ztr_centre variant = { entity = asian_forestry_centerpiece_01_entity } }
+	attach = {
+		locator = ztr_airport_intl
+		variant = { entity = ztr_global_transport_airport_02_entity	building_type = building_airport }
+	}
+}
+
+ztr_jpk_hub_asian_wood_1_power_airport_intl = {
+	city_graphics_type = ztr_jpk_wood_early_modern
+	city_graphics_type = ztr_jpk_wood_late_modern
+	city_graphics_type = ztr_jpk_wood_postmodern
+	city_graphics_type = ztr_jpk_wood_digital
+	city_graphics_type = ztr_jpk_wood_ai
+	priority = 4
+	grid_size = { 8 6 }
+	should_update_on_pm_change = yes
+
+	trigger = {
+		any_scope_state = {
+			"b(building_renewable_energy_power_plant)" ?= {
+				OR = {
+					is_under_construction = yes
+					level > 0
+				}
+			}
+		}
+		any_scope_state = {
+			"b(building_airport)" ?= { level >= 5 }
+		}
+		any_scope_state = {
+			owner = { has_technology_researched = wide_body_airliners }
+		}
+	}
+
+	locator = { name = ztr_centre position = { 0.0 0 0 } rotation = { 0 0 0 } scale = 1.0 }
+	locator = { name = ztr_renewable position = { -2.5 0 0 } rotation = { 0 0 0 } scale = 1.0 }
+	locator = { name = ztr_airport_intl position = { 2.5 0 0 } rotation = { 0 0 0 } scale = 1.0 }
+	composition_group = {
+		composition = { name = ztr_wind trigger = { any_scope_building = { has_active_production_method = pm_wind_turbines } } }
+		composition = { name = ztr_solar trigger = { any_scope_building = { OR = { has_active_production_method = pm_rudimental_photovoltaic_cells has_active_production_method = pm_solar_panels } } } }
+	}
+	attach = { locator = ztr_centre variant = { entity = asian_forestry_centerpiece_01_entity } }
+	attach = {
+		locator = ztr_renewable
+		variant = { entity = ztr_global_power_wind_01_entity	building_type = building_renewable_energy_power_plant	compositions = { ztr_wind } }
+		variant = { entity = ztr_global_power_solar_01_entity	building_type = building_renewable_energy_power_plant	compositions = { ztr_solar } }
+	}
+	attach = {
+		locator = ztr_airport_intl
+		variant = { entity = ztr_global_transport_airport_02_entity	building_type = building_airport }
 	}
 }
 
@@ -3279,7 +4371,7 @@ ztr_latam_hub_latin_wood_1_power_renewable = {
 	}
 }
 
-ztr_latam_hub_latin_wood_1_airport = {
+ztr_latam_hub_latin_wood_1_airport_small = {
 	city_graphics_type = ztr_latam_wood_early_modern
 	city_graphics_type = ztr_latam_wood_late_modern
 	city_graphics_type = ztr_latam_wood_postmodern
@@ -3296,6 +4388,104 @@ ztr_latam_hub_latin_wood_1_airport = {
 					is_under_construction = yes
 					level > 0
 				}
+			}
+		}
+		NOT = {
+			any_scope_state = {
+				"b(building_airport)" ?= { level >= 5 }
+			}
+		}
+		NOT = {
+			any_scope_state = {
+				"b(building_renewable_energy_power_plant)" ?= {
+					OR = {
+						is_under_construction = yes
+						level > 0
+					}
+				}
+			}
+		}
+	}
+
+	locator = { name = ztr_centre position = { -1.0 0 0 } rotation = { 0 0 0 } scale = 1.0 }
+	locator = { name = ztr_airport_small position = { 1.0 0 0 } rotation = { 0 0 0 } scale = 1.0 }
+	attach = { locator = ztr_centre variant = { entity = latin_forestry_centerpiece_01_entity } }
+	attach = {
+		locator = ztr_airport_small
+		variant = { entity = ztr_global_transport_airfield_01_entity	building_type = building_airport }
+	}
+}
+
+ztr_latam_hub_latin_wood_1_power_airport_small = {
+	city_graphics_type = ztr_latam_wood_early_modern
+	city_graphics_type = ztr_latam_wood_late_modern
+	city_graphics_type = ztr_latam_wood_postmodern
+	city_graphics_type = ztr_latam_wood_digital
+	city_graphics_type = ztr_latam_wood_ai
+	priority = 4
+	grid_size = { 7 6 }
+	should_update_on_pm_change = yes
+
+	trigger = {
+		any_scope_state = {
+			"b(building_renewable_energy_power_plant)" ?= {
+				OR = {
+					is_under_construction = yes
+					level > 0
+				}
+			}
+		}
+		any_scope_state = {
+			"b(building_airport)" ?= {
+				OR = {
+					is_under_construction = yes
+					level > 0
+				}
+			}
+		}
+		NOT = {
+			any_scope_state = {
+				"b(building_airport)" ?= { level >= 5 }
+			}
+		}
+	}
+
+	locator = { name = ztr_centre position = { 0.5 0 0 } rotation = { 0 0 0 } scale = 1.0 }
+	locator = { name = ztr_renewable position = { -2.0 0 0 } rotation = { 0 0 0 } scale = 1.0 }
+	locator = { name = ztr_airport_small position = { 2.5 0 0 } rotation = { 0 0 0 } scale = 1.0 }
+	composition_group = {
+		composition = { name = ztr_wind trigger = { any_scope_building = { has_active_production_method = pm_wind_turbines } } }
+		composition = { name = ztr_solar trigger = { any_scope_building = { OR = { has_active_production_method = pm_rudimental_photovoltaic_cells has_active_production_method = pm_solar_panels } } } }
+	}
+	attach = { locator = ztr_centre variant = { entity = latin_forestry_centerpiece_01_entity } }
+	attach = {
+		locator = ztr_renewable
+		variant = { entity = ztr_global_power_wind_01_entity	building_type = building_renewable_energy_power_plant	compositions = { ztr_wind } }
+		variant = { entity = ztr_global_power_solar_01_entity	building_type = building_renewable_energy_power_plant	compositions = { ztr_solar } }
+	}
+	attach = {
+		locator = ztr_airport_small
+		variant = { entity = ztr_global_transport_airfield_01_entity	building_type = building_airport }
+	}
+}
+
+ztr_latam_hub_latin_wood_1_airport = {
+	city_graphics_type = ztr_latam_wood_early_modern
+	city_graphics_type = ztr_latam_wood_late_modern
+	city_graphics_type = ztr_latam_wood_postmodern
+	city_graphics_type = ztr_latam_wood_digital
+	city_graphics_type = ztr_latam_wood_ai
+	priority = 2
+	grid_size = { 4 6 }
+	should_update_on_pm_change = yes
+
+	trigger = {
+		any_scope_state = {
+			"b(building_airport)" ?= { level >= 5 }
+		}
+		NOT = {
+			any_scope_state = {
+				owner = { has_technology_researched = wide_body_airliners }
 			}
 		}
 		NOT = {
@@ -3339,11 +4529,11 @@ ztr_latam_hub_latin_wood_1_power_airport = {
 			}
 		}
 		any_scope_state = {
-			"b(building_airport)" ?= {
-				OR = {
-					is_under_construction = yes
-					level > 0
-				}
+			"b(building_airport)" ?= { level >= 5 }
+		}
+		NOT = {
+			any_scope_state = {
+				owner = { has_technology_researched = wide_body_airliners }
 			}
 		}
 	}
@@ -3364,6 +4554,90 @@ ztr_latam_hub_latin_wood_1_power_airport = {
 	attach = {
 		locator = ztr_airport
 		variant = { entity = ztr_global_transport_airport_01_entity	building_type = building_airport }
+	}
+}
+
+ztr_latam_hub_latin_wood_1_airport_intl = {
+	city_graphics_type = ztr_latam_wood_early_modern
+	city_graphics_type = ztr_latam_wood_late_modern
+	city_graphics_type = ztr_latam_wood_postmodern
+	city_graphics_type = ztr_latam_wood_digital
+	city_graphics_type = ztr_latam_wood_ai
+	priority = 2
+	grid_size = { 5 6 }
+	should_update_on_pm_change = yes
+
+	trigger = {
+		any_scope_state = {
+			"b(building_airport)" ?= { level >= 5 }
+		}
+		any_scope_state = {
+			owner = { has_technology_researched = wide_body_airliners }
+		}
+		NOT = {
+			any_scope_state = {
+				"b(building_renewable_energy_power_plant)" ?= {
+					OR = {
+						is_under_construction = yes
+						level > 0
+					}
+				}
+			}
+		}
+	}
+
+	locator = { name = ztr_centre position = { -1.5 0 0 } rotation = { 0 0 0 } scale = 1.0 }
+	locator = { name = ztr_airport_intl position = { 1.0 0 0 } rotation = { 0 0 0 } scale = 1.0 }
+	attach = { locator = ztr_centre variant = { entity = latin_forestry_centerpiece_01_entity } }
+	attach = {
+		locator = ztr_airport_intl
+		variant = { entity = ztr_global_transport_airport_02_entity	building_type = building_airport }
+	}
+}
+
+ztr_latam_hub_latin_wood_1_power_airport_intl = {
+	city_graphics_type = ztr_latam_wood_early_modern
+	city_graphics_type = ztr_latam_wood_late_modern
+	city_graphics_type = ztr_latam_wood_postmodern
+	city_graphics_type = ztr_latam_wood_digital
+	city_graphics_type = ztr_latam_wood_ai
+	priority = 4
+	grid_size = { 8 6 }
+	should_update_on_pm_change = yes
+
+	trigger = {
+		any_scope_state = {
+			"b(building_renewable_energy_power_plant)" ?= {
+				OR = {
+					is_under_construction = yes
+					level > 0
+				}
+			}
+		}
+		any_scope_state = {
+			"b(building_airport)" ?= { level >= 5 }
+		}
+		any_scope_state = {
+			owner = { has_technology_researched = wide_body_airliners }
+		}
+	}
+
+	locator = { name = ztr_centre position = { 0.0 0 0 } rotation = { 0 0 0 } scale = 1.0 }
+	locator = { name = ztr_renewable position = { -2.5 0 0 } rotation = { 0 0 0 } scale = 1.0 }
+	locator = { name = ztr_airport_intl position = { 2.5 0 0 } rotation = { 0 0 0 } scale = 1.0 }
+	composition_group = {
+		composition = { name = ztr_wind trigger = { any_scope_building = { has_active_production_method = pm_wind_turbines } } }
+		composition = { name = ztr_solar trigger = { any_scope_building = { OR = { has_active_production_method = pm_rudimental_photovoltaic_cells has_active_production_method = pm_solar_panels } } } }
+	}
+	attach = { locator = ztr_centre variant = { entity = latin_forestry_centerpiece_01_entity } }
+	attach = {
+		locator = ztr_renewable
+		variant = { entity = ztr_global_power_wind_01_entity	building_type = building_renewable_energy_power_plant	compositions = { ztr_wind } }
+		variant = { entity = ztr_global_power_solar_01_entity	building_type = building_renewable_energy_power_plant	compositions = { ztr_solar } }
+	}
+	attach = {
+		locator = ztr_airport_intl
+		variant = { entity = ztr_global_transport_airport_02_entity	building_type = building_airport }
 	}
 }
 
@@ -3683,7 +4957,7 @@ ztr_mena_hub_arabic_wood_1_power_renewable = {
 	}
 }
 
-ztr_mena_hub_arabic_wood_1_airport = {
+ztr_mena_hub_arabic_wood_1_airport_small = {
 	city_graphics_type = ztr_mena_wood_early_modern
 	city_graphics_type = ztr_mena_wood_late_modern
 	city_graphics_type = ztr_mena_wood_postmodern
@@ -3700,6 +4974,104 @@ ztr_mena_hub_arabic_wood_1_airport = {
 					is_under_construction = yes
 					level > 0
 				}
+			}
+		}
+		NOT = {
+			any_scope_state = {
+				"b(building_airport)" ?= { level >= 5 }
+			}
+		}
+		NOT = {
+			any_scope_state = {
+				"b(building_renewable_energy_power_plant)" ?= {
+					OR = {
+						is_under_construction = yes
+						level > 0
+					}
+				}
+			}
+		}
+	}
+
+	locator = { name = ztr_centre position = { -1.0 0 0 } rotation = { 0 0 0 } scale = 1.0 }
+	locator = { name = ztr_airport_small position = { 1.0 0 0 } rotation = { 0 0 0 } scale = 1.0 }
+	attach = { locator = ztr_centre variant = { entity = arabic_forestry_centerpiece_01_entity } }
+	attach = {
+		locator = ztr_airport_small
+		variant = { entity = ztr_global_transport_airfield_01_entity	building_type = building_airport }
+	}
+}
+
+ztr_mena_hub_arabic_wood_1_power_airport_small = {
+	city_graphics_type = ztr_mena_wood_early_modern
+	city_graphics_type = ztr_mena_wood_late_modern
+	city_graphics_type = ztr_mena_wood_postmodern
+	city_graphics_type = ztr_mena_wood_digital
+	city_graphics_type = ztr_mena_wood_ai
+	priority = 4
+	grid_size = { 7 6 }
+	should_update_on_pm_change = yes
+
+	trigger = {
+		any_scope_state = {
+			"b(building_renewable_energy_power_plant)" ?= {
+				OR = {
+					is_under_construction = yes
+					level > 0
+				}
+			}
+		}
+		any_scope_state = {
+			"b(building_airport)" ?= {
+				OR = {
+					is_under_construction = yes
+					level > 0
+				}
+			}
+		}
+		NOT = {
+			any_scope_state = {
+				"b(building_airport)" ?= { level >= 5 }
+			}
+		}
+	}
+
+	locator = { name = ztr_centre position = { 0.5 0 0 } rotation = { 0 0 0 } scale = 1.0 }
+	locator = { name = ztr_renewable position = { -2.0 0 0 } rotation = { 0 0 0 } scale = 1.0 }
+	locator = { name = ztr_airport_small position = { 2.5 0 0 } rotation = { 0 0 0 } scale = 1.0 }
+	composition_group = {
+		composition = { name = ztr_wind trigger = { any_scope_building = { has_active_production_method = pm_wind_turbines } } }
+		composition = { name = ztr_solar trigger = { any_scope_building = { OR = { has_active_production_method = pm_rudimental_photovoltaic_cells has_active_production_method = pm_solar_panels } } } }
+	}
+	attach = { locator = ztr_centre variant = { entity = arabic_forestry_centerpiece_01_entity } }
+	attach = {
+		locator = ztr_renewable
+		variant = { entity = ztr_global_power_wind_01_entity	building_type = building_renewable_energy_power_plant	compositions = { ztr_wind } }
+		variant = { entity = ztr_global_power_solar_01_entity	building_type = building_renewable_energy_power_plant	compositions = { ztr_solar } }
+	}
+	attach = {
+		locator = ztr_airport_small
+		variant = { entity = ztr_global_transport_airfield_01_entity	building_type = building_airport }
+	}
+}
+
+ztr_mena_hub_arabic_wood_1_airport = {
+	city_graphics_type = ztr_mena_wood_early_modern
+	city_graphics_type = ztr_mena_wood_late_modern
+	city_graphics_type = ztr_mena_wood_postmodern
+	city_graphics_type = ztr_mena_wood_digital
+	city_graphics_type = ztr_mena_wood_ai
+	priority = 2
+	grid_size = { 4 6 }
+	should_update_on_pm_change = yes
+
+	trigger = {
+		any_scope_state = {
+			"b(building_airport)" ?= { level >= 5 }
+		}
+		NOT = {
+			any_scope_state = {
+				owner = { has_technology_researched = wide_body_airliners }
 			}
 		}
 		NOT = {
@@ -3743,11 +5115,11 @@ ztr_mena_hub_arabic_wood_1_power_airport = {
 			}
 		}
 		any_scope_state = {
-			"b(building_airport)" ?= {
-				OR = {
-					is_under_construction = yes
-					level > 0
-				}
+			"b(building_airport)" ?= { level >= 5 }
+		}
+		NOT = {
+			any_scope_state = {
+				owner = { has_technology_researched = wide_body_airliners }
 			}
 		}
 	}
@@ -3768,6 +5140,90 @@ ztr_mena_hub_arabic_wood_1_power_airport = {
 	attach = {
 		locator = ztr_airport
 		variant = { entity = ztr_global_transport_airport_01_entity	building_type = building_airport }
+	}
+}
+
+ztr_mena_hub_arabic_wood_1_airport_intl = {
+	city_graphics_type = ztr_mena_wood_early_modern
+	city_graphics_type = ztr_mena_wood_late_modern
+	city_graphics_type = ztr_mena_wood_postmodern
+	city_graphics_type = ztr_mena_wood_digital
+	city_graphics_type = ztr_mena_wood_ai
+	priority = 2
+	grid_size = { 5 6 }
+	should_update_on_pm_change = yes
+
+	trigger = {
+		any_scope_state = {
+			"b(building_airport)" ?= { level >= 5 }
+		}
+		any_scope_state = {
+			owner = { has_technology_researched = wide_body_airliners }
+		}
+		NOT = {
+			any_scope_state = {
+				"b(building_renewable_energy_power_plant)" ?= {
+					OR = {
+						is_under_construction = yes
+						level > 0
+					}
+				}
+			}
+		}
+	}
+
+	locator = { name = ztr_centre position = { -1.5 0 0 } rotation = { 0 0 0 } scale = 1.0 }
+	locator = { name = ztr_airport_intl position = { 1.0 0 0 } rotation = { 0 0 0 } scale = 1.0 }
+	attach = { locator = ztr_centre variant = { entity = arabic_forestry_centerpiece_01_entity } }
+	attach = {
+		locator = ztr_airport_intl
+		variant = { entity = ztr_global_transport_airport_02_entity	building_type = building_airport }
+	}
+}
+
+ztr_mena_hub_arabic_wood_1_power_airport_intl = {
+	city_graphics_type = ztr_mena_wood_early_modern
+	city_graphics_type = ztr_mena_wood_late_modern
+	city_graphics_type = ztr_mena_wood_postmodern
+	city_graphics_type = ztr_mena_wood_digital
+	city_graphics_type = ztr_mena_wood_ai
+	priority = 4
+	grid_size = { 8 6 }
+	should_update_on_pm_change = yes
+
+	trigger = {
+		any_scope_state = {
+			"b(building_renewable_energy_power_plant)" ?= {
+				OR = {
+					is_under_construction = yes
+					level > 0
+				}
+			}
+		}
+		any_scope_state = {
+			"b(building_airport)" ?= { level >= 5 }
+		}
+		any_scope_state = {
+			owner = { has_technology_researched = wide_body_airliners }
+		}
+	}
+
+	locator = { name = ztr_centre position = { 0.0 0 0 } rotation = { 0 0 0 } scale = 1.0 }
+	locator = { name = ztr_renewable position = { -2.5 0 0 } rotation = { 0 0 0 } scale = 1.0 }
+	locator = { name = ztr_airport_intl position = { 2.5 0 0 } rotation = { 0 0 0 } scale = 1.0 }
+	composition_group = {
+		composition = { name = ztr_wind trigger = { any_scope_building = { has_active_production_method = pm_wind_turbines } } }
+		composition = { name = ztr_solar trigger = { any_scope_building = { OR = { has_active_production_method = pm_rudimental_photovoltaic_cells has_active_production_method = pm_solar_panels } } } }
+	}
+	attach = { locator = ztr_centre variant = { entity = arabic_forestry_centerpiece_01_entity } }
+	attach = {
+		locator = ztr_renewable
+		variant = { entity = ztr_global_power_wind_01_entity	building_type = building_renewable_energy_power_plant	compositions = { ztr_wind } }
+		variant = { entity = ztr_global_power_solar_01_entity	building_type = building_renewable_energy_power_plant	compositions = { ztr_solar } }
+	}
+	attach = {
+		locator = ztr_airport_intl
+		variant = { entity = ztr_global_transport_airport_02_entity	building_type = building_airport }
 	}
 }
 
@@ -4357,7 +5813,7 @@ ztr_na_hub_default_wood_1_power_renewable = {
 	}
 }
 
-ztr_na_hub_default_wood_1_airport = {
+ztr_na_hub_default_wood_1_airport_small = {
 	city_graphics_type = ztr_na_wood_early_modern
 	city_graphics_type = ztr_na_wood_late_modern
 	city_graphics_type = ztr_na_wood_postmodern
@@ -4374,6 +5830,104 @@ ztr_na_hub_default_wood_1_airport = {
 					is_under_construction = yes
 					level > 0
 				}
+			}
+		}
+		NOT = {
+			any_scope_state = {
+				"b(building_airport)" ?= { level >= 5 }
+			}
+		}
+		NOT = {
+			any_scope_state = {
+				"b(building_renewable_energy_power_plant)" ?= {
+					OR = {
+						is_under_construction = yes
+						level > 0
+					}
+				}
+			}
+		}
+	}
+
+	locator = { name = ztr_centre position = { -1.0 0 0 } rotation = { 0 0 0 } scale = 1.0 }
+	locator = { name = ztr_airport_small position = { 1.0 0 0 } rotation = { 0 0 0 } scale = 1.0 }
+	attach = { locator = ztr_centre variant = { entity = european_forestry_centerpiece_01_entity } }
+	attach = {
+		locator = ztr_airport_small
+		variant = { entity = ztr_global_transport_airfield_01_entity	building_type = building_airport }
+	}
+}
+
+ztr_na_hub_default_wood_1_power_airport_small = {
+	city_graphics_type = ztr_na_wood_early_modern
+	city_graphics_type = ztr_na_wood_late_modern
+	city_graphics_type = ztr_na_wood_postmodern
+	city_graphics_type = ztr_na_wood_digital
+	city_graphics_type = ztr_na_wood_ai
+	priority = 4
+	grid_size = { 7 6 }
+	should_update_on_pm_change = yes
+
+	trigger = {
+		any_scope_state = {
+			"b(building_renewable_energy_power_plant)" ?= {
+				OR = {
+					is_under_construction = yes
+					level > 0
+				}
+			}
+		}
+		any_scope_state = {
+			"b(building_airport)" ?= {
+				OR = {
+					is_under_construction = yes
+					level > 0
+				}
+			}
+		}
+		NOT = {
+			any_scope_state = {
+				"b(building_airport)" ?= { level >= 5 }
+			}
+		}
+	}
+
+	locator = { name = ztr_centre position = { 0.5 0 0 } rotation = { 0 0 0 } scale = 1.0 }
+	locator = { name = ztr_renewable position = { -2.0 0 0 } rotation = { 0 0 0 } scale = 1.0 }
+	locator = { name = ztr_airport_small position = { 2.5 0 0 } rotation = { 0 0 0 } scale = 1.0 }
+	composition_group = {
+		composition = { name = ztr_wind trigger = { any_scope_building = { has_active_production_method = pm_wind_turbines } } }
+		composition = { name = ztr_solar trigger = { any_scope_building = { OR = { has_active_production_method = pm_rudimental_photovoltaic_cells has_active_production_method = pm_solar_panels } } } }
+	}
+	attach = { locator = ztr_centre variant = { entity = european_forestry_centerpiece_01_entity } }
+	attach = {
+		locator = ztr_renewable
+		variant = { entity = ztr_global_power_wind_01_entity	building_type = building_renewable_energy_power_plant	compositions = { ztr_wind } }
+		variant = { entity = ztr_global_power_solar_01_entity	building_type = building_renewable_energy_power_plant	compositions = { ztr_solar } }
+	}
+	attach = {
+		locator = ztr_airport_small
+		variant = { entity = ztr_global_transport_airfield_01_entity	building_type = building_airport }
+	}
+}
+
+ztr_na_hub_default_wood_1_airport = {
+	city_graphics_type = ztr_na_wood_early_modern
+	city_graphics_type = ztr_na_wood_late_modern
+	city_graphics_type = ztr_na_wood_postmodern
+	city_graphics_type = ztr_na_wood_digital
+	city_graphics_type = ztr_na_wood_ai
+	priority = 2
+	grid_size = { 4 6 }
+	should_update_on_pm_change = yes
+
+	trigger = {
+		any_scope_state = {
+			"b(building_airport)" ?= { level >= 5 }
+		}
+		NOT = {
+			any_scope_state = {
+				owner = { has_technology_researched = wide_body_airliners }
 			}
 		}
 		NOT = {
@@ -4417,11 +5971,11 @@ ztr_na_hub_default_wood_1_power_airport = {
 			}
 		}
 		any_scope_state = {
-			"b(building_airport)" ?= {
-				OR = {
-					is_under_construction = yes
-					level > 0
-				}
+			"b(building_airport)" ?= { level >= 5 }
+		}
+		NOT = {
+			any_scope_state = {
+				owner = { has_technology_researched = wide_body_airliners }
 			}
 		}
 	}
@@ -4442,6 +5996,90 @@ ztr_na_hub_default_wood_1_power_airport = {
 	attach = {
 		locator = ztr_airport
 		variant = { entity = ztr_global_transport_airport_01_entity	building_type = building_airport }
+	}
+}
+
+ztr_na_hub_default_wood_1_airport_intl = {
+	city_graphics_type = ztr_na_wood_early_modern
+	city_graphics_type = ztr_na_wood_late_modern
+	city_graphics_type = ztr_na_wood_postmodern
+	city_graphics_type = ztr_na_wood_digital
+	city_graphics_type = ztr_na_wood_ai
+	priority = 2
+	grid_size = { 5 6 }
+	should_update_on_pm_change = yes
+
+	trigger = {
+		any_scope_state = {
+			"b(building_airport)" ?= { level >= 5 }
+		}
+		any_scope_state = {
+			owner = { has_technology_researched = wide_body_airliners }
+		}
+		NOT = {
+			any_scope_state = {
+				"b(building_renewable_energy_power_plant)" ?= {
+					OR = {
+						is_under_construction = yes
+						level > 0
+					}
+				}
+			}
+		}
+	}
+
+	locator = { name = ztr_centre position = { -1.5 0 0 } rotation = { 0 0 0 } scale = 1.0 }
+	locator = { name = ztr_airport_intl position = { 1.0 0 0 } rotation = { 0 0 0 } scale = 1.0 }
+	attach = { locator = ztr_centre variant = { entity = european_forestry_centerpiece_01_entity } }
+	attach = {
+		locator = ztr_airport_intl
+		variant = { entity = ztr_global_transport_airport_02_entity	building_type = building_airport }
+	}
+}
+
+ztr_na_hub_default_wood_1_power_airport_intl = {
+	city_graphics_type = ztr_na_wood_early_modern
+	city_graphics_type = ztr_na_wood_late_modern
+	city_graphics_type = ztr_na_wood_postmodern
+	city_graphics_type = ztr_na_wood_digital
+	city_graphics_type = ztr_na_wood_ai
+	priority = 4
+	grid_size = { 8 6 }
+	should_update_on_pm_change = yes
+
+	trigger = {
+		any_scope_state = {
+			"b(building_renewable_energy_power_plant)" ?= {
+				OR = {
+					is_under_construction = yes
+					level > 0
+				}
+			}
+		}
+		any_scope_state = {
+			"b(building_airport)" ?= { level >= 5 }
+		}
+		any_scope_state = {
+			owner = { has_technology_researched = wide_body_airliners }
+		}
+	}
+
+	locator = { name = ztr_centre position = { 0.0 0 0 } rotation = { 0 0 0 } scale = 1.0 }
+	locator = { name = ztr_renewable position = { -2.5 0 0 } rotation = { 0 0 0 } scale = 1.0 }
+	locator = { name = ztr_airport_intl position = { 2.5 0 0 } rotation = { 0 0 0 } scale = 1.0 }
+	composition_group = {
+		composition = { name = ztr_wind trigger = { any_scope_building = { has_active_production_method = pm_wind_turbines } } }
+		composition = { name = ztr_solar trigger = { any_scope_building = { OR = { has_active_production_method = pm_rudimental_photovoltaic_cells has_active_production_method = pm_solar_panels } } } }
+	}
+	attach = { locator = ztr_centre variant = { entity = european_forestry_centerpiece_01_entity } }
+	attach = {
+		locator = ztr_renewable
+		variant = { entity = ztr_global_power_wind_01_entity	building_type = building_renewable_energy_power_plant	compositions = { ztr_wind } }
+		variant = { entity = ztr_global_power_solar_01_entity	building_type = building_renewable_energy_power_plant	compositions = { ztr_solar } }
+	}
+	attach = {
+		locator = ztr_airport_intl
+		variant = { entity = ztr_global_transport_airport_02_entity	building_type = building_airport }
 	}
 }
 
@@ -5031,7 +6669,7 @@ ztr_neu_hub_default_wood_1_power_renewable = {
 	}
 }
 
-ztr_neu_hub_default_wood_1_airport = {
+ztr_neu_hub_default_wood_1_airport_small = {
 	city_graphics_type = ztr_neu_wood_early_modern
 	city_graphics_type = ztr_neu_wood_late_modern
 	city_graphics_type = ztr_neu_wood_postmodern
@@ -5048,6 +6686,104 @@ ztr_neu_hub_default_wood_1_airport = {
 					is_under_construction = yes
 					level > 0
 				}
+			}
+		}
+		NOT = {
+			any_scope_state = {
+				"b(building_airport)" ?= { level >= 5 }
+			}
+		}
+		NOT = {
+			any_scope_state = {
+				"b(building_renewable_energy_power_plant)" ?= {
+					OR = {
+						is_under_construction = yes
+						level > 0
+					}
+				}
+			}
+		}
+	}
+
+	locator = { name = ztr_centre position = { -1.0 0 0 } rotation = { 0 0 0 } scale = 1.0 }
+	locator = { name = ztr_airport_small position = { 1.0 0 0 } rotation = { 0 0 0 } scale = 1.0 }
+	attach = { locator = ztr_centre variant = { entity = european_forestry_centerpiece_01_entity } }
+	attach = {
+		locator = ztr_airport_small
+		variant = { entity = ztr_global_transport_airfield_01_entity	building_type = building_airport }
+	}
+}
+
+ztr_neu_hub_default_wood_1_power_airport_small = {
+	city_graphics_type = ztr_neu_wood_early_modern
+	city_graphics_type = ztr_neu_wood_late_modern
+	city_graphics_type = ztr_neu_wood_postmodern
+	city_graphics_type = ztr_neu_wood_digital
+	city_graphics_type = ztr_neu_wood_ai
+	priority = 4
+	grid_size = { 7 6 }
+	should_update_on_pm_change = yes
+
+	trigger = {
+		any_scope_state = {
+			"b(building_renewable_energy_power_plant)" ?= {
+				OR = {
+					is_under_construction = yes
+					level > 0
+				}
+			}
+		}
+		any_scope_state = {
+			"b(building_airport)" ?= {
+				OR = {
+					is_under_construction = yes
+					level > 0
+				}
+			}
+		}
+		NOT = {
+			any_scope_state = {
+				"b(building_airport)" ?= { level >= 5 }
+			}
+		}
+	}
+
+	locator = { name = ztr_centre position = { 0.5 0 0 } rotation = { 0 0 0 } scale = 1.0 }
+	locator = { name = ztr_renewable position = { -2.0 0 0 } rotation = { 0 0 0 } scale = 1.0 }
+	locator = { name = ztr_airport_small position = { 2.5 0 0 } rotation = { 0 0 0 } scale = 1.0 }
+	composition_group = {
+		composition = { name = ztr_wind trigger = { any_scope_building = { has_active_production_method = pm_wind_turbines } } }
+		composition = { name = ztr_solar trigger = { any_scope_building = { OR = { has_active_production_method = pm_rudimental_photovoltaic_cells has_active_production_method = pm_solar_panels } } } }
+	}
+	attach = { locator = ztr_centre variant = { entity = european_forestry_centerpiece_01_entity } }
+	attach = {
+		locator = ztr_renewable
+		variant = { entity = ztr_global_power_wind_01_entity	building_type = building_renewable_energy_power_plant	compositions = { ztr_wind } }
+		variant = { entity = ztr_global_power_solar_01_entity	building_type = building_renewable_energy_power_plant	compositions = { ztr_solar } }
+	}
+	attach = {
+		locator = ztr_airport_small
+		variant = { entity = ztr_global_transport_airfield_01_entity	building_type = building_airport }
+	}
+}
+
+ztr_neu_hub_default_wood_1_airport = {
+	city_graphics_type = ztr_neu_wood_early_modern
+	city_graphics_type = ztr_neu_wood_late_modern
+	city_graphics_type = ztr_neu_wood_postmodern
+	city_graphics_type = ztr_neu_wood_digital
+	city_graphics_type = ztr_neu_wood_ai
+	priority = 2
+	grid_size = { 4 6 }
+	should_update_on_pm_change = yes
+
+	trigger = {
+		any_scope_state = {
+			"b(building_airport)" ?= { level >= 5 }
+		}
+		NOT = {
+			any_scope_state = {
+				owner = { has_technology_researched = wide_body_airliners }
 			}
 		}
 		NOT = {
@@ -5091,11 +6827,11 @@ ztr_neu_hub_default_wood_1_power_airport = {
 			}
 		}
 		any_scope_state = {
-			"b(building_airport)" ?= {
-				OR = {
-					is_under_construction = yes
-					level > 0
-				}
+			"b(building_airport)" ?= { level >= 5 }
+		}
+		NOT = {
+			any_scope_state = {
+				owner = { has_technology_researched = wide_body_airliners }
 			}
 		}
 	}
@@ -5116,6 +6852,90 @@ ztr_neu_hub_default_wood_1_power_airport = {
 	attach = {
 		locator = ztr_airport
 		variant = { entity = ztr_global_transport_airport_01_entity	building_type = building_airport }
+	}
+}
+
+ztr_neu_hub_default_wood_1_airport_intl = {
+	city_graphics_type = ztr_neu_wood_early_modern
+	city_graphics_type = ztr_neu_wood_late_modern
+	city_graphics_type = ztr_neu_wood_postmodern
+	city_graphics_type = ztr_neu_wood_digital
+	city_graphics_type = ztr_neu_wood_ai
+	priority = 2
+	grid_size = { 5 6 }
+	should_update_on_pm_change = yes
+
+	trigger = {
+		any_scope_state = {
+			"b(building_airport)" ?= { level >= 5 }
+		}
+		any_scope_state = {
+			owner = { has_technology_researched = wide_body_airliners }
+		}
+		NOT = {
+			any_scope_state = {
+				"b(building_renewable_energy_power_plant)" ?= {
+					OR = {
+						is_under_construction = yes
+						level > 0
+					}
+				}
+			}
+		}
+	}
+
+	locator = { name = ztr_centre position = { -1.5 0 0 } rotation = { 0 0 0 } scale = 1.0 }
+	locator = { name = ztr_airport_intl position = { 1.0 0 0 } rotation = { 0 0 0 } scale = 1.0 }
+	attach = { locator = ztr_centre variant = { entity = european_forestry_centerpiece_01_entity } }
+	attach = {
+		locator = ztr_airport_intl
+		variant = { entity = ztr_global_transport_airport_02_entity	building_type = building_airport }
+	}
+}
+
+ztr_neu_hub_default_wood_1_power_airport_intl = {
+	city_graphics_type = ztr_neu_wood_early_modern
+	city_graphics_type = ztr_neu_wood_late_modern
+	city_graphics_type = ztr_neu_wood_postmodern
+	city_graphics_type = ztr_neu_wood_digital
+	city_graphics_type = ztr_neu_wood_ai
+	priority = 4
+	grid_size = { 8 6 }
+	should_update_on_pm_change = yes
+
+	trigger = {
+		any_scope_state = {
+			"b(building_renewable_energy_power_plant)" ?= {
+				OR = {
+					is_under_construction = yes
+					level > 0
+				}
+			}
+		}
+		any_scope_state = {
+			"b(building_airport)" ?= { level >= 5 }
+		}
+		any_scope_state = {
+			owner = { has_technology_researched = wide_body_airliners }
+		}
+	}
+
+	locator = { name = ztr_centre position = { 0.0 0 0 } rotation = { 0 0 0 } scale = 1.0 }
+	locator = { name = ztr_renewable position = { -2.5 0 0 } rotation = { 0 0 0 } scale = 1.0 }
+	locator = { name = ztr_airport_intl position = { 2.5 0 0 } rotation = { 0 0 0 } scale = 1.0 }
+	composition_group = {
+		composition = { name = ztr_wind trigger = { any_scope_building = { has_active_production_method = pm_wind_turbines } } }
+		composition = { name = ztr_solar trigger = { any_scope_building = { OR = { has_active_production_method = pm_rudimental_photovoltaic_cells has_active_production_method = pm_solar_panels } } } }
+	}
+	attach = { locator = ztr_centre variant = { entity = european_forestry_centerpiece_01_entity } }
+	attach = {
+		locator = ztr_renewable
+		variant = { entity = ztr_global_power_wind_01_entity	building_type = building_renewable_energy_power_plant	compositions = { ztr_wind } }
+		variant = { entity = ztr_global_power_solar_01_entity	building_type = building_renewable_energy_power_plant	compositions = { ztr_solar } }
+	}
+	attach = {
+		locator = ztr_airport_intl
+		variant = { entity = ztr_global_transport_airport_02_entity	building_type = building_airport }
 	}
 }
 
@@ -5164,7 +6984,7 @@ ztr_neu_hub_french_wood_1_power_renewable = {
 	}
 }
 
-ztr_neu_hub_french_wood_1_airport = {
+ztr_neu_hub_french_wood_1_airport_small = {
 	city_graphics_type = ztr_neu_french_wood_early_modern
 	city_graphics_type = ztr_neu_french_wood_late_modern
 	city_graphics_type = ztr_neu_french_wood_postmodern
@@ -5181,6 +7001,104 @@ ztr_neu_hub_french_wood_1_airport = {
 					is_under_construction = yes
 					level > 0
 				}
+			}
+		}
+		NOT = {
+			any_scope_state = {
+				"b(building_airport)" ?= { level >= 5 }
+			}
+		}
+		NOT = {
+			any_scope_state = {
+				"b(building_renewable_energy_power_plant)" ?= {
+					OR = {
+						is_under_construction = yes
+						level > 0
+					}
+				}
+			}
+		}
+	}
+
+	locator = { name = ztr_centre position = { -1.0 0 0 } rotation = { 0 0 0 } scale = 1.0 }
+	locator = { name = ztr_airport_small position = { 1.0 0 0 } rotation = { 0 0 0 } scale = 1.0 }
+	attach = { locator = ztr_centre variant = { entity = french_forestry_centerpiece_01_entity } }
+	attach = {
+		locator = ztr_airport_small
+		variant = { entity = ztr_global_transport_airfield_01_entity	building_type = building_airport }
+	}
+}
+
+ztr_neu_hub_french_wood_1_power_airport_small = {
+	city_graphics_type = ztr_neu_french_wood_early_modern
+	city_graphics_type = ztr_neu_french_wood_late_modern
+	city_graphics_type = ztr_neu_french_wood_postmodern
+	city_graphics_type = ztr_neu_french_wood_digital
+	city_graphics_type = ztr_neu_french_wood_ai
+	priority = 4
+	grid_size = { 7 6 }
+	should_update_on_pm_change = yes
+
+	trigger = {
+		any_scope_state = {
+			"b(building_renewable_energy_power_plant)" ?= {
+				OR = {
+					is_under_construction = yes
+					level > 0
+				}
+			}
+		}
+		any_scope_state = {
+			"b(building_airport)" ?= {
+				OR = {
+					is_under_construction = yes
+					level > 0
+				}
+			}
+		}
+		NOT = {
+			any_scope_state = {
+				"b(building_airport)" ?= { level >= 5 }
+			}
+		}
+	}
+
+	locator = { name = ztr_centre position = { 0.5 0 0 } rotation = { 0 0 0 } scale = 1.0 }
+	locator = { name = ztr_renewable position = { -2.0 0 0 } rotation = { 0 0 0 } scale = 1.0 }
+	locator = { name = ztr_airport_small position = { 2.5 0 0 } rotation = { 0 0 0 } scale = 1.0 }
+	composition_group = {
+		composition = { name = ztr_wind trigger = { any_scope_building = { has_active_production_method = pm_wind_turbines } } }
+		composition = { name = ztr_solar trigger = { any_scope_building = { OR = { has_active_production_method = pm_rudimental_photovoltaic_cells has_active_production_method = pm_solar_panels } } } }
+	}
+	attach = { locator = ztr_centre variant = { entity = french_forestry_centerpiece_01_entity } }
+	attach = {
+		locator = ztr_renewable
+		variant = { entity = ztr_global_power_wind_01_entity	building_type = building_renewable_energy_power_plant	compositions = { ztr_wind } }
+		variant = { entity = ztr_global_power_solar_01_entity	building_type = building_renewable_energy_power_plant	compositions = { ztr_solar } }
+	}
+	attach = {
+		locator = ztr_airport_small
+		variant = { entity = ztr_global_transport_airfield_01_entity	building_type = building_airport }
+	}
+}
+
+ztr_neu_hub_french_wood_1_airport = {
+	city_graphics_type = ztr_neu_french_wood_early_modern
+	city_graphics_type = ztr_neu_french_wood_late_modern
+	city_graphics_type = ztr_neu_french_wood_postmodern
+	city_graphics_type = ztr_neu_french_wood_digital
+	city_graphics_type = ztr_neu_french_wood_ai
+	priority = 2
+	grid_size = { 4 6 }
+	should_update_on_pm_change = yes
+
+	trigger = {
+		any_scope_state = {
+			"b(building_airport)" ?= { level >= 5 }
+		}
+		NOT = {
+			any_scope_state = {
+				owner = { has_technology_researched = wide_body_airliners }
 			}
 		}
 		NOT = {
@@ -5224,11 +7142,11 @@ ztr_neu_hub_french_wood_1_power_airport = {
 			}
 		}
 		any_scope_state = {
-			"b(building_airport)" ?= {
-				OR = {
-					is_under_construction = yes
-					level > 0
-				}
+			"b(building_airport)" ?= { level >= 5 }
+		}
+		NOT = {
+			any_scope_state = {
+				owner = { has_technology_researched = wide_body_airliners }
 			}
 		}
 	}
@@ -5249,6 +7167,90 @@ ztr_neu_hub_french_wood_1_power_airport = {
 	attach = {
 		locator = ztr_airport
 		variant = { entity = ztr_global_transport_airport_01_entity	building_type = building_airport }
+	}
+}
+
+ztr_neu_hub_french_wood_1_airport_intl = {
+	city_graphics_type = ztr_neu_french_wood_early_modern
+	city_graphics_type = ztr_neu_french_wood_late_modern
+	city_graphics_type = ztr_neu_french_wood_postmodern
+	city_graphics_type = ztr_neu_french_wood_digital
+	city_graphics_type = ztr_neu_french_wood_ai
+	priority = 2
+	grid_size = { 5 6 }
+	should_update_on_pm_change = yes
+
+	trigger = {
+		any_scope_state = {
+			"b(building_airport)" ?= { level >= 5 }
+		}
+		any_scope_state = {
+			owner = { has_technology_researched = wide_body_airliners }
+		}
+		NOT = {
+			any_scope_state = {
+				"b(building_renewable_energy_power_plant)" ?= {
+					OR = {
+						is_under_construction = yes
+						level > 0
+					}
+				}
+			}
+		}
+	}
+
+	locator = { name = ztr_centre position = { -1.5 0 0 } rotation = { 0 0 0 } scale = 1.0 }
+	locator = { name = ztr_airport_intl position = { 1.0 0 0 } rotation = { 0 0 0 } scale = 1.0 }
+	attach = { locator = ztr_centre variant = { entity = french_forestry_centerpiece_01_entity } }
+	attach = {
+		locator = ztr_airport_intl
+		variant = { entity = ztr_global_transport_airport_02_entity	building_type = building_airport }
+	}
+}
+
+ztr_neu_hub_french_wood_1_power_airport_intl = {
+	city_graphics_type = ztr_neu_french_wood_early_modern
+	city_graphics_type = ztr_neu_french_wood_late_modern
+	city_graphics_type = ztr_neu_french_wood_postmodern
+	city_graphics_type = ztr_neu_french_wood_digital
+	city_graphics_type = ztr_neu_french_wood_ai
+	priority = 4
+	grid_size = { 8 6 }
+	should_update_on_pm_change = yes
+
+	trigger = {
+		any_scope_state = {
+			"b(building_renewable_energy_power_plant)" ?= {
+				OR = {
+					is_under_construction = yes
+					level > 0
+				}
+			}
+		}
+		any_scope_state = {
+			"b(building_airport)" ?= { level >= 5 }
+		}
+		any_scope_state = {
+			owner = { has_technology_researched = wide_body_airliners }
+		}
+	}
+
+	locator = { name = ztr_centre position = { 0.0 0 0 } rotation = { 0 0 0 } scale = 1.0 }
+	locator = { name = ztr_renewable position = { -2.5 0 0 } rotation = { 0 0 0 } scale = 1.0 }
+	locator = { name = ztr_airport_intl position = { 2.5 0 0 } rotation = { 0 0 0 } scale = 1.0 }
+	composition_group = {
+		composition = { name = ztr_wind trigger = { any_scope_building = { has_active_production_method = pm_wind_turbines } } }
+		composition = { name = ztr_solar trigger = { any_scope_building = { OR = { has_active_production_method = pm_rudimental_photovoltaic_cells has_active_production_method = pm_solar_panels } } } }
+	}
+	attach = { locator = ztr_centre variant = { entity = french_forestry_centerpiece_01_entity } }
+	attach = {
+		locator = ztr_renewable
+		variant = { entity = ztr_global_power_wind_01_entity	building_type = building_renewable_energy_power_plant	compositions = { ztr_wind } }
+		variant = { entity = ztr_global_power_solar_01_entity	building_type = building_renewable_energy_power_plant	compositions = { ztr_solar } }
+	}
+	attach = {
+		locator = ztr_airport_intl
+		variant = { entity = ztr_global_transport_airport_02_entity	building_type = building_airport }
 	}
 }
 
@@ -6108,7 +8110,7 @@ ztr_sea_hub_asian_wood_1_power_renewable = {
 	}
 }
 
-ztr_sea_hub_asian_wood_1_airport = {
+ztr_sea_hub_asian_wood_1_airport_small = {
 	city_graphics_type = ztr_sea_wood_early_modern
 	city_graphics_type = ztr_sea_wood_late_modern
 	city_graphics_type = ztr_sea_wood_postmodern
@@ -6125,6 +8127,104 @@ ztr_sea_hub_asian_wood_1_airport = {
 					is_under_construction = yes
 					level > 0
 				}
+			}
+		}
+		NOT = {
+			any_scope_state = {
+				"b(building_airport)" ?= { level >= 5 }
+			}
+		}
+		NOT = {
+			any_scope_state = {
+				"b(building_renewable_energy_power_plant)" ?= {
+					OR = {
+						is_under_construction = yes
+						level > 0
+					}
+				}
+			}
+		}
+	}
+
+	locator = { name = ztr_centre position = { -1.0 0 0 } rotation = { 0 0 0 } scale = 1.0 }
+	locator = { name = ztr_airport_small position = { 1.0 0 0 } rotation = { 0 0 0 } scale = 1.0 }
+	attach = { locator = ztr_centre variant = { entity = asian_forestry_centerpiece_01_entity } }
+	attach = {
+		locator = ztr_airport_small
+		variant = { entity = ztr_global_transport_airfield_01_entity	building_type = building_airport }
+	}
+}
+
+ztr_sea_hub_asian_wood_1_power_airport_small = {
+	city_graphics_type = ztr_sea_wood_early_modern
+	city_graphics_type = ztr_sea_wood_late_modern
+	city_graphics_type = ztr_sea_wood_postmodern
+	city_graphics_type = ztr_sea_wood_digital
+	city_graphics_type = ztr_sea_wood_ai
+	priority = 4
+	grid_size = { 7 6 }
+	should_update_on_pm_change = yes
+
+	trigger = {
+		any_scope_state = {
+			"b(building_renewable_energy_power_plant)" ?= {
+				OR = {
+					is_under_construction = yes
+					level > 0
+				}
+			}
+		}
+		any_scope_state = {
+			"b(building_airport)" ?= {
+				OR = {
+					is_under_construction = yes
+					level > 0
+				}
+			}
+		}
+		NOT = {
+			any_scope_state = {
+				"b(building_airport)" ?= { level >= 5 }
+			}
+		}
+	}
+
+	locator = { name = ztr_centre position = { 0.5 0 0 } rotation = { 0 0 0 } scale = 1.0 }
+	locator = { name = ztr_renewable position = { -2.0 0 0 } rotation = { 0 0 0 } scale = 1.0 }
+	locator = { name = ztr_airport_small position = { 2.5 0 0 } rotation = { 0 0 0 } scale = 1.0 }
+	composition_group = {
+		composition = { name = ztr_wind trigger = { any_scope_building = { has_active_production_method = pm_wind_turbines } } }
+		composition = { name = ztr_solar trigger = { any_scope_building = { OR = { has_active_production_method = pm_rudimental_photovoltaic_cells has_active_production_method = pm_solar_panels } } } }
+	}
+	attach = { locator = ztr_centre variant = { entity = asian_forestry_centerpiece_01_entity } }
+	attach = {
+		locator = ztr_renewable
+		variant = { entity = ztr_global_power_wind_01_entity	building_type = building_renewable_energy_power_plant	compositions = { ztr_wind } }
+		variant = { entity = ztr_global_power_solar_01_entity	building_type = building_renewable_energy_power_plant	compositions = { ztr_solar } }
+	}
+	attach = {
+		locator = ztr_airport_small
+		variant = { entity = ztr_global_transport_airfield_01_entity	building_type = building_airport }
+	}
+}
+
+ztr_sea_hub_asian_wood_1_airport = {
+	city_graphics_type = ztr_sea_wood_early_modern
+	city_graphics_type = ztr_sea_wood_late_modern
+	city_graphics_type = ztr_sea_wood_postmodern
+	city_graphics_type = ztr_sea_wood_digital
+	city_graphics_type = ztr_sea_wood_ai
+	priority = 2
+	grid_size = { 4 6 }
+	should_update_on_pm_change = yes
+
+	trigger = {
+		any_scope_state = {
+			"b(building_airport)" ?= { level >= 5 }
+		}
+		NOT = {
+			any_scope_state = {
+				owner = { has_technology_researched = wide_body_airliners }
 			}
 		}
 		NOT = {
@@ -6168,11 +8268,11 @@ ztr_sea_hub_asian_wood_1_power_airport = {
 			}
 		}
 		any_scope_state = {
-			"b(building_airport)" ?= {
-				OR = {
-					is_under_construction = yes
-					level > 0
-				}
+			"b(building_airport)" ?= { level >= 5 }
+		}
+		NOT = {
+			any_scope_state = {
+				owner = { has_technology_researched = wide_body_airliners }
 			}
 		}
 	}
@@ -6193,6 +8293,90 @@ ztr_sea_hub_asian_wood_1_power_airport = {
 	attach = {
 		locator = ztr_airport
 		variant = { entity = ztr_global_transport_airport_01_entity	building_type = building_airport }
+	}
+}
+
+ztr_sea_hub_asian_wood_1_airport_intl = {
+	city_graphics_type = ztr_sea_wood_early_modern
+	city_graphics_type = ztr_sea_wood_late_modern
+	city_graphics_type = ztr_sea_wood_postmodern
+	city_graphics_type = ztr_sea_wood_digital
+	city_graphics_type = ztr_sea_wood_ai
+	priority = 2
+	grid_size = { 5 6 }
+	should_update_on_pm_change = yes
+
+	trigger = {
+		any_scope_state = {
+			"b(building_airport)" ?= { level >= 5 }
+		}
+		any_scope_state = {
+			owner = { has_technology_researched = wide_body_airliners }
+		}
+		NOT = {
+			any_scope_state = {
+				"b(building_renewable_energy_power_plant)" ?= {
+					OR = {
+						is_under_construction = yes
+						level > 0
+					}
+				}
+			}
+		}
+	}
+
+	locator = { name = ztr_centre position = { -1.5 0 0 } rotation = { 0 0 0 } scale = 1.0 }
+	locator = { name = ztr_airport_intl position = { 1.0 0 0 } rotation = { 0 0 0 } scale = 1.0 }
+	attach = { locator = ztr_centre variant = { entity = asian_forestry_centerpiece_01_entity } }
+	attach = {
+		locator = ztr_airport_intl
+		variant = { entity = ztr_global_transport_airport_02_entity	building_type = building_airport }
+	}
+}
+
+ztr_sea_hub_asian_wood_1_power_airport_intl = {
+	city_graphics_type = ztr_sea_wood_early_modern
+	city_graphics_type = ztr_sea_wood_late_modern
+	city_graphics_type = ztr_sea_wood_postmodern
+	city_graphics_type = ztr_sea_wood_digital
+	city_graphics_type = ztr_sea_wood_ai
+	priority = 4
+	grid_size = { 8 6 }
+	should_update_on_pm_change = yes
+
+	trigger = {
+		any_scope_state = {
+			"b(building_renewable_energy_power_plant)" ?= {
+				OR = {
+					is_under_construction = yes
+					level > 0
+				}
+			}
+		}
+		any_scope_state = {
+			"b(building_airport)" ?= { level >= 5 }
+		}
+		any_scope_state = {
+			owner = { has_technology_researched = wide_body_airliners }
+		}
+	}
+
+	locator = { name = ztr_centre position = { 0.0 0 0 } rotation = { 0 0 0 } scale = 1.0 }
+	locator = { name = ztr_renewable position = { -2.5 0 0 } rotation = { 0 0 0 } scale = 1.0 }
+	locator = { name = ztr_airport_intl position = { 2.5 0 0 } rotation = { 0 0 0 } scale = 1.0 }
+	composition_group = {
+		composition = { name = ztr_wind trigger = { any_scope_building = { has_active_production_method = pm_wind_turbines } } }
+		composition = { name = ztr_solar trigger = { any_scope_building = { OR = { has_active_production_method = pm_rudimental_photovoltaic_cells has_active_production_method = pm_solar_panels } } } }
+	}
+	attach = { locator = ztr_centre variant = { entity = asian_forestry_centerpiece_01_entity } }
+	attach = {
+		locator = ztr_renewable
+		variant = { entity = ztr_global_power_wind_01_entity	building_type = building_renewable_energy_power_plant	compositions = { ztr_wind } }
+		variant = { entity = ztr_global_power_solar_01_entity	building_type = building_renewable_energy_power_plant	compositions = { ztr_solar } }
+	}
+	attach = {
+		locator = ztr_airport_intl
+		variant = { entity = ztr_global_transport_airport_02_entity	building_type = building_airport }
 	}
 }
 
@@ -6241,7 +8425,7 @@ ztr_sea_hub_default_wood_1_power_renewable = {
 	}
 }
 
-ztr_sea_hub_default_wood_1_airport = {
+ztr_sea_hub_default_wood_1_airport_small = {
 	city_graphics_type = ztr_sea_oceania_wood_early_modern
 	city_graphics_type = ztr_sea_oceania_wood_late_modern
 	city_graphics_type = ztr_sea_oceania_wood_postmodern
@@ -6258,6 +8442,104 @@ ztr_sea_hub_default_wood_1_airport = {
 					is_under_construction = yes
 					level > 0
 				}
+			}
+		}
+		NOT = {
+			any_scope_state = {
+				"b(building_airport)" ?= { level >= 5 }
+			}
+		}
+		NOT = {
+			any_scope_state = {
+				"b(building_renewable_energy_power_plant)" ?= {
+					OR = {
+						is_under_construction = yes
+						level > 0
+					}
+				}
+			}
+		}
+	}
+
+	locator = { name = ztr_centre position = { -1.0 0 0 } rotation = { 0 0 0 } scale = 1.0 }
+	locator = { name = ztr_airport_small position = { 1.0 0 0 } rotation = { 0 0 0 } scale = 1.0 }
+	attach = { locator = ztr_centre variant = { entity = european_forestry_centerpiece_01_entity } }
+	attach = {
+		locator = ztr_airport_small
+		variant = { entity = ztr_global_transport_airfield_01_entity	building_type = building_airport }
+	}
+}
+
+ztr_sea_hub_default_wood_1_power_airport_small = {
+	city_graphics_type = ztr_sea_oceania_wood_early_modern
+	city_graphics_type = ztr_sea_oceania_wood_late_modern
+	city_graphics_type = ztr_sea_oceania_wood_postmodern
+	city_graphics_type = ztr_sea_oceania_wood_digital
+	city_graphics_type = ztr_sea_oceania_wood_ai
+	priority = 4
+	grid_size = { 7 6 }
+	should_update_on_pm_change = yes
+
+	trigger = {
+		any_scope_state = {
+			"b(building_renewable_energy_power_plant)" ?= {
+				OR = {
+					is_under_construction = yes
+					level > 0
+				}
+			}
+		}
+		any_scope_state = {
+			"b(building_airport)" ?= {
+				OR = {
+					is_under_construction = yes
+					level > 0
+				}
+			}
+		}
+		NOT = {
+			any_scope_state = {
+				"b(building_airport)" ?= { level >= 5 }
+			}
+		}
+	}
+
+	locator = { name = ztr_centre position = { 0.5 0 0 } rotation = { 0 0 0 } scale = 1.0 }
+	locator = { name = ztr_renewable position = { -2.0 0 0 } rotation = { 0 0 0 } scale = 1.0 }
+	locator = { name = ztr_airport_small position = { 2.5 0 0 } rotation = { 0 0 0 } scale = 1.0 }
+	composition_group = {
+		composition = { name = ztr_wind trigger = { any_scope_building = { has_active_production_method = pm_wind_turbines } } }
+		composition = { name = ztr_solar trigger = { any_scope_building = { OR = { has_active_production_method = pm_rudimental_photovoltaic_cells has_active_production_method = pm_solar_panels } } } }
+	}
+	attach = { locator = ztr_centre variant = { entity = european_forestry_centerpiece_01_entity } }
+	attach = {
+		locator = ztr_renewable
+		variant = { entity = ztr_global_power_wind_01_entity	building_type = building_renewable_energy_power_plant	compositions = { ztr_wind } }
+		variant = { entity = ztr_global_power_solar_01_entity	building_type = building_renewable_energy_power_plant	compositions = { ztr_solar } }
+	}
+	attach = {
+		locator = ztr_airport_small
+		variant = { entity = ztr_global_transport_airfield_01_entity	building_type = building_airport }
+	}
+}
+
+ztr_sea_hub_default_wood_1_airport = {
+	city_graphics_type = ztr_sea_oceania_wood_early_modern
+	city_graphics_type = ztr_sea_oceania_wood_late_modern
+	city_graphics_type = ztr_sea_oceania_wood_postmodern
+	city_graphics_type = ztr_sea_oceania_wood_digital
+	city_graphics_type = ztr_sea_oceania_wood_ai
+	priority = 2
+	grid_size = { 4 6 }
+	should_update_on_pm_change = yes
+
+	trigger = {
+		any_scope_state = {
+			"b(building_airport)" ?= { level >= 5 }
+		}
+		NOT = {
+			any_scope_state = {
+				owner = { has_technology_researched = wide_body_airliners }
 			}
 		}
 		NOT = {
@@ -6301,11 +8583,11 @@ ztr_sea_hub_default_wood_1_power_airport = {
 			}
 		}
 		any_scope_state = {
-			"b(building_airport)" ?= {
-				OR = {
-					is_under_construction = yes
-					level > 0
-				}
+			"b(building_airport)" ?= { level >= 5 }
+		}
+		NOT = {
+			any_scope_state = {
+				owner = { has_technology_researched = wide_body_airliners }
 			}
 		}
 	}
@@ -6326,6 +8608,90 @@ ztr_sea_hub_default_wood_1_power_airport = {
 	attach = {
 		locator = ztr_airport
 		variant = { entity = ztr_global_transport_airport_01_entity	building_type = building_airport }
+	}
+}
+
+ztr_sea_hub_default_wood_1_airport_intl = {
+	city_graphics_type = ztr_sea_oceania_wood_early_modern
+	city_graphics_type = ztr_sea_oceania_wood_late_modern
+	city_graphics_type = ztr_sea_oceania_wood_postmodern
+	city_graphics_type = ztr_sea_oceania_wood_digital
+	city_graphics_type = ztr_sea_oceania_wood_ai
+	priority = 2
+	grid_size = { 5 6 }
+	should_update_on_pm_change = yes
+
+	trigger = {
+		any_scope_state = {
+			"b(building_airport)" ?= { level >= 5 }
+		}
+		any_scope_state = {
+			owner = { has_technology_researched = wide_body_airliners }
+		}
+		NOT = {
+			any_scope_state = {
+				"b(building_renewable_energy_power_plant)" ?= {
+					OR = {
+						is_under_construction = yes
+						level > 0
+					}
+				}
+			}
+		}
+	}
+
+	locator = { name = ztr_centre position = { -1.5 0 0 } rotation = { 0 0 0 } scale = 1.0 }
+	locator = { name = ztr_airport_intl position = { 1.0 0 0 } rotation = { 0 0 0 } scale = 1.0 }
+	attach = { locator = ztr_centre variant = { entity = european_forestry_centerpiece_01_entity } }
+	attach = {
+		locator = ztr_airport_intl
+		variant = { entity = ztr_global_transport_airport_02_entity	building_type = building_airport }
+	}
+}
+
+ztr_sea_hub_default_wood_1_power_airport_intl = {
+	city_graphics_type = ztr_sea_oceania_wood_early_modern
+	city_graphics_type = ztr_sea_oceania_wood_late_modern
+	city_graphics_type = ztr_sea_oceania_wood_postmodern
+	city_graphics_type = ztr_sea_oceania_wood_digital
+	city_graphics_type = ztr_sea_oceania_wood_ai
+	priority = 4
+	grid_size = { 8 6 }
+	should_update_on_pm_change = yes
+
+	trigger = {
+		any_scope_state = {
+			"b(building_renewable_energy_power_plant)" ?= {
+				OR = {
+					is_under_construction = yes
+					level > 0
+				}
+			}
+		}
+		any_scope_state = {
+			"b(building_airport)" ?= { level >= 5 }
+		}
+		any_scope_state = {
+			owner = { has_technology_researched = wide_body_airliners }
+		}
+	}
+
+	locator = { name = ztr_centre position = { 0.0 0 0 } rotation = { 0 0 0 } scale = 1.0 }
+	locator = { name = ztr_renewable position = { -2.5 0 0 } rotation = { 0 0 0 } scale = 1.0 }
+	locator = { name = ztr_airport_intl position = { 2.5 0 0 } rotation = { 0 0 0 } scale = 1.0 }
+	composition_group = {
+		composition = { name = ztr_wind trigger = { any_scope_building = { has_active_production_method = pm_wind_turbines } } }
+		composition = { name = ztr_solar trigger = { any_scope_building = { OR = { has_active_production_method = pm_rudimental_photovoltaic_cells has_active_production_method = pm_solar_panels } } } }
+	}
+	attach = { locator = ztr_centre variant = { entity = european_forestry_centerpiece_01_entity } }
+	attach = {
+		locator = ztr_renewable
+		variant = { entity = ztr_global_power_wind_01_entity	building_type = building_renewable_energy_power_plant	compositions = { ztr_wind } }
+		variant = { entity = ztr_global_power_solar_01_entity	building_type = building_renewable_energy_power_plant	compositions = { ztr_solar } }
+	}
+	attach = {
+		locator = ztr_airport_intl
+		variant = { entity = ztr_global_transport_airport_02_entity	building_type = building_airport }
 	}
 }
 
@@ -6374,7 +8740,7 @@ ztr_sea_hub_latin_wood_1_power_renewable = {
 	}
 }
 
-ztr_sea_hub_latin_wood_1_airport = {
+ztr_sea_hub_latin_wood_1_airport_small = {
 	city_graphics_type = ztr_sea_philippines_wood_early_modern
 	city_graphics_type = ztr_sea_philippines_wood_late_modern
 	city_graphics_type = ztr_sea_philippines_wood_postmodern
@@ -6391,6 +8757,104 @@ ztr_sea_hub_latin_wood_1_airport = {
 					is_under_construction = yes
 					level > 0
 				}
+			}
+		}
+		NOT = {
+			any_scope_state = {
+				"b(building_airport)" ?= { level >= 5 }
+			}
+		}
+		NOT = {
+			any_scope_state = {
+				"b(building_renewable_energy_power_plant)" ?= {
+					OR = {
+						is_under_construction = yes
+						level > 0
+					}
+				}
+			}
+		}
+	}
+
+	locator = { name = ztr_centre position = { -1.0 0 0 } rotation = { 0 0 0 } scale = 1.0 }
+	locator = { name = ztr_airport_small position = { 1.0 0 0 } rotation = { 0 0 0 } scale = 1.0 }
+	attach = { locator = ztr_centre variant = { entity = latin_forestry_centerpiece_01_entity } }
+	attach = {
+		locator = ztr_airport_small
+		variant = { entity = ztr_global_transport_airfield_01_entity	building_type = building_airport }
+	}
+}
+
+ztr_sea_hub_latin_wood_1_power_airport_small = {
+	city_graphics_type = ztr_sea_philippines_wood_early_modern
+	city_graphics_type = ztr_sea_philippines_wood_late_modern
+	city_graphics_type = ztr_sea_philippines_wood_postmodern
+	city_graphics_type = ztr_sea_philippines_wood_digital
+	city_graphics_type = ztr_sea_philippines_wood_ai
+	priority = 4
+	grid_size = { 7 6 }
+	should_update_on_pm_change = yes
+
+	trigger = {
+		any_scope_state = {
+			"b(building_renewable_energy_power_plant)" ?= {
+				OR = {
+					is_under_construction = yes
+					level > 0
+				}
+			}
+		}
+		any_scope_state = {
+			"b(building_airport)" ?= {
+				OR = {
+					is_under_construction = yes
+					level > 0
+				}
+			}
+		}
+		NOT = {
+			any_scope_state = {
+				"b(building_airport)" ?= { level >= 5 }
+			}
+		}
+	}
+
+	locator = { name = ztr_centre position = { 0.5 0 0 } rotation = { 0 0 0 } scale = 1.0 }
+	locator = { name = ztr_renewable position = { -2.0 0 0 } rotation = { 0 0 0 } scale = 1.0 }
+	locator = { name = ztr_airport_small position = { 2.5 0 0 } rotation = { 0 0 0 } scale = 1.0 }
+	composition_group = {
+		composition = { name = ztr_wind trigger = { any_scope_building = { has_active_production_method = pm_wind_turbines } } }
+		composition = { name = ztr_solar trigger = { any_scope_building = { OR = { has_active_production_method = pm_rudimental_photovoltaic_cells has_active_production_method = pm_solar_panels } } } }
+	}
+	attach = { locator = ztr_centre variant = { entity = latin_forestry_centerpiece_01_entity } }
+	attach = {
+		locator = ztr_renewable
+		variant = { entity = ztr_global_power_wind_01_entity	building_type = building_renewable_energy_power_plant	compositions = { ztr_wind } }
+		variant = { entity = ztr_global_power_solar_01_entity	building_type = building_renewable_energy_power_plant	compositions = { ztr_solar } }
+	}
+	attach = {
+		locator = ztr_airport_small
+		variant = { entity = ztr_global_transport_airfield_01_entity	building_type = building_airport }
+	}
+}
+
+ztr_sea_hub_latin_wood_1_airport = {
+	city_graphics_type = ztr_sea_philippines_wood_early_modern
+	city_graphics_type = ztr_sea_philippines_wood_late_modern
+	city_graphics_type = ztr_sea_philippines_wood_postmodern
+	city_graphics_type = ztr_sea_philippines_wood_digital
+	city_graphics_type = ztr_sea_philippines_wood_ai
+	priority = 2
+	grid_size = { 4 6 }
+	should_update_on_pm_change = yes
+
+	trigger = {
+		any_scope_state = {
+			"b(building_airport)" ?= { level >= 5 }
+		}
+		NOT = {
+			any_scope_state = {
+				owner = { has_technology_researched = wide_body_airliners }
 			}
 		}
 		NOT = {
@@ -6434,11 +8898,11 @@ ztr_sea_hub_latin_wood_1_power_airport = {
 			}
 		}
 		any_scope_state = {
-			"b(building_airport)" ?= {
-				OR = {
-					is_under_construction = yes
-					level > 0
-				}
+			"b(building_airport)" ?= { level >= 5 }
+		}
+		NOT = {
+			any_scope_state = {
+				owner = { has_technology_researched = wide_body_airliners }
 			}
 		}
 	}
@@ -6459,6 +8923,90 @@ ztr_sea_hub_latin_wood_1_power_airport = {
 	attach = {
 		locator = ztr_airport
 		variant = { entity = ztr_global_transport_airport_01_entity	building_type = building_airport }
+	}
+}
+
+ztr_sea_hub_latin_wood_1_airport_intl = {
+	city_graphics_type = ztr_sea_philippines_wood_early_modern
+	city_graphics_type = ztr_sea_philippines_wood_late_modern
+	city_graphics_type = ztr_sea_philippines_wood_postmodern
+	city_graphics_type = ztr_sea_philippines_wood_digital
+	city_graphics_type = ztr_sea_philippines_wood_ai
+	priority = 2
+	grid_size = { 5 6 }
+	should_update_on_pm_change = yes
+
+	trigger = {
+		any_scope_state = {
+			"b(building_airport)" ?= { level >= 5 }
+		}
+		any_scope_state = {
+			owner = { has_technology_researched = wide_body_airliners }
+		}
+		NOT = {
+			any_scope_state = {
+				"b(building_renewable_energy_power_plant)" ?= {
+					OR = {
+						is_under_construction = yes
+						level > 0
+					}
+				}
+			}
+		}
+	}
+
+	locator = { name = ztr_centre position = { -1.5 0 0 } rotation = { 0 0 0 } scale = 1.0 }
+	locator = { name = ztr_airport_intl position = { 1.0 0 0 } rotation = { 0 0 0 } scale = 1.0 }
+	attach = { locator = ztr_centre variant = { entity = latin_forestry_centerpiece_01_entity } }
+	attach = {
+		locator = ztr_airport_intl
+		variant = { entity = ztr_global_transport_airport_02_entity	building_type = building_airport }
+	}
+}
+
+ztr_sea_hub_latin_wood_1_power_airport_intl = {
+	city_graphics_type = ztr_sea_philippines_wood_early_modern
+	city_graphics_type = ztr_sea_philippines_wood_late_modern
+	city_graphics_type = ztr_sea_philippines_wood_postmodern
+	city_graphics_type = ztr_sea_philippines_wood_digital
+	city_graphics_type = ztr_sea_philippines_wood_ai
+	priority = 4
+	grid_size = { 8 6 }
+	should_update_on_pm_change = yes
+
+	trigger = {
+		any_scope_state = {
+			"b(building_renewable_energy_power_plant)" ?= {
+				OR = {
+					is_under_construction = yes
+					level > 0
+				}
+			}
+		}
+		any_scope_state = {
+			"b(building_airport)" ?= { level >= 5 }
+		}
+		any_scope_state = {
+			owner = { has_technology_researched = wide_body_airliners }
+		}
+	}
+
+	locator = { name = ztr_centre position = { 0.0 0 0 } rotation = { 0 0 0 } scale = 1.0 }
+	locator = { name = ztr_renewable position = { -2.5 0 0 } rotation = { 0 0 0 } scale = 1.0 }
+	locator = { name = ztr_airport_intl position = { 2.5 0 0 } rotation = { 0 0 0 } scale = 1.0 }
+	composition_group = {
+		composition = { name = ztr_wind trigger = { any_scope_building = { has_active_production_method = pm_wind_turbines } } }
+		composition = { name = ztr_solar trigger = { any_scope_building = { OR = { has_active_production_method = pm_rudimental_photovoltaic_cells has_active_production_method = pm_solar_panels } } } }
+	}
+	attach = { locator = ztr_centre variant = { entity = latin_forestry_centerpiece_01_entity } }
+	attach = {
+		locator = ztr_renewable
+		variant = { entity = ztr_global_power_wind_01_entity	building_type = building_renewable_energy_power_plant	compositions = { ztr_wind } }
+		variant = { entity = ztr_global_power_solar_01_entity	building_type = building_renewable_energy_power_plant	compositions = { ztr_solar } }
+	}
+	attach = {
+		locator = ztr_airport_intl
+		variant = { entity = ztr_global_transport_airport_02_entity	building_type = building_airport }
 	}
 }
 
@@ -7858,7 +10406,7 @@ ztr_seu_hub_default_wood_1_power_renewable = {
 	}
 }
 
-ztr_seu_hub_default_wood_1_airport = {
+ztr_seu_hub_default_wood_1_airport_small = {
 	city_graphics_type = ztr_seu_wood_early_modern
 	city_graphics_type = ztr_seu_wood_late_modern
 	city_graphics_type = ztr_seu_wood_postmodern
@@ -7875,6 +10423,104 @@ ztr_seu_hub_default_wood_1_airport = {
 					is_under_construction = yes
 					level > 0
 				}
+			}
+		}
+		NOT = {
+			any_scope_state = {
+				"b(building_airport)" ?= { level >= 5 }
+			}
+		}
+		NOT = {
+			any_scope_state = {
+				"b(building_renewable_energy_power_plant)" ?= {
+					OR = {
+						is_under_construction = yes
+						level > 0
+					}
+				}
+			}
+		}
+	}
+
+	locator = { name = ztr_centre position = { -1.0 0 0 } rotation = { 0 0 0 } scale = 1.0 }
+	locator = { name = ztr_airport_small position = { 1.0 0 0 } rotation = { 0 0 0 } scale = 1.0 }
+	attach = { locator = ztr_centre variant = { entity = european_forestry_centerpiece_01_entity } }
+	attach = {
+		locator = ztr_airport_small
+		variant = { entity = ztr_global_transport_airfield_01_entity	building_type = building_airport }
+	}
+}
+
+ztr_seu_hub_default_wood_1_power_airport_small = {
+	city_graphics_type = ztr_seu_wood_early_modern
+	city_graphics_type = ztr_seu_wood_late_modern
+	city_graphics_type = ztr_seu_wood_postmodern
+	city_graphics_type = ztr_seu_wood_digital
+	city_graphics_type = ztr_seu_wood_ai
+	priority = 4
+	grid_size = { 7 6 }
+	should_update_on_pm_change = yes
+
+	trigger = {
+		any_scope_state = {
+			"b(building_renewable_energy_power_plant)" ?= {
+				OR = {
+					is_under_construction = yes
+					level > 0
+				}
+			}
+		}
+		any_scope_state = {
+			"b(building_airport)" ?= {
+				OR = {
+					is_under_construction = yes
+					level > 0
+				}
+			}
+		}
+		NOT = {
+			any_scope_state = {
+				"b(building_airport)" ?= { level >= 5 }
+			}
+		}
+	}
+
+	locator = { name = ztr_centre position = { 0.5 0 0 } rotation = { 0 0 0 } scale = 1.0 }
+	locator = { name = ztr_renewable position = { -2.0 0 0 } rotation = { 0 0 0 } scale = 1.0 }
+	locator = { name = ztr_airport_small position = { 2.5 0 0 } rotation = { 0 0 0 } scale = 1.0 }
+	composition_group = {
+		composition = { name = ztr_wind trigger = { any_scope_building = { has_active_production_method = pm_wind_turbines } } }
+		composition = { name = ztr_solar trigger = { any_scope_building = { OR = { has_active_production_method = pm_rudimental_photovoltaic_cells has_active_production_method = pm_solar_panels } } } }
+	}
+	attach = { locator = ztr_centre variant = { entity = european_forestry_centerpiece_01_entity } }
+	attach = {
+		locator = ztr_renewable
+		variant = { entity = ztr_global_power_wind_01_entity	building_type = building_renewable_energy_power_plant	compositions = { ztr_wind } }
+		variant = { entity = ztr_global_power_solar_01_entity	building_type = building_renewable_energy_power_plant	compositions = { ztr_solar } }
+	}
+	attach = {
+		locator = ztr_airport_small
+		variant = { entity = ztr_global_transport_airfield_01_entity	building_type = building_airport }
+	}
+}
+
+ztr_seu_hub_default_wood_1_airport = {
+	city_graphics_type = ztr_seu_wood_early_modern
+	city_graphics_type = ztr_seu_wood_late_modern
+	city_graphics_type = ztr_seu_wood_postmodern
+	city_graphics_type = ztr_seu_wood_digital
+	city_graphics_type = ztr_seu_wood_ai
+	priority = 2
+	grid_size = { 4 6 }
+	should_update_on_pm_change = yes
+
+	trigger = {
+		any_scope_state = {
+			"b(building_airport)" ?= { level >= 5 }
+		}
+		NOT = {
+			any_scope_state = {
+				owner = { has_technology_researched = wide_body_airliners }
 			}
 		}
 		NOT = {
@@ -7918,11 +10564,11 @@ ztr_seu_hub_default_wood_1_power_airport = {
 			}
 		}
 		any_scope_state = {
-			"b(building_airport)" ?= {
-				OR = {
-					is_under_construction = yes
-					level > 0
-				}
+			"b(building_airport)" ?= { level >= 5 }
+		}
+		NOT = {
+			any_scope_state = {
+				owner = { has_technology_researched = wide_body_airliners }
 			}
 		}
 	}
@@ -7943,6 +10589,90 @@ ztr_seu_hub_default_wood_1_power_airport = {
 	attach = {
 		locator = ztr_airport
 		variant = { entity = ztr_global_transport_airport_01_entity	building_type = building_airport }
+	}
+}
+
+ztr_seu_hub_default_wood_1_airport_intl = {
+	city_graphics_type = ztr_seu_wood_early_modern
+	city_graphics_type = ztr_seu_wood_late_modern
+	city_graphics_type = ztr_seu_wood_postmodern
+	city_graphics_type = ztr_seu_wood_digital
+	city_graphics_type = ztr_seu_wood_ai
+	priority = 2
+	grid_size = { 5 6 }
+	should_update_on_pm_change = yes
+
+	trigger = {
+		any_scope_state = {
+			"b(building_airport)" ?= { level >= 5 }
+		}
+		any_scope_state = {
+			owner = { has_technology_researched = wide_body_airliners }
+		}
+		NOT = {
+			any_scope_state = {
+				"b(building_renewable_energy_power_plant)" ?= {
+					OR = {
+						is_under_construction = yes
+						level > 0
+					}
+				}
+			}
+		}
+	}
+
+	locator = { name = ztr_centre position = { -1.5 0 0 } rotation = { 0 0 0 } scale = 1.0 }
+	locator = { name = ztr_airport_intl position = { 1.0 0 0 } rotation = { 0 0 0 } scale = 1.0 }
+	attach = { locator = ztr_centre variant = { entity = european_forestry_centerpiece_01_entity } }
+	attach = {
+		locator = ztr_airport_intl
+		variant = { entity = ztr_global_transport_airport_02_entity	building_type = building_airport }
+	}
+}
+
+ztr_seu_hub_default_wood_1_power_airport_intl = {
+	city_graphics_type = ztr_seu_wood_early_modern
+	city_graphics_type = ztr_seu_wood_late_modern
+	city_graphics_type = ztr_seu_wood_postmodern
+	city_graphics_type = ztr_seu_wood_digital
+	city_graphics_type = ztr_seu_wood_ai
+	priority = 4
+	grid_size = { 8 6 }
+	should_update_on_pm_change = yes
+
+	trigger = {
+		any_scope_state = {
+			"b(building_renewable_energy_power_plant)" ?= {
+				OR = {
+					is_under_construction = yes
+					level > 0
+				}
+			}
+		}
+		any_scope_state = {
+			"b(building_airport)" ?= { level >= 5 }
+		}
+		any_scope_state = {
+			owner = { has_technology_researched = wide_body_airliners }
+		}
+	}
+
+	locator = { name = ztr_centre position = { 0.0 0 0 } rotation = { 0 0 0 } scale = 1.0 }
+	locator = { name = ztr_renewable position = { -2.5 0 0 } rotation = { 0 0 0 } scale = 1.0 }
+	locator = { name = ztr_airport_intl position = { 2.5 0 0 } rotation = { 0 0 0 } scale = 1.0 }
+	composition_group = {
+		composition = { name = ztr_wind trigger = { any_scope_building = { has_active_production_method = pm_wind_turbines } } }
+		composition = { name = ztr_solar trigger = { any_scope_building = { OR = { has_active_production_method = pm_rudimental_photovoltaic_cells has_active_production_method = pm_solar_panels } } } }
+	}
+	attach = { locator = ztr_centre variant = { entity = european_forestry_centerpiece_01_entity } }
+	attach = {
+		locator = ztr_renewable
+		variant = { entity = ztr_global_power_wind_01_entity	building_type = building_renewable_energy_power_plant	compositions = { ztr_wind } }
+		variant = { entity = ztr_global_power_solar_01_entity	building_type = building_renewable_energy_power_plant	compositions = { ztr_solar } }
+	}
+	attach = {
+		locator = ztr_airport_intl
+		variant = { entity = ztr_global_transport_airport_02_entity	building_type = building_airport }
 	}
 }
 
@@ -7991,7 +10721,7 @@ ztr_seu_hub_latin_wood_1_power_renewable = {
 	}
 }
 
-ztr_seu_hub_latin_wood_1_airport = {
+ztr_seu_hub_latin_wood_1_airport_small = {
 	city_graphics_type = ztr_seu_iberia_wood_early_modern
 	city_graphics_type = ztr_seu_iberia_wood_late_modern
 	city_graphics_type = ztr_seu_iberia_wood_postmodern
@@ -8008,6 +10738,104 @@ ztr_seu_hub_latin_wood_1_airport = {
 					is_under_construction = yes
 					level > 0
 				}
+			}
+		}
+		NOT = {
+			any_scope_state = {
+				"b(building_airport)" ?= { level >= 5 }
+			}
+		}
+		NOT = {
+			any_scope_state = {
+				"b(building_renewable_energy_power_plant)" ?= {
+					OR = {
+						is_under_construction = yes
+						level > 0
+					}
+				}
+			}
+		}
+	}
+
+	locator = { name = ztr_centre position = { -1.0 0 0 } rotation = { 0 0 0 } scale = 1.0 }
+	locator = { name = ztr_airport_small position = { 1.0 0 0 } rotation = { 0 0 0 } scale = 1.0 }
+	attach = { locator = ztr_centre variant = { entity = latin_forestry_centerpiece_01_entity } }
+	attach = {
+		locator = ztr_airport_small
+		variant = { entity = ztr_global_transport_airfield_01_entity	building_type = building_airport }
+	}
+}
+
+ztr_seu_hub_latin_wood_1_power_airport_small = {
+	city_graphics_type = ztr_seu_iberia_wood_early_modern
+	city_graphics_type = ztr_seu_iberia_wood_late_modern
+	city_graphics_type = ztr_seu_iberia_wood_postmodern
+	city_graphics_type = ztr_seu_iberia_wood_digital
+	city_graphics_type = ztr_seu_iberia_wood_ai
+	priority = 4
+	grid_size = { 7 6 }
+	should_update_on_pm_change = yes
+
+	trigger = {
+		any_scope_state = {
+			"b(building_renewable_energy_power_plant)" ?= {
+				OR = {
+					is_under_construction = yes
+					level > 0
+				}
+			}
+		}
+		any_scope_state = {
+			"b(building_airport)" ?= {
+				OR = {
+					is_under_construction = yes
+					level > 0
+				}
+			}
+		}
+		NOT = {
+			any_scope_state = {
+				"b(building_airport)" ?= { level >= 5 }
+			}
+		}
+	}
+
+	locator = { name = ztr_centre position = { 0.5 0 0 } rotation = { 0 0 0 } scale = 1.0 }
+	locator = { name = ztr_renewable position = { -2.0 0 0 } rotation = { 0 0 0 } scale = 1.0 }
+	locator = { name = ztr_airport_small position = { 2.5 0 0 } rotation = { 0 0 0 } scale = 1.0 }
+	composition_group = {
+		composition = { name = ztr_wind trigger = { any_scope_building = { has_active_production_method = pm_wind_turbines } } }
+		composition = { name = ztr_solar trigger = { any_scope_building = { OR = { has_active_production_method = pm_rudimental_photovoltaic_cells has_active_production_method = pm_solar_panels } } } }
+	}
+	attach = { locator = ztr_centre variant = { entity = latin_forestry_centerpiece_01_entity } }
+	attach = {
+		locator = ztr_renewable
+		variant = { entity = ztr_global_power_wind_01_entity	building_type = building_renewable_energy_power_plant	compositions = { ztr_wind } }
+		variant = { entity = ztr_global_power_solar_01_entity	building_type = building_renewable_energy_power_plant	compositions = { ztr_solar } }
+	}
+	attach = {
+		locator = ztr_airport_small
+		variant = { entity = ztr_global_transport_airfield_01_entity	building_type = building_airport }
+	}
+}
+
+ztr_seu_hub_latin_wood_1_airport = {
+	city_graphics_type = ztr_seu_iberia_wood_early_modern
+	city_graphics_type = ztr_seu_iberia_wood_late_modern
+	city_graphics_type = ztr_seu_iberia_wood_postmodern
+	city_graphics_type = ztr_seu_iberia_wood_digital
+	city_graphics_type = ztr_seu_iberia_wood_ai
+	priority = 2
+	grid_size = { 4 6 }
+	should_update_on_pm_change = yes
+
+	trigger = {
+		any_scope_state = {
+			"b(building_airport)" ?= { level >= 5 }
+		}
+		NOT = {
+			any_scope_state = {
+				owner = { has_technology_researched = wide_body_airliners }
 			}
 		}
 		NOT = {
@@ -8051,11 +10879,11 @@ ztr_seu_hub_latin_wood_1_power_airport = {
 			}
 		}
 		any_scope_state = {
-			"b(building_airport)" ?= {
-				OR = {
-					is_under_construction = yes
-					level > 0
-				}
+			"b(building_airport)" ?= { level >= 5 }
+		}
+		NOT = {
+			any_scope_state = {
+				owner = { has_technology_researched = wide_body_airliners }
 			}
 		}
 	}
@@ -8076,6 +10904,90 @@ ztr_seu_hub_latin_wood_1_power_airport = {
 	attach = {
 		locator = ztr_airport
 		variant = { entity = ztr_global_transport_airport_01_entity	building_type = building_airport }
+	}
+}
+
+ztr_seu_hub_latin_wood_1_airport_intl = {
+	city_graphics_type = ztr_seu_iberia_wood_early_modern
+	city_graphics_type = ztr_seu_iberia_wood_late_modern
+	city_graphics_type = ztr_seu_iberia_wood_postmodern
+	city_graphics_type = ztr_seu_iberia_wood_digital
+	city_graphics_type = ztr_seu_iberia_wood_ai
+	priority = 2
+	grid_size = { 5 6 }
+	should_update_on_pm_change = yes
+
+	trigger = {
+		any_scope_state = {
+			"b(building_airport)" ?= { level >= 5 }
+		}
+		any_scope_state = {
+			owner = { has_technology_researched = wide_body_airliners }
+		}
+		NOT = {
+			any_scope_state = {
+				"b(building_renewable_energy_power_plant)" ?= {
+					OR = {
+						is_under_construction = yes
+						level > 0
+					}
+				}
+			}
+		}
+	}
+
+	locator = { name = ztr_centre position = { -1.5 0 0 } rotation = { 0 0 0 } scale = 1.0 }
+	locator = { name = ztr_airport_intl position = { 1.0 0 0 } rotation = { 0 0 0 } scale = 1.0 }
+	attach = { locator = ztr_centre variant = { entity = latin_forestry_centerpiece_01_entity } }
+	attach = {
+		locator = ztr_airport_intl
+		variant = { entity = ztr_global_transport_airport_02_entity	building_type = building_airport }
+	}
+}
+
+ztr_seu_hub_latin_wood_1_power_airport_intl = {
+	city_graphics_type = ztr_seu_iberia_wood_early_modern
+	city_graphics_type = ztr_seu_iberia_wood_late_modern
+	city_graphics_type = ztr_seu_iberia_wood_postmodern
+	city_graphics_type = ztr_seu_iberia_wood_digital
+	city_graphics_type = ztr_seu_iberia_wood_ai
+	priority = 4
+	grid_size = { 8 6 }
+	should_update_on_pm_change = yes
+
+	trigger = {
+		any_scope_state = {
+			"b(building_renewable_energy_power_plant)" ?= {
+				OR = {
+					is_under_construction = yes
+					level > 0
+				}
+			}
+		}
+		any_scope_state = {
+			"b(building_airport)" ?= { level >= 5 }
+		}
+		any_scope_state = {
+			owner = { has_technology_researched = wide_body_airliners }
+		}
+	}
+
+	locator = { name = ztr_centre position = { 0.0 0 0 } rotation = { 0 0 0 } scale = 1.0 }
+	locator = { name = ztr_renewable position = { -2.5 0 0 } rotation = { 0 0 0 } scale = 1.0 }
+	locator = { name = ztr_airport_intl position = { 2.5 0 0 } rotation = { 0 0 0 } scale = 1.0 }
+	composition_group = {
+		composition = { name = ztr_wind trigger = { any_scope_building = { has_active_production_method = pm_wind_turbines } } }
+		composition = { name = ztr_solar trigger = { any_scope_building = { OR = { has_active_production_method = pm_rudimental_photovoltaic_cells has_active_production_method = pm_solar_panels } } } }
+	}
+	attach = { locator = ztr_centre variant = { entity = latin_forestry_centerpiece_01_entity } }
+	attach = {
+		locator = ztr_renewable
+		variant = { entity = ztr_global_power_wind_01_entity	building_type = building_renewable_energy_power_plant	compositions = { ztr_wind } }
+		variant = { entity = ztr_global_power_solar_01_entity	building_type = building_renewable_energy_power_plant	compositions = { ztr_solar } }
+	}
+	attach = {
+		locator = ztr_airport_intl
+		variant = { entity = ztr_global_transport_airport_02_entity	building_type = building_airport }
 	}
 }
 
@@ -8124,7 +11036,7 @@ ztr_seu_hub_arabic_wood_1_power_renewable = {
 	}
 }
 
-ztr_seu_hub_arabic_wood_1_airport = {
+ztr_seu_hub_arabic_wood_1_airport_small = {
 	city_graphics_type = ztr_seu_anatolia_wood_early_modern
 	city_graphics_type = ztr_seu_anatolia_wood_late_modern
 	city_graphics_type = ztr_seu_anatolia_wood_postmodern
@@ -8141,6 +11053,104 @@ ztr_seu_hub_arabic_wood_1_airport = {
 					is_under_construction = yes
 					level > 0
 				}
+			}
+		}
+		NOT = {
+			any_scope_state = {
+				"b(building_airport)" ?= { level >= 5 }
+			}
+		}
+		NOT = {
+			any_scope_state = {
+				"b(building_renewable_energy_power_plant)" ?= {
+					OR = {
+						is_under_construction = yes
+						level > 0
+					}
+				}
+			}
+		}
+	}
+
+	locator = { name = ztr_centre position = { -1.0 0 0 } rotation = { 0 0 0 } scale = 1.0 }
+	locator = { name = ztr_airport_small position = { 1.0 0 0 } rotation = { 0 0 0 } scale = 1.0 }
+	attach = { locator = ztr_centre variant = { entity = arabic_forestry_centerpiece_01_entity } }
+	attach = {
+		locator = ztr_airport_small
+		variant = { entity = ztr_global_transport_airfield_01_entity	building_type = building_airport }
+	}
+}
+
+ztr_seu_hub_arabic_wood_1_power_airport_small = {
+	city_graphics_type = ztr_seu_anatolia_wood_early_modern
+	city_graphics_type = ztr_seu_anatolia_wood_late_modern
+	city_graphics_type = ztr_seu_anatolia_wood_postmodern
+	city_graphics_type = ztr_seu_anatolia_wood_digital
+	city_graphics_type = ztr_seu_anatolia_wood_ai
+	priority = 4
+	grid_size = { 7 6 }
+	should_update_on_pm_change = yes
+
+	trigger = {
+		any_scope_state = {
+			"b(building_renewable_energy_power_plant)" ?= {
+				OR = {
+					is_under_construction = yes
+					level > 0
+				}
+			}
+		}
+		any_scope_state = {
+			"b(building_airport)" ?= {
+				OR = {
+					is_under_construction = yes
+					level > 0
+				}
+			}
+		}
+		NOT = {
+			any_scope_state = {
+				"b(building_airport)" ?= { level >= 5 }
+			}
+		}
+	}
+
+	locator = { name = ztr_centre position = { 0.5 0 0 } rotation = { 0 0 0 } scale = 1.0 }
+	locator = { name = ztr_renewable position = { -2.0 0 0 } rotation = { 0 0 0 } scale = 1.0 }
+	locator = { name = ztr_airport_small position = { 2.5 0 0 } rotation = { 0 0 0 } scale = 1.0 }
+	composition_group = {
+		composition = { name = ztr_wind trigger = { any_scope_building = { has_active_production_method = pm_wind_turbines } } }
+		composition = { name = ztr_solar trigger = { any_scope_building = { OR = { has_active_production_method = pm_rudimental_photovoltaic_cells has_active_production_method = pm_solar_panels } } } }
+	}
+	attach = { locator = ztr_centre variant = { entity = arabic_forestry_centerpiece_01_entity } }
+	attach = {
+		locator = ztr_renewable
+		variant = { entity = ztr_global_power_wind_01_entity	building_type = building_renewable_energy_power_plant	compositions = { ztr_wind } }
+		variant = { entity = ztr_global_power_solar_01_entity	building_type = building_renewable_energy_power_plant	compositions = { ztr_solar } }
+	}
+	attach = {
+		locator = ztr_airport_small
+		variant = { entity = ztr_global_transport_airfield_01_entity	building_type = building_airport }
+	}
+}
+
+ztr_seu_hub_arabic_wood_1_airport = {
+	city_graphics_type = ztr_seu_anatolia_wood_early_modern
+	city_graphics_type = ztr_seu_anatolia_wood_late_modern
+	city_graphics_type = ztr_seu_anatolia_wood_postmodern
+	city_graphics_type = ztr_seu_anatolia_wood_digital
+	city_graphics_type = ztr_seu_anatolia_wood_ai
+	priority = 2
+	grid_size = { 4 6 }
+	should_update_on_pm_change = yes
+
+	trigger = {
+		any_scope_state = {
+			"b(building_airport)" ?= { level >= 5 }
+		}
+		NOT = {
+			any_scope_state = {
+				owner = { has_technology_researched = wide_body_airliners }
 			}
 		}
 		NOT = {
@@ -8184,11 +11194,11 @@ ztr_seu_hub_arabic_wood_1_power_airport = {
 			}
 		}
 		any_scope_state = {
-			"b(building_airport)" ?= {
-				OR = {
-					is_under_construction = yes
-					level > 0
-				}
+			"b(building_airport)" ?= { level >= 5 }
+		}
+		NOT = {
+			any_scope_state = {
+				owner = { has_technology_researched = wide_body_airliners }
 			}
 		}
 	}
@@ -8209,6 +11219,90 @@ ztr_seu_hub_arabic_wood_1_power_airport = {
 	attach = {
 		locator = ztr_airport
 		variant = { entity = ztr_global_transport_airport_01_entity	building_type = building_airport }
+	}
+}
+
+ztr_seu_hub_arabic_wood_1_airport_intl = {
+	city_graphics_type = ztr_seu_anatolia_wood_early_modern
+	city_graphics_type = ztr_seu_anatolia_wood_late_modern
+	city_graphics_type = ztr_seu_anatolia_wood_postmodern
+	city_graphics_type = ztr_seu_anatolia_wood_digital
+	city_graphics_type = ztr_seu_anatolia_wood_ai
+	priority = 2
+	grid_size = { 5 6 }
+	should_update_on_pm_change = yes
+
+	trigger = {
+		any_scope_state = {
+			"b(building_airport)" ?= { level >= 5 }
+		}
+		any_scope_state = {
+			owner = { has_technology_researched = wide_body_airliners }
+		}
+		NOT = {
+			any_scope_state = {
+				"b(building_renewable_energy_power_plant)" ?= {
+					OR = {
+						is_under_construction = yes
+						level > 0
+					}
+				}
+			}
+		}
+	}
+
+	locator = { name = ztr_centre position = { -1.5 0 0 } rotation = { 0 0 0 } scale = 1.0 }
+	locator = { name = ztr_airport_intl position = { 1.0 0 0 } rotation = { 0 0 0 } scale = 1.0 }
+	attach = { locator = ztr_centre variant = { entity = arabic_forestry_centerpiece_01_entity } }
+	attach = {
+		locator = ztr_airport_intl
+		variant = { entity = ztr_global_transport_airport_02_entity	building_type = building_airport }
+	}
+}
+
+ztr_seu_hub_arabic_wood_1_power_airport_intl = {
+	city_graphics_type = ztr_seu_anatolia_wood_early_modern
+	city_graphics_type = ztr_seu_anatolia_wood_late_modern
+	city_graphics_type = ztr_seu_anatolia_wood_postmodern
+	city_graphics_type = ztr_seu_anatolia_wood_digital
+	city_graphics_type = ztr_seu_anatolia_wood_ai
+	priority = 4
+	grid_size = { 8 6 }
+	should_update_on_pm_change = yes
+
+	trigger = {
+		any_scope_state = {
+			"b(building_renewable_energy_power_plant)" ?= {
+				OR = {
+					is_under_construction = yes
+					level > 0
+				}
+			}
+		}
+		any_scope_state = {
+			"b(building_airport)" ?= { level >= 5 }
+		}
+		any_scope_state = {
+			owner = { has_technology_researched = wide_body_airliners }
+		}
+	}
+
+	locator = { name = ztr_centre position = { 0.0 0 0 } rotation = { 0 0 0 } scale = 1.0 }
+	locator = { name = ztr_renewable position = { -2.5 0 0 } rotation = { 0 0 0 } scale = 1.0 }
+	locator = { name = ztr_airport_intl position = { 2.5 0 0 } rotation = { 0 0 0 } scale = 1.0 }
+	composition_group = {
+		composition = { name = ztr_wind trigger = { any_scope_building = { has_active_production_method = pm_wind_turbines } } }
+		composition = { name = ztr_solar trigger = { any_scope_building = { OR = { has_active_production_method = pm_rudimental_photovoltaic_cells has_active_production_method = pm_solar_panels } } } }
+	}
+	attach = { locator = ztr_centre variant = { entity = arabic_forestry_centerpiece_01_entity } }
+	attach = {
+		locator = ztr_renewable
+		variant = { entity = ztr_global_power_wind_01_entity	building_type = building_renewable_energy_power_plant	compositions = { ztr_wind } }
+		variant = { entity = ztr_global_power_solar_01_entity	building_type = building_renewable_energy_power_plant	compositions = { ztr_solar } }
+	}
+	attach = {
+		locator = ztr_airport_intl
+		variant = { entity = ztr_global_transport_airport_02_entity	building_type = building_airport }
 	}
 }
 
@@ -8257,7 +11351,7 @@ ztr_seu_hub_french_wood_1_power_renewable = {
 	}
 }
 
-ztr_seu_hub_french_wood_1_airport = {
+ztr_seu_hub_french_wood_1_airport_small = {
 	city_graphics_type = ztr_seu_french_wood_early_modern
 	city_graphics_type = ztr_seu_french_wood_late_modern
 	city_graphics_type = ztr_seu_french_wood_postmodern
@@ -8274,6 +11368,104 @@ ztr_seu_hub_french_wood_1_airport = {
 					is_under_construction = yes
 					level > 0
 				}
+			}
+		}
+		NOT = {
+			any_scope_state = {
+				"b(building_airport)" ?= { level >= 5 }
+			}
+		}
+		NOT = {
+			any_scope_state = {
+				"b(building_renewable_energy_power_plant)" ?= {
+					OR = {
+						is_under_construction = yes
+						level > 0
+					}
+				}
+			}
+		}
+	}
+
+	locator = { name = ztr_centre position = { -1.0 0 0 } rotation = { 0 0 0 } scale = 1.0 }
+	locator = { name = ztr_airport_small position = { 1.0 0 0 } rotation = { 0 0 0 } scale = 1.0 }
+	attach = { locator = ztr_centre variant = { entity = french_forestry_centerpiece_01_entity } }
+	attach = {
+		locator = ztr_airport_small
+		variant = { entity = ztr_global_transport_airfield_01_entity	building_type = building_airport }
+	}
+}
+
+ztr_seu_hub_french_wood_1_power_airport_small = {
+	city_graphics_type = ztr_seu_french_wood_early_modern
+	city_graphics_type = ztr_seu_french_wood_late_modern
+	city_graphics_type = ztr_seu_french_wood_postmodern
+	city_graphics_type = ztr_seu_french_wood_digital
+	city_graphics_type = ztr_seu_french_wood_ai
+	priority = 4
+	grid_size = { 7 6 }
+	should_update_on_pm_change = yes
+
+	trigger = {
+		any_scope_state = {
+			"b(building_renewable_energy_power_plant)" ?= {
+				OR = {
+					is_under_construction = yes
+					level > 0
+				}
+			}
+		}
+		any_scope_state = {
+			"b(building_airport)" ?= {
+				OR = {
+					is_under_construction = yes
+					level > 0
+				}
+			}
+		}
+		NOT = {
+			any_scope_state = {
+				"b(building_airport)" ?= { level >= 5 }
+			}
+		}
+	}
+
+	locator = { name = ztr_centre position = { 0.5 0 0 } rotation = { 0 0 0 } scale = 1.0 }
+	locator = { name = ztr_renewable position = { -2.0 0 0 } rotation = { 0 0 0 } scale = 1.0 }
+	locator = { name = ztr_airport_small position = { 2.5 0 0 } rotation = { 0 0 0 } scale = 1.0 }
+	composition_group = {
+		composition = { name = ztr_wind trigger = { any_scope_building = { has_active_production_method = pm_wind_turbines } } }
+		composition = { name = ztr_solar trigger = { any_scope_building = { OR = { has_active_production_method = pm_rudimental_photovoltaic_cells has_active_production_method = pm_solar_panels } } } }
+	}
+	attach = { locator = ztr_centre variant = { entity = french_forestry_centerpiece_01_entity } }
+	attach = {
+		locator = ztr_renewable
+		variant = { entity = ztr_global_power_wind_01_entity	building_type = building_renewable_energy_power_plant	compositions = { ztr_wind } }
+		variant = { entity = ztr_global_power_solar_01_entity	building_type = building_renewable_energy_power_plant	compositions = { ztr_solar } }
+	}
+	attach = {
+		locator = ztr_airport_small
+		variant = { entity = ztr_global_transport_airfield_01_entity	building_type = building_airport }
+	}
+}
+
+ztr_seu_hub_french_wood_1_airport = {
+	city_graphics_type = ztr_seu_french_wood_early_modern
+	city_graphics_type = ztr_seu_french_wood_late_modern
+	city_graphics_type = ztr_seu_french_wood_postmodern
+	city_graphics_type = ztr_seu_french_wood_digital
+	city_graphics_type = ztr_seu_french_wood_ai
+	priority = 2
+	grid_size = { 4 6 }
+	should_update_on_pm_change = yes
+
+	trigger = {
+		any_scope_state = {
+			"b(building_airport)" ?= { level >= 5 }
+		}
+		NOT = {
+			any_scope_state = {
+				owner = { has_technology_researched = wide_body_airliners }
 			}
 		}
 		NOT = {
@@ -8317,11 +11509,11 @@ ztr_seu_hub_french_wood_1_power_airport = {
 			}
 		}
 		any_scope_state = {
-			"b(building_airport)" ?= {
-				OR = {
-					is_under_construction = yes
-					level > 0
-				}
+			"b(building_airport)" ?= { level >= 5 }
+		}
+		NOT = {
+			any_scope_state = {
+				owner = { has_technology_researched = wide_body_airliners }
 			}
 		}
 	}
@@ -8342,6 +11534,90 @@ ztr_seu_hub_french_wood_1_power_airport = {
 	attach = {
 		locator = ztr_airport
 		variant = { entity = ztr_global_transport_airport_01_entity	building_type = building_airport }
+	}
+}
+
+ztr_seu_hub_french_wood_1_airport_intl = {
+	city_graphics_type = ztr_seu_french_wood_early_modern
+	city_graphics_type = ztr_seu_french_wood_late_modern
+	city_graphics_type = ztr_seu_french_wood_postmodern
+	city_graphics_type = ztr_seu_french_wood_digital
+	city_graphics_type = ztr_seu_french_wood_ai
+	priority = 2
+	grid_size = { 5 6 }
+	should_update_on_pm_change = yes
+
+	trigger = {
+		any_scope_state = {
+			"b(building_airport)" ?= { level >= 5 }
+		}
+		any_scope_state = {
+			owner = { has_technology_researched = wide_body_airliners }
+		}
+		NOT = {
+			any_scope_state = {
+				"b(building_renewable_energy_power_plant)" ?= {
+					OR = {
+						is_under_construction = yes
+						level > 0
+					}
+				}
+			}
+		}
+	}
+
+	locator = { name = ztr_centre position = { -1.5 0 0 } rotation = { 0 0 0 } scale = 1.0 }
+	locator = { name = ztr_airport_intl position = { 1.0 0 0 } rotation = { 0 0 0 } scale = 1.0 }
+	attach = { locator = ztr_centre variant = { entity = french_forestry_centerpiece_01_entity } }
+	attach = {
+		locator = ztr_airport_intl
+		variant = { entity = ztr_global_transport_airport_02_entity	building_type = building_airport }
+	}
+}
+
+ztr_seu_hub_french_wood_1_power_airport_intl = {
+	city_graphics_type = ztr_seu_french_wood_early_modern
+	city_graphics_type = ztr_seu_french_wood_late_modern
+	city_graphics_type = ztr_seu_french_wood_postmodern
+	city_graphics_type = ztr_seu_french_wood_digital
+	city_graphics_type = ztr_seu_french_wood_ai
+	priority = 4
+	grid_size = { 8 6 }
+	should_update_on_pm_change = yes
+
+	trigger = {
+		any_scope_state = {
+			"b(building_renewable_energy_power_plant)" ?= {
+				OR = {
+					is_under_construction = yes
+					level > 0
+				}
+			}
+		}
+		any_scope_state = {
+			"b(building_airport)" ?= { level >= 5 }
+		}
+		any_scope_state = {
+			owner = { has_technology_researched = wide_body_airliners }
+		}
+	}
+
+	locator = { name = ztr_centre position = { 0.0 0 0 } rotation = { 0 0 0 } scale = 1.0 }
+	locator = { name = ztr_renewable position = { -2.5 0 0 } rotation = { 0 0 0 } scale = 1.0 }
+	locator = { name = ztr_airport_intl position = { 2.5 0 0 } rotation = { 0 0 0 } scale = 1.0 }
+	composition_group = {
+		composition = { name = ztr_wind trigger = { any_scope_building = { has_active_production_method = pm_wind_turbines } } }
+		composition = { name = ztr_solar trigger = { any_scope_building = { OR = { has_active_production_method = pm_rudimental_photovoltaic_cells has_active_production_method = pm_solar_panels } } } }
+	}
+	attach = { locator = ztr_centre variant = { entity = french_forestry_centerpiece_01_entity } }
+	attach = {
+		locator = ztr_renewable
+		variant = { entity = ztr_global_power_wind_01_entity	building_type = building_renewable_energy_power_plant	compositions = { ztr_wind } }
+		variant = { entity = ztr_global_power_solar_01_entity	building_type = building_renewable_energy_power_plant	compositions = { ztr_solar } }
+	}
+	attach = {
+		locator = ztr_airport_intl
+		variant = { entity = ztr_global_transport_airport_02_entity	building_type = building_airport }
 	}
 }
 
@@ -8661,7 +11937,7 @@ ztr_ssa_hub_african_wood_1_power_renewable = {
 	}
 }
 
-ztr_ssa_hub_african_wood_1_airport = {
+ztr_ssa_hub_african_wood_1_airport_small = {
 	city_graphics_type = ztr_ssa_wood_early_modern
 	city_graphics_type = ztr_ssa_wood_late_modern
 	city_graphics_type = ztr_ssa_wood_postmodern
@@ -8678,6 +11954,104 @@ ztr_ssa_hub_african_wood_1_airport = {
 					is_under_construction = yes
 					level > 0
 				}
+			}
+		}
+		NOT = {
+			any_scope_state = {
+				"b(building_airport)" ?= { level >= 5 }
+			}
+		}
+		NOT = {
+			any_scope_state = {
+				"b(building_renewable_energy_power_plant)" ?= {
+					OR = {
+						is_under_construction = yes
+						level > 0
+					}
+				}
+			}
+		}
+	}
+
+	locator = { name = ztr_centre position = { -1.0 0 0 } rotation = { 0 0 0 } scale = 1.0 }
+	locator = { name = ztr_airport_small position = { 1.0 0 0 } rotation = { 0 0 0 } scale = 1.0 }
+	attach = { locator = ztr_centre variant = { entity = african_forestry_centerpiece_01_entity } }
+	attach = {
+		locator = ztr_airport_small
+		variant = { entity = ztr_global_transport_airfield_01_entity	building_type = building_airport }
+	}
+}
+
+ztr_ssa_hub_african_wood_1_power_airport_small = {
+	city_graphics_type = ztr_ssa_wood_early_modern
+	city_graphics_type = ztr_ssa_wood_late_modern
+	city_graphics_type = ztr_ssa_wood_postmodern
+	city_graphics_type = ztr_ssa_wood_digital
+	city_graphics_type = ztr_ssa_wood_ai
+	priority = 4
+	grid_size = { 7 6 }
+	should_update_on_pm_change = yes
+
+	trigger = {
+		any_scope_state = {
+			"b(building_renewable_energy_power_plant)" ?= {
+				OR = {
+					is_under_construction = yes
+					level > 0
+				}
+			}
+		}
+		any_scope_state = {
+			"b(building_airport)" ?= {
+				OR = {
+					is_under_construction = yes
+					level > 0
+				}
+			}
+		}
+		NOT = {
+			any_scope_state = {
+				"b(building_airport)" ?= { level >= 5 }
+			}
+		}
+	}
+
+	locator = { name = ztr_centre position = { 0.5 0 0 } rotation = { 0 0 0 } scale = 1.0 }
+	locator = { name = ztr_renewable position = { -2.0 0 0 } rotation = { 0 0 0 } scale = 1.0 }
+	locator = { name = ztr_airport_small position = { 2.5 0 0 } rotation = { 0 0 0 } scale = 1.0 }
+	composition_group = {
+		composition = { name = ztr_wind trigger = { any_scope_building = { has_active_production_method = pm_wind_turbines } } }
+		composition = { name = ztr_solar trigger = { any_scope_building = { OR = { has_active_production_method = pm_rudimental_photovoltaic_cells has_active_production_method = pm_solar_panels } } } }
+	}
+	attach = { locator = ztr_centre variant = { entity = african_forestry_centerpiece_01_entity } }
+	attach = {
+		locator = ztr_renewable
+		variant = { entity = ztr_global_power_wind_01_entity	building_type = building_renewable_energy_power_plant	compositions = { ztr_wind } }
+		variant = { entity = ztr_global_power_solar_01_entity	building_type = building_renewable_energy_power_plant	compositions = { ztr_solar } }
+	}
+	attach = {
+		locator = ztr_airport_small
+		variant = { entity = ztr_global_transport_airfield_01_entity	building_type = building_airport }
+	}
+}
+
+ztr_ssa_hub_african_wood_1_airport = {
+	city_graphics_type = ztr_ssa_wood_early_modern
+	city_graphics_type = ztr_ssa_wood_late_modern
+	city_graphics_type = ztr_ssa_wood_postmodern
+	city_graphics_type = ztr_ssa_wood_digital
+	city_graphics_type = ztr_ssa_wood_ai
+	priority = 2
+	grid_size = { 4 6 }
+	should_update_on_pm_change = yes
+
+	trigger = {
+		any_scope_state = {
+			"b(building_airport)" ?= { level >= 5 }
+		}
+		NOT = {
+			any_scope_state = {
+				owner = { has_technology_researched = wide_body_airliners }
 			}
 		}
 		NOT = {
@@ -8721,11 +12095,11 @@ ztr_ssa_hub_african_wood_1_power_airport = {
 			}
 		}
 		any_scope_state = {
-			"b(building_airport)" ?= {
-				OR = {
-					is_under_construction = yes
-					level > 0
-				}
+			"b(building_airport)" ?= { level >= 5 }
+		}
+		NOT = {
+			any_scope_state = {
+				owner = { has_technology_researched = wide_body_airliners }
 			}
 		}
 	}
@@ -8746,5 +12120,89 @@ ztr_ssa_hub_african_wood_1_power_airport = {
 	attach = {
 		locator = ztr_airport
 		variant = { entity = ztr_global_transport_airport_01_entity	building_type = building_airport }
+	}
+}
+
+ztr_ssa_hub_african_wood_1_airport_intl = {
+	city_graphics_type = ztr_ssa_wood_early_modern
+	city_graphics_type = ztr_ssa_wood_late_modern
+	city_graphics_type = ztr_ssa_wood_postmodern
+	city_graphics_type = ztr_ssa_wood_digital
+	city_graphics_type = ztr_ssa_wood_ai
+	priority = 2
+	grid_size = { 5 6 }
+	should_update_on_pm_change = yes
+
+	trigger = {
+		any_scope_state = {
+			"b(building_airport)" ?= { level >= 5 }
+		}
+		any_scope_state = {
+			owner = { has_technology_researched = wide_body_airliners }
+		}
+		NOT = {
+			any_scope_state = {
+				"b(building_renewable_energy_power_plant)" ?= {
+					OR = {
+						is_under_construction = yes
+						level > 0
+					}
+				}
+			}
+		}
+	}
+
+	locator = { name = ztr_centre position = { -1.5 0 0 } rotation = { 0 0 0 } scale = 1.0 }
+	locator = { name = ztr_airport_intl position = { 1.0 0 0 } rotation = { 0 0 0 } scale = 1.0 }
+	attach = { locator = ztr_centre variant = { entity = african_forestry_centerpiece_01_entity } }
+	attach = {
+		locator = ztr_airport_intl
+		variant = { entity = ztr_global_transport_airport_02_entity	building_type = building_airport }
+	}
+}
+
+ztr_ssa_hub_african_wood_1_power_airport_intl = {
+	city_graphics_type = ztr_ssa_wood_early_modern
+	city_graphics_type = ztr_ssa_wood_late_modern
+	city_graphics_type = ztr_ssa_wood_postmodern
+	city_graphics_type = ztr_ssa_wood_digital
+	city_graphics_type = ztr_ssa_wood_ai
+	priority = 4
+	grid_size = { 8 6 }
+	should_update_on_pm_change = yes
+
+	trigger = {
+		any_scope_state = {
+			"b(building_renewable_energy_power_plant)" ?= {
+				OR = {
+					is_under_construction = yes
+					level > 0
+				}
+			}
+		}
+		any_scope_state = {
+			"b(building_airport)" ?= { level >= 5 }
+		}
+		any_scope_state = {
+			owner = { has_technology_researched = wide_body_airliners }
+		}
+	}
+
+	locator = { name = ztr_centre position = { 0.0 0 0 } rotation = { 0 0 0 } scale = 1.0 }
+	locator = { name = ztr_renewable position = { -2.5 0 0 } rotation = { 0 0 0 } scale = 1.0 }
+	locator = { name = ztr_airport_intl position = { 2.5 0 0 } rotation = { 0 0 0 } scale = 1.0 }
+	composition_group = {
+		composition = { name = ztr_wind trigger = { any_scope_building = { has_active_production_method = pm_wind_turbines } } }
+		composition = { name = ztr_solar trigger = { any_scope_building = { OR = { has_active_production_method = pm_rudimental_photovoltaic_cells has_active_production_method = pm_solar_panels } } } }
+	}
+	attach = { locator = ztr_centre variant = { entity = african_forestry_centerpiece_01_entity } }
+	attach = {
+		locator = ztr_renewable
+		variant = { entity = ztr_global_power_wind_01_entity	building_type = building_renewable_energy_power_plant	compositions = { ztr_wind } }
+		variant = { entity = ztr_global_power_solar_01_entity	building_type = building_renewable_energy_power_plant	compositions = { ztr_solar } }
+	}
+	attach = {
+		locator = ztr_airport_intl
+		variant = { entity = ztr_global_transport_airport_02_entity	building_type = building_airport }
 	}
 }

@@ -1,0 +1,30 @@
+namespace = ztr_debug_airports
+
+# Console: event ztr_debug_airports.1
+# Re-run after any legacy airport construction queues finish.
+ztr_debug_airports.1 = {
+	type = country_event
+	hidden = yes
+	orphan = yes
+
+	immediate = {
+		every_state = {
+			ztr_refresh_airport_capacity = yes
+			if = {
+				limit = {
+					has_building = building_airport
+					b:building_airport ?= {
+						level > state.ztr_airport_max_level
+					}
+				}
+				add_building_level = {
+					building = building_airport
+					level = {
+						value = ztr_airport_max_level
+						subtract = b:building_airport.level
+					}
+				}
+			}
+		}
+	}
+}

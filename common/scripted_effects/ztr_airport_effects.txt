@@ -1,0 +1,16 @@
+# State scope. Replace only when the population crosses a capacity threshold.
+ztr_refresh_airport_capacity = {
+	if = {
+		limit = {
+			OR = {
+				NOT = { has_modifier = ztr_airport_capacity_modifier }
+				modifier:state_building_airport_max_level_add != ztr_airport_max_level
+			}
+		}
+		remove_modifier = ztr_airport_capacity_modifier
+		add_modifier = {
+			name = ztr_airport_capacity_modifier
+			multiplier = ztr_airport_max_level
+		}
+	}
+}
