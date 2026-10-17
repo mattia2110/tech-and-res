@@ -63,22 +63,8 @@
 		scope:journal_entry = {
 			is_goal_complete = yes
 		}
-		#Has nuclear weapons tech
-		has_technology_researched = atomic_bomb
-		custom_tooltip = {
-			text = je_develop_nuclear_weapons_1.tt
-			ztr_has_operational_nuclear_silo = yes
-		}
-		custom_tooltip = {
-			text = je_develop_nuclear_weapons_2.tt
-			ztr_nuclear_research_paused = no
-		}
-		has_variable = nuclear_program_started
-		has_law_or_variant = law_type:law_uranium_full_usage
-		NOT = { has_modifier = nuclear_capability }
-		is_subject = no
-		is_revolutionary = no
-		is_secessionist = no
+		# Shared with nuclear_development_add_progress for the 80% cap
+		ztr_nuclear_weapons_goals_met = yes
 	}
 	on_complete = {
 		#Set nuclear capability
@@ -161,23 +147,8 @@ je_develop_thermonuclear_weapons = {
 		scope:journal_entry = {
 			is_goal_complete = yes
 		}
-		#Has nuclear weapons tech
-		has_technology_researched = second_nuclear_reactor
-		custom_tooltip = {
-			text = je_develop_nuclear_weapons_2.tt
-			ztr_nuclear_research_paused = no
-		}
-		has_modifier = nuclear_capability
-		ztr_has_operational_nuclear_silo = yes
-		has_variable = thermonuclear_program_started
-		has_law_or_variant = law_type:law_uranium_full_usage
-		NOR = {
-			has_variable = thermonuclear_capability_var
-			has_technology_researched = hydrogen_bomb
-		}
-		is_subject = no
-		is_revolutionary = no
-		is_secessionist = no
+		# Shared with thermonuclear_development_add_progress for the 80% cap
+		ztr_thermonuclear_weapons_goals_met = yes
 	}
 	on_complete = {
 		#Set nuclear capability

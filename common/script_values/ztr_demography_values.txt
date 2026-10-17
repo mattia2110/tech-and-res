@@ -1,4 +1,4 @@
-﻿# Country-scoped demographic control panel.
+# Country-scoped demographic control panel.
 ztr_demography_drift_scale = 1.5
 ztr_demography_drift_literacy = 2
 ztr_demography_drift_sol = 0.15
@@ -17,6 +17,9 @@ ztr_demography_era_start = 1880
 ztr_demography_era_step = 30
 ztr_demography_era_min = 0
 ztr_demography_era_max = 5
+# Historical key retained; attenuates negative economic effects only below X=600.
+ztr_demography_late_economy_brake = 0.5
+ztr_demography_development_peak_gain = 1.5
 
 # on_yearly_pulse_country can skip a year; `year` is only safe as a script value.
 # initialize always sets the last year before this is read.
@@ -123,7 +126,36 @@ ztr_demography_era = {
 	max = ztr_demography_era_max
 }
 
-# Kd * (Ld*L + min(Ls*SoL, Lm) - u + k): turns negative once the stage outruns literacy, SoL and era.
+# SoL bonus: zero to 20, linear to 25, then a capped hyperbola.
+ztr_demography_development_potential = {
+	value = 0
+	if = {
+		limit = { average_sol > 20 }
+		if = {
+			limit = { average_sol < 25 }
+			value = average_sol
+			subtract = 20
+			divide = 5
+			multiply = ztr_demography_development_peak_gain
+		}
+		else = {
+			value = 10
+			divide = { value = average_sol subtract = 20 }
+			max = ztr_demography_development_peak_gain
+		}
+	}
+}
+
+# Smooth activation from X=500 to X=600; no dependency on development modifiers.
+ztr_demography_development_change = {
+	value = ztr_demography_continuous_stage
+	subtract = 5
+	min = 0
+	max = 1
+	multiply = ztr_demography_development_potential
+}
+
+# Development adds progress after the structural drift is scaled.
 ztr_demography_drift_change = {
 	value = literacy_rate
 	multiply = ztr_demography_drift_literacy
@@ -135,32 +167,43 @@ ztr_demography_drift_change = {
 	subtract = ztr_demography_continuous_stage
 	add = ztr_demography_era
 	multiply = ztr_demography_drift_scale
+	add = ztr_demography_development_change
 }
 
-# Economic effects start once a complete five-year window exists.
-ztr_demography_economy_change = {
+ztr_demography_effective_growth_threshold = {
+	value = ztr_demography_growth_threshold
+	min = 0.001
+}
+
+# Ke/D0 * L * A * max(D-D0, (Lr-1)*D0), once the history is complete.
+ztr_demography_raw_economy_change = {
 	value = 0
 	if = {
 		limit = { has_variable = ztr_demography_growth_var }
 		value = var:ztr_demography_growth_var
-		divide = {
-			value = ztr_demography_growth_threshold
-			min = 0.001
+		subtract = ztr_demography_effective_growth_threshold
+		min = {
+			value = ztr_demography_recession_floor
+			subtract = 1
+			multiply = ztr_demography_effective_growth_threshold
 		}
-		# Recession deepens the stagnation response down to the floor.
-		min = ztr_demography_recession_floor
-		subtract = 1
+		multiply = {
+			value = ztr_demography_speed
+			divide = ztr_demography_effective_growth_threshold
+		}
 		multiply = ztr_demography_stage_coefficient
-		multiply = ztr_demography_speed
 		multiply = literacy_rate
-		# Halve economic setbacks before stage 6, including stagnation.
-		if = {
-			limit = {
-				ztr_demography_continuous_stage < 6
-				var:ztr_demography_growth_var < ztr_demography_growth_threshold
-			}
-			multiply = 0.5
+	}
+}
+
+ztr_demography_economy_change = {
+	value = ztr_demography_raw_economy_change
+	if = {
+		limit = {
+			ztr_demography_continuous_stage < 6
+			ztr_demography_raw_economy_change < 0
 		}
+		multiply = ztr_demography_late_economy_brake
 	}
 }
 
@@ -278,4 +321,129 @@ ztr_demography_recorded_yearly_change = {
 		min = ztr_demography_max_loss
 		max = ztr_demography_max_gain
 	}
+}
+
+### Vital rates shown in TOOLTIP_COUNTRY_POP_GROWTH. GUI-only: nothing is stored or pulsed.
+# Rates are per 1,000 a year. The localization splits the engine's net growth G as
+# B = max(birth_base + birth_share * G, G, 0) and M = B - G, so B - M = G exactly.
+
+# Base curves at the national average SoL, mirroring common/defines/ztr_defines.txt (monthly * 12000).
+ztr_demography_base_birth_rate = {
+	value = 36
+	if = {
+		limit = { average_sol >= 18 }
+		value = 19.2
+	}
+	else_if = {
+		limit = { average_sol > 11 }
+		value = average_sol
+		subtract = 11
+		multiply = -2.4
+		add = 36
+	}
+}
+
+ztr_demography_base_death_rate = {
+	value = 10.8
+	if = {
+		limit = { average_sol < 5 }
+		value = average_sol
+		multiply = -2.4
+		add = 48
+	}
+	else_if = {
+		limit = { average_sol < 12 }
+		value = average_sol
+		subtract = 5
+		multiply = -3.4629
+		add = 36
+	}
+	else_if = {
+		limit = { average_sol < 18 }
+		value = average_sol
+		subtract = 12
+		multiply = -0.16
+		add = 11.76
+	}
+}
+
+# Country-level multipliers; the birth one includes demographic_stage_x.
+ztr_demography_birth_estimate = {
+	value = modifier:state_birth_rate_mult
+	add = 1
+	min = 0.1
+	multiply = ztr_demography_base_birth_rate
+}
+
+ztr_demography_death_estimate = {
+	value = modifier:state_mortality_mult
+	add = 1
+	min = 0.1
+	multiply = ztr_demography_base_death_rate
+}
+
+ztr_demography_vital_rates_sum = {
+	value = ztr_demography_birth_estimate
+	add = ztr_demography_death_estimate
+	min = 0.1
+}
+
+# The gap between G and the estimate is split in proportion to B and M.
+ztr_demography_birth_share = {
+	value = ztr_demography_birth_estimate
+	divide = ztr_demography_vital_rates_sum
+}
+
+# 2*B*M/(B+M): the birth rate when G is zero.
+ztr_demography_birth_base = {
+	value = ztr_demography_birth_estimate
+	multiply = ztr_demography_death_estimate
+	multiply = 2
+	divide = ztr_demography_vital_rates_sum
+}
+
+# Effective share of women aged 15-49, calibrated on TFR/CBR (UN WPP, World Bank, ISTAT).
+# Age structure is folded in: it peaks in the demographic dividend and falls with ageing.
+ztr_demography_fertile_women_share = {
+	value = 0.24
+	if = {
+		limit = { ztr_demography_applied_stage >= 8 }
+		value = 0.185
+	}
+	else_if = {
+		limit = { ztr_demography_applied_stage >= 7 }
+		value = 0.22
+	}
+	else_if = {
+		limit = { ztr_demography_applied_stage >= 6 }
+		value = 0.26
+	}
+	else_if = {
+		limit = { ztr_demography_applied_stage >= 5 }
+		value = 0.29
+	}
+	else_if = {
+		limit = { ztr_demography_applied_stage >= 4 }
+		value = 0.28
+	}
+	else_if = {
+		limit = { ztr_demography_applied_stage >= 3 }
+		value = 0.27
+	}
+	else_if = {
+		limit = { ztr_demography_applied_stage >= 2 }
+		value = 0.26
+	}
+}
+
+# Converts per-1,000 rates into yearly births and deaths.
+ztr_demography_population_thousands = {
+	value = total_population
+	divide = 1000
+}
+
+# TFR = B/1000 * 35 fertile years / share.
+ztr_demography_fertility_factor = {
+	value = 0.035
+	divide = ztr_demography_fertile_women_share
 }

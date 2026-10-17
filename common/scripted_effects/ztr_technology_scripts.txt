@@ -32,63 +32,107 @@ fusion_reactor_add_progress = {
 }
 
 # Monthly progress for je_develop_nuclear_weapons.
+# Progress stops at 1200 (80% of goal_add_value) while any other complete condition is unmet.
 nuclear_development_add_progress = {
-	change_variable = {
-		name = nuclear_development_var
-		add = {
-			value = country_research_progress
-			subtract = 5
-			min = 1
-			# The need to rush if rivals have nukes or if at war
-			if = {
-				limit = {
-					OR = {
-						any_rival_country = {
-							has_modifier = nuclear_capability
+	if = {
+		limit = {
+			OR = {
+				ztr_nuclear_weapons_goals_met = yes
+				var:nuclear_development_var < 1200
+			}
+		}
+		change_variable = {
+			name = nuclear_development_var
+			add = {
+				value = country_research_progress
+				subtract = 5
+				min = 1
+				# The need to rush if rivals have nukes or if at war
+				if = {
+					limit = {
+						OR = {
+							any_rival_country = {
+								has_modifier = nuclear_capability
+							}
+							is_at_war = yes
 						}
-						is_at_war = yes
 					}
+					multiply = 2
 				}
-				multiply = 2
-			}
-			# Diplomatic and operational pauses preserve accumulated progress.
-			if = {
-				limit = {
-					ztr_nuclear_research_paused = yes
+				# A third of the pace until the required technology is researched
+				if = {
+					limit = {
+						NOT = { has_technology_researched = atomic_bomb }
+					}
+					divide = 3
 				}
-				multiply = 0
+				# Diplomatic and operational pauses preserve accumulated progress.
+				if = {
+					limit = {
+						ztr_nuclear_research_paused = yes
+					}
+					multiply = 0
+				}
 			}
+		}
+		if = {
+			limit = {
+				ztr_nuclear_weapons_goals_met = no
+			}
+			clamp_variable = { name = nuclear_development_var max = 1200 min = 0 }
 		}
 	}
 }
 
 # Monthly progress for je_develop_thermonuclear_weapons.
+# Progress stops at 1600 (80% of goal_add_value) while any other complete condition is unmet.
 thermonuclear_development_add_progress = {
-	change_variable = {
-		name = thermonuclear_development_var
-		add = {
-			value = country_research_progress
-			subtract = 5
-			min = 1
-			# The need to rush if rivals have the H bomb or if at war
-			if = {
-				limit = {
-					OR = {
-						any_rival_country = {
-							has_variable = thermonuclear_capability_var
+	if = {
+		limit = {
+			OR = {
+				ztr_thermonuclear_weapons_goals_met = yes
+				var:thermonuclear_development_var < 1600
+			}
+		}
+		change_variable = {
+			name = thermonuclear_development_var
+			add = {
+				value = country_research_progress
+				subtract = 5
+				min = 1
+				# The need to rush if rivals have the H bomb or if at war
+				if = {
+					limit = {
+						OR = {
+							any_rival_country = {
+								has_variable = thermonuclear_capability_var
+							}
+							is_at_war = yes
 						}
-						is_at_war = yes
 					}
+					multiply = 3
 				}
-				multiply = 3
-			}
-			# Both military programmes share the same pause conditions.
-			if = {
-				limit = {
-					ztr_nuclear_research_paused = yes
+				# A third of the pace until the required technology is researched
+				if = {
+					limit = {
+						NOT = { has_technology_researched = second_nuclear_reactor }
+					}
+					divide = 3
 				}
-				multiply = 0
+				# Both military programmes share the same pause conditions.
+				if = {
+					limit = {
+						ztr_nuclear_research_paused = yes
+					}
+					multiply = 0
+				}
 			}
+		}
+		if = {
+			limit = {
+				ztr_thermonuclear_weapons_goals_met = no
+			}
+			clamp_variable = { name = thermonuclear_development_var max = 1600 min = 0 }
 		}
 	}
 }
