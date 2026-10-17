@@ -195,6 +195,52 @@ ztr_un_random_subject_and_law_extraction = {
 				}
 			}
 		}
+		2 = {
+			set_global_variable = {
+				name = ztr_un_subject_possible_proposal
+				value = 12
+			}
+			random_list = {
+				1 = {
+					set_global_variable = {
+						name = ztr_un_law_possible_proposal
+						value = 0
+					}
+				}
+				1 = {
+					set_global_variable = {
+						name = ztr_un_law_possible_proposal
+						value = 1
+					}
+				}
+			}
+		}
+		3 = {
+			set_global_variable = {
+				name = ztr_un_subject_possible_proposal
+				value = 13
+			}
+			random_list = {
+				1 = {
+					set_global_variable = {
+						name = ztr_un_law_possible_proposal
+						value = 0
+					}
+				}
+				1 = {
+					set_global_variable = {
+						name = ztr_un_law_possible_proposal
+						value = 1
+					}
+				}
+				1 = {
+					set_global_variable = {
+						name = ztr_un_law_possible_proposal
+						value = 2
+					}
+				}
+			}
+		}
 		1 = {
 			set_global_variable = {
 				name = ztr_un_subject_possible_proposal
@@ -477,6 +523,24 @@ ztr_un_set_current_law_as_considered = {
 			value = global_var:ztr_un_institution_unesco
 		}
 	}
+	else_if = {
+		limit = {
+			global_var:ztr_un_subject_possible_proposal = 12
+		}
+		set_variable = {
+			name = ztr_un_law_considered
+			value = global_var:ztr_un_hr_environment
+		}
+	}
+	else_if = {
+		limit = {
+			global_var:ztr_un_subject_possible_proposal = 13
+		}
+		set_variable = {
+			name = ztr_un_law_considered
+			value = global_var:ztr_un_hr_labor_rights
+		}
+	}
 }
 
 ztr_un_set_vote_proposal_as_considered = {
@@ -597,6 +661,24 @@ ztr_un_set_current_vote_law_as_considered = {
 		set_variable = {
 			name = ztr_un_law_considered
 			value = global_var:ztr_un_institution_unesco
+		}
+	}
+	else_if = {
+		limit = {
+			global_var:ztr_un_vote_subject = 12
+		}
+		set_variable = {
+			name = ztr_un_law_considered
+			value = global_var:ztr_un_hr_environment
+		}
+	}
+	else_if = {
+		limit = {
+			global_var:ztr_un_vote_subject = 13
+		}
+		set_variable = {
+			name = ztr_un_law_considered
+			value = global_var:ztr_un_hr_labor_rights
 		}
 	}
 }
@@ -2777,6 +2859,332 @@ ztr_un_value_law = {
 				}
 			}
 		}
+		# Subject 12: Environment
+		# Considered law: Environment 0 = Negligible
+		if = {
+			limit = {
+				var:ztr_un_subject_considered = 12
+				var:ztr_un_law_considered = 0
+			}
+			if = {
+				limit = {
+					has_law_or_variant = law_type:law_no_protection
+				}
+				change_variable = {
+					name = ztr_un_law_value_objective_considered
+					add = 15
+				}
+			}
+			if = {
+				limit = {
+					has_law_or_variant = law_type:law_basic_protection
+				}
+				change_variable = {
+					name = ztr_un_law_value_objective_considered
+					add = -10
+				}
+			}
+			if = {
+				limit = {
+					has_law_or_variant = law_type:law_active_restoration
+				}
+				change_variable = {
+					name = ztr_un_law_value_objective_considered
+					add = -20
+				}
+			}
+			if = {
+				limit = {
+					ig:ig_industrialists ?= {
+						is_in_government = yes
+					}
+				}
+				change_variable = {
+					name = ztr_un_law_value_objective_considered
+					add = 10
+				}
+			}
+			change_variable = {
+				name = ztr_un_law_value_objective_considered
+				add = var:ztr_un_value_law_government_hierarchy_balance
+			}
+			change_variable = {
+				name = ztr_un_law_value_objective_considered
+				add = var:ztr_un_value_law_market_balance
+			}
+			change_variable = {
+				name = ztr_un_law_value_objective_considered
+				add = var:ztr_un_value_law_development_inverse_balance
+			}
+		}
+		# Considered law: Environment 1 = Basic Protection
+		if = {
+			limit = {
+				var:ztr_un_subject_considered = 12
+				var:ztr_un_law_considered = 1
+			}
+			if = {
+				limit = {
+					has_law = law_type:law_no_protection
+					has_technology_researched = counterculture
+					ztr_dev_4_or_higher = yes
+				}
+				change_variable = {
+					name = ztr_un_law_value_objective_considered
+					add = -15
+				}
+			}
+			if = {
+				limit = {
+					has_law_or_variant = law_type:law_basic_protection
+				}
+				change_variable = {
+					name = ztr_un_law_value_objective_considered
+					add = 15
+				}
+			}
+			if = {
+				limit = {
+					has_law_or_variant = law_type:law_active_restoration
+				}
+				change_variable = {
+					name = ztr_un_law_value_objective_considered
+					add = 20
+				}
+			}
+			if = {
+				limit = {
+					ig:ig_industrialists ?= {
+						is_in_government = yes
+					}
+				}
+				change_variable = {
+					name = ztr_un_law_value_objective_considered
+					add = -10
+				}
+			}
+			change_variable = {
+				name = ztr_un_law_value_objective_considered
+				add = var:ztr_un_value_law_government_progressive_balance
+			}
+			change_variable = {
+				name = ztr_un_law_value_objective_considered
+				add = var:ztr_un_value_law_liberty_balance_small
+			}
+			change_variable = {
+				name = ztr_un_law_value_objective_considered
+				add = var:ztr_un_value_law_development_balance
+			}
+		}
+		# Subject 13: Labor Rights
+		# Considered law: Labor Rights 0 = Negligible
+		if = {
+			limit = {
+				var:ztr_un_subject_considered = 13
+				var:ztr_un_law_considered = 0
+			}
+			if = {
+				limit = {
+					has_law_or_variant = law_type:law_no_workers_rights
+				}
+				change_variable = {
+					name = ztr_un_law_value_objective_considered
+					add = 20
+				}
+			}
+			if = {
+				limit = {
+					has_law_or_variant = law_type:law_regulatory_bodies
+				}
+				change_variable = {
+					name = ztr_un_law_value_objective_considered
+					add = 5
+				}
+			}
+			if = {
+				limit = {
+					has_law_or_variant = law_type:law_worker_protections
+				}
+				change_variable = {
+					name = ztr_un_law_value_objective_considered
+					add = -20
+				}
+			}
+			if = {
+				limit = {
+					exists = ruler
+					ruler = {
+						has_ideology = ideology:ideology_market_liberal
+					}
+				}
+				change_variable = {
+					name = ztr_un_law_value_objective_considered
+					add = 10
+				}
+			}
+			if = {
+				limit = {
+					ig:ig_trade_unions ?= {
+						is_in_government = yes
+					}
+				}
+				change_variable = {
+					name = ztr_un_law_value_objective_considered
+					add = -10
+				}
+			}
+			change_variable = {
+				name = ztr_un_law_value_objective_considered
+				add = var:ztr_un_value_law_government_hierarchy_balance
+			}
+			change_variable = {
+				name = ztr_un_law_value_objective_considered
+				add = var:ztr_un_value_law_equality_inverse_balance_small
+			}
+			change_variable = {
+				name = ztr_un_law_value_objective_considered
+				add = var:ztr_un_value_law_market_balance
+			}
+			change_variable = {
+				name = ztr_un_law_value_objective_considered
+				add = var:ztr_un_value_law_development_inverse_balance
+			}
+		}
+		# Considered law: Labor Rights 1 = Regulatory Bodies
+		if = {
+			limit = {
+				var:ztr_un_subject_considered = 13
+				var:ztr_un_law_considered = 1
+			}
+			if = {
+				limit = {
+					has_law_or_variant = law_type:law_no_workers_rights
+				}
+				change_variable = {
+					name = ztr_un_law_value_objective_considered
+					add = 10
+				}
+			}
+			if = {
+				limit = {
+					has_law_or_variant = law_type:law_regulatory_bodies
+				}
+				change_variable = {
+					name = ztr_un_law_value_objective_considered
+					add = 15
+				}
+			}
+			if = {
+				limit = {
+					has_law_or_variant = law_type:law_worker_protections
+				}
+				change_variable = {
+					name = ztr_un_law_value_objective_considered
+					add = 5
+				}
+			}
+			if = {
+				limit = {
+					ig:ig_trade_unions ?= {
+						is_in_government = yes
+					}
+				}
+				change_variable = {
+					name = ztr_un_law_value_objective_considered
+					add = 10
+				}
+			}
+			change_variable = {
+				name = ztr_un_law_value_objective_considered
+				add = var:ztr_un_value_law_government_progressive_balance
+			}
+			change_variable = {
+				name = ztr_un_law_value_objective_considered
+				add = var:ztr_un_value_law_equality_balance_small
+			}
+			change_variable = {
+				name = ztr_un_law_value_objective_considered
+				add = var:ztr_un_value_law_development_balance
+			}
+		}
+		# Considered law: Labor Rights 2 = Worker Protections
+		if = {
+			limit = {
+				var:ztr_un_subject_considered = 13
+				var:ztr_un_law_considered = 2
+			}
+			if = {
+				limit = {
+					has_law_or_variant = law_type:law_no_workers_rights
+				}
+				change_variable = {
+					name = ztr_un_law_value_objective_considered
+					add = -20
+				}
+			}
+			if = {
+				limit = {
+					has_law_or_variant = law_type:law_regulatory_bodies
+				}
+				change_variable = {
+					name = ztr_un_law_value_objective_considered
+					add = 10
+				}
+			}
+			if = {
+				limit = {
+					has_law_or_variant = law_type:law_worker_protections
+				}
+				change_variable = {
+					name = ztr_un_law_value_objective_considered
+					add = 20
+				}
+			}
+			if = {
+				limit = {
+					exists = ruler
+					ruler = {
+						has_ideology = ideology:ideology_market_liberal
+					}
+				}
+				change_variable = {
+					name = ztr_un_law_value_objective_considered
+					add = -5
+				}
+			}
+			if = {
+				limit = {
+					ig:ig_trade_unions ?= {
+						is_in_government = yes
+					}
+				}
+				change_variable = {
+					name = ztr_un_law_value_objective_considered
+					add = 10
+				}
+			}
+			if = {
+				limit = {
+					has_radical_leftist_government = yes
+				}
+				change_variable = {
+					name = ztr_un_law_value_objective_considered
+					add = 5
+				}
+			}
+			change_variable = {
+				name = ztr_un_law_value_objective_considered
+				add = var:ztr_un_value_law_government_progressive_balance
+			}
+			change_variable = {
+				name = ztr_un_law_value_objective_considered
+				add = var:ztr_un_value_law_equality_balance
+			}
+			change_variable = {
+				name = ztr_un_law_value_objective_considered
+				add = var:ztr_un_value_law_development_balance
+			}
+		}
 		# Subject 8-11: Institutions
 		# Considered law: IMF 0 = Not Established
 		if = {
@@ -4092,6 +4500,101 @@ ztr_un_value_law = {
 					OR = {
 						has_law_or_variant = law_type:law_no_womens_rights
 						has_law_or_variant = law_type:law_women_own_property
+					}
+				}
+				prev = {
+					change_variable = {
+						name = ztr_un_law_value_secret_considered
+						add = 10
+					}
+				}
+			}
+		}
+		# Considered law: Environment 0 = Negligible
+		if = {
+			limit = {
+				var:ztr_un_subject_considered = 12
+				var:ztr_un_law_considered = 0
+			}
+			every_rival_country = {
+				limit = {
+					has_law_or_variant = law_type:law_no_protection
+				}
+				prev = {
+					change_variable = {
+						name = ztr_un_law_value_secret_considered
+						add = -5
+					}
+				}
+			}
+		}
+		# Considered law: Environment 1 = Basic Protection
+		if = {
+			limit = {
+				var:ztr_un_subject_considered = 12
+				var:ztr_un_law_considered = 1
+			}
+			every_rival_country = {
+				limit = {
+					has_law = law_type:law_no_protection
+					has_technology_researched = counterculture
+					ztr_dev_4_or_higher = yes
+				}
+				prev = {
+					change_variable = {
+						name = ztr_un_law_value_secret_considered
+						add = 10
+					}
+				}
+			}
+		}
+		# Considered law: Labor Rights 0 = Negligible
+		if = {
+			limit = {
+				var:ztr_un_subject_considered = 13
+				var:ztr_un_law_considered = 0
+			}
+			every_rival_country = {
+				limit = {
+					has_law_or_variant = law_type:law_no_workers_rights
+				}
+				prev = {
+					change_variable = {
+						name = ztr_un_law_value_secret_considered
+						add = -5
+					}
+				}
+			}
+		}
+		# Considered law: Labor Rights 1 = Regulatory Bodies
+		if = {
+			limit = {
+				var:ztr_un_subject_considered = 13
+				var:ztr_un_law_considered = 1
+			}
+			every_rival_country = {
+				limit = {
+					has_law_or_variant = law_type:law_no_workers_rights
+				}
+				prev = {
+					change_variable = {
+						name = ztr_un_law_value_secret_considered
+						add = 5
+					}
+				}
+			}
+		}
+		# Considered law: Labor Rights 2 = Worker Protections
+		if = {
+			limit = {
+				var:ztr_un_subject_considered = 13
+				var:ztr_un_law_considered = 2
+			}
+			every_rival_country = {
+				limit = {
+					OR = {
+						has_law_or_variant = law_type:law_no_workers_rights
+						has_law_or_variant = law_type:law_regulatory_bodies
 					}
 				}
 				prev = {

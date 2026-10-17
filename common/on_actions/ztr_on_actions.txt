@@ -1,4 +1,4 @@
-﻿######################################################################
+######################################################################
 ###GLOBAL ON_ACTION DEFINITIONS###
 ######################################################################
 on_yearly_pulse = {
@@ -209,6 +209,24 @@ un_institutions_on_yearly_pulse = {
 		has_global_variable = un_founded_var
 	}
 	effect = {
+		# Ensure the decorative UN Headquarters exists in post-foundation saves
+		if = {
+			limit = {
+				NOT = {
+					any_country = {
+						has_building = building_un_headquarters
+					}
+				}
+			}
+			ordered_country = {
+				limit = {
+					has_modifier = ztr_onu_permanent_member
+				}
+				order_by = country_rank
+				max = 1
+				ztr_create_un_headquarters = yes
+			}
+		}
 		# ICC global mechanics
 		every_country = {
 			limit = {
@@ -293,6 +311,7 @@ on_yearly_pulse_country = {
 		ztr_demography_on_yearly_pulse
 		research_center_linkage_on_yearly_pulse_country
 		ztr_un_compliance_on_yearly_pulse_country
+		ztr_un_standards_on_yearly_pulse_country
 	}
 }
 
@@ -327,6 +346,54 @@ ztr_un_compliance_on_yearly_pulse_country = {
 			trigger_event = {
 				id = ztr_un_compliance.3
 				popup = yes
+			}
+		}
+		else_if = {
+			limit = {
+				ztr_un_labor_rights_request_valid = yes
+			}
+			trigger_event = {
+				id = ztr_un_compliance.4
+				popup = yes
+			}
+		}
+	}
+}
+
+# UN minimum standards for members that meet the conditions after adoption
+ztr_un_standards_on_yearly_pulse_country = {
+	trigger = {
+		ztr_is_un_member = yes
+	}
+	effect = {
+		if = {
+			limit = {
+				ztr_un_environment_standard_applies = yes
+			}
+			ztr_un_apply_environment_standard = yes
+			if = {
+				limit = {
+					is_ai = no
+				}
+				trigger_event = {
+					id = ztr_un_compliance.5
+					popup = yes
+				}
+			}
+		}
+		if = {
+			limit = {
+				ztr_un_labor_rights_standard_applies = yes
+			}
+			ztr_un_apply_labor_rights_standard = yes
+			if = {
+				limit = {
+					is_ai = no
+				}
+				trigger_event = {
+					id = ztr_un_compliance.6
+					popup = yes
+				}
 			}
 		}
 	}

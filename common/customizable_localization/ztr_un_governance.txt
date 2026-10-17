@@ -203,6 +203,47 @@ ztr_un_law_human_rights_women_name = {
 	}
 }
 
+ztr_un_law_human_rights_environment_name = {
+	type = country
+	text = {
+		trigger = {
+			has_global_variable = ztr_un_hr_environment
+			global_var:ztr_un_hr_environment = 1
+		}
+		localization_key = ztr_un_vote_proposal_environment_basic_protection
+	}
+	text = {
+		trigger = {
+			always = yes
+		}
+		localization_key = ztr_un_vote_proposal_environment_negligible
+	}
+}
+
+ztr_un_law_human_rights_labor_name = {
+	type = country
+	text = {
+		trigger = {
+			has_global_variable = ztr_un_hr_labor_rights
+			global_var:ztr_un_hr_labor_rights = 2
+		}
+		localization_key = ztr_un_vote_proposal_labor_rights_worker_protections
+	}
+	text = {
+		trigger = {
+			has_global_variable = ztr_un_hr_labor_rights
+			global_var:ztr_un_hr_labor_rights = 1
+		}
+		localization_key = ztr_un_vote_proposal_labor_rights_regulatory_bodies
+	}
+	text = {
+		trigger = {
+			always = yes
+		}
+		localization_key = ztr_un_vote_proposal_labor_rights_negligible
+	}
+}
+
 ztr_un_vote_choice_name = {
 	type = country
 	text = {
@@ -344,6 +385,20 @@ ztr_un_vote_subject_name_je = {
 			global_var:ztr_un_vote_subject = 7
 		}
 		localization_key = ztr_un_vote_subject_human_rights_women_rights
+	}
+	text = {
+		trigger = {
+			has_global_variable = ztr_un_vote_subject
+			global_var:ztr_un_vote_subject = 12
+		}
+		localization_key = ztr_un_vote_subject_human_rights_environment
+	}
+	text = {
+		trigger = {
+			has_global_variable = ztr_un_vote_subject
+			global_var:ztr_un_vote_subject = 13
+		}
+		localization_key = ztr_un_vote_subject_human_rights_labor_rights
 	}
 	text = {
 		trigger = {
@@ -570,6 +625,53 @@ ztr_un_vote_proposal_name = {
 			global_var:ztr_un_vote_proposal = 0
 		}
 		localization_key = ztr_un_vote_proposal_women_rights_negligible
+	}
+	# Environment proposals (subject = 12)
+	text = {
+		trigger = {
+			has_global_variable = ztr_un_vote_subject
+			global_var:ztr_un_vote_subject = 12
+			has_global_variable = ztr_un_vote_proposal
+			global_var:ztr_un_vote_proposal = 0
+		}
+		localization_key = ztr_un_vote_proposal_environment_negligible
+	}
+	text = {
+		trigger = {
+			has_global_variable = ztr_un_vote_subject
+			global_var:ztr_un_vote_subject = 12
+			has_global_variable = ztr_un_vote_proposal
+			global_var:ztr_un_vote_proposal = 1
+		}
+		localization_key = ztr_un_vote_proposal_environment_basic_protection
+	}
+	# Labor Rights proposals (subject = 13)
+	text = {
+		trigger = {
+			has_global_variable = ztr_un_vote_subject
+			global_var:ztr_un_vote_subject = 13
+			has_global_variable = ztr_un_vote_proposal
+			global_var:ztr_un_vote_proposal = 0
+		}
+		localization_key = ztr_un_vote_proposal_labor_rights_negligible
+	}
+	text = {
+		trigger = {
+			has_global_variable = ztr_un_vote_subject
+			global_var:ztr_un_vote_subject = 13
+			has_global_variable = ztr_un_vote_proposal
+			global_var:ztr_un_vote_proposal = 1
+		}
+		localization_key = ztr_un_vote_proposal_labor_rights_regulatory_bodies
+	}
+	text = {
+		trigger = {
+			has_global_variable = ztr_un_vote_subject
+			global_var:ztr_un_vote_subject = 13
+			has_global_variable = ztr_un_vote_proposal
+			global_var:ztr_un_vote_proposal = 2
+		}
+		localization_key = ztr_un_vote_proposal_labor_rights_worker_protections
 	}
 	# IMF proposals (subject = 8)
 	text = {
@@ -837,6 +939,49 @@ ztr_un_vote_current_law_name_je = {
 		}
 		localization_key = ztr_un_vote_proposal_women_rights_negligible
 	}
+	# Subject 12: Environment current stance
+	text = {
+		trigger = {
+			has_global_variable = ztr_un_vote_subject
+			global_var:ztr_un_vote_subject = 12
+			has_global_variable = ztr_un_hr_environment
+			global_var:ztr_un_hr_environment = 1
+		}
+		localization_key = ztr_un_vote_proposal_environment_basic_protection
+	}
+	text = {
+		trigger = {
+			has_global_variable = ztr_un_vote_subject
+			global_var:ztr_un_vote_subject = 12
+		}
+		localization_key = ztr_un_vote_proposal_environment_negligible
+	}
+	# Subject 13: Labor Rights current stance
+	text = {
+		trigger = {
+			has_global_variable = ztr_un_vote_subject
+			global_var:ztr_un_vote_subject = 13
+			has_global_variable = ztr_un_hr_labor_rights
+			global_var:ztr_un_hr_labor_rights = 2
+		}
+		localization_key = ztr_un_vote_proposal_labor_rights_worker_protections
+	}
+	text = {
+		trigger = {
+			has_global_variable = ztr_un_vote_subject
+			global_var:ztr_un_vote_subject = 13
+			has_global_variable = ztr_un_hr_labor_rights
+			global_var:ztr_un_hr_labor_rights = 1
+		}
+		localization_key = ztr_un_vote_proposal_labor_rights_regulatory_bodies
+	}
+	text = {
+		trigger = {
+			has_global_variable = ztr_un_vote_subject
+			global_var:ztr_un_vote_subject = 13
+		}
+		localization_key = ztr_un_vote_proposal_labor_rights_negligible
+	}
 	# Subject 8: IMF
 	text = {
 		trigger = {
@@ -1094,6 +1239,49 @@ ztr_un_vote_current_law_name = {
 		}
 		localization_key = ztr_un_vote_proposal_women_rights_negligible
 	}
+	# Subject 12: Environment current stance
+	text = {
+		trigger = {
+			has_global_variable = ztr_un_vote_subject
+			global_var:ztr_un_vote_subject = 12
+			has_global_variable = ztr_un_hr_environment
+			global_var:ztr_un_hr_environment = 1
+		}
+		localization_key = ztr_un_vote_proposal_environment_basic_protection
+	}
+	text = {
+		trigger = {
+			has_global_variable = ztr_un_vote_subject
+			global_var:ztr_un_vote_subject = 12
+		}
+		localization_key = ztr_un_vote_proposal_environment_negligible
+	}
+	# Subject 13: Labor Rights current stance
+	text = {
+		trigger = {
+			has_global_variable = ztr_un_vote_subject
+			global_var:ztr_un_vote_subject = 13
+			has_global_variable = ztr_un_hr_labor_rights
+			global_var:ztr_un_hr_labor_rights = 2
+		}
+		localization_key = ztr_un_vote_proposal_labor_rights_worker_protections
+	}
+	text = {
+		trigger = {
+			has_global_variable = ztr_un_vote_subject
+			global_var:ztr_un_vote_subject = 13
+			has_global_variable = ztr_un_hr_labor_rights
+			global_var:ztr_un_hr_labor_rights = 1
+		}
+		localization_key = ztr_un_vote_proposal_labor_rights_regulatory_bodies
+	}
+	text = {
+		trigger = {
+			has_global_variable = ztr_un_vote_subject
+			global_var:ztr_un_vote_subject = 13
+		}
+		localization_key = ztr_un_vote_proposal_labor_rights_negligible
+	}
 	# Subject 8: IMF
 	text = {
 		trigger = {
@@ -1221,6 +1409,20 @@ ztr_un_vote_subject_name = {
 			global_var:ztr_un_vote_subject = 7
 		}
 		localization_key = ztr_un_vote_subject_human_rights_women_rights
+	}
+	text = {
+		trigger = {
+			has_global_variable = ztr_un_vote_subject
+			global_var:ztr_un_vote_subject = 12
+		}
+		localization_key = ztr_un_vote_subject_human_rights_environment
+	}
+	text = {
+		trigger = {
+			has_global_variable = ztr_un_vote_subject
+			global_var:ztr_un_vote_subject = 13
+		}
+		localization_key = ztr_un_vote_subject_human_rights_labor_rights
 	}
 	text = {
 		trigger = {
@@ -1448,6 +1650,53 @@ ztr_un_vote_proposal_name_je = {
 		}
 		localization_key = ztr_un_vote_proposal_women_rights_negligible
 	}
+	# Environment proposals (subject = 12)
+	text = {
+		trigger = {
+			has_global_variable = ztr_un_vote_subject
+			global_var:ztr_un_vote_subject = 12
+			has_global_variable = ztr_un_vote_proposal
+			global_var:ztr_un_vote_proposal = 0
+		}
+		localization_key = ztr_un_vote_proposal_environment_negligible
+	}
+	text = {
+		trigger = {
+			has_global_variable = ztr_un_vote_subject
+			global_var:ztr_un_vote_subject = 12
+			has_global_variable = ztr_un_vote_proposal
+			global_var:ztr_un_vote_proposal = 1
+		}
+		localization_key = ztr_un_vote_proposal_environment_basic_protection
+	}
+	# Labor Rights proposals (subject = 13)
+	text = {
+		trigger = {
+			has_global_variable = ztr_un_vote_subject
+			global_var:ztr_un_vote_subject = 13
+			has_global_variable = ztr_un_vote_proposal
+			global_var:ztr_un_vote_proposal = 0
+		}
+		localization_key = ztr_un_vote_proposal_labor_rights_negligible
+	}
+	text = {
+		trigger = {
+			has_global_variable = ztr_un_vote_subject
+			global_var:ztr_un_vote_subject = 13
+			has_global_variable = ztr_un_vote_proposal
+			global_var:ztr_un_vote_proposal = 1
+		}
+		localization_key = ztr_un_vote_proposal_labor_rights_regulatory_bodies
+	}
+	text = {
+		trigger = {
+			has_global_variable = ztr_un_vote_subject
+			global_var:ztr_un_vote_subject = 13
+			has_global_variable = ztr_un_vote_proposal
+			global_var:ztr_un_vote_proposal = 2
+		}
+		localization_key = ztr_un_vote_proposal_labor_rights_worker_protections
+	}
 	# IMF proposals (subject = 8)
 	text = {
 		trigger = {
@@ -1523,94 +1772,6 @@ ztr_un_vote_proposal_name_je = {
 			global_var:ztr_un_vote_proposal = 0
 		}
 		localization_key = ztr_un_institution_unesco_not_established
-	}
-	text = {
-		trigger = {
-			always = yes
-		}
-		localization_key = ztr_un_law_unknown
-	}
-}
-
-# Vote Subject Name (what's currently being voted on)
-ztr_un_vote_subject_name_je = {
-	type = journal_entry
-	text = {
-		trigger = {
-			has_global_variable = ztr_un_vote_subject
-			global_var:ztr_un_vote_subject = 1
-		}
-		localization_key = ztr_un_vote_subject_voting_model
-	}
-	text = {
-		trigger = {
-			has_global_variable = ztr_un_vote_subject
-			global_var:ztr_un_vote_subject = 2
-		}
-		localization_key = ztr_un_vote_subject_veto_right
-	}
-	text = {
-		trigger = {
-			has_global_variable = ztr_un_vote_subject
-			global_var:ztr_un_vote_subject = 3
-		}
-		localization_key = ztr_un_vote_subject_member_selection
-	}
-	text = {
-		trigger = {
-			has_global_variable = ztr_un_vote_subject
-			global_var:ztr_un_vote_subject = 4
-		}
-		localization_key = ztr_un_vote_subject_human_rights_decolonization
-	}
-	text = {
-		trigger = {
-			has_global_variable = ztr_un_vote_subject
-			global_var:ztr_un_vote_subject = 5
-		}
-		localization_key = ztr_un_vote_subject_human_rights_slavery
-	}
-	text = {
-		trigger = {
-			has_global_variable = ztr_un_vote_subject
-			global_var:ztr_un_vote_subject = 6
-		}
-		localization_key = ztr_un_vote_subject_human_rights_children_rights
-	}
-	text = {
-		trigger = {
-			has_global_variable = ztr_un_vote_subject
-			global_var:ztr_un_vote_subject = 7
-		}
-		localization_key = ztr_un_vote_subject_human_rights_women_rights
-	}
-	text = {
-		trigger = {
-			has_global_variable = ztr_un_vote_subject
-			global_var:ztr_un_vote_subject = 8
-		}
-		localization_key = ztr_un_vote_subject_institutions_imf
-	}
-	text = {
-		trigger = {
-			has_global_variable = ztr_un_vote_subject
-			global_var:ztr_un_vote_subject = 9
-		}
-		localization_key = ztr_un_vote_subject_institutions_wto
-	}
-	text = {
-		trigger = {
-			has_global_variable = ztr_un_vote_subject
-			global_var:ztr_un_vote_subject = 10
-		}
-		localization_key = ztr_un_vote_subject_institutions_icc
-	}
-	text = {
-		trigger = {
-			has_global_variable = ztr_un_vote_subject
-			global_var:ztr_un_vote_subject = 11
-		}
-		localization_key = ztr_un_vote_subject_institutions_unesco
 	}
 	text = {
 		trigger = {

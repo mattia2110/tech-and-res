@@ -372,3 +372,165 @@ ztr_un_compliance.3 = {
 		}
 	}
 }
+
+# Labor Rights: worker protections
+ztr_un_compliance.4 = {
+	dlc = dlc_tech_res
+	type = country_event
+	placement = root
+	duration = 3
+	title = ztr_un_compliance.4.t
+	desc = ztr_un_compliance.4.d
+	flavor = ztr_un_compliance.4.f
+	event_image = {
+		video = "asia_union_leader"
+	}
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	icon = "gfx/interface/icons/event_icons/ztr_onu_member.dds"
+
+	trigger = {
+		ztr_un_labor_rights_request_valid = yes
+	}
+
+	cancellation_trigger = {
+		NOT = {
+			ztr_is_un_member = yes
+		}
+	}
+
+	immediate = {
+		set_variable = {
+			name = ztr_un_labor_rights_request_cooldown
+			years = 5
+		}
+	}
+
+	# Accept
+	option = {
+		name = ztr_un_compliance.4.a
+		default_option = yes
+		if = {
+			limit = {
+				enacting_any_law = yes
+			}
+			cancel_enactment = yes
+		}
+		start_enactment = law_type:law_worker_protections
+		ai_chance = {
+			base = 25
+			modifier = {
+				trigger = {
+					has_strategy = ai_strategy_industrial_expansion
+				}
+				add = 40
+			}
+			modifier = {
+				trigger = {
+					ztr_un_worker_protections_support > 0
+				}
+				add = 40
+			}
+			modifier = {
+				trigger = {
+					ig:ig_trade_unions ?= {
+						is_in_government = yes
+					}
+				}
+				add = 15
+			}
+			modifier = {
+				trigger = {
+					has_imf_modifier = yes
+				}
+				add = 20
+			}
+		}
+	}
+
+	# Refuse
+	option = {
+		name = ztr_un_compliance.4.b
+		ztr_un_refuse_compliance_request = yes
+		ai_chance = {
+			base = 25
+			modifier = {
+				trigger = {
+					ztr_un_worker_protections_support < 0
+				}
+				add = 40
+			}
+			modifier = {
+				trigger = {
+					has_law_or_variant = law_type:law_laissez_faire
+				}
+				add = 20
+			}
+			modifier = {
+				trigger = {
+					has_law_or_variant = law_type:law_isolationism
+				}
+				add = 30
+			}
+			modifier = {
+				trigger = {
+					country_rank >= rank_value:great_power
+				}
+				add = 15
+			}
+			modifier = {
+				trigger = {
+					has_modifier = ztr_icc_investigation_modifier
+				}
+				add = 20
+			}
+		}
+	}
+}
+
+# Notification: basic environmental protection applied after the statement
+ztr_un_compliance.5 = {
+	dlc = dlc_tech_res
+	type = country_event
+	placement = root
+	duration = 3
+	title = ztr_un_compliance.5.t
+	desc = ztr_un_compliance.5.d
+	event_image = {
+		video = "ztr_un_congress"
+	}
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	icon = "gfx/interface/icons/event_icons/ztr_onu_member.dds"
+
+	trigger = {
+		# Fired by ztr_un_standards_on_yearly_pulse_country
+	}
+
+	option = {
+		name = ztr_un_compliance.5.a
+		default_option = yes
+	}
+}
+
+# Notification: regulatory bodies applied after the statement
+ztr_un_compliance.6 = {
+	dlc = dlc_tech_res
+	type = country_event
+	placement = root
+	duration = 3
+	title = ztr_un_compliance.6.t
+	desc = ztr_un_compliance.6.d
+	event_image = {
+		video = "ztr_un_congress"
+	}
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	icon = "gfx/interface/icons/event_icons/ztr_onu_member.dds"
+
+	trigger = {
+		# Fired by ztr_un_standards_on_yearly_pulse_country
+	}
+
+	option = {
+		name = ztr_un_compliance.6.a
+		default_option = yes
+	}
+}

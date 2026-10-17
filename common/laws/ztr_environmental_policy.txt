@@ -5,6 +5,21 @@ law_no_protection = {
 	
 	progressiveness = 0
 
+	can_enact = {
+		custom_tooltip = {
+			text = ztr_un_hr_basic_protection_environment_tt
+			OR = {
+				NOT = {
+					ztr_is_un_member = yes
+				}
+				NOT = {
+					has_global_variable = ztr_un_hr_environment
+				}
+				global_var:ztr_un_hr_environment = 0
+			}
+		}
+	}
+
 	modifier = {
 		state_pollution_reduction_health_mult = 0.05
 	}

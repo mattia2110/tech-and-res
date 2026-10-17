@@ -95,3 +95,35 @@ ztr_un_women_rights_request_valid = {
 	}
 	has_technology_researched = feminism
 }
+
+# Environment level 1: imposed only where the law group can change
+ztr_un_environment_standard_applies = {
+	ztr_is_un_member = yes
+	has_global_variable = ztr_un_hr_environment
+	global_var:ztr_un_hr_environment >= 1
+	has_law = law_type:law_no_protection
+	has_technology_researched = counterculture
+	ztr_dev_4_or_higher = yes
+}
+
+# Labor rights level 1+: imposed only with the unlocking technology
+ztr_un_labor_rights_standard_applies = {
+	ztr_is_un_member = yes
+	has_global_variable = ztr_un_hr_labor_rights
+	global_var:ztr_un_hr_labor_rights >= 1
+	has_law_or_variant = law_type:law_no_workers_rights
+	has_technology_researched = labor_movement
+}
+
+ztr_un_labor_rights_request_valid = {
+	ztr_un_can_receive_compliance_request = yes
+	has_global_variable = ztr_un_hr_labor_rights
+	global_var:ztr_un_hr_labor_rights = 2
+	NOT = {
+		has_variable = ztr_un_labor_rights_request_cooldown
+	}
+	NOT = {
+		has_law_or_variant = law_type:law_worker_protections
+	}
+	has_technology_researched = human_rights
+}

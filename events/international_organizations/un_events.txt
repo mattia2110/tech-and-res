@@ -40,6 +40,9 @@ ztr_un_event.1 = {
 		add_modifier = ztr_onu_permanent_member
 		ztr_un_init_governance_laws = yes
 		join_un_law_changes = yes
+		hidden_effect = {
+			ztr_create_un_headquarters = yes
+		}
 		every_country = {
 			limit = {
 				NOT = {
@@ -866,6 +869,28 @@ ztr_un_event.30 = {
 			base = 0
 		}
 	}
+	# Propose Statement on the Environment
+	option = {
+		name = ztr_un_event.30.g
+		trigger_event = {
+			id = ztr_un_event.35
+			popup = yes
+		}
+		ai_chance = {
+			base = 0
+		}
+	}
+	# Propose Statement on Labor Rights
+	option = {
+		name = ztr_un_event.30.h
+		trigger_event = {
+			id = ztr_un_event.36
+			popup = yes
+		}
+		ai_chance = {
+			base = 0
+		}
+	}
 	# Nevermind
 	option = {
 		name = ztr_un_event.30.e
@@ -1132,6 +1157,7 @@ ztr_un_event.33 = {
 			value = 2
 		}
 		ztr_un_start_governance_vote = yes
+		set_variable = ztr_un_vote_proposer
 		remove_global_variable = ztr_un_button_opened
 		ai_chance = {
 			base = 0
@@ -1211,6 +1237,7 @@ ztr_un_event.34 = {
 			value = 1
 		}
 		ztr_un_start_governance_vote = yes
+		set_variable = ztr_un_vote_proposer
 		remove_global_variable = ztr_un_button_opened
 		ai_chance = {
 			base = 0
@@ -1243,6 +1270,200 @@ ztr_un_event.34 = {
 	# Nevermind
 	option = {
 		name = ztr_un_event.34.e
+		default_option = yes
+		remove_global_variable = ztr_un_button_opened
+		ai_chance = {
+			base = 100
+		}
+	}
+}
+
+# Event 35: Environment Statement
+ztr_un_event.35 = {
+	dlc = dlc_tech_res
+	type = country_event
+	placement = root
+	duration = 1
+	title = ztr_un_event.35.t
+	desc = ztr_un_event.35.d
+	event_image = {
+		video = "unspecific_politicians_arguing"
+	}
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	icon = "gfx/interface/icons/event_icons/ztr_onu_member.dds"
+	trigger = {
+	}
+	immediate = {
+	}
+	# Propose: Basic Protection
+	option = {
+		name = ztr_un_event.35.a
+		trigger = {
+			has_technology_researched = counterculture
+			OR = {
+				NOT = {
+					has_global_variable = ztr_un_hr_environment
+				}
+				NOT = {
+					global_var:ztr_un_hr_environment = 1
+				}
+			}
+		}
+		show_as_unavailable = {
+			NOT = {
+				has_technology_researched = counterculture
+			}
+		}
+		set_global_variable = {
+			name = ztr_un_vote_subject
+			value = 12
+		}
+		set_global_variable = {
+			name = ztr_un_vote_proposal
+			value = 1
+		}
+		ztr_un_start_governance_vote = yes
+		set_variable = ztr_un_vote_proposer
+		remove_global_variable = ztr_un_button_opened
+		ai_chance = {
+			base = 0
+		}
+	}
+	# Propose: Negligible
+	option = {
+		name = ztr_un_event.35.b
+		trigger = {
+			has_global_variable = ztr_un_hr_environment
+			NOT = {
+				global_var:ztr_un_hr_environment = 0
+			}
+		}
+		set_global_variable = {
+			name = ztr_un_vote_subject
+			value = 12
+		}
+		set_global_variable = {
+			name = ztr_un_vote_proposal
+			value = 0
+		}
+		ztr_un_start_governance_vote = yes
+		set_variable = ztr_un_vote_proposer
+		remove_global_variable = ztr_un_button_opened
+		ai_chance = {
+			base = 0
+		}
+	}
+	# Nevermind
+	option = {
+		name = ztr_un_event.35.e
+		default_option = yes
+		remove_global_variable = ztr_un_button_opened
+		ai_chance = {
+			base = 100
+		}
+	}
+}
+
+# Event 36: Labor Rights Statement
+ztr_un_event.36 = {
+	dlc = dlc_tech_res
+	type = country_event
+	placement = root
+	duration = 1
+	title = ztr_un_event.36.t
+	desc = ztr_un_event.36.d
+	event_image = {
+		video = "unspecific_politicians_arguing"
+	}
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	icon = "gfx/interface/icons/event_icons/ztr_onu_member.dds"
+	trigger = {
+	}
+	immediate = {
+	}
+	# Propose: Regulatory Bodies
+	option = {
+		name = ztr_un_event.36.a
+		trigger = {
+			OR = {
+				NOT = {
+					has_global_variable = ztr_un_hr_labor_rights
+				}
+				NOT = {
+					global_var:ztr_un_hr_labor_rights = 1
+				}
+			}
+		}
+		set_global_variable = {
+			name = ztr_un_vote_subject
+			value = 13
+		}
+		set_global_variable = {
+			name = ztr_un_vote_proposal
+			value = 1
+		}
+		ztr_un_start_governance_vote = yes
+		set_variable = ztr_un_vote_proposer
+		remove_global_variable = ztr_un_button_opened
+		ai_chance = {
+			base = 0
+		}
+	}
+	# Propose: Worker Protections
+	option = {
+		name = ztr_un_event.36.b
+		trigger = {
+			OR = {
+				NOT = {
+					has_global_variable = ztr_un_hr_labor_rights
+				}
+				NOT = {
+					global_var:ztr_un_hr_labor_rights = 2
+				}
+			}
+		}
+		set_global_variable = {
+			name = ztr_un_vote_subject
+			value = 13
+		}
+		set_global_variable = {
+			name = ztr_un_vote_proposal
+			value = 2
+		}
+		ztr_un_start_governance_vote = yes
+		set_variable = ztr_un_vote_proposer
+		remove_global_variable = ztr_un_button_opened
+		ai_chance = {
+			base = 0
+		}
+	}
+	# Propose: Negligible
+	option = {
+		name = ztr_un_event.36.c
+		trigger = {
+			has_global_variable = ztr_un_hr_labor_rights
+			NOT = {
+				global_var:ztr_un_hr_labor_rights = 0
+			}
+		}
+		set_global_variable = {
+			name = ztr_un_vote_subject
+			value = 13
+		}
+		set_global_variable = {
+			name = ztr_un_vote_proposal
+			value = 0
+		}
+		ztr_un_start_governance_vote = yes
+		set_variable = ztr_un_vote_proposer
+		remove_global_variable = ztr_un_button_opened
+		ai_chance = {
+			base = 0
+		}
+	}
+	# Nevermind
+	option = {
+		name = ztr_un_event.36.e
 		default_option = yes
 		remove_global_variable = ztr_un_button_opened
 		ai_chance = {

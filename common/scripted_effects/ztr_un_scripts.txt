@@ -99,6 +99,9 @@ join_un_law_changes = {
 		activate_law = law_type:law_restricted_child_labor
 	}
 	#Women's rights: requested by ztr_un_compliance.3, not imposed
+	# Environment and labor rights minimum standards
+	ztr_un_apply_environment_standard = yes
+	ztr_un_apply_labor_rights_standard = yes
 	ztr_un_apply_member_institution_modifiers = yes
 }
 
@@ -361,6 +364,30 @@ ztr_un_init_governance_laws = {
 		}
 		set_global_variable = {
 			name = ztr_un_hr_women_rights
+			value = 0
+		}
+	}
+	# Environment: 0 = Negligible
+	if = {
+		limit = {
+			NOT = {
+				has_global_variable = ztr_un_hr_environment
+			}
+		}
+		set_global_variable = {
+			name = ztr_un_hr_environment
+			value = 0
+		}
+	}
+	# Labor Rights: 0 = Negligible
+	if = {
+		limit = {
+			NOT = {
+				has_global_variable = ztr_un_hr_labor_rights
+			}
+		}
+		set_global_variable = {
+			name = ztr_un_hr_labor_rights
 			value = 0
 		}
 	}
@@ -762,6 +789,54 @@ ztr_un_apply_governance_vote = {
 		# Law enforcement is handled by the dedicated law scripts.
 		# Women's rights - gender equality: requested by ztr_un_compliance.3, not imposed
 	}
+	# Subject 12: Human Rights - Environment
+	if = {
+		limit = {
+			has_global_variable = ztr_un_vote_subject
+			global_var:ztr_un_vote_subject = 12
+		}
+		if = {
+			limit = {
+				has_global_variable = ztr_un_hr_environment
+			}
+			remove_global_variable = ztr_un_hr_environment
+		}
+		set_global_variable = {
+			name = ztr_un_hr_environment
+			value = global_var:ztr_un_vote_proposal
+		}
+		# Basic protection: only members that can change environmental policy
+		every_country = {
+			limit = {
+				ztr_un_environment_standard_applies = yes
+			}
+			ztr_un_apply_environment_standard = yes
+		}
+	}
+	# Subject 13: Human Rights - Labor Rights
+	if = {
+		limit = {
+			has_global_variable = ztr_un_vote_subject
+			global_var:ztr_un_vote_subject = 13
+		}
+		if = {
+			limit = {
+				has_global_variable = ztr_un_hr_labor_rights
+			}
+			remove_global_variable = ztr_un_hr_labor_rights
+		}
+		set_global_variable = {
+			name = ztr_un_hr_labor_rights
+			value = global_var:ztr_un_vote_proposal
+		}
+		# Regulatory bodies imposed at level 1+; worker protections requested by ztr_un_compliance.4
+		every_country = {
+			limit = {
+				ztr_un_labor_rights_standard_applies = yes
+			}
+			ztr_un_apply_labor_rights_standard = yes
+		}
+	}
 	# Subject 8: IMF (+ World Bank)
 	if = {
 		limit = {
@@ -1082,3 +1157,42 @@ ztr_un_vote_cleanup_all_members = {
 		remove_global_variable = ztr_un_button_opened
 	}
 }
+
+# Spawn the decorative UN Headquarters in the founder's capital (or New York if founded by the USA)
+ztr_create_un_headquarters = {
+	if = {
+		limit = {
+			NOT = {
+				any_country = {
+					has_building = building_un_headquarters
+				}
+			}
+		}
+		if = {
+			limit = {
+				c:USA ?= this
+				any_scope_state = {
+					state_region = s:STATE_NEW_YORK
+				}
+			}
+			random_scope_state = {
+				limit = {
+					state_region = s:STATE_NEW_YORK
+				}
+				create_building = {
+					building = "building_un_headquarters"
+					level = 1
+				}
+			}
+		}
+		else = {
+			capital ?= {
+				create_building = {
+					building = "building_un_headquarters"
+					level = 1
+				}
+			}
+		}
+	}
+}
+

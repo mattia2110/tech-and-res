@@ -130,3 +130,25 @@ ztr_un_unesco_reform_support = {
 		add = ztr_un_religious_schools_support
 	}
 }
+
+ztr_un_worker_protections_support = {
+	value = 0
+	every_interest_group = {
+		limit = {
+			law_stance = {
+				law = law_type:law_worker_protections
+				value > neutral
+			}
+		}
+		add = ig_clout
+	}
+	every_interest_group = {
+		limit = {
+			law_stance = {
+				law = law_type:law_worker_protections
+				value < neutral
+			}
+		}
+		subtract = ig_clout
+	}
+}

@@ -38,3 +38,22 @@ ztr_un_refuse_compliance_request = {
 		years = 6
 	}
 }
+
+# UN minimum standards: activated on adoption, on joining and yearly once conditions are met
+ztr_un_apply_environment_standard = {
+	if = {
+		limit = {
+			ztr_un_environment_standard_applies = yes
+		}
+		activate_law = law_type:law_basic_protection
+	}
+}
+
+ztr_un_apply_labor_rights_standard = {
+	if = {
+		limit = {
+			ztr_un_labor_rights_standard_applies = yes
+		}
+		activate_law = law_type:law_regulatory_bodies
+	}
+}

@@ -1,0 +1,37 @@
+# Labor Rights: UN Statement on Labor Rights blocks laws below the adopted standard
+
+INJECT:law_no_workers_rights = {
+	#T&R
+	can_enact = {
+		custom_tooltip = {
+			text = ztr_un_hr_regulatory_bodies_labor_rights_tt
+			OR = {
+				NOT = {
+					ztr_is_un_member = yes
+				}
+				NOT = {
+					has_global_variable = ztr_un_hr_labor_rights
+				}
+				global_var:ztr_un_hr_labor_rights = 0
+			}
+		}
+	}
+}
+
+INJECT:law_regulatory_bodies = {
+	#T&R
+	can_enact = {
+		custom_tooltip = {
+			text = ztr_un_hr_worker_protections_labor_rights_tt
+			OR = {
+				NOT = {
+					ztr_is_un_member = yes
+				}
+				NOT = {
+					has_global_variable = ztr_un_hr_labor_rights
+				}
+				global_var:ztr_un_hr_labor_rights < 2
+			}
+		}
+	}
+}

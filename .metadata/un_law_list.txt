@@ -32,11 +32,19 @@ subject_event = ztr_un_event.32 | subject_id = 5 | subject = Slavery | variable 
 subject_event = ztr_un_event.33 | subject_id = 6 | subject = Children's Rights | variable = ztr_un_hr_children_rights
   0 = Negligible -> no forced law change
   1 = Restricted Child Labor -> activate law_restricted_child_labor from law_child_labor_allowed
-  2 = Compulsory Primary School -> activate law_compulsory_primary_school from law_child_labor_allowed or law_restricted_child_labor
+  2 = Compulsory Primary School -> activate law_restricted_child_labor from law_child_labor_allowed; law_compulsory_primary_school requested every 5 years (ztr_un_compliance.2)
   current_init_default = 1 (the nearby comment still says 0 = Negligible)
 subject_event = ztr_un_event.34 | subject_id = 7 | subject = Women's Rights | variable = ztr_un_hr_women_rights
   0 = Negligible -> no forced law change
-  1 = Gender Equality -> activate law_women_in_the_workplace from law_no_womens_rights or law_women_own_property
+  1 = Gender Equality -> law_women_in_the_workplace requested every 5 years (ztr_un_compliance.3)
+subject_event = ztr_un_event.35 | subject_id = 12 | subject = Environment | variable = ztr_un_hr_environment
+  0 = Negligible -> no forced law change
+  1 = Basic Protection -> activate law_basic_protection from law_no_protection (counterculture + ztr_dev_4_or_higher; yearly catch-up)
+subject_event = ztr_un_event.36 | subject_id = 13 | subject = Labor Rights | variable = ztr_un_hr_labor_rights
+  0 = Negligible -> no forced law change
+  1 = Regulated Workplaces -> activate law_regulatory_bodies from law_no_workers_rights (labor_movement; yearly catch-up)
+  2 = Decent Work -> level 1 floor; law_worker_protections requested every 5 years (ztr_un_compliance.4)
+  refusing a request -> +5 infamy and ztr_un_condemned_modifier for 6 years
 
 Button: ztr_un_open_institutions_menu
 menu_event = ztr_un_event.40
@@ -66,6 +74,8 @@ Current defaults from ztr_un_init_governance_laws
   ztr_un_hr_slavery = 0
   ztr_un_hr_children_rights = 1
   ztr_un_hr_women_rights = 0
+  ztr_un_hr_environment = 0
+  ztr_un_hr_labor_rights = 0
   ztr_un_institution_imf = 0
   ztr_un_institution_wto = 0
   ztr_un_institution_icc = 0

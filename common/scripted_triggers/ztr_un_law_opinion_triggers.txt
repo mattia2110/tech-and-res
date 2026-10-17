@@ -85,6 +85,20 @@ ztr_un_is_not_applied_law = {
 				global_var:ztr_un_institution_unesco = global_var:ztr_un_law_possible_proposal
 			}
 		}
+		AND = {
+			global_var:ztr_un_subject_possible_proposal = 12
+			has_global_variable = ztr_un_hr_environment
+			NOT = {
+				global_var:ztr_un_hr_environment = global_var:ztr_un_law_possible_proposal
+			}
+		}
+		AND = {
+			global_var:ztr_un_subject_possible_proposal = 13
+			has_global_variable = ztr_un_hr_labor_rights
+			NOT = {
+				global_var:ztr_un_hr_labor_rights = global_var:ztr_un_law_possible_proposal
+			}
+		}
 	}
 }
 
@@ -171,6 +185,24 @@ ztr_un_country_can_propose_possible_law = {
 			global_var:ztr_un_subject_possible_proposal = 11
 			global_var:ztr_un_law_possible_proposal = 1
 			has_technology_researched = international_organizations
+		}
+		AND = {
+			global_var:ztr_un_subject_possible_proposal = 12
+			OR = {
+				global_var:ztr_un_law_possible_proposal = 0
+				AND = {
+					global_var:ztr_un_law_possible_proposal = 1
+					has_technology_researched = counterculture
+				}
+			}
+		}
+		AND = {
+			global_var:ztr_un_subject_possible_proposal = 13
+			OR = {
+				global_var:ztr_un_law_possible_proposal = 0
+				global_var:ztr_un_law_possible_proposal = 1
+				global_var:ztr_un_law_possible_proposal = 2
+			}
 		}
 	}
 }
