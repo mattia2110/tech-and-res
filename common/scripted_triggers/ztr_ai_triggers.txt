@@ -1,0 +1,23 @@
+﻿# AI helpers ported from KAI, so Tech&Res runs without it
+
+# Market of the country has the goods cheaper than the AI high-price threshold
+ztr_has_high_supply = {
+	market = {
+		mg:$GOODS$ = {
+			market_goods_cheaper > {
+				value = 1
+				subtract = define:NAI|PRODUCTION_BUILDING_OUTPUT_HIGH_PRICE_THRESHOLD
+			}
+		}
+	}
+}
+
+# Enough bureaucracy and income to sustain a new institution
+ztr_can_afford_institution = {
+	bureaucracy > 0
+	approaching_bureaucracy_shortage = no
+	ztr_estimated_bureaucracy_cost < {
+		value = ztr_country_income_normalized
+		multiply = 0.30
+	}
+}

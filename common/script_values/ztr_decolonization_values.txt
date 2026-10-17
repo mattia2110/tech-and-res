@@ -222,10 +222,10 @@ REPLACE:liberty_desire_weekly_change = {
 				any_scope_character = {
 					has_ideology = ideology:ideology_sovereignist_leader
 					OR = {
-						is_ruler = yes
+						is_ruler_of_own_country = yes
 						AND = {
-							has_role = politician
-							interest_group = {
+							is_interest_group_leader = yes
+							interest_group ?= {
 								is_in_government = yes
 							}
 						}
@@ -1050,6 +1050,15 @@ REPLACE:liberty_desire_weekly_change = {
 	add = {
 		value = root.first_country.modifier:country_liberty_desire_of_subjects_add
 		desc = "LIBERTY_SUBJECT_DESIRE_WEEKLY_CHANGE_DESC_ADDITIONAL_ADDS"
+	}
+	if = {
+		limit = {
+			ROOT.first_country = { has_law_or_variant = law_type:law_isolationism }
+		}
+		add = {
+			value = 0.2
+			desc = "LIBERTY_DESIRE_WEEKLY_CHANGE_OVERLORD_ISOLATIONISM"
+		}
 	}
 	save_temporary_value_as = pre_scaling_value
 	#apply scaling

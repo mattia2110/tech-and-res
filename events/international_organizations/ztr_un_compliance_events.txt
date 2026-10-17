@@ -1,0 +1,374 @@
+namespace = ztr_un_compliance
+
+# UN reform requests, fired by ztr_un_compliance_on_yearly_pulse_country.
+# Accepting starts the enactment, refusing gives ztr_un_condemned_modifier.
+
+# UNESCO: education reform for countries with no schools or terakoya
+ztr_un_compliance.1 = {
+	dlc = dlc_tech_res
+	type = country_event
+	placement = root
+	duration = 3
+	title = ztr_un_compliance.1.t
+	desc = {
+		first_valid = {
+			triggered_desc = {
+				trigger = {
+					has_law = law_type:law_terakoya
+				}
+				desc = ztr_un_compliance.1.d_terakoya
+			}
+			triggered_desc = {
+				trigger = {
+					always = yes
+				}
+				desc = ztr_un_compliance.1.d
+			}
+		}
+	}
+	flavor = ztr_un_compliance.1.f
+	event_image = {
+		video = "generic_education"
+	}
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	icon = "gfx/interface/icons/event_icons/ztr_onu_member.dds"
+
+	trigger = {
+		ztr_un_unesco_education_request_valid = yes
+	}
+
+	cancellation_trigger = {
+		NOT = {
+			ztr_is_un_member = yes
+		}
+	}
+
+	immediate = {
+		set_variable = {
+			name = ztr_un_unesco_request_cooldown
+			years = 5
+		}
+	}
+
+	# Accept
+	option = {
+		name = ztr_un_compliance.1.a
+		default_option = yes
+		ztr_un_unesco_start_education_reform = yes
+		ai_chance = {
+			base = 25
+			modifier = {
+				trigger = {
+					has_strategy = ai_strategy_industrial_expansion
+				}
+				add = 40
+			}
+			modifier = {
+				trigger = {
+					ztr_un_unesco_reform_support > 0
+				}
+				add = 40
+			}
+			modifier = {
+				trigger = {
+					ig:ig_intelligentsia ?= {
+						is_in_government = yes
+					}
+				}
+				add = 15
+			}
+			modifier = {
+				trigger = {
+					has_imf_modifier = yes
+				}
+				add = 20
+			}
+			modifier = {
+				trigger = {
+					literacy_rate < 0.25
+				}
+				add = 10
+			}
+		}
+	}
+
+	# Refuse
+	option = {
+		name = ztr_un_compliance.1.b
+		ztr_un_refuse_compliance_request = yes
+		ai_chance = {
+			base = 25
+			modifier = {
+				trigger = {
+					ztr_un_unesco_reform_support < 0
+				}
+				add = 40
+			}
+			modifier = {
+				trigger = {
+					has_law_or_variant = law_type:law_isolationism
+				}
+				add = 30
+			}
+			modifier = {
+				trigger = {
+					country_rank >= rank_value:great_power
+				}
+				add = 15
+			}
+			modifier = {
+				trigger = {
+					has_modifier = ztr_icc_investigation_modifier
+				}
+				add = 20
+			}
+		}
+	}
+}
+
+# Children's Rights: compulsory primary school
+ztr_un_compliance.2 = {
+	dlc = dlc_tech_res
+	type = country_event
+	placement = root
+	duration = 3
+	title = ztr_un_compliance.2.t
+	desc = {
+		first_valid = {
+			triggered_desc = {
+				trigger = {
+					OR = {
+						has_law = law_type:law_no_schools
+						has_law = law_type:law_terakoya
+					}
+				}
+				desc = ztr_un_compliance.2.d_no_schools
+			}
+			triggered_desc = {
+				trigger = {
+					always = yes
+				}
+				desc = ztr_un_compliance.2.d
+			}
+		}
+	}
+	flavor = ztr_un_compliance.2.f
+	event_image = {
+		video = "ip3_village_school"
+	}
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	icon = "gfx/interface/icons/event_icons/ztr_onu_member.dds"
+
+	trigger = {
+		ztr_un_children_rights_request_valid = yes
+	}
+
+	cancellation_trigger = {
+		NOT = {
+			ztr_is_un_member = yes
+		}
+	}
+
+	immediate = {
+		set_variable = {
+			name = ztr_un_children_rights_request_cooldown
+			years = 5
+		}
+	}
+
+	# Accept
+	option = {
+		name = ztr_un_compliance.2.a
+		default_option = yes
+		trigger = {
+			custom_tooltip = {
+				text = ztr_un_compliance.2.a_tt
+				NOR = {
+					has_law = law_type:law_no_schools
+					has_law = law_type:law_terakoya
+				}
+			}
+		}
+		show_as_unavailable = {
+			always = yes
+		}
+		if = {
+			limit = {
+				enacting_any_law = yes
+			}
+			cancel_enactment = yes
+		}
+		start_enactment = law_type:law_compulsory_primary_school
+		ai_chance = {
+			base = 25
+			modifier = {
+				trigger = {
+					has_strategy = ai_strategy_industrial_expansion
+				}
+				add = 40
+			}
+			modifier = {
+				trigger = {
+					ztr_un_compulsory_primary_school_support > 0
+				}
+				add = 40
+			}
+			modifier = {
+				trigger = {
+					ig:ig_intelligentsia ?= {
+						is_in_government = yes
+					}
+				}
+				add = 15
+			}
+			modifier = {
+				trigger = {
+					has_imf_modifier = yes
+				}
+				add = 20
+			}
+		}
+	}
+
+	# Refuse
+	option = {
+		name = ztr_un_compliance.2.b
+		ztr_un_refuse_compliance_request = yes
+		ai_chance = {
+			base = 25
+			modifier = {
+				trigger = {
+					ztr_un_compulsory_primary_school_support < 0
+				}
+				add = 40
+			}
+			modifier = {
+				trigger = {
+					has_law_or_variant = law_type:law_isolationism
+				}
+				add = 30
+			}
+			modifier = {
+				trigger = {
+					country_rank >= rank_value:great_power
+				}
+				add = 15
+			}
+			modifier = {
+				trigger = {
+					has_modifier = ztr_icc_investigation_modifier
+				}
+				add = 20
+			}
+		}
+	}
+}
+
+# Women's Rights: women in the workplace
+ztr_un_compliance.3 = {
+	dlc = dlc_tech_res
+	type = country_event
+	placement = root
+	duration = 3
+	title = ztr_un_compliance.3.t
+	desc = ztr_un_compliance.3.d
+	flavor = ztr_un_compliance.3.f
+	event_image = {
+		video = "europenorthamerica_sufferage"
+	}
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	icon = "gfx/interface/icons/event_icons/ztr_onu_member.dds"
+
+	trigger = {
+		ztr_un_women_rights_request_valid = yes
+	}
+
+	cancellation_trigger = {
+		NOT = {
+			ztr_is_un_member = yes
+		}
+	}
+
+	immediate = {
+		set_variable = {
+			name = ztr_un_women_rights_request_cooldown
+			years = 5
+		}
+	}
+
+	# Accept
+	option = {
+		name = ztr_un_compliance.3.a
+		default_option = yes
+		if = {
+			limit = {
+				enacting_any_law = yes
+			}
+			cancel_enactment = yes
+		}
+		start_enactment = law_type:law_women_in_the_workplace
+		ai_chance = {
+			base = 25
+			modifier = {
+				trigger = {
+					has_strategy = ai_strategy_industrial_expansion
+				}
+				add = 40
+			}
+			modifier = {
+				trigger = {
+					ztr_un_women_in_the_workplace_support > 0
+				}
+				add = 40
+			}
+			modifier = {
+				trigger = {
+					has_imf_modifier = yes
+				}
+				add = 20
+			}
+		}
+	}
+
+	# Refuse
+	option = {
+		name = ztr_un_compliance.3.b
+		ztr_un_refuse_compliance_request = yes
+		ai_chance = {
+			base = 25
+			modifier = {
+				trigger = {
+					ztr_un_women_in_the_workplace_support < 0
+				}
+				add = 40
+			}
+			modifier = {
+				trigger = {
+					exists = ruler
+					ruler = {
+						has_ideology = ideology:ideology_traditionalist
+					}
+				}
+				add = 15
+			}
+			modifier = {
+				trigger = {
+					has_law_or_variant = law_type:law_isolationism
+				}
+				add = 30
+			}
+			modifier = {
+				trigger = {
+					country_rank >= rank_value:great_power
+				}
+				add = 15
+			}
+			modifier = {
+				trigger = {
+					has_modifier = ztr_icc_investigation_modifier
+				}
+				add = 20
+			}
+		}
+	}
+}

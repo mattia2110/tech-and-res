@@ -292,6 +292,43 @@ on_yearly_pulse_country = {
 		swiss_neutrality_on_yearly_pulse_country
 		ztr_demography_on_yearly_pulse
 		research_center_linkage_on_yearly_pulse_country
+		ztr_un_compliance_on_yearly_pulse_country
+	}
+}
+
+# One UN reform request per year at most, by priority
+ztr_un_compliance_on_yearly_pulse_country = {
+	trigger = {
+		ztr_un_can_receive_compliance_request = yes
+	}
+	effect = {
+		if = {
+			limit = {
+				ztr_un_unesco_education_request_valid = yes
+			}
+			trigger_event = {
+				id = ztr_un_compliance.1
+				popup = yes
+			}
+		}
+		else_if = {
+			limit = {
+				ztr_un_children_rights_request_valid = yes
+			}
+			trigger_event = {
+				id = ztr_un_compliance.2
+				popup = yes
+			}
+		}
+		else_if = {
+			limit = {
+				ztr_un_women_rights_request_valid = yes
+			}
+			trigger_event = {
+				id = ztr_un_compliance.3
+				popup = yes
+			}
+		}
 	}
 }
 

@@ -55,7 +55,7 @@ REPLACE:wanted_army_size_script_value = {
 		}
 
 		add = {
-			value = kai_country_income_normalized
+			value = ztr_country_income_normalized
 			multiply = {
 				value = 1
 				subtract = { # Coastal population reduces spending on army as that spending is needed for navy too
@@ -282,7 +282,7 @@ REPLACE:wanted_navy_size_script_value = {
 			cached_ai_incorporated_coastal_population > 0
 		}
 		add = {
-			value = kai_country_income_normalized
+			value = ztr_country_income_normalized
 			multiply = {
 				value = cached_ai_incorporated_coastal_population
 				divide = cached_ai_incorporated_population
@@ -358,4 +358,39 @@ REPLACE:wanted_navy_size_script_value = {
 		}
 		min = 25
 	}
+}
+
+# AI helpers ported from KAI, so Tech&Res runs without it
+
+# Fixed income corrected for the current tax level
+ztr_country_income_normalized = {
+	value = fixed_income
+	divide = {
+		value = 1.0
+		if = {
+			limit = { tax_level = very_high }
+			add = 0.3
+		}
+		else_if = {
+			limit = { tax_level = high }
+			add = 0.15
+		}
+		else_if = {
+			limit = { tax_level = low }
+			add = -0.15
+		}
+		else_if = {
+			limit = { tax_level = very_low }
+			add = -0.3
+		}
+	}
+}
+
+# Cost of the bureaucracy still to be produced (wage + paper per point, ~15)
+ztr_estimated_bureaucracy_cost = {
+	value = produced_bureaucracy
+	subtract = bureaucracy
+	subtract = 100
+	multiply = 15
+	min = 0
 }

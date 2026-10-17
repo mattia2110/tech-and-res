@@ -1,0 +1,132 @@
+# UN reform requests: clout of IGs approving the law minus clout of IGs disapproving it
+
+ztr_un_public_schools_support = {
+	value = 0
+	every_interest_group = {
+		limit = {
+			law_stance = {
+				law = law_type:law_public_schools
+				value > neutral
+			}
+		}
+		add = ig_clout
+	}
+	every_interest_group = {
+		limit = {
+			law_stance = {
+				law = law_type:law_public_schools
+				value < neutral
+			}
+		}
+		subtract = ig_clout
+	}
+}
+
+ztr_un_private_schools_support = {
+	value = 0
+	every_interest_group = {
+		limit = {
+			law_stance = {
+				law = law_type:law_private_schools
+				value > neutral
+			}
+		}
+		add = ig_clout
+	}
+	every_interest_group = {
+		limit = {
+			law_stance = {
+				law = law_type:law_private_schools
+				value < neutral
+			}
+		}
+		subtract = ig_clout
+	}
+}
+
+ztr_un_religious_schools_support = {
+	value = 0
+	every_interest_group = {
+		limit = {
+			law_stance = {
+				law = law_type:law_religious_schools
+				value > neutral
+			}
+		}
+		add = ig_clout
+	}
+	every_interest_group = {
+		limit = {
+			law_stance = {
+				law = law_type:law_religious_schools
+				value < neutral
+			}
+		}
+		subtract = ig_clout
+	}
+}
+
+ztr_un_compulsory_primary_school_support = {
+	value = 0
+	every_interest_group = {
+		limit = {
+			law_stance = {
+				law = law_type:law_compulsory_primary_school
+				value > neutral
+			}
+		}
+		add = ig_clout
+	}
+	every_interest_group = {
+		limit = {
+			law_stance = {
+				law = law_type:law_compulsory_primary_school
+				value < neutral
+			}
+		}
+		subtract = ig_clout
+	}
+}
+
+ztr_un_women_in_the_workplace_support = {
+	value = 0
+	every_interest_group = {
+		limit = {
+			law_stance = {
+				law = law_type:law_women_in_the_workplace
+				value > neutral
+			}
+		}
+		add = ig_clout
+	}
+	every_interest_group = {
+		limit = {
+			law_stance = {
+				law = law_type:law_women_in_the_workplace
+				value < neutral
+			}
+		}
+		subtract = ig_clout
+	}
+}
+
+# UNESCO target law support (public > private > religious schools)
+ztr_un_unesco_reform_support = {
+	value = 0
+	if = {
+		limit = {
+			ztr_un_can_enact_public_schools = yes
+		}
+		add = ztr_un_public_schools_support
+	}
+	else_if = {
+		limit = {
+			has_law = law_type:law_no_schools
+			ztr_un_can_enact_private_schools = yes
+		}
+		add = ztr_un_private_schools_support
+	}
+	else = {
+		add = ztr_un_religious_schools_support
+	}
+}

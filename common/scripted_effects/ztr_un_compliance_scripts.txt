@@ -1,0 +1,40 @@
+# UN reform requests (events/international_organizations/ztr_un_compliance_events.txt)
+
+ztr_un_unesco_start_education_reform = {
+	if = {
+		limit = {
+			enacting_any_law = yes
+		}
+		cancel_enactment = yes
+	}
+	if = {
+		limit = {
+			ztr_un_can_enact_public_schools = yes
+		}
+		start_enactment = law_type:law_public_schools
+	}
+	else_if = {
+		limit = {
+			has_law = law_type:law_no_schools
+			ztr_un_can_enact_private_schools = yes
+		}
+		start_enactment = law_type:law_private_schools
+	}
+	else = {
+		start_enactment = law_type:law_religious_schools
+	}
+}
+
+ztr_un_refuse_compliance_request = {
+	change_infamy = 5
+	if = {
+		limit = {
+			has_modifier = ztr_un_condemned_modifier
+		}
+		remove_modifier = ztr_un_condemned_modifier
+	}
+	add_modifier = {
+		name = ztr_un_condemned_modifier
+		years = 6
+	}
+}

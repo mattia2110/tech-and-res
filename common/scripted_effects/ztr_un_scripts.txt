@@ -89,29 +89,16 @@ join_un_law_changes = {
 		}
 		activate_law = law_type:law_restricted_child_labor
 	}
+	# Compulsory school keeps the restricted child labor floor, then is requested by ztr_un_compliance.2
 	else_if = {
 		limit = {
 			has_global_variable = ztr_un_hr_children_rights
 			global_var:ztr_un_hr_children_rights = 2
-			OR = {
-				has_law_or_variant = law_type:law_child_labor_allowed
-				has_law_or_variant = law_type:law_restricted_child_labor
-			}
+			has_law_or_variant = law_type:law_child_labor_allowed
 		}
-		activate_law = law_type:law_compulsory_primary_school
+		activate_law = law_type:law_restricted_child_labor
 	}
-	#Women's rights
-	if = {
-		limit = {
-			has_global_variable = ztr_un_hr_women_rights
-			global_var:ztr_un_hr_women_rights = 1
-			OR = {
-				has_law_or_variant = law_type:law_no_womens_rights
-				has_law_or_variant = law_type:law_women_own_property
-			}
-		}
-		activate_law = law_type:law_women_in_the_workplace
-	}
+	#Women's rights: requested by ztr_un_compliance.3, not imposed
 	ztr_un_apply_member_institution_modifiers = yes
 }
 
@@ -742,6 +729,7 @@ ztr_un_apply_governance_vote = {
 			}
 		}
 		# Children's rights - compulsory primary education
+		# Keeps the restricted child labor floor; compulsory school is requested by ztr_un_compliance.2
 		else_if = {
 			limit = {
 				global_var:ztr_un_hr_children_rights = 2
@@ -749,12 +737,9 @@ ztr_un_apply_governance_vote = {
 			every_country = {
 				limit = {
 					ztr_is_un_member = yes
-					OR = {
-						has_law_or_variant = law_type:law_child_labor_allowed
-						has_law_or_variant = law_type:law_restricted_child_labor
-					}
+					has_law_or_variant = law_type:law_child_labor_allowed
 				}
-				activate_law = law_type:law_compulsory_primary_school
+				activate_law = law_type:law_restricted_child_labor
 			}
 		}
 	}
@@ -775,22 +760,7 @@ ztr_un_apply_governance_vote = {
 			value = global_var:ztr_un_vote_proposal
 		}
 		# Law enforcement is handled by the dedicated law scripts.
-		# Women's rights - gender equality
-		if = {
-			limit = {
-				global_var:ztr_un_hr_women_rights = 1
-			}
-			every_country = {
-				limit = {
-					ztr_is_un_member = yes
-					OR = {
-						has_law_or_variant = law_type:law_no_womens_rights
-						has_law_or_variant = law_type:law_women_own_property
-					}
-				}
-				activate_law = law_type:law_women_in_the_workplace
-			}
-		}
+		# Women's rights - gender equality: requested by ztr_un_compliance.3, not imposed
 	}
 	# Subject 8: IMF (+ World Bank)
 	if = {

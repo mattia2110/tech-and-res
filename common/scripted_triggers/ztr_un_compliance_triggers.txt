@@ -1,0 +1,97 @@
+# UN reform requests (events/international_organizations/ztr_un_compliance_events.txt)
+
+ztr_un_can_receive_compliance_request = {
+	ztr_is_un_member = yes
+	enacting_any_law = no
+	NOT = {
+		has_modifier = ztr_un_condemned_modifier
+	}
+}
+
+# Enactability mirrors vanilla techs and disallowing laws (variants included)
+ztr_un_can_enact_public_schools = {
+	has_technology_researched = empiricism
+	NOR = {
+		has_law_or_variant = law_type:law_state_religion
+		has_law_or_variant = law_type:law_serfdom
+	}
+}
+
+ztr_un_can_enact_private_schools = {
+	has_technology_researched = academia
+	NOR = {
+		has_law_or_variant = law_type:law_state_religion
+		has_law = law_type:law_terakoya
+	}
+}
+
+ztr_un_can_enact_religious_schools = {
+	has_technology_researched = rationalism
+	NOR = {
+		has_law_or_variant = law_type:law_total_separation
+		has_law_or_variant = law_type:law_state_atheism
+		has_law_or_variant = law_type:law_serfdom
+	}
+}
+
+ztr_un_can_enact_compulsory_primary_school = {
+	has_technology_researched = human_rights
+	NOR = {
+		has_law = law_type:law_no_schools
+		has_law = law_type:law_terakoya
+	}
+}
+
+# UNESCO: public schools first, then private or religious schools as fallback
+ztr_un_unesco_has_education_reform = {
+	OR = {
+		ztr_un_can_enact_public_schools = yes
+		AND = {
+			has_law = law_type:law_no_schools
+			ztr_un_can_enact_private_schools = yes
+		}
+		ztr_un_can_enact_religious_schools = yes
+	}
+}
+
+ztr_un_unesco_education_request_valid = {
+	ztr_un_can_receive_compliance_request = yes
+	has_global_variable = ztr_un_institution_unesco
+	global_var:ztr_un_institution_unesco = 1
+	NOT = {
+		has_variable = ztr_un_unesco_request_cooldown
+	}
+	OR = {
+		has_law = law_type:law_no_schools
+		has_law = law_type:law_terakoya
+	}
+	ztr_un_unesco_has_education_reform = yes
+}
+
+# Countries with no schools or terakoya receive it too, but can only refuse
+ztr_un_children_rights_request_valid = {
+	ztr_un_can_receive_compliance_request = yes
+	has_global_variable = ztr_un_hr_children_rights
+	global_var:ztr_un_hr_children_rights = 2
+	NOT = {
+		has_variable = ztr_un_children_rights_request_cooldown
+	}
+	NOT = {
+		has_law_or_variant = law_type:law_compulsory_primary_school
+	}
+	has_technology_researched = human_rights
+}
+
+ztr_un_women_rights_request_valid = {
+	ztr_un_can_receive_compliance_request = yes
+	has_global_variable = ztr_un_hr_women_rights
+	global_var:ztr_un_hr_women_rights = 1
+	NOT = {
+		has_variable = ztr_un_women_rights_request_cooldown
+	}
+	OR = {
+		has_law_or_variant = law_type:law_no_womens_rights
+		has_law_or_variant = law_type:law_women_own_property
+	}
+	has_technology_researched = feminism
+}
