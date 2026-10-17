@@ -588,6 +588,12 @@ ztr_un_event.21 = {
 			NOT = {
 				global_var:ztr_un_law_voting_model = 4
 			}
+			ztr_un_can_propose_superpower_reform = yes
+		}
+		show_as_unavailable = {
+			NOT = {
+				global_var:ztr_un_law_voting_model = 4
+			}
 		}
 		set_global_variable = {
 			name = ztr_un_vote_subject
@@ -771,10 +777,16 @@ ztr_un_event.23 = {
 			base = 0
 		}
 	}
-	# Propose: Strongest Country (Prestige or GDP)
+	# Propose: Superpowers (top 2 UN members by prestige)
 	option = {
 		name = ztr_un_event.23.e
 		trigger = {
+			NOT = {
+				global_var:ztr_un_law_member_selection = 4
+			}
+			ztr_un_can_propose_superpower_reform = yes
+		}
+		show_as_unavailable = {
 			NOT = {
 				global_var:ztr_un_law_member_selection = 4
 			}
@@ -1820,6 +1832,77 @@ ztr_un_event.10 = {
 			is_ai = no
 		}
 		set_variable = ztr_un_vote_choice_against
+	}
+}
+
+# Event 11: Result of a closed vote session, for players (data from ztr_un_vote_save_last_result)
+ztr_un_event.11 = {
+	dlc = dlc_tech_res
+	type = country_event
+	placement = root
+	duration = 1
+	title = {
+		first_valid = {
+			triggered_desc = {
+				desc = ztr_un_event.11.t_adopted
+				trigger = {
+					global_var:ztr_un_last_vote_result = 1
+				}
+			}
+			triggered_desc = {
+				desc = ztr_un_event.11.t_vetoed
+				trigger = {
+					global_var:ztr_un_last_vote_result = 3
+				}
+			}
+			triggered_desc = {
+				desc = ztr_un_event.11.t_rejected
+				trigger = {
+					always = yes
+				}
+			}
+		}
+	}
+	desc = {
+		first_valid = {
+			triggered_desc = {
+				desc = ztr_un_event.11.d_adopted
+				trigger = {
+					global_var:ztr_un_last_vote_result = 1
+				}
+			}
+			triggered_desc = {
+				desc = ztr_un_event.11.d_vetoed_one
+				trigger = {
+					global_var:ztr_un_last_vote_result = 3
+					global_var:ztr_un_last_vote_veto_count = 1
+				}
+			}
+			triggered_desc = {
+				desc = ztr_un_event.11.d_vetoed_many
+				trigger = {
+					global_var:ztr_un_last_vote_result = 3
+				}
+			}
+			triggered_desc = {
+				desc = ztr_un_event.11.d_rejected
+				trigger = {
+					always = yes
+				}
+			}
+		}
+	}
+	event_image = {
+		video = "ztr_un_congress"
+	}
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	icon = "gfx/interface/icons/event_icons/ztr_onu_member.dds"
+	trigger = {
+		has_global_variable = ztr_un_last_vote_result
+	}
+	option = {
+		name = ztr_un_event.11.a
+		default_option = yes
 	}
 }
 

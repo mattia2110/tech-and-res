@@ -14,3 +14,36 @@ has_imf_modifier = {
 		has_modifier = tiny_imf_help_modifier
 	}
 }
+# Inside the sphere of a superpower: subject of, or power bloc member led by, a top-2 UN member other than itself
+# (global ranking stands in for the UN-only prestige order used by the Superpowers rules)
+ztr_un_in_superpower_sphere = {
+	OR = {
+		any_overlord_or_above = {
+			global_country_ranking <= 2
+			ztr_is_un_member = yes
+		}
+		AND = {
+			is_in_power_bloc = yes
+			any_country = {
+				global_country_ranking <= 2
+				is_power_bloc_leader = yes
+				ztr_is_un_member = yes
+				NOT = {
+					prev ?= this
+				}
+				is_in_same_power_bloc = prev
+			}
+		}
+	}
+}
+
+# Who may propose the Superpowers voting model and member selection
+ztr_un_can_propose_superpower_reform = {
+	custom_tooltip = {
+		text = ztr_un_can_propose_superpower_reform_tt
+		OR = {
+			global_country_ranking <= 2
+			ztr_un_in_superpower_sphere = yes
+		}
+	}
+}

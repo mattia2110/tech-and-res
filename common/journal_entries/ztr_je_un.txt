@@ -168,22 +168,11 @@ je_un_votations = {
 					ztr_un_vote_update_neutral_ai_positions = yes
 					ztr_un_vote_update_results = yes
 				}
-				# Check if vote passes: support > against AND no veto blocks it
+				# Result (adopted, rejected or vetoed) kept for the result event
+				ztr_un_vote_save_last_result = yes
 				if = {
 					limit = {
-						global_var:ztr_un_vote_support_count > global_var:ztr_un_vote_against_count
-						# Veto check: if veto enabled, no permanent member may have voted against
-						OR = {
-							NOT = {
-								global_var:ztr_un_law_veto_right = 1
-							}
-							NOT = {
-								any_country = {
-									has_modifier = ztr_onu_permanent_member
-									has_variable = ztr_un_vote_choice_against
-								}
-							}
-						}
+						global_var:ztr_un_last_vote_result = 1
 					}
 					# Vote passed - apply the governance change
 					ztr_un_apply_governance_vote = yes
@@ -205,6 +194,17 @@ je_un_votations = {
 				}
 				# Cleanup removes ztr_un_vote_active, making possible = no, then JE deactivates
 				ztr_un_vote_cleanup_all_members = yes
+				every_country = {
+					limit = {
+						is_ai = no
+						ztr_is_un_member = yes
+					}
+					trigger_event = {
+						id = ztr_un_event.11
+						days = 0
+						popup = yes
+					}
+				}
 				# Cooldown starts: set cooldown variable for 4 years (48 months)
 				set_global_variable = {
 					name = ztr_un_vote_cd
@@ -255,7 +255,7 @@ je_un_votations = {
 	scripted_button = ztr_un_vote_for_statement
 	scripted_button = ztr_un_vote_against_statement
 	weight = 110
-	should_be_pinned_by_default_uninvolved_or_context = yes
+	should_be_pinned_by_default_involved = yes
 	can_deactivate = yes
 	transferable = no
 	progressbar = no

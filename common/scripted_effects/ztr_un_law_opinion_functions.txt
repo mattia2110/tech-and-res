@@ -773,7 +773,7 @@ ztr_un_ai_take_neutral_vote_position = {
 		}
 		change_variable = {
 			name = ztr_un_ai_vote_threshold
-			add = 8
+			add = 12
 		}
 
 		ztr_un_set_current_vote_law_as_considered = yes
@@ -1766,22 +1766,27 @@ ztr_un_value_law = {
 					add = 20
 				}
 			}
+			# Superpower sphere: the patron's vote stands in for its own
 			else_if = {
 				limit = {
-					country_rank = rank_value:great_power
+					ztr_un_in_superpower_sphere = yes
 				}
 				change_variable = {
 					name = ztr_un_law_value_objective_considered
-					add = 10
+					add = 25
 				}
 			}
+			# Independents: -10 on top of the loss of their vote (great powers +10 -10)
 			else_if = {
 				limit = {
 					ztr_is_un_member = yes
+					NOT = {
+						country_rank = rank_value:great_power
+					}
 				}
 				change_variable = {
 					name = ztr_un_law_value_objective_considered
-					add = -20
+					add = -30
 				}
 			}
 			change_variable = {
@@ -2097,7 +2102,7 @@ ztr_un_value_law = {
 				}
 			}
 		}
-		# Considered law: Member Selection 4 = Strongest Country
+		# Considered law: Member Selection 4 = Superpowers
 		if = {
 			limit = {
 				var:ztr_un_subject_considered = 3
@@ -2105,20 +2110,31 @@ ztr_un_value_law = {
 			}
 			if = {
 				limit = {
-					global_country_ranking = 1
+					global_country_ranking <= 2
 				}
 				change_variable = {
 					name = ztr_un_law_value_objective_considered
 					add = 40
 				}
 			}
+			# Superpower sphere: the patron's seat stands in for its own
+			else_if = {
+				limit = {
+					ztr_un_in_superpower_sphere = yes
+				}
+				change_variable = {
+					name = ztr_un_law_value_objective_considered
+					add = 25
+				}
+			}
+			# Independents: -10 on top of the loss of their seat chances
 			else_if = {
 				limit = {
 					country_rank = rank_value:great_power
 				}
 				change_variable = {
 					name = ztr_un_law_value_objective_considered
-					add = 5
+					add = -5
 				}
 			}
 			else_if = {
@@ -2127,7 +2143,7 @@ ztr_un_value_law = {
 				}
 				change_variable = {
 					name = ztr_un_law_value_objective_considered
-					add = -10
+					add = -20
 				}
 			}
 			change_variable = {
@@ -4217,7 +4233,7 @@ ztr_un_value_law = {
 					}
 				}
 			}
-			# Considered law inside secret scoring: Member Selection 4 = Strongest Country
+			# Considered law inside secret scoring: Member Selection 4 = Superpowers
 			if = {
 				limit = {
 					var:ztr_un_law_considered = 4
@@ -4231,7 +4247,17 @@ ztr_un_value_law = {
 			else_if = {
 				limit = {
 					var:ztr_un_law_considered = 4
-					global_country_ranking <= 3
+					global_country_ranking = 2
+				}
+				set_variable = {
+					name = ztr_un_value_law_considered_un_role
+					value = 25
+				}
+			}
+			else_if = {
+				limit = {
+					var:ztr_un_law_considered = 4
+					global_country_ranking = 3
 				}
 				set_variable = {
 					name = ztr_un_value_law_considered_un_role
@@ -4284,12 +4310,12 @@ ztr_un_value_law = {
 					add = -10
 				}
 			}
-			# Rival check for considered law: Member Selection 4 = Strongest Country
+			# Rival check for considered law: Member Selection 4 = Superpowers
 			if = {
 				limit = {
 					var:ztr_un_law_considered = 4
 					any_rival_country = {
-						global_country_ranking = 1
+						global_country_ranking <= 2
 					}
 				}
 				change_variable = {

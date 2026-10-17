@@ -444,141 +444,145 @@ ztr_un_init_governance_laws = {
 # Start a UN vote on a governance proposal
 # Expects ztr_un_vote_subject and ztr_un_vote_proposal to be set before calling
 ztr_un_start_governance_vote = {
-	set_global_variable = ztr_un_vote_in_progress
-	set_global_variable = {
-		name = ztr_un_vote_months_remaining
-		value = 12
-	}
-	every_country = {
-		limit = {
-			has_variable = ztr_un_vote_eligible
-		}
-		remove_variable = ztr_un_vote_eligible
-		remove_variable = ztr_un_vote_choice_support
-		remove_variable = ztr_un_vote_choice_neutral
-		remove_variable = ztr_un_vote_choice_against
-		remove_variable = ztr_un_vote_weight
-		remove_variable = ztr_un_vote_proposer
-	}
-	# Model 1: One Country One Vote - all UN members
-	if = {
-		limit = {
-			global_var:ztr_un_law_voting_model = 1
+	# One summary line instead of a trigger_event line per member
+	custom_tooltip = ztr_un_start_governance_vote_tt
+	hidden_effect = {
+		set_global_variable = ztr_un_vote_in_progress
+		set_global_variable = {
+			name = ztr_un_vote_months_remaining
+			value = 6
 		}
 		every_country = {
 			limit = {
-				OR = {
-					has_modifier = ztr_onu_member
-					has_modifier = ztr_onu_permanent_member
-				}
+				has_variable = ztr_un_vote_eligible
 			}
-			set_variable = ztr_un_vote_eligible
-			set_variable = {
-				name = ztr_un_vote_weight
-				value = 1
-			}
-			trigger_event = {
-				id = ztr_un_event.10
-				days = 30
-			}
+			remove_variable = ztr_un_vote_eligible
+			remove_variable = ztr_un_vote_choice_support
+			remove_variable = ztr_un_vote_choice_neutral
+			remove_variable = ztr_un_vote_choice_against
+			remove_variable = ztr_un_vote_weight
+			remove_variable = ztr_un_vote_proposer
 		}
-	}
-	# Model 2: Weighted by Prestige - all UN members, weight by rank
-	else_if = {
-		limit = {
-			global_var:ztr_un_law_voting_model = 2
-		}
-		every_country = {
+		# Model 1: One Country One Vote - all UN members
+		if = {
 			limit = {
-				OR = {
-					has_modifier = ztr_onu_member
-					has_modifier = ztr_onu_permanent_member
-				}
+				global_var:ztr_un_law_voting_model = 1
 			}
-			set_variable = ztr_un_vote_eligible
-			# Great powers get 25 votes, major powers 10, minor powers 5, others 1
-			if = {
+			every_country = {
 				limit = {
-					country_rank = rank_value:great_power
+					OR = {
+						has_modifier = ztr_onu_member
+						has_modifier = ztr_onu_permanent_member
+					}
 				}
-				set_variable = {
-					name = ztr_un_vote_weight
-					value = 25
-				}
-			}
-			else_if = {
-				limit = {
-					country_rank = rank_value:major_power
-				}
-				set_variable = {
-					name = ztr_un_vote_weight
-					value = 10
-				}
-			}
-			else_if = {
-				limit = {
-					country_rank = rank_value:minor_power
-				}
-				set_variable = {
-					name = ztr_un_vote_weight
-					value = 5
-				}
-			}
-			else = {
+				set_variable = ztr_un_vote_eligible
 				set_variable = {
 					name = ztr_un_vote_weight
 					value = 1
 				}
-			}
-			trigger_event = {
-				id = ztr_un_event.10
-				days = 30
-			}
-		}
-	}
-	# Model 3: Security Council Only - only permanent members
-	else_if = {
-		limit = {
-			global_var:ztr_un_law_voting_model = 3
-		}
-		every_country = {
-			limit = {
-				has_modifier = ztr_onu_permanent_member
-			}
-			set_variable = ztr_un_vote_eligible
-			set_variable = {
-				name = ztr_un_vote_weight
-				value = 1
-			}
-			trigger_event = {
-				id = ztr_un_event.10
-				days = 30
-			}
-		}
-	}
-	# Model 4: Superpowers Only - top 2 ranked countries in UN
-	else_if = {
-		limit = {
-			global_var:ztr_un_law_voting_model = 4
-		}
-		ordered_country = {
-			limit = {
-				OR = {
-					has_modifier = ztr_onu_member
-					has_modifier = ztr_onu_permanent_member
+				trigger_event = {
+					id = ztr_un_event.10
+					days = 30
 				}
 			}
-			order_by = prestige
-			max = 2
-			check_range_bounds = no
-			set_variable = ztr_un_vote_eligible
-			set_variable = {
-				name = ztr_un_vote_weight
-				value = 1
+		}
+		# Model 2: Weighted by Prestige - all UN members, weight by rank
+		else_if = {
+			limit = {
+				global_var:ztr_un_law_voting_model = 2
 			}
-			trigger_event = {
-				id = ztr_un_event.10
-				days = 30
+			every_country = {
+				limit = {
+					OR = {
+						has_modifier = ztr_onu_member
+						has_modifier = ztr_onu_permanent_member
+					}
+				}
+				set_variable = ztr_un_vote_eligible
+				# Great powers get 25 votes, major powers 10, minor powers 5, others 1
+				if = {
+					limit = {
+						country_rank = rank_value:great_power
+					}
+					set_variable = {
+						name = ztr_un_vote_weight
+						value = 25
+					}
+				}
+				else_if = {
+					limit = {
+						country_rank = rank_value:major_power
+					}
+					set_variable = {
+						name = ztr_un_vote_weight
+						value = 10
+					}
+				}
+				else_if = {
+					limit = {
+						country_rank = rank_value:minor_power
+					}
+					set_variable = {
+						name = ztr_un_vote_weight
+						value = 5
+					}
+				}
+				else = {
+					set_variable = {
+						name = ztr_un_vote_weight
+						value = 1
+					}
+				}
+				trigger_event = {
+					id = ztr_un_event.10
+					days = 30
+				}
+			}
+		}
+		# Model 3: Security Council Only - only permanent members
+		else_if = {
+			limit = {
+				global_var:ztr_un_law_voting_model = 3
+			}
+			every_country = {
+				limit = {
+					has_modifier = ztr_onu_permanent_member
+				}
+				set_variable = ztr_un_vote_eligible
+				set_variable = {
+					name = ztr_un_vote_weight
+					value = 1
+				}
+				trigger_event = {
+					id = ztr_un_event.10
+					days = 30
+				}
+			}
+		}
+		# Model 4: Superpowers Only - top 2 ranked countries in UN
+		else_if = {
+			limit = {
+				global_var:ztr_un_law_voting_model = 4
+			}
+			ordered_country = {
+				limit = {
+					OR = {
+						has_modifier = ztr_onu_member
+						has_modifier = ztr_onu_permanent_member
+					}
+				}
+				order_by = prestige
+				max = 2
+				check_range_bounds = no
+				set_variable = ztr_un_vote_eligible
+				set_variable = {
+					name = ztr_un_vote_weight
+					value = 1
+				}
+				trigger_event = {
+					id = ztr_un_event.10
+					days = 30
+				}
 			}
 		}
 	}
@@ -1075,15 +1079,18 @@ ztr_un_select_new_permanent_members = {
 			}
 		}
 	}
-	# Model 4: Strongest Country - top 1
+	# Model 4: Superpowers - top 2 UN members by prestige
 	else_if = {
 		limit = {
 			global_var:ztr_un_law_member_selection = 4
 		}
-		random_country = {
+		ordered_country = {
 			limit = {
-				global_country_ranking = 1
+				has_modifier = ztr_onu_member
 			}
+			order_by = prestige
+			max = 2
+			check_range_bounds = no
 			remove_modifier = ztr_onu_member
 			add_modifier = ztr_onu_permanent_member
 			trigger_event = {
@@ -1196,3 +1203,84 @@ ztr_create_un_headquarters = {
 	}
 }
 
+
+# Snapshot of a closing UN vote for ztr_un_event.11 (survives ztr_un_vote_cleanup_all_members)
+# ztr_un_last_vote_result: 1 adopted, 2 rejected by the majority, 3 majority blocked by a veto
+ztr_un_vote_save_last_result = {
+	set_global_variable = {
+		name = ztr_un_last_vote_subject
+		value = global_var:ztr_un_vote_subject
+	}
+	set_global_variable = {
+		name = ztr_un_last_vote_proposal
+		value = global_var:ztr_un_vote_proposal
+	}
+	set_global_variable = {
+		name = ztr_un_last_vote_support
+		value = global_var:ztr_un_vote_support_count
+	}
+	set_global_variable = {
+		name = ztr_un_last_vote_neutral
+		value = global_var:ztr_un_vote_neutral_count
+	}
+	set_global_variable = {
+		name = ztr_un_last_vote_against
+		value = global_var:ztr_un_vote_against_count
+	}
+	set_global_variable = {
+		name = ztr_un_last_vote_veto_count
+		value = 0
+	}
+	if = {
+		limit = {
+			global_var:ztr_un_law_veto_right = 1
+		}
+		every_country = {
+			limit = {
+				has_modifier = ztr_onu_permanent_member
+				has_variable = ztr_un_vote_choice_against
+			}
+			change_global_variable = {
+				name = ztr_un_last_vote_veto_count
+				add = 1
+			}
+		}
+		ordered_country = {
+			limit = {
+				has_modifier = ztr_onu_permanent_member
+				has_variable = ztr_un_vote_choice_against
+			}
+			order_by = prestige
+			set_global_variable = {
+				name = ztr_un_last_vote_vetoer
+				value = this
+			}
+		}
+	}
+	if = {
+		limit = {
+			NOT = {
+				global_var:ztr_un_vote_support_count > global_var:ztr_un_vote_against_count
+			}
+		}
+		set_global_variable = {
+			name = ztr_un_last_vote_result
+			value = 2
+		}
+	}
+	else_if = {
+		limit = {
+			global_var:ztr_un_last_vote_veto_count > 0
+		}
+		set_global_variable = {
+			name = ztr_un_last_vote_result
+			value = 3
+		}
+	}
+	else = {
+		set_global_variable = {
+			name = ztr_un_last_vote_result
+			value = 1
+		}
+	}
+}
