@@ -600,13 +600,16 @@ ztr_apply_late_env_ideologies = {
 }
 
 # Economic ideology swap, independent from the social/environmental tiers
+# Industrialists only: other laissez-faire IGs (e.g. missionary Devout) keep it
 ztr_apply_neoliberism_ideology = {
-	every_interest_group = {
-		limit = {
-			has_ideology = ideology:ideology_laissez_faire
+	ig:ig_industrialists ?= {
+		if = {
+			limit = {
+				has_ideology = ideology:ideology_laissez_faire
+			}
+			remove_ideology = ideology_laissez_faire
+			add_ideology = ideology_neoliberism
 		}
-		remove_ideology = ideology_laissez_faire
-		add_ideology = ideology_neoliberism
 	}
 }
 
@@ -1503,6 +1506,18 @@ calculate_liberty_equality_index = {
 
 # There are some laws that will cap the maximum liberty index a country can have
 calculate_max_liberty_index = {
+	# Totalitarian apparatus: single party, secret police and outlawed dissent together
+	if = {
+		limit = {
+			ztr_has_single_party_law = yes
+			has_law_or_variant = law_type:law_secret_police
+			has_law_or_variant = law_type:law_outlawed_dissent
+		}
+		change_variable = {
+			name = liberty_index_var
+			add = -12
+		}
+	}
 	if = {
 		limit = {
 			var:liberty_index_var > 35
@@ -1587,4 +1602,18 @@ calculate_max_liberty_index = {
 # BPM variant: defined by the Tech&Res + BPM compatch (it needs BPM law keys); falls back to the vanilla index
 calculate_liberty_equality_index_bpm = {
 	calculate_liberty_equality_index = yes
+}
+
+# Full index update: law points (vanilla or BPM laws), then caps and penalties
+ztr_update_liberty_equality_index = {
+	if = {
+		limit = {
+			BPM_is_active_trigger = yes
+		}
+		calculate_liberty_equality_index_bpm = yes
+	}
+	else = {
+		calculate_liberty_equality_index = yes
+	}
+	calculate_max_liberty_index = yes
 }

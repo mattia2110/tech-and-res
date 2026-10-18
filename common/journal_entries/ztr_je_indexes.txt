@@ -24,17 +24,9 @@ je_liberty_index = {
 	scripted_progress_bar = equality_index_progress_bar
 	on_yearly_pulse = {
 		effect = {
-			# Calculate Liberty and Equality Index
-			if = {
-				limit = {
-					BPM_is_active_trigger = yes
-				}
-				calculate_liberty_equality_index_bpm = yes
-			}
-			else = {
-				calculate_liberty_equality_index = yes
-			}
-			calculate_max_liberty_index = yes
+			# Calculate Liberty and Equality Index, then the political pole
+			ztr_update_liberty_equality_index = yes
+			ztrpol_update_pole = yes
 			scope:journal_entry = {
 				set_bar_progress = {
 					value = root.var:liberty_index_var

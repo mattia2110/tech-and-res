@@ -59,11 +59,20 @@ ztr_russia_update_order_bar = {
 	}
 	if = {
 		limit = {
-			ztr_is_socialist = yes
+			ztr_is_egalitarian = yes
 		}
 		change_variable = {
 			name = russia_status_quo_var
 			add = 0.5
+		}
+	}
+	else_if = {
+		limit = {
+			ztr_is_individualist = yes
+		}
+		change_variable = {
+			name = russia_status_quo_var
+			add = 0.25
 		}
 	}
 	if = {
@@ -158,7 +167,7 @@ ztr_russia_update_liberal_revolution_bar = {
 		}
 		if = {
 			limit = {
-				ztr_is_socialist = yes
+				ztr_is_not_stratified = yes
 			}
 			change_variable = {
 				name = russia_liberal_revolution_var
@@ -232,7 +241,7 @@ ztr_russia_update_communist_revolution_bar = {
 	}
 	if = {
 		limit = {
-			ztr_is_individualist = yes
+			ztr_is_not_egalitarian = yes
 		}
 		change_variable = {
 			name = russia_status_quo_var

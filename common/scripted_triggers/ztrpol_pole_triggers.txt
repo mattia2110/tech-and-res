@@ -1,0 +1,82 @@
+# Tech&Res politics: Liberty/Equality poles (scope: country), set yearly by ztrpol_update_pole
+
+# High liberty, high equality
+ztrpol_is_social_pole = {
+	custom_tooltip = {
+		text = ztrpol_tooltip_is_social_pole
+		has_variable = ztrpol_pole_set
+		has_variable = ztrpol_high_liberty
+		has_variable = ztrpol_high_equality
+	}
+}
+
+# High liberty, low equality
+ztrpol_is_liberal_pole = {
+	custom_tooltip = {
+		text = ztrpol_tooltip_is_liberal_pole
+		has_variable = ztrpol_pole_set
+		has_variable = ztrpol_high_liberty
+		NOT = {
+			has_variable = ztrpol_high_equality
+		}
+	}
+}
+
+# Low liberty, high equality
+ztrpol_is_collectivist_pole = {
+	custom_tooltip = {
+		text = ztrpol_tooltip_is_collectivist_pole
+		has_variable = ztrpol_pole_set
+		NOT = {
+			has_variable = ztrpol_high_liberty
+		}
+		has_variable = ztrpol_high_equality
+	}
+}
+
+# Low liberty, low equality
+ztrpol_is_reactionary_pole = {
+	custom_tooltip = {
+		text = ztrpol_tooltip_is_reactionary_pole
+		has_variable = ztrpol_pole_set
+		NOT = {
+			has_variable = ztrpol_high_liberty
+		}
+		NOT = {
+			has_variable = ztrpol_high_equality
+		}
+	}
+}
+
+# Pole cores: the pole together with its extreme liberty band
+ztrpol_is_social_core = {
+	custom_tooltip = {
+		text = ztrpol_tooltip_is_social_core
+		ztrpol_is_social_pole = yes
+		ztr_is_full_democratic = yes
+	}
+}
+
+ztrpol_is_liberal_core = {
+	custom_tooltip = {
+		text = ztrpol_tooltip_is_liberal_core
+		ztrpol_is_liberal_pole = yes
+		ztr_is_full_democratic = yes
+	}
+}
+
+ztrpol_is_collectivist_core = {
+	custom_tooltip = {
+		text = ztrpol_tooltip_is_collectivist_core
+		ztrpol_is_collectivist_pole = yes
+		ztr_is_totalitarian = yes
+	}
+}
+
+ztrpol_is_reactionary_core = {
+	custom_tooltip = {
+		text = ztrpol_tooltip_is_reactionary_core
+		ztrpol_is_reactionary_pole = yes
+		ztr_is_totalitarian = yes
+	}
+}

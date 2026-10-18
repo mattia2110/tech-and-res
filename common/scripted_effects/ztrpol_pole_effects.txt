@@ -1,0 +1,68 @@
+# Tech&Res politics: yearly update of the Liberty/Equality pole, after the index (scope: country)
+# Thresholds: liberty 50, equality 70; once set, an axis flips only 5 points past its threshold
+# Poles start with mass politics: before political_agitation the country is pre-modern
+ztrpol_update_pole = {
+	if = {
+		limit = {
+			has_technology_researched = political_agitation
+			has_variable = liberty_index_var
+			has_variable = equality_index_var
+		}
+		if = {
+			limit = {
+				NOT = {
+					has_variable = ztrpol_pole_set
+				}
+			}
+			set_variable = ztrpol_pole_set
+			if = {
+				limit = {
+					var:liberty_index_var >= 50
+				}
+				set_variable = ztrpol_high_liberty
+			}
+			if = {
+				limit = {
+					var:equality_index_var >= 70
+				}
+				set_variable = ztrpol_high_equality
+			}
+		}
+		else = {
+			# Liberty axis
+			if = {
+				limit = {
+					has_variable = ztrpol_high_liberty
+					var:liberty_index_var < 45
+				}
+				remove_variable = ztrpol_high_liberty
+			}
+			else_if = {
+				limit = {
+					NOT = {
+						has_variable = ztrpol_high_liberty
+					}
+					var:liberty_index_var >= 55
+				}
+				set_variable = ztrpol_high_liberty
+			}
+			# Equality axis
+			if = {
+				limit = {
+					has_variable = ztrpol_high_equality
+					var:equality_index_var < 65
+				}
+				remove_variable = ztrpol_high_equality
+			}
+			else_if = {
+				limit = {
+					NOT = {
+						has_variable = ztrpol_high_equality
+					}
+					var:equality_index_var >= 75
+				}
+				set_variable = ztrpol_high_equality
+			}
+		}
+	}
+}

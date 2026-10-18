@@ -179,20 +179,46 @@ ztr_is_not_full_democratic = {
 	}
 }
 
-# Equality Index Triggers
+# Equality Index Triggers: stratified 0-29, individualist 30-69, egalitarian 70-100
+ztr_is_stratified = {
+	custom_tooltip = {
+		text = ztr_tooltip_is_stratified_state
+		has_variable = equality_index_var
+		var:equality_index_var < 30
+	}
+}
+
 ztr_is_individualist = {
 	custom_tooltip = {
 		text = ztr_tooltip_is_individualist_state
 		has_variable = equality_index_var
-		var:equality_index_var < 50
+		var:equality_index_var >= 30
+		var:equality_index_var < 70
 	}
 }
 
-ztr_is_socialist = {
+ztr_is_egalitarian = {
 	custom_tooltip = {
 		text = ztr_tooltip_is_egalitarian_state
 		has_variable = equality_index_var
-		var:equality_index_var >= 50
+		var:equality_index_var >= 70
+	}
+}
+
+# Negatives
+ztr_is_not_stratified = {
+	custom_tooltip = {
+		text = ztr_tooltip_is_not_stratified_state
+		has_variable = equality_index_var
+		var:equality_index_var >= 30
+	}
+}
+
+ztr_is_not_egalitarian = {
+	custom_tooltip = {
+		text = ztr_tooltip_is_not_egalitarian_state
+		has_variable = equality_index_var
+		var:equality_index_var < 70
 	}
 }
 
@@ -279,14 +305,15 @@ ztr_neutral_liberty_index = {
 	}
 }
 
+# Same equality band
 ztr_similar_equality_index = {
 	OR = {
 		AND = {
 			scope:actor = {
-				ztr_is_socialist = yes
+				ztr_is_egalitarian = yes
 			}
 			scope:target_country = {
-				ztr_is_socialist = yes
+				ztr_is_egalitarian = yes
 			}
 		}
 		AND = {
@@ -295,6 +322,14 @@ ztr_similar_equality_index = {
 			}
 			scope:target_country = {
 				ztr_is_individualist = yes
+			}
+		}
+		AND = {
+			scope:actor = {
+				ztr_is_stratified = yes
+			}
+			scope:target_country = {
+				ztr_is_stratified = yes
 			}
 		}
 	}

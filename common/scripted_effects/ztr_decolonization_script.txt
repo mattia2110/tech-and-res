@@ -273,22 +273,20 @@ ztr_calculate_decolonization_pressure = {
 	# Equality index bonus: low equality within the empire fuels resentment
 	if = {
 		limit = {
-			has_variable = equality_index_var
-			var:equality_index_var < 50
-		}
-		change_variable = {
-			name = ztr_decolonization_pressure_var
-			add = 1
-		}
-	}
-	else_if = {
-		limit = {
-			has_variable = equality_index_var
-			var:equality_index_var < 25
+			ztr_is_stratified = yes
 		}
 		change_variable = {
 			name = ztr_decolonization_pressure_var
 			add = 2
+		}
+	}
+	else_if = {
+		limit = {
+			ztr_is_individualist = yes
+		}
+		change_variable = {
+			name = ztr_decolonization_pressure_var
+			add = 1
 		}
 	}
 	# =============================================
