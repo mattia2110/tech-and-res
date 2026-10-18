@@ -57,7 +57,28 @@ ztr_main_script_on_yearly_pulse = {
 				remove_building = building_modern_state_baseline
 			}
 		}
-		# Social ideologies: same gates as the lgbtq/bioethics/education/data law groups
+		# Early social ideologies: stances on bioethics and advanced education as soon as they become changeable
+		every_country = {
+			limit = {
+				NOT = { has_variable = ztr_social_ideology_tier }
+				NOT = { has_variable = ztr_bioethics_ideologies }
+				has_technology_researched = human_rights
+				ztr_dev_3_or_higher = yes
+			}
+			set_variable = ztr_bioethics_ideologies
+			ztr_apply_bioethics_ideologies = yes
+		}
+		every_country = {
+			limit = {
+				NOT = { has_variable = ztr_social_ideology_tier }
+				NOT = { has_variable = ztr_education_ideologies }
+				has_technology_researched = socialdemocracy
+				ztr_dev_3_or_higher = yes
+			}
+			set_variable = ztr_education_ideologies
+			ztr_apply_education_ideologies = yes
+		}
+		# Social ideologies: tier 1 waits for counterculture + dev 4, since IGs also gain approval from active laws they cannot change yet
 		every_country = {
 			limit = {
 				NOT = {
@@ -98,7 +119,7 @@ ztr_main_script_on_yearly_pulse = {
 			}
 			ztr_apply_late_social_ideologies = yes
 		}
-		# Environmental ideologies: same gates as the environmental/mining/uranium law groups
+		# Environmental ideologies: tier 1 shares the counterculture + dev 4 gate of the environmental law groups
 		every_country = {
 			limit = {
 				NOT = {
@@ -139,9 +160,10 @@ ztr_main_script_on_yearly_pulse = {
 			}
 			ztr_apply_late_env_ideologies = yes
 		}
-		# Laissez-faire becomes neoliberism, regardless of development
+		# Laissez-faire becomes neoliberism, regardless of development; BPM keeps vanilla ideologies as markers
 		every_country = {
 			limit = {
+				BPM_is_active_trigger = no
 				has_technology_researched = neoliberism
 				any_interest_group = {
 					has_ideology = ideology:ideology_laissez_faire
