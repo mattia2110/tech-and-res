@@ -15,7 +15,10 @@
 - [b]Chinese Reunification:[/b] Reworked around a final war between the two Chinas, with claims and victory conditions.
 - [b]Navy Overhaul:[/b] Added new modern troop ships and updated ship modifications and names.
 - [b]Geopolitics:[/b] Removed the European Union mechanics and obsolete geopolitical decisions. They will be replaced by an improved Superstate mechanic in the future.
-- [b]General Improvements:[/b] Many tweaks to production methods, technologies, decolonization, and the United Nations.
+- [b]United Nations:[/b] Expanded governance reforms, rebalanced voting, added vote result notifications and more detailed explanation on how it works.
+- [b]3D Models:[/b] Added modern city buildings, vehicles, and a dedicated UN headquarters model.
+- [b]Space Industry:[/b] Split space production from Aircraft Industries into dedicated Space Industries.
+- [b]General Improvements:[/b] Many tweaks to production methods, technologies and decolonization.
 
 ## Version 1.6.0 Stable Official Version
 - Updated army/navy scripts and AI to Vic 3 1.13.5

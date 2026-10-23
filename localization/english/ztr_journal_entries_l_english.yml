@@ -234,11 +234,9 @@ research_center.2.a: "The pursuit of knowledge knows no bounds."
 
 
 
-ztr_tooltip_is_distopia: "[ROOT.GetCountry.GetName] is a #V #N Distopia#!#!."
 
 
 
-ztr_tooltip_is_not_distopia: "[ROOT.GetCountry.GetName] is not a #V #N Distopia#!#!."
 
 
 
@@ -2614,15 +2612,17 @@ je_imf_modernization_literacy_tt: "Reach more than #v 35%#! [Concept('concept_li
  ztrpol_tooltip_is_reactionary_core: "[ROOT.GetCountry.GetName] is a #negative_value Totalitarian#! state of the #v Reactionary#! pole"
  ztrpol_single_party_law_name_vanilla: "[GetLawType('law_single_party_state').GetName]"
  ztrpol_single_party_law_name_bpm: "[GetLawType('law_party_single').GetName]"
- ztrpol_current_pole_social: "#v Social#!"
- ztrpol_current_pole_social_core: "#v Social#!, at its fully democratic core"
- ztrpol_current_pole_liberal: "#v Liberal#!"
- ztrpol_current_pole_liberal_core: "#v Liberal#!, at its fully democratic core"
- ztrpol_current_pole_collectivist: "#v Collectivist#!"
- ztrpol_current_pole_collectivist_core: "#v Collectivist#!, at its totalitarian core"
- ztrpol_current_pole_reactionary: "#v Reactionary#!"
- ztrpol_current_pole_reactionary_core: "#v Reactionary#!, at its totalitarian core"
  ztrpol_current_pole_none: "not yet assessed, it will be set at the next yearly update"
- je_liberty_index_reason: "The [Concept('concept_ideology','$concept_ideology$')] of a [concept_country] is measured through two key indices: the @liberty_index! [Concept('concept_liberty_index','$concept_liberty_index$')] and the @equality_index! [Concept('concept_equality_index','$concept_equality_index$')].\n\nThe @liberty_index! [Concept('concept_liberty_index','$concept_liberty_index$')] and @equality_index! [Concept('concept_equality_index','$concept_equality_index$')] are measures of a nation's political and social values.\n The [Concept('concept_liberty_index','$concept_liberty_index$')] reflects the degree of individual freedom, civil liberties, and [Concept('concept_democracy','$concept_democracy_adjective$')] governance within a country, while the [Concept('concept_equality_index','$concept_equality_index$')] assesses the level of social and economic equality among its citizens. Together, these indices provide insight into the overall ideological landscape of a nation, influencing its domestic policies and international relations. \n\nBoth indices are influenced by most of the [Concept('concept_law', '$concept_laws$')] in place within the country.\n\nBased on our [Concept('concept_liberty_index','$concept_liberty_index$')], we can be classified as a:\n\n 75-100: #positive_value Democratic State#!\n 50-75: #i Flawed Democratic State#!\n 25-50: #v Authoritarian State#!\n 0-25: #gold_value Totalitarian State#!\n\nBased on our [Concept('concept_equality_index','$concept_equality_index$')], we can be classified as a:\n\n 70-100: #negative_value Egalitarian State#!\n 30-70: #blue_value Individualist State#!\n 0-30: #v Stratified State#!\n\nTogether, the two indices place us in one of four political poles:\n\n #v Social#!: democratic and egalitarian\n #v Liberal#!: democratic and individualist\n #v Collectivist#!: authoritarian and egalitarian\n #v Reactionary#!: authoritarian and individualist\n\nPoles emerge with the age of mass politics, once [GetTechnology('political_agitation').GetName] is researched. A pole changes only once an index moves #v 5#! points past its threshold.\n\nOur current political pole: [SCOPE.GetRootScope.GetCountry.GetCustom('ztrpol_current_pole_name')]" # UPDATED
- ztrpol_current_pole_premodern: "#v Pre-modern#!, political poles emerge with the age of mass politics"
  ztr_un_law_voting_model_2_desc: "Every UN member is eligible, with weight set by its [concept_rank] when the proposal starts: [Concept('concept_great_power','$concept_great_powers$')] have #v 25#! votes, [Concept('concept_major_power','$concept_major_powers$')] #v 10#!, [Concept('concept_minor_power','$concept_minor_powers$')] #v 5#! and all others #v 1#!." # UPDATED
+ ztrpol_current_pole_social: "#positive_value Social#!" # UPDATED
+ ztrpol_current_pole_social_core: "#positive_value Social#!, at its fully democratic core" # UPDATED
+ ztrpol_current_pole_liberal: "#blue_value Liberal#!" # UPDATED
+ ztrpol_current_pole_liberal_core: "#blue_value Liberal#!, at its fully democratic core" # UPDATED
+ ztrpol_current_pole_collectivist: "#negative_value Collectivist#!" # UPDATED
+ ztrpol_current_pole_collectivist_core: "#negative_value Collectivist#!, at its totalitarian core" # UPDATED
+ ztrpol_current_pole_reactionary: "#gold_value Reactionary#!" # UPDATED
+ ztrpol_current_pole_reactionary_core: "#gold_value Reactionary#!, at its totalitarian core" # UPDATED
+ je_liberty_index_reason: "The [Concept('concept_ideology_index','$concept_ideology_index$')] of a [concept_country] combines two indices, both shaped by most of the [Concept('concept_law','$concept_laws$')] in force:\n\n @liberty_index! [Concept('concept_liberty_index','$concept_liberty_index$')]: individual freedom, civil liberties and [Concept('concept_democracy','$concept_democracy_adjective$')] governance\n @equality_index! [Concept('concept_equality_index','$concept_equality_index$')]: social and economic equality among citizens\n\nCountries with similar indices find it easier to unify and to share a [concept_power_bloc].\n\nBased on our [Concept('concept_liberty_index','$concept_liberty_index$')], we are a:\n\n 75-100: #positive_value Democratic State#!\n 50-74: #i Flawed Democratic State#!\n 25-49: #v Authoritarian State#!\n 0-24: #gold_value Totalitarian State#!, a #v Dystopia#! below 15\n\nBased on our [Concept('concept_equality_index','$concept_equality_index$')], we are a:\n\n 70-100: #negative_value Egalitarian State#!\n 30-69: #blue_value Individualist State#!\n 0-29: #v Stratified State#!\n\nTogether, the two indices place us in one of four [Concept('concept_political_pole','Ideological Poles')]:\n\n #positive_value Social#!: democratic and egalitarian\n #blue_value Liberal#!: democratic and individualist\n #negative_value Collectivist#!: authoritarian and egalitarian\n #gold_value Reactionary#!: authoritarian and individualist\n\nPoles emerge with the age of mass politics, once [GetTechnology('political_agitation').GetName] is researched, and change only once an index moves #v 5#! points past its threshold.\n\nOur current [Concept('concept_political_pole','Ideological Pole')]: [SCOPE.GetRootScope.GetCountry.GetCustom('ztrpol_current_pole_name')]" # UPDATED
+ ztr_tooltip_is_distopia: "[ROOT.GetCountry.GetName] is a #V #N Dystopia#!#!." # UPDATED
+ ztr_tooltip_is_not_distopia: "[ROOT.GetCountry.GetName] is not a #V #N Dystopia#!#!." # UPDATED
+ ztrpol_current_pole_premodern: "#v Pre-modern#!" # UPDATED

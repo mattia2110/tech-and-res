@@ -729,8 +729,8 @@ ideology_neofascist = {
 }
 
 # Social and Liberal poles
-ideology_christian_democrat = {
-	icon = "gfx/interface/icons/ideology_icons/ideology_leader/ztrpol_leader_christian_democrat.dds"
+ideology_religious_democrat = {
+	icon = "gfx/interface/icons/ideology_icons/ideology_leader/ztrpol_leader_religious_democrat.dds"
 
 	character_ideology = yes
 
@@ -798,7 +798,7 @@ ideology_christian_democrat = {
 	}
 
 	interest_group_leader_trigger = {
-		ztrpol_ideology_christian_democrat_valid_trigger = yes
+		ztrpol_ideology_religious_democrat_valid_trigger = yes
 	}
 
 	non_interest_group_leader_trigger = {
@@ -813,7 +813,7 @@ ideology_christian_democrat = {
 			}
 		}
 		interest_group ?= {
-			ztrpol_ideology_christian_democrat_valid_trigger = yes
+			ztrpol_ideology_religious_democrat_valid_trigger = yes
 		}
 	}
 
@@ -824,7 +824,7 @@ ideology_christian_democrat = {
 		}
 		if = {
 			limit = {
-				ztrpol_ideology_christian_democrat_natural_trigger = yes
+				ztrpol_ideology_religious_democrat_natural_trigger = yes
 			}
 			add = {
 				value = 50
@@ -833,20 +833,20 @@ ideology_christian_democrat = {
 		}
 		if = {
 			limit = {
-				owner.ztrpol_ideology_christian_democrat_disfavoured_laws > 0
+				owner.ztrpol_ideology_religious_democrat_disfavoured_laws > 0
 			}
 			add = {
-				value = owner.ztrpol_ideology_christian_democrat_disfavoured_laws
+				value = owner.ztrpol_ideology_religious_democrat_disfavoured_laws
 				multiply = 8
 				desc = "DISFAVORED_LAWS"
 			}
 		}
 		if = {
 			limit = {
-				owner.ztrpol_ideology_christian_democrat_favoured_laws > 0
+				owner.ztrpol_ideology_religious_democrat_favoured_laws > 0
 			}
 			subtract = {
-				value = owner.ztrpol_ideology_christian_democrat_favoured_laws
+				value = owner.ztrpol_ideology_religious_democrat_favoured_laws
 				multiply = 8
 				desc = "FAVORED_LAWS"
 			}
@@ -857,19 +857,19 @@ ideology_christian_democrat = {
 		value = 100
 		if = {
 			limit = {
-				owner.ztrpol_ideology_christian_democrat_disfavoured_laws > 0
+				owner.ztrpol_ideology_religious_democrat_disfavoured_laws > 0
 			}
 			add = {
-				value = owner.ztrpol_ideology_christian_democrat_disfavoured_laws
+				value = owner.ztrpol_ideology_religious_democrat_disfavoured_laws
 				multiply = 8
 			}
 		}
 		if = {
 			limit = {
-				owner.ztrpol_ideology_christian_democrat_favoured_laws > 0
+				owner.ztrpol_ideology_religious_democrat_favoured_laws > 0
 			}
 			subtract = {
-				value = owner.ztrpol_ideology_christian_democrat_favoured_laws
+				value = owner.ztrpol_ideology_religious_democrat_favoured_laws
 				multiply = 8
 			}
 		}
