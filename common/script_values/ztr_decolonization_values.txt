@@ -1,4 +1,4 @@
-# root = pact
+﻿# root = pact
 # root.first_country: first country in the pact. Overlord.
 # root.second_country: second country in the pact. Subject.
 # root = { liberty_desire < 50 }: compare trigger for current Liberty Desire value root.
@@ -882,11 +882,15 @@ REPLACE:liberty_desire_weekly_change = {
 		# Primary Culture is less than 25% of the subject's population
 		if = {
 			limit = {
-				root.second_country = {
-					any_scope_culture = {
-						culture_percent_country = {
-							target = this
-							value < 0.25
+				root.first_country = {
+					NOT = {
+						any_primary_culture = {
+							root.second_country = {
+								culture_percent_country = {
+									target = PREV
+									value >= 0.25
+								}
+							}
 						}
 					}
 				}
@@ -899,11 +903,15 @@ REPLACE:liberty_desire_weekly_change = {
 		# Primary Culture is less than 50% of the subject's population
 		else_if = {
 			limit = {
-				root.second_country = {
-					any_scope_culture = {
-						culture_percent_country = {
-							target = this
-							value < 0.5
+				root.first_country = {
+					NOT = {
+						any_primary_culture = {
+							root.second_country = {
+								culture_percent_country = {
+									target = PREV
+									value >= 0.5
+								}
+							}
 						}
 					}
 				}
@@ -916,11 +924,15 @@ REPLACE:liberty_desire_weekly_change = {
 		# Primary Culture is less than 75% of the subject's population
 		else_if = {
 			limit = {
-				root.second_country = {
-					any_scope_culture = {
-						culture_percent_country = {
-							target = this
-							value < 0.75
+				root.first_country = {
+					NOT = {
+						any_primary_culture = {
+							root.second_country = {
+								culture_percent_country = {
+									target = PREV
+									value >= 0.75
+								}
+							}
 						}
 					}
 				}

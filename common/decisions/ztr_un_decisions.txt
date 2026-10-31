@@ -1,4 +1,4 @@
-# International Organizations Decisions
+﻿# International Organizations Decisions
 firm_ztr_geneva_convention = {
 	is_shown = {
 		has_technology_researched = human_rights
@@ -41,8 +41,8 @@ withdraw_ztr_geneva_convention = {
 	}
 	ai_chance = {
 		value = 0
-		modifier = {
-			trigger = {
+		if = {
+			limit = {
 				OR = {
 					ztr_is_totalitarian = yes
 					ztr_is_authoritarian = yes
@@ -102,8 +102,8 @@ withdraw_ztr_society_of_nations = {
 	}
 	ai_chance = {
 		value = 0
-		modifier = {
-			trigger = {
+		if = {
+			limit = {
 				ztr_is_totalitarian = yes
 			}
 			add = 5
@@ -205,15 +205,15 @@ withdraw_united_nations = {
 	}
 	ai_chance = {
 		value = 0
-		modifier = {
-			trigger = {
+		if = {
+			limit = {
 				is_distopia = yes
 				# China and Russia cannot withdraw as they could use UN for their interests
 				NOT = {
-					root = c:CHI
+					c:CHI ?= root
 				}
 				NOT = {
-					root = c:RUS
+					c:RUS ?= root
 				}
 				country_rank < rank_value:great_power
 			}

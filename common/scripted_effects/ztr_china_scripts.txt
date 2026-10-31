@@ -1,4 +1,4 @@
-ztr_china_init_renaissance_vars = {
+﻿ztr_china_init_renaissance_vars = {
 	set_variable = {
 		name = ztr_china_corporate_var
 		value = 0
@@ -1289,7 +1289,7 @@ ztr_chinese_civil_war_refresh_modifiers = {
 	if = {
 		limit = {
 			exists = c:CHI
-			this = c:CHI
+			c:CHI ?= this
 			NOT = {
 				has_modifier = ztr_ccp_revolutionary_discipline
 			}
@@ -1301,7 +1301,7 @@ ztr_chinese_civil_war_refresh_modifiers = {
 	else_if = {
 		limit = {
 			exists = c:ZFC
-			this = c:ZFC
+			c:ZFC ?= this
 			NOT = {
 				has_modifier = ztr_kmt_national_salvation
 			}

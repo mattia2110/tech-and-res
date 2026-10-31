@@ -1,4 +1,4 @@
-# For events only consider first culture
+﻿# For events only consider first culture
 # Kenya ZKN kikuyu, lacustrine_bantu
 # Namibia ZNB khoisan, herero
 # Somalia ZSO somali, swahili
@@ -2875,35 +2875,6 @@ ztr_define_galicia = {
 }
 
 # Poland Country Creation
-ztr_define_poland = {
-	cu:polish = {
-		save_scope_as = ztr_minor_primary_culture
-	}
-	ztr_state_finder_script = yes
-	if = {
-		limit = { NOT = { exists = c:POL } }
-		create_country = {
-			tag    = POL
-			origin = this
-			state  = SCOPE:ztr_state_finder
-			on_created = {
-				set_country_type = recognized
-				activate_law     = law_type:law_parliamentary_republic
-				activate_law     = law_type:law_census_voting
-			}
-		}
-	}
-	every_scope_state = {
-		limit = {
-			NOT = { is_homeland_of_country_cultures = prev }
-			state_region = {
-				is_homeland = scope:ztr_minor_primary_culture
-			}
-		}
-		set_state_owner = c:POL
-	}
-}
-
 # Romania Country Creation
 ztr_define_romania = {
 	cu:romanian = {

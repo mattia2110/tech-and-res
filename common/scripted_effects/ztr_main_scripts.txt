@@ -1,4 +1,4 @@
-remove_state_economy_modifier = {
+﻿remove_state_economy_modifier = {
 	hidden_effect = {
 		remove_modifier = dev_0_country
 		remove_modifier = dev_1_country
@@ -1616,4 +1616,96 @@ ztr_update_liberty_equality_index = {
 		calculate_liberty_equality_index = yes
 	}
 	calculate_max_liberty_index = yes
+}
+
+# Country: new leaders for vanilla IGs left without one (e.g. after retiring characters on independence)
+ztr_refill_missing_ig_leaders_effect = {
+	if = {
+		limit = {
+			ig:ig_armed_forces ?= {
+				NOT = { exists = leader }
+			}
+		}
+		create_character = {
+			ig_leader = yes
+			interest_group = ig_armed_forces
+		}
+	}
+	if = {
+		limit = {
+			ig:ig_devout ?= {
+				NOT = { exists = leader }
+			}
+		}
+		create_character = {
+			ig_leader = yes
+			interest_group = ig_devout
+		}
+	}
+	if = {
+		limit = {
+			ig:ig_industrialists ?= {
+				NOT = { exists = leader }
+			}
+		}
+		create_character = {
+			ig_leader = yes
+			interest_group = ig_industrialists
+		}
+	}
+	if = {
+		limit = {
+			ig:ig_intelligentsia ?= {
+				NOT = { exists = leader }
+			}
+		}
+		create_character = {
+			ig_leader = yes
+			interest_group = ig_intelligentsia
+		}
+	}
+	if = {
+		limit = {
+			ig:ig_landowners ?= {
+				NOT = { exists = leader }
+			}
+		}
+		create_character = {
+			ig_leader = yes
+			interest_group = ig_landowners
+		}
+	}
+	if = {
+		limit = {
+			ig:ig_petty_bourgeoisie ?= {
+				NOT = { exists = leader }
+			}
+		}
+		create_character = {
+			ig_leader = yes
+			interest_group = ig_petty_bourgeoisie
+		}
+	}
+	if = {
+		limit = {
+			ig:ig_rural_folk ?= {
+				NOT = { exists = leader }
+			}
+		}
+		create_character = {
+			ig_leader = yes
+			interest_group = ig_rural_folk
+		}
+	}
+	if = {
+		limit = {
+			ig:ig_trade_unions ?= {
+				NOT = { exists = leader }
+			}
+		}
+		create_character = {
+			ig_leader = yes
+			interest_group = ig_trade_unions
+		}
+	}
 }

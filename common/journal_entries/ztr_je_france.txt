@@ -1,4 +1,4 @@
-# Journal Entries for population
+﻿# Journal Entries for population
 je_france_pop = {
 	icon = "gfx/interface/icons/event_icons/waving_flag_france.dds"
 	group = je_group_historical_content
@@ -34,6 +34,7 @@ je_france_pop = {
 						filter = {
 							is_incorporated = yes
 						}
+						percent >= 1
 						any_scope_building = {
 							is_building_type = building_urban_center
 							NOT = {
@@ -84,13 +85,13 @@ je_france_pop = {
 	# It starts to be seen as a problem around 1880
 	is_shown_when_inactive = {
 		exists = c:FRA
-		THIS = c:FRA
+		c:FRA ?= THIS
 		has_technology_researched = modern_sewerage
 	}
 	# Resolution of the problem is possible around 1910
 	possible = {
 		exists = c:FRA
-		THIS = c:FRA
+		c:FRA ?= THIS
 		has_technology_researched = central_planning
 	}
 	complete = {

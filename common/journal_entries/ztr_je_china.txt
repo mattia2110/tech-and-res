@@ -1,4 +1,4 @@
-# Chinese Ucronia
+﻿# Chinese Ucronia
 ztr_je_the_future_of_china = {
 	icon = "gfx/interface/icons/event_icons/event_newspaper.dds"
 	group = je_group_the_future_of_china
@@ -153,7 +153,9 @@ ztr_je_chinese_communist_front = {
 						is_involved_in_journal_entry = ztr_je_chinese_communist_front
 					}
 				}
-				add_involved_country = this
+				scope:journal_entry = {
+					add_involved_country = PREV
+				}
 			}
 		}
 	}
@@ -266,7 +268,9 @@ ztr_je_chinese_communist_front = {
 				NOT = {
 					c:CHI = this
 				}
-				is_coastal = yes
+				any_scope_state = {
+					is_coastal = yes
+				}
 				country_has_primary_culture = cu:han
 			}
 			set_variable = ztr_ccp_nationalist_candidate

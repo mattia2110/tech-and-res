@@ -1,4 +1,4 @@
-british_raj_consolidation_effect = {
+﻿british_raj_consolidation_effect = {
 	# At first Great Britain will give all of its Indian states to the British Raj
 	if = {
 		limit = {
@@ -509,7 +509,7 @@ ztr_calculate_decolonization_pressure = {
 		# A state where >=25% are radicals is volatile
 		if = {
 			limit = {
-				radical_fraction >= 0.25
+				radical_fraction = { value >= 0.25 }
 			}
 			root = {
 				change_variable = {
@@ -521,7 +521,7 @@ ztr_calculate_decolonization_pressure = {
 		# A state where >=25% are loyalists is stable
 		if = {
 			limit = {
-				loyalist_fraction >= 0.25
+				loyalist_fraction = { value >= 0.25 }
 			}
 			root = {
 				change_variable = {

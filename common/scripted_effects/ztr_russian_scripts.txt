@@ -1,4 +1,4 @@
-remove_russian_revolution_variables = {
+﻿remove_russian_revolution_variables = {
 	remove_variable = russia_order_var
 	remove_variable = russia_revolution_var
 	remove_variable = russia_liberalist_path_var
@@ -11,7 +11,6 @@ remove_russian_revolution_variables = {
 	remove_variable = ztr_russia_minorities_unrest_var
 	remove_variable = ztr_liberals_contrary_to_us_var
 	remove_variable = ztr_duma_low_strata_question_var
-	remove_variable = russia_liberalist_path_var_semi
 	remove_modifier = ztr_liberal_consensus_helped_modifier
 	remove_modifier = ztr_repressed_soviet_movements_modifier
 }
@@ -99,7 +98,7 @@ ztr_russia_update_order_bar = {
 			# Russian doesn't own any polish region state
 			NOT = {
 				any_scope_state = {
-					region = sr:region_poland_old
+					is_in_geographic_region = geographic_region_poland_old
 				}
 			}
 		}
@@ -337,10 +336,8 @@ ztr_russia_update_other_effects = {
 	if = {
 		limit = {
 			is_at_war = yes
-			any_scope_war = {
-				any_enemy_in_war = {
-					country_rank >= rank_value:major_power
-				}
+			any_enemy_in_war = {
+				country_rank >= rank_value:major_power
 			}
 		}
 		change_variable = {
@@ -478,7 +475,7 @@ russian_collapse_effect = {
 			}
 		}
 	}
-	every_scope_war = {
+	every_diplomatic_play = {
 		end_play = yes
 	}
 	# Poland gain liberty

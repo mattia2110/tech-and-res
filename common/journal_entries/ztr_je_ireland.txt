@@ -1,11 +1,11 @@
-je_irish_independence = {
+﻿je_irish_independence = {
 	icon = "gfx/interface/icons/event_icons/waving_flag_ireland.dds"
 	group = je_group_historical_content
 	is_shown_when_inactive = {
 		year > 1900
 		has_game_rule = allow_ztr_historical_content
 		exists = c:GBR
-		THIS = c:GBR
+		c:GBR ?= THIS
 		has_technology_researched = pan-nationalism
 		NOT = {
 			has_law_or_variant = law_type:law_multicultural
@@ -14,7 +14,7 @@ je_irish_independence = {
 	possible = {
 		year > 1900
 		exists = c:GBR
-		THIS = c:GBR
+		c:GBR ?= THIS
 		has_technology_researched = political_agitation
 		NOT = {
 			has_law_or_variant = law_type:law_multicultural

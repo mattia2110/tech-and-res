@@ -1,4 +1,4 @@
-namespace = ztr_technology
+﻿namespace = ztr_technology
 # Site identified
 ztr_technology.1 = {
 	type = country_event
@@ -312,7 +312,7 @@ ztr_technology.14 = {
 			base = 100
 			modifier = {
 				trigger = {
-					relations:scope:fusion_technology_requester >= relations_threshold:amicable
+					scope:fusion_technology_requester = { relations:root >= relations_threshold:amicable }
 				}
 				add = 100
 			}
@@ -329,7 +329,7 @@ ztr_technology.14 = {
 					scope:fusion_technology_requester = {
 						country_rank = rank_value:great_power
 					}
-					relations:scope:fusion_technology_requester < relations_threshold:friendly
+					scope:fusion_technology_requester = { relations:root < relations_threshold:friendly }
 				}
 				add = -50
 			}
@@ -470,7 +470,7 @@ ztr_technology.21 = {
 			base = 100
 			modifier = {
 				trigger = {
-					relations:scope:nuclear_technology_requester >= relations_threshold:amicable
+					scope:nuclear_technology_requester = { relations:root >= relations_threshold:amicable }
 				}
 				add = 100
 			}

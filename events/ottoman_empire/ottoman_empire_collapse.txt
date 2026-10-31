@@ -1,4 +1,4 @@
-namespace = ztr_ottoman_collapse
+﻿namespace = ztr_ottoman_collapse
 ################################################################################
 ### OTTOMAN EMPIRE EVENTS
 ################################################################################
@@ -150,12 +150,12 @@ ztr_ottoman_collapse.2 = {
 		else_if = {
 			limit = {
 				any_scope_state = {
-					region = sr:region_arabic
+					is_in_geographic_region = geographic_region_arabic_old
 				}
 			}
 			random_scope_state = {
 				limit = {
-					region = sr:region_arabic
+					is_in_geographic_region = geographic_region_arabic_old
 				}
 				save_scope_as = arab_congress_state
 			}
@@ -727,28 +727,25 @@ ztr_ottoman_collapse.6 = {
 			}
 			modifier = {
 				trigger = {
-					relations:scope:ztr_ottoman_collapse_requesting_power >= relations_threshold:amicable
+					scope:ztr_ottoman_collapse_requesting_power = { relations:root >= relations_threshold:amicable }
 				}
 				add = 4
 			}
 			modifier = {
 				trigger = {
-					relations:scope:ztr_ottoman_collapse_requesting_power >= relations_threshold:friendly
+					scope:ztr_ottoman_collapse_requesting_power = { relations:root >= relations_threshold:friendly }
 				}
 				add = 4
 			}
 			modifier = {
 				trigger = {
-					has_diplomatic_pact = {
-						who = scope:ztr_ottoman_collapse_requesting_power
-						type = alliance
-					}
+					has_treaty_alliance_with = { TARGET = scope:ztr_ottoman_collapse_requesting_power }
 				}
 				add = 5
 			}
 			modifier = {
 				trigger = {
-					relations:scope:ztr_ottoman_collapse_requesting_power <= relations_threshold:poor
+					scope:ztr_ottoman_collapse_requesting_power = { relations:root <= relations_threshold:poor }
 				}
 				add = -5
 			}
@@ -895,28 +892,25 @@ ztr_ottoman_collapse.7 = {
 			}
 			modifier = {
 				trigger = {
-					relations:scope:ztr_ottoman_collapse_requesting_power >= relations_threshold:amicable
+					scope:ztr_ottoman_collapse_requesting_power = { relations:root >= relations_threshold:amicable }
 				}
 				add = 4
 			}
 			modifier = {
 				trigger = {
-					relations:scope:ztr_ottoman_collapse_requesting_power >= relations_threshold:friendly
+					scope:ztr_ottoman_collapse_requesting_power = { relations:root >= relations_threshold:friendly }
 				}
 				add = 4
 			}
 			modifier = {
 				trigger = {
-					has_diplomatic_pact = {
-						who = scope:ztr_ottoman_collapse_requesting_power
-						type = alliance
-					}
+					has_treaty_alliance_with = { TARGET = scope:ztr_ottoman_collapse_requesting_power }
 				}
 				add = 5
 			}
 			modifier = {
 				trigger = {
-					relations:scope:ztr_ottoman_collapse_requesting_power <= relations_threshold:poor
+					scope:ztr_ottoman_collapse_requesting_power = { relations:root <= relations_threshold:poor }
 				}
 				add = -5
 			}
@@ -1058,28 +1052,25 @@ ztr_ottoman_collapse.8 = {
 			}
 			modifier = {
 				trigger = {
-					relations:scope:ztr_ottoman_collapse_requesting_power >= relations_threshold:amicable
+					scope:ztr_ottoman_collapse_requesting_power = { relations:root >= relations_threshold:amicable }
 				}
 				add = 4
 			}
 			modifier = {
 				trigger = {
-					relations:scope:ztr_ottoman_collapse_requesting_power >= relations_threshold:friendly
+					scope:ztr_ottoman_collapse_requesting_power = { relations:root >= relations_threshold:friendly }
 				}
 				add = 4
 			}
 			modifier = {
 				trigger = {
-					has_diplomatic_pact = {
-						who = scope:ztr_ottoman_collapse_requesting_power
-						type = alliance
-					}
+					has_treaty_alliance_with = { TARGET = scope:ztr_ottoman_collapse_requesting_power }
 				}
 				add = 5
 			}
 			modifier = {
 				trigger = {
-					relations:scope:ztr_ottoman_collapse_requesting_power <= relations_threshold:poor
+					scope:ztr_ottoman_collapse_requesting_power = { relations:root <= relations_threshold:poor }
 				}
 				add = -5
 			}
@@ -1201,7 +1192,7 @@ ztr_ottoman_collapse.100 = {
 						is_in_geographic_region = geographic_region_middle_east
 					}
 				}
-				multiply = 0
+				factor = 0
 			}
 		}
 	}

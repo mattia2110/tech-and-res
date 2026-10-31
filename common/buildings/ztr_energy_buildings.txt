@@ -1,4 +1,4 @@
-#Hydro Electric Power Plant
+﻿#Hydro Electric Power Plant
 building_hydroelectric_power_plant = {
 	building_group = bg_power
 	icon = "gfx/interface/icons/building_icons/hydroelectric_power_plant.dds"
@@ -280,8 +280,12 @@ building_power_grid_station = {
 					state_goods_pricier >= 0.1
 				}
 			}
-			g:global_electricity = {
-				market_goods_pricier <= -0.1
+			state = {
+				market = {
+					mg:global_electricity = {
+						market_goods_pricier <= -0.1
+					}
+				}
 			}
 		}
 	}
@@ -302,8 +306,10 @@ building_power_grid_station = {
 		}
 		if = {
 			limit = {
-				g:global_electricity = {
-					market_goods_pricier <= -0.25
+				market = {
+					mg:global_electricity = {
+						market_goods_pricier <= -0.25
+					}
 				}
 			}
 			add = 4000

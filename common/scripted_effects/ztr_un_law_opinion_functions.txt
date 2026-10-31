@@ -1,4 +1,4 @@
-# Here we have all the functions needed for UN
+﻿# Here we have all the functions needed for UN
 #1. ztr_un_random_subject_and_law_extraction -> Randomly selects a subject and a law for the UN to vote on
 #2. ztr_un_set_possible_law_as_considered -> Sets the possible law as considered
 #3. ztr_un_set_current_law_as_considered -> Sets the current law as considered
@@ -796,7 +796,7 @@ ztr_un_ai_take_neutral_vote_position = {
 		}
 		change_variable = {
 			name = ztr_un_ai_vote_support_margin
-			add = -var:ztr_un_ai_vote_current_law_value
+			subtract = var:ztr_un_ai_vote_current_law_value
 		}
 
 		set_variable = {
@@ -805,7 +805,7 @@ ztr_un_ai_take_neutral_vote_position = {
 		}
 		change_variable = {
 			name = ztr_un_ai_vote_against_margin
-			add = -var:ztr_un_ai_vote_proposed_law_value
+			subtract = var:ztr_un_ai_vote_proposed_law_value
 		}
 
 		if = {

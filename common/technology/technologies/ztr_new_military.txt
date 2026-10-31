@@ -46,7 +46,6 @@ military_encryption = {
 	
 	modifier = {
 		unit_convoy_raiding_interception_mult = 0.05
-		unit_convoy_raiding_mult = 0.05
 		ship_ship_type_submarine_hull_damage_mult = 0.1
 		ship_ship_type_nuclear_submarine_hull_damage_mult = 0.1
 		military_formation_organization_gain_mult = 0.05
@@ -73,7 +72,7 @@ mechanized_infantry = {
 	category = military
 	modifier = {
 		military_formation_mobilization_speed_mult = 0.2
-		unit_advancement_speed_mult = 0.1
+		military_formation_army_movement_speed_mult = 0.1
 		military_formation_attrition_risk_mult = -0.2
 		country_military_wages_mult = 0.25
 	}
@@ -143,7 +142,7 @@ amphibious_warfare = {
 	
 	modifier = {
 		military_formation_mobilization_speed_mult = 0.05
-		unit_advancement_speed_mult = 0.10
+		military_formation_army_movement_speed_mult = 0.10
 		military_formation_attrition_risk_mult = -0.05
 	}
 	
@@ -556,9 +555,9 @@ radar = {
 	category = military
 
 	modifier = {
-		unit_navy_defense_mult = 0.25
-		unit_navy_offense_mult = 0.25
-		unit_convoy_defense_mult = 0.15
+		ship_armor_mult = 0.25
+		ship_hull_damage_mult = 0.25
+		character_convoy_protection_mult = 0.15
 		ship_ship_type_submarine_hull_damage_mult = 0.1
 		ship_ship_type_nuclear_submarine_hull_damage_mult = 0.1
 		country_military_wages_mult = 0.25
@@ -711,8 +710,8 @@ modern_naval_doctrine = {
 	category = military
 
 	modifier = {
-		unit_navy_offense_mult = 0.15
-		unit_navy_defense_mult = 0.2
+		ship_hull_damage_mult = 0.15
+		ship_armor_mult = 0.2
 		country_military_wages_mult = 0.15
 	}
 
@@ -744,9 +743,9 @@ modern_battleships = {
 	}
 
 	modifier = {
-		unit_navy_defense_mult = 0.15
+		ship_armor_mult = 0.15
 		country_military_goods_cost_mult = 0.15
-		unit_navy_experience_gain_mult = 0.1
+		ship_crew_experience_gain_mult = 0.1
 	}
 
 	ai_weight = {
@@ -768,7 +767,7 @@ naval_logistic_automation = {
 	category = military
 	modifier = {
 		country_port_connection_cost_mult = -0.05
-		building_shipyards_throughput_add = 0.1
+		building_shipyard_throughput_add = 0.1
 	}
 
 	unlocking_technologies = {	
@@ -1025,7 +1024,6 @@ stealth_technology = {
 	category = military
 
 	modifier = {
-		unit_convoy_raiding_mult = 0.1
 		unit_morale_damage_mult = 0.1
 		unit_convoy_raiding_interception_mult = 0.25
 		increase_nuclear_strike_power_bool_tt = yes
@@ -1060,11 +1058,11 @@ cyber_warfare = {
 	}
 
 	modifier = {
-		unit_convoy_defense_mult = 0.2
+		character_convoy_protection_mult = 0.2
 		unit_army_offense_mult = 0.1
 		unit_army_defense_mult = 0.15
-		unit_navy_offense_mult = 0.1
-		unit_navy_defense_mult = 0.15
+		ship_hull_damage_mult = 0.1
+		ship_armor_mult = 0.15
 		country_military_wages_mult = 0.25
 		increase_nuclear_strike_power_bool_tt = yes
 	}
@@ -1091,8 +1089,8 @@ precision_strike_doctrine = {
 	}
 
 	modifier = {
-		unit_navy_defense_mult = 0.35
-		unit_navy_offense_mult = 0.2
+		ship_armor_mult = 0.35
+		ship_hull_damage_mult = 0.2
 		country_military_goods_cost_mult = 0.25
 	}
 
@@ -1165,7 +1163,7 @@ cannon_launched_guided_projectiles = {
 	category = military
 
 	modifier = {
-		unit_combat_unit_type_mechanized_infantry_offense_mult = 0.1
+		unit_combat_unit_type_mechanized_infantry_offense_add = 5
 		unit_combat_unit_type_modern_mechanized_infantry_offense_mult = 0.15
 		unit_combat_unit_type_advanced_mechanized_infantry_offense_mult = 0.2
 		country_military_wages_mult = 0.25

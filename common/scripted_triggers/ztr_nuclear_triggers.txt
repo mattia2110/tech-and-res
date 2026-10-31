@@ -24,6 +24,7 @@ ztr_has_operational_research_center = {
 }
 
 ztr_nuclear_research_paused = {
+	save_temporary_scope_as = ztr_nuclear_paused_country
 	OR = {
 		has_variable = signed_nuclear_non_proliferation_treaty
 		in_default = yes
@@ -31,7 +32,7 @@ ztr_nuclear_research_paused = {
 		any_scope_treaty = {
 			any_scope_article = {
 				has_type = pause_nuclear_weapons_development
-				source_country = prev.prev
+				source_country = scope:ztr_nuclear_paused_country
 			}
 		}
 	}
