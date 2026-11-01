@@ -1,4 +1,4 @@
-# Tech&Res politics: Liberty/Equality poles (scope: country), set yearly by ztrpol_update_pole
+﻿# Tech&Res politics: Liberty/Equality poles (scope: country), set yearly by ztrpol_update_pole
 
 # High liberty, high equality
 ztrpol_is_social_pole = {
@@ -48,12 +48,12 @@ ztrpol_is_reactionary_pole = {
 	}
 }
 
-# Pole cores: the pole together with its extreme liberty band
+# Pole cores: liberty 20 points past the frontier at 50 (democratic >= 70, authoritarian < 30)
 ztrpol_is_social_core = {
 	custom_tooltip = {
 		text = ztrpol_tooltip_is_social_core
 		ztrpol_is_social_pole = yes
-		ztr_is_full_democratic = yes
+		var:liberty_index_var >= 70
 	}
 }
 
@@ -61,7 +61,7 @@ ztrpol_is_liberal_core = {
 	custom_tooltip = {
 		text = ztrpol_tooltip_is_liberal_core
 		ztrpol_is_liberal_pole = yes
-		ztr_is_full_democratic = yes
+		var:liberty_index_var >= 70
 	}
 }
 
@@ -69,7 +69,7 @@ ztrpol_is_collectivist_core = {
 	custom_tooltip = {
 		text = ztrpol_tooltip_is_collectivist_core
 		ztrpol_is_collectivist_pole = yes
-		ztr_is_totalitarian = yes
+		var:liberty_index_var < 30
 	}
 }
 
@@ -77,6 +77,39 @@ ztrpol_is_reactionary_core = {
 	custom_tooltip = {
 		text = ztrpol_tooltip_is_reactionary_core
 		ztrpol_is_reactionary_pole = yes
-		ztr_is_totalitarian = yes
+		var:liberty_index_var < 30
+	}
+}
+
+# The pole differs from the stored code (or has never been stored)
+ztrpol_pole_changed = {
+	OR = {
+		NOT = {
+			has_variable = ztrpol_pole_code
+		}
+		AND = {
+			ztrpol_is_social_pole = yes
+			NOT = {
+				var:ztrpol_pole_code = 1
+			}
+		}
+		AND = {
+			ztrpol_is_liberal_pole = yes
+			NOT = {
+				var:ztrpol_pole_code = 2
+			}
+		}
+		AND = {
+			ztrpol_is_collectivist_pole = yes
+			NOT = {
+				var:ztrpol_pole_code = 3
+			}
+		}
+		AND = {
+			ztrpol_is_reactionary_pole = yes
+			NOT = {
+				var:ztrpol_pole_code = 4
+			}
+		}
 	}
 }

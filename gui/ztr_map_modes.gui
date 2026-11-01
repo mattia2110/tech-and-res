@@ -10,7 +10,7 @@ template ztr_map_tile_fill {
 types ztr_map_modes_types {
 	type ztr_map_mode_overlay = container {
 		parentanchor = hcenter
-		visible = "[Or6(IsMapModeSelected('mm_ztr_renewable_potential'), IsMapModeSelected('mm_ztr_innovation'), IsMapModeSelected('mm_ztr_liberty_index'), IsMapModeSelected('mm_ztr_equality_index'), IsMapModeSelected('mm_ztr_demographic_stage'), IsMapModeSelected('mm_ztr_nuclear_powers'))]"
+		visible = "[Or(Or6(IsMapModeSelected('mm_ztr_renewable_potential'), IsMapModeSelected('mm_ztr_innovation'), IsMapModeSelected('mm_ztr_liberty_index'), IsMapModeSelected('mm_ztr_equality_index'), IsMapModeSelected('mm_ztr_demographic_stage'), IsMapModeSelected('mm_ztr_nuclear_powers')), IsMapModeSelected('mm_ztr_ideological_poles'))]"
 
 		# Renewable Potential: white (-50%) to solar yellow (+33%)
 		ztr_map_tile = {
@@ -204,6 +204,40 @@ types ztr_map_modes_types {
 					using = ztr_map_tile_fill
 					visible = "[EqualTo_CFixedPoint(State.MakeScope.ScriptValue('ztr_mm_equality_level'), '(CFixedPoint)7')]"
 					color = { 0.8 0.12 0.12 1 }
+				}
+			}
+		}
+
+		# Ideological Poles: white none, green Social, light blue Liberal, red Collectivist, gold Reactionary
+		ztr_map_tile = {
+			visible = "[And(IsMapModeSelected('mm_ztr_ideological_poles'), GreaterThanOrEqualTo_CFixedPoint(State.MakeScope.ScriptValue('ztr_mm_pole_level'), '(CFixedPoint)0'))]"
+			tooltip = "ZTR_MM_POLE_TOOLTIP"
+
+			blockoverride "ztr_map_tile_fills" {
+				icon = {
+					using = ztr_map_tile_fill
+					visible = "[EqualTo_CFixedPoint(State.MakeScope.ScriptValue('ztr_mm_pole_level'), '(CFixedPoint)0')]"
+					color = { 1.0 1.0 1.0 1 }
+				}
+				icon = {
+					using = ztr_map_tile_fill
+					visible = "[EqualTo_CFixedPoint(State.MakeScope.ScriptValue('ztr_mm_pole_level'), '(CFixedPoint)1')]"
+					color = { 0.3 0.66 0.3 1 }
+				}
+				icon = {
+					using = ztr_map_tile_fill
+					visible = "[EqualTo_CFixedPoint(State.MakeScope.ScriptValue('ztr_mm_pole_level'), '(CFixedPoint)2')]"
+					color = { 0.45 0.76 0.96 1 }
+				}
+				icon = {
+					using = ztr_map_tile_fill
+					visible = "[EqualTo_CFixedPoint(State.MakeScope.ScriptValue('ztr_mm_pole_level'), '(CFixedPoint)3')]"
+					color = { 0.82 0.2 0.2 1 }
+				}
+				icon = {
+					using = ztr_map_tile_fill
+					visible = "[EqualTo_CFixedPoint(State.MakeScope.ScriptValue('ztr_mm_pole_level'), '(CFixedPoint)4')]"
+					color = { 0.88 0.7 0.24 1 }
 				}
 			}
 		}

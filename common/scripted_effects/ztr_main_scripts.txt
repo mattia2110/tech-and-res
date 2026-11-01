@@ -142,49 +142,7 @@ african_religion_setting = {
 
 # Early Social Ideology Scripts, each assigned when its law group becomes changeable
 ztr_apply_bioethics_ideologies = {
-	# BPM Ideologies
-	if = {
-		limit = { BPM_is_active_trigger = yes }
-		ig:ig_agrarian_populists = {
-			add_ideology = ideology_bioethics_traditionalist
-		}
-		ig:ig_christian_democrats = {
-			add_ideology = ideology_bioethics_traditionalist
-		}
-		ig:ig_conservatives = {
-			add_ideology = ideology_bioethics_traditionalist
-		}
-		ig:ig_fascists = {
-			add_ideology = ideology_bioethics_traditionalist
-		}
-		ig:ig_national_liberals = {
-			add_ideology = ideology_bioethics_traditionalist
-		}
-		ig:ig_reactionaries = {
-			add_ideology = ideology_bioethics_traditionalist
-		}
-		ig:ig_anarchists = {
-			add_ideology = ideology_bioethics_progressist
-		}
-		ig:ig_liberals = {
-			add_ideology = ideology_bioethics_progressist
-		}
-		ig:ig_market_liberals = {
-			add_ideology = ideology_bioethics_progressist
-		}
-		ig:ig_radicals = {
-			add_ideology = ideology_bioethics_progressist
-		}
-		ig:ig_reformist_socialists = {
-			add_ideology = ideology_bioethics_progressist
-		}
-		ig:ig_revolutionist_socialists = {
-			add_ideology = ideology_bioethics_progressist
-		}
-		ig:ig_socialists = {
-			add_ideology = ideology_bioethics_progressist
-		}
-	}
+	ztr_apply_bioethics_ideologies_extra_igs = yes
 	ig:ig_landowners = {
 		add_ideology = ideology_bioethics_traditionalist
 	}
@@ -213,46 +171,7 @@ ztr_apply_bioethics_ideologies = {
 
 # Moderate traditionalists get no education stance
 ztr_apply_education_ideologies = {
-	# BPM Ideologies
-	if = {
-		limit = { BPM_is_active_trigger = yes }
-		ig:ig_agrarian_populists = {
-			add_ideology = ideology_education_traditionalist
-		}
-		ig:ig_christian_democrats = {
-			add_ideology = ideology_education_traditionalist
-		}
-		ig:ig_conservatives = {
-			add_ideology = ideology_education_traditionalist
-		}
-		ig:ig_fascists = {
-			add_ideology = ideology_education_traditionalist
-		}
-		ig:ig_reactionaries = {
-			add_ideology = ideology_education_traditionalist
-		}
-		ig:ig_anarchists = {
-			add_ideology = ideology_education_progressist
-		}
-		ig:ig_liberals = {
-			add_ideology = ideology_education_progressist
-		}
-		ig:ig_market_liberals = {
-			add_ideology = ideology_education_progressist
-		}
-		ig:ig_radicals = {
-			add_ideology = ideology_education_progressist
-		}
-		ig:ig_reformist_socialists = {
-			add_ideology = ideology_education_progressist
-		}
-		ig:ig_revolutionist_socialists = {
-			add_ideology = ideology_education_progressist
-		}
-		ig:ig_socialists = {
-			add_ideology = ideology_education_progressist
-		}
-	}
+	ztr_apply_education_ideologies_extra_igs = yes
 	ig:ig_landowners = {
 		add_ideology = ideology_education_traditionalist
 	}
@@ -303,300 +222,40 @@ ztr_remove_early_social_ideologies = {
 # Social Ideology Scripts (lgbtq, bioethics, data policy, advanced education)
 ztr_apply_early_social_ideologies = {
 	ztr_remove_early_social_ideologies = yes
-	# BPM Ideologies
-	if = {
-		limit = { BPM_is_active_trigger = yes }
-		ig:ig_agrarian_populists = {
-			add_ideology = ideology_extreme_traditionalist
-		}
-		ig:ig_anarchists = {
-			add_ideology = ideology_extreme_progressist
-		}
-		ig:ig_christian_democrats = {
-			add_ideology = ideology_extreme_traditionalist
-		}
-		ig:ig_conservatives = {
-			add_ideology = ideology_extreme_traditionalist
-		}
-		ig:ig_fascists = {
-			add_ideology = ideology_extreme_traditionalist
-		}
-		ig:ig_liberals = {
-			add_ideology = ideology_moderate_progressist
-		}
-		ig:ig_market_liberals = {
-			add_ideology = ideology_moderate_progressist
-		}
-		ig:ig_national_liberals = {
-			add_ideology = ideology_moderate_traditionalist
-		}
-		ig:ig_radicals = {
-			add_ideology = ideology_moderate_progressist
-		}
-		ig:ig_reactionaries = {
-			add_ideology = ideology_extreme_traditionalist
-		}
-		ig:ig_reformist_socialists = {
-			add_ideology = ideology_moderate_progressist
-		}
-		ig:ig_revolutionist_socialists = {
-			add_ideology = ideology_moderate_progressist
-		}
-		ig:ig_socialists = {
-			add_ideology = ideology_moderate_progressist
-		}
-	}
-	ig:ig_landowners = {
-		add_ideology = ideology_extreme_traditionalist
-	}
-	ig:ig_armed_forces = {
-		add_ideology = ideology_extreme_traditionalist
-	}
-	ig:ig_devout = {
-		add_ideology = ideology_extreme_traditionalist
-	}
-	ig:ig_industrialists = {
-		add_ideology = ideology_moderate_progressist
-	}
-	ig:ig_intelligentsia = {
-		add_ideology = ideology_moderate_progressist
-	}
-	ig:ig_petty_bourgeoisie = {
-		add_ideology = ideology_moderate_traditionalist
-	}
-	ig:ig_rural_folk = {
-		add_ideology = ideology_moderate_traditionalist
-	}
-	ig:ig_trade_unions = {
-		add_ideology = ideology_moderate_progressist
-	}
+	ztr_apply_early_social_ideologies_extra_igs = yes
+	# Vanilla IGs: base table, modified by the Ideological Pole (ztrpol_gen_tier_ideologies.py)
+	ztrpol_tier_apply_social_all = yes
 }
 
 ztr_apply_mid_social_ideologies = {
-	# BPM Ideologies
-	if = {
-		limit = { BPM_is_active_trigger = yes }
-		ig:ig_christian_democrats = {
-			remove_ideology = ideology_extreme_traditionalist
-			add_ideology = ideology_moderate_traditionalist
-		}
-		ig:ig_conservatives = {
-			remove_ideology = ideology_extreme_traditionalist
-			add_ideology = ideology_moderate_traditionalist
-		}
-		ig:ig_national_liberals = {
-			remove_ideology = ideology_moderate_traditionalist
-			add_ideology = ideology_moderate_progressist
-		}
-		ig:ig_radicals = {
-			remove_ideology = ideology_moderate_progressist
-			add_ideology = ideology_extreme_progressist
-		}
-		ig:ig_revolutionist_socialists = {
-			remove_ideology = ideology_moderate_progressist
-			add_ideology = ideology_extreme_progressist
-		}
-		ig:ig_socialists = {
-			remove_ideology = ideology_moderate_progressist
-			add_ideology = ideology_extreme_progressist
-		}
-	}
-	# ig:ig_landowners = {
-	# 	remove_ideology = ideology_extreme_traditionalist
-	# }
-	# ig:ig_armed_forces = {
-	# 	remove_ideology = ideology_extreme_traditionalist
-	# 	add_ideology = ideology_moderate_traditionalist
-	# }
-	ig:ig_devout = {
-		remove_ideology = ideology_extreme_traditionalist
-		add_ideology = ideology_moderate_traditionalist
-	}
-	# ig:ig_industrialists = {
-	# 	remove_ideology = ideology_moderate_progressist
-	# }
-	# ig:ig_intelligentsia = {
-	# 	remove_ideology = ideology_moderate_progressist
-	# }
-	ig:ig_trade_unions = {
-		remove_ideology = ideology_moderate_progressist
-		add_ideology = ideology_extreme_progressist
-	}
+	ztr_apply_mid_social_ideologies_extra_igs = yes
+	# Vanilla IGs: base table, modified by the Ideological Pole (ztrpol_gen_tier_ideologies.py)
+	ztrpol_tier_apply_social_all = yes
 }
 
 ztr_apply_late_social_ideologies = {
-	# BPM Ideologies
-	if = {
-		limit = { BPM_is_active_trigger = yes }
-		ig:ig_liberals = {
-			remove_ideology = ideology_moderate_progressist
-			add_ideology = ideology_extreme_progressist
-			# Liberals are more progressive than market_liberals
-		}
-		ig:ig_market_liberals = {
-			remove_ideology = ideology_moderate_progressist
-			add_ideology = ideology_neoliberal_progressist
-		}
-		ig:ig_reformist_socialists = {
-			remove_ideology = ideology_moderate_progressist
-			add_ideology = ideology_neoliberal_progressist
-		}
-	}
-	ig:ig_landowners = {
-		remove_ideology = ideology_extreme_traditionalist
-		add_ideology = ideology_neoliberal_progressist
-	}
-	ig:ig_armed_forces = {
-		remove_ideology = ideology_extreme_traditionalist
-		add_ideology = ideology_moderate_traditionalist
-	}
-	# ig:ig_devout = {
-	# 	remove_ideology = ideology_moderate_traditionalist
-	# }
-	ig:ig_industrialists = {
-		remove_ideology = ideology_moderate_progressist
-		add_ideology = ideology_neoliberal_progressist
-	}
-	ig:ig_intelligentsia = {
-		remove_ideology = ideology_moderate_progressist
-		add_ideology = ideology_extreme_progressist
-	}
-	# ig:ig_petty_bourgeoisie = {
-	# 	remove_ideology = ideology_moderate_traditionalist
-	# }
-	# ig:ig_trade_unions = {
-	# 	remove_ideology = ideology_extreme_progressist
-	# }
+	ztr_apply_late_social_ideologies_extra_igs = yes
+	# Vanilla IGs: base table, modified by the Ideological Pole (ztrpol_gen_tier_ideologies.py)
+	ztrpol_tier_apply_social_all = yes
 }
 
 # Environmental Ideology Scripts (environmental policy, mining policy, uranium usage)
 ztr_apply_early_env_ideologies = {
-	# BPM Ideologies
-	if = {
-		limit = { BPM_is_active_trigger = yes }
-		ig:ig_agrarian_populists = {
-			add_ideology = ideology_moderate_ambientalist
-		}
-		ig:ig_conservatives = {
-			add_ideology = ideology_neg_ambientalist
-		}
-		ig:ig_fascists = {
-			add_ideology = ideology_neg_ambientalist
-		}
-		ig:ig_liberals = {
-			add_ideology = ideology_neg_ambientalist
-		}
-		ig:ig_market_liberals = {
-			add_ideology = ideology_neg_ambientalist
-		}
-		ig:ig_national_liberals = {
-			add_ideology = ideology_neg_ambientalist
-		}
-		ig:ig_radicals = {
-			add_ideology = ideology_moderate_ambientalist
-		}
-		ig:ig_revolutionist_socialists = {
-			add_ideology = ideology_neg_ambientalist
-		}
-	}
-	ig:ig_armed_forces = {
-		add_ideology = ideology_neg_ambientalist
-	}
-	ig:ig_industrialists = {
-		add_ideology = ideology_neg_ambientalist
-	}
-	ig:ig_intelligentsia = {
-		add_ideology = ideology_moderate_ambientalist
-	}
+	ztr_apply_early_env_ideologies_extra_igs = yes
+	# Vanilla IGs: base table, modified by the Ideological Pole (ztrpol_gen_tier_ideologies.py)
+	ztrpol_tier_apply_env_all = yes
 }
 
 ztr_apply_mid_env_ideologies = {
-	# BPM Ideologies
-	if = {
-		limit = { BPM_is_active_trigger = yes }
-		ig:ig_agrarian_populists = {
-			remove_ideology = ideology_moderate_ambientalist
-			add_ideology = ideology_extreme_ambientalist
-		}
-		ig:ig_anarchists = {
-			add_ideology = ideology_moderate_ambientalist
-		}
-		ig:ig_conservatives = {
-			remove_ideology = ideology_neg_ambientalist
-		}
-		ig:ig_liberals = {
-			remove_ideology = ideology_neg_ambientalist
-			add_ideology = ideology_moderate_ambientalist
-		}
-		# ig:ig_market_liberals = {
-		# 	add_ideology = ideology_neg_ambientalist
-		# }
-		ig:ig_radicals = {
-			remove_ideology = ideology_moderate_ambientalist
-			add_ideology = ideology_extreme_ambientalist
-		}
-		ig:ig_reformist_socialists = {
-			add_ideology = ideology_moderate_ambientalist
-		}
-		ig:ig_revolutionist_socialists = {
-			remove_ideology = ideology_neg_ambientalist
-		}
-		ig:ig_socialists = {
-			add_ideology = ideology_moderate_ambientalist
-		}
-	}
-	ig:ig_devout = {
-		add_ideology = ideology_moderate_ambientalist
-	}
-	ig:ig_petty_bourgeoisie = {
-		add_ideology = ideology_neg_ambientalist
-	}
-	ig:ig_rural_folk = {
-		add_ideology = ideology_moderate_ambientalist
-	}
-	ig:ig_trade_unions = {
-		add_ideology = ideology_moderate_ambientalist
-	}
+	ztr_apply_mid_env_ideologies_extra_igs = yes
+	# Vanilla IGs: base table, modified by the Ideological Pole (ztrpol_gen_tier_ideologies.py)
+	ztrpol_tier_apply_env_all = yes
 }
 
 ztr_apply_late_env_ideologies = {
-	# BPM Ideologies
-	if = {
-		limit = { BPM_is_active_trigger = yes }
-		ig:ig_anarchists = {
-			remove_ideology = ideology_moderate_ambientalist
-			add_ideology = ideology_extreme_ambientalist
-		}
-		ig:ig_christian_democrats = {
-			add_ideology = ideology_moderate_ambientalist
-		}
-		ig:ig_conservatives = {
-			add_ideology = ideology_moderate_ambientalist
-		}
-		ig:ig_liberals = {
-			remove_ideology = ideology_moderate_ambientalist
-			add_ideology = ideology_neoliberal_ambientalist
-		}
-		ig:ig_market_liberals = {
-			remove_ideology = ideology_neg_ambientalist
-			add_ideology = ideology_neoliberal_ambientalist
-		}
-		ig:ig_national_liberals = {
-			remove_ideology = ideology_neg_ambientalist
-			add_ideology = ideology_neoliberal_ambientalist
-		}
-	}
-	ig:ig_armed_forces = {
-		remove_ideology = ideology_neg_ambientalist
-	}
-	ig:ig_industrialists = {
-		remove_ideology = ideology_neg_ambientalist
-		add_ideology = ideology_neoliberal_ambientalist
-	}
-	ig:ig_rural_folk = {
-		remove_ideology = ideology_moderate_ambientalist
-		add_ideology = ideology_extreme_ambientalist
-	}
+	ztr_apply_late_env_ideologies_extra_igs = yes
+	# Vanilla IGs: base table, modified by the Ideological Pole (ztrpol_gen_tier_ideologies.py)
+	ztrpol_tier_apply_env_all = yes
 }
 
 # Economic ideology swap, independent from the social/environmental tiers
@@ -616,6 +275,7 @@ ztr_apply_neoliberism_ideology = {
 
 
 # Liberty Equality Index Triggers
+# Hook: law points of the index, replaced by compatches for other law sets
 calculate_liberty_equality_index = {
 	# Here we give cake only if the law gives more liberty than worst case, which will always value 0
 	set_variable = {
@@ -1518,6 +1178,17 @@ calculate_max_liberty_index = {
 			add = -12
 		}
 	}
+	# Electoral authoritarianism: secret police and censorship together, with or without a single party
+	else_if = {
+		limit = {
+			has_law_or_variant = law_type:law_secret_police
+			has_law_or_variant = law_type:law_censorship
+		}
+		change_variable = {
+			name = liberty_index_var
+			add = -6
+		}
+	}
 	if = {
 		limit = {
 			var:liberty_index_var > 35
@@ -1542,13 +1213,13 @@ calculate_max_liberty_index = {
 	}
 	else_if = {
 		limit = {
-			var:liberty_index_var > 49
+			var:liberty_index_var > 48
 			has_law_or_variant = law_type:law_oligarchy
 		}
 		remove_variable = liberty_index_var
 		set_variable = {
 			name = liberty_index_var
-			value = 49
+			value = 48
 		}
 	}
 	else_if = {
@@ -1599,22 +1270,9 @@ calculate_max_liberty_index = {
 	}
 }
 
-# BPM variant: defined by the Tech&Res + BPM compatch (it needs BPM law keys); falls back to the vanilla index
-calculate_liberty_equality_index_bpm = {
-	calculate_liberty_equality_index = yes
-}
-
-# Full index update: law points (vanilla or BPM laws), then caps and penalties
+# Full index update: law points, then caps and penalties
 ztr_update_liberty_equality_index = {
-	if = {
-		limit = {
-			BPM_is_active_trigger = yes
-		}
-		calculate_liberty_equality_index_bpm = yes
-	}
-	else = {
-		calculate_liberty_equality_index = yes
-	}
+	calculate_liberty_equality_index = yes
 	calculate_max_liberty_index = yes
 }
 

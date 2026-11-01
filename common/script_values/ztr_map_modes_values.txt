@@ -283,6 +283,33 @@ ztr_mm_equality_level = {
 	}
 }
 
+#### Ideological Poles ####################
+
+# -1 no owner, 0 no pole (pre-modern or not yet assessed), 1 Social, 2 Liberal, 3 Collectivist, 4 Reactionary
+ztr_mm_pole_level = {
+	value = -1
+	if = {
+		limit = { exists = owner }
+		value = 0
+		if = {
+			limit = { owner = { ztrpol_is_social_pole = yes } }
+			value = 1
+		}
+		else_if = {
+			limit = { owner = { ztrpol_is_liberal_pole = yes } }
+			value = 2
+		}
+		else_if = {
+			limit = { owner = { ztrpol_is_collectivist_pole = yes } }
+			value = 3
+		}
+		else_if = {
+			limit = { owner = { ztrpol_is_reactionary_pole = yes } }
+			value = 4
+		}
+	}
+}
+
 #### Demographic Stage ####################
 
 ztr_mm_demography_level = {

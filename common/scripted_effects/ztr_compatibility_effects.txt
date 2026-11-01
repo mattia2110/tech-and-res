@@ -1,0 +1,57 @@
+﻿# Hooks: vanilla behaviour here, replaced by the compatches that need keys of other mods
+
+#############################
+# LAW HOOKS
+#############################
+
+# Hook: single-party law of communist regimes (Bolsheviks, CCP)
+ztr_activate_communist_single_party_law = {
+	activate_law = law_type:law_single_party_state
+}
+
+# Hook: single-party law of the Menshevik soviet republic
+ztr_activate_menshevik_single_party_law = {
+	activate_law = law_type:law_single_party_state
+}
+
+#############################
+# REVOLUTION IG ROLES
+#############################
+
+# Hook: Russian soviet factions, Trade Unions and Rural Folk in vanilla
+ztr_russia_save_soviet_ig_scopes = {
+	ig:ig_trade_unions ?= {
+		save_scope_as = russia_bolsheviks_scope
+		save_scope_as = russia_mensheviks_scope
+		save_scope_as = russia_soviet_winner_scope
+	}
+	ig:ig_rural_folk ?= {
+		save_scope_as = russia_left_sr_scope
+	}
+}
+
+# Hook: further ruling IGs of the agro-socialist soviet republic
+ztr_russia_agro_socialist_coalition = {}
+
+# Hook: further ruling IGs of communist China and the IG providing the ruler
+ztr_china_communist_party_takes_power = {
+	ig:ig_trade_unions ?= {
+		leader = {
+			set_character_as_ruler = yes
+		}
+	}
+}
+
+#############################
+# IDEOLOGY TIER HOOKS
+#############################
+
+# Hook: tier ideologies of the interest groups added by other mods (called by the ztr_apply_*_ideologies effects)
+ztr_apply_bioethics_ideologies_extra_igs = {}
+ztr_apply_education_ideologies_extra_igs = {}
+ztr_apply_early_social_ideologies_extra_igs = {}
+ztr_apply_mid_social_ideologies_extra_igs = {}
+ztr_apply_late_social_ideologies_extra_igs = {}
+ztr_apply_early_env_ideologies_extra_igs = {}
+ztr_apply_mid_env_ideologies_extra_igs = {}
+ztr_apply_late_env_ideologies_extra_igs = {}

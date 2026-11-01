@@ -1,0 +1,38 @@
+﻿namespace = ztrpol_ig_ideology
+
+# Parametric event: an interest group adopts a pole ideology, converts it after a pole change, or returns to vanilla
+# Fired by ztrpol_ig_ideology_yearly with scope:ztrpol_ig; the transformation id is var:ztrpol_tr_id on the IG and on the country
+ztrpol_ig_ideology.1 = {
+	dlc = dlc_tech_res
+	type = country_event
+	placement = ROOT
+	event_image = {
+		video = "unspecific_politicians_arguing"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
+	icon = "gfx/interface/icons/event_icons/ideologies.dds"
+
+	title = ztrpol_ig_ideology.1.t
+	desc = ztrpol_ig_ideology.1.d
+	flavor = ztrpol_ig_ideology.1.f
+
+	duration = 3
+
+	immediate = {
+		scope:ztrpol_ig = {
+			ztrpol_save_ig_transformation_scopes = yes
+		}
+	}
+
+	option = {
+		name = ztrpol_ig_ideology.1.a
+		default_option = yes
+		scope:ztrpol_ig = {
+			ztrpol_apply_ig_transformation = yes
+		}
+		remove_variable = ztrpol_tr_id
+		remove_variable = ztrpol_tr_pending
+	}
+}

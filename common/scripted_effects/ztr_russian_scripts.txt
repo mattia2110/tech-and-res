@@ -902,6 +902,22 @@ ztr_russia_law_changes_liberals = {
 	}
 }
 
+# Winning soviet faction joins the government and provides the ruler
+ztr_russia_soviet_winner_takes_power = {
+	ztr_russia_save_soviet_ig_scopes = yes
+	scope:russia_soviet_winner_scope ?= {
+		if = {
+			limit = {
+				is_in_government = no
+			}
+			add_ruling_interest_group = yes
+		}
+		leader = {
+			set_character_as_ruler = yes
+		}
+	}
+}
+
 # Sovietic Bolshevik Revolution Path (Led by Trade Unions and Armed Forces)
 ztr_russia_law_changes_bolshevik = {
 	every_interest_group = {
@@ -1020,14 +1036,7 @@ ztr_russia_law_changes_agro_socialist = {
 	ig:ig_rural_folk ?= {
 		add_ruling_interest_group = yes
 	}
-	if = {
-		limit = {
-			BPM_is_active_trigger = yes
-		}
-		ig:ig_anarchists ?= {
-			add_ruling_interest_group = yes
-		}
-	}
+	ztr_russia_agro_socialist_coalition = yes
 	ztr_russia_soviet_winner_takes_power = yes
 	# Communist Council Republic
 	if = {

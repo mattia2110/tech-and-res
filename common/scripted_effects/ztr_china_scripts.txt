@@ -793,28 +793,7 @@ ztr_communist_china_adopt_laws_and_loyalist = {
 	ig:ig_armed_forces ?= {
 		add_ruling_interest_group = yes
 	}
-	# BPM: communist and peasant party IGs join, the communists provide the ruler
-	if = {
-		limit = {
-			BPM_is_active_trigger = yes
-		}
-		ig:ig_agrarian_populists ?= {
-			add_ruling_interest_group = yes
-		}
-		ig:ig_revolutionist_socialists ?= {
-			add_ruling_interest_group = yes
-			leader = {
-				set_character_as_ruler = yes
-			}
-		}
-	}
-	else = {
-		ig:ig_trade_unions ?= {
-			leader = {
-				set_character_as_ruler = yes
-			}
-		}
-	}
+	ztr_china_communist_party_takes_power = yes
 	if = {
 		limit = {
 			NOT = {
