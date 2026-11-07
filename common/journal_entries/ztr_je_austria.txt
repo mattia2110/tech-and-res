@@ -1,6 +1,10 @@
 ﻿je_austrian_empire_collapse = {
 	icon = "gfx/interface/icons/event_icons/waving_flag_austria.dds"
 	group = je_group_historical_content
+
+	activation_description = {
+		always = yes
+	}
 	is_shown_when_inactive = {
 		has_game_rule = allow_ztr_historical_content
 		year > 1910
@@ -139,296 +143,309 @@
 			5 = austrian_empire_collapse.17			# Krakow asks for Polish union
 		}
 	}
-	complete = {
-		OR = {
-			scope:journal_entry = {
-				is_goal_complete = yes
-			}
-		}
-	}
-	on_complete = {
-		set_variable = ztr_austria_has_collapsed_var
-		add_loyalists = {
-			value = 0.9
-		}
-		# Bohemia independence if it exists and civil right is not maxed
-		if = {
-			limit = {
-				NOT = {
-					exists = c:BOH
-				}
-				NOT = {
-					var:czech_civil_rights_var ?= 2
-				}
-				has_state_in_state_region = STATE_BOHEMIA
-			}
-			create_country = {
-				tag = BOH
-				origin = this
-				state = s:STATE_BOHEMIA.region_state:AUS
-				on_created = {
-					set_country_type = recognized
-					activate_law = law_type:law_parliamentary_republic
-					activate_law = law_type:law_census_voting
+	outcome = {
+		header = je_standard_completion_header
+		effect_header = je_standard_on_completion_header
+		color = "gold_positive"
+		conclusion_desc = je_standard_completion_conclusion_desc
+		trigger = {
+			OR = {
+				scope:journal_entry = {
+					is_goal_complete = yes
 				}
 			}
 		}
-		if = {
-			limit = {
-				exists = c:BOH
+		effect = {
+			set_variable = ztr_austria_has_collapsed_var
+			add_loyalists = {
+				value = 0.9
 			}
-			s:STATE_BOHEMIA.region_state:AUS = {
-				set_state_owner = c:BOH
-			}
-			s:STATE_MORAVIA.region_state:AUS = {
-				set_state_owner = c:BOH
-			}
-			s:STATE_UPPER_SILESIA.region_state:AUS = {
-				set_state_owner = c:BOH
-			}
-		}
-		# Czechoslovakia creation if bohemia exists and c
-		if = {
-			limit = {
-				exists = c:BOH
-				NOT = {
-					var:czech_civil_rights_var ?= 2
+			# Bohemia independence if it exists and civil right is not maxed
+			if = {
+				limit = {
+					NOT = {
+						exists = c:BOH
+					}
+					NOT = {
+						var:czech_civil_rights_var ?= 2
+					}
+					has_state_in_state_region = STATE_BOHEMIA
 				}
-				var:hungarian_civil_rights_var ?= 2
-			}
-			c:BOH = {
-				change_tag = CZH
+				create_country = {
+					tag = BOH
+					origin = this
+					state = s:STATE_BOHEMIA.region_state:AUS
+					on_created = {
+						set_country_type = recognized
+						activate_law = law_type:law_parliamentary_republic
+						activate_law = law_type:law_census_voting
+					}
+				}
 			}
 			if = {
 				limit = {
-					hungary_is_subject_or_personal_union_austria = yes
-				}
-				s:STATE_SLOVAKIA.region_state:HUN = {
-					set_state_owner = c:CZH
-				}
-				s:STATE_RUTHENIA.region_state:HUN = {
-					set_state_owner = c:CZH
-				}
-			}
-			else = {
-				s:STATE_SLOVAKIA.region_state:AUS = {
-					set_state_owner = c:CZH
-				}
-				s:STATE_RUTHENIA.region_state:AUS = {
-					set_state_owner = c:CZH
-				}
-			}
-		}
-		# Slovacchia dalla moravia se appunto la bohemia non è austriaca o vuole rimanere con  l'austria
-		if = {
-			limit = {
-				NOT = {
 					exists = c:BOH
 				}
-				var:czech_civil_rights_var ?= 2
-				has_state_in_state_region = STATE_SLOVAKIA
-			}
-			ztr_define_slovakia = yes
-		}
-		# Romania takes what is romanian if part of Austria
-		if = {
-			limit = {
-				exists = c:ROM
-			}
-			ztr_define_romania = yes
-		}
-		else_if = {
-			limit = {
-				any_scope_state = {
-					NOT = {
-						is_homeland_of_country_cultures = root
-					}
-					state_region = {
-						is_homeland = cu:romanian
-					}
-					count > 0
+				s:STATE_BOHEMIA.region_state:AUS = {
+					set_state_owner = c:BOH
+				}
+				s:STATE_MORAVIA.region_state:AUS = {
+					set_state_owner = c:BOH
+				}
+				s:STATE_UPPER_SILESIA.region_state:AUS = {
+					set_state_owner = c:BOH
 				}
 			}
-			ztr_define_transilvania = yes
-		}
-		# San Marco Republic takes northeastern Italy
-		if = {
-			limit = {
-				NOT = {
+			# Czechoslovakia creation if bohemia exists and c
+			if = {
+				limit = {
+					exists = c:BOH
+					NOT = {
+						var:czech_civil_rights_var ?= 2
+					}
+					var:hungarian_civil_rights_var ?= 2
+				}
+				c:BOH = {
+					change_tag = CZH
+				}
+				if = {
+					limit = {
+						hungary_is_subject_or_personal_union_austria = yes
+					}
+					s:STATE_SLOVAKIA.region_state:HUN = {
+						set_state_owner = c:CZH
+					}
+					s:STATE_RUTHENIA.region_state:HUN = {
+						set_state_owner = c:CZH
+					}
+				}
+				else = {
+					s:STATE_SLOVAKIA.region_state:AUS = {
+						set_state_owner = c:CZH
+					}
+					s:STATE_RUTHENIA.region_state:AUS = {
+						set_state_owner = c:CZH
+					}
+				}
+			}
+			# Slovacchia dalla moravia se appunto la bohemia non è austriaca o vuole rimanere con  l'austria
+			if = {
+				limit = {
+					NOT = {
+						exists = c:BOH
+					}
+					var:czech_civil_rights_var ?= 2
+					has_state_in_state_region = STATE_SLOVAKIA
+				}
+				ztr_define_slovakia = yes
+			}
+			# Romania takes what is romanian if part of Austria
+			if = {
+				limit = {
+					exists = c:ROM
+				}
+				ztr_define_romania = yes
+			}
+			else_if = {
+				limit = {
+					any_scope_state = {
+						NOT = {
+							is_homeland_of_country_cultures = root
+						}
+						state_region = {
+							is_homeland = cu:romanian
+						}
+						count > 0
+					}
+				}
+				ztr_define_transilvania = yes
+			}
+			# San Marco Republic takes northeastern Italy
+			if = {
+				limit = {
+					NOT = {
+						exists = c:ITA
+					}
+					any_scope_state = {
+						NOT = {
+							is_homeland_of_country_cultures = root
+						}
+						state_region = {
+							is_homeland = cu:north_italian
+						}
+						count > 0
+					}
+				}
+				ztr_define_republic_venice = yes
+				if = {
+					limit = {
+						var:trieste_harbor_var ?= 1
+					}
+					s:STATE_ISTRIA.region_state:VEN = {
+						set_state_owner = c:AUS
+					}
+				}
+			}
+			# Italy takes northeastern Italy
+			if = {
+				limit = {
 					exists = c:ITA
 				}
-				any_scope_state = {
-					NOT = {
-						is_homeland_of_country_cultures = root
+				every_scope_state = {
+					limit = {
+						NOT = {
+							is_homeland_of_country_cultures = root
+						}
+						state_region = {
+							is_homeland = cu:north_italian
+						}
 					}
-					state_region = {
-						is_homeland = cu:north_italian
-					}
-					count > 0
+					set_state_owner = c:ITA
 				}
 			}
-			ztr_define_republic_venice = yes
+			# Serbia takes northern Serbia, Croatia and Slovenia -> Potentially becomes Yugoslavia
 			if = {
 				limit = {
-					var:trieste_harbor_var ?= 1
-				}
-				s:STATE_ISTRIA.region_state:VEN = {
-					set_state_owner = c:AUS
-				}
-			}
-		}
-		# Italy takes northeastern Italy
-		if = {
-			limit = {
-				exists = c:ITA
-			}
-			every_scope_state = {
-				limit = {
-					NOT = {
-						is_homeland_of_country_cultures = root
-					}
-					state_region = {
-						is_homeland = cu:north_italian
+					exists = c:SER
+					any_scope_state = {
+						NOT = {
+							is_homeland_of_country_cultures = root
+						}
+						state_region = {
+							is_homeland = cu:serb
+						}
+						count > 0
 					}
 				}
-				set_state_owner = c:ITA
-			}
-		}
-		# Serbia takes northern Serbia, Croatia and Slovenia -> Potentially becomes Yugoslavia
-		if = {
-			limit = {
-				exists = c:SER
-				any_scope_state = {
-					NOT = {
-						is_homeland_of_country_cultures = root
+				ztr_define_serbia = yes
+				if = {
+					limit = {
+						has_state_in_state_region = STATE_SLOVENIA
+						has_variable = yugoslav_union_var
+						var:yugoslav_union_var = 0
 					}
-					state_region = {
-						is_homeland = cu:serb
+					s:STATE_SLOVENIA.region_state:SER = {
+						set_state_owner = c:AUS
 					}
-					count > 0
 				}
 			}
-			ztr_define_serbia = yes
+			# Galicia Lodomeria Creation
 			if = {
 				limit = {
-					has_state_in_state_region = STATE_SLOVENIA
-					has_variable = yugoslav_union_var
-					var:yugoslav_union_var = 0
+					NOT = {
+						exists = c:POL
+					}
+					has_state_in_state_region = STATE_WEST_GALICIA
+					any_scope_state = {
+						NOT = {
+							is_homeland_of_country_cultures = root
+						}
+						state_region = {
+							is_homeland = cu:polish
+						}
+						count > 0
+					}
 				}
-				s:STATE_SLOVENIA.region_state:SER = {
-					set_state_owner = c:AUS
-				}
+				ztr_define_galicia = yes
 			}
-		}
-		# Galicia Lodomeria Creation
-		if = {
-			limit = {
-				NOT = {
+			# Poland takes Galicia
+			if = {
+				limit = {
 					exists = c:POL
-				}
-				has_state_in_state_region = STATE_WEST_GALICIA
-				any_scope_state = {
 					NOT = {
-						is_homeland_of_country_cultures = root
+						exists = c:GAL
 					}
-					state_region = {
-						is_homeland = cu:polish
+					any_scope_state = {
+						NOT = {
+							is_homeland_of_country_cultures = root
+						}
+						state_region = {
+							is_homeland = cu:polish
+						}
+						count > 0
 					}
-					count > 0
+				}
+				ztr_define_poland = yes
+				if = {
+					limit = {
+						c:KRA ?= {
+							overlord = c:AUS
+						}
+					}
+					c:POL = {
+						annex = c:KRA
+					}
 				}
 			}
-			ztr_define_galicia = yes
-		}
-		# Poland takes Galicia
-		if = {
-			limit = {
-				exists = c:POL
-				NOT = {
-					exists = c:GAL
-				}
-				any_scope_state = {
-					NOT = {
-						is_homeland_of_country_cultures = root
-					}
-					state_region = {
-						is_homeland = cu:polish
-					}
-					count > 0
-				}
-			}
-			ztr_define_poland = yes
+			# Hungary indipendece if it exists and civil right is not maxed
 			if = {
 				limit = {
-					c:KRA ?= {
-						overlord = c:AUS
-					}
-				}
-				c:POL = {
-					annex = c:KRA
-				}
-			}
-		}
-		# Hungary indipendece if it exists and civil right is not maxed
-		if = {
-			limit = {
-				NOT = {
-					var:hungarian_civil_rights_var ?= 2
-				}
-				hungary_is_subject_or_personal_union_austria = yes
-			}
-			remove_diplomatic_pact = {
-				country = c:HUN
-				type = personal_union
-			}
-			remove_diplomatic_pact = {
-				country = c:HUN
-				type = crown_land
-			}
-			remove_diplomatic_pact = {
-				country = c:HUN
-				type = vassal
-			}
-		}
-		# Hungary is created or takes states if it exists
-		else_if = {
-			limit = {
-				NOT = {
-					var:hungarian_civil_rights_var ?= 2
-				}
-				any_scope_state = {
 					NOT = {
-						is_homeland_of_country_cultures = root
+						var:hungarian_civil_rights_var ?= 2
 					}
-					state_region = {
-						is_homeland = cu:hungarian
-					}
-					count > 0
+					hungary_is_subject_or_personal_union_austria = yes
+				}
+				remove_diplomatic_pact = {
+					country = c:HUN
+					type = personal_union
+				}
+				remove_diplomatic_pact = {
+					country = c:HUN
+					type = crown_land
+				}
+				remove_diplomatic_pact = {
+					country = c:HUN
+					type = vassal
 				}
 			}
-			ztr_define_hungary = yes
-		}
-		trigger_event = {
-			id = austrian_empire_collapse.1
-			days = 3
-		}		#3 days after the collapse
-	}
-	fail = {
-		get_country_gdp_per > 6
-		OR = {
-			AND = {
-				country_rank = rank_value:great_power
-				ztr_is_democratic = yes
+			# Hungary is created or takes states if it exists
+			else_if = {
+				limit = {
+					NOT = {
+						var:hungarian_civil_rights_var ?= 2
+					}
+					any_scope_state = {
+						NOT = {
+							is_homeland_of_country_cultures = root
+						}
+						state_region = {
+							is_homeland = cu:hungarian
+						}
+						count > 0
+					}
+				}
+				ztr_define_hungary = yes
 			}
-			global_country_ranking < 5
-			ztr_is_full_democratic = yes
+			trigger_event = {
+				id = austrian_empire_collapse.1
+				days = 3
+			}		#3 days after the collapse
 		}
 	}
-	on_fail = {
-		add_loyalists = {
-			value = 0.9
+
+	outcome = {
+		header = je_standard_failure_header
+		effect_header = je_standard_on_failure_header
+		color = "blue_negative"
+		conclusion_desc = je_standard_failure_conclusion_desc
+		trigger = {
+			get_country_gdp_per > 6
+			OR = {
+				AND = {
+					country_rank = rank_value:great_power
+					ztr_is_democratic = yes
+				}
+				global_country_ranking < 5
+				ztr_is_full_democratic = yes
+			}
 		}
-		trigger_event = {
-			id = austrian_empire_collapse.2
+		effect = {
+			add_loyalists = {
+				value = 0.9
+			}
+			trigger_event = {
+				id = austrian_empire_collapse.2
+			}
 		}
 	}
 	transferable = yes

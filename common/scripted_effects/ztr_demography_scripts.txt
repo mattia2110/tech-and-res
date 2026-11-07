@@ -208,51 +208,11 @@ ztr_demography_yearly_update = {
 	}
 }
 
+# Stores the current stage; je_demography applies the matching demographic_stage_N modifier
 ztr_demography_apply_stage = {
-	remove_modifier = demographic_stage_0
-	remove_modifier = demographic_stage_1
-	remove_modifier = demographic_stage_2
-	remove_modifier = demographic_stage_3
-	remove_modifier = demographic_stage_4
-	remove_modifier = demographic_stage_5
-	remove_modifier = demographic_stage_6
-	remove_modifier = demographic_stage_7
-	remove_modifier = demographic_stage_8
-	if = {
-		limit = { ztr_demography_stage = 0 }
-		add_modifier = demographic_stage_0
-	}
-	else_if = {
-		limit = { ztr_demography_stage = 1 }
-		add_modifier = demographic_stage_1
-	}
-	else_if = {
-		limit = { ztr_demography_stage = 2 }
-		add_modifier = demographic_stage_2
-	}
-	else_if = {
-		limit = { ztr_demography_stage = 3 }
-		add_modifier = demographic_stage_3
-	}
-	else_if = {
-		limit = { ztr_demography_stage = 4 }
-		add_modifier = demographic_stage_4
-	}
-	else_if = {
-		limit = { ztr_demography_stage = 5 }
-		add_modifier = demographic_stage_5
-	}
-	else_if = {
-		limit = { ztr_demography_stage = 6 }
-		add_modifier = demographic_stage_6
-	}
-	else_if = {
-		limit = { ztr_demography_stage = 7 }
-		add_modifier = demographic_stage_7
-	}
-	else_if = {
-		limit = { ztr_demography_stage = 8 }
-		add_modifier = demographic_stage_8
+	set_variable = {
+		name = ztr_demography_applied_stage_var
+		value = ztr_demography_stage
 	}
 }
 

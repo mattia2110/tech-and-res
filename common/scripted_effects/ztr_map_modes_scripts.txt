@@ -1,21 +1,238 @@
-﻿### Tech&Res - Map Modes: yearly cache for data the map GUI cannot read directly
+﻿### Tech&Res - Yearly innovation leader for je_research_center's map
 
 ztr_mm_update_map_modes = {
-	every_state = {
-		set_variable = {
-			name = ztr_mm_renewable_value_var
-			value = ztr_mm_renewable_value_calc
-		}
-		set_variable = {
-			name = ztr_mm_renewable_level_var
-			value = ztr_mm_renewable_level_calc
-		}
-	}
 	random_country = {
 		limit = { has_global_highest_innovation = yes }
 		set_global_variable = {
 			name = ztr_mm_innovation_leader_var
 			value = this
 		}
+		# Weekly innovation of the leader as a number, for je_research_center's map
+		set_global_variable = {
+			name = ztr_mm_innovation_leader_value_var
+			value = 0
+		}
+		set_global_variable = {
+			name = ztr_mm_innovation_probe_var
+			value = global_var:ztr_mm_innovation_leader_value_var
+		}
+		change_global_variable = {
+			name = ztr_mm_innovation_probe_var
+			add = 4096
+		}
+		if = {
+			limit = {
+				country_innovation >= ztr_mm_innovation_probe
+			}
+			set_global_variable = {
+				name = ztr_mm_innovation_leader_value_var
+				value = global_var:ztr_mm_innovation_probe_var
+			}
+		}
+		set_global_variable = {
+			name = ztr_mm_innovation_probe_var
+			value = global_var:ztr_mm_innovation_leader_value_var
+		}
+		change_global_variable = {
+			name = ztr_mm_innovation_probe_var
+			add = 2048
+		}
+		if = {
+			limit = {
+				country_innovation >= ztr_mm_innovation_probe
+			}
+			set_global_variable = {
+				name = ztr_mm_innovation_leader_value_var
+				value = global_var:ztr_mm_innovation_probe_var
+			}
+		}
+		set_global_variable = {
+			name = ztr_mm_innovation_probe_var
+			value = global_var:ztr_mm_innovation_leader_value_var
+		}
+		change_global_variable = {
+			name = ztr_mm_innovation_probe_var
+			add = 1024
+		}
+		if = {
+			limit = {
+				country_innovation >= ztr_mm_innovation_probe
+			}
+			set_global_variable = {
+				name = ztr_mm_innovation_leader_value_var
+				value = global_var:ztr_mm_innovation_probe_var
+			}
+		}
+		set_global_variable = {
+			name = ztr_mm_innovation_probe_var
+			value = global_var:ztr_mm_innovation_leader_value_var
+		}
+		change_global_variable = {
+			name = ztr_mm_innovation_probe_var
+			add = 512
+		}
+		if = {
+			limit = {
+				country_innovation >= ztr_mm_innovation_probe
+			}
+			set_global_variable = {
+				name = ztr_mm_innovation_leader_value_var
+				value = global_var:ztr_mm_innovation_probe_var
+			}
+		}
+		set_global_variable = {
+			name = ztr_mm_innovation_probe_var
+			value = global_var:ztr_mm_innovation_leader_value_var
+		}
+		change_global_variable = {
+			name = ztr_mm_innovation_probe_var
+			add = 256
+		}
+		if = {
+			limit = {
+				country_innovation >= ztr_mm_innovation_probe
+			}
+			set_global_variable = {
+				name = ztr_mm_innovation_leader_value_var
+				value = global_var:ztr_mm_innovation_probe_var
+			}
+		}
+		set_global_variable = {
+			name = ztr_mm_innovation_probe_var
+			value = global_var:ztr_mm_innovation_leader_value_var
+		}
+		change_global_variable = {
+			name = ztr_mm_innovation_probe_var
+			add = 128
+		}
+		if = {
+			limit = {
+				country_innovation >= ztr_mm_innovation_probe
+			}
+			set_global_variable = {
+				name = ztr_mm_innovation_leader_value_var
+				value = global_var:ztr_mm_innovation_probe_var
+			}
+		}
+		set_global_variable = {
+			name = ztr_mm_innovation_probe_var
+			value = global_var:ztr_mm_innovation_leader_value_var
+		}
+		change_global_variable = {
+			name = ztr_mm_innovation_probe_var
+			add = 64
+		}
+		if = {
+			limit = {
+				country_innovation >= ztr_mm_innovation_probe
+			}
+			set_global_variable = {
+				name = ztr_mm_innovation_leader_value_var
+				value = global_var:ztr_mm_innovation_probe_var
+			}
+		}
+		set_global_variable = {
+			name = ztr_mm_innovation_probe_var
+			value = global_var:ztr_mm_innovation_leader_value_var
+		}
+		change_global_variable = {
+			name = ztr_mm_innovation_probe_var
+			add = 32
+		}
+		if = {
+			limit = {
+				country_innovation >= ztr_mm_innovation_probe
+			}
+			set_global_variable = {
+				name = ztr_mm_innovation_leader_value_var
+				value = global_var:ztr_mm_innovation_probe_var
+			}
+		}
+		set_global_variable = {
+			name = ztr_mm_innovation_probe_var
+			value = global_var:ztr_mm_innovation_leader_value_var
+		}
+		change_global_variable = {
+			name = ztr_mm_innovation_probe_var
+			add = 16
+		}
+		if = {
+			limit = {
+				country_innovation >= ztr_mm_innovation_probe
+			}
+			set_global_variable = {
+				name = ztr_mm_innovation_leader_value_var
+				value = global_var:ztr_mm_innovation_probe_var
+			}
+		}
+		set_global_variable = {
+			name = ztr_mm_innovation_probe_var
+			value = global_var:ztr_mm_innovation_leader_value_var
+		}
+		change_global_variable = {
+			name = ztr_mm_innovation_probe_var
+			add = 8
+		}
+		if = {
+			limit = {
+				country_innovation >= ztr_mm_innovation_probe
+			}
+			set_global_variable = {
+				name = ztr_mm_innovation_leader_value_var
+				value = global_var:ztr_mm_innovation_probe_var
+			}
+		}
+		set_global_variable = {
+			name = ztr_mm_innovation_probe_var
+			value = global_var:ztr_mm_innovation_leader_value_var
+		}
+		change_global_variable = {
+			name = ztr_mm_innovation_probe_var
+			add = 4
+		}
+		if = {
+			limit = {
+				country_innovation >= ztr_mm_innovation_probe
+			}
+			set_global_variable = {
+				name = ztr_mm_innovation_leader_value_var
+				value = global_var:ztr_mm_innovation_probe_var
+			}
+		}
+		set_global_variable = {
+			name = ztr_mm_innovation_probe_var
+			value = global_var:ztr_mm_innovation_leader_value_var
+		}
+		change_global_variable = {
+			name = ztr_mm_innovation_probe_var
+			add = 2
+		}
+		if = {
+			limit = {
+				country_innovation >= ztr_mm_innovation_probe
+			}
+			set_global_variable = {
+				name = ztr_mm_innovation_leader_value_var
+				value = global_var:ztr_mm_innovation_probe_var
+			}
+		}
+		set_global_variable = {
+			name = ztr_mm_innovation_probe_var
+			value = global_var:ztr_mm_innovation_leader_value_var
+		}
+		change_global_variable = {
+			name = ztr_mm_innovation_probe_var
+			add = 1
+		}
+		if = {
+			limit = {
+				country_innovation >= ztr_mm_innovation_probe
+			}
+			set_global_variable = {
+				name = ztr_mm_innovation_leader_value_var
+				value = global_var:ztr_mm_innovation_probe_var
+			}
+		}
+		remove_global_variable = ztr_mm_innovation_probe_var
 	}
 }

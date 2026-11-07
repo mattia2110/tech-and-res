@@ -204,8 +204,7 @@ pm_research_center_education = {
 	}
 
 	country_modifiers = {
-		workforce_scaled = { 
-			state_education_access_add = 0.05
+		workforce_scaled = {
 			state_pop_qualifications_mult = 0.1
 			country_society_tech_research_speed_mult = 0.15
 		}
@@ -226,7 +225,6 @@ pm_research_military_modernization = {
 		workforce_scaled = { 
 			unit_offense_mult = 0.1
 			unit_defense_mult = 0.1
-			country_military_tech_spread_mult = 0.05
 			country_military_tech_research_speed_mult = 0.15
 		}
 		unscaled = {
@@ -244,8 +242,7 @@ pm_research_center_tech_spread = {
 
 	country_modifiers = {
 		workforce_scaled = {
-			country_tech_spread_mult = 0.15
-			country_production_tech_research_speed_mult = 0.15
+			country_tech_spread_mult = 0.05
 		}
 		unscaled = {
 			interest_group_ig_industrialists_approval_add = 2
@@ -271,9 +268,9 @@ pm_research_center_future_studies = {
 		if = {
 			limit = { 
 				OR = {
-					has_modifier = dev_6_country
-					has_modifier = dev_7_country
-					has_modifier = dev_8_country
+					ztr_development_has_level = { LEVEL = 6 }
+					ztr_development_has_level = { LEVEL = 7 }
+					ztr_development_has_level = { LEVEL = 8 }
 				}
 			}
 			add = 1500

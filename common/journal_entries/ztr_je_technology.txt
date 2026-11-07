@@ -3,7 +3,11 @@
 # country operates a Research Center and deactivates again if that Research Center is lost.
 je_research_center = {
 	icon = "gfx/interface/icons/event_icons/innovation.dds"
-	group = je_group_technology
+	group = je_group_research_center
+
+	activation_description = {
+		always = yes
+	}
 	is_shown_when_inactive = {
 		has_research_center = yes
 	}
@@ -11,27 +15,115 @@ je_research_center = {
 		has_research_center = yes
 	}
 	can_deactivate = yes
-	# The research output bonus is a flat modifier scaled by country_research_progress,
-	# so it has to be re-applied whenever the underlying value can have moved.
+	# First philosophy; kept if the JE reactivates
 	immediate = {
-		ztr_update_research_center_progress = yes
-	}
-	on_yearly_pulse = {
-		effect = {
-			ztr_update_research_center_progress = yes
+		if = {
+			limit = {
+				NOT = { has_variable = ztr_rc_philosophy }
+			}
+			ztr_rc_set_default_philosophy = yes
 		}
+	}
+	# Philosophy modifiers scaled by country_research_progress, only the active one is non-zero
+	scaling_modifiers_while_active = {
+		modifier = ztr_research_center_independent_modifier
+		value = ztr_rc_independent_scale
+	}
+	scaling_modifiers_while_active = {
+		modifier = ztr_research_center_absorption_modifier
+		value = ztr_rc_absorption_scale
 	}
 	scripted_button = ztr_start_nuclear_weapons_program_button
 	scripted_button = ztr_develop_thermonuclear_weapons_button
 	scripted_button = ztr_nuclear_power_program_button
 	scripted_button = ztr_fusion_reactor_button
+	scripted_button = ztr_rc_change_philosophy_button
+	status_desc = {
+		first_valid = {
+			triggered_desc = {
+				desc = je_research_center_status_independent
+				trigger = { ztr_rc_has_independent_philosophy = yes }
+			}
+			triggered_desc = {
+				desc = je_research_center_status_absorption
+				trigger = { ztr_rc_has_absorption_philosophy = yes }
+			}
+		}
+	}
 	weight = 50
 	should_be_pinned_by_default_uninvolved_or_context = yes
+	# Map: owner's weekly innovation against the yearly world leader, white (< 1/8) to scientific blue (>= 7/8)
+	map_color = {
+		if = {
+			limit = {
+				ztr_mm_innovation_eighth_1 > 0
+				exists = owner
+			}
+			if = {
+				limit = {
+					owner = { country_innovation >= ztr_mm_innovation_eighth_7 }
+				}
+				value = "ztr_innovation_level_7"
+			}
+			else_if = {
+				limit = {
+					owner = { country_innovation >= ztr_mm_innovation_eighth_6 }
+				}
+				value = "ztr_innovation_level_6"
+			}
+			else_if = {
+				limit = {
+					owner = { country_innovation >= ztr_mm_innovation_eighth_5 }
+				}
+				value = "ztr_innovation_level_5"
+			}
+			else_if = {
+				limit = {
+					owner = { country_innovation >= ztr_mm_innovation_eighth_4 }
+				}
+				value = "ztr_innovation_level_4"
+			}
+			else_if = {
+				limit = {
+					owner = { country_innovation >= ztr_mm_innovation_eighth_3 }
+				}
+				value = "ztr_innovation_level_3"
+			}
+			else_if = {
+				limit = {
+					owner = { country_innovation >= ztr_mm_innovation_eighth_2 }
+				}
+				value = "ztr_innovation_level_2"
+			}
+			else_if = {
+				limit = {
+					owner = { country_innovation >= ztr_mm_innovation_eighth_1 }
+				}
+				value = "ztr_innovation_level_1"
+			}
+			else = {
+				value = "ztr_innovation_level_0"
+			}
+		}
+	}
+	map_tooltip = {
+		if = {
+			limit = {
+				ztr_mm_innovation_eighth_1 > 0
+				exists = owner
+			}
+			custom_tooltip_no_bullet = "ztr_innovation_map_tt"
+		}
+	}
 }
 
 je_research_center_site = {
 	icon = "gfx/interface/icons/event_icons/innovation.dds"
-	group = je_group_technology
+	group = je_group_research_center
+
+	activation_description = {
+		always = yes
+	}
 	on_monthly_pulse = {
 		effect = {
 			change_variable = {
@@ -40,50 +132,43 @@ je_research_center_site = {
 			}
 		}
 	}
-	complete = {
-		scope:journal_entry = {
-			is_goal_complete = yes
-		}
-		# There should be a state like that, despite research center will always be built in capital
-		any_scope_state = {
-			is_incorporated = yes
-			is_split_state = no
-			any_scope_building = {
-				is_building_type = building_urban_center
-				level >= 50
+	outcome = {
+		header = je_standard_completion_header
+		effect_header = je_standard_on_completion_header
+		color = "gold_positive"
+		conclusion_desc = je_standard_completion_conclusion_desc
+		trigger = {
+			scope:journal_entry = {
+				is_goal_complete = yes
 			}
-			any_scope_building = {
-				is_building_type = building_university
-				level >= 5
-			}
-		}
-	}
-	on_complete = {
-		#remove_modifier = research_center_survey
-		trigger_event = {
-			id = ztr_technology.1
-		}
-		# site found
-	}
-	invalid = {
-		NOT = {
+			# There should be a state like that, despite research center will always be built in capital
 			any_scope_state = {
-				is_incorporated = yes
-				is_split_state = no
-				any_scope_building = {
-					is_building_type = building_urban_center
-					level >= 50
-				}
-				any_scope_building = {
-					is_building_type = building_university
-					level >= 5
+				ztr_state_can_host_research_center = yes
+			}
+		}
+		effect = {
+			#remove_modifier = research_center_survey
+			trigger_event = {
+				id = ztr_technology.1
+			}
+			# site found
+		}
+	}
+
+	outcome = {
+		flags = { hidden invalid_outcome }
+		conclusion_desc = je_standard_failure_conclusion_desc
+		trigger = {
+			NOT = {
+				any_scope_state = {
+					ztr_state_can_host_research_center = yes
 				}
 			}
 		}
-	}
-	on_invalid = {
-		remove_modifier = research_center_survey
-		remove_variable = research_center_var
+		effect = {
+			remove_modifier = research_center_survey
+			remove_variable = research_center_var
+		}
 	}
 	current_value = {
 		value = root.var:research_center_var
@@ -98,10 +183,46 @@ je_research_center_site = {
 
 je_research_center_construction = {
 	icon = "gfx/interface/icons/event_icons/innovation.dds"
-	group = je_group_technology
-	complete = {
-		scope:target = {
-			has_research_center_target = yes
+	group = je_group_research_center
+
+	activation_description = {
+		always = yes
+	}
+	outcome = {
+		header = je_standard_completion_header
+		effect_header = je_standard_on_completion_header
+		color = "gold_positive"
+		conclusion_desc = je_standard_completion_conclusion_desc
+		trigger = {
+			scope:target = {
+				has_research_center_target = yes
+			}
+		}
+		effect = {
+			trigger_event = {
+				id = ztr_technology.2
+			}
+			remove_variable = research_center_var
+			scope:target = {
+				remove_modifier = research_center_site
+			}
+		}
+	}
+
+	outcome = {
+		header = je_standard_failure_header
+		effect_header = je_standard_on_failure_header
+		color = "blue_negative"
+		conclusion_desc = je_standard_failure_conclusion_desc
+		trigger = {
+			NOT = {
+				any_scope_state = {
+					has_modifier = research_center_site
+				}
+			}
+		}
+		effect = {
+			remove_variable = research_center_var
 		}
 	}
 	on_yearly_pulse = {
@@ -132,25 +253,6 @@ je_research_center_construction = {
 			}
 		}
 	}
-	fail = {
-		NOT = {
-			any_scope_state = {
-				has_modifier = research_center_site
-			}
-		}
-	}
-	on_fail = {
-		remove_variable = research_center_var
-	}
-	on_complete = {
-		trigger_event = {
-			id = ztr_technology.2
-		}
-		remove_variable = research_center_var
-		scope:target = {
-			remove_modifier = research_center_site
-		}
-	}
 	should_be_pinned_by_default_uninvolved_or_context = yes
 }
 
@@ -158,6 +260,10 @@ je_research_center_construction = {
 je_national_electric_system = {
 	icon = "gfx/interface/icons/goods_icons/electrical_generation.dds"
 	group = je_group_technology
+
+	activation_description = {
+		always = yes
+	}
 
 	possible = {
 		#JE
@@ -199,29 +305,34 @@ je_national_electric_system = {
 		}
 	}
 
-	complete = {
-		any_scope_state = {
-			filter = {
-				is_incorporated = yes
+	outcome = {
+		header = je_standard_completion_header
+		effect_header = je_standard_on_completion_header
+		color = "gold_positive"
+		conclusion_desc = je_standard_completion_conclusion_desc
+		trigger = {
+			any_scope_state = {
+				filter = {
+					is_incorporated = yes
+				}
+				custom_tooltip = {
+					text = je_national_electric_system_complete_tt
+					has_building = building_power_grid_station
+				}
+				percent = 1
 			}
-			custom_tooltip = {
-				text = je_national_electric_system_complete_tt
-				has_building = building_power_grid_station
+		}
+		effect = {
+			ztr_update_national_electric_system_progress = yes
+			add_modifier = {
+				name = national_electric_system_transition_boost
+				years = 10
+				is_decaying = yes
 			}
-			percent = 1
+			activate_law = law_type:law_national_electric_system
+			ztr_clear_national_electric_system_progress = yes
+			remove_variable = national_electric_system_started
 		}
-	}
-
-	on_complete = {
-		ztr_update_national_electric_system_progress = yes
-		add_modifier = {
-			name = national_electric_system_transition_boost
-			years = 10
-			is_decaying = yes
-		}
-		activate_law = law_type:law_national_electric_system
-		ztr_clear_national_electric_system_progress = yes
-		remove_variable = national_electric_system_started
 	}
 
 	status_desc = {
@@ -253,7 +364,11 @@ je_national_electric_system = {
 # one of the only two ways into the fission branch; the other is buying the patent.
 je_nuclear_power_program = {
 	icon = "gfx/interface/icons/event_icons/nuclear_reactor_je.dds"
-	group = je_group_technology
+	group = je_group_research_center
+
+	activation_description = {
+		always = yes
+	}
 	possible = {
 		has_variable = ztr_nuclear_power_program_started
 	}
@@ -268,35 +383,46 @@ je_nuclear_power_program = {
 			nuclear_power_add_progress = yes
 		}
 	}
-	complete = {
-		scope:journal_entry = {
-			is_goal_complete = yes
+	outcome = {
+		header = je_standard_completion_header
+		effect_header = je_standard_on_completion_header
+		color = "gold_positive"
+		conclusion_desc = je_standard_completion_conclusion_desc
+		trigger = {
+			scope:journal_entry = {
+				is_goal_complete = yes
+			}
+		}
+		effect = {
+			trigger_event = {
+				id = ztr_technology.20
+			}
+			remove_variable = ztr_nuclear_power_var
 		}
 	}
-	on_complete = {
-		trigger_event = {
-			id = ztr_technology.20
+
+	outcome = {
+		flags = { hidden invalid_outcome }
+		conclusion_desc = je_standard_failure_conclusion_desc
+		trigger = {
+			OR = {
+				NOT = {
+					has_research_center = yes
+				}
+				has_technology_researched = nuclear_reactor
+				# Abandoned from the journal entry's own button
+				NOT = {
+					has_variable = ztr_nuclear_power_program_started
+				}
+			}
 		}
-		remove_variable = ztr_nuclear_power_var
+		effect = {
+			remove_variable = ztr_nuclear_power_var
+			remove_variable = ztr_nuclear_power_program_started
+		}
 	}
 	# The programme dies with the Research Center, and is pointless if the patent was
 	# bought in the meantime.
-	invalid = {
-		OR = {
-			NOT = {
-				has_research_center = yes
-			}
-			has_technology_researched = nuclear_reactor
-			# Abandoned from the journal entry's own button
-			NOT = {
-				has_variable = ztr_nuclear_power_program_started
-			}
-		}
-	}
-	on_invalid = {
-		remove_variable = ztr_nuclear_power_var
-		remove_variable = ztr_nuclear_power_program_started
-	}
 	scripted_button = ztr_abandon_nuclear_power_program_button
 	current_value = {
 		value = var:ztr_nuclear_power_var
@@ -313,34 +439,49 @@ je_nuclear_power_program = {
 # Fusion Reactor Journal Entries
 je_fusion_reactor_research = {
 	icon = "gfx/interface/icons/event_icons/innovation.dds"
-	group = je_group_technology
+	group = je_group_research_center
+
+	activation_description = {
+		always = yes
+	}
 	on_monthly_pulse = {
 		effect = {
 			fusion_reactor_add_progress = yes
 		}
 	}
-	complete = {
-		scope:journal_entry = {
-			is_goal_complete = yes
+	outcome = {
+		header = je_standard_completion_header
+		effect_header = je_standard_on_completion_header
+		color = "gold_positive"
+		conclusion_desc = je_standard_completion_conclusion_desc
+		trigger = {
+			scope:journal_entry = {
+				is_goal_complete = yes
+			}
+		}
+		effect = {
+			trigger_event = {
+				id = ztr_technology.10
+			}
+			# fusion reactor first breakthrough
 		}
 	}
-	on_complete = {
-		trigger_event = {
-			id = ztr_technology.10
+
+	outcome = {
+		flags = { hidden invalid_outcome }
+		conclusion_desc = je_standard_failure_conclusion_desc
+		trigger = {
+			NAND = {
+				has_technology_researched = smart_energy_grid
+				has_technology_researched = third_nuclear_reactor
+				has_research_center = yes
+				# fusion_reactor_var doubles as this programme's started marker
+				has_variable = fusion_reactor_var
+			}
 		}
-		# fusion reactor first breakthrough
-	}
-	invalid = {
-		NAND = {
-			has_technology_researched = smart_energy_grid
-			has_technology_researched = third_nuclear_reactor
-			has_research_center = yes
-			# fusion_reactor_var doubles as this programme's started marker
-			has_variable = fusion_reactor_var
+		effect = {
+			remove_variable = fusion_reactor_var
 		}
-	}
-	on_invalid = {
-		remove_variable = fusion_reactor_var
 	}
 	scripted_button = ztr_abandon_fusion_reactor_program_button
 	current_value = {
@@ -359,29 +500,46 @@ je_fusion_reactor_research = {
 
 je_fusion_reactor_construction = {
 	icon = "gfx/interface/icons/event_icons/academia.dds"
-	group = je_group_technology
-	complete = {
-		scope:target = {
-			has_fusion_reactor_target = yes
-		}
+	group = je_group_research_center
+
+	activation_description = {
+		always = yes
 	}
-	fail = {
-		NOT = {
-			any_scope_state = {
-				has_modifier = fusion_reactor_site
+	outcome = {
+		header = je_standard_completion_header
+		effect_header = je_standard_on_completion_header
+		color = "gold_positive"
+		conclusion_desc = je_standard_completion_conclusion_desc
+		trigger = {
+			scope:target = {
+				has_fusion_reactor_target = yes
+			}
+		}
+		effect = {
+			trigger_event = {
+				id = ztr_technology.11
+			}
+			remove_variable = fusion_reactor_var
+			scope:target = {
+				remove_modifier = fusion_reactor_site
 			}
 		}
 	}
-	on_fail = {
-		remove_variable = fusion_reactor_var
-	}
-	on_complete = {
-		trigger_event = {
-			id = ztr_technology.11
+
+	outcome = {
+		header = je_standard_failure_header
+		effect_header = je_standard_on_failure_header
+		color = "blue_negative"
+		conclusion_desc = je_standard_failure_conclusion_desc
+		trigger = {
+			NOT = {
+				any_scope_state = {
+					has_modifier = fusion_reactor_site
+				}
+			}
 		}
-		remove_variable = fusion_reactor_var
-		scope:target = {
-			remove_modifier = fusion_reactor_site
+		effect = {
+			remove_variable = fusion_reactor_var
 		}
 	}
 	should_be_pinned_by_default_uninvolved_or_context = yes

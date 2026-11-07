@@ -2,6 +2,10 @@
 je_liberty_index = {
 	icon = "gfx/interface/icons/event_icons/ideologies.dds"
 	group = je_group_historical_content
+
+	activation_description = {
+		always = yes
+	}
 	is_shown_when_inactive = {
 		technres_is_active = yes
 	}
@@ -18,8 +22,6 @@ je_liberty_index = {
 			value = 0
 		}
 	}
-	scripted_button = show_liberty_index_rankings_button
-	scripted_button = show_equality_index_rankings_button
 	scripted_progress_bar = liberty_index_progress_bar
 	scripted_progress_bar = equality_index_progress_bar
 	on_yearly_pulse = {
@@ -39,6 +41,68 @@ je_liberty_index = {
 					name = equality_index_progress_bar
 				}
 			}
+		}
+	}
+	# Map: ideological pole of the owner, full color at the pole core, light near the frontier
+	map_color = {
+		if = {
+			limit = {
+				owner ?= { ztrpol_is_social_core = yes }
+			}
+			value = "ztr_pole_social_core"
+		}
+		else_if = {
+			limit = {
+				owner ?= { ztrpol_is_social_pole = yes }
+			}
+			value = "ztr_pole_social"
+		}
+		else_if = {
+			limit = {
+				owner ?= { ztrpol_is_liberal_core = yes }
+			}
+			value = "ztr_pole_liberal_core"
+		}
+		else_if = {
+			limit = {
+				owner ?= { ztrpol_is_liberal_pole = yes }
+			}
+			value = "ztr_pole_liberal"
+		}
+		else_if = {
+			limit = {
+				owner ?= { ztrpol_is_collectivist_core = yes }
+			}
+			value = "ztr_pole_collectivist_core"
+		}
+		else_if = {
+			limit = {
+				owner ?= { ztrpol_is_collectivist_pole = yes }
+			}
+			value = "ztr_pole_collectivist"
+		}
+		else_if = {
+			limit = {
+				owner ?= { ztrpol_is_reactionary_core = yes }
+			}
+			value = "ztr_pole_reactionary_core"
+		}
+		else_if = {
+			limit = {
+				owner ?= { ztrpol_is_reactionary_pole = yes }
+			}
+			value = "ztr_pole_reactionary"
+		}
+	}
+	map_tooltip = {
+		if = {
+			limit = {
+				owner ?= { has_variable = ztrpol_pole_set }
+			}
+			custom_tooltip_no_bullet = "ztr_pole_map_tt"
+		}
+		else = {
+			custom_tooltip_no_bullet = "ztr_pole_map_none_tt"
 		}
 	}
 	transferable = no

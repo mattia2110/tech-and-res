@@ -1,18 +1,113 @@
-﻿# Refreshes the Research Center research output modifier. Scope: country
-ztr_update_research_center_progress = {
+﻿# First philosophy, without cooldown: independent research from 40 million literates
+ztr_rc_set_default_philosophy = {
 	if = {
-		limit = {
-			has_modifier = ztr_research_center_progress_modifier
-		}
-		remove_modifier = ztr_research_center_progress_modifier
+		limit = { country_has_academic_base_level_4 = yes }
+		set_variable = { name = ztr_rc_philosophy value = flag:independent }
 	}
+	else = {
+		set_variable = { name = ztr_rc_philosophy value = flag:absorption }
+	}
+}
+
+# Philosophy chosen from the Research Center panel; $PHILOSOPHY$ = independent or absorption
+ztr_rc_change_philosophy = {
+	set_variable = { name = ztr_rc_philosophy value = flag:$PHILOSOPHY$ }
+	set_variable = {
+		name = ztr_rc_philosophy_cooldown
+		years = 10
+	}
+}
+
+# Research agreement entered into force between scope:ztr_ra_first and scope:ztr_ra_second
+ztr_research_agreement_signed_effect = {
+	ztr_research_agreement_order_partners = yes
+	if = {
+		limit = { exists = scope:ztr_ra_larger }
+		# The larger partner gains a friendly lobby in the smaller one
+		add_lobby_appeasement_from_diplomacy_unidirectional = {
+			FIRST = scope:ztr_ra_smaller
+			SECOND = scope:ztr_ra_larger
+			PRO_AMOUNT = 3
+			ANTI_AMOUNT = -3
+			FACTOR = appeasement_ztr_research_agreement_signed
+		}
+		scope:ztr_ra_smaller = {
+			create_diplomatic_catalyst = {
+				type = catalyst_ztr_research_agreement_signed
+				target = scope:ztr_ra_larger
+			}
+		}
+	}
+	else = {
+		add_lobby_appeasement_from_diplomacy_bidirectional = {
+			FIRST = scope:ztr_ra_first
+			SECOND = scope:ztr_ra_second
+			PRO_AMOUNT = 2
+			ANTI_AMOUNT = -2
+			FACTOR = appeasement_ztr_research_agreement_signed
+		}
+	}
+}
+
+# Research agreement withdrawn: scope:ztr_ra_first withdraws from scope:ztr_ra_second
+ztr_research_agreement_ended_effect = {
+	ztr_research_agreement_order_partners = yes
+	if = {
+		limit = { exists = scope:ztr_ra_larger }
+		add_lobby_appeasement_from_diplomacy_unidirectional = {
+			FIRST = scope:ztr_ra_smaller
+			SECOND = scope:ztr_ra_larger
+			PRO_AMOUNT = -3
+			ANTI_AMOUNT = 3
+			FACTOR = appeasement_ztr_research_agreement_ended
+		}
+	}
+	else = {
+		add_lobby_appeasement_from_diplomacy_bidirectional = {
+			FIRST = scope:ztr_ra_first
+			SECOND = scope:ztr_ra_second
+			PRO_AMOUNT = -2
+			ANTI_AMOUNT = 2
+			FACTOR = appeasement_ztr_research_agreement_ended
+		}
+	}
+}
+
+# Saves ztr_ra_larger and ztr_ra_smaller when the two partners differ in rank step
+ztr_research_agreement_order_partners = {
 	if = {
 		limit = {
-			country_research_progress > 0
+			scope:ztr_ra_first.ztr_research_rank_step > scope:ztr_ra_second.ztr_research_rank_step
 		}
-		add_modifier = {
-			name = ztr_research_center_progress_modifier
-			multiplier = country_research_progress
+		scope:ztr_ra_first = { save_scope_as = ztr_ra_larger }
+		scope:ztr_ra_second = { save_scope_as = ztr_ra_smaller }
+	}
+	else_if = {
+		limit = {
+			scope:ztr_ra_second.ztr_research_rank_step > scope:ztr_ra_first.ztr_research_rank_step
+		}
+		scope:ztr_ra_second = { save_scope_as = ztr_ra_larger }
+		scope:ztr_ra_first = { save_scope_as = ztr_ra_smaller }
+	}
+}
+
+# Research agreement declined (treaty or diplomatic action): -10 relations, pair blocked for 2 years
+ztr_research_agreement_declined_effect = {
+	scope:ztr_ra_first = {
+		change_relations = {
+			country = scope:ztr_ra_second
+			value = -10
+		}
+		add_to_variable_list = {
+			name = ztr_research_agreement_declined
+			target = scope:ztr_ra_second
+			years = 2
+		}
+	}
+	scope:ztr_ra_second = {
+		add_to_variable_list = {
+			name = ztr_research_agreement_declined
+			target = scope:ztr_ra_first
 			years = 2
 		}
 	}

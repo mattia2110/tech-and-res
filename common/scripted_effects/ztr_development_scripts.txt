@@ -1,0 +1,116 @@
+﻿# Classifies the country and adds the national journal entries it may miss
+ztr_development_initialize = {
+	if = {
+		limit = { NOT = { has_variable = ztr_development_level_var } }
+		set_variable = {
+			name = ztr_development_level_var
+			value = ztr_development_initial_level
+		}
+	}
+	if = {
+		limit = { NOT = { has_journal_entry = je_development } }
+		add_journal_entry = { type = je_development }
+	}
+	# Countries released without the other national entries
+	if = {
+		limit = { NOT = { has_journal_entry = je_liberty_index } }
+		add_journal_entry = { type = je_liberty_index }
+	}
+	ztr_demography_initialize = yes
+}
+
+# One level per year at most; the ztr_economic_update event only announces the change
+ztr_development_yearly_update = {
+	if = {
+		limit = { NOT = { has_variable = ztr_development_level_var } }
+		ztr_development_initialize = yes
+	}
+	else_if = {
+		limit = {
+			var:ztr_development_level_var < 8
+			get_country_gdp_per > ztr_development_promotion_threshold
+		}
+		change_variable = { name = ztr_development_level_var add = 1 }
+		ztr_development_announce_promotion = yes
+	}
+	else_if = {
+		limit = {
+			var:ztr_development_level_var > 0
+			get_country_gdp_per < ztr_development_demotion_threshold
+		}
+		change_variable = { name = ztr_development_level_var add = -1 }
+		ztr_development_announce_demotion = yes
+	}
+}
+
+# Reached level N: ztr_economic_update.(N+1)
+ztr_development_announce_promotion = {
+	if = {
+		limit = { ztr_development_has_level = { LEVEL = 1 } }
+		trigger_event = ztr_economic_update.2
+	}
+	else_if = {
+		limit = { ztr_development_has_level = { LEVEL = 2 } }
+		trigger_event = ztr_economic_update.3
+	}
+	else_if = {
+		limit = { ztr_development_has_level = { LEVEL = 3 } }
+		trigger_event = ztr_economic_update.4
+	}
+	else_if = {
+		limit = { ztr_development_has_level = { LEVEL = 4 } }
+		trigger_event = ztr_economic_update.5
+	}
+	else_if = {
+		limit = { ztr_development_has_level = { LEVEL = 5 } }
+		trigger_event = ztr_economic_update.6
+	}
+	else_if = {
+		limit = { ztr_development_has_level = { LEVEL = 6 } }
+		trigger_event = ztr_economic_update.7
+	}
+	else_if = {
+		limit = { ztr_development_has_level = { LEVEL = 7 } }
+		trigger_event = ztr_economic_update.8
+	}
+	else_if = {
+		limit = { ztr_development_has_level = { LEVEL = 8 } }
+		trigger_event = ztr_economic_update.9
+	}
+}
+
+# Fell to level N: ztr_economic_update.(17-N)
+ztr_development_announce_demotion = {
+	if = {
+		limit = { ztr_development_has_level = { LEVEL = 7 } }
+		trigger_event = ztr_economic_update.10
+	}
+	else_if = {
+		limit = { ztr_development_has_level = { LEVEL = 6 } }
+		trigger_event = ztr_economic_update.11
+	}
+	else_if = {
+		limit = { ztr_development_has_level = { LEVEL = 5 } }
+		trigger_event = ztr_economic_update.12
+	}
+	else_if = {
+		limit = { ztr_development_has_level = { LEVEL = 4 } }
+		trigger_event = ztr_economic_update.13
+	}
+	else_if = {
+		limit = { ztr_development_has_level = { LEVEL = 3 } }
+		trigger_event = ztr_economic_update.14
+	}
+	else_if = {
+		limit = { ztr_development_has_level = { LEVEL = 2 } }
+		trigger_event = ztr_economic_update.15
+	}
+	else_if = {
+		limit = { ztr_development_has_level = { LEVEL = 1 } }
+		trigger_event = ztr_economic_update.16
+	}
+	else_if = {
+		limit = { ztr_development_has_level = { LEVEL = 0 } }
+		trigger_event = ztr_economic_update.17
+	}
+}

@@ -3,7 +3,11 @@
 # - ztr_has_superpower_alignment_law_candidate scripted trigger
 je_superpower_request_law_enactment = {
 	icon = "gfx/interface/icons/event_icons/event_scales.dds"
-	group = je_group_technology
+	group = je_group_foreign_affairs
+
+	activation_description = {
+		always = yes
+	}
 	timeout = 1825
 	immediate = {
 		random_country = {
@@ -52,64 +56,82 @@ je_superpower_request_law_enactment = {
 			}
 		}
 	}
-	complete = {
-		has_law_or_variant = scope:superpower_alignment_law.type
-	}
-	on_complete = {
-		if = {
-			limit = {
-				exists = scope:superpower_law_requester
+	outcome = {
+		header = je_standard_completion_header
+		effect_header = je_standard_on_completion_header
+		color = "gold_positive"
+		conclusion_desc = je_standard_completion_conclusion_desc
+		trigger = {
+			has_law_or_variant = scope:superpower_alignment_law.type
+		}
+		effect = {
+			if = {
+				limit = {
+					exists = scope:superpower_law_requester
+				}
+				change_relations = {
+					country = scope:superpower_law_requester
+					value = 50
+				}
+				custom_tooltip = {
+					text = je_superpower_aid_extended_tt
+					remove_modifier = superpower_aid_modifier
+					add_modifier = {
+						name = superpower_aid_modifier
+						years = 10
+					}
+				}
 			}
-			change_relations = {
-				country = scope:superpower_law_requester
-				value = 50
-			}
-			custom_tooltip = {
-				text = je_superpower_aid_extended_tt
-				remove_modifier = superpower_aid_modifier
-				add_modifier = {
-					name = superpower_aid_modifier
-					years = 10
+		}
+		event_outcome_desc = {
+			first_valid = {
+				triggered_desc = {
+					desc = je_superpower_request_law_enactment_completed_desc
 				}
 			}
 		}
 	}
-	invalid = {
-		OR = {
-			NOT = {
-				exists = scope:superpower_law_requester
+
+	outcome = {
+		flags = { timeout }
+		header = JOURNAL_ENTRY_TIMEOUT
+		effect_header = JOURNAL_ENTRY_ON_TIMEOUT
+		conclusion_desc = JOURNAL_ENTRY_TIMEOUT_CONCLUSION_DESC
+		effect = {
+			if = {
+				limit = {
+					exists = scope:superpower_law_requester
+				}
+				remove_modifier = superpower_aid_modifier
+				change_relations = {
+					country = scope:superpower_law_requester
+					value = -150
+				}
 			}
-			scope:superpower_law_requester ?= {
-				is_country_alive = no
-			}
-			NOT = {
-				exists = scope:superpower_alignment_law
+		}
+		event_outcome_desc = {
+			first_valid = {
+				triggered_desc = {
+					desc = je_superpower_request_law_enactment_timeout_desc
+				}
 			}
 		}
 	}
-	on_timeout = {
-		if = {
-			limit = {
-				exists = scope:superpower_law_requester
-			}
-			remove_modifier = superpower_aid_modifier
-			change_relations = {
-				country = scope:superpower_law_requester
-				value = -150
-			}
-		}
-	}
-	event_outcome_completed_desc = {
-		first_valid = {
-			triggered_desc = {
-				desc = je_superpower_request_law_enactment_completed_desc
-			}
-		}
-	}
-	event_outcome_timeout_desc = {
-		first_valid = {
-			triggered_desc = {
-				desc = je_superpower_request_law_enactment_timeout_desc
+
+	outcome = {
+		flags = { hidden invalid_outcome }
+		conclusion_desc = je_standard_failure_conclusion_desc
+		trigger = {
+			OR = {
+				NOT = {
+					exists = scope:superpower_law_requester
+				}
+				scope:superpower_law_requester ?= {
+					is_country_alive = no
+				}
+				NOT = {
+					exists = scope:superpower_alignment_law
+				}
 			}
 		}
 	}

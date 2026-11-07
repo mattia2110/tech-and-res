@@ -2,6 +2,10 @@
 ztr_je_the_future_of_china = {
 	icon = "gfx/interface/icons/event_icons/event_newspaper.dds"
 	group = je_group_the_future_of_china
+
+	activation_description = {
+		always = yes
+	}
 	is_shown_when_inactive = {
 		has_variable = the_future_of_china_active
 		has_game_rule = allow_ztr_historical_content
@@ -40,45 +44,56 @@ ztr_je_the_future_of_china = {
 			1 = the_future_of_china.8
 		}
 	}
-	complete = {
-		custom_tooltip = {
-			text = ztr_je_the_future_of_china_goal_tt
+	outcome = {
+		header = je_standard_completion_header
+		effect_header = je_standard_on_completion_header
+		color = "gold_positive"
+		conclusion_desc = je_standard_completion_conclusion_desc
+		trigger = {
+			custom_tooltip = {
+				text = ztr_je_the_future_of_china_goal_tt
+				OR = {
+					var:ztr_china_corporate_var >= 100
+					var:ztr_china_federation_var >= 100
+					var:ztr_china_technoconfucian_var >= 100
+				}
+			}
+		}
+		effect = {
+			hidden_effect = {
+				add_loyalists = {
+					value = 0.75
+				}
+			}
+			trigger_event = {
+				id = the_future_of_china.100
+			}
+		}
+	}
+
+	outcome = {
+		flags = { hidden invalid_outcome }
+		conclusion_desc = je_standard_failure_conclusion_desc
+		trigger = {
 			OR = {
-				var:ztr_china_corporate_var >= 100
-				var:ztr_china_federation_var >= 100
-				var:ztr_china_technoconfucian_var >= 100
+				NOT = {
+					exists = c:CHI
+				}
+				c:CHI = {
+					is_subject = yes
+				}
 			}
-		}
-	}
-	on_complete = {
-		hidden_effect = {
-			add_loyalists = {
-				value = 0.75
-			}
-		}
-		trigger_event = {
-			id = the_future_of_china.100
-		}
-	}
-	invalid = {
-		OR = {
 			NOT = {
-				exists = c:CHI
-			}
-			c:CHI = {
-				is_subject = yes
+				has_law_or_variant = law_type:law_monarchy
 			}
 		}
-		NOT = {
-			has_law_or_variant = law_type:law_monarchy
+		effect = {
+			ztr_china_remove_renaissance_vars = yes
 		}
 	}
 	scripted_progress_bar = ztr_china_corporate_progress_bar
 	scripted_progress_bar = ztr_china_federation_progress_bar
 	scripted_progress_bar = ztr_china_technoconfucian_progress_bar
-	on_invalid = {
-		ztr_china_remove_renaissance_vars = yes
-	}
 	weight = 1000
 	should_be_pinned_by_default_uninvolved_or_context = yes
 }
@@ -87,6 +102,10 @@ ztr_je_the_future_of_china = {
 ztr_je_chinese_communist_front = {
 	icon = "gfx/interface/icons/event_icons/event_protest.dds"
 	group = je_group_chinese_civil_war
+
+	activation_description = {
+		always = yes
+	}
 	should_show_when_not_involved = {
 		OR = {
 			is_in_geographic_region = geographic_region_china
@@ -250,63 +269,74 @@ ztr_je_chinese_communist_front = {
 			}
 		}
 	}
-	complete = {
-		exists = c:CHI
-		# It will end 10 years after Communist China is created or non Communist China is created
-		c:CHI = {
+	outcome = {
+		header = je_standard_completion_header
+		effect_header = je_standard_on_completion_header
+		color = "gold_positive"
+		conclusion_desc = je_standard_completion_conclusion_desc
+		trigger = {
+			exists = c:CHI
+			# It will end 10 years after Communist China is created or non Communist China is created
+			c:CHI = {
+				NOT = {
+					has_modifier = ztr_ccp_long_march_legacy
+				}
+			}
+		}
+		effect = {
+			remove_global_variable = ztr_ccp_overall_progress
+			#remove_global_variable = china_shatters
+			#This will trigger some days later an event with the creation of a nationalist china against the communist one
+			every_country = {
+				limit = {
+					NOT = {
+						c:CHI = this
+					}
+					any_scope_state = {
+						is_coastal = yes
+					}
+					country_has_primary_culture = cu:han
+				}
+				set_variable = ztr_ccp_nationalist_candidate
+			}
+			ztr_communist_china_create_nationalist_front = yes
+			every_country = {
+				limit = {
+					NOT = {
+						c:CHI = this
+					}
+					NOT = {
+						c:ZFC = this
+					}
+					exists = c:ZFC
+					country_has_primary_culture = cu:han
+				}
+				trigger_event = {
+					id = ztr_communist_china.5
+					days = 30
+				}
+			}
+		}
+		effect_all_involved = {
+			ztr_communist_china_cleanup = yes
+		}
+	}
+
+	outcome = {
+		flags = { hidden invalid_outcome }
+		conclusion_desc = je_standard_failure_conclusion_desc
+		trigger = {
+			exists = c:CHI
 			NOT = {
-				has_modifier = ztr_ccp_long_march_legacy
+				has_global_variable = ztr_communist_china_created
 			}
 		}
-	}
-	on_complete = {
-		remove_global_variable = ztr_ccp_overall_progress
-		#remove_global_variable = china_shatters
-		#This will trigger some days later an event with the creation of a nationalist china against the communist one
-		every_country = {
-			limit = {
-				NOT = {
-					c:CHI = this
-				}
-				any_scope_state = {
-					is_coastal = yes
-				}
-				country_has_primary_culture = cu:han
-			}
-			set_variable = ztr_ccp_nationalist_candidate
+		effect = {
+			remove_global_variable = ztr_ccp_overall_progress
 		}
-		ztr_communist_china_create_nationalist_front = yes
-		every_country = {
-			limit = {
-				NOT = {
-					c:CHI = this
-				}
-				NOT = {
-					c:ZFC = this
-				}
-				exists = c:ZFC
-				country_has_primary_culture = cu:han
-			}
-			trigger_event = {
-				id = ztr_communist_china.5
-				days = 30
-			}
+		effect_all_involved = {
+			ztr_communist_china_cleanup = yes
 		}
-	}
-	on_complete_all_involved = {
-		ztr_communist_china_cleanup = yes
-	}
-	invalid = {
-		exists = c:CHI
-		NOT = {
-			has_global_variable = ztr_communist_china_created
-		}
-	}
-	on_invalid = {
-		remove_global_variable = ztr_ccp_overall_progress
-	}
-	on_invalid_all_involved = {
-		ztr_communist_china_cleanup = yes
 	}
 	scripted_progress_bar = ztr_ccp_global_progress_bar
 	status_desc = {
@@ -339,6 +369,10 @@ ztr_je_chinese_communist_front = {
 ztr_je_two_chinas_accord = {
 	icon = "gfx/interface/icons/event_icons/event_newspaper.dds"
 	group = je_group_chinese_civil_war
+
+	activation_description = {
+		always = yes
+	}
 	is_shown_when_inactive = {
 		ztr_two_chinas_joint_offensive_possible = yes
 	}
@@ -388,13 +422,17 @@ ztr_je_two_chinas_accord = {
 			}
 		}
 	}
-	invalid = {
-		OR = {
-			NOT = {
-				exists = c:CHI
-			}
-			NOT = {
-				exists = c:ZFC
+	outcome = {
+		flags = { hidden invalid_outcome }
+		conclusion_desc = je_standard_failure_conclusion_desc
+		trigger = {
+			OR = {
+				NOT = {
+					exists = c:CHI
+				}
+				NOT = {
+					exists = c:ZFC
+				}
 			}
 		}
 	}

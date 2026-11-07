@@ -1,0 +1,242 @@
+﻿# Research agreement (treaty article ztr_research_agreement)
+# Unless noted, root is the country evaluating and scope:other_country the other party.
+
+# --- AI acceptance -----------------------------------------------------------
+# Weights tuned on the 1945 and 1968 saves: about half of the proposable pairs agree,
+# smaller partners accept larger ones far more often than the reverse.
+# Research Capacity root would gain: the partner's weight, limited by what is left under the cap
+ztr_research_agreement_ai_gain = {
+	value = ztr_research_agreements_cap
+	subtract = ztr_research_agreements_raw_without_other
+	min = 0
+	scope:other_country = { save_temporary_scope_as = ztr_ra_partner }
+	max = ztr_research_agreement_weight
+}
+
+# Reluctance to commit 100 influence
+ztr_ra_score_base = {
+	value = -40
+}
+
+# 30 per point: a full agreement (2 points) is worth 60
+ztr_ra_score_gain = {
+	value = ztr_research_agreement_ai_gain
+	multiply = 30
+}
+
+# Soft power for the larger country: relations, a friendly lobby and technology spread in the partner
+ztr_ra_score_leadership = {
+	value = 0
+	if = {
+		limit = { ztr_research_rank_step > scope:other_country.ztr_research_rank_step }
+		add = ztr_research_rank_step
+		subtract = scope:other_country.ztr_research_rank_step
+		multiply = 5
+	}
+}
+
+ztr_ra_score_relations = {
+	if = {
+		limit = { "relations(scope:other_country)" >= relations_threshold:friendly }
+		value = 15
+	}
+	else_if = {
+		limit = { "relations(scope:other_country)" >= relations_threshold:amicable }
+		value = 5
+	}
+	else_if = {
+		limit = { "relations(scope:other_country)" >= relations_threshold:cordial }
+		value = -5
+	}
+	else = {
+		value = -25
+	}
+}
+
+ztr_ra_score_ideology = {
+	value = "ai_ideological_opinion(scope:other_country)"
+	multiply = 0.5
+	min = -25
+	max = 25
+}
+
+ztr_ra_score_pole = {
+	value = 0
+	if = {
+		limit = { ztr_research_same_pole = { COUNTRY = scope:other_country } }
+		value = 10
+	}
+	else_if = {
+		limit = { ztr_research_opposite_pole = { COUNTRY = scope:other_country } }
+		value = -25
+	}
+}
+
+ztr_ra_score_attitude = {
+	value = 0
+	if = {
+		limit = {
+			OR = {
+				has_attitude = { who = scope:other_country attitude = protective }
+				has_attitude = { who = scope:other_country attitude = genial }
+				has_attitude = { who = scope:other_country attitude = conciliatory }
+				has_attitude = { who = scope:other_country attitude = cooperative }
+				has_attitude = { who = scope:other_country attitude = loyal }
+			}
+		}
+		value = 10
+	}
+	else_if = {
+		limit = {
+			OR = {
+				has_attitude = { who = scope:other_country attitude = antagonistic }
+				has_attitude = { who = scope:other_country attitude = belligerent }
+				has_attitude = { who = scope:other_country attitude = domineering }
+				has_attitude = { who = scope:other_country attitude = rebellious }
+				has_attitude = { who = scope:other_country attitude = defiant }
+			}
+		}
+		value = -100
+	}
+	else_if = {
+		limit = {
+			OR = {
+				has_attitude = { who = scope:other_country attitude = wary }
+				has_attitude = { who = scope:other_country attitude = disinterested }
+				has_attitude = { who = scope:other_country attitude = aloof }
+			}
+		}
+		value = -30
+	}
+	else_if = {
+		limit = {
+			has_attitude = { who = scope:other_country attitude = cautious }
+		}
+		value = -15
+	}
+}
+
+ztr_ra_score_rivalry = {
+	value = 0
+	if = {
+		limit = { ztr_research_is_rival_of = { COUNTRY = scope:other_country } }
+		value = -1000
+	}
+	else_if = {
+		limit = { ztr_research_is_embargoed_by = { COUNTRY = scope:other_country } }
+		value = -50
+	}
+}
+
+ztr_ra_score_alliance = {
+	value = 0
+	if = {
+		limit = {
+			any_scope_treaty = {
+				binds = scope:other_country
+				any_scope_article = {
+					OR = {
+						has_type = alliance
+						has_type = defensive_pact
+					}
+				}
+			}
+		}
+		value = 10
+	}
+}
+
+ztr_ra_score_bloc = {
+	value = 0
+	if = {
+		limit = {
+			exists = power_bloc
+			exists = scope:other_country.power_bloc
+		}
+		if = {
+			limit = { power_bloc = scope:other_country.power_bloc }
+			value = 10
+		}
+		else = {
+			value = -10
+		}
+	}
+}
+
+ztr_ra_score_infamy = {
+	value = 0
+	if = {
+		limit = { "scope:other_country.infamy" >= infamy_threshold:pariah }
+		value = -50
+	}
+	else_if = {
+		limit = { "scope:other_country.infamy" >= infamy_threshold:notorious }
+		value = -25
+	}
+	else_if = {
+		limit = { "scope:other_country.infamy" >= infamy_threshold:infamous }
+		value = -10
+	}
+}
+
+# A new agreement needs 100 free influence
+ztr_ra_score_influence = {
+	value = 0
+	if = {
+		limit = {
+			NOT = { exists = scope:is_treaty_active }
+			influence < 100
+		}
+		value = -50
+	}
+}
+
+# Sum of the components, for the debug report
+ztr_ra_score_total = {
+	value = ztr_ra_score_base
+	add = ztr_ra_score_gain
+	add = ztr_ra_score_leadership
+	add = ztr_ra_score_relations
+	add = ztr_ra_score_ideology
+	add = ztr_ra_score_pole
+	add = ztr_ra_score_attitude
+	add = ztr_ra_score_rivalry
+	add = ztr_ra_score_alliance
+	add = ztr_ra_score_bloc
+	add = ztr_ra_score_infamy
+	add = ztr_ra_score_influence
+}
+
+# --- AI proposals --------------------------------------------------------------
+# Root only, no partner. Treaty article uses it as is, ztr_propose_research_agreement at half:
+# on the 1945 and 1968 saves both channels together fill the slots about 1.5 times faster, same equilibrium.
+ztr_ra_ai_evaluation_chance = {
+	value = 0
+	if = {
+		limit = {
+			has_research_center = yes
+			influence >= 100
+			ztr_research_agreements_num < ztr_research_agreements_max
+		}
+		value = 0.05
+		add = {
+			value = ztr_research_rank_step
+			multiply = 0.025
+		}
+		# Still below the cap: Research Capacity to gain
+		if = {
+			limit = { ztr_research_agreements_raw < ztr_research_agreements_cap }
+			multiply = 2
+		}
+	}
+}
+
+# Priority of ztr_propose_research_agreement, on the scale of vanilla actions (5-25).
+# Proposer's own score is 2-68 on the saves among accepted pairs, median about 20.
+ztr_ra_propose_score = {
+	value = ztr_ra_score_total
+	divide = 4
+	add = 5
+	min = 1
+	max = 25
+}

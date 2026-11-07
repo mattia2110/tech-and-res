@@ -2,6 +2,10 @@
 je_decolonization = {
 	icon = "gfx/interface/icons/event_icons/decolonization_event.dds"
 	group = je_group_foreign_affairs
+
+	activation_description = {
+		always = yes
+	}
 	is_shown_when_inactive = {
 		has_game_rule = allow_ztr_decolonization_content
 		is_colonial_power = yes
@@ -46,12 +50,12 @@ je_decolonization = {
 				}
 			}
 			# =============================================
-			# PHASE 1: Quiet Phase (0-25)
+			# PHASE 1: Quiet Phase (0-30)
 			# =============================================
 			# Window in which not much happens , international pressure is building
 			# but has not yet reached a critical level.
 			# =============================================
-			# PHASE 2: Request Phase (25-50)
+			# PHASE 2: Request Phase (30-50)
 			# =============================================
 			# Window in which subjects or cultures can request something ,
 			# diplomatic petitions, autonomy demands, UN resolutions.
@@ -192,7 +196,7 @@ je_decolonization = {
 				desc = je_decolonization_status_rising
 				trigger = {
 					has_variable = ztr_decolonization_pressure_var
-					var:ztr_decolonization_pressure_var >= 25
+					var:ztr_decolonization_pressure_var >= 30
 				}
 			}
 			triggered_desc = {
@@ -203,12 +207,85 @@ je_decolonization = {
 			}
 		}
 	}
-	invalid = {
-		NOT = {
-			has_game_rule = allow_ztr_decolonization_content
+	outcome = {
+		flags = { hidden invalid_outcome }
+		conclusion_desc = je_standard_failure_conclusion_desc
+		trigger = {
+			NOT = {
+				has_game_rule = allow_ztr_decolonization_content
+			}
+			NOT = {
+				is_colonial_power = yes
+			}
 		}
-		NOT = {
-			is_colonial_power = yes
+	}
+	# Map: colonial states (yearly list of the owner), colored by the owner's pressure phase
+	map_color = {
+		if = {
+			limit = {
+				owner ?= {
+					has_variable_list = ztr_colonial_states_list
+					is_target_in_variable_list = {
+						name = ztr_colonial_states_list
+						target = root
+					}
+				}
+			}
+			if = {
+				limit = {
+					owner = { ztr_decolonization_is_phase_4 = yes }
+				}
+				value = "ztr_decolonization_phase_4"
+			}
+			else_if = {
+				limit = {
+					owner = { ztr_decolonization_is_phase_3 = yes }
+				}
+				value = "ztr_decolonization_phase_3"
+			}
+			else_if = {
+				limit = {
+					owner = { ztr_decolonization_is_phase_2 = yes }
+				}
+				value = "ztr_decolonization_phase_2"
+			}
+			else = {
+				value = "ztr_decolonization_phase_1"
+			}
+		}
+	}
+	map_tooltip = {
+		if = {
+			limit = {
+				owner ?= {
+					has_variable_list = ztr_colonial_states_list
+					is_target_in_variable_list = {
+						name = ztr_colonial_states_list
+						target = root
+					}
+				}
+			}
+			if = {
+				limit = {
+					owner = { ztr_decolonization_is_phase_4 = yes }
+				}
+				custom_tooltip_no_bullet = "ztr_decolonization_map_phase_4_tt"
+			}
+			else_if = {
+				limit = {
+					owner = { ztr_decolonization_is_phase_3 = yes }
+				}
+				custom_tooltip_no_bullet = "ztr_decolonization_map_phase_3_tt"
+			}
+			else_if = {
+				limit = {
+					owner = { ztr_decolonization_is_phase_2 = yes }
+				}
+				custom_tooltip_no_bullet = "ztr_decolonization_map_phase_2_tt"
+			}
+			else = {
+				custom_tooltip_no_bullet = "ztr_decolonization_map_phase_1_tt"
+			}
 		}
 	}
 	weight = 100

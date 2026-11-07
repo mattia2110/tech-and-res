@@ -494,3 +494,43 @@ ztr_abandon_fusion_reactor_program_button = {
 		value = 0
 	}
 }
+
+# Research Center philosophy: opens ztr_technology.24 to pick the new philosophy
+ztr_rc_change_philosophy_button = {
+	name = "ztr_rc_change_philosophy_button"
+	desc = "ztr_rc_change_philosophy_button_desc"
+	visible = {
+		OR = {
+			ztr_rc_has_independent_philosophy = yes
+			ztr_rc_has_absorption_philosophy = yes
+		}
+	}
+	possible = {
+		custom_tooltip = {
+			text = ztr_rc_philosophy_cooldown_tt
+			NOT = { has_variable = ztr_rc_philosophy_cooldown }
+		}
+	}
+	effect = {
+		trigger_event = { id = ztr_technology.24 popup = yes }
+	}
+	# AI: only when its philosophy differs from the one its literate citizens suggest
+	ai_chance = {
+		value = 0
+		if = {
+			limit = {
+				OR = {
+					AND = {
+						ztr_rc_has_absorption_philosophy = yes
+						country_has_academic_base_level_4 = yes
+					}
+					AND = {
+						ztr_rc_has_independent_philosophy = yes
+						country_has_academic_base_level_4 = no
+					}
+				}
+			}
+			add = 100
+		}
+	}
+}

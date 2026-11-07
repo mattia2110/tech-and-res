@@ -1,0 +1,30 @@
+﻿# Console: effect ztr_debug_research_agreement_report = yes
+# Writes to debug.log one line per ordered pair of countries with a Research Center:
+# ZTR_RA;evaluator;other;acceptance;Research Capacity gained;free slot
+ztr_debug_research_agreement_report = {
+	every_country = {
+		limit = { has_research_center = yes }
+		save_scope_as = ztr_dbg_evaluator
+		every_country = {
+			limit = {
+				has_research_center = yes
+				NOT = { this = scope:ztr_dbg_evaluator }
+			}
+			save_scope_as = other_country
+			save_scope_as = ztr_ra_partner
+			scope:ztr_dbg_evaluator = {
+				set_variable = { name = ztr_dbg_score value = ztr_ra_score_total }
+				set_variable = { name = ztr_dbg_gain value = ztr_research_agreement_ai_gain }
+				set_variable = { name = ztr_dbg_free_slot value = 0 }
+				if = {
+					limit = { ztr_research_agreements_num_without_partner < ztr_research_agreements_max }
+					set_variable = { name = ztr_dbg_free_slot value = 1 }
+				}
+			}
+			debug_log = "ZTR_RA;[SCOPE.sCountry('ztr_dbg_evaluator').GetNameNoFormatting];[THIS.GetCountry.GetNameNoFormatting];[SCOPE.sCountry('ztr_dbg_evaluator').MakeScope.Var('ztr_dbg_score').GetValue|1];[SCOPE.sCountry('ztr_dbg_evaluator').MakeScope.Var('ztr_dbg_gain').GetValue|2];[SCOPE.sCountry('ztr_dbg_evaluator').MakeScope.Var('ztr_dbg_free_slot').GetValue|0]"
+		}
+		remove_variable = ztr_dbg_score
+		remove_variable = ztr_dbg_gain
+		remove_variable = ztr_dbg_free_slot
+	}
+}

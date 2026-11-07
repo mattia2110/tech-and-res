@@ -68,13 +68,6 @@ ztr_decolonization_age_active = {
 }
 
 # Building Triggers
-has_research_modernized = {
-	OR = {
-		has_research_center = yes
-		has_modifier = ztr_modern_universities_linkage
-	}
-}
-
 has_research_center = {
 	any_scope_state = {
 		has_research_center_target = yes
@@ -85,6 +78,47 @@ has_research_center_target = {
 	any_scope_building = {
 		is_building_type = building_research_center
 		is_under_construction = no
+	}
+}
+
+# Research Center philosophy (ztr_rc_philosophy, set by je_research_center)
+ztr_rc_has_independent_philosophy = {
+	var:ztr_rc_philosophy ?= flag:independent
+}
+
+ztr_rc_has_absorption_philosophy = {
+	var:ztr_rc_philosophy ?= flag:absorption
+}
+
+# Research center site, same for every rank: urban center 15+ and a university
+ztr_state_can_host_research_center = {
+	is_incorporated = yes
+	is_split_state = no
+	any_scope_building = {
+		is_building_type = building_urban_center
+		level >= 15
+	}
+	any_scope_building = {
+		is_building_type = building_university
+	}
+}
+
+# Research center bureaucracy, by rank: great 1000, major 600, others 300
+ztr_country_research_center_bureaucracy = {
+	trigger_if = {
+		limit = {
+			country_rank >= rank_value:great_power
+		}
+		produced_bureaucracy > 1000
+	}
+	trigger_else_if = {
+		limit = {
+			country_rank >= rank_value:major_power
+		}
+		produced_bureaucracy > 600
+	}
+	trigger_else = {
+		produced_bureaucracy > 300
 	}
 }
 
@@ -409,18 +443,9 @@ ztr_countries_can_unify_trigger = {
 
 # Development gates shared by modern law groups and ideology tiers
 ztr_dev_3_or_higher = {
-	OR = {
-		has_modifier = dev_3_country
-		ztr_dev_4_or_higher = yes
-	}
+	ztr_development_level_at_least = { LEVEL = 3 }
 }
 
 ztr_dev_4_or_higher = {
-	OR = {
-		has_modifier = dev_4_country
-		has_modifier = dev_5_country
-		has_modifier = dev_6_country
-		has_modifier = dev_7_country
-		has_modifier = dev_8_country
-	}
+	ztr_development_level_at_least = { LEVEL = 4 }
 }

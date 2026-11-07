@@ -1,0 +1,17 @@
+﻿# Root: the smaller partner of a research agreement; scope:target_country: the larger one
+catalyst_ztr_research_agreement_signed = {
+	category = cc_diplomatic_treaty
+
+	political_lobby_creation = {
+		lobby_pro_country = {
+			value = 0.1
+
+			if = {
+				limit = {
+					NOT = { has_strategic_adjacency = scope:target_country }
+				}
+				multiply = 0.5
+			}
+		}
+	}
+}

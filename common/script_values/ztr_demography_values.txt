@@ -45,44 +45,12 @@ ztr_demography_stage = {
 	max = 8
 }
 
-# The modifier stores the applied stage; -1 means no stage is assigned.
+# Stage applied by ztr_demography_apply_stage; -1 means no stage is assigned.
 ztr_demography_applied_stage = {
 	value = -1
 	if = {
-		limit = { has_modifier = demographic_stage_0 }
-		value = 0
-	}
-	else_if = {
-		limit = { has_modifier = demographic_stage_1 }
-		value = 1
-	}
-	else_if = {
-		limit = { has_modifier = demographic_stage_2 }
-		value = 2
-	}
-	else_if = {
-		limit = { has_modifier = demographic_stage_3 }
-		value = 3
-	}
-	else_if = {
-		limit = { has_modifier = demographic_stage_4 }
-		value = 4
-	}
-	else_if = {
-		limit = { has_modifier = demographic_stage_5 }
-		value = 5
-	}
-	else_if = {
-		limit = { has_modifier = demographic_stage_6 }
-		value = 6
-	}
-	else_if = {
-		limit = { has_modifier = demographic_stage_7 }
-		value = 7
-	}
-	else_if = {
-		limit = { has_modifier = demographic_stage_8 }
-		value = 8
+		limit = { has_variable = ztr_demography_applied_stage_var }
+		value = var:ztr_demography_applied_stage_var
 	}
 }
 

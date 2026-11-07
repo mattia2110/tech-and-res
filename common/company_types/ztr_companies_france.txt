@@ -37,13 +37,11 @@ REPLACE:company_schneider_creusot = {
 
 	possible = {
 		has_technology_researched = steelworking
-		any_scope_state = {
-			state_region = s:STATE_BURGUNDY
+		has_building_levels_in_state_region = {
+			region = STATE_BURGUNDY
+			building = building_steel_mill
+			levels >= 5
 			is_incorporated = yes
-			any_scope_building = {
-				is_building_type = building_steel_mill
-				level >= 5
-			}
 		}
 	}
 
@@ -71,6 +69,12 @@ REPLACE:company_schneider_creusot = {
 
 	ai_weight = {
 		value = 3 # Higher base value for flavored companies
+		if = {
+			limit = {
+				divided_monarchists_ai_backs_orleanist = yes
+			}
+			add = 6
+		}
 	}
 }
 

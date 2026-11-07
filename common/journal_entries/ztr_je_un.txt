@@ -1,20 +1,50 @@
 ﻿je_un_info_panel = {
 	icon = "gfx/interface/icons/event_icons/united_nations.dds"
-	group = je_group_foreign_affairs
+	group = je_group_global_un_content
+	context = country
+
+	activation_description = {
+		always = yes
+	}
 	is_shown_when_inactive = {
 		ztr_is_un_member = yes
 	}
 	possible = {
 		ztr_is_un_member = yes
 	}
-	immediate = {
-		ztr_un_permanent_member_ranking_variables = yes
-		ztr_un_permanent_member_ranking_effect = yes
+	# UN institutions: 1 while established, 0 otherwise
+	scaling_modifiers_while_active = {
+		modifier = ztr_wto_member_modifier
+		value = {
+			value = 0
+			if = {
+				limit = { ztr_is_un_institution_member = { INSTITUTION = wto } }
+				value = 1
+			}
+		}
+	}
+	scaling_modifiers_while_active = {
+		modifier = ztr_icc_member_modifier
+		value = {
+			value = 0
+			if = {
+				limit = { ztr_is_un_institution_member = { INSTITUTION = icc } }
+				value = 1
+			}
+		}
+	}
+	scaling_modifiers_while_active = {
+		modifier = ztr_unesco_member_modifier
+		value = {
+			value = 0
+			if = {
+				limit = { ztr_is_un_institution_member = { INSTITUTION = unesco } }
+				value = 1
+			}
+		}
 	}
 	on_yearly_pulse = {
 		effect = {
-			ztr_un_permanent_member_ranking_variables = yes
-			ztr_un_permanent_member_ranking_effect = yes
 			#Yearly AI UN proposal coordinator
 			if = {
 				limit = {
@@ -98,13 +128,46 @@
 			}
 		}
 	}
-	invalid = {
-		NOT = {
-			ztr_is_un_member = yes
+	# Map: permanent members dark blue, member states light blue
+	map_color = {
+		if = {
+			limit = {
+				owner ?= { has_modifier = ztr_onu_permanent_member }
+			}
+			value = "ztr_un_permanent_member_blue"
+		}
+		else_if = {
+			limit = {
+				owner ?= { has_modifier = ztr_onu_member }
+			}
+			value = "ztr_un_member_blue"
 		}
 	}
-	on_invalid = {
-		ztr_un_permanent_member_ranking_variables = yes
+	map_tooltip = {
+		if = {
+			limit = {
+				owner ?= { has_modifier = ztr_onu_permanent_member }
+			}
+			custom_tooltip_no_bullet = "ztr_un_map_permanent_member_tt"
+		}
+		else_if = {
+			limit = {
+				owner ?= { has_modifier = ztr_onu_member }
+			}
+			custom_tooltip_no_bullet = "ztr_un_map_member_tt"
+		}
+		else = {
+			custom_tooltip_no_bullet = "ztr_un_map_not_member_tt"
+		}
+	}
+	outcome = {
+		flags = { hidden invalid_outcome }
+		conclusion_desc = je_standard_failure_conclusion_desc
+		trigger = {
+			NOT = {
+				ztr_is_un_member = yes
+			}
+		}
 	}
 	weight = 100
 	can_deactivate = yes
@@ -115,6 +178,10 @@
 je_un_votations = {
 	icon = "gfx/interface/icons/event_icons/united_nations.dds"
 	group = je_group_global_un_content
+
+	activation_description = {
+		always = yes
+	}
 	is_shown_when_inactive = {
 		has_global_variable = ztr_un_vote_active
 	}
@@ -141,10 +208,6 @@ je_un_votations = {
 		effect = {
 			scope:journal_entry = {
 				ztr_un_vote_update_neutral_ai_positions = yes
-				ztr_un_major_power_vote_display_variables = yes
-				ztr_un_major_power_support_vote_display_effect = yes
-				ztr_un_major_power_neutral_vote_display_effect = yes
-				ztr_un_major_power_against_vote_display_effect = yes
 				ztr_un_vote_update_results = yes
 			}
 			# Countdown: decrement months remaining
@@ -247,6 +310,72 @@ je_un_votations = {
 					always = yes
 				}
 			}
+		}
+	}
+	# Map: vote of each eligible member; gold stripes on permanent members while the veto right is in force
+	map_color = {
+		if = {
+			limit = {
+				owner ?= { has_variable = ztr_un_vote_choice_support }
+			}
+			value = "ztr_un_vote_support_green"
+		}
+		else_if = {
+			limit = {
+				owner ?= { has_variable = ztr_un_vote_choice_against }
+			}
+			value = "ztr_un_vote_against_red"
+		}
+		else_if = {
+			limit = {
+				owner ?= { has_variable = ztr_un_vote_eligible }
+			}
+			value = "ztr_un_vote_neutral_white"
+		}
+	}
+	map_color_second = {
+		if = {
+			limit = {
+				global_var:ztr_un_law_veto_right ?= 1
+				owner ?= {
+					has_variable = ztr_un_vote_eligible
+					has_modifier = ztr_onu_permanent_member
+				}
+			}
+			value = "ztr_un_vote_veto_gold"
+		}
+	}
+	map_tooltip = {
+		if = {
+			limit = {
+				owner ?= { has_variable = ztr_un_vote_choice_support }
+			}
+			custom_tooltip_no_bullet = "ztr_un_vote_map_support_tt"
+		}
+		else_if = {
+			limit = {
+				owner ?= { has_variable = ztr_un_vote_choice_against }
+			}
+			custom_tooltip_no_bullet = "ztr_un_vote_map_against_tt"
+		}
+		else_if = {
+			limit = {
+				owner ?= { has_variable = ztr_un_vote_eligible }
+			}
+			custom_tooltip_no_bullet = "ztr_un_vote_map_neutral_tt"
+		}
+		else = {
+			custom_tooltip_no_bullet = "ztr_un_vote_map_not_eligible_tt"
+		}
+		if = {
+			limit = {
+				global_var:ztr_un_law_veto_right ?= 1
+				owner ?= {
+					has_variable = ztr_un_vote_eligible
+					has_modifier = ztr_onu_permanent_member
+				}
+			}
+			custom_tooltip_no_bullet = "ztr_un_vote_map_veto_tt"
 		}
 	}
 	scripted_progress_bar = ztr_un_vote_support_progress_bar

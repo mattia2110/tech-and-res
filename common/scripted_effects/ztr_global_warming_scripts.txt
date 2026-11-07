@@ -319,7 +319,6 @@ ztr_global_warming_yearly_update = {
 		}
 	}
 	# === Top polluters leaderboard ===
-	ztr_global_warming_clear_polluter_rankings = yes
 	ztr_global_warming_rank_polluters = yes
 
 	set_global_variable = ztr_global_warming_initialized
@@ -573,35 +572,36 @@ ztr_global_warming_apply_country_pollution_reductions = {
 	}
 }
 
-ztr_global_warming_clear_polluter_rankings = {
-	remove_global_variable = ztr_global_warming_polluter_rank_1_var
-	remove_global_variable = ztr_global_warming_polluter_rank_1_pollution_var
-	remove_global_variable = ztr_global_warming_polluter_rank_1_change_var
-	remove_global_variable = ztr_global_warming_polluter_rank_2_var
-	remove_global_variable = ztr_global_warming_polluter_rank_2_pollution_var
-	remove_global_variable = ztr_global_warming_polluter_rank_2_change_var
-	remove_global_variable = ztr_global_warming_polluter_rank_3_var
-	remove_global_variable = ztr_global_warming_polluter_rank_3_pollution_var
-	remove_global_variable = ztr_global_warming_polluter_rank_3_change_var
-	remove_global_variable = ztr_global_warming_polluter_rank_4_var
-	remove_global_variable = ztr_global_warming_polluter_rank_4_pollution_var
-	remove_global_variable = ztr_global_warming_polluter_rank_4_change_var
-	remove_global_variable = ztr_global_warming_polluter_rank_5_var
-	remove_global_variable = ztr_global_warming_polluter_rank_5_pollution_var
-	remove_global_variable = ztr_global_warming_polluter_rank_5_change_var
-	remove_global_variable = ztr_global_warming_polluter_rank_6_var
-	remove_global_variable = ztr_global_warming_polluter_rank_6_pollution_var
-	remove_global_variable = ztr_global_warming_polluter_rank_6_change_var
-	remove_global_variable = ztr_global_warming_polluter_rank_7_var
-	remove_global_variable = ztr_global_warming_polluter_rank_7_pollution_var
-	remove_global_variable = ztr_global_warming_polluter_rank_7_change_var
-	remove_global_variable = ztr_global_warming_polluter_rank_8_var
-	remove_global_variable = ztr_global_warming_polluter_rank_8_pollution_var
-	remove_global_variable = ztr_global_warming_polluter_rank_8_change_var
-	remove_global_variable = ztr_global_warming_polluter_rank_9_var
-	remove_global_variable = ztr_global_warming_polluter_rank_9_pollution_var
-	remove_global_variable = ztr_global_warming_polluter_rank_9_change_var
-	remove_global_variable = ztr_global_warming_polluter_rank_10_var
-	remove_global_variable = ztr_global_warming_polluter_rank_10_pollution_var
-	remove_global_variable = ztr_global_warming_polluter_rank_10_change_var
+# Top 10 polluters by current pollution, for je_global_warming's description (ztr_gw_polluters_sgui)
+ztr_global_warming_rank_polluters = {
+	clear_global_variable_list = ztr_gw_polluters_list
+	set_global_variable = {
+		name = ztr_list_rank_counter
+		value = 0
+	}
+	ordered_country = {
+		limit = {
+			NOT = {
+				is_country_type = decentralized
+			}
+			has_variable = ztr_country_total_pollution_current_var
+			var:ztr_country_total_pollution_current_var > 0
+		}
+		order_by = var:ztr_country_total_pollution_current_var
+		max = 10
+		check_range_bounds = no
+		change_global_variable = {
+			name = ztr_list_rank_counter
+			add = 1
+		}
+		set_variable = {
+			name = ztr_gw_polluter_rank_var
+			value = global_var:ztr_list_rank_counter
+		}
+		add_to_global_variable_list = {
+			name = ztr_gw_polluters_list
+			target = this
+		}
+	}
+	remove_global_variable = ztr_list_rank_counter
 }

@@ -216,51 +216,6 @@ REPLACE:pm_analytical_philosophy_department = {
 	}
 }			
 
-REPLACE:pm_skyscraper_bureaucratic_nexus = {
-	texture = "gfx/interface/icons/production_method_icons/skyscraper_bureaucratic_nexus.dds"
-
-	state_modifiers = {
-		workforce_scaled = {
-			building_government_administration_throughput_add = 0.25
-		}
-	}
-
-	building_modifiers = {
-		workforce_scaled = {
-			goods_input_paper_add = 25
-		}
-
-		level_scaled = {
-			building_employment_laborers_add = 200
-			building_employment_clerks_add = 500
-			building_employment_bureaucrats_add = 300
-		}
-	}
-}
-
-REPLACE:pm_skyscraper_trade_nexus = {
-	texture = "gfx/interface/icons/production_method_icons/skyscraper_trade_nexus.dds"
-
-	country_modifiers = {
-		workforce_scaled = {
-			state_trade_capacity_mult = 0.25
-			state_trade_advantage_mult = 0.25
-		}
-	}
-
-	building_modifiers = {
-		workforce_scaled = {
-			goods_input_paper_add = 25
-		}
-
-		level_scaled = {
-			building_employment_laborers_add = 200
-			building_employment_clerks_add = 500
-			building_employment_bureaucrats_add = 300
-		}
-	}
-}
-
 #Street Energy
 
 REPLACE:pm_arcades = {
@@ -487,67 +442,12 @@ REPLACE:pm_houseware_plastics = {
 
 # Synthetic Fabric
 
-REPLACE:pm_electric_sewing_machines = {
-	texture = "gfx/interface/icons/production_method_icons/electric_sewing_machines.dds"
-	
-	unlocking_technologies = {
-		electrical_capacitors
-	}
-	
-	building_modifiers = {
-		workforce_scaled = {
-			# input goods
-			goods_input_fabric_add = 60 #1300
-			goods_input_dye_add = 15 #600
-			goods_input_tools_add = 5 #400
-			goods_input_electricity_add = 10 #300
-			
-			# output goods
-			goods_output_clothes_add = 125 #4375
-		}
-
-		level_scaled = {
-			# profit = 1300
-			building_employment_shopkeepers_add = 500
-			building_employment_laborers_add = 3000
-			building_employment_machinists_add = 1000
-			building_employment_engineers_add = 500
-		}
-	}
-
-	required_input_goods = electricity
-}
-
-REPLACE:pm_elastics = {
-	texture = "gfx/interface/icons/production_method_icons/elastics.dds"
-
-	unlocking_technologies = {
-		vulcanization
-	}
-
+INJECT:pm_elastics = {
 	unlocking_production_methods = {
 		pm_sewing_machines
 		pm_electric_sewing_machines
 		pm_synthetic_fabric
 		pm_stretchwear
-	}
-	
-	building_modifiers = {
-		workforce_scaled = {
-			# input goods	
-			goods_input_rubber_add = 10 # 400
-			goods_input_silk_add = 35 # 1400
-			goods_input_fabric_add = -35 # 700
-				
-			# output goods	
-			goods_output_clothes_add = -70 	# 2100 #3200
-			goods_output_luxury_clothes_add = 70 # 4050
-		}
-		
-		level_scaled = {
-			# profit = 900 (23.4)
-			building_employment_shopkeepers_add = 1000
-		}						
 	}
 }
 
@@ -663,9 +563,9 @@ REPLACE:pm_automatic_power_looms = {
 	building_modifiers = {
 		workforce_scaled = {
 			# input goods
-			goods_input_tools_add = 5 # 200
+			goods_input_tools_add = 3 # 200
 			goods_input_copperwires_add = 3 # 200
-			goods_input_electricity_add = 5 # 150
+			goods_input_electricity_add = 8 # 150
 		}
 
 		level_scaled = {
@@ -1223,6 +1123,8 @@ REPLACE:pm_bolt_action_rifles = {
 
 REPLACE:pm_cannons = {
 	texture = "gfx/interface/icons/production_method_icons/artillery_production.dds"
+
+	is_hidden_when_unavailable = yes
 	
 	unlocking_technologies = {
 		artillery
@@ -1907,7 +1809,8 @@ REPLACE:pm_assembly_lines_building_furniture_manufactory = {
 	building_modifiers = {
 		workforce_scaled = {
 			# input goods
-			goods_input_tools_add = 5
+			goods_input_tools_add = 4
+			goods_input_electroniccomponents_add = 0.5
 			goods_input_lubricant_add = 3
 			goods_input_electricity_add = 5
 		}
@@ -1935,7 +1838,8 @@ REPLACE:pm_assembly_lines_building_motor_industry = {
 	building_modifiers = {
 		workforce_scaled = {
 			# input goods
-			goods_input_tools_add = 5
+			goods_input_tools_add = 4
+			goods_input_electroniccomponents_add = 0.5
 			goods_input_lubricant_add = 3
 			goods_input_electricity_add = 5 #400
 		}
@@ -1964,7 +1868,8 @@ REPLACE:pm_assembly_lines_building_automotive_industry = {
 	building_modifiers = {
 		workforce_scaled = {
 			# input goods
-			goods_input_tools_add = 5
+			goods_input_tools_add = 4
+			goods_input_electroniccomponents_add = 0.5
 			goods_input_lubricant_add = 3
 			goods_input_electricity_add = 5
 		}
@@ -2091,7 +1996,9 @@ REPLACE:pm_assembly_lines_building_arms_industry = {
 	
 	building_modifiers = {
 		workforce_scaled = {
-			goods_input_lubricant_add = 6
+			goods_input_lubricant_add = 3
+			goods_input_tools_add = 4
+			goods_input_electroniccomponents_add = 0.5
 			goods_input_electricity_add = 5
 		}
 
@@ -2118,7 +2025,9 @@ REPLACE:pm_assembly_lines_building_munition_plant = {
 	
 	building_modifiers = {
 		workforce_scaled = {
-			goods_input_lubricant_add = 6
+			goods_input_lubricant_add = 3
+			goods_input_tools_add = 4
+			goods_input_electroniccomponents_add = 0.5
 			goods_input_electricity_add = 5
 		}
 

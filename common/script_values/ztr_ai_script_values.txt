@@ -89,6 +89,19 @@
 		multiply = 0.8
 	}
 
+	if = {
+		limit = {
+			has_journal_entry = je_tp_pool_build_army
+		}
+		multiply = 1.25
+	}
+	if = {
+		limit = {
+			divided_monarchists_ai_backs_bonapartist = yes
+		}
+		multiply = 1.25
+	}
+
 	#T&R
 
 	if = {
@@ -298,14 +311,18 @@ REPLACE:wanted_navy_size_script_value = {
 			divide = 5000
 		}
 	}
-	
+
 	# General multiplier for easy adjustment
 	multiply = 0.75
-	
+
 	# More advanced ships require more crew
 	if = {
 		limit = { has_technology_researched = ironclad_tech }
 		multiply = 1.15
+	}
+	if = {
+		limit = { has_technology_researched = pre_dreadnought_tech }
+		multiply = 1.25
 	}
 	if = {
 		limit = { has_technology_researched = dreadnought_tech }
@@ -313,7 +330,7 @@ REPLACE:wanted_navy_size_script_value = {
 	}
 	if = {
 		limit = { has_technology_researched = battleship_tech }
-		multiply = 1.25
+		multiply = 1.15
 	}
 
 	# Journal related AI behaviours, choose this if you DONT care about the exact number of ships
@@ -344,12 +361,12 @@ REPLACE:wanted_navy_size_script_value = {
 		limit = { has_law_or_variant = law_type:law_merchant_navy }
 		multiply = 0.66
 	}
-	
+
 	# Multiply final value by diplomatic pact expenses ratio - countries paying a lot to pacts have lower spending ambitions
 	multiply = {
 		value = 1
 		subtract = diplomatic_pact_expense_ratio
-	}	
+	}
 
 	# Journal related AI behaviours, choose this if you DO care about the exact number of ships
 	if = {
@@ -357,6 +374,20 @@ REPLACE:wanted_navy_size_script_value = {
 			has_journal_entry = je_hawaii
 		}
 		min = 25
+	}
+
+	if = { #Grow the navy until the Build Navy agenda concludes
+		limit = {
+			has_journal_entry = je_tp_pool_build_navy
+		}
+		multiply = 1.3
+	}
+
+	if = {
+		limit = {
+			divided_monarchists_ai_backs_bonapartist = yes
+		}
+		multiply = 1.25
 	}
 }
 

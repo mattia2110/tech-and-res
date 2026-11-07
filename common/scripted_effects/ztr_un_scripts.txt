@@ -102,7 +102,6 @@ join_un_law_changes = {
 	# Environment and labor rights minimum standards
 	ztr_un_apply_environment_standard = yes
 	ztr_un_apply_labor_rights_standard = yes
-	ztr_un_apply_member_institution_modifiers = yes
 }
 
 ztr_un_vote_recalculate_results = {
@@ -882,12 +881,6 @@ ztr_un_apply_governance_vote = {
 			name = ztr_un_institution_wto
 			value = global_var:ztr_un_vote_proposal
 		}
-		every_country = {
-			limit = {
-				ztr_is_un_member = yes
-			}
-			ztr_un_apply_member_institution_modifiers = yes
-		}
 	}
 	# Subject 10: International Criminal Court
 	if = {
@@ -905,12 +898,6 @@ ztr_un_apply_governance_vote = {
 			name = ztr_un_institution_icc
 			value = global_var:ztr_un_vote_proposal
 		}
-		every_country = {
-			limit = {
-				ztr_is_un_member = yes
-			}
-			ztr_un_apply_member_institution_modifiers = yes
-		}
 	}
 	# Subject 11: UNESCO
 	if = {
@@ -927,12 +914,6 @@ ztr_un_apply_governance_vote = {
 		set_global_variable = {
 			name = ztr_un_institution_unesco
 			value = global_var:ztr_un_vote_proposal
-		}
-		every_country = {
-			limit = {
-				ztr_is_un_member = yes
-			}
-			ztr_un_apply_member_institution_modifiers = yes
 		}
 	}
 	# Clean up vote subject/proposal variables
@@ -1283,4 +1264,13 @@ ztr_un_vote_save_last_result = {
 			value = 1
 		}
 	}
+}
+
+# Clears every IMF help tier
+remove_imf_modifier = {
+	remove_modifier = extreme_imf_help_modifier
+	remove_modifier = big_imf_help_modifier
+	remove_modifier = medium_imf_help_modifier
+	remove_modifier = small_imf_help_modifier
+	remove_modifier = tiny_imf_help_modifier
 }

@@ -1,18 +1,28 @@
 ﻿namespace = bic_breakup
+
 # Independent British East India Company decides how to proceed (Changed from Vanilla)
 bic_breakup.1 = {
 	type = country_event
 	placement = root
+
 	title = bic_breakup.1.t
 	desc = bic_breakup.1.d
 	flavor = bic_breakup.1.f
+
 	event_image = {
 		video = "asia_sepoy_mutiny"
 	}
+
 	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+
 	icon = "gfx/interface/icons/event_icons/event_protest.dds"
+
 	duration = 3
+
+	fire_only_once = yes
+
 	trigger = {
+		# triggered by on_action - on_monthly_pulse_country
 		c:BIC ?= this
 		is_subject = no
 		is_at_war = no
@@ -20,20 +30,18 @@ bic_breakup.1 = {
 			has_variable = bic_collapse_var
 		}
 	}
+
 	immediate = {
 		cu:british = {
 			save_scope_as = british_culture
 		}
-		cu:scottish = {
-			# Making sure to cover for that one Scottish guy
-			save_scope_as = scottish_culture
-		}
 		set_variable = bic_collapse_var
 	}
+
 	option = {
 		name = bic_breakup.1.a
 		ai_chance = {
-			base = 1			# this is the default pick for the AI
+			base = 1 # this is the default pick for the AI
 			modifier = {
 				trigger = {
 					NOT = {
@@ -43,79 +51,14 @@ bic_breakup.1 = {
 				add = 39
 			}
 		}
-		collapse_india_effect = yes
-		change_tag = BGL
-		if = {
-			limit = {
-				NOT = {
-					has_law_or_variant = law_type:law_monarchy
-				}
-			}
-			activate_law = law_type:law_monarchy
+		collapse_india_effect = {
+			CORE_TRIGGER = state_is_bengal_core
+			CORE_VALUE = yes
+			TOOLTIP = india_princes_independent_tt
 		}
-		if = {
-			limit = {
-				NOT = {
-					has_law_or_variant = law_type:law_oligarchy
-				}
-			}
-			activate_law = law_type:law_oligarchy
-		}
-		hidden_effect = {
-			every_primary_culture = {
-				save_temporary_scope_as = primary_culture_to_remove
-				PREV ?= {
-					remove_primary_culture = scope:primary_culture_to_remove
-					every_scope_character = {
-						limit = {
-							scope:primary_culture_to_remove ?= culture
-						}
-						retire_character = yes
-					}
-				}
-			}
-			add_primary_culture = cu:bengali
-			set_state_religion = rel:sunni
-			india_independence_ig_effects = yes
-			if = {
-				limit = {
-					has_modifier = modifier_india_crown_rule
-				}
-				remove_modifier = modifier_india_crown_rule
-			}
-			if = {
-				limit = {
-					has_modifier = modifier_india_company_rule
-				}
-				remove_modifier = modifier_india_company_rule
-			}
-			if = {
-				limit = {
-					has_modifier = modifier_india_company_rule_upgraded
-				}
-				remove_modifier = modifier_india_company_rule_upgraded
-			}
-			if = {
-				limit = {
-					has_modifier = modifier_indian_imperial_police
-				}
-				remove_modifier = modifier_indian_imperial_police
-			}
-			recalculate_pop_ig_support = yes
-			every_scope_character = {
-				limit = {
-					OR = {
-						culture = cu:british
-						culture = cu:scottish
-						culture = cu:irish
-					}
-					is_immortal = no
-				}
-				retire_character = yes
-			}
-			ztr_refill_missing_ig_leaders_effect = yes
-		}
+		bic_become_bengal_effect = yes
 	}
+
 	option = {
 		name = bic_breakup.1.b
 		highlighted_option = yes
@@ -124,13 +67,13 @@ bic_breakup.1 = {
 		}
 		british_raj_consolidation_effect = yes		#T&R: This is a custom script that handles the annexation of Rajahs to the ex-British Raj
 		ai_chance = {
-			base = 40			# this will be quite rare for the AI
+			base = 40 # this will be quite rare for the AI
 		}
 		change_tag = BHT
 		hidden_effect = {
 			every_primary_culture = {
 				save_temporary_scope_as = primary_culture_to_remove
-				PREV ?= {
+				PREV ?= { # scope:target
 					remove_primary_culture = scope:primary_culture_to_remove
 					every_scope_character = {
 						limit = {
@@ -219,13 +162,13 @@ bic_breakup.1 = {
 				}
 				retire_character = yes
 			}
-			ztr_refill_missing_ig_leaders_effect = yes
+			ztr_refill_missing_ig_leaders_effect = yes #T&R
 		}
 	}
 	option = {
 		name = bic_breakup.1.c
 		ai_chance = {
-			base = 0			# AI will never do this
+			base = 0 # AI will never do this
 		}
 		default_option = yes
 		add_radicals = {

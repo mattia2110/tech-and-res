@@ -124,3 +124,21 @@ ztrpol_set_pole_code = {
 		}
 	}
 }
+
+# Great Powers with an Ideological Pole, by prestige, listed in je_liberty_index's description (global)
+ztrpol_update_gp_poles = {
+	clear_global_variable_list = ztrpol_gp_poles_list
+	ordered_country = {
+		limit = {
+			country_rank >= rank_value:great_power
+			has_variable = ztrpol_pole_set
+		}
+		order_by = prestige
+		max = 20
+		check_range_bounds = no
+		add_to_global_variable_list = {
+			name = ztrpol_gp_poles_list
+			target = this
+		}
+	}
+}

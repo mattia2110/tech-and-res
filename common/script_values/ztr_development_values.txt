@@ -1,0 +1,126 @@
+﻿# Development: yearly level 0-8 from GDP per capita, stored in var:ztr_development_level_var
+
+# Shown in je_development, same scale as the thresholds
+ztr_development_gdp_per = {
+	value = get_country_gdp_per
+}
+
+# Applied level; -1 before the first classification
+ztr_development_applied_level = {
+	value = -1
+	if = {
+		limit = { has_variable = ztr_development_level_var }
+		value = var:ztr_development_level_var
+	}
+}
+
+# GDP per capita above which the level rises next year (none at level 8)
+ztr_development_promotion_threshold = {
+	value = 1000
+	if = {
+		limit = { ztr_development_has_level = { LEVEL = 0 } }
+		value = 0.7
+	}
+	else_if = {
+		limit = { ztr_development_has_level = { LEVEL = 1 } }
+		value = 1.3
+	}
+	else_if = {
+		limit = { ztr_development_has_level = { LEVEL = 2 } }
+		value = 2.5
+	}
+	else_if = {
+		limit = { ztr_development_has_level = { LEVEL = 3 } }
+		value = 4.8
+	}
+	else_if = {
+		limit = { ztr_development_has_level = { LEVEL = 4 } }
+		value = 7
+	}
+	else_if = {
+		limit = { ztr_development_has_level = { LEVEL = 5 } }
+		value = 11.8
+	}
+	else_if = {
+		limit = { ztr_development_has_level = { LEVEL = 6 } }
+		value = 19.8
+	}
+	else_if = {
+		limit = { ztr_development_has_level = { LEVEL = 7 } }
+		value = 29.8
+	}
+}
+
+# GDP per capita below which the level falls next year (none at level 0)
+ztr_development_demotion_threshold = {
+	value = -1
+	if = {
+		limit = { ztr_development_has_level = { LEVEL = 1 } }
+		value = 0.6
+	}
+	else_if = {
+		limit = { ztr_development_has_level = { LEVEL = 2 } }
+		value = 1.1
+	}
+	else_if = {
+		limit = { ztr_development_has_level = { LEVEL = 3 } }
+		value = 2.2
+	}
+	else_if = {
+		limit = { ztr_development_has_level = { LEVEL = 4 } }
+		value = 4.4
+	}
+	else_if = {
+		limit = { ztr_development_has_level = { LEVEL = 5 } }
+		value = 6.6
+	}
+	else_if = {
+		limit = { ztr_development_has_level = { LEVEL = 6 } }
+		value = 11
+	}
+	else_if = {
+		limit = { ztr_development_has_level = { LEVEL = 7 } }
+		value = 19
+	}
+	else_if = {
+		limit = { ztr_development_has_level = { LEVEL = 8 } }
+		value = 29
+	}
+}
+
+# First classification, on the demotion thresholds
+ztr_development_initial_level = {
+	value = 8
+	if = {
+		limit = { get_country_gdp_per < 0.6 }
+		value = 0
+	}
+	else_if = {
+		limit = { get_country_gdp_per < 1.1 }
+		value = 1
+	}
+	else_if = {
+		limit = { get_country_gdp_per < 2.2 }
+		value = 2
+	}
+	else_if = {
+		limit = { get_country_gdp_per < 4.4 }
+		value = 3
+	}
+	else_if = {
+		limit = { get_country_gdp_per < 6.6 }
+		value = 4
+	}
+	else_if = {
+		limit = { get_country_gdp_per < 11 }
+		value = 5
+	}
+	else_if = {
+		limit = { get_country_gdp_per < 19 }
+		value = 6
+	}
+	else_if = {
+		limit = { get_country_gdp_per < 29 }
+		value = 7
+	}
+}

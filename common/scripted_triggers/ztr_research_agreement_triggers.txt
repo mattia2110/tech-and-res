@@ -1,0 +1,105 @@
+﻿# Research agreement (treaty article ztr_research_agreement). Scope: country, compared with $COUNTRY$.
+
+ztr_has_research_agreement_with = {
+	any_scope_treaty = {
+		binds = $COUNTRY$
+		any_scope_article = { has_type = ztr_research_agreement }
+	}
+}
+
+# Conditions to propose an agreement to $PARTNER$, shared by the treaty article and ztr_propose_research_agreement
+ztr_research_agreement_can_propose = {
+	custom_tooltip = {
+		text = ztr_research_agreement_research_center_tt
+		has_research_center = yes
+		$PARTNER$ = { has_research_center = yes }
+	}
+	custom_tooltip = {
+		text = DIPLO_ACTION_RELATIONS_CORDIAL_OR_GREATER
+		$PARTNER$.relations:root >= relations_threshold:cordial
+	}
+	$PARTNER$ = { save_temporary_scope_as = ztr_ra_partner }
+	custom_tooltip = {
+		text = ztr_research_agreement_slots_tt
+		ztr_research_agreements_num_without_partner < ztr_research_agreements_max
+	}
+	save_temporary_scope_as = ztr_ra_partner
+	custom_tooltip = {
+		text = ztr_research_agreement_other_slots_tt
+		$PARTNER$ = {
+			ztr_research_agreements_num_without_partner < ztr_research_agreements_max
+		}
+	}
+	custom_tooltip = {
+		text = ztr_research_agreement_declined_tt
+		NOT = {
+			is_target_in_variable_list = {
+				name = ztr_research_agreement_declined
+				target = $PARTNER$
+			}
+		}
+	}
+	NOT = { is_diplomatic_play_enemy_of = $PARTNER$ }
+}
+
+ztr_research_same_pole = {
+	OR = {
+		AND = {
+			ztrpol_is_social_pole = yes
+			$COUNTRY$ = { ztrpol_is_social_pole = yes }
+		}
+		AND = {
+			ztrpol_is_liberal_pole = yes
+			$COUNTRY$ = { ztrpol_is_liberal_pole = yes }
+		}
+		AND = {
+			ztrpol_is_collectivist_pole = yes
+			$COUNTRY$ = { ztrpol_is_collectivist_pole = yes }
+		}
+		AND = {
+			ztrpol_is_reactionary_pole = yes
+			$COUNTRY$ = { ztrpol_is_reactionary_pole = yes }
+		}
+	}
+}
+
+# Opposite on both axes: Social against Reactionary, Liberal against Collectivist
+ztr_research_opposite_pole = {
+	OR = {
+		AND = {
+			ztrpol_is_social_pole = yes
+			$COUNTRY$ = { ztrpol_is_reactionary_pole = yes }
+		}
+		AND = {
+			ztrpol_is_reactionary_pole = yes
+			$COUNTRY$ = { ztrpol_is_social_pole = yes }
+		}
+		AND = {
+			ztrpol_is_liberal_pole = yes
+			$COUNTRY$ = { ztrpol_is_collectivist_pole = yes }
+		}
+		AND = {
+			ztrpol_is_collectivist_pole = yes
+			$COUNTRY$ = { ztrpol_is_liberal_pole = yes }
+		}
+	}
+}
+
+# Rivalry declared by either side
+ztr_research_is_rival_of = {
+	OR = {
+		has_diplomatic_pact = { who = $COUNTRY$ type = rivalry }
+		$COUNTRY$ = {
+			has_diplomatic_pact = { who = prev type = rivalry }
+		}
+	}
+}
+
+ztr_research_is_embargoed_by = {
+	OR = {
+		has_diplomatic_pact = { who = $COUNTRY$ type = embargo }
+		$COUNTRY$ = {
+			has_diplomatic_pact = { who = prev type = embargo }
+		}
+	}
+}

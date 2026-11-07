@@ -453,7 +453,7 @@ INJECT:ai_strategy_default = {
 
 		if = { #Russian Caucasus
 			limit = {
-	            has_journal_entry = je_caucasian_war
+	            is_involved_in_journal_entry = je_caucasian_war
 				scope:target_country = {
 					any_scope_state = {
 						OR = {
@@ -462,7 +462,7 @@ INJECT:ai_strategy_default = {
 						}
 					}
 				}
-				can_reach_target_country = yes
+				can_reach_target_country_to_conquer = { TARGET_COUNTRY = scope:target_country }
 			}
 			add = 10
 		}
@@ -481,7 +481,7 @@ INJECT:ai_strategy_default = {
 						}
 					}
 				}
-				can_reach_target_country = yes
+				can_reach_target_country_to_conquer = { TARGET_COUNTRY = scope:target_country }
 			}
 			add = 10
 		}
@@ -500,7 +500,7 @@ INJECT:ai_strategy_default = {
 						}
 					}
 				}
-				can_reach_target_country = yes
+				can_reach_target_country_to_conquer = { TARGET_COUNTRY = scope:target_country }
 			}
 			add = 15
 		}
@@ -645,7 +645,7 @@ INJECT:ai_strategy_default = {
 				scope:target_country = {
 					c:SPA ?= this
 					ruler = {
-						has_variable = house_hohenzollern
+						var:dynasty_var ?= flag:house_hohenzollern
 					}
 				}
 			}

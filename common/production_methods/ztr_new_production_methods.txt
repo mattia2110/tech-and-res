@@ -705,7 +705,8 @@ pm_assembly_lines_building_aircraft_industry = {
 	building_modifiers = {
 		workforce_scaled = {
 			# input goods
-			goods_input_tools_add = 5
+			goods_input_tools_add = 4
+			goods_input_electroniccomponents_add = 0.5
 			goods_input_lubricant_add = 3
 			goods_input_electricity_add = 5 #400
 		}
@@ -2058,7 +2059,7 @@ basic_byproduct_extraction_sulfur_mine = {
 		workforce_scaled = {
 			# output goods
 			goods_output_sulfur_add = -12 # -600
-			goods_output_copper_add = 15 # +480
+			goods_output_copper_add = 12 # +480
 		}
 	}
 	unlocking_technologies = {
@@ -2102,7 +2103,7 @@ mid_byproduct_extraction_uranium_mine = {
 		workforce_scaled = {
 			# output goods
 			goods_output_good_uranium_add = -12 # -480
-			goods_output_copper_add = 12 # +360
+			goods_output_copper_add = 9 # +360
 		}
 	}
 	unlocking_technologies = {
@@ -2117,7 +2118,7 @@ advanced_byproduct_extraction_copper_mine = {
 	building_modifiers = {
 		workforce_scaled = {
 			# output goods
-			goods_output_copper_add = -20 # -600
+			goods_output_copper_add = -15 # -600
 			goods_output_advancedores_add = 6 # +480
 		}
 	}
@@ -2501,7 +2502,7 @@ pm_electric_fueled_pump_building_copper_mine = {
 			goods_input_light_fuel_add = 5 #350 #1060
 			
 			# output goods
-			goods_output_copper_add = 115 #2700
+			goods_output_copper_add = 85 #2700
 		}
 
 		level_scaled = {
@@ -2914,7 +2915,7 @@ pm_heavy_machineries_building_copper_mine = {
 			goods_input_light_fuel_add = 5 #350 #1060
 			
 			# output goods
-			goods_output_copper_add = 140 #2700
+			goods_output_copper_add = 105 #2700
 		}
 
 		level_scaled = {
@@ -2952,7 +2953,7 @@ pm_autonomous_and_remote_ops_building_copper_mine = {
 			goods_input_light_fuel_add = 5 #350 #1060
 			
 			# output goods
-			goods_output_copper_add = 175 #2700
+			goods_output_copper_add = 130 #2700
 		}
 
 		level_scaled = {
@@ -3026,7 +3027,7 @@ pm_autonomous_and_remote_ops_building_commonores_mine = {
 			goods_input_light_fuel_add = 5 #350 #1060
 			
 			# output goods
-			goods_output_commonores_add = 127 #3400
+			goods_output_commonores_add = 130 #3400
 		}
 
 		level_scaled = {
@@ -3248,7 +3249,7 @@ pm_autonomous_and_remote_ops_building_iron_mine = {
 			goods_input_light_fuel_add = 5 #350 #1060
 			
 			# output goods
-			goods_output_iron_add = 127 #2700
+			goods_output_iron_add = 130 #2700
 		}
 
 		level_scaled = {
@@ -3955,11 +3956,12 @@ REPLACE:pm_telephones = {
 		workforce_scaled = {
 			goods_input_electricity_add = 10 #600
 			goods_input_tools_add = 10 #500
+			goods_input_copperwires_add = 10
 			goods_input_rubber_add = 10
 			goods_input_lead_add = 15 #500
 			goods_input_telecommunications_add = 15
 			
-			goods_output_telephones_add = 55 #4900
+			goods_output_telephones_add = 60 #4900
 		}
 		
 		level_scaled = {
@@ -4127,7 +4129,7 @@ pm_basic_copperwires = {
     building_modifiers = {
         workforce_scaled = {
             # input goods
-            goods_input_copper_add = 40 #900
+            goods_input_copper_add = 30 #900
             goods_input_tools_add = 5 #200 #1100
             
             # output goods
@@ -4158,7 +4160,7 @@ pm_cabled_copperwires = {
     building_modifiers = {
         workforce_scaled = {
             # input goods
-            goods_input_copper_add = 40 #1200
+            goods_input_copper_add = 30 #1200
 			goods_input_tools_add = 5 #200
             goods_input_rubber_add = 10 #400 #1800
             
@@ -4191,7 +4193,7 @@ pm_advanced_copperwires = {
     building_modifiers = {
         workforce_scaled = {
             # input goods
-            goods_input_copper_add = 40 #900
+            goods_input_copper_add = 30 #900
 			goods_input_tools_add = 5 #200
             goods_input_plastics_add = 10 #225 #
             goods_input_rubber_add = 5 #200 #2175
@@ -4232,7 +4234,7 @@ pm_electronic_grade_wires = {
     building_modifiers = {
         workforce_scaled = {
             # input goods
-            goods_input_copper_add = 40 #900 
+            goods_input_copper_add = 30 #900 
 			goods_input_advancedores_add = 5 #Quartz Fibers
             goods_input_plastics_add = 10 #225
             goods_input_rubber_add = 5 #200
@@ -4417,7 +4419,7 @@ pm_voltaic_pile = {
             goods_input_commonores_add = 15 #600
 			goods_input_alloys_add = 5 #250
             goods_input_copper_add = 10 #300
-            goods_input_sulfur_add = 10 #500 #1650
+            goods_input_sulfur_add = 8 #500 #1650
             
             # Output goods
             goods_output_batteries_add = 50 #2100
@@ -4942,98 +4944,9 @@ pm_cobots = {
 
 ### Mine
 
-pm_picks_and_shovels_building_copper_mine = {
-	texture = "gfx/interface/icons/production_method_icons/picks_and_shovels.dds"
-
-	state_modifiers = {
-		workforce_scaled = {
-			state_pollution_generation_add = 10
-		}
-	}
-		
-	building_modifiers = {
-		workforce_scaled = {
-			# input goods
-			goods_input_tools_add = 5
-			
-			# output goods
-			goods_output_copper_add = 20
-		}
-
-		level_scaled = {
-			building_employment_laborers_add = 4500
-		}
-	}
-
-}
-
-pm_atmospheric_engine_pump_building_copper_mine = {
-	texture = "gfx/interface/icons/production_method_icons/pumps.dds"
-
-	unlocking_technologies = {
-		atmospheric_engine
-	}
-	
-	state_modifiers = {
-		workforce_scaled = {
-			state_pollution_generation_add = 15
-		}
-	}
-
-	building_modifiers = {
-		workforce_scaled = {
-			# input goods
-			goods_input_tools_add = 10
-			goods_input_coal_add = 10
-			
-			# output goods
-			goods_output_copper_add = 45
-		}
-
-		level_scaled = {
-			building_employment_engineers_add = 250
-			building_employment_laborers_add = 3750
-			building_employment_machinists_add = 500
-			building_employment_shopkeepers_add = 500
-		}
-	}
-}
 
 
-pm_condensing_engine_pump_building_copper_mine = {
-	texture = "gfx/interface/icons/production_method_icons/condensing_engine_pump.dds"
-
-	unlocking_technologies = {
-		watertube_boiler
-	}
-	
-	state_modifiers = {
-		workforce_scaled = {
-			state_pollution_generation_add = 20
-		}
-	}
-
-	building_modifiers = {
-		workforce_scaled = {
-			# input goods
-			goods_input_tools_add = 15
-			goods_input_coal_add = 15
-			
-			# output goods
-			goods_output_copper_add = 65
-		}
-
-		level_scaled = {
-			building_employment_laborers_add = 3000
-			building_employment_machinists_add = 1000
-			building_employment_engineers_add = 500
-			building_employment_shopkeepers_add = 500
-		}
-	}
-}
-
-
-pm_diesel_pump_building_copper_mine = {
+REPLACE:pm_diesel_pump_building_copper_mine = {
 	texture = "gfx/interface/icons/production_method_icons/diesel_pump.dds"
 
 	unlocking_technologies = {
@@ -5042,7 +4955,7 @@ pm_diesel_pump_building_copper_mine = {
 
 	state_modifiers = {
 		workforce_scaled = {
-			state_pollution_generation_add = 25
+			state_pollution_generation_add = 15
 		}
 	}
 	
@@ -5053,7 +4966,7 @@ pm_diesel_pump_building_copper_mine = {
 			goods_input_light_fuel_add = 3
 			
 			# output goods
-			goods_output_copper_add = 90
+			goods_output_copper_add = 70
 		}
 
 		level_scaled = {
@@ -5066,65 +4979,6 @@ pm_diesel_pump_building_copper_mine = {
 }
 
 
-pm_nitroglycerin_building_copper_mine = {
-	texture = "gfx/interface/icons/production_method_icons/nitroglycerin.dds"
-	state_modifiers = {
-		workforce_scaled = {
-			state_pollution_generation_add = 10
-		}
-	}
-
-	unlocking_technologies = {
-	 	nitroglycerin
-	}
-	
-	building_modifiers = {
-		workforce_scaled = {
-			# input goods
-			goods_input_explosives_add = 5
-			
-			# output goods
-			goods_output_copper_add = 12
-		}
-
-		level_scaled = {
-			building_employment_engineers_add = 250
-		}
-
-		unscaled = {
-			building_laborers_mortality_mult = 0.3
-			building_machinists_mortality_mult = 0.2
-			building_engineers_mortality_mult = 0.1
-		}
-	}
-}
-
-
-pm_dynamite_building_copper_mine = {
-	texture = "gfx/interface/icons/production_method_icons/dynamite.dds"
-	state_modifiers = {
-		workforce_scaled = {
-			state_pollution_generation_add = 15
-		}
-	}
-
-	unlocking_technologies = {
-		dynamite
-	}
-	
-	building_modifiers = {
-		workforce_scaled = {
-			goods_input_explosives_add = 10
-			
-			# output goods
-			goods_output_copper_add = 20
-		}
-
-		level_scaled = {
-			building_employment_engineers_add = 250
-		}
-	}
-}
 
 # Common Ores
 
@@ -5662,7 +5516,7 @@ pm_basic_smelting_process = {
 		workforce_scaled = {
 			# input goods
 			goods_input_commonores_add = 35 #800
-			goods_input_copper_add = 15 #300
+			goods_input_copper_add = 12 #300
 			goods_input_iron_add = 5 #200
 			goods_input_coal_add = 5 #150 #1450
 			
@@ -5698,7 +5552,7 @@ pm_electric_arc_process_alloying = {
 			# input goods
 			goods_input_electricity_add = 5 # 150
 			goods_input_commonores_add = 50 #1200
-			goods_input_copper_add = 25 #300
+			goods_input_copper_add = 20 #300
 			goods_input_iron_add = 5 #200
 			goods_input_coal_add = 5 #150 #2000
 			
@@ -5737,7 +5591,7 @@ pm_advanced_alloying_techniques = {
 			goods_input_advancedores_add = 10 #800
 			goods_input_commonores_add = 55 #400
 			goods_input_oil_add = 10 # 200
-			goods_input_copper_add = 25 #150
+			goods_input_copper_add = 20 #150
 			
 			# output goods
 			goods_output_alloys_add = 130 #~3250
@@ -5775,7 +5629,7 @@ pm_vacuum_arc_remelting = {
 			goods_input_advancedores_add = 15 #800
 			goods_input_commonores_add = 55 #400
 			goods_input_gas_add = 15 # 200
-			goods_input_copper_add = 20 #150 #2740
+			goods_input_copper_add = 15 #150 #2740
 			
 			# output goods
 			goods_output_alloys_add = 175 #4000
@@ -6612,7 +6466,7 @@ pm_copper_pipes = {
 	building_modifiers = {
         workforce_scaled = {
             # input goods
-            goods_input_copper_add = 9 #90
+            goods_input_copper_add = 7 #90
 			goods_input_tools_add = 6 #80
         }
         
@@ -6630,7 +6484,7 @@ pm_rotary_valve_engine_building_water_plant = {
 	building_modifiers = {
         workforce_scaled = {
             # input goods
-            goods_input_copper_add = 12 #90
+            goods_input_copper_add = 9 #90
 			goods_input_tools_add = 6 #80
 			goods_input_coal_add = 6 #60
         }
@@ -6648,7 +6502,7 @@ pm_plastics_pipes_and_pet = {
 	}
 	building_modifiers = {
         workforce_scaled = {
-            goods_input_copper_add = 3 #30
+            goods_input_copper_add = 2 #30
 			goods_input_plastics_add = 12 #90
 			goods_input_tools_add = 6 #80
         }
@@ -8148,7 +8002,7 @@ local_plays_pm = {
 
 	building_modifiers = {
 		workforce_scaled = {
-			goods_input_clothes_add = 5
+			goods_input_clothes_add = 6
 			goods_input_fabric_add = 25
 			goods_input_groceries_add = 5
 			goods_input_furniture_add = 5
@@ -8173,7 +8027,7 @@ classic_plays_pm = {
 	building_modifiers = {
 		workforce_scaled = {
 			goods_input_elgar_instruments_add = 10
-			goods_input_clothes_add = 5
+			goods_input_clothes_add = 6
 			goods_input_luxury_clothes_add = 5
 			goods_input_groceries_add = 5
 			goods_input_furniture_add = 5
@@ -8198,7 +8052,7 @@ modern_productions_pm = {
 	building_modifiers = {
 		workforce_scaled = {
 			goods_input_radios_add = 5
-			goods_input_clothes_add = 5
+			goods_input_clothes_add = 6
 			goods_input_luxury_clothes_add = 10
 			goods_input_groceries_add = 5
 			goods_input_furniture_add = 5
@@ -9933,7 +9787,7 @@ pm_synthetic_fabric = {
 			goods_input_electricity_add = 10 #300 #3375
 			
 			# output goods	
-			goods_output_clothes_add = 155 #4725
+			goods_output_clothes_add = 180 #4725
 		}
 		
 		level_scaled = {
@@ -9970,7 +9824,7 @@ pm_stretchwear = {
 			goods_input_electricity_add = 10 #300 #3375
 			
 			# output goods	
-			goods_output_clothes_add = 185 #4725
+			goods_output_clothes_add = 215 #4725
 		}
 		
 		level_scaled = {
@@ -10004,7 +9858,7 @@ pm_nylon_accessories = {
 			goods_input_silk_add = 35 #1400
 				
 			# output goods	
-			goods_output_clothes_add = -75
+			goods_output_clothes_add = -85
 			goods_output_luxury_clothes_add = 90
 		}
 		
@@ -10035,7 +9889,7 @@ pm_fast_fashion = {
 			goods_input_silk_add = 40
 				
 			# output goods	
-			goods_output_clothes_add = -75
+			goods_output_clothes_add = -85
 			goods_output_luxury_clothes_add = 100
 		}
 		
@@ -10385,7 +10239,8 @@ pm_assembly_lines_building_electrics_industry = {
 	building_modifiers = {
 		workforce_scaled = {
 			# input goods
-			goods_input_tools_add = 5
+			goods_input_tools_add = 4
+			goods_input_electroniccomponents_add = 0.5
 			goods_input_lubricant_add = 3
 			goods_input_electricity_add = 5
 		}
@@ -10414,7 +10269,8 @@ pm_assembly_lines_building_consumer_electronics_industry = {
 	building_modifiers = {
 		workforce_scaled = {
 			# input goods
-			goods_input_tools_add = 5
+			goods_input_tools_add = 4
+			goods_input_electroniccomponents_add = 0.5
 			goods_input_lubricant_add = 3
 			goods_input_electricity_add = 5
 		}

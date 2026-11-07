@@ -15,6 +15,21 @@ REPLACE:building_automotive_industry = {
 		pmg_data_optimization_heavy_industry_algorithmic_dispatch
 	}
 	required_construction = construction_cost_very_high
+	ai_value = {
+		value = 1000
+		if = {
+			limit = {
+				owner ?= {
+					has_journal_entry = je_five_year_plan
+					je:je_five_year_plan ?= {
+						has_variable = five_year_plan_heavy_industry_var
+					}
+					five_year_plan_heavy_industry_goal_met = no
+				}
+			}
+			add = 2500
+		}
+	}
 	possible = {
 		owner = {
 			NOT = {
@@ -47,6 +62,21 @@ REPLACE:building_synthetics_plant = {
 		pmg_data_optimization_heavy_industry
 	}
 	required_construction = construction_cost_very_high
+	ai_value = {
+		value = 1000
+		if = {
+			limit = {
+				owner ?= {
+					has_journal_entry = je_five_year_plan
+					je:je_five_year_plan ?= {
+						has_variable = five_year_plan_heavy_industry_var
+					}
+					five_year_plan_heavy_industry_goal_met = no
+				}
+			}
+			add = 2500
+		}
+	}
 	possible = {
 		owner = {
 			NOT = {
@@ -119,6 +149,18 @@ REPLACE:building_power_plant = {
 			}
 			add = -1000
 		}
+		if = {
+			limit = {
+				owner ?= {
+					has_journal_entry = je_five_year_plan
+					je:je_five_year_plan ?= {
+						has_variable = five_year_plan_electrification_var
+					}
+					five_year_plan_electrification_goal_met = no
+				}
+			}
+			add = 2500
+		}
 	}
 	possible = {
 		owner = {
@@ -187,6 +229,21 @@ INJECT:building_coal_mine = {
 INJECT:building_iron_mine = {
 	production_method_groups = {
 		pmg_byproduct_extraction_iron_mine
+		pmg_data_optimization_light_industry
+	}
+	possible = {
+		owner = {
+			NOT = {
+				has_law_or_variant = law_type:law_polluting_mining_banned
+			}
+		}
+	}
+}
+
+# Copper Mine
+INJECT:building_copper_mine = {
+	production_method_groups = {
+		pmg_byproduct_extraction_copper_mine
 		pmg_data_optimization_light_industry
 	}
 	possible = {

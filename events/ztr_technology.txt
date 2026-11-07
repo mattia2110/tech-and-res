@@ -37,16 +37,6 @@ ztr_technology.1 = {
 			base = 1
 		}
 	}
-	option = {
-		name = research_center.1.minor_power
-		add_modifier = ztr_modern_universities_linkage
-		trigger = {
-			total_population < 20000000
-		}
-		ai_chance = {
-			base = 1000
-		}
-	}
 }
 
 # research_center complete
@@ -81,51 +71,6 @@ ztr_technology.2 = {
 	option = {
 		name = research_center.2.a
 		default_option = yes
-	}
-}
-
-# Universities linkage outgrown: a Great Power converts it into a Research Center
-ztr_technology.3 = {
-	type = country_event
-	title = research_center.3.t
-	desc = research_center.3.d
-	flavor = research_center.3.f
-	placement = scope:research_center_site
-	event_image = {
-		video = "generic_university"
-	}
-	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
-	icon = "gfx/interface/icons/event_icons/innovation.dds"
-	duration = 3
-	trigger = {
-		# triggered by research_center_linkage_on_yearly_pulse_country
-		has_modifier = ztr_modern_universities_linkage
-		country_rank >= rank_value:great_power
-		has_research_center = no
-		NOT = { has_journal_entry = je_research_center_site }
-		NOT = { has_journal_entry = je_research_center_construction }
-	}
-	immediate = {
-		capital = {
-			save_scope_as = research_center_site
-		}
-	}
-	option = {
-		name = research_center.3.a
-		default_option = yes
-		remove_modifier = ztr_modern_universities_linkage
-		scope:research_center_site = {
-			add_modifier = {
-				name = research_center_site
-			}
-		}
-		add_journal_entry = {
-			type = je_research_center_construction
-			target = scope:research_center_site
-		}
-		ai_chance = {
-			base = 1
-		}
 	}
 }
 
@@ -558,5 +503,65 @@ ztr_technology.23 = {
 	option = {
 		name = nuclear_reactor_purchase.3.a
 		default_option = yes
+	}
+}
+
+# Research Center philosophy change, from ztr_rc_change_philosophy_button
+ztr_technology.24 = {
+	type = country_event
+	placement = ROOT
+	title = ztr_technology.24.t
+	desc = ztr_technology.24.d
+	flavor = ztr_technology.24.f
+	event_image = {
+		video = "generic_university"
+	}
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	icon = "gfx/interface/icons/event_icons/innovation.dds"
+	duration = 3
+	trigger = {
+		# triggered by ztr_rc_change_philosophy_button
+	}
+	option = {
+		name = ztr_technology.24.a
+		trigger = {
+			ztr_rc_has_independent_philosophy = no
+		}
+		custom_tooltip = ztr_rc_adopt_independent_research_tt
+		hidden_effect = {
+			ztr_rc_change_philosophy = { PHILOSOPHY = independent }
+		}
+		ai_chance = {
+			value = 0
+			if = {
+				limit = { country_has_academic_base_level_4 = yes }
+				add = 100
+			}
+		}
+	}
+	option = {
+		name = ztr_technology.24.b
+		trigger = {
+			ztr_rc_has_absorption_philosophy = no
+		}
+		custom_tooltip = ztr_rc_adopt_technology_absorption_tt
+		hidden_effect = {
+			ztr_rc_change_philosophy = { PHILOSOPHY = absorption }
+		}
+		ai_chance = {
+			value = 0
+			if = {
+				limit = { country_has_academic_base_level_4 = no }
+				add = 100
+			}
+		}
+	}
+	# Keep the current philosophy, no cooldown
+	option = {
+		name = ztr_technology.24.c
+		default_option = yes
+		ai_chance = {
+			value = 1
+		}
 	}
 }

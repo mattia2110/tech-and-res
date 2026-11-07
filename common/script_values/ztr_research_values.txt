@@ -1,8 +1,10 @@
 ﻿# Research Center pace
 #
 # country_research_progress is the speed at which the national Research Center
-# pushes its projects forward. It is consumed by je_research_center, where it
-# scales ztr_research_center_progress_modifier (+5 max innovation per point).
+# pushes its projects forward. je_research_center scales the modifier of the chosen
+# philosophy by it (scaling_modifiers_while_active): ztr_research_center_independent_modifier
+# (+4 max innovation, -1% tech spread per point) or ztr_research_center_absorption_modifier
+# (+3% tech spread per point).
 #
 # All values in this file are country scope.
 
@@ -57,92 +59,196 @@ ztr_academic_base_level = {
 }
 
 # --- Component 2: economic development --------------------------------------
-# Index of the dev_*_country modifier granted by the ztr_economic_update event
-# chain (see events/ztr_main_events.txt). 0 for a country that has not been
-# classified yet.
+# Development level (je_development) + 2, so 2 before the first classification.
 ztr_development_level = {
+	value = 2
 	if = {
-		limit = { has_modifier = dev_8_country }
-		value = 10
+		limit = { has_variable = ztr_development_level_var }
+		add = var:ztr_development_level_var
 	}
-	else_if = {
-		limit = { has_modifier = dev_7_country }
-		value = 9
-	}
-	else_if = {
-		limit = { has_modifier = dev_6_country }
-		value = 8
-	}
-	else_if = {
-		limit = { has_modifier = dev_5_country }
-		value = 7
-	}
-	else_if = {
-		limit = { has_modifier = dev_4_country }
-		value = 6
-	}
-	else_if = {
-		limit = { has_modifier = dev_3_country }
-		value = 5
-	}
-	else_if = {
-		limit = { has_modifier = dev_2_country }
+}
+
+# --- Component 3: research agreements ---------------------------------------
+# Scientific weight of a country: insignificant and unrecognized 0, minor 1,
+# major 2, great 3, superpower 4.
+ztr_research_rank_step = {
+	if = {
+		limit = { has_modifier = ztr_superpower }
 		value = 4
 	}
 	else_if = {
-		limit = { has_modifier = dev_1_country }
+		limit = { country_rank = rank_value:great_power }
+		value = 3
+	}
+	else_if = {
+		limit = { country_rank = rank_value:major_power }
+		value = 2
+	}
+	else_if = {
+		limit = { country_rank = rank_value:minor_power }
+		value = 1
+	}
+	else = {
+		value = 0
+	}
+}
+
+# Agreements a country can keep in force: 2 up to minor powers, 3 major,
+# 5 great, 8 superpower; UNESCO members get two more.
+ztr_research_agreements_max = {
+	if = {
+		limit = { ztr_research_rank_step >= 4 }
+		value = 8
+	}
+	else_if = {
+		limit = { ztr_research_rank_step >= 3 }
+		value = 5
+	}
+	else_if = {
+		limit = { ztr_research_rank_step >= 2 }
 		value = 3
 	}
 	else = {
 		value = 2
 	}
+	if = {
+		limit = { ztr_is_un_institution_member = { INSTITUTION = unesco } }
+		add = 2
+	}
 }
 
-# --- Component 3: research agreements ---------------------------------------
-# Ceiling on how much foreign cooperation can contribute: +3 on its own, +5
-# once UNESCO is up and this country sits in it (ztr_unesco_member_modifier is
-# handed out by ztr_un_apply_member_institution_modifiers to UN members only).
+# Ceiling on the Research Capacity coming from agreements: 6, 8 with Funded Research Projects.
 ztr_research_agreements_cap = {
+	value = 6
 	if = {
-		limit = { has_modifier = ztr_unesco_member_modifier }
-		value = 5
-	}
-	else = {
-		value = 3
+		limit = { has_technology_researched = funded_research_projects }
+		add = 2
 	}
 }
 
-# Number of research agreements currently in force.
-# PLACEHOLDER: the research agreement treaty article does not exist yet, so the
-# count is kept in the ztr_research_agreements_var country variable and the
-# future article only has to change_variable it in its on_entry / on_exit.
-# Once the article exists, replace the body of this value with:
-#	every_scope_treaty = {
-#		limit = { any_scope_article = { has_type = ztr_research_agreement } }
-#		add = 1
-#	}
-ztr_research_agreements_count = {
+# Points this country gets from an agreement with scope:ztr_ra_partner.
+# 2 from an equal or larger partner, 2 / (1 + rank gap) from a smaller one,
+# times 0.25 at neutral relations up to 1 at 100.
+ztr_research_agreement_weight = {
+	value = 2
 	if = {
-		limit = { has_variable = ztr_research_agreements_var }
-		value = var:ztr_research_agreements_var
+		limit = { ztr_research_rank_step > scope:ztr_ra_partner.ztr_research_rank_step }
+		divide = {
+			value = ztr_research_rank_step
+			subtract = scope:ztr_ra_partner.ztr_research_rank_step
+			add = 1
+		}
 	}
-	else = {
-		value = 0
+	multiply = {
+		value = "relations(scope:ztr_ra_partner)"
+		min = 0
+		max = 100
+		multiply = 0.0075
+		add = 0.25
 	}
-	min = 0
+}
+
+# Agreements in force
+ztr_research_agreements_num = {
+	value = 0
+	every_scope_treaty = {
+		limit = {
+			any_scope_article = { has_type = ztr_research_agreement }
+		}
+		add = 1
+	}
+}
+
+# Agreements in force other than the one with scope:ztr_ra_partner, so a renegotiation does not count twice
+ztr_research_agreements_num_without_partner = {
+	value = 0
+	every_scope_treaty = {
+		limit = {
+			NOT = { binds = scope:ztr_ra_partner }
+			any_scope_article = { has_type = ztr_research_agreement }
+		}
+		add = 1
+	}
+}
+
+# Weighted points of every agreement in force, before the cap
+ztr_research_agreements_raw = {
+	value = 0
+	every_scope_treaty = {
+		limit = {
+			any_scope_article = { has_type = ztr_research_agreement }
+		}
+		if = {
+			limit = { first_country = root }
+			second_country = { save_temporary_scope_as = ztr_ra_partner }
+		}
+		else = {
+			first_country = { save_temporary_scope_as = ztr_ra_partner }
+		}
+		add = root.ztr_research_agreement_weight
+	}
+}
+
+# Same, without the agreement with scope:other_country
+ztr_research_agreements_raw_without_other = {
+	value = 0
+	every_scope_treaty = {
+		limit = {
+			NOT = { binds = scope:other_country }
+			any_scope_article = { has_type = ztr_research_agreement }
+		}
+		if = {
+			limit = { first_country = root }
+			second_country = { save_temporary_scope_as = ztr_ra_partner }
+		}
+		else = {
+			first_country = { save_temporary_scope_as = ztr_ra_partner }
+		}
+		add = root.ztr_research_agreement_weight
+	}
+}
+
+ztr_research_agreements_points = {
+	value = ztr_research_agreements_raw
 	max = ztr_research_agreements_cap
 }
 
+# Points lost to the cap, shown in the je_research_center breakdown
+ztr_research_agreements_over_cap = {
+	value = ztr_research_agreements_raw
+	subtract = ztr_research_agreements_points
+}
+
 # --- Result ------------------------------------------------------------------
-# 2 points per academic base level (0-20), the development tier (2-10) and one
-# per research agreement (0-3, 0-5 with UNESCO). Range: 2-35 - the floor is not
-# zero because every country, classified or not, is worth at least 2 for its
-# development.
-country_research_progress = {
+# Literate citizens share, also shown in the je_research_center breakdown.
+ztr_research_capacity_from_academic_base = {
 	value = ztr_academic_base_level
 	multiply = 2
+}
+
+# 2 points per academic base level (0-20), the development tier (2-10) and the
+# weighted research agreements (0-6, 0-8 with Funded Research Projects).
+# Range: 2-38. Not rounded, so a partial agreement still counts.
+country_research_progress = {
+	value = ztr_research_capacity_from_academic_base
 	add = ztr_development_level
-	add = ztr_research_agreements_count
+	add = ztr_research_agreements_points
 	min = 0
-	round = yes
+}
+
+# Scale of each philosophy modifier in je_research_center: country_research_progress if active, else 0
+ztr_rc_independent_scale = {
+	value = 0
+	if = {
+		limit = { ztr_rc_has_independent_philosophy = yes }
+		value = country_research_progress
+	}
+}
+
+ztr_rc_absorption_scale = {
+	value = 0
+	if = {
+		limit = { ztr_rc_has_absorption_philosophy = yes }
+		value = country_research_progress
+	}
 }

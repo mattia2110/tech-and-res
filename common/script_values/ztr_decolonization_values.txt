@@ -144,7 +144,7 @@ REPLACE:liberty_desire_weekly_change = {
 	if = {
 		limit = {
 			root.first_country = {
-				has_journal_entry = je_pacify_the_steppes
+				is_involved_in_journal_entry = je_pacify_the_steppes
 			}
 			root.second_country = {
 				has_government_type = gov_zhuz
@@ -860,6 +860,33 @@ REPLACE:liberty_desire_weekly_change = {
 		value = root.second_country.liberty_desire_weekly_progress_from_support_independence
 		desc = "LIBERTY_DESIRE_WEEKLY_CHANGE_FROM_SUPPORTING_INDEPENDENCE"
 	}
+	#liberty desire increase when war support is low in an overlord war
+	if = {
+		limit = {
+			root.second_country = {
+				lowest_war_support_in_overlord_war < define:NDiplomacy|WAR_SUPPORT_RADICALIZATION_THRESHOLD
+			}
+		}
+		add = {
+			desc = "LIBERTY_DESIRE_WEEKLY_CHANGE_FROM_LOW_WAR_SUPPORT"
+			value = define:NDiplomacy|WAR_SUPPORT_RADICALIZATION_THRESHOLD
+			subtract = root.second_country.lowest_war_support_in_overlord_war
+			divide = define:NDiplomacy|WAR_SUPPORT_RADICALIZATION_THRESHOLD
+			multiply = {
+				value = define:NDiplomacy|WAR_SUPPORT_LIBERTY_DESIRE_CURVE_LINEARITY
+				add = {
+					value = 1
+					subtract = define:NDiplomacy|WAR_SUPPORT_LIBERTY_DESIRE_CURVE_LINEARITY
+					multiply = {
+						value = define:NDiplomacy|WAR_SUPPORT_RADICALIZATION_THRESHOLD
+						subtract = root.second_country.lowest_war_support_in_overlord_war
+						divide = define:NDiplomacy|WAR_SUPPORT_RADICALIZATION_THRESHOLD
+					}
+				}
+			}
+			multiply = define:NDiplomacy|WAR_SUPPORT_LIBERTY_DESIRE_WEEKLY_MAX
+		}
+	}
 	#liberty desire modifiers on subject
 	add = {
 		value = root.second_country.modifier:country_liberty_desire_add
@@ -1070,6 +1097,71 @@ REPLACE:liberty_desire_weekly_change = {
 		add = {
 			value = 0.2
 			desc = "LIBERTY_DESIRE_WEEKLY_CHANGE_OVERLORD_ISOLATIONISM"
+		}
+	}
+	# Special Values - Communism
+
+	if = {
+		limit = {
+			ROOT.second_country ?= {
+				has_radical_leftist_government = no
+				has_radical_leftist_economy = no
+			}
+			ROOT.first_country ?= {
+				OR = {
+					has_radical_leftist_government = yes
+					has_radical_leftist_economy = yes
+				}
+			}
+		}
+		add = {
+			if = {
+				limit = {
+					ROOT.first_country ?= {
+						has_radical_leftist_government = yes
+					}
+				}
+				add = 0.5
+			}
+			if = {
+				limit = {
+					ROOT.first_country ?= {
+						has_radical_leftist_economy = yes
+					}
+				}
+				add = 0.5
+			}
+			desc = "LIBERTY_DESIRE_WEEKLY_CHANGE_OVERLORD_COMMUNIST"
+		}
+	}
+
+	if = {
+		limit = {
+			ROOT.second_country ?= {
+				OR = {
+					has_radical_leftist_government = yes
+					has_radical_leftist_economy = yes
+				}
+			}
+			ROOT.first_country ?= {
+				has_radical_leftist_government = no
+				has_radical_leftist_economy = no
+			}
+		}
+		add = {
+			if = {
+				limit = {
+					has_radical_leftist_government = yes
+				}
+				add = 0.5
+			}
+			if = {
+				limit = {
+					has_radical_leftist_economy = yes
+				}
+				add = 0.5
+			}
+			desc = "LIBERTY_DESIRE_WEEKLY_CHANGE_SUBJECT_COMMUNIST"
 		}
 	}
 	save_temporary_value_as = pre_scaling_value

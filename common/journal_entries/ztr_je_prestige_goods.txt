@@ -2,6 +2,10 @@
 je_ztr_prestige_good_generic_records_and_films = {
 	icon = "gfx/interface/icons/goods_icons/prestige_goods/prestige_good_generic_records_and_films.dds"
 	group = je_group_technology
+
+	activation_description = {
+		always = yes
+	}
 	is_shown_when_inactive = {
 		has_dlc_feature = mp1_content
 		any_company = {
@@ -45,30 +49,60 @@ je_ztr_prestige_good_generic_records_and_films = {
 			save_scope_as = relevant_goods
 		}
 	}
-	complete = {
-		trigger_if = {
-			limit = {
-				has_variable = prestige_good_generic_records_and_films_timer_var
+	outcome = {
+		header = je_standard_completion_header
+		effect_header = je_standard_on_completion_header
+		color = "gold_positive"
+		conclusion_desc = je_standard_completion_conclusion_desc
+		trigger = {
+			trigger_if = {
+				limit = {
+					has_variable = prestige_good_generic_records_and_films_timer_var
+				}
+				scope:journal_entry = {
+					is_goal_complete = yes
+				}
 			}
-			scope:journal_entry = {
-				is_goal_complete = yes
+			trigger_if = {
+				limit = {
+					exists = scope:relevant_company
+				}
+				scope:relevant_company ?= {
+					company_is_prosperous = yes
+				}
+			}
+			trigger_if = {
+				limit = {
+					exists = scope:relevant_goods
+				}
+				custom_tooltip = {
+					text = relevant_goods_production_rank_tt
+					"goods_production_rank(scope:relevant_goods)" <= 3
+				}
 			}
 		}
-		trigger_if = {
-			limit = {
+		effect = {
+			if = {
+				limit = {
+					exists = scope:relevant_company
+				}
+				custom_tooltip = {
+					text = je_ztr_prestige_good_generic_records_and_films_reward_tt
+					scope:relevant_company ?= {
+						set_variable = ztr_prestige_good_generic_records_and_films_var
+					}
+				}
+			}
+			post_notification = ztr_prestige_good_generic_records_and_films_unlocked
+		}
+	}
+
+	outcome = {
+		flags = { hidden invalid_outcome }
+		conclusion_desc = je_standard_failure_conclusion_desc
+		trigger = {
+			NOT = {
 				exists = scope:relevant_company
-			}
-			scope:relevant_company ?= {
-				company_is_prosperous = yes
-			}
-		}
-		trigger_if = {
-			limit = {
-				exists = scope:relevant_goods
-			}
-			custom_tooltip = {
-				text = relevant_goods_production_rank_tt
-				"goods_production_rank(scope:relevant_goods)" <= 3
 			}
 		}
 	}
@@ -88,25 +122,6 @@ je_ztr_prestige_good_generic_records_and_films = {
 			}
 		}
 	}
-	on_complete = {
-		if = {
-			limit = {
-				exists = scope:relevant_company
-			}
-			custom_tooltip = {
-				text = je_ztr_prestige_good_generic_records_and_films_reward_tt
-				scope:relevant_company ?= {
-					set_variable = ztr_prestige_good_generic_records_and_films_var
-				}
-			}
-		}
-		post_notification = ztr_prestige_good_generic_records_and_films_unlocked
-	}
-	invalid = {
-		NOT = {
-			exists = scope:relevant_company
-		}
-	}
 	current_value = {
 		value = root.var:prestige_good_generic_records_and_films_timer_var
 	}
@@ -122,6 +137,10 @@ je_ztr_prestige_good_generic_records_and_films = {
 je_ztr_prestige_good_generic_instruments = {
 	icon = "gfx/interface/icons/goods_icons/prestige_goods/mr_arts_elgar_prestige_instruments.dds"
 	group = je_group_technology
+
+	activation_description = {
+		always = yes
+	}
 	is_shown_when_inactive = {
 		has_dlc_feature = mp1_content
 		any_company = {
@@ -165,30 +184,60 @@ je_ztr_prestige_good_generic_instruments = {
 			save_scope_as = relevant_goods
 		}
 	}
-	complete = {
-		trigger_if = {
-			limit = {
-				has_variable = prestige_good_generic_instruments_timer_var
+	outcome = {
+		header = je_standard_completion_header
+		effect_header = je_standard_on_completion_header
+		color = "gold_positive"
+		conclusion_desc = je_standard_completion_conclusion_desc
+		trigger = {
+			trigger_if = {
+				limit = {
+					has_variable = prestige_good_generic_instruments_timer_var
+				}
+				scope:journal_entry = {
+					is_goal_complete = yes
+				}
 			}
-			scope:journal_entry = {
-				is_goal_complete = yes
+			trigger_if = {
+				limit = {
+					exists = scope:relevant_company
+				}
+				scope:relevant_company ?= {
+					company_is_prosperous = yes
+				}
+			}
+			trigger_if = {
+				limit = {
+					exists = scope:relevant_goods
+				}
+				custom_tooltip = {
+					text = relevant_goods_production_rank_tt
+					"goods_production_rank(scope:relevant_goods)" <= 3
+				}
 			}
 		}
-		trigger_if = {
-			limit = {
+		effect = {
+			if = {
+				limit = {
+					exists = scope:relevant_company
+				}
+				custom_tooltip = {
+					text = je_ztr_prestige_good_generic_instruments_reward_tt
+					scope:relevant_company ?= {
+						set_variable = ztr_prestige_good_generic_instruments_var
+					}
+				}
+			}
+			post_notification = ztr_prestige_good_generic_instruments_unlocked
+		}
+	}
+
+	outcome = {
+		flags = { hidden invalid_outcome }
+		conclusion_desc = je_standard_failure_conclusion_desc
+		trigger = {
+			NOT = {
 				exists = scope:relevant_company
-			}
-			scope:relevant_company ?= {
-				company_is_prosperous = yes
-			}
-		}
-		trigger_if = {
-			limit = {
-				exists = scope:relevant_goods
-			}
-			custom_tooltip = {
-				text = relevant_goods_production_rank_tt
-				"goods_production_rank(scope:relevant_goods)" <= 3
 			}
 		}
 	}
@@ -208,25 +257,6 @@ je_ztr_prestige_good_generic_instruments = {
 			}
 		}
 	}
-	on_complete = {
-		if = {
-			limit = {
-				exists = scope:relevant_company
-			}
-			custom_tooltip = {
-				text = je_ztr_prestige_good_generic_instruments_reward_tt
-				scope:relevant_company ?= {
-					set_variable = ztr_prestige_good_generic_instruments_var
-				}
-			}
-		}
-		post_notification = ztr_prestige_good_generic_instruments_unlocked
-	}
-	invalid = {
-		NOT = {
-			exists = scope:relevant_company
-		}
-	}
 	current_value = {
 		value = root.var:prestige_good_generic_instruments_timer_var
 	}
@@ -242,6 +272,10 @@ je_ztr_prestige_good_generic_instruments = {
 je_ztr_prestige_good_cosmetics = {
 	icon = "gfx/interface/icons/goods_icons/prestige_goods/cosmetics_prestige.dds"
 	group = je_group_technology
+
+	activation_description = {
+		always = yes
+	}
 	is_shown_when_inactive = {
 		has_dlc_feature = mp1_content
 		any_company = {
@@ -285,30 +319,60 @@ je_ztr_prestige_good_cosmetics = {
 			save_scope_as = relevant_goods
 		}
 	}
-	complete = {
-		trigger_if = {
-			limit = {
-				has_variable = prestige_good_cosmetics_timer_var
+	outcome = {
+		header = je_standard_completion_header
+		effect_header = je_standard_on_completion_header
+		color = "gold_positive"
+		conclusion_desc = je_standard_completion_conclusion_desc
+		trigger = {
+			trigger_if = {
+				limit = {
+					has_variable = prestige_good_cosmetics_timer_var
+				}
+				scope:journal_entry = {
+					is_goal_complete = yes
+				}
 			}
-			scope:journal_entry = {
-				is_goal_complete = yes
+			trigger_if = {
+				limit = {
+					exists = scope:relevant_company
+				}
+				scope:relevant_company ?= {
+					company_is_prosperous = yes
+				}
+			}
+			trigger_if = {
+				limit = {
+					exists = scope:relevant_goods
+				}
+				custom_tooltip = {
+					text = relevant_goods_production_rank_tt
+					"goods_production_rank(scope:relevant_goods)" <= 3
+				}
 			}
 		}
-		trigger_if = {
-			limit = {
+		effect = {
+			if = {
+				limit = {
+					exists = scope:relevant_company
+				}
+				custom_tooltip = {
+					text = je_ztr_prestige_good_cosmetics_reward_tt
+					scope:relevant_company ?= {
+						set_variable = ztr_prestige_good_cosmetics_var
+					}
+				}
+			}
+			post_notification = ztr_prestige_good_cosmetics_unlocked
+		}
+	}
+
+	outcome = {
+		flags = { hidden invalid_outcome }
+		conclusion_desc = je_standard_failure_conclusion_desc
+		trigger = {
+			NOT = {
 				exists = scope:relevant_company
-			}
-			scope:relevant_company ?= {
-				company_is_prosperous = yes
-			}
-		}
-		trigger_if = {
-			limit = {
-				exists = scope:relevant_goods
-			}
-			custom_tooltip = {
-				text = relevant_goods_production_rank_tt
-				"goods_production_rank(scope:relevant_goods)" <= 3
 			}
 		}
 	}
@@ -328,25 +392,6 @@ je_ztr_prestige_good_cosmetics = {
 			}
 		}
 	}
-	on_complete = {
-		if = {
-			limit = {
-				exists = scope:relevant_company
-			}
-			custom_tooltip = {
-				text = je_ztr_prestige_good_cosmetics_reward_tt
-				scope:relevant_company ?= {
-					set_variable = ztr_prestige_good_cosmetics_var
-				}
-			}
-		}
-		post_notification = ztr_prestige_good_cosmetics_unlocked
-	}
-	invalid = {
-		NOT = {
-			exists = scope:relevant_company
-		}
-	}
 	current_value = {
 		value = root.var:prestige_good_cosmetics_timer_var
 	}
@@ -362,6 +407,10 @@ je_ztr_prestige_good_cosmetics = {
 je_ztr_prestige_good_asia_automobiles = {
 	icon = "gfx/interface/icons/goods_icons/prestige_goods/asia_automobiles_prestige.dds"
 	group = je_group_technology
+
+	activation_description = {
+		always = yes
+	}
 	is_shown_when_inactive = {
 		has_dlc_feature = mp1_content
 		any_company = {
@@ -405,30 +454,60 @@ je_ztr_prestige_good_asia_automobiles = {
 			save_scope_as = relevant_goods
 		}
 	}
-	complete = {
-		trigger_if = {
-			limit = {
-				has_variable = prestige_good_asia_automobiles_timer_var
+	outcome = {
+		header = je_standard_completion_header
+		effect_header = je_standard_on_completion_header
+		color = "gold_positive"
+		conclusion_desc = je_standard_completion_conclusion_desc
+		trigger = {
+			trigger_if = {
+				limit = {
+					has_variable = prestige_good_asia_automobiles_timer_var
+				}
+				scope:journal_entry = {
+					is_goal_complete = yes
+				}
 			}
-			scope:journal_entry = {
-				is_goal_complete = yes
+			trigger_if = {
+				limit = {
+					exists = scope:relevant_company
+				}
+				scope:relevant_company ?= {
+					company_is_prosperous = yes
+				}
+			}
+			trigger_if = {
+				limit = {
+					exists = scope:relevant_goods
+				}
+				custom_tooltip = {
+					text = relevant_goods_production_rank_tt
+					"goods_production_rank(scope:relevant_goods)" <= 3
+				}
 			}
 		}
-		trigger_if = {
-			limit = {
+		effect = {
+			if = {
+				limit = {
+					exists = scope:relevant_company
+				}
+				custom_tooltip = {
+					text = je_ztr_prestige_good_asia_automobiles_reward_tt
+					scope:relevant_company ?= {
+						set_variable = ztr_prestige_good_asia_automobiles_var
+					}
+				}
+			}
+			post_notification = ztr_prestige_good_asia_automobiles_unlocked
+		}
+	}
+
+	outcome = {
+		flags = { hidden invalid_outcome }
+		conclusion_desc = je_standard_failure_conclusion_desc
+		trigger = {
+			NOT = {
 				exists = scope:relevant_company
-			}
-			scope:relevant_company ?= {
-				company_is_prosperous = yes
-			}
-		}
-		trigger_if = {
-			limit = {
-				exists = scope:relevant_goods
-			}
-			custom_tooltip = {
-				text = relevant_goods_production_rank_tt
-				"goods_production_rank(scope:relevant_goods)" <= 3
 			}
 		}
 	}
@@ -448,25 +527,6 @@ je_ztr_prestige_good_asia_automobiles = {
 			}
 		}
 	}
-	on_complete = {
-		if = {
-			limit = {
-				exists = scope:relevant_company
-			}
-			custom_tooltip = {
-				text = je_ztr_prestige_good_asia_automobiles_reward_tt
-				scope:relevant_company ?= {
-					set_variable = ztr_prestige_good_asia_automobiles_var
-				}
-			}
-		}
-		post_notification = ztr_prestige_good_asia_automobiles_unlocked
-	}
-	invalid = {
-		NOT = {
-			exists = scope:relevant_company
-		}
-	}
 	current_value = {
 		value = root.var:prestige_good_asia_automobiles_timer_var
 	}
@@ -482,6 +542,10 @@ je_ztr_prestige_good_asia_automobiles = {
 je_ztr_prestige_good_smartphones = {
 	icon = "gfx/interface/icons/goods_icons/prestige_goods/smartphones_prestige.dds"
 	group = je_group_technology
+
+	activation_description = {
+		always = yes
+	}
 	is_shown_when_inactive = {
 		has_dlc_feature = mp1_content
 		any_company = {
@@ -525,30 +589,60 @@ je_ztr_prestige_good_smartphones = {
 			save_scope_as = relevant_goods
 		}
 	}
-	complete = {
-		trigger_if = {
-			limit = {
-				has_variable = prestige_good_smartphones_timer_var
+	outcome = {
+		header = je_standard_completion_header
+		effect_header = je_standard_on_completion_header
+		color = "gold_positive"
+		conclusion_desc = je_standard_completion_conclusion_desc
+		trigger = {
+			trigger_if = {
+				limit = {
+					has_variable = prestige_good_smartphones_timer_var
+				}
+				scope:journal_entry = {
+					is_goal_complete = yes
+				}
 			}
-			scope:journal_entry = {
-				is_goal_complete = yes
+			trigger_if = {
+				limit = {
+					exists = scope:relevant_company
+				}
+				scope:relevant_company ?= {
+					company_is_prosperous = yes
+				}
+			}
+			trigger_if = {
+				limit = {
+					exists = scope:relevant_goods
+				}
+				custom_tooltip = {
+					text = relevant_goods_production_rank_tt
+					"goods_production_rank(scope:relevant_goods)" <= 3
+				}
 			}
 		}
-		trigger_if = {
-			limit = {
+		effect = {
+			if = {
+				limit = {
+					exists = scope:relevant_company
+				}
+				custom_tooltip = {
+					text = je_ztr_prestige_good_smartphones_reward_tt
+					scope:relevant_company ?= {
+						set_variable = ztr_prestige_good_smartphones_var
+					}
+				}
+			}
+			post_notification = ztr_prestige_good_smartphones_unlocked
+		}
+	}
+
+	outcome = {
+		flags = { hidden invalid_outcome }
+		conclusion_desc = je_standard_failure_conclusion_desc
+		trigger = {
+			NOT = {
 				exists = scope:relevant_company
-			}
-			scope:relevant_company ?= {
-				company_is_prosperous = yes
-			}
-		}
-		trigger_if = {
-			limit = {
-				exists = scope:relevant_goods
-			}
-			custom_tooltip = {
-				text = relevant_goods_production_rank_tt
-				"goods_production_rank(scope:relevant_goods)" <= 3
 			}
 		}
 	}
@@ -566,25 +660,6 @@ je_ztr_prestige_good_smartphones = {
 					add = 1
 				}
 			}
-		}
-	}
-	on_complete = {
-		if = {
-			limit = {
-				exists = scope:relevant_company
-			}
-			custom_tooltip = {
-				text = je_ztr_prestige_good_smartphones_reward_tt
-				scope:relevant_company ?= {
-					set_variable = ztr_prestige_good_smartphones_var
-				}
-			}
-		}
-		post_notification = ztr_prestige_good_smartphones_unlocked
-	}
-	invalid = {
-		NOT = {
-			exists = scope:relevant_company
 		}
 	}
 	current_value = {

@@ -1,8 +1,12 @@
 ﻿effect_tiny_nuclear_damage = {
 
-	add_war_exhaustion = {
-		target = THIS
-		value = 15
+	# War exhaustion was replaced by war support in 1.14
+	save_scope_as = ztr_nuked_country
+	every_scope_war = {
+		add_war_war_support = {
+			target = scope:ztr_nuked_country
+			value = -15
+		}
 	}
 
 	capital = {
@@ -79,9 +83,12 @@
 
 effect_very_low_nuclear_damage = {
 
-	add_war_exhaustion = {
-		target = THIS
-		value = 25
+	save_scope_as = ztr_nuked_country
+	every_scope_war = {
+		add_war_war_support = {
+			target = scope:ztr_nuked_country
+			value = -25
+		}
 	}
 
 	ordered_scope_state = {
@@ -176,9 +183,12 @@ effect_very_low_nuclear_damage = {
 
 effect_low_nuclear_damage = {
 
-	add_war_exhaustion = {
-		target = THIS
-		value = 35
+	save_scope_as = ztr_nuked_country
+	every_scope_war = {
+		add_war_war_support = {
+			target = scope:ztr_nuked_country
+			value = -35
+		}
 	}
 	ordered_scope_state = {
 		limit = {
@@ -272,9 +282,12 @@ effect_low_nuclear_damage = {
 
 effect_medium_nuclear_damage = {
 
-	add_war_exhaustion = {
-		target = THIS
-		value = 45
+	save_scope_as = ztr_nuked_country
+	every_scope_war = {
+		add_war_war_support = {
+			target = scope:ztr_nuked_country
+			value = -45
+		}
 	}
 
 	ordered_scope_state = {
@@ -370,9 +383,12 @@ effect_medium_nuclear_damage = {
 
 effect_high_nuclear_damage = {
 
-	add_war_exhaustion = {
-		target = THIS
-		value = 50
+	save_scope_as = ztr_nuked_country
+	every_scope_war = {
+		add_war_war_support = {
+			target = scope:ztr_nuked_country
+			value = -50
+		}
 	}
 
 	ordered_scope_state = {
@@ -838,10 +854,62 @@ ztr_refresh_nuclear_scores = {
 		calculate_nuclear_strength_info = yes
 		calculate_nuclear_defence_info = yes
 	}
-	every_country = {
-		limit = { has_journal_entry = je_nuclear_weapons_info_panel }
-		ztr_nuclear_ranking_variables = yes
-		ztr_nuclear_strength_ranking_effect = yes
-		ztr_nuclear_defence_ranking_effect = yes
+	ztr_nuclear_build_rankings = yes
+}
+
+# Top 5 by nuclear strike power and defence, for je_nuclear_weapons_info_panel (ztr_nuclear_*_ranking_sgui)
+ztr_nuclear_build_rankings = {
+	clear_global_variable_list = ztr_nuclear_strike_power_list
+	clear_global_variable_list = ztr_nuclear_strike_defence_list
+	set_global_variable = {
+		name = ztr_list_rank_counter
+		value = 0
 	}
+	ordered_country = {
+		limit = {
+			has_modifier = nuclear_capability
+			has_variable = nuclear_strike_power_display
+		}
+		order_by = var:nuclear_strike_power_display
+		max = 5
+		check_range_bounds = no
+		change_global_variable = {
+			name = ztr_list_rank_counter
+			add = 1
+		}
+		set_variable = {
+			name = ztr_nuclear_power_rank_var
+			value = global_var:ztr_list_rank_counter
+		}
+		add_to_global_variable_list = {
+			name = ztr_nuclear_strike_power_list
+			target = this
+		}
+	}
+	set_global_variable = {
+		name = ztr_list_rank_counter
+		value = 0
+	}
+	ordered_country = {
+		limit = {
+			has_modifier = nuclear_capability
+			has_variable = nuclear_strike_defence_display
+		}
+		order_by = var:nuclear_strike_defence_display
+		max = 5
+		check_range_bounds = no
+		change_global_variable = {
+			name = ztr_list_rank_counter
+			add = 1
+		}
+		set_variable = {
+			name = ztr_nuclear_defence_rank_var
+			value = global_var:ztr_list_rank_counter
+		}
+		add_to_global_variable_list = {
+			name = ztr_nuclear_strike_defence_list
+			target = this
+		}
+	}
+	remove_global_variable = ztr_list_rank_counter
 }

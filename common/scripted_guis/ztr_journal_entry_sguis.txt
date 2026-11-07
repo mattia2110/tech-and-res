@@ -35,3 +35,231 @@ je_national_electric_system_missing_states_sgui = {
 		}
 	}
 }
+
+# Great Powers' Ideological Poles in je_liberty_index (list from ztrpol_update_gp_poles)
+ztrpol_gp_poles_sgui = {
+	scope = country
+
+	effect = {
+		if = {
+			limit = {
+				has_global_variable_list = ztrpol_gp_poles_list
+			}
+			custom_tooltip_no_bullet = "ZTRPOL_GP_POLES_HEADER"
+			every_in_global_list = {
+				variable = ztrpol_gp_poles_list
+				custom_tooltip = "ZTRPOL_GP_POLES_ENTRY"
+			}
+		}
+	}
+}
+
+# Top polluters in je_global_warming (list from ztr_global_warming_rank_polluters)
+ztr_gw_polluters_sgui = {
+	scope = country
+
+	effect = {
+		if = {
+			limit = {
+				has_global_variable_list = ztr_gw_polluters_list
+			}
+			every_in_global_list = {
+				variable = ztr_gw_polluters_list
+				if = {
+					limit = {
+						has_variable = ztr_country_total_pollution_change_var
+						var:ztr_country_total_pollution_change_var > 0
+					}
+					custom_tooltip_no_bullet = "ZTR_GW_POLLUTER_ENTRY_RED"
+				}
+				else = {
+					custom_tooltip_no_bullet = "ZTR_GW_POLLUTER_ENTRY_GREEN"
+				}
+			}
+		}
+		else = {
+			custom_tooltip_no_bullet = "ZTR_GW_POLLUTER_NONE"
+		}
+	}
+}
+
+# Nuclear strike power ranking in je_nuclear_weapons_info_panel (list from ztr_nuclear_build_rankings)
+ztr_nuclear_power_ranking_sgui = {
+	scope = country
+
+	effect = {
+		if = {
+			limit = {
+				has_global_variable_list = ztr_nuclear_strike_power_list
+			}
+			every_in_global_list = {
+				variable = ztr_nuclear_strike_power_list
+				custom_tooltip_no_bullet = "ZTR_NUCLEAR_POWER_RANK_ENTRY"
+			}
+		}
+	}
+}
+
+# Nuclear strike defence ranking in je_nuclear_weapons_info_panel (list from ztr_nuclear_build_rankings)
+ztr_nuclear_defence_ranking_sgui = {
+	scope = country
+
+	effect = {
+		if = {
+			limit = {
+				has_global_variable_list = ztr_nuclear_strike_defence_list
+			}
+			every_in_global_list = {
+				variable = ztr_nuclear_strike_defence_list
+				custom_tooltip_no_bullet = "ZTR_NUCLEAR_DEFENCE_RANK_ENTRY"
+			}
+		}
+	}
+}
+
+# Security Council permanent members in je_un_info_panel (live)
+ztr_un_permanent_members_sgui = {
+	scope = country
+
+	effect = {
+		if = {
+			limit = {
+				any_country = {
+					has_modifier = ztr_onu_permanent_member
+				}
+			}
+			every_country = {
+				limit = {
+					has_modifier = ztr_onu_permanent_member
+				}
+				custom_tooltip = "ZTR_UN_PERMANENT_MEMBER_ENTRY"
+			}
+		}
+		else = {
+			custom_tooltip_no_bullet = "ZTR_UN_PERMANENT_MEMBER_NONE"
+		}
+	}
+}
+
+# Major Powers voting support in je_un_votations (live)
+ztr_un_vote_support_major_powers_sgui = {
+	scope = country
+
+	effect = {
+		if = {
+			limit = {
+				any_country = {
+					country_rank >= rank_value:major_power
+					has_variable = ztr_un_vote_eligible
+					has_variable = ztr_un_vote_choice_support
+				}
+			}
+			every_country = {
+				limit = {
+					country_rank >= rank_value:major_power
+					has_variable = ztr_un_vote_eligible
+					has_variable = ztr_un_vote_choice_support
+				}
+				custom_tooltip = "ZTR_UN_VOTE_MAJOR_POWER_ENTRY"
+			}
+		}
+		else = {
+			custom_tooltip_no_bullet = "ZTR_UN_VOTE_MAJOR_POWER_NONE"
+		}
+	}
+}
+
+# Major Powers voting neutral in je_un_votations (live)
+ztr_un_vote_neutral_major_powers_sgui = {
+	scope = country
+
+	effect = {
+		if = {
+			limit = {
+				any_country = {
+					country_rank >= rank_value:major_power
+					has_variable = ztr_un_vote_eligible
+					has_variable = ztr_un_vote_choice_neutral
+				}
+			}
+			every_country = {
+				limit = {
+					country_rank >= rank_value:major_power
+					has_variable = ztr_un_vote_eligible
+					has_variable = ztr_un_vote_choice_neutral
+				}
+				custom_tooltip = "ZTR_UN_VOTE_MAJOR_POWER_ENTRY"
+			}
+		}
+		else = {
+			custom_tooltip_no_bullet = "ZTR_UN_VOTE_MAJOR_POWER_NONE"
+		}
+	}
+}
+
+# Major Powers voting against in je_un_votations (live)
+ztr_un_vote_against_major_powers_sgui = {
+	scope = country
+
+	effect = {
+		if = {
+			limit = {
+				any_country = {
+					country_rank >= rank_value:major_power
+					has_variable = ztr_un_vote_eligible
+					has_variable = ztr_un_vote_choice_against
+				}
+			}
+			every_country = {
+				limit = {
+					country_rank >= rank_value:major_power
+					has_variable = ztr_un_vote_eligible
+					has_variable = ztr_un_vote_choice_against
+				}
+				custom_tooltip = "ZTR_UN_VOTE_MAJOR_POWER_ENTRY"
+			}
+		}
+		else = {
+			custom_tooltip_no_bullet = "ZTR_UN_VOTE_MAJOR_POWER_NONE"
+		}
+	}
+}
+
+# Research agreements and their points in je_research_center
+je_research_center_agreements_sgui = {
+	scope = country
+
+	effect = {
+		if = {
+			limit = {
+				ztr_research_agreements_num > 0
+			}
+			every_scope_treaty = {
+				limit = {
+					any_scope_article = { has_type = ztr_research_agreement }
+				}
+				if = {
+					limit = { first_country = root }
+					second_country = { save_temporary_scope_as = ztr_ra_partner }
+				}
+				else = {
+					first_country = { save_temporary_scope_as = ztr_ra_partner }
+				}
+				save_temporary_scope_value_as = {
+					name = ztr_ra_partner_points
+					value = root.ztr_research_agreement_weight
+				}
+				custom_tooltip_no_bullet = "JE_RESEARCH_CENTER_AGREEMENT_ENTRY"
+			}
+			if = {
+				limit = {
+					ztr_research_agreements_over_cap > 0
+				}
+				custom_tooltip_no_bullet = "JE_RESEARCH_CENTER_AGREEMENTS_CAP"
+			}
+		}
+		else = {
+			custom_tooltip_no_bullet = "JE_RESEARCH_CENTER_NO_AGREEMENTS"
+		}
+	}
+}

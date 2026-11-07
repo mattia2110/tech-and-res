@@ -1,6 +1,10 @@
 ﻿je_develop_nuclear_weapons = {
 	icon = "gfx/interface/icons/event_icons/je_atomic_bomb.dds"
-	group = je_group_technology
+	group = je_group_atomic_age
+
+	activation_description = {
+		always = yes
+	}
 	possible = {
 		#Country is actively developing nukes
 		has_variable = nuclear_program_started
@@ -59,43 +63,54 @@
 			}
 		}
 	}
-	complete = {
-		scope:journal_entry = {
-			is_goal_complete = yes
+	outcome = {
+		header = je_standard_completion_header
+		effect_header = je_standard_on_completion_header
+		color = "gold_positive"
+		conclusion_desc = je_standard_completion_conclusion_desc
+		trigger = {
+			scope:journal_entry = {
+				is_goal_complete = yes
+			}
+			# Shared with nuclear_development_add_progress for the 80% cap
+			ztr_nuclear_weapons_goals_met = yes
 		}
-		# Shared with nuclear_development_add_progress for the 80% cap
-		ztr_nuclear_weapons_goals_met = yes
-	}
-	on_complete = {
-		#Set nuclear capability
-		trigger_event = {
-			id = nuclear_warfare_system.1
-		}
-		remove_variable = nuclear_development_var
-		remove_variable = nuclear_program_started
-		#Add nuclear development cost
-		add_modifier = {
-			name = nuclear_dev_cost
-			years = 5
-			is_decaying = yes
-		}
-	}
-	invalid = {
-		NAND = {
-			#Country is actively developing nukes
-			has_variable = nuclear_program_started
-			NOT = { has_modifier = nuclear_capability }
-			#Has nuclear weapons law
-			#has_law_or_variant = law_type:law_wmd_allowed
-			has_law_or_variant = law_type:law_uranium_full_usage
-			#Must be a sovereign state
-			is_subject = no
-			is_revolutionary = no
-			is_secessionist = no
+		effect = {
+			#Set nuclear capability
+			trigger_event = {
+				id = nuclear_warfare_system.1
+			}
+			remove_variable = nuclear_development_var
+			remove_variable = nuclear_program_started
+			#Add nuclear development cost
+			add_modifier = {
+				name = nuclear_dev_cost
+				years = 5
+				is_decaying = yes
+			}
 		}
 	}
-	on_invalid = {
-		ztr_abandon_nuclear_weapons_program = yes
+
+	outcome = {
+		flags = { hidden invalid_outcome }
+		conclusion_desc = je_standard_failure_conclusion_desc
+		trigger = {
+			NAND = {
+				#Country is actively developing nukes
+				has_variable = nuclear_program_started
+				NOT = { has_modifier = nuclear_capability }
+				#Has nuclear weapons law
+				#has_law_or_variant = law_type:law_wmd_allowed
+				has_law_or_variant = law_type:law_uranium_full_usage
+				#Must be a sovereign state
+				is_subject = no
+				is_revolutionary = no
+				is_secessionist = no
+			}
+		}
+		effect = {
+			ztr_abandon_nuclear_weapons_program = yes
+		}
 	}
 	is_progressing = {
 		ztr_nuclear_research_paused = no
@@ -119,7 +134,11 @@
 
 je_develop_thermonuclear_weapons = {
 	icon = "gfx/interface/icons/event_icons/je_hydrogen_bomb.dds"
-	group = je_group_technology
+	group = je_group_atomic_age
+
+	activation_description = {
+		always = yes
+	}
 	possible = {
 		#Country is actively developing nukes
 		has_modifier = nuclear_capability
@@ -143,46 +162,57 @@ je_develop_thermonuclear_weapons = {
 			thermonuclear_development_add_progress = yes
 		}
 	}
-	complete = {
-		scope:journal_entry = {
-			is_goal_complete = yes
-		}
-		# Shared with thermonuclear_development_add_progress for the 80% cap
-		ztr_thermonuclear_weapons_goals_met = yes
-	}
-	on_complete = {
-		#Set nuclear capability
-		trigger_event = {
-			id = nuclear_warfare_system.10
-		}
-		remove_variable = thermonuclear_development_var
-		remove_variable = thermonuclear_program_started
-		#Add nuclear development cost
-		add_modifier = {
-			name = nuclear_dev_cost
-			years = 5
-			is_decaying = yes
-		}
-	}
-	invalid = {
-		NAND = {
-			has_modifier = nuclear_capability
-			NOR = {
-				has_variable = thermonuclear_capability_var
-				has_technology_researched = hydrogen_bomb
+	outcome = {
+		header = je_standard_completion_header
+		effect_header = je_standard_on_completion_header
+		color = "gold_positive"
+		conclusion_desc = je_standard_completion_conclusion_desc
+		trigger = {
+			scope:journal_entry = {
+				is_goal_complete = yes
 			}
-			# This programme has not been abandoned
-			has_variable = thermonuclear_program_started
-			#Has nuclear weapons law
-			has_law_or_variant = law_type:law_uranium_full_usage
-			#Must be a sovereign state
-			is_subject = no
-			is_revolutionary = no
-			is_secessionist = no
+			# Shared with thermonuclear_development_add_progress for the 80% cap
+			ztr_thermonuclear_weapons_goals_met = yes
+		}
+		effect = {
+			#Set nuclear capability
+			trigger_event = {
+				id = nuclear_warfare_system.10
+			}
+			remove_variable = thermonuclear_development_var
+			remove_variable = thermonuclear_program_started
+			#Add nuclear development cost
+			add_modifier = {
+				name = nuclear_dev_cost
+				years = 5
+				is_decaying = yes
+			}
 		}
 	}
-	on_invalid = {
-		ztr_abandon_thermonuclear_weapons_program = yes
+
+	outcome = {
+		flags = { hidden invalid_outcome }
+		conclusion_desc = je_standard_failure_conclusion_desc
+		trigger = {
+			NAND = {
+				has_modifier = nuclear_capability
+				NOR = {
+					has_variable = thermonuclear_capability_var
+					has_technology_researched = hydrogen_bomb
+				}
+				# This programme has not been abandoned
+				has_variable = thermonuclear_program_started
+				#Has nuclear weapons law
+				has_law_or_variant = law_type:law_uranium_full_usage
+				#Must be a sovereign state
+				is_subject = no
+				is_revolutionary = no
+				is_secessionist = no
+			}
+		}
+		effect = {
+			ztr_abandon_thermonuclear_weapons_program = yes
+		}
 	}
 	is_progressing = {
 		ztr_nuclear_research_paused = no
@@ -206,7 +236,11 @@ je_develop_thermonuclear_weapons = {
 
 je_nuclear_weapons_info_panel = {
 	icon = "gfx/interface/icons/event_icons/nuclear_capability.dds"
-	group = je_group_foreign_affairs
+	group = je_group_atomic_age
+
+	activation_description = {
+		always = yes
+	}
 	is_shown_when_inactive = { has_global_variable = atomic_bomb_discovered }
 	possible = { has_global_variable = ztr_atomic_bomb_first_use_var }
 	immediate = {
@@ -218,9 +252,43 @@ je_nuclear_weapons_info_panel = {
 			limit = { NOT = { has_global_variable = ztr_nuclear_scores_initialized } }
 			ztr_refresh_nuclear_scores = yes
 		}
-		ztr_nuclear_ranking_variables = yes
-		ztr_nuclear_strength_ranking_effect = yes
-		ztr_nuclear_defence_ranking_effect = yes
+		# Rankings missing from saves made before the lists
+		else_if = {
+			limit = { NOT = { has_global_variable_list = ztr_nuclear_strike_power_list } }
+			ztr_nuclear_build_rankings = yes
+		}
+	}
+	# Map: bright green nuclear weapons, dull green civil nuclear power only
+	map_color = {
+		if = {
+			limit = {
+				owner ?= { ztr_je_map_has_nuclear_weapons = yes }
+			}
+			value = "ztr_nuclear_military_green"
+		}
+		else_if = {
+			limit = {
+				owner ?= { ztr_je_map_has_civil_nuclear = yes }
+			}
+			value = "ztr_nuclear_civil_green"
+		}
+	}
+	map_tooltip = {
+		if = {
+			limit = {
+				owner ?= { ztr_je_map_has_nuclear_weapons = yes }
+			}
+			custom_tooltip_no_bullet = "ztr_nuclear_map_military_tt"
+		}
+		else_if = {
+			limit = {
+				owner ?= { ztr_je_map_has_civil_nuclear = yes }
+			}
+			custom_tooltip_no_bullet = "ztr_nuclear_map_civil_tt"
+		}
+		else = {
+			custom_tooltip_no_bullet = "ztr_nuclear_map_none_tt"
+		}
 	}
 	weight = 100
 	transferable = no

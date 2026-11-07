@@ -1,6 +1,10 @@
 ﻿je_demography = {
 	icon = "gfx/interface/icons/event_icons/medical_degrees.dds"
-	group = je_group_technology
+	group = je_group_historical_content
+
+	activation_description = {
+		always = yes
+	}
 	should_be_pinned_by_default_uninvolved_or_context = yes
 	# Same pattern as je_liberty_index: the entry activates on its own and stays active.
 	is_shown_when_inactive = {
@@ -9,6 +13,97 @@
 	possible = {
 	}
 	scripted_progress_bar = ztr_demography_progress_bar
+	# Modifier of the applied stage: 1 on the current stage, 0 on the others
+	scaling_modifiers_while_active = {
+		modifier = demographic_stage_0
+		value = {
+			value = 0
+			if = {
+				limit = { ztr_demography_has_stage = { STAGE = 0 } }
+				value = 1
+			}
+		}
+	}
+	scaling_modifiers_while_active = {
+		modifier = demographic_stage_1
+		value = {
+			value = 0
+			if = {
+				limit = { ztr_demography_has_stage = { STAGE = 1 } }
+				value = 1
+			}
+		}
+	}
+	scaling_modifiers_while_active = {
+		modifier = demographic_stage_2
+		value = {
+			value = 0
+			if = {
+				limit = { ztr_demography_has_stage = { STAGE = 2 } }
+				value = 1
+			}
+		}
+	}
+	scaling_modifiers_while_active = {
+		modifier = demographic_stage_3
+		value = {
+			value = 0
+			if = {
+				limit = { ztr_demography_has_stage = { STAGE = 3 } }
+				value = 1
+			}
+		}
+	}
+	scaling_modifiers_while_active = {
+		modifier = demographic_stage_4
+		value = {
+			value = 0
+			if = {
+				limit = { ztr_demography_has_stage = { STAGE = 4 } }
+				value = 1
+			}
+		}
+	}
+	scaling_modifiers_while_active = {
+		modifier = demographic_stage_5
+		value = {
+			value = 0
+			if = {
+				limit = { ztr_demography_has_stage = { STAGE = 5 } }
+				value = 1
+			}
+		}
+	}
+	scaling_modifiers_while_active = {
+		modifier = demographic_stage_6
+		value = {
+			value = 0
+			if = {
+				limit = { ztr_demography_has_stage = { STAGE = 6 } }
+				value = 1
+			}
+		}
+	}
+	scaling_modifiers_while_active = {
+		modifier = demographic_stage_7
+		value = {
+			value = 0
+			if = {
+				limit = { ztr_demography_has_stage = { STAGE = 7 } }
+				value = 1
+			}
+		}
+	}
+	scaling_modifiers_while_active = {
+		modifier = demographic_stage_8
+		value = {
+			value = 0
+			if = {
+				limit = { ztr_demography_has_stage = { STAGE = 8 } }
+				value = 1
+			}
+		}
+	}
 	status_desc = {
 		first_valid = {
 			triggered_desc = {
@@ -19,6 +114,71 @@
 				trigger = { always = yes }
 				desc = je_demography_status
 			}
+		}
+	}
+	# Map: demographic stage of the owner, light (0) to very dark green (8)
+	map_color = {
+		if = {
+			limit = {
+				owner ?= { ztr_demography_has_stage = { STAGE = 0 } }
+			}
+			value = "ztr_demography_stage_0"
+		}
+		else_if = {
+			limit = {
+				owner ?= { ztr_demography_has_stage = { STAGE = 1 } }
+			}
+			value = "ztr_demography_stage_1"
+		}
+		else_if = {
+			limit = {
+				owner ?= { ztr_demography_has_stage = { STAGE = 2 } }
+			}
+			value = "ztr_demography_stage_2"
+		}
+		else_if = {
+			limit = {
+				owner ?= { ztr_demography_has_stage = { STAGE = 3 } }
+			}
+			value = "ztr_demography_stage_3"
+		}
+		else_if = {
+			limit = {
+				owner ?= { ztr_demography_has_stage = { STAGE = 4 } }
+			}
+			value = "ztr_demography_stage_4"
+		}
+		else_if = {
+			limit = {
+				owner ?= { ztr_demography_has_stage = { STAGE = 5 } }
+			}
+			value = "ztr_demography_stage_5"
+		}
+		else_if = {
+			limit = {
+				owner ?= { ztr_demography_has_stage = { STAGE = 6 } }
+			}
+			value = "ztr_demography_stage_6"
+		}
+		else_if = {
+			limit = {
+				owner ?= { ztr_demography_has_stage = { STAGE = 7 } }
+			}
+			value = "ztr_demography_stage_7"
+		}
+		else_if = {
+			limit = {
+				owner ?= { ztr_demography_has_stage = { STAGE = 8 } }
+			}
+			value = "ztr_demography_stage_8"
+		}
+	}
+	map_tooltip = {
+		if = {
+			limit = {
+				owner ?= { ztr_demography_applied_stage >= 0 }
+			}
+			custom_tooltip_no_bullet = "ztr_demography_map_tt"
 		}
 	}
 	transferable = no

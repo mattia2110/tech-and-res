@@ -1,56 +1,4 @@
-﻿# Ideologies Rankings
-show_liberty_index_rankings_button = {
-	name = "show_liberty_index_rankings_button"
-	desc = "show_liberty_index_rankings_button_desc"
-	visible = {
-		is_ai = no
-		has_journal_entry = je_liberty_index
-	}
-	possible = {
-		hidden_trigger = {
-			NOT = {
-				has_variable = liberty_index_opened_var
-			}
-		}
-	}
-	effect = {
-		hidden_effect = {
-			set_variable = liberty_index_opened_var
-			trigger_event = {
-				id = ztr_economic_update.100
-				popup = yes
-			}
-		}
-	}
-}
-
-show_equality_index_rankings_button = {
-	name = "show_equality_index_rankings_button"
-	desc = "show_equality_index_rankings_button_desc"
-	visible = {
-		# This are only for the player
-		is_ai = no
-		has_journal_entry = je_liberty_index
-	}
-	possible = {
-		hidden_trigger = {
-			NOT = {
-				has_variable = equality_index_opened_var
-			}
-		}
-	}
-	effect = {
-		hidden_effect = {
-			set_variable = equality_index_opened_var
-			trigger_event = {
-				id = ztr_economic_update.101
-				popup = yes
-			}
-		}
-	}
-}
-
-# Russian Revolution
+﻿# Russian Revolution
 ztr_repress_soviet_movements = {
 	name = "ztr_repress_soviet_movements"
 	desc = "ztr_repress_soviet_movements_desc"
@@ -63,9 +11,6 @@ ztr_repress_soviet_movements = {
 	}
 	possible = {
 		hidden_trigger = {
-			NOT = {
-				has_variable = equality_index_opened_var
-			}
 			NOT = {
 				has_modifier = ztr_repressed_soviet_movements_modifier
 			}
@@ -91,9 +36,6 @@ ztr_help_liberal_consensus = {
 	}
 	possible = {
 		hidden_trigger = {
-			NOT = {
-				has_variable = equality_index_opened_var
-			}
 			NOT = {
 				has_modifier = ztr_liberal_consensus_helped_modifier
 			}

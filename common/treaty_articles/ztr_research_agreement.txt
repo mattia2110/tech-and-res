@@ -1,0 +1,273 @@
+﻿# Scientific cooperation between two countries with a Research Center.
+# Both parties pay the cost and gain Research Capacity from each other (ztr_research_agreement_weight).
+ztr_research_agreement = {
+	kind = mutual
+	cost = 100
+
+	relations_progress_per_day = 1
+	relations_improvement_max = 50
+
+	icon = "gfx/interface/icons/diplomatic_treaties_articles_icons/ztr_research_agreement_treaties.dds"
+
+	flags = {
+		show_in_lens
+		can_be_renegotiated
+		friendly
+	}
+
+	# Treaty Articles lens tab, only for countries that can sign it
+	show_in_lens = {
+		has_research_center = yes
+	}
+
+	usage_limit = once_per_treaty
+
+	unlocked_by_technologies = {
+		international_organizations
+	}
+
+	visible = {
+		NOT = { is_country_type = decentralized }
+		is_revolutionary = no
+		scope:other_country = {
+			NOT = { is_country_type = decentralized }
+			is_revolutionary = no
+		}
+	}
+
+	possible = {
+		ztr_research_agreement_can_propose = { PARTNER = scope:other_country }
+	}
+
+	requirement_to_maintain = {
+		trigger = {
+			custom_tooltip = {
+				text = ztr_research_agreement_research_center_tt
+				scope:first_country = { has_research_center = yes }
+				scope:second_country = { has_research_center = yes }
+			}
+		}
+	}
+
+	requirement_to_maintain = {
+		trigger = {
+			custom_tooltip = {
+				text = DIPLO_ACTION_RELATIONS_POOR_OR_LESS_NOT
+				scope:first_country = {
+					"relations(scope:second_country)" > relations_threshold:poor
+				}
+			}
+		}
+		show_about_to_break_warning = {
+			scope:first_country = {
+				"relations(scope:second_country)" <= -17
+			}
+		}
+	}
+
+	requirement_to_maintain = {
+		trigger = {
+			custom_tooltip = {
+				text = DIPLOMATIC_PACT_REQUIREMENT_AT_PEACE
+				scope:first_country = {
+					NOT = { has_war_with = scope:second_country }
+				}
+			}
+		}
+	}
+
+	can_ratify = {
+		custom_tooltip = {
+			text = ztr_research_agreement_already_signed_tt
+			scope:first_country = {
+				NOT = {
+					any_scope_treaty = {
+						binds = scope:second_country
+						hidden_trigger = {
+							OR = {
+								scope:treaty = { is_renegotiation = no }
+								scope:treaty.amended_treaty != this
+							}
+						}
+						any_scope_article = { has_type = ztr_research_agreement }
+					}
+				}
+			}
+		}
+	}
+
+	on_entry_into_force = {
+		if = {
+			limit = {
+				NOT = { exists = scope:is_renegotiation }
+			}
+			scope:article_options.first_country = { save_scope_as = ztr_ra_first }
+			scope:article_options.second_country = { save_scope_as = ztr_ra_second }
+			ztr_research_agreement_signed_effect = yes
+		}
+	}
+
+	on_withdrawal = {
+		scope:withdrawing_country = {
+			change_relations = {
+				country = scope:non_withdrawing_country
+				value = -20
+			}
+			save_scope_as = ztr_ra_first
+		}
+		scope:non_withdrawing_country = { save_scope_as = ztr_ra_second }
+		ztr_research_agreement_ended_effect = yes
+	}
+
+	# Within the binding period: -5 relations per remaining year, as for vanilla pacts
+	on_break = {
+		scope:withdrawing_country = {
+			change_relations = {
+				country = scope:non_withdrawing_country
+				value = {
+					add = -5
+					multiply = {
+						value = scope:treaty_options.remaining_binding_period
+						min = 365
+						divide = 365
+					}
+					max = -5
+					min = -25
+				}
+			}
+		}
+	}
+
+	ai = {
+		treaty_categories = {
+			economy
+		}
+
+		article_ai_usage = {
+			offer
+		}
+
+		evaluation_chance = {
+			value = ztr_ra_ai_evaluation_chance
+		}
+
+		proposal_weight = {
+			value = 1
+			add = {
+				value = ztr_research_agreement_ai_gain
+				multiply = 4
+			}
+			if = {
+				limit = { ztr_ra_score_leadership > 0 }
+				add = 1
+			}
+		}
+
+		inherent_accept_score = {
+			value = 0
+
+			# Scopes reused by the vanilla acceptance localization
+			save_temporary_scope_as = target
+			scope:other_country = {
+				save_temporary_scope_as = actor
+			}
+
+			add = {
+				desc = "DIPLOMATIC_ACCEPTANCE_BASE"
+				value = ztr_ra_score_base
+			}
+			add = {
+				desc = "ZTR_ACCEPTANCE_RESEARCH_CAPACITY"
+				value = ztr_ra_score_gain
+			}
+			if = {
+				limit = { ztr_ra_score_leadership > 0 }
+				add = {
+					desc = "ZTR_ACCEPTANCE_SCIENTIFIC_LEADERSHIP"
+					value = ztr_ra_score_leadership
+				}
+			}
+			add = {
+				desc = "DIPLOMATIC_ACCEPTANCE_RELATIONS"
+				value = ztr_ra_score_relations
+			}
+			if = {
+				limit = { ztr_ra_score_ideology > 0 }
+				add = {
+					desc = "DIPLOMATIC_ACCEPTANCE_IDEOLOGICAL_OPINION"
+					value = ztr_ra_score_ideology
+				}
+			}
+			else_if = {
+				limit = { ztr_ra_score_ideology < 0 }
+				add = {
+					desc = "DIPLOMATIC_ACCEPTANCE_IDEOLOGICAL_OPINION_NEGATIVE"
+					value = ztr_ra_score_ideology
+				}
+			}
+			if = {
+				limit = { ztr_ra_score_pole > 0 }
+				add = {
+					desc = "ZTR_ACCEPTANCE_SAME_POLE"
+					value = ztr_ra_score_pole
+				}
+			}
+			else_if = {
+				limit = { ztr_ra_score_pole < 0 }
+				add = {
+					desc = "ZTR_ACCEPTANCE_OPPOSITE_POLE"
+					value = ztr_ra_score_pole
+				}
+			}
+			if = {
+				limit = { ztr_ra_score_attitude != 0 }
+				add = {
+					desc = "DIPLOMATIC_ACCEPTANCE_ATTITUDE"
+					value = ztr_ra_score_attitude
+				}
+			}
+			if = {
+				limit = { ztr_ra_score_rivalry < 0 }
+				add = {
+					desc = "ZTR_ACCEPTANCE_RIVALRY"
+					value = ztr_ra_score_rivalry
+				}
+			}
+			if = {
+				limit = { ztr_ra_score_alliance > 0 }
+				add = {
+					desc = "ZTR_ACCEPTANCE_ALLIED"
+					value = ztr_ra_score_alliance
+				}
+			}
+			if = {
+				limit = { ztr_ra_score_bloc > 0 }
+				add = {
+					desc = "DIPLOMATIC_ACCEPTANCE_SAME_POWER_BLOC"
+					value = ztr_ra_score_bloc
+				}
+			}
+			else_if = {
+				limit = { ztr_ra_score_bloc < 0 }
+				add = {
+					desc = "DIPLOMATIC_ACCEPTANCE_DIFFERENT_POWER_BLOC"
+					value = ztr_ra_score_bloc
+				}
+			}
+			if = {
+				limit = { ztr_ra_score_infamy < 0 }
+				add = {
+					desc = "DIPLOMATIC_ACCEPTANCE_INFAMY"
+					value = ztr_ra_score_infamy
+				}
+			}
+			if = {
+				limit = { ztr_ra_score_influence < 0 }
+				add = {
+					desc = "ZTR_ACCEPTANCE_INFLUENCE"
+					value = ztr_ra_score_influence
+				}
+			}
+		}
+	}
+}

@@ -72,6 +72,13 @@ REPLACE:law_frontier_colonization = {
 			has_law_or_variant = law_type:law_colonial_exploitation
 			has_law_or_variant = law_type:law_colonial_resettlement
 		}
+		trigger_if = {
+			limit = {
+				c:RUS ?= this
+				has_law_or_variant = law_type:law_internal_colonization
+			}
+			has_journal_entry = je_social_revolution
+		}
 	}
 	ai_enact_weight_modifier = {
 		#Petitions
@@ -194,6 +201,13 @@ REPLACE:law_colonial_resettlement = {
 			has_law_or_variant = law_type:law_colonial_exploitation
 			navy_size >= 50
 		}
+		trigger_if = {
+			limit = {
+				c:RUS ?= this
+				has_law_or_variant = law_type:law_internal_colonization
+			}
+			has_journal_entry = je_social_revolution
+		}
 	}
 	ai_enact_weight_modifier = {
 		#Petitions
@@ -314,6 +328,13 @@ REPLACE:law_colonial_exploitation = {
 			has_law_or_variant = law_type:law_colonial_resettlement
 			navy_size >= 50
 		}
+		trigger_if = {
+			limit = {
+				c:RUS ?= this
+				has_law_or_variant = law_type:law_internal_colonization
+			}
+			has_journal_entry = je_social_revolution
+		}
 	}
 	ai_enact_weight_modifier = { #Petitions
 		value = 0
@@ -330,16 +351,16 @@ REPLACE:law_colonial_exploitation = {
 			limit = { ai_has_enact_weight_modifier_journal_entries = yes }
 			add = 750
 		}
-		
+
 		if = {
-			limit = { 
+			limit = {
 				has_journal_entry = je_taming_the_north
 			}
 			add = 500
 		}
-		
+
 		if = {
-			limit = { 
+			limit = {
 				c:JAP ?= this
 				is_country_type = recognized
 				has_claim = s:STATE_SEOUL

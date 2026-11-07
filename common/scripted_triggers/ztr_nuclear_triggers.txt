@@ -181,3 +181,18 @@ ztr_thermonuclear_weapons_goals_met = {
 	is_revolutionary = no
 	is_secessionist = no
 }
+
+# Journal entry map (je_nuclear_weapons_info_panel): nuclear weapons
+ztr_je_map_has_nuclear_weapons = {
+	has_modifier = nuclear_capability
+	has_law_or_variant = law_type:law_uranium_full_usage
+}
+
+# Journal entry map: civil nuclear power only
+ztr_je_map_has_civil_nuclear = {
+	has_technology_researched = nuclear_reactor
+	OR = {
+		has_law_or_variant = law_type:law_uranium_civil_usage
+		has_law_or_variant = law_type:law_uranium_full_usage
+	}
+}
