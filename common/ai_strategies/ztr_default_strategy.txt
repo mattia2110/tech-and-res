@@ -151,7 +151,7 @@ INJECT:ai_strategy_default = {
 					}
 				}
 			}
-				add = 500
+			add = 500
 		}
 
 		# Second Balkan War, pitting the balkan nations against each other (Wallachia)
@@ -167,7 +167,42 @@ INJECT:ai_strategy_default = {
 					}
 				}
 			}
-				add = 500
+			add = 500
+		}
+
+		if = {
+			limit = {
+				has_variable = rcw_russian_faction
+				has_variable = rcw_axis
+				scope:target_country = {
+					has_variable = rcw_russian_faction
+					has_variable = rcw_axis
+				}
+			}
+			if = {
+				limit = {
+					rcw_axis_distance_at_least = { FACTION = root OTHER_FACTION = scope:target_country MIN_DISTANCE = 2 }
+				}
+				add = 1000
+			}
+			else_if = {
+				limit = {
+					rcw_axis_distance_at_least = { FACTION = root OTHER_FACTION = scope:target_country MIN_DISTANCE = 1 }
+				}
+				add = 400
+			}
+			else = {
+				add = {
+					value = 1
+					if = {
+						limit = {
+							has_global_variable = rcw_exhaustion_level
+						}
+						add = global_var:rcw_exhaustion_level
+					}
+					multiply = 150
+				}
+			}
 		}
 
 		# Greek Nationalism
@@ -227,21 +262,18 @@ INJECT:ai_strategy_default = {
 			}
 			add = 100
 		}
+
 		#T&R
-		# European major powers should see a collapsing Ottoman Middle East as easy pickings.
+		# During the Ottoman collapse, European great powers press their Egyptian claims
 		if = {
 			limit = {
 				is_in_geographic_region = geographic_region_europe
 				country_rank >= rank_value:great_power
-				OR = {
-					NOT = {
-						exists = c:TUR
-					}
-					c:TUR = {
-						NOT = {
-							has_journal_entry = je_ottoman_empire_collapse
-						}
-					}
+				c:TUR ?= {
+					has_journal_entry = je_ottoman_empire_collapse
+				}
+				NOT = {
+					has_technology_researched = decolonization
 				}
 				scope:target_country = {
 					any_scope_state = {
@@ -259,20 +291,16 @@ INJECT:ai_strategy_default = {
 			}
 			add = 25
 		}
-		# After the Ottoman collapse, European great powers should pursue their Syrian claims aggressively.
+		# During the Ottoman collapse, European great powers press their Levantine claims
 		if = {
 			limit = {
 				is_in_geographic_region = geographic_region_europe
 				country_rank >= rank_value:great_power
-				OR = {
-					NOT = {
-						exists = c:TUR
-					}
-					c:TUR = {
-						NOT = {
-							has_journal_entry = je_ottoman_empire_collapse
-						}
-					}
+				c:TUR ?= {
+					has_journal_entry = je_ottoman_empire_collapse
+				}
+				NOT = {
+					has_technology_researched = decolonization
 				}
 				scope:target_country = {
 					any_scope_state = {
@@ -288,20 +316,16 @@ INJECT:ai_strategy_default = {
 			}
 			add = 25
 		}
-		# After the Ottoman collapse, European great powers should pursue their Iraqi claims aggressively.
+		# During the Ottoman collapse, European great powers press their Iraqi claims
 		if = {
 			limit = {
 				is_in_geographic_region = geographic_region_europe
 				country_rank >= rank_value:great_power
-				OR = {
-					NOT = {
-						exists = c:TUR
-					}
-					c:TUR = {
-						NOT = {
-							has_journal_entry = je_ottoman_empire_collapse
-						}
-					}
+				c:TUR ?= {
+					has_journal_entry = je_ottoman_empire_collapse
+				}
+				NOT = {
+					has_technology_researched = decolonization
 				}
 				scope:target_country = {
 					any_scope_state = {
@@ -453,15 +477,26 @@ INJECT:ai_strategy_default = {
 
 		if = { #Russian Caucasus
 			limit = {
-	            is_involved_in_journal_entry = je_caucasian_war
+				c:RUS ?= this
+				is_involved_in_journal_entry = je_caucasian_war
 				scope:target_country = {
 					any_scope_state = {
 						OR = {
 							state_region = s:STATE_KUBAN
 							state_region = s:STATE_DAGESTAN
+							state_region = s:STATE_NORTH_CAUCASUS
 						}
 					}
 				}
+				can_reach_target_country_to_conquer = { TARGET_COUNTRY = scope:target_country }
+			}
+			add = 10
+		}
+
+		if = {
+			limit = {
+				has_journal_entry = je_tp_fav_war
+				var:tp_fav_war_target ?= scope:target_country
 				can_reach_target_country_to_conquer = { TARGET_COUNTRY = scope:target_country }
 			}
 			add = 10
@@ -508,7 +543,10 @@ INJECT:ai_strategy_default = {
 		if = { #Russian Central Asia
 			limit = {
 				country_has_primary_culture = cu:russian
-				has_law = law_type:law_national_supremacy # TODO - Official Nationality
+				OR = {
+					has_law = law_type:law_national_supremacy
+					has_law = law_type:law_official_nationality
+				}
 				scope:target_country = {
 					any_scope_state = {
 						OR = {
@@ -520,6 +558,32 @@ INJECT:ai_strategy_default = {
 				}
 			}
 			add = 15
+		}
+
+		if = { # Russia presses her Caucasus subjects and Bukey Orda once the wars behind them are won
+			limit = {
+				OR = {
+					ai_russia_wants_caucasus_subject_annexed = yes
+					ai_russia_wants_bukey_orda_annexed = yes
+				}
+			}
+			add = 25
+		}
+
+		if = { #Russia wants Western borderlands
+			limit = {
+				has_journal_entry = je_russification
+				scope:target_country = {
+					any_scope_state = {
+						OR = {
+							is_in_geographic_region = geographic_region_finland_old
+							is_in_geographic_region = geographic_region_baltic_states_old
+							is_in_geographic_region = geographic_region_poland_old
+						}
+					}
+				}
+			}
+			add = 10
 		}
 
 		if = { #Russia wants Korea
@@ -650,29 +714,6 @@ INJECT:ai_strategy_default = {
 				}
 			}
 			add = 15
-		}
-
-		# Aggression against radical leftists
-		if = {
-			limit = {
-				AND = {
-					has_radical_leftist_government = no
-					scope:target_country = {
-						has_radical_leftist_government = yes
-					}
-				}
-			}
-			add = 1
-		}
-
-		if = {
-			limit = {
-				has_radical_leftist_economy = no
-				scope:target_country = {
-					has_radical_leftist_economy = yes
-				}
-			}
-			add = 1
 		}
 
 		if = { #Indian suzerain will be aggressive against Russia
@@ -1024,6 +1065,65 @@ INJECT:ai_strategy_default = {
 			}
 		}
 
+		if = { #Prussia will try to preserve the Zollverein
+			limit = {
+				c:PRU ?= this
+				is_power_bloc_leader = yes
+				scope:target_country = {
+					country_rank < rank_value:major_power
+					OR = {
+						country_has_primary_culture = cu:north_german
+						country_has_primary_culture = cu:south_german
+					}
+					is_in_power_bloc = no
+				}
+			}
+			add = 5
+		}
+
+		# Aggression against radical leftists
+		if = {
+			limit = {
+				AND = {
+					has_radical_leftist_government = no
+					scope:target_country = {
+						has_radical_leftist_government = yes
+					}
+				}
+			}
+			add = {
+				value = 5
+				multiply = {
+					value = 1
+					add = scope:target_country.modifier:country_other_country_socialist_government_hostility_impact_mult
+				}
+			}
+		}
+
+		if = {
+			limit = {
+				has_radical_leftist_economy = no
+				scope:target_country = {
+					has_radical_leftist_economy = yes
+				}
+			}
+			add = {
+				value = 5
+				multiply = {
+					value = 1
+					add = scope:target_country.modifier:country_other_country_socialist_economy_hostility_impact_mult
+				}
+			}
+		}
+
+		if = {
+			limit = {
+				divided_monarchists_ai_backs_bonapartist = yes
+				is_at_war = no
+			}
+			add = 10
+		}
+
         # Neutral Switzerland
         if = {
             limit = {
@@ -1073,6 +1173,84 @@ INJECT:ai_strategy_default = {
 				is_subject_of = scope:target_country
 			}
 			multiply = 0.0
+		}
+
+		# Russia keeps the peace with the Ottomans until the Caucasus is settled
+		if = {
+			limit = {
+				c:RUS ?= this
+				ai_russia_ottoman_restraint = yes
+				scope:target_country = {
+					c:TUR ?= this
+				}
+			}
+			multiply = 0.5
+		}
+
+		if = { # Nicholas I really doesn't want war with China
+			limit = {
+				ai_russia_gendarme_spares_china = yes
+			}
+			multiply = 0.0
+		}
+
+		if = {
+			limit = {
+				has_variable = rcw_russian_faction
+				scope:target_country = {
+					has_variable = rcw_russian_faction
+				}
+				rcw_factions_are_aligned = { FACTION = root OTHER_FACTION = scope:target_country }
+			}
+			multiply = 0
+		}
+
+		if = {
+			limit = {
+				has_variable = rcw_russian_faction
+				scope:target_country = {
+					NOR = {
+						has_variable = rcw_russian_faction
+						has_variable = rcw_separatist
+					}
+				}
+			}
+			multiply = 0.1
+		}
+		else_if = {
+			limit = {
+				has_variable = rcw_russian_faction
+				scope:target_country = {
+					has_variable = rcw_separatist
+				}
+				OR = {
+					NOT = { has_global_variable = rcw_exhaustion_level }
+					global_var:rcw_exhaustion_level < 2
+				}
+			}
+			multiply = 0.25
+		}
+		else_if = {
+			limit = {
+				has_variable = rcw_separatist
+				scope:target_country = {
+					has_variable = rcw_russian_faction
+				}
+			}
+			multiply = 0.1
+		}
+
+		# Recognized nations should be wary of going to war by default
+		if = {
+			limit = {
+				ai_conquest_requires_justification = { TARGET = scope:target_country }
+				NOR = {
+					has_je_conquest_reason = { TARGET = scope:target_country }
+					ai_has_systemic_conquest_reason = { TARGET = scope:target_country }
+					ai_has_systemic_subjugation_reason = { TARGET = scope:target_country }
+				}
+			}
+			multiply = ai_unjustified_war_restraint
 		}
 	}
 
@@ -1127,6 +1305,7 @@ INJECT:ai_strategy_default = {
 					has_technology_researched = gantry_cranes
 				}
 				has_port_country = yes
+				country_rank >= rank_value:major_power
 			}
 		}
 		steamers = {
@@ -1134,6 +1313,7 @@ INJECT:ai_strategy_default = {
 			trigger = {
 				has_technology_researched = gantry_cranes
 				has_port_country = yes
+				country_rank >= rank_value:major_power
 			}
 		}
 		radios = {
@@ -1148,8 +1328,8 @@ INJECT:ai_strategy_default = {
 		paper = {
 			stance = wants_high_supply
 			trigger = {
+				has_building = building_government_administration
 				has_technology_researched = centralization
-				total_population >= 1000000
 			}
 		}
 		telephones = {
@@ -1164,10 +1344,19 @@ INJECT:ai_strategy_default = {
 				has_technology_researched = electrical_generation
 			}
 		}
+		copper = {
+			stance = wants_export
+			trigger = {
+				has_technology_researched = thermal_cracking
+				kai_has_high_supply = {
+					GOODS = copper
+				}
+			}
+		}
 		coal = {
 			stance = wants_high_supply
 			trigger = {
-				has_technology_researched = atmospheric_engine
+				has_technology_researched = railways
 			}
 		}
 		engines = {
@@ -1191,18 +1380,32 @@ INJECT:ai_strategy_default = {
 				}
 			}
 		}
+		dye = {
+			stance = wants_high_supply
+			trigger = {
+				has_building = building_textile_mill
+				has_technology_researched = lathe
+			}
+		}
+		silk = {
+			stance = wants_high_supply
+			trigger = {
+				has_building = building_textile_mill
+				total_population >= 1000000
+			}
+		}
 		hardwood = {
 			stance = wants_high_supply
 			trigger = {
 				has_technology_researched = urbanization
 			}
 		}
-		# grain = {
-		# 	stance = wants_high_supply
-		# 	trigger = {
-		# 		has_famine = yes
-		# 	}
-		# }
+		grain = {
+			stance = wants_high_supply
+			trigger = {
+				has_famine = yes
+			}
+		}
 		# Construction goods (Helps early game)
 		wood = {
 			stance = wants_high_supply
@@ -1214,9 +1417,6 @@ INJECT:ai_strategy_default = {
 			stance = wants_high_supply
 			trigger = {
 				has_technology_researched = urban_planning
-				NOT = {
-					has_technology_researched = steel_frame_buildings
-				}
 			}
 		}
 		tools = {
@@ -1225,19 +1425,8 @@ INJECT:ai_strategy_default = {
 				has_technology_researched = urban_planning
 			}
 		}
-		steel = {
-			stance = wants_high_supply
-			trigger = {
-				has_technology_researched = steel_frame_buildings
-			}
-		}
+		# No steel, explosives or alloys here: only admin strategies want them, agricultural countries import them
 		glass = {
-			stance = wants_high_supply
-			trigger = {
-				has_technology_researched = steel_frame_buildings
-			}
-		}
-		explosives = {
 			stance = wants_high_supply
 			trigger = {
 				has_technology_researched = steel_frame_buildings
@@ -1246,12 +1435,6 @@ INJECT:ai_strategy_default = {
 		#T&R Here we want to simulate not industrialized nations exporting raw materials
 		water = {
 			stance = wants_high_supply
-		}
-		alloys = {
-			stance = wants_high_supply
-			trigger = {
-				has_technology_researched = mechanized_workshops
-			}
 		}
 		gas = {
 			stance = wants_export
@@ -1298,15 +1481,6 @@ INJECT:ai_strategy_default = {
 				}
 			}
 		}
-		copper = {
-			stance = wants_export
-			trigger = {
-				has_technology_researched = thermal_cracking
-				kai_has_high_supply = {
-					GOODS = copper
-				}
-			}
-		}
 		commonores = {
 			stance = wants_export
 			trigger = {
@@ -1332,6 +1506,14 @@ INJECT:ai_strategy_default = {
 				kai_has_high_supply = {
 					GOODS = rare_earths
 				}
+			}
+		}
+		# Input of urban center healthcare
+		pharmaceuticals = {
+			stance = wants_high_supply
+			trigger = {
+				has_technology_researched = pharmaceuticals
+				total_population >= 1000000
 			}
 		}
 	}

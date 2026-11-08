@@ -16,7 +16,7 @@ La meccanica è implementata con il progresso memorizzato sul paese e una journa
 
 ## Formula finale
 
-Un'unica barra `X` tra 0 e 900 determina la fase `x = min(8, floor(X/100))` e il relativo modificatore `demographic_stage_x`. Le fasi occupano intervalli di 100 punti; 900 appartiene alla fase 8.
+Il punteggio mostrato `Y` va da 0 a 1000. La formula usa il valore interno `X = clamp(Y - 100, 0, 900)`: tra 0 e 100 si comporta come a `X=0`. Lo stadio mostrato è `x = min(8, floor(X/100)) + 1`, da 1 a 9, con il modificatore `demographic_stage_x`: lo stadio 1 copre `Y` 0–200, gli altri 100 punti ciascuno, e 1000 appartiene allo stadio 9. Nel resto del documento `X` è il valore interno: il punteggio mostrato è `X + 100`, e la fase `u` coincide con lo stadio mostrato meno 1.
 
 ```text
 u     = X / 100
@@ -32,7 +32,7 @@ econ  = (Ke / D0) * L * A(u,y) * max(D - D0, (Lr - 1) * D0)
 econ  = econ * R se econ < 0 e u < 6
 F     = drift + econ
 dX    = clamp(F + extra, Lo, Hi)
-X(t+1)= clamp(X(t) + dX, 0, 900)
+Y(t+1)= clamp(Y(t) + dX, 0, 1000)
 ```
 
 `L` è la literacy tra 0 e 1; `F` è il contributo annuo della formula prima degli extra e dei limiti. `D` è la media delle variazioni relative sul periodo: 0,05 significa 5%, senza annualizzazione. `V` è espresso in punti di `X` all'anno: +1,5 equivale a +0,015 a `u`, non a +1,5 fasi. Si aggiunge dopo la moltiplicazione per `Kd`. Il SoL corrente determina P(SoL); la variazione quinquennale di SoL e PIL pro capite determina D. Il contributo diretto del SoL nel drift raggiunge il massimo a 20; il bonus aggiuntivo entra sopra quella soglia.
@@ -98,7 +98,7 @@ La soglia di saturazione economica sale da 3 nel 1836 a 4,5 nel 1886 e 6 nel 193
 | `drift` | Richiamo strutturale determinato da literacy, SoL ed epoca, più `V`. |
 | `econ` | Spinta economica: positiva con `D > D0`, negativa sotto, con verso invertito oltre `C`. La recessione pesa fino a `D = Lr*D0` (-2%), dove il fattore tocca `Lr - 1 = -1,5`. |
 | `R` | Quota del contributo economico negativo conservata sotto X=600: 0,5 con i default; da 600 resta integrale. |
-| `extra` | Correttivi additivi di `ztr_demography_extra_change`: sanità (+), società tradizionale, schiavitù, Nord America e immigrazione (-). |
+| `extra` | Correttivi additivi di `ztr_demography_extra_change`: sanità (+), cultura (religione di stato sunnita o sciita, oppure sistema delle caste imposto o codificato per legge), schiavitù, Nord America e immigrazione (-). |
 | `dX` | Variazione annua applicata a `X`. |
 
 ## Pannello di controllo
@@ -135,11 +135,11 @@ Anche `R=late_economy_brake` e `Vp=development_peak_gain` usano lo stesso prefis
 
 ### Variabili persistenti
 
-Tutte sul paese, con prefisso `ztr_demography_`. La fase applicata non è una variabile: si legge dal modificatore `demographic_stage_x`.
+Tutte sul paese, con prefisso `ztr_demography_`. La fase applicata (1–9) è in `applied_stage_var`; il JE applica il modificatore `demographic_stage_x` corrispondente.
 
 | Variabile | Contenuto |
 |---|---|
-| `progress_var` | `X`. |
+| `progress_var` | Punteggio mostrato `Y`, da 0 a 1000. |
 | `sol_1_var` … `sol_5_var` | SoL degli ultimi cinque pulse; 1 è il più recente. |
 | `gdp_1_var` … `gdp_5_var` | PIL pro capite degli stessi pulse. |
 | `history_samples_var` | Campioni raccolti, fino a 5; con 5 si attiva `econ`. |
@@ -184,6 +184,14 @@ La seconda è l'epoca, `100*k`:
 
 Per esempio, un paese con literacy 100% e SoL 20 o più ha riferimento strutturale 900 nel 2000. Il bonus di sviluppo può alzare ulteriormente il riferimento del drift, mentre X rimane limitato a 900; l'equilibrio complessivo dipende anche da economia ed extra. Il tetto `Lm` lascia al SoL solo il compito di distinguere i paesi poveri: oltre SoL 20 contano literacy, epoca, economia e sviluppo.
 
+### Partenze
+
+Il punteggio iniziale `Y` segue il SoL nazionale: 100 sotto SoL 11 (fuori dall'Europa, prima del 1900 o in Africa), poi 200, 300, 400, 500, 600 e 700 sopra SoL 25. Fanno eccezione:
+
+- **Paesi del 1836** nell'Africa subsahariana: 0; in India e nel Sud-Est asiatico, Indonesia compresa: 50. Valgono a prescindere dal SoL e solo a inizio partita. In questa fascia il drift è sempre positivo, quindi l'effetto è un ritardo della transizione, non una natalità diversa: tutta la fascia 0–200 è lo stadio 1.
+- **Stati della decolonizzazione** (`ztr_demography_start_100`): 100, il vecchio 0.
+- **Francia, Gran Bretagna e Spagna**: 300, 250 e 225, cioè `X` 200, 150 e 125.
+
 ### Partenze storiche europee
 
 Con `k=0` la soglia a inizio partita è `200*L + min(15*SoL, 300)`. Le tre transizioni europee precoci sono assegnate per tag. Il movimento effettivo dipende anche da economia ed extra:
@@ -216,9 +224,9 @@ I limiti annuali impongono almeno 6,7 anni per percorrere 100 punti in avanti e 
 
 ## Natalità, mortalità e figli per donna
 
-Valori mostrati, non simulati: non modificano la popolazione e non vengono salvati. Si calcolano solo quando il testo è visibile: nel tooltip della mappa demografica (per ogni paese) e nel tooltip della popolazione in alto. I calcoli usano tassi per 1.000 abitanti all'anno; nascite e morti sono mostrate come valori assoluti annui (B e M × popolazione/1.000, in formato K/M).
+Valori mostrati, non simulati: non modificano la popolazione e non vengono salvati. Si calcolano solo quando il testo è visibile, nella descrizione di `je_demography` (`[ROOT.GetCountry.GetPopGrowthDesc]`); non compaiono più nel tooltip della popolazione in alto né nella mappa. I calcoli usano tassi per 1.000 abitanti all'anno; nascite e morti sono mostrate come valori assoluti annui (B e M × popolazione/1.000, in formato K/M).
 
-`G` è la crescita naturale annua del motore, la stessa dell'UI: `$NETGROWTHRATE|5$` dentro la chiave vanilla `TOOLTIP_COUNTRY_POP_GROWTH`, sovrascritta in `localization/english/replace/`. Senza `|5` la macro arriva arrotondata a 2 decimali (0,0063 → 0,00). Esclude migrazione e caduti in guerra. Dentro `GetPopGrowthDesc` il motore passa solo le macro, non un contesto: il paese per gli script value arriva da `Country` solo se chi richiama la chiave lo fornisce. Il riquadro della mappa demografica (`ztr_demography_map_tt`, tramite `GetPopGrowthDesc`) non fornisce né `Country` né `State`, e il motore espone natalità e mortalità solo per lo stato (`State.GetPopBirthrate`/`GetPopMortality`). Per questo le etichette sono condizionate con `AddLocalizationIf(Country.IsValid, ...)`: dove `Country` manca, l'intero blocco sparisce. Nel riquadro della mappa resta solo la crescita vanilla. Un `datacontext` sul riquadro della mappa rompe la GUI.
+`G` è la crescita naturale annua del motore, la stessa dell'UI: `$NETGROWTHRATE|5$` dentro la chiave vanilla `TOOLTIP_COUNTRY_POP_GROWTH`, sovrascritta in `localization/english/replace/`. Senza `|5` la macro arriva arrotondata a 2 decimali (0,0063 → 0,00). Esclude migrazione e caduti in guerra. Dentro `GetPopGrowthDesc` il motore passa solo le macro e il contesto dati del chiamante: nel riquadro della mappa non c'è né `Country` né `State`, nel pannello del JE c'è solo `JournalEntry`. Per questo i valori leggono il paese da `JournalEntry.GetCountry` e le etichette sono condizionate con `AddLocalizationIf(JournalEntry.IsValid, ...)`: fuori dal JE (barra in alto, mappa) il blocco resta nascosto. Il motore espone natalità e mortalità reali solo per lo stato (`State.GetPopBirthrate`/`GetPopMortality`). Un `datacontext` sul riquadro della mappa rompe la GUI.
 
 ```text
 B̂ = B0(SoL) * (1 + state_birth_rate_mult)      # include demographic_stage_x
@@ -236,16 +244,16 @@ TFR = B/1000 * 35 / f(stadio)
 
 | Stadio | f | TFR/CBR | Riferimenti reali |
 |---|---:|---:|---|
-| 0–1 | 24% | ~146 | Svezia 1800 (CBR 29, TFR 4,1), Niger 2023 (41,9 / 6,06) |
-| 2 | 26% | ~135 | Nigeria, Etiopia, Pakistan |
-| 3 | 27% | ~130 | Egitto, Pakistan 2023 |
-| 4 | 28% | ~125 | India 2010, Messico |
-| 5 | 29% | ~121 | India 2023, Bangladesh, Brasile 2015 |
-| 6 | 26% | ~135 | Cina 2010, USA 2008 |
-| 7 | 22% | ~159 | Francia, Germania |
-| 8 | 18,5% | ~189 | Italia 2023 (6,4 / 1,20), Giappone |
+| 1–2 | 24% | ~146 | Svezia 1800 (CBR 29, TFR 4,1), Niger 2023 (41,9 / 6,06) |
+| 3 | 26% | ~135 | Nigeria, Etiopia, Pakistan |
+| 4 | 27% | ~130 | Egitto, Pakistan 2023 |
+| 5 | 28% | ~125 | India 2010, Messico |
+| 6 | 29% | ~121 | India 2023, Bangladesh, Brasile 2015 |
+| 7 | 26% | ~135 | Cina 2010, USA 2008 |
+| 8 | 22% | ~159 | Francia, Germania |
+| 9 | 18,5% | ~189 | Italia 2023 (6,4 / 1,20), Giappone |
 
-Con SoL ≥ 18 e senza altri modificatori: stadio 4 → B̂ 21,1, TFR 2,6; stadio 6 → 13,4 e 1,8; stadio 7 → 9,6 e 1,5; stadio 8 → 6,7 e 1,3.
+Con SoL ≥ 18 e senza altri modificatori: stadio 5 → B̂ 21,1, TFR 2,6; stadio 7 → 13,4 e 1,8; stadio 8 → 9,6 e 1,5; stadio 9 → 6,7 e 1,3.
 
 Limiti: `G` passa per un `CFixedPoint` a 5 decimali, quindi l'arrotondamento è trascurabile. Nelle altre lingue l'override compare solo dopo la sincronizzazione con `--include-replace`.
 

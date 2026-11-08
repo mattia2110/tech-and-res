@@ -234,6 +234,15 @@ REPLACE:mobilization_option_first_aid = {
 	}
 	ai_weight = {
 		value = 1
+		# KAI: Field Hospitals excludes this option, turn it off in peacetime
+		if = {
+			limit = {
+				has_technology_researched = modern_nursing
+				is_diplomatic_play_committed_participant = no
+				is_at_war = no
+			}
+			multiply = 0
+		}
 	}
 	group = medic_support
 }
@@ -300,6 +309,20 @@ REPLACE:mobilization_option_field_hospitals = {
 	}
 	ai_weight = {
 		value = 1
+		# Penicillin Medical Support excludes this option, turn it off in peacetime
+		if = {
+			limit = {
+				has_technology_researched = penicillin
+				market ?= {
+					mg:pharmaceuticals ?= {
+						has_potential_supply = yes
+					}
+				}
+				is_diplomatic_play_committed_participant = no
+				is_at_war = no
+			}
+			multiply = 0
+		}
 	}
 	group = medic_support
 }

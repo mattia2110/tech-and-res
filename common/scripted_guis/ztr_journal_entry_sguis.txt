@@ -83,6 +83,43 @@ ztr_gw_polluters_sgui = {
 	}
 }
 
+# Climate disasters in je_global_warming (list from ztr_global_warming_survey_climate_disasters).
+# Independent checks: a state can host more than one extreme condition.
+ztr_gw_climate_disasters_sgui = {
+	scope = country
+
+	effect = {
+		if = {
+			limit = {
+				has_global_variable_list = ztr_gw_climate_disaster_states_list
+			}
+			every_in_global_list = {
+				variable = ztr_gw_climate_disaster_states_list
+				if = {
+					limit = { state_region = { has_harvest_condition = ztr_extreme_heatwave } }
+					custom_tooltip_no_bullet = "ZTR_GW_DISASTER_ENTRY_EXTREME_HEATWAVE"
+				}
+				if = {
+					limit = { state_region = { has_harvest_condition = ztr_megadrought } }
+					custom_tooltip_no_bullet = "ZTR_GW_DISASTER_ENTRY_MEGADROUGHT"
+				}
+				if = {
+					limit = { state_region = { has_harvest_condition = ztr_hurricane } }
+					custom_tooltip_no_bullet = "ZTR_GW_DISASTER_ENTRY_HURRICANE"
+				}
+				if = {
+					limit = { state_region = { has_harvest_condition = ztr_extreme_wildfire } }
+					custom_tooltip_no_bullet = "ZTR_GW_DISASTER_ENTRY_EXTREME_WILDFIRE"
+				}
+				if = {
+					limit = { state_region = { has_harvest_condition = ztr_coastal_flooding } }
+					custom_tooltip_no_bullet = "ZTR_GW_DISASTER_ENTRY_COASTAL_FLOODING"
+				}
+			}
+		}
+	}
+}
+
 # Nuclear strike power ranking in je_nuclear_weapons_info_panel (list from ztr_nuclear_build_rankings)
 ztr_nuclear_power_ranking_sgui = {
 	scope = country

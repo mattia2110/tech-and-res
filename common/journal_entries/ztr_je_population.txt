@@ -13,17 +13,71 @@
 	possible = {
 	}
 	scripted_progress_bar = ztr_demography_progress_bar
-	# Modifier of the applied stage: 1 on the current stage, 0 on the others
+	# Global medicine era by year: 1836, 1880, 1905, 1930, 1950
 	scaling_modifiers_while_active = {
-		modifier = demographic_stage_0
+		modifier = modern_medicine_0
 		value = {
 			value = 0
 			if = {
-				limit = { ztr_demography_has_stage = { STAGE = 0 } }
+				limit = {
+					year < 1880
+				}
 				value = 1
 			}
 		}
 	}
+	scaling_modifiers_while_active = {
+		modifier = modern_medicine_1
+		value = {
+			value = 0
+			if = {
+				limit = {
+					year >= 1880
+					year < 1905
+				}
+				value = 1
+			}
+		}
+	}
+	scaling_modifiers_while_active = {
+		modifier = modern_medicine_2
+		value = {
+			value = 0
+			if = {
+				limit = {
+					year >= 1905
+					year < 1930
+				}
+				value = 1
+			}
+		}
+	}
+	scaling_modifiers_while_active = {
+		modifier = modern_medicine_3
+		value = {
+			value = 0
+			if = {
+				limit = {
+					year >= 1930
+					year < 1950
+				}
+				value = 1
+			}
+		}
+	}
+	scaling_modifiers_while_active = {
+		modifier = modern_medicine_4
+		value = {
+			value = 0
+			if = {
+				limit = {
+					year >= 1950
+				}
+				value = 1
+			}
+		}
+	}
+	# Modifier of the applied stage: 1 on the current stage, 0 on the others
 	scaling_modifiers_while_active = {
 		modifier = demographic_stage_1
 		value = {
@@ -104,27 +158,24 @@
 			}
 		}
 	}
-	status_desc = {
-		first_valid = {
-			triggered_desc = {
-				trigger = { NOT = { has_variable = ztr_demography_growth_var } }
-				desc = je_demography_collecting_history
-			}
-			triggered_desc = {
-				trigger = { always = yes }
-				desc = je_demography_status
+	scaling_modifiers_while_active = {
+		modifier = demographic_stage_9
+		value = {
+			value = 0
+			if = {
+				limit = { ztr_demography_has_stage = { STAGE = 9 } }
+				value = 1
 			}
 		}
 	}
-	# Map: demographic stage of the owner, light (0) to very dark green (8)
+	status_desc = {
+		first_valid = {
+			desc = je_demography_status
+		}
+	}
+	# Map: demographic stage of the owner, light (1) to very dark green (9)
 	map_color = {
 		if = {
-			limit = {
-				owner ?= { ztr_demography_has_stage = { STAGE = 0 } }
-			}
-			value = "ztr_demography_stage_0"
-		}
-		else_if = {
 			limit = {
 				owner ?= { ztr_demography_has_stage = { STAGE = 1 } }
 			}
@@ -171,6 +222,12 @@
 				owner ?= { ztr_demography_has_stage = { STAGE = 8 } }
 			}
 			value = "ztr_demography_stage_8"
+		}
+		else_if = {
+			limit = {
+				owner ?= { ztr_demography_has_stage = { STAGE = 9 } }
+			}
+			value = "ztr_demography_stage_9"
 		}
 	}
 	map_tooltip = {

@@ -4,12 +4,6 @@ ztr_demography_stage_flavour = {
 	type = country
 	text = {
 		trigger = {
-			ztr_demography_has_stage = { STAGE = 0 }
-		}
-		localization_key = ztr_demography_stage_flavour_0
-	}
-	text = {
-		trigger = {
 			ztr_demography_has_stage = { STAGE = 1 }
 		}
 		localization_key = ztr_demography_stage_flavour_1
@@ -57,6 +51,44 @@ ztr_demography_stage_flavour = {
 		localization_key = ztr_demography_stage_flavour_8
 	}
 	text = {
+		trigger = {
+			ztr_demography_has_stage = { STAGE = 9 }
+		}
+		localization_key = ztr_demography_stage_flavour_9
+	}
+	text = {
 		localization_key = ztr_demography_stage_flavour_unknown
+	}
+}
+
+# Social Momentum needs five years of history before it has a value
+ztr_demography_social_momentum = {
+	type = country
+	text = {
+		trigger = { NOT = { has_variable = ztr_demography_growth_var } }
+		localization_key = ztr_demography_social_collecting_loc
+	}
+	text = {
+		localization_key = ztr_demography_social_value_loc
+	}
+}
+
+# je_demography: regional factor line, shown only where the country can be affected
+ztr_demography_region_factor = {
+	type = country
+	text = {
+		trigger = { is_in_geographic_region = geographic_region_north_america }
+		localization_key = ztr_demography_region_north_america_loc
+	}
+	text = {
+		trigger = { is_in_geographic_region = geographic_region_australasia }
+		localization_key = ztr_demography_region_oceania_loc
+	}
+	text = {
+		trigger = { is_in_geographic_region = geographic_region_latin_america }
+		localization_key = ztr_demography_region_latin_america_loc
+	}
+	text = {
+		localization_key = ztr_demography_region_none_loc
 	}
 }

@@ -37,21 +37,39 @@ ztr_demography_pick_starting_progress = {
 	}
 }
 
-# Preserve the former initial-stage rules, including European exceptions.
+# Starting score from the national SoL, with regional and European exceptions.
 ztr_demography_historical_start = {
+	# 1836 only: sub-Saharan Africa starts at 0, South and Southeast Asia at 50
+	if = {
+		limit = {
+			year < 1837
+			is_in_geographic_region = geographic_region_subsaharan_africa
+		}
+		set_variable = { name = ztr_demography_progress_var value = 0 }
+	}
+	else_if = {
+		limit = {
+			year < 1837
+			OR = {
+				is_in_geographic_region = geographic_region_india
+				is_in_geographic_region = geographic_region_south_east_asia
+			}
+		}
+		set_variable = { name = ztr_demography_progress_var value = 50 }
+	}
 	# The three early European transitions are placed explicitly, just under their
 	# drift ceiling at game start; see ztr_demography_formula.md.
-	if = {
+	else_if = {
 		limit = { c:FRA ?= this }
-		set_variable = { name = ztr_demography_progress_var value = 200 }
+		set_variable = { name = ztr_demography_progress_var value = 300 }
 	}
 	else_if = {
 		limit = { c:GBR ?= this }
-		set_variable = { name = ztr_demography_progress_var value = 150 }
+		set_variable = { name = ztr_demography_progress_var value = 250 }
 	}
 	else_if = {
 		limit = { c:SPA ?= this }
-		set_variable = { name = ztr_demography_progress_var value = 125 }
+		set_variable = { name = ztr_demography_progress_var value = 225 }
 	}
 	else_if = {
 		limit = {
@@ -63,32 +81,32 @@ ztr_demography_historical_start = {
 			NOT = { is_in_geographic_region = geographic_region_europe }
 			NOT = { c:USA ?= this }
 		}
-		set_variable = { name = ztr_demography_progress_var value = 0 }
+		set_variable = { name = ztr_demography_progress_var value = 100 }
 	}
 	else_if = {
 		limit = {
 			average_sol < 13
 			year < 1920
 		}
-		set_variable = { name = ztr_demography_progress_var value = 100 }
-	}
-	else_if = {
-		limit = { average_sol < 16 }
 		set_variable = { name = ztr_demography_progress_var value = 200 }
 	}
 	else_if = {
-		limit = { average_sol < 19 }
+		limit = { average_sol < 16 }
 		set_variable = { name = ztr_demography_progress_var value = 300 }
 	}
 	else_if = {
-		limit = { average_sol < 22 }
+		limit = { average_sol < 19 }
 		set_variable = { name = ztr_demography_progress_var value = 400 }
 	}
 	else_if = {
-		limit = { average_sol < 25 }
+		limit = { average_sol < 22 }
 		set_variable = { name = ztr_demography_progress_var value = 500 }
 	}
-	else = { set_variable = { name = ztr_demography_progress_var value = 600 } }
+	else_if = {
+		limit = { average_sol < 25 }
+		set_variable = { name = ztr_demography_progress_var value = 600 }
+	}
+	else = { set_variable = { name = ztr_demography_progress_var value = 700 } }
 }
 
 # Newly separated economies need their own baseline, not their parent's GDP.
@@ -114,10 +132,18 @@ ztr_demography_reset_history = {
 	ztr_demography_refresh_breakdown = yes
 }
 
-# Only the aggregates are displayed; the per-component values stay in the script values.
+# Snapshot of the yearly contributions; the JE breakdown reads these, not the live values.
 ztr_demography_refresh_breakdown = {
 	set_variable = { name = ztr_demography_formula_change_var value = ztr_demography_formula_change }
 	set_variable = { name = ztr_demography_extra_change_var value = ztr_demography_extra_change }
+	set_variable = { name = ztr_demography_drift_change_var value = ztr_demography_drift_change }
+	set_variable = { name = ztr_demography_economy_change_var value = ztr_demography_economy_change }
+	set_variable = { name = ztr_demography_healthcare_change_var value = ztr_demography_healthcare_change }
+	set_variable = { name = ztr_demography_traditional_change_var value = ztr_demography_traditional_change }
+	set_variable = { name = ztr_demography_slavery_change_var value = ztr_demography_slavery_change }
+	set_variable = { name = ztr_demography_region_change_var value = ztr_demography_region_change }
+	remove_variable = ztr_demography_north_america_change_var
+	set_variable = { name = ztr_demography_immigration_change_var value = ztr_demography_immigration_change }
 }
 
 # Rolls the five-year window by one. The caller then writes the current year into
@@ -187,7 +213,7 @@ ztr_demography_yearly_update = {
 				value = var:ztr_demography_progress_var
 				add = ztr_demography_recorded_yearly_change
 				min = 0
-				max = 900
+				max = 1000
 			}
 		}
 		# The notification reads the stage, so it follows the new modifier.
@@ -282,12 +308,7 @@ ztr_demography_copy_parent_history = {
 }
 
 # Callers that recreate a nation impose its stage, overriding any earlier initialization.
-ztr_demography_start_0 = {
-	set_variable = { name = ztr_demography_progress_var value = 0 }
-	ztr_demography_forced_start = yes
-}
-
-ztr_demography_start_1 = {
+ztr_demography_start_100 = {
 	set_variable = { name = ztr_demography_progress_var value = 100 }
 	ztr_demography_forced_start = yes
 }

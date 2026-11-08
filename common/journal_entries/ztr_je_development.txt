@@ -163,8 +163,21 @@ je_development = {
 			value = "ztr_development_level_8"
 		}
 	}
+	# Stage with its GDP per capita range; open-ended at the lowest and highest stage
 	map_tooltip = {
 		if = {
+			limit = {
+				owner ?= { ztr_development_has_level = { LEVEL = 0 } }
+			}
+			custom_tooltip_no_bullet = "ztr_development_map_tt_lowest"
+		}
+		else_if = {
+			limit = {
+				owner ?= { ztr_development_has_level = { LEVEL = 8 } }
+			}
+			custom_tooltip_no_bullet = "ztr_development_map_tt_highest"
+		}
+		else_if = {
 			limit = {
 				owner ?= { has_variable = ztr_development_level_var }
 			}

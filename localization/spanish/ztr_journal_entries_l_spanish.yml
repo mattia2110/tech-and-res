@@ -1769,15 +1769,12 @@ je_global_warming: "Global Warming"
 
 
 
-je_global_warming_status: "Global warming remains an emerging danger, with annual pollution still low enough for the temperature rise to appear gradual."
 
 
 
-je_global_warming_status_warming: "The global climate has warmed enough for the danger to become clear. Industrial pollution is now visibly shaping the future."
 
 
 
-je_global_warming_status_severe: "Global warming has reached a severe stage. The world's largest polluters are driving a planetary crisis."
 
 
 
@@ -1785,7 +1782,6 @@ ztr_global_warming_temperature_progress_bar: "Global Average Temp"
 
 
 
-ztr_global_warming_temperature_progress_bar_desc: "Global Average Temp: #negative_value +[GetGlobalVariable('ztr_global_warming_temperature_anomaly').GetValue|2] C#! above #v Pre-Industrial Age#!."
 
 
 
@@ -1809,15 +1805,12 @@ ztr_global_warming_player_pollution_change_zero_loc: "#positive_value 0.0%#!"
 
 
 
-ztr_global_warming_yearly_temperature_change_red_loc: "#negative_value +[GetGlobalVariable('ztr_global_warming_yearly_temperature_change_var').GetValue|4] C#!"
 
 
 
-ztr_global_warming_yearly_temperature_change_green_loc: "#positive_value [GetGlobalVariable('ztr_global_warming_yearly_temperature_change_var').GetValue|4] C#!"
 
 
 
-ztr_global_warming_yearly_temperature_change_zero_loc: "#positive_value +0.0000 C#!"
 
 
 
@@ -1896,19 +1889,6 @@ ztr_global_warming_yearly_temperature_change_zero_loc: "#positive_value +0.0000 
 
 
 
- ztr_global_warming_stage_0_loc: "#positive_value Historical Range#! - the anomaly remains at or below 0.5 C."
-
-
-
- ztr_global_warming_stage_1_loc: "#v Detection#! - above 0.5 C, industrial pollution is measurably warming the planet."
-
-
-
- ztr_global_warming_stage_2_loc: "#negative_value The Thaw#! - above 1.0 C, glaciers retreat and extreme heatwaves spread."
-
-
-
- ztr_global_warming_stage_3_loc: "#negative_value Rising Seas#! - above 1.5 C, sea-level rise and extreme disasters reshape the coasts."
 
 
 
@@ -1916,11 +1896,18 @@ ztr_global_warming_yearly_temperature_change_zero_loc: "#positive_value +0.0000 
 
 
 
-je_global_warming_status_established: "Global warming is no longer an emerging trend. Retreating ice and recurring heatwaves show that the planetary climate has entered a sustained transformation."
 
 
 
-je_global_warming_status_critical: "The two-degree threshold has been crossed. Self-reinforcing changes are creating a new climate from which the old world cannot simply recover."
+
+
+
+
+
+
+
+
+
 
 
 
@@ -2143,15 +2130,12 @@ ztr_abandon_fusion_reactor_program_button_desc: "Abandon the fusion research pro
 
 
 
- ztr_global_warming_stage_4_loc: "#negative_value Critical Warming#! - above 2.0 C, prolonged coastal flooding adds to the climate crisis." # UPDATED
 
 
 
- ztr_global_warming_climate_disasters_none_loc: "None." # UPDATED
 
 
 
- ztr_global_warming_climate_disasters_active_loc: "#negative_value [GetGlobalVariable('ztr_global_warming_climate_disaster_states_var').GetValue|0]#! [concept_state|E] affected at the last annual survey; shared regions count once per owner." # UPDATED
 
 
 
@@ -2535,7 +2519,6 @@ ztr_tooltip_can_become_communist_chi_via_je_req: "[ROOT.GetCountry.GetName] must
  ztr_nuclear_map_civil_tt: "#b [THIS.GetState.GetOwner.GetName]#! has #v civil#! nuclear power only"
  ztr_nuclear_map_none_tt: "#b [THIS.GetState.GetOwner.GetName]#! #negative_value has no#! nuclear technology"
  ztr_pole_map_none_tt: "#b [THIS.GetState.GetOwner.GetName]#! has no [Concept('concept_political_pole','Ideological Pole')] yet"
- ztr_demography_map_tt: "#b [THIS.GetState.GetOwner.GetName]#! is in [Concept('concept_demographic_stages','$concept_demographic_stages$')] #v [THIS.GetState.GetOwner.MakeScope.ScriptValue('ztr_demography_applied_stage')|0]#! of 8: [THIS.GetState.GetOwner.GetCustom('ztr_demography_stage_flavour')].\n[THIS.GetState.GetOwner.GetPopGrowthDesc]"
  ztr_innovation_map_tt: "#b [THIS.GetState.GetOwner.GetName]#!: #v [THIS.GetState.GetOwner.GetWeeklyInnovation|1]#! weekly [concept_innovation]\nWorld leader: [GetGlobalVariable('ztr_mm_innovation_leader_var').GetCountry.GetName] (#v [GetGlobalVariable('ztr_mm_innovation_leader_value_var').GetValue|0]#!, updated yearly)"
  je_group_atomic_age: "The Atomic Age"
  je_group_research_center: "Research Center"
@@ -2545,7 +2528,6 @@ ztr_tooltip_can_become_communist_chi_via_je_req: "[ROOT.GetCountry.GetName] must
  ZTRPOL_GP_POLES_ENTRY: " #b [THIS.GetCountry.GetName]#!: [THIS.GetCountry.GetCustom('ztrpol_current_pole_name')]"
  ZTRPOL_GP_POLES_HEADER: "[Concept('concept_political_pole','Ideological Poles')] of the [Concept('concept_great_power','$concept_great_powers$')]:" # UPDATED
  je_un_info_panel_reason: "The [Concept('concept_united_nations','$concept_united_nations$')] brings the nations of the world together to preserve peace and agree on common rules.\n\nJoining grants the advantages of [Concept('concept_un_membership','$concept_un_membership$')], but it also carries costs and requires some national laws to change. The organization evolves through [Concept('concept_un_voting','$concept_un_voting$')]: members back or oppose each reform with votes weighted by their standing, while the Permanent Members of the Security Council may wield a veto. Through [Concept('concept_un_human_rights','$concept_un_human_rights$')], the assembly can bind every member state to common laws on decolonization, slavery, the rights of women and children, the environment and labor rights.\n\nOnly Permanent Members can put reforms forward, using the buttons above. Hover the name of each rule or institution to see its options and effects.\n\n#v CURRENT SECURITY COUNCIL PERMANENT MEMBERS#!:\n[GetScriptedGui('ztr_un_permanent_members_sgui').ExecuteTooltip(GuiScope.SetRoot(SCOPE.GetRootScope.GetCountry.MakeScope).End)]\n\n#v CURRENT UN GOVERNANCE#!:\n@un_voting_model! [Concept('concept_un_voting_model','$concept_un_voting_model$')]:  [SCOPE.GetRootScope.GetCountry.GetCustom('ztr_un_law_voting_model_name')]\n@un_veto_right! [Concept('concept_un_veto_right','$concept_un_veto_right$')]: [SCOPE.GetRootScope.GetCountry.GetCustom('ztr_un_law_veto_right_name')]\n@un_member_selection! [Concept('concept_un_member_selection','$concept_un_member_selection$')]: [SCOPE.GetRootScope.GetCountry.GetCustom('ztr_un_law_member_selection_name')]\n\n#v CURRENT HUMAN RIGHTS STATEMENTS#!:\n@un_decolonization! [Concept('concept_un_decolonization','$concept_un_decolonization$')]: [SCOPE.GetRootScope.GetCountry.GetCustom('ztr_un_law_human_rights_decolonization_name')]\n@un_slavery! [Concept('concept_un_slavery','$concept_un_slavery$')]: [SCOPE.GetRootScope.GetCountry.GetCustom('ztr_un_law_human_rights_slavery_name')]\n@un_children_rights! [concept_un_children_rights]: [SCOPE.GetRootScope.GetCountry.GetCustom('ztr_un_law_human_rights_children_name')]\n@un_women_rights! [concept_un_women_rights]: [SCOPE.GetRootScope.GetCountry.GetCustom('ztr_un_law_human_rights_women_name')]\n@un_environment! [concept_un_environment]: [SCOPE.GetRootScope.GetCountry.GetCustom('ztr_un_law_human_rights_environment_name')]\n@un_labor_rights! [concept_un_labor_rights]: [SCOPE.GetRootScope.GetCountry.GetCustom('ztr_un_law_human_rights_labor_name')]\n\n#v CURRENT UN INSTITUTIONS#!:\n@un_imf! [Concept('concept_un_subject_imf','$concept_un_subject_imf$')]: [SCOPE.GetRootScope.GetCountry.GetCustom('ztr_un_law_institution_imf_name')]\n@un_wto! [Concept('concept_un_subject_wto','$concept_un_subject_wto$')]: [SCOPE.GetRootScope.GetCountry.GetCustom('ztr_un_law_institution_wto_name')]\n@un_icc! [Concept('concept_un_subject_icc','$concept_un_subject_icc$')]: [SCOPE.GetRootScope.GetCountry.GetCustom('ztr_un_law_institution_icc_name')]\n@un_unesco! [Concept('concept_un_subject_unesco','$concept_un_subject_unesco$')]: [SCOPE.GetRootScope.GetCountry.GetCustom('ztr_un_law_institution_unesco_name')]" # UPDATED
- je_global_warming_reason: "Industrial smoke, coal furnaces, oil engines, and chemical works are beginning to alter the balance of the atmosphere. The warming is still slow and gradual, but the world economy is becoming tied to sources of pollution whose effects will compound year after year.\n\n#bold Global Climate#!\nGlobal Average Temp: #negative_value +[GetGlobalVariable('ztr_global_warming_temperature_anomaly').GetValue|2] C#! above #v Pre-Industrial Age#!.\nAnnual Temperature Change: [JournalEntry.GetCustom('ztr_global_warming_yearly_temperature_change_type')]\nGlobal Pollution: @pollution_icon!#v [GetGlobalVariable('ztr_global_warming_total_pollution_var').GetValue|0]#! ([JournalEntry.GetCustom('ztr_global_warming_total_pollution_change_type')] from last year)\n[GetPlayer.GetName] Pollution: @pollution_icon!#v [GetPlayer.MakeScope.Var('ztr_country_total_pollution_current_var').GetValue|0]#! ([GetPlayer.GetCustom('ztr_global_warming_player_pollution_change_type')] from last year)\n\n#bold Climate Stage#!\nCurrent Stage: [JournalEntry.GetCustom('ztr_global_warming_stage_type')]\nProjected Equilibrium: #negative_value [GetGlobalVariable('ztr_global_warming_equilibrium_temperature_var').GetValue|2] C#! if pollution stays at its current level.\nClimate Disasters at Last Annual Survey: [JournalEntry.GetCustom('ztr_global_warming_climate_disasters_type')]\n\nCountry pollution is measured from the generated pollution value of each [concept_country], after applying the effects of environmental laws, institutions, and technologies, then compared with the previous annual update.\n\n#bold Annual Pollution Update#!\n#v Rank - Country - Pollution - Yearly Change#!\n[GetScriptedGui('ztr_gw_polluters_sgui').ExecuteTooltip(GuiScope.SetRoot(GetPlayer.MakeScope).End)]" # UPDATED
 ztr_un_vote_support_progress_bar: "#v Major Powers#!:\n[GetScriptedGui('ztr_un_vote_support_major_powers_sgui').ExecuteTooltip(GuiScope.SetRoot(SCOPE.GetRootScope.GetCountry.MakeScope).End)]#p Support#!" # UPDATED
 ztr_un_vote_neutral_progress_bar: "#v Major Powers#!:\n[GetScriptedGui('ztr_un_vote_neutral_major_powers_sgui').ExecuteTooltip(GuiScope.SetRoot(SCOPE.GetRootScope.GetCountry.MakeScope).End)]#v Neutral#!" # UPDATED
 ztr_un_vote_against_progress_bar: "#v Major Powers#!:\n[GetScriptedGui('ztr_un_vote_against_major_powers_sgui').ExecuteTooltip(GuiScope.SetRoot(SCOPE.GetRootScope.GetCountry.MakeScope).End)]#n Against#!" # UPDATED
@@ -2604,7 +2586,6 @@ ztr_un_vote_against_progress_bar: "#v Major Powers#!:\n[GetScriptedGui('ztr_un_v
  ztr_development_level_name_8: "Ultra-Developed Country"
  je_liberty_index: "Ideology" # UPDATED
  je_group_global_warming: "Global Warming"
- ztr_development_map_tt: "#b [THIS.GetState.GetOwner.GetName]#!: [THIS.GetState.GetOwner.GetCustom('ztr_development_level_icon')] #v [THIS.GetState.GetOwner.GetCustom('ztr_development_level_name')]#!" # UPDATED
  ztr_development_level_icon_0: "@ztr_development_0!"
  ztr_development_level_icon_1: "@ztr_development_1!"
  ztr_development_level_icon_2: "@ztr_development_2!"
@@ -2616,3 +2597,27 @@ ztr_un_vote_against_progress_bar: "#v Major Powers#!:\n[GetScriptedGui('ztr_un_v
  ztr_development_level_icon_8: "@ztr_development_8!"
  ztr_development_next_unlocks_3: "\n\nReaching #v Semi-Developed Country#! allows these laws to be enacted:\n• [GetLawType('law_regulated_adoption').GetName] (with [GetTechnology('human_rights').GetName])\n• [GetLawType('law_euthanasia').GetName] (with [GetTechnology('counterculture').GetName])\n• [GetLawType('law_abortion').GetName] (with [GetTechnology('neo_feminism').GetName])\n• [GetLawType('law_compulsory_secondary_school').GetName] (with [GetTechnology('socialdemocracy').GetName])\n• [GetLawType('law_public_universities').GetName] (with [GetTechnology('socialdemocracy').GetName])" # UPDATED
  ztr_development_next_unlocks_4: "\n\nReaching #v Partially Developed Country#! allows these laws to be enacted, and interest groups start taking sides on social and environmental issues:\n• [GetLawType('law_mining_restrict_hazardous').GetName] (with [GetTechnology('counterculture').GetName])\n• [GetLawType('law_mining_strategic').GetName] (with [GetTechnology('counterculture').GetName] and [GetTechnology('socialdemocracy').GetName])\n• [GetLawType('law_polluting_mining_banned').GetName] (with [GetTechnology('ambientalism').GetName])\n• [GetLawType('law_uranium_full_usage').GetName] (with [GetTechnology('counterculture').GetName] and [GetTechnology('atomic_bomb').GetName])\n• [GetLawType('law_uranium_ban').GetName] (with [GetTechnology('counterculture').GetName] and [GetTechnology('nuclear_reactor').GetName])\n• [GetLawType('law_basic_protection').GetName] (with [GetTechnology('counterculture').GetName])\n• [GetLawType('law_active_restoration').GetName] (with [GetTechnology('circular_economy').GetName])\n• [GetLawType('lgbtq_sex_equality').GetName] (with [GetTechnology('neo_feminism').GetName])\n• [GetLawType('lgbtq_civil_unions').GetName] (with [GetTechnology('transnational_activism').GetName])\n• [GetLawType('lgbtq_full_gender_equality').GetName] (with [GetTechnology('transnational_activism').GetName])\n• [GetLawType('law_data_privacy_basic').GetName] (with [GetTechnology('data_processing').GetName])\n• [GetLawType('law_data_biometric_ban').GetName] (with [GetTechnology('data_processing').GetName] and [GetTechnology('digital_governance').GetName])" # UPDATED
+ je_global_warming_status: "Global Average Temp: #v [GetGlobalVariable('ztr_global_warming_average_temperature_var').GetValue|2] °C#!" # UPDATED
+ ztr_global_warming_temperature_progress_bar_desc: "#negative_value +[GetGlobalVariable('ztr_global_warming_temperature_anomaly').GetValue|2] °C#! above #v Pre-Industrial Age#!" # UPDATED
+ ztr_global_warming_yearly_temperature_change_red_loc: "#negative_value +[GetGlobalVariable('ztr_global_warming_yearly_temperature_change_var').GetValue|4] °C#!" # UPDATED
+ ztr_global_warming_yearly_temperature_change_green_loc: "#positive_value [GetGlobalVariable('ztr_global_warming_yearly_temperature_change_var').GetValue|4] °C#!" # UPDATED
+ ztr_global_warming_yearly_temperature_change_zero_loc: "#positive_value +0.0000 °C#!" # UPDATED
+ ztr_global_warming_stage_0_loc: "#positive_value Historical Range#!" # UPDATED
+ ztr_global_warming_stage_1_loc: "#v Detection#!" # UPDATED
+ ztr_global_warming_stage_2_loc: "#negative_value The Thaw#!" # UPDATED
+ ztr_global_warming_stage_3_loc: "#negative_value Rising Seas#!" # UPDATED
+ ztr_global_warming_stage_4_loc: "#negative_value Critical Warming#!" # UPDATED
+ ztr_global_warming_climate_disasters_none_loc: "No [concept_state] was affected at the last annual survey." # UPDATED
+ ztr_global_warming_climate_disasters_active_loc: "[Concept('concept_state','$concept_states$')] affected at the last annual survey: #negative_value [GetGlobalVariable('ztr_global_warming_climate_disaster_states_var').GetValue|0]#!" # UPDATED
+ ztr_global_warming_climate_disasters_many_loc: "[Concept('concept_state','$concept_states$')] affected at the last annual survey: #negative_value [GetGlobalVariable('ztr_global_warming_climate_disaster_states_var').GetValue|0]#!, the #v 10#! with the highest [Concept('concept_gdp','GDP')] are listed"
+ ZTR_GW_DISASTER_ENTRY_EXTREME_HEATWAVE: "[THIS.GetState.GetName] ([THIS.GetState.GetOwner.GetName]) - [GetHarvestConditionType('ztr_extreme_heatwave').GetName]"
+ ZTR_GW_DISASTER_ENTRY_MEGADROUGHT: "[THIS.GetState.GetName] ([THIS.GetState.GetOwner.GetName]) - [GetHarvestConditionType('ztr_megadrought').GetName]"
+ ZTR_GW_DISASTER_ENTRY_HURRICANE: "[THIS.GetState.GetName] ([THIS.GetState.GetOwner.GetName]) - [GetHarvestConditionType('ztr_hurricane').GetName]"
+ ZTR_GW_DISASTER_ENTRY_EXTREME_WILDFIRE: "[THIS.GetState.GetName] ([THIS.GetState.GetOwner.GetName]) - [GetHarvestConditionType('ztr_extreme_wildfire').GetName]"
+ ZTR_GW_DISASTER_ENTRY_COASTAL_FLOODING: "[THIS.GetState.GetName] ([THIS.GetState.GetOwner.GetName]) - [GetHarvestConditionType('ztr_coastal_flooding').GetName]"
+ je_global_warming_reason: "Factories, engines and power plants release gases that trap heat in the atmosphere. As [concept_effective_pollution] accumulates, average temperatures rise, droughts, heatwaves, wildfires and floods strike more often and more violently, and societies must change the way they live, work and produce to adapt.\n\n#bold Global Climate#!\nAnnual Temperature Change: [JournalEntry.GetCustom('ztr_global_warming_yearly_temperature_change_type')]\nProjected Equilibrium: #negative_value +[GetGlobalVariable('ztr_global_warming_equilibrium_temperature_var').GetValue|2] °C#!\nGlobal Pollution: @pollution_icon!#v [GetGlobalVariable('ztr_global_warming_total_pollution_var').GetValue|0]#! ([JournalEntry.GetCustom('ztr_global_warming_total_pollution_change_type')] from last year)\n[GetPlayer.GetName] Pollution: @pollution_icon!#v [GetPlayer.MakeScope.Var('ztr_country_total_pollution_current_var').GetValue|0]#! ([GetPlayer.GetCustom('ztr_global_warming_player_pollution_change_type')] from last year)\n\n#bold [concept_climate_stage]#!\nCurrent Stage: [JournalEntry.GetCustom('ztr_global_warming_stage_type')]\n\n#bold [Concept('concept_harvest_condition','Climate Disasters')]#!\n[JournalEntry.GetCustom('ztr_global_warming_climate_disasters_type')]\n[GetScriptedGui('ztr_gw_climate_disasters_sgui').ExecuteTooltip(GuiScope.SetRoot(GetPlayer.MakeScope).End)]\n#bold Annual [concept_effective_pollution]#!\n#v Rank - Country - Effective Pollution - Yearly Change#!\n[GetScriptedGui('ztr_gw_polluters_sgui').ExecuteTooltip(GuiScope.SetRoot(GetPlayer.MakeScope).End)]" # UPDATED
+ ztr_development_map_tt: "#b [THIS.GetState.GetOwner.GetName]#!: [THIS.GetState.GetOwner.GetCustom('ztr_development_level_icon')] #v [THIS.GetState.GetOwner.GetCustom('ztr_development_level_name')]#! ([THIS.GetState.GetOwner.MakeScope.ScriptValue('ztr_development_demotion_threshold')|1]-[THIS.GetState.GetOwner.MakeScope.ScriptValue('ztr_development_promotion_threshold')|1])" # UPDATED
+ ztr_development_map_tt_lowest: "#b [THIS.GetState.GetOwner.GetName]#!: [THIS.GetState.GetOwner.GetCustom('ztr_development_level_icon')] #v [THIS.GetState.GetOwner.GetCustom('ztr_development_level_name')]#! (< [THIS.GetState.GetOwner.MakeScope.ScriptValue('ztr_development_promotion_threshold')|1])"
+ ztr_development_map_tt_highest: "#b [THIS.GetState.GetOwner.GetName]#!: [THIS.GetState.GetOwner.GetCustom('ztr_development_level_icon')] #v [THIS.GetState.GetOwner.GetCustom('ztr_development_level_name')]#! (> [THIS.GetState.GetOwner.MakeScope.ScriptValue('ztr_development_demotion_threshold')|1])"
+
+ ztr_demography_map_tt: "#b [THIS.GetState.GetOwner.GetName]#! is in [Concept('concept_demographic_stages','$concept_demographic_stages$')] #v [THIS.GetState.GetOwner.MakeScope.ScriptValue('ztr_demography_applied_stage')|0]#! of 9: [THIS.GetState.GetOwner.GetCustom('ztr_demography_stage_flavour')].\n[THIS.GetState.GetOwner.GetPopGrowthDesc]" # UPDATED

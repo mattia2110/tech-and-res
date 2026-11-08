@@ -100,10 +100,19 @@ ztr_global_warming_stage_type = {
 
 ztr_global_warming_climate_disasters_type = {
 	type = journal_entry
+	# Above 10 the list shown in the JE is truncated to the top 10 by GDP
+	text = {
+		trigger = {
+			has_global_variable = ztr_global_warming_climate_disaster_states_var
+			global_var:ztr_global_warming_climate_disaster_states_var > 10
+		}
+		localization_key = ztr_global_warming_climate_disasters_many_loc
+	}
 	text = {
 		trigger = {
 			has_global_variable = ztr_global_warming_climate_disaster_states_var
 			global_var:ztr_global_warming_climate_disaster_states_var > 0
+			global_var:ztr_global_warming_climate_disaster_states_var <= 10
 		}
 		localization_key = ztr_global_warming_climate_disasters_active_loc
 	}

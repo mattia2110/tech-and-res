@@ -47,10 +47,6 @@ ztr_global_warming_check_variables_initialization = {
 		name = ztr_global_warming_total_pollution_var
 		value = 0
 	}
-	set_global_variable = {
-		name = ztr_global_warming_climate_disaster_states_var
-		value = 0
-	}
 }
 
 # Yearly global warming tick: recount pollution, move the temperature anomaly,
@@ -91,19 +87,6 @@ ztr_global_warming_yearly_update = {
 				change_variable = {
 					name = ztr_country_total_pollution_current_var
 					add = prev.pollution_generation
-				}
-			}
-			# Climate disaster count, piggybacked on this loop. Counts states, not
-			# regions: a region split between owners counts once per owner.
-			if = {
-				limit = {
-					state_region = {
-						ztr_has_extreme_climate_harvest_condition = yes
-					}
-				}
-				change_global_variable = {
-					name = ztr_global_warming_climate_disaster_states_var
-					add = 1
 				}
 			}
 		}
@@ -299,6 +282,15 @@ ztr_global_warming_yearly_update = {
 		name = ztr_global_warming_yearly_temperature_change_var
 		subtract = global_var:ztr_global_warming_temperature_previous_var
 	}
+	# Absolute temperature shown in the JE status: 13.8 C pre-industrial baseline + anomaly
+	set_global_variable = {
+		name = ztr_global_warming_average_temperature_var
+		value = global_var:ztr_global_warming_temperature_anomaly
+	}
+	change_global_variable = {
+		name = ztr_global_warming_average_temperature_var
+		add = 13.8
+	}
 	# === Projected equilibrium: where the anomaly settles at constant pollution ===
 	# Growth cancels the 1% decay at pollution / (divisor / 100). Shown in the JE.
 	set_global_variable = {
@@ -320,6 +312,7 @@ ztr_global_warming_yearly_update = {
 	}
 	# === Top polluters leaderboard ===
 	ztr_global_warming_rank_polluters = yes
+	ztr_global_warming_survey_climate_disasters = yes
 
 	set_global_variable = ztr_global_warming_initialized
 	ztr_global_warming_announce_stage_transitions = yes
@@ -568,6 +561,41 @@ ztr_global_warming_apply_country_pollution_reductions = {
 		change_variable = {
 			name = ztr_country_total_pollution_current_var
 			multiply = 0.90
+		}
+	}
+}
+
+# Annual climate disaster survey: total affected states, and the 10 with the highest GDP
+# for je_global_warming's description (ztr_gw_climate_disasters_sgui)
+ztr_global_warming_survey_climate_disasters = {
+	set_global_variable = {
+		name = ztr_global_warming_climate_disaster_states_var
+		value = 0
+	}
+	every_state = {
+		limit = {
+			state_region = {
+				ztr_has_extreme_climate_harvest_condition = yes
+			}
+		}
+		change_global_variable = {
+			name = ztr_global_warming_climate_disaster_states_var
+			add = 1
+		}
+	}
+	clear_global_variable_list = ztr_gw_climate_disaster_states_list
+	ordered_state = {
+		limit = {
+			state_region = {
+				ztr_has_extreme_climate_harvest_condition = yes
+			}
+		}
+		order_by = gdp
+		max = 10
+		check_range_bounds = no
+		add_to_global_variable_list = {
+			name = ztr_gw_climate_disaster_states_list
+			target = this
 		}
 	}
 }

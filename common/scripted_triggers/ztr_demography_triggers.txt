@@ -14,12 +14,13 @@ ztr_demographic_slavery_legal = {
 	}
 }
 
+# Culture factor: Islamic state religion or a legally upheld caste system
 ztr_demographic_traditional_society = {
 	OR = {
 		country_has_state_religion = rel:sunni
 		country_has_state_religion = rel:shiite
-		c:DEI ?= this
-		c:BIC ?= this
+		has_law_or_variant = law_type:law_hindu_caste_enforced
+		has_law_or_variant = law_type:law_hindu_caste_codified
 	}
 }
 
