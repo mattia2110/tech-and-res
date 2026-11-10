@@ -1,0 +1,45 @@
+# Tech&Res industrial VFX entities (scaled -70% / x0.30), attached to ztr_city building locators (scripts/city_gen/ztr_citygen.py)
+
+# Refinery flare stack: burning gas flame with smoke plume
+entity = {
+	name = "ztr_entity_refinery_flare"
+
+	get_state_from_parent = no
+	default_state = "idle"
+	state = { name = "idle" state_time = 10 looping = yes
+		event = { time = 0 particle = "infrastructure/ztr_refinery_flare" trigger_once = yes keep_particle = yes }
+	}
+}
+
+# Cracking furnace burner vent: small open flame
+entity = {
+	name = "ztr_entity_refinery_burner"
+
+	get_state_from_parent = no
+	default_state = "idle"
+	state = { name = "idle" state_time = 10 looping = yes
+		event = { time = 0 particle = "infrastructure/ztr_refinery_burner" trigger_once = yes keep_particle = yes }
+	}
+}
+
+# Refinery flue stack: medium industrial smoke plume
+entity = {
+	name = "ztr_entity_refinery_smoke_medium"
+
+	get_state_from_parent = no
+	default_state = "idle"
+	state = { name = "idle" state_time = 10 looping = yes
+		event = { time = 0 particle = "infrastructure/ztr_refinery_smoke_medium" trigger_once = yes keep_particle = yes }
+	}
+}
+
+# Petrochemical hall roof vent: yellowish chemical smoke plume
+entity = {
+	name = "ztr_entity_refinery_smoke_chemical"
+
+	get_state_from_parent = no
+	default_state = "idle"
+	state = { name = "idle" state_time = 10 looping = yes
+		event = { time = 0 particle = "infrastructure/ztr_refinery_smoke_chemical" trigger_once = yes keep_particle = yes }
+	}
+}

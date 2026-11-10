@@ -27,15 +27,101 @@ ztr_un_unesco_start_education_reform = {
 
 ztr_un_refuse_compliance_request = {
 	change_infamy = 5
+	ztr_un_condemn_country = yes
+}
+
+# UN condemnation: 1st = ztr_un_condemned_modifier and suspension, 2nd = modifier x2 and expulsion
+# The count resets 10 years after the 1st condemnation (ztr_un_condemnation_window)
+ztr_un_condemn_country = {
+	ztr_un_condemnation_try_reset = yes
 	if = {
 		limit = {
-			has_modifier = ztr_un_condemned_modifier
+			NOT = {
+				has_variable = ztr_un_condemnation_count
+			}
 		}
+		custom_tooltip = ztr_un_condemn_first_tt
+		add_modifier = {
+			name = ztr_un_condemned_modifier
+		}
+		hidden_effect = {
+			set_variable = {
+				name = ztr_un_condemnation_count
+				value = 1
+			}
+			set_variable = {
+				name = ztr_un_condemnation_window
+				years = 10
+			}
+			ztr_un_remove_from_current_vote = yes
+			ztr_un_remove_elected_seat = yes
+		}
+	}
+	else = {
+		custom_tooltip = ztr_un_condemn_expel_tt
+		hidden_effect = {
+			remove_modifier = ztr_un_condemned_modifier
+		}
+		add_modifier = {
+			name = ztr_un_condemned_modifier
+			multiplier = 2
+		}
+		hidden_effect = {
+			set_variable = {
+				name = ztr_un_condemnation_count
+				value = 2
+			}
+			ztr_un_expel_member = yes
+		}
+	}
+}
+
+# Clears the count and the modifier once the 10-year window has expired
+ztr_un_condemnation_try_reset = {
+	if = {
+		limit = {
+			has_variable = ztr_un_condemnation_count
+			NOT = {
+				has_variable = ztr_un_condemnation_window
+			}
+		}
+		remove_variable = ztr_un_condemnation_count
 		remove_modifier = ztr_un_condemned_modifier
 	}
-	add_modifier = {
-		name = ztr_un_condemned_modifier
-		years = 6
+}
+
+# Drops the country from the vote in progress, if any
+ztr_un_remove_from_current_vote = {
+	if = {
+		limit = {
+			has_variable = ztr_un_vote_eligible
+		}
+		remove_variable = ztr_un_vote_eligible
+		remove_variable = ztr_un_vote_choice_support
+		remove_variable = ztr_un_vote_choice_neutral
+		remove_variable = ztr_un_vote_choice_against
+		remove_variable = ztr_un_vote_weight
+		remove_variable = ztr_un_vote_committed
+		remove_variable = ztr_un_vote_veto
+		remove_variable = ztr_un_vote_lean
+	}
+}
+
+# Expulsion: permanent and ordinary members alike; rejoining waits for the count to reset
+ztr_un_expel_member = {
+	ztr_un_remove_from_current_vote = yes
+	ztr_un_remove_elected_seat = yes
+	if = {
+		limit = {
+			has_modifier = ztr_onu_permanent_member
+		}
+		remove_modifier = ztr_onu_permanent_member
+	}
+	if = {
+		limit = {
+			has_modifier = ztr_onu_member
+		}
+		remove_modifier = ztr_onu_member
 	}
 }
 

@@ -38,9 +38,20 @@ lawgroup_bioethics = {
 	ideological_opinion_impact = 1.0
 
 	change_allowed_trigger = {
-		has_technology_researched = human_rights
-		# Only richest countries can think about progressism and environmentalism
-		ztr_dev_3_or_higher = yes
+		OR = {
+			AND = {
+				has_technology_researched = human_rights
+				# Only richest countries can think about progressism and environmentalism
+				ztr_dev_3_or_higher = yes
+			}
+			# Coercive pronatalism: reactionary regimes, from the interwar years
+			AND = {
+				has_technology_researched = mass_propaganda
+				ztrpol_is_reactionary_pole = yes
+			}
+			# Always repealable
+			has_law_or_variant = law_type:law_coercive_pronatalism
+		}
 	}
 }
 

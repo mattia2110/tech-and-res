@@ -5,7 +5,161 @@
 	}
 }
 
-# UN member with the $INSTITUTION$ institution established (wto, icc, unesco)
+# UN member under its first condemnation: no vote, no proposals
+ztr_un_is_suspended = {
+	ztr_is_un_member = yes
+	has_variable = ztr_un_condemnation_count
+	has_variable = ztr_un_condemnation_window
+}
+
+# No condemnation in its 10-year window: an expelled country may rejoin
+ztr_un_condemnation_expired = {
+	OR = {
+		NOT = {
+			has_variable = ztr_un_condemnation_count
+		}
+		NOT = {
+			has_variable = ztr_un_condemnation_window
+		}
+	}
+}
+
+# Elected (non-permanent) seat on the Security Council
+ztr_un_is_elected_member = {
+	ztr_is_un_member = yes
+	has_variable = ztr_un_elected_seat
+}
+
+# Eligible for the next Security Council election: ordinary member, at least minor power, not elected in the previous round
+ztr_un_can_be_elected = {
+	has_modifier = ztr_onu_member
+	country_rank >= rank_value:minor_power
+	NOT = {
+		ztr_un_is_suspended = yes
+	}
+	NOR = {
+		has_variable = ztr_un_elected_seat
+		has_variable = ztr_un_elected_previous
+	}
+}
+
+# Elected member that may submit a human rights statement now
+ztr_un_elected_can_propose = {
+	ztr_un_is_elected_member = yes
+	NOT = {
+		ztr_un_is_suspended = yes
+	}
+	NOT = {
+		has_variable = ztr_un_elected_proposal_cd
+	}
+	NOR = {
+		has_global_variable = ztr_un_elected_proposal_gap
+		has_global_variable = ztr_un_vote_in_progress
+		has_global_variable = ztr_un_cosign_pending
+	}
+}
+
+# Ordinary member that may run for a permanent seat under the current selection law
+ztr_un_can_run_for_permanent_seat = {
+	has_modifier = ztr_onu_member
+	hidden_trigger = {
+		NOT = {
+			ztr_un_is_suspended = yes
+		}
+	}
+	custom_tooltip = {
+		text = ztr_un_seat_candidacy_cd_tt
+		NOT = {
+			has_variable = ztr_un_seat_candidacy_cd
+		}
+	}
+	trigger_if = {
+		limit = {
+			OR = {
+				global_var:ztr_un_law_member_selection ?= 1
+				global_var:ztr_un_law_member_selection ?= 3
+			}
+		}
+		custom_tooltip = {
+			text = ztr_un_seat_candidacy_rank_tt
+			global_country_ranking <= 4
+		}
+	}
+	trigger_else_if = {
+		limit = {
+			global_var:ztr_un_law_member_selection ?= 4
+		}
+		custom_tooltip = {
+			text = ztr_un_seat_candidacy_superpower_tt
+			global_country_ranking <= 2
+			OR = {
+				any_country = {
+					has_modifier = ztr_onu_permanent_member
+					global_country_ranking > 2
+				}
+				NOT = {
+					any_country = {
+						count >= 2
+						has_modifier = ztr_onu_permanent_member
+					}
+				}
+			}
+		}
+	}
+	trigger_else = {
+		hidden_trigger = {
+			always = no
+		}
+	}
+}
+
+# Permanent member whose seat is at stake in the current candidacy vote: its "against" is not a veto
+ztr_un_is_vote_challenged = {
+	has_global_variable = ztr_un_vote_challenged
+	this = global_var:ztr_un_vote_challenged
+}
+
+# Vote commitment article: root = voter (source), scope:other_country = great power asking; $CHOICE$ = support or against
+ztr_un_vote_commitment_possible = {
+	custom_tooltip = {
+		text = ztr_un_vote_commitment_session_tt
+		has_global_variable = ztr_un_vote_in_progress
+		has_global_variable = ztr_un_vote_months_remaining
+		global_var:ztr_un_vote_months_remaining <= 4
+	}
+	custom_tooltip = {
+		text = ztr_un_vote_commitment_voter_tt
+		has_variable = ztr_un_vote_eligible
+		NOT = {
+			has_variable = ztr_un_vote_committed
+		}
+		country_rank <= rank_value:major_power
+	}
+	scope:other_country = {
+		custom_tooltip = {
+			text = ztr_un_vote_commitment_lobbyist_tt
+			ztr_is_un_member = yes
+			country_rank = rank_value:great_power
+		}
+	}
+	# AI great powers ask only for the vote they cast, and only undecided countries
+	trigger_if = {
+		limit = {
+			scope:other_country = {
+				is_ai = yes
+			}
+		}
+		NOR = {
+			has_variable = ztr_un_vote_choice_support
+			has_variable = ztr_un_vote_choice_against
+		}
+		scope:other_country = {
+			has_variable = ztr_un_vote_choice_$CHOICE$
+		}
+	}
+}
+
+# UN member with the $INSTITUTION$ institution established (wto, icc, unesco, iaea)
 ztr_is_un_institution_member = {
 	ztr_is_un_member = yes
 	has_global_variable = ztr_un_institution_$INSTITUTION$
@@ -51,6 +205,27 @@ ztr_un_can_propose_superpower_reform = {
 		OR = {
 			global_country_ranking <= 2
 			ztr_un_in_superpower_sphere = yes
+		}
+	}
+}
+
+# Permanent member that can cast a veto in the current vote: veto right in force, seat not at stake, no recharge
+ztr_un_can_veto = {
+	has_modifier = ztr_onu_permanent_member
+	hidden_trigger = {
+		has_variable = ztr_un_vote_eligible
+		NOT = {
+			ztr_un_is_vote_challenged = yes
+		}
+	}
+	custom_tooltip = {
+		text = ztr_un_veto_right_enabled_tt
+		global_var:ztr_un_law_veto_right ?= 1
+	}
+	custom_tooltip = {
+		text = ztr_un_veto_cd_tt
+		NOT = {
+			has_variable = ztr_un_veto_cd
 		}
 	}
 }

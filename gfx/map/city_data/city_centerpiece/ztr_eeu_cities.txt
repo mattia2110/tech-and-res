@@ -32,6 +32,37 @@ ztr_eeu_cp_european_city_centerpiece_01_skyscraper = {
 	}
 }
 
+ztr_eeu_cp_russian_city_centerpiece_01 = {
+	city_graphics_type = ztr_eeu_russian_city_early_modern_start
+	city_graphics_type = ztr_eeu_russian_city_early_modern
+	city_graphics_type = ztr_eeu_russian_city_early_modern_socialist
+	grid_size = { 2 2 }
+	attach = { variant = { entity = russian_city_centerpiece_01_entity } }
+}
+
+ztr_eeu_cp_russian_city_centerpiece_01_skyscraper = {
+	city_graphics_type = ztr_eeu_russian_city_early_modern_start
+	city_graphics_type = ztr_eeu_russian_city_early_modern
+	city_graphics_type = ztr_eeu_russian_city_early_modern_socialist
+	priority = 10
+	grid_size = { 2 2 }
+
+	trigger = {
+		any_scope_state = {
+			"b(building_skyscraper)" ?= {
+				OR = {
+					is_under_construction = yes
+					level > 0
+				}
+			}
+		}
+	}
+
+	attach = {
+		variant = { entity = russian_city_skyscraper_01_entity 	building_type = building_skyscraper }
+	}
+}
+
 ztr_eeu_cp_arabic_urban_city_townsquare_01 = {
 	city_graphics_type = ztr_eeu_caucasus_city_early_modern_start
 	city_graphics_type = ztr_eeu_caucasus_city_early_modern
@@ -96,9 +127,11 @@ ztr_eeu_cp_balkan_city_centerpiece_01_skyscraper = {
 
 ztr_eeu_cp_ztr_eeu_late_modern_downtown_01 = {
 	city_graphics_type = ztr_eeu_city_late_modern
+	city_graphics_type = ztr_eeu_russian_city_late_modern
 	city_graphics_type = ztr_eeu_caucasus_city_late_modern
 	city_graphics_type = ztr_eeu_balkan_city_late_modern
 	city_graphics_type = ztr_eeu_city_late_modern_socialist
+	city_graphics_type = ztr_eeu_russian_city_late_modern_socialist
 	city_graphics_type = ztr_eeu_caucasus_city_late_modern_socialist
 	city_graphics_type = ztr_eeu_balkan_city_late_modern_socialist
 	grid_size = { 2 2 }
@@ -107,9 +140,11 @@ ztr_eeu_cp_ztr_eeu_late_modern_downtown_01 = {
 
 ztr_eeu_cp_ztr_eeu_late_modern_downtown_01_skyscraper = {
 	city_graphics_type = ztr_eeu_city_late_modern
+	city_graphics_type = ztr_eeu_russian_city_late_modern
 	city_graphics_type = ztr_eeu_caucasus_city_late_modern
 	city_graphics_type = ztr_eeu_balkan_city_late_modern
 	city_graphics_type = ztr_eeu_city_late_modern_socialist
+	city_graphics_type = ztr_eeu_russian_city_late_modern_socialist
 	city_graphics_type = ztr_eeu_caucasus_city_late_modern_socialist
 	city_graphics_type = ztr_eeu_balkan_city_late_modern_socialist
 	priority = 10
@@ -133,9 +168,11 @@ ztr_eeu_cp_ztr_eeu_late_modern_downtown_01_skyscraper = {
 
 ztr_eeu_cp_ztr_eeu_postmodern_downtown_01 = {
 	city_graphics_type = ztr_eeu_city_postmodern
+	city_graphics_type = ztr_eeu_russian_city_postmodern
 	city_graphics_type = ztr_eeu_caucasus_city_postmodern
 	city_graphics_type = ztr_eeu_balkan_city_postmodern
 	city_graphics_type = ztr_eeu_city_postmodern_socialist
+	city_graphics_type = ztr_eeu_russian_city_postmodern_socialist
 	city_graphics_type = ztr_eeu_caucasus_city_postmodern_socialist
 	city_graphics_type = ztr_eeu_balkan_city_postmodern_socialist
 	grid_size = { 2 2 }
@@ -144,9 +181,11 @@ ztr_eeu_cp_ztr_eeu_postmodern_downtown_01 = {
 
 ztr_eeu_cp_ztr_eeu_postmodern_downtown_01_skyscraper = {
 	city_graphics_type = ztr_eeu_city_postmodern
+	city_graphics_type = ztr_eeu_russian_city_postmodern
 	city_graphics_type = ztr_eeu_caucasus_city_postmodern
 	city_graphics_type = ztr_eeu_balkan_city_postmodern
 	city_graphics_type = ztr_eeu_city_postmodern_socialist
+	city_graphics_type = ztr_eeu_russian_city_postmodern_socialist
 	city_graphics_type = ztr_eeu_caucasus_city_postmodern_socialist
 	city_graphics_type = ztr_eeu_balkan_city_postmodern_socialist
 	priority = 10
@@ -170,9 +209,11 @@ ztr_eeu_cp_ztr_eeu_postmodern_downtown_01_skyscraper = {
 
 ztr_eeu_cp_ztr_eeu_digital_downtown_01 = {
 	city_graphics_type = ztr_eeu_city_digital
+	city_graphics_type = ztr_eeu_russian_city_digital
 	city_graphics_type = ztr_eeu_caucasus_city_digital
 	city_graphics_type = ztr_eeu_balkan_city_digital
 	city_graphics_type = ztr_eeu_city_digital_socialist
+	city_graphics_type = ztr_eeu_russian_city_digital_socialist
 	city_graphics_type = ztr_eeu_caucasus_city_digital_socialist
 	city_graphics_type = ztr_eeu_balkan_city_digital_socialist
 	grid_size = { 2 2 }
@@ -181,9 +222,11 @@ ztr_eeu_cp_ztr_eeu_digital_downtown_01 = {
 
 ztr_eeu_cp_ztr_eeu_digital_downtown_01_skyscraper = {
 	city_graphics_type = ztr_eeu_city_digital
+	city_graphics_type = ztr_eeu_russian_city_digital
 	city_graphics_type = ztr_eeu_caucasus_city_digital
 	city_graphics_type = ztr_eeu_balkan_city_digital
 	city_graphics_type = ztr_eeu_city_digital_socialist
+	city_graphics_type = ztr_eeu_russian_city_digital_socialist
 	city_graphics_type = ztr_eeu_caucasus_city_digital_socialist
 	city_graphics_type = ztr_eeu_balkan_city_digital_socialist
 	priority = 10
@@ -207,6 +250,7 @@ ztr_eeu_cp_ztr_eeu_digital_downtown_01_skyscraper = {
 
 ztr_eeu_cp_ztr_generic_ai_downtown_01 = {
 	city_graphics_type = ztr_eeu_city_ai
+	city_graphics_type = ztr_eeu_russian_city_ai
 	city_graphics_type = ztr_eeu_caucasus_city_ai
 	city_graphics_type = ztr_eeu_balkan_city_ai
 	grid_size = { 2 2 }
@@ -215,6 +259,7 @@ ztr_eeu_cp_ztr_generic_ai_downtown_01 = {
 
 ztr_eeu_cp_ztr_generic_ai_downtown_01_skyscraper = {
 	city_graphics_type = ztr_eeu_city_ai
+	city_graphics_type = ztr_eeu_russian_city_ai
 	city_graphics_type = ztr_eeu_caucasus_city_ai
 	city_graphics_type = ztr_eeu_balkan_city_ai
 	priority = 10

@@ -690,9 +690,9 @@ ztr_calculate_global_decolonization_pressure = {
 		value = 0
 	}
 	# =============================================
-	# FACTOR 1: UN Decolonization Statement (0-20)
+	# FACTOR 1: UN Decolonization Statement (0-30)
 	# =============================================
-	# Conservative (1) = +8, Encouraged (2) = +20
+	# Conservative (1) = +15, Encouraged (2) = +30
 	if = {
 		limit = {
 			has_global_variable = ztr_un_hr_decolonization
@@ -714,9 +714,9 @@ ztr_calculate_global_decolonization_pressure = {
 		}
 	}
 	# =============================================
-	# FACTOR 2: UN Slavery Statement (0-8)
+	# FACTOR 2: UN Slavery Statement (0-10)
 	# =============================================
-	# Illegal (1) = +8
+	# Illegal (1) = +10
 	if = {
 		limit = {
 			has_global_variable = ztr_un_hr_slavery
@@ -728,7 +728,7 @@ ztr_calculate_global_decolonization_pressure = {
 		}
 	}
 	# =============================================
-	# FACTOR 3: UN ICC Established (0-3)
+	# FACTOR 3: UN ICC Established (0-5)
 	# =============================================
 	# ICC prosecution of colonial abuses raises international accountability
 	if = {
@@ -744,31 +744,21 @@ ztr_calculate_global_decolonization_pressure = {
 	# =============================================
 	# FACTOR 4: UN Women's Rights (0-2)
 	# =============================================
-	# Progressive rights norms erode colonial justifications
+	# Gender Equality (1) = +4: progressive rights norms erode colonial justifications
 	if = {
-		limit = {
-			has_global_variable = ztr_un_hr_women_rights
-			global_var:ztr_un_hr_women_rights >= 2
-		}
-		change_global_variable = {
-			name = ztr_global_decolonization_pressure_var
-			add = 5
-		}
-	}
-	else_if = {
 		limit = {
 			has_global_variable = ztr_un_hr_women_rights
 			global_var:ztr_un_hr_women_rights >= 1
 		}
 		change_global_variable = {
 			name = ztr_global_decolonization_pressure_var
-			add = 2
+			add = 4
 		}
 	}
 	# =============================================
-	# FACTOR 5: UN Children's Rights (0-2)
+	# FACTOR 5: UN Children's Rights (0-5)
 	# =============================================
-	# Child labor bans undermine exploitative colonial economics
+	# Restricted Child Labor (1) = +2, Compulsory Study (2) = +5: child labor bans undermine colonial economics
 	if = {
 		limit = {
 			has_global_variable = ztr_un_hr_children_rights

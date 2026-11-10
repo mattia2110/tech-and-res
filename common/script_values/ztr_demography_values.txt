@@ -279,12 +279,35 @@ ztr_demography_immigration_change = {
 	}
 }
 
+# Coercive pronatalism by displayed stage: -2 at 5, -3 at 6, -4 from 7
+ztr_demography_pronatalism_change = {
+	value = 0
+	if = {
+		limit = {
+			has_law_or_variant = law_type:law_coercive_pronatalism
+			ztr_demography_stage >= 5
+		}
+		if = {
+			limit = { ztr_demography_stage < 6 }
+			value = -2
+		}
+		else_if = {
+			limit = { ztr_demography_stage < 7 }
+			value = -3
+		}
+		else = {
+			value = -4
+		}
+	}
+}
+
 ztr_demography_extra_change = {
 	value = ztr_demography_healthcare_change
 	add = ztr_demography_traditional_change
 	add = ztr_demography_slavery_change
 	add = ztr_demography_region_change
 	add = ztr_demography_immigration_change
+	add = ztr_demography_pronatalism_change
 }
 
 # Reuse the two recorded contributions, even after progress has advanced; caps apply to their sum.
@@ -481,6 +504,14 @@ ztr_demography_shown_immigration = {
 	if = {
 		limit = { has_variable = ztr_demography_immigration_change_var }
 		value = var:ztr_demography_immigration_change_var
+	}
+}
+
+ztr_demography_shown_pronatalism = {
+	value = 0
+	if = {
+		limit = { has_variable = ztr_demography_pronatalism_change_var }
+		value = var:ztr_demography_pronatalism_change_var
 	}
 }
 

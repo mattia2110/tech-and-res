@@ -13,6 +13,12 @@ ztr_un_open_governance_menu = {
 			}
 		}
 		has_modifier = ztr_onu_permanent_member
+		custom_tooltip = {
+			text = ztr_un_not_suspended_tt
+			NOT = {
+				ztr_un_is_suspended = yes
+			}
+		}
 		hidden_trigger = {
 			is_player = yes
 			NOT = {
@@ -47,6 +53,12 @@ ztr_un_open_human_rights_menu = {
 			}
 		}
 		has_modifier = ztr_onu_permanent_member
+		custom_tooltip = {
+			text = ztr_un_not_suspended_tt
+			NOT = {
+				ztr_un_is_suspended = yes
+			}
+		}
 		hidden_trigger = {
 			is_player = yes
 			NOT = {
@@ -56,6 +68,7 @@ ztr_un_open_human_rights_menu = {
 	}
 	effect = {
 		set_global_variable = ztr_un_button_opened
+		remove_variable = ztr_un_elected_proposing
 		trigger_event = {
 			id = ztr_un_event.30
 			popup = yes
@@ -81,6 +94,12 @@ ztr_un_open_institutions_menu = {
 			}
 		}
 		has_modifier = ztr_onu_permanent_member
+		custom_tooltip = {
+			text = ztr_un_not_suspended_tt
+			NOT = {
+				ztr_un_is_suspended = yes
+			}
+		}
 		hidden_trigger = {
 			is_player = yes
 			NOT = {
@@ -100,6 +119,133 @@ ztr_un_open_institutions_menu = {
 	}
 }
 
+# Elected member: human rights statement, co-signed by a permanent member
+ztr_un_open_elected_human_rights_menu = {
+	name = "ztr_un_open_elected_human_rights_menu"
+	desc = "ztr_un_open_elected_human_rights_menu_desc"
+	visible = {
+		has_journal_entry = je_un_info_panel
+		ztr_un_is_elected_member = yes
+	}
+	possible = {
+		custom_tooltip = {
+			text = "ztr_un_vote_session_clear_tt"
+			NOT = {
+				has_global_variable = ztr_un_vote_in_progress
+			}
+		}
+		custom_tooltip = {
+			text = ztr_un_not_suspended_tt
+			NOT = {
+				ztr_un_is_suspended = yes
+			}
+		}
+		custom_tooltip = {
+			text = ztr_un_elected_proposal_cd_tt
+			NOT = {
+				has_variable = ztr_un_elected_proposal_cd
+			}
+		}
+		custom_tooltip = {
+			text = ztr_un_elected_proposal_gap_tt
+			NOT = {
+				has_global_variable = ztr_un_elected_proposal_gap
+			}
+		}
+		hidden_trigger = {
+			is_player = yes
+			NOR = {
+				has_global_variable = ztr_un_button_opened
+				has_global_variable = ztr_un_cosign_pending
+			}
+		}
+	}
+	effect = {
+		set_global_variable = ztr_un_button_opened
+		set_variable = ztr_un_elected_proposing
+		trigger_event = {
+			id = ztr_un_event.30
+			popup = yes
+		}
+	}
+	ai_chance = {
+		value = 0
+	}
+}
+
+# Ordinary member: run for a permanent seat (By Prestige, By Military Power, Superpowers)
+ztr_un_seat_candidacy = {
+	name = "ztr_un_seat_candidacy"
+	desc = "ztr_un_seat_candidacy_desc"
+	visible = {
+		has_journal_entry = je_un_info_panel
+		has_modifier = ztr_onu_member
+		NOT = {
+			global_var:ztr_un_law_member_selection ?= 2
+		}
+	}
+	possible = {
+		custom_tooltip = {
+			text = "ztr_un_vote_session_clear_tt"
+			NOT = {
+				has_global_variable = ztr_un_vote_in_progress
+			}
+		}
+		custom_tooltip = {
+			text = ztr_un_not_suspended_tt
+			NOT = {
+				ztr_un_is_suspended = yes
+			}
+		}
+		ztr_un_can_run_for_permanent_seat = yes
+		hidden_trigger = {
+			is_player = yes
+			NOR = {
+				has_global_variable = ztr_un_button_opened
+				has_global_variable = ztr_un_cosign_pending
+			}
+		}
+	}
+	effect = {
+		ztr_un_start_seat_candidacy = yes
+	}
+	ai_chance = {
+		value = 0
+	}
+}
+
+# Stop paying the UN dues: a UN condemnation (no vote, no dues until it expires)
+ztr_un_withhold_dues = {
+	name = "ztr_un_withhold_dues"
+	desc = "ztr_un_withhold_dues_desc"
+	visible = {
+		has_journal_entry = je_un_info_panel
+		ztr_is_un_member = yes
+		NOT = {
+			ztr_un_is_suspended = yes
+		}
+	}
+	possible = {
+		custom_tooltip = {
+			text = ztr_un_withhold_dues_tt
+			has_variable = ztr_un_dues_weekly
+			var:ztr_un_dues_weekly > 0
+		}
+	}
+	effect = {
+		ztr_un_condemn_country = yes
+	}
+	ai_chance = {
+		value = 0
+		if = {
+			limit = {
+				in_default = yes
+			}
+			add = 5
+		}
+	}
+}
+
 # UN Positive Neutral or Negative Vote
 ztr_un_vote_for_statement = {
 	name = "ztr_un_vote_for_statement"
@@ -111,6 +257,12 @@ ztr_un_vote_for_statement = {
 	possible = {
 		NOT = {
 			has_variable = ztr_un_vote_choice_support
+		}
+		custom_tooltip = {
+			text = ztr_un_vote_committed_tt
+			NOT = {
+				has_variable = ztr_un_vote_committed
+			}
 		}
 	}
 	effect = {
@@ -126,6 +278,7 @@ ztr_un_vote_for_statement = {
 			}
 			remove_variable = ztr_un_vote_choice_against
 		}
+		remove_variable = ztr_un_vote_veto
 		set_variable = ztr_un_vote_choice_support
 		je:je_un_votations = {
 			ztr_un_vote_update_results = yes
@@ -177,8 +330,17 @@ ztr_un_vote_against_statement = {
 		global_var:ztr_un_vote_months_remaining > 0
 	}
 	possible = {
-		NOT = {
-			has_variable = ztr_un_vote_choice_against
+		OR = {
+			NOT = {
+				has_variable = ztr_un_vote_choice_against
+			}
+			has_variable = ztr_un_vote_veto
+		}
+		custom_tooltip = {
+			text = ztr_un_vote_committed_tt
+			NOT = {
+				has_variable = ztr_un_vote_committed
+			}
 		}
 	}
 	effect = {
@@ -194,7 +356,47 @@ ztr_un_vote_against_statement = {
 			}
 			remove_variable = ztr_un_vote_choice_neutral
 		}
+		remove_variable = ztr_un_vote_veto
 		set_variable = ztr_un_vote_choice_against
+		je:je_un_votations = {
+			ztr_un_vote_update_results = yes
+		}
+	}
+	ai_chance = {
+		value = 0
+	}
+}
+
+# Permanent members: vote against and block the proposal; a veto that blocks a majority recharges in 10 years
+ztr_un_vote_veto_statement = {
+	name = "ztr_un_vote_veto_statement"
+	desc = "ztr_un_vote_veto_statement_desc"
+	visible = {
+		is_involved_in_journal_entry = je_un_votations
+		global_var:ztr_un_vote_months_remaining > 0
+		has_modifier = ztr_onu_permanent_member
+		global_var:ztr_un_law_veto_right ?= 1
+		NOT = {
+			ztr_un_is_vote_challenged = yes
+		}
+	}
+	possible = {
+		NOT = {
+			has_variable = ztr_un_vote_veto
+		}
+		ztr_un_can_veto = yes
+		custom_tooltip = {
+			text = ztr_un_vote_committed_tt
+			NOT = {
+				has_variable = ztr_un_vote_committed
+			}
+		}
+	}
+	effect = {
+		remove_variable = ztr_un_vote_choice_support
+		remove_variable = ztr_un_vote_choice_neutral
+		set_variable = ztr_un_vote_choice_against
+		set_variable = ztr_un_vote_veto
 		je:je_un_votations = {
 			ztr_un_vote_update_results = yes
 		}

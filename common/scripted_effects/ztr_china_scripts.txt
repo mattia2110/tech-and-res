@@ -605,11 +605,12 @@ ztr_communist_china_recalculate_overall_progress = {
 
 ztr_communist_china_prepare_scopes = {
 	remove_variable = ztr_ccp_has_inspiration
+	# prev = the warlord running the effect; root is the journal entry in its pulses
 	if = {
 		limit = {
 			any_country = {
 				NOT = {
-					this = root
+					this = prev
 				}
 				country_rank >= rank_value:major_power
 				ztr_is_communist = yes
@@ -619,7 +620,7 @@ ztr_communist_china_prepare_scopes = {
 		random_country = {
 			limit = {
 				NOT = {
-					this = root
+					this = prev
 				}
 				country_rank >= rank_value:major_power
 				ztr_is_communist = yes

@@ -58,7 +58,7 @@ ztr_seu_hub_default_mine_1 = {
 	city_graphics_type = ztr_seu_mine_digital
 	city_graphics_type = ztr_seu_mine_ai
 	grid_size = { 3 3 }
-	attach = { variant = { entity = mininghub_centerpiece_01_entity } }
+	attach = { variant = { entity = european_mining_centerpiece_01_entity } }
 }
 
 ztr_seu_hub_latin_mine_1 = {
@@ -68,7 +68,7 @@ ztr_seu_hub_latin_mine_1 = {
 	city_graphics_type = ztr_seu_iberia_mine_digital
 	city_graphics_type = ztr_seu_iberia_mine_ai
 	grid_size = { 3 3 }
-	attach = { variant = { entity = latin_mininghub_centerpiece_01_entity } }
+	attach = { variant = { entity = latin_mining_centerpiece_01_entity } }
 }
 
 ztr_seu_hub_arabic_mine_1 = {
@@ -78,7 +78,7 @@ ztr_seu_hub_arabic_mine_1 = {
 	city_graphics_type = ztr_seu_anatolia_mine_digital
 	city_graphics_type = ztr_seu_anatolia_mine_ai
 	grid_size = { 3 3 }
-	attach = { variant = { entity = mininghub_centerpiece_sandstone_01_entity } }
+	attach = { variant = { entity = arabic_mining_centerpiece_01_entity } }
 }
 
 ztr_seu_hub_french_mine_1 = {
@@ -174,7 +174,7 @@ ztr_seu_hub_balkan_wood_1 = {
 		composition = { name = chainsaw	trigger = { any_scope_building = { has_active_production_method = pm_chainsaws } } }								
 	}
 	composition_group = {
-		composition = { name = horse	trigger = { any_scope_building = { has_active_production_method = pm_road_carts } } }								
+		composition = { name = horse	trigger = { any_scope_building = { is_building_type = building_logging_camp has_active_production_method = pm_road_carts } } }	
 		composition = { name = rail		trigger = { any_scope_building = { has_active_production_method = pm_rail_transport_building_logging_camp } } }		
 		composition = { name = train	trigger = { any_scope_building = { has_active_production_method = pm_log_carts } } }								
 	}
@@ -943,6 +943,7 @@ ztr_seu_hub_balkan_port_1 = {
 
 
 
+
 	attach = {
 		variant = { entity = balkan_port_docks_01_entity 				building_type = building_port					compositions = { _p__ fp__ _ps_ fps_ ffp__ ffps_ ss_p_ ssfp_ fp_f sp_s fpsf sfps }
 			attach = {
@@ -1040,12 +1041,7 @@ ztr_seu_hub_balkan_port_1 = {
 			attach = {
 				locator = shipyard_01_right		
 
-				variant = { entity = balkan_port_shipyard_02_entity 		building_type = building_shipyard			compositions = { ss___ ssf__ sf_s }
-					attach = {
-						locator = shipyard_02_right		
-						variant = { entity = balkan_port_shipyard_01_entity 		building_type = building_shipyard			compositions = { ss___ ssf__ sf_s }}
-					}
-				}
+				variant = { entity = balkan_port_shipyard_02_entity 		building_type = building_shipyard			compositions = { ss___ ssf__ sf_s } }
 			}
 		}
 	}

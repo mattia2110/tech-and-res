@@ -9,6 +9,9 @@
 #8. ztr_un_ai_take_neutral_vote_position -> Lets a neutral AI country pick support or against during a live vote
 #9. ztr_un_value_law_prepare_country_context -> Prepares the country context for the law
 #10. ztr_un_value_law -> Used by country to decide favor, neutral or against and by proposer if it wants to propose the law
+#11. ztr_un_random_human_rights_extraction -> Like #1, limited to the human rights statements (elected members)
+#12. ztr_un_ai_elected_try_proposal -> An AI elected member proposes the extracted statement if it prefers it, then looks for a co-signer
+#13. ztr_un_ai_evaluate_cosign -> An AI permanent member decides whether to co-sign an elected member proposal
 
 ztr_un_random_subject_and_law_extraction = {
 	# Make sure every UN subject has a current fallback value before we compare proposals.
@@ -281,6 +284,16 @@ ztr_un_random_subject_and_law_extraction = {
 				value = 1
 			}
 		}
+		1 = {
+			set_global_variable = {
+				name = ztr_un_subject_possible_proposal
+				value = 14
+			}
+			set_global_variable = {
+				name = ztr_un_law_possible_proposal
+				value = 1
+			}
+		}
 	}
 }
 
@@ -321,6 +334,13 @@ ztr_un_prioritize_first_institution_establishment_vote = {
 					has_global_variable = ztr_un_institution_unesco
 					global_var:ztr_un_institution_unesco = 0
 					has_technology_researched = international_organizations
+				}
+				AND = {
+					NOT = {
+						has_global_variable = ztr_un_institution_iaea_establishment_priority_attempted
+					}
+					global_var:ztr_un_institution_iaea ?= 0
+					has_global_variable = ztr_atomic_bomb_first_use_var
 				}
 			}
 		}
@@ -394,6 +414,24 @@ ztr_un_prioritize_first_institution_establishment_vote = {
 			set_global_variable = {
 				name = ztr_un_subject_possible_proposal
 				value = 11
+			}
+			set_global_variable = {
+				name = ztr_un_law_possible_proposal
+				value = 1
+			}
+		}
+		else_if = {
+			limit = {
+				NOT = {
+					has_global_variable = ztr_un_institution_iaea_establishment_priority_attempted
+				}
+				global_var:ztr_un_institution_iaea ?= 0
+				has_global_variable = ztr_atomic_bomb_first_use_var
+			}
+			set_global_variable = ztr_un_institution_iaea_establishment_priority_attempted
+			set_global_variable = {
+				name = ztr_un_subject_possible_proposal
+				value = 14
 			}
 			set_global_variable = {
 				name = ztr_un_law_possible_proposal
@@ -521,6 +559,15 @@ ztr_un_set_current_law_as_considered = {
 		set_variable = {
 			name = ztr_un_law_considered
 			value = global_var:ztr_un_institution_unesco
+		}
+	}
+	else_if = {
+		limit = {
+			global_var:ztr_un_subject_possible_proposal = 14
+		}
+		set_variable = {
+			name = ztr_un_law_considered
+			value = global_var:ztr_un_institution_iaea
 		}
 	}
 	else_if = {
@@ -665,6 +712,15 @@ ztr_un_set_current_vote_law_as_considered = {
 	}
 	else_if = {
 		limit = {
+			global_var:ztr_un_vote_subject = 14
+		}
+		set_variable = {
+			name = ztr_un_law_considered
+			value = global_var:ztr_un_institution_iaea
+		}
+	}
+	else_if = {
+		limit = {
 			global_var:ztr_un_vote_subject = 12
 		}
 		set_variable = {
@@ -679,6 +735,16 @@ ztr_un_set_current_vote_law_as_considered = {
 		set_variable = {
 			name = ztr_un_law_considered
 			value = global_var:ztr_un_hr_labor_rights
+		}
+	}
+	# Subject 15 (seat candidacy): the status quo is 0
+	else_if = {
+		limit = {
+			global_var:ztr_un_vote_subject = 15
+		}
+		set_variable = {
+			name = ztr_un_law_considered
+			value = 0
 		}
 	}
 }
@@ -798,6 +864,11 @@ ztr_un_ai_take_neutral_vote_position = {
 			name = ztr_un_ai_vote_support_margin
 			subtract = var:ztr_un_ai_vote_current_law_value
 		}
+		# Kept until the vote ends: read by the vote commitment treaty AI
+		set_variable = {
+			name = ztr_un_vote_lean
+			value = var:ztr_un_ai_vote_support_margin
+		}
 
 		set_variable = {
 			name = ztr_un_ai_vote_against_margin
@@ -831,6 +902,14 @@ ztr_un_ai_take_neutral_vote_position = {
 				remove_variable = ztr_un_vote_choice_neutral
 			}
 			set_variable = ztr_un_vote_choice_against
+			# Veto only against a proposal it strongly opposes
+			if = {
+				limit = {
+					ztr_un_can_veto = yes
+					var:ztr_un_ai_vote_against_margin > 25
+				}
+				set_variable = ztr_un_vote_veto
+			}
 		}
 	}
 
@@ -1423,65 +1502,10 @@ ztr_un_value_law_prepare_country_context = {
 		name = ztr_un_value_law_state_balance
 		multiply = -1
 	}
-	if = {
-		limit = {
-			exists = ig:ig_intelligentsia
-			ig:ig_intelligentsia = {
-				is_powerful = yes
-			}
-		}
-		change_variable = {
-			name = ztr_un_value_law_rights_bloc_balance
-			add = 3
-		}
-	}
-	if = {
-		limit = {
-			exists = ig:ig_trade_unions
-			ig:ig_trade_unions = {
-				is_powerful = yes
-			}
-		}
-		change_variable = {
-			name = ztr_un_value_law_rights_bloc_balance
-			add = 3
-		}
-	}
-	if = {
-		limit = {
-			exists = ig:ig_industrialists
-			ig:ig_industrialists = {
-				is_powerful = yes
-			}
-		}
-		change_variable = {
-			name = ztr_un_value_law_rights_bloc_balance
-			add = 1
-		}
-	}
-	if = {
-		limit = {
-			exists = ig:ig_devout
-			ig:ig_devout = {
-				is_powerful = yes
-			}
-		}
-		change_variable = {
-			name = ztr_un_value_law_rights_bloc_balance
-			add = -3
-		}
-	}
-	if = {
-		limit = {
-			exists = ig:ig_landowners
-			ig:ig_landowners = {
-				is_powerful = yes
-			}
-		}
-		change_variable = {
-			name = ztr_un_value_law_rights_bloc_balance
-			add = -3
-		}
+	# Rights stance of the IGs (ideologies and leaders), used by governance and institutions
+	set_variable = {
+		name = ztr_un_value_law_rights_bloc_balance
+		value = ztr_un_rights_stance
 	}
 	set_variable = {
 		name = ztr_un_value_law_rights_bloc_inverse_balance
@@ -1926,7 +1950,7 @@ ztr_un_value_law = {
 			}
 			if = {
 				limit = {
-					global_country_ranking <= 3
+					global_country_ranking <= 5
 				}
 				change_variable = {
 					name = ztr_un_law_value_objective_considered
@@ -2180,6 +2204,15 @@ ztr_un_value_law = {
 					add = 20
 				}
 			}
+			if = {
+				limit = {
+					has_law_or_variant = law_type:law_no_colonial_affairs
+				}
+				change_variable = {
+					name = ztr_un_law_value_objective_considered
+					add = -5
+				}
+			}
 			change_variable = {
 				name = ztr_un_law_value_objective_considered
 				add = var:ztr_un_value_law_government_hierarchy_balance
@@ -2202,7 +2235,7 @@ ztr_un_value_law = {
 			}
 			change_variable = {
 				name = ztr_un_law_value_objective_considered
-				add = var:ztr_un_value_law_rights_bloc_inverse_balance
+				subtract = ztr_un_hr_stance_decolonization
 			}
 			if = {
 				limit = {
@@ -2273,7 +2306,10 @@ ztr_un_value_law = {
 			}
 			change_variable = {
 				name = ztr_un_law_value_objective_considered
-				add = var:ztr_un_value_law_rights_bloc_balance
+				add = {
+					value = ztr_un_hr_stance_decolonization
+					multiply = 0.5
+				}
 			}
 			if = {
 				limit = {
@@ -2352,7 +2388,7 @@ ztr_un_value_law = {
 			}
 			change_variable = {
 				name = ztr_un_law_value_objective_considered
-				add = var:ztr_un_value_law_rights_bloc_balance
+				add = ztr_un_hr_stance_decolonization
 			}
 			if = {
 				limit = {
@@ -2408,7 +2444,7 @@ ztr_un_value_law = {
 			}
 			change_variable = {
 				name = ztr_un_law_value_objective_considered
-				add = var:ztr_un_value_law_rights_bloc_inverse_balance
+				subtract = ztr_un_hr_stance_slavery
 			}
 			if = {
 				limit = {
@@ -2472,7 +2508,7 @@ ztr_un_value_law = {
 			}
 			change_variable = {
 				name = ztr_un_law_value_objective_considered
-				add = var:ztr_un_value_law_rights_bloc_balance
+				add = ztr_un_hr_stance_slavery
 			}
 			if = {
 				limit = {
@@ -2549,7 +2585,7 @@ ztr_un_value_law = {
 			}
 			change_variable = {
 				name = ztr_un_law_value_objective_considered
-				add = var:ztr_un_value_law_rights_bloc_inverse_balance
+				subtract = ztr_un_hr_stance_children
 			}
 			if = {
 				limit = {
@@ -2619,7 +2655,10 @@ ztr_un_value_law = {
 			}
 			change_variable = {
 				name = ztr_un_law_value_objective_considered
-				add = var:ztr_un_value_law_rights_bloc_balance
+				add = {
+					value = ztr_un_hr_stance_children
+					multiply = 0.5
+				}
 			}
 			if = {
 				limit = {
@@ -2689,7 +2728,7 @@ ztr_un_value_law = {
 			}
 			change_variable = {
 				name = ztr_un_law_value_objective_considered
-				add = var:ztr_un_value_law_rights_bloc_balance
+				add = ztr_un_hr_stance_children
 			}
 			if = {
 				limit = {
@@ -2728,7 +2767,7 @@ ztr_un_value_law = {
 				}
 				change_variable = {
 					name = ztr_un_law_value_objective_considered
-					add = 20
+					add = 10
 				}
 			}
 			if = {
@@ -2787,7 +2826,7 @@ ztr_un_value_law = {
 			}
 			change_variable = {
 				name = ztr_un_law_value_objective_considered
-				add = var:ztr_un_value_law_rights_bloc_inverse_balance
+				subtract = ztr_un_hr_stance_women
 			}
 		}
 		# Considered law: Women's Rights 1 = Gender Equality
@@ -2804,7 +2843,7 @@ ztr_un_value_law = {
 				}
 				change_variable = {
 					name = ztr_un_law_value_objective_considered
-					add = -20
+					add = -10
 				}
 			}
 			if = {
@@ -2863,7 +2902,7 @@ ztr_un_value_law = {
 			}
 			change_variable = {
 				name = ztr_un_law_value_objective_considered
-				add = var:ztr_un_value_law_rights_bloc_balance
+				add = ztr_un_hr_stance_women
 			}
 			if = {
 				limit = {
@@ -2932,6 +2971,10 @@ ztr_un_value_law = {
 				name = ztr_un_law_value_objective_considered
 				add = var:ztr_un_value_law_development_inverse_balance
 			}
+			change_variable = {
+				name = ztr_un_law_value_objective_considered
+				subtract = ztr_un_hr_stance_environment
+			}
 		}
 		# Considered law: Environment 1 = Basic Protection
 		if = {
@@ -2990,6 +3033,10 @@ ztr_un_value_law = {
 			change_variable = {
 				name = ztr_un_law_value_objective_considered
 				add = var:ztr_un_value_law_development_balance
+			}
+			change_variable = {
+				name = ztr_un_law_value_objective_considered
+				add = ztr_un_hr_stance_environment
 			}
 		}
 		# Subject 13: Labor Rights
@@ -3065,6 +3112,10 @@ ztr_un_value_law = {
 				name = ztr_un_law_value_objective_considered
 				add = var:ztr_un_value_law_development_inverse_balance
 			}
+			change_variable = {
+				name = ztr_un_law_value_objective_considered
+				subtract = ztr_un_hr_stance_labor
+			}
 		}
 		# Considered law: Labor Rights 1 = Regulatory Bodies
 		if = {
@@ -3121,6 +3172,13 @@ ztr_un_value_law = {
 			change_variable = {
 				name = ztr_un_law_value_objective_considered
 				add = var:ztr_un_value_law_development_balance
+			}
+			change_variable = {
+				name = ztr_un_law_value_objective_considered
+				add = {
+					value = ztr_un_hr_stance_labor
+					multiply = 0.5
+				}
 			}
 		}
 		# Considered law: Labor Rights 2 = Worker Protections
@@ -3199,6 +3257,10 @@ ztr_un_value_law = {
 			change_variable = {
 				name = ztr_un_law_value_objective_considered
 				add = var:ztr_un_value_law_development_balance
+			}
+			change_variable = {
+				name = ztr_un_law_value_objective_considered
+				add = ztr_un_hr_stance_labor
 			}
 		}
 		# Subject 8-11: Institutions
@@ -3835,6 +3897,83 @@ ztr_un_value_law = {
 			}
 		}
 		
+		# Considered law: IAEA 0 = Not Established
+		if = {
+			limit = {
+				var:ztr_un_subject_considered = 14
+				var:ztr_un_law_considered = 0
+			}
+			# Countries racing for the bomb want no inspectors
+			if = {
+				limit = {
+					OR = {
+						has_journal_entry = je_develop_nuclear_weapons
+						has_journal_entry = je_develop_thermonuclear_weapons
+					}
+				}
+				change_variable = {
+					name = ztr_un_law_value_objective_considered
+					add = 20
+				}
+			}
+			if = {
+				limit = {
+					has_strategy = ai_strategy_armed_isolationism
+				}
+				change_variable = {
+					name = ztr_un_law_value_objective_considered
+					add = 10
+				}
+			}
+			change_variable = {
+				name = ztr_un_law_value_objective_considered
+				add = var:ztr_un_value_law_rights_bloc_inverse_balance
+			}
+		}
+		# Considered law: IAEA 1 = Established
+		if = {
+			limit = {
+				var:ztr_un_subject_considered = 14
+				var:ztr_un_law_considered = 1
+			}
+			# Slight lean in favor of establishing the institution.
+			change_variable = {
+				name = ztr_un_law_value_objective_considered
+				add = 10
+			}
+			# Countries without nuclear weapons gain security
+			if = {
+				limit = {
+					NOR = {
+						has_journal_entry = je_develop_nuclear_weapons
+						has_journal_entry = je_develop_thermonuclear_weapons
+						ztr_has_operational_nuclear_silo = yes
+					}
+				}
+				change_variable = {
+					name = ztr_un_law_value_objective_considered
+					add = 15
+				}
+			}
+			# Established nuclear powers keep their lead
+			if = {
+				limit = {
+					ztr_has_operational_nuclear_silo = yes
+					NOT = {
+						has_journal_entry = je_develop_nuclear_weapons
+					}
+				}
+				change_variable = {
+					name = ztr_un_law_value_objective_considered
+					add = 5
+				}
+			}
+			change_variable = {
+				name = ztr_un_law_value_objective_considered
+				add = var:ztr_un_value_law_rights_bloc_balance
+			}
+		}
+
 		# Secret layer
 		# Considered law: any Voting Model proposal uses the considered UN role as an absolute score.
 		if = {
@@ -4079,7 +4218,7 @@ ztr_un_value_law = {
 				}
 				if = {
 					limit = {
-						global_country_ranking <= 3
+						global_country_ranking <= 5
 					}
 					set_variable = {
 						name = ztr_un_value_law_considered_un_role
@@ -4841,6 +4980,145 @@ ztr_un_value_law = {
 				}
 			}
 		}
+		# Considered law: IAEA 1 = Established (armed or arming rivals make inspections attractive)
+		if = {
+			limit = {
+				var:ztr_un_subject_considered = 14
+				var:ztr_un_law_considered = 1
+				any_rival_country = {
+					OR = {
+						has_journal_entry = je_develop_nuclear_weapons
+						has_journal_entry = je_develop_thermonuclear_weapons
+						ztr_has_operational_nuclear_silo = yes
+					}
+				}
+			}
+			every_rival_country = {
+				limit = {
+					OR = {
+						has_journal_entry = je_develop_nuclear_weapons
+						has_journal_entry = je_develop_thermonuclear_weapons
+						ztr_has_operational_nuclear_silo = yes
+					}
+				}
+				prev = {
+					change_variable = {
+						name = ztr_un_law_value_secret_considered
+						add = 5
+					}
+				}
+			}
+		}
+		# Subject 15: permanent seat candidacy (law 1 = the candidate takes the seat; the candidate is the proposer)
+		if = {
+			limit = {
+				var:ztr_un_subject_considered = 15
+				var:ztr_un_law_considered = 1
+				has_global_variable = ztr_un_vote_candidate
+			}
+			# Own seat at stake
+			if = {
+				limit = {
+					this = global_var:ztr_un_vote_candidate
+				}
+				change_variable = {
+					name = ztr_un_law_value_secret_considered
+					add = 100
+				}
+			}
+			if = {
+				limit = {
+					ztr_un_is_vote_challenged = yes
+				}
+				change_variable = {
+					name = ztr_un_law_value_secret_considered
+					add = -100
+				}
+			}
+			# Same power bloc as the candidate
+			if = {
+				limit = {
+					is_in_power_bloc = yes
+					global_var:ztr_un_vote_candidate = {
+						is_in_same_power_bloc = prev
+					}
+				}
+				change_variable = {
+					name = ztr_un_law_value_secret_considered
+					add = 10
+				}
+			}
+			# The challenged member: rivals welcome its fall, friends and bloc partners defend it
+			if = {
+				limit = {
+					has_global_variable = ztr_un_vote_challenged
+					NOT = {
+						ztr_un_is_vote_challenged = yes
+					}
+				}
+				global_var:ztr_un_vote_challenged = {
+					if = {
+						limit = {
+							has_diplomatic_pact = {
+								who = prev
+								type = rivalry
+							}
+						}
+						prev = {
+							change_variable = {
+								name = ztr_un_law_value_secret_considered
+								add = 15
+							}
+						}
+					}
+					if = {
+						limit = {
+							relations:prev <= relations_threshold:poor
+						}
+						prev = {
+							change_variable = {
+								name = ztr_un_law_value_secret_considered
+								add = 10
+							}
+						}
+					}
+					else_if = {
+						limit = {
+							relations:prev >= relations_threshold:friendly
+						}
+						prev = {
+							change_variable = {
+								name = ztr_un_law_value_secret_considered
+								add = -10
+							}
+						}
+					}
+					else_if = {
+						limit = {
+							relations:prev >= relations_threshold:cordial
+						}
+						prev = {
+							change_variable = {
+								name = ztr_un_law_value_secret_considered
+								add = -5
+							}
+						}
+					}
+					if = {
+						limit = {
+							is_in_power_bloc = yes
+							is_in_same_power_bloc = prev
+						}
+						prev = {
+							change_variable = {
+								name = ztr_un_law_value_secret_considered
+								add = -10
+							}
+						}
+					}
+				}
+			}
+		}
 		# Considered law: if this exact subject/law pair is the active UN vote, proposer diplomacy adjusts the secret score.
 		if = {
 			limit = {
@@ -4975,6 +5253,44 @@ ztr_un_value_law = {
 					}
 				}
 			}
+			# Political pole of the author (not the co-signer): +10 same pole, -10 opposite pole
+			if = {
+				limit = {
+					any_country = {
+						has_variable = ztr_un_vote_proposer
+						NOT = {
+							has_variable = ztr_un_vote_cosigner
+						}
+						NOT = {
+							this = prev
+						}
+						ztrpol_same_pole_as = {
+							COUNTRY = prev
+						}
+					}
+				}
+				change_variable = {
+					name = ztr_un_law_value_secret_considered
+					add = 10
+				}
+			}
+			else_if = {
+				limit = {
+					any_country = {
+						has_variable = ztr_un_vote_proposer
+						NOT = {
+							has_variable = ztr_un_vote_cosigner
+						}
+						ztrpol_opposite_pole_to = {
+							COUNTRY = prev
+						}
+					}
+				}
+				change_variable = {
+					name = ztr_un_law_value_secret_considered
+					add = -10
+				}
+			}
 		}
 	}
 	set_variable = {
@@ -5025,4 +5341,292 @@ ztr_un_value_law = {
 	remove_variable = ztr_un_value_law_rights_bloc_inverse_balance
 	remove_variable = ztr_un_value_law_imperial_stake
 	remove_variable = ztr_un_value_law_considered_un_role
+}
+
+# Same subject weights as ztr_un_random_subject_and_law_extraction, human rights statements only
+ztr_un_random_human_rights_extraction = {
+	ztr_un_init_governance_laws = yes
+	remove_global_variable = ztr_un_subject_possible_proposal
+	remove_global_variable = ztr_un_law_possible_proposal
+	random_list = {
+		3 = {
+			set_global_variable = {
+				name = ztr_un_subject_possible_proposal
+				value = 4
+			}
+			random_list = {
+				1 = {
+					set_global_variable = {
+						name = ztr_un_law_possible_proposal
+						value = 0
+					}
+				}
+				1 = {
+					set_global_variable = {
+						name = ztr_un_law_possible_proposal
+						value = 1
+					}
+				}
+				1 = {
+					set_global_variable = {
+						name = ztr_un_law_possible_proposal
+						value = 2
+					}
+				}
+			}
+		}
+		2 = {
+			set_global_variable = {
+				name = ztr_un_subject_possible_proposal
+				value = 5
+			}
+			random_list = {
+				1 = {
+					set_global_variable = {
+						name = ztr_un_law_possible_proposal
+						value = 0
+					}
+				}
+				1 = {
+					set_global_variable = {
+						name = ztr_un_law_possible_proposal
+						value = 1
+					}
+				}
+			}
+		}
+		3 = {
+			set_global_variable = {
+				name = ztr_un_subject_possible_proposal
+				value = 6
+			}
+			random_list = {
+				1 = {
+					set_global_variable = {
+						name = ztr_un_law_possible_proposal
+						value = 0
+					}
+				}
+				1 = {
+					set_global_variable = {
+						name = ztr_un_law_possible_proposal
+						value = 1
+					}
+				}
+				1 = {
+					set_global_variable = {
+						name = ztr_un_law_possible_proposal
+						value = 2
+					}
+				}
+			}
+		}
+		2 = {
+			set_global_variable = {
+				name = ztr_un_subject_possible_proposal
+				value = 7
+			}
+			random_list = {
+				1 = {
+					set_global_variable = {
+						name = ztr_un_law_possible_proposal
+						value = 0
+					}
+				}
+				1 = {
+					set_global_variable = {
+						name = ztr_un_law_possible_proposal
+						value = 1
+					}
+				}
+			}
+		}
+		2 = {
+			set_global_variable = {
+				name = ztr_un_subject_possible_proposal
+				value = 12
+			}
+			random_list = {
+				1 = {
+					set_global_variable = {
+						name = ztr_un_law_possible_proposal
+						value = 0
+					}
+				}
+				1 = {
+					set_global_variable = {
+						name = ztr_un_law_possible_proposal
+						value = 1
+					}
+				}
+			}
+		}
+		3 = {
+			set_global_variable = {
+				name = ztr_un_subject_possible_proposal
+				value = 13
+			}
+			random_list = {
+				1 = {
+					set_global_variable = {
+						name = ztr_un_law_possible_proposal
+						value = 0
+					}
+				}
+				1 = {
+					set_global_variable = {
+						name = ztr_un_law_possible_proposal
+						value = 1
+					}
+				}
+				1 = {
+					set_global_variable = {
+						name = ztr_un_law_possible_proposal
+						value = 2
+					}
+				}
+			}
+		}
+	}
+}
+
+ztr_un_ai_elected_try_proposal = {
+	remove_variable = ztr_un_ai_current_law_value
+	remove_variable = ztr_un_ai_possible_law_value
+	remove_variable = ztr_un_subject_considered
+	remove_variable = ztr_un_law_considered
+
+	if = {
+		limit = {
+			ztr_un_possible_law_is_proposable = yes
+			ztr_un_is_not_applied_law = yes
+		}
+		ztr_un_set_current_law_as_considered = yes
+		ztr_un_value_law = yes
+		set_variable = {
+			name = ztr_un_ai_current_law_value
+			value = var:ztr_un_law_value_total_considered
+		}
+		ztr_un_set_possible_law_as_considered = yes
+		ztr_un_value_law = yes
+		set_variable = {
+			name = ztr_un_ai_possible_law_value
+			value = var:ztr_un_law_value_total_considered
+		}
+		if = {
+			limit = {
+				var:ztr_un_ai_possible_law_value > var:ztr_un_ai_current_law_value
+			}
+			set_global_variable = {
+				name = ztr_un_vote_subject
+				value = global_var:ztr_un_subject_possible_proposal
+			}
+			set_global_variable = {
+				name = ztr_un_vote_proposal
+				value = global_var:ztr_un_law_possible_proposal
+			}
+			ztr_un_request_cosign = yes
+		}
+	}
+
+	remove_variable = ztr_un_ai_current_law_value
+	remove_variable = ztr_un_ai_possible_law_value
+	remove_variable = ztr_un_subject_considered
+	remove_variable = ztr_un_law_considered
+}
+
+# Scope: AI permanent member; scope:ztr_un_cosign_proposer set. Willing when interest in the statement plus ties to the proposer exceed 10
+ztr_un_ai_evaluate_cosign = {
+	remove_variable = ztr_un_cosign_score
+	remove_variable = ztr_un_cosign_willing
+	ztr_un_set_current_vote_law_as_considered = yes
+	ztr_un_value_law = yes
+	set_variable = {
+		name = ztr_un_cosign_score
+		value = 0
+	}
+	change_variable = {
+		name = ztr_un_cosign_score
+		subtract = var:ztr_un_law_value_total_considered
+	}
+	ztr_un_set_vote_proposal_as_considered = yes
+	ztr_un_value_law = yes
+	change_variable = {
+		name = ztr_un_cosign_score
+		add = var:ztr_un_law_value_total_considered
+	}
+	if = {
+		limit = {
+			scope:ztr_un_cosign_proposer = {
+				relations:prev >= relations_threshold:friendly
+			}
+		}
+		change_variable = {
+			name = ztr_un_cosign_score
+			add = 20
+		}
+	}
+	if = {
+		limit = {
+			scope:ztr_un_cosign_proposer = {
+				owes_obligation_to = prev
+			}
+		}
+		change_variable = {
+			name = ztr_un_cosign_score
+			add = 15
+		}
+	}
+	if = {
+		limit = {
+			owes_obligation_to = scope:ztr_un_cosign_proposer
+		}
+		change_variable = {
+			name = ztr_un_cosign_score
+			add = 15
+		}
+	}
+	if = {
+		limit = {
+			has_diplomatic_pact = {
+				who = scope:ztr_un_cosign_proposer
+				type = rivalry
+			}
+		}
+		change_variable = {
+			name = ztr_un_cosign_score
+			add = -30
+		}
+	}
+	# Political pole of the proposer: +10 same, -10 opposite
+	if = {
+		limit = {
+			ztrpol_same_pole_as = {
+				COUNTRY = scope:ztr_un_cosign_proposer
+			}
+		}
+		change_variable = {
+			name = ztr_un_cosign_score
+			add = 10
+		}
+	}
+	else_if = {
+		limit = {
+			ztrpol_opposite_pole_to = {
+				COUNTRY = scope:ztr_un_cosign_proposer
+			}
+		}
+		change_variable = {
+			name = ztr_un_cosign_score
+			add = -10
+		}
+	}
+	if = {
+		limit = {
+			var:ztr_un_cosign_score > 10
+		}
+		set_variable = ztr_un_cosign_willing
+	}
+	remove_variable = ztr_un_subject_considered
+	remove_variable = ztr_un_law_considered
 }

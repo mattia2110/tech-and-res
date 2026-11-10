@@ -43,81 +43,38 @@
 			}
 		}
 	}
-	on_yearly_pulse = {
-		effect = {
-			#Yearly AI UN proposal coordinator
-			if = {
-				limit = {
-					NOR = {
-						has_global_variable = ztr_un_vote_in_progress
-						has_global_variable = ztr_un_vote_cd
-						has_global_variable = ztr_un_button_opened
-					}
-				}
-				# This is to avoid player touch the button during the AI voting
-				set_global_variable = ztr_un_button_opened
-				# This 99% finds at least one permanent member
-				random_country = {
-					limit = {
-						is_ai = yes
-						has_modifier = ztr_onu_permanent_member
-					}
-					save_scope_as = ztr_un_potential_proposer_scope_1
-				}
-				if = {
-					limit = {
-						scope:ztr_un_potential_proposer_scope_1 = {
-							exists = yes
-						}
-					}
-					random_country = {
-						limit = {
-							is_ai = yes
-							has_modifier = ztr_onu_permanent_member
-							NOT = {
-								this = scope:ztr_un_potential_proposer_scope_1
-							}
-						}
-						save_scope_as = ztr_un_potential_proposer_scope_2
-					}
-				}
-				if = {
-					limit = {
-						scope:ztr_un_potential_proposer_scope_1 = {
-							exists = yes
-						}
-					}
-					scope:ztr_un_potential_proposer_scope_1 = {
-						ztr_un_random_subject_and_law_extraction = yes
-						ztr_un_ai_try_start_possible_vote = yes
-					}
-					if = {
-						limit = {
-							NOR = {
-								has_global_variable = ztr_un_vote_in_progress
-							}
-							scope:ztr_un_potential_proposer_scope_2 = {
-								exists = yes
-							}
-						}
-						scope:ztr_un_potential_proposer_scope_2 = {
-							ztr_un_ai_try_start_possible_vote = yes
-						}
-					}
-				}
-				remove_global_variable = ztr_un_button_opened
-			}
+	# UN dues: weekly expense fixed at the start of the year (ztr_un_assess_dues), none while suspended
+	scaling_modifiers_while_active = {
+		modifier = ztr_un_dues_modifier
+		value = {
+			value = ztr_un_dues_weekly_paid
 		}
 	}
+	# Yearly AI proposals: ztr_un_ai_yearly_proposal in un_institutions_on_yearly_pulse
 	scripted_button = ztr_un_open_governance_menu
 	scripted_button = ztr_un_open_human_rights_menu
 	scripted_button = ztr_un_open_institutions_menu
+	scripted_button = ztr_un_open_elected_human_rights_menu
+	scripted_button = ztr_un_seat_candidacy
+	scripted_button = ztr_un_withhold_dues
 	status_desc = {
 		first_valid = {
+			triggered_desc = {
+				desc = je_un_info_panel_status_suspended
+				trigger = {
+					ztr_un_is_suspended = yes
+				}
+			}
 			triggered_desc = {
 				desc = je_un_info_panel_status_permanent
 				trigger = {
 					has_modifier = ztr_onu_permanent_member
+				}
+			}
+			triggered_desc = {
+				desc = je_un_info_panel_status_elected
+				trigger = {
+					ztr_un_is_elected_member = yes
 				}
 			}
 			triggered_desc = {
@@ -128,13 +85,19 @@
 			}
 		}
 	}
-	# Map: permanent members dark blue, member states light blue
+	# Map: permanent members dark blue, elected members mid blue, member states light blue
 	map_color = {
 		if = {
 			limit = {
 				owner ?= { has_modifier = ztr_onu_permanent_member }
 			}
 			value = "ztr_un_permanent_member_blue"
+		}
+		else_if = {
+			limit = {
+				owner ?= { ztr_un_is_elected_member = yes }
+			}
+			value = "ztr_un_elected_member_blue"
 		}
 		else_if = {
 			limit = {
@@ -149,6 +112,12 @@
 				owner ?= { has_modifier = ztr_onu_permanent_member }
 			}
 			custom_tooltip_no_bullet = "ztr_un_map_permanent_member_tt"
+		}
+		else_if = {
+			limit = {
+				owner ?= { ztr_un_is_elected_member = yes }
+			}
+			custom_tooltip_no_bullet = "ztr_un_map_elected_member_tt"
 		}
 		else_if = {
 			limit = {
@@ -312,7 +281,7 @@ je_un_votations = {
 			}
 		}
 	}
-	# Map: vote of each eligible member; gold stripes on permanent members while the veto right is in force
+	# Map: vote of each eligible member; gold stripes on permanent members that cast a veto
 	map_color = {
 		if = {
 			limit = {
@@ -338,8 +307,7 @@ je_un_votations = {
 			limit = {
 				global_var:ztr_un_law_veto_right ?= 1
 				owner ?= {
-					has_variable = ztr_un_vote_eligible
-					has_modifier = ztr_onu_permanent_member
+					has_variable = ztr_un_vote_veto
 				}
 			}
 			value = "ztr_un_vote_veto_gold"
@@ -371,8 +339,7 @@ je_un_votations = {
 			limit = {
 				global_var:ztr_un_law_veto_right ?= 1
 				owner ?= {
-					has_variable = ztr_un_vote_eligible
-					has_modifier = ztr_onu_permanent_member
+					has_variable = ztr_un_vote_veto
 				}
 			}
 			custom_tooltip_no_bullet = "ztr_un_vote_map_veto_tt"
@@ -383,6 +350,7 @@ je_un_votations = {
 	scripted_progress_bar = ztr_un_vote_against_progress_bar
 	scripted_button = ztr_un_vote_for_statement
 	scripted_button = ztr_un_vote_against_statement
+	scripted_button = ztr_un_vote_veto_statement
 	weight = 110
 	should_be_pinned_by_default_involved = yes
 	can_deactivate = yes

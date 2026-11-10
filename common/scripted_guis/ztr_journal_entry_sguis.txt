@@ -178,6 +178,30 @@ ztr_un_permanent_members_sgui = {
 	}
 }
 
+# Security Council elected members in je_un_info_panel (live)
+ztr_un_elected_members_sgui = {
+	scope = country
+
+	effect = {
+		if = {
+			limit = {
+				any_country = {
+					ztr_un_is_elected_member = yes
+				}
+			}
+			every_country = {
+				limit = {
+					ztr_un_is_elected_member = yes
+				}
+				custom_tooltip = "ZTR_UN_ELECTED_MEMBER_ENTRY"
+			}
+		}
+		else = {
+			custom_tooltip_no_bullet = "ZTR_UN_ELECTED_MEMBER_NONE"
+		}
+	}
+}
+
 # Major Powers voting support in je_un_votations (live)
 ztr_un_vote_support_major_powers_sgui = {
 	scope = country

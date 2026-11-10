@@ -334,6 +334,22 @@ ztr_un_law_institution_unesco_name = {
 	}
 }
 
+ztr_un_law_institution_iaea_name = {
+	type = country
+	text = {
+		trigger = {
+			global_var:ztr_un_institution_iaea ?= 1
+		}
+		localization_key = ztr_un_institution_iaea_established
+	}
+	text = {
+		trigger = {
+			always = yes
+		}
+		localization_key = ztr_un_institution_iaea_not_established
+	}
+}
+
 # Vote Subject Name (what's currently being voted on)
 ztr_un_vote_subject_name_je = {
 	type = journal_entry
@@ -427,6 +443,20 @@ ztr_un_vote_subject_name_je = {
 			global_var:ztr_un_vote_subject = 11
 		}
 		localization_key = ztr_un_vote_subject_institutions_unesco
+	}
+	# Subject 14: IAEA
+	text = {
+		trigger = {
+			global_var:ztr_un_vote_subject ?= 14
+		}
+		localization_key = ztr_un_vote_subject_institutions_iaea
+	}
+	# Subject 15: permanent seat candidacy
+	text = {
+		trigger = {
+			global_var:ztr_un_vote_subject ?= 15
+		}
+		localization_key = ztr_un_vote_subject_seat_candidacy
 	}
 	text = {
 		trigger = {
@@ -749,6 +779,34 @@ ztr_un_vote_proposal_name = {
 		}
 		localization_key = ztr_un_institution_unesco_not_established
 	}
+	# Subject 14: IAEA
+	text = {
+		trigger = {
+			global_var:ztr_un_vote_subject ?= 14
+			global_var:ztr_un_vote_proposal ?= 1
+		}
+		localization_key = ztr_un_institution_iaea_established
+	}
+	text = {
+		trigger = {
+			global_var:ztr_un_vote_subject ?= 14
+		}
+		localization_key = ztr_un_institution_iaea_not_established
+	}
+	# Subject 15: permanent seat candidacy
+	text = {
+		trigger = {
+			global_var:ztr_un_vote_subject ?= 15
+			has_global_variable = ztr_un_vote_challenged
+		}
+		localization_key = ztr_un_vote_proposal_seat_candidacy
+	}
+	text = {
+		trigger = {
+			global_var:ztr_un_vote_subject ?= 15
+		}
+		localization_key = ztr_un_vote_proposal_seat_candidacy_vacant
+	}
 	text = {
 		trigger = {
 			always = yes
@@ -1050,6 +1108,34 @@ ztr_un_vote_current_law_name_je = {
 		}
 		localization_key = ztr_un_institution_unesco_not_established
 	}
+	# Subject 14: IAEA
+	text = {
+		trigger = {
+			global_var:ztr_un_vote_subject ?= 14
+			global_var:ztr_un_institution_iaea ?= 1
+		}
+		localization_key = ztr_un_institution_iaea_established
+	}
+	text = {
+		trigger = {
+			global_var:ztr_un_vote_subject ?= 14
+		}
+		localization_key = ztr_un_institution_iaea_not_established
+	}
+	# Subject 15: permanent seat candidacy
+	text = {
+		trigger = {
+			global_var:ztr_un_vote_subject ?= 15
+			has_global_variable = ztr_un_vote_challenged
+		}
+		localization_key = ztr_un_vote_current_seat_holder
+	}
+	text = {
+		trigger = {
+			global_var:ztr_un_vote_subject ?= 15
+		}
+		localization_key = ztr_un_vote_current_seat_vacant
+	}
 	text = {
 		trigger = {
 			always = yes
@@ -1350,6 +1436,34 @@ ztr_un_vote_current_law_name = {
 		}
 		localization_key = ztr_un_institution_unesco_not_established
 	}
+	# Subject 14: IAEA
+	text = {
+		trigger = {
+			global_var:ztr_un_vote_subject ?= 14
+			global_var:ztr_un_institution_iaea ?= 1
+		}
+		localization_key = ztr_un_institution_iaea_established
+	}
+	text = {
+		trigger = {
+			global_var:ztr_un_vote_subject ?= 14
+		}
+		localization_key = ztr_un_institution_iaea_not_established
+	}
+	# Subject 15: permanent seat candidacy
+	text = {
+		trigger = {
+			global_var:ztr_un_vote_subject ?= 15
+			has_global_variable = ztr_un_vote_challenged
+		}
+		localization_key = ztr_un_vote_current_seat_holder
+	}
+	text = {
+		trigger = {
+			global_var:ztr_un_vote_subject ?= 15
+		}
+		localization_key = ztr_un_vote_current_seat_vacant
+	}
 	text = {
 		trigger = {
 			always = yes
@@ -1451,6 +1565,20 @@ ztr_un_vote_subject_name = {
 			global_var:ztr_un_vote_subject = 11
 		}
 		localization_key = ztr_un_vote_subject_institutions_unesco
+	}
+	# Subject 14: IAEA
+	text = {
+		trigger = {
+			global_var:ztr_un_vote_subject ?= 14
+		}
+		localization_key = ztr_un_vote_subject_institutions_iaea
+	}
+	# Subject 15: permanent seat candidacy
+	text = {
+		trigger = {
+			global_var:ztr_un_vote_subject ?= 15
+		}
+		localization_key = ztr_un_vote_subject_seat_candidacy
 	}
 	text = {
 		trigger = {
@@ -1773,6 +1901,34 @@ ztr_un_vote_proposal_name_je = {
 		}
 		localization_key = ztr_un_institution_unesco_not_established
 	}
+	# Subject 14: IAEA
+	text = {
+		trigger = {
+			global_var:ztr_un_vote_subject ?= 14
+			global_var:ztr_un_vote_proposal ?= 1
+		}
+		localization_key = ztr_un_institution_iaea_established
+	}
+	text = {
+		trigger = {
+			global_var:ztr_un_vote_subject ?= 14
+		}
+		localization_key = ztr_un_institution_iaea_not_established
+	}
+	# Subject 15: permanent seat candidacy
+	text = {
+		trigger = {
+			global_var:ztr_un_vote_subject ?= 15
+			has_global_variable = ztr_un_vote_challenged
+		}
+		localization_key = ztr_un_vote_proposal_seat_candidacy
+	}
+	text = {
+		trigger = {
+			global_var:ztr_un_vote_subject ?= 15
+		}
+		localization_key = ztr_un_vote_proposal_seat_candidacy_vacant
+	}
 	text = {
 		trigger = {
 			always = yes
@@ -1874,6 +2030,20 @@ ztr_un_last_vote_subject_name = {
 			global_var:ztr_un_last_vote_subject = 11
 		}
 		localization_key = ztr_un_vote_subject_institutions_unesco
+	}
+	# Subject 14: IAEA
+	text = {
+		trigger = {
+			global_var:ztr_un_last_vote_subject ?= 14
+		}
+		localization_key = ztr_un_vote_subject_institutions_iaea
+	}
+	# Subject 15: permanent seat candidacy
+	text = {
+		trigger = {
+			global_var:ztr_un_last_vote_subject ?= 15
+		}
+		localization_key = ztr_un_vote_subject_seat_candidacy
 	}
 	text = {
 		trigger = {
@@ -2194,10 +2364,77 @@ ztr_un_last_vote_proposal_name = {
 		}
 		localization_key = ztr_un_institution_unesco_not_established
 	}
+	# Subject 14: IAEA
+	text = {
+		trigger = {
+			global_var:ztr_un_last_vote_subject ?= 14
+			global_var:ztr_un_last_vote_proposal ?= 1
+		}
+		localization_key = ztr_un_institution_iaea_established
+	}
+	text = {
+		trigger = {
+			global_var:ztr_un_last_vote_subject ?= 14
+		}
+		localization_key = ztr_un_institution_iaea_not_established
+	}
+	# Subject 15: permanent seat candidacy
+	text = {
+		trigger = {
+			global_var:ztr_un_last_vote_subject ?= 15
+			has_global_variable = ztr_un_last_vote_challenged
+		}
+		localization_key = ztr_un_last_vote_proposal_seat_candidacy
+	}
+	text = {
+		trigger = {
+			global_var:ztr_un_last_vote_subject ?= 15
+		}
+		localization_key = ztr_un_last_vote_proposal_seat_candidacy_vacant
+	}
 	text = {
 		trigger = {
 			always = yes
 		}
 		localization_key = ztr_un_law_unknown
+	}
+}
+
+# Last closed vote for je_un_info_panel (ztr_un_vote_save_last_result)
+ztr_un_last_vote_summary = {
+	type = country
+	text = {
+		trigger = {
+			has_global_variable = ztr_un_last_vote_result
+		}
+		localization_key = ztr_un_last_vote_summary_held
+	}
+	text = {
+		trigger = {
+			always = yes
+		}
+		localization_key = ztr_un_last_vote_summary_none
+	}
+}
+
+ztr_un_last_vote_result_name = {
+	type = country
+	text = {
+		trigger = {
+			global_var:ztr_un_last_vote_result ?= 1
+		}
+		localization_key = ztr_un_last_vote_result_adopted
+	}
+	text = {
+		trigger = {
+			global_var:ztr_un_last_vote_result ?= 3
+		}
+		localization_key = ztr_un_last_vote_result_vetoed
+	}
+	text = {
+		trigger = {
+			always = yes
+		}
+		localization_key = ztr_un_last_vote_result_rejected
 	}
 }

@@ -438,6 +438,30 @@ ztr_un_init_governance_laws = {
 			value = 0
 		}
 	}
+	# IAEA: 0 = Not Established
+	if = {
+		limit = {
+			NOT = {
+				has_global_variable = ztr_un_institution_iaea
+			}
+		}
+		set_global_variable = {
+			name = ztr_un_institution_iaea
+			value = 0
+		}
+	}
+	# UN budget: filled by ztr_un_assess_dues at the start of each year
+	if = {
+		limit = {
+			NOT = {
+				has_global_variable = ztr_un_budget
+			}
+		}
+		set_global_variable = {
+			name = ztr_un_budget
+			value = 0
+		}
+	}
 }
 
 # Start a UN vote on a governance proposal
@@ -461,6 +485,10 @@ ztr_un_start_governance_vote = {
 			remove_variable = ztr_un_vote_choice_against
 			remove_variable = ztr_un_vote_weight
 			remove_variable = ztr_un_vote_proposer
+			remove_variable = ztr_un_vote_cosigner
+			remove_variable = ztr_un_vote_veto
+			remove_variable = ztr_un_vote_committed
+			remove_variable = ztr_un_vote_lean
 		}
 		# Model 1: One Country One Vote - all UN members
 		if = {
@@ -472,6 +500,9 @@ ztr_un_start_governance_vote = {
 					OR = {
 						has_modifier = ztr_onu_member
 						has_modifier = ztr_onu_permanent_member
+					}
+					NOT = {
+						ztr_un_is_suspended = yes
 					}
 				}
 				set_variable = ztr_un_vote_eligible
@@ -495,6 +526,9 @@ ztr_un_start_governance_vote = {
 					OR = {
 						has_modifier = ztr_onu_member
 						has_modifier = ztr_onu_permanent_member
+					}
+					NOT = {
+						ztr_un_is_suspended = yes
 					}
 				}
 				set_variable = ztr_un_vote_eligible
@@ -538,14 +572,20 @@ ztr_un_start_governance_vote = {
 				}
 			}
 		}
-		# Model 3: Security Council Only - only permanent members
+		# Model 3: Security Council Only - permanent and elected members (veto stays with permanent members)
 		else_if = {
 			limit = {
 				global_var:ztr_un_law_voting_model = 3
 			}
 			every_country = {
 				limit = {
-					has_modifier = ztr_onu_permanent_member
+					OR = {
+						has_modifier = ztr_onu_permanent_member
+						ztr_un_is_elected_member = yes
+					}
+					NOT = {
+						ztr_un_is_suspended = yes
+					}
 				}
 				set_variable = ztr_un_vote_eligible
 				set_variable = {
@@ -573,14 +613,22 @@ ztr_un_start_governance_vote = {
 				order_by = prestige
 				max = 2
 				check_range_bounds = no
-				set_variable = ztr_un_vote_eligible
-				set_variable = {
-					name = ztr_un_vote_weight
-					value = 1
-				}
-				trigger_event = {
-					id = ztr_un_event.10
-					days = 30
+				# A suspended superpower loses its vote, the seat is not passed on
+				if = {
+					limit = {
+						NOT = {
+							ztr_un_is_suspended = yes
+						}
+					}
+					set_variable = ztr_un_vote_eligible
+					set_variable = {
+						name = ztr_un_vote_weight
+						value = 1
+					}
+					trigger_event = {
+						id = ztr_un_event.10
+						days = 30
+					}
 				}
 			}
 		}
@@ -634,6 +682,8 @@ ztr_un_apply_governance_vote = {
 		}
 		# Select new permanent members based on the new model
 		ztr_un_select_new_permanent_members = yes
+		# New permanent members: elected seats are drawn again to avoid duplicates
+		ztr_un_elect_seats = yes
 	}
 	# Subject 4: Human Rights - Decolonization
 	if = {
@@ -863,6 +913,7 @@ ztr_un_apply_governance_vote = {
 			#TODO: Tenere a mente per estendere evento finale di legge UN ad altre elezioni
 			trigger_event = ztr_imf_event.1
 			remove_variable = ztr_un_vote_proposer
+			remove_variable = ztr_un_vote_cosigner
 		}
 	}
 	# Subject 9: WTO
@@ -916,6 +967,55 @@ ztr_un_apply_governance_vote = {
 			value = global_var:ztr_un_vote_proposal
 		}
 	}
+	# Subject 14: IAEA
+	if = {
+		limit = {
+			global_var:ztr_un_vote_subject ?= 14
+		}
+		set_global_variable = {
+			name = ztr_un_institution_iaea
+			value = global_var:ztr_un_vote_proposal
+		}
+	}
+	# Subject 15: permanent seat candidacy
+	if = {
+		limit = {
+			global_var:ztr_un_vote_subject ?= 15
+			has_global_variable = ztr_un_vote_candidate
+		}
+		if = {
+			limit = {
+				has_global_variable = ztr_un_vote_challenged
+			}
+			global_var:ztr_un_vote_challenged = {
+				if = {
+					limit = {
+						has_modifier = ztr_onu_permanent_member
+					}
+					remove_modifier = ztr_onu_permanent_member
+					add_modifier = ztr_onu_member
+					trigger_event = {
+						id = ztr_un_event.26
+						days = 7
+					}
+				}
+			}
+		}
+		global_var:ztr_un_vote_candidate = {
+			if = {
+				limit = {
+					has_modifier = ztr_onu_member
+				}
+				remove_modifier = ztr_onu_member
+				add_modifier = ztr_onu_permanent_member
+				trigger_event = {
+					id = ztr_un_event.25
+					days = 7
+				}
+			}
+		}
+		ztr_un_elect_seats = yes
+	}
 	# Clean up vote subject/proposal variables
 	remove_global_variable = ztr_un_vote_subject
 	remove_global_variable = ztr_un_vote_proposal
@@ -923,7 +1023,7 @@ ztr_un_apply_governance_vote = {
 
 # Select new permanent members based on the current member selection law
 ztr_un_select_new_permanent_members = {
-	# Model 1: By Prestige - top 3 by prestige
+	# Model 1: By Prestige - top 5 by prestige
 	if = {
 		limit = {
 			global_var:ztr_un_law_member_selection = 1
@@ -933,7 +1033,7 @@ ztr_un_select_new_permanent_members = {
 				has_modifier = ztr_onu_member
 			}
 			order_by = prestige
-			max = 3
+			max = 5
 			check_range_bounds = no
 			remove_modifier = ztr_onu_member
 			add_modifier = ztr_onu_permanent_member
@@ -1037,7 +1137,7 @@ ztr_un_select_new_permanent_members = {
 			}
 		}
 	}
-	# Model 3: By Military Power - top 3 by military strength
+	# Model 3: By Military Power - top 5 by military strength
 	else_if = {
 		limit = {
 			global_var:ztr_un_law_member_selection = 3
@@ -1050,7 +1150,7 @@ ztr_un_select_new_permanent_members = {
 				value = army_power_projection
 				add = naval_power_projection
 			}
-			max = 3
+			max = 5
 			check_range_bounds = no
 			remove_modifier = ztr_onu_member
 			add_modifier = ztr_onu_permanent_member
@@ -1092,6 +1192,7 @@ ztr_un_vote_cleanup_all_members = {
 				has_variable = ztr_un_vote_choice_against
 				has_variable = ztr_un_vote_weight
 				has_variable = ztr_un_vote_proposer
+				has_variable = ztr_un_vote_cosigner
 			}
 		}
 		remove_variable = ztr_un_vote_eligible
@@ -1100,6 +1201,10 @@ ztr_un_vote_cleanup_all_members = {
 		remove_variable = ztr_un_vote_choice_against
 		remove_variable = ztr_un_vote_weight
 		remove_variable = ztr_un_vote_proposer
+		remove_variable = ztr_un_vote_cosigner
+		remove_variable = ztr_un_vote_veto
+		remove_variable = ztr_un_vote_committed
+		remove_variable = ztr_un_vote_lean
 	}
 	remove_global_variable = ztr_un_vote_support_count
 	remove_global_variable = ztr_un_vote_neutral_count
@@ -1144,6 +1249,8 @@ ztr_un_vote_cleanup_all_members = {
 		}
 		remove_global_variable = ztr_un_button_opened
 	}
+	remove_global_variable = ztr_un_vote_candidate
+	remove_global_variable = ztr_un_vote_challenged
 }
 
 # Spawn the decorative UN Headquarters in the founder's capital (or New York if founded by the USA)
@@ -1212,14 +1319,40 @@ ztr_un_vote_save_last_result = {
 		name = ztr_un_last_vote_veto_count
 		value = 0
 	}
+	# Seat candidacy: names for the result event and the UN panel
+	remove_global_variable = ztr_un_last_vote_candidate
+	remove_global_variable = ztr_un_last_vote_challenged
+	if = {
+		limit = {
+			has_global_variable = ztr_un_vote_candidate
+		}
+		set_global_variable = {
+			name = ztr_un_last_vote_candidate
+			value = global_var:ztr_un_vote_candidate
+		}
+	}
+	if = {
+		limit = {
+			has_global_variable = ztr_un_vote_challenged
+		}
+		set_global_variable = {
+			name = ztr_un_last_vote_challenged
+			value = global_var:ztr_un_vote_challenged
+		}
+	}
 	if = {
 		limit = {
 			global_var:ztr_un_law_veto_right = 1
 		}
+		# A vote against is not a veto: only a declared veto (ztr_un_vote_veto) blocks
 		every_country = {
 			limit = {
 				has_modifier = ztr_onu_permanent_member
 				has_variable = ztr_un_vote_choice_against
+				has_variable = ztr_un_vote_veto
+				NOT = {
+					ztr_un_is_vote_challenged = yes
+				}
 			}
 			change_global_variable = {
 				name = ztr_un_last_vote_veto_count
@@ -1230,6 +1363,10 @@ ztr_un_vote_save_last_result = {
 			limit = {
 				has_modifier = ztr_onu_permanent_member
 				has_variable = ztr_un_vote_choice_against
+				has_variable = ztr_un_vote_veto
+				NOT = {
+					ztr_un_is_vote_challenged = yes
+				}
 			}
 			order_by = prestige
 			set_global_variable = {
@@ -1257,11 +1394,127 @@ ztr_un_vote_save_last_result = {
 			name = ztr_un_last_vote_result
 			value = 3
 		}
+		# A veto that blocked a majority recharges in 10 years
+		every_country = {
+			limit = {
+				has_modifier = ztr_onu_permanent_member
+				has_variable = ztr_un_vote_choice_against
+				has_variable = ztr_un_vote_veto
+				NOT = {
+					ztr_un_is_vote_challenged = yes
+				}
+			}
+			set_variable = {
+				name = ztr_un_veto_cd
+				years = 10
+			}
+		}
 	}
 	else = {
 		set_global_variable = {
 			name = ztr_un_last_vote_result
 			value = 1
+		}
+	}
+}
+
+# Yearly AI proposal coordinator (global scope): seat candidacy, then permanent members, then elected members
+ztr_un_ai_yearly_proposal = {
+	if = {
+		limit = {
+			NOR = {
+				has_global_variable = ztr_un_vote_in_progress
+				has_global_variable = ztr_un_vote_cd
+				# A player is choosing a proposal in the menu events or deciding on a co-signature
+				has_global_variable = ztr_un_button_opened
+			}
+		}
+		# AI candidacy for a permanent seat, half of the years it is possible
+		random_country = {
+			limit = {
+				is_ai = yes
+				ztr_un_can_run_for_permanent_seat = yes
+			}
+			save_scope_as = ztr_un_ai_seat_candidate
+		}
+		if = {
+			limit = {
+				exists = scope:ztr_un_ai_seat_candidate
+			}
+			random = {
+				chance = 50
+				scope:ztr_un_ai_seat_candidate = {
+					ztr_un_start_seat_candidacy = yes
+				}
+			}
+		}
+		# Up to two AI permanent members try one proposal each
+		if = {
+			limit = {
+				NOT = {
+					has_global_variable = ztr_un_vote_in_progress
+				}
+			}
+			random_country = {
+				limit = {
+					is_ai = yes
+					has_modifier = ztr_onu_permanent_member
+					NOT = {
+						ztr_un_is_suspended = yes
+					}
+				}
+				save_scope_as = ztr_un_potential_proposer_scope_1
+			}
+			if = {
+				limit = {
+					exists = scope:ztr_un_potential_proposer_scope_1
+				}
+				random_country = {
+					limit = {
+						is_ai = yes
+						has_modifier = ztr_onu_permanent_member
+						NOT = {
+							this = scope:ztr_un_potential_proposer_scope_1
+						}
+						NOT = {
+							ztr_un_is_suspended = yes
+						}
+					}
+					save_scope_as = ztr_un_potential_proposer_scope_2
+				}
+				scope:ztr_un_potential_proposer_scope_1 = {
+					ztr_un_random_subject_and_law_extraction = yes
+					ztr_un_ai_try_start_possible_vote = yes
+				}
+				# Second proposer evaluates the same extracted proposal
+				if = {
+					limit = {
+						NOT = {
+							has_global_variable = ztr_un_vote_in_progress
+						}
+						exists = scope:ztr_un_potential_proposer_scope_2
+					}
+					scope:ztr_un_potential_proposer_scope_2 = {
+						ztr_un_ai_try_start_possible_vote = yes
+					}
+				}
+			}
+		}
+		# One AI elected member tries a human rights statement, which needs a co-signer
+		if = {
+			limit = {
+				NOT = {
+					has_global_variable = ztr_un_vote_in_progress
+				}
+			}
+			random_country = {
+				limit = {
+					is_ai = yes
+					ztr_un_elected_can_propose = yes
+				}
+				ztr_un_random_human_rights_extraction = yes
+				ztr_un_ai_elected_try_proposal = yes
+			}
 		}
 	}
 }
@@ -1273,4 +1526,408 @@ remove_imf_modifier = {
 	remove_modifier = medium_imf_help_modifier
 	remove_modifier = small_imf_help_modifier
 	remove_modifier = tiny_imf_help_modifier
+}
+
+# ========================================
+# SECURITY COUNCIL ELECTED SEATS
+# ========================================
+# 4 random seats for 9 years; holders of the previous round cannot be drawn again
+ztr_un_elect_seats = {
+	every_country = {
+		limit = {
+			has_variable = ztr_un_elected_previous
+		}
+		remove_variable = ztr_un_elected_previous
+	}
+	every_country = {
+		limit = {
+			OR = {
+				has_variable = ztr_un_elected_seat
+				has_variable = ztr_un_elected_seat_lost
+			}
+		}
+		remove_variable = ztr_un_elected_seat
+		remove_variable = ztr_un_elected_seat_lost
+		set_variable = ztr_un_elected_previous
+	}
+	random_country = {
+		limit = {
+			ztr_un_can_be_elected = yes
+		}
+		ztr_un_take_elected_seat = yes
+	}
+	random_country = {
+		limit = {
+			ztr_un_can_be_elected = yes
+		}
+		ztr_un_take_elected_seat = yes
+	}
+	random_country = {
+		limit = {
+			ztr_un_can_be_elected = yes
+		}
+		ztr_un_take_elected_seat = yes
+	}
+	random_country = {
+		limit = {
+			ztr_un_can_be_elected = yes
+		}
+		ztr_un_take_elected_seat = yes
+	}
+	set_global_variable = {
+		name = ztr_un_elected_term
+		years = 9
+	}
+}
+
+ztr_un_take_elected_seat = {
+	set_variable = ztr_un_elected_seat
+	if = {
+		limit = {
+			is_ai = no
+		}
+		trigger_event = {
+			id = ztr_un_event.39
+			popup = yes
+		}
+	}
+}
+
+# Seat lost mid-term (condemnation, expulsion, withdrawal): still counts as the previous round
+# By-election: a random country from the same pool takes the seat for the rest of the term
+ztr_un_remove_elected_seat = {
+	if = {
+		limit = {
+			has_variable = ztr_un_elected_seat
+		}
+		remove_variable = ztr_un_elected_seat
+		set_variable = ztr_un_elected_seat_lost
+		random_country = {
+			limit = {
+				ztr_un_can_be_elected = yes
+				NOT = {
+					has_variable = ztr_un_elected_seat_lost
+				}
+			}
+			ztr_un_take_elected_seat = yes
+		}
+	}
+}
+
+# ========================================
+# PERMANENT SEAT CANDIDACY (subject 15)
+# ========================================
+# Scope: the candidate. The challenged member is the weakest permanent under the current law; none if a seat is vacant
+ztr_un_start_seat_candidacy = {
+	set_global_variable = {
+		name = ztr_un_vote_subject
+		value = 15
+	}
+	set_global_variable = {
+		name = ztr_un_vote_proposal
+		value = 1
+	}
+	set_global_variable = {
+		name = ztr_un_vote_candidate
+		value = this
+	}
+	remove_global_variable = ztr_un_vote_challenged
+	# By Prestige: lowest prestige among 5 permanent members
+	if = {
+		limit = {
+			global_var:ztr_un_law_member_selection = 1
+			any_country = {
+				count >= 5
+				has_modifier = ztr_onu_permanent_member
+			}
+		}
+		ordered_country = {
+			limit = {
+				has_modifier = ztr_onu_permanent_member
+			}
+			order_by = {
+				value = 0
+				subtract = prestige
+			}
+			set_global_variable = {
+				name = ztr_un_vote_challenged
+				value = this
+			}
+		}
+	}
+	# By Military Power: lowest army + navy power projection among 5 permanent members
+	else_if = {
+		limit = {
+			global_var:ztr_un_law_member_selection = 3
+			any_country = {
+				count >= 5
+				has_modifier = ztr_onu_permanent_member
+			}
+		}
+		ordered_country = {
+			limit = {
+				has_modifier = ztr_onu_permanent_member
+			}
+			order_by = {
+				value = 0
+				subtract = army_power_projection
+				subtract = naval_power_projection
+			}
+			set_global_variable = {
+				name = ztr_un_vote_challenged
+				value = this
+			}
+		}
+	}
+	# Superpowers: the weakest permanent member outside the top 2
+	else_if = {
+		limit = {
+			global_var:ztr_un_law_member_selection = 4
+			any_country = {
+				count >= 2
+				has_modifier = ztr_onu_permanent_member
+			}
+		}
+		ordered_country = {
+			limit = {
+				has_modifier = ztr_onu_permanent_member
+				global_country_ranking > 2
+			}
+			order_by = {
+				value = 0
+				subtract = prestige
+			}
+			set_global_variable = {
+				name = ztr_un_vote_challenged
+				value = this
+			}
+		}
+	}
+	set_variable = {
+		name = ztr_un_seat_candidacy_cd
+		years = 30
+	}
+	ztr_un_start_governance_vote = yes
+	set_variable = ztr_un_vote_proposer
+}
+
+# ========================================
+# ELECTED MEMBER PROPOSALS (co-signed by a permanent member)
+# ========================================
+# Human rights menu options: elected members look for a co-signer, permanent members start the vote
+ztr_un_submit_human_rights_proposal = {
+	if = {
+		limit = {
+			has_variable = ztr_un_elected_proposing
+		}
+		custom_tooltip = ztr_un_submit_cosign_tt
+		hidden_effect = {
+			remove_variable = ztr_un_elected_proposing
+			ztr_un_request_cosign = yes
+		}
+	}
+	else = {
+		ztr_un_start_governance_vote = yes
+		set_variable = ztr_un_vote_proposer
+		remove_global_variable = ztr_un_button_opened
+	}
+}
+
+# Scope: elected proposer, with ztr_un_vote_subject and ztr_un_vote_proposal already set
+# AI permanent members that back the proposal or the proposer co-sign at once; otherwise a player permanent member is asked
+ztr_un_request_cosign = {
+	save_scope_as = ztr_un_cosign_proposer
+	every_country = {
+		limit = {
+			is_ai = yes
+			has_modifier = ztr_onu_permanent_member
+			NOT = {
+				ztr_un_is_suspended = yes
+			}
+		}
+		ztr_un_ai_evaluate_cosign = yes
+	}
+	if = {
+		limit = {
+			any_country = {
+				has_variable = ztr_un_cosign_willing
+			}
+		}
+		ordered_country = {
+			limit = {
+				has_variable = ztr_un_cosign_willing
+			}
+			order_by = var:ztr_un_cosign_score
+			save_scope_as = ztr_un_cosigner
+		}
+		ztr_un_start_cosigned_vote = yes
+	}
+	else_if = {
+		limit = {
+			any_country = {
+				is_ai = no
+				has_modifier = ztr_onu_permanent_member
+				NOT = {
+					ztr_un_is_suspended = yes
+				}
+			}
+		}
+		set_global_variable = ztr_un_button_opened
+		set_global_variable = {
+			name = ztr_un_cosign_pending
+			value = this
+		}
+		random_country = {
+			limit = {
+				is_ai = no
+				has_modifier = ztr_onu_permanent_member
+				NOT = {
+					ztr_un_is_suspended = yes
+				}
+			}
+			trigger_event = {
+				id = ztr_un_event.37
+				popup = yes
+			}
+		}
+	}
+	else = {
+		ztr_un_elected_proposal_failed = yes
+	}
+	every_country = {
+		limit = {
+			has_variable = ztr_un_cosign_willing
+		}
+		remove_variable = ztr_un_cosign_willing
+	}
+	every_country = {
+		limit = {
+			has_variable = ztr_un_cosign_score
+		}
+		remove_variable = ztr_un_cosign_score
+	}
+}
+
+# Needs scope:ztr_un_cosign_proposer and scope:ztr_un_cosigner
+ztr_un_start_cosigned_vote = {
+	ztr_un_start_governance_vote = yes
+	set_global_variable = {
+		name = ztr_un_last_cosigner
+		value = scope:ztr_un_cosigner
+	}
+	set_global_variable = {
+		name = ztr_un_last_cosign_result
+		value = 1
+	}
+	scope:ztr_un_cosigner = {
+		set_variable = ztr_un_vote_proposer
+		# Not the author: its political pole does not sway the vote
+		set_variable = ztr_un_vote_cosigner
+	}
+	scope:ztr_un_cosign_proposer = {
+		set_variable = ztr_un_vote_proposer
+		set_variable = {
+			name = ztr_un_elected_proposal_cd
+			years = 10
+		}
+		if = {
+			limit = {
+				is_ai = no
+			}
+			trigger_event = {
+				id = ztr_un_event.38
+				popup = yes
+			}
+		}
+	}
+	set_global_variable = {
+		name = ztr_un_elected_proposal_gap
+		years = 1
+	}
+	remove_global_variable = ztr_un_cosign_pending
+	remove_global_variable = ztr_un_button_opened
+}
+
+# No co-signer: the proposer may try again in a year
+ztr_un_elected_proposal_failed = {
+	set_global_variable = {
+		name = ztr_un_last_cosign_result
+		value = 0
+	}
+	scope:ztr_un_cosign_proposer = {
+		set_variable = {
+			name = ztr_un_elected_proposal_cd
+			years = 1
+		}
+		if = {
+			limit = {
+				is_ai = no
+			}
+			trigger_event = {
+				id = ztr_un_event.38
+				popup = yes
+			}
+		}
+	}
+	remove_global_variable = ztr_un_vote_subject
+	remove_global_variable = ztr_un_vote_proposal
+	remove_global_variable = ztr_un_cosign_pending
+	remove_global_variable = ztr_un_button_opened
+}
+
+# ========================================
+# UN BUDGET (dues)
+# ========================================
+# Start of the year: weekly dues per member (ztr_un_dues_annual / 52) and the yearly UN budget
+ztr_un_assess_dues = {
+	set_global_variable = {
+		name = ztr_un_budget
+		value = 0
+	}
+	every_country = {
+		limit = {
+			has_variable = ztr_un_dues_weekly
+		}
+		remove_variable = ztr_un_dues_weekly
+	}
+	every_country = {
+		limit = {
+			ztr_is_un_member = yes
+		}
+		set_variable = {
+			name = ztr_un_dues_weekly
+			value = ztr_un_dues_annual
+		}
+		change_variable = {
+			name = ztr_un_dues_weekly
+			divide = 52
+		}
+		if = {
+			limit = {
+				NOT = {
+					ztr_un_is_suspended = yes
+				}
+			}
+			change_global_variable = {
+				name = ztr_un_budget
+				add = ztr_un_dues_annual
+			}
+		}
+	}
+}
+
+# ========================================
+# VOTE COMMITMENT (treaty articles ztr_un_vote_commitment_*)
+# ========================================
+# Scope: the committed voter. $CHOICE$ = support or against
+ztr_un_commit_vote = {
+	remove_variable = ztr_un_vote_choice_neutral
+	remove_variable = ztr_un_vote_choice_support
+	remove_variable = ztr_un_vote_choice_against
+	remove_variable = ztr_un_vote_veto
+	set_variable = ztr_un_vote_choice_$CHOICE$
+	set_variable = ztr_un_vote_committed
+	je:je_un_votations ?= {
+		ztr_un_vote_update_results = yes
+	}
 }

@@ -1935,8 +1935,11 @@ movement_ztrpol_democratization = {
 	}
 	disband_trigger = {
 		NOT = { OR = { ztrpol_is_collectivist_pole = yes ztrpol_is_reactionary_pole = yes } }
-		has_variable = liberty_index_var
-		var:liberty_index_var >= 60
+		custom_tooltip = {
+			text = ztrpol_tooltip_liberty_index_at_least_60
+			has_variable = liberty_index_var
+			var:liberty_index_var >= 60
+		}
 	}
 	creation_weight = {
 		value = 100

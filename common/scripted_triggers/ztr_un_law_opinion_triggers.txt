@@ -86,6 +86,13 @@ ztr_un_is_not_applied_law = {
 			}
 		}
 		AND = {
+			global_var:ztr_un_subject_possible_proposal = 14
+			has_global_variable = ztr_un_institution_iaea
+			NOT = {
+				global_var:ztr_un_institution_iaea = global_var:ztr_un_law_possible_proposal
+			}
+		}
+		AND = {
 			global_var:ztr_un_subject_possible_proposal = 12
 			has_global_variable = ztr_un_hr_environment
 			NOT = {
@@ -104,6 +111,11 @@ ztr_un_is_not_applied_law = {
 
 ztr_un_country_can_propose_possible_law = {
 	has_modifier = ztr_onu_permanent_member
+	ztr_un_possible_law_is_proposable = yes
+}
+
+# The extracted subject/law pair can be put to a vote by this country (elected members use it directly)
+ztr_un_possible_law_is_proposable = {
 	has_global_variable = ztr_un_subject_possible_proposal
 	has_global_variable = ztr_un_law_possible_proposal
 	NOT = {
@@ -191,6 +203,11 @@ ztr_un_country_can_propose_possible_law = {
 			global_var:ztr_un_subject_possible_proposal = 11
 			global_var:ztr_un_law_possible_proposal = 1
 			has_technology_researched = international_organizations
+		}
+		AND = {
+			global_var:ztr_un_subject_possible_proposal = 14
+			global_var:ztr_un_law_possible_proposal = 1
+			has_global_variable = ztr_atomic_bomb_first_use_var
 		}
 		AND = {
 			global_var:ztr_un_subject_possible_proposal = 12

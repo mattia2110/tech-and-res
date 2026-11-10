@@ -2,7 +2,7 @@
 # Unless noted, root is the country evaluating and scope:other_country the other party.
 
 # --- AI acceptance -----------------------------------------------------------
-# Weights tuned on the 1945 and 1968 saves: about half of the proposable pairs agree,
+# Weights tuned on the 1945 and 1968 saves: with base -60 about 1 pair in 3-4 agrees,
 # smaller partners accept larger ones far more often than the reverse.
 # Research Capacity root would gain: the partner's weight, limited by what is left under the cap
 ztr_research_agreement_ai_gain = {
@@ -15,7 +15,7 @@ ztr_research_agreement_ai_gain = {
 
 # Reluctance to commit 100 influence
 ztr_ra_score_base = {
-	value = -40
+	value = -60
 }
 
 # 30 per point: a full agreement (2 points) is worth 60
@@ -63,11 +63,11 @@ ztr_ra_score_ideology = {
 ztr_ra_score_pole = {
 	value = 0
 	if = {
-		limit = { ztr_research_same_pole = { COUNTRY = scope:other_country } }
+		limit = { ztrpol_same_pole_as = { COUNTRY = scope:other_country } }
 		value = 10
 	}
 	else_if = {
-		limit = { ztr_research_opposite_pole = { COUNTRY = scope:other_country } }
+		limit = { ztrpol_opposite_pole_to = { COUNTRY = scope:other_country } }
 		value = -25
 	}
 }

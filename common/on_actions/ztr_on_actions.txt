@@ -257,6 +257,26 @@ un_institutions_on_yearly_pulse = {
 				ztr_create_un_headquarters = yes
 			}
 		}
+		# Security Council elected seats: new election when the 9-year term ends
+		if = {
+			limit = {
+				NOT = {
+					has_global_variable = ztr_un_elected_term
+				}
+			}
+			ztr_un_elect_seats = yes
+		}
+		# UN budget: dues fixed at the start of the year
+		ztr_un_assess_dues = yes
+		# AI proposals: once a year for the whole UN
+		ztr_un_ai_yearly_proposal = yes
+		# UN condemnations expire 10 years after the first one
+		every_country = {
+			limit = {
+				has_variable = ztr_un_condemnation_count
+			}
+			ztr_un_condemnation_try_reset = yes
+		}
 		# ICC global mechanics
 		every_country = {
 			limit = {

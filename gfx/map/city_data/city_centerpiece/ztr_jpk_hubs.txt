@@ -84,7 +84,7 @@ ztr_jpk_hub_japan_wood_1 = {
 		composition = { name = chainsaw	trigger = { any_scope_building = { has_active_production_method = pm_chainsaws } } }								
 	}
 	composition_group = {
-		composition = { name = horse	trigger = { any_scope_building = { has_active_production_method = pm_road_carts } } }								
+		composition = { name = horse	trigger = { any_scope_building = { is_building_type = building_logging_camp has_active_production_method = pm_road_carts } } }	
 		composition = { name = rail		trigger = { any_scope_building = { has_active_production_method = pm_rail_transport_building_logging_camp } } }		
 		composition = { name = train	trigger = { any_scope_building = { has_active_production_method = pm_log_carts } } }								
 	}
@@ -552,12 +552,7 @@ ztr_jpk_hub_japan_port_1 = {
 			attach = {
 				locator = shipyard_01_right		
 
-				variant = { entity = japan_port_shipyard_02_entity 		building_type = building_shipyard			compositions = { ss___ ssf__ sf_s }
-					attach = {
-						locator = shipyard_02_right		
-						variant = { entity = japan_port_shipyard_01_entity 		building_type = building_shipyard			compositions = { ss___ ssf__ sf_s }}
-					}
-				}
+				variant = { entity = japan_port_shipyard_02_entity 		building_type = building_shipyard			compositions = { ss___ ssf__ sf_s } }
 			}
 		}
 	}

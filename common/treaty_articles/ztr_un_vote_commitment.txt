@@ -1,0 +1,335 @@
+﻿# UN vote commitment (docs/ztr_un/ztr_un_design.md §7.5): a voter commits to the vote a great power asks for
+
+# Source = the voter (major power or lower) that commits; target = the great power that asks and pays the influence
+ztr_un_vote_commitment_support = {
+	kind = directed
+	cost = 50
+	icon = "gfx/interface/icons/diplomatic_treaties_articles_icons/ztr_un_vote_commitment_support.dds"
+	maintenance_paid_by = target_country
+	usage_limit = once_per_side
+	mutual_exclusions = {
+		ztr_un_vote_commitment_against
+	}
+	visible = {
+		ztr_is_un_member = yes
+	}
+	possible = {
+		ztr_un_vote_commitment_possible = {
+			CHOICE = support
+		}
+	}
+	# Ends with the vote session
+	requirement_to_maintain = {
+		trigger = {
+			has_global_variable = ztr_un_vote_in_progress
+			scope:source_country = {
+				has_variable = ztr_un_vote_eligible
+			}
+		}
+	}
+	on_entry_into_force = {
+		scope:article_options.source_country = {
+			ztr_un_commit_vote = {
+				CHOICE = support
+			}
+		}
+	}
+	# Only the voter can hold the flag (great powers cannot commit)
+	on_withdrawal = {
+		scope:withdrawing_country = {
+			remove_variable = ztr_un_vote_committed
+		}
+		scope:non_withdrawing_country = {
+			remove_variable = ztr_un_vote_committed
+		}
+	}
+	ai = {
+		treaty_categories = {
+			other
+		}
+		article_ai_usage = {
+			request
+		}
+		evaluation_chance = {
+			value = 0
+			if = {
+				limit = {
+					has_global_variable = ztr_un_vote_in_progress
+					country_rank = rank_value:great_power
+					has_variable = ztr_un_vote_choice_support
+				}
+				value = 0.25
+			}
+		}
+		proposal_weight = {
+			value = 1
+		}
+		inherent_accept_score = {
+			value = 0
+			add = {
+				desc = "DIPLOMATIC_ACCEPTANCE_BASE_ADDITIONAL"
+				value = -25
+			}
+			add = {
+				desc = "ZTR_UN_VOTE_COMMITMENT_ACCEPT_LEAN"
+				value = ztr_un_vote_commitment_lean_support
+			}
+			# Ties with the other party, as in the research agreement
+			save_temporary_scope_as = target
+			scope:other_country = {
+				save_temporary_scope_as = actor
+			}
+			if = {
+				limit = { ztr_un_commit_score_relations > 0 }
+				add = {
+					desc = "DIPLOMATIC_ACCEPTANCE_RELATIONS"
+					value = ztr_un_commit_score_relations
+				}
+			}
+			else_if = {
+				limit = { ztr_un_commit_score_relations < 0 }
+				add = {
+					desc = "DIPLOMATIC_ACCEPTANCE_RELATIONS"
+					value = ztr_un_commit_score_relations
+				}
+			}
+			if = {
+				limit = { ztr_un_commit_score_ideology > 0 }
+				add = {
+					desc = "DIPLOMATIC_ACCEPTANCE_IDEOLOGICAL_OPINION"
+					value = ztr_un_commit_score_ideology
+				}
+			}
+			else_if = {
+				limit = { ztr_un_commit_score_ideology < 0 }
+				add = {
+					desc = "DIPLOMATIC_ACCEPTANCE_IDEOLOGICAL_OPINION_NEGATIVE"
+					value = ztr_un_commit_score_ideology
+				}
+			}
+			if = {
+				limit = { ztr_ra_score_pole > 0 }
+				add = {
+					desc = "ZTR_ACCEPTANCE_SAME_POLE"
+					value = ztr_ra_score_pole
+				}
+			}
+			else_if = {
+				limit = { ztr_ra_score_pole < 0 }
+				add = {
+					desc = "ZTR_ACCEPTANCE_OPPOSITE_POLE"
+					value = ztr_ra_score_pole
+				}
+			}
+			if = {
+				limit = { ztr_ra_score_attitude != 0 }
+				add = {
+					desc = "DIPLOMATIC_ACCEPTANCE_ATTITUDE"
+					value = ztr_ra_score_attitude
+				}
+			}
+			if = {
+				limit = { ztr_ra_score_rivalry < 0 }
+				add = {
+					desc = "ZTR_ACCEPTANCE_RIVALRY"
+					value = ztr_ra_score_rivalry
+				}
+			}
+			if = {
+				limit = { ztr_ra_score_alliance > 0 }
+				add = {
+					desc = "ZTR_ACCEPTANCE_ALLIED"
+					value = ztr_ra_score_alliance
+				}
+			}
+			if = {
+				limit = { ztr_ra_score_bloc > 0 }
+				add = {
+					desc = "DIPLOMATIC_ACCEPTANCE_SAME_POWER_BLOC"
+					value = ztr_ra_score_bloc
+				}
+			}
+			else_if = {
+				limit = { ztr_ra_score_bloc < 0 }
+				add = {
+					desc = "DIPLOMATIC_ACCEPTANCE_DIFFERENT_POWER_BLOC"
+					value = ztr_ra_score_bloc
+				}
+			}
+			if = {
+				limit = { ztr_ra_score_infamy < 0 }
+				add = {
+					desc = "DIPLOMATIC_ACCEPTANCE_INFAMY"
+					value = ztr_ra_score_infamy
+				}
+			}
+		}
+	}
+}
+
+# Source = the voter (major power or lower) that commits; target = the great power that asks and pays the influence
+ztr_un_vote_commitment_against = {
+	kind = directed
+	cost = 50
+	icon = "gfx/interface/icons/diplomatic_treaties_articles_icons/ztr_un_vote_commitment_against.dds"
+	maintenance_paid_by = target_country
+	usage_limit = once_per_side
+	mutual_exclusions = {
+		ztr_un_vote_commitment_support
+	}
+	visible = {
+		ztr_is_un_member = yes
+	}
+	possible = {
+		ztr_un_vote_commitment_possible = {
+			CHOICE = against
+		}
+	}
+	# Ends with the vote session
+	requirement_to_maintain = {
+		trigger = {
+			has_global_variable = ztr_un_vote_in_progress
+			scope:source_country = {
+				has_variable = ztr_un_vote_eligible
+			}
+		}
+	}
+	on_entry_into_force = {
+		scope:article_options.source_country = {
+			ztr_un_commit_vote = {
+				CHOICE = against
+			}
+		}
+	}
+	# Only the voter can hold the flag (great powers cannot commit)
+	on_withdrawal = {
+		scope:withdrawing_country = {
+			remove_variable = ztr_un_vote_committed
+		}
+		scope:non_withdrawing_country = {
+			remove_variable = ztr_un_vote_committed
+		}
+	}
+	ai = {
+		treaty_categories = {
+			other
+		}
+		article_ai_usage = {
+			request
+		}
+		evaluation_chance = {
+			value = 0
+			if = {
+				limit = {
+					has_global_variable = ztr_un_vote_in_progress
+					country_rank = rank_value:great_power
+					has_variable = ztr_un_vote_choice_against
+				}
+				value = 0.25
+			}
+		}
+		proposal_weight = {
+			value = 1
+		}
+		inherent_accept_score = {
+			value = 0
+			add = {
+				desc = "DIPLOMATIC_ACCEPTANCE_BASE_ADDITIONAL"
+				value = -25
+			}
+			add = {
+				desc = "ZTR_UN_VOTE_COMMITMENT_ACCEPT_LEAN"
+				value = ztr_un_vote_commitment_lean_against
+			}
+			# Ties with the other party, as in the research agreement
+			save_temporary_scope_as = target
+			scope:other_country = {
+				save_temporary_scope_as = actor
+			}
+			if = {
+				limit = { ztr_un_commit_score_relations > 0 }
+				add = {
+					desc = "DIPLOMATIC_ACCEPTANCE_RELATIONS"
+					value = ztr_un_commit_score_relations
+				}
+			}
+			else_if = {
+				limit = { ztr_un_commit_score_relations < 0 }
+				add = {
+					desc = "DIPLOMATIC_ACCEPTANCE_RELATIONS"
+					value = ztr_un_commit_score_relations
+				}
+			}
+			if = {
+				limit = { ztr_un_commit_score_ideology > 0 }
+				add = {
+					desc = "DIPLOMATIC_ACCEPTANCE_IDEOLOGICAL_OPINION"
+					value = ztr_un_commit_score_ideology
+				}
+			}
+			else_if = {
+				limit = { ztr_un_commit_score_ideology < 0 }
+				add = {
+					desc = "DIPLOMATIC_ACCEPTANCE_IDEOLOGICAL_OPINION_NEGATIVE"
+					value = ztr_un_commit_score_ideology
+				}
+			}
+			if = {
+				limit = { ztr_ra_score_pole > 0 }
+				add = {
+					desc = "ZTR_ACCEPTANCE_SAME_POLE"
+					value = ztr_ra_score_pole
+				}
+			}
+			else_if = {
+				limit = { ztr_ra_score_pole < 0 }
+				add = {
+					desc = "ZTR_ACCEPTANCE_OPPOSITE_POLE"
+					value = ztr_ra_score_pole
+				}
+			}
+			if = {
+				limit = { ztr_ra_score_attitude != 0 }
+				add = {
+					desc = "DIPLOMATIC_ACCEPTANCE_ATTITUDE"
+					value = ztr_ra_score_attitude
+				}
+			}
+			if = {
+				limit = { ztr_ra_score_rivalry < 0 }
+				add = {
+					desc = "ZTR_ACCEPTANCE_RIVALRY"
+					value = ztr_ra_score_rivalry
+				}
+			}
+			if = {
+				limit = { ztr_ra_score_alliance > 0 }
+				add = {
+					desc = "ZTR_ACCEPTANCE_ALLIED"
+					value = ztr_ra_score_alliance
+				}
+			}
+			if = {
+				limit = { ztr_ra_score_bloc > 0 }
+				add = {
+					desc = "DIPLOMATIC_ACCEPTANCE_SAME_POWER_BLOC"
+					value = ztr_ra_score_bloc
+				}
+			}
+			else_if = {
+				limit = { ztr_ra_score_bloc < 0 }
+				add = {
+					desc = "DIPLOMATIC_ACCEPTANCE_DIFFERENT_POWER_BLOC"
+					value = ztr_ra_score_bloc
+				}
+			}
+			if = {
+				limit = { ztr_ra_score_infamy < 0 }
+				add = {
+					desc = "DIPLOMATIC_ACCEPTANCE_INFAMY"
+					value = ztr_ra_score_infamy
+				}
+			}
+		}
+	}
+}

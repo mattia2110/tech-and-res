@@ -98,7 +98,7 @@ La soglia di saturazione economica sale da 3 nel 1836 a 4,5 nel 1886 e 6 nel 193
 | `drift` | Richiamo strutturale determinato da literacy, SoL ed epoca, più `V`. |
 | `econ` | Spinta economica: positiva con `D > D0`, negativa sotto, con verso invertito oltre `C`. La recessione pesa fino a `D = Lr*D0` (-2%), dove il fattore tocca `Lr - 1 = -1,5`. |
 | `R` | Quota del contributo economico negativo conservata sotto X=600: 0,5 con i default; da 600 resta integrale. |
-| `extra` | Correttivi additivi di `ztr_demography_extra_change`: sanità (+), cultura (religione di stato sunnita o sciita, oppure sistema delle caste imposto o codificato per legge), schiavitù, Nord America e immigrazione (-). |
+| `extra` | Correttivi additivi di `ztr_demography_extra_change`: sanità (+), cultura (religione di stato sunnita o sciita, oppure sistema delle caste imposto o codificato per legge), schiavitù, Nord America, immigrazione e pronatalismo coercitivo (-2/-3/-4 negli stadi 5/6/7+) (-). |
 | `dX` | Variazione annua applicata a `X`. |
 
 ## Pannello di controllo
@@ -224,9 +224,9 @@ I limiti annuali impongono almeno 6,7 anni per percorrere 100 punti in avanti e 
 
 ## Natalità, mortalità e figli per donna
 
-Valori mostrati, non simulati: non modificano la popolazione e non vengono salvati. Si calcolano solo quando il testo è visibile, nella descrizione di `je_demography` (`[ROOT.GetCountry.GetPopGrowthDesc]`); non compaiono più nel tooltip della popolazione in alto né nella mappa. I calcoli usano tassi per 1.000 abitanti all'anno; nascite e morti sono mostrate come valori assoluti annui (B e M × popolazione/1.000, in formato K/M).
+Valori mostrati, non simulati: non modificano la popolazione e non vengono salvati. Si calcolano solo quando il testo è visibile, nella descrizione di `je_demography` (`[ROOT.GetCountry.GetPopGrowthDesc]`); compaiono anche nel tooltip della popolazione in alto, per il paese del giocatore. I calcoli usano tassi per 1.000 abitanti all'anno; nascite e morti sono mostrate come valori assoluti annui (B e M × popolazione/1.000, in formato K/M).
 
-`G` è la crescita naturale annua del motore, la stessa dell'UI: `$NETGROWTHRATE|5$` dentro la chiave vanilla `TOOLTIP_COUNTRY_POP_GROWTH`, sovrascritta in `localization/english/replace/`. Senza `|5` la macro arriva arrotondata a 2 decimali (0,0063 → 0,00). Esclude migrazione e caduti in guerra. Dentro `GetPopGrowthDesc` il motore passa solo le macro e il contesto dati del chiamante: nel riquadro della mappa non c'è né `Country` né `State`, nel pannello del JE c'è solo `JournalEntry`. Per questo i valori leggono il paese da `JournalEntry.GetCountry` e le etichette sono condizionate con `AddLocalizationIf(JournalEntry.IsValid, ...)`: fuori dal JE (barra in alto, mappa) il blocco resta nascosto. Il motore espone natalità e mortalità reali solo per lo stato (`State.GetPopBirthrate`/`GetPopMortality`). Un `datacontext` sul riquadro della mappa rompe la GUI.
+`G` è la crescita naturale annua del motore, la stessa dell'UI: `$NETGROWTHRATE|5$` dentro la chiave vanilla `TOOLTIP_COUNTRY_POP_GROWTH`, sovrascritta in `localization/english/replace/`. Senza `|5` la macro arriva arrotondata a 2 decimali (0,0063 → 0,00). Esclude migrazione e caduti in guerra. Dentro `GetPopGrowthDesc` il motore passa solo le macro e il contesto dati del chiamante: nel riquadro della mappa non c'è né `Country` né `State`, nel pannello del JE c'è solo `JournalEntry`. Leggere il paese da `JournalEntry.GetCountry` scriveva errori nel log a ogni rendering fuori dal JE (barra in alto, mappa), anche con `AddLocalizationIf(JournalEntry.IsValid, ...)`. Per questo i valori leggono il paese da `GetPlayer`, che non richiede contesto: il blocco compare anche nella barra in alto, sempre per il paese del giocatore. Agli altri paesi la mappa mostra solo lo stadio demografico (`ztr_demography_map_tt`). Il motore espone natalità e mortalità reali solo per lo stato (`State.GetPopBirthrate`/`GetPopMortality`). Un `datacontext` sul riquadro della mappa rompe la GUI.
 
 ```text
 B̂ = B0(SoL) * (1 + state_birth_rate_mult)      # include demographic_stage_x

@@ -731,6 +731,149 @@ ztr_eeu_hub_default_farm_1_power_hydroponic = {
 	}
 }
 
+ztr_eeu_hub_russian_farm_1_power_renewable = {
+	city_graphics_type = ztr_eeu_russian_farm_early_modern
+	city_graphics_type = ztr_eeu_russian_farm_late_modern
+	city_graphics_type = ztr_eeu_russian_farm_postmodern
+	city_graphics_type = ztr_eeu_russian_farm_digital
+	city_graphics_type = ztr_eeu_russian_farm_ai
+	priority = 2
+	grid_size = { 5 3 }
+	should_update_on_pm_change = yes
+
+	trigger = {
+		any_scope_state = {
+			"b(building_renewable_energy_power_plant)" ?= {
+				OR = {
+					is_under_construction = yes
+					level > 0
+				}
+			}
+		}
+		NOT = {
+			any_scope_state = {
+				"b(building_hydroponic)" ?= {
+					OR = {
+						is_under_construction = yes
+						level > 0
+					}
+				}
+			}
+		}
+	}
+
+	locator = { name = ztr_centre position = { 1.5 0 0 } rotation = { 0 0 0 } scale = 1.0 }
+	locator = { name = ztr_renewable position = { -1.0 0 0 } rotation = { 0 0 0 } scale = 1.0 }
+	composition_group = {
+		composition = { name = ztr_wind trigger = { any_scope_building = { has_active_production_method = pm_wind_turbines } } }
+		composition = { name = ztr_solar trigger = { any_scope_building = { OR = { has_active_production_method = pm_rudimental_photovoltaic_cells has_active_production_method = pm_solar_panels } } } }
+	}
+	attach = { locator = ztr_centre variant = { entity = russian_farm_centerpiece_01_entity attach = { locator = windmill variant = { entity = russian_windmill_entity} } } }
+	attach = {
+		locator = ztr_renewable
+		variant = { entity = ztr_global_power_wind_01_entity	building_type = building_renewable_energy_power_plant	compositions = { ztr_wind } }
+		variant = { entity = ztr_global_power_solar_01_entity	building_type = building_renewable_energy_power_plant	compositions = { ztr_solar } }
+	}
+}
+
+ztr_eeu_hub_russian_farm_1_agri_hydroponic = {
+	city_graphics_type = ztr_eeu_russian_farm_early_modern
+	city_graphics_type = ztr_eeu_russian_farm_late_modern
+	city_graphics_type = ztr_eeu_russian_farm_postmodern
+	city_graphics_type = ztr_eeu_russian_farm_digital
+	city_graphics_type = ztr_eeu_russian_farm_ai
+	priority = 2
+	grid_size = { 5 3 }
+	should_update_on_pm_change = yes
+
+	trigger = {
+		any_scope_state = {
+			"b(building_hydroponic)" ?= {
+				OR = {
+					is_under_construction = yes
+					level > 0
+				}
+			}
+		}
+		NOT = {
+			any_scope_state = {
+				"b(building_renewable_energy_power_plant)" ?= {
+					OR = {
+						is_under_construction = yes
+						level > 0
+					}
+				}
+			}
+		}
+	}
+
+	locator = { name = ztr_centre position = { -1.5 0 0 } rotation = { 0 0 0 } scale = 1.0 }
+	locator = { name = ztr_hydroponic position = { 1.0 0 0 } rotation = { 0 0 0 } scale = 1.0 }
+	composition_group = {
+		composition = { name = ztr_vertical trigger = { any_scope_building = { has_active_production_method = pm_hydroponic_vertical_farming } } }
+		composition = { name = ztr_greenhouse trigger = { NOT = { any_scope_building = { has_active_production_method = pm_hydroponic_vertical_farming } } } }
+	}
+	attach = { locator = ztr_centre variant = { entity = russian_farm_centerpiece_01_entity attach = { locator = windmill variant = { entity = russian_windmill_entity} } } }
+	attach = {
+		locator = ztr_hydroponic
+		variant = { entity = ztr_global_agri_hydroponic_02_entity	building_type = building_hydroponic	compositions = { ztr_vertical } }
+		variant = { entity = ztr_global_agri_hydroponic_01_entity	building_type = building_hydroponic	compositions = { ztr_greenhouse } }
+	}
+}
+
+ztr_eeu_hub_russian_farm_1_power_hydroponic = {
+	city_graphics_type = ztr_eeu_russian_farm_early_modern
+	city_graphics_type = ztr_eeu_russian_farm_late_modern
+	city_graphics_type = ztr_eeu_russian_farm_postmodern
+	city_graphics_type = ztr_eeu_russian_farm_digital
+	city_graphics_type = ztr_eeu_russian_farm_ai
+	priority = 4
+	grid_size = { 8 3 }
+	should_update_on_pm_change = yes
+
+	trigger = {
+		any_scope_state = {
+			"b(building_renewable_energy_power_plant)" ?= {
+				OR = {
+					is_under_construction = yes
+					level > 0
+				}
+			}
+		}
+		any_scope_state = {
+			"b(building_hydroponic)" ?= {
+				OR = {
+					is_under_construction = yes
+					level > 0
+				}
+			}
+		}
+	}
+
+	locator = { name = ztr_centre position = { 0.0 0 0 } rotation = { 0 0 0 } scale = 1.0 }
+	locator = { name = ztr_renewable position = { -2.5 0 0 } rotation = { 0 0 0 } scale = 1.0 }
+	locator = { name = ztr_hydroponic position = { 2.5 0 0 } rotation = { 0 0 0 } scale = 1.0 }
+	composition_group = {
+		composition = { name = ztr_wind trigger = { any_scope_building = { has_active_production_method = pm_wind_turbines } } }
+		composition = { name = ztr_solar trigger = { any_scope_building = { OR = { has_active_production_method = pm_rudimental_photovoltaic_cells has_active_production_method = pm_solar_panels } } } }
+	}
+	composition_group = {
+		composition = { name = ztr_vertical trigger = { any_scope_building = { has_active_production_method = pm_hydroponic_vertical_farming } } }
+		composition = { name = ztr_greenhouse trigger = { NOT = { any_scope_building = { has_active_production_method = pm_hydroponic_vertical_farming } } } }
+	}
+	attach = { locator = ztr_centre variant = { entity = russian_farm_centerpiece_01_entity attach = { locator = windmill variant = { entity = russian_windmill_entity} } } }
+	attach = {
+		locator = ztr_renewable
+		variant = { entity = ztr_global_power_wind_01_entity	building_type = building_renewable_energy_power_plant	compositions = { ztr_wind } }
+		variant = { entity = ztr_global_power_solar_01_entity	building_type = building_renewable_energy_power_plant	compositions = { ztr_solar } }
+	}
+	attach = {
+		locator = ztr_hydroponic
+		variant = { entity = ztr_global_agri_hydroponic_02_entity	building_type = building_hydroponic	compositions = { ztr_vertical } }
+		variant = { entity = ztr_global_agri_hydroponic_01_entity	building_type = building_hydroponic	compositions = { ztr_greenhouse } }
+	}
+}
+
 ztr_eeu_hub_arabic_farm_1_power_renewable = {
 	city_graphics_type = ztr_eeu_caucasus_farm_early_modern
 	city_graphics_type = ztr_eeu_caucasus_farm_late_modern
@@ -1052,7 +1195,7 @@ ztr_eeu_hub_default_mine_1_power_renewable = {
 		composition = { name = ztr_wind trigger = { any_scope_building = { has_active_production_method = pm_wind_turbines } } }
 		composition = { name = ztr_solar trigger = { any_scope_building = { OR = { has_active_production_method = pm_rudimental_photovoltaic_cells has_active_production_method = pm_solar_panels } } } }
 	}
-	attach = { locator = ztr_centre variant = { entity = mininghub_centerpiece_01_entity } }
+	attach = { locator = ztr_centre variant = { entity = european_mining_centerpiece_01_entity } }
 	attach = {
 		locator = ztr_renewable
 		variant = { entity = ztr_global_power_wind_01_entity	building_type = building_renewable_energy_power_plant	compositions = { ztr_wind } }
@@ -1091,7 +1234,7 @@ ztr_eeu_hub_default_mine_1_telecom = {
 
 	locator = { name = ztr_centre position = { -1.0 0 0 } rotation = { 0 0 0 } scale = 1.0 }
 	locator = { name = ztr_telecom position = { 1.5 0 0 } rotation = { 0 0 0 } scale = 1.0 }
-	attach = { locator = ztr_centre variant = { entity = mininghub_centerpiece_01_entity } }
+	attach = { locator = ztr_centre variant = { entity = european_mining_centerpiece_01_entity } }
 	attach = {
 		locator = ztr_telecom
 		variant = { entity = ztr_global_telecom_radio_01_entity	building_type = building_telecommunications_industry }
@@ -1132,7 +1275,134 @@ ztr_eeu_hub_default_mine_1_power_telecom = {
 		composition = { name = ztr_wind trigger = { any_scope_building = { has_active_production_method = pm_wind_turbines } } }
 		composition = { name = ztr_solar trigger = { any_scope_building = { OR = { has_active_production_method = pm_rudimental_photovoltaic_cells has_active_production_method = pm_solar_panels } } } }
 	}
-	attach = { locator = ztr_centre variant = { entity = mininghub_centerpiece_01_entity } }
+	attach = { locator = ztr_centre variant = { entity = european_mining_centerpiece_01_entity } }
+	attach = {
+		locator = ztr_renewable
+		variant = { entity = ztr_global_power_wind_01_entity	building_type = building_renewable_energy_power_plant	compositions = { ztr_wind } }
+		variant = { entity = ztr_global_power_solar_01_entity	building_type = building_renewable_energy_power_plant	compositions = { ztr_solar } }
+	}
+	attach = {
+		locator = ztr_telecom
+		variant = { entity = ztr_global_telecom_radio_01_entity	building_type = building_telecommunications_industry }
+	}
+}
+
+ztr_eeu_hub_russian_mine_1_power_renewable = {
+	city_graphics_type = ztr_eeu_russian_mine_early_modern
+	city_graphics_type = ztr_eeu_russian_mine_late_modern
+	city_graphics_type = ztr_eeu_russian_mine_postmodern
+	city_graphics_type = ztr_eeu_russian_mine_digital
+	city_graphics_type = ztr_eeu_russian_mine_ai
+	priority = 2
+	grid_size = { 6 3 }
+	should_update_on_pm_change = yes
+
+	trigger = {
+		any_scope_state = {
+			"b(building_renewable_energy_power_plant)" ?= {
+				OR = {
+					is_under_construction = yes
+					level > 0
+				}
+			}
+		}
+		NOT = {
+			any_scope_state = {
+				any_scope_building = {
+					is_building_type = building_telecommunications_industry
+					NOT = { has_active_production_method = pm_manual_operators_network_building_telecommunications }
+				}
+			}
+		}
+	}
+
+	locator = { name = ztr_centre position = { 1.5 0 0 } rotation = { 0 0 0 } scale = 1.0 }
+	locator = { name = ztr_renewable position = { -1.5 0 0 } rotation = { 0 0 0 } scale = 1.0 }
+	composition_group = {
+		composition = { name = ztr_wind trigger = { any_scope_building = { has_active_production_method = pm_wind_turbines } } }
+		composition = { name = ztr_solar trigger = { any_scope_building = { OR = { has_active_production_method = pm_rudimental_photovoltaic_cells has_active_production_method = pm_solar_panels } } } }
+	}
+	attach = { locator = ztr_centre variant = { entity = russian_mining_centerpiece_01_entity } }
+	attach = {
+		locator = ztr_renewable
+		variant = { entity = ztr_global_power_wind_01_entity	building_type = building_renewable_energy_power_plant	compositions = { ztr_wind } }
+		variant = { entity = ztr_global_power_solar_01_entity	building_type = building_renewable_energy_power_plant	compositions = { ztr_solar } }
+	}
+}
+
+ztr_eeu_hub_russian_mine_1_telecom = {
+	city_graphics_type = ztr_eeu_russian_mine_early_modern
+	city_graphics_type = ztr_eeu_russian_mine_late_modern
+	city_graphics_type = ztr_eeu_russian_mine_postmodern
+	city_graphics_type = ztr_eeu_russian_mine_digital
+	city_graphics_type = ztr_eeu_russian_mine_ai
+	priority = 2
+	grid_size = { 5 3 }
+	should_update_on_pm_change = yes
+
+	trigger = {
+		any_scope_state = {
+			any_scope_building = {
+				is_building_type = building_telecommunications_industry
+				NOT = { has_active_production_method = pm_manual_operators_network_building_telecommunications }
+			}
+		}
+		NOT = {
+			any_scope_state = {
+				"b(building_renewable_energy_power_plant)" ?= {
+					OR = {
+						is_under_construction = yes
+						level > 0
+					}
+				}
+			}
+		}
+	}
+
+	locator = { name = ztr_centre position = { -1.0 0 0 } rotation = { 0 0 0 } scale = 1.0 }
+	locator = { name = ztr_telecom position = { 1.5 0 0 } rotation = { 0 0 0 } scale = 1.0 }
+	attach = { locator = ztr_centre variant = { entity = russian_mining_centerpiece_01_entity } }
+	attach = {
+		locator = ztr_telecom
+		variant = { entity = ztr_global_telecom_radio_01_entity	building_type = building_telecommunications_industry }
+	}
+}
+
+ztr_eeu_hub_russian_mine_1_power_telecom = {
+	city_graphics_type = ztr_eeu_russian_mine_early_modern
+	city_graphics_type = ztr_eeu_russian_mine_late_modern
+	city_graphics_type = ztr_eeu_russian_mine_postmodern
+	city_graphics_type = ztr_eeu_russian_mine_digital
+	city_graphics_type = ztr_eeu_russian_mine_ai
+	priority = 4
+	grid_size = { 8 3 }
+	should_update_on_pm_change = yes
+
+	trigger = {
+		any_scope_state = {
+			"b(building_renewable_energy_power_plant)" ?= {
+				OR = {
+					is_under_construction = yes
+					level > 0
+				}
+			}
+		}
+		any_scope_state = {
+			any_scope_building = {
+				is_building_type = building_telecommunications_industry
+				NOT = { has_active_production_method = pm_manual_operators_network_building_telecommunications }
+			}
+		}
+	}
+
+	locator = { name = ztr_centre position = { 0.5 0 0 } rotation = { 0 0 0 } scale = 1.0 }
+	locator = { name = ztr_renewable position = { -2.5 0 0 } rotation = { 0 0 0 } scale = 1.0 }
+	locator = { name = ztr_telecom position = { 3.0 0 0 } rotation = { 0 0 0 } scale = 1.0 }
+	composition_group = {
+		composition = { name = ztr_wind trigger = { any_scope_building = { has_active_production_method = pm_wind_turbines } } }
+		composition = { name = ztr_solar trigger = { any_scope_building = { OR = { has_active_production_method = pm_rudimental_photovoltaic_cells has_active_production_method = pm_solar_panels } } } }
+	}
+	attach = { locator = ztr_centre variant = { entity = russian_mining_centerpiece_01_entity } }
 	attach = {
 		locator = ztr_renewable
 		variant = { entity = ztr_global_power_wind_01_entity	building_type = building_renewable_energy_power_plant	compositions = { ztr_wind } }
@@ -1179,7 +1449,7 @@ ztr_eeu_hub_arabic_mine_1_power_renewable = {
 		composition = { name = ztr_wind trigger = { any_scope_building = { has_active_production_method = pm_wind_turbines } } }
 		composition = { name = ztr_solar trigger = { any_scope_building = { OR = { has_active_production_method = pm_rudimental_photovoltaic_cells has_active_production_method = pm_solar_panels } } } }
 	}
-	attach = { locator = ztr_centre variant = { entity = mininghub_centerpiece_sandstone_01_entity } }
+	attach = { locator = ztr_centre variant = { entity = arabic_mining_centerpiece_01_entity } }
 	attach = {
 		locator = ztr_renewable
 		variant = { entity = ztr_global_power_wind_01_entity	building_type = building_renewable_energy_power_plant	compositions = { ztr_wind } }
@@ -1218,7 +1488,7 @@ ztr_eeu_hub_arabic_mine_1_telecom = {
 
 	locator = { name = ztr_centre position = { -1.0 0 0 } rotation = { 0 0 0 } scale = 1.0 }
 	locator = { name = ztr_telecom position = { 1.5 0 0 } rotation = { 0 0 0 } scale = 1.0 }
-	attach = { locator = ztr_centre variant = { entity = mininghub_centerpiece_sandstone_01_entity } }
+	attach = { locator = ztr_centre variant = { entity = arabic_mining_centerpiece_01_entity } }
 	attach = {
 		locator = ztr_telecom
 		variant = { entity = ztr_global_telecom_radio_01_entity	building_type = building_telecommunications_industry }
@@ -1259,7 +1529,7 @@ ztr_eeu_hub_arabic_mine_1_power_telecom = {
 		composition = { name = ztr_wind trigger = { any_scope_building = { has_active_production_method = pm_wind_turbines } } }
 		composition = { name = ztr_solar trigger = { any_scope_building = { OR = { has_active_production_method = pm_rudimental_photovoltaic_cells has_active_production_method = pm_solar_panels } } } }
 	}
-	attach = { locator = ztr_centre variant = { entity = mininghub_centerpiece_sandstone_01_entity } }
+	attach = { locator = ztr_centre variant = { entity = arabic_mining_centerpiece_01_entity } }
 	attach = {
 		locator = ztr_renewable
 		variant = { entity = ztr_global_power_wind_01_entity	building_type = building_renewable_energy_power_plant	compositions = { ztr_wind } }
@@ -2350,7 +2620,7 @@ ztr_ind_hub_arabic_mine_1_power_renewable = {
 		composition = { name = ztr_wind trigger = { any_scope_building = { has_active_production_method = pm_wind_turbines } } }
 		composition = { name = ztr_solar trigger = { any_scope_building = { OR = { has_active_production_method = pm_rudimental_photovoltaic_cells has_active_production_method = pm_solar_panels } } } }
 	}
-	attach = { locator = ztr_centre variant = { entity = mininghub_centerpiece_sandstone_01_entity } }
+	attach = { locator = ztr_centre variant = { entity = arabic_mining_centerpiece_01_entity } }
 	attach = {
 		locator = ztr_renewable
 		variant = { entity = ztr_global_power_wind_01_entity	building_type = building_renewable_energy_power_plant	compositions = { ztr_wind } }
@@ -2389,7 +2659,7 @@ ztr_ind_hub_arabic_mine_1_telecom = {
 
 	locator = { name = ztr_centre position = { -1.0 0 0 } rotation = { 0 0 0 } scale = 1.0 }
 	locator = { name = ztr_telecom position = { 1.5 0 0 } rotation = { 0 0 0 } scale = 1.0 }
-	attach = { locator = ztr_centre variant = { entity = mininghub_centerpiece_sandstone_01_entity } }
+	attach = { locator = ztr_centre variant = { entity = arabic_mining_centerpiece_01_entity } }
 	attach = {
 		locator = ztr_telecom
 		variant = { entity = ztr_global_telecom_radio_01_entity	building_type = building_telecommunications_industry }
@@ -2430,7 +2700,7 @@ ztr_ind_hub_arabic_mine_1_power_telecom = {
 		composition = { name = ztr_wind trigger = { any_scope_building = { has_active_production_method = pm_wind_turbines } } }
 		composition = { name = ztr_solar trigger = { any_scope_building = { OR = { has_active_production_method = pm_rudimental_photovoltaic_cells has_active_production_method = pm_solar_panels } } } }
 	}
-	attach = { locator = ztr_centre variant = { entity = mininghub_centerpiece_sandstone_01_entity } }
+	attach = { locator = ztr_centre variant = { entity = arabic_mining_centerpiece_01_entity } }
 	attach = {
 		locator = ztr_renewable
 		variant = { entity = ztr_global_power_wind_01_entity	building_type = building_renewable_energy_power_plant	compositions = { ztr_wind } }
@@ -4234,7 +4504,7 @@ ztr_latam_hub_latin_mine_1_power_renewable = {
 		composition = { name = ztr_wind trigger = { any_scope_building = { has_active_production_method = pm_wind_turbines } } }
 		composition = { name = ztr_solar trigger = { any_scope_building = { OR = { has_active_production_method = pm_rudimental_photovoltaic_cells has_active_production_method = pm_solar_panels } } } }
 	}
-	attach = { locator = ztr_centre variant = { entity = latin_mininghub_centerpiece_01_entity } }
+	attach = { locator = ztr_centre variant = { entity = latin_mining_centerpiece_01_entity } }
 	attach = {
 		locator = ztr_renewable
 		variant = { entity = ztr_global_power_wind_01_entity	building_type = building_renewable_energy_power_plant	compositions = { ztr_wind } }
@@ -4273,7 +4543,7 @@ ztr_latam_hub_latin_mine_1_telecom = {
 
 	locator = { name = ztr_centre position = { -1.0 0 0 } rotation = { 0 0 0 } scale = 1.0 }
 	locator = { name = ztr_telecom position = { 1.5 0 0 } rotation = { 0 0 0 } scale = 1.0 }
-	attach = { locator = ztr_centre variant = { entity = latin_mininghub_centerpiece_01_entity } }
+	attach = { locator = ztr_centre variant = { entity = latin_mining_centerpiece_01_entity } }
 	attach = {
 		locator = ztr_telecom
 		variant = { entity = ztr_global_telecom_radio_01_entity	building_type = building_telecommunications_industry }
@@ -4314,7 +4584,7 @@ ztr_latam_hub_latin_mine_1_power_telecom = {
 		composition = { name = ztr_wind trigger = { any_scope_building = { has_active_production_method = pm_wind_turbines } } }
 		composition = { name = ztr_solar trigger = { any_scope_building = { OR = { has_active_production_method = pm_rudimental_photovoltaic_cells has_active_production_method = pm_solar_panels } } } }
 	}
-	attach = { locator = ztr_centre variant = { entity = latin_mininghub_centerpiece_01_entity } }
+	attach = { locator = ztr_centre variant = { entity = latin_mining_centerpiece_01_entity } }
 	attach = {
 		locator = ztr_renewable
 		variant = { entity = ztr_global_power_wind_01_entity	building_type = building_renewable_energy_power_plant	compositions = { ztr_wind } }
@@ -4820,7 +5090,7 @@ ztr_mena_hub_arabic_mine_1_power_renewable = {
 		composition = { name = ztr_wind trigger = { any_scope_building = { has_active_production_method = pm_wind_turbines } } }
 		composition = { name = ztr_solar trigger = { any_scope_building = { OR = { has_active_production_method = pm_rudimental_photovoltaic_cells has_active_production_method = pm_solar_panels } } } }
 	}
-	attach = { locator = ztr_centre variant = { entity = mininghub_centerpiece_sandstone_01_entity } }
+	attach = { locator = ztr_centre variant = { entity = arabic_mining_centerpiece_01_entity } }
 	attach = {
 		locator = ztr_renewable
 		variant = { entity = ztr_global_power_wind_01_entity	building_type = building_renewable_energy_power_plant	compositions = { ztr_wind } }
@@ -4859,7 +5129,7 @@ ztr_mena_hub_arabic_mine_1_telecom = {
 
 	locator = { name = ztr_centre position = { -1.0 0 0 } rotation = { 0 0 0 } scale = 1.0 }
 	locator = { name = ztr_telecom position = { 1.5 0 0 } rotation = { 0 0 0 } scale = 1.0 }
-	attach = { locator = ztr_centre variant = { entity = mininghub_centerpiece_sandstone_01_entity } }
+	attach = { locator = ztr_centre variant = { entity = arabic_mining_centerpiece_01_entity } }
 	attach = {
 		locator = ztr_telecom
 		variant = { entity = ztr_global_telecom_radio_01_entity	building_type = building_telecommunications_industry }
@@ -4900,7 +5170,7 @@ ztr_mena_hub_arabic_mine_1_power_telecom = {
 		composition = { name = ztr_wind trigger = { any_scope_building = { has_active_production_method = pm_wind_turbines } } }
 		composition = { name = ztr_solar trigger = { any_scope_building = { OR = { has_active_production_method = pm_rudimental_photovoltaic_cells has_active_production_method = pm_solar_panels } } } }
 	}
-	attach = { locator = ztr_centre variant = { entity = mininghub_centerpiece_sandstone_01_entity } }
+	attach = { locator = ztr_centre variant = { entity = arabic_mining_centerpiece_01_entity } }
 	attach = {
 		locator = ztr_renewable
 		variant = { entity = ztr_global_power_wind_01_entity	building_type = building_renewable_energy_power_plant	compositions = { ztr_wind } }
@@ -5549,7 +5819,7 @@ ztr_na_hub_default_mine_1_power_renewable = {
 		composition = { name = ztr_wind trigger = { any_scope_building = { has_active_production_method = pm_wind_turbines } } }
 		composition = { name = ztr_solar trigger = { any_scope_building = { OR = { has_active_production_method = pm_rudimental_photovoltaic_cells has_active_production_method = pm_solar_panels } } } }
 	}
-	attach = { locator = ztr_centre variant = { entity = mininghub_centerpiece_01_entity } }
+	attach = { locator = ztr_centre variant = { entity = european_mining_centerpiece_01_entity } }
 	attach = {
 		locator = ztr_renewable
 		variant = { entity = ztr_global_power_wind_01_entity	building_type = building_renewable_energy_power_plant	compositions = { ztr_wind } }
@@ -5588,7 +5858,7 @@ ztr_na_hub_default_mine_1_telecom = {
 
 	locator = { name = ztr_centre position = { -1.0 0 0 } rotation = { 0 0 0 } scale = 1.0 }
 	locator = { name = ztr_telecom position = { 1.5 0 0 } rotation = { 0 0 0 } scale = 1.0 }
-	attach = { locator = ztr_centre variant = { entity = mininghub_centerpiece_01_entity } }
+	attach = { locator = ztr_centre variant = { entity = european_mining_centerpiece_01_entity } }
 	attach = {
 		locator = ztr_telecom
 		variant = { entity = ztr_global_telecom_radio_01_entity	building_type = building_telecommunications_industry }
@@ -5629,7 +5899,7 @@ ztr_na_hub_default_mine_1_power_telecom = {
 		composition = { name = ztr_wind trigger = { any_scope_building = { has_active_production_method = pm_wind_turbines } } }
 		composition = { name = ztr_solar trigger = { any_scope_building = { OR = { has_active_production_method = pm_rudimental_photovoltaic_cells has_active_production_method = pm_solar_panels } } } }
 	}
-	attach = { locator = ztr_centre variant = { entity = mininghub_centerpiece_01_entity } }
+	attach = { locator = ztr_centre variant = { entity = european_mining_centerpiece_01_entity } }
 	attach = {
 		locator = ztr_renewable
 		variant = { entity = ztr_global_power_wind_01_entity	building_type = building_renewable_energy_power_plant	compositions = { ztr_wind } }
@@ -5676,7 +5946,7 @@ ztr_na_hub_american_oilrig_mine_1_power_renewable = {
 		composition = { name = ztr_wind trigger = { any_scope_building = { has_active_production_method = pm_wind_turbines } } }
 		composition = { name = ztr_solar trigger = { any_scope_building = { OR = { has_active_production_method = pm_rudimental_photovoltaic_cells has_active_production_method = pm_solar_panels } } } }
 	}
-	attach = { locator = ztr_centre variant = { entity = mininghub_centerpiece_01_entity } }
+	attach = { locator = ztr_centre variant = { entity = european_mining_centerpiece_01_entity } }
 	attach = {
 		locator = ztr_renewable
 		variant = { entity = ztr_global_power_wind_01_entity	building_type = building_renewable_energy_power_plant	compositions = { ztr_wind } }
@@ -5715,7 +5985,7 @@ ztr_na_hub_american_oilrig_mine_1_telecom = {
 
 	locator = { name = ztr_centre position = { -1.0 0 0 } rotation = { 0 0 0 } scale = 1.0 }
 	locator = { name = ztr_telecom position = { 1.5 0 0 } rotation = { 0 0 0 } scale = 1.0 }
-	attach = { locator = ztr_centre variant = { entity = mininghub_centerpiece_01_entity } }
+	attach = { locator = ztr_centre variant = { entity = european_mining_centerpiece_01_entity } }
 	attach = {
 		locator = ztr_telecom
 		variant = { entity = ztr_global_telecom_radio_01_entity	building_type = building_telecommunications_industry }
@@ -5756,7 +6026,7 @@ ztr_na_hub_american_oilrig_mine_1_power_telecom = {
 		composition = { name = ztr_wind trigger = { any_scope_building = { has_active_production_method = pm_wind_turbines } } }
 		composition = { name = ztr_solar trigger = { any_scope_building = { OR = { has_active_production_method = pm_rudimental_photovoltaic_cells has_active_production_method = pm_solar_panels } } } }
 	}
-	attach = { locator = ztr_centre variant = { entity = mininghub_centerpiece_01_entity } }
+	attach = { locator = ztr_centre variant = { entity = european_mining_centerpiece_01_entity } }
 	attach = {
 		locator = ztr_renewable
 		variant = { entity = ztr_global_power_wind_01_entity	building_type = building_renewable_energy_power_plant	compositions = { ztr_wind } }
@@ -6405,7 +6675,7 @@ ztr_neu_hub_default_mine_1_power_renewable = {
 		composition = { name = ztr_wind trigger = { any_scope_building = { has_active_production_method = pm_wind_turbines } } }
 		composition = { name = ztr_solar trigger = { any_scope_building = { OR = { has_active_production_method = pm_rudimental_photovoltaic_cells has_active_production_method = pm_solar_panels } } } }
 	}
-	attach = { locator = ztr_centre variant = { entity = mininghub_centerpiece_01_entity } }
+	attach = { locator = ztr_centre variant = { entity = european_mining_centerpiece_01_entity } }
 	attach = {
 		locator = ztr_renewable
 		variant = { entity = ztr_global_power_wind_01_entity	building_type = building_renewable_energy_power_plant	compositions = { ztr_wind } }
@@ -6444,7 +6714,7 @@ ztr_neu_hub_default_mine_1_telecom = {
 
 	locator = { name = ztr_centre position = { -1.0 0 0 } rotation = { 0 0 0 } scale = 1.0 }
 	locator = { name = ztr_telecom position = { 1.5 0 0 } rotation = { 0 0 0 } scale = 1.0 }
-	attach = { locator = ztr_centre variant = { entity = mininghub_centerpiece_01_entity } }
+	attach = { locator = ztr_centre variant = { entity = european_mining_centerpiece_01_entity } }
 	attach = {
 		locator = ztr_telecom
 		variant = { entity = ztr_global_telecom_radio_01_entity	building_type = building_telecommunications_industry }
@@ -6485,7 +6755,7 @@ ztr_neu_hub_default_mine_1_power_telecom = {
 		composition = { name = ztr_wind trigger = { any_scope_building = { has_active_production_method = pm_wind_turbines } } }
 		composition = { name = ztr_solar trigger = { any_scope_building = { OR = { has_active_production_method = pm_rudimental_photovoltaic_cells has_active_production_method = pm_solar_panels } } } }
 	}
-	attach = { locator = ztr_centre variant = { entity = mininghub_centerpiece_01_entity } }
+	attach = { locator = ztr_centre variant = { entity = european_mining_centerpiece_01_entity } }
 	attach = {
 		locator = ztr_renewable
 		variant = { entity = ztr_global_power_wind_01_entity	building_type = building_renewable_energy_power_plant	compositions = { ztr_wind } }
@@ -7846,7 +8116,7 @@ ztr_sea_hub_default_mine_1_power_renewable = {
 		composition = { name = ztr_wind trigger = { any_scope_building = { has_active_production_method = pm_wind_turbines } } }
 		composition = { name = ztr_solar trigger = { any_scope_building = { OR = { has_active_production_method = pm_rudimental_photovoltaic_cells has_active_production_method = pm_solar_panels } } } }
 	}
-	attach = { locator = ztr_centre variant = { entity = mininghub_centerpiece_01_entity } }
+	attach = { locator = ztr_centre variant = { entity = european_mining_centerpiece_01_entity } }
 	attach = {
 		locator = ztr_renewable
 		variant = { entity = ztr_global_power_wind_01_entity	building_type = building_renewable_energy_power_plant	compositions = { ztr_wind } }
@@ -7885,7 +8155,7 @@ ztr_sea_hub_default_mine_1_telecom = {
 
 	locator = { name = ztr_centre position = { -1.0 0 0 } rotation = { 0 0 0 } scale = 1.0 }
 	locator = { name = ztr_telecom position = { 1.5 0 0 } rotation = { 0 0 0 } scale = 1.0 }
-	attach = { locator = ztr_centre variant = { entity = mininghub_centerpiece_01_entity } }
+	attach = { locator = ztr_centre variant = { entity = european_mining_centerpiece_01_entity } }
 	attach = {
 		locator = ztr_telecom
 		variant = { entity = ztr_global_telecom_radio_01_entity	building_type = building_telecommunications_industry }
@@ -7926,7 +8196,7 @@ ztr_sea_hub_default_mine_1_power_telecom = {
 		composition = { name = ztr_wind trigger = { any_scope_building = { has_active_production_method = pm_wind_turbines } } }
 		composition = { name = ztr_solar trigger = { any_scope_building = { OR = { has_active_production_method = pm_rudimental_photovoltaic_cells has_active_production_method = pm_solar_panels } } } }
 	}
-	attach = { locator = ztr_centre variant = { entity = mininghub_centerpiece_01_entity } }
+	attach = { locator = ztr_centre variant = { entity = european_mining_centerpiece_01_entity } }
 	attach = {
 		locator = ztr_renewable
 		variant = { entity = ztr_global_power_wind_01_entity	building_type = building_renewable_energy_power_plant	compositions = { ztr_wind } }
@@ -7973,7 +8243,7 @@ ztr_sea_hub_latin_mine_1_power_renewable = {
 		composition = { name = ztr_wind trigger = { any_scope_building = { has_active_production_method = pm_wind_turbines } } }
 		composition = { name = ztr_solar trigger = { any_scope_building = { OR = { has_active_production_method = pm_rudimental_photovoltaic_cells has_active_production_method = pm_solar_panels } } } }
 	}
-	attach = { locator = ztr_centre variant = { entity = latin_mininghub_centerpiece_01_entity } }
+	attach = { locator = ztr_centre variant = { entity = latin_mining_centerpiece_01_entity } }
 	attach = {
 		locator = ztr_renewable
 		variant = { entity = ztr_global_power_wind_01_entity	building_type = building_renewable_energy_power_plant	compositions = { ztr_wind } }
@@ -8012,7 +8282,7 @@ ztr_sea_hub_latin_mine_1_telecom = {
 
 	locator = { name = ztr_centre position = { -1.0 0 0 } rotation = { 0 0 0 } scale = 1.0 }
 	locator = { name = ztr_telecom position = { 1.5 0 0 } rotation = { 0 0 0 } scale = 1.0 }
-	attach = { locator = ztr_centre variant = { entity = latin_mininghub_centerpiece_01_entity } }
+	attach = { locator = ztr_centre variant = { entity = latin_mining_centerpiece_01_entity } }
 	attach = {
 		locator = ztr_telecom
 		variant = { entity = ztr_global_telecom_radio_01_entity	building_type = building_telecommunications_industry }
@@ -8053,7 +8323,7 @@ ztr_sea_hub_latin_mine_1_power_telecom = {
 		composition = { name = ztr_wind trigger = { any_scope_building = { has_active_production_method = pm_wind_turbines } } }
 		composition = { name = ztr_solar trigger = { any_scope_building = { OR = { has_active_production_method = pm_rudimental_photovoltaic_cells has_active_production_method = pm_solar_panels } } } }
 	}
-	attach = { locator = ztr_centre variant = { entity = latin_mininghub_centerpiece_01_entity } }
+	attach = { locator = ztr_centre variant = { entity = latin_mining_centerpiece_01_entity } }
 	attach = {
 		locator = ztr_renewable
 		variant = { entity = ztr_global_power_wind_01_entity	building_type = building_renewable_energy_power_plant	compositions = { ztr_wind } }
@@ -9761,7 +10031,7 @@ ztr_seu_hub_default_mine_1_power_renewable = {
 		composition = { name = ztr_wind trigger = { any_scope_building = { has_active_production_method = pm_wind_turbines } } }
 		composition = { name = ztr_solar trigger = { any_scope_building = { OR = { has_active_production_method = pm_rudimental_photovoltaic_cells has_active_production_method = pm_solar_panels } } } }
 	}
-	attach = { locator = ztr_centre variant = { entity = mininghub_centerpiece_01_entity } }
+	attach = { locator = ztr_centre variant = { entity = european_mining_centerpiece_01_entity } }
 	attach = {
 		locator = ztr_renewable
 		variant = { entity = ztr_global_power_wind_01_entity	building_type = building_renewable_energy_power_plant	compositions = { ztr_wind } }
@@ -9800,7 +10070,7 @@ ztr_seu_hub_default_mine_1_telecom = {
 
 	locator = { name = ztr_centre position = { -1.0 0 0 } rotation = { 0 0 0 } scale = 1.0 }
 	locator = { name = ztr_telecom position = { 1.5 0 0 } rotation = { 0 0 0 } scale = 1.0 }
-	attach = { locator = ztr_centre variant = { entity = mininghub_centerpiece_01_entity } }
+	attach = { locator = ztr_centre variant = { entity = european_mining_centerpiece_01_entity } }
 	attach = {
 		locator = ztr_telecom
 		variant = { entity = ztr_global_telecom_radio_01_entity	building_type = building_telecommunications_industry }
@@ -9841,7 +10111,7 @@ ztr_seu_hub_default_mine_1_power_telecom = {
 		composition = { name = ztr_wind trigger = { any_scope_building = { has_active_production_method = pm_wind_turbines } } }
 		composition = { name = ztr_solar trigger = { any_scope_building = { OR = { has_active_production_method = pm_rudimental_photovoltaic_cells has_active_production_method = pm_solar_panels } } } }
 	}
-	attach = { locator = ztr_centre variant = { entity = mininghub_centerpiece_01_entity } }
+	attach = { locator = ztr_centre variant = { entity = european_mining_centerpiece_01_entity } }
 	attach = {
 		locator = ztr_renewable
 		variant = { entity = ztr_global_power_wind_01_entity	building_type = building_renewable_energy_power_plant	compositions = { ztr_wind } }
@@ -9888,7 +10158,7 @@ ztr_seu_hub_latin_mine_1_power_renewable = {
 		composition = { name = ztr_wind trigger = { any_scope_building = { has_active_production_method = pm_wind_turbines } } }
 		composition = { name = ztr_solar trigger = { any_scope_building = { OR = { has_active_production_method = pm_rudimental_photovoltaic_cells has_active_production_method = pm_solar_panels } } } }
 	}
-	attach = { locator = ztr_centre variant = { entity = latin_mininghub_centerpiece_01_entity } }
+	attach = { locator = ztr_centre variant = { entity = latin_mining_centerpiece_01_entity } }
 	attach = {
 		locator = ztr_renewable
 		variant = { entity = ztr_global_power_wind_01_entity	building_type = building_renewable_energy_power_plant	compositions = { ztr_wind } }
@@ -9927,7 +10197,7 @@ ztr_seu_hub_latin_mine_1_telecom = {
 
 	locator = { name = ztr_centre position = { -1.0 0 0 } rotation = { 0 0 0 } scale = 1.0 }
 	locator = { name = ztr_telecom position = { 1.5 0 0 } rotation = { 0 0 0 } scale = 1.0 }
-	attach = { locator = ztr_centre variant = { entity = latin_mininghub_centerpiece_01_entity } }
+	attach = { locator = ztr_centre variant = { entity = latin_mining_centerpiece_01_entity } }
 	attach = {
 		locator = ztr_telecom
 		variant = { entity = ztr_global_telecom_radio_01_entity	building_type = building_telecommunications_industry }
@@ -9968,7 +10238,7 @@ ztr_seu_hub_latin_mine_1_power_telecom = {
 		composition = { name = ztr_wind trigger = { any_scope_building = { has_active_production_method = pm_wind_turbines } } }
 		composition = { name = ztr_solar trigger = { any_scope_building = { OR = { has_active_production_method = pm_rudimental_photovoltaic_cells has_active_production_method = pm_solar_panels } } } }
 	}
-	attach = { locator = ztr_centre variant = { entity = latin_mininghub_centerpiece_01_entity } }
+	attach = { locator = ztr_centre variant = { entity = latin_mining_centerpiece_01_entity } }
 	attach = {
 		locator = ztr_renewable
 		variant = { entity = ztr_global_power_wind_01_entity	building_type = building_renewable_energy_power_plant	compositions = { ztr_wind } }
@@ -10015,7 +10285,7 @@ ztr_seu_hub_arabic_mine_1_power_renewable = {
 		composition = { name = ztr_wind trigger = { any_scope_building = { has_active_production_method = pm_wind_turbines } } }
 		composition = { name = ztr_solar trigger = { any_scope_building = { OR = { has_active_production_method = pm_rudimental_photovoltaic_cells has_active_production_method = pm_solar_panels } } } }
 	}
-	attach = { locator = ztr_centre variant = { entity = mininghub_centerpiece_sandstone_01_entity } }
+	attach = { locator = ztr_centre variant = { entity = arabic_mining_centerpiece_01_entity } }
 	attach = {
 		locator = ztr_renewable
 		variant = { entity = ztr_global_power_wind_01_entity	building_type = building_renewable_energy_power_plant	compositions = { ztr_wind } }
@@ -10054,7 +10324,7 @@ ztr_seu_hub_arabic_mine_1_telecom = {
 
 	locator = { name = ztr_centre position = { -1.0 0 0 } rotation = { 0 0 0 } scale = 1.0 }
 	locator = { name = ztr_telecom position = { 1.5 0 0 } rotation = { 0 0 0 } scale = 1.0 }
-	attach = { locator = ztr_centre variant = { entity = mininghub_centerpiece_sandstone_01_entity } }
+	attach = { locator = ztr_centre variant = { entity = arabic_mining_centerpiece_01_entity } }
 	attach = {
 		locator = ztr_telecom
 		variant = { entity = ztr_global_telecom_radio_01_entity	building_type = building_telecommunications_industry }
@@ -10095,7 +10365,7 @@ ztr_seu_hub_arabic_mine_1_power_telecom = {
 		composition = { name = ztr_wind trigger = { any_scope_building = { has_active_production_method = pm_wind_turbines } } }
 		composition = { name = ztr_solar trigger = { any_scope_building = { OR = { has_active_production_method = pm_rudimental_photovoltaic_cells has_active_production_method = pm_solar_panels } } } }
 	}
-	attach = { locator = ztr_centre variant = { entity = mininghub_centerpiece_sandstone_01_entity } }
+	attach = { locator = ztr_centre variant = { entity = arabic_mining_centerpiece_01_entity } }
 	attach = {
 		locator = ztr_renewable
 		variant = { entity = ztr_global_power_wind_01_entity	building_type = building_renewable_energy_power_plant	compositions = { ztr_wind } }
@@ -11800,7 +12070,7 @@ ztr_ssa_hub_african_mine_1_power_renewable = {
 		composition = { name = ztr_wind trigger = { any_scope_building = { has_active_production_method = pm_wind_turbines } } }
 		composition = { name = ztr_solar trigger = { any_scope_building = { OR = { has_active_production_method = pm_rudimental_photovoltaic_cells has_active_production_method = pm_solar_panels } } } }
 	}
-	attach = { locator = ztr_centre variant = { entity = african_mininghub_centerpiece_01_entity } }
+	attach = { locator = ztr_centre variant = { entity = african_mining_centerpiece_01_entity } }
 	attach = {
 		locator = ztr_renewable
 		variant = { entity = ztr_global_power_wind_01_entity	building_type = building_renewable_energy_power_plant	compositions = { ztr_wind } }
@@ -11839,7 +12109,7 @@ ztr_ssa_hub_african_mine_1_telecom = {
 
 	locator = { name = ztr_centre position = { -1.0 0 0 } rotation = { 0 0 0 } scale = 1.0 }
 	locator = { name = ztr_telecom position = { 1.5 0 0 } rotation = { 0 0 0 } scale = 1.0 }
-	attach = { locator = ztr_centre variant = { entity = african_mininghub_centerpiece_01_entity } }
+	attach = { locator = ztr_centre variant = { entity = african_mining_centerpiece_01_entity } }
 	attach = {
 		locator = ztr_telecom
 		variant = { entity = ztr_global_telecom_radio_01_entity	building_type = building_telecommunications_industry }
@@ -11880,7 +12150,7 @@ ztr_ssa_hub_african_mine_1_power_telecom = {
 		composition = { name = ztr_wind trigger = { any_scope_building = { has_active_production_method = pm_wind_turbines } } }
 		composition = { name = ztr_solar trigger = { any_scope_building = { OR = { has_active_production_method = pm_rudimental_photovoltaic_cells has_active_production_method = pm_solar_panels } } } }
 	}
-	attach = { locator = ztr_centre variant = { entity = african_mininghub_centerpiece_01_entity } }
+	attach = { locator = ztr_centre variant = { entity = african_mining_centerpiece_01_entity } }
 	attach = {
 		locator = ztr_renewable
 		variant = { entity = ztr_global_power_wind_01_entity	building_type = building_renewable_energy_power_plant	compositions = { ztr_wind } }

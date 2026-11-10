@@ -113,3 +113,47 @@ ztrpol_pole_changed = {
 		}
 	}
 }
+
+# This country and $COUNTRY$ share the same pole
+ztrpol_same_pole_as = {
+	OR = {
+		AND = {
+			ztrpol_is_social_pole = yes
+			$COUNTRY$ = { ztrpol_is_social_pole = yes }
+		}
+		AND = {
+			ztrpol_is_liberal_pole = yes
+			$COUNTRY$ = { ztrpol_is_liberal_pole = yes }
+		}
+		AND = {
+			ztrpol_is_collectivist_pole = yes
+			$COUNTRY$ = { ztrpol_is_collectivist_pole = yes }
+		}
+		AND = {
+			ztrpol_is_reactionary_pole = yes
+			$COUNTRY$ = { ztrpol_is_reactionary_pole = yes }
+		}
+	}
+}
+
+# $COUNTRY$ holds the opposite pole on both axes: Social against Reactionary, Liberal against Collectivist
+ztrpol_opposite_pole_to = {
+	OR = {
+		AND = {
+			ztrpol_is_social_pole = yes
+			$COUNTRY$ = { ztrpol_is_reactionary_pole = yes }
+		}
+		AND = {
+			ztrpol_is_liberal_pole = yes
+			$COUNTRY$ = { ztrpol_is_collectivist_pole = yes }
+		}
+		AND = {
+			ztrpol_is_collectivist_pole = yes
+			$COUNTRY$ = { ztrpol_is_liberal_pole = yes }
+		}
+		AND = {
+			ztrpol_is_reactionary_pole = yes
+			$COUNTRY$ = { ztrpol_is_social_pole = yes }
+		}
+	}
+}

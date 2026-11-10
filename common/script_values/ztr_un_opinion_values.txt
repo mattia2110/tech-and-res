@@ -1,0 +1,130 @@
+﻿# UN AI law valuation (ztr_un_value_law): stances of the IGs, set by their ideologies and leaders
+
+# Clout of IGs approving the law minus clout of IGs disapproving it (more in ztr_un_compliance_values.txt)
+
+ztr_un_no_colonial_affairs_support = {
+	value = 0
+	every_interest_group = {
+		limit = {
+			law_stance = {
+				law = law_type:law_no_colonial_affairs
+				value > neutral
+			}
+		}
+		add = ig_clout
+	}
+	every_interest_group = {
+		limit = {
+			law_stance = {
+				law = law_type:law_no_colonial_affairs
+				value < neutral
+			}
+		}
+		subtract = ig_clout
+	}
+}
+
+ztr_un_slavery_banned_support = {
+	value = 0
+	every_interest_group = {
+		limit = {
+			law_stance = {
+				law = law_type:law_slavery_banned
+				value > neutral
+			}
+		}
+		add = ig_clout
+	}
+	every_interest_group = {
+		limit = {
+			law_stance = {
+				law = law_type:law_slavery_banned
+				value < neutral
+			}
+		}
+		subtract = ig_clout
+	}
+}
+
+ztr_un_basic_protection_support = {
+	value = 0
+	every_interest_group = {
+		limit = {
+			law_stance = {
+				law = law_type:law_basic_protection
+				value > neutral
+			}
+		}
+		add = ig_clout
+	}
+	every_interest_group = {
+		limit = {
+			law_stance = {
+				law = law_type:law_basic_protection
+				value < neutral
+			}
+		}
+		subtract = ig_clout
+	}
+}
+
+ztr_un_protected_speech_support = {
+	value = 0
+	every_interest_group = {
+		limit = {
+			law_stance = {
+				law = law_type:law_protected_speech
+				value > neutral
+			}
+		}
+		add = ig_clout
+	}
+	every_interest_group = {
+		limit = {
+			law_stance = {
+				law = law_type:law_protected_speech
+				value < neutral
+			}
+		}
+		subtract = ig_clout
+	}
+}
+
+# Human rights statements: stance toward the law the statement imposes, x15 (half at the middle level, inverse at 0)
+
+ztr_un_hr_stance_decolonization = {
+	value = ztr_un_no_colonial_affairs_support
+	multiply = 15
+}
+
+ztr_un_hr_stance_slavery = {
+	value = ztr_un_slavery_banned_support
+	multiply = 15
+}
+
+ztr_un_hr_stance_children = {
+	value = ztr_un_compulsory_primary_school_support
+	multiply = 15
+}
+
+ztr_un_hr_stance_women = {
+	value = ztr_un_women_in_the_workplace_support
+	multiply = 15
+}
+
+ztr_un_hr_stance_environment = {
+	value = ztr_un_basic_protection_support
+	multiply = 15
+}
+
+ztr_un_hr_stance_labor = {
+	value = ztr_un_worker_protections_support
+	multiply = 15
+}
+
+# Governance and institutions: generic rights stance (Protected Speech), x10
+
+ztr_un_rights_stance = {
+	value = ztr_un_protected_speech_support
+	multiply = 10
+}

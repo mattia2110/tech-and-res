@@ -5390,6 +5390,332 @@ ztr_eeu_cp_european_city_centerpiece_01_skyscraper_power_thermal_statue = {
 	}
 }
 
+ztr_eeu_cp_russian_city_centerpiece_01_power_thermal = {
+	city_graphics_type = ztr_eeu_russian_city_early_modern_start
+	city_graphics_type = ztr_eeu_russian_city_early_modern
+	city_graphics_type = ztr_eeu_russian_city_early_modern_socialist
+	priority = 2
+	grid_size = { 5 3 }
+	should_update_on_pm_change = yes
+
+	trigger = {
+		OR = {
+			any_scope_state = {
+				"b(building_power_plant)" ?= {
+					OR = {
+						is_under_construction = yes
+						level > 0
+					}
+				}
+			}
+			any_scope_state = {
+				"b(building_fusion_power_plant)" ?= {
+					OR = {
+						is_under_construction = yes
+						level > 0
+					}
+				}
+			}
+		}
+	}
+
+	locator = { name = ztr_centre position = { 1.5 0 0 } rotation = { 0 0 0 } scale = 1.0 }
+	locator = { name = ztr_thermal position = { -1.0 0 0 } rotation = { 0 0 0 } scale = 1.0 }
+	composition_group = {
+		composition = { name = ztr_fusion trigger = { any_scope_building = { is_building_type = building_fusion_power_plant } } }
+		composition = { name = ztr_nuclear trigger = { NOT = { any_scope_building = { is_building_type = building_fusion_power_plant } } any_scope_building = { OR = { has_active_production_method = pm_nuclear-fission_plant has_active_production_method = pm_nuclear-fission_plant_2 has_active_production_method = pm_nuclear-fission_plant_3 } } } }
+		composition = { name = ztr_coal trigger = { NOT = { any_scope_building = { is_building_type = building_fusion_power_plant } } any_scope_building = { has_active_production_method = pm_coal-fired_plant_3 } } }
+		composition = { name = ztr_oil trigger = { NOT = { any_scope_building = { is_building_type = building_fusion_power_plant } } any_scope_building = { has_active_production_method = pm_oil-fired_plant_3 } } }
+		composition = { name = ztr_gas trigger = { NOT = { any_scope_building = { is_building_type = building_fusion_power_plant } } any_scope_building = { has_active_production_method = pm_gas-fired_plant_3 } } }
+		composition = { name = ztr_old trigger = {
+			NOT = { any_scope_building = { is_building_type = building_fusion_power_plant } }
+			any_scope_building = { is_building_type = building_power_plant }
+			NOT = { any_scope_building = { OR = { has_active_production_method = pm_nuclear-fission_plant has_active_production_method = pm_nuclear-fission_plant_2 has_active_production_method = pm_nuclear-fission_plant_3 has_active_production_method = pm_coal-fired_plant_3 has_active_production_method = pm_oil-fired_plant_3 has_active_production_method = pm_gas-fired_plant_3 } } }
+		} }
+	}
+	attach = { locator = ztr_centre variant = { entity = russian_city_centerpiece_01_entity } }
+	attach = {
+		locator = ztr_thermal
+		variant = { entity = ztr_global_power_fusion_01_entity	building_type = building_fusion_power_plant	compositions = { ztr_fusion } }
+		variant = { entity = ztr_global_power_nuclear_01_entity	building_type = building_power_plant	compositions = { ztr_nuclear } }
+		variant = { entity = ztr_global_power_coal_01_entity	building_type = building_power_plant	compositions = { ztr_coal } }
+		variant = { entity = ztr_global_power_oil_01_entity	building_type = building_power_plant	compositions = { ztr_oil } }
+		variant = { entity = ztr_global_power_gas_01_entity	building_type = building_power_plant	compositions = { ztr_gas } }
+		variant = { entity = ztr_global_power_vanilla_entity	building_type = building_power_plant	compositions = { ztr_old } }
+	}
+}
+
+ztr_eeu_cp_russian_city_centerpiece_01_statue = {
+	city_graphics_type = ztr_eeu_russian_city_early_modern_start
+	city_graphics_type = ztr_eeu_russian_city_early_modern
+	city_graphics_type = ztr_eeu_russian_city_early_modern_socialist
+	priority = 21
+	grid_size = { 4 2 }
+	should_update_on_pm_change = yes
+
+	trigger = {
+		any_scope_state = {
+			"b(building_power_bloc_statue)" ?= {
+				OR = {
+					is_under_construction = yes
+					level > 0
+				}
+			}
+		}
+	}
+
+	locator = { name = ztr_centre position = { 1.0 0 0 } rotation = { 0 0 0 } scale = 1.0 }
+	locator = { name = ztr_statue position = { -1.0 0 0 } rotation = { 0 0 0 } scale = 1.0 }
+	attach = { locator = ztr_centre variant = { entity = russian_city_centerpiece_01_entity } }
+	attach = {
+		locator = ztr_statue
+		variant = { is_power_bloc_statue = yes	building_type = building_power_bloc_statue }
+	}
+}
+
+ztr_eeu_cp_russian_city_centerpiece_01_power_thermal_statue = {
+	city_graphics_type = ztr_eeu_russian_city_early_modern_start
+	city_graphics_type = ztr_eeu_russian_city_early_modern
+	city_graphics_type = ztr_eeu_russian_city_early_modern_socialist
+	priority = 23
+	grid_size = { 7 3 }
+	should_update_on_pm_change = yes
+
+	trigger = {
+		OR = {
+			any_scope_state = {
+				"b(building_power_plant)" ?= {
+					OR = {
+						is_under_construction = yes
+						level > 0
+					}
+				}
+			}
+			any_scope_state = {
+				"b(building_fusion_power_plant)" ?= {
+					OR = {
+						is_under_construction = yes
+						level > 0
+					}
+				}
+			}
+		}
+		any_scope_state = {
+			"b(building_power_bloc_statue)" ?= {
+				OR = {
+					is_under_construction = yes
+					level > 0
+				}
+			}
+		}
+	}
+
+	locator = { name = ztr_centre position = { 2.5 0 0 } rotation = { 0 0 0 } scale = 1.0 }
+	locator = { name = ztr_statue position = { 0.5 0 0 } rotation = { 0 0 0 } scale = 1.0 }
+	locator = { name = ztr_thermal position = { -2.0 0 0 } rotation = { 0 0 0 } scale = 1.0 }
+	composition_group = {
+		composition = { name = ztr_fusion trigger = { any_scope_building = { is_building_type = building_fusion_power_plant } } }
+		composition = { name = ztr_nuclear trigger = { NOT = { any_scope_building = { is_building_type = building_fusion_power_plant } } any_scope_building = { OR = { has_active_production_method = pm_nuclear-fission_plant has_active_production_method = pm_nuclear-fission_plant_2 has_active_production_method = pm_nuclear-fission_plant_3 } } } }
+		composition = { name = ztr_coal trigger = { NOT = { any_scope_building = { is_building_type = building_fusion_power_plant } } any_scope_building = { has_active_production_method = pm_coal-fired_plant_3 } } }
+		composition = { name = ztr_oil trigger = { NOT = { any_scope_building = { is_building_type = building_fusion_power_plant } } any_scope_building = { has_active_production_method = pm_oil-fired_plant_3 } } }
+		composition = { name = ztr_gas trigger = { NOT = { any_scope_building = { is_building_type = building_fusion_power_plant } } any_scope_building = { has_active_production_method = pm_gas-fired_plant_3 } } }
+		composition = { name = ztr_old trigger = {
+			NOT = { any_scope_building = { is_building_type = building_fusion_power_plant } }
+			any_scope_building = { is_building_type = building_power_plant }
+			NOT = { any_scope_building = { OR = { has_active_production_method = pm_nuclear-fission_plant has_active_production_method = pm_nuclear-fission_plant_2 has_active_production_method = pm_nuclear-fission_plant_3 has_active_production_method = pm_coal-fired_plant_3 has_active_production_method = pm_oil-fired_plant_3 has_active_production_method = pm_gas-fired_plant_3 } } }
+		} }
+	}
+	attach = { locator = ztr_centre variant = { entity = russian_city_centerpiece_01_entity } }
+	attach = {
+		locator = ztr_statue
+		variant = { is_power_bloc_statue = yes	building_type = building_power_bloc_statue }
+	}
+	attach = {
+		locator = ztr_thermal
+		variant = { entity = ztr_global_power_fusion_01_entity	building_type = building_fusion_power_plant	compositions = { ztr_fusion } }
+		variant = { entity = ztr_global_power_nuclear_01_entity	building_type = building_power_plant	compositions = { ztr_nuclear } }
+		variant = { entity = ztr_global_power_coal_01_entity	building_type = building_power_plant	compositions = { ztr_coal } }
+		variant = { entity = ztr_global_power_oil_01_entity	building_type = building_power_plant	compositions = { ztr_oil } }
+		variant = { entity = ztr_global_power_gas_01_entity	building_type = building_power_plant	compositions = { ztr_gas } }
+		variant = { entity = ztr_global_power_vanilla_entity	building_type = building_power_plant	compositions = { ztr_old } }
+	}
+}
+
+ztr_eeu_cp_russian_city_centerpiece_01_skyscraper_power_thermal = {
+	city_graphics_type = ztr_eeu_russian_city_early_modern_start
+	city_graphics_type = ztr_eeu_russian_city_early_modern
+	city_graphics_type = ztr_eeu_russian_city_early_modern_socialist
+	priority = 12
+	grid_size = { 5 3 }
+	should_update_on_pm_change = yes
+
+	trigger = {
+		any_scope_state = {
+			"b(building_skyscraper)" ?= {
+				OR = {
+					is_under_construction = yes
+					level > 0
+				}
+			}
+		}
+		OR = {
+			any_scope_state = {
+				"b(building_power_plant)" ?= {
+					OR = {
+						is_under_construction = yes
+						level > 0
+					}
+				}
+			}
+			any_scope_state = {
+				"b(building_fusion_power_plant)" ?= {
+					OR = {
+						is_under_construction = yes
+						level > 0
+					}
+				}
+			}
+		}
+	}
+
+	locator = { name = ztr_centre position = { 1.5 0 0 } rotation = { 0 0 0 } scale = 1.0 }
+	locator = { name = ztr_thermal position = { -1.0 0 0 } rotation = { 0 0 0 } scale = 1.0 }
+	composition_group = {
+		composition = { name = ztr_fusion trigger = { any_scope_building = { is_building_type = building_fusion_power_plant } } }
+		composition = { name = ztr_nuclear trigger = { NOT = { any_scope_building = { is_building_type = building_fusion_power_plant } } any_scope_building = { OR = { has_active_production_method = pm_nuclear-fission_plant has_active_production_method = pm_nuclear-fission_plant_2 has_active_production_method = pm_nuclear-fission_plant_3 } } } }
+		composition = { name = ztr_coal trigger = { NOT = { any_scope_building = { is_building_type = building_fusion_power_plant } } any_scope_building = { has_active_production_method = pm_coal-fired_plant_3 } } }
+		composition = { name = ztr_oil trigger = { NOT = { any_scope_building = { is_building_type = building_fusion_power_plant } } any_scope_building = { has_active_production_method = pm_oil-fired_plant_3 } } }
+		composition = { name = ztr_gas trigger = { NOT = { any_scope_building = { is_building_type = building_fusion_power_plant } } any_scope_building = { has_active_production_method = pm_gas-fired_plant_3 } } }
+		composition = { name = ztr_old trigger = {
+			NOT = { any_scope_building = { is_building_type = building_fusion_power_plant } }
+			any_scope_building = { is_building_type = building_power_plant }
+			NOT = { any_scope_building = { OR = { has_active_production_method = pm_nuclear-fission_plant has_active_production_method = pm_nuclear-fission_plant_2 has_active_production_method = pm_nuclear-fission_plant_3 has_active_production_method = pm_coal-fired_plant_3 has_active_production_method = pm_oil-fired_plant_3 has_active_production_method = pm_gas-fired_plant_3 } } }
+		} }
+	}
+	attach = { locator = ztr_centre variant = { entity = russian_city_skyscraper_01_entity building_type = building_skyscraper } }
+	attach = {
+		locator = ztr_thermal
+		variant = { entity = ztr_global_power_fusion_01_entity	building_type = building_fusion_power_plant	compositions = { ztr_fusion } }
+		variant = { entity = ztr_global_power_nuclear_01_entity	building_type = building_power_plant	compositions = { ztr_nuclear } }
+		variant = { entity = ztr_global_power_coal_01_entity	building_type = building_power_plant	compositions = { ztr_coal } }
+		variant = { entity = ztr_global_power_oil_01_entity	building_type = building_power_plant	compositions = { ztr_oil } }
+		variant = { entity = ztr_global_power_gas_01_entity	building_type = building_power_plant	compositions = { ztr_gas } }
+		variant = { entity = ztr_global_power_vanilla_entity	building_type = building_power_plant	compositions = { ztr_old } }
+	}
+}
+
+ztr_eeu_cp_russian_city_centerpiece_01_skyscraper_statue = {
+	city_graphics_type = ztr_eeu_russian_city_early_modern_start
+	city_graphics_type = ztr_eeu_russian_city_early_modern
+	city_graphics_type = ztr_eeu_russian_city_early_modern_socialist
+	priority = 31
+	grid_size = { 4 2 }
+	should_update_on_pm_change = yes
+
+	trigger = {
+		any_scope_state = {
+			"b(building_skyscraper)" ?= {
+				OR = {
+					is_under_construction = yes
+					level > 0
+				}
+			}
+		}
+		any_scope_state = {
+			"b(building_power_bloc_statue)" ?= {
+				OR = {
+					is_under_construction = yes
+					level > 0
+				}
+			}
+		}
+	}
+
+	locator = { name = ztr_centre position = { 1.0 0 0 } rotation = { 0 0 0 } scale = 1.0 }
+	locator = { name = ztr_statue position = { -1.0 0 0 } rotation = { 0 0 0 } scale = 1.0 }
+	attach = { locator = ztr_centre variant = { entity = russian_city_skyscraper_01_entity building_type = building_skyscraper } }
+	attach = {
+		locator = ztr_statue
+		variant = { is_power_bloc_statue = yes	building_type = building_power_bloc_statue }
+	}
+}
+
+ztr_eeu_cp_russian_city_centerpiece_01_skyscraper_power_thermal_statue = {
+	city_graphics_type = ztr_eeu_russian_city_early_modern_start
+	city_graphics_type = ztr_eeu_russian_city_early_modern
+	city_graphics_type = ztr_eeu_russian_city_early_modern_socialist
+	priority = 33
+	grid_size = { 7 3 }
+	should_update_on_pm_change = yes
+
+	trigger = {
+		any_scope_state = {
+			"b(building_skyscraper)" ?= {
+				OR = {
+					is_under_construction = yes
+					level > 0
+				}
+			}
+		}
+		OR = {
+			any_scope_state = {
+				"b(building_power_plant)" ?= {
+					OR = {
+						is_under_construction = yes
+						level > 0
+					}
+				}
+			}
+			any_scope_state = {
+				"b(building_fusion_power_plant)" ?= {
+					OR = {
+						is_under_construction = yes
+						level > 0
+					}
+				}
+			}
+		}
+		any_scope_state = {
+			"b(building_power_bloc_statue)" ?= {
+				OR = {
+					is_under_construction = yes
+					level > 0
+				}
+			}
+		}
+	}
+
+	locator = { name = ztr_centre position = { 2.5 0 0 } rotation = { 0 0 0 } scale = 1.0 }
+	locator = { name = ztr_statue position = { 0.5 0 0 } rotation = { 0 0 0 } scale = 1.0 }
+	locator = { name = ztr_thermal position = { -2.0 0 0 } rotation = { 0 0 0 } scale = 1.0 }
+	composition_group = {
+		composition = { name = ztr_fusion trigger = { any_scope_building = { is_building_type = building_fusion_power_plant } } }
+		composition = { name = ztr_nuclear trigger = { NOT = { any_scope_building = { is_building_type = building_fusion_power_plant } } any_scope_building = { OR = { has_active_production_method = pm_nuclear-fission_plant has_active_production_method = pm_nuclear-fission_plant_2 has_active_production_method = pm_nuclear-fission_plant_3 } } } }
+		composition = { name = ztr_coal trigger = { NOT = { any_scope_building = { is_building_type = building_fusion_power_plant } } any_scope_building = { has_active_production_method = pm_coal-fired_plant_3 } } }
+		composition = { name = ztr_oil trigger = { NOT = { any_scope_building = { is_building_type = building_fusion_power_plant } } any_scope_building = { has_active_production_method = pm_oil-fired_plant_3 } } }
+		composition = { name = ztr_gas trigger = { NOT = { any_scope_building = { is_building_type = building_fusion_power_plant } } any_scope_building = { has_active_production_method = pm_gas-fired_plant_3 } } }
+		composition = { name = ztr_old trigger = {
+			NOT = { any_scope_building = { is_building_type = building_fusion_power_plant } }
+			any_scope_building = { is_building_type = building_power_plant }
+			NOT = { any_scope_building = { OR = { has_active_production_method = pm_nuclear-fission_plant has_active_production_method = pm_nuclear-fission_plant_2 has_active_production_method = pm_nuclear-fission_plant_3 has_active_production_method = pm_coal-fired_plant_3 has_active_production_method = pm_oil-fired_plant_3 has_active_production_method = pm_gas-fired_plant_3 } } }
+		} }
+	}
+	attach = { locator = ztr_centre variant = { entity = russian_city_skyscraper_01_entity building_type = building_skyscraper } }
+	attach = {
+		locator = ztr_statue
+		variant = { is_power_bloc_statue = yes	building_type = building_power_bloc_statue }
+	}
+	attach = {
+		locator = ztr_thermal
+		variant = { entity = ztr_global_power_fusion_01_entity	building_type = building_fusion_power_plant	compositions = { ztr_fusion } }
+		variant = { entity = ztr_global_power_nuclear_01_entity	building_type = building_power_plant	compositions = { ztr_nuclear } }
+		variant = { entity = ztr_global_power_coal_01_entity	building_type = building_power_plant	compositions = { ztr_coal } }
+		variant = { entity = ztr_global_power_oil_01_entity	building_type = building_power_plant	compositions = { ztr_oil } }
+		variant = { entity = ztr_global_power_gas_01_entity	building_type = building_power_plant	compositions = { ztr_gas } }
+		variant = { entity = ztr_global_power_vanilla_entity	building_type = building_power_plant	compositions = { ztr_old } }
+	}
+}
+
 ztr_eeu_cp_arabic_urban_city_townsquare_01_power_thermal = {
 	city_graphics_type = ztr_eeu_caucasus_city_early_modern_start
 	city_graphics_type = ztr_eeu_caucasus_city_early_modern
@@ -6044,9 +6370,11 @@ ztr_eeu_cp_balkan_city_centerpiece_01_skyscraper_power_thermal_statue = {
 
 ztr_eeu_cp_ztr_eeu_late_modern_downtown_01_power_thermal = {
 	city_graphics_type = ztr_eeu_city_late_modern
+	city_graphics_type = ztr_eeu_russian_city_late_modern
 	city_graphics_type = ztr_eeu_caucasus_city_late_modern
 	city_graphics_type = ztr_eeu_balkan_city_late_modern
 	city_graphics_type = ztr_eeu_city_late_modern_socialist
+	city_graphics_type = ztr_eeu_russian_city_late_modern_socialist
 	city_graphics_type = ztr_eeu_caucasus_city_late_modern_socialist
 	city_graphics_type = ztr_eeu_balkan_city_late_modern_socialist
 	priority = 2
@@ -6102,9 +6430,11 @@ ztr_eeu_cp_ztr_eeu_late_modern_downtown_01_power_thermal = {
 
 ztr_eeu_cp_ztr_eeu_late_modern_downtown_01_statue = {
 	city_graphics_type = ztr_eeu_city_late_modern
+	city_graphics_type = ztr_eeu_russian_city_late_modern
 	city_graphics_type = ztr_eeu_caucasus_city_late_modern
 	city_graphics_type = ztr_eeu_balkan_city_late_modern
 	city_graphics_type = ztr_eeu_city_late_modern_socialist
+	city_graphics_type = ztr_eeu_russian_city_late_modern_socialist
 	city_graphics_type = ztr_eeu_caucasus_city_late_modern_socialist
 	city_graphics_type = ztr_eeu_balkan_city_late_modern_socialist
 	priority = 21
@@ -6133,9 +6463,11 @@ ztr_eeu_cp_ztr_eeu_late_modern_downtown_01_statue = {
 
 ztr_eeu_cp_ztr_eeu_late_modern_downtown_01_power_thermal_statue = {
 	city_graphics_type = ztr_eeu_city_late_modern
+	city_graphics_type = ztr_eeu_russian_city_late_modern
 	city_graphics_type = ztr_eeu_caucasus_city_late_modern
 	city_graphics_type = ztr_eeu_balkan_city_late_modern
 	city_graphics_type = ztr_eeu_city_late_modern_socialist
+	city_graphics_type = ztr_eeu_russian_city_late_modern_socialist
 	city_graphics_type = ztr_eeu_caucasus_city_late_modern_socialist
 	city_graphics_type = ztr_eeu_balkan_city_late_modern_socialist
 	priority = 23
@@ -6204,9 +6536,11 @@ ztr_eeu_cp_ztr_eeu_late_modern_downtown_01_power_thermal_statue = {
 
 ztr_eeu_cp_ztr_eeu_late_modern_downtown_01_skyscraper_power_thermal = {
 	city_graphics_type = ztr_eeu_city_late_modern
+	city_graphics_type = ztr_eeu_russian_city_late_modern
 	city_graphics_type = ztr_eeu_caucasus_city_late_modern
 	city_graphics_type = ztr_eeu_balkan_city_late_modern
 	city_graphics_type = ztr_eeu_city_late_modern_socialist
+	city_graphics_type = ztr_eeu_russian_city_late_modern_socialist
 	city_graphics_type = ztr_eeu_caucasus_city_late_modern_socialist
 	city_graphics_type = ztr_eeu_balkan_city_late_modern_socialist
 	priority = 12
@@ -6270,9 +6604,11 @@ ztr_eeu_cp_ztr_eeu_late_modern_downtown_01_skyscraper_power_thermal = {
 
 ztr_eeu_cp_ztr_eeu_late_modern_downtown_01_skyscraper_statue = {
 	city_graphics_type = ztr_eeu_city_late_modern
+	city_graphics_type = ztr_eeu_russian_city_late_modern
 	city_graphics_type = ztr_eeu_caucasus_city_late_modern
 	city_graphics_type = ztr_eeu_balkan_city_late_modern
 	city_graphics_type = ztr_eeu_city_late_modern_socialist
+	city_graphics_type = ztr_eeu_russian_city_late_modern_socialist
 	city_graphics_type = ztr_eeu_caucasus_city_late_modern_socialist
 	city_graphics_type = ztr_eeu_balkan_city_late_modern_socialist
 	priority = 31
@@ -6309,9 +6645,11 @@ ztr_eeu_cp_ztr_eeu_late_modern_downtown_01_skyscraper_statue = {
 
 ztr_eeu_cp_ztr_eeu_late_modern_downtown_01_skyscraper_power_thermal_statue = {
 	city_graphics_type = ztr_eeu_city_late_modern
+	city_graphics_type = ztr_eeu_russian_city_late_modern
 	city_graphics_type = ztr_eeu_caucasus_city_late_modern
 	city_graphics_type = ztr_eeu_balkan_city_late_modern
 	city_graphics_type = ztr_eeu_city_late_modern_socialist
+	city_graphics_type = ztr_eeu_russian_city_late_modern_socialist
 	city_graphics_type = ztr_eeu_caucasus_city_late_modern_socialist
 	city_graphics_type = ztr_eeu_balkan_city_late_modern_socialist
 	priority = 33
@@ -6388,9 +6726,11 @@ ztr_eeu_cp_ztr_eeu_late_modern_downtown_01_skyscraper_power_thermal_statue = {
 
 ztr_eeu_cp_ztr_eeu_postmodern_downtown_01_power_thermal = {
 	city_graphics_type = ztr_eeu_city_postmodern
+	city_graphics_type = ztr_eeu_russian_city_postmodern
 	city_graphics_type = ztr_eeu_caucasus_city_postmodern
 	city_graphics_type = ztr_eeu_balkan_city_postmodern
 	city_graphics_type = ztr_eeu_city_postmodern_socialist
+	city_graphics_type = ztr_eeu_russian_city_postmodern_socialist
 	city_graphics_type = ztr_eeu_caucasus_city_postmodern_socialist
 	city_graphics_type = ztr_eeu_balkan_city_postmodern_socialist
 	priority = 2
@@ -6446,9 +6786,11 @@ ztr_eeu_cp_ztr_eeu_postmodern_downtown_01_power_thermal = {
 
 ztr_eeu_cp_ztr_eeu_postmodern_downtown_01_statue = {
 	city_graphics_type = ztr_eeu_city_postmodern
+	city_graphics_type = ztr_eeu_russian_city_postmodern
 	city_graphics_type = ztr_eeu_caucasus_city_postmodern
 	city_graphics_type = ztr_eeu_balkan_city_postmodern
 	city_graphics_type = ztr_eeu_city_postmodern_socialist
+	city_graphics_type = ztr_eeu_russian_city_postmodern_socialist
 	city_graphics_type = ztr_eeu_caucasus_city_postmodern_socialist
 	city_graphics_type = ztr_eeu_balkan_city_postmodern_socialist
 	priority = 21
@@ -6477,9 +6819,11 @@ ztr_eeu_cp_ztr_eeu_postmodern_downtown_01_statue = {
 
 ztr_eeu_cp_ztr_eeu_postmodern_downtown_01_power_thermal_statue = {
 	city_graphics_type = ztr_eeu_city_postmodern
+	city_graphics_type = ztr_eeu_russian_city_postmodern
 	city_graphics_type = ztr_eeu_caucasus_city_postmodern
 	city_graphics_type = ztr_eeu_balkan_city_postmodern
 	city_graphics_type = ztr_eeu_city_postmodern_socialist
+	city_graphics_type = ztr_eeu_russian_city_postmodern_socialist
 	city_graphics_type = ztr_eeu_caucasus_city_postmodern_socialist
 	city_graphics_type = ztr_eeu_balkan_city_postmodern_socialist
 	priority = 23
@@ -6548,9 +6892,11 @@ ztr_eeu_cp_ztr_eeu_postmodern_downtown_01_power_thermal_statue = {
 
 ztr_eeu_cp_ztr_eeu_postmodern_downtown_01_skyscraper_power_thermal = {
 	city_graphics_type = ztr_eeu_city_postmodern
+	city_graphics_type = ztr_eeu_russian_city_postmodern
 	city_graphics_type = ztr_eeu_caucasus_city_postmodern
 	city_graphics_type = ztr_eeu_balkan_city_postmodern
 	city_graphics_type = ztr_eeu_city_postmodern_socialist
+	city_graphics_type = ztr_eeu_russian_city_postmodern_socialist
 	city_graphics_type = ztr_eeu_caucasus_city_postmodern_socialist
 	city_graphics_type = ztr_eeu_balkan_city_postmodern_socialist
 	priority = 12
@@ -6614,9 +6960,11 @@ ztr_eeu_cp_ztr_eeu_postmodern_downtown_01_skyscraper_power_thermal = {
 
 ztr_eeu_cp_ztr_eeu_postmodern_downtown_01_skyscraper_statue = {
 	city_graphics_type = ztr_eeu_city_postmodern
+	city_graphics_type = ztr_eeu_russian_city_postmodern
 	city_graphics_type = ztr_eeu_caucasus_city_postmodern
 	city_graphics_type = ztr_eeu_balkan_city_postmodern
 	city_graphics_type = ztr_eeu_city_postmodern_socialist
+	city_graphics_type = ztr_eeu_russian_city_postmodern_socialist
 	city_graphics_type = ztr_eeu_caucasus_city_postmodern_socialist
 	city_graphics_type = ztr_eeu_balkan_city_postmodern_socialist
 	priority = 31
@@ -6653,9 +7001,11 @@ ztr_eeu_cp_ztr_eeu_postmodern_downtown_01_skyscraper_statue = {
 
 ztr_eeu_cp_ztr_eeu_postmodern_downtown_01_skyscraper_power_thermal_statue = {
 	city_graphics_type = ztr_eeu_city_postmodern
+	city_graphics_type = ztr_eeu_russian_city_postmodern
 	city_graphics_type = ztr_eeu_caucasus_city_postmodern
 	city_graphics_type = ztr_eeu_balkan_city_postmodern
 	city_graphics_type = ztr_eeu_city_postmodern_socialist
+	city_graphics_type = ztr_eeu_russian_city_postmodern_socialist
 	city_graphics_type = ztr_eeu_caucasus_city_postmodern_socialist
 	city_graphics_type = ztr_eeu_balkan_city_postmodern_socialist
 	priority = 33
@@ -6732,9 +7082,11 @@ ztr_eeu_cp_ztr_eeu_postmodern_downtown_01_skyscraper_power_thermal_statue = {
 
 ztr_eeu_cp_ztr_eeu_digital_downtown_01_power_thermal = {
 	city_graphics_type = ztr_eeu_city_digital
+	city_graphics_type = ztr_eeu_russian_city_digital
 	city_graphics_type = ztr_eeu_caucasus_city_digital
 	city_graphics_type = ztr_eeu_balkan_city_digital
 	city_graphics_type = ztr_eeu_city_digital_socialist
+	city_graphics_type = ztr_eeu_russian_city_digital_socialist
 	city_graphics_type = ztr_eeu_caucasus_city_digital_socialist
 	city_graphics_type = ztr_eeu_balkan_city_digital_socialist
 	priority = 2
@@ -6790,9 +7142,11 @@ ztr_eeu_cp_ztr_eeu_digital_downtown_01_power_thermal = {
 
 ztr_eeu_cp_ztr_eeu_digital_downtown_01_statue = {
 	city_graphics_type = ztr_eeu_city_digital
+	city_graphics_type = ztr_eeu_russian_city_digital
 	city_graphics_type = ztr_eeu_caucasus_city_digital
 	city_graphics_type = ztr_eeu_balkan_city_digital
 	city_graphics_type = ztr_eeu_city_digital_socialist
+	city_graphics_type = ztr_eeu_russian_city_digital_socialist
 	city_graphics_type = ztr_eeu_caucasus_city_digital_socialist
 	city_graphics_type = ztr_eeu_balkan_city_digital_socialist
 	priority = 21
@@ -6821,9 +7175,11 @@ ztr_eeu_cp_ztr_eeu_digital_downtown_01_statue = {
 
 ztr_eeu_cp_ztr_eeu_digital_downtown_01_power_thermal_statue = {
 	city_graphics_type = ztr_eeu_city_digital
+	city_graphics_type = ztr_eeu_russian_city_digital
 	city_graphics_type = ztr_eeu_caucasus_city_digital
 	city_graphics_type = ztr_eeu_balkan_city_digital
 	city_graphics_type = ztr_eeu_city_digital_socialist
+	city_graphics_type = ztr_eeu_russian_city_digital_socialist
 	city_graphics_type = ztr_eeu_caucasus_city_digital_socialist
 	city_graphics_type = ztr_eeu_balkan_city_digital_socialist
 	priority = 23
@@ -6892,9 +7248,11 @@ ztr_eeu_cp_ztr_eeu_digital_downtown_01_power_thermal_statue = {
 
 ztr_eeu_cp_ztr_eeu_digital_downtown_01_skyscraper_power_thermal = {
 	city_graphics_type = ztr_eeu_city_digital
+	city_graphics_type = ztr_eeu_russian_city_digital
 	city_graphics_type = ztr_eeu_caucasus_city_digital
 	city_graphics_type = ztr_eeu_balkan_city_digital
 	city_graphics_type = ztr_eeu_city_digital_socialist
+	city_graphics_type = ztr_eeu_russian_city_digital_socialist
 	city_graphics_type = ztr_eeu_caucasus_city_digital_socialist
 	city_graphics_type = ztr_eeu_balkan_city_digital_socialist
 	priority = 12
@@ -6958,9 +7316,11 @@ ztr_eeu_cp_ztr_eeu_digital_downtown_01_skyscraper_power_thermal = {
 
 ztr_eeu_cp_ztr_eeu_digital_downtown_01_skyscraper_statue = {
 	city_graphics_type = ztr_eeu_city_digital
+	city_graphics_type = ztr_eeu_russian_city_digital
 	city_graphics_type = ztr_eeu_caucasus_city_digital
 	city_graphics_type = ztr_eeu_balkan_city_digital
 	city_graphics_type = ztr_eeu_city_digital_socialist
+	city_graphics_type = ztr_eeu_russian_city_digital_socialist
 	city_graphics_type = ztr_eeu_caucasus_city_digital_socialist
 	city_graphics_type = ztr_eeu_balkan_city_digital_socialist
 	priority = 31
@@ -6997,9 +7357,11 @@ ztr_eeu_cp_ztr_eeu_digital_downtown_01_skyscraper_statue = {
 
 ztr_eeu_cp_ztr_eeu_digital_downtown_01_skyscraper_power_thermal_statue = {
 	city_graphics_type = ztr_eeu_city_digital
+	city_graphics_type = ztr_eeu_russian_city_digital
 	city_graphics_type = ztr_eeu_caucasus_city_digital
 	city_graphics_type = ztr_eeu_balkan_city_digital
 	city_graphics_type = ztr_eeu_city_digital_socialist
+	city_graphics_type = ztr_eeu_russian_city_digital_socialist
 	city_graphics_type = ztr_eeu_caucasus_city_digital_socialist
 	city_graphics_type = ztr_eeu_balkan_city_digital_socialist
 	priority = 33
@@ -7076,6 +7438,7 @@ ztr_eeu_cp_ztr_eeu_digital_downtown_01_skyscraper_power_thermal_statue = {
 
 ztr_eeu_cp_ztr_generic_ai_downtown_01_power_thermal = {
 	city_graphics_type = ztr_eeu_city_ai
+	city_graphics_type = ztr_eeu_russian_city_ai
 	city_graphics_type = ztr_eeu_caucasus_city_ai
 	city_graphics_type = ztr_eeu_balkan_city_ai
 	priority = 2
@@ -7131,6 +7494,7 @@ ztr_eeu_cp_ztr_generic_ai_downtown_01_power_thermal = {
 
 ztr_eeu_cp_ztr_generic_ai_downtown_01_statue = {
 	city_graphics_type = ztr_eeu_city_ai
+	city_graphics_type = ztr_eeu_russian_city_ai
 	city_graphics_type = ztr_eeu_caucasus_city_ai
 	city_graphics_type = ztr_eeu_balkan_city_ai
 	priority = 21
@@ -7159,6 +7523,7 @@ ztr_eeu_cp_ztr_generic_ai_downtown_01_statue = {
 
 ztr_eeu_cp_ztr_generic_ai_downtown_01_power_thermal_statue = {
 	city_graphics_type = ztr_eeu_city_ai
+	city_graphics_type = ztr_eeu_russian_city_ai
 	city_graphics_type = ztr_eeu_caucasus_city_ai
 	city_graphics_type = ztr_eeu_balkan_city_ai
 	priority = 23
@@ -7227,6 +7592,7 @@ ztr_eeu_cp_ztr_generic_ai_downtown_01_power_thermal_statue = {
 
 ztr_eeu_cp_ztr_generic_ai_downtown_01_skyscraper_power_thermal = {
 	city_graphics_type = ztr_eeu_city_ai
+	city_graphics_type = ztr_eeu_russian_city_ai
 	city_graphics_type = ztr_eeu_caucasus_city_ai
 	city_graphics_type = ztr_eeu_balkan_city_ai
 	priority = 12
@@ -7290,6 +7656,7 @@ ztr_eeu_cp_ztr_generic_ai_downtown_01_skyscraper_power_thermal = {
 
 ztr_eeu_cp_ztr_generic_ai_downtown_01_skyscraper_statue = {
 	city_graphics_type = ztr_eeu_city_ai
+	city_graphics_type = ztr_eeu_russian_city_ai
 	city_graphics_type = ztr_eeu_caucasus_city_ai
 	city_graphics_type = ztr_eeu_balkan_city_ai
 	priority = 31
@@ -7326,6 +7693,7 @@ ztr_eeu_cp_ztr_generic_ai_downtown_01_skyscraper_statue = {
 
 ztr_eeu_cp_ztr_generic_ai_downtown_01_skyscraper_power_thermal_statue = {
 	city_graphics_type = ztr_eeu_city_ai
+	city_graphics_type = ztr_eeu_russian_city_ai
 	city_graphics_type = ztr_eeu_caucasus_city_ai
 	city_graphics_type = ztr_eeu_balkan_city_ai
 	priority = 33

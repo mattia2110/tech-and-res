@@ -1,7 +1,7 @@
 ﻿namespace = ztr_un_compliance
 
 # UN reform requests, fired by ztr_un_compliance_on_yearly_pulse_country.
-# Accepting starts the enactment, refusing gives ztr_un_condemned_modifier.
+# Accepting starts the enactment, refusing is a UN condemnation (ztr_un_condemn_country).
 
 # UNESCO: education reform for countries with no schools or terakoya
 ztr_un_compliance.1 = {
@@ -98,6 +98,13 @@ ztr_un_compliance.1 = {
 		ztr_un_refuse_compliance_request = yes
 		ai_chance = {
 			base = 25
+			# A second refusal means expulsion
+			modifier = {
+				trigger = {
+					ztr_un_is_suspended = yes
+				}
+				add = -20
+			}
 			modifier = {
 				trigger = {
 					ztr_un_unesco_reform_support < 0
@@ -236,6 +243,13 @@ ztr_un_compliance.2 = {
 		ztr_un_refuse_compliance_request = yes
 		ai_chance = {
 			base = 25
+			# A second refusal means expulsion
+			modifier = {
+				trigger = {
+					ztr_un_is_suspended = yes
+				}
+				add = -20
+			}
 			modifier = {
 				trigger = {
 					ztr_un_compulsory_primary_school_support < 0
@@ -336,6 +350,13 @@ ztr_un_compliance.3 = {
 		ztr_un_refuse_compliance_request = yes
 		ai_chance = {
 			base = 25
+			# A second refusal means expulsion
+			modifier = {
+				trigger = {
+					ztr_un_is_suspended = yes
+				}
+				add = -20
+			}
 			modifier = {
 				trigger = {
 					ztr_un_women_in_the_workplace_support < 0
@@ -453,6 +474,13 @@ ztr_un_compliance.4 = {
 		ztr_un_refuse_compliance_request = yes
 		ai_chance = {
 			base = 25
+			# A second refusal means expulsion
+			modifier = {
+				trigger = {
+					ztr_un_is_suspended = yes
+				}
+				add = -20
+			}
 			modifier = {
 				trigger = {
 					ztr_un_worker_protections_support < 0

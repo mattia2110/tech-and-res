@@ -1,0 +1,124 @@
+﻿# UN dues (docs/ztr_un/ztr_un_design.md §7.9): 0.25% of GDP, x2 with the IMF, x2 for permanent members, x development level / 8
+ztr_un_dues_annual = {
+	value = gdp
+	multiply = 0.0025
+	if = {
+		limit = {
+			global_var:ztr_un_institution_imf ?= 1
+		}
+		multiply = 2
+	}
+	if = {
+		limit = {
+			has_modifier = ztr_onu_permanent_member
+		}
+		multiply = 2
+	}
+	if = {
+		limit = {
+			has_variable = ztr_development_level_var
+		}
+		multiply = var:ztr_development_level_var
+		divide = 8
+	}
+	else = {
+		multiply = 0
+	}
+}
+
+# Weekly dues actually paid: none while suspended or before the first yearly assessment
+ztr_un_dues_weekly_paid = {
+	value = 0
+	if = {
+		limit = {
+			has_variable = ztr_un_dues_weekly
+			NOT = {
+				ztr_un_is_suspended = yes
+			}
+		}
+		value = var:ztr_un_dues_weekly
+	}
+}
+
+# Vote commitment treaty AI: how much the voter already leans toward the requested vote
+ztr_un_vote_commitment_lean_support = {
+	value = 0
+	if = {
+		limit = {
+			has_variable = ztr_un_vote_choice_support
+		}
+		value = 50
+	}
+	else_if = {
+		limit = {
+			has_variable = ztr_un_vote_choice_against
+		}
+		value = -100
+	}
+	else_if = {
+		limit = {
+			has_variable = ztr_un_vote_lean
+		}
+		value = var:ztr_un_vote_lean
+		multiply = 2
+	}
+}
+
+ztr_un_vote_commitment_lean_against = {
+	value = 0
+	if = {
+		limit = {
+			has_variable = ztr_un_vote_choice_against
+		}
+		value = 50
+	}
+	else_if = {
+		limit = {
+			has_variable = ztr_un_vote_choice_support
+		}
+		value = -100
+	}
+	else_if = {
+		limit = {
+			has_variable = ztr_un_vote_lean
+		}
+		value = var:ztr_un_vote_lean
+		multiply = -2
+	}
+}
+
+# Vote commitment acceptance toward the other party (root = evaluating country); the other factors reuse ztr_ra_score_*
+# Relations: neutral ties count 0, unlike the research agreement
+ztr_un_commit_score_relations = {
+	if = {
+		limit = { "relations(scope:other_country)" >= relations_threshold:friendly }
+		value = 15
+	}
+	else_if = {
+		limit = { "relations(scope:other_country)" >= relations_threshold:amicable }
+		value = 10
+	}
+	else_if = {
+		limit = { "relations(scope:other_country)" >= relations_threshold:cordial }
+		value = 5
+	}
+	else_if = {
+		limit = { "relations(scope:other_country)" > relations_threshold:poor }
+		value = 0
+	}
+	else_if = {
+		limit = { "relations(scope:other_country)" > relations_threshold:cold }
+		value = -10
+	}
+	else = {
+		value = -25
+	}
+}
+
+# Ideological opinion, lighter than in the research agreement: the pole already counts
+ztr_un_commit_score_ideology = {
+	value = "ai_ideological_opinion(scope:other_country)"
+	multiply = 0.3
+	min = -15
+	max = 15
+}

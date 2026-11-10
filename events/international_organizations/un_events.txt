@@ -81,7 +81,7 @@ ztr_un_event.2 = {
 		name = ztr_un_event.2.a
 		default_option = yes
 		trigger = {
-			global_country_ranking > 3
+			global_country_ranking > 5
 		}
 		if = {
 			limit = {
@@ -118,7 +118,7 @@ ztr_un_event.2 = {
 	option = {
 		name = ztr_un_event.2.b
 		trigger = {
-			global_country_ranking <= 3
+			global_country_ranking <= 5
 			NOT = {
 				is_distopia = yes
 			}
@@ -270,6 +270,8 @@ ztr_un_event.3 = {
 				has_modifier = ztr_onu_permanent_member
 			}
 		}
+		ztr_un_condemn_country = yes
+		# The ICC adds its investigation on top of the condemnation
 		if = {
 			limit = {
 				has_global_variable = ztr_un_institution_icc
@@ -278,12 +280,6 @@ ztr_un_event.3 = {
 			add_modifier = {
 				name = ztr_icc_investigation_modifier
 				years = 5
-			}
-		}
-		else = {
-			add_modifier = {
-				name = ztr_un_condemned_modifier
-				years = 3
 			}
 		}
 		change_infamy = 5
@@ -585,8 +581,10 @@ ztr_un_event.21 = {
 	option = {
 		name = ztr_un_event.21.e
 		trigger = {
-			NOT = {
-				global_var:ztr_un_law_voting_model = 4
+			hidden_trigger = {
+				NOT = {
+					global_var:ztr_un_law_voting_model = 4
+				}
 			}
 			ztr_un_can_propose_superpower_reform = yes
 		}
@@ -781,8 +779,10 @@ ztr_un_event.23 = {
 	option = {
 		name = ztr_un_event.23.e
 		trigger = {
-			NOT = {
-				global_var:ztr_un_law_member_selection = 4
+			hidden_trigger = {
+				NOT = {
+					global_var:ztr_un_law_member_selection = 4
+				}
 			}
 			ztr_un_can_propose_superpower_reform = yes
 		}
@@ -952,9 +952,7 @@ ztr_un_event.31 = {
 			name = ztr_un_vote_proposal
 			value = 2
 		}
-		ztr_un_start_governance_vote = yes
-		set_variable = ztr_un_vote_proposer
-		remove_global_variable = ztr_un_button_opened
+		ztr_un_submit_human_rights_proposal = yes
 		ai_chance = {
 			base = 0
 		}
@@ -980,9 +978,7 @@ ztr_un_event.31 = {
 			name = ztr_un_vote_proposal
 			value = 1
 		}
-		ztr_un_start_governance_vote = yes
-		set_variable = ztr_un_vote_proposer
-		remove_global_variable = ztr_un_button_opened
+		ztr_un_submit_human_rights_proposal = yes
 		ai_chance = {
 			base = 0
 		}
@@ -1004,9 +1000,7 @@ ztr_un_event.31 = {
 			name = ztr_un_vote_proposal
 			value = 0
 		}
-		ztr_un_start_governance_vote = yes
-		set_variable = ztr_un_vote_proposer
-		remove_global_variable = ztr_un_button_opened
+		ztr_un_submit_human_rights_proposal = yes
 		ai_chance = {
 			base = 0
 		}
@@ -1060,9 +1054,7 @@ ztr_un_event.32 = {
 			name = ztr_un_vote_proposal
 			value = 1
 		}
-		ztr_un_start_governance_vote = yes
-		set_variable = ztr_un_vote_proposer
-		remove_global_variable = ztr_un_button_opened
+		ztr_un_submit_human_rights_proposal = yes
 		ai_chance = {
 			base = 0
 		}
@@ -1084,9 +1076,7 @@ ztr_un_event.32 = {
 			name = ztr_un_vote_proposal
 			value = 0
 		}
-		ztr_un_start_governance_vote = yes
-		set_variable = ztr_un_vote_proposer
-		remove_global_variable = ztr_un_button_opened
+		ztr_un_submit_human_rights_proposal = yes
 		ai_chance = {
 			base = 0
 		}
@@ -1140,9 +1130,7 @@ ztr_un_event.33 = {
 			name = ztr_un_vote_proposal
 			value = 1
 		}
-		ztr_un_start_governance_vote = yes
-		set_variable = ztr_un_vote_proposer
-		remove_global_variable = ztr_un_button_opened
+		ztr_un_submit_human_rights_proposal = yes
 		ai_chance = {
 			base = 0
 		}
@@ -1168,9 +1156,7 @@ ztr_un_event.33 = {
 			name = ztr_un_vote_proposal
 			value = 2
 		}
-		ztr_un_start_governance_vote = yes
-		set_variable = ztr_un_vote_proposer
-		remove_global_variable = ztr_un_button_opened
+		ztr_un_submit_human_rights_proposal = yes
 		ai_chance = {
 			base = 0
 		}
@@ -1192,9 +1178,7 @@ ztr_un_event.33 = {
 			name = ztr_un_vote_proposal
 			value = 0
 		}
-		ztr_un_start_governance_vote = yes
-		set_variable = ztr_un_vote_proposer
-		remove_global_variable = ztr_un_button_opened
+		ztr_un_submit_human_rights_proposal = yes
 		ai_chance = {
 			base = 0
 		}
@@ -1248,9 +1232,7 @@ ztr_un_event.34 = {
 			name = ztr_un_vote_proposal
 			value = 1
 		}
-		ztr_un_start_governance_vote = yes
-		set_variable = ztr_un_vote_proposer
-		remove_global_variable = ztr_un_button_opened
+		ztr_un_submit_human_rights_proposal = yes
 		ai_chance = {
 			base = 0
 		}
@@ -1272,9 +1254,7 @@ ztr_un_event.34 = {
 			name = ztr_un_vote_proposal
 			value = 0
 		}
-		ztr_un_start_governance_vote = yes
-		set_variable = ztr_un_vote_proposer
-		remove_global_variable = ztr_un_button_opened
+		ztr_un_submit_human_rights_proposal = yes
 		ai_chance = {
 			base = 0
 		}
@@ -1334,9 +1314,7 @@ ztr_un_event.35 = {
 			name = ztr_un_vote_proposal
 			value = 1
 		}
-		ztr_un_start_governance_vote = yes
-		set_variable = ztr_un_vote_proposer
-		remove_global_variable = ztr_un_button_opened
+		ztr_un_submit_human_rights_proposal = yes
 		ai_chance = {
 			base = 0
 		}
@@ -1358,9 +1336,7 @@ ztr_un_event.35 = {
 			name = ztr_un_vote_proposal
 			value = 0
 		}
-		ztr_un_start_governance_vote = yes
-		set_variable = ztr_un_vote_proposer
-		remove_global_variable = ztr_un_button_opened
+		ztr_un_submit_human_rights_proposal = yes
 		ai_chance = {
 			base = 0
 		}
@@ -1414,9 +1390,7 @@ ztr_un_event.36 = {
 			name = ztr_un_vote_proposal
 			value = 1
 		}
-		ztr_un_start_governance_vote = yes
-		set_variable = ztr_un_vote_proposer
-		remove_global_variable = ztr_un_button_opened
+		ztr_un_submit_human_rights_proposal = yes
 		ai_chance = {
 			base = 0
 		}
@@ -1442,9 +1416,7 @@ ztr_un_event.36 = {
 			name = ztr_un_vote_proposal
 			value = 2
 		}
-		ztr_un_start_governance_vote = yes
-		set_variable = ztr_un_vote_proposer
-		remove_global_variable = ztr_un_button_opened
+		ztr_un_submit_human_rights_proposal = yes
 		ai_chance = {
 			base = 0
 		}
@@ -1466,9 +1438,7 @@ ztr_un_event.36 = {
 			name = ztr_un_vote_proposal
 			value = 0
 		}
-		ztr_un_start_governance_vote = yes
-		set_variable = ztr_un_vote_proposer
-		remove_global_variable = ztr_un_button_opened
+		ztr_un_submit_human_rights_proposal = yes
 		ai_chance = {
 			base = 0
 		}
@@ -1553,6 +1523,20 @@ ztr_un_event.40 = {
 		}
 		trigger_event = {
 			id = ztr_un_event.44
+			popup = yes
+		}
+		ai_chance = {
+			base = 0
+		}
+	}
+	option = {
+		name = ztr_un_event.40.g
+		trigger = {
+			global_var:ztr_un_institution_iaea ?= 0
+			has_global_variable = ztr_atomic_bomb_first_use_var
+		}
+		trigger_event = {
+			id = ztr_un_event.46
 			popup = yes
 		}
 		ai_chance = {
@@ -1913,7 +1897,22 @@ ztr_un_event.25 = {
 	placement = root
 	duration = 1
 	title = ztr_un_event.25.t
-	desc = ztr_un_event.25.d
+	desc = {
+		first_valid = {
+			triggered_desc = {
+				desc = ztr_un_event.25.d_candidacy
+				trigger = {
+					global_var:ztr_un_last_vote_subject ?= 15
+				}
+			}
+			triggered_desc = {
+				desc = ztr_un_event.25.d
+				trigger = {
+					always = yes
+				}
+			}
+		}
+	}
 	event_image = {
 		video = "unspecific_ruler_speaking_to_people"
 	}
@@ -1926,6 +1925,195 @@ ztr_un_event.25 = {
 	option = {
 		name = ztr_un_event.25.a
 		default_option = yes
+		ai_chance = {
+			base = 100
+		}
+	}
+}
+
+# Event 26: Permanent seat lost to a successful candidacy
+ztr_un_event.26 = {
+	dlc = dlc_tech_res
+	type = country_event
+	placement = root
+	duration = 1
+	title = ztr_un_event.26.t
+	desc = ztr_un_event.26.d
+	event_image = {
+		video = "unspecific_politicians_arguing"
+	}
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	icon = "gfx/interface/icons/event_icons/ztr_onu_member.dds"
+	trigger = {
+	}
+	option = {
+		name = ztr_un_event.26.a
+		default_option = yes
+	}
+}
+
+# Event 37: a player permanent member is asked to co-sign an elected member proposal
+ztr_un_event.37 = {
+	dlc = dlc_tech_res
+	type = country_event
+	placement = root
+	duration = 1
+	title = ztr_un_event.37.t
+	desc = ztr_un_event.37.d
+	event_image = {
+		video = "unspecific_signed_contract"
+	}
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	icon = "gfx/interface/icons/event_icons/ztr_onu_member.dds"
+	trigger = {
+		has_global_variable = ztr_un_cosign_pending
+	}
+	# Co-sign: the vote opens
+	option = {
+		name = ztr_un_event.37.a
+		global_var:ztr_un_cosign_pending = {
+			save_scope_as = ztr_un_cosign_proposer
+		}
+		save_scope_as = ztr_un_cosigner
+		custom_tooltip = ztr_un_start_governance_vote_tt
+		hidden_effect = {
+			ztr_un_start_cosigned_vote = yes
+		}
+		ai_chance = {
+			base = 0
+		}
+	}
+	# Decline: the proposal is dropped
+	option = {
+		name = ztr_un_event.37.b
+		default_option = yes
+		global_var:ztr_un_cosign_pending = {
+			save_scope_as = ztr_un_cosign_proposer
+		}
+		hidden_effect = {
+			ztr_un_elected_proposal_failed = yes
+		}
+		ai_chance = {
+			base = 100
+		}
+	}
+}
+
+# Event 38: outcome of an elected member proposal for the proposer (data from ztr_un_last_cosign_result)
+ztr_un_event.38 = {
+	dlc = dlc_tech_res
+	type = country_event
+	placement = root
+	duration = 1
+	title = {
+		first_valid = {
+			triggered_desc = {
+				desc = ztr_un_event.38.t_cosigned
+				trigger = {
+					global_var:ztr_un_last_cosign_result ?= 1
+				}
+			}
+			triggered_desc = {
+				desc = ztr_un_event.38.t_failed
+				trigger = {
+					always = yes
+				}
+			}
+		}
+	}
+	desc = {
+		first_valid = {
+			triggered_desc = {
+				desc = ztr_un_event.38.d_cosigned
+				trigger = {
+					global_var:ztr_un_last_cosign_result ?= 1
+				}
+			}
+			triggered_desc = {
+				desc = ztr_un_event.38.d_failed
+				trigger = {
+					always = yes
+				}
+			}
+		}
+	}
+	event_image = {
+		video = "unspecific_signed_contract"
+	}
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	icon = "gfx/interface/icons/event_icons/ztr_onu_member.dds"
+	trigger = {
+	}
+	option = {
+		name = ztr_un_event.38.a
+		default_option = yes
+	}
+}
+
+# Event 39: elected to a Security Council seat
+ztr_un_event.39 = {
+	dlc = dlc_tech_res
+	type = country_event
+	placement = root
+	duration = 1
+	title = ztr_un_event.39.t
+	desc = ztr_un_event.39.d
+	event_image = {
+		video = "ztr_un_congress"
+	}
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	icon = "gfx/interface/icons/event_icons/ztr_onu_member.dds"
+	trigger = {
+		has_variable = ztr_un_elected_seat
+	}
+	option = {
+		name = ztr_un_event.39.a
+		default_option = yes
+	}
+}
+
+# Event 46: IAEA
+ztr_un_event.46 = {
+	dlc = dlc_tech_res
+	type = country_event
+	placement = root
+	duration = 1
+	title = ztr_un_event.46.t
+	desc = ztr_un_event.46.d
+	event_image = {
+		video = "unspecific_signed_contract"
+	}
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	icon = "gfx/interface/icons/event_icons/ztr_onu_member.dds"
+	trigger = {
+	}
+	immediate = {
+	}
+	option = {
+		name = ztr_un_event.46.a
+		trigger = {
+			global_var:ztr_un_institution_iaea ?= 0
+			has_global_variable = ztr_atomic_bomb_first_use_var
+		}
+		set_global_variable = {
+			name = ztr_un_vote_subject
+			value = 14
+		}
+		set_global_variable = {
+			name = ztr_un_vote_proposal
+			value = 1
+		}
+		ztr_un_start_governance_vote = yes
+		set_variable = ztr_un_vote_proposer
+		remove_global_variable = ztr_un_button_opened
+		ai_chance = {
+			base = 0
+		}
+	}
+	option = {
+		name = ztr_un_event.46.b
+		default_option = yes
+		remove_global_variable = ztr_un_button_opened
 		ai_chance = {
 			base = 100
 		}

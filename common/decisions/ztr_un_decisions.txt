@@ -151,8 +151,13 @@ become_member_united_nations = {
 	}
 	possible = {
 		is_not_distopia = yes
+		custom_tooltip = {
+			text = ztr_un_condemnation_rejoin_tt
+			ztr_un_condemnation_expired = yes
+		}
 	}
 	when_taken = {
+		ztr_un_condemnation_try_reset = yes
 		change_infamy = -5
 		if = {
 			limit = {
@@ -201,6 +206,7 @@ withdraw_united_nations = {
 	when_taken = {
 		change_infamy = 25
 		remove_modifier = ztr_onu_member
+		ztr_un_remove_elected_seat = yes
 	}
 	ai_chance = {
 		value = 0
@@ -218,47 +224,5 @@ withdraw_united_nations = {
 			}
 			add = 3
 		}
-	}
-}
-
-become_permanent_member_united_nations = {
-	is_shown = {
-		has_technology_researched = human_rights
-		year > 1945
-		has_modifier = ztr_onu_member
-		NOT = {
-			has_modifier = ztr_onu_permanent_member
-		}
-		has_global_variable = un_founded_var
-		global_country_ranking <= 3
-	}
-	possible = {
-		is_not_distopia = yes
-		custom_tooltip = {
-			text = "ztr_un_vote_session_clear_tt"
-			NOT = {
-				has_global_variable = ztr_un_vote_in_progress
-			}
-		}
-	}
-	when_taken = {
-		change_infamy = -5
-		if = {
-			limit = {
-				has_modifier = ztr_onu_member
-			}
-			remove_modifier = ztr_onu_member
-		}
-		add_modifier = ztr_onu_permanent_member
-		if = {
-			limit = {
-				is_country_type = unrecognized
-			}
-			set_country_type = recognized
-		}
-		join_un_law_changes = yes
-	}
-	ai_chance = {
-		value = 5
 	}
 }
