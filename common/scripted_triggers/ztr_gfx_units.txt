@@ -233,7 +233,7 @@ REPLACE:gfx_truck_condition_trigger = {
 # in Latin America; cab-overs everywhere else
 ztr_gfx_truck_conventional_trigger = {
 
-	scope:state = {
+	scope:state.state_region = {
 		OR = {
 			ztr_city_zone_na_trigger = yes
 			ztr_city_zone_latam_trigger = yes
@@ -243,13 +243,13 @@ ztr_gfx_truck_conventional_trigger = {
 
 ztr_gfx_truck_cabover_trigger = {
 
-	NOT = { scope:state = { ztr_city_zone_na_trigger = yes } }
+	NOT = { scope:state.state_region = { ztr_city_zone_na_trigger = yes } }
 }
 
 # Regions that weight the light vehicles: Japanese-style cab-overs in Asia, minibuses in the south, vans in Europe
 ztr_gfx_road_asia_trigger = {
 
-	scope:state = {
+	scope:state.state_region = {
 		OR = {
 			ztr_city_zone_jpk_trigger = yes
 			ztr_city_zone_chn_trigger = yes
@@ -261,7 +261,7 @@ ztr_gfx_road_asia_trigger = {
 
 ztr_gfx_road_south_trigger = {
 
-	scope:state = {
+	scope:state.state_region = {
 		OR = {
 			ztr_city_zone_ssa_trigger = yes
 			ztr_city_zone_latam_trigger = yes
@@ -272,7 +272,7 @@ ztr_gfx_road_south_trigger = {
 
 ztr_gfx_road_europe_trigger = {
 
-	scope:state = {
+	scope:state.state_region = {
 		OR = {
 			ztr_city_zone_neu_trigger = yes
 			ztr_city_zone_seu_trigger = yes
@@ -302,12 +302,12 @@ ztr_gfx_bus_trigger = {
 # and Southeast Asia, European low-floor buses elsewhere (Europe, MENA, China, Japan)
 ztr_gfx_bus_na_trigger = {
 
-	scope:state = { ztr_city_zone_na_trigger = yes }
+	scope:state.state_region = { ztr_city_zone_na_trigger = yes }
 }
 
 ztr_gfx_bus_south_trigger = {
 
-	scope:state = {
+	scope:state.state_region = {
 		OR = {
 			ztr_city_zone_latam_trigger = yes
 			ztr_city_zone_ssa_trigger = yes
