@@ -6,19 +6,21 @@
 
 - [b]Localization:[/b] English localization is now the base for every Victoria 3 language: players using any game language see the mod's English text instead of missing keys.
 - [b]New Demographic Transition Model:[/b] Economic swings move countries more smoothly between stages, poorer countries in the first stage get a higher birth rate, and 20th-century medicine modifiers arrive earlier.
-- [b]Compatibility and AI:[/b] Updated the mod and AI to the latest Victoria 3 1.13 and KAI versions. [i](No 1.14 Beta support)[/i]
+- [b]Compatibility and AI:[/b] Updated the mod and AI to Victoria 3 1.15 and KAI 8.0.
+- [b]Politics:[/b] Liberty and Equality indexes now place each country in one of four Ideological Poles, with new leader and interest group ideologies, political movements, and two new parties (Greens and National Populists).
+- [b]Development:[/b] New journal entry tracking each country's development stage by GDP per capita, with a dedicated map.
 - [b]Nuclear Warfare:[/b] Reworked and rebalanced nuclear ultimatums and strikes, de-escalation treaties, and research suspension.
-- [b]Research Center:[/b] Academic level, development, and research agreements now drive country's research speed. Atomic programs (nuclear weapons, thermonuclear weapons, nuclear power, and fusion) moved from decisions to Research Center buttons, with new dedicated journal entries.
+- [b]Research Center:[/b] Academic level, development, and research agreements (a new treaty article) now drive country's research speed, shaped by a research philosophy: Independent Research or Technology Absorption. Atomic programs (nuclear weapons, thermonuclear weapons, nuclear power, and fusion) moved from decisions to Research Center buttons, with new dedicated journal entries.
 - [b]Global Warming:[/b] Added staged events, rising sea levels, and climate disasters: heatwaves, megadroughts, named hurricanes, wildfires, and coastal flooding.
 - [b]Renewable Energy:[/b] Output now depends on state geography.
 - [b]Nuclear Reactors:[/b] Fission reactors can now be purchased from other countries, like fusion reactors.
 - [b]Chinese Reunification:[/b] Reworked around a final war between the two Chinas, with claims and victory conditions.
 - [b]Navy Overhaul:[/b] Added new modern troop ships and updated ship modifications and names.
 - [b]Geopolitics:[/b] Removed the European Union mechanics and obsolete geopolitical decisions. They will be replaced by an improved Superstate mechanic in the future.
-- [b]United Nations:[/b] Expanded governance reforms, rebalanced voting, added vote result notifications and more detailed explanation on how it works.
-- [b]3D Models:[/b] Added modern city buildings, vehicles, and a dedicated UN headquarters model.
+- [b]United Nations:[/b] Expanded governance reforms, rebalanced voting, added vetoes, condemnations, candidacies for permanent seats, vote commitment treaties, vote result notifications and more detailed explanation on how it works.
+- [b]3D Models:[/b] Added modern city buildings, vehicles, and dedicated models for the UN headquarters, refineries, water plants, and nuclear silos.
 - [b]Space Industry:[/b] Split space production from Aircraft Industries into dedicated Space Industries.
-- [b]General Improvements:[/b] Many tweaks to production methods, technologies and decolonization.
+- [b]General Improvements:[/b] Many tweaks to production methods, technologies, companies, mobilization options and decolonization.
 
 ## Version 1.6.0 Stable Official Version
 - Updated army/navy scripts and AI to Vic 3 1.13.5
