@@ -143,6 +143,8 @@ INJECT:company_basic_weapons = {
 REPLACE_OR_CREATE:curtiss_company_basic_air_travel = {
 	icon = "gfx/interface/icons/company_icons/curtiss_airline_generic_icon.dds"
 	background = "gfx/interface/icons/company_icons/company_backgrounds/curtiss_comp_illu_airline.dds"
+
+	flavored_company = no
 	
 	uses_dynamic_naming = yes
 	
@@ -191,6 +193,8 @@ REPLACE_OR_CREATE:curtiss_company_basic_air_travel = {
 REPLACE_OR_CREATE:elgar_company_basic_instruments = {
 	icon = "gfx/interface/icons/company_icons/elgar_instruments_generic.dds"
 	background = "gfx/interface/icons/company_icons/company_backgrounds/comp_illu_manufacturing_light.dds"
+
+	flavored_company = no
 	uses_dynamic_naming = yes
 	dynamic_company_type_names = {
 		"dynamic_company_type_company"
@@ -214,6 +218,7 @@ REPLACE_OR_CREATE:elgar_company_basic_instruments = {
 		}
 	}
 	possible = {
+		has_technology_researched = elgar_classicism_tech
 		any_scope_state = {
 			is_incorporated = yes
 			any_scope_building = {
@@ -229,6 +234,7 @@ REPLACE_OR_CREATE:elgar_company_basic_instruments = {
 		goods_output_elgar_music_mult = 0.05
 	}
 	ai_will_do = {
+		has_technology_researched = elgar_classicism_tech
 		any_scope_state = {
 			is_incorporated = yes
 			any_scope_building = {
@@ -295,7 +301,7 @@ company_uranium_advancedores_mining = {
 					is_building_type = building_uranium_mine
 					is_building_type = building_advancedores_mine
 				}
-				level = 5
+				level >= 5
 			}
 		}
 	}
@@ -359,6 +365,8 @@ company_basic_pharmaceuticals = {
 generic_company_basic_tech = {
 	icon = "gfx/interface/icons/company_icons/tech_generic_icon.dds"
 	background = "gfx/interface/icons/company_icons/company_backgrounds/comp_illu_tech.dds"
+
+	flavored_company = no
 	
 	uses_dynamic_naming = yes
 	
@@ -374,7 +382,6 @@ generic_company_basic_tech = {
 	extension_building_types = {
 		building_telecommunications_industry
 		building_computer_assembly_plant
-		building_software_industry
 		building_processors_foundry
 		building_robotics_industry
 	}
@@ -401,16 +408,70 @@ generic_company_basic_tech = {
 			is_incorporated = yes
 			any_scope_building = {
 				is_building_type = building_electronics_industry
-				level = 5
+				level >= 5
 			}
 		}
 	}
 }
 
-# Generic Fashion Company
+# Generic Software
+generic_company_basic_software = {
+	icon = "gfx/interface/icons/company_icons/software_generic_icon.dds"
+	background = "gfx/interface/icons/company_icons/company_backgrounds/comp_illu_tech.dds"
+
+	flavored_company = no
+
+	uses_dynamic_naming = yes
+
+	dynamic_company_type_names = {
+		"dynamic_company_type_company"
+		"dynamic_company_type_corporation"
+	}
+
+	building_types = {
+		building_software_industry
+	}
+
+	extension_building_types = {
+		building_interactive_media_industry
+		building_datacenter_industry
+	}
+
+	possible = {
+		has_technology_researched = software_tech
+		any_scope_state = {
+			is_incorporated = yes
+			any_scope_building = {
+				is_building_type = building_software_industry
+				level >= 3
+			}
+		}
+	}
+
+	prosperity_modifier = {
+		country_society_tech_research_speed_mult = 0.05
+		country_bureaucracy_investment_cost_factor_mult = -0.05
+		building_office_throughput_add = 0.05
+	}
+
+	ai_will_do = {
+		has_technology_researched = software_tech
+		any_scope_state = {
+			is_incorporated = yes
+			any_scope_building = {
+				is_building_type = building_software_industry
+				level >= 5
+			}
+		}
+	}
+}
+
+# Generic Cosmetics Company
 generic_company_basic_cosmetics = {
 	icon = "gfx/interface/icons/company_icons/fashion_generic_icon.dds"
 	background = "gfx/interface/icons/company_icons/company_backgrounds/comp_illu_fashion.dds"
+
+	flavored_company = no
 	
 	uses_dynamic_naming = yes
 	
@@ -428,7 +489,7 @@ generic_company_basic_cosmetics = {
 	}
 
 	possible = {
-		has_technology_researched = lathe
+		has_technology_researched = distillation
 		any_scope_state = {
 			is_incorporated = yes
 			any_scope_building = {
@@ -443,12 +504,12 @@ generic_company_basic_cosmetics = {
 	}
 
 	ai_will_do = {
-		has_technology_researched = lathe
+		has_technology_researched = distillation
 		any_scope_state = {
 			is_incorporated = yes
 			any_scope_building = {
 				is_building_type = building_textile_mill
-				level = 5
+				level >= 5
 			}
 		}
 	}
@@ -458,6 +519,8 @@ generic_company_basic_cosmetics = {
 generic_company_basic_consulting = {
 	icon = "gfx/interface/icons/company_icons/consulting_generic_icon.dds"
 	background = "gfx/interface/icons/company_icons/company_backgrounds/comp_illu_publishing.dds"
+
+	flavored_company = no
 
 	uses_dynamic_naming = yes
 
@@ -504,6 +567,8 @@ generic_company_basic_consulting = {
 REPLACE_OR_CREATE:company_basic_records_and_films = {
 	icon = "gfx/interface/icons/company_icons/records_and_films_generic.dds"	#####
 	background = "gfx/interface/icons/company_icons/company_backgrounds/comp_illu_music.dds"
+
+	flavored_company = no
 	uses_dynamic_naming = yes
 	dynamic_company_type_names = {
 		"dynamic_company_type_company"
@@ -531,7 +596,7 @@ REPLACE_OR_CREATE:company_basic_records_and_films = {
 		any_scope_state = {
 			is_incorporated = yes
 			any_scope_building = {
-				is_building_type = building_instrument_workshops
+				is_building_type = building_manzoni_publishing_industry
 				level >= 3
 			}
 		}
@@ -545,7 +610,7 @@ REPLACE_OR_CREATE:company_basic_records_and_films = {
 		any_scope_state = {
 			is_incorporated = yes
 			any_scope_building = {
-				is_building_type = building_instrument_workshops
+				is_building_type = building_manzoni_publishing_industry
 				level >= 3
 			}
 		}
