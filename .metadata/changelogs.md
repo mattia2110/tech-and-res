@@ -1,4 +1,10 @@
-﻿# Tech & Res
+# Tech & Res
+
+## [b]Version 1.7.1[/b]
+- [b]Compatibility (Victoria 3 1.15.1):[/b] Aligned mod with 1.15.1 changes.
+- Renamed the Processors good, PM group, and related PMs to Chips across all languages.
+- Added coal as a reductant to chip manufacturing; rebalanced Embedded Control Circuits with chip input and adjusted electricity/rare earths costs.
+- [b]PM Tweaks & Fixes:[/b] Digital Audio Workstation and Online Content Creation now consume computers instead of electronic components; fixed tech unlock for autonomous operations in Rare Earths mines.
 
 ## [b]Version 1.7 — Modernization Update[/b] 
 [i]NOT SAVE COMPATIBLE[/i]
