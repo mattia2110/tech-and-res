@@ -2,11 +2,13 @@
 
 ## [b]Version 1.7.1[/b]
 - [b]Compatibility (Victoria 3 1.15.1):[/b] Aligned mod with 1.15.1 changes.
-- Renamed the Processors good, PM group, and related PMs to Chips across all languages. Also new image!
-- Added coal as a reductant to chip manufacturing; rebalanced Embedded Control Circuits with chip input and adjusted electricity/rare earths costs.
+- [b]Chips:[/b] Processors renamed to Chips, with a new icon. Chip manufacturing now uses coal as a reductant; Embedded Control Circuits consume chips, with lower electricity and rare earths costs.
 - [b]PM Tweaks & Fixes:[/b] Digital Audio Workstation and Online Content Creation now consume computers instead of electronic components; fixed tech unlock for autonomous operations in Rare Earths mines.
-- Added new 3D modern city buildings across all regions and a dedicated PM for UN Headquarters (+500 prestige).
-- Increased map train and road vehicle speeds, and increased visual density for digital buildings.
+- [b]Infrastructure:[/b] Railways now give part of their infrastructure per level, so understaffing hurts less. Passenger airports now provide infrastructure, with slightly higher transportation output. Railways and airports no longer have the data optimization PM group.
+- [b]Research:[/b] Independent Research tech spread penalty reduced from -1% to -0.5% per point.
+- [b]UN Headquarters:[/b] new dedicated PM (+500 prestige).
+- [b]Graphics:[/b] new 3D modern city buildings across all regions, faster trains and road vehicles on the map, denser digital buildings.
+- Fixed the Chinese decolonization decision targeting China itself.
 
 ## [b]Version 1.7 — Modernization Update[/b] 
 [i]NOT SAVE COMPATIBLE[/i]
