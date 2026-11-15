@@ -129,7 +129,7 @@ ztr_un_commit_score_ideology = {
 # IMF aid (.claude/skills/ztr_un/design.md): the UN budget split by population among the poorest members by SoL, weighted by SoL
 ztr_imf_aid_sol_threshold = 10
 ztr_imf_aid_max_recipients = 40
-ztr_imf_aid_max_base_sol = 18
+ztr_imf_aid_max_base_sol = 20
 
 # Recipient slots: half the members (counted in ztr_imf_recipient_slots), at most 40
 ztr_imf_aid_recipient_slots = {
@@ -153,14 +153,13 @@ ztr_imf_population_thousands = {
 	divide = 1000
 }
 
-# Aid weight: population x (18 - max(8, SoL)) / 5, from x2 at SoL 8 to 0 at SoL 18
+# Aid weight: population x (20 - max(8, SoL)), from x12 at SoL 8 to 0 at SoL 20
 ztr_imf_aid_weight = {
 	value = ztr_imf_aid_max_base_sol
 	subtract = {
 		value = var:ztr_imf_base_sol
 		min = 8
 	}
-	divide = 5
 	min = 0
 	multiply = ztr_imf_population_thousands
 }

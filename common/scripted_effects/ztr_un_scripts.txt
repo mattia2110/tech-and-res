@@ -1978,7 +1978,7 @@ ztr_imf_distribute_aid = {
 			remove_variable = ztr_imf_base_sol
 		}
 	}
-	# Recipients: the min(40, half the members) members with the lowest SoL, none above SoL 18
+	# Recipients: the min(40, half the members) members with the lowest SoL, none above SoL 20 or condemned
 	set_global_variable = {
 		name = ztr_imf_recipient_slots
 		value = ztr_imf_aid_recipient_slots
@@ -1988,6 +1988,7 @@ ztr_imf_distribute_aid = {
 			ztr_is_un_member = yes
 			has_variable = ztr_imf_base_sol
 			var:ztr_imf_base_sol <= ztr_imf_aid_max_base_sol
+			ztr_un_is_suspended = no
 		}
 		order_by = ztr_imf_aid_need
 		max = 40 # ztr_imf_aid_max_recipients
@@ -2062,6 +2063,14 @@ ztr_imf_distribute_aid = {
 		name = ztr_imf_reserve
 		subtract = global_var:ztr_imf_aid_distributed
 	}
+}
+
+# Ends this year's IMF aid at once (UN condemnation); its share is not redistributed
+ztr_imf_stop_aid = {
+	remove_variable = ztr_imf_recipient
+	remove_variable = ztr_imf_aid_weekly
+	remove_variable = ztr_imf_aid_annual
+	remove_variable = ztr_imf_aid_sol
 }
 
 # ========================================
