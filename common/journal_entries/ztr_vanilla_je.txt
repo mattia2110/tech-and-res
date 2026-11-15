@@ -406,3 +406,143 @@ REPLACE:je_colonial_administration = {
 
 	should_be_pinned_by_default_uninvolved_or_context = yes
 }
+
+REPLACE:je_social_revolution = {
+	icon = "gfx/interface/icons/generic_icons/golden_rose.dds"
+
+	group = je_group_socialism
+
+	activation_description = {
+		always = yes
+	}
+
+	immediate = {
+		ig:ig_trade_unions ?= {
+			save_scope_as = proletariat_ig
+		}
+		set_variable = { name = communist_welfare_low_consolidation_months_var value = 0 }
+	}
+
+	on_monthly_pulse = {
+		effect = {
+			if = {
+				limit = {
+					has_journal_entry = je_state_and_revolution
+				}
+				if = {
+					limit = {
+						AND = {
+							"je:je_state_and_revolution.scripted_bar_progress(je_state_and_revolution_political_bar)" < 50
+							"je:je_state_and_revolution.scripted_bar_progress(je_state_and_revolution_economic_bar)" < 50
+						}
+					}
+					change_variable = { name = communist_welfare_low_consolidation_months_var add = 1 }
+				}
+				else_if = {
+					limit = {
+						var:communist_welfare_low_consolidation_months_var > 0
+					}
+					change_variable = { name = communist_welfare_low_consolidation_months_var subtract = 1 }
+				}
+			}
+		}
+	}
+
+	outcome = {
+		header = je_standard_completion_header
+		effect_header = je_standard_on_completion_header
+		color = "gold_positive"
+		conclusion_desc = je_standard_completion_conclusion_desc
+		trigger = {
+			has_law_or_variant = law_type:law_multicultural
+			has_law_or_variant = law_type:law_womens_suffrage
+			has_law_or_variant = law_type:law_no_colonial_affairs
+			AND = {
+				has_law_or_variant = law_type:law_public_schools
+				institution_investment_level = {
+					institution = institution_schools
+					value = 5
+				}
+			}
+			# T&R: the 5th Health System level comes in era 8, so level 4 plus the tech that gives it in vanilla
+			AND = {
+				has_law_or_variant = law_type:law_public_health_insurance
+				institution_investment_level = {
+					institution = institution_health_system
+					value >= 4
+				}
+				has_technology_researched = malaria_prevention
+			}
+			# T&R: the 5th Social Security level comes in era 6, so level 4 plus the tech that gives it in vanilla
+			AND = {
+				has_law_or_variant = law_type:law_old_age_pension
+				institution_investment_level = {
+					institution = institution_social_security
+					value >= 4
+				}
+				has_technology_researched = feminism
+			}
+			AND = {
+				has_law_or_variant = law_type:law_worker_protections
+				institution_investment_level = {
+					institution = institution_workplace_safety
+					value = 5
+				}
+			}
+			approaching_bureaucracy_shortage = no
+		}
+		effect = {
+			trigger_event = {
+				id = communism.6
+				popup = yes
+			}
+		}
+		event_outcome_effect_desc = {
+			effect = {
+				add_modifier = {
+					name = modifier_social_revolution
+					days = very_long_modifier_time
+				}
+			}
+		}
+	}
+
+	outcome = {
+		header = je_standard_failure_header
+		effect_header = je_standard_on_failure_header
+		color = "blue_negative"
+		conclusion_desc = je_standard_failure_conclusion_desc
+		trigger = {
+			OR = {
+				NOT = { has_law_or_variant = law_type:law_council_republic }
+				custom_tooltip = {
+					text = je_social_revolution_low_consolidation_tt
+					var:communist_welfare_low_consolidation_months_var >= 120
+				}
+				custom_tooltip = {
+					text = je_social_revolution_concluded_consolidation_tt
+					has_modifier = modifier_state_and_revolution_conciliation
+				}
+			}
+		}
+		effect = {
+			ig:ig_armed_forces ?= {
+				if = {
+					limit = {
+						has_ideology = ideology:ideology_internationalist
+					}
+					add_ideology = ideology_defensist
+				}
+			}
+			every_interest_group = {
+				limit = {
+					has_ideology = ideology:ideology_internationalist
+				}
+				remove_ideology = ideology_internationalist
+			}
+			je_social_revolution_cleanup = yes
+		}
+	}
+
+	should_be_pinned_by_default_uninvolved_or_context = yes
+}
