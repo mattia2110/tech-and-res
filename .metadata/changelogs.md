@@ -1,12 +1,12 @@
 # Tech & Res
 
 ## [b]Version 1.7.3[/b]
-- [b]IAEA Inspections:[/b] once the IAEA is established, UN members running a nuclear weapons program can be investigated. Discovered programs must be dismantled (20-year ban) or the country is condemned and expelled; permanent members may get away with it. Inspectors can be bribed.
-- [b]IMF Rework:[/b] the yearly IMF budget now goes to the poorest members (up to 40), split by population and need and capped at 4% of each country's GDP, giving money and up to +1 standard of living; unspent funds build a reserve. Old IMF construction bonuses removed. UN dues are now capped by development level.
-- [b]Demography:[/b] economic growth no longer affects the demographic transition below standard of living 7, phasing in fully at 9.
-- [b]Development:[/b] development stages 4–8 now reduce education access (−2% to −10%).
-- [b]Decolonization:[/b] a colonial power renounces its claims on the territories it decolonizes, so it can no longer take them back with Return State wars. Fixed the Lesotho decolonization truce and protectorate targeting Zululand. The Establish Colonial Administration journal entry now ends when the decolonization age begins, and Nigeria can also be decolonized from Igbo lands.
-- Fixed the UN panel missing after being expelled and rejoining the UN, and the nuclear weapon site modifier stacking every year. Nuclear weapon sites no longer give +5% infrastructure.
+- [b]IAEA Inspections:[/b] UN members with a nuclear weapons program can be investigated and must dismantle it or face condemnation and expulsion.
+- [b]IMF Rework:[/b] yearly aid in money and standard of living to the poorest members; UN dues capped by development level.
+- [b]UN Condemnations:[/b] three steps (penalties, suspension, expulsion); condemned countries lose IMF aid. The UN map now shows condemnations and IMF recipients.
+- [b]Decolonization:[/b] colonial powers lose their claims on decolonized lands, ending Return State wars. Establish Colonial Administration ends with the decolonization age.
+- [b]Demography & Development:[/b] economic growth affects the demographic transition only from standard of living 7; high development stages reduce education access.
+- Fixed the UN panel missing after rejoining the UN and the nuclear weapon site modifier stacking every year.
 
 ## [b]Version 1.7.2[/b]
 - [b]Politics:[/b] fixed IG and leader ideologies never appearing; Anti-Nuclear and Pro-Life movements can now form.
