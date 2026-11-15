@@ -256,7 +256,7 @@ je_nuclear_weapons_info_panel = {
 			ztr_refresh_nuclear_scores = yes
 		}
 	}
-	# Map: bright green nuclear weapons, dull green civil nuclear power only
+	# Map: bright green nuclear weapons, dull green civil nuclear power only, black stripes if banned
 	map_color = {
 		if = {
 			limit = {
@@ -266,9 +266,22 @@ je_nuclear_weapons_info_panel = {
 		}
 		else_if = {
 			limit = {
-				owner ?= { ztr_je_map_has_civil_nuclear = yes }
+				owner ?= {
+					OR = {
+						ztr_je_map_has_civil_nuclear = yes
+						ztr_je_map_has_banned_nuclear = yes
+					}
+				}
 			}
 			value = "ztr_nuclear_civil_green"
+		}
+	}
+	map_color_second = {
+		if = {
+			limit = {
+				owner ?= { ztr_je_map_has_banned_nuclear = yes }
+			}
+			value = "ztr_nuclear_banned_black"
 		}
 	}
 	map_tooltip = {
@@ -283,6 +296,12 @@ je_nuclear_weapons_info_panel = {
 				owner ?= { ztr_je_map_has_civil_nuclear = yes }
 			}
 			custom_tooltip_no_bullet = "ztr_nuclear_map_civil_tt"
+		}
+		else_if = {
+			limit = {
+				owner ?= { ztr_je_map_has_banned_nuclear = yes }
+			}
+			custom_tooltip_no_bullet = "ztr_nuclear_map_banned_tt"
 		}
 		else = {
 			custom_tooltip_no_bullet = "ztr_nuclear_map_none_tt"

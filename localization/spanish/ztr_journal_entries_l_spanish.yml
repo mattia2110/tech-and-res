@@ -1649,7 +1649,6 @@ je_decolonization: "Winds of Self-Determination"
 
 
 
-je_decolonization_reason: "The age of #v Empires#! is drawing to a close. Across the globe, peoples are demanding #v Self-Determination#!, #blue_value International Organizations#! are challenging the legitimacy of imperial rule, and the cost of maintaining overseas territories is mounting.\n\n[ROOT.GetCountry.GetName] must navigate this tidal shift carefully: resist and face growing insurgency and international condemnation, or guide the transition and preserve what influence it can.\n\nThe #n Self-Determination Pressure#! measures the growing international and domestic momentum toward the dissolution of colonial empires. As pressure rises, #v Subjects#! gain increasing [concept_liberty_desire] and #v Colonial State#! asking for #v Self-Determination#! become more consequential.\n\n[ztr_concept_colonial_state]:\n[GetScriptedGui('je_decolonization_colonial_states_sgui').ExecuteTooltip(GuiScope.SetRoot(ROOT.GetCountry.MakeScope).End)]"
 
 
 
@@ -1693,11 +1692,9 @@ je_decolonization_status_low: "Imperial governance remains broadly accepted inte
 
 
 
-ztr_global_decolonization_pressure_bar: "Global Self-Determination Pressure"
 
 
 
-ztr_global_decolonization_pressure_bar_desc: "Global Self-Determination Pressure: #v [GetGlobalVariable('ztr_global_decolonization_pressure_var').GetValue|0]#!"
 
 
 
@@ -2697,3 +2694,5 @@ ztr_un_vote_against_progress_bar: "#v Major Powers#! #n Against#!:\n[GetScripted
  ztr_un_map_condemned_suspended_tt: "#b [THIS.GetState.GetOwner.GetName]#! is under a #N second [Concept('concept_un_condemnation','$concept_un_condemnation$')]#!: no vote in the [Concept('concept_united_nations','$concept_united_nations$')]"
  je_global_warming_reason: "Factories, engines and power plants release gases that trap heat in the atmosphere. As [concept_effective_pollution] accumulates, average temperatures rise, droughts, heatwaves, wildfires and floods strike more often and more violently, and societies must change the way they live, work and produce to adapt.\n\n#bold Global Climate#!\nAnnual Temperature Change: [JournalEntry.GetCustom('ztr_global_warming_yearly_temperature_change_type')]\nProjected Equilibrium: #negative_value +[GetGlobalVariable('ztr_global_warming_equilibrium_temperature_var').GetValue|2] °C#!\nGlobal Pollution: @pollution_icon!#v [GetGlobalVariable('ztr_global_warming_total_pollution_var').GetValue|0]#! ([JournalEntry.GetCustom('ztr_global_warming_total_pollution_change_type')] from last year)\n[GetPlayer.GetName] Pollution: @pollution_icon!#v [GetPlayer.MakeScope.Var('ztr_country_total_pollution_current_var').GetValue|0]#! ([GetPlayer.GetCustom('ztr_global_warming_player_pollution_change_type')] from last year)\n\n#bold [concept_climate_stage]#!\nCurrent Stage: [JournalEntry.GetCustom('ztr_global_warming_stage_type')]\n\n#bold [Concept('concept_harvest_condition','Climate Disasters')]#!\n[JournalEntry.GetCustom('ztr_global_warming_climate_disasters_type')]\n[GetScriptedGui('ztr_gw_climate_disasters_sgui').ExecuteTooltip(GuiScope.SetRoot(GetPlayer.MakeScope).End)]\n\n#bold Annual [concept_effective_pollution]#!\n#v Rank - Country - Effective Pollution - Yearly Change#!\n[GetScriptedGui('ztr_gw_polluters_sgui').ExecuteTooltip(GuiScope.SetRoot(GetPlayer.MakeScope).End)]" # UPDATED
  ztr_un_map_imf_aid_tt: "#b [THIS.GetState.GetOwner.GetName]#! receives #P [Concept('concept_un_subject_imf','$concept_un_subject_imf$')] aid#! this year"
+ ztr_nuclear_map_banned_tt: "#b [THIS.GetState.GetOwner.GetName]#! has #v civil#! nuclear technology but #negative_value bans#! uranium"
+je_decolonization_reason: "The age of #v Empires#! is drawing to a close. Across the globe, peoples are demanding #v Self-Determination#!, #blue_value International Organizations#! are challenging the legitimacy of imperial rule, and the cost of maintaining overseas territories is mounting.\n\n[ROOT.GetCountry.GetName] must navigate this tidal shift carefully: resist and face growing insurgency and international condemnation, or guide the transition and preserve what influence it can.\n\nThe #n Self-Determination Pressure#! measures the growing international and domestic momentum toward the dissolution of colonial empires. As pressure rises, #v Subjects#! gain increasing [concept_liberty_desire] and #v Colonial State#! asking for #v Self-Determination#! become more consequential.\n\n[Concept('concept_global_self_determination_pressure','$concept_global_self_determination_pressure$')]: #v [GetGlobalVariable('ztr_global_decolonization_pressure_var').GetValue|0]#!\n\n[ztr_concept_colonial_state]:\n[GetScriptedGui('je_decolonization_colonial_states_sgui').ExecuteTooltip(GuiScope.SetRoot(ROOT.GetCountry.MakeScope).End)]" # UPDATED

@@ -5,7 +5,7 @@
 - [b]IMF Rework:[/b] the yearly IMF budget now goes to the poorest members (up to 40), split by population and need and capped at 4% of each country's GDP, giving money and up to +1 standard of living; unspent funds build a reserve. Old IMF construction bonuses removed. UN dues are now capped by development level.
 - [b]Demography:[/b] economic growth no longer affects the demographic transition below standard of living 7, phasing in fully at 9.
 - [b]Development:[/b] development stages 4–8 now reduce education access (−2% to −10%).
-- [b]Decolonization:[/b] a colonial power renounces its claims on the territories it decolonizes, so it can no longer take them back with Return State wars. Fixed the Lesotho decolonization truce and protectorate targeting Zululand.
+- [b]Decolonization:[/b] a colonial power renounces its claims on the territories it decolonizes, so it can no longer take them back with Return State wars. Fixed the Lesotho decolonization truce and protectorate targeting Zululand. The Establish Colonial Administration journal entry now ends when the decolonization age begins, and Nigeria can also be decolonized from Igbo lands.
 - Fixed the UN panel missing after being expelled and rejoining the UN, and the nuclear weapon site modifier stacking every year. Nuclear weapon sites no longer give +5% infrastructure.
 
 ## [b]Version 1.7.2[/b]
