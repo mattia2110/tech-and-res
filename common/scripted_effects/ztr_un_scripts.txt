@@ -34,7 +34,6 @@ join_un_law_changes = {
 		}
 		activate_law = law_type:law_racial_segregation
 	}
-	#TODO Modificare questa parte con la modifica forzata delle leggi attive per ogni membro dell'ONU
 	# Apply active UN Human Rights resolutions to new members
 	# Decolonization Stance
 	# Encouraged
@@ -462,6 +461,7 @@ ztr_un_init_governance_laws = {
 			value = 0
 		}
 	}
+	ztr_imf_init_totals = yes
 }
 
 # Start a UN vote on a governance proposal
@@ -1519,15 +1519,6 @@ ztr_un_ai_yearly_proposal = {
 	}
 }
 
-# Clears every IMF help tier
-remove_imf_modifier = {
-	remove_modifier = extreme_imf_help_modifier
-	remove_modifier = big_imf_help_modifier
-	remove_modifier = medium_imf_help_modifier
-	remove_modifier = small_imf_help_modifier
-	remove_modifier = tiny_imf_help_modifier
-}
-
 # ========================================
 # SECURITY COUNCIL ELECTED SEATS
 # ========================================
@@ -1913,6 +1904,163 @@ ztr_un_assess_dues = {
 				add = ztr_un_dues_annual
 			}
 		}
+	}
+}
+
+# IMF totals shown in the UN panel: aid granted this year and reserve of the unspent budget
+ztr_imf_init_totals = {
+	if = {
+		limit = {
+			NOT = {
+				has_global_variable = ztr_imf_reserve
+			}
+		}
+		set_global_variable = {
+			name = ztr_imf_reserve
+			value = 0
+		}
+	}
+	if = {
+		limit = {
+			NOT = {
+				has_global_variable = ztr_imf_aid_distributed
+			}
+		}
+		set_global_variable = {
+			name = ztr_imf_aid_distributed
+			value = 0
+		}
+	}
+}
+
+# IMF aid: the yearly UN budget split by population x SoL weight (ztr_imf_aid_weight) among the poorest members
+# Each share is capped at 4% of GDP; the unspent budget piles up in ztr_imf_reserve
+ztr_imf_distribute_aid = {
+	set_global_variable = {
+		name = ztr_imf_aid_distributed
+		value = 0
+	}
+	set_global_variable = {
+		name = ztr_imf_recipient_population
+		value = 0
+	}
+	set_global_variable = {
+		name = ztr_imf_recipient_slots
+		value = 0
+	}
+	# SoL without last year's bonus, read before the bonus is cleared
+	every_country = {
+		limit = {
+			OR = {
+				ztr_is_un_member = yes
+				has_variable = ztr_imf_aid_weekly
+				ztr_imf_is_aid_recipient = yes
+			}
+		}
+		set_variable = {
+			name = ztr_imf_base_sol
+			value = ztr_sol_without_imf_aid
+		}
+		remove_variable = ztr_imf_aid_weekly
+		remove_variable = ztr_imf_aid_annual
+		remove_variable = ztr_imf_aid_sol
+		remove_variable = ztr_imf_recipient
+		if = {
+			limit = {
+				ztr_is_un_member = yes
+			}
+			change_global_variable = {
+				name = ztr_imf_recipient_slots
+				add = 1
+			}
+		}
+		else = {
+			remove_variable = ztr_imf_base_sol
+		}
+	}
+	# Recipients: the min(40, half the members) members with the lowest SoL, none above SoL 18
+	set_global_variable = {
+		name = ztr_imf_recipient_slots
+		value = ztr_imf_aid_recipient_slots
+	}
+	ordered_country = {
+		limit = {
+			ztr_is_un_member = yes
+			has_variable = ztr_imf_base_sol
+			var:ztr_imf_base_sol <= ztr_imf_aid_max_base_sol
+		}
+		order_by = ztr_imf_aid_need
+		max = 40 # ztr_imf_aid_max_recipients
+		check_range_bounds = no
+		if = {
+			limit = {
+				global_var:ztr_imf_recipient_slots > 0
+			}
+			set_variable = ztr_imf_recipient
+			change_global_variable = {
+				name = ztr_imf_recipient_slots
+				subtract = 1
+			}
+			change_global_variable = {
+				name = ztr_imf_recipient_population
+				add = ztr_imf_aid_weight
+			}
+		}
+	}
+	every_country = {
+		limit = {
+			has_variable = ztr_imf_base_sol
+			NOT = {
+				ztr_imf_is_aid_recipient = yes
+			}
+		}
+		remove_variable = ztr_imf_base_sol
+	}
+	if = {
+		limit = {
+			global_var:ztr_imf_recipient_population > 0
+		}
+		set_global_variable = {
+			name = ztr_imf_aid_per_thousand
+			value = global_var:ztr_un_budget
+		}
+		change_global_variable = {
+			name = ztr_imf_aid_per_thousand
+			divide = global_var:ztr_imf_recipient_population
+		}
+		every_country = {
+			limit = {
+				ztr_imf_is_aid_recipient = yes
+			}
+			set_variable = {
+				name = ztr_imf_aid_annual
+				value = ztr_imf_aid_annual_share
+			}
+			set_variable = {
+				name = ztr_imf_aid_weekly
+				value = var:ztr_imf_aid_annual
+			}
+			change_variable = {
+				name = ztr_imf_aid_weekly
+				divide = 52
+			}
+			set_variable = {
+				name = ztr_imf_aid_sol
+				value = ztr_imf_aid_sol_bonus
+			}
+			change_global_variable = {
+				name = ztr_imf_aid_distributed
+				add = var:ztr_imf_aid_annual
+			}
+		}
+	}
+	change_global_variable = {
+		name = ztr_imf_reserve
+		add = global_var:ztr_un_budget
+	}
+	change_global_variable = {
+		name = ztr_imf_reserve
+		subtract = global_var:ztr_imf_aid_distributed
 	}
 }
 

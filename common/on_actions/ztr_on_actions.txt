@@ -239,24 +239,6 @@ un_institutions_on_yearly_pulse = {
 		has_global_variable = un_founded_var
 	}
 	effect = {
-		# Ensure the decorative UN Headquarters exists in post-foundation saves
-		if = {
-			limit = {
-				NOT = {
-					any_country = {
-						has_building = building_un_headquarters
-					}
-				}
-			}
-			ordered_country = {
-				limit = {
-					has_modifier = ztr_onu_permanent_member
-				}
-				order_by = country_rank
-				max = 1
-				ztr_create_un_headquarters = yes
-			}
-		}
 		# Security Council elected seats: new election when the 9-year term ends
 		if = {
 			limit = {
@@ -289,49 +271,13 @@ un_institutions_on_yearly_pulse = {
 				id = ztr_un_event.45
 			}
 		}
-		# IMF global mechanics
-		# IMF poor countries management
-		every_country = {
+		# IMF aid: budget split by population among poor members
+		ztr_imf_init_totals = yes
+		if = {
 			limit = {
-				has_global_variable = ztr_un_institution_imf
-				global_var:ztr_un_institution_imf = 1
-				ztr_is_un_member = yes
-				OR = {
-					average_sol < 10
-					has_imf_modifier = yes
-				}
+				global_var:ztr_un_institution_imf ?= 1
 			}
-			remove_imf_modifier = yes
-			if = {
-				limit = {
-					average_sol < 6
-				}
-				add_modifier = extreme_imf_help_modifier
-			}
-			else_if = {
-				limit = {
-					average_sol < 7
-				}
-				add_modifier = big_imf_help_modifier
-			}
-			else_if = {
-				limit = {
-					average_sol < 8
-				}
-				add_modifier = medium_imf_help_modifier
-			}
-			else_if = {
-				limit = {
-					average_sol < 9
-				}
-				add_modifier = small_imf_help_modifier
-			}
-			else_if = {
-				limit = {
-					average_sol < 10
-				}
-				add_modifier = tiny_imf_help_modifier
-			}
+			ztr_imf_distribute_aid = yes
 		}
 	}
 }
@@ -360,6 +306,7 @@ on_yearly_pulse_country = {
 		ztr_demography_on_yearly_pulse
 		ztr_un_compliance_on_yearly_pulse_country
 		ztr_un_standards_on_yearly_pulse_country
+		ztr_un_iaea_on_yearly_pulse_country
 	}
 }
 
@@ -442,6 +389,31 @@ ztr_un_standards_on_yearly_pulse_country = {
 					id = ztr_un_compliance.6
 					popup = yes
 				}
+			}
+		}
+	}
+}
+
+# IAEA: investigates members developing the atomic bomb
+ztr_un_iaea_on_yearly_pulse_country = {
+	effect = {
+		# The clearance covers one programme only
+		if = {
+			limit = {
+				has_variable = ztr_un_iaea_clearance
+				NOT = {
+					has_journal_entry = je_develop_nuclear_weapons
+				}
+			}
+			remove_variable = ztr_un_iaea_clearance
+		}
+		if = {
+			limit = {
+				ztr_un_iaea_investigation_valid = yes
+			}
+			trigger_event = {
+				id = ztr_un_iaea.1
+				popup = yes
 			}
 		}
 	}
@@ -540,25 +512,13 @@ arable_land_on_yearly_pulse_country = {
 atomic_on_yearly_pulse_country = {
 	events = { nuclear_warfare_system.2 }
 	effect = {
-		# Backfill tested arsenals in existing saves before any recovery decision.
+		# Silos built after the test count as tested, so they can be recovered if captured
 		if = {
 			limit = { has_modifier = nuclear_capability }
 			every_scope_state = {
 				limit = { has_building = building_nuclear_weapons_silo }
 				set_variable = ztr_tested_nuclear_arsenal
-				add_modifier = nuclear_weapon_site
 			}
-		}
-		# Completed legacy programmes no longer reserve the Research Center.
-		if = {
-			limit = { NOT = { has_journal_entry = je_develop_nuclear_weapons } }
-			remove_variable = nuclear_program_started
-			remove_variable = nuclear_development_var
-		}
-		if = {
-			limit = { NOT = { has_journal_entry = je_develop_thermonuclear_weapons } }
-			remove_variable = thermonuclear_program_started
-			remove_variable = thermonuclear_development_var
 		}
 		# Preserve captured tested silos; abandoned prototypes cannot be recovered.
 		if = {

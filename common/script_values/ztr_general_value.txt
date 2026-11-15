@@ -79,3 +79,12 @@ ztr_literate_population = {
     value = total_population
     multiply = literacy_rate
 }
+
+# Average SoL without the IMF aid bonus (ztr_imf_distribute_aid)
+ztr_sol_without_imf_aid = {
+	value = average_sol
+	if = {
+		limit = { has_variable = ztr_imf_aid_sol }
+		subtract = var:ztr_imf_aid_sol
+	}
+}

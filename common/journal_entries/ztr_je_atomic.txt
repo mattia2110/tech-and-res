@@ -21,7 +21,10 @@
 			value = 0
 		}
 		capital = {
-			add_modifier = nuclear_weapon_site
+			if = {
+				limit = { NOT = { has_modifier = nuclear_weapon_site } }
+				add_modifier = nuclear_weapon_site
+			}
 		}
 	}
 	on_monthly_pulse = {
@@ -251,11 +254,6 @@ je_nuclear_weapons_info_panel = {
 		if = {
 			limit = { NOT = { has_global_variable = ztr_nuclear_scores_initialized } }
 			ztr_refresh_nuclear_scores = yes
-		}
-		# Rankings missing from saves made before the lists
-		else_if = {
-			limit = { NOT = { has_global_variable_list = ztr_nuclear_strike_power_list } }
-			ztr_nuclear_build_rankings = yes
 		}
 	}
 	# Map: bright green nuclear weapons, dull green civil nuclear power only

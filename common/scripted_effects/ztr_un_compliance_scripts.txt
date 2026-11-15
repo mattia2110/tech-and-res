@@ -143,3 +143,40 @@ ztr_un_apply_labor_rights_standard = {
 		activate_law = law_type:law_regulatory_bodies
 	}
 }
+
+# IAEA investigations (events/international_organizations/ztr_un_iaea_events.txt)
+
+# The atomic programme ends and cannot be started again for 20 years
+ztr_un_iaea_dismantle_program = {
+	custom_tooltip = ztr_un_iaea_dismantle_program_tt
+	hidden_effect = {
+		ztr_abandon_nuclear_weapons_program = yes
+		set_variable = {
+			name = ztr_un_iaea_program_ban
+			years = 20
+		}
+	}
+}
+
+# Condemnation with immediate expulsion, even at the first one
+ztr_un_iaea_condemn_and_expel = {
+	if = {
+		limit = {
+			ztr_un_condemnation_expired = yes
+		}
+		custom_tooltip = ztr_un_iaea_condemn_expel_tt
+		show_as_tooltip = {
+			add_modifier = {
+				name = ztr_un_condemned_modifier
+			}
+		}
+		hidden_effect = {
+			ztr_un_condemn_country = yes
+			ztr_un_expel_member = yes
+		}
+	}
+	# A second condemnation already expels
+	else = {
+		ztr_un_condemn_country = yes
+	}
+}

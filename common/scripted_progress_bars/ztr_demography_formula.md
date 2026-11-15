@@ -30,6 +30,8 @@ V     = P(SoL) * w
 drift = Kd * (Ld * L + min(Ls * SoL, Lm) - u + k) + V
 econ  = (Ke / D0) * L * A(u,y) * max(D - D0, (Lr - 1) * D0)
 econ  = econ * R se econ < 0 e u < 6
+g     = clamp((SoLn - G0) / (G1 - G0), 0, 1)
+econ  = econ * g
 F     = drift + econ
 dX    = clamp(F + extra, Lo, Hi)
 Y(t+1)= clamp(Y(t) + dX, 0, 1000)
@@ -46,12 +48,17 @@ drift = 1.5 * (2L + min(0.15 * SoL, 3) - u + k) + V
 s(y)  = 3 * clamp((anno - 1836) / 100, 0, 1)
 econ  = 75 * L * min(u / (3 + s(y)), 1) * (6 - u) * max(D - 0.04, -0.06)
 econ  = econ * 0.5 se econ < 0 e u < 6
+econ  = econ * clamp((SoLn - 8) / 2, 0, 1)
 dX    = clamp(drift + econ + extra, -5, +15)
 ```
 
 Il contributo economico negativo viene moltiplicato per R solo sotto X=600; quello positivo resta invariato. Con C=6 e R=0,5, sotto 600 attenua recessione, stagnazione e crescita inferiore al 4%; da 600 il freno della crescita superiore al 4% si applica integralmente. A X=600 il termine economico è zero. Il coefficiente agisce prima della somma con drift ed extra e dei limiti annuali.
 
 La forma compatta usa lo scostamento D-D0 dalla crescita di riferimento. È algebricamente equivalente a `Ke*L*A*(max(D/D0,Lr)-1)` per D0>0; 75 è il rapporto Ke/D0 e -0,06 è (Lr-1)*D0 con i default. Il codice ricava questi valori dai parametri e usa sempre D0 effettivo = max(growth_threshold, 0,001), anche nella sottrazione e nel limite inferiore. Durante la raccolta dello storico il contributo economico resta zero.
+
+### Soglia di SoL del termine economico
+
+Il termine economico è moltiplicato per `g`: 0 fino a SoL 7, 1 da SoL 9, lineare in mezzo (0,5 a SoL 8). Vale per la spinta e per il freno. `SoLn` è il SoL medio al netto del bonus dell'aiuto FMI (`ztr_sol_without_imf_aid`): sotto la soglia un paese avanza solo per literacy, SoL assoluto ed epoca. A livelli molto bassi la variazione relativa di SoL e PIL pro capite è dominata dalla base piccola, e l'aiuto FMI la gonfierebbe.
 
 ### Componente aggiuntiva del SoL
 
@@ -119,6 +126,8 @@ La soglia di saturazione economica sale da 3 nel 1836 a 4,5 nel 1886 e 6 nel 193
 | `Sm` — incremento massimo della saturazione | 3 | Attenua maggiormente la risposta economica degli stadi sotto la soglia. |
 | `C` — inversione | 6 | Sposta più avanti il cambio di segno economico, uguale per tutti i paesi. |
 | `R` — freno economico | 0,5 | Rafforza il contributo economico negativo sotto X=600; 1 lo conserva integralmente, 0 lo annulla. Da 600 non ha effetto. |
+| `G0` — SoL di spegnimento | 7 | Alza il SoL sotto cui il termine economico è nullo. |
+| `G1` — SoL di piena attivazione | 9 | Allunga la rampa; minimo tecnico G0 + 0,001. |
 | `Vp` — bonus massimo | 1,5 | Alza il raccordo 20–25 e il limite superiore dell’iperbole; mantenere 0<=Vp<=2 per continuità a SoL 25 con numeratore 10. |
 | `Hi` — guadagno massimo | +15 | Permette avanzamenti annuali più rapidi prima della saturazione. |
 | `Lo` — perdita massima | -5 | Alza il pavimento annuale e riduce la regressione consentita: -5 significa al massimo 5 punti persi l'anno. |
@@ -131,7 +140,7 @@ Per il bilanciamento ordinario modificare soprattutto `Kd`, `Ld`, `Ls` e `Ke`. C
 
 I parametri sono in `common/script_values/ztr_demography_values.txt`: `Kd=drift_scale`, `Ld=drift_literacy`, `Ls=drift_sol`, `Lm=drift_sol_max`, `Ke=speed`, `D0=growth_threshold`, `Lr=recession_floor`, `S=saturation`, `Ss=saturation_start`, `Sp=saturation_years`, `Sm=saturation_gain`, `C=turning_point`, `Hi=max_gain`, `Lo=max_loss`, `Ks=era_start`, `Kp=era_step`, `kmin=era_min`, `kmax=era_max`, tutti con prefisso `ztr_demography_`. L'epoca `k` è `ztr_demography_era`.
 
-Anche `R=late_economy_brake` e `Vp=development_peak_gain` usano lo stesso prefisso. Le soglie SoL=20/25, il numeratore iperbolico 10 e l'attivazione X=500–600 sono espliciti nei value `development_potential` e `development_change`. La chiave storica `late_economy_brake` è conservata per il pannello di controllo, ma ora R si applica ai contributi economici negativi solo sotto X=600.
+Anche `R=late_economy_brake`, `Vp=development_peak_gain`, `G0=economy_sol_floor` e `G1=economy_sol_full` usano lo stesso prefisso. Le soglie SoL=20/25, il numeratore iperbolico 10 e l'attivazione X=500–600 sono espliciti nei value `development_potential` e `development_change`. La chiave storica `late_economy_brake` è conservata per il pannello di controllo, ma ora R si applica ai contributi economici negativi solo sotto X=600.
 
 ### Variabili persistenti
 

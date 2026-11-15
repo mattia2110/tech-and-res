@@ -1,4 +1,4 @@
-﻿# UN dues (.claude/skills/ztr_un/design.md): 0.25% of GDP, x2 with the IMF, x2 for permanent members, x development level / 8
+﻿# UN dues (.claude/skills/ztr_un/design.md): 0.25% of GDP, x2 with the IMF, x2 for permanent members, x development level / 8 (at most x0.5)
 ztr_un_dues_annual = {
 	value = gdp
 	multiply = 0.0025
@@ -18,8 +18,11 @@ ztr_un_dues_annual = {
 		limit = {
 			has_variable = ztr_development_level_var
 		}
-		multiply = var:ztr_development_level_var
-		divide = 8
+		multiply = {
+			value = var:ztr_development_level_var
+			max = 4
+			divide = 8
+		}
 	}
 	else = {
 		multiply = 0
@@ -121,4 +124,91 @@ ztr_un_commit_score_ideology = {
 	multiply = 0.3
 	min = -15
 	max = 15
+}
+
+# IMF aid (.claude/skills/ztr_un/design.md): the UN budget split by population among the poorest members by SoL, weighted by SoL
+ztr_imf_aid_sol_threshold = 10
+ztr_imf_aid_max_recipients = 40
+ztr_imf_aid_max_base_sol = 18
+
+# Recipient slots: half the members (counted in ztr_imf_recipient_slots), at most 40
+ztr_imf_aid_recipient_slots = {
+	value = global_var:ztr_imf_recipient_slots
+	divide = 2
+	floor = yes
+	max = ztr_imf_aid_max_recipients
+}
+
+# Recipient order: lowest SoL without the aid bonus first
+ztr_imf_aid_need = {
+	value = 0
+	subtract = var:ztr_imf_base_sol
+}
+ztr_imf_aid_gdp_cap = 0.04
+ztr_imf_aid_max_sol = 1
+
+# Thousands of people: keeps the per-capita rate within fixed-point precision
+ztr_imf_population_thousands = {
+	value = total_population
+	divide = 1000
+}
+
+# Aid weight: population x (18 - max(8, SoL)) / 5, from x2 at SoL 8 to 0 at SoL 18
+ztr_imf_aid_weight = {
+	value = ztr_imf_aid_max_base_sol
+	subtract = {
+		value = var:ztr_imf_base_sol
+		min = 8
+	}
+	divide = 5
+	min = 0
+	multiply = ztr_imf_population_thousands
+}
+
+ztr_imf_aid_cap = {
+	value = gdp
+	multiply = ztr_imf_aid_gdp_cap
+}
+
+# Weighted share of the budget, capped at 4% of GDP
+ztr_imf_aid_annual_share = {
+	value = ztr_imf_aid_weight
+	multiply = global_var:ztr_imf_aid_per_thousand
+	max = ztr_imf_aid_cap
+}
+
+# SoL bonus: +1 at the GDP cap, never above SoL 10
+ztr_imf_aid_sol_bonus = {
+	value = var:ztr_imf_aid_annual
+	divide = {
+		value = ztr_imf_aid_cap
+		min = 1
+	}
+	multiply = ztr_imf_aid_max_sol
+	max = {
+		value = ztr_imf_aid_sol_threshold
+		subtract = var:ztr_imf_base_sol
+	}
+	min = 0
+}
+
+# Scales of the IMF modifiers in je_un_info_panel
+ztr_imf_aid_weekly_received = {
+	value = 0
+	if = {
+		limit = {
+			has_variable = ztr_imf_aid_weekly
+		}
+		value = var:ztr_imf_aid_weekly
+	}
+}
+
+ztr_imf_aid_sol_received = {
+	value = 0
+	if = {
+		limit = {
+			has_variable = ztr_imf_aid_sol
+		}
+		value = var:ztr_imf_aid_sol
+	}
 }

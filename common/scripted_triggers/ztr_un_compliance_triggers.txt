@@ -125,3 +125,45 @@ ztr_un_labor_rights_request_valid = {
 	}
 	has_technology_researched = human_rights
 }
+
+# IAEA investigations (events/international_organizations/ztr_un_iaea_events.txt)
+
+# Members with the atomic programme under way, every 2 years at most
+# A programme frozen by the NPT or by a pause article is left alone
+ztr_un_iaea_investigation_valid = {
+	ztr_is_un_institution_member = { INSTITUTION = iaea }
+	has_journal_entry = je_develop_nuclear_weapons
+	NOR = {
+		has_variable = ztr_un_iaea_investigation_cooldown
+		has_variable = ztr_un_iaea_clearance
+		has_variable = signed_nuclear_non_proliferation_treaty
+		ztr_un_iaea_has_paused_program = yes
+	}
+}
+
+# Source of a pause_nuclear_weapons_development article
+ztr_un_iaea_has_paused_program = {
+	save_temporary_scope_as = ztr_un_iaea_paused_country
+	any_scope_treaty = {
+		any_scope_article = {
+			has_type = pause_nuclear_weapons_development
+			source_country = scope:ztr_un_iaea_paused_country
+		}
+	}
+}
+
+# Delayed outcomes are dropped if the programme ended or the country left the UN meanwhile
+ztr_un_iaea_case_open = {
+	ztr_is_un_member = yes
+	has_journal_entry = je_develop_nuclear_weapons
+}
+
+# AI: reasons to keep the programme against the IAEA
+ztr_un_iaea_needs_the_bomb = {
+	OR = {
+		is_at_war = yes
+		any_rival_country = {
+			has_modifier = nuclear_capability
+		}
+	}
+}

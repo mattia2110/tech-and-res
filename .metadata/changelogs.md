@@ -1,5 +1,18 @@
 # Tech & Res
 
+## [b]Version 1.7.3[/b]
+- [b]IAEA Inspections:[/b] once the IAEA is established, UN members running a nuclear weapons program can be investigated. Discovered programs must be dismantled (20-year ban) or the country is condemned and expelled; permanent members may get away with it. Inspectors can be bribed.
+- [b]IMF Rework:[/b] the yearly IMF budget now goes to the poorest members (up to 40), split by population and need and capped at 4% of each country's GDP, giving money and up to +1 standard of living; unspent funds build a reserve. Old IMF construction bonuses removed. UN dues are now capped by development level.
+- [b]Demography:[/b] economic growth no longer affects the demographic transition below standard of living 7, phasing in fully at 9.
+- [b]Development:[/b] development stages 4–8 now reduce education access (−2% to −10%).
+- Fixed the UN panel missing after being expelled and rejoining the UN, and the nuclear weapon site modifier stacking every year. Nuclear weapon sites no longer give +5% infrastructure.
+
+## [b]Version 1.7.2[/b]
+- [b]Politics:[/b] fixed IG and leader ideologies never appearing; Anti-Nuclear and Pro-Life movements can now form.
+- Women in the Fields: working adults +30% → +20%.
+- AI trade tweaks; Morgenröte uranium mine compatibility.
+- Simplified Chinese no longer falls back to English.
+
 ## [b]Version 1.7.1[/b]
 - [b]Compatibility (Victoria 3 1.15.1):[/b] Aligned mod with 1.15.1 changes.
 - [b]Chips:[/b] Processors renamed to Chips, with a new icon. Chip manufacturing now uses coal as a reductant; Embedded Control Circuits consume chips, with lower electricity and rare earths costs.

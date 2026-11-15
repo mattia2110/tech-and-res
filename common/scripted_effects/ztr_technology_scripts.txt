@@ -296,7 +296,10 @@ ztr_grant_nuclear_capability = {
 	every_scope_state = {
 		limit = { has_building = building_nuclear_weapons_silo }
 		set_variable = ztr_tested_nuclear_arsenal
-		add_modifier = nuclear_weapon_site
+		if = {
+			limit = { NOT = { has_modifier = nuclear_weapon_site } }
+			add_modifier = nuclear_weapon_site
+		}
 	}
 	if = {
 		limit = { has_technology_researched = hydrogen_bomb }

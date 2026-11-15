@@ -1,0 +1,322 @@
+﻿namespace = ztr_un_iaea
+
+# IAEA investigations of atomic programmes, fired by ztr_un_iaea_on_yearly_pulse_country.
+# .1 inspection -> .2 programme uncovered -> .3 condemnation of a permanent member
+# .4 and .5 tell players the good outcomes (nothing found, case dropped)
+# Outcomes arrive months later: 3 after the inspection, 2 after the appeal to the seat
+
+# Inspection of a member developing the atomic bomb
+ztr_un_iaea.1 = {
+	dlc = dlc_tech_res
+	type = country_event
+	placement = root
+	duration = 3
+	title = ztr_un_iaea.1.t
+	desc = ztr_un_iaea.1.d
+	flavor = ztr_un_iaea.1.f
+	event_image = {
+		video = "ztr_nuclear_reactor"
+	}
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	icon = "gfx/interface/icons/event_icons/ztr_onu_member.dds"
+
+	trigger = {
+		ztr_un_iaea_investigation_valid = yes
+	}
+
+	immediate = {
+		set_variable = {
+			name = ztr_un_iaea_investigation_cooldown
+			years = 2
+		}
+	}
+
+	# Hope they find nothing
+	option = {
+		name = ztr_un_iaea.1.a
+		default_option = yes
+		custom_tooltip = ztr_un_iaea.1.a_tt
+		hidden_effect = {
+			random_list = {
+				75 = {
+					trigger_event = {
+						id = ztr_un_iaea.2
+						months = 3
+						popup = yes
+					}
+				}
+				25 = {
+					if = {
+						limit = {
+							is_ai = no
+						}
+						trigger_event = {
+							id = ztr_un_iaea.4
+							months = 3
+							popup = yes
+						}
+					}
+				}
+			}
+		}
+		ai_chance = {
+			base = 30
+		}
+	}
+
+	# Bribe the inspectors
+	option = {
+		name = ztr_un_iaea.1.b
+		add_treasury = {
+			value = gdp
+			multiply = -0.001
+		}
+		custom_tooltip = ztr_un_iaea.1.b_tt
+		hidden_effect = {
+			random_list = {
+				25 = {
+					trigger_event = {
+						id = ztr_un_iaea.2
+						months = 3
+						popup = yes
+					}
+				}
+				75 = {
+					if = {
+						limit = {
+							is_ai = no
+						}
+						trigger_event = {
+							id = ztr_un_iaea.4
+							months = 3
+							popup = yes
+						}
+					}
+				}
+			}
+		}
+		ai_chance = {
+			base = 70
+			modifier = {
+				trigger = {
+					in_default = yes
+				}
+				add = -60
+			}
+		}
+	}
+}
+
+# The IAEA uncovers the atomic programme
+ztr_un_iaea.2 = {
+	dlc = dlc_tech_res
+	type = country_event
+	placement = root
+	duration = 3
+	title = ztr_un_iaea.2.t
+	desc = ztr_un_iaea.2.d
+	flavor = ztr_un_iaea.2.f
+	event_image = {
+		video = "ztr_un_congress"
+	}
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	icon = "gfx/interface/icons/event_icons/ztr_onu_member.dds"
+
+	trigger = {
+		# Fired by ztr_un_iaea.1
+		ztr_un_iaea_case_open = yes
+	}
+
+	# Permanent members: lean on the seat
+	option = {
+		name = ztr_un_iaea.2.a
+		trigger = {
+			has_modifier = ztr_onu_permanent_member
+		}
+		custom_tooltip = ztr_un_iaea.2.a_tt
+		hidden_effect = {
+			random_list = {
+				30 = {
+					set_variable = ztr_un_iaea_clearance
+					if = {
+						limit = {
+							is_ai = no
+						}
+						trigger_event = {
+							id = ztr_un_iaea.5
+							months = 2
+							popup = yes
+						}
+					}
+				}
+				70 = {
+					trigger_event = {
+						id = ztr_un_iaea.3
+						months = 2
+						popup = yes
+					}
+				}
+			}
+		}
+		ai_chance = {
+			base = 40
+		}
+	}
+
+	# Accept: the programme is dismantled
+	option = {
+		name = ztr_un_iaea.2.b
+		default_option = yes
+		ztr_un_iaea_dismantle_program = yes
+		ai_chance = {
+			base = 30
+			modifier = {
+				trigger = {
+					ztr_is_democratic = yes
+				}
+				add = 30
+			}
+			# A refusal would make it a pariah
+			modifier = {
+				trigger = {
+					infamy >= 50
+				}
+				add = 20
+			}
+			modifier = {
+				trigger = {
+					ztr_is_totalitarian = yes
+				}
+				add = -20
+			}
+			modifier = {
+				trigger = {
+					ztr_un_iaea_needs_the_bomb = yes
+				}
+				add = -10
+			}
+		}
+	}
+
+	# Refuse
+	option = {
+		name = ztr_un_iaea.2.c
+		if = {
+			limit = {
+				has_modifier = ztr_onu_permanent_member
+			}
+			change_infamy = 75
+			ztr_un_condemn_country = yes
+		}
+		else = {
+			change_infamy = 50
+			ztr_un_iaea_condemn_and_expel = yes
+		}
+		ai_chance = {
+			base = 20
+			modifier = {
+				trigger = {
+					ztr_is_totalitarian = yes
+				}
+				add = 40
+			}
+			modifier = {
+				trigger = {
+					ztr_un_iaea_needs_the_bomb = yes
+				}
+				add = 20
+			}
+			modifier = {
+				trigger = {
+					ztr_is_democratic = yes
+				}
+				add = -10
+			}
+			# The seat is the better gamble
+			modifier = {
+				trigger = {
+					has_modifier = ztr_onu_permanent_member
+				}
+				add = -10
+			}
+		}
+	}
+}
+
+# The permanent seat was not enough
+ztr_un_iaea.3 = {
+	dlc = dlc_tech_res
+	type = country_event
+	placement = root
+	duration = 3
+	title = ztr_un_iaea.3.t
+	desc = ztr_un_iaea.3.d
+	event_image = {
+		video = "unspecific_politicians_arguing"
+	}
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	icon = "gfx/interface/icons/event_icons/ztr_onu_member.dds"
+
+	trigger = {
+		# Fired by ztr_un_iaea.2
+		ztr_un_iaea_case_open = yes
+	}
+
+	option = {
+		name = ztr_un_iaea.3.a
+		default_option = yes
+		change_infamy = 100
+		ztr_un_condemn_country = yes
+	}
+}
+
+# Notification: the inspectors found nothing
+ztr_un_iaea.4 = {
+	dlc = dlc_tech_res
+	type = country_event
+	placement = root
+	duration = 3
+	title = ztr_un_iaea.4.t
+	desc = ztr_un_iaea.4.d
+	event_image = {
+		video = "ztr_nuclear_reactor"
+	}
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	icon = "gfx/interface/icons/event_icons/ztr_onu_member.dds"
+
+	trigger = {
+		# Fired by ztr_un_iaea.1
+		ztr_un_iaea_case_open = yes
+	}
+
+	option = {
+		name = ztr_un_iaea.4.a
+		default_option = yes
+	}
+}
+
+# Notification: the Security Council drops the case
+ztr_un_iaea.5 = {
+	dlc = dlc_tech_res
+	type = country_event
+	placement = root
+	duration = 3
+	title = ztr_un_iaea.5.t
+	desc = ztr_un_iaea.5.d
+	event_image = {
+		video = "ztr_un_congress"
+	}
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	icon = "gfx/interface/icons/event_icons/ztr_onu_member.dds"
+
+	trigger = {
+		# Fired by ztr_un_iaea.2
+		ztr_un_iaea_case_open = yes
+	}
+
+	option = {
+		name = ztr_un_iaea.5.a
+		default_option = yes
+		custom_tooltip = ztr_un_iaea.5.a_tt
+	}
+}

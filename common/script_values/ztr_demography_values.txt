@@ -20,6 +20,9 @@ ztr_demography_era_max = 5
 # Historical key retained; attenuates negative economic effects only below X=600.
 ztr_demography_late_economy_brake = 0.5
 ztr_demography_development_peak_gain = 1.5
+# Economy term: off up to this SoL, full from the second one (SoL without IMF aid).
+ztr_demography_economy_sol_floor = 7
+ztr_demography_economy_sol_full = 9
 
 # on_yearly_pulse_country can skip a year; `year` is only safe as a script value.
 # initialize always sets the last year before this is read.
@@ -168,6 +171,19 @@ ztr_demography_raw_economy_change = {
 	}
 }
 
+# Growth from a very low base is noise: linear ramp between the two SoL thresholds.
+ztr_demography_economy_sol_gate = {
+	value = ztr_sol_without_imf_aid
+	subtract = ztr_demography_economy_sol_floor
+	divide = {
+		value = ztr_demography_economy_sol_full
+		subtract = ztr_demography_economy_sol_floor
+		min = 0.001
+	}
+	min = 0
+	max = 1
+}
+
 ztr_demography_economy_change = {
 	value = ztr_demography_raw_economy_change
 	if = {
@@ -177,6 +193,7 @@ ztr_demography_economy_change = {
 		}
 		multiply = ztr_demography_late_economy_brake
 	}
+	multiply = ztr_demography_economy_sol_gate
 }
 
 ztr_demography_formula_change = {

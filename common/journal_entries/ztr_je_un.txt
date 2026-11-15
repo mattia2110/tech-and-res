@@ -50,6 +50,19 @@
 			value = ztr_un_dues_weekly_paid
 		}
 	}
+	# IMF aid: weekly grant and SoL bonus fixed at the start of the year (ztr_imf_distribute_aid)
+	scaling_modifiers_while_active = {
+		modifier = ztr_imf_aid_modifier
+		value = {
+			value = ztr_imf_aid_weekly_received
+		}
+	}
+	scaling_modifiers_while_active = {
+		modifier = ztr_imf_aid_sol_modifier
+		value = {
+			value = ztr_imf_aid_sol_received
+		}
+	}
 	# Yearly AI proposals: ztr_un_ai_yearly_proposal in un_institutions_on_yearly_pulse
 	scripted_button = ztr_un_open_governance_menu
 	scripted_button = ztr_un_open_human_rights_menu
@@ -129,15 +142,7 @@
 			custom_tooltip_no_bullet = "ztr_un_map_not_member_tt"
 		}
 	}
-	outcome = {
-		flags = { hidden invalid_outcome }
-		conclusion_desc = je_standard_failure_conclusion_desc
-		trigger = {
-			NOT = {
-				ztr_is_un_member = yes
-			}
-		}
-	}
+	# No outcome: a concluded JE never comes back, so leaving the UN only deactivates it (possible = no)
 	weight = 100
 	can_deactivate = yes
 	transferable = no
