@@ -13,6 +13,7 @@
 				}
 				set_state_owner = c:BIC
 			}
+			ztr_decolonization_renounce_claims_effect = { COUNTRY = c:BIC }
 		}
 	}
 	# Then the British Raj will annex all of the Rajah states
@@ -113,6 +114,33 @@ ztr_claim_subject_homeland_states_effect = {
 		}
 		state_region = {
 			add_claim = scope:subject_scope
+		}
+	}
+}
+
+# This = former colonial power; $COUNTRY$ = the country that received its colonial states.
+# Drops this country's claims on that land, so no Return State war follows.
+# Homelands of this country's cultures keep their claims: decolonization never cedes them.
+# Call it after the last state transfer.
+ztr_decolonization_renounce_claims_effect = {
+	custom_tooltip = ztr_decolonization_renounce_claims_tt
+	hidden_effect = {
+		save_scope_as = ztr_former_colonizer
+		$COUNTRY$ ?= {
+			if = {
+				limit = {
+					NOT = { this = scope:ztr_former_colonizer }
+				}
+				every_scope_state = {
+					limit = {
+						NOT = { is_homeland_of_country_cultures = scope:ztr_former_colonizer }
+						scope:ztr_former_colonizer = { has_claim = prev.state_region }
+					}
+					state_region = {
+						remove_claim = scope:ztr_former_colonizer
+					}
+				}
+			}
 		}
 	}
 }

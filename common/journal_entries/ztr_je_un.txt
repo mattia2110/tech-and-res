@@ -98,24 +98,9 @@
 			}
 		}
 	}
-	# Map: condemned yellow (1) or red (2+, suspended or expelled), permanent dark blue, elected mid blue, members light blue
+	# Map: permanent dark blue, elected mid blue, members light blue; condemnations as stripes
 	map_color = {
 		if = {
-			limit = {
-				owner ?= { var:ztr_un_condemnation_count ?= 1 }
-			}
-			value = "ztr_un_condemned_yellow"
-		}
-		else_if = {
-			limit = {
-				owner ?= {
-					has_variable = ztr_un_condemnation_count
-					var:ztr_un_condemnation_count >= 2
-				}
-			}
-			value = "ztr_un_condemned_red"
-		}
-		else_if = {
 			limit = {
 				owner ?= { has_modifier = ztr_onu_permanent_member }
 			}
@@ -134,12 +119,13 @@
 			value = "ztr_un_member_blue"
 		}
 	}
-	map_tooltip = {
+	# Stripes: yellow with 1 condemnation, red with 2+ (suspended or expelled), green for IMF aid (never with a condemnation)
+	map_color_second = {
 		if = {
 			limit = {
 				owner ?= { var:ztr_un_condemnation_count ?= 1 }
 			}
-			custom_tooltip_no_bullet = "ztr_un_map_condemned_tt"
+			value = "ztr_un_condemned_yellow"
 		}
 		else_if = {
 			limit = {
@@ -148,9 +134,17 @@
 					var:ztr_un_condemnation_count >= 2
 				}
 			}
-			custom_tooltip_no_bullet = "ztr_un_map_condemned_suspended_tt"
+			value = "ztr_un_condemned_red"
 		}
 		else_if = {
+			limit = {
+				owner ?= { ztr_imf_is_aid_recipient = yes }
+			}
+			value = "ztr_un_imf_aid_green"
+		}
+	}
+	map_tooltip = {
+		if = {
 			limit = {
 				owner ?= { has_modifier = ztr_onu_permanent_member }
 			}
@@ -170,6 +164,27 @@
 		}
 		else = {
 			custom_tooltip_no_bullet = "ztr_un_map_not_member_tt"
+		}
+		if = {
+			limit = {
+				owner ?= { var:ztr_un_condemnation_count ?= 1 }
+			}
+			custom_tooltip_no_bullet = "ztr_un_map_condemned_tt"
+		}
+		else_if = {
+			limit = {
+				owner ?= {
+					has_variable = ztr_un_condemnation_count
+					var:ztr_un_condemnation_count >= 2
+				}
+			}
+			custom_tooltip_no_bullet = "ztr_un_map_condemned_suspended_tt"
+		}
+		else_if = {
+			limit = {
+				owner ?= { ztr_imf_is_aid_recipient = yes }
+			}
+			custom_tooltip_no_bullet = "ztr_un_map_imf_aid_tt"
 		}
 	}
 	# No outcome: a concluded JE never comes back, so leaving the UN only deactivates it (possible = no)
