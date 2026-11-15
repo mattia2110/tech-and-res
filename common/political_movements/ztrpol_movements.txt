@@ -90,6 +90,10 @@ movement_ztrpol_environmentalist = {
 	}
 
 	pop_support_weight = {
+		value = state.ztrpol_state_pollution_per_million
+		save_temporary_value_as = ztrpol_pollution_per_million
+		value = 0
+
 		if = {
 			limit = {
 				exists = scope:political_movement
@@ -191,10 +195,10 @@ movement_ztrpol_environmentalist = {
 		}
 
 		if = {
-			limit = { state.ztrpol_state_pollution_per_million > 2000 }
+			limit = { scope:ztrpol_pollution_per_million > 2000 }
 			multiply = { # x1 at 2000, x2 from 10000 per million inhabitants
 				desc = "ztrpol_movement_pollution"
-				value = state.ztrpol_state_pollution_per_million
+				value = scope:ztrpol_pollution_per_million
 				subtract = 2000
 				divide = 8000
 				max = 1

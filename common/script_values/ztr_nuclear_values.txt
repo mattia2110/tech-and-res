@@ -17,101 +17,102 @@ ztr_nuclear_silo_strength = {
 # Country scope. Shared by launches and the information panel.
 ztr_nuclear_attack_strength = {
 	value = 0
-	every_scope_state = {
-		every_scope_building = {
-			limit = { ztr_is_operational_nuclear_silo = yes }
-			add = ztr_nuclear_silo_strength
-		}
-	}
-
-	if = {
-		limit = { has_technology_researched = guided_missiles gdp > 250000000 }
-		multiply = 1.20
-	}
-
-	if = {
-		limit = { has_technology_researched = anti_satellite_weapons gdp > 500000000 }
-		multiply = 1.10
-	}
-
-	if = {
-		limit = { has_technology_researched = directed_energy_weapons gdp > 1000000000 }
-		multiply = 1.10
-	}
-
-	if = {
-		limit = { has_technology_researched = electronic_warfare get_country_gdp_per > 10 }
-		add = 2
-	}
-
-	if = {
-		limit = { has_technology_researched = network_centric_warfare get_country_gdp_per > 20 }
-		add = 3
-	}
-
-	if = {
-		limit = { has_technology_researched = cyber_warfare get_country_gdp_per > 15 }
-		add = 1
-	}
-
-	if = {
-		limit = { has_technology_researched = stealth_technology gdp > 2000000000 }
-		add = 3
-	}
-
-	if = {
-		limit = { has_technology_researched = ai_warfare gdp > 3000000000 }
-		multiply = 1.10
-	}
-
+	# These countries already have zero strength; skip their building scans.
 	if = {
 		limit = {
-			is_ai = yes
+			has_modifier = nuclear_capability
+			has_law_or_variant = law_type:law_uranium_full_usage
+			is_subject = no
 		}
-		if = {
-			limit = { has_modifier = ztr_superpower }
-			multiply = 1.25
-		}
-
-		if = {
-			limit = { military_wage_level = very_low }
-			multiply = 0.5
-		}
-
-		if = {
-			limit = { military_wage_level = low }
-			multiply = 0.75
-		}
-
-		if = {
-			limit = { military_wage_level = high }
-			multiply = 1.2
-		}
-
-		if = {
-			limit = { military_wage_level = very_high }
-			multiply = 1.4
-		}
-	}
-	if = {
-		limit = {
-			OR = {
-				any_scope_treaty = { any_scope_article = { has_type = nuclear_de_escalation_treaty } }
-				has_modifier = recently_reduced_nukes
+		every_scope_state = {
+			every_scope_building = {
+				limit = { ztr_is_operational_nuclear_silo = yes }
+				add = ztr_nuclear_silo_strength
 			}
 		}
-		divide = 3
-	}
-	if = {
-		limit = {
-			OR = {
-				NOT = { has_modifier = nuclear_capability }
-				NOT = { ztr_has_operational_nuclear_silo = yes }
-				NOT = { has_law_or_variant = law_type:law_uranium_full_usage }
-				is_subject = yes
+
+		if = {
+			limit = { has_technology_researched = guided_missiles gdp > 250000000 }
+			multiply = 1.20
+		}
+
+		if = {
+			limit = { has_technology_researched = anti_satellite_weapons gdp > 500000000 }
+			multiply = 1.10
+		}
+
+		if = {
+			limit = { has_technology_researched = directed_energy_weapons gdp > 1000000000 }
+			multiply = 1.10
+		}
+
+		if = {
+			limit = { has_technology_researched = electronic_warfare get_country_gdp_per > 10 }
+			add = 2
+		}
+
+		if = {
+			limit = { has_technology_researched = network_centric_warfare get_country_gdp_per > 20 }
+			add = 3
+		}
+
+		if = {
+			limit = { has_technology_researched = cyber_warfare get_country_gdp_per > 15 }
+			add = 1
+		}
+
+		if = {
+			limit = { has_technology_researched = stealth_technology gdp > 2000000000 }
+			add = 3
+		}
+
+		if = {
+			limit = { has_technology_researched = ai_warfare gdp > 3000000000 }
+			multiply = 1.10
+		}
+
+		if = {
+			limit = {
+				is_ai = yes
+			}
+			if = {
+				limit = { has_modifier = ztr_superpower }
+				multiply = 1.25
+			}
+
+			if = {
+				limit = { military_wage_level = very_low }
+				multiply = 0.5
+			}
+
+			if = {
+				limit = { military_wage_level = low }
+				multiply = 0.75
+			}
+
+			if = {
+				limit = { military_wage_level = high }
+				multiply = 1.2
+			}
+
+			if = {
+				limit = { military_wage_level = very_high }
+				multiply = 1.4
 			}
 		}
-		value = 0
+		if = {
+			limit = {
+				OR = {
+					any_scope_treaty = { any_scope_article = { has_type = nuclear_de_escalation_treaty } }
+					has_modifier = recently_reduced_nukes
+				}
+			}
+			divide = 3
+		}
+		if = {
+			limit = { NOT = { ztr_has_operational_nuclear_silo = yes } }
+			value = 0
+		}
 	}
 	min = 0
 }

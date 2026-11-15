@@ -139,34 +139,32 @@ nuclear_development_add_progress = {
 		change_variable = {
 			name = nuclear_development_var
 			add = {
-				value = country_research_progress
-				subtract = 5
-				min = 1
-				# The need to rush if rivals have nukes or if at war
+				# Paused programs add zero without evaluating the unused gain.
+				value = 0
 				if = {
-					limit = {
-						OR = {
-							any_rival_country = {
-								has_modifier = nuclear_capability
+					limit = { ztr_nuclear_research_paused = no }
+					value = country_research_progress
+					subtract = 5
+					min = 1
+					# The need to rush if rivals have nukes or if at war
+					if = {
+						limit = {
+							OR = {
+								any_rival_country = {
+									has_modifier = nuclear_capability
+								}
+								is_at_war = yes
 							}
-							is_at_war = yes
 						}
+						multiply = 2
 					}
-					multiply = 2
-				}
-				# A third of the pace until the required technology is researched
-				if = {
-					limit = {
-						NOT = { has_technology_researched = atomic_bomb }
+					# A third of the pace until the required technology is researched
+					if = {
+						limit = {
+							NOT = { has_technology_researched = atomic_bomb }
+						}
+						divide = 3
 					}
-					divide = 3
-				}
-				# Diplomatic and operational pauses preserve accumulated progress.
-				if = {
-					limit = {
-						ztr_nuclear_research_paused = yes
-					}
-					multiply = 0
 				}
 			}
 		}
@@ -192,34 +190,32 @@ thermonuclear_development_add_progress = {
 		change_variable = {
 			name = thermonuclear_development_var
 			add = {
-				value = country_research_progress
-				subtract = 5
-				min = 1
-				# The need to rush if rivals have the H bomb or if at war
+				# Paused programs add zero without evaluating the unused gain.
+				value = 0
 				if = {
-					limit = {
-						OR = {
-							any_rival_country = {
-								has_variable = thermonuclear_capability_var
+					limit = { ztr_nuclear_research_paused = no }
+					value = country_research_progress
+					subtract = 5
+					min = 1
+					# The need to rush if rivals have the H bomb or if at war
+					if = {
+						limit = {
+							OR = {
+								any_rival_country = {
+									has_variable = thermonuclear_capability_var
+								}
+								is_at_war = yes
 							}
-							is_at_war = yes
 						}
+						multiply = 3
 					}
-					multiply = 3
-				}
-				# A third of the pace until the required technology is researched
-				if = {
-					limit = {
-						NOT = { has_technology_researched = second_nuclear_reactor }
+					# A third of the pace until the required technology is researched
+					if = {
+						limit = {
+							NOT = { has_technology_researched = second_nuclear_reactor }
+						}
+						divide = 3
 					}
-					divide = 3
-				}
-				# Both military programmes share the same pause conditions.
-				if = {
-					limit = {
-						ztr_nuclear_research_paused = yes
-					}
-					multiply = 0
 				}
 			}
 		}
