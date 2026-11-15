@@ -1506,11 +1506,16 @@ ztr_can_decolonize_burkina_faso = {
 ztr_can_decolonize_nigeria = {
 	ztr_decolonization_age_active = yes
 	ztr_decolonization_is_phase_2 = yes
-	cu:yoruba = {
-		culture_wants_to_be_decolonized = yes
-	}
-	cu:hausa = {
-		culture_wants_to_be_decolonized = yes
+	OR = {
+		cu:yoruba = {
+			culture_wants_to_be_decolonized = yes
+		}
+		cu:hausa = {
+			culture_wants_to_be_decolonized = yes
+		}
+		cu:ibo = {
+			culture_wants_to_be_decolonized = yes
+		}
 	}
 	NOT = {
 		is_subject = yes
@@ -1523,7 +1528,11 @@ ztr_can_decolonize_nigeria = {
 			OR = {
 				is_in_geographic_region = geographic_region_niger_old
 			}
-			is_homeland = cu:yoruba
+			OR = {
+				is_homeland = cu:yoruba
+				is_homeland = cu:hausa
+				is_homeland = cu:ibo
+			}
 		}
 		count > 0
 	}

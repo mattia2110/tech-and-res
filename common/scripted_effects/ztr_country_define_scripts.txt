@@ -899,7 +899,21 @@ ztr_define_nigeria = {
 	cu:hausa = {
 		save_scope_as = ztr_second_minor_primary_culture
 	}
-		ztr_second_state_finder_script = yes
+		# Capital in the richest yoruba, hausa or ibo homeland
+		ordered_scope_state = {
+			limit = {
+				NOT = { is_homeland_of_country_cultures = root }
+				state_region = {
+					OR = {
+						is_homeland = scope:ztr_minor_primary_culture
+						is_homeland = scope:ztr_second_minor_primary_culture
+						is_homeland = cu:ibo
+					}
+				}
+			}
+			order_by = gdp
+			save_scope_as = ztr_state_finder
+		}
 		if = {
 			limit = { NOT = { exists = c:ZNG } }
 			create_country = {
@@ -930,6 +944,7 @@ ztr_define_nigeria = {
 					OR = {
 						is_homeland = scope:ztr_minor_primary_culture
 						is_homeland = scope:ztr_second_minor_primary_culture
+						is_homeland = cu:ibo
 					}
 				}
 			}
