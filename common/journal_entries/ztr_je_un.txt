@@ -98,9 +98,24 @@
 			}
 		}
 	}
-	# Map: permanent members dark blue, elected members mid blue, member states light blue
+	# Map: condemned yellow (1) or red (2+, suspended or expelled), permanent dark blue, elected mid blue, members light blue
 	map_color = {
 		if = {
+			limit = {
+				owner ?= { var:ztr_un_condemnation_count ?= 1 }
+			}
+			value = "ztr_un_condemned_yellow"
+		}
+		else_if = {
+			limit = {
+				owner ?= {
+					has_variable = ztr_un_condemnation_count
+					var:ztr_un_condemnation_count >= 2
+				}
+			}
+			value = "ztr_un_condemned_red"
+		}
+		else_if = {
 			limit = {
 				owner ?= { has_modifier = ztr_onu_permanent_member }
 			}
@@ -121,6 +136,21 @@
 	}
 	map_tooltip = {
 		if = {
+			limit = {
+				owner ?= { var:ztr_un_condemnation_count ?= 1 }
+			}
+			custom_tooltip_no_bullet = "ztr_un_map_condemned_tt"
+		}
+		else_if = {
+			limit = {
+				owner ?= {
+					has_variable = ztr_un_condemnation_count
+					var:ztr_un_condemnation_count >= 2
+				}
+			}
+			custom_tooltip_no_bullet = "ztr_un_map_condemned_suspended_tt"
+		}
+		else_if = {
 			limit = {
 				owner ?= { has_modifier = ztr_onu_permanent_member }
 			}

@@ -5,11 +5,12 @@
 	}
 }
 
-# UN member under its first condemnation: no vote, no proposals
+# UN member with two condemnations in the window: no vote, no proposals, no dues
 ztr_un_is_suspended = {
 	ztr_is_un_member = yes
-	has_variable = ztr_un_condemnation_count
 	has_variable = ztr_un_condemnation_window
+	has_variable = ztr_un_condemnation_count
+	var:ztr_un_condemnation_count >= 2
 }
 
 # No condemnation in its 10-year window: an expelled country may rejoin

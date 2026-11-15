@@ -214,7 +214,7 @@ ztr_un_seat_candidacy = {
 	}
 }
 
-# Stop paying the UN dues: a UN condemnation (no vote, no dues until it expires)
+# Stop paying the UN dues: a UN condemnation, no dues until it expires
 ztr_un_withhold_dues = {
 	name = "ztr_un_withhold_dues"
 	desc = "ztr_un_withhold_dues_desc"
@@ -223,6 +223,7 @@ ztr_un_withhold_dues = {
 		ztr_is_un_member = yes
 		NOT = {
 			ztr_un_is_suspended = yes
+			has_variable = ztr_un_dues_withheld
 		}
 	}
 	possible = {
@@ -234,6 +235,9 @@ ztr_un_withhold_dues = {
 	}
 	effect = {
 		ztr_un_condemn_country = yes
+		hidden_effect = {
+			set_variable = ztr_un_dues_withheld
+		}
 	}
 	ai_chance = {
 		value = 0

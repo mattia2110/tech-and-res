@@ -29,7 +29,7 @@ ztr_un_dues_annual = {
 	}
 }
 
-# Weekly dues actually paid: none while suspended or before the first yearly assessment
+# Weekly dues actually paid: none while suspended, withheld or before the first yearly assessment
 ztr_un_dues_weekly_paid = {
 	value = 0
 	if = {
@@ -37,6 +37,7 @@ ztr_un_dues_weekly_paid = {
 			has_variable = ztr_un_dues_weekly
 			NOT = {
 				ztr_un_is_suspended = yes
+				has_variable = ztr_un_dues_withheld
 			}
 		}
 		value = var:ztr_un_dues_weekly

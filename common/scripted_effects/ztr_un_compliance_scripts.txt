@@ -30,7 +30,7 @@ ztr_un_refuse_compliance_request = {
 	ztr_un_condemn_country = yes
 }
 
-# UN condemnation: 1st = ztr_un_condemned_modifier and suspension, 2nd = modifier x2 and expulsion
+# UN condemnation: 1st = ztr_un_condemned_modifier, 2nd = x2 and suspension, 3rd = x3 and expulsion
 # The count resets 10 years after the 1st condemnation (ztr_un_condemnation_window)
 ztr_un_condemn_country = {
 	ztr_un_condemnation_try_reset = yes
@@ -56,12 +56,13 @@ ztr_un_condemn_country = {
 				name = ztr_un_condemnation_window
 				years = 10
 			}
-			ztr_un_remove_from_current_vote = yes
-			ztr_un_remove_elected_seat = yes
 		}
 	}
-	else = {
-		custom_tooltip = ztr_un_condemn_expel_tt
+	else_if = {
+		limit = {
+			var:ztr_un_condemnation_count < 2
+		}
+		custom_tooltip = ztr_un_condemn_second_tt
 		hidden_effect = {
 			remove_modifier = ztr_un_condemned_modifier
 		}
@@ -73,6 +74,24 @@ ztr_un_condemn_country = {
 			set_variable = {
 				name = ztr_un_condemnation_count
 				value = 2
+			}
+			ztr_un_remove_from_current_vote = yes
+			ztr_un_remove_elected_seat = yes
+		}
+	}
+	else = {
+		custom_tooltip = ztr_un_condemn_expel_tt
+		hidden_effect = {
+			remove_modifier = ztr_un_condemned_modifier
+		}
+		add_modifier = {
+			name = ztr_un_condemned_modifier
+			multiplier = 3
+		}
+		hidden_effect = {
+			set_variable = {
+				name = ztr_un_condemnation_count
+				value = 3
 			}
 			ztr_un_expel_member = yes
 		}
@@ -89,6 +108,7 @@ ztr_un_condemnation_try_reset = {
 			}
 		}
 		remove_variable = ztr_un_condemnation_count
+		remove_variable = ztr_un_dues_withheld
 		remove_modifier = ztr_un_condemned_modifier
 	}
 }
@@ -161,25 +181,16 @@ ztr_un_iaea_dismantle_program = {
 	}
 }
 
-# Condemnation with immediate expulsion, even at the first one
+# Condemnation with immediate expulsion, whatever the count
 ztr_un_iaea_condemn_and_expel = {
-	if = {
-		limit = {
-			ztr_un_condemnation_expired = yes
-		}
-		custom_tooltip = ztr_un_iaea_condemn_expel_tt
-		show_as_tooltip = {
-			add_modifier = {
-				name = ztr_un_condemned_modifier
-			}
-		}
-		hidden_effect = {
-			ztr_un_condemn_country = yes
-			ztr_un_expel_member = yes
+	custom_tooltip = ztr_un_iaea_condemn_expel_tt
+	show_as_tooltip = {
+		add_modifier = {
+			name = ztr_un_condemned_modifier
 		}
 	}
-	# A second condemnation already expels
-	else = {
+	hidden_effect = {
 		ztr_un_condemn_country = yes
+		ztr_un_expel_member = yes
 	}
 }
