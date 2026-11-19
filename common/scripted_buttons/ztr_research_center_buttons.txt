@@ -18,8 +18,8 @@ ztr_start_nuclear_weapons_program_button = {
 		has_game_rule = allow_ztr_atom_bomb_content
 		#THIS is a major power or dictatorship
 		OR = {
-			# Flawed democracy and autocracy only if it is a great power
-			country_rank >= rank_value:great_power
+			# Major powers can start it; the AI only does from great power (ai_chance)
+			country_rank >= rank_value:major_power
 			# A dictatorship will always want nukes
 			ztr_is_totalitarian = yes
 		}
@@ -127,11 +127,12 @@ ztr_start_nuclear_weapons_program_button = {
 	ai_chance = {
 		value = 0
 		if = {
-			#THIS is a superpower, Israel or great power
+			# Great power, totalitarian, or Israel
 			limit = {
 				OR = {
 					country_rank >= rank_value:great_power
 					c:ISR ?= this
+					ztr_is_totalitarian = yes
 				}
 			}
 			add = 1000
@@ -153,9 +154,9 @@ ztr_develop_thermonuclear_weapons_button = {
 			has_variable = signed_nuclear_non_proliferation_treaty
 		}
 		has_law_or_variant = law_type:law_uranium_full_usage
-		#THIS is a major power or dictatorship
+		#THIS is a major power or dictatorship; the AI only starts it as a superpower (ai_chance)
 		OR = {
-			country_rank >= rank_value:great_power
+			country_rank >= rank_value:major_power
 			ztr_is_not_full_democratic = yes
 			ztr_is_totalitarian = yes
 		}

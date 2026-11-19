@@ -182,8 +182,7 @@ take_control_of_nuclear_arsenal_decision = {
 			has_variable = ztr_tested_nuclear_arsenal
 			any_scope_building = { ztr_is_operational_nuclear_silo = yes }
 		}
-		#THIS is a superpower or great power
-		country_rank >= rank_value:great_power
+		country_rank >= rank_value:major_power
 		custom_tooltip = {
 			text = signed_NPT_2_tt
 			NOT = {
@@ -195,7 +194,12 @@ take_control_of_nuclear_arsenal_decision = {
 		activate_law = law_type:law_uranium_full_usage
 		ztr_grant_nuclear_capability = yes
 	}
+	# Major powers can take it; the AI only does from great power
 	ai_chance = {
-		value = 1000
+		value = 0
+		if = {
+			limit = { country_rank >= rank_value:great_power }
+			add = 1000
+		}
 	}
 }
